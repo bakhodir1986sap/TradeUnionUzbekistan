@@ -1,0 +1,87 @@
+﻿app.controller("SNPController", ["$scope", "$http", "$filter", "crudAJService", function ($scope, $http, $filter, crudAJService) {
+    $scope.PlaceType = {
+        REC_ID: '1',
+        NAME_UZ: ''
+    };
+    $scope.PlaceTypeFilter = {
+        REC_ID: '1',
+        NAME_UZ: ''
+    };
+    $scope.PlaceTypeFilter.REC_ID = 1;
+    GetSNP();
+    function GetSNP() {
+        $http({
+            method: "post",
+            url: "/Administirirovaniye/GetSNP",
+        }).then(function (d) {
+            $scope.SNP = d.data;
+        }, function () {
+            //alert("error in STRS");
+        });
+    }
+    $scope.editSNP = function (pz) {
+        $scope.ID = pz.REC_ID;
+        $scope.PTI = pz.NAME_UZ;
+        $scope.Action = "изменить";
+    }
+    $scope.AddSNPDiv = function () {
+        $scope.PTI = "";
+        $scope.Action = "добавить";
+    }
+    $scope.AddUpdateSNP = function () {
+        var getGZAction = $scope.Action;
+        var PZ = {
+            NAME_RU: $scope.PTI,
+            NAME_UZ: $scope.PTI,
+            NAME_LT: $scope.PTI,
+        };
+        if (getGZAction == "изменить") {
+            PZ.REC_ID = $scope.ID;
+            $http({
+                method: "post",
+                url: "/Administirirovaniye/UpdateSTRS",
+                data: JSON.stringify(PZ),
+                dataType: "json"
+            }).then(function (msg) {
+                GetSNP();
+            }, function () {
+                //alert('Error in updating');
+            });
+        }
+        else {
+            $http({
+                method: "post",
+                url: "/Administirirovaniye/AddSNP",
+                data: JSON.stringify(PZ),
+                dataType: "json"
+            }).then(function (msg) {
+                GetSNP();
+            }, function () {
+                //alert('Error in adding book record');
+            });
+        }
+    }
+    $scope.deleteSNP = function (ID) {
+        reset();
+        alertify.set({ buttonFocus: "cancel" });
+        alertify.confirm("Rostdan ham o`chirmoqchimisiz?", function (e) {
+            if (e) {
+                alertify.success("o`chirilmoqda!!!");
+                $http({
+                    method: "post",
+                    url: "/Administirirovaniye/DeleteSTRS",
+                    params: {
+                        id: JSON.stringify(ID)
+                    }
+                }).then(function (msg) {
+                    GetSNP();
+                }, function () {
+                    //alert('Error in deleting book record');
+                });
+            } else {
+                alertify.error("o`chirish bekor qilindi");
+            }
+        });
+        return false;
+    }
+}]);

@@ -1,0 +1,187 @@
+﻿@{
+    ViewBag.Title = "Просмотр остатков путевок";
+}
+<script src="~/Scripts/MyJavaScript/PPController.js"></script>
+<h2>Просмотр остатков путевок</h2>
+<div id="connection" style="visibility:hidden;position:absolute;margin-left:430px">
+    <img src="~/Content/Login/buffering.gif" />
+</div>
+<div ng-controller="PPController">
+    <form name="F" novalidate>
+        <div class="col-xs-3">
+            <label class="radio-inline">
+                <input type="radio" ng-model="s" required ng-change="LoadSC('')" name="RadioOptions" id="inlineRadios1" value="option1"> Санаторий
+            </label>
+            <label class="radio-inline">
+                <input type="radio" ng-model="s" required ng-change="LoadSC('')" name="RadioOptions" id="inlineRadios2" value="option2"> Дет. лагер
+            </label>
+            <span class="alert alert-warning" style="padding:0px" ng-show="F.RadioOptions.$error.required">Выберите поля</span>
+        </div>
+    </form>
+    <div class="row" style="margin-top:30px" ng-show="PPdiv">
+        <table class="table table-stripped table-hover">
+            <thead>
+                <tr>
+                    <th style="width:200px;text-align:center">
+                        Номер путевок
+                    </th>
+                    <th style="width:200px;text-align:center">
+                        <select class="form-control" ng-change="LoadPPData()" required name="CSFilter" ng-model="SCFilter" ng-options="item as item.value for item in CS track by item.id"></select>
+                    </th>
+                    <th style="width:200px;text-align:center">
+                        Период с
+                    </th>
+                    <th style="width:200px;text-align:center">
+                        Период по
+                    </th>
+                    <th style="width:100px;text-align:center">
+                        <input ng-model="PFilter" name="PFilter" type="text" class="form-control" placeholder="Цена" />
+                    </th>
+                    <th style="width:100px;text-align:center">
+                        <input ng-model="QFilter" name="QFilter" type="text" class="form-control" placeholder="Кол-во" />
+                    </th>
+                    <th style="width:100px;text-align:center">
+                        <input ng-model="OCFilter" name="OCFilter" type="text" class="form-control" placeholder="Общая стоимость" />
+                    </th>
+                    @*<th></th>*@
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="poin"  ng-repeat="pp in PP | filter:PFilter | filter:QFilter | filter:OCFilter" ng-click="editPP(pp)" data-toggle="modal" data-target="#myModal">
+                    <td style="width:10%;">{{pp.SB}} - {{pp.SE}}</td>
+                    <td>{{pp.SC}}</td>
+                    <td style="text-align:center">{{pp.RBD | jsonDate: 'dd.MM.yyyy'}}</td>
+                    <td style="text-align:center">{{pp.RED | jsonDate: 'dd.MM.yyyy'}}</td>
+                    <td style="text-align:center">{{pp.P}}</td>
+                    <td style="text-align:center">{{pp.QR}}</td>
+                    <td style="text-align:center">{{pp.RB}}</td>
+                    @*<td>
+                        <button type="button" ng-click="editPP(pp)" class="btn btn-info modal4" data-toggle="modal" data-target="#myModal"><i class="fa fa-exchange"></i> изменить</button>
+                        <button ng-click="deletePP(pp)" class="btn btn-warning"><i class="fa fa-remove"></i> Удалить</button>
+                    </td>*@
+                </tr>
+                <tr ng-repeat="pp_sum in PP_SUM">
+                    <td>
+                        <button type="button" class="btn btn-default">очистить фильтр</button>
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-default">отчет</button>
+                    </td>
+                    <td>Итого:</td>
+                    <td><b>{{pp_sum.P_SUM}}</b></td>
+                    <td><b>{{pp_sum.QR_SUM}}</b></td>
+                    <td><b>{{pp_sum.RB_SUM}}</b></td>
+                </tr>
+
+            </tbody>
+        </table>
+
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title text-center" id="myModalLabel">{{Action}} путевки</h4>
+                </div>
+                <form class="modal-body" name="myForm" novalidate>
+                    <input type="hidden" style="position:absolute" ng-model="ID;" />
+                    <div class="row">
+                        <div class="col-xs-5 text-right">
+                            <p>Начальный номер:</p>
+                        </div>
+                        <div class="col-xs-6">
+                            <input type="text" name="SB" ng-model="SB" required ng-minlength="5" ng-maxlength="5" class="form-control" placeholder="">
+                            <span class="alert alert-warning" style="padding:0px" ng-show="myForm.SB.$error.required">заполнить поля</span>
+                            <span class="alert alert-warning" style="padding:0px" ng-show="!myForm.SB.$error.required&&!myForm.SB.$valid">5 шт. номер</span>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-xs-5 text-right">
+                            <p>Конечный номер:</p>
+                        </div>
+                        <div class="col-xs-6">
+                            <input type="text" name="SE" ng-model="SE" required ng-minlength="5" ng-maxlength="5" class="form-control" placeholder="">
+                            <span class="alert alert-warning" style="padding:0px" ng-show="myForm.SE.$error.required">заполнить поля</span>
+                            <span class="alert alert-warning" style="padding:0px" ng-show="!myForm.SE.$error.required&&!myForm.SE.$valid">5 шт. номер</span>
+                        </div>
+                    </div>
+                    <br>
+
+                    <div class="row">
+                        <div class="col-xs-5 text-right">
+                            <p>{{scname}}</p>
+                        </div>
+                        <div class="col-xs-6">
+                            <select class="form-control" required name="CS" ng-model="SC" ng-init="LoadSC()" ng-options="item as item.value for item in CS track by item.id"></select>
+                            <span class="alert alert-warning" style="padding:0px" ng-show="s&&myForm.CS.$error.required">Выберите поля</span>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-xs-5 text-right">
+                            <p>Дата с:</p>
+                        </div>
+                        <div class="col-xs-6">
+                            <input type="date" class="form-control" ng-model="RBD" />
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-xs-5 text-right">
+                            <p>Дата по:</p>
+                        </div>
+                        <div class="col-xs-6">
+                            <input type="date" class="form-control" ng-model="RED" />
+                        </div>
+                    </div>
+                    <br>
+
+                    <div class="row">
+                        <div class="col-xs-5 text-right">
+                            <p>Цена:</p>
+                        </div>
+                        <div class="col-xs-6">
+                            <input type="text" name="P" ng-model="P" required class="form-control" placeholder="">
+                            <span class="alert alert-warning" style="padding:0px" ng-show="myForm.P.$error.required">заполнить поля</span>
+                        </div>
+                    </div>
+                    <br>
+
+                    <div class="row">
+                        <div class="col-xs-5 text-right">
+                            <p>Д-т:</p>
+                        </div>
+                        <div class="col-xs-6">
+                            <input type="text" required name="Q_IN" ng-model="Q_IN" class="form-control" placeholder="">
+                            <span class="alert alert-warning" style="padding:0px" ng-show="myForm.Q_IN.$error.required">заполнить поля</span>
+                        </div>
+                    </div>
+                    <br>
+
+                    <div class="row">
+                        <div class="col-xs-5 text-right">
+                            <p>К-т:</p>
+                        </div>
+                        <div class="col-xs-6">
+                            <input type="text" name="Q_OUT" ng-model="Q_OUT" required class="form-control" placeholder="">
+                            <span class="alert alert-warning" style="padding:0px" ng-show="myForm.Q_OUT.$error.required">заполнить поля</span>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="modal-footer">
+                        <div class="col-xs-offset-5">
+                            <button ng-disabled="myForm.SB.$error.required||myForm.SE.$error.required||s&&myForm.CS.$error.required||myForm.P.$error.required||myForm.Q_IN.$error.required||myForm.Q_OUT.$error.required||(!myForm.SB.$error.required&&!myForm.SB.$valid)||(!myForm.SE.$error.required&&!myForm.SE.$valid)" ng-click="AddUpdatePP()" type="button" data-dismiss="modal" class="btn btn-info"><i class="fa fa-save" aria-hidden="true"></i> сохранить</button>
+                            <button type="button" ng-click="deletePP(ID)" class="btn btn-warning"  data-dismiss="modal"><i class="fa fa-remove"></i> Удалить</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">отмена</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div> <!-- modal fade -->
+
+</div>
+

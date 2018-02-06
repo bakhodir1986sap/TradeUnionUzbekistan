@@ -1,0 +1,225 @@
+﻿
+@{
+    ViewBag.Title = "Подача заявок";
+}
+<script src="~/Scripts/MyJavaScript/PZController.js"></script>
+<h2>Подача заявок</h2>
+<div id="connection" style="visibility:hidden;position:fixed;margin-left:430px;margin-top:100px">
+    <img src="~/Content/Login/buffering.gif" />
+</div>
+<div ng-controller="PZController">
+    <form style="margin-top: 30px;" name="myForm1" novalidate>
+        <div class="col-xs-3">
+            <label class="radio-inline">
+                <input type="radio" ng-model="ss" required ng-change="LoadSC()"  name="inlineRadioOptionss" id="inlineRadios1" value="option1s"> Санаторий
+            </label>
+            <label class="radio-inline">
+                <input type="radio" ng-model="ss" required ng-change="LoadSC()"  name="inlineRadioOptionss" id="inlineRadios2" value="option2s"> Дет. лагер
+            </label>
+            <span class="alert alert-warning" style="padding:0px" ng-show="myForm1.inlineRadioOptionss.$error.required">Выберите поля</span>
+        </div>
+    </form>
+    <div class="col-xs-4 col-xs-offset-3 right">
+        <button type="button" ng-click="AddPZDiv()" class="btn btn-info" data-toggle="modal" data-target="#myModal"><i class="fa fa-plus-square" aria-hidden="true"></i> добавить</button>
+        <button type="button" class="btn btn-success"><img src="~/Content/img/excel.JPG"> загрузить</button>
+    </div>
+    <br /><br />
+    <div ng-show="OTPdiv" class="row" style="padding-top:15px;" id="result">
+        <b>Спасибо! Заявка успешно отправлена..</b>
+        <p>
+            Ту будет текст который будет говорить о том, что заявка успешно добавлена...можно поставить<br>
+            ссылки на <a href="/Home/PoiskRedaktZayavok" class="btn btn-info">Поиск и редактирование заявок</a>
+        </p>
+    </div>
+    <div ng-show="PZdiv">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th style="text-align:center">Дата подачи</th>
+                    <th style="text-align:center;width:200px"><select class="form-control"  ng-model="SCFilter" ng-change="LoadData()"  required name="CSFilter" ng-options="item as item.value for item in CS track by item.id"></select></th>
+                    <th style="text-align:center;width:125px"><input type="text" ng-model="INN_Filter" class="form-control" style="text-align:center" placeholder="Инн"/></th>
+                    <th style="text-align:center;width:200px"><input type="text" ng-model="O_Filter" class="form-control" style="text-align:center" placeholder="Организация" /></th>
+                    <th style="text-align:center;width:200px"><input type="text" ng-model="FN_Filter" class="form-control" style="text-align:center" placeholder="ФИО" /></th>
+                    <th style="text-align:center;width:125px"><input type="text" ng-model="Position_Filter" class="form-control" style="text-align:center" placeholder="Должность" /></th>
+                    <th style="text-align:center;width:100px"><input type="text" ng-model="Q_Filter" class="form-control" style="text-align:center" placeholder="Кол-во" /></th>
+                    @*<th style="text-align:center">Дата заезды</th>*@
+                    @*<th style="text-align:center">конец заезды</th>*@
+                    @*<th style="width:240px"></th>*@
+                </tr>
+            </thead>
+            <tbody>
+                <tr  class="poin"  ng-repeat="pz in PZ | filter:INN_Filter | filter:O_Filter | filter:FN_Filter | filter:Position_Filter | filter:Q_Filter" ng-click="editPZ(pz)" data-toggle="modal" data-target="#myModal">
+                    <td>{{pz.TS | jsonDate: 'dd.MM.yyyy'}}</td>
+                    <td style="text-align:center">{{pz.SC}}</td>
+                    <td style="text-align:center">{{pz.INN}}</td>
+                    <td style="text-align:center">{{pz.O}}</td>
+                    <td style="text-align:center">{{pz.FN}}</td>
+                    <td style="text-align:center">{{pz.P}}</td>
+                    <td style="text-align:center">{{pz.Q}}</td>
+                    @*<td>{{pz.ZB | jsonDate: 'dd.MM.yyyy'}}</td>*@
+                    @*<td>{{pz.ZE | jsonDate: 'dd.MM.yyyy'}}</td>*@
+                    @*<td>
+                        <button type="button" ng-click="editPZ(pz)" class="btn btn-info modal4" data-toggle="modal" data-target="#myModal"><i class="fa fa-exchange" aria-hidden="true"></i> изменить</button>
+                        <button ng-click="deletePZ(pz)" class="btn btn-warning"><i class="fa fa-remove" aria-hidden="true"></i> Удалить</button>
+                    </td>*@
+                </tr>
+            </tbody>
+        </table>
+        <button ng-click="OTPpz()" class="form-control btn-info" style="width:200px;font-size:18px;height:40px">отправить</button>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title text-center" id="myModalLabel">{{Action}} заявку</h4>
+                </div>
+                <form class="modal-body" name="myForm" novalidate>
+                    <input type="hidden" style="position:absolute" ng-model="ID;" />
+                    <input type="hidden" style="position:absolute" ng-model="success;" />
+                    <br />
+                    <div class="row">
+                        <div class="col-xs-5 text-right">
+                            <p>{{myVal}}</p>
+                        </div>
+                        <div class="col-xs-6">
+                            <select class="form-control" required name="CS" ng-model="SC" ng-options="item as item.value for item in CS track by item.id"></select>
+                            <span class="alert alert-warning" style="padding:0px" ng-show="s&&myForm.CS.$error.required">Выберите поля</span>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-xs-5 text-right">
+                            <p>Дата заезды:</p>
+                        </div>
+                        <div class="col-xs-6">
+                            <input type="date" class="form-control" ng-model="ZB" />
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-xs-5 text-right">
+                            <p>конец заезды:</p>
+                        </div>
+                        <div class="col-xs-6">
+                            <input type="date" class="form-control" ng-model="ZE" />
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-xs-5 text-right">
+                            <p>Инн:</p>
+                        </div>
+                        <div class="col-xs-6">
+                            <input type="text" required class="form-control" name="INN" ng-minlength="9" ng-maxlength="9" ng-model="INN" ng-change="LoadINN()" />
+                            <span class="alert alert-warning" style="padding:0px" ng-show="myForm.INN.$error.required">заполнить поля</span>
+                            <span class="alert alert-warning" style="padding:0px" ng-show="!myForm.INN.$error.required&&!myForm.INN.$valid">9 шт. номер</span>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-xs-5 text-right">
+                            <p>Организация:</p>
+                        </div>
+                        <div class="col-xs-6">
+                            <label name="O" ng-model="O">{{O}}</label>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-xs-5 text-right">
+                            <p>ФИО:</p>
+                        </div>
+                        <div class="col-xs-6">
+                            <input type="text" class="form-control" name="FN" ng-model="FN" required>
+                            <span class="alert alert-warning" style="padding:0px" ng-show="myForm.FN.$error.required">заполнить поля</span>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-xs-5 text-right">
+                            <p>Должность:</p>
+                        </div>
+                        <div class="col-xs-6">
+                            <input type="text" ng-model="P" name="P" class="form-control" required>
+                            <span class="alert alert-warning" style="padding:0px" ng-show="myForm.P.$error.required">заполнить поля</span>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-xs-5 text-right">
+                            <p>Кол-во путевок:</p>
+                        </div>
+                        <div class="col-xs-6">
+                            <input type="text" ng-model="Q" disabled="disabled" name="Q" class="form-control" required>
+                        </div>
+                    </div>
+                    <br>
+
+                    <div class="row">
+                        <div class="col-xs-5 text-right">
+                            <p>Наличие Мед. справки:</p>
+                        </div>
+                        <div class="col-xs-6">
+                            <input type="checkbox" ng-model="MOE" ng-change="MOE_ch()">
+                        </div>
+                    </div>
+                    <br>
+
+                    <div class="row">
+                        <div class="col-xs-5 text-right">
+                            <p>Номер и дата выдачи справки:</p>
+                        </div>
+                        <div class="col-xs-6">
+                            <input type="text" ng-disabled="!MOE" ng-model="MO" name="MO" class="form-control" required>
+                            <span class="alert alert-warning" style="padding:0px" ng-show="MOE&&myForm.MO.$error.required">заполнить поля</span>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="modal-footer">
+                        <div class="col-xs-offset-5">
+                            <button type="button" ng-disabled="myForm.INN.$error.required||myForm.FN.$error.required||myForm.P.$error.required||(!myForm.INN.$error.required&&!myForm.INN.$valid)||O=='No Data Found'||MOE&&myForm.MO.$error.required" ng-click="AddUpdatePZ()" data-dismiss="modal" class="btn btn-info"><i class="fa fa-save" aria-hidden="true"></i> сохранить</button>
+                            <button type="button" ng-click="deletePZ(ID)" class="btn btn-warning" data-dismiss="modal"><i class="fa fa-remove"  aria-hidden="true"></i> Удалить</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">отмена</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div> <!-- modal fade -->
+    @*<script language="javascript" type="text/javascript">
+    function show(val) {
+        var value;
+        if (val == "sanatoriya") value = "Санаторий";
+        if (val == "lager") value = "Дет/лагер";
+                var d = { value: val }
+                $.ajax({
+                    url: '@Url.Action("LoadCSName", "home")',
+                    type: "POST",
+                    data: d,
+                    datatype: "json",
+                    success: function (data) {
+                        var q = 0;
+                        //var m = "<optgroup label='Санаторий Дет/лагер'/>";
+                        var m = "<option style='color:black;font-size:16px;' value='" + q + "'><label>" + value + "</label></option>";
+                        for (var r = 0; r < data.length; r += 1) {
+                            if (r % 2 == 0) {
+                                 m += "<option value='" + data[r] + "'>";
+                            }
+                            else {
+                                m += data[r] + "</option>";
+                            }
+                            q++;
+                        }
+                        $("#SC").html(m).show();
+                        //$("#SC").html(m).hide();
+                        //$("#SC").kendoComboBox();
+                    },
+                    error: function (error) {
+                        alert("Error " + error);
+                    }
+                });
+            }
+    </script>*@
+</div>

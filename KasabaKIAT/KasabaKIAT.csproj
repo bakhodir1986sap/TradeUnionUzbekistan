@@ -44,6 +44,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
       <Private>True</Private>
@@ -52,6 +60,8 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -120,21 +130,387 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AdministirirovaniyeController.cs" />
+    <Compile Include="Controllers\GodovoyPlanController.cs" />
+    <Compile Include="Controllers\GrafikZaezdovController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\PrixodPutevokController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\bkut_egrpo_aud.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\buildingfixedasset.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\eco_platej.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\eco_xs.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\fill_rate.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\KasabaKIAT.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>KasabaKIAT.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\KasabaKIAT.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\KasabaKIAT.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>KasabaKIAT.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\occupationalsafety.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\provodok.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\report1ti.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\report2ti1.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\report2ti2.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\report2ti2sum.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\revinfo.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\roles.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\role_permission.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sps_translate.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_branch.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_classname.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_contracttype.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_country.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_degree.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_departmenttype.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_doctype.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_employees.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_feedback.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_files.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_fixedassettype.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_fs.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_measure.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_nation.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_okonx.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_okonx_aud.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_opf.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_organization.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_position.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_position1.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_sanatorium_profil.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_sanatorium_type.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_section.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_soato.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_soogu.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_soogu_copy.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tbcs_dictionary.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tbcs_dictionarytype.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tbgl_balance.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tbgl_bankpayments.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tbgl_jnldd.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tbgl_jnlmst.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tbgl_opersettings.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tbpt_avarageprice.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tbpt_bronputyovka.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tbpt_otkazputyovka.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tbpt_putyovkarealizasiya.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tbpt_putyovki.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tbpt_putyovki_changehistory.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tbpt_sanatory_info.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tbpt_yearlyplanorganization.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tbpt_yearlyplanotrasl.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tbpt_yearlyplanregion.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tbpt_zaezdi.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tbpt_zayavki.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\t_agreement.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\t_bkut_statistics.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\t_camp.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\t_camp_statistics.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\t_collectiveagreement.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\t_contract.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\t_contractappendix.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\t_departmentbase.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\t_departmentbase_aud.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\t_egrpo.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\t_egrpotest.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\t_egrpo_about.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\t_fixedassets.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\t_generalagreement.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\t_ku_report.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\t_normativdoc.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\t_sanatorium.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\user.cs" />
+    <Compile Include="Models\useractions.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\useractivity.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\users.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\users_aud.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MyRoleProvider\SiteRole.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\KurortUrlService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\font-awesome.css" />
+    <Content Include="Content\icons\administ.png" />
+    <Content Include="Content\icons\cancell_button.png" />
+    <Content Include="Content\icons\excel.png" />
+    <Content Include="Content\icons\fire.png" />
+    <Content Include="Content\icons\fire_lock.png" />
+    <Content Include="Content\icons\fire_small.png" />
+    <Content Include="Content\icons\god_plan_rasp_put.png" />
+    <Content Include="Content\icons\grafik_zaezdov.png" />
+    <Content Include="Content\icons\Group 3.png" />
+    <Content Include="Content\icons\lock.png" />
+    <Content Include="Content\icons\lock_small.png" />
+    <Content Include="Content\icons\order_button.png" />
+    <Content Include="Content\icons\order_fire.png" />
+    <Content Include="Content\icons\otchety.png" />
+    <Content Include="Content\icons\plan_budjeta.png" />
+    <Content Include="Content\icons\platezh_poruch.png" />
+    <Content Include="Content\icons\podacha_zayavok.png" />
+    <Content Include="Content\icons\poisk_redak_zayav.png" />
+    <Content Include="Content\icons\prihod_putevok.png" />
+    <Content Include="Content\icons\prosmotr_dannih.png" />
+    <Content Include="Content\icons\prosmotr_ostat_put.png" />
+    <Content Include="Content\icons\pros_real_put.png" />
+    <Content Include="Content\icons\rasp_bud_otr.png" />
+    <Content Include="Content\icons\rassmotr_zayavok.png" />
+    <Content Include="Content\icons\realize.png" />
+    <Content Include="Content\icons\real_putevok.png" />
+    <Content Include="Content\icons\Rounded Rectangle 4 copy 4.png" />
+    <Content Include="Content\icons\ruchnaya_provodka.png" />
+    <Content Include="Content\icons\sverka_dannih.png" />
+    <Content Include="Content\icons\vvod_dannih.png" />
+    <Content Include="Content\img\excel.JPG" />
+    <Content Include="Content\img\item-1.jpg" />
+    <Content Include="Content\img\item-10.JPG" />
+    <Content Include="Content\img\item-11.JPG" />
+    <Content Include="Content\img\item-12.JPG" />
+    <Content Include="Content\img\item-13.JPG" />
+    <Content Include="Content\img\item-14.JPG" />
+    <Content Include="Content\img\item-15.JPG" />
+    <Content Include="Content\img\item-16.JPG" />
+    <Content Include="Content\img\item-2.jpg" />
+    <Content Include="Content\img\item-3.JPG" />
+    <Content Include="Content\img\item-4.JPG" />
+    <Content Include="Content\img\item-5.JPG" />
+    <Content Include="Content\img\item-6.JPG" />
+    <Content Include="Content\img\item-7.JPG" />
+    <Content Include="Content\img\item-8.JPG" />
+    <Content Include="Content\img\item-9.JPG" />
+    <Content Include="Content\img\item12.JPG" />
+    <Content Include="Content\Login\1.ico" />
+    <Content Include="Content\Login\11.ico" />
+    <Content Include="Content\Login\buffering.gif" />
+    <Content Include="Content\Login\giphy-downsized-large.gif" />
+    <Content Include="Content\Login\keys.ico" />
+    <Content Include="Content\main.css" />
+    <Content Include="Content\themes\alertify.bootstrap.css" />
+    <Content Include="Content\themes\alertify.core.css" />
+    <Content Include="Content\themes\alertify.default.css" />
+    <Content Include="Content\ui-bootstrap-csp.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Models\KasabaKIAT.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>KasabaKIAT.edmx</DependentUpon>
+      <LastGenOutput>KasabaKIAT.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\KasabaKIAT.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>KasabaKIAT.edmx</DependentUpon>
+      <LastGenOutput>KasabaKIAT.cs</LastGenOutput>
+    </Content>
+    <Content Include="Scripts\angular-messages.js" />
+    <Content Include="Scripts\angular-messages.min.js" />
+    <Content Include="Scripts\angular-mocks.js" />
+    <Content Include="Scripts\angular-ui\ui-bootstrap-tpls.js" />
+    <Content Include="Scripts\angular-ui\ui-bootstrap-tpls.min.js" />
+    <Content Include="Scripts\angular-ui\ui-bootstrap.js" />
+    <Content Include="Scripts\angular-ui\ui-bootstrap.min.js" />
+    <Content Include="Scripts\angular.js" />
+    <Content Include="Scripts\angular.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <EntityDeploy Include="Models\KasabaKIAT.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>KasabaKIAT.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\KasabaKIAT.edmx.diagram">
+      <DependentUpon>KasabaKIAT.edmx</DependentUpon>
+    </Content>
+    <Content Include="Scripts\angular.min.js.map" />
+    <None Include="Properties\PublishProfiles\WebKIAT.pubxml" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -143,7 +519,32 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\kendo\angular.min.js" />
+    <Content Include="Scripts\lib\alertify.js" />
+    <Content Include="Scripts\lib\alertify.min.js" />
+    <Content Include="Scripts\lib\jquery.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\MyJavaScript\App.js" />
+    <Content Include="Scripts\MyJavaScript\Controller.js" />
+    <Content Include="Scripts\MyJavaScript\DataService.js" />
+    <Content Include="Scripts\MyJavaScript\GPController.js" />
+    <Content Include="Scripts\MyJavaScript\GZController.js" />
+    <Content Include="Scripts\MyJavaScript\KasabaKIATService.js" />
+    <Content Include="Scripts\MyJavaScript\main.js" />
+    <Content Include="Scripts\MyJavaScript\Module.js" />
+    <Content Include="Scripts\MyJavaScript\PPController.js" />
+    <Content Include="Scripts\MyJavaScript\PRZController.js" />
+    <Content Include="Scripts\MyJavaScript\PZController.js" />
+    <Content Include="Scripts\MyJavaScript\RZController.js" />
+    <Content Include="Scripts\MyJavaScript\SController.js" />
+    <Content Include="Scripts\MyJavaScript\Service.js" />
+    <Content Include="Scripts\MyJavaScript\SNPController.js" />
+    <Content Include="Scripts\MyJavaScript\SPController.js" />
+    <Content Include="Scripts\MyJavaScript\SRController.js" />
+    <Content Include="Scripts\MyJavaScript\SSPOController.js" />
+    <Content Include="Scripts\MyJavaScript\SSSPController.js" />
+    <Content Include="Scripts\MyJavaScript\STRSController.js" />
+    <Content Include="Scripts\MyJavaScript\UZController.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
@@ -158,13 +559,54 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Login\Login.cshtml" />
+    <Content Include="Views\Home\PlatejnoyeParucheniye.cshtml" />
+    <Content Include="Views\Home\RassmotreniyeZayavok.cshtml" />
+    <Content Include="Views\Home\PodachaZayavok.cshtml" />
+    <Content Include="Views\Home\buxgalteriya.cshtml" />
+    <Content Include="Views\Home\PoiskRedaktZayavok.cshtml" />
+    <Content Include="Views\Home\ProsmotrRealzPutevok.cshtml" />
+    <Content Include="Views\Home\BU_RuchnayaPravodka.cshtml" />
+    <Content Include="Views\Home\BU_PrasmotrDannix.cshtml" />
+    <Content Include="Views\Home\VvodDannix.cshtml" />
+    <Content Include="Views\Home\SverkaDannix.cshtml" />
+    <Content Include="Views\Home\Otchot.cshtml" />
+    <Content Include="Views\GodovoyPlan\Index.cshtml" />
+    <Content Include="Views\PrixodPutevok\Index.cshtml" />
+    <Content Include="Views\PrixodPutevok\ProsmotrOstatPutevok.cshtml" />
+    <Content Include="Views\Shared\_Layout0.cshtml" />
+    <Content Include="Views\GrafikZaezdov\Index.cshtml" />
+    <Content Include="Views\PrixodPutevok\RealizatsiyaPutevok.cshtml" />
+    <Content Include="Views\Administirirovaniye\Index.cshtml" />
+    <Content Include="Views\Administirirovaniye\UchetniyZapis.cshtml" />
+    <Content Include="Views\Administirirovaniye\Spravichniki.cshtml" />
+    <Content Include="Views\Administirirovaniye\SredneyStoimostiPutevok.cshtml" />
+    <Content Include="Views\Administirirovaniye\RazmesheniyaSanatorii.cshtml" />
+    <Content Include="Views\Administirirovaniye\SozdaniyeRoley.cshtml" />
+    <Content Include="Views\Administirirovaniye\SozdaniyeProvodok.cshtml" />
+    <Content Include="Views\Administirirovaniye\Otdixayushix.cshtml" />
+    <Content Include="Views\Administirirovaniye\NaznacheniyaPlateja.cshtml" />
+    <Content Include="Web References\KurortUrlService\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </Content>
+    <None Include="Web References\KurortUrlService\SkuTradeUnionExchg.wsdl" />
+    <Content Include="Web References\KurortUrlService\typeGrafikZaezdovSanatoriev.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </Content>
+    <Content Include="Web References\KurortUrlService\typeSpisokProfsoyzov.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </Content>
+    <Content Include="Web References\KurortUrlService\typeSpisokSchetFaktur.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </Content>
+    <Content Include="Web References\KurortUrlService\typeZaezdyClientov.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -173,6 +615,28 @@
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WebReferences Include="Web References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WebReferenceUrl Include="http://94.158.53.208/sku/ws/ws1.1cws%3fwsdl">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\KurortUrlService\</RelPath>
+      <UpdateFromURL>http://94.158.53.208/sku/ws/ws1.1cws%3fwsdl</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>KasabaKIAT_KurortUrlService_SkuTradeUnionExchg</CachedSettingsPropName>
+    </WebReferenceUrl>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

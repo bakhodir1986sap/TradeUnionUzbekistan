@@ -1,0 +1,514 @@
+﻿
+@{
+    ViewBag.Title = "Реализация путевок";
+}
+@*<style>
+    
+body{
+    font-family: Open Sans ;
+}
+
+
+
+
+#menu{
+    background: #00C2DD;
+    /*max-height: 100px;*/
+}
+
+#menu .menu-top{
+    margin-right:30px;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+#menu .exit{
+    margin-left: 187px;
+}
+
+#menu .navbar-default{
+    background: #00C2DD;
+    border:none;
+    border-radius: 0;
+    margin-bottom: 0;
+}
+
+#menu .navbar-nav{
+    text-transform: uppercase;
+    margin-left: 60px;
+    padding-top: 20px;
+    font-size: 14px;
+
+}
+
+/*===========================================*/
+
+#application{
+    background: #FCFCFC;
+    padding-top: 15px;
+
+}
+
+#application .container.one{
+   background: #FCFCFC;
+}
+
+button #myModal1{
+   #FCFCFC ;
+}
+
+
+#application .container.one+.pagination{
+    background: #fff;
+}
+
+/*
+#application .container{
+    margin-top: 0;
+    background:#fff;
+    padding-left: 15px;
+    padding-right: 15px;
+    max-width:992px;
+    border-radius: 0;
+    border:none;
+    box-shadow: 2px #F8F8F8;
+}*/
+
+#application .container{
+    background: #f9f9f9;
+
+}
+#application .container-fluid{
+    margin-top:17px;
+    min-height: 85px;
+    background: #f6f6f6;
+}
+
+#application .modal-header{
+    text-align: right;
+    border-bottom: none;
+    font-size: 14px;
+
+}
+
+.col-xs-4{
+    padding-left: 0;
+}
+
+.col-xs-5{
+    padding-left: 0;
+}
+
+#application button a{
+    font-size: 12px;
+    color:#F4F4F4;
+}
+
+#application a .fa-forward{
+    margin-left: 10px;
+    color:grey;
+}
+
+#application a{
+    font-size: 12px;
+    color:#000;
+}
+
+#application a .fa-forward{
+    margin-left: 10px;
+    color:grey;
+}
+
+#application h2{
+    color:#027C85;
+    font-size: 23px;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+#application .btn{
+    text-transform: uppercase;
+     box-shadow: 0px 3px 5px 0px rgba(0,0,0,0.15);
+    font-size: 14px;
+    padding:9px 18px;
+
+}
+
+#application .btn-default{
+    background: #C7C7C7;
+    color:#fff;
+}
+
+
+#application .col-xs-5 h2{
+    font-size: 23px;
+    color:#167f91;
+}
+
+#application .btn-success{
+    background: #2DC065;
+}
+
+#application .fa-plus{
+    font-size: 10px;
+}
+
+#application .modal4{
+    border:none;
+    background: #fff;
+    padding-left: 0;
+}
+
+
+
+#application .modal4{
+    border:none;
+    background: #fff;
+    padding-left: 0;
+}
+
+
+
+#application .modal-title{
+    color: #1289A2;
+    font-size: 20px;
+}
+#application .radio-inline{
+
+}
+
+#application .radio-inline{
+    margin-bottom:25px;
+}
+#application .pagination{
+    margin-top: 0;
+    margin-bottom: 0;
+    background: #FCFCFC;
+
+}
+
+#application .pagination a{
+    padding:0 5px;
+    border:none;
+    background: #f9f9f9;
+    color:#5f5f5f;
+    font-size: 13px;
+    padding-left: 0;
+
+}
+
+.styled{
+    border:1px solid #636363;
+    background: #FCFCFC;
+    width: 255px;
+    font-size: 13px;
+    color: #636363;
+    height: 44px;
+}
+
+#application .modal-header{
+    text-align: right;
+    border-bottom: none;
+    font-size: 14px;
+
+}
+
+
+
+
+#application .btn{
+    text-transform: uppercase;
+    box-shadow: 0px 3px 5px 0px rgba(0,0,0,0.15);
+    font-size: 14px;
+    padding:9px 18px;
+    border:none;
+
+}
+
+.checkbox p{
+    color: #959595;
+    margin-left: 15px;
+    margin-bottom: 0;
+}
+
+
+.col-xs-offset-3{
+    padding-right:0;
+}
+
+.col-xs-6{
+    padding-left:0;
+    padding-right: 0;
+}
+
+.col-xs-6 h4{
+    font-size: 16px;
+    margin:0;
+    color: #1c1c1c;
+}
+
+.col-xs-6 h5{
+    font-size: 14px;
+    margin:0;
+    color: #E7E7E7;
+}
+
+
+.scroll{
+    border-right:1px solid #fff;
+    max-height: 450px;
+    overflow: scroll;
+}
+
+.scroll1 {
+    max-height: 300px;
+    overflow: scroll;
+}
+
+
+#application .footer p{
+
+    margin-top:29px;
+    color:#777777;
+}
+
+#lineRadio2{
+    color: red;
+    background: red;
+}
+
+#realize{
+   width:180px;
+   height: 45px;
+   border-radius:2px;
+
+}
+
+
+
+
+/*
+ * https://docs.angularjs.org/api/ng/directive/ngShow#usage_animations
+ */
+.list .item.item-accordion {
+  line-height: 38px;
+  padding-top: 0;
+  padding-bottom: 0;
+  transition: 0.09s all linear;
+}
+.list .item.item-accordion.ng-hide {
+  line-height: 0px;
+}
+.list .item.item-accordion.ng-hide-add,
+.list .item.item-accordion.ng-hide-remove {
+  display: block !important;
+}
+</style>*@
+@*<link href="//code.ionicframework.com/nightly/css/ionic.css" rel="stylesheet">*@
+@*<script src="//code.ionicframework.com/nightly/js/ionic.bundle.js"></script>*@
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-animate.js"></script>
+<script src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-1.3.2.js"></script>
+<script src="~/Scripts/MyJavaScript/PPController.js"></script>
+<h2>Реализация путевок</h2>
+<div id="connection" style="visibility:hidden;position:absolute;margin-left:430px;margin-top:100px">
+    <img src="~/Content/Login/buffering.gif" />
+</div>
+@*<script>
+    $("#accordion").on("hidden.bs.collapse", function (e) {
+        $(e.target).closest(".panel-primary")
+            .find(".panel-heading span")
+            .removeClass("glyphicon glyphicon-minus")
+            .addClass("glyphicon glyphicon-plus");
+    });
+    $("#accordion").on("shown.bs.collapse", function (e) {
+        $(e.target).closest(".panel-primary")
+            .find(".panel-heading span")
+            .removeClass("glyphicon glyphicon-plus")
+            .addClass("glyphicon glyphicon-minus");
+    });
+</script>*@
+<style>
+    .fa-caret-right {
+        transition: all .4s ease;
+    }
+
+    .active .fa-caret-right {
+        transform: rotate(90deg);
+    }
+
+    .panel {
+    }
+
+    body {
+        background-color: #f5f5f5;
+    }
+
+    .panel-title a {
+        text-decoration: none;
+    }
+</style>
+<div ng-controller="PPController">
+            <form class="row" name="F" novalidate>
+                <div class="col-xs-3">
+                    <label class="radio-inline">
+                        <input type="radio" ng-model="s" required ng-change="LoadDATA()" name="RadioOptions" id="inlineRadios1" value="option1"> Санаторий
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" ng-model="s" required ng-change="LoadDATA()" name="RadioOptions" id="inlineRadios2" value="option2"> Дет. лагер
+                    </label>
+                    <span class="alert alert-warning" style="padding:0px" ng-show="F.RadioOptions.$error.required">Выберите поля</span>
+                </div>
+            </form>
+            <div class="col-xs-6">
+                <div class="row">
+                    <div class="col-xs-6">
+                        <h4>{{scname}}</h4>
+                        <a href="#"><img src="/Content/icons/order_fire.png"></a>
+                    </div>
+                    <br />
+                    <br />
+                    <br />
+                    <div class="scroll">
+                        @*<div>
+                            <ul>
+                                <li ng-repeat="rp in RP" ng-click="data(rp.SB,rp.SE)" >
+                                    {{rp.SC}}
+                                    <ul ng-show="accordion.current == rp.SB">
+                                        <li ng-repeat="ar in rr">{{ar}}</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>*@
+                        <div class="container">
+                            <div class="panel-group" id="accordion" >
+                                <div class="panel panel-default" ng-repeat="rp in RP">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" ng-click="data(rp.SB,rp.SE)" data-parent="#accordion" href="#collapse{{rp.SB}}">
+                                                <i class="fa fa-caret-right"></i> {{rp.SC}}<br /><br />{{rp.SB}} - {{rp.SE}} {{rp.RBD | jsonDate: 'dd.MM.yyyy'}} - {{rp.RED | jsonDate: 'dd.MM.yyyy'}}
+                                            </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse{{rp.SB}}" ng-show="accordion.current == rp.SB" class="panel-collapse collapse">
+                                        <div class="panel-body">
+                                            <table class="table table-striped">
+                                                <tbody>
+                                                    <tr ng-repeat="ar in rr">
+                                                        <td style="background: #F8f9f9;">
+                                                            <div class="checkbox">
+                                                                <label><input type="checkbox" value="" /><p><b>{{ar}}</b>  ({{rp.RBD | jsonDate: 'dd.MM.yyyy'}} - {{rp.RED | jsonDate: 'dd.MM.yyyy'}})</p></label>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>  
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        @*<div ng-repeat="rp in RP">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title">
+                                        <a data-toggle="collapse" ng-click="data(rp.SB,rp.SE)" data-parent="#ac" href="#{{rp.ID}}">
+                                            <picture>{{rp.SC}}</picture><br />
+                                            <picture></picture>
+                                        </a>
+                                    </h4>
+                                </div>
+                                <div id="{{rp.ID}}" class="panel-collapse collapse in">
+                                    <div class="panel-body">
+                                        <table class="table table-striped">
+                                            <tbody>
+                                                <tr>
+                                                    <td style="background: #F8f9f9;">
+                                                        <div class="checkbox">
+                                                            <label><input type="checkbox" value=""/><p><b>35004</b>  (10.08.2018 - 10.08.2018)</p></label>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>  
+                                        <a data-toggle="collapse" data-parent="#ac" href="#collapseThree">
+                                            
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>*@
+                    </div><!-- scroll -->
+                    <div class="button">
+                        <a href="#"><img src="/Content/icons/cancell_button.png"></a>
+                    </div>
+                </div>
+                <!-- row -->
+            </div> <!-- colxs6#1 -->
+            <div class="col-xs-6">
+                <div class="row" style="margin-left: 30px;">
+
+                    <h4>Отрасль</h4>
+
+
+                    <div class="scroll1">
+                        <table class="table table-striped">
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <div class="radio">
+                                            <label><input type="radio" name="optradio"><p><b>Образование</b>(по плану - 50, Использовано - 20)</p></label>
+                                        </div>
+                                    </td>
+
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="radio">
+                                            <label><input type="radio" name="optradio"><p><b>Медицина</b> (по плану - 30, Использовано - 20)</p></label>
+                                        </div>
+                                    </td>
+
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="radio">
+                                            <label><input type="radio" name="optradio"><p> <b>Транспорт</b> (по плану - 100, Использовано - 10)</p></label>
+                                        </div>
+                                    </td>
+
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="radio">
+                                            <label><input type="radio" name="optradio"><p><b>Связь</b> (по плану - 25, Использовано - 5)</p></label>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="button" style="margin-top:20px;">
+                        <a href="#"><img src="/Content/icons/cancell_button.png"></a>
+                    </div>
+                    <form name="F" class="row">
+                        @*<div class="col-xs-5 text-right">
+                                <p>Инн:</p>
+                            </div>*@
+                        <div class="col-xs-6">
+                            <input type="text" required class="form-control" name="INN" ng-model="INN" ng-maxlength="9" ng-minlength="9" ng-change="LoadINN()" />
+                            <span class="alert alert-warning" style="padding:0px" ng-show="F.INN.$error.required">Выберите поля</span>
+                            <span class="alert alert-warning" style="padding:0px" ng-show="!F.INN.$error.required&&!F.INN.$valid">9 шт. номер</span>
+                        </div>
+                    </form>
+                    <div class="row" style="margin-top:15px; margin-left: 13px;">
+                        <p style="margin-bottom:0; color: #636363">Организации положено путевок: 6</p>
+                        <p style="margin-bottom:0; color: #e66344">Организации выдано путевок: 5</p>
+                    </div>
+                    <div style="margin-left: 13px;">
+                        <p style="margin-top:30px;"><button style="background-color: #24C0DB;" type="button" id="realize" class="btn btn-default">реализовать</button></p>
+                        <p><button style="background-color: #58B445;" type="button" id="realize" class="btn btn-default">забронировать</button></p>
+                        <p><button type="button" style="background-color: #C7C7C7;" id="realize" class="btn btn-default">отменить выбор</button></p>
+                    </div>
+                </div>
+            </div>
+        </div>

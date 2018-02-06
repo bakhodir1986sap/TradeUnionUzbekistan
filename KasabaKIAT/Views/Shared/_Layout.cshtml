@@ -1,41 +1,168 @@
 ﻿<!DOCTYPE html>
-<html>
+<html ng-app="mvcCRUDApp">
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
-    @Styles.Render("~/Content/css")
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>@ViewBag.Title</title>
+    @*<meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>@ViewBag.Title - My ASP.NET Application</title>*@
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/main.css" rel="stylesheet" />
+    <link href="~/Content/font-awesome.css" rel="stylesheet" />
+    <link href="~/Content/themes/alertify.default.css" rel="stylesheet" />
+    <link href="~/Content/themes/alertify.core.css" rel="stylesheet" />
+    <link href="~/Content/ui-bootstrap-csp.css" rel="stylesheet" />
+    @*<link href="~/Content/styles/kendo.common.min.css" rel="stylesheet" />
+    <link href="~/Content/styles/kendo.office365.min.css" rel="stylesheet" />*@
+    <script src="~/Scripts/kendo/angular.min.js"></script>
+    <script src="~/Scripts/angular-ui/ui-bootstrap.js"></script>
+    <script src="~/Scripts/angular-ui/ui-bootstrap-tpls.js"></script>
+    <script src="~/Scripts/MyJavaScript/Module.js"></script>
+    <script src="~/Scripts/MyJavaScript/KasabaKIATService.js"></script>
+    
+    
+    
+   
+    
+    
+    @*@Styles.Render("~/Content/css")*@
     @Scripts.Render("~/bundles/modernizr")
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    @*<script src="~/Scripts/kendo/kendo.all.min.js"></script>*@
+    <script src="~/Scripts/lib/alertify.min.js"></script>
+    <script>
+    function reset () {
+        $("#toggleCSS").attr("href", "../themes/alertify.default.css");
+        alertify.set({
+            labels : {
+                ok     : "OK",
+                cancel : "Cancel"
+            },
+            delay : 5000,
+            buttonReverse : false,
+            buttonFocus   : "ok"
+        });
+    }
+    </script>
 </head>
-<body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
+<body style="background: #f9f9f9;">
+    <div id="conn" style="visibility:hidden;position:absolute;margin-left:530px;margin-top:200px">
+        <img src="~/Content/Login/buffering.gif" />
+    </div>
+    <section id="menu">
         <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                </ul>
-            </div>
-        </div>
-    </div>
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-        </footer>
-    </div>
+            <nav class="navbar navbar-collapse navbar-fixed-top" style="background: #00C2DD;">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-2" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                </div>
 
-    @Scripts.Render("~/bundles/jquery")
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
+                    <ul class="nav navbar-nav">
+
+                        <li class="menu-top"><a href="/Home/index" style="color:#FFF" id="p" @*style="margin-left:50px;background: #fff; color:#000; border-radius: 3px 3px 0 0;"*@>путевки</a></li>
+                        <li class="menu-top"><a id="z" style="color:#FFF" href="/Home/PodachaZayavok">заявки</a></li>
+                        <li class="menu-top"><a id="b" style="color:#FFF" href="/Home/buxgalteriya">бухгалтерия</a></li>
+                        <li class="menu-top"><a id="o" style="color:#FFF" href="/Home/Otchot">отчеты</a></li>
+                        <li class="menu-top"><a id="a" style="color:#FFF" href="/Administirirovaniye/index">администрирование</a></li>
+                        <li><a style="color:#FFF;font-size:12px;margin-left:150px" href="#">user : @*@(User.Identity.IsAuthenticated ? User.Identity.Name : "Guest")*@ @Session["name"]</a></li>
+                        <li><a id="ch" href="#" style="color:#FFF;font-size:12px;">выйти</a></li>
+                        @*<li class=""><a href="#">@ViewBag.user</a></li>
+                            <li class="exit"><a id="ch" href="#">выйти</a></li>*@
+                    </ul>
+                    <script>
+                var i = 0;
+                if ("@ViewBag.Title" == "Подача заявок") {
+                    document.getElementById("z").className = "active";
+                    document.getElementById("z").style = "";
+                    }
+                        if ("@ViewBag.Title" == "Путевки") {
+                            document.getElementById("p").className = "active";
+                            document.getElementById("p").style = "";
+                        }
+                        if ("@ViewBag.Title" == "Отчеты") {
+                            document.getElementById("o").className = "active";
+                            document.getElementById("o").style = "";
+                        }
+                        if ("@ViewBag.Title" == "Администрирование") {
+                            document.getElementById("a").className = "active";
+                            document.getElementById("a").style = "";
+                        }
+                        if ("@ViewBag.Title" == "бухгалтерия") {
+                            document.getElementById("b").className = "active";
+                            document.getElementById("b").style = "";
+                        }
+                    </script>
+                    <script>
+                        $("#ch").on('click', function () {
+                            document.getElementById('conn').style.visibility = "visible";
+                        $("#hh").modal({
+                            backdrop: 'static',
+                            backdrop: 'static'
+                        });
+                        reset();
+                        alertify.set({ buttonFocus: "cancel" });
+                        alertify.confirm("Rostdan ham chiqmoqchimisiz?", function (e) {
+                            if (e) {
+                                alertify.success("xayr!!!");
+                                window.location.href = "/Login/SignOut";
+                            } else {
+                                $("#hh").modal('hide');
+                                document.getElementById('conn').style.visibility = "hidden";
+                                alertify.error("Siz chiqishni inkor qildingiz");
+                            }
+                        });
+                        return false;
+                    });
+                    </script>
+                </div><!-- /.navbar-collapse -->
+
+            </nav>
+        </div>
+    </section>
+    @*<div class="navbar navbar-inverse navbar-fixed-top" style="background-color:#00C2DD;">
+            <div class="container">
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li>@Html.ActionLink("Путевки", "Index", "Home",new { style = "color:#FFF;font-size:24px;font-family:'Times New Roman'" })</li>
+                        <li>@Html.ActionLink("Заявки", "PodachaZayavok", "Home", new { style = "color:#FFF;font-size:24px;font-family:'Times New Roman'" })</li>
+                        <li>@Html.ActionLink("бухгалтерия", "About", "Home", new { style = "color:#FFF;font-size:24px;font-family:'Times New Roman'" })</li>
+                        <li>@Html.ActionLink("Отчеты", "Contact", "Home", new { style = "color:#FFF;font-size:24px;font-family:'Times New Roman'" })</li>
+                        <li>@Html.ActionLink("Администрирование", "Admin", "Home", new { style = "color:#FFF;font-size:24px;font-family:'Times New Roman'" })</li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a style = "color:#FFF;font-size:14px;" href="#">user : @ViewBag.user</a></li>
+                        <li><a id="ch" href="#" style = "color:#FFF;font-size:14px;" >выйти</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>*@
+    <div class="container body-content">
+        <br />
+        <br />
+        <br />
+        <br />
+        @RenderBody()
+    </div>
+    <style>
+        .active {
+            color: black;
+            background-color: white;
+        }
+         .poin:hover {
+            cursor: pointer;
+        }
+    </style>
+    <input id="hh" type="hidden" />
+    @*@Scripts.Render("~/bundles/jquery")*@
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
 </body>

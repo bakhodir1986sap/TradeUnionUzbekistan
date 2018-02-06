@@ -1,31 +1,95 @@
 ﻿@{
-    ViewBag.Title = "Home Page";
+    ViewBag.Title = "Путевки";
 }
+    @*
+        <h2>@ViewBag.Title.</h2>
+            @Html.ActionLink("Путевки", "Index", "Home",new { style = "color:#FFF;font-size:24px;font-family:'Times New Roman'" })
+        <br />
+        <a class="btn btn-default" href="Yullanma/grafik">График заездов</a><br /><br />
+        <a class="btn btn-default" href="Yullanma/yillikreja">Годовой план</a><br /><br />
+        <a class="btn btn-default" href="Yullanma/Ykelishi">Приход путевок</a><br /><br />
+        <a class="btn btn-default" href="Yullanma/Qyullanmalar">Просмотр остатков и редактирование путевок</a><br /><br />
+        <a class="btn btn-default" href="Yullanma/Tahrirlash">Реализация путевок</a><br /><br />
+        <a class="btn btn-default" href="Yullanma/kurish">Просмотр и редактирование реализованных путевок</a><br /><br />
+        <a class="btn btn-default" href="Yullanma/malumot">Сверка данных от санаториев</a><br /><br />*@
 
-<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="http://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
-</div>
+    <!-- ==========================HEADER===================================== -->
+    <section id="content">
+        <div class="container">
+            <div class="row one">
+                <ul>
+                    <li class="icon1"><a href="/GrafikZaezdov/index"><img src="~/Content/icons/grafik_zaezdov.png" alt=""></a></li>
+                    <li class="icon2"><a href="PlatejnoyeParucheniye"><img src="~/Content/icons/platezh_poruch.png" alt=""></a></li>
+                    <li class="icon3"><a href="RassmotreniyeZayavok"><img src="~/Content/icons/rassmotr_zayavok.png" alt=""></a></li>
+                    <li class="icon4"><a href="PodachaZayavok"><img src="~/Content/icons/podacha_zayavok.png" alt=""></a></li>
+                    <li class="icon5"><a href="PoiskRedaktZayavok"><img src="~/Content/icons/poisk_redak_zayav.png" alt=""></a></li>
+                </ul>
+            </div>
 
-<div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
-        </p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
-    </div>
-</div>
+            <div class="row two">
+                <ul>
+                    <li class="icon1"><a href="/GodovoyPlan/index"><img src="~/Content/icons/god_plan_rasp_put.png" alt=""></a></li>
+                    <li class="icon2"><a href="ProsmotrRealzPutevok"><img src="~/Content/icons/pros_real_put.png" alt=""></a></li>
+                    <li class="icon3"><a href="/PrixodPutevok/index"><img src="~/Content/icons/prihod_putevok.png" alt=""></a></li>
+                    <li class="icon4"><a href="/PrixodPutevok/ProsmotrOstatPutevok"><img src="~/Content/icons/prosmotr_ostat_put.png" alt=""></a></li>
+                    <li class="icon5"><a href="/PrixodPutevok/RealizatsiyaPutevok"><img src="~/Content/icons/real_putevok.png" alt=""></a></li>
+                </ul>
+            </div>
+
+            <div class="row three">
+                <ul>
+                    <li class="icon1"><a href="BU_RuchnayaPravodka"><img src="~/Content/icons/ruchnaya_provodka.png" alt=""></a></li>
+                    <li class="icon2"><a href="BU_PrasmotrDannix"><img src="~/Content/icons/prosmotr_dannih.png" alt=""></a></li>
+                    <li class="icon3"><a href="VvodDannix"><img src="~/Content/icons/vvod_dannih.png" alt=""></a></li>
+                    <li class="icon4"><a href="#"><img src="~/Content/icons/plan_budjeta.png" alt=""></a></li>
+                    <li class="icon5"><a href="#"><img src="~/Content/icons/rasp_bud_otr.png" alt=""></a></li>
+                </ul>
+            </div>
+
+            <div class="row four">
+                <ul>
+                    <li class="icon1"><a href="Otchot"><img src="~/Content/icons/otchety.png" alt=""></a></li>
+                    <li class="icon2"><a href="SverkaDannix"><img src="~/Content/icons/sverka_dannih.png" alt=""></a></li>
+                    <li class="icon3"><a href="/Administirirovaniye/index"><img src="~/Content/icons/administ.png" alt=""></a></li>
+
+                </ul>
+            </div>
+
+        </div>
+
+        <!-- ======================FOOTER========================================= -->
+        <div class="container-fluid">
+            <div class="container">
+                <div class="footer">
+                    <p><i class="fa fa-copyright" aria-hidden="true"></i> 2017</p>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+    @*<section id="content">
+            <div class="container">
+                <div class="grid text-center">
+                    <div class="item"><a href="GrafikZaezdov"><img src="~/Content/img/item-1.jpg" /></a><p>График заездов</p></div>
+                    <div class="item"><a href="PlatejnoyeParucheniye"><img src="~/Content/img/item-2.jpg"></a><p>Платежное поручение</p></div>
+                    <div class="item"><a href="RassmotreniyeZayavok"><img src="~/Content/img/item-3.jpg"></a><p>Рассмотрение заявок</p></div>
+                    <div class="item"><a href="PodachaZayavok"><img src="~/Content/img/item-4.jpg"></a><p>Подача заявок</p></div>
+                    <div class="item"><a href="PoiskRedaktZayavok"><img src="~/Content/img/item-5.jpg"></a><p>Поиск и редактирование заявок</p></div>
+                    <div class="item"><a href="GodovoyPlan"><img src="~/Content/img/item-6.jpg"></a><p>Годовой план распределения путевок по отраслям</p></div>
+                    <div class="item"><a href="ProsmotrRealzPutevok"><img src="~/Content/img/item-7.jpg"></a><p>Просмотр реализованных путевок</p></div>
+                    <div class="item"><a href="PrixodPutevok"><img src="~/Content/img/item-8.jpg"></a><p>Приход путевок</p></div>
+                    <div class="item"><a href="ProsmotrOstatPutevok"><img src="~/Content/img/item-9.jpg"></a><p>Просмотр остатков путевок</p></div>
+                    <div class="item"><a href="RealizatsiyaPutevok"><img src="~/Content/img/item-10.jpg"></a><p>Реализация путевок</p></div>
+                    <div class="item"><a href="BU_RuchnayaPravodka"><img src="~/Content/img/item-11.jpg"></a><p>БУ:Ручная проводка</p></div>
+                    <div class="item"><a href="BU_PrasmotrDannix"><img src="~/Content/img/item-12.jpg"></a><p>БУ:Просмотр данных</p></div>
+                    <div class="item"><a href="VvodDannix"><img src="~/Content/img/item-13.jpg"></a><p>БУ:Ввод данных</p></div>
+                    <div class="item"><a href="SverkaDannix"><img src="~/Content/img/item-14.jpg"></a><p>Сверка данных по отдыхающим</p></div>
+                    <div class="item"><a href="Administirirovaniye"><img src="~/Content/img/item-15.jpg"></a><p>Администрирование</p></div>
+                    <div class="item"><a href="Otchot"><img src="~/Content/img/item-16.jpg"></a><p>Отчеты</p></div>
+                </div>
+            </div>
+        </section>*@
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    @*<script src="js/bootstrap.js"></script>*@
+    <script src="~/Scripts/bootstrap.js"></script>

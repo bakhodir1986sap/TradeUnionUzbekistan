@@ -1,0 +1,119 @@
+﻿
+@{
+    ViewBag.Title = "Создание проводок";
+}
+<script src="~/Scripts/MyJavaScript/SPController.js"></script>
+<h2 style="color:#428bca">Создание проводок</h2>
+<div ng-controller="SPController">
+    <div class="container one">
+        <div class="row" style="margin-left:1000px;">
+            <div class="col-xs-3 col-xs-offset-5">
+                <button ng-click="AddSPDiv()" style="background: #24C0DB;margin-right:10px" type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal"><i class="fa fa-plus-square" aria-hidden="true"></i>  добавить</button>
+            </div>
+        </div>
+    </div>
+    <div class="container two">
+        <div class="row" style="margin-top:30px;">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th style="width:200px;text-align:center"><input type="text" style="text-align:center" class="form-control" ng-model="s1" placeholder="Организация" /></th>
+                        <th style="width:200px;text-align:center"><input type="text" style="text-align:center" class="form-control" ng-model="s2" placeholder="Счет д-т" /></th>
+                        <th style="width:200px;text-align:center"><input type="text" style="text-align:center" class="form-control" ng-model="s3" placeholder="Счет к-т" /></th>
+                        <th style="width:200px;text-align:center"><input type="text" style="text-align:center" class="form-control" ng-model="s4" placeholder="Описание" /></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="item in SP | filter:s1 | filter:s2 | filter:s3 | filter:s4" ng-click="editSP(item)" data-toggle="modal" data-target="#myModal" class="poin">
+                        <td style="width:200px;text-align:center">{{item.O}}</td>
+                        <td style="width:200px;text-align:center">{{item.SB}}</td>
+                        <td style="width:200px;text-align:center">{{item.SE}}</td>
+                        <td style="width:200px;text-align:center">{{item.D}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title text-center" id="myModalLabel">{{Action}}</h4>
+                </div>
+                <form class="modal-body" name="myForm" novalidate>
+                    <input type="hidden" style="position:absolute" ng-model="ID;" />
+                    <br />
+                    <div class="row">
+                        <div class="col-xs-5 text-right">
+                            <p>Инн:</p>
+                        </div>
+                        <div class="col-xs-6">
+                            <input type="text" required class="form-control" name="INN" ng-minlength="9" ng-maxlength="9" ng-model="INN" ng-change="LoadINN()" />
+                            <span class="alert alert-warning" style="padding:0px" ng-show="myForm.INN.$error.required">заполнить поля</span>
+                            <span class="alert alert-warning" style="padding:0px" ng-show="!myForm.INN.$error.required&&!myForm.INN.$valid">9 шт. номер</span>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-xs-5 text-right">
+                            <p>Организация:</p>
+                        </div>
+                        <div class="col-xs-6">
+                            <label name="O" ng-model="O">{{O}}</label>
+                        </div>
+                    </div>
+                    <br>
+                    @*<div class="row">
+                        <div class="col-xs-5 text-right">
+                            <p>Организация:</p>
+                        </div>
+                        <div class="col-xs-6">
+                            <select ng-model="DB"  name="DB" required  ng-options="d as d.value for d in D track by d.id" class="form-control"></select>
+                        </div>
+                    </div>
+                    <br>*@
+                    <div class="row">
+                        <div class="col-xs-5 text-right">
+                            <p>Счет д-т:</p>
+                        </div>
+                        <div class="col-xs-6">
+                            <input type="text" class="form-control" required placeholder="" name="SB" ng-model="SB" value="">
+                            <span class="alert alert-warning" style="padding:0px" ng-show="myForm.SB.$error.required">заполнить поля</span>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-xs-5 text-right">
+                            <p>Счет к-т:</p>
+                        </div>
+                        <div class="col-xs-6">
+                            <input type="text" class="form-control" required placeholder="" name="SE" ng-model="SE" value="">
+                            <span class="alert alert-warning" style="padding:0px" ng-show="myForm.SE.$error.required">заполнить поля</span>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-xs-5 text-right">
+                            <p>Описание:</p>
+                        </div>
+                        <div class="col-xs-6">
+                            <input type="text" class="form-control" required placeholder="" name="D" ng-model="D" value="">
+                            <span class="alert alert-warning" style="padding:0px" ng-show="myForm.D.$error.required">заполнить поля</span>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="modal-footer">
+                        <div class="col-xs-offset-5">
+                            <button type="button" ng-click="AddUpdateSP()" ng-disabled="myForm.INN.$error.required||myForm.SB.$error.required||myForm.SE.$error.required||myForm.D.$error.required||(!myForm.INN.$error.required&&!myForm.INN.$valid)||O=='No Data Found'" data-dismiss="modal" class="btn btn-info"><i class="fa fa-save" aria-hidden="true"></i> сохранить</button>
+                            <button type="button" ng-click="deleteSP(ID)" class="btn btn-warning" data-dismiss="modal"><i class="fa fa-remove" aria-hidden="true"></i> Удалить</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">отмена</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div> <!-- modal fade -->
+</div>
+

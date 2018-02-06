@@ -1,0 +1,359 @@
+<?xml version="1.0" encoding="utf-8"?>
+<definitions xmlns:xsd1="http://www.sku-tradeunion.uz" xmlns:soapbind="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soap12bind="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://www.sku-tradeunion.uz" name="SkuTradeUnionExchg" targetNamespace="http://www.sku-tradeunion.uz" xmlns="http://schemas.xmlsoap.org/wsdl/">
+  <types>
+    <xs:schema xmlns:xs1="http://www.sku-tradeunion.uz" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://www.sku-tradeunion.uz" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:complexType name="typeDocumentSchetFaktura">
+        <xs:sequence>
+          <xs:element name="DocNomer" type="xs:string" />
+          <xs:element name="DocData" type="xs:dateTime" />
+          <xs:element name="DocTypeRealVozv" type="xs:string" />
+          <xs:element name="ProfsoyzKod" type="xs:string" />
+          <xs:element name="ProfsoyzDogovor" type="xs:string" />
+          <xs:element name="DataKvartalaPutevok" type="xs:date" />
+          <xs:element name="ProfsoyzDoverennost" type="xs:string" />
+          <xs:element name="ProfsoyzDoverennostData" type="xs:date" />
+          <xs:element name="ProfsoyzDoverennostMOL" type="xs:string" />
+          <xs:element name="SummaDoc" type="xs:decimal" />
+          <xs:element name="ProcentNacenki" type="xs:decimal" />
+          <xs:element name="SummaNacenki" type="xs:decimal" />
+          <xs:element name="KolichestvoPutevok" type="xs:unsignedInt" />
+          <xs:element name="TovarOtpustil" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="StrokiSchetaFakturi" nillable="true" type="xs1:typeStrokaSchetFakturi" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="typeGrafikZaezdovSanatoriev">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="StrokiGrafikaZaezdovSanatoriev" nillable="true" type="xs1:typeStrokaGrafikaZaezdovSanatoriev" />
+          <xs:element name="KodOshibki" type="xs:integer" />
+          <xs:element name="OpisanieOshibki" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="typeRaspredelenieZaezdov">
+        <xs:sequence>
+          <xs:element maxOccurs="unbounded" name="StrokiRaspredelenyaZaezdov" type="xs1:typeStrokaRaspredelenyaZaezdov" />
+          <xs:element name="GodZaezdov" type="xs:unsignedInt" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="typeSpisokProfsoyzov">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="StrokiProfsoyzov" nillable="true" type="xs1:typeStrokaProfsoyza" />
+          <xs:element name="KodOshibki" type="xs:integer" />
+          <xs:element name="OpisanieOshibki" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="typeSpisokSchetFaktur">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="StrokiDocumentov" nillable="true" type="xs1:typeDocumentSchetFaktura" />
+          <xs:element name="KodOshibki" type="xs:integer" />
+          <xs:element name="OpisanieOshibki" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="typeStrokaGrafikaZaezdovSanatoriev">
+        <xs:sequence>
+          <xs:element name="SanatoryKod" type="xs:string" />
+          <xs:element name="SanatoryNaimenovanie" type="xs:string" />
+          <xs:element name="SanatoryProfil" type="xs:string" />
+          <xs:element name="SanatoryKodOblasti" type="xs:string" />
+          <xs:element name="SanatoryOblast" type="xs:string" />
+          <xs:element name="SanatoryKoekVsego" type="xs:integer" />
+          <xs:element name="SanatoryKoekLetom" type="xs:integer" />
+          <xs:element name="SanatoryKoekZimoy" type="xs:integer" />
+          <xs:element name="SanatoryRazmeshenieKod" type="xs:string" />
+          <xs:element name="SanatoryRazmeshenieNaimenovanie" type="xs:string" />
+          <xs:element name="Putevok1kv" type="xs:integer" />
+          <xs:element name="Putevok2kv" type="xs:integer" />
+          <xs:element name="Putevok3kv" type="xs:integer" />
+          <xs:element name="Putevok4kv" type="xs:integer" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="typeStrokaProfsoyza">
+        <xs:sequence>
+          <xs:element name="ProfsoyzKod" type="xs:string" />
+          <xs:element name="ProfsoyzNaimenovanie" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="typeStrokaRaspredelenyaZaezdov">
+        <xs:sequence>
+          <xs:element name="SanatoryKod" type="xs:string" />
+          <xs:element name="ProfsoyzKod" type="xs:string" />
+          <xs:element name="SanatoryRazmeshenieKod" type="xs:string" />
+          <xs:element name="Putevok1kv" type="xs:integer" />
+          <xs:element name="Putevok2kv" type="xs:integer" />
+          <xs:element name="Putevok3kv" type="xs:integer" />
+          <xs:element name="Putevok4kv" type="xs:integer" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="typeStrokaSchetFakturi">
+        <xs:sequence>
+          <xs:element name="SanatoryKod" type="xs:string" />
+          <xs:element name="SanatoryNaimenovanie" type="xs:string" />
+          <xs:element name="SanatoryRazmeshenieKod" type="xs:string" />
+          <xs:element name="SanatoryRazmeshenieNaimenovanie" type="xs:string" />
+          <xs:element name="SanatoryType" type="xs:string" />
+          <xs:element name="DataZaezda" type="xs:date" />
+          <xs:element name="Blank1" type="xs:string" />
+          <xs:element name="Blank2" type="xs:string" />
+          <xs:element name="Kolichestvo" type="xs:unsignedInt" />
+          <xs:element name="Sebestoimost" type="xs:decimal" />
+          <xs:element name="SummaSebestoimosti" type="xs:decimal" />
+          <xs:element name="ProcentNacenki" type="xs:decimal" />
+          <xs:element name="Cena" type="xs:decimal" />
+          <xs:element name="Summa" type="xs:decimal" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="typeStrokaZaezdaClienta">
+        <xs:sequence>
+          <xs:element name="SanatoryKod" type="xs:string" />
+          <xs:element name="SanatoryNaimenovanie" type="xs:string" />
+          <xs:element name="NomerPutevki" type="xs:string" />
+          <xs:element name="DataZaezdaPlan" type="xs:date" />
+          <xs:element name="DataZaezdaFakt" type="xs:date" />
+          <xs:element name="StoimostPutevki" type="xs:decimal" />
+          <xs:element name="OplachenaStoimost" type="xs:decimal" />
+          <xs:element name="ClientFIO" type="xs:string" />
+          <xs:element name="ClientPasport" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="typeZaezdyClientov">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="StrokiZaezdovClientov" nillable="true" type="xs1:typeStrokaZaezdaClienta" />
+          <xs:element name="KodOshibki" type="xs:integer" />
+          <xs:element name="OpisanieOshibki" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="ZaprosZaezdovSanatoriev">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="GodZaezdov" type="xs:integer" />
+            <xs:element name="SanatoryKod" nillable="true" type="xs:string" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="ZaprosZaezdovSanatorievResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="return" nillable="true" type="xs1:typeGrafikZaezdovSanatoriev" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="ZaprosSpiskaProfsoyzov">
+        <xs:complexType>
+          <xs:sequence />
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="ZaprosSpiskaProfsoyzovResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="return" nillable="true" type="xs1:typeSpisokProfsoyzov" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="ZagruzkaRaspredeleniyaZaezdov">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="SpisokRaspredeleniya" type="xs:string" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="ZagruzkaRaspredeleniyaZaezdovResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="return" nillable="true" type="xs:string" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="ZaprosSpiskaSchetFaktur">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="PeriodNachalo" type="xs:date" />
+            <xs:element name="PeriodOkonchanie" type="xs:date" />
+            <xs:element name="ProfsoyzKod" nillable="true" type="xs:string" />
+            <xs:element name="SanatoryType" nillable="true" type="xs:string" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="ZaprosSpiskaSchetFakturResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="return" nillable="true" type="xs1:typeSpisokSchetFaktur" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="ZaprosZaezdovClientov">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="SanatoryKod" type="xs:string" />
+            <xs:element name="PeriodNachalo" type="xs:date" />
+            <xs:element name="PeriodOkonchanie" type="xs:date" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="ZaprosZaezdovClientovResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="return" nillable="true" type="xs1:typeZaezdyClientov" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:schema>
+  </types>
+  <message name="ZaprosZaezdovSanatorievRequestMessage">
+    <part name="parameters" element="tns:ZaprosZaezdovSanatoriev" />
+  </message>
+  <message name="ZaprosZaezdovSanatorievResponseMessage">
+    <part name="parameters" element="tns:ZaprosZaezdovSanatorievResponse" />
+  </message>
+  <message name="ZaprosSpiskaProfsoyzovRequestMessage">
+    <part name="parameters" element="tns:ZaprosSpiskaProfsoyzov" />
+  </message>
+  <message name="ZaprosSpiskaProfsoyzovResponseMessage">
+    <part name="parameters" element="tns:ZaprosSpiskaProfsoyzovResponse" />
+  </message>
+  <message name="ZagruzkaRaspredeleniyaZaezdovRequestMessage">
+    <part name="parameters" element="tns:ZagruzkaRaspredeleniyaZaezdov" />
+  </message>
+  <message name="ZagruzkaRaspredeleniyaZaezdovResponseMessage">
+    <part name="parameters" element="tns:ZagruzkaRaspredeleniyaZaezdovResponse" />
+  </message>
+  <message name="ZaprosSpiskaSchetFakturRequestMessage">
+    <part name="parameters" element="tns:ZaprosSpiskaSchetFaktur" />
+  </message>
+  <message name="ZaprosSpiskaSchetFakturResponseMessage">
+    <part name="parameters" element="tns:ZaprosSpiskaSchetFakturResponse" />
+  </message>
+  <message name="ZaprosZaezdovClientovRequestMessage">
+    <part name="parameters" element="tns:ZaprosZaezdovClientov" />
+  </message>
+  <message name="ZaprosZaezdovClientovResponseMessage">
+    <part name="parameters" element="tns:ZaprosZaezdovClientovResponse" />
+  </message>
+  <portType name="SkuTradeUnionExchgPortType">
+    <operation name="ZaprosZaezdovSanatoriev">
+      <input message="tns:ZaprosZaezdovSanatorievRequestMessage" />
+      <output message="tns:ZaprosZaezdovSanatorievResponseMessage" />
+    </operation>
+    <operation name="ZaprosSpiskaProfsoyzov">
+      <input message="tns:ZaprosSpiskaProfsoyzovRequestMessage" />
+      <output message="tns:ZaprosSpiskaProfsoyzovResponseMessage" />
+    </operation>
+    <operation name="ZagruzkaRaspredeleniyaZaezdov">
+      <input message="tns:ZagruzkaRaspredeleniyaZaezdovRequestMessage" />
+      <output message="tns:ZagruzkaRaspredeleniyaZaezdovResponseMessage" />
+    </operation>
+    <operation name="ZaprosSpiskaSchetFaktur">
+      <input message="tns:ZaprosSpiskaSchetFakturRequestMessage" />
+      <output message="tns:ZaprosSpiskaSchetFakturResponseMessage" />
+    </operation>
+    <operation name="ZaprosZaezdovClientov">
+      <input message="tns:ZaprosZaezdovClientovRequestMessage" />
+      <output message="tns:ZaprosZaezdovClientovResponseMessage" />
+    </operation>
+  </portType>
+  <binding name="SkuTradeUnionExchgSoapBinding" type="tns:SkuTradeUnionExchgPortType">
+    <soapbind:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <operation name="ZaprosZaezdovSanatoriev">
+      <soapbind:operation soapAction="http://www.sku-tradeunion.uz#SkuTradeUnionExchg:ZaprosZaezdovSanatoriev" style="document" />
+      <input>
+        <soapbind:body use="literal" />
+      </input>
+      <output>
+        <soapbind:body use="literal" />
+      </output>
+    </operation>
+    <operation name="ZaprosSpiskaProfsoyzov">
+      <soapbind:operation soapAction="http://www.sku-tradeunion.uz#SkuTradeUnionExchg:ZaprosSpiskaProfsoyzov" style="document" />
+      <input>
+        <soapbind:body use="literal" />
+      </input>
+      <output>
+        <soapbind:body use="literal" />
+      </output>
+    </operation>
+    <operation name="ZagruzkaRaspredeleniyaZaezdov">
+      <soapbind:operation soapAction="http://www.sku-tradeunion.uz#SkuTradeUnionExchg:ZagruzkaRaspredeleniyaZaezdov" style="document" />
+      <input>
+        <soapbind:body use="literal" />
+      </input>
+      <output>
+        <soapbind:body use="literal" />
+      </output>
+    </operation>
+    <operation name="ZaprosSpiskaSchetFaktur">
+      <soapbind:operation soapAction="http://www.sku-tradeunion.uz#SkuTradeUnionExchg:ZaprosSpiskaSchetFaktur" style="document" />
+      <input>
+        <soapbind:body use="literal" />
+      </input>
+      <output>
+        <soapbind:body use="literal" />
+      </output>
+    </operation>
+    <operation name="ZaprosZaezdovClientov">
+      <soapbind:operation soapAction="http://www.sku-tradeunion.uz#SkuTradeUnionExchg:ZaprosZaezdovClientov" style="document" />
+      <input>
+        <soapbind:body use="literal" />
+      </input>
+      <output>
+        <soapbind:body use="literal" />
+      </output>
+    </operation>
+  </binding>
+  <binding name="SkuTradeUnionExchgSoap12Binding" type="tns:SkuTradeUnionExchgPortType">
+    <soap12bind:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <operation name="ZaprosZaezdovSanatoriev">
+      <soap12bind:operation soapAction="http://www.sku-tradeunion.uz#SkuTradeUnionExchg:ZaprosZaezdovSanatoriev" style="document" />
+      <input>
+        <soap12bind:body use="literal" />
+      </input>
+      <output>
+        <soap12bind:body use="literal" />
+      </output>
+    </operation>
+    <operation name="ZaprosSpiskaProfsoyzov">
+      <soap12bind:operation soapAction="http://www.sku-tradeunion.uz#SkuTradeUnionExchg:ZaprosSpiskaProfsoyzov" style="document" />
+      <input>
+        <soap12bind:body use="literal" />
+      </input>
+      <output>
+        <soap12bind:body use="literal" />
+      </output>
+    </operation>
+    <operation name="ZagruzkaRaspredeleniyaZaezdov">
+      <soap12bind:operation soapAction="http://www.sku-tradeunion.uz#SkuTradeUnionExchg:ZagruzkaRaspredeleniyaZaezdov" style="document" />
+      <input>
+        <soap12bind:body use="literal" />
+      </input>
+      <output>
+        <soap12bind:body use="literal" />
+      </output>
+    </operation>
+    <operation name="ZaprosSpiskaSchetFaktur">
+      <soap12bind:operation soapAction="http://www.sku-tradeunion.uz#SkuTradeUnionExchg:ZaprosSpiskaSchetFaktur" style="document" />
+      <input>
+        <soap12bind:body use="literal" />
+      </input>
+      <output>
+        <soap12bind:body use="literal" />
+      </output>
+    </operation>
+    <operation name="ZaprosZaezdovClientov">
+      <soap12bind:operation soapAction="http://www.sku-tradeunion.uz#SkuTradeUnionExchg:ZaprosZaezdovClientov" style="document" />
+      <input>
+        <soap12bind:body use="literal" />
+      </input>
+      <output>
+        <soap12bind:body use="literal" />
+      </output>
+    </operation>
+  </binding>
+  <service name="SkuTradeUnionExchg">
+    <port name="SkuTradeUnionExchgSoap" binding="tns:SkuTradeUnionExchgSoapBinding">
+      <documentation>
+        <wsi:Claim xmlns:wsi="http://ws-i.org/schemas/conformanceClaim/" conformsTo="http://ws-i.org/profiles/basic/1.1" />
+      </documentation>
+      <soapbind:address location="http://94.158.53.208/sku/ws/ws1.1cws" />
+    </port>
+    <port name="SkuTradeUnionExchgSoap12" binding="tns:SkuTradeUnionExchgSoap12Binding">
+      <soap12bind:address location="http://94.158.53.208/sku/ws/ws1.1cws" />
+    </port>
+  </service>
+</definitions>

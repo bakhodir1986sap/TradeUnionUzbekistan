@@ -1,0 +1,159 @@
+﻿
+@{
+    ViewBag.Title = "Годовой план распределения путевок по отраслям";
+}
+<script src="~/Scripts/MyJavaScript/GPController.js"></script>
+<h2>Годовой план распределения путевок по отраслям</h2>
+<div id="connection" style="visibility:hidden;position:absolute;margin-left:430px">
+    <img src="~/Content/Login/buffering.gif" />
+</div>
+<div ng-controller="GPController">
+    <div class="container one">
+        <form name="F" class="row" novalidate>
+            <div class="col-xs-3">
+                <label class="radio-inline">
+                    <input type="radio" ng-model="s" required ng-change="LoadSC()" name="RadioOptions" id="inlineRadios1" value="option1"> Санаторий
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" ng-model="s" required ng-change="LoadSC()" name="RadioOptions" id="inlineRadios2" value="option2"> Дет. лагер
+                </label>
+                <span class="alert alert-warning" style="padding:0px" ng-show="F.RadioOptions.$error.required">Выберите поля</span>
+            </div>
+        </form>
+        <div class="row" style="margin-top:30px">
+            <div class="col-xs-4">
+                <p style="color:#C2C2C2">Доход по региону <b style="color:#000">20 349 000</b> | доступно путевок: <b style="color:#000">200</b></p>
+            </div>
+            <div class="col-xs-3 col-xs-offset-5" style="margin-left:400px">
+                <button ng-click="AddGPDiv()" style="background: #24C0DB;margin-right:10px" type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal"><i class="fa fa-plus-square" aria-hidden="true"></i>  добавить</button>
+                <button type="button" class="btn btn-success"><img src="~/Content/icons/excel.png"> загрузить</button>
+            </div>
+        </div>
+    </div>
+    <div class="container two" ng-show="GPdiv">
+        <div class="row" style="margin-top:30px;">
+            <table class="table table-stripped">
+                <thead>
+                    <tr>
+                        <th style="text-align:center;width:200px">
+                            <select ng-model="RegionFilter" ng-change="LoadGPData()" class="form-control" required name="RFilter" ng-options="item as item.value for item in R track by item.id"></select>
+                        </th>
+                        <th style="text-align:center;width:200px">
+                            <select class="form-control" required ng-change="LoadGPData()" name="CSFilter" ng-model="SCFilter" ng-options="item as item.value for item in CS track by item.id"></select>
+                        </th>
+                        <th style="text-align:center;width:100px;width:@ViewBag.px200"><input type="text" ng-model="KFilter"  class="form-control" style="text-align:center" placeholder="Период" /></th>
+                        <th style="text-align:center;width:100px;@ViewBag.TR"><select ng-model="PlaceTypeFilter" name="PlaceTypeFilter" required ng-options="d as d.NAME_UZ for d in D track by d.REC_ID" class="form-control"></select></th>
+                        <th style="text-align:center;width:100px;width:@ViewBag.px200"><input type="text" ng-model="PFilter" class="form-control" placeholder="Цена" style="text-align:center" /></th>
+                        <th style="text-align:center;width:90px;width:@ViewBag.px200"><input type="text" ng-model="QFilter" class="form-control" style="text-align:center" placeholder="Кол-во" /></th>
+                        <th style="width:240px"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="poin"  ng-repeat="gp in GP | filter:KFilter | filter:PFilter | filter:QFilter" ng-click="editGP(gp)" data-toggle="modal" data-target="#myModal">
+                        <td style="text-align:center">{{gp.R}}</td>
+                        <td style="text-align:center">{{gp.SC}}</td>
+                        <td style="text-align:center">{{gp.K}} kv</td>
+                        <td style="text-align:center;@ViewBag.TR">{{gp.TM}}</td>
+                        <td style="text-align:center">{{gp.P}}</td>
+                        <td style="text-align:center">{{gp.Q}}</td>
+                        @*<td>
+                            <button type="button" ng-click="editGP(gp)" class="btn btn-info modal4" data-toggle="modal" data-target="#myModal"><i class="fa fa-exchange" aria-hidden="true"></i> изменить</button>
+                            <button ng-click="deleteGP(gp)" class="btn btn-warning"><i class="fa fa-remove" aria-hidden="true"></i> Удалить</button>
+                        </td>*@
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="row">
+            <div class="col-xs-4" id="clean">
+                <button type="button" ng-click="OF()" class="btn btn-default">очистить фильтр</button>
+            </div>
+        </div>
+
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title text-center" id="myModalLabel">{{Action}}</h4>
+                </div>
+                <form class="modal-body" name="myForm" novalidate>
+                    <input type="hidden" style="position:absolute" ng-model="ID;" />
+                    <div class="row">
+                        <div class="col-xs-5 text-right">
+                            <p>@ViewBag.R</p>
+                        </div>
+                        <div class="col-xs-6">
+                            <select ng-model="Region" class="form-control" required name="R" ng-options="item as item.value for item in R track by item.id"></select>
+                            <span class="alert alert-warning" style="padding:0px" ng-show="myForm.R.$error.required">Выберите поля</span>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-xs-5 text-right">
+                            <p>{{scname}}</p>
+                        </div>
+                        <div class="col-xs-6">
+                            <select class="form-control" required name="CS" ng-model="SC" ng-options="item as item.value for item in CS track by item.id"></select>
+                            <span class="alert alert-warning" style="padding:0px" ng-show="s&&myForm.CS.$error.required">Выберите поля</span>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row" style=";@ViewBag.TR;padding-bottom:20px">
+                        <div class="col-xs-5 text-right">
+                            <p>Тип размещения:</p>
+                        </div>
+                        <div class="col-xs-6">
+                            <select ng-model="PlaceType" name="PlaceType" required ng-options="d as d.NAME_UZ for d in D track by d.REC_ID" class="form-control"></select>
+                            <span class="alert alert-warning" style="padding:0px" ng-show="myForm.PlaceType.$error.required">Выберите поля</span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-5 text-right">
+                            <p>Квартал:</p>
+                        </div>
+                        <div class="col-xs-6">
+                            <input type="text" name="K" required ng-minlength="1" ng-maxlength="1" ng-model="K" class="form-control" value="1" placeholder="">
+                            <span class="alert alert-warning" style="padding:0px" ng-show="myForm.K.$error.required">заполнить поля</span>
+                            <span class="alert alert-warning" style="padding:0px" ng-show="!myForm.K.$error.required&&!myForm.K.$valid">1 шт. номер</span>
+                        </div>
+                    </div>
+                    <br>
+
+                    <div class="row">
+                        <div class="col-xs-5 text-right">
+                            <p>Цена:</p>
+                        </div>
+                        <div class="col-xs-6">
+                            <input type="text" name="P" required ng-model="P" class="form-control" placeholder="">
+                            <span class="alert alert-warning" style="padding:0px" ng-show="myForm.P.$error.required">
+                                заполнить поля
+                            </span>
+                        </div>
+                    </div>
+                    <br>
+
+                    <div class="row">
+                        <div class="col-xs-5 text-right">
+                            <p>Кол-во:</p>
+                        </div>
+                        <div class="col-xs-6">
+                            <input type="text" required name="Q" ng-model="Q" class="form-control" placeholder="">
+                            <span class="alert alert-warning" style="padding:0px" ng-show="myForm.Q.$error.required">заполнить поля</span>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="modal-footer">
+                        <div class="col-xs-offset-5">
+                            <button type="button" ng-disabled="myForm.R.$error.required||myForm.O.$error.required||s&&myForm.CS.$error.required||myForm.PlaceType.$error.required||myForm.K.$error.required||(!myForm.K.$error.required&&!myForm.K.$valid)||myForm.P.$error.required||myForm.Q.$error.required" ng-click="AddUpdateGP()" data-dismiss="modal" class="btn btn-info"><i class="fa fa-save" aria-hidden="true"></i> сохранить</button>
+                            <button type="button" ng-click="deleteGP(ID)" class="btn btn-warning" data-dismiss="modal"><i class="fa fa-remove" aria-hidden="true"></i> Удалить</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">отмена</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div> <!-- modal fade -->
+</div>

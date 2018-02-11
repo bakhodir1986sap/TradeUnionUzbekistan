@@ -4,13 +4,17 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using KasabaKIAT.Models;
+using KurortUrvServiceTest.ServiceInterAction.ActionLogic;
+using System.IO;
 
 namespace KasabaKIAT.Controllers
 {
     [Authorize]
     public class AdministirirovaniyeController : Controller
     {
+        ServiceActionController service = new ServiceActionController();
         KasabaKIATEntities KasabaDB = new KasabaKIATEntities();
+        StreamWriter stw;
         public ActionResult Index()
         {
             return View();
@@ -35,12 +39,160 @@ namespace KasabaKIAT.Controllers
         {
             return View();
         }
+        public ActionResult SpravichnikiKurortnovoUpravleniya()
+        {
+            return View();
+        }
+        public ActionResult SpisokPravsoyuzov()
+        {
+            return View();
+        }
+        public ActionResult GrafikSanatoryZaezdov()
+        {
+            return View();
+        }
+        public ActionResult SchetFaktura()
+        {
+            return View();
+        }
+
+        public void ServiceSpisokPravsoyuzov()
+        {
+            try
+            {
+                service.LoadSpiskaProfsoyzov();
+            }
+            catch (Exception ex)
+            {
+                try
+                {
+                    stw = System.IO.File.AppendText("D:\\Log\\Test.txt");
+                }
+                catch
+                {
+                    Directory.CreateDirectory("D:\\Log");
+                    stw = System.IO.File.AppendText("D:\\Log\\Test.txt");
+                }
+                stw.WriteLine("ServiceSpisokPravsoyuzov Error -> " + ex.ToString());
+                stw.Close();
+            }
+        }
+        public JsonResult GetSpisokPravsoyuzov()
+        {
+            var O = from o in KasabaDB.tbku_StrokaProfsoyza
+                    select new
+                    {
+                        d1 = o.ProfsoyzKod,
+                        d2 = o.ProfsoyzNaimenovanie
+                    };
+            return Json(O.ToList(), JsonRequestBehavior.AllowGet);
+
+        }
+        public void ServiceGrafikSanatoryZaezdov(string yil)
+        {
+            try
+            {
+                service.LoadZaezdovSanatoriev(yil);
+            }
+            catch (Exception ex)
+            {
+                try
+                {
+                    stw = System.IO.File.AppendText("D:\\Log\\Test.txt");
+                }
+                catch
+                {
+                    Directory.CreateDirectory("D:\\Log");
+                    stw = System.IO.File.AppendText("D:\\Log\\Test.txt");
+                }
+                stw.WriteLine("ServiceGrafikSanatoryZaezdov Error -> " + ex.ToString());
+                stw.Close();
+            }
+        }
+        public JsonResult GetGrafikSanatoryZaezdov(int yil)
+        {
+            var O = from o in KasabaDB.tbku_GrafikZaezdovSanatoriev
+                    where o.GodZaezdov==yil
+                    select new
+                    {
+                        d1 = o.SanatoryNaimenovanie,
+                        d2 = o.SanatoryProfil,
+                        d3=o.SanatoryOblast,
+                        d4=o.SanatoryKoekVsego,
+                        d5=o.SanatoryKoekLetom,
+                        d6=o.SanatoryKoekZimoy,
+                        d7=o.SanatoryRazmeshenieNaimenovanie,
+                        d8=o.Putevok1kv,
+                        d9=o.Putevok2kv,
+                        d10=o.Putevok3kv,
+                        d11=o.Putevok4kv
+                    };
+            return Json(O.ToList(), JsonRequestBehavior.AllowGet);
+        }
+        public void ServiceSchetFaktura(DateTime B,DateTime E, string p)
+        {
+            
+            try
+            {
+                service.LoadSchetFactura(B, E, p);
+            }
+            catch (Exception ex)
+            {
+                try
+                {
+                    stw = System.IO.File.AppendText("D:\\Log\\Test.txt");
+                }
+                catch
+                {
+                    Directory.CreateDirectory("D:\\Log");
+                    stw = System.IO.File.AppendText("D:\\Log\\Test.txt");
+                }
+                stw.WriteLine("ServiceSchetFaktura Error -> " + ex.ToString());
+                stw.Close();
+            }
+        }
+        public JsonResult GetSchetFaktura(DateTime B,DateTime E,string p)
+        {
+            var O = from o in KasabaDB.tbku_DocumentSchetFaktura
+                    where o.DocData >= B&&o.DocData <= E&&o.ProfsoyzKod==p
+                    select new
+                    {
+                        d1 = o.DocNomer,
+                        d2 = o.DocData,
+                        d3 = o.DocTypeRealVozv,
+                        d4 = o.ProfsoyzDogovor,
+                        d5 = o.DataKvartalaPutevok,
+                        d6 = o.ProfsoyzDoverennost,
+                        d7 = o.ProfsoyzDoverennostData,
+                        d8 = o.ProfsoyzDoverennostMOL,
+                        d9 = o.ProfsoyzDoverennostMOL,
+                        d10 = o.ProcentNacenki,
+                        d11 = o.SummaNacenki,
+                        d12 = o.KolichestvoPutevok,
+                        d13 = o.TovarOtpustil,
+                    };
+            return Json(O.ToList(), JsonRequestBehavior.AllowGet);
+        }
         public JsonResult GetSNP()
         {
             var camp = from dict in KasabaDB.tbcs_dictionary
                        join dictType in KasabaDB.tbcs_dictionarytype on
                        dict.DICTIONARY_TYPE_ID equals dictType.REC_ID
                        where dictType.CODE == "NaznacheniyaPlateja"
+                       select new
+                       {
+                           REC_ID = dict.REC_ID,
+                           NAME_UZ = dict.NAME_UZ
+                       };
+
+            return Json(camp, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult GetSPP()
+        {
+            var camp = from dict in KasabaDB.tbcs_dictionary
+                       join dictType in KasabaDB.tbcs_dictionarytype on
+                       dict.DICTIONARY_TYPE_ID equals dictType.REC_ID
+                       where dictType.CODE == "order"
                        select new
                        {
                            REC_ID = dict.REC_ID,
@@ -346,6 +498,103 @@ namespace KasabaKIAT.Controllers
                     {
                         var _book = contextObj.provodok.Find(_bookId);
                         contextObj.provodok.Remove(_book);
+                        contextObj.SaveChanges();
+                        return "sucessfully";
+                    }
+                }
+                catch (Exception)
+                {
+                    return "not found";
+                }
+            }
+            else
+            {
+                return "Invalid operation";
+            }
+        }
+        public JsonResult GetPP(int o_id,string r_id)
+        {
+            var camp = from dict in KasabaDB.p_provodok
+                       where dict.order==o_id&&dict.REGION_ID==r_id
+                       join dp in KasabaDB.t_departmentbase on dict.DEPARTMENT_BASE equals dp.code
+                       join a in KasabaDB.tbcs_dictionary on dict.order equals a.REC_ID
+                       join r in KasabaDB.sp_soato on dict.REGION_ID equals r.code
+                       select new
+                       {
+                           ID = dict.id,
+                           INN = dp.inn,
+                           O = dp.name_uz,
+                           JO_id=a.REC_ID,
+                           JO=a.NAME_UZ,
+                           R_id=r.code,
+                           R=r.name_uz,
+                           D = dict.description,
+                           SB = dict.score_begin,
+                           SE = dict.score_end
+                       };
+
+            return Json(camp, JsonRequestBehavior.AllowGet);
+        }
+        public string AddPP(p_provodok pz)
+        {
+            if (pz != null)
+            {
+                using (KasabaKIATEntities contextObj = new KasabaKIATEntities())
+                {
+                    p_provodok z = new p_provodok();
+                    z.DEPARTMENT_BASE = LOAD_DEPARTMENT_CODE(pz.DEPARTMENT_BASE);
+                    z.description = pz.description;
+                    z.score_begin = pz.score_begin;
+                    z.score_end = pz.score_end;
+                    z.order = pz.order;
+                    z.REGION_ID = pz.REGION_ID;
+                    z.USER_ID = Convert.ToInt32(User.Identity.Name);
+                    contextObj.p_provodok.Add(z);
+                    contextObj.SaveChanges();
+                    return "tbcs_dictionary record added successfully";
+                }
+            }
+            else
+            {
+                return "Invalid tbcs_dictionary record";
+            }
+        }
+        public string UpdatePP(p_provodok pz)
+        {
+            if (pz != null)
+            {
+                using (KasabaKIATEntities contextObj = new KasabaKIATEntities())
+                {
+                    int bookId = Convert.ToInt32(pz.id);
+                    p_provodok z = contextObj.p_provodok.Where(b => b.id == bookId).FirstOrDefault();
+                    z.DEPARTMENT_BASE = LOAD_DEPARTMENT_CODE(pz.DEPARTMENT_BASE);
+                    z.description = pz.description;
+                    z.score_begin = pz.score_begin;
+                    z.score_end = pz.score_end;
+                    z.order = pz.order;
+                    z.REGION_ID = pz.REGION_ID;
+                    z.USER_ID = Convert.ToInt32(User.Identity.Name);
+                    contextObj.SaveChanges();
+                    return "tbcs_dictionary record updated successfully";
+                }
+            }
+            else
+            {
+                return "Invalid tbcs_dictionary record";
+            }
+        }
+        public string DeletePP(string id)
+        {
+
+            if (!String.IsNullOrEmpty(id))
+            {
+                try
+                {
+                    int _bookId = Int32.Parse(id);
+                    using (KasabaKIATEntities contextObj = new KasabaKIATEntities())
+                    {
+                        var _book = contextObj.p_provodok.Find(_bookId);
+                        contextObj.p_provodok.Remove(_book);
                         contextObj.SaveChanges();
                         return "sucessfully";
                     }

@@ -1,72 +1,171 @@
 ﻿@{
     ViewBag.Title = "Путевки";
 }
-    @*
-        <h2>@ViewBag.Title.</h2>
-            @Html.ActionLink("Путевки", "Index", "Home",new { style = "color:#FFF;font-size:24px;font-family:'Times New Roman'" })
-        <br />
-        <a class="btn btn-default" href="Yullanma/grafik">График заездов</a><br /><br />
-        <a class="btn btn-default" href="Yullanma/yillikreja">Годовой план</a><br /><br />
-        <a class="btn btn-default" href="Yullanma/Ykelishi">Приход путевок</a><br /><br />
-        <a class="btn btn-default" href="Yullanma/Qyullanmalar">Просмотр остатков и редактирование путевок</a><br /><br />
-        <a class="btn btn-default" href="Yullanma/Tahrirlash">Реализация путевок</a><br /><br />
-        <a class="btn btn-default" href="Yullanma/kurish">Просмотр и редактирование реализованных путевок</a><br /><br />
-        <a class="btn btn-default" href="Yullanma/malumot">Сверка данных от санаториев</a><br /><br />*@
-
-    <!-- ==========================HEADER===================================== -->
-    <section id="content">
-        <div class="container">
-            <div class="row one">
-                <ul>
-                    <li class="icon1"><a href="/GrafikZaezdov/index"><img src="~/Content/icons/grafik_zaezdov.png" alt=""></a></li>
-                    <li class="icon2"><a href="PlatejnoyeParucheniye"><img src="~/Content/icons/platezh_poruch.png" alt=""></a></li>
-                    <li class="icon3"><a href="RassmotreniyeZayavok"><img src="~/Content/icons/rassmotr_zayavok.png" alt=""></a></li>
-                    <li class="icon4"><a href="PodachaZayavok"><img src="~/Content/icons/podacha_zayavok.png" alt=""></a></li>
-                    <li class="icon5"><a href="PoiskRedaktZayavok"><img src="~/Content/icons/poisk_redak_zayav.png" alt=""></a></li>
-                </ul>
-            </div>
-
-            <div class="row two">
-                <ul>
-                    <li class="icon1"><a href="/GodovoyPlan/index"><img src="~/Content/icons/god_plan_rasp_put.png" alt=""></a></li>
-                    <li class="icon2"><a href="ProsmotrRealzPutevok"><img src="~/Content/icons/pros_real_put.png" alt=""></a></li>
-                    <li class="icon3"><a href="/PrixodPutevok/index"><img src="~/Content/icons/prihod_putevok.png" alt=""></a></li>
-                    <li class="icon4"><a href="/PrixodPutevok/ProsmotrOstatPutevok"><img src="~/Content/icons/prosmotr_ostat_put.png" alt=""></a></li>
-                    <li class="icon5"><a href="/PrixodPutevok/RealizatsiyaPutevok"><img src="~/Content/icons/real_putevok.png" alt=""></a></li>
-                </ul>
-            </div>
-
-            <div class="row three">
-                <ul>
-                    <li class="icon1"><a href="BU_RuchnayaPravodka"><img src="~/Content/icons/ruchnaya_provodka.png" alt=""></a></li>
-                    <li class="icon2"><a href="BU_PrasmotrDannix"><img src="~/Content/icons/prosmotr_dannih.png" alt=""></a></li>
-                    <li class="icon3"><a href="VvodDannix"><img src="~/Content/icons/vvod_dannih.png" alt=""></a></li>
-                    <li class="icon4"><a href="#"><img src="~/Content/icons/plan_budjeta.png" alt=""></a></li>
-                    <li class="icon5"><a href="#"><img src="~/Content/icons/rasp_bud_otr.png" alt=""></a></li>
-                </ul>
-            </div>
-
-            <div class="row four">
-                <ul>
-                    <li class="icon1"><a href="Otchot"><img src="~/Content/icons/otchety.png" alt=""></a></li>
-                    <li class="icon2"><a href="SverkaDannix"><img src="~/Content/icons/sverka_dannih.png" alt=""></a></li>
-                    <li class="icon3"><a href="/Administirirovaniye/index"><img src="~/Content/icons/administ.png" alt=""></a></li>
-
-                </ul>
-            </div>
-
+<section class="main__block container-fluid">
+    <div class="row no-gutters">
+        <div class="col-6 col-sm-3">
+            <a href="/GrafikZaezdov/index" class="d-block text-center item" data-mh="main-item">
+                <img src="~/Content/images/main_icon_1.png" alt="" title="" />
+                <span class="d-block">График заездов</span>
+            </a>
         </div>
-
-        <!-- ======================FOOTER========================================= -->
-        <div class="container-fluid">
+        <div class="col-6 col-sm-3">
+            <a href="/PlatejnoyePorucheniye/Index" class="d-block text-center item" data-mh="main-item">
+                <img src="~/Content/images/main_icon_2.png" alt="" title="" />
+                <span class="d-block">Платежное поручение</span>
+            </a>
+        </div>
+        <div class="col-6 col-sm-3">
+            <a href="/Home/RassmotreniyeZayavok" class="d-block text-center item" data-mh="main-item">
+                <img src="~/Content/images/main_icon_3.png" alt="" title="" />
+                <span class="d-block">Рассмотрение заявок</span>
+            </a>
+        </div>
+        <div class="col-6 col-sm-3">
+            <a href="/Home/PodachaZayavok" class="d-block text-center item" data-mh="main-item">
+                <img src="~/Content/images/main_icon_4.png" alt="" title="" />
+                <span class="d-block">Подача заявок</span>
+            </a>
+        </div>
+        <div class="col-6 col-sm-3">
+            <a href="/Home/PoiskRedaktZayavok" class="d-block text-center item" data-mh="main-item">
+                <img src="~/Content/images/main_icon_5.png" alt="" title="" />
+                <span class="d-block">Поиск и редактирование заявок</span>
+            </a>
+        </div>
+        <div class="col-6 col-sm-3">
+            <a href="/GodovoyPlan/index" class="d-block text-center item" data-mh="main-item">
+                <img src="~/Content/images/main_icon_6.png" alt="" title="" />
+                <span class="d-block">Годовой план распределения путевок по отраслям</span>
+            </a>
+        </div>
+        <div class="col-6 col-sm-3">
+            <a href="/Home/ProsmotrRealzPutevok" class="d-block text-center item" data-mh="main-item">
+                <img src="~/Content/images/main_icon_7.png" alt="" title="" />
+                <span class="d-block">Просмотр реализованных путевок</span>
+            </a>
+        </div>
+        <div class="col-6 col-sm-3">
+            <a href="/PrixodPutevok/index" class="d-block text-center item" data-mh="main-item">
+                <img src="~/Content/images/main_icon_8.png" alt="" title="" />
+                <span class="d-block">Приход путевок</span>
+            </a>
+        </div>
+        <div class="col-6 col-sm-3">
+            <a href="/PrixodPutevok/ProsmotrOstatPutevok" class="d-block text-center item" data-mh="main-item">
+                <img src="~/Content/images/main_icon_9.png" alt="" title="" />
+                <span class="d-block">Просмотр остатков путевок</span>
+            </a>
+        </div>
+        <div class="col-6 col-sm-3">
+            <a href="/PrixodPutevok/RealizatsiyaPutevok" class="d-block text-center item" data-mh="main-item">
+                <img src="~/Content/images/main_icon_10.png" alt="" title="" />
+                <span class="d-block">Реализация путевок</span>
+            </a>
+        </div>
+        <div class="col-6 col-sm-3">
+            <a href="/Home/BU_RuchnayaPravodka" class="d-block text-center item" data-mh="main-item">
+                <img src="~/Content/images/main_icon_11.png" alt="" title="" />
+                <span class="d-block">БУ: Ручная проводка</span>
+            </a>
+        </div>
+        <div class="col-6 col-sm-3">
+            <a href="/Home/BU_PrasmotrDannix" class="d-block text-center item" data-mh="main-item">
+                <img src="~/Content/images/main_icon_12.png" alt="" title="" />
+                <span class="d-block">БУ: Просмотр данных</span>
+            </a>
+        </div>
+        <div class="col-6 col-sm-3">
+            <a href="/Home/VvodDannix" class="d-block text-center item" data-mh="main-item">
+                <img src="~/Content/images/main_icon_13.png" alt="" title="" />
+                <span class="d-block">БУ: Ввод данных</span>
+            </a>
+        </div>
+        <div class="col-6 col-sm-3">
+            <a href="#" class="d-block text-center item" data-mh="main-item">
+                <img src="~/Content/images/main_icon_14.png" alt="" title="" />
+                <span class="d-block">БУ: План бюджета регионов</span>
+            </a>
+        </div>
+        <div class="col-6 col-sm-3">
+            <a href="#" class="d-block text-center item" data-mh="main-item">
+                <img src="~/Content/images/main_icon_15.png" alt="" title="" />
+                <span class="d-block">Распределение бюджета по отраслям</span>
+            </a>
+        </div>
+        <div class="col-6 col-sm-3">
+            <a href="/Otchot/index" class="d-block text-center item" data-mh="main-item">
+                <img src="~/Content/images/main_icon_16.png" alt="" title="" />
+                <span class="d-block">Отчеты</span>
+            </a>
+        </div>
+        <div class="col-6 col-sm-3">
+            <a href="/Home/SverkaDannix" class="d-block text-center item" data-mh="main-item">
+                <img src="~/Content/images/main_icon_17.png" alt="" title="" />
+                <span class="d-block">Сверка данных по отдыхающим</span>
+            </a>
+        </div>
+        <div class="col-6 col-sm-3">
+            <a href="/Administirirovaniye/index" class="d-block text-center item" data-mh="main-item">
+                <img src="~/Content/images/main_icon_18.png" alt="" title="" />
+                <span class="d-block">Администрирование</span>
+            </a>
+        </div>
+    </div>
+</section>
+    @*<section id="content">
             <div class="container">
-                <div class="footer">
-                    <p><i class="fa fa-copyright" aria-hidden="true"></i> 2017</p>
+                <div class="row one">
+                    <ul>
+                        <li class="icon1"><a href="/GrafikZaezdov/index"><img src="~/Content/icons/grafik_zaezdov.png" alt=""></a></li>
+                        <li class="icon2"><a href="/PlatejnoyePorucheniye/Index"><img src="~/Content/icons/platezh_poruch.png" alt=""></a></li>
+                        <li class="icon3"><a href="RassmotreniyeZayavok"><img src="~/Content/icons/rassmotr_zayavok.png" alt=""></a></li>
+                        <li class="icon4"><a href="PodachaZayavok"><img src="~/Content/icons/podacha_zayavok.png" alt=""></a></li>
+                        <li class="icon5"><a href="PoiskRedaktZayavok"><img src="~/Content/icons/poisk_redak_zayav.png" alt=""></a></li>
+                    </ul>
+                </div>
+
+                <div class="row two">
+                    <ul>
+                        <li class="icon1"><a href="/GodovoyPlan/index"><img src="~/Content/icons/god_plan_rasp_put.png" alt=""></a></li>
+                        <li class="icon2"><a href="ProsmotrRealzPutevok"><img src="~/Content/icons/pros_real_put.png" alt=""></a></li>
+                        <li class="icon3"><a href="/PrixodPutevok/index"><img src="~/Content/icons/prihod_putevok.png" alt=""></a></li>
+                        <li class="icon4"><a href="/PrixodPutevok/ProsmotrOstatPutevok"><img src="~/Content/icons/prosmotr_ostat_put.png" alt=""></a></li>
+                        <li class="icon5"><a href="/PrixodPutevok/RealizatsiyaPutevok"><img src="~/Content/icons/real_putevok.png" alt=""></a></li>
+                    </ul>
+                </div>
+
+                <div class="row three">
+                    <ul>
+                        <li class="icon1"><a href="BU_RuchnayaPravodka"><img src="~/Content/icons/ruchnaya_provodka.png" alt=""></a></li>
+                        <li class="icon2"><a href="BU_PrasmotrDannix"><img src="~/Content/icons/prosmotr_dannih.png" alt=""></a></li>
+                        <li class="icon3"><a href="VvodDannix"><img src="~/Content/icons/vvod_dannih.png" alt=""></a></li>
+                        <li class="icon4"><a href="#"><img src="~/Content/icons/plan_budjeta.png" alt=""></a></li>
+                        <li class="icon5"><a href="#"><img src="~/Content/icons/rasp_bud_otr.png" alt=""></a></li>
+                    </ul>
+                </div>
+
+                <div class="row four">
+                    <ul>
+                        <li class="icon1"><a href="Otchot"><img src="~/Content/icons/otchety.png" alt=""></a></li>
+                        <li class="icon2"><a href="SverkaDannix"><img src="~/Content/icons/sverka_dannih.png" alt=""></a></li>
+                        <li class="icon3"><a href="/Administirirovaniye/index"><img src="~/Content/icons/administ.png" alt=""></a></li>
+
+                    </ul>
+                </div>
+
+            </div>
+
+            <!-- ======================FOOTER========================================= -->
+            <div class="container-fluid">
+                <div class="container">
+                    <div class="footer">
+                        <p><i class="fa fa-copyright" aria-hidden="true"></i> 2017</p>
+                    </div>
                 </div>
             </div>
-        </div>
 
-    </section>
+        </section>*@
 
     @*<section id="content">
             <div class="container">
@@ -90,6 +189,3 @@
                 </div>
             </div>
         </section>*@
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    @*<script src="js/bootstrap.js"></script>*@
-    <script src="~/Scripts/bootstrap.js"></script>

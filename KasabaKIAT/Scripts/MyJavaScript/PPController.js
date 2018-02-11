@@ -216,59 +216,52 @@
                 };
             }
         }
-        if ($scope.SC.length == 0 || $scope.SB.length == 0 || $scope.SE.length == 0 || $scope.P.length == 0 || $scope.Q_IN.length == 0) {
-            //alert("Maydonlar to`ldirilmagan");
-            console.log("Maydonlar to`ldirilmagan");
+        if (getPPAction == "Редактировать") {
+            PP.REC_ID = $scope.ID;
+            $http({
+                method: "post",
+                url: "UpdatePrixodPutevok",
+                data: JSON.stringify(PP),
+                dataType: "json"
+            }).then(function (msg) {
+                if ($scope.s === "option1") {
+                    GetPP_S($scope.SCFilter.id);
+                    GetPP_SUM_S($scope.SCFilter.id);
+                } else {
+                    if ($scope.s === "option2") {
+                        GetPP_C($scope.SCFilter.id);
+                        GetPP_SUM_C($scope.SCFilter.id);
+                    }
+                }
+            }, function () {
+                //alert('Error in UpdatePrixodPutevok');
+                console.log('Error in UpdatePrixodPutevok');
+                document.getElementById('connection').style.visibility = "hidden";
+                $("#hh").modal('hide');
+            });
         }
         else {
-
-            if (getPPAction == "Редактировать") {
-                PP.REC_ID = $scope.ID;
-                $http({
-                    method: "post",
-                    url: "UpdatePrixodPutevok",
-                    data: JSON.stringify(PP),
-                    dataType: "json"
-                }).then(function (msg) {
-                    if ($scope.s === "option1") {
-                        GetPP_S($scope.SCFilter.id);
-                        GetPP_SUM_S($scope.SCFilter.id);
-                    } else {
-                        if ($scope.s === "option2") {
-                            GetPP_C($scope.SCFilter.id);
-                            GetPP_SUM_C($scope.SCFilter.id);
-                        }
+            $http({
+                method: "post",
+                url: "AddPrixodPutevok",
+                data: JSON.stringify(PP),
+                dataType: "json"
+            }).then(function (msg) {
+                if ($scope.s === "option1") {
+                    GetPP_S($scope.SCFilter.id);
+                    GetPP_SUM_S($scope.SCFilter.id);
+                } else {
+                    if ($scope.s === "option2") {
+                        GetPP_C($scope.SCFilter.id);
+                        GetPP_SUM_C($scope.SCFilter.id);
                     }
-                }, function () {
-                    //alert('Error in UpdatePrixodPutevok');
-                    console.log('Error in UpdatePrixodPutevok');
-                    document.getElementById('connection').style.visibility = "hidden";
-                    $("#hh").modal('hide');
-                });
-            }
-            else {
-                $http({
-                    method: "post",
-                    url: "AddPrixodPutevok",
-                    data: JSON.stringify(PP),
-                    dataType: "json"
-                }).then(function (msg) {
-                    if ($scope.s === "option1") {
-                        GetPP_S($scope.SCFilter.id);
-                        GetPP_SUM_S($scope.SCFilter.id);
-                    } else {
-                        if ($scope.s === "option2") {
-                            GetPP_C($scope.SCFilter.id);
-                            GetPP_SUM_C($scope.SCFilter.id);
-                        }
-                    }
-                }, function () {
-                    //alert('Error in AddPrixodPutevok');
-                    console.log('Error in AddPrixodPutevok');
-                    document.getElementById('connection').style.visibility = "hidden";
-                    $("#hh").modal('hide');
-                });
-            }
+                }
+            }, function () {
+                //alert('Error in AddPrixodPutevok');
+                console.log('Error in AddPrixodPutevok');
+                document.getElementById('connection').style.visibility = "hidden";
+                $("#hh").modal('hide');
+            });
         }
     }
     $scope.deletePP = function (ID) {
@@ -279,9 +272,9 @@
         });
         reset();
         alertify.set({ buttonFocus: "cancel" });
-        alertify.confirm("Rostdan ham o`chirmoqchimisiz?", function (e) {
+        alertify.confirm("Вы действительно хотите удалить?", function (e) {
             if (e) {
-                alertify.success("O`chirilmoqda");
+                alertify.success("Операция выполняется");
                 $http({
                     method: "post",
                     url: "DeletePrixodPutevok",
@@ -309,7 +302,7 @@
             } else {
                 document.getElementById('connection').style.visibility = "hidden";
                 $("#hh").modal('hide');
-                alertify.error("o`chirish bekor qilindi");
+                alertify.error("Операция отменена");
             }
         });
         return false;   
@@ -393,21 +386,21 @@
         }
     }
     $scope.data = function (sb, se) {
-        $scope.accordion = {
-            current: null
-        };
-        $scope.accordion.current = sb;
-        (function () {
-            $(".panel").on("show.bs.collapse hide.bs.collapse", function (e) {
-                $(".panel").removeClass('active');
-                if (e.type == 'show') {
-                    $(this).addClass('active');
-                } else {
-                    $(this).removeClass('active');
-                }
-            });
+        //$scope.accordion = {
+        //    current: null
+        //};
+        //$scope.accordion.current = sb;
+        //(function () {
+        //    $(".panel").on("show.bs.collapse hide.bs.collapse", function (e) {
+        //        $(".panel").removeClass('active');
+        //        if (e.type == 'show') {
+        //            $(this).addClass('active');
+        //        } else {
+        //            $(this).removeClass('active');
+        //        }
+        //    });
 
-        }).call(this);
+        //}).call(this);
         var arr = []; var j = 0;
         for (var i = sb; i <= se; i++) {
             arr[j] = i;

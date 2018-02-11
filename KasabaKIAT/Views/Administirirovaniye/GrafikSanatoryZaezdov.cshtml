@@ -1,0 +1,72 @@
+﻿
+@{
+    ViewBag.Title = "Администрирование";
+}
+<script src="~/Scripts/MyJavaScript/GrafikSanatoryZaezdov.js"></script>
+<section class="content__block container" ng-controller="GrafikSanatoryZaezdov">
+    <div id="connection" style="visibility:hidden;position:absolute;margin-left:430px;margin-top:100px">
+        <img src="~/Content/Login/buffering.gif" />
+    </div>
+    <div class="row mb-4 align-items-center">
+        <div class="col title__block">
+            <h4>График санаторий заездов</h4>
+            <nav aria-label="breadcrumb" class="breadcrumb__block">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/Home/Admin">Администрирование</a></li>
+                    <li class="breadcrumb-item"><a href="/Administirirovaniye/index">Администрирование</a></li>
+                    <li class="breadcrumb-item"><a href="/Administirirovaniye/SpravichnikiKurortnovoUpravleniya">Справочник с курортного управления</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">График санаторий заездов</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+    <form class="row mb-4 align-items-center" name="myForm1" novalidate>
+        <div class="custom-control-inline">
+            <p>Период:</p>
+            <select ng-model="ZB" name="ZB" class="custom-select form-control" style="margin-left:20px" required>
+                @for (int i = DateTime.Now.Year; i > 1991; i--)
+                {
+                    <option>@(i)</option>
+                }
+            </select>
+            <span class="alert alert-warning" style="padding:0px" ng-show="myForm1.ZB.$error.required">Выберите поле</span>
+        </div>
+        <div style="margin-left:100px">
+            <button ng-click="LoadDATA()" ng-disabled="myForm1.ZB.$error.required" class="btn btn-blue d-block d-md-inline-block mb-2"> Получить</button>
+        </div>
+    </form>
+    <div class="table-responsive box-shadow mb-4" ng-show="showdata">
+        <table class="table table__block t-hover">
+            <thead>
+                <tr>
+                    <th class="dropdown dropdown__table">Наименование санатория</th>
+                    <th class="dropdown dropdown__table">Профиль</th>
+                    <th class="dropdown dropdown__table">Область</th>
+                    <th class="dropdown dropdown__table">Коек Всего</th>
+                    <th class="dropdown dropdown__table">Коек Летом</th>
+                    <th class="dropdown dropdown__table">Коек Зимой</th>
+                    <th class="dropdown dropdown__table">Наименование размешения</th>
+                    <th class="dropdown dropdown__table">1 кв</th>
+                    <th class="dropdown dropdown__table">2 кв</th>
+                    <th class="dropdown dropdown__table">3 кв</th>
+                    <th class="dropdown dropdown__table">4 кв</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="item in DATA">
+                    <td>{{item.d1}}</td>
+                    <td>{{item.d2}}</td>
+                    <td>{{item.d3}}</td>
+                    <td>{{item.d4}}</td>
+                    <td>{{item.d5}}</td>
+                    <td>{{item.d6}}</td>
+                    <td>{{item.d7}}</td>
+                    <td>{{item.d8}}</td>
+                    <td>{{item.d9}}</td>
+                    <td>{{item.d10}}</td>
+                    <td>{{item.d11}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</section>

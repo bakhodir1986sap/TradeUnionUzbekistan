@@ -14,7 +14,7 @@ namespace KasabaKIAT.Models
     
     public partial class tbgl_jnldd
     {
-        public string TRDT { get; set; }
+        public Nullable<System.DateTime> TRDT { get; set; }
         public string DEPARTMENT_CODE { get; set; }
         public Nullable<int> DYSEQ { get; set; }
         public Nullable<int> DYTRSEQ { get; set; }
@@ -25,6 +25,7 @@ namespace KasabaKIAT.Models
         public string REMARK { get; set; }
         public Nullable<long> CRTUSER_ID { get; set; }
         public long REC_ID { get; set; }
+        public string INN { get; set; }
     
         public virtual users users { get; set; }
     }

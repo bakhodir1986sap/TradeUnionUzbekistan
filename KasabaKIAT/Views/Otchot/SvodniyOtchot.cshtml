@@ -1,0 +1,76 @@
+﻿
+@{
+    ViewBag.Title = "Отчеты";
+}
+<script src="~/Scripts/MyJavaScript/O_SOZController.js"></script>
+<div ng-controller="O_SOZController">
+    <section class="content__block container">
+        <div class="row mb-4 align-items-center">
+            <div class="col title__block">
+                <h4>Сводный отчет по заявкам</h4>
+                <nav aria-label="breadcrumb" class="breadcrumb__block">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="/Home/Otchot">Отчеты</a></li>
+                        <li class="breadcrumb-item"><a href="/Otchot/index">Отчеты</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Сводный отчет по заявкам</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+        <form   name="myForm1" novalidate>
+            <div class="row mb-4 align-items-center">
+                <div><p>Регион:</p>
+                    <select style="width:200px" ng-model="Region" name="Region" required ng-options="d as d.value for d in R track by d.id" class="custom-select form-control"></select>
+                    <span class="alert alert-warning" style="padding:0px" ng-show="myForm1.Region.$error.required">Выберите поле</span>
+                </div>
+                <div style="margin-left:100px"><p>Отрасль:</p>
+                    <select style="width:200px;" ng-model="Otrasl" required ng-options="item as item.value for item in O track by item.id" class="custom-select form-control"  name="Otrasl"></select>
+                    <span class="alert alert-warning" style="padding:0px" ng-show="myForm1.Otrasl.$error.required">Выберите поле</span>
+                </div>
+                <div style="margin-left:100px"><p>Период с:</p>
+                    <input class="form-control" style="width:200px;" required type="date" ng-model="ZB" id="ZAEZD_BEGIN" name="ZAEZD_BEGIN" />
+                    <span class="alert alert-warning" style="padding:0px" ng-show="myForm1.ZAEZD_BEGIN.$error.required">Выберите поле</span>
+                </div>
+                <div style="margin-left:100px"><p>Период по:</p>
+                    <input class="form-control" style="width:200px;" required type="date" ng-model="ZE" id="ZAEZD_END" name="ZAEZD_END" />
+                    <span class="alert alert-warning" style="padding:0px" ng-show="myForm1.ZAEZD_END.$error.required">Выберите поле</span>
+                </div>
+            </div>
+            <div class="row mb-4 align-items-center">
+                <div>
+                    <button ng-click="LoadDATA()" ng-disabled="myForm1.ZAEZD_BEGIN.$error.required||myForm1.ZAEZD_END.$error.required" class="btn btn-blue d-block d-md-inline-block mb-2"> ПОКАЗАТ</button>
+                </div>
+                <div>
+                    <a href="#" ng-click="Clear()" style="margin-left:200px" class="btn btn-default d-block d-md-inline-block mb-2"> ОЧИСТИТЬ ФИЛЬТР</a>
+                </div>
+            </div>
+        </form>
+        <div class="table-responsive box-shadow mb-4" ng-show="showdata">
+            <table class="table table__block t-hover">
+                <thead>
+                    <tr>
+                        <th class="dropdown dropdown__table">ФИО</th>
+                        <th class="dropdown dropdown__table">Организация</th>
+                        <th class="dropdown dropdown__table">Должность</th>
+                        <th class="dropdown dropdown__table">Дата мед.справки</th>
+                        <th class="dropdown dropdown__table">Номер мед</th>
+                        <th class="dropdown dropdown__table">Санаторий</th>
+                        <th class="dropdown dropdown__table">Дата подачи</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="item in O_SOZ"  data-toggle="modal" data-target="#dobavit">
+                        <td>{{item.PN}}</td>
+                        <td>{{item.FN}}</td>
+                        <td>{{item.PP}}</td>
+                        <td>{{item.MSdt}}</td>
+                        <td>{{item.Zdt | jsonDate: 'dd.MM.yyyy'}}</td>
+                        <td>{{item.SN}}</td>
+                        <td>{{item.ZB | jsonDate: 'dd.MM.yyyy'}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+</div>
+

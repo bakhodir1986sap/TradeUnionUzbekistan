@@ -18,6 +18,7 @@ namespace KasabaKIAT.Models
         public tbpt_zayavki()
         {
             this.tbpt_putyovkarealizasiya = new HashSet<tbpt_putyovkarealizasiya>();
+            this.tblVipl_Put = new HashSet<tblVipl_Put>();
         }
     
         public long REC_ID { get; set; }
@@ -43,6 +44,8 @@ namespace KasabaKIAT.Models
         public virtual t_sanatorium t_sanatorium { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tbpt_putyovkarealizasiya> tbpt_putyovkarealizasiya { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tblVipl_Put> tblVipl_Put { get; set; }
         public virtual users users { get; set; }
     }
 }

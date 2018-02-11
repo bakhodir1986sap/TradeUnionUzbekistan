@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using KasabaKIAT.Models;
 using System.Web.Security;
+using System.IO;
 
 namespace KasabaKIAT.Controllers
 {
@@ -20,43 +21,63 @@ namespace KasabaKIAT.Controllers
         [HttpPost]
         public ActionResult Login(user u,string ReturnUrl = "")
         {
-            if (ModelState.IsValid)
+            StreamWriter stw;
+            try
             {
-                if (ul.Ruxsatni_tekshir(u) > 0)
+                if (ModelState.IsValid)
                 {
-                    IEnumerable<users> r = from a in KasabaDB.users where a.user_name == u.login select a;
-                    foreach (var b in r)
+                    if (ul.Ruxsatni_tekshir(u) > 0)
                     {
-                        Session["name"] = b.email;
-                        FormsAuthentication.SetAuthCookie(b.id.ToString(), false);
-                        message = b.user_name;
-                        if (Url.IsLocalUrl(ReturnUrl))
+                        IEnumerable<users> r = from a in KasabaDB.users where a.user_name == u.login select a;
+                        foreach (var b in r)
                         {
-                            return Redirect(ReturnUrl);
+                            Session["name"] = b.email;
+                            FormsAuthentication.SetAuthCookie(b.id.ToString(), false);
+                            message = b.user_name;
+                            if (Url.IsLocalUrl(ReturnUrl))
+                            {
+                                return Redirect(ReturnUrl);
+                            }
+                            else
+                            {
+                                return RedirectToAction("index", "Home");
+                            }
                         }
-                        else
-                        {
-                            return RedirectToAction("index", "Home");
-                        }
+                    }
+                    else
+                    {
+                        message = "1";
                     }
                 }
                 else
                 {
-                    message = "1";
+                    message = "2";
+                }
+                if (message != "1" && message != "2")
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+                else
+                {
+                    return Json(message, JsonRequestBehavior.AllowGet);
                 }
             }
-            else
+            catch (Exception ex)
             {
-                message = "2";
+                try
+                {
+                    stw = System.IO.File.AppendText("D:\\Log\\Test.txt");
+                }
+                catch
+                {
+                    Directory.CreateDirectory("D:\\Log");
+                    stw = System.IO.File.AppendText("D:\\Log\\Test.txt");
+                }
+                stw.WriteLine("Login Error -> " + ex.ToString());
+                stw.Close();
+                return RedirectToAction("index", "Home");
             }
-            if (message != "1" && message != "2")
-            {
-                return RedirectToAction("Index", "Home");
-            }
-            else
-            {
-                return Json(message, JsonRequestBehavior.AllowGet);
-            }
+
             //using (KasabaKIATEntities db = new KasabaKIATEntities())
             //{
             //    var dataItem = db.users.Where(x => x.user_name.Equals(u.user_name)).FirstOrDefault();

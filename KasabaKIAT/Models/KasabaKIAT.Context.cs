@@ -20,6 +20,7 @@ namespace KasabaKIAT.Models
         public KasabaKIATEntities()
             : base("name=KasabaKIATEntities")
         {
+            this.Configuration.ProxyCreationEnabled = false;
         }
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -27,11 +28,21 @@ namespace KasabaKIAT.Models
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<Balans> Balans { get; set; }
         public virtual DbSet<bkut_egrpo_aud> bkut_egrpo_aud { get; set; }
         public virtual DbSet<eco_platej> eco_platej { get; set; }
         public virtual DbSet<eco_xs> eco_xs { get; set; }
         public virtual DbSet<fill_rate> fill_rate { get; set; }
+        public virtual DbSet<frZapros> frZapros { get; set; }
+        public virtual DbSet<Kartoch> Kartoch { get; set; }
+        public virtual DbSet<KaznaFiles> KaznaFiles { get; set; }
+        public virtual DbSet<KaznaPaymentFile> KaznaPaymentFile { get; set; }
         public virtual DbSet<occupationalsafety> occupationalsafety { get; set; }
+        public virtual DbSet<ot_oplata> ot_oplata { get; set; }
+        public virtual DbSet<Ot13> Ot13 { get; set; }
+        public virtual DbSet<Ot14> Ot14 { get; set; }
+        public virtual DbSet<p_provodok> p_provodok { get; set; }
+        public virtual DbSet<provodok> provodok { get; set; }
         public virtual DbSet<report1ti> report1ti { get; set; }
         public virtual DbSet<report2ti1> report2ti1 { get; set; }
         public virtual DbSet<report2ti2> report2ti2 { get; set; }
@@ -64,6 +75,7 @@ namespace KasabaKIAT.Models
         public virtual DbSet<sp_soato> sp_soato { get; set; }
         public virtual DbSet<sp_soogu> sp_soogu { get; set; }
         public virtual DbSet<sp_soogu_copy> sp_soogu_copy { get; set; }
+        public virtual DbSet<SprSchet> SprSchet { get; set; }
         public virtual DbSet<sps_translate> sps_translate { get; set; }
         public virtual DbSet<t_agreement> t_agreement { get; set; }
         public virtual DbSet<t_bkut_statistics> t_bkut_statistics { get; set; }
@@ -81,11 +93,42 @@ namespace KasabaKIAT.Models
         public virtual DbSet<t_ku_report> t_ku_report { get; set; }
         public virtual DbSet<t_normativdoc> t_normativdoc { get; set; }
         public virtual DbSet<t_sanatorium> t_sanatorium { get; set; }
+        public virtual DbSet<tbbBank_Oplat> tbbBank_Oplat { get; set; }
+        public virtual DbSet<tbbKartoch> tbbKartoch { get; set; }
+        public virtual DbSet<tbbOplata> tbbOplata { get; set; }
+        public virtual DbSet<tbbOtchet> tbbOtchet { get; set; }
+        public virtual DbSet<tbbViplata> tbbViplata { get; set; }
         public virtual DbSet<tbcs_dictionary> tbcs_dictionary { get; set; }
         public virtual DbSet<tbcs_dictionarytype> tbcs_dictionarytype { get; set; }
+        public virtual DbSet<tbgl_accounttype> tbgl_accounttype { get; set; }
         public virtual DbSet<tbgl_balance> tbgl_balance { get; set; }
         public virtual DbSet<tbgl_jnldd> tbgl_jnldd { get; set; }
         public virtual DbSet<tbgl_opersettings> tbgl_opersettings { get; set; }
+        public virtual DbSet<tbku_DocumentSchetFaktura> tbku_DocumentSchetFaktura { get; set; }
+        public virtual DbSet<tbku_GrafikZaezdovSanatoriev> tbku_GrafikZaezdovSanatoriev { get; set; }
+        public virtual DbSet<tbku_journal> tbku_journal { get; set; }
+        public virtual DbSet<tbku_servicetype> tbku_servicetype { get; set; }
+        public virtual DbSet<tbku_SpisokRaspredeleniya> tbku_SpisokRaspredeleniya { get; set; }
+        public virtual DbSet<tbku_StrokaProfsoyza> tbku_StrokaProfsoyza { get; set; }
+        public virtual DbSet<tbku_StrokaSchetFakturi> tbku_StrokaSchetFakturi { get; set; }
+        public virtual DbSet<tbku_ZaezdyClientov> tbku_ZaezdyClientov { get; set; }
+        public virtual DbSet<tblBron> tblBron { get; set; }
+        public virtual DbSet<tblFace_Med> tblFace_Med { get; set; }
+        public virtual DbSet<tblFase> tblFase { get; set; }
+        public virtual DbSet<tblOplata> tblOplata { get; set; }
+        public virtual DbSet<tblPos_Put> tblPos_Put { get; set; }
+        public virtual DbSet<tblPost> tblPost { get; set; }
+        public virtual DbSet<tblSprav_Face> tblSprav_Face { get; set; }
+        public virtual DbSet<tblSprav_Kv> tblSprav_Kv { get; set; }
+        public virtual DbSet<tblSprav_MFO> tblSprav_MFO { get; set; }
+        public virtual DbSet<tblSprav_Org> tblSprav_Org { get; set; }
+        public virtual DbSet<tblSprav_Os> tblSprav_Os { get; set; }
+        public virtual DbSet<tblSprav_Otras> tblSprav_Otras { get; set; }
+        public virtual DbSet<tblSprav_Pr> tblSprav_Pr { get; set; }
+        public virtual DbSet<tblSprav_Reg> tblSprav_Reg { get; set; }
+        public virtual DbSet<tblSprav_San> tblSprav_San { get; set; }
+        public virtual DbSet<tblSprav_Vil> tblSprav_Vil { get; set; }
+        public virtual DbSet<tblVipl> tblVipl { get; set; }
         public virtual DbSet<tbpt_avarageprice> tbpt_avarageprice { get; set; }
         public virtual DbSet<tbpt_bronputyovka> tbpt_bronputyovka { get; set; }
         public virtual DbSet<tbpt_otkazputyovka> tbpt_otkazputyovka { get; set; }
@@ -105,9 +148,308 @@ namespace KasabaKIAT.Models
         public virtual DbSet<buildingfixedasset> buildingfixedasset { get; set; }
         public virtual DbSet<sp_position1> sp_position1 { get; set; }
         public virtual DbSet<t_departmentbase_aud> t_departmentbase_aud { get; set; }
+        public virtual DbSet<tbbDopTabel> tbbDopTabel { get; set; }
+        public virtual DbSet<tbbFermer> tbbFermer { get; set; }
+        public virtual DbSet<tbbPredpr> tbbPredpr { get; set; }
+        public virtual DbSet<tbbSprOsnov> tbbSprOsnov { get; set; }
+        public virtual DbSet<tbbSprTabel> tbbSprTabel { get; set; }
+        public virtual DbSet<tbbTabel> tbbTabel { get; set; }
         public virtual DbSet<tbgl_bankpayments> tbgl_bankpayments { get; set; }
         public virtual DbSet<tbgl_jnlmst> tbgl_jnlmst { get; set; }
-        public virtual DbSet<provodok> provodok { get; set; }
+        public virtual DbSet<tblFace_Two> tblFace_Two { get; set; }
+        public virtual DbSet<tblOplata_Ras> tblOplata_Ras { get; set; }
+        public virtual DbSet<tblPred> tblPred { get; set; }
+        public virtual DbSet<tblPutevka> tblPutevka { get; set; }
+        public virtual DbSet<tblVipl_Put> tblVipl_Put { get; set; }
+        public virtual DbSet<tblVozVrat> tblVozVrat { get; set; }
+        public virtual DbSet<Zapros_ZK> Zapros_ZK { get; set; }
+    
+        public virtual ObjectResult<Nullable<decimal>> sp_get_BankPaymentCompanyMonthly(string inn, Nullable<int> year, Nullable<int> month)
+        {
+            var innParameter = inn != null ?
+                new ObjectParameter("inn", inn) :
+                new ObjectParameter("inn", typeof(string));
+    
+            var yearParameter = year.HasValue ?
+                new ObjectParameter("year", year) :
+                new ObjectParameter("year", typeof(int));
+    
+            var monthParameter = month.HasValue ?
+                new ObjectParameter("month", month) :
+                new ObjectParameter("month", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("sp_get_BankPaymentCompanyMonthly", innParameter, yearParameter, monthParameter);
+        }
+    
+        public virtual ObjectResult<sp_get_BankPaymentCompanyYearlyQ_Result> sp_get_BankPaymentCompanyYearlyQ(string inn, Nullable<int> year)
+        {
+            var innParameter = inn != null ?
+                new ObjectParameter("inn", inn) :
+                new ObjectParameter("inn", typeof(string));
+    
+            var yearParameter = year.HasValue ?
+                new ObjectParameter("year", year) :
+                new ObjectParameter("year", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_get_BankPaymentCompanyYearlyQ_Result>("sp_get_BankPaymentCompanyYearlyQ", innParameter, yearParameter);
+        }
+    
+        public virtual ObjectResult<sp_get_BankPaymentCompanyYearMonthly_Result> sp_get_BankPaymentCompanyYearMonthly(string inn, Nullable<int> year)
+        {
+            var innParameter = inn != null ?
+                new ObjectParameter("inn", inn) :
+                new ObjectParameter("inn", typeof(string));
+    
+            var yearParameter = year.HasValue ?
+                new ObjectParameter("year", year) :
+                new ObjectParameter("year", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_get_BankPaymentCompanyYearMonthly_Result>("sp_get_BankPaymentCompanyYearMonthly", innParameter, yearParameter);
+        }
+    
+        public virtual ObjectResult<sp_get_BankPaymentCompanyYearQuaterMonthly_Result> sp_get_BankPaymentCompanyYearQuaterMonthly(string inn, Nullable<int> year, Nullable<int> quarter)
+        {
+            var innParameter = inn != null ?
+                new ObjectParameter("inn", inn) :
+                new ObjectParameter("inn", typeof(string));
+    
+            var yearParameter = year.HasValue ?
+                new ObjectParameter("year", year) :
+                new ObjectParameter("year", typeof(int));
+    
+            var quarterParameter = quarter.HasValue ?
+                new ObjectParameter("quarter", quarter) :
+                new ObjectParameter("quarter", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_get_BankPaymentCompanyYearQuaterMonthly_Result>("sp_get_BankPaymentCompanyYearQuaterMonthly", innParameter, yearParameter, quarterParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<decimal>> sp_get_BankPaymentCompanyYearQuaterSum(string inn, Nullable<int> year, Nullable<int> quarter)
+        {
+            var innParameter = inn != null ?
+                new ObjectParameter("inn", inn) :
+                new ObjectParameter("inn", typeof(string));
+    
+            var yearParameter = year.HasValue ?
+                new ObjectParameter("year", year) :
+                new ObjectParameter("year", typeof(int));
+    
+            var quarterParameter = quarter.HasValue ?
+                new ObjectParameter("quarter", quarter) :
+                new ObjectParameter("quarter", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("sp_get_BankPaymentCompanyYearQuaterSum", innParameter, yearParameter, quarterParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<decimal>> sp_get_BankPaymentCompanyYearT(string inn, Nullable<int> year)
+        {
+            var innParameter = inn != null ?
+                new ObjectParameter("inn", inn) :
+                new ObjectParameter("inn", typeof(string));
+    
+            var yearParameter = year.HasValue ?
+                new ObjectParameter("year", year) :
+                new ObjectParameter("year", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("sp_get_BankPaymentCompanyYearT", innParameter, yearParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<decimal>> sp_get_BankPaymentOblastMonthly(string soato, Nullable<int> year, Nullable<int> month)
+        {
+            var soatoParameter = soato != null ?
+                new ObjectParameter("soato", soato) :
+                new ObjectParameter("soato", typeof(string));
+    
+            var yearParameter = year.HasValue ?
+                new ObjectParameter("year", year) :
+                new ObjectParameter("year", typeof(int));
+    
+            var monthParameter = month.HasValue ?
+                new ObjectParameter("month", month) :
+                new ObjectParameter("month", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("sp_get_BankPaymentOblastMonthly", soatoParameter, yearParameter, monthParameter);
+        }
+    
+        public virtual ObjectResult<sp_get_BankPaymentOblastYearlyQ_Result> sp_get_BankPaymentOblastYearlyQ(string soato, Nullable<int> year)
+        {
+            var soatoParameter = soato != null ?
+                new ObjectParameter("soato", soato) :
+                new ObjectParameter("soato", typeof(string));
+    
+            var yearParameter = year.HasValue ?
+                new ObjectParameter("year", year) :
+                new ObjectParameter("year", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_get_BankPaymentOblastYearlyQ_Result>("sp_get_BankPaymentOblastYearlyQ", soatoParameter, yearParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<decimal>> sp_get_BankPaymentOtraslMonthly(Nullable<long> branch_id, Nullable<int> year, Nullable<int> month)
+        {
+            var branch_idParameter = branch_id.HasValue ?
+                new ObjectParameter("branch_id", branch_id) :
+                new ObjectParameter("branch_id", typeof(long));
+    
+            var yearParameter = year.HasValue ?
+                new ObjectParameter("year", year) :
+                new ObjectParameter("year", typeof(int));
+    
+            var monthParameter = month.HasValue ?
+                new ObjectParameter("month", month) :
+                new ObjectParameter("month", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("sp_get_BankPaymentOtraslMonthly", branch_idParameter, yearParameter, monthParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<decimal>> sp_get_BankPaymentOtraslQuaterlySum(Nullable<long> branch_id, Nullable<int> year, Nullable<int> quarter)
+        {
+            var branch_idParameter = branch_id.HasValue ?
+                new ObjectParameter("branch_id", branch_id) :
+                new ObjectParameter("branch_id", typeof(long));
+    
+            var yearParameter = year.HasValue ?
+                new ObjectParameter("year", year) :
+                new ObjectParameter("year", typeof(int));
+    
+            var quarterParameter = quarter.HasValue ?
+                new ObjectParameter("quarter", quarter) :
+                new ObjectParameter("quarter", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("sp_get_BankPaymentOtraslQuaterlySum", branch_idParameter, yearParameter, quarterParameter);
+        }
+    
+        public virtual ObjectResult<sp_get_BankPaymentOtraslYearlyQ_Result> sp_get_BankPaymentOtraslYearlyQ(Nullable<long> branch_id, Nullable<int> year)
+        {
+            var branch_idParameter = branch_id.HasValue ?
+                new ObjectParameter("branch_id", branch_id) :
+                new ObjectParameter("branch_id", typeof(long));
+    
+            var yearParameter = year.HasValue ?
+                new ObjectParameter("year", year) :
+                new ObjectParameter("year", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_get_BankPaymentOtraslYearlyQ_Result>("sp_get_BankPaymentOtraslYearlyQ", branch_idParameter, yearParameter);
+        }
+    
+        public virtual ObjectResult<sp_get_BankPaymentOtraslYearMonthly_Result> sp_get_BankPaymentOtraslYearMonthly(Nullable<long> branch_id, Nullable<int> year)
+        {
+            var branch_idParameter = branch_id.HasValue ?
+                new ObjectParameter("branch_id", branch_id) :
+                new ObjectParameter("branch_id", typeof(long));
+    
+            var yearParameter = year.HasValue ?
+                new ObjectParameter("year", year) :
+                new ObjectParameter("year", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_get_BankPaymentOtraslYearMonthly_Result>("sp_get_BankPaymentOtraslYearMonthly", branch_idParameter, yearParameter);
+        }
+    
+        public virtual ObjectResult<sp_get_BankPaymentOtraslYearQuaterMonthly_Result> sp_get_BankPaymentOtraslYearQuaterMonthly(Nullable<long> branch_id, Nullable<int> year, Nullable<int> quarter)
+        {
+            var branch_idParameter = branch_id.HasValue ?
+                new ObjectParameter("branch_id", branch_id) :
+                new ObjectParameter("branch_id", typeof(long));
+    
+            var yearParameter = year.HasValue ?
+                new ObjectParameter("year", year) :
+                new ObjectParameter("year", typeof(int));
+    
+            var quarterParameter = quarter.HasValue ?
+                new ObjectParameter("quarter", quarter) :
+                new ObjectParameter("quarter", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_get_BankPaymentOtraslYearQuaterMonthly_Result>("sp_get_BankPaymentOtraslYearQuaterMonthly", branch_idParameter, yearParameter, quarterParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<decimal>> sp_get_BankPaymentOtraslYearT(Nullable<long> branch_id, Nullable<int> year)
+        {
+            var branch_idParameter = branch_id.HasValue ?
+                new ObjectParameter("branch_id", branch_id) :
+                new ObjectParameter("branch_id", typeof(long));
+    
+            var yearParameter = year.HasValue ?
+                new ObjectParameter("year", year) :
+                new ObjectParameter("year", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("sp_get_BankPaymentOtraslYearT", branch_idParameter, yearParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<decimal>> sp_get_BankPaymentOtraslYearT2(Nullable<long> branch_id, Nullable<int> year, string soato)
+        {
+            var branch_idParameter = branch_id.HasValue ?
+                new ObjectParameter("branch_id", branch_id) :
+                new ObjectParameter("branch_id", typeof(long));
+    
+            var yearParameter = year.HasValue ?
+                new ObjectParameter("year", year) :
+                new ObjectParameter("year", typeof(int));
+    
+            var soatoParameter = soato != null ?
+                new ObjectParameter("soato", soato) :
+                new ObjectParameter("soato", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("sp_get_BankPaymentOtraslYearT2", branch_idParameter, yearParameter, soatoParameter);
+        }
+    
+        public virtual ObjectResult<sp_get_BankPaymentSoatoYearMonthly_Result> sp_get_BankPaymentSoatoYearMonthly(string soato, Nullable<int> year)
+        {
+            var soatoParameter = soato != null ?
+                new ObjectParameter("soato", soato) :
+                new ObjectParameter("soato", typeof(string));
+    
+            var yearParameter = year.HasValue ?
+                new ObjectParameter("year", year) :
+                new ObjectParameter("year", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_get_BankPaymentSoatoYearMonthly_Result>("sp_get_BankPaymentSoatoYearMonthly", soatoParameter, yearParameter);
+        }
+    
+        public virtual ObjectResult<sp_get_BankPaymentSoatoYearQuaterMonthly_Result> sp_get_BankPaymentSoatoYearQuaterMonthly(string soato, Nullable<int> year, Nullable<int> quarter)
+        {
+            var soatoParameter = soato != null ?
+                new ObjectParameter("soato", soato) :
+                new ObjectParameter("soato", typeof(string));
+    
+            var yearParameter = year.HasValue ?
+                new ObjectParameter("year", year) :
+                new ObjectParameter("year", typeof(int));
+    
+            var quarterParameter = quarter.HasValue ?
+                new ObjectParameter("quarter", quarter) :
+                new ObjectParameter("quarter", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_get_BankPaymentSoatoYearQuaterMonthly_Result>("sp_get_BankPaymentSoatoYearQuaterMonthly", soatoParameter, yearParameter, quarterParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<decimal>> sp_get_BankPaymentSoatoYearQuaterSum(string soato, Nullable<int> year, Nullable<int> quarter)
+        {
+            var soatoParameter = soato != null ?
+                new ObjectParameter("soato", soato) :
+                new ObjectParameter("soato", typeof(string));
+    
+            var yearParameter = year.HasValue ?
+                new ObjectParameter("year", year) :
+                new ObjectParameter("year", typeof(int));
+    
+            var quarterParameter = quarter.HasValue ?
+                new ObjectParameter("quarter", quarter) :
+                new ObjectParameter("quarter", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("sp_get_BankPaymentSoatoYearQuaterSum", soatoParameter, yearParameter, quarterParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<decimal>> sp_get_BankPaymentSoatoYearT(string soato, Nullable<int> year)
+        {
+            var soatoParameter = soato != null ?
+                new ObjectParameter("soato", soato) :
+                new ObjectParameter("soato", typeof(string));
+    
+            var yearParameter = year.HasValue ?
+                new ObjectParameter("year", year) :
+                new ObjectParameter("year", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("sp_get_BankPaymentSoatoYearT", soatoParameter, yearParameter);
+        }
     
         public virtual ObjectResult<Nullable<long>> uspLogin(string login, string parol)
         {
@@ -120,6 +462,83 @@ namespace KasabaKIAT.Models
                 new ObjectParameter("parol", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<long>>("uspLogin", loginParameter, parolParameter);
+        }
+    
+        public virtual ObjectResult<sp_rt_FormaN13_Result> sp_rt_FormaN13(Nullable<int> aYear, string orgInn)
+        {
+            var aYearParameter = aYear.HasValue ?
+                new ObjectParameter("aYear", aYear) :
+                new ObjectParameter("aYear", typeof(int));
+    
+            var orgInnParameter = orgInn != null ?
+                new ObjectParameter("orgInn", orgInn) :
+                new ObjectParameter("orgInn", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_rt_FormaN13_Result>("sp_rt_FormaN13", aYearParameter, orgInnParameter);
+        }
+    
+        public virtual ObjectResult<sp_rt_SvodniyOtchet_Result> sp_rt_SvodniyOtchet(Nullable<System.DateTime> beginDate, Nullable<System.DateTime> endDate, string vilSoato, string branchCode)
+        {
+            var beginDateParameter = beginDate.HasValue ?
+                new ObjectParameter("beginDate", beginDate) :
+                new ObjectParameter("beginDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("endDate", endDate) :
+                new ObjectParameter("endDate", typeof(System.DateTime));
+    
+            var vilSoatoParameter = vilSoato != null ?
+                new ObjectParameter("VilSoato", vilSoato) :
+                new ObjectParameter("VilSoato", typeof(string));
+    
+            var branchCodeParameter = branchCode != null ?
+                new ObjectParameter("BranchCode", branchCode) :
+                new ObjectParameter("BranchCode", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_rt_SvodniyOtchet_Result>("sp_rt_SvodniyOtchet", beginDateParameter, endDateParameter, vilSoatoParameter, branchCodeParameter);
+        }
+    
+        public virtual ObjectResult<sp_rt_TalabnomaKorxona_Result> sp_rt_TalabnomaKorxona(Nullable<int> aYear, string orgInn)
+        {
+            var aYearParameter = aYear.HasValue ?
+                new ObjectParameter("aYear", aYear) :
+                new ObjectParameter("aYear", typeof(int));
+    
+            var orgInnParameter = orgInn != null ?
+                new ObjectParameter("orgInn", orgInn) :
+                new ObjectParameter("orgInn", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_rt_TalabnomaKorxona_Result>("sp_rt_TalabnomaKorxona", aYearParameter, orgInnParameter);
+        }
+    
+        public virtual ObjectResult<sp_rt_TalabnomaTarmoq_Result> sp_rt_TalabnomaTarmoq(Nullable<int> aYear, string vilSoato, string branchCode)
+        {
+            var aYearParameter = aYear.HasValue ?
+                new ObjectParameter("aYear", aYear) :
+                new ObjectParameter("aYear", typeof(int));
+    
+            var vilSoatoParameter = vilSoato != null ?
+                new ObjectParameter("VilSoato", vilSoato) :
+                new ObjectParameter("VilSoato", typeof(string));
+    
+            var branchCodeParameter = branchCode != null ?
+                new ObjectParameter("BranchCode", branchCode) :
+                new ObjectParameter("BranchCode", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_rt_TalabnomaTarmoq_Result>("sp_rt_TalabnomaTarmoq", aYearParameter, vilSoatoParameter, branchCodeParameter);
+        }
+    
+        public virtual ObjectResult<sp_rt_TalabnomaViloyat_Result> sp_rt_TalabnomaViloyat(Nullable<int> aYear, string vilSoato)
+        {
+            var aYearParameter = aYear.HasValue ?
+                new ObjectParameter("aYear", aYear) :
+                new ObjectParameter("aYear", typeof(int));
+    
+            var vilSoatoParameter = vilSoato != null ?
+                new ObjectParameter("VilSoato", vilSoato) :
+                new ObjectParameter("VilSoato", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_rt_TalabnomaViloyat_Result>("sp_rt_TalabnomaViloyat", aYearParameter, vilSoatoParameter);
         }
     }
 }

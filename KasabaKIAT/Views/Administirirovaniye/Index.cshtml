@@ -2,12 +2,31 @@
 @{
     ViewBag.Title = "Администрирование";
 }
-
-<h2 style="color:#428bca">Администрирование</h2>
-<div class="row" style="margin-left:20px"><br />
-    <h5><a  style="text-decoration:none;color:#000000" href="/Administirirovaniye/UchetniyZapis">Создание учетный записей</a></h5><br />
-    <h5><a style="text-decoration:none;color:#000000" href="/Administirirovaniye/SozdaniyeRoley">Создание ролей</a></h5><br />
-    <h5><a style="text-decoration:none;color:#000000" href="/Administirirovaniye/SozdaniyeProvodok">Создание проводок</a></h5><br />
-    <h5><a style="text-decoration:none;color:#000000" href="#">Привязка проводок к ЖО</a></h5><br />
-    <h5><a style="text-decoration:none;color:#000000" href="/Administirirovaniye/Spravichniki">Справочники</a></h5><br />
-</div>
+@*<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+<link href="~/Content/main.css" rel="stylesheet" />
+<link href="~/Content/font-awesome.css" rel="stylesheet" />*@ 
+@*<h2 style="color:#428bca">Администрирование</h2>*@
+<section class="content__block container">
+    <div class="row mb-4 align-items-center">
+        <div class="col title__block">
+            <h4>Администрирование</h4>
+            <nav aria-label="breadcrumb" class="breadcrumb__block">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/Home/Admin">Администрирование</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Администрирование</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+    <div style="margin-left:20px">
+        <br />
+        <h5><a style="text-decoration:none;color:#000000" href="/Administirirovaniye/UchetniyZapis">Создание учетный записей</a></h5><br />
+        <h5><a style="text-decoration:none;color:#000000" href="/Administirirovaniye/SozdaniyeRoley">Создание ролей</a></h5><br />
+        <h5><a style="text-decoration:none;color:#000000" href="/Administirirovaniye/SozdaniyeProvodok">Создание проводок</a></h5><br />
+        <h5><a style="text-decoration:none;color:#000000" href="/Administirirovaniye/PrivyazkaProvodok">Привязка проводок к ЖО</a></h5><br />
+        <h5><a style="text-decoration:none;color:#000000" href="/Administirirovaniye/Spravichniki">Справочники</a></h5><br />
+        <h5><a style="text-decoration:none;color:#000000" href="/Administirirovaniye/SpravichnikiKurortnovoUpravleniya">Справочник с курортного управления</a></h5><br />
+    </div>
+</section>
+  
+  

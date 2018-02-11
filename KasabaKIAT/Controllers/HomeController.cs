@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 
 namespace KasabaKIAT.Controllers
 {
@@ -50,10 +51,6 @@ namespace KasabaKIAT.Controllers
                        };
 
             return Json(camp, JsonRequestBehavior.AllowGet);
-        }
-        public ActionResult PlatejnoyeParucheniye()
-        {
-            return View();
         }
         public ActionResult RassmotreniyeZayavok()
         {
@@ -902,7 +899,35 @@ namespace KasabaKIAT.Controllers
         {
             return View();
         }
+        public ActionResult Putyovki()
+        {
+            int aaa = Convert.ToInt32(User.Identity.Name);
+            if (Session["name"] == null)
+            {
+                IEnumerable<users> r = from a in KasabaDB.users where a.id ==aaa select a;
+                foreach (var b in r)
+                {
+                    Session["name"] = b.email;
+                    //FormsAuthentication.SetAuthCookie(b.id.ToString(), false);
+                  
+                }
+            }
+
+            return View();
+        }
+        public ActionResult Zayavok()
+        {
+            return View();
+        }
+        public ActionResult Buxgalter()
+        {
+            return View();
+        }
         public ActionResult Otchot()
+        {
+            return View();
+        }
+        public ActionResult Admin()
         {
             return View();
         }

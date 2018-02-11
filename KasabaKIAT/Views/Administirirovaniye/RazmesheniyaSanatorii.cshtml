@@ -1,67 +1,73 @@
 ﻿
 @{
-    ViewBag.Title = "типы мест в санаториях";
+    ViewBag.Title = "Администрирование";
 }
 <script src="~/Scripts/MyJavaScript/STRSController.js"></script>
-<h2>типы мест в санаториях</h2>
 <div id="connection" style="visibility:hidden;position:absolute;margin-left:430px">
     <img src="~/Content/Login/buffering.gif" />
 </div>
 <div ng-controller="STRSController">
-    <div class="container one">
-        <div class="row" style="margin-left:400px;">
-            <div class="col-xs-3 col-xs-offset-5">
-                <button ng-click="AddSTRSDiv()" style="background: #24C0DB;margin-right:10px" type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal"><i class="fa fa-plus-square" aria-hidden="true"></i>  добавить</button>
+    <section class="content__block container">
+        <div class="row mb-4 align-items-center">
+            <div class="col-sm-6 title__block">
+                <h4>типы мест в санаториях</h4>
+                <nav aria-label="breadcrumb" class="breadcrumb__block">
+                    <ol class="breadcrumb" style="width:1000px">
+                        <li class="breadcrumb-item"><a href="/Home/Admin">Администрирование</a></li>
+                        <li class="breadcrumb-item"><a href="/Administirirovaniye/index">Администрирование</a></li>
+                        <li class="breadcrumb-item"><a href="/Administirirovaniye/Spravichniki">справочники</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">типы мест в санаториях</li>
+                    </ol>
+                </nav>
+            </div>
+            <div class="col-sm-6 text-md-right">
+                <a href="#" ng-click="AddSTRSDiv()" class="btn btn-blue d-block d-md-inline-block mb-2" data-toggle="modal" data-target="#dobavit"><i class="fas fa-plus"></i> Добавить</a>
             </div>
         </div>
-    </div>
-    <div class="container two">
-        <div class="row" style="margin-top:30px;">
-            <table class="table table-hover" style="width:30%">
+        <div class="table-responsive box-shadow mb-4">
+            <table class="table table__block t-hover">
                 <thead>
                     <tr>
-                        <th>тип мест</th>
+                        <th class="dropdown dropdown__table">тип мест</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="item in STRS" ng-click="editSTRS(item)" data-toggle="modal" data-target="#myModal" class="poin">
+                    <tr ng-repeat="item in STRS" ng-click="editSTRS(item)" data-toggle="modal" data-target="#dobavit">
                         <td>{{item.NAME_UZ}}</td>
                     </tr>
                 </tbody>
             </table>
         </div>
-    </div>
-    <!-- Modal -->
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-        <div class="modal-dialog" role="document">
+    </section>
+
+    <div class="modal__block modal fade" id="dobavit" tabindex="-1" role="dialog" aria-labelledby="dobavitLabel">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
             <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title text-center" id="myModalLabel">{{Action}}</h4>
+                <div class="modal-body">
+                    <div class="modal-title">
+                        <h4 class="text-center mt-4 mb-4">{{Action}}</h4>
+                    </div>
+                    <div class="row justify-content-center">
+                        <form class="col-md-8" name="myForm" novalidate>
+                            <input type="hidden" style="position:absolute" ng-model="ID;" />
+                            <div class="form-group row align-items-center">
+                                <label class="col-md-5 col-form-label text-md-right py-0">Тип размещения:</label>
+                                <div class="col-md-7">
+                                    <input type="text" class="form-control" required placeholder="" name="PTI" ng-model="PTI" value="">
+                                    <span class="alert alert-warning" style="padding:0px" ng-show="myForm.PTI.$error.required">заполнить поле</span>
+                                </div>
+                            </div>
+                            <div class="mb-4 text-right">
+                                <button data-dismiss="modal" ng-click="AddUpdateSTRS()" ng-disabled="myForm.PTI.$error.required" class="btn btn-blue d-block d-md-inline-block mb-2">Сохранить</button>
+                                <button ng-click="deleteSTRS(ID)" data-dismiss="modal" class="btn btn-red d-block d-md-inline-block mb-2">Удалить</button>
+                                <button class="btn btn-grey d-block d-md-inline-block mb-2" data-dismiss="modal">Отмена</button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
-                <form class="modal-body" name="myForm" novalidate>
-                    <input type="hidden" style="position:absolute" ng-model="ID;" />
-                    <br />
-                    <div class="row">
-                        <div class="col-xs-5 text-right">
-                            <p>Тип размещения:</p>
-                        </div>
-                        <div class="col-xs-6">
-                            <input type="text" class="form-control" required placeholder="" name="PTI" ng-model="PTI" value="">
-                            <span class="alert alert-warning" style="padding:0px" ng-show="myForm.PTI.$error.required">заполнить поля</span>
-                        </div>
-                    </div>
-                    <br>
-                    <div class="modal-footer">
-                        <div class="col-xs-offset-5">
-                            <button type="button" ng-click="AddUpdateSTRS()" ng-disabled="myForm.PTI.$error.required" data-dismiss="modal" class="btn btn-info"><i class="fa fa-save" aria-hidden="true"></i> сохранить</button>
-                            <button type="button" ng-click="deleteSTRS(ID)" class="btn btn-warning" data-dismiss="modal"><i class="fa fa-remove" aria-hidden="true"></i> Удалить</button>
-                            <button type="button" class="btn btn-default" data-dismiss="modal">отмена</button>
-                        </div>
-                    </div>
-                </form>
             </div>
         </div>
-    </div> <!-- modal fade -->
+    </div>
+
 </div>
 

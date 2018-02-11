@@ -17,7 +17,7 @@
         $scope.D = pz.D;
         $scope.SB = pz.SB;
         $scope.SE = pz.SE;
-        $scope.Action = "изменить";
+        $scope.Action = "Изменить";
     }
     $scope.AddSPDiv = function () {
         $scope.ID = "";
@@ -26,7 +26,7 @@
         $scope.D = "";
         $scope.SB = "";
         $scope.SE = "";
-        $scope.Action = "добавить";
+        $scope.Action = "Добавить";
     }
     $scope.AddUpdateSP = function () {
         var getGZAction = $scope.Action;
@@ -36,7 +36,7 @@
             score_begin: $scope.SB,
             score_end: $scope.SE
         };
-        if (getGZAction == "изменить") {
+        if (getGZAction == "Изменить ") {
             PZ.ID = $scope.ID;
             $http({
                 method: "post",
@@ -65,9 +65,9 @@
     $scope.deleteSP = function (ID) {
         reset();
         alertify.set({ buttonFocus: "cancel" });
-        alertify.confirm("Rostdan ham o`chirmoqchimisiz?", function (e) {
+        alertify.confirm("Вы действительно хотите удалить?", function (e) {
             if (e) {
-                alertify.success("o`chirilmoqda!!!");
+                alertify.success("Операция выполняется");
                 $http({
                     method: "post",
                     url: "/Administirirovaniye/DeleteSP",
@@ -80,7 +80,7 @@
                     //alert('Error in deleting book record');
                 });
             } else {
-                alertify.error("o`chirish bekor qilindi");
+                alertify.error("Операция отменена");
             }
         });
         return false;

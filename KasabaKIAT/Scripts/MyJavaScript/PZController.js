@@ -54,13 +54,13 @@
        // $scope.MO2 = pz.MO2;
         $scope.SC.id = pz.SC_id;
         $scope.SC.value = pz.SC;
-        $scope.Action = "изменить";
+        $scope.Action = "Изменить";
     }
     $scope.AddPZDiv = function () {
         $scope.MOE = false;
         $scope.Q = 1;
         ClearFields();
-        $scope.Action = "добавить";
+        $scope.Action = "Добавить";
     }
     function GetPZ_S(id) {
         $scope.ss = "option1s";
@@ -182,50 +182,45 @@
                 };
             }
         }
-        if ($scope.SC.length == 0 || $scope.INN.length == 0 || $scope.FN.length == 0 || $scope.P.length == 0 || $scope.Q.length == 0) {
-            alert("Maydonlar to`ldirilmagan");
+
+        if (getGZAction == "Изменить") {
+            PZ.REC_ID = $scope.ID;
+            $http({
+                method: "post",
+                url: "UpdatePodachaZayavok",
+                data: JSON.stringify(PZ),
+                dataType: "json"
+            }).then(function (msg) {
+                if ($scope.ss === "option1s") {
+                    GetPZ_S($scope.SCFilter.id);
+                } else {
+                    if ($scope.ss === "option2s") {
+                        GetPZ_C($scope.SCFilter.id);
+                    }
+                }
+            }, function () {
+                //alert('Error in UpdatePodachaZayavok');
+                console.log('Error in UpdatePodachaZayavok');
+            });
         }
         else {
-            
-            if (getGZAction == "изменить") {
-                PZ.REC_ID = $scope.ID;
-                $http({
-                    method: "post",
-                    url: "UpdatePodachaZayavok",
-                    data: JSON.stringify(PZ),
-                    dataType: "json"
-                }).then(function (msg) {
-                    if ($scope.ss === "option1s") {
-                        GetPZ_S($scope.SCFilter.id);
-                    } else {
-                        if ($scope.ss === "option2s") {
-                            GetPZ_C($scope.SCFilter.id);
-                        }
+            $http({
+                method: "post",
+                url: "AddPodachaZayavok",
+                data: JSON.stringify(PZ),
+                dataType: "json"
+            }).then(function (msg) {
+                if ($scope.ss === "option1s") {
+                    GetPZ_S($scope.SCFilter.id);
+                } else {
+                    if ($scope.ss === "option2s") {
+                        GetPZ_C($scope.SCFilter.id);
                     }
-                }, function () {
-                    //alert('Error in UpdatePodachaZayavok');
-                    console.log('Error in UpdatePodachaZayavok');
-                });
-            }
-            else {
-                $http({
-                    method: "post",
-                    url: "AddPodachaZayavok",
-                    data: JSON.stringify(PZ),
-                    dataType: "json"
-                }).then(function (msg) {
-                    if ($scope.ss === "option1s") {
-                        GetPZ_S($scope.SCFilter.id);
-                    } else {
-                        if ($scope.ss === "option2s") {
-                            GetPZ_C($scope.SCFilter.id);
-                        }
-                    }
-                }, function () {
-                    //alert('Error in AddPodachaZayavok');
-                    console.log('Error in AddPodachaZayavok');
-                });
-            }
+                }
+            }, function () {
+                //alert('Error in AddPodachaZayavok');
+                console.log('Error in AddPodachaZayavok');
+            });
         }
     }
     $scope.OTPpz = function () {
@@ -236,9 +231,9 @@
         });
         reset();
         alertify.set({ buttonFocus: "cancel" });
-        alertify.confirm("Rostdan ham jo`natmoqchimisiz?", function (e) {
+        alertify.confirm("Вы действительно хотите отправить заявки?", function (e) {
             if (e) {
-                alertify.success("yuborilmoqda!!!");
+                alertify.success("Операция выполняется");
                 $http({
                     method: "post",
                     url: "OTPPodachaZayavok"
@@ -261,7 +256,7 @@
             } else {
                 document.getElementById('connection').style.visibility = "hidden";
                 $("#hh").modal('hide');
-                alertify.error("yuborish bekor qilindi");
+                alertify.error("Операция отменена");
             }
         });
         return false;
@@ -274,9 +269,9 @@
         });
         reset();
         alertify.set({ buttonFocus: "cancel" });
-        alertify.confirm("Rostdan ham o`chirmoqchimisiz?", function (e) {
+        alertify.confirm("Вы действительно хотите удалить?", function (e) {
             if (e) {
-                alertify.success("o`chirilmoqda!!!");
+                alertify.success("Операция выполняется");
                 $http({
                     method: "post",
                     url: "DeletePodachaZayavok",
@@ -300,7 +295,7 @@
             } else {
                 document.getElementById('connection').style.visibility = "hidden";
                 $("#hh").modal('hide');
-                alertify.error("o`chirish bekor qilindi");
+                alertify.error("Операция отменена");
             }
         });
         return false;

@@ -16,7 +16,7 @@ namespace KasabaKIAT
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
+                defaults: new { controller = "Home", action = "Putyovki", id = UrlParameter.Optional }
             );
         }
     }

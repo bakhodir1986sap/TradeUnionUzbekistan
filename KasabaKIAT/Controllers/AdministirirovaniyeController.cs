@@ -14,9 +14,9 @@ namespace KasabaKIAT.Controllers
     public class AdministirirovaniyeController : Controller
     {
         ServiceActionController service = new ServiceActionController();
-        ILog log = log4net.LogManager.GetLogger(typeof(HomeController));
+        ILog log = log4net.LogManager.GetLogger(typeof(AdministirirovaniyeController));
         KasabaKIATEntities KasabaDB = new KasabaKIATEntities();
-        StreamWriter stw;
+
         public ActionResult Index()
         {
             return View();

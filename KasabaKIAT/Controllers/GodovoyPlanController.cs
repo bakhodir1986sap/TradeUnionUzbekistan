@@ -1,4 +1,5 @@
 ﻿using KasabaKIAT.Models;
+using log4net;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -10,7 +11,7 @@ namespace KasabaKIAT.Controllers
     [Authorize]
     public class GodovoyPlanController : Controller
     {
-
+        ILog log = log4net.LogManager.GetLogger(typeof(AdministirirovaniyeController));
         KasabaKIATEntities KasabaDB = new KasabaKIATEntities();
         public ActionResult Index()
         {
@@ -303,18 +304,6 @@ namespace KasabaKIAT.Controllers
         [HttpPost]
         public string UpdateGodovoyPlan(tbpt_yearlyplanregion GP)
         {
-            StreamWriter stw;
-            try
-            {
-                stw = System.IO.File.AppendText("D:\\Log\\Test.txt");
-            }
-            catch
-            {
-                Directory.CreateDirectory("D:\\Log");
-                stw = System.IO.File.AppendText("D:\\Log\\Test.txt");
-            }
-            stw.WriteLine("Update -> REC_ID=" + GP.REC_ID + " KVARTAL=" + GP.KVARTAL + " SANATORIUM_ID=" + GP.SANATORIUM_ID + " CAMP_ID=" + GP.CAMP_ID+ " TIP_MEST_ID=" + GP.TIP_MEST_ID+ " PRICE=" + GP.PRICE+ " QUANTITY=" + GP.QUANTITY+ " REGION_ID=" + GP.REGION_ID+ " DEPARTMENT_BASE=" + GP.DEPARTMENT_BASE);
-            stw.Close();
             try
             {
                 int UserId = Convert.ToInt32(User.Identity.Name);
@@ -400,35 +389,13 @@ namespace KasabaKIAT.Controllers
             }
             catch(Exception ex)
             {
-                try
-                {
-                    stw = System.IO.File.AppendText("D:\\Log\\Test.txt");
-                }
-                catch
-                {
-                    Directory.CreateDirectory("D:\\Log");
-                    stw = System.IO.File.AppendText("D:\\Log\\Test.txt");
-                }
-                stw.WriteLine("Update Error -> "+ex.ToString());
-                stw.Close();
+                log.Error(ex);
                 return "no";
             }
         }
         [HttpPost]
         public string DeleteGodovoyPlan(string id)
         {
-            StreamWriter stw;
-            try
-            {
-                stw = System.IO.File.AppendText("D:\\Log\\Test.txt");
-            }
-            catch
-            {
-                Directory.CreateDirectory("D:\\Log");
-                stw = System.IO.File.AppendText("D:\\Log\\Test.txt");
-            }
-            stw.WriteLine("Delete -> REC_ID=" + id);
-            stw.Close();
             try
             {
                 using (KasabaKIATEntities k = new KasabaKIATEntities())
@@ -459,17 +426,7 @@ namespace KasabaKIAT.Controllers
             }
             catch (Exception ex)
             {
-                try
-                {
-                    stw = System.IO.File.AppendText("D:\\Log\\Test.txt");
-                }
-                catch
-                {
-                    Directory.CreateDirectory("D:\\Log");
-                    stw = System.IO.File.AppendText("D:\\Log\\Test.txt");
-                }
-                stw.WriteLine("Delete Error -> " + ex.ToString());
-                stw.Close();
+                log.Error(ex);
                 return "error";
             }
         }

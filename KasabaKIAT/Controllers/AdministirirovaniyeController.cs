@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using KasabaKIAT.Models;
 using KurortUrvServiceTest.ServiceInterAction.ActionLogic;
 using System.IO;
+using log4net;
 
 namespace KasabaKIAT.Controllers
 {
@@ -13,6 +14,7 @@ namespace KasabaKIAT.Controllers
     public class AdministirirovaniyeController : Controller
     {
         ServiceActionController service = new ServiceActionController();
+        ILog log = log4net.LogManager.GetLogger(typeof(HomeController));
         KasabaKIATEntities KasabaDB = new KasabaKIATEntities();
         StreamWriter stw;
         public ActionResult Index()
@@ -64,17 +66,7 @@ namespace KasabaKIAT.Controllers
             }
             catch (Exception ex)
             {
-                try
-                {
-                    stw = System.IO.File.AppendText("D:\\Log\\Test.txt");
-                }
-                catch
-                {
-                    Directory.CreateDirectory("D:\\Log");
-                    stw = System.IO.File.AppendText("D:\\Log\\Test.txt");
-                }
-                stw.WriteLine("ServiceSpisokPravsoyuzov Error -> " + ex.ToString());
-                stw.Close();
+                log.Error(ex);
             }
         }
         public JsonResult GetSpisokPravsoyuzov()
@@ -96,17 +88,7 @@ namespace KasabaKIAT.Controllers
             }
             catch (Exception ex)
             {
-                try
-                {
-                    stw = System.IO.File.AppendText("D:\\Log\\Test.txt");
-                }
-                catch
-                {
-                    Directory.CreateDirectory("D:\\Log");
-                    stw = System.IO.File.AppendText("D:\\Log\\Test.txt");
-                }
-                stw.WriteLine("ServiceGrafikSanatoryZaezdov Error -> " + ex.ToString());
-                stw.Close();
+                log.Error(ex);
             }
         }
         public JsonResult GetGrafikSanatoryZaezdov(int yil)
@@ -138,17 +120,7 @@ namespace KasabaKIAT.Controllers
             }
             catch (Exception ex)
             {
-                try
-                {
-                    stw = System.IO.File.AppendText("D:\\Log\\Test.txt");
-                }
-                catch
-                {
-                    Directory.CreateDirectory("D:\\Log");
-                    stw = System.IO.File.AppendText("D:\\Log\\Test.txt");
-                }
-                stw.WriteLine("ServiceSchetFaktura Error -> " + ex.ToString());
-                stw.Close();
+                log.Error(ex);
             }
         }
         public JsonResult GetSchetFaktura(DateTime B,DateTime E,string p)
@@ -328,8 +300,9 @@ namespace KasabaKIAT.Controllers
                         return "sucessfully";
                     }
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
+                    log.Error(ex);
                     return "not found";
                 }
             }

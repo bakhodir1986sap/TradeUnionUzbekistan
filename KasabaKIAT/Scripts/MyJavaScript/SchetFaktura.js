@@ -1,5 +1,6 @@
 ﻿app.controller("SchetFaktura", ["$scope", "$http", "$filter", "crudAJService", function ($scope, $http, $filter, crudAJService) {
     $scope.showdata = false;
+    $scope.showdata2 = false;
     $scope.ZB = new Date();
     $scope.ZE = new Date();
     All();
@@ -36,8 +37,13 @@
             method: "post",
             url: "/Administirirovaniye/GetStrokaSchetFakturi?id=" + id,
         }).then(function (d) {
-            document.getElementById('connection').style.visibility = "hidden";
-            GetData($scope.ZB, $scope.ZE, $scope.SP.d1);
+            $scope.DATA2 = d.data;
+            if (d.data.length != 0) {
+                $scope.showdata2 = true;
+            }
+            else {
+                $scope.showdata2 = false;
+            }
         }, function () {
             //alert("error in O_SOZ");
         });

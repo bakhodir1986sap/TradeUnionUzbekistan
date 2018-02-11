@@ -1,0 +1,81 @@
+﻿
+@{
+    ViewBag.Title = "Администрирование";
+}
+<script src="~/Scripts/MyJavaScript/SchetFaktura.js"></script>
+<section class="content__block container" ng-controller="SchetFaktura">
+    <div id="connection" style="visibility:hidden;position:absolute;margin-left:430px;margin-top:100px">
+        <img src="~/Content/Login/buffering.gif" />
+    </div>
+    <div class="row mb-4 align-items-center">
+        <div class="col title__block">
+            <h4>Счет фактура</h4>
+            <nav aria-label="breadcrumb" class="breadcrumb__block">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/Home/Admin">Администрирование</a></li>
+                    <li class="breadcrumb-item"><a href="/Administirirovaniye/index">Администрирование</a></li>
+                    <li class="breadcrumb-item"><a href="/Administirirovaniye/SpravichnikiKurortnovoUpravleniya">Справочник с курортного управления</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Счет фактура</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+    <form class="row mb-4 align-items-center" name="myForm1" novalidate>
+        <div class="custom-control-inline">
+            <div>
+                <p>Список правсоюзов:</p>
+                <select style="width:200px" ng-model="SP" name="SP" required ng-options="d as d.d2 for d in R track by d.d1" class="custom-select form-control"></select>
+                <span class="alert alert-warning" style="padding:0px" ng-show="myForm1.SP.$error.required">Выберите поле</span>
+            </div>
+        </div>
+        <div style="margin-left:100px">
+            <p>Период с:</p>
+            <input class="form-control" style="width:200px;" required type="date" ng-model="ZB" id="ZAEZD_BEGIN" name="ZAEZD_BEGIN" />
+            <span class="alert alert-warning" style="padding:0px" ng-show="myForm1.ZAEZD_BEGIN.$error.required">Выберите поле</span>
+        </div>
+        <div style="margin-left:100px">
+            <p>Период по:</p>
+            <input class="form-control" style="width:200px;" required type="date" ng-model="ZE" id="ZAEZD_END" name="ZAEZD_END" />
+            <span class="alert alert-warning" style="padding:0px" ng-show="myForm1.ZAEZD_END.$error.required">Выберите поле</span>
+        </div>
+        <div style="margin-left:100px">
+            <button ng-click="LoadDATA()" ng-disabled="myForm1.SP.$error.required||myForm1.ZAEZD_BEGIN.$error.required||myForm1.ZAEZD_END.$error.required" class="btn btn-blue d-block d-md-inline-block mb-2"> Получить</button>
+        </div>
+    </form>
+    <div class="table-responsive box-shadow mb-4" ng-show="showdata">
+        <table class="table table__block t-hover">
+            <thead>
+                <tr>
+                    <th class="dropdown dropdown__table"></th>
+                    <th class="dropdown dropdown__table"></th>
+                    <th class="dropdown dropdown__table"></th>
+                    <th class="dropdown dropdown__table"></th>
+                    <th class="dropdown dropdown__table"></th>
+                    <th class="dropdown dropdown__table"></th>
+                    <th class="dropdown dropdown__table"></th>
+                    <th class="dropdown dropdown__table"></th>
+                    <th class="dropdown dropdown__table"></th>
+                    <th class="dropdown dropdown__table"></th>
+                    <th class="dropdown dropdown__table"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="item in DATA">
+                    <td>{{item.d1}}</td>
+                    <td>{{item.d2 | jsonDate: 'dd.MM.yyyy'}}</td>
+                    <td>{{item.d3}}</td>
+                    <td>{{item.d4}}</td>
+                    <td>{{item.d5 | jsonDate: 'dd.MM.yyyy'}}</td>
+                    <td>{{item.d6}}</td>
+                    <td>{{item.d7 | jsonDate: 'dd.MM.yyyy'}}</td>
+                    <td>{{item.d8}}</td>
+                    <td>{{item.d9}}</td>
+                    <td>{{item.d10}}</td>
+                    <td>{{item.d11}}</td>
+                    <td>{{item.d12}}</td>
+                    <td>{{item.d13}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</section>

@@ -2,15 +2,13 @@
 @{
     ViewBag.Title = "Путевки";
 }
-<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-animate.js"></script>
-<script src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-1.3.2.js"></script>
+@*<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-animate.js"></script>
+<script src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-1.3.2.js"></script>*@
 <script src="~/Scripts/MyJavaScript/PPController.js"></script>
 @*<h2 style="color:#428bca">Реализация путевок</h2>*@
-<div id="connection" style="visibility:hidden;position:absolute;margin-left:430px;margin-top:100px">
-    <img src="~/Content/Login/buffering.gif" />
-</div>
 
-<style>
+
+@*<style>
     .fa-caret-right {
         transition: all .4s ease;
     }
@@ -29,9 +27,186 @@
     .panel-title a {
         text-decoration: none;
     }
-</style>
-
-    <div ng-controller="PPController">
+</style>*@
+<section class="content__block container" ng-controller="PPController">
+    <div class="row mb-4 align-items-center">
+        <div class="col title__block">
+            <h4>Реализация путевок</h4>
+            <nav aria-label="breadcrumb" class="breadcrumb__block">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/Home/Putyovki">Путевки</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Реализация путевок</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+    <form class="form-group mb-4"  name="myForm1" novalidate>
+        <div class="custom-control custom-radio custom-control-inline">
+            <input type="radio" ng-model="s" required ng-change="LoadDATA()" name="inlineRadioOptions3" id="inlineRadio1" value="option1" class="custom-control-input" checked="" />
+            <label for="inlineRadio1" class="custom-control-label">Санаторий</label>
+        </div>
+        <div class="custom-control custom-radio custom-control-inline">
+            <input type="radio" ng-model="s" required ng-change="LoadDATA()" name="inlineRadioOptions3" id="inlineRadio2" value="option2" class="custom-control-input" />
+            <label for="inlineRadio2" class="custom-control-label">Дет. лагер</label>
+        </div>
+    </form>
+    <div class="row mb-4">
+        <div class="col-md-6">
+            <div class="r-title mb-4 row">
+                <div class="col-md-6">
+                    <h5>{{scname}}</h5>
+                </div>
+                <div class="col-md-6">
+                    <span><img src="~/Content/images/b-gr.png" alt="" title="" /> - бронь</span>
+                    <span><img src="~/Content/images/v-gr.png" alt="" title="" /> - горящая путевка</span>
+                </div>
+            </div>
+            <div class="accordion mb-4 box-shadow" id="accordion">
+                <div class="card r-card"  ng-repeat="rp in RP">
+                    <div class="r-card-title">
+                        <p>{{rp.SC}}</p>
+                    </div>
+                    <div class="card-header r-card-header" id="headingOne">
+                        <span class="r-header-t"><strong>{{rp.SB}} - {{rp.SE}}</strong> {{rp.RBD | jsonDate: 'dd.MM.yyyy'}} - {{rp.RED | jsonDate: 'dd.MM.yyyy'}}</span>
+                        <span class="r-header-b">1</span>
+                        <span class="r-header-v">2</span>
+                        <span  ng-click="data(rp.SB,rp.SE)" class="r-header-a float-right collapsed" data-toggle="collapse" data-target="#collapse{{rp.SB}}" aria-expanded="true" aria-controls="collapseOne"></span>
+                    </div>
+                    <div id="collapse{{rp.SB}}"  class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+                        <div class="card-body r-card-body"  ng-repeat="ar in rr">
+                            <div class="custom-control custom-checkbox r-checkbox">
+                                <input type="checkbox" class="custom-control-input" id="customCheck1">
+                                <label class="custom-control-label r-label" for="customCheck1"><strong>{{ar}}</strong> ({{rp.RBD | jsonDate: 'dd.MM.yyyy'}} - {{rp.RED | jsonDate: 'dd.MM.yyyy'}})</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @*<div class="card r-card">
+                    <div class="r-card-title">
+                        <p>Замин</p>
+                    </div>
+                    <div class="card-header r-card-header" id="headingTwo">
+                        <span class="r-header-t"><strong>35015 - 35020</strong> 10.07.2018 - 20.07.2018</span>
+                        <span class="r-header-v">2</span>
+                        <span class="r-header-a float-right collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo"></span>
+                    </div>
+                    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+                        <div class="card-body r-card-body">
+                            <div class="custom-control custom-checkbox r-checkbox">
+                                <input type="checkbox" class="custom-control-input" id="customCheck11">
+                                <label class="custom-control-label r-label" for="customCheck11"><strong>35004</strong> (10.08.2018 - 10.08.2018)</label>
+                            </div>
+                            <div class="custom-control custom-checkbox r-checkbox">
+                                <input type="checkbox" class="custom-control-input" id="customCheck22">
+                                <label class="custom-control-label r-label red" for="customCheck22"><strong>35005</strong> (10.08.2018 - 10.08.20<span><img src="~/Content/images/b-g.png" alt="" title="" /></span><span><img src="~/Content/images/v-r.png" alt="" title="" /></span></label>
+                            </div>
+                            <div class="custom-control custom-checkbox r-checkbox">
+                                <input type="checkbox" class="custom-control-input" id="customCheck33">
+                                <label class="custom-control-label r-label" for="customCheck33"><strong>35004</strong> (10.08.2018 - 10.08.2018)</label>
+                            </div>
+                            <div class="custom-control custom-checkbox r-checkbox">
+                                <input type="checkbox" class="custom-control-input" id="customCheck44">
+                                <label class="custom-control-label r-label green" for="customCheck44"><strong>35004</strong> (10.08.2018 - 10.08.2018)<span><img src="~/Content/images/b-g.png" alt="" title="" /></span></label>
+                            </div>
+                            <div class="custom-control custom-checkbox r-checkbox">
+                                <input type="checkbox" class="custom-control-input" id="customCheck55">
+                                <label class="custom-control-label r-label" for="customCheck55"><strong>35004</strong> (10.08.2018 - 10.08.2018)</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card r-card">
+                    <div class="r-card-title">
+                        <p>Ботаника</p>
+                    </div>
+                    <div class="card-header r-card-header" id="headingThree">
+                        <span class="r-header-t"><strong>35050 - 35055</strong> 10.08.2018 - 20.08.2018</span>
+                        <span class="r-header-a float-right collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree"></span>
+                    </div>
+                    <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+                        <div class="card-body r-card-body">
+                            <div class="custom-control custom-checkbox r-checkbox">
+                                <input type="checkbox" class="custom-control-input" id="customCheck111">
+                                <label class="custom-control-label r-label" for="customCheck111"><strong>35004</strong> (10.08.2018 - 10.08.2018)</label>
+                            </div>
+                            <div class="custom-control custom-checkbox r-checkbox">
+                                <input type="checkbox" class="custom-control-input" id="customCheck222">
+                                <label class="custom-control-label r-label red" for="customCheck222"><strong>35005</strong> (10.08.2018 - 10.08.20</label>
+                            </div>
+                            <div class="custom-control custom-checkbox r-checkbox">
+                                <input type="checkbox" class="custom-control-input" id="customCheck333">
+                                <label class="custom-control-label r-label" for="customCheck333"><strong>35004</strong> (10.08.2018 - 10.08.2018)</label>
+                            </div>
+                            <div class="custom-control custom-checkbox r-checkbox">
+                                <input type="checkbox" class="custom-control-input" id="customCheck444">
+                                <label class="custom-control-label r-label green" for="customCheck444"><strong>35004</strong> (10.08.2018 - 10.08.2018)</label>
+                            </div>
+                            <div class="custom-control custom-checkbox r-checkbox">
+                                <input type="checkbox" class="custom-control-input" id="customCheck555">
+                                <label class="custom-control-label r-label" for="customCheck555"><strong>35004</strong> (10.08.2018 - 10.08.2018)</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>*@
+            </div>
+            <div class="mb-4">
+                <a href="" class="btn btn-grey d-block d-md-inline-block mb-2">Отменить выбор</a>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="r-title mb-4">
+                <h5>Отрасль</h5>
+            </div>
+            <div class="mb-5 box-shadow">
+                <div class="custom-control custom-radio r-checkbox bgwhite">
+                    <input type="radio" name="customRadio" class="custom-control-input" id="customRadio">
+                    <label class="custom-control-label r-label" for="customRadio"><strong>35004</strong> (10.08.2018 - 10.08.2018)</label>
+                </div>
+                <div class="custom-control custom-radio r-checkbox bgwhite">
+                    <input type="radio" name="customRadio" class="custom-control-input" id="customRadio1">
+                    <label class="custom-control-label r-label" for="customRadio1"><strong>35005</strong> (10.08.2018 - 10.08.20<span><img src="~/Content/images/b-g.png" alt="" title="" /></span><span><img src="~/Content/images/v-r.png" alt="" title="" /></span></label>
+                </div>
+                <div class="custom-control custom-radio r-checkbox bgwhite">
+                    <input type="radio" name="customRadio" class="custom-control-input" id="customRadio2">
+                    <label class="custom-control-label r-label" for="customRadio2"><strong>35004</strong> (10.08.2018 - 10.08.2018)</label>
+                </div>
+                <div class="custom-control custom-radio r-checkbox bgwhite">
+                    <input type="radio" name="customRadio" class="custom-control-input" id="customRadio3">
+                    <label class="custom-control-label r-label" for="customRadio3"><strong>35004</strong> (10.08.2018 - 10.08.2018)<span><img src="~/Content/images/b-g.png" alt="" title="" /></span></label>
+                </div>
+                <div class="custom-control custom-radio r-checkbox bgwhite">
+                    <input type="radio" name="customRadio" class="custom-control-input" id="customRadio4">
+                    <label class="custom-control-label r-label" for="customRadio4"><strong>35004</strong> (10.08.2018 - 10.08.2018)</label>
+                </div>
+            </div>
+            <div class="mb-5">
+                <a href="" class="btn btn-grey d-block d-md-inline-block mb-2">Отменить выбор</a>
+            </div>
+            <div class="pt-5 mt-5">
+                <div class="mb-4">
+                    <select class="custom-select form-control col-md-6">
+                        <option>Организация</option>
+                        <option>Option 1</option>
+                        <option>Option 2</option>
+                        <option>Option 3</option>
+                    </select>
+                </div>
+                <div class="r-text mb-4">
+                    <p>Организации положено путевок: <strong>6</strong></p>
+                    <p class="text-red">Организации выдано путевок: <strong>5</strong></p>
+                </div>
+                <div class="row mb-4">
+                    <div class="col-md-4">
+                        <a href="oform_real_put.html" class="btn btn-blue d-block mb-2">Реализовать</a>
+                        <a href="#" class="btn btn-green d-block mb-2">Забронировать</a>
+                        <a href="#" class="btn btn-grey d-block mb-2">Отменить бронь</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+    @*<div ng-controller="PPController">
         <section class="content__block container">
             <div class="row mb-4 align-items-center">
                 <div class="col title__block">
@@ -149,9 +324,9 @@
                         <a href="#"><img src="/Content/icons/cancell_button.png"></a>
                     </div>
                     <form name="F" class="row">
-                        @*<div class="col-xs-5 text-right">
+                        <div class="col-xs-5 text-right">
                         <p>Инн:</p>
-                    </div>*@
+                    </div>
                         <div class="col-xs-6">
                             <input type="text" required class="form-control" name="INN" ng-model="INN" ng-maxlength="9" ng-minlength="9" ng-change="LoadINN()" />
                             <span class="alert alert-warning" style="padding:0px" ng-show="F.INN.$error.required">Выберите поле</span>
@@ -170,4 +345,4 @@
                 </div>
             </div>
         </section>
-    </div>
+    </div>*@

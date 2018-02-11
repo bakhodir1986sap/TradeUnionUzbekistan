@@ -35,7 +35,7 @@ namespace KasabaKIAT.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [global::System.Configuration.DefaultSettingValueAttribute("SovetFederatsii")]
         public string Login {
             get {
                 return ((string)(this["Login"]));
@@ -44,7 +44,7 @@ namespace KasabaKIAT.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [global::System.Configuration.DefaultSettingValueAttribute("20sKu18")]
         public string Password {
             get {
                 return ((string)(this["Password"]));
@@ -53,7 +53,7 @@ namespace KasabaKIAT.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [global::System.Configuration.DefaultSettingValueAttribute("C:\\RADSOFT\\Projects\\PravSouz\\KaznaFilesDir\\Arxive")]
         public string ArxivKaznaDirectory {
             get {
                 return ((string)(this["ArxivKaznaDirectory"]));
@@ -62,7 +62,7 @@ namespace KasabaKIAT.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [global::System.Configuration.DefaultSettingValueAttribute("C:\\RADSOFT\\Projects\\PravSouz\\KaznaFilesDir\\IN")]
         public string KaznaDirectory {
             get {
                 return ((string)(this["KaznaDirectory"]));

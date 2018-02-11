@@ -6,16 +6,16 @@
       <Value Profile="(Default)">http://94.158.53.208/sku/ws/ws1.1cws</Value>
     </Setting>
     <Setting Name="Login" Type="System.String" Scope="Application">
-      <Value Profile="(Default)" />
+      <Value Profile="(Default)">SovetFederatsii</Value>
     </Setting>
     <Setting Name="Password" Type="System.String" Scope="Application">
-      <Value Profile="(Default)" />
+      <Value Profile="(Default)">20sKu18</Value>
     </Setting>
     <Setting Name="ArxivKaznaDirectory" Type="System.String" Scope="Application">
-      <Value Profile="(Default)" />
+      <Value Profile="(Default)">C:\RADSOFT\Projects\PravSouz\KaznaFilesDir\Arxive</Value>
     </Setting>
     <Setting Name="KaznaDirectory" Type="System.String" Scope="Application">
-      <Value Profile="(Default)" />
+      <Value Profile="(Default)">C:\RADSOFT\Projects\PravSouz\KaznaFilesDir\IN</Value>
     </Setting>
   </Settings>
 </SettingsFile>

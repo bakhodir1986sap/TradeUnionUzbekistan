@@ -386,21 +386,21 @@
         }
     }
     $scope.data = function (sb, se) {
-        $scope.accordion = {
-            current: null
-        };
-        $scope.accordion.current = sb;
-        (function () {
-            $(".panel").on("show.bs.collapse hide.bs.collapse", function (e) {
-                $(".panel").removeClass('active');
-                if (e.type == 'show') {
-                    $(this).addClass('active');
-                } else {
-                    $(this).removeClass('active');
-                }
-            });
+        //$scope.accordion = {
+        //    current: null
+        //};
+        //$scope.accordion.current = sb;
+        //(function () {
+        //    $(".panel").on("show.bs.collapse hide.bs.collapse", function (e) {
+        //        $(".panel").removeClass('active');
+        //        if (e.type == 'show') {
+        //            $(this).addClass('active');
+        //        } else {
+        //            $(this).removeClass('active');
+        //        }
+        //    });
 
-        }).call(this);
+        //}).call(this);
         var arr = []; var j = 0;
         for (var i = sb; i <= se; i++) {
             arr[j] = i;

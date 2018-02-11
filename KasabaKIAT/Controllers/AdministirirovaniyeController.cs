@@ -4,13 +4,17 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using KasabaKIAT.Models;
+using KurortUrvServiceTest.ServiceInterAction.ActionLogic;
+using System.IO;
 
 namespace KasabaKIAT.Controllers
 {
     [Authorize]
     public class AdministirirovaniyeController : Controller
     {
+        ServiceActionController service = new ServiceActionController();
         KasabaKIATEntities KasabaDB = new KasabaKIATEntities();
+        StreamWriter stw;
         public ActionResult Index()
         {
             return View();
@@ -34,6 +38,140 @@ namespace KasabaKIAT.Controllers
         public ActionResult Spravichniki()
         {
             return View();
+        }
+        public ActionResult SpravichnikiKurortnovoUpravleniya()
+        {
+            return View();
+        }
+        public ActionResult SpisokPravsoyuzov()
+        {
+            return View();
+        }
+        public ActionResult GrafikSanatoryZaezdov()
+        {
+            return View();
+        }
+        public ActionResult SchetFaktura()
+        {
+            return View();
+        }
+
+        public void ServiceSpisokPravsoyuzov()
+        {
+            try
+            {
+                service.LoadSpiskaProfsoyzov();
+            }
+            catch (Exception ex)
+            {
+                try
+                {
+                    stw = System.IO.File.AppendText("D:\\Log\\Test.txt");
+                }
+                catch
+                {
+                    Directory.CreateDirectory("D:\\Log");
+                    stw = System.IO.File.AppendText("D:\\Log\\Test.txt");
+                }
+                stw.WriteLine("ServiceSpisokPravsoyuzov Error -> " + ex.ToString());
+                stw.Close();
+            }
+        }
+        public JsonResult GetSpisokPravsoyuzov()
+        {
+            var O = from o in KasabaDB.tbku_StrokaProfsoyza
+                    select new
+                    {
+                        d1 = o.ProfsoyzKod,
+                        d2 = o.ProfsoyzNaimenovanie
+                    };
+            return Json(O.ToList(), JsonRequestBehavior.AllowGet);
+
+        }
+        public void ServiceGrafikSanatoryZaezdov(string yil)
+        {
+            try
+            {
+                service.LoadZaezdovSanatoriev(yil);
+            }
+            catch (Exception ex)
+            {
+                try
+                {
+                    stw = System.IO.File.AppendText("D:\\Log\\Test.txt");
+                }
+                catch
+                {
+                    Directory.CreateDirectory("D:\\Log");
+                    stw = System.IO.File.AppendText("D:\\Log\\Test.txt");
+                }
+                stw.WriteLine("ServiceGrafikSanatoryZaezdov Error -> " + ex.ToString());
+                stw.Close();
+            }
+        }
+        public JsonResult GetGrafikSanatoryZaezdov(int yil)
+        {
+            var O = from o in KasabaDB.tbku_GrafikZaezdovSanatoriev
+                    where o.GodZaezdov==yil
+                    select new
+                    {
+                        d1 = o.SanatoryNaimenovanie,
+                        d2 = o.SanatoryProfil,
+                        d3=o.SanatoryOblast,
+                        d4=o.SanatoryKoekVsego,
+                        d5=o.SanatoryKoekLetom,
+                        d6=o.SanatoryKoekZimoy,
+                        d7=o.SanatoryRazmeshenieNaimenovanie,
+                        d8=o.Putevok1kv,
+                        d9=o.Putevok2kv,
+                        d10=o.Putevok3kv,
+                        d11=o.Putevok4kv
+                    };
+            return Json(O.ToList(), JsonRequestBehavior.AllowGet);
+        }
+        public void ServiceSchetFaktura(DateTime B,DateTime E, string p)
+        {
+            
+            try
+            {
+                service.LoadSchetFactura(B, E, p);
+            }
+            catch (Exception ex)
+            {
+                try
+                {
+                    stw = System.IO.File.AppendText("D:\\Log\\Test.txt");
+                }
+                catch
+                {
+                    Directory.CreateDirectory("D:\\Log");
+                    stw = System.IO.File.AppendText("D:\\Log\\Test.txt");
+                }
+                stw.WriteLine("ServiceSchetFaktura Error -> " + ex.ToString());
+                stw.Close();
+            }
+        }
+        public JsonResult GetSchetFaktura(DateTime B,DateTime E,string p)
+        {
+            var O = from o in KasabaDB.tbku_DocumentSchetFaktura
+                    where o.DocData >= B&&o.DocData <= E&&o.ProfsoyzKod==p
+                    select new
+                    {
+                        d1 = o.DocNomer,
+                        d2 = o.DocData,
+                        d3 = o.DocTypeRealVozv,
+                        d4 = o.ProfsoyzDogovor,
+                        d5 = o.DataKvartalaPutevok,
+                        d6 = o.ProfsoyzDoverennost,
+                        d7 = o.ProfsoyzDoverennostData,
+                        d8 = o.ProfsoyzDoverennostMOL,
+                        d9 = o.ProfsoyzDoverennostMOL,
+                        d10 = o.ProcentNacenki,
+                        d11 = o.SummaNacenki,
+                        d12 = o.KolichestvoPutevok,
+                        d13 = o.TovarOtpustil,
+                    };
+            return Json(O.ToList(), JsonRequestBehavior.AllowGet);
         }
         public JsonResult GetSNP()
         {

@@ -260,7 +260,8 @@ namespace KurortUrvServiceTest.ServiceInterAction.ActionLogic
 
             //Update Error Codes
             JournalDataManager.Modify(journal);
-
+            if (resList.StrokiDocumentov == null)
+                return;
             foreach (var resTop in resList.StrokiDocumentov)
             {
                 DocumentSchetFakturaViewModel model = new DocumentSchetFakturaViewModel();

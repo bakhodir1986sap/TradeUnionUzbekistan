@@ -1,1 +1,1 @@
-"use strict";$(function(){$(".dropdown-toggle").dropdown()});
+"use strict";$(function(){$(".dropdown-toggle").dropdown(),$("#history2").on("shown.bs.modal",function(o){$("body").addClass("modal-open"),a}),$("tbody tr[data-href]").addClass("clickable").click(function(){window.location=$(this).attr("data-href")})});

@@ -39,43 +39,75 @@
             <span class="alert alert-warning" style="padding:0px" ng-show="myForm1.ZAEZD_END.$error.required">Выберите поле</span>
         </div>
         <div style="margin-left:100px">
-            <button ng-click="LoadDATA()" ng-disabled="myForm1.SP.$error.required||myForm1.ZAEZD_BEGIN.$error.required||myForm1.ZAEZD_END.$error.required" class="btn btn-blue d-block d-md-inline-block mb-2"> Получить</button>
+            <button ng-click="LoadDATA()" ng-disabled="myForm1.SP.$error.required||myForm1.ZAEZD_BEGIN.$error.required||myForm1.ZAEZD_END.$error.required" class="btn btn-blue d-block d-md-inline-block mb-2" style="margin-top:45px"> Получить</button>
         </div>
     </form>
-    <div class="table-responsive box-shadow mb-4" ng-show="showdata">
-        <table class="table table__block t-hover">
-            <thead>
-                <tr>
-                    <th class="dropdown dropdown__table"></th>
-                    <th class="dropdown dropdown__table"></th>
-                    <th class="dropdown dropdown__table"></th>
-                    <th class="dropdown dropdown__table"></th>
-                    <th class="dropdown dropdown__table"></th>
-                    <th class="dropdown dropdown__table"></th>
-                    <th class="dropdown dropdown__table"></th>
-                    <th class="dropdown dropdown__table"></th>
-                    <th class="dropdown dropdown__table"></th>
-                    <th class="dropdown dropdown__table"></th>
-                    <th class="dropdown dropdown__table"></th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr ng-repeat="item in DATA">
-                    <td>{{item.d1}}</td>
-                    <td>{{item.d2 | jsonDate: 'dd.MM.yyyy'}}</td>
-                    <td>{{item.d3}}</td>
-                    <td>{{item.d4}}</td>
-                    <td>{{item.d5 | jsonDate: 'dd.MM.yyyy'}}</td>
-                    <td>{{item.d6}}</td>
-                    <td>{{item.d7 | jsonDate: 'dd.MM.yyyy'}}</td>
-                    <td>{{item.d8}}</td>
-                    <td>{{item.d9}}</td>
-                    <td>{{item.d10}}</td>
-                    <td>{{item.d11}}</td>
-                    <td>{{item.d12}}</td>
-                    <td>{{item.d13}}</td>
-                </tr>
-            </tbody>
-        </table>
+    <div class="row mb-5 pb-md-5"  ng-show="showdata">
+        <div class="col-md-5 mb-4">
+            <div class="table__title mb-3">
+                <h6>Запрашиваемые путевки</h6>
+            </div>
+            <div class="table-responsive box-shadow mb-4">
+                <table class="table table__block t-hover">
+                    <thead>
+                        <tr>
+                            <th class="dropdown dropdown__table"></th>
+                            <th class="dropdown dropdown__table"></th>
+                            <th class="dropdown dropdown__table"></th>
+                            <th class="dropdown dropdown__table"></th>
+                            <th class="dropdown dropdown__table"></th>
+                            <th class="dropdown dropdown__table"></th>
+                            <th class="dropdown dropdown__table"></th>
+                            <th class="dropdown dropdown__table"></th>
+                            <th class="dropdown dropdown__table"></th>
+                            <th class="dropdown dropdown__table"></th>
+                            <th class="dropdown dropdown__table"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="item in DATA" ng-click="LoadStrokaSchetFakturi(item.d0)">
+                            <td>{{item.d1}}</td>
+                            <td>{{item.d2 | jsonDate: 'dd.MM.yyyy'}}</td>
+                            <td>{{item.d3}}</td>
+                            <td>{{item.d4}}</td>
+                            <td>{{item.d5 | jsonDate: 'dd.MM.yyyy'}}</td>
+                            <td>{{item.d6}}</td>
+                            <td>{{item.d7 | jsonDate: 'dd.MM.yyyy'}}</td>
+                            <td>{{item.d8}}</td>
+                            <td>{{item.d9}}</td>
+                            <td>{{item.d10}}</td>
+                            <td>{{item.d11}}</td>
+                            <td>{{item.d12}}</td>
+                            <td>{{item.d13}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="table__title mb-3">
+                <h6>Отчисления за {{ZB}} год</h6>
+            </div>
+            <div class="table-responsive box-shadow">
+                <table class="table table-stripped">
+                    <thead>
+                        <tr>
+                            <th>Месяц</th>
+                            <th>Сумма</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="b in Bank">
+                            <td><select style="width:150px;background-color:#f9f9f9;border-color:#f9f9f9;" required disabled="disabled" ng-model="b" ng-options="item.oy for item in Sana.SANA track by item.ZB_g"></select></td>
+                            <td>{{b.A_Sum}}</td>
+                        </tr>
+                        <tr>
+                            <td>Всего</td>
+                            <td><b ng-repeat="y in GroupYear">{{y.A_Sum}}</b></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
 </section>

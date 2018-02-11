@@ -1,6 +1,6 @@
 ﻿<!DOCTYPE html>
-<html ng-app="mvcCRUDApp">
-<head class="no-js">
+<html ng-app="mvcCRUDApp" class="no-js" lang="">
+<head>
     <meta charset="utf-8">
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -18,17 +18,11 @@
     <link href="~/Content/font-awesome.css" rel="stylesheet" />*@
     <link href="~/Content/themes/alertify.default.css" rel="stylesheet" />
     <link href="~/Content/themes/alertify.core.css" rel="stylesheet" />
-    <link href="~/Content/ui-bootstrap-csp.css" rel="stylesheet" />
     @*<link href="~/Content/styles/kendo.common.min.css" rel="stylesheet" />
     <link href="~/Content/styles/kendo.office365.min.css" rel="stylesheet" />*@
     <script src="~/Scripts/kendo/angular.min.js"></script>
     <script src="~/Scripts/MyJavaScript/Module.js"></script>
     <script src="~/Scripts/MyJavaScript/KasabaKIATService.js"></script>
-    
-    
-    
-   
-    
     
     @*@Styles.Render("~/Content/css")*@
     @Scripts.Render("~/bundles/modernizr")
@@ -62,8 +56,8 @@
             </button>
             <div class="collapse navbar-collapse justify-content-between" id="navbarNav">
                 <ul class="navbar-nav">
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="~/Home/Putyovki" id="tours" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Путевки</a>
+                    <li class="nav-item dropdown" id="p">
+                        <a class="nav-link dropdown-toggle" href="tours.html" id="tours" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Путевки</a>
                         <div class="dropdown-menu rounded-0 box-shadow m-0 border-0" aria-labelledby="tours">
                             <a class="dropdown-item" href="/GrafikZaezdov/index">График заездов</a>
                             <a class="dropdown-item" href="/GodovoyPlan/index">Годовой план</a>
@@ -74,16 +68,16 @@
                             <a class="dropdown-item" href="/Home/SverkaDannix">Сверка данных по отдыхающим</a>
                         </div>
                     </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="/Home/Zayavok" id="claims" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Заяки</a>
+                    <li class="nav-item dropdown" id="z">
+                        <a class="nav-link dropdown-toggle" href="claims.html" id="claims" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Заяки</a>
                         <div class="dropdown-menu rounded-0 box-shadow m-0 border-0" aria-labelledby="claims">
                             <a class="dropdown-item" href="/Home/PodachaZayavok">Подача заявок</a>
                             <a class="dropdown-item" href="/Home/PoiskRedaktZayavok">Поиск и редактирование заявок</a>
                             <a class="dropdown-item" href="/Home/RassmotreniyeZayavok">Рассмотрение заявок</a>
                         </div>
                     </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="/Home/Buxgalter" id="accounting" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Бухгалтерия</a>
+                    <li class="nav-item dropdown" id="b">
+                        <a class="nav-link dropdown-toggle" href="accounting.html" id="accounting" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Бухгалтерия</a>
                         <div class="dropdown-menu rounded-0 box-shadow m-0 border-0" aria-labelledby="accounting">
                             <a class="dropdown-item" href="/Home/VvodDannix">Ввод данных</a>
                             <a class="dropdown-item" href="/Home/BU_PrasmotrDannix">Просмотр</a>
@@ -94,11 +88,11 @@
                             <a class="dropdown-item" href="#">Распределение бюджета по отраслям</a>
                         </div>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item" id="o">
                         <a class="nav-link" href="/Home/Otchot">Отчеты</a>
                     </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="/Home/Admin" id="administration" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Администрирование</a>
+                    <li class="nav-item dropdown" id="a">
+                        <a class="nav-link dropdown-toggle" href="administration.html" id="administration" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Администрирование</a>
                         <div class="dropdown-menu rounded-0 box-shadow m-0 border-0" aria-labelledby="administration">
                             <a class="dropdown-item" href="/Administirirovaniye/UchetniyZapis">Создание учетных записей</a>
                             <a class="dropdown-item" href="/Administirirovaniye/SozdaniyeRoley">Создание ролей</a>
@@ -110,38 +104,11 @@
                     </li>
                 </ul>
                 <ul class="navbar-nav">
-                    <li style="margin-left:300px">
-                        @Session["name"]
-                    </li>
-                </ul>
-                <ul class="navbar-nav">
+                    <li class="nav-item"><p style="margin-top:21px">@Session["name"]</p></li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Выход</a>
+                        <a class="nav-link" id="ch" href="#">Выход</a>
                     </li>
                 </ul>
-                @*<script>
-                var i = 0;
-                if ("@ViewBag.Title" == "Подача заявок") {
-                    document.getElementById("z").className = "nav-item active";
-                    document.getElementById("z").style = "";
-                    }
-                        if ("@ViewBag.Title" == "Путевки") {
-                            document.getElementById("p").className = "nav-item active";
-                            document.getElementById("p").style = "";
-                        }
-                        if ("@ViewBag.Title" == "Отчеты") {
-                            document.getElementById("o").className = "nav-item active";
-                            document.getElementById("o").style = "";
-                        }
-                        if ("@ViewBag.Title" == "Администрирование") {
-                            document.getElementById("a").className = "nav-item active";
-                            document.getElementById("a").style = "";
-                        }
-                        if ("@ViewBag.Title" == "бухгалтерия") {
-                            document.getElementById("b").className = "nav-item active";
-                            document.getElementById("b").style = "";
-                        }
-                </script>*@
                 <script>
                     //$(".load").on('click', function () {
                     //    document.getElementById('conn').style.visibility = "visible";
@@ -167,94 +134,32 @@
                         return false;
                     });
                 </script>
+                <script>
+                var i = 0;
+                if ("@ViewBag.Title" == "Подача заявок") {
+                    document.getElementById("z").className = "nav-item dropdown show";
+                    document.getElementById("z").style = "";
+                    }
+                        if ("@ViewBag.Title" == "Путевки") {
+                            document.getElementById("p").className = "nav-item dropdown show";
+                            document.getElementById("p").style = "";
+                        }
+                        if ("@ViewBag.Title" == "Отчеты") {
+                            document.getElementById("o").className = "nav-item dropdown show";
+                            document.getElementById("o").style = "";
+                        }
+                        if ("@ViewBag.Title" == "Администрирование") {
+                            document.getElementById("a").className = "nav-item dropdown show";
+                            document.getElementById("a").style = "";
+                        }
+                        if ("@ViewBag.Title" == "бухгалтерия") {
+                            document.getElementById("b").className = "nav-item dropdown show";
+                            document.getElementById("b").style = "";
+                        }
+                </script>
             </div>
         </div>
     </nav>
-    @*<nav class="nav__block">
-        <div class="container-fluid navbar navbar-expand-md navbar-light">
-            <span class="navbar-brand d-inline-block d-md-none">Навигация</span>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse justify-content-between" id="navbarNav">
-                <ul class="navbar-nav">
-                    <li class="nav-item"  id="p">
-                        <a class="nav-link load"  href="/Home/Putyovki">Путевки</a>
-                    </li>
-                    <li class="nav-item" id="z">
-                        <a class="nav-link load"  href="/Home/Zayavok">Заяки</a>
-                    </li>
-                    <li class="nav-item" id="b">
-                        <a class="nav-link load"  href="/Home/Buxgalter">Бухгалтерия</a>
-                    </li>
-                    <li class="nav-item"  id="o">
-                        <a class="nav-link load"  href="/Home/Otchot">Отчеты</a>
-                    </li>
-                    <li class="nav-item" id="a">
-                        <a class="nav-link load"   href="/Home/Admin">Администрирование</a>
-                    </li>
-                </ul>
-                <ul class="navbar-nav">
-                    <li style="margin-left:300px">
-                        @Session["name"]
-                    </li>
-                </ul>
-                <ul class="navbar-nav">
-                    
-                    <li class="nav-item">
-                        <a class="nav-link" id="ch" href="#">Выход</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>*@
-    @*<section id="menu">
-        <div class="container">
-            <nav class="navbar navbar-collapse navbar-fixed-top" style="background: #00C2DD;">
-                <!-- Brand and toggle get grouped for better mobile display -->
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-2" aria-expanded="false">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                </div>
-
-                <!-- Collect the nav links, forms, and other content for toggling -->
-                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
-                    <ul class="nav navbar-nav">
-
-                        <li class="menu-top"><a href="/Home/index" style="color:#FFF" id="p">путевки</a></li>
-                        <li class="menu-top"><a id="z" style="color:#FFF" href="/Home/PodachaZayavok">заявки</a></li>
-                        <li class="menu-top"><a id="b" style="color:#FFF" href="/Home/buxgalteriya">бухгалтерия</a></li>
-                        <li class="menu-top"><a id="o" style="color:#FFF" href="/Home/Otchot">отчеты</a></li>
-                        <li class="menu-top"><a id="a" style="color:#FFF" href="/Administirirovaniye/index">администрирование</a></li>
-                        <li><a style="color:#FFF;font-size:12px;margin-left:150px" href="#">user :@Session["name"]</a></li>
-                        <li><a id="ch" href="#" style="color:#FFF;font-size:12px;">выйти</a></li>
-                    </ul>
-                </div><!-- /.navbar-collapse -->
-
-            </nav>
-        </div>
-    </section>*@
-    @*<div class="navbar navbar-inverse navbar-fixed-top" style="background-color:#00C2DD;">
-            <div class="container">
-                <div class="navbar-collapse collapse">
-                    <ul class="nav navbar-nav">
-                        <li>@Html.ActionLink("Путевки", "Index", "Home",new { style = "color:#FFF;font-size:24px;font-family:'Times New Roman'" })</li>
-                        <li>@Html.ActionLink("Заявки", "PodachaZayavok", "Home", new { style = "color:#FFF;font-size:24px;font-family:'Times New Roman'" })</li>
-                        <li>@Html.ActionLink("бухгалтерия", "About", "Home", new { style = "color:#FFF;font-size:24px;font-family:'Times New Roman'" })</li>
-                        <li>@Html.ActionLink("Отчеты", "Contact", "Home", new { style = "color:#FFF;font-size:24px;font-family:'Times New Roman'" })</li>
-                        <li>@Html.ActionLink("Администрирование", "Admin", "Home", new { style = "color:#FFF;font-size:24px;font-family:'Times New Roman'" })</li>
-                    </ul>
-                    <ul class="nav navbar-nav navbar-right">
-                        <li><a style = "color:#FFF;font-size:14px;" href="#">user : @ViewBag.user</a></li>
-                        <li><a id="ch" href="#" style = "color:#FFF;font-size:14px;" >выйти</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>*@
     <div class="body-content">
         @RenderBody()
     </div>
@@ -274,7 +179,7 @@
     </style>
     <input id="hh" type="hidden" />
     @*@Scripts.Render("~/bundles/jquery")*@
-    @Scripts.Render("~/bundles/bootstrap")
+    @*@Scripts.Render("~/bundles/bootstrap")*@
     @RenderSection("scripts", required: false)
 </body>
 </html>

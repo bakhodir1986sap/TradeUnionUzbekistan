@@ -157,6 +157,7 @@ namespace KasabaKIAT.Controllers
                     where o.DocData >= B&&o.DocData <= E&&o.ProfsoyzKod==p
                     select new
                     {
+                        d0=o.ID,
                         d1 = o.DocNomer,
                         d2 = o.DocData,
                         d3 = o.DocTypeRealVozv,
@@ -170,6 +171,29 @@ namespace KasabaKIAT.Controllers
                         d11 = o.SummaNacenki,
                         d12 = o.KolichestvoPutevok,
                         d13 = o.TovarOtpustil,
+                    };
+            return Json(O.ToList(), JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult GetStrokaSchetFakturi(int id)
+        {
+            var O = from o in KasabaDB.tbku_StrokaSchetFakturi
+                    where o.SchetFactura_ID==id
+                    select new
+                    {
+                        d0 = o.ID,
+                        d1 = o.SchetFactura_ID,
+                        d2 = o.SanatoryNaimenovanie,
+                        d3 = o.SanatoryRazmeshenieNaimenovanie,
+                        d4 = o.SanatoryType,
+                        d5 = o.DataZaezda,
+                        d6 = o.Blank1,
+                        d7 = o.Blank2,
+                        d8 = o.Kolichestvo,
+                        d9 = o.Sebestoimost,
+                        d10 = o.SummaSebestoimosti,
+                        d11 = o.ProcentNacenki,
+                        d12 = o.Cena,
+                        d13 = o.Summa,
                     };
             return Json(O.ToList(), JsonRequestBehavior.AllowGet);
         }

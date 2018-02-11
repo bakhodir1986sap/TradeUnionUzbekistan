@@ -31,6 +31,17 @@
             //alert("error in O_SOZ");
         });
     }
+    $scope.LoadStrokaSchetFakturi = function (id) {
+        $http({
+            method: "post",
+            url: "/Administirirovaniye/GetStrokaSchetFakturi?id=" + id,
+        }).then(function (d) {
+            document.getElementById('connection').style.visibility = "hidden";
+            GetData($scope.ZB, $scope.ZE, $scope.SP.d1);
+        }, function () {
+            //alert("error in O_SOZ");
+        });
+    }
     $scope.LoadDATA = function () {
         reset();
         alertify.set({ buttonFocus: "cancel" });

@@ -902,7 +902,6 @@
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\vendor.js" />
     <Content Include="Scripts\vendor\modernizr.js" />
-    <Content Include="Scripts\_references.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

@@ -19,6 +19,8 @@ namespace KasabaKIAT.Controllers
         {
             int UserId = 0;
 
+            throw new ApplicationException("asdasdasdasd");
+
             try
             {
                 UserId = Convert.ToInt32(User.Identity.Name);

@@ -205,6 +205,7 @@
     <Compile Include="BusinessLogic\Putyovki\Zayavki\ZayavkiDataManager.cs" />
     <Compile Include="BusinessLogic\Putyovki\Zayavki\ZayavkiTotalManager.cs" />
     <Compile Include="Controllers\AdministirirovaniyeController.cs" />
+    <Compile Include="Controllers\ErrorHandlerController.cs" />
     <Compile Include="Controllers\GodovoyPlanController.cs" />
     <Compile Include="Controllers\GrafikZaezdovController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -967,6 +968,8 @@
     <Content Include="Views\Administirirovaniye\SpisokPravsoyuzov.cshtml" />
     <Content Include="Views\Administirirovaniye\GrafikSanatoryZaezdov.cshtml" />
     <Content Include="Views\Administirirovaniye\SchetFaktura.cshtml" />
+    <Content Include="Views\ErrorHandler\ServerErrorView.cshtml" />
+    <Content Include="Views\ErrorHandler\NotFoundView.cshtml" />
     <None Include="Web References\KurortUrlService\SkuTradeUnionExchg.wsdl" />
     <Content Include="Web References\KurortUrlService\typeGrafikZaezdovSanatoriev.datasource">
       <DependentUpon>Reference.map</DependentUpon>

@@ -27,6 +27,7 @@ namespace KasabaKIAT
         {
             var ex = Server.GetLastError();
             //log the error!
+            log.Error("Global log");
             log.Error(ex);
         }
     }

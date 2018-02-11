@@ -1,147 +1,125 @@
 ﻿@{
-    ViewBag.Title = "учетной записи";
+    ViewBag.Title = "Администрирование";
 }
 <script src="~/Scripts/MyJavaScript/UZController.js"></script>
-<h2 style="color:#428bca">учетной записи</h2>
+@*<h2 style="color:#428bca">учетной записи</h2>*@
 <div ng-controller="UZController">
-    <div class="row">
-        <div class="col-xs-3 col-xs-offset-5" style="margin-left:1000px">
-            <button ng-click="AddGPDiv()" style="background: #24C0DB;margin-right:10px" type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal"><i class="fa fa-plus-square" aria-hidden="true"></i>  добавить</button>
-        </div>
-    </div>
-   <div class="row">
-       <table class="table table-hover">
-           <thead>
-               <tr>
-                   <th style="width:200px;text-align:center">Организация</th>
-                   <th style="width:200px;text-align:center">Логин</th>
-                   <th style="width:200px;text-align:center">Тип пользователя</th>
-                   <th style="width:200px;text-align:center">Имя пользователя</th>
-                   <th style="width:200px;text-align:center">Дата/Время регис.</th>
-               </tr>
-           </thead>
-           <tbody>
-               <tr ng-repeat="uz in UZ" ng-click="edit(uz)" data-toggle="modal" data-target="#myModal" class="poin">
-                   <td style="width:200px;text-align:center">{{uz.O}}</td>
-                   <td style="width:200px;text-align:center">{{uz.L}}</td>
-                   <td style="width:200px;text-align:center">{{uz.Rl}}</td>
-                   <td style="width:200px;text-align:center">{{uz.N}}</td>
-                   <td style="width:200px;text-align:center">{{uz.D | jsonDate: 'dd.MM.yyyy'}}</td>
-               </tr>
-           </tbody>
-       </table>
-   </div>
-    <!-- Modal -->
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title text-center" id="myModalLabel">{{Action}}</h4>
-                </div>
-                <form class="modal-body" name="myForm" novalidate>
-                    <input type="hidden" style="position:absolute" ng-model="ID;" />
-                    <div class="row">
-                        <div class="col-xs-5 text-right">
-                            <p>Логин:</p>
-                        </div>
-                        <div class="col-xs-6">
-                            <input type="text" ng-model="L" class="form-control" required name="L" />
-                            <span class="alert alert-warning" style="padding:0px" ng-show="myForm.L.$error.required">заполнить поля</span>
-                        </div>
-                    </div>
-                    <br>
-                    <div class="row">
-                        <div class="col-xs-5 text-right">
-                            <p>Пароль:</p>
-                        </div>
-                        <div class="col-xs-6">
-                            <input type="{{parol}}" ng-model="P" class="form-control" required name="P" />
-                            <span class="alert alert-warning" style="padding:0px" ng-show="myForm.P.$error.required">заполнить поля</span>
-                        </div>
-                    </div>
-                    <br>
-                    <div class="row">
-                        <div class="col-xs-5 text-right">
-                            <p>Повторить пароль:</p>
-                        </div>
-                        <div class="col-xs-6">
-                            <input type="{{parol}}" ng-model="PP" class="form-control" required name="PP" />
-                            <span class="alert alert-warning" style="padding:0px" ng-show="myForm.PP.$error.required">заполнить поля</span>
-                            <span class="alert alert-warning" style="padding:0px" ng-show="!myForm.PP.$error.required&&P!=PP">???</span>
-
-                        </div>
-                    </div>
-                    <br/>
-                    @*<div class="row">
-                        <div class="col-xs-5 text-right">
-                            <p></p>
-                        </div>
-                        <div class="col-xs-6">
-                            <input type="checkbox" ng-model="ch" ng-change="kurish()" required name="ch" />
-                            <span>Показать пароль</span>
-                        </div>
-                    </div>
-                    <br>*@
-                    <div class="row">
-                        <div class="col-xs-5 text-right">
-                            <p>Тип:</p>
-                        </div>
-                        <div class="col-xs-6">
-                            <select class="form-control" required name="Roles" ng-model="Roles" ng-options="item as item.value for item in Rl track by item.id"></select>
-                            <span class="alert alert-warning" style="padding:0px" ng-show="myForm.Roles.$error.required">Выберите поля</span>
-                        </div>
-                    </div>
-                    <br />
-                    <div class="row">
-                        <div class="col-xs-5 text-right">
-                            <p>ФИО:</p>
-                        </div>
-                        <div class="col-xs-6">
-                            <input type="text" ng-model="N" class="form-control" required name="N" />
-                            <span class="alert alert-warning" style="padding:0px" ng-show="myForm.N.$error.required">заполнить поля</span>
-                        </div>
-                    </div>
-                    <br>      
-                    <div class="row">
-                        <div class="col-xs-5 text-right">
-                            <p>Регион:</p>
-                        </div>
-                        <div class="col-xs-6">
-                            <select class="form-control" required name="Region" ng-model="Region" ng-options="item as item.value for item in Rg track by item.id"></select>
-                            <span class="alert alert-warning" style="padding:0px" ng-show="myForm.Region.$error.required">Выберите поля</span>
-                        </div>
-                    </div>
-                    <br />           
-                    <div class="row">
-                        <div class="col-xs-5 text-right">
-                            <p>Отрасль:</p>
-                        </div>
-                        <div class="col-xs-6">
-                            <select class="form-control" required name="Ots" ng-model="Ots" ng-options="item as item.value for item in Ot track by item.id"></select>
-                            <span class="alert alert-warning" style="padding:0px" ng-show="myForm.Ots.$error.required">Выберите поля</span>
-                        </div>
-                    </div>
-                    <br />    
-                    <div class="row">
-                        <div class="col-xs-5 text-right">
-                            <p>Организация:</p>
-                        </div>
-                        <div class="col-xs-6">
-                            <select class="form-control" required name="Or" ng-model="Or" ng-options="item as item.value for item in O track by item.id"></select>
-                            <span class="alert alert-warning" style="padding:0px" ng-show="myForm.Or.$error.required">Выберите поля</span>
-                        </div>
-                    </div>
-                    <br />    
-                    <div class="modal-footer">
-                        <div class="col-xs-offset-5">
-                            <button type="button" ng-disabled="P!=PP||myForm.L.$error.required||myForm.P.$error.required||myForm.Roles.$error.required||myForm.N.$error.required||myForm.Region.$error.required||myForm.Ots.$error.required||myForm.Or.$error.required" ng-click="AddUpdateGP()" data-dismiss="modal" class="btn btn-info"><i class="fa fa-save" aria-hidden="true"></i> сохранить</button>
-                            <button type="button" ng-click="deleteGP(ID)" class="btn btn-warning" data-dismiss="modal"><i class="fa fa-remove" aria-hidden="true"></i> Удалить</button>
-                            <button type="button" class="btn btn-default" data-dismiss="modal">отмена</button>
-                        </div>
-                    </div>
-                </form>
+    <section class="content__block container">
+        <div class="row mb-4 align-items-center">
+            <div class="col-sm-6 title__block">
+                <h4>учетной записи</h4>
+                <nav aria-label="breadcrumb" class="breadcrumb__block">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="/Home/Admin">Администрирование</a></li>
+                        <li class="breadcrumb-item"><a href="/Administirirovaniye/index">Администрирование</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">учетной записи</li>
+                    </ol>
+                </nav>
+            </div>
+            <div class="col-sm-6 text-md-right">
+                <a href="#" ng-click="AddGPDiv()"  class="btn btn-blue d-block d-md-inline-block mb-2" data-toggle="modal" data-target="#dobavit"><i class="fas fa-plus"></i> Добавить</a>
             </div>
         </div>
-    </div> <!-- modal fade -->
+        <div class="table-responsive box-shadow mb-4">
+            <table class="table table__block t-hover">
+                <thead>
+                    <tr>
+                        <th class="dropdown dropdown__table" style="width:200px;text-align:center">Организация</th>
+                        <th class="dropdown dropdown__table" style="width:200px;text-align:center">Логин</th>
+                        <th class="dropdown dropdown__table" style="width:200px;text-align:center">Тип пользователя</th>
+                        <th class="dropdown dropdown__table" style="width:200px;text-align:center">Имя пользователя</th>
+                        <th class="dropdown dropdown__table" style="width:200px;text-align:center">Дата/Время регис.</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="uz in UZ" ng-click="edit(uz)" data-toggle="modal" data-target="#dobavit">
+                        <td style="width:200px;text-align:center">{{uz.O}}</td>
+                        <td style="width:200px;text-align:center">{{uz.L}}</td>
+                        <td style="width:200px;text-align:center">{{uz.Rl}}</td>
+                        <td style="width:200px;text-align:center">{{uz.N}}</td>
+                        <td style="width:200px;text-align:center">{{uz.D | jsonDate: 'dd.MM.yyyy'}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <div class="modal__block modal fade" id="dobavit" tabindex="-1" role="dialog" aria-labelledby="dobavitLabel">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="modal-title">
+                        <h4 class="text-center mt-4 mb-4">{{Action}} путевки</h4>
+                    </div>
+                    <div class="row justify-content-center">
+                        <form class="col-md-8" name="myForm" novalidate>
+                            <input type="hidden" style="position:absolute" ng-model="ID;" />
+                            <div class="form-group row align-items-center">
+                                <label class="col-md-5 col-form-label text-md-right py-0">Логин:</label>
+                                <div class="col-md-7">
+                                    <input type="text" ng-model="L" class="form-control" required name="L" />
+                                    <span class="alert alert-warning" style="padding:0px" ng-show="myForm.L.$error.required">заполнить поле</span>
+                                </div>
+                            </div>
+                            <div class="form-group row align-items-center">
+                                <label class="col-md-5 col-form-label text-md-right py-0">Пароль:</label>
+                                <div class="col-md-7">
+                                    <input type="{{parol}}" ng-model="P" class="form-control" required name="P" />
+                                    <span class="alert alert-warning" style="padding:0px" ng-show="myForm.P.$error.required">заполнить поле</span>
+                                </div>
+                            </div>
+                            <div class="form-group row align-items-center">
+                                <label class="col-md-5 col-form-label text-md-right py-0">Повторить пароль:</label>
+                                <div class="col-md-7">
+                                    <input type="{{parol}}" ng-model="PP" class="form-control" required name="PP" />
+                                    <span class="alert alert-warning" style="padding:0px" ng-show="myForm.PP.$error.required">заполнить поле</span>
+                                    <span class="alert alert-warning" style="padding:0px" ng-show="!myForm.PP.$error.required&&P!=PP">???</span>
+                                </div>
+                            </div>
+                            <div class="form-group row align-items-center">
+                                <label class="col-md-5 col-form-label text-md-right py-0">Тип:</label>
+                                <div class="col-md-7">
+                                    <select class="custom-select form-control" required name="Roles" ng-model="Roles" ng-options="item as item.value for item in Rl track by item.id"></select>
+                                    <span class="alert alert-warning" style="padding:0px" ng-show="myForm.Roles.$error.required">Выберите поле</span>
+                                </div>
+                            </div>
+                            <div class="form-group row align-items-center">
+                                <label class="col-md-5 col-form-label text-md-right py-0">ФИО:</label>
+                                <div class="col-md-7">
+                                    <input type="text" ng-model="N" class="form-control" required name="N" />
+                                    <span class="alert alert-warning" style="padding:0px" ng-show="myForm.N.$error.required">заполнить поле</span>
+                                </div>
+                            </div>
+                            <div class="form-group row align-items-center">
+                                <label class="col-md-5 col-form-label text-md-right py-0">Регион:</label>
+                                <div class="col-md-7">
+                                    <select class="custom-select form-control" required name="Region" ng-model="Region" ng-options="item as item.value for item in Rg track by item.id"></select>
+                                    <span class="alert alert-warning" style="padding:0px" ng-show="myForm.Region.$error.required">Выберите поле</span>
+                                </div>
+                            </div>
+                            <div class="form-group row align-items-center">
+                                <label class="col-md-5 col-form-label text-md-right py-0">Отрасль:</label>
+                                <div class="col-md-7">
+                                    <select class="custom-select form-control" required name="Ots" ng-model="Ots" ng-options="item as item.value for item in Ot track by item.id"></select>
+                                    <span class="alert alert-warning" style="padding:0px" ng-show="myForm.Ots.$error.required">Выберите поле</span>
+                                </div>
+                            </div>
+                            <div class="form-group row align-items-center">
+                                <label class="col-md-5 col-form-label text-md-right py-0">Организация:</label>
+                                <div class="col-md-7">
+                                    <select class="custom-select form-control" required name="Or" ng-model="Or" ng-options="item as item.value for item in O track by item.id"></select>
+                                    <span class="alert alert-warning" style="padding:0px" ng-show="myForm.Or.$error.required">Выберите поле</span>
+                                </div>
+                            </div>
+                            <div class="mb-4 text-right">
+                                <button  data-dismiss="modal"  ng-disabled="P!=PP||myForm.L.$error.required||myForm.P.$error.required||myForm.Roles.$error.required||myForm.N.$error.required||myForm.Region.$error.required||myForm.Ots.$error.required||myForm.Or.$error.required" ng-click="AddUpdateGP()"  class="btn btn-blue d-block d-md-inline-block mb-2">Сохранить</button>
+                                <button  ng-click="deleteGP(ID)" data-dismiss="modal" class="btn btn-red d-block d-md-inline-block mb-2">Удалить</button>
+                                <button  class="btn btn-grey d-block d-md-inline-block mb-2" data-dismiss="modal">Отмена</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

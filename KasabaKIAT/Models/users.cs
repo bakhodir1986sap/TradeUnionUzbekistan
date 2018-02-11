@@ -17,6 +17,14 @@ namespace KasabaKIAT.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public users()
         {
+            this.Balans = new HashSet<Balans>();
+            this.frZapros = new HashSet<frZapros>();
+            this.Kartoch = new HashSet<Kartoch>();
+            this.ot_oplata = new HashSet<ot_oplata>();
+            this.Ot13 = new HashSet<Ot13>();
+            this.Ot14 = new HashSet<Ot14>();
+            this.p_provodok = new HashSet<p_provodok>();
+            this.provodok = new HashSet<provodok>();
             this.role_permission = new HashSet<role_permission>();
             this.roles = new HashSet<roles>();
             this.sp_branch = new HashSet<sp_branch>();
@@ -42,6 +50,7 @@ namespace KasabaKIAT.Models
             this.sp_soato = new HashSet<sp_soato>();
             this.sp_soogu = new HashSet<sp_soogu>();
             this.sp_soogu_copy = new HashSet<sp_soogu_copy>();
+            this.SprSchet = new HashSet<SprSchet>();
             this.t_agreement = new HashSet<t_agreement>();
             this.t_bkut_statistics = new HashSet<t_bkut_statistics>();
             this.t_camp = new HashSet<t_camp>();
@@ -57,12 +66,34 @@ namespace KasabaKIAT.Models
             this.t_ku_report = new HashSet<t_ku_report>();
             this.t_normativdoc = new HashSet<t_normativdoc>();
             this.t_sanatorium = new HashSet<t_sanatorium>();
+            this.tbbBank_Oplat = new HashSet<tbbBank_Oplat>();
+            this.tbbKartoch = new HashSet<tbbKartoch>();
+            this.tbbOplata = new HashSet<tbbOplata>();
+            this.tbbOtchet = new HashSet<tbbOtchet>();
+            this.tbbViplata = new HashSet<tbbViplata>();
             this.tbcs_dictionary = new HashSet<tbcs_dictionary>();
             this.tbcs_dictionary1 = new HashSet<tbcs_dictionary>();
             this.tbcs_dictionarytype = new HashSet<tbcs_dictionarytype>();
             this.tbgl_balance = new HashSet<tbgl_balance>();
             this.tbgl_jnldd = new HashSet<tbgl_jnldd>();
             this.tbgl_opersettings = new HashSet<tbgl_opersettings>();
+            this.tblBron = new HashSet<tblBron>();
+            this.tblFace_Med = new HashSet<tblFace_Med>();
+            this.tblFase = new HashSet<tblFase>();
+            this.tblOplata = new HashSet<tblOplata>();
+            this.tblPos_Put = new HashSet<tblPos_Put>();
+            this.tblPost = new HashSet<tblPost>();
+            this.tblSprav_Face = new HashSet<tblSprav_Face>();
+            this.tblSprav_Kv = new HashSet<tblSprav_Kv>();
+            this.tblSprav_MFO = new HashSet<tblSprav_MFO>();
+            this.tblSprav_Org = new HashSet<tblSprav_Org>();
+            this.tblSprav_Os = new HashSet<tblSprav_Os>();
+            this.tblSprav_Otras = new HashSet<tblSprav_Otras>();
+            this.tblSprav_Pr = new HashSet<tblSprav_Pr>();
+            this.tblSprav_Reg = new HashSet<tblSprav_Reg>();
+            this.tblSprav_San = new HashSet<tblSprav_San>();
+            this.tblSprav_Vil = new HashSet<tblSprav_Vil>();
+            this.tblVipl = new HashSet<tblVipl>();
             this.tbpt_avarageprice = new HashSet<tbpt_avarageprice>();
             this.tbpt_bronputyovka = new HashSet<tbpt_bronputyovka>();
             this.tbpt_otkazputyovka = new HashSet<tbpt_otkazputyovka>();
@@ -76,10 +107,22 @@ namespace KasabaKIAT.Models
             this.tbpt_zayavki = new HashSet<tbpt_zayavki>();
             this.useractions = new HashSet<useractions>();
             this.useractivity = new HashSet<useractivity>();
+            this.tbbDopTabel = new HashSet<tbbDopTabel>();
+            this.tbbFermer = new HashSet<tbbFermer>();
+            this.tbbPredpr = new HashSet<tbbPredpr>();
+            this.tbbSprOsnov = new HashSet<tbbSprOsnov>();
+            this.tbbSprTabel = new HashSet<tbbSprTabel>();
+            this.tbbTabel = new HashSet<tbbTabel>();
+            this.tblFace_Two = new HashSet<tblFace_Two>();
+            this.tblOplata_Ras = new HashSet<tblOplata_Ras>();
+            this.tblPred = new HashSet<tblPred>();
+            this.tblPutevka = new HashSet<tblPutevka>();
+            this.tblVipl_Put = new HashSet<tblVipl_Put>();
+            this.tblVozVrat = new HashSet<tblVozVrat>();
+            this.Zapros_ZK = new HashSet<Zapros_ZK>();
             this.tbgl_jnlmst = new HashSet<tbgl_jnlmst>();
             this.users1 = new HashSet<users>();
             this.roles2 = new HashSet<roles>();
-            this.provodok = new HashSet<provodok>();
         }
     
         public long id { get; set; }
@@ -110,12 +153,29 @@ namespace KasabaKIAT.Models
         public Nullable<long> BRANCH_ID { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Balans> Balans { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<frZapros> frZapros { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Kartoch> Kartoch { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ot_oplata> ot_oplata { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Ot13> Ot13 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Ot14> Ot14 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<p_provodok> p_provodok { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<provodok> provodok { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<role_permission> role_permission { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<roles> roles { get; set; }
         public virtual roles roles1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<sp_branch> sp_branch { get; set; }
+        public virtual sp_branch sp_branch1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<sp_contracttype> sp_contracttype { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -161,6 +221,8 @@ namespace KasabaKIAT.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<sp_soogu_copy> sp_soogu_copy { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<SprSchet> SprSchet { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<t_agreement> t_agreement { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<t_bkut_statistics> t_bkut_statistics { get; set; }
@@ -194,6 +256,16 @@ namespace KasabaKIAT.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<t_sanatorium> t_sanatorium { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tbbBank_Oplat> tbbBank_Oplat { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tbbKartoch> tbbKartoch { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tbbOplata> tbbOplata { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tbbOtchet> tbbOtchet { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tbbViplata> tbbViplata { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tbcs_dictionary> tbcs_dictionary { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tbcs_dictionary> tbcs_dictionary1 { get; set; }
@@ -205,6 +277,40 @@ namespace KasabaKIAT.Models
         public virtual ICollection<tbgl_jnldd> tbgl_jnldd { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tbgl_opersettings> tbgl_opersettings { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tblBron> tblBron { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tblFace_Med> tblFace_Med { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tblFase> tblFase { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tblOplata> tblOplata { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tblPos_Put> tblPos_Put { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tblPost> tblPost { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tblSprav_Face> tblSprav_Face { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tblSprav_Kv> tblSprav_Kv { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tblSprav_MFO> tblSprav_MFO { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tblSprav_Org> tblSprav_Org { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tblSprav_Os> tblSprav_Os { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tblSprav_Otras> tblSprav_Otras { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tblSprav_Pr> tblSprav_Pr { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tblSprav_Reg> tblSprav_Reg { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tblSprav_San> tblSprav_San { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tblSprav_Vil> tblSprav_Vil { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tblVipl> tblVipl { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tbpt_avarageprice> tbpt_avarageprice { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -232,14 +338,37 @@ namespace KasabaKIAT.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<useractivity> useractivity { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tbbDopTabel> tbbDopTabel { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tbbFermer> tbbFermer { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tbbPredpr> tbbPredpr { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tbbSprOsnov> tbbSprOsnov { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tbbSprTabel> tbbSprTabel { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tbbTabel> tbbTabel { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tblFace_Two> tblFace_Two { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tblOplata_Ras> tblOplata_Ras { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tblPred> tblPred { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tblPutevka> tblPutevka { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tblVipl_Put> tblVipl_Put { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tblVozVrat> tblVozVrat { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Zapros_ZK> Zapros_ZK { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tbgl_jnlmst> tbgl_jnlmst { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<users> users1 { get; set; }
         public virtual users users2 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<roles> roles2 { get; set; }
-        public virtual sp_branch sp_branch1 { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<provodok> provodok { get; set; }
     }
 }

@@ -14,7 +14,7 @@ namespace KasabaKIAT.Models
     
     public partial class tbgl_jnlmst
     {
-        public string TRDT { get; set; }
+        public Nullable<System.DateTime> TRDT { get; set; }
         public string DEPARTMENT_BASE { get; set; }
         public Nullable<int> DYSEQ { get; set; }
         public Nullable<int> OPER_ID { get; set; }

@@ -70,6 +70,7 @@
         }
     }
     $scope.LoadSC = function () {
+        $scope.SCf.id = 1;
         //alert($scope.SCf.id);
         if ($scope.s == "option1") {
             Load_PRZ_S($scope.SCf.id);
@@ -277,7 +278,7 @@
        // $scope.MO2 = prz.MO2;
         $scope.SC.id = prz.SC_id;
         $scope.SC.value = prz.SC;
-        $scope.Action = "изменить";
+        $scope.Action = "Изменить";
     }
     $scope.UpdatePRZ = function () {
         var PRZ;
@@ -322,12 +323,12 @@
             }).then(function (msg) {
                 if ($scope.s === "option1") {
                     getSs();
-                    Load_PRZ_S($scope.scf.id);
+                    Load_PRZ_S($scope.SCf.id);
                 }
                 else {
                     if ($scope.s === "option2") {
                         getCs();
-                        Load_PRZ_C($scope.scf.id);
+                        Load_PRZ_C($scope.SCf.id);
                     }
                 }
             }, function () {

@@ -1,171 +1,135 @@
 ﻿@using KasabaKIAT.Models;
 @{
-    ViewBag.Title = "График заездов";
+    ViewBag.Title = "Путевки";
 
 }
 <script src="~/Scripts/MyJavaScript/GZController.js"></script>
-<h2>График заездов</h2>
 <div id="connection" style="visibility:hidden;position:absolute;margin-left:430px;margin-top:100px">
     <img src="~/Content/Login/buffering.gif" />
 </div>
 <div ng-controller="GZController">
-    <form class="row" style="margin-top:30px;" name="myForm1" novalidate>
-        <div class="col-xs-3">
-            <label class="radio-inline" for="inlineRadio1">
-                <input type="radio" required ng-model="s" ng-change="GetCS()"  name="inlineRadioOptions" id="inlineRadio1" value="option1">Санаторий
-            </label>
-            <label class="radio-inline" for="inlineRadio2">
-                <input type="radio" required ng-model="s" ng-change="GetCS()"  name="inlineRadioOptions" id="inlineRadio2" value="option2">Дет. лагер
-            </label>
-            <span class="alert alert-warning" style="padding:0px" ng-show="myForm1.inlineRadioOptions.$error.required">Выберите санаторию или дет. лагер </span>
-        </div>
-        <div class="col-xs-3">
-            <select class="form-control" required ng-model="SC" ng-change="GetDATA()" ng-options="d as d.value for d in CS track by d.id" name="SC" id="SC">
-                @*col-xs-4 col-xs-offset-2 <option value="0">Санаторий Дет/лагер</option>*@
-            </select>
-            <span class="alert alert-warning" style="padding:0px" ng-show="s&&myForm1.SC.$error.required">Выберите  {{myVar}}</span>
-        </div>
-        <div class="col-xs-3" style="margin-left:280px">
-            <button ng-click="AddGZDiv()" type="button" class="btn btn-info modal4" data-toggle="modal" data-target="#myModal"><i class="fa fa-plus-square" aria-hidden="true"></i>  добавить</button>
-            <button type="button" class="btn btn-success"><img src="~/Content/img/excel.JPG" /> загрузить</button>
-        </div>
-    </form>
-    <!-- Modal -->
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title text-center" id="myModalLabel">{{Action}} график</h4>
-                </div>
-                <form class="modal-body" name="myForm" novalidate>
-                    <input type="hidden" ng-model="ID" style="position:absolute">
-                    <br>
-                    <div class="row">
-                        <div class="col-xs-5 text-right">
-                            <p>Дата с:</p>
-                        </div>
-                        <div class="col-xs-6">
-                            <div>
-                                <p><input class="form-control" type="date" ng-model="ZB" id="ZAEZD_BEGIN" /></p>
-                            </div>
-                        </div>
-                    </div>
-                    <br>
-                    <div class="row">
-                        <div class="col-xs-5 text-right">
-                            <p>Дата по:</p>
-                        </div>
-                        <div class="col-xs-6">
-                            <div>
-                                <input class="form-control" type="date" ng-model="ZE" id="ZAEZD_END" />
-                            </div>
-                        </div>
-                    </div>
-
-                    <br>
-                    <div class="row">
-                        <div class="col-xs-5 text-right">
-                            <p>Тип размещения: </p>
-                        </div>
-                        <div class="col-xs-6">
-                            <select ng-model="PlaceType" name="PlaceType" required ng-init="LoadPlaceType()" ng-options="d as d.NAME_UZ for d in D track by d.REC_ID" class="form-control"></select>
-                            <span class="alert alert-warning" style="padding:0px" ng-show="myForm.PlaceType.$error.required">Выберите тип размещению</span>
-                        </div>
-                    </div>
-                    <br>
-                    <div class="row">
-                        <div class="col-xs-5 text-right">
-                            <p>Цена:</p>
-                        </div>
-                        <div class="col-xs-6">
-                            <input type="text" class="form-control" required placeholder="" name="P" ng-model="P" value="">
-                            <span class="alert alert-warning" style="padding:0px" ng-show="myForm.P.$error.required">заполнить поля</span>
-                        </div>
-                    </div>
-                    <br>
-
-                    <div class="row">
-                        <div class="col-xs-5 text-right">
-                            <p>Кол-во:</p>
-                        </div>
-                        <div class="col-xs-6">
-                            <input type="text" class="form-control" required ng-model="Q" name="Q" placeholder="" value="">
-                            <span class="alert alert-warning" style="padding:0px" ng-show="myForm.Q.$error.required">заполнить поля</span>
-                        </div>
-                    </div>
-                    <br>
-                    <div class="modal-footer">
-                        <div class="col-xs-offset-5">
-                            <button type="button" ng-click="AddUpdateGZ()" ng-disabled="myForm1.inlineRadioOptions.$error.required||myForm1.SC.$error.required||myForm.P.$error.required||myForm.Q.$error.required||myForm.PT.$error.required" data-dismiss="modal" class="btn btn-info"><i class="fa fa-plus-square" aria-hidden="true"></i> сохранить</button>
-                            <button type="button" ng-click="deleteGZ(ID)" class="btn btn-warning" data-dismiss="modal"><i class="fa fa-remove" aria-hidden="true"></i> Удалить</button>
-                            <button type="button" ng-click="Cancel()" class="btn btn-default" data-dismiss="modal">отмена</button>
-                        </div>
-                    </div>
-                </form>
+    <section class="content__block container">
+        <div class="row mb-4 align-items-center">
+            <div class="col title__block">
+                <h4>График заездов</h4>
+                <nav aria-label="breadcrumb" class="breadcrumb__block">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="/Home/Putyovki">Путевки</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">График заездов</li>
+                    </ol>
+                </nav>
             </div>
         </div>
-    </div> <!-- modal fade -->
-    <table ng-show="GZdiv" class="table table-hover">
-        <thead>
-            <tr>
-                <th style="text-align:center">Дата с</th>
-                <th style="text-align:center">Дата по</th>
-                @*<th style="text-align:center">{{myVar}}</th>*@
-                <th style="text-align:center;width:200px"><select ng-model="PlaceTypeFilter" name="PlaceTypeFilter" required ng-change="GetDATA()" ng-options="d as d.NAME_UZ for d in D track by d.REC_ID" class="form-control">Тип размещения</select></th>
-                <th style="text-align:center;width:200px"><input type="text" class="form-control" placeholder="Цена путевки"/></th>
-                <th style="text-align:center;width:200px"><input type="text" class="form-control" placeholder="Кол-во"/></th>
-                @*<th></th>*@
-            </tr>
-        </thead>
-        <tbody>
-            <tr ng-repeat="gz in GZ" data-toggle="modal" class="poin" data-target="#myModal" ng-click="editGZ(gz)">
-                <td style="text-align:center">{{gz.ZB | jsonDate: 'dd.MM.yyyy'}}</td>
-                <td style="text-align:center"><p>{{gz.ZE | jsonDate: 'dd.MM.yyyy'}}</p></td>
-                @*<td><p>{{gz.SC}}</p></td>*@
-                <td style="text-align:center"><p>{{gz.PTI}}</p></td>
-                <td style="text-align:center"><p>{{gz.P}}</p></td>
-                <td style="text-align:center"><p>{{gz.Q}}</p></td>
-                @*<td>
-                    <button type="button" ng-click="editGZ(gz)" class="btn btn-primary modal4" data-toggle="modal" data-target="#myModal"><i class="fa fa-exchange" aria-hidden="true"></i> изменить</button>
-                    <button ng-click="deleteGZ(gz)" class="btn btn-danger"><i class="fa fa-remove" aria-hidden="true"></i> Удалить</button>
-                </td>*@
-            </tr>
-        </tbody>
-    </table>
-    <script language="javascript" type="text/javascript">
-    function show(val) {
-        var value;
-        if (val == "sanatoriya") value = "Санаторий";
-        if (val == "lager") value = "Дет/лагер";
-                var d = { value: val }
-                $.ajax({
-                    url: '/Home/SanatoryCampPoisk',
-                    type: "POST",
-                    data: d,
-                    datatype: "json",
-                    success: function (data) {
-                        var q = 0;
-                        //var m = "<optgroup label='Санаторий Дет/лагер'/>";
-                        var m = "<option style='color:black;font-size:16px;' value='" + q + "'><label>" + value + "</label></option>";
-                        for (var r = 0; r < data.length; r += 1) {
-                            if (r % 2 == 0) {
-                                 m += "<option value='" + data[r] + "'>";
-                            }
-                            else {
-                                m += data[r] + "</option>";
-                            }
-                            q++;
-                        }
-                        $("#SC").html(m).show();
-                        //$("#SC").html(m).hide();
-                        //$("#SC").kendoComboBox();
-                    },
-                    error: function (error) {
-                        alert("Error " + error);
-                    }
-                });
-            }
-    </script>
+        <div class="row mb-4 align-items-center">
+            <div class="col-md-7">
+                <div class="row align-items-center">
+                    <div class="col-md-6">
+                        <div class="form-group mb-3 mb-md-0">
+                            <div class="custom-control custom-radio custom-control-inline">
+                                <input type="radio" required ng-model="s" ng-change="GetCS()" name="inlineRadioOptions3" id="inlineRadio1" value="option1" class="custom-control-input" checked="" />
+                                <label for="inlineRadio1" class="custom-control-label">Санаторий</label>
+                            </div>
+                            <div class="custom-control custom-radio custom-control-inline">
+                                <input type="radio"  required ng-model="s" ng-change="GetCS()" name="inlineRadioOptions3" id="inlineRadio2" value="option2" class="custom-control-input" />
+                                <label for="inlineRadio2" class="custom-control-label">Дет. лагер</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group mb-3 mb-md-0">
+                            <select class="custom-select form-control" required ng-model="SC" ng-change="GetDATA()" ng-options="d as d.value for d in CS track by d.id" name="SC" id="SC"></select>
+                            <span class="alert alert-warning" style="padding:0px" ng-show="s&&myForm1.SC.$error.required">Выберите  {{myVar}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-5 text-md-right">
+                <a href="#" ng-click="AddGZDiv()" class="btn btn-blue d-block d-md-inline-block mb-3 mb-md-0" data-toggle="modal" data-target="#dobavit"><i class="fas fa-plus"></i> Добавить</a>
+                <a href="#" class="btn btn-green d-block d-md-inline-block mb-3 mb-md-0"><i class="fas fa-file-excel"></i> Загрузить</a>
+            </div>
+        </div>
+        <div class="table-responsive box-shadow mb-4">
+            <table ng-show="GZdiv" class="table table__block t-hover">
+                <thead>
+                    <tr>
+                        <th style="text-align:center">Дата с</th>
+                        <th style="text-align:center">Дата по</th>
+                        <th style="text-align:center;width:200px"><select ng-model="PlaceTypeFilter" name="PlaceTypeFilter" required ng-change="GetDATA()" ng-options="d as d.NAME_UZ for d in D track by d.REC_ID" class="form-control">Тип размещения</select></th>
+                        <th style="text-align:center;width:200px"><input type="text" class="form-control" placeholder="Цена путевки" /></th>
+                        <th style="text-align:center;width:200px"><input type="text" class="form-control" placeholder="Кол-во" /></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="gz in GZ" data-toggle="modal" class="poin" data-target="#dobavit" ng-click="editGZ(gz)">
+                        <td style="text-align:center">{{gz.ZB | jsonDate: 'dd.MM.yyyy'}}</td>
+                        <td style="text-align:center"><p>{{gz.ZE | jsonDate: 'dd.MM.yyyy'}}</p></td>
+                        <td style="text-align:center"><p>{{gz.PTI}}</p></td>
+                        <td style="text-align:center"><p>{{gz.P}}</p></td>
+                        <td style="text-align:center"><p>{{gz.Q}}</p></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+    <footer class="footer">
+        <div class="container">
+            <p>&copy;2018</p>
+        </div>
+    </footer>
+
+    <div class="modal__block modal fade" id="dobavit" tabindex="-1" role="dialog" aria-labelledby="dobavitLabel">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="modal-title">
+                        <h4 class="text-center mt-4 mb-4">{{Action}}</h4>
+                    </div>
+                    <div class="row justify-content-center">
+                        <form class="col-md-8" name="myForm" novalidate>
+                            <input type="hidden" ng-model="ID" style="position:absolute">
+                            <div class="form-group row align-items-center">
+                                <label class="col-md-5 col-form-label text-right py-0">Дата с:</label>
+                                <div class="col-md-7">
+                                    <input class="form-control" type="date" ng-model="ZB" id="ZAEZD_BEGIN" />
+                                </div>
+                            </div>
+                            <div class="form-group row align-items-center">
+                                <label class="col-md-5 col-form-label text-right py-0">Дата по:</label>
+                                <div class="col-md-7">
+                                    <input class="form-control" type="date" ng-model="ZE" id="ZAEZD_END" />
+                                </div>
+                            </div>
+                            <div class="form-group row align-items-center">
+                                <label class="col-md-5 col-form-label text-right py-0">Тип размещения:</label>
+                                <div class="col-md-7">
+                                    <select ng-model="PlaceType" name="PlaceType" required ng-init="LoadPlaceType()" ng-options="d as d.NAME_UZ for d in D track by d.REC_ID" class="custom-select form-control"></select>
+                                    <span class="alert alert-warning" style="padding:0px" ng-show="myForm.PlaceType.$error.required">Выберите тип размещению</span>
+                                </div>
+                            </div>
+                            <div class="form-group row align-items-center">
+                                <label class="col-md-5 col-form-label text-right py-0">Цена:</label>
+                                <div class="col-md-7">
+                                    <input type="text" class="form-control" required placeholder="" name="P" ng-model="P" value="">
+                                    <span class="alert alert-warning" style="padding:0px" ng-show="myForm.P.$error.required">заполнить поле</span>
+                                </div>
+                            </div>
+                            <div class="form-group row align-items-center">
+                                <label class="col-md-5 col-form-label text-right py-0">Кол-во:</label>
+                                <div class="col-md-7">
+                                    <input type="text" class="form-control" required ng-model="Q" name="Q" placeholder="" value="">
+                                    <span class="alert alert-warning" style="padding:0px" ng-show="myForm.Q.$error.required">заполнить поле</span>
+                                </div>
+                            </div>
+                            <div class="mb-4 text-right">
+                                <a href="#"  ng-click="AddUpdateGZ()" ng-disabled="myForm1.inlineRadioOptions.$error.required||myForm1.SC.$error.required||myForm.P.$error.required||myForm.Q.$error.required||myForm.PT.$error.required"  class="btn btn-blue d-block d-md-inline-block mb-2" data-dismiss="modal">Сохранить</a>
+                                <a href="#" ng-click="deleteGZ(ID)" class="btn btn-red d-block d-md-inline-block mb-2" data-dismiss="modal">Удалить</a>
+                                <a href="#"  class="btn btn-grey d-block d-md-inline-block mb-2" data-dismiss="modal">Отмена</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 

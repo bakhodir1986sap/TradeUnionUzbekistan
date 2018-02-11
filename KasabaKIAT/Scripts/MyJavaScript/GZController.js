@@ -123,7 +123,7 @@
         $scope.Q = gz.Q;
         $scope.PlaceType.NAME_UZ = gz.PTI;
         $scope.PlaceType.REC_ID = gz.PTI_ID;
-        $scope.Action = "изменить";
+        $scope.Action = "Изменить";
         $scope.ZB = new Date(zb.substring(6, 10), zb.substring(3, 5) - 1, zb.substring(0, 2));
         $scope.ZE = new Date(ze.substring(6, 10), ze.substring(3, 5) - 1, ze.substring(0, 2));
     }
@@ -152,7 +152,7 @@
         }
         var getGZAction = $scope.Action;
 
-        if (getGZAction == "изменить") {
+        if (getGZAction == "Изменить") {
             GZ.REC_ID = $scope.ID;
             //alert("ID : " + GZ.REC_ID + " ZAEZD_BEGIN : " + GZ.ZAEZD_BEGIN + " ZAEZD_END : " + GZ.ZAEZD_END + " PRICE : " + GZ.PRICE + " QUANTITY : " + GZ.QUANTITY + " SANATORY_ID : " + GZ.SANATORY_ID + " CAMP_ID : " + GZ.CAMP_ID + " PLACE_TYPE_ID : " + GZ.PLACE_TYPE_ID);
             $http({
@@ -201,14 +201,14 @@
     }
     $scope.AddGZDiv = function () {
         ClearFields();
-        $scope.Action = "добавить";
+        $scope.Action = "Добавить";
     }
     $scope.deleteGZ = function (ID) {
         reset();
         alertify.set({ buttonFocus: "cancel" });
-        alertify.confirm("Rostdan ham o`chirmoqchimisiz?", function (e) {
+        alertify.confirm("Вы действительно хотите удалить?", function (e) {
             if (e) {
-                alertify.success("o`chirilmoqda!!!");
+                alertify.success("Операция выполняется");
                 $http({
                     method: "post",
                     url: "/GrafikZaezdov/DeleteGrafikZaezdov",
@@ -229,7 +229,7 @@
                     console.log('Error in DeleteGrafikZaezdov');
                 });    
             } else {
-                alertify.error("o`chirish bekor qilindi");
+                alertify.error("Операция отменена");
             }
         });
         return false;

@@ -114,7 +114,7 @@
         $scope.P = uz.P;
         $scope.PP = uz.P;
         $scope.N = uz.N;
-        $scope.Action = "изменить";
+        $scope.Action = "Изменить";
     }
     $scope.AddUpdateGP = function () {
         var getGPAction = $scope.Action;
@@ -127,7 +127,7 @@
             REGION_ID: $scope.Region.id,
             BRANCH_ID: $scope.Ots.id,
             };
-        if (getGPAction == "изменить") {
+        if (getGPAction == "Изменить") {
             GP.id = $scope.ID;
             $http({
                 method: "post",
@@ -164,9 +164,9 @@
         });
         reset();
         alertify.set({ buttonFocus: "cancel" });
-        alertify.confirm("Rostdan ham o`chirmoqchimisiz?", function (e) {
+        alertify.confirm("Вы действительно хотите удалить?", function (e) {
             if (e) {
-                alertify.success("O`chirilmoqda");
+                alertify.success("Операция выполняется");
                 $http({
                     method: "post",
                     url: "/Administirirovaniye/DeleteUZ",
@@ -183,7 +183,7 @@
                 });
             } else {
                 $("#hh").modal('hide');
-                alertify.error("o`chirish bekor qilindi");
+                alertify.error("Операция отменена");
             }
         });
         return false;

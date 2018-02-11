@@ -22,7 +22,6 @@
             backdrop: 'static',
             backdrop: 'static'
         });
-        $scope.GPdiv = false;
         Tozala();
         AllRegion();
         AllPlaceType();
@@ -187,7 +186,7 @@ function AllCamp() {
         $scope.PlaceType.REC_ID = gp.TM_id;
         $scope.P = gp.P;
         $scope.Q = gp.Q;
-        $scope.Action = "изменить";
+        $scope.Action = "Изменить";
     }
     $scope.AddUpdateGP = function () {
         var getGPAction = $scope.Action;
@@ -213,7 +212,7 @@ function AllCamp() {
                 };
             }
         }
-        if (getGPAction == "изменить") {
+        if (getGPAction == "Изменить") {
             GP.REC_ID = $scope.ID;
             $http({
                 method: "post",
@@ -265,9 +264,9 @@ function AllCamp() {
         });
         reset();
         alertify.set({ buttonFocus: "cancel" });
-        alertify.confirm("Rostdan ham o`chirmoqchimisiz?", function (e) {
+        alertify.confirm("Вы действительно хотите удалить?", function (e) {
             if (e) {
-                alertify.success("O`chirilmoqda");
+                alertify.success("Операция выполняется");
                 $http({
                     method: "post",
                     url: "/GodovoyPlan/DeleteGodovoyPlan",
@@ -293,7 +292,7 @@ function AllCamp() {
             } else {
                 document.getElementById('connection').style.visibility = "hidden";
                 $("#hh").modal('hide');
-                alertify.error("o`chirish bekor qilindi");
+                alertify.error("Операция отменена");
             }
         });
         return false;

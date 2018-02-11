@@ -50,9 +50,9 @@
         });
         reset();
         alertify.set({ buttonFocus: "cancel" });
-        alertify.confirm("Rostdan ham saqlamoqchimisiz?", function (e) {
+        alertify.confirm("Вы действительно хотите cохранить?", function (e) {
             if (e) {
-                alertify.success("saqlanmoqda");
+                alertify.success("Операция выполняется");
                 if ($scope.s == "option1") {
                     AddOQ_S(SC_g_id, ZB_g, OQ);
                     $("#hh").modal('hide');
@@ -67,7 +67,7 @@
             } else {
                 document.getElementById('connection').style.visibility = "hidden";
                 $("#hh").modal('hide');
-                alertify.error("o`chirish bekor qilindi");
+                alertify.error("Операция отменена");
             }
         });
         return false;
@@ -80,9 +80,9 @@
         });
         reset();
         alertify.set({ buttonFocus: "cancel" });
-        alertify.confirm("Rostdan ham saqlamoqchimisiz?", function (e) {
+        alertify.confirm("Вы действительно хотите cохранить?", function (e) {
             if (e) {
-                alertify.success("saqlanmoqda");
+                alertify.success("Операция выполняется");
                 var getData = crudAJService.UpdateStatusRZ(id, s);
                 getData.then(function (p) {
                     if ($scope.s = "option1") {
@@ -105,7 +105,7 @@
             } else {
                 document.getElementById('connection').style.visibility = "hidden";
                 $("#hh").modal('hide');
-                alertify.error("o`chirish bekor qilindi");
+                alertify.error("Операция отменена");
             }
         });
         return false;
@@ -219,7 +219,7 @@
         $scope.MO = rz.MO;
         $scope.SC.id = rz.SC_id;
         $scope.SC.value = rz.SC;
-        $scope.Action = "изменить";
+        $scope.Action = "Изменить";
     }
     $scope.LoadINN = function () {
         if ($scope.s != null && $scope.INN != null && $scope.ZB != null) {

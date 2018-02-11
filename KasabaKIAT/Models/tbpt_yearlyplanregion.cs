@@ -18,7 +18,7 @@ namespace KasabaKIAT.Models
         public string YEAR { get; set; }
         public string KVARTAL { get; set; }
         public Nullable<long> SANATORIUM_ID { get; set; }
-        public Nullable<long> CAMP_ID { get; set; }
+        public Nullable<int> CAMP_ID { get; set; }
         public Nullable<long> TIP_MEST_ID { get; set; }
         public Nullable<decimal> PRICE { get; set; }
         public Nullable<int> QUANTITY { get; set; }
@@ -28,7 +28,6 @@ namespace KasabaKIAT.Models
         public Nullable<System.DateTime> MODIFY_DATE { get; set; }
         public string DEPARTMENT_BASE { get; set; }
     
-        public virtual t_camp t_camp { get; set; }
         public virtual t_sanatorium t_sanatorium { get; set; }
         public virtual tbcs_dictionary tbcs_dictionary { get; set; }
         public virtual users users { get; set; }

@@ -1,12 +1,25 @@
 ﻿
 @{
-    ViewBag.Title = "справочники";
+    ViewBag.Title = "Администрирование";
 }
-
-<h2 style="color:#428bca">справочники</h2>
-<div class="row" style="margin-left:20px" ><br />
-    <h5><a style="text-decoration:none;color:#000000" href="/Administirirovaniye/SredneyStoimostiPutevok">Справочник средней стоимости путевок</a></h5><br />
-    <h5><a style="text-decoration:none;color:#000000" href="/Administirirovaniye/RazmesheniyaSanatorii">Справочник типов размещения в санатории</a></h5><br />
-    <h5><a style="text-decoration:none;color:#000000" href="/Administirirovaniye/Otdixayushix">Справочник социальрой принадлежности отдыхающих</a></h5><br />
-    <h5><a style="text-decoration:none;color:#000000" href="/Administirirovaniye/NaznacheniyaPlateja">Справочники назначения платежа</a></h5><br />
-</div>
+<section class="content__block container">
+    <div class="row mb-4 align-items-center">
+        <div class="col title__block">
+            <h4>Cправочники</h4>
+            <nav aria-label="breadcrumb" class="breadcrumb__block">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/Home/Admin">Администрирование</a></li>
+                    <li class="breadcrumb-item"><a href="/Administirirovaniye/index">Администрирование</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Cправочники</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+    <div style="margin-left:20px">
+        <br />
+        <h5><a style="text-decoration:none;color:#000000" href="/Administirirovaniye/SredneyStoimostiPutevok">Справочник средней стоимости путевок</a></h5><br />
+        <h5><a style="text-decoration:none;color:#000000" href="/Administirirovaniye/RazmesheniyaSanatorii">Справочник типов размещения в санатории</a></h5><br />
+        <h5><a style="text-decoration:none;color:#000000" href="/Administirirovaniye/Otdixayushix">Справочник социальной принадлежности отдыхающих</a></h5><br />
+        <h5><a style="text-decoration:none;color:#000000" href="/Administirirovaniye/NaznacheniyaPlateja">Справочник назначений платежей</a></h5><br />
+    </div>
+</section>

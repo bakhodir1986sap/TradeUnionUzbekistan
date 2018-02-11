@@ -22,11 +22,11 @@
     $scope.editSNP = function (pz) {
         $scope.ID = pz.REC_ID;
         $scope.PTI = pz.NAME_UZ;
-        $scope.Action = "изменить";
+        $scope.Action = "Изменить";
     }
     $scope.AddSNPDiv = function () {
         $scope.PTI = "";
-        $scope.Action = "добавить";
+        $scope.Action = "Добавить";
     }
     $scope.AddUpdateSNP = function () {
         var getGZAction = $scope.Action;
@@ -35,7 +35,7 @@
             NAME_UZ: $scope.PTI,
             NAME_LT: $scope.PTI,
         };
-        if (getGZAction == "изменить") {
+        if (getGZAction == "Изменить") {
             PZ.REC_ID = $scope.ID;
             $http({
                 method: "post",
@@ -64,9 +64,9 @@
     $scope.deleteSNP = function (ID) {
         reset();
         alertify.set({ buttonFocus: "cancel" });
-        alertify.confirm("Rostdan ham o`chirmoqchimisiz?", function (e) {
+        alertify.confirm("Вы действительно хотите удалить?", function (e) {
             if (e) {
-                alertify.success("o`chirilmoqda!!!");
+                alertify.success("Операция выполняется");
                 $http({
                     method: "post",
                     url: "/Administirirovaniye/DeleteSTRS",
@@ -79,7 +79,7 @@
                     //alert('Error in deleting book record');
                 });
             } else {
-                alertify.error("o`chirish bekor qilindi");
+                alertify.error("Операция отменена");
             }
         });
         return false;

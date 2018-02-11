@@ -17,7 +17,9 @@ namespace KasabaKIAT.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public tbcs_dictionary()
         {
+            this.p_provodok = new HashSet<p_provodok>();
             this.tbpt_zaezdi = new HashSet<tbpt_zaezdi>();
+            this.tbpt_zaezdi1 = new HashSet<tbpt_zaezdi>();
             this.tbpt_yearlyplanregion = new HashSet<tbpt_yearlyplanregion>();
         }
     
@@ -30,9 +32,13 @@ namespace KasabaKIAT.Models
         public Nullable<bool> STATUS { get; set; }
         public Nullable<long> USER_ID { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<p_provodok> p_provodok { get; set; }
         public virtual users users { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tbpt_zaezdi> tbpt_zaezdi { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tbpt_zaezdi> tbpt_zaezdi1 { get; set; }
         public virtual users users1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tbpt_yearlyplanregion> tbpt_yearlyplanregion { get; set; }

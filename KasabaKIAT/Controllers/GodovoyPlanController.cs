@@ -94,12 +94,12 @@ namespace KasabaKIAT.Controllers
             if (user.Any())
             {
                 var list = (from a in KasabaDB.tbpt_yearlyplanotrasl
-                            where a.STATUS == "1"&&a.USER_ID == UserId && a.BRANCH_ID==R&&a.SANATORIUM_ID==SC
+                            where a.STATUS == "1"&&a.USER_ID == UserId && a.OTRASL_ID == R&&a.SANATORIUM_ID==SC
                             //join u in KasabaDB.users on a.USER_ID equals u.id
                             join sc in KasabaDB.t_sanatorium on a.SANATORIUM_ID equals sc.id
                             join d in KasabaDB.t_departmentbase on a.DEPARTMANT_BASE equals d.code
                             //join dc in KasabaDB.tbcs_dictionary on a.TIP_MEST_ID equals dc.REC_ID
-                            join r in KasabaDB.sp_branch on a.BRANCH_ID equals r.id
+                            join r in KasabaDB.sp_branch on a.OTRASL_ID equals r.id
                             select new
                             {
                                 ID = a.REC_ID,
@@ -161,12 +161,12 @@ namespace KasabaKIAT.Controllers
             if (user.Any())
             {
                 var list = (from a in KasabaDB.tbpt_yearlyplanotrasl
-                            where a.STATUS == "1" && a.USER_ID == UserId && a.BRANCH_ID == R && a.CAMP_ID == SC
+                            where a.STATUS == "1" && a.USER_ID == UserId && a.OTRASL_ID == R && a.CAMP_ID == SC
                             //join u in KasabaDB.users on a.USER_ID equals u.id
                             join sc in KasabaDB.t_camp on a.CAMP_ID equals sc.id
                             join d in KasabaDB.t_departmentbase on a.DEPARTMANT_BASE equals d.code
                             //join dc in KasabaDB.tbcs_dictionary on a.TIP_MEST_ID equals dc.REC_ID
-                            join r in KasabaDB.sp_branch on a.BRANCH_ID equals r.id
+                            join r in KasabaDB.sp_branch on a.OTRASL_ID equals r.id
                             select new
                             {
                                 ID = a.REC_ID,
@@ -192,7 +192,7 @@ namespace KasabaKIAT.Controllers
                 var list = (from a in KasabaDB.tbpt_yearlyplanregion
                             where a.STATUS == "1" && a.USER_ID == UserId && a.REGION_ID == re && a.SANATORIUM_ID == SC
                             //join u in KasabaDB.users on a.USER_ID equals u.id
-                            join sc in KasabaDB.t_camp on a.CAMP_ID equals sc.id
+                            join sc in KasabaDB.t_camp on a.CAMP_ID.Value equals sc.id
                             join d in KasabaDB.t_departmentbase on a.DEPARTMENT_BASE equals d.code
                             join dc in KasabaDB.tbcs_dictionary on a.TIP_MEST_ID equals dc.REC_ID
                             join r in KasabaDB.sp_soato on a.REGION_ID equals r.code
@@ -269,7 +269,7 @@ namespace KasabaKIAT.Controllers
                         _GP.QUANTITY = GP.QUANTITY;
                         _GP.STATUS = "1";
                         _GP.USER_ID = UserId;
-                        _GP.BRANCH_ID = Convert.ToInt32(GP.REGION_ID);
+                        _GP.OTRASL_ID = Convert.ToInt32(GP.REGION_ID);
                         _GP.MODIFY_DATE = DateTime.Now;
                         _GP.DEPARTMANT_BASE = DEPARTMENT;
                         k.tbpt_yearlyplanotrasl.Add(_GP);
@@ -367,7 +367,7 @@ namespace KasabaKIAT.Controllers
                             _GP.QUANTITY = GP.QUANTITY;
                             _GP.STATUS = "1";
                             _GP.USER_ID = UserId;
-                            _GP.BRANCH_ID = Convert.ToInt32(GP.REGION_ID);
+                            _GP.OTRASL_ID = Convert.ToInt32(GP.REGION_ID);
                             _GP.MODIFY_DATE = DateTime.Now;
                             _GP.DEPARTMANT_BASE = DEPARTMENT;
                             k.SaveChanges();

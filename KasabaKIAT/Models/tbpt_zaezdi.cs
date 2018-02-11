@@ -27,6 +27,7 @@ namespace KasabaKIAT.Models
         public virtual t_camp t_camp { get; set; }
         public virtual t_sanatorium t_sanatorium { get; set; }
         public virtual tbcs_dictionary tbcs_dictionary { get; set; }
+        public virtual tbcs_dictionary tbcs_dictionary1 { get; set; }
         public virtual users users { get; set; }
     }
 }

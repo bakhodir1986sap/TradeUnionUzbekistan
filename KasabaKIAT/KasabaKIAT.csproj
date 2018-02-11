@@ -130,14 +130,138 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="BusinessLogic\BankOplati\BankOplatQueries\BankPaymentsQueries.cs" />
+    <Compile Include="BusinessLogic\BankOplati\BankOplatQueries\BankPaymentsRes.cs" />
+    <Compile Include="BusinessLogic\BankOplati\BankDataSource.cs" />
+    <Compile Include="BusinessLogic\BankOplati\BankOplatiDataManager.cs" />
+    <Compile Include="BusinessLogic\BankOplati\BankOplatiTotalManager.cs" />
+    <Compile Include="BusinessLogic\BankOplati\ExcelBankSource.cs" />
+    <Compile Include="BusinessLogic\BankOplati\OraslAndRegionDefine\IlxomPersonalization.cs" />
+    <Compile Include="BusinessLogic\BankOplati\OraslAndRegionDefine\IPersonalizeFirm.cs" />
+    <Compile Include="BusinessLogic\BankOplati\OraslAndRegionDefine\KiatPersonalization.cs" />
+    <Compile Include="BusinessLogic\BankOplati\TextFileBankSource.cs" />
+    <Compile Include="BusinessLogic\Buxgalteriya\Balance\Master\MasterDataManager.cs" />
+    <Compile Include="BusinessLogic\Buxgalteriya\Balance\Transactions\JournalDetailDataManager.cs" />
+    <Compile Include="BusinessLogic\Buxgalteriya\Balance\Transactions\JournalMasterDataManager.cs" />
+    <Compile Include="BusinessLogic\Buxgalteriya\PlanirovaniyaBudjeta\Otrasl\PlanOtraslDataManager.cs" />
+    <Compile Include="BusinessLogic\Buxgalteriya\PlanirovaniyaBudjeta\Region\PlanRegionDataManager.cs" />
+    <Compile Include="BusinessLogic\ExternalServicesAPI\FTP\Kaznacheystvo\FileProcessor.cs" />
+    <Compile Include="BusinessLogic\ExternalServicesAPI\FTP\Kaznacheystvo\KaznaController.cs" />
+    <Compile Include="BusinessLogic\ExternalServicesAPI\FTP\Kaznacheystvo\KaznaFiles.cs" />
+    <Compile Include="BusinessLogic\ExternalServicesAPI\FTP\Kaznacheystvo\KaznaFilesDataManager.cs" />
+    <Compile Include="BusinessLogic\ExternalServicesAPI\FTP\Kaznacheystvo\KaznaPaymentFile.cs" />
+    <Compile Include="BusinessLogic\ExternalServicesAPI\FTP\Kaznacheystvo\OtchislenCalc.cs" />
+    <Compile Include="BusinessLogic\ExternalServicesAPI\FTP\Kaznacheystvo\PaymentFileData.cs" />
+    <Compile Include="BusinessLogic\ExternalServicesAPI\KurortWebAPI\ServiceInterAction\ActionLogic\ServiceActionController.cs" />
+    <Compile Include="BusinessLogic\ExternalServicesAPI\KurortWebAPI\ServiceInterAction\DataManagers\DocumentSchetFakturaDataManager.cs" />
+    <Compile Include="BusinessLogic\ExternalServicesAPI\KurortWebAPI\ServiceInterAction\DataManagers\GrafikZaezdovSanatorievDataManager.cs" />
+    <Compile Include="BusinessLogic\ExternalServicesAPI\KurortWebAPI\ServiceInterAction\DataManagers\JournalDataManager.cs" />
+    <Compile Include="BusinessLogic\ExternalServicesAPI\KurortWebAPI\ServiceInterAction\DataManagers\ServiceTypeDataManager.cs" />
+    <Compile Include="BusinessLogic\ExternalServicesAPI\KurortWebAPI\ServiceInterAction\DataManagers\SpisokRaspredeleniyaDataManager.cs" />
+    <Compile Include="BusinessLogic\ExternalServicesAPI\KurortWebAPI\ServiceInterAction\DataManagers\StrokaProfsoyzaDataManager.cs" />
+    <Compile Include="BusinessLogic\ExternalServicesAPI\KurortWebAPI\ServiceInterAction\DataManagers\StrokaSchetFakturiDataManager.cs" />
+    <Compile Include="BusinessLogic\ExternalServicesAPI\KurortWebAPI\ServiceInterAction\DataManagers\ZaezdyClientovDataManager.cs" />
+    <Compile Include="BusinessLogic\ExternalServicesAPI\KurortWebAPI\ServiceInterAction\ServiceCalls\KurortService.cs" />
+    <Compile Include="BusinessLogic\ExternalServicesAPI\KurortWebAPI\ServiceInterAction\ViewModel\DocumentSchetFakturaViewModel.cs" />
+    <Compile Include="BusinessLogic\ExternalServicesAPI\KurortWebAPI\ServiceInterAction\ViewModel\GrafikZaezdovSanatorievViewModel.cs" />
+    <Compile Include="BusinessLogic\ExternalServicesAPI\KurortWebAPI\ServiceInterAction\ViewModel\JournalViewModel.cs" />
+    <Compile Include="BusinessLogic\ExternalServicesAPI\KurortWebAPI\ServiceInterAction\ViewModel\ServiceTypeViewModel.cs" />
+    <Compile Include="BusinessLogic\ExternalServicesAPI\KurortWebAPI\ServiceInterAction\ViewModel\SpisokRaspredeleniyaViewModel.cs" />
+    <Compile Include="BusinessLogic\ExternalServicesAPI\KurortWebAPI\ServiceInterAction\ViewModel\StrokaProfsoyzaViewModel.cs" />
+    <Compile Include="BusinessLogic\ExternalServicesAPI\KurortWebAPI\ServiceInterAction\ViewModel\StrokaSchetFakturiViewModel.cs" />
+    <Compile Include="BusinessLogic\ExternalServicesAPI\KurortWebAPI\ServiceInterAction\ViewModel\ZaezdyClientovViewModel.cs" />
+    <Compile Include="BusinessLogic\ExternalServicesAPI\KurortWebAPI\ServiceInterAction\Xml\ZaezdController.cs" />
+    <Compile Include="BusinessLogic\ExternalServicesAPI\KurortWebAPI\ServiceInterAction\Xml\ZaezdiStructs.cs" />
+    <Compile Include="BusinessLogic\Putyovki\Bron\BronDataManager.cs" />
+    <Compile Include="BusinessLogic\Putyovki\Bron\BronirovaniyaPutyovki.cs" />
+    <Compile Include="BusinessLogic\Putyovki\GodovoyPlan\Federasiya\GdovoyPlanFedDataManager.cs" />
+    <Compile Include="BusinessLogic\Putyovki\GodovoyPlan\Federasiya\GodovoyPlanFed.cs" />
+    <Compile Include="BusinessLogic\Putyovki\GodovoyPlan\Oblast\GodovoyPlanOblast.cs" />
+    <Compile Include="BusinessLogic\Putyovki\GodovoyPlan\Oblast\GodovoyPlanOblastDataManager.cs" />
+    <Compile Include="BusinessLogic\Putyovki\OplataPutyovok\Oplata.cs" />
+    <Compile Include="BusinessLogic\Putyovki\OplataPutyovok\OplataDataManager.cs" />
+    <Compile Include="BusinessLogic\Putyovki\OplataPutyovok\OplataRasxodDataManager.cs" />
+    <Compile Include="BusinessLogic\Putyovki\PlanGrafikZaezdov\GrafikZaezdov.cs" />
+    <Compile Include="BusinessLogic\Putyovki\PlanGrafikZaezdov\GrafikZaezdovDataManager.cs" />
+    <Compile Include="BusinessLogic\Putyovki\PrixodPutyovok\IPostupleniyaEnter.cs" />
+    <Compile Include="BusinessLogic\Putyovki\PrixodPutyovok\PostMainDataManager.cs" />
+    <Compile Include="BusinessLogic\Putyovki\PrixodPutyovok\PostPutDetailDataManager.cs" />
+    <Compile Include="BusinessLogic\Putyovki\PrixodPutyovok\Postupleniya.cs" />
+    <Compile Include="BusinessLogic\Putyovki\PrixodPutyovok\PostupleniyaEnterTemp.cs" />
+    <Compile Include="BusinessLogic\Putyovki\RaznoskaPoPutyovki\RaznoskaDataManager.cs" />
+    <Compile Include="BusinessLogic\Putyovki\RaznoskaPoPutyovki\RaznoskaPutyovok.cs" />
+    <Compile Include="BusinessLogic\Putyovki\RealizasiyaPutyovok\Realizasiya.cs" />
+    <Compile Include="BusinessLogic\Putyovki\RealizasiyaPutyovok\ViplMainDataManager.cs" />
+    <Compile Include="BusinessLogic\Putyovki\RealizasiyaPutyovok\Vipl_PutDataManager.cs" />
+    <Compile Include="BusinessLogic\Putyovki\SverkaDannixPoOtdixayuchim\SverkaDataManager.cs" />
+    <Compile Include="BusinessLogic\Putyovki\VozvratPutyovki\VozvratDataManager.cs" />
+    <Compile Include="BusinessLogic\Putyovki\Zayavki\IRasmotreniyaZayavki.cs" />
+    <Compile Include="BusinessLogic\Putyovki\Zayavki\IZayavkamanage.cs" />
+    <Compile Include="BusinessLogic\Putyovki\Zayavki\RassmotreniyaFirst.cs" />
+    <Compile Include="BusinessLogic\Putyovki\Zayavki\RassmotreniyaZayavkiDataManager.cs" />
+    <Compile Include="BusinessLogic\Putyovki\Zayavki\ZayavkiDataManager.cs" />
+    <Compile Include="BusinessLogic\Putyovki\Zayavki\ZayavkiTotalManager.cs" />
     <Compile Include="Controllers\AdministirirovaniyeController.cs" />
     <Compile Include="Controllers\GodovoyPlanController.cs" />
     <Compile Include="Controllers\GrafikZaezdovController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\OtchotController.cs" />
+    <Compile Include="Controllers\PlatejnoyePorucheniyeController.cs" />
     <Compile Include="Controllers\PrixodPutevokController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessLogic\BankOplati\Kaznacheystvo\FileProcessor.cs" />
+    <Compile Include="BusinessLogic\BankOplati\Kaznacheystvo\KaznaController.cs" />
+    <Compile Include="BusinessLogic\BankOplati\Kaznacheystvo\KaznaFiles.cs" />
+    <Compile Include="BusinessLogic\BankOplati\Kaznacheystvo\KaznaFilesDataManager.cs" />
+    <Compile Include="Models\sp_get_BankPaymentCompanyYearlyQ_Result.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_get_BankPaymentCompanyYearMonthly_Result.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_get_BankPaymentCompanyYearQuaterMonthly_Result.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_get_BankPaymentOblastYearlyQ_Result.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_get_BankPaymentOtraslYearlyQ_Result.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_get_BankPaymentOtraslYearMonthly_Result.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_get_BankPaymentOtraslYearQuaterMonthly_Result.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_get_BankPaymentSoatoYearMonthly_Result.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_get_BankPaymentSoatoYearQuaterMonthly_Result.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_rt_FormaN13_Result.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_rt_SvodniyOtchet_Result.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_rt_TalabnomaKorxona_Result.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_rt_TalabnomaTarmoq_Result.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_rt_TalabnomaViloyat_Result.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModel\BankOplati\KaznaPaymentFile.cs" />
+    <Compile Include="BusinessLogic\BankOplati\Kaznacheystvo\PaymentFileData.cs" />
+    <Compile Include="Models\Balans.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\bkut_egrpo_aud.cs">
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
@@ -152,6 +276,12 @@
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\fill_rate.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\frZapros.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Kartoch.cs">
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\KasabaKIAT.Context.cs">
@@ -169,10 +299,28 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>KasabaKIAT.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\KaznaFiles.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\KaznaPaymentFile.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\occupationalsafety.cs">
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Ot13.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Ot14.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ot_oplata.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\provodok.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\p_provodok.cs">
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\report1ti.cs">
@@ -194,6 +342,9 @@
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\role_permission.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SprSchet.cs">
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\sps_translate.cs">
@@ -277,10 +428,46 @@
     <Compile Include="Models\sp_soogu_copy.cs">
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\tbbBank_Oplat.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tbbDopTabel.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tbbFermer.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tbbKartoch.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tbbOplata.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tbbOtchet.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tbbPredpr.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tbbSprOsnov.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tbbSprTabel.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tbbTabel.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tbbViplata.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\tbcs_dictionary.cs">
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tbcs_dictionarytype.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tbgl_accounttype.cs">
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tbgl_balance.cs">
@@ -296,6 +483,99 @@
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tbgl_opersettings.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tbku_DocumentSchetFaktura.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tbku_GrafikZaezdovSanatoriev.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tbku_journal.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tbku_servicetype.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tbku_SpisokRaspredeleniya.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tbku_StrokaProfsoyza.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tbku_StrokaSchetFakturi.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tbku_ZaezdyClientov.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tblBron.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tblFace_Med.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tblFace_Two.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tblFase.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tblOplata.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tblOplata_Ras.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tblPost.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tblPos_Put.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tblPred.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tblPutevka.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tblSprav_Face.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tblSprav_Kv.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tblSprav_MFO.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tblSprav_Org.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tblSprav_Os.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tblSprav_Otras.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tblSprav_Pr.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tblSprav_Reg.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tblSprav_San.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tblSprav_Vil.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tblVipl.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tblVipl_Put.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tblVozVrat.cs">
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tbpt_avarageprice.cs">
@@ -398,6 +678,9 @@
     <Compile Include="Models\users_aud.cs">
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Zapros_ZK.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
     <Compile Include="MyRoleProvider\SiteRole.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
@@ -405,6 +688,40 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="ViewModel\AvaragePriceViewModel.cs" />
+    <Compile Include="ViewModel\BankOplatViewModel.cs" />
+    <Compile Include="ViewModel\PlanGrafikZaezdovViewModel.cs" />
+    <Compile Include="ViewModel\Putyovki\BronViewModel.cs" />
+    <Compile Include="ViewModel\Putyovki\GodovoyPlan\GdovoyPlanFedViewModel.cs" />
+    <Compile Include="ViewModel\Putyovki\GodovoyPlan\GodovoyPlanOblastViewModel.cs" />
+    <Compile Include="ViewModel\Putyovki\IPottupleniyaViewModel.cs" />
+    <Compile Include="ViewModel\Putyovki\OplataRasxodiViewModel.cs" />
+    <Compile Include="ViewModel\Putyovki\OplataViewModel.cs" />
+    <Compile Include="ViewModel\Putyovki\PostPutyovkaViewModel.cs" />
+    <Compile Include="ViewModel\Putyovki\PostupleniyaViewModel.cs" />
+    <Compile Include="ViewModel\Putyovki\PutPostTempViewModel.cs" />
+    <Compile Include="ViewModel\Putyovki\RealizasiyaOtraslViewModel.cs" />
+    <Compile Include="ViewModel\Putyovki\RealizasiyaViplMainViewModel.cs" />
+    <Compile Include="ViewModel\Putyovki\RealizasiyaViplPutViewModel.cs" />
+    <Compile Include="ViewModel\RassmotreniyaZayavok\BankTranForOrgVewModel.cs" />
+    <Compile Include="ViewModel\RassmotreniyaZayavok\ConsolidPutyokviViewModel.cs" />
+    <Compile Include="ViewModel\RassmotreniyaZayavok\PossibleQuantityViewModel.cs" />
+    <Compile Include="ViewModel\RassmotreniyaZayavok\RequestPutyovkiViewModel.cs" />
+    <Compile Include="ViewModel\RassmotreniyaZayavok\ResheniyeViewModel.cs" />
+    <Compile Include="ViewModel\RassmotreniyaZayavok\ZayavkiChangeHistoryViewModel.cs" />
+    <Compile Include="ViewModel\RassmotreniyaZayavok\ZayavkiDetailViewModel.cs" />
+    <Compile Include="ViewModel\References\Sprav_FaceViewModel.cs" />
+    <Compile Include="ViewModel\References\Sprav_KvViewModel.cs" />
+    <Compile Include="ViewModel\References\Sprav_MFOViewModel.cs" />
+    <Compile Include="ViewModel\References\Sprav_OrgViewModel.cs" />
+    <Compile Include="ViewModel\References\Sprav_OsViewModel.cs" />
+    <Compile Include="ViewModel\References\Sprav_OtrasViewModel.cs" />
+    <Compile Include="ViewModel\References\Sprav_PrViewModel.cs" />
+    <Compile Include="ViewModel\References\Sprav_RegViewModel.cs" />
+    <Compile Include="ViewModel\References\Sprav_SanViewModel.cs" />
+    <Compile Include="ViewModel\References\Sprav_VilViewModel.cs" />
+    <Compile Include="ViewModel\UserViewModel.cs" />
+    <Compile Include="ViewModel\ZayavkiViewModel.cs" />
     <Compile Include="Web References\KurortUrlService\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -445,6 +762,24 @@
     <Content Include="Content\icons\ruchnaya_provodka.png" />
     <Content Include="Content\icons\sverka_dannih.png" />
     <Content Include="Content\icons\vvod_dannih.png" />
+    <Content Include="Content\images\main_icon_1.png" />
+    <Content Include="Content\images\main_icon_10.png" />
+    <Content Include="Content\images\main_icon_11.png" />
+    <Content Include="Content\images\main_icon_12.png" />
+    <Content Include="Content\images\main_icon_13.png" />
+    <Content Include="Content\images\main_icon_14.png" />
+    <Content Include="Content\images\main_icon_15.png" />
+    <Content Include="Content\images\main_icon_16.png" />
+    <Content Include="Content\images\main_icon_17.png" />
+    <Content Include="Content\images\main_icon_18.png" />
+    <Content Include="Content\images\main_icon_2.png" />
+    <Content Include="Content\images\main_icon_3.png" />
+    <Content Include="Content\images\main_icon_4.png" />
+    <Content Include="Content\images\main_icon_5.png" />
+    <Content Include="Content\images\main_icon_6.png" />
+    <Content Include="Content\images\main_icon_7.png" />
+    <Content Include="Content\images\main_icon_8.png" />
+    <Content Include="Content\images\main_icon_9.png" />
     <Content Include="Content\img\excel.JPG" />
     <Content Include="Content\img\item-1.jpg" />
     <Content Include="Content\img\item-10.JPG" />
@@ -469,6 +804,7 @@
     <Content Include="Content\Login\giphy-downsized-large.gif" />
     <Content Include="Content\Login\keys.ico" />
     <Content Include="Content\main.css" />
+    <Content Include="Content\styles\main.css" />
     <Content Include="Content\themes\alertify.bootstrap.css" />
     <Content Include="Content\themes\alertify.core.css" />
     <Content Include="Content\themes\alertify.default.css" />
@@ -498,6 +834,7 @@
     <Content Include="Scripts\angular.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\angular.min.js.map" />
     <EntityDeploy Include="Models\KasabaKIAT.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>KasabaKIAT.Designer.cs</LastGenOutput>
@@ -505,7 +842,6 @@
     <Content Include="Models\KasabaKIAT.edmx.diagram">
       <DependentUpon>KasabaKIAT.edmx</DependentUpon>
     </Content>
-    <Content Include="Scripts\angular.min.js.map" />
     <None Include="Properties\PublishProfiles\WebKIAT.pubxml" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -523,8 +859,10 @@
     <Content Include="Scripts\lib\alertify.js" />
     <Content Include="Scripts\lib\alertify.min.js" />
     <Content Include="Scripts\lib\jquery.js" />
+    <Content Include="Scripts\main.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\MyJavaScript\App.js" />
+    <Content Include="Scripts\MyJavaScript\A_PPController.js" />
     <Content Include="Scripts\MyJavaScript\Controller.js" />
     <Content Include="Scripts\MyJavaScript\DataService.js" />
     <Content Include="Scripts\MyJavaScript\GPController.js" />
@@ -532,6 +870,9 @@
     <Content Include="Scripts\MyJavaScript\KasabaKIATService.js" />
     <Content Include="Scripts\MyJavaScript\main.js" />
     <Content Include="Scripts\MyJavaScript\Module.js" />
+    <Content Include="Scripts\MyJavaScript\O_SOZController.js" />
+    <Content Include="Scripts\MyJavaScript\O_TController.js" />
+    <Content Include="Scripts\MyJavaScript\PlatejPoruchController.js" />
     <Content Include="Scripts\MyJavaScript\PPController.js" />
     <Content Include="Scripts\MyJavaScript\PRZController.js" />
     <Content Include="Scripts\MyJavaScript\PZController.js" />
@@ -545,8 +886,11 @@
     <Content Include="Scripts\MyJavaScript\SSSPController.js" />
     <Content Include="Scripts\MyJavaScript\STRSController.js" />
     <Content Include="Scripts\MyJavaScript\UZController.js" />
+    <Content Include="Scripts\plugins.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\vendor.js" />
+    <Content Include="Scripts\vendor\modernizr.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -561,7 +905,6 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Login\Login.cshtml" />
-    <Content Include="Views\Home\PlatejnoyeParucheniye.cshtml" />
     <Content Include="Views\Home\RassmotreniyeZayavok.cshtml" />
     <Content Include="Views\Home\PodachaZayavok.cshtml" />
     <Content Include="Views\Home\buxgalteriya.cshtml" />
@@ -571,7 +914,6 @@
     <Content Include="Views\Home\BU_PrasmotrDannix.cshtml" />
     <Content Include="Views\Home\VvodDannix.cshtml" />
     <Content Include="Views\Home\SverkaDannix.cshtml" />
-    <Content Include="Views\Home\Otchot.cshtml" />
     <Content Include="Views\GodovoyPlan\Index.cshtml" />
     <Content Include="Views\PrixodPutevok\Index.cshtml" />
     <Content Include="Views\PrixodPutevok\ProsmotrOstatPutevok.cshtml" />
@@ -591,6 +933,22 @@
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </Content>
+    <Content Include="Views\Administirirovaniye\PrivyazkaProvodok.cshtml" />
+    <Content Include="Views\PlatejnoyePorucheniye\Index.cshtml" />
+    <Content Include="Views\Otchot\Index.cshtml" />
+    <Content Include="Views\Home\Putyovki.cshtml" />
+    <Content Include="Views\Home\Zayavok.cshtml" />
+    <Content Include="Views\Home\Buxgalter.cshtml" />
+    <Content Include="Views\Home\Otchot.cshtml" />
+    <Content Include="Views\Home\Admin.cshtml" />
+    <Content Include="Views\Otchot\SvodniyOtchot.cshtml" />
+    <Content Include="Views\Otchot\Talabnomlar.cshtml" />
+    <Content Include="Views\Otchot\Forma13.cshtml" />
+    <Content Include="Views\Otchot\Forma14.cshtml" />
+    <Content Include="Views\Otchot\TablitsaOtdixayushix.cshtml" />
+    <Content Include="Views\Otchot\JurnalniyOrder.cshtml" />
+    <Content Include="Views\Otchot\FinalniyOtchot.cshtml" />
+    <Content Include="Views\Otchot\GlavnayaKniga.cshtml" />
     <None Include="Web References\KurortUrlService\SkuTradeUnionExchg.wsdl" />
     <Content Include="Web References\KurortUrlService\typeGrafikZaezdovSanatoriev.datasource">
       <DependentUpon>Reference.map</DependentUpon>
@@ -607,6 +965,10 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="BusinessLogic\Buxgalteriya\PlanProvodok\" />
+    <Folder Include="BusinessLogic\Reports\" />
+    <Folder Include="BusinessLogic\Security\" />
+    <Folder Include="BusinessLogic\Utils\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

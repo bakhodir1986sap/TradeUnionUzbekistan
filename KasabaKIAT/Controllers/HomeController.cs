@@ -15,11 +15,14 @@ namespace KasabaKIAT.Controllers
         ILog log = log4net.LogManager.GetLogger(typeof(HomeController));
 
         KasabaKIATEntities KasabaDB = new KasabaKIATEntities();
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public ActionResult Index()
         {
             int UserId = 0;
-
-            throw new ApplicationException("asdasdasdasd");
 
             try
             {
@@ -40,6 +43,10 @@ namespace KasabaKIAT.Controllers
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public JsonResult Getdictionary()
         {
             var camp = from dict in KasabaDB.tbcs_dictionary
@@ -55,6 +62,10 @@ namespace KasabaKIAT.Controllers
             return Json(camp, JsonRequestBehavior.AllowGet);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public JsonResult Getdictionary_RZ()
         {
             var camp = from dict in KasabaDB.tbcs_dictionary
@@ -69,15 +80,30 @@ namespace KasabaKIAT.Controllers
 
             return Json(camp, JsonRequestBehavior.AllowGet);
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public ActionResult RassmotreniyeZayavok()
         {
             return View();
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public ActionResult PodachaZayavok()
         {
            
             return View();
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public JsonResult GetSanatory()
         {
             var S = (from s in KasabaDB.t_sanatorium
@@ -88,6 +114,11 @@ namespace KasabaKIAT.Controllers
                      });
             return Json(S.ToList(), JsonRequestBehavior.AllowGet);
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public JsonResult GetCamp()
         {
             var C = (from s in KasabaDB.t_camp
@@ -98,6 +129,11 @@ namespace KasabaKIAT.Controllers
                      });
             return Json(C, JsonRequestBehavior.AllowGet);
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public JsonResult GetPosition()
         {
             var P = (from s in KasabaDB.tbpt_zayavki
@@ -108,6 +144,11 @@ namespace KasabaKIAT.Controllers
                      });
             return Json(P.ToList(), JsonRequestBehavior.AllowGet);
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public JsonResult GetAllPRZ_S()
         {
             int UserId = Convert.ToInt32(User.Identity.Name);
@@ -136,6 +177,11 @@ namespace KasabaKIAT.Controllers
                         }).ToList();
             return Json(list.ToList(), JsonRequestBehavior.AllowGet);
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public JsonResult GetAllPRZ_C()
         {
             int UserId = Convert.ToInt32(User.Identity.Name);
@@ -164,6 +210,12 @@ namespace KasabaKIAT.Controllers
                         });
             return Json(list.ToList(), JsonRequestBehavior.AllowGet);
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public JsonResult Load_PRZ_S(int id)
         {
             int UserId = Convert.ToInt32(User.Identity.Name);
@@ -193,6 +245,12 @@ namespace KasabaKIAT.Controllers
                         });
             return Json(list.ToList(), JsonRequestBehavior.AllowGet);
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public JsonResult Load_PRZ_C(int id)
         {
             int UserId = Convert.ToInt32(User.Identity.Name);
@@ -222,6 +280,12 @@ namespace KasabaKIAT.Controllers
                         });
             return Json(list.ToList(), JsonRequestBehavior.AllowGet);
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="date"></param>
+        /// <returns></returns>
         public JsonResult Load_PRZ_D0_S(DateTime date)
         {
             int UserId = Convert.ToInt32(User.Identity.Name);
@@ -251,6 +315,12 @@ namespace KasabaKIAT.Controllers
                         });
             return Json(list.ToList(), JsonRequestBehavior.AllowGet);
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="date"></param>
+        /// <returns></returns>
         public JsonResult Load_PRZ_D0_C(DateTime date)
         {
             int UserId = Convert.ToInt32(User.Identity.Name);
@@ -280,6 +350,12 @@ namespace KasabaKIAT.Controllers
                         });
             return Json(list.ToList(), JsonRequestBehavior.AllowGet);
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="date"></param>
+        /// <returns></returns>
         public JsonResult Load_PRZ_D1_S(DateTime date)
         {
             int UserId = Convert.ToInt32(User.Identity.Name);
@@ -309,6 +385,12 @@ namespace KasabaKIAT.Controllers
                         });
             return Json(list.ToList(), JsonRequestBehavior.AllowGet);
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="date"></param>
+        /// <returns></returns>
         public JsonResult Load_PRZ_D1_C(DateTime date)
         {
             int UserId = Convert.ToInt32(User.Identity.Name);
@@ -338,6 +420,12 @@ namespace KasabaKIAT.Controllers
                         });
             return Json(list.ToList(), JsonRequestBehavior.AllowGet);
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public JsonResult Load_PRZ_P_S(int id)
         {
             int UserId = Convert.ToInt32(User.Identity.Name);
@@ -367,6 +455,12 @@ namespace KasabaKIAT.Controllers
                         });
             return Json(list.ToList(), JsonRequestBehavior.AllowGet);
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public JsonResult Load_PRZ_P_C(int id)
         {
             int UserId = Convert.ToInt32(User.Identity.Name);
@@ -396,6 +490,11 @@ namespace KasabaKIAT.Controllers
                         });
             return Json(list.ToList(), JsonRequestBehavior.AllowGet);
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public JsonResult GetAllPodachaZayavok()
         {
             int UserId = Convert.ToInt32(User.Identity.Name);
@@ -425,6 +524,12 @@ namespace KasabaKIAT.Controllers
                         });
             return Json(list.ToList(), JsonRequestBehavior.AllowGet);
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sc_id"></param>
+        /// <returns></returns>
         public JsonResult GetAllPZ_S(int sc_id)
         {
             int UserId = Convert.ToInt32(User.Identity.Name);
@@ -453,6 +558,12 @@ namespace KasabaKIAT.Controllers
                         });
             return Json(list.ToList(), JsonRequestBehavior.AllowGet);
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sc_id"></param>
+        /// <returns></returns>
         public JsonResult GetAllPZ_C(int sc_id)
         {
             int UserId = Convert.ToInt32(User.Identity.Name);
@@ -481,6 +592,13 @@ namespace KasabaKIAT.Controllers
                         });
             return Json(list.ToList(), JsonRequestBehavior.AllowGet);
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="inn"></param>
+        /// <param name="zb"></param>
+        /// <returns></returns>
         public JsonResult GetAllPodachaZayavok_S_LoadINN(string inn, int zb)
         {
             int UserId = Convert.ToInt32(User.Identity.Name);
@@ -511,6 +629,13 @@ namespace KasabaKIAT.Controllers
                         });
             return Json(list.ToList(), JsonRequestBehavior.AllowGet);
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="inn"></param>
+        /// <param name="zb"></param>
+        /// <returns></returns>
         public JsonResult GetAllPodachaZayavok_C_LoadINN(string inn, int zb)
         {
             int UserId = Convert.ToInt32(User.Identity.Name);
@@ -540,6 +665,13 @@ namespace KasabaKIAT.Controllers
                         });
             return Json(list.ToList(), JsonRequestBehavior.AllowGet);
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="inn"></param>
+        /// <param name="zb"></param>
+        /// <returns></returns>
         public JsonResult GroupRZ_S(string inn, int zb)
         {
             var list = (from e in KasabaDB.tbpt_zayavki
@@ -560,6 +692,16 @@ namespace KasabaKIAT.Controllers
                          select new { ZB_g = g.Key.Month, SC_g = g.Key.SC, SC_g_id = g.Key.SC_id, OQ = g.Sum(i => i.OQ), Count = g.Count(), Q_Sum = g.Sum(i => i.Q) };
             return Json(Groups.ToList(), JsonRequestBehavior.AllowGet);
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="inn"></param>
+        /// <param name="zb"></param>
+        /// <param name="zb_g"></param>
+        /// <param name="SC_id"></param>
+        /// <param name="oq"></param>
+        /// <returns></returns>
         public string Add_RZ_S_OQ(string inn, int zb, int zb_g, int SC_id, int oq)
         {
             try
@@ -595,6 +737,16 @@ namespace KasabaKIAT.Controllers
                 return "error";
             }
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="inn"></param>
+        /// <param name="zb"></param>
+        /// <param name="zb_g"></param>
+        /// <param name="SC_id"></param>
+        /// <param name="oq"></param>
+        /// <returns></returns>
         public string Add_RZ_C_OQ(string inn, int zb, int zb_g, int SC_id, int oq)
         {
             try
@@ -630,6 +782,13 @@ namespace KasabaKIAT.Controllers
                 return "error";
             }
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="inn"></param>
+        /// <param name="zb"></param>
+        /// <returns></returns>
         public JsonResult GroupRZ_C(string inn, int zb)
         {
             var list = (from e in KasabaDB.tbpt_zayavki
@@ -650,6 +809,13 @@ namespace KasabaKIAT.Controllers
                          select new { ZB_g = g.Key.Month, SC_g = g.Key.SC, SC_g_id = g.Key.SC_id, OQ = g.Sum(i => i.OQ), Count = g.Count(), Q_Sum = g.Sum(i => i.Q) };
             return Json(Groups.ToList(), JsonRequestBehavior.AllowGet);
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="s"></param>
+        /// <returns></returns>
         public string UpdateStatusRZ(int id, string s)
         {
             try
@@ -665,6 +831,13 @@ namespace KasabaKIAT.Controllers
                 return "error";
             }
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="inn"></param>
+        /// <param name="zb"></param>
+        /// <returns></returns>
         public JsonResult Getbankpayments(string inn, int zb)
         {
             var list = from a in KasabaDB.tbgl_bankpayments
@@ -679,6 +852,12 @@ namespace KasabaKIAT.Controllers
                          select new { ZB_g = g.Key, Count = g.Count(), A_Sum = g.Sum(i => i.A) };
             return Json(Groups.ToList(), JsonRequestBehavior.AllowGet);
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="yil"></param>
+        /// <returns></returns>
         public JsonResult GetAvarageprice(int yil)
         {
             var list = from a in KasabaDB.tbpt_avarageprice
@@ -686,6 +865,13 @@ namespace KasabaKIAT.Controllers
                        select a;
             return Json(list.ToList(), JsonRequestBehavior.AllowGet);
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="inn"></param>
+        /// <param name="zb"></param>
+        /// <returns></returns>
         public JsonResult GetbankpaymentsYear(string inn, int zb)
         {
             var list = from a in KasabaDB.tbgl_bankpayments
@@ -700,14 +886,32 @@ namespace KasabaKIAT.Controllers
                          select new { ZB_g = g.Key, Count = g.Count(), A_Sum = g.Sum(i => i.A) };
             return Json(Groups.ToList(), JsonRequestBehavior.AllowGet);
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
         public string SplitValue1(string value)
         {
             return value.Split(new Char[] { '&' })[0];
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
         public string SplitValue2(string value)
         {
             return value.Split(new Char[] { '&' })[1];
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="pz"></param>
+        /// <returns></returns>
         public string AddPodachaZayavok(tbpt_zayavki pz)
         {
             if (pz != null)
@@ -741,6 +945,12 @@ namespace KasabaKIAT.Controllers
                 return "Invalid tbpt_zayavki record";
             }
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="inn"></param>
+        /// <returns></returns>
         public string LOAD_DEPARTMENT_CODE(string inn)
         {
             string name = "";
@@ -755,6 +965,12 @@ namespace KasabaKIAT.Controllers
             }
             return name;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="inn"></param>
+        /// <returns></returns>
         public string LoadINN(int inn)
         {
             //string name = "";
@@ -784,6 +1000,11 @@ namespace KasabaKIAT.Controllers
             return "No Data Found";
 
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public int MAX_GROUP_ID()
         {
             int UserId = Convert.ToInt32(User.Identity.Name);
@@ -805,6 +1026,12 @@ namespace KasabaKIAT.Controllers
             }
             return x;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="group_id"></param>
+        /// <returns></returns>
         public string STATUS(int group_id)
         {
             int UserId = Convert.ToInt32(User.Identity.Name);
@@ -816,6 +1043,12 @@ namespace KasabaKIAT.Controllers
             }
             return d;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public string DeletePodachaZayavok(string id)
         {
 
@@ -842,7 +1075,13 @@ namespace KasabaKIAT.Controllers
                 return "Invalid operation";
             }
         }
+        
         //Update PodachaZayavok
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="pz"></param>
+        /// <returns></returns>
         public string UpdatePodachaZayavok(tbpt_zayavki pz)
         {
             if (pz != null)
@@ -872,6 +1111,11 @@ namespace KasabaKIAT.Controllers
                 return "Invalid gz record";
             }
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public string OTPPodachaZayavok()
         {
             using (KasabaKIATEntities contextObj = new KasabaKIATEntities())
@@ -888,34 +1132,74 @@ namespace KasabaKIAT.Controllers
                 return "OTP succes!!!";
             }
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public ActionResult buxgalteriya()
         {
             return View();
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public ActionResult PoiskRedaktZayavok()
         {
             return View();
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public ActionResult ProsmotrRealzPutevok()
         {
             return View();
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public ActionResult BU_RuchnayaPravodka()
         {
             return View();
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public ActionResult BU_PrasmotrDannix()
         {
             return View();
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public ActionResult VvodDannix()
         {
             return View();
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public ActionResult SverkaDannix()
         {
             return View();
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public ActionResult Putyovki()
         {
             int aaa = Convert.ToInt32(User.Identity.Name);
@@ -932,18 +1216,38 @@ namespace KasabaKIAT.Controllers
 
             return View();
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public ActionResult Zayavok()
         {
             return View();
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public ActionResult Buxgalter()
         {
             return View();
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public ActionResult Otchot()
         {
             return View();
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public ActionResult Admin()
         {
             return View();

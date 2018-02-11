@@ -6,12 +6,14 @@ using System.Web.Mvc;
 using KasabaKIAT.Models;
 using System.Web.Security;
 using System.IO;
+using log4net;
 
 namespace KasabaKIAT.Controllers
 {
     public class LoginController : Controller
     {
         KasabaKIATEntities KasabaDB = new KasabaKIATEntities();
+        ILog log = log4net.LogManager.GetLogger(typeof(LoginController));
         userlogin ul = new userlogin();
         public static string message = "";
         public ActionResult Login()
@@ -21,7 +23,7 @@ namespace KasabaKIAT.Controllers
         [HttpPost]
         public ActionResult Login(user u,string ReturnUrl = "")
         {
-            StreamWriter stw;
+
             try
             {
                 if (ModelState.IsValid)
@@ -64,17 +66,8 @@ namespace KasabaKIAT.Controllers
             }
             catch (Exception ex)
             {
-                try
-                {
-                    stw = System.IO.File.AppendText("D:\\Log\\Test.txt");
-                }
-                catch
-                {
-                    Directory.CreateDirectory("D:\\Log");
-                    stw = System.IO.File.AppendText("D:\\Log\\Test.txt");
-                }
-                stw.WriteLine("Login Error -> " + ex.ToString());
-                stw.Close();
+                log.Error(ex);
+
                 return RedirectToAction("index", "Home");
             }
 

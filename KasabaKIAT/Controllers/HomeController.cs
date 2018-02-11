@@ -1,4 +1,5 @@
 ﻿using KasabaKIAT.Models;
+using log4net;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,10 +12,24 @@ namespace KasabaKIAT.Controllers
     [Authorize]
     public class HomeController : Controller
     {
+        ILog log = log4net.LogManager.GetLogger(typeof(HomeController));
+
         KasabaKIATEntities KasabaDB = new KasabaKIATEntities();
         public ActionResult Index()
         {
-            int UserId = Convert.ToInt32(User.Identity.Name);
+            int UserId = 0;
+
+            throw new ApplicationException("asdasdasdasd");
+
+            try
+            {
+                UserId = Convert.ToInt32(User.Identity.Name);
+            }
+            catch(Exception ex)
+            {
+                log.Error(ex);
+            }
+
             if (UserId == 0)
             {
                 return RedirectToAction("SignOut", "Login");
@@ -24,6 +39,7 @@ namespace KasabaKIAT.Controllers
                 return View();
             }
         }
+
         public JsonResult Getdictionary()
         {
             var camp = from dict in KasabaDB.tbcs_dictionary
@@ -38,6 +54,7 @@ namespace KasabaKIAT.Controllers
 
             return Json(camp, JsonRequestBehavior.AllowGet);
         }
+
         public JsonResult Getdictionary_RZ()
         {
             var camp = from dict in KasabaDB.tbcs_dictionary

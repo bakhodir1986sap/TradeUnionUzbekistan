@@ -1,4 +1,5 @@
-﻿using System;
+﻿using log4net;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Configuration;
@@ -18,18 +19,30 @@ namespace KasabaKIAT.Models
     }
     public class userlogin
     {
+        ILog log = log4net.LogManager.GetLogger(typeof(userlogin));
+
         string constr = ConfigurationManager.ConnectionStrings["LoginEntities"].ConnectionString;
+
         public int Ruxsatni_tekshir(user user)
         {
-            using (SqlConnection con = new SqlConnection(constr))
+            try
             {
-                con.Open();
-                SqlCommand com = new SqlCommand("uspLogin", con);
-                com.CommandType = CommandType.StoredProcedure;
-                com.Parameters.Add(new SqlParameter("@login", user.login));
-                com.Parameters.Add(new SqlParameter("@parol", user.parol));
-                return Convert.ToInt32(com.ExecuteScalar());
+                using (SqlConnection con = new SqlConnection(constr))
+                {
+                    con.Open();
+                    SqlCommand com = new SqlCommand("uspLogin", con);
+                    com.CommandType = CommandType.StoredProcedure;
+                    com.Parameters.Add(new SqlParameter("@login", user.login));
+                    com.Parameters.Add(new SqlParameter("@parol", user.parol));
+                    return Convert.ToInt32(com.ExecuteScalar());
+                }
             }
+            catch(Exception ex)
+            {
+                log.Error(ex);
+            }
+
+            return 0;
         }
     }
 }

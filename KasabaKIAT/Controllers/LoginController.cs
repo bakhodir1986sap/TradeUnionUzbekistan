@@ -68,7 +68,7 @@ namespace KasabaKIAT.Controllers
             {
                 log.Error(ex);
 
-                return RedirectToAction("index", "Home");
+                return Json(message, JsonRequestBehavior.AllowGet);
             }
 
             //using (KasabaKIATEntities db = new KasabaKIATEntities())

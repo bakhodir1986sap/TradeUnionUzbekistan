@@ -11,7 +11,7 @@ namespace KasabaKiat.BusinessLogic.Putyovki.PrixodPutyovok
 {
     public class PostupleniyaEnterTemp : IPostupleniyaEnter
     {
-        public void EnterProcess(IPostupleniyaViewModel model)
+        void IPostupleniyaEnter.EnterProcess(IPostupleniyaViewModel model)
         {
             //
             var  mm = (PutPostTempViewModel)model;
@@ -55,7 +55,7 @@ namespace KasabaKiat.BusinessLogic.Putyovki.PrixodPutyovok
             ///////////////////////////////////////////////
         }
 
-        public void ModifyProcess(IPostupleniyaViewModel model)
+        void IPostupleniyaEnter.ModifyProcess(IPostupleniyaViewModel model)
         {
             var mm = (PutPostTempViewModel)model;
 
@@ -96,7 +96,7 @@ namespace KasabaKiat.BusinessLogic.Putyovki.PrixodPutyovok
             }
         }
 
-        public void DeleteProcess(IPostupleniyaViewModel model)
+        void IPostupleniyaEnter.DeleteProcess(IPostupleniyaViewModel model)
         {
             var mm = (PutPostTempViewModel)model;
 
@@ -114,19 +114,5 @@ namespace KasabaKiat.BusinessLogic.Putyovki.PrixodPutyovok
             PostMainDataManager.Remove(mainViewModel);
         }
 
-        void IPostupleniyaEnter.EnterProcess(KasabaKIAT.ViewModel.Putyovki.IPostupleniyaViewModel model)
-        {
-            throw new NotImplementedException();
-        }
-
-        void IPostupleniyaEnter.ModifyProcess(KasabaKIAT.ViewModel.Putyovki.IPostupleniyaViewModel model)
-        {
-            throw new NotImplementedException();
-        }
-
-        void IPostupleniyaEnter.DeleteProcess(KasabaKIAT.ViewModel.Putyovki.IPostupleniyaViewModel model)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

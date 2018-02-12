@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace KasabaKIAT.BusinessLogic.Buxgalteriya.PlanirovaniyaBudjeta.Otrasl
+namespace KasabaKiat.BusinessLogic.Buxgalteriya.PlanirovaniyaBudjeta.Otrasl
 {
     public class PlanOtraslDataManager
     {

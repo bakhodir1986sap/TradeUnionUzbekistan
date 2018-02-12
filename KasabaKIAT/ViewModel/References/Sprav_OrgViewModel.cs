@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace KasabaKIAT.BusinessLogic.Utils.References
+namespace KasabaKiat.BusinessLogic.Utils.References
 {
     public class Sprav_OrgViewModel
     {
       public long ID             { get; set; }
 
-      public int ID_Ot          { get; set; }
+      public int?    ID_Ot          { get; set; }
 
       public string Name_Org       { get; set; }
 
@@ -27,14 +27,14 @@ namespace KasabaKIAT.BusinessLogic.Utils.References
 
       public string Telefon        { get; set; }
 
-      public int Region         { get; set; }
+      public int?    Region         { get; set; }
 
-      public int DT_OST         { get; set; }
+      public int?    DT_OST         { get; set; }
 
-      public int KT_OST         { get; set; }
+      public int?    KT_OST         { get; set; }
 
       public string E_Mail         { get; set; }
 
-      public long UserId         { get; set; }
+      public long?   UserId         { get; set; }
     }
 }

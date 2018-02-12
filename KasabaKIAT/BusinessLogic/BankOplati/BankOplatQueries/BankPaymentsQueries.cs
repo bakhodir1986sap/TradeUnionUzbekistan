@@ -5,7 +5,7 @@ using System.Data.Entity.Core.Objects;
 using System.Linq;
 using System.Web;
 
-namespace KasabaKIAT.BusinessLogic.BankOplati.BankOplatQueries
+namespace KasabaKiat.BusinessLogic.BankOplati.BankOplatQueries
 {
     public class BankPaymentsQueries
     {

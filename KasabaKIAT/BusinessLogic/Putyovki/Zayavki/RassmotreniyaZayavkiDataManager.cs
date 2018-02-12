@@ -1,11 +1,11 @@
-﻿using KasabaKIAT.ViewModel;
-using KasabaKIAT.ViewModel.RassmotreniyaZayavok;
+﻿using KasabaKiat.ViewModel;
+using KasabaKiat.ViewModel.RassmotreniyaZayavok;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace KasabaKIAT.BusinessLogic.Zayavki
+namespace KasabaKiat.BusinessLogic.Zayavki
 {
     public class RassmotreniyaZayavkiDataManager
     {

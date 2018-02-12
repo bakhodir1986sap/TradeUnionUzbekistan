@@ -5,7 +5,7 @@ using System.Web;
 using KasabaKIAT.ViewModel;
 using KasabaKIAT.BusinessLogic.BankOplati.OraslAndRegionDefine;
 
-namespace KasabaKIAT.BusinessLogic.BankOplati
+namespace KasabaKiat.BusinessLogic.BankOplati
 {
     public class ExcelBankSource : BankDataSource
     {

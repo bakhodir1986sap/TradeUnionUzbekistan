@@ -1,12 +1,11 @@
-﻿using KasabaKIAT.Models;
-using KasabaKIAT.ViewModel;
+﻿using KasabaKiat.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-//using System.Data.Linq.SqlClient;
 using System.Web;
+using KasabaKIAT.Models;
 
-namespace KasabaKIAT.BusinessLogic.Zayavki
+namespace KasabaKiat.BusinessLogic.Zayavki
 {
     public enum ZayavkaStates
     {

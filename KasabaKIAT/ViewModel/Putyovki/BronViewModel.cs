@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace KasabaKIAT.ViewModel.Putyovki
+namespace KasabaKiat.ViewModel.Putyovki
 {
     public class BronViewModel
     {
@@ -20,7 +20,12 @@ namespace KasabaKIAT.ViewModel.Putyovki
         /// <summary>
         /// 
         /// </summary>
-      public string Num_Put { get; set; }
+        public string SanatoryName { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public string Num_Put { get; set; }
 
         /// <summary>
         /// 
@@ -30,21 +35,24 @@ namespace KasabaKIAT.ViewModel.Putyovki
         /// <summary>
         /// 
         /// </summary>
-      public bool Uchet { get; set; }
+      public bool? Uchet { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-      public DateTime  ExpireDate { get; set; }
+      public DateTime?  ExpireDate { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-      public long UserId { get; set; }
+      public long? UserId { get; set; }
+
+
+        public string UserName { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-      public string  DepartmentBase { get; set; }
+        public string  DepartmentBase { get; set; }
     }
 }

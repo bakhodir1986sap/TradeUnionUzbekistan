@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace KasabaKIAT.ViewModel
+namespace KasabaKiat.ViewModel
 {
     public class PostupleniyaViewModel
     {
@@ -20,9 +20,9 @@ namespace KasabaKIAT.ViewModel
 
         public long? ID_Pos { get; set; }
 
-        public int Num_Kol { get; set; }
+        public int? Num_Kol { get; set; }
 
-        public decimal Symma { get; set; }
+        public decimal? Symma { get; set; }
 
         public string Name_Dov { get; set; }
 
@@ -34,7 +34,7 @@ namespace KasabaKIAT.ViewModel
         /// <summary>
         /// Year YYYY
         /// </summary>
-        public int SmFil { get; set; } 
+        public int? SmFil { get; set; } 
 
         /// <summary>
         /// 
@@ -49,12 +49,12 @@ namespace KasabaKIAT.ViewModel
         /// <summary>
         /// 
         /// </summary>
-        public int BeginNumber { get; set; }
+        public int? BeginNumber { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public int EndNumber { get; set; }
+        public int? EndNumber { get; set; }
 
     }
 }

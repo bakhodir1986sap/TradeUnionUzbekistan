@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace KasabaKIAT.BusinessLogic.Utils.References
+namespace KasabaKiat.BusinessLogic.Utils.References
 {
     public class Sprav_PrViewModel
     {
@@ -11,8 +11,8 @@ namespace KasabaKIAT.BusinessLogic.Utils.References
 
       public string Name_Proc  {get; set;}
 
-      public int Num        {get; set;}
+      public int?    Num        {get; set;}
 
-      public long UserId     {get; set;}
+      public long?   UserId     {get; set;}
     }
 }

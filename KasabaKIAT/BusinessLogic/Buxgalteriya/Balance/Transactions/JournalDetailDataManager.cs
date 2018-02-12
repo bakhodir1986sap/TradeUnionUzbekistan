@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace KasabaKIAT.BusinessLogic.Buxgalteriya.Balance.Transactions
+namespace KasabaKiat.BusinessLogic.Buxgalteriya.Balance.Transactions
 {
     public class JournalDetailDataManager
     {

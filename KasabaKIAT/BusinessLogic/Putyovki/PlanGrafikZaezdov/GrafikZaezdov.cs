@@ -1,11 +1,11 @@
-﻿using KasabaKIAT.BusinessLogic.PlanGrafikZaezdov;
-using KasabaKIAT.ViewModel;
+﻿using KasabaKiat.BusinessLogic.PlanGrafikZaezdov;
+using KasabaKiat.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace KasabaKIAT.BusinessLogic.Putyovki.PlanGrafikZaezdov
+namespace KasabaKiat.BusinessLogic.Putyovki.PlanGrafikZaezdov
 {
     public class GrafikZaezdov
     {

@@ -1,9 +1,10 @@
-﻿using System;
+﻿using KasabaKiat.ViewModel.Putyovki;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace KasabaKIAT.BusinessLogic.Putyovki.OplataPutyovok
+namespace KasabaKiat.BusinessLogic.Putyovki.OplataPutyovok
 {
     public class Oplata
     {
@@ -21,6 +22,44 @@ namespace KasabaKIAT.BusinessLogic.Putyovki.OplataPutyovok
          * 5) Tanlangan putyovkalar Oplata_Rasxodiga o'tiradi
          */
 
+         /// <summary>
+         /// 
+         /// </summary>
+        public Oplata()
+        {
+
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="main1"></param>
+        /// <param name="putList"></param>
+        public void ViplataProizoshla(RealizasiyaViplMainViewModel main1, 
+            List<RealizasiyaViplPutViewModel> putList)
+        {
+            //Soditsya po debetu
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="model"></param>
+        public void AddOplataCredit(OplataViewModel model)
+        {
+
+        }
+
+
+        public void AddOplataRasxod(OplataRasxodiViewModel putModel)
+        {
+
+        }
+
+        public List<RealizasiyaViplPutViewModel> GetViplataPutList()
+        {
+            return new List<RealizasiyaViplPutViewModel>();
+        }
 
     }
 }

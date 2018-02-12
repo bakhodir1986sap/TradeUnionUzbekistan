@@ -1,11 +1,11 @@
-﻿using KasabaKIAT.ViewModel;
-using KasabaKIAT.ViewModel.Putyovki;
+﻿using KasabaKiat.ViewModel;
+using KasabaKiat.ViewModel.Putyovki;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace KasabaKIAT.BusinessLogic.Putyovki.PrixodPutyovok
+namespace KasabaKiat.BusinessLogic.Putyovki.PrixodPutyovok
 {
     public class Postupleniya
     {

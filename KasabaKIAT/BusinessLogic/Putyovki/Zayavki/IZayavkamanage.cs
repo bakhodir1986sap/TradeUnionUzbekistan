@@ -1,11 +1,11 @@
-﻿using KasabaKIAT.ViewModel;
+﻿using KasabaKiat.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace KasabaKIAT.BusinessLogic.Zayavki
+namespace KasabaKiat.BusinessLogic.Zayavki
 {
     interface IZayavkaManage
     {

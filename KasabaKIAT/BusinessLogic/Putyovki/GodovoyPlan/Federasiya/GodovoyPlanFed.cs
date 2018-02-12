@@ -1,23 +1,52 @@
-﻿using KasabaKIAT.BusinessLogic.GodovoyPlan.Federasiya;
-using KasabaKIAT.ViewModel.Putyovki.GodovoyPlan;
+﻿using KasabaKiat.BusinessLogic.BankOplati.BankOplatQueries;
+using KasabaKiat.BusinessLogic.GodovoyPlan.Federasiya;
+using KasabaKiat.BusinessLogic.Zayavki;
+using KasabaKiat.ViewModel.Putyovki.GodovoyPlan;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace KasabaKIAT.BusinessLogic.Putyovki.GodovoyPlan.Federasiya
+namespace KasabaKiat.BusinessLogic.Putyovki.GodovoyPlan.Federasiya
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class GodovoyPlanFed
     {
         //Dlya prinyatiya resheniya
-        public decimal GetRegionIncome(int regionId, int Year)
+        public decimal GetRegionIncome(string soato, int Year)
         {
+            var regionIncome = BankPaymentsQueriesN.GetIncomeForOblastYearlyT(Year, soato);
+
+            if (regionIncome.HasValue)
+            {
+                return regionIncome.Value;
+            }
+
             return 0;
         }
 
-        public int AvailablePutyovka(long Id_Sanatory, int Year, int Kvartal)
+        /// <summary>
+        /// Dostupno putyovok : N kolichestvo
+        /// </summary>
+        /// <param name="Year"></param>
+        /// <param name="regionCode"></param>
+        /// <returns></returns>
+        public int AvailablePutyovka(int Year, string regionCode)
         {
-            return 0;
+            int availablePutForRegion = 0;
+
+            var regionIncome = BankPaymentsQueriesN.GetIncomeForOblastYearlyT(Year, regionCode);
+
+            if (regionIncome.HasValue)
+            {
+                var avaragePricePut = AvaragePriceManager.GetAvaragePriceForYear(Year.ToString());
+
+                availablePutForRegion = (int)(regionIncome / avaragePricePut.Amount);
+            }
+
+            return availablePutForRegion;
         }
 
         public static void Create(GdovoyPlanFedViewModel model)

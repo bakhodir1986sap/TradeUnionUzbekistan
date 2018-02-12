@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace KasabaKIAT.BusinessLogic.Putyovki.PrixodPutyovok
+namespace KasabaKiat.BusinessLogic.Putyovki.PrixodPutyovok
 {
     public interface IPostupleniyaEnter
     {

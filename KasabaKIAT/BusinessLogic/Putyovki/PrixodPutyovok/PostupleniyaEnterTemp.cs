@@ -4,8 +4,10 @@ using System.Linq;
 using System.Web;
 using KasabaKIAT.ViewModel.Putyovki;
 using KasabaKIAT.ViewModel;
+using KasabaKiat.ViewModel.Putyovki;
+using KasabaKiat.ViewModel;
 
-namespace KasabaKIAT.BusinessLogic.Putyovki.PrixodPutyovok
+namespace KasabaKiat.BusinessLogic.Putyovki.PrixodPutyovok
 {
     public class PostupleniyaEnterTemp : IPostupleniyaEnter
     {
@@ -38,7 +40,7 @@ namespace KasabaKIAT.BusinessLogic.Putyovki.PrixodPutyovok
                     detailModel.Num_Put = i.ToString(); //Maybe need formatting
                     detailModel.Symma_Put = mm.Price;
                     detailModel.IdSanat = mm.SanatoryId;
-                    detailModel.ID_PolVoz = 0;
+                    detailModel.ID_PolVoz = false;
                     detailModel.UserId = model.UserId;
                     detailModel.Departmentbase = model.DepartmentBase;
                     detailModel.IdPost = mainViewModel.Id; //Master Detail Connection
@@ -82,7 +84,7 @@ namespace KasabaKIAT.BusinessLogic.Putyovki.PrixodPutyovok
                     detailModel.Num_Put = i.ToString(); //Maybe need formatting
                     detailModel.Symma_Put = mm.Price;
                     detailModel.IdSanat = mm.SanatoryId;
-                    detailModel.ID_PolVoz = 0;
+                    detailModel.ID_PolVoz = false;
                     detailModel.IdPost = mainViewModel.Id; //Master Detail Connection
 
                     PostPutDetailDataManager.Modify(detailModel);
@@ -110,6 +112,21 @@ namespace KasabaKIAT.BusinessLogic.Putyovki.PrixodPutyovok
             PostPutDetailDataManager.Remove(detailModel);
 
             PostMainDataManager.Remove(mainViewModel);
+        }
+
+        void IPostupleniyaEnter.EnterProcess(KasabaKIAT.ViewModel.Putyovki.IPostupleniyaViewModel model)
+        {
+            throw new NotImplementedException();
+        }
+
+        void IPostupleniyaEnter.ModifyProcess(KasabaKIAT.ViewModel.Putyovki.IPostupleniyaViewModel model)
+        {
+            throw new NotImplementedException();
+        }
+
+        void IPostupleniyaEnter.DeleteProcess(KasabaKIAT.ViewModel.Putyovki.IPostupleniyaViewModel model)
+        {
+            throw new NotImplementedException();
         }
     }
 }

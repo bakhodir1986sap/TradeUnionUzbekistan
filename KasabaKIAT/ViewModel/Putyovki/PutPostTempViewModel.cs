@@ -1,9 +1,10 @@
-﻿using System;
+﻿using KasabaKIAT.ViewModel.Putyovki;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace KasabaKIAT.ViewModel.Putyovki
+namespace KasabaKiat.ViewModel.Putyovki
 {
     public class PutPostTempViewModel: IPostupleniyaViewModel
     {
@@ -32,8 +33,8 @@ namespace KasabaKIAT.ViewModel.Putyovki
         /// <summary>
         /// 
         /// </summary>
-        private long _sanatoryId;
-        public long SanatoryId
+        private int? _sanatoryId;
+        public int? SanatoryId
         {
             get
             {
@@ -74,6 +75,58 @@ namespace KasabaKIAT.ViewModel.Putyovki
             set
             {
                 _departmentBase = value;
+            }
+        }
+
+        //long IPostupleniyaViewModel.
+        //{
+        //    get
+        //    {
+        //        throw new NotImplementedException();
+        //    }
+
+        //    set
+        //    {
+        //        throw new NotImplementedException();
+        //    }
+        //}
+
+        long IPostupleniyaViewModel.UserId
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        string IPostupleniyaViewModel.DepartmentBase
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        long IPostupleniyaViewModel.SanatoryId
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+
+            set
+            {
+                throw new NotImplementedException();
             }
         }
     }

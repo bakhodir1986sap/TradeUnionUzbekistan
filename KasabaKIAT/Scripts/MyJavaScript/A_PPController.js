@@ -2,6 +2,7 @@
     GetPP(14, 1726);
     AllRegion();
     AllPlaceType();
+    $scope.showdelete = false;
     function GetPP(o,r) {
         $http({
             method: "post",
@@ -46,6 +47,7 @@
         });
     }
     $scope.editPP = function (pz) {
+        $scope.showdelete = true;
         $scope.ID = pz.ID;
         $scope.INN = pz.INN;
         $scope.Region.id = pz.R_id;
@@ -59,6 +61,7 @@
         $scope.Action = "Изменить";
     }
     $scope.AddPPDiv = function () {
+        $scope.showdelete = false;
         $scope.ID = "";
         $scope.INN = "";
         $scope.O = "";

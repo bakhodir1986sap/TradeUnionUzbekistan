@@ -7,6 +7,13 @@ using KasabaKIAT.Models;
 using KurortUrvServiceTest.ServiceInterAction.ActionLogic;
 using System.IO;
 using log4net;
+using System.Web.UI.WebControls;
+using System.Web.UI;
+using ClosedXML;
+using ClosedXML.Excel;
+using System.Configuration;
+using System.Data.SqlClient;
+using System.Data;
 
 namespace KasabaKIAT.Controllers
 {
@@ -16,6 +23,7 @@ namespace KasabaKIAT.Controllers
         ServiceActionController service = new ServiceActionController();
         ILog log = log4net.LogManager.GetLogger(typeof(AdministirirovaniyeController));
         KasabaKIATEntities KasabaDB = new KasabaKIATEntities();
+
 
         public ActionResult Index()
         {
@@ -47,7 +55,13 @@ namespace KasabaKIAT.Controllers
         }
         public ActionResult SpisokPravsoyuzov()
         {
-            return View();
+            IList<Models.ViewModel> O = (from o in KasabaDB.tbku_StrokaProfsoyza
+                                         select new Models.ViewModel
+                                         {
+                                             Kod = o.ProfsoyzKod,
+                                             Name = o.ProfsoyzNaimenovanie
+                                         }).ToList();
+            return View(O);
         }
         public ActionResult GrafikSanatoryZaezdov()
         {
@@ -57,7 +71,6 @@ namespace KasabaKIAT.Controllers
         {
             return View();
         }
-
         public void ServiceSpisokPravsoyuzov()
         {
             try

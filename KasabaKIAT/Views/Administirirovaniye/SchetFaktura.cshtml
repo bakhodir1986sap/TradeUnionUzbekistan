@@ -21,7 +21,7 @@
         </div>
     </div>
     <form class="row mb-4 align-items-center" name="myForm1" novalidate>
-        <div class="custom-control-inline">
+        <div class="custom-control-inline" style="margin-left:20px">
             <div>
                 <p>Список правсоюзов:</p>
                 <select style="width:200px" ng-model="SP" name="SP" required ng-options="d as d.d2 for d in R track by d.d1" class="custom-select form-control"></select>
@@ -43,11 +43,20 @@
         </div>
     </form>
     <div class="row mb-5 pb-md-5"  ng-show="showdata">
-        <div class="col-md-6">
+        <div class="col-md-12">
             <div class="table__title mb-3">
-                <h6>Документ Счет фактуры</h6>
+                <div class="row mb-4 align-items-center">
+                    <div style="margin-left:50px">
+                        <h6>Документ Счет фактуры</h6>
+                    </div>
+                    <div style="margin-left:690px;">
+                        <button class="btn btn-green d-block d-md-inline-block mb-2" ng-click="exportData1()">
+                            <i class="fas fa-file-excel"></i>  ЭКСПОРТ
+                        </button>
+                    </div>
+                </div>
             </div>
-            <div class="table-responsive box-shadow mb-4">
+            <div class="table-responsive box-shadow mb-4"  id="export1">
                 <table class="table table__block t-hover">
                     <thead>
                         <tr>
@@ -86,11 +95,20 @@
                 </table>
             </div>
         </div>
-        <div class="col-md-6 mb-4" ng-show="showdata2">
+        <div class="col-md-12" ng-show="showdata2">
             <div class="table__title mb-3">
-                <h6>Детали счет фактуры</h6>
+                <div class="row mb-4 align-items-center">
+                    <div style="margin-left:50px">
+                        <h6>Детали счет фактуры</h6>
+                    </div>
+                    <div style="margin-left:710px;">
+                        <button class="btn btn-green d-block d-md-inline-block mb-2" ng-click="exportData2()">
+                            <i class="fas fa-file-excel"></i>  ЭКСПОРТ
+                        </button>
+                    </div>
+                </div>
             </div>
-            <div class="table-responsive box-shadow mb-4">
+            <div class="table-responsive box-shadow mb-4" id="export2">
                 <table class="table table__block t-hover">
                     <thead>
                         <tr>

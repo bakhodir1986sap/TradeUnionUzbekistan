@@ -27,6 +27,7 @@
     @*@Styles.Render("~/Content/css")*@
     @Scripts.Render("~/bundles/modernizr")
     <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="https://fastcdn.org/FileSaver.js/1.1.20151003/FileSaver.min.js"></script>
     @*<script src="~/Scripts/kendo/kendo.all.min.js"></script>*@
     <script src="~/Scripts/lib/alertify.min.js"></script>
     <script>
@@ -81,11 +82,11 @@
                         <div class="dropdown-menu rounded-0 box-shadow m-0 border-0" aria-labelledby="accounting">
                             <a class="dropdown-item" href="/Home/VvodDannix">Ввод данных</a>
                             <a class="dropdown-item" href="/Home/BU_PrasmotrDannix">Просмотр</a>
-                            <a class="dropdown-item" href="#">Осуществление проводки</a>
+                            <a class="dropdown-item" href="/Home/OsushestvleniyeProvodki">Осуществление проводки</a>
                             <a class="dropdown-item" href="/PlatejnoyePorucheniye/Index">Платежные поручения</a>
-                            <a class="dropdown-item" href="#">Накладные</a>
-                            <a class="dropdown-item" href="#">План бюджета областей</a>
-                            <a class="dropdown-item" href="#">Распределение бюджета по отраслям</a>
+                            <a class="dropdown-item" href="/Home/Nakladniye">Накладные</a>
+                            <a class="dropdown-item" href="/Home/PlanByudjetaOblastey">План бюджета областей</a>
+                            <a class="dropdown-item" href="/Home/RaspredleniyeByudjeta">Распределение бюджета по отраслям</a>
                         </div>
                     </li>
                     <li class="nav-item" id="o">

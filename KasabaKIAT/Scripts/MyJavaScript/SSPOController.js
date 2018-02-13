@@ -9,6 +9,7 @@
     };
     $scope.PlaceTypeFilter.REC_ID = 1;
     GetSSPO();
+    $scope.showdelete = false;
     function GetSSPO() {
         $http({
             method: "post",
@@ -20,11 +21,13 @@
         });
     }
     $scope.editSSPO = function (pz) {
+        $scope.showdelete = true;
         $scope.ID = pz.REC_ID;
         $scope.PTI = pz.NAME_UZ;
         $scope.Action = "Изменить";
     }
     $scope.AddSSPODiv = function () {
+        $scope.showdelete = false;
         $scope.PTI = "";
         $scope.Action = "Добавить";
     }

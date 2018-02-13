@@ -11,6 +11,7 @@
         id: '1',
         value: ''
     };
+    $scope.showdelete = false;
     $scope.GZdiv = true;
     Load_S();
     LoadPT();
@@ -116,6 +117,7 @@
         }
     }
     $scope.editGZ = function (gz) {
+        $scope.showdelete = true;
         $scope.ID = gz.ID;
         var zb = (gz.ZB) ? $filter('date')(parseInt(gz.ZB.substr(6)), 'dd.MM.yyyy') : '';
         var ze = (gz.ZE) ? $filter('date')(parseInt(gz.ZE.substr(6)), 'dd.MM.yyyy') : '';
@@ -200,6 +202,7 @@
         }
     }
     $scope.AddGZDiv = function () {
+        $scope.showdelete = false;
         ClearFields();
         $scope.Action = "Добавить";
     }
@@ -244,5 +247,11 @@
     }
     $scope.Cancel = function () {
        
+    };
+    $scope.exportData = function () {
+        var blob = new Blob([document.getElementById('export').innerHTML], {
+            type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=utf-8"
+        });
+        saveAs(blob, "График заездов.xls");
     };
 }]);

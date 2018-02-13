@@ -1,5 +1,6 @@
 ﻿app.controller("SPController", ["$scope", "$http", "$filter", "crudAJService", function ($scope, $http, $filter, crudAJService) {
     GetSP();
+    $scope.showdelete = false;
     function GetSP() {
         $http({
             method: "post",
@@ -11,6 +12,7 @@
         });
     }
     $scope.editSP = function (pz) {
+        $scope.showdelete = true;
         $scope.ID = pz.ID;
         $scope.INN = pz.INN;
         $scope.O = pz.O;
@@ -20,6 +22,7 @@
         $scope.Action = "Изменить";
     }
     $scope.AddSPDiv = function () {
+        $scope.showdelete = false;
         $scope.ID = "";
         $scope.INN = "";
         $scope.O = "";

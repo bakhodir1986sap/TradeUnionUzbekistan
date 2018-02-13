@@ -32,7 +32,9 @@
             //alert("error in O_SOZ");
         });
     }
+    var d = "";
     $scope.LoadStrokaSchetFakturi = function (id) {
+        d = id;
         $http({
             method: "post",
             url: "/Administirirovaniye/GetStrokaSchetFakturi?id=" + id,
@@ -51,7 +53,7 @@
     $scope.LoadDATA = function () {
         reset();
         alertify.set({ buttonFocus: "cancel" });
-        alertify.confirm("Вы действительно хотите ...?", function (e) {
+        alertify.confirm("Вы действительно хотите получить?", function (e) {
             if (e) {
                 alertify.success("Операция выполняется");
                 document.getElementById('connection').style.visibility = "visible";
@@ -78,4 +80,16 @@
             console.log("error in GetRegion");
         });
     }
+    $scope.exportData1 = function () {
+        var blob = new Blob([document.getElementById('export1').innerHTML], {
+            type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=utf-8"
+        });
+        saveAs(blob, "Документ Счет фактуры.xls");
+    };
+    $scope.exportData2 = function () {
+        var blob = new Blob([document.getElementById('export2').innerHTML], {
+            type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=utf-8"
+        });
+        saveAs(blob, "Детали счет фактуры.xls");
+    };
 }]);

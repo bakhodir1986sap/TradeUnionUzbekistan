@@ -112,12 +112,10 @@
         }
     }
     $scope.LoadSC = function () {
-        document.getElementById('connection').style.visibility = "visible";
         $("#hh").modal({
             backdrop: 'static'
         });
         $scope.SCFilter.id = 1;
-        $scope.PZdiv = false;
         if ($scope.ss === "option1s") {
             AllSanatory()
             GetPZ_S($scope.SCFilter.id);
@@ -128,7 +126,6 @@
                 GetPZ_C($scope.SCFilter.id);
             }
         }
-        document.getElementById('connection').style.visibility = "hidden";
         $("#hh").modal('hide');
     }
     $scope.MOE_ch = function () {
@@ -228,7 +225,6 @@
         }
     }
     $scope.OTPpz = function () {
-        document.getElementById('connection').style.visibility = "visible";
         $("#hh").modal({
             backdrop: 'static',
             backdrop: 'static'

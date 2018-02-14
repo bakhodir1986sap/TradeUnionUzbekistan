@@ -16,8 +16,10 @@
     @*<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
     <link href="~/Content/main.css" rel="stylesheet" />
     <link href="~/Content/font-awesome.css" rel="stylesheet" />*@
+
     <link href="~/Content/themes/alertify.default.css" rel="stylesheet" />
     <link href="~/Content/themes/alertify.core.css" rel="stylesheet" />
+    <link href="~/Content/themes/alertify.bootstrap.css" rel="stylesheet" />
     @*<link href="~/Content/styles/kendo.common.min.css" rel="stylesheet" />
     <link href="~/Content/styles/kendo.office365.min.css" rel="stylesheet" />*@
     <script src="~/Scripts/kendo/angular.min.js"></script>
@@ -32,11 +34,11 @@
     <script src="~/Scripts/lib/alertify.min.js"></script>
     <script>
     function reset () {
-        $("#toggleCSS").attr("href", "../themes/alertify.default.css");
+        $("#toggleCSS").attr("href", "../Content/themes/alertify.default.css");
         alertify.set({
             labels : {
-                ok     : "OK",
-                cancel : "Cancel"
+                ok     : "Да",
+                cancel : "Нет"
             },
             delay : 5000,
             buttonReverse : false,
@@ -115,7 +117,6 @@
                     //    document.getElementById('conn').style.visibility = "visible";
                     //});
                         $("#ch").on('click', function () {
-                            document.getElementById('conn').style.visibility = "visible";
                         $("#hh").modal({
                             backdrop: 'static',
                             backdrop: 'static'
@@ -124,12 +125,11 @@
                         alertify.set({ buttonFocus: "cancel" });
                         alertify.confirm("Rostdan ham chiqmoqchimisiz?", function (e) {
                             if (e) {
-                                alertify.success("xayr!!!");
+                                alertify.success("Операция выполняется");
                                 window.location.href = "/Login/SignOut";
                             } else {
                                 $("#hh").modal('hide');
-                                document.getElementById('conn').style.visibility = "hidden";
-                                alertify.error("Siz chiqishni inkor qildingiz");
+                                alertify.error("Операция отменена");
                             }
                         });
                         return false;

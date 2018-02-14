@@ -63,7 +63,6 @@
                 $scope.GZdiv = true;
             }
         }, function () {
-            document.getElementById('connection').style.visibility = "hidden";
             $("#hh").modal('hide');
             //alert('Error in GetAllGrafikZaezdov_S');
             console.log('Error in GetAllGrafikZaezdov_S');
@@ -79,7 +78,6 @@
                 $scope.GZdiv = true;
             }
         }, function () {
-            document.getElementById('connection').style.visibility = "hidden";
             $("#hh").modal('hide');
             //alert('Error in GetAllGrafikZaezdov_C');
             console.log('Error in GetAllGrafikZaezdov_C');
@@ -87,7 +85,6 @@
     }
     //To Get all GetAllGrafikZaezdov records  
     $scope.GetCS = function () {
-        document.getElementById('connection').style.visibility = "visible";
         $("#hh").modal({
             backdrop: 'static'
         });
@@ -102,7 +99,6 @@
                 Load_C();
             }
         }
-        document.getElementById('connection').style.visibility = "hidden";
         $("#hh").modal('hide');
     }
     $scope.GetDATA = function () {
@@ -172,7 +168,6 @@
                     }
                 }
             }, function () {
-                document.getElementById('connection').style.visibility = "hidden";
                 $("#hh").modal('hide');
                 //alert('Error in UpdateGrafikZaezdov');
                 console.log('Error in UpdateGrafikZaezdov');
@@ -194,7 +189,6 @@
                     }
                 }
             }, function () {
-                document.getElementById('connection').style.visibility = "hidden";
                 $("#hh").modal('hide');
                 //alert('Error in AddGrafikZaezdov');
                 console.log('Error in AddGrafikZaezdov');
@@ -207,11 +201,15 @@
         $scope.Action = "Добавить";
     }
     $scope.deleteGZ = function (ID) {
+        $("#hh").modal({
+            backdrop: 'static'
+        });
         reset();
         alertify.set({ buttonFocus: "cancel" });
         alertify.confirm("Вы действительно хотите удалить?", function (e) {
             if (e) {
                 alertify.success("Операция выполняется");
+                $("#hh").modal('hide');
                 $http({
                     method: "post",
                     url: "/GrafikZaezdov/DeleteGrafikZaezdov",
@@ -233,6 +231,7 @@
                 });    
             } else {
                 alertify.error("Операция отменена");
+                $("#hh").modal('hide');
             }
         });
         return false;

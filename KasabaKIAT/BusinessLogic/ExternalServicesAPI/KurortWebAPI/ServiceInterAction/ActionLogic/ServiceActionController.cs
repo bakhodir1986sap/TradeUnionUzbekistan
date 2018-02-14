@@ -237,7 +237,7 @@ namespace KurortUrvServiceTest.ServiceInterAction.ActionLogic
             //Journal Enter
             var journal = EnterJournal(4);
 
-            var resList = _service.GetSchetFactura(PeriodNachalo, PeriodOkonchanie);
+            var resList = _service.GetSchetFactura(PeriodNachalo, PeriodOkonchanie, ProfsoyzKod);
 
             if (!string.IsNullOrEmpty(resList.KodOshibki))
             {

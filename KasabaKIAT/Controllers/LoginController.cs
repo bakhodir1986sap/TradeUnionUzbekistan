@@ -20,6 +20,7 @@ namespace KasabaKIAT.Controllers
         {
             return View();
         }
+
         [HttpPost]
         public ActionResult Login(user u,string ReturnUrl = "")
         {
@@ -70,33 +71,8 @@ namespace KasabaKIAT.Controllers
 
                 return Json(message, JsonRequestBehavior.AllowGet);
             }
-
-            //using (KasabaKIATEntities db = new KasabaKIATEntities())
-            //{
-            //    var dataItem = db.users.Where(x => x.user_name.Equals(u.user_name)).FirstOrDefault();
-            //    if (dataItem != null)
-            //    {
-            //        /*
-            //         && ReturnUrl.Length > 1 && ReturnUrl.StartsWith("/") && !ReturnUrl.StartsWith("//")
-            //            && !ReturnUrl.StartsWith("/\\")
-            //         */
-            //        FormsAuthentication.SetAuthCookie(u.user_name, false);
-            //        if (Url.IsLocalUrl(ReturnUrl))
-            //        {
-            //            return Redirect(ReturnUrl);
-            //        }
-            //        else
-            //        {
-            //            return RedirectToAction("index", "Home");
-            //        }
-            //    }
-            //    else
-            //    {
-            //        ModelState.AddModelError("", "Invalid user name or password");
-            //        return View();
-            //    }
-            //}
         }
+
         [Authorize]
         public ActionResult SignOut()
         {

@@ -51,15 +51,21 @@
         });
     }
     $scope.LoadDATA = function () {
+        $("#hh").modal({
+            backdrop: 'static',
+            backdrop: 'static'
+        });
         reset();
         alertify.set({ buttonFocus: "cancel" });
         alertify.confirm("Вы действительно хотите получить?", function (e) {
             if (e) {
                 alertify.success("Операция выполняется");
                 document.getElementById('connection').style.visibility = "visible";
+                $("#hh").modal('hide');
                 Load($scope.ZB, $scope.ZE, $scope.SP.d1);
             } else {
                 alertify.error("Операция отменена");
+                $("#hh").modal('hide');
             }
         });
         return false;

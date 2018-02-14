@@ -18,5 +18,6 @@ namespace KasabaKIAT.Models
         public string ProfsoyzKod { get; set; }
         public string ProfsoyzNaimenovanie { get; set; }
         public Nullable<System.DateTime> CreateDT { get; set; }
+        public string MATCH_DEPARTMENTBASE { get; set; }
     }
 }

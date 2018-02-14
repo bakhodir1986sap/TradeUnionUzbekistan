@@ -841,14 +841,14 @@ namespace KasabaKIAT.Controllers
         public JsonResult Getbankpayments(string inn, int zb)
         {
             var list = from a in KasabaDB.tbgl_bankpayments
-                       where a.TRAN_DATE.Value.Year == zb && a.BENEF_INN == inn
+                       where a.TRAN_DATE.Year == zb && a.BENEF_INN == inn
                        select new
                        {
                            TD = a.TRAN_DATE,
                            A = a.AMOUNT
                        };
             var Groups = from p in list
-                         group p by p.TD.Value.Month into g
+                         group p by p.TD.Month into g
                          select new { ZB_g = g.Key, Count = g.Count(), A_Sum = g.Sum(i => i.A) };
             return Json(Groups.ToList(), JsonRequestBehavior.AllowGet);
         }
@@ -875,14 +875,14 @@ namespace KasabaKIAT.Controllers
         public JsonResult GetbankpaymentsYear(string inn, int zb)
         {
             var list = from a in KasabaDB.tbgl_bankpayments
-                       where a.TRAN_DATE.Value.Year == zb && a.BENEF_INN == inn
+                       where a.TRAN_DATE.Year == zb && a.BENEF_INN == inn
                        select new
                        {
                            TD = a.TRAN_DATE,
                            A = a.AMOUNT
                        };
             var Groups = from p in list
-                         group p by p.TD.Value.Year into g
+                         group p by p.TD.Year into g
                          select new { ZB_g = g.Key, Count = g.Count(), A_Sum = g.Sum(i => i.A) };
             return Json(Groups.ToList(), JsonRequestBehavior.AllowGet);
         }

@@ -37,6 +37,12 @@ namespace KasabaKIAT.Models
                     return Convert.ToInt32(com.ExecuteScalar());
                 }
             }
+            catch(SqlException ex)
+            {
+                log.Error(ex);
+                return -999;
+                
+            }
             catch(Exception ex)
             {
                 log.Error(ex);

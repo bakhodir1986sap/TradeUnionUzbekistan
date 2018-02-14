@@ -29,7 +29,9 @@ namespace KasabaKIAT.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    if (ul.Ruxsatni_tekshir(u) > 0)
+                    var retCode = ul.Ruxsatni_tekshir(u);
+
+                    if (retCode > 0)
                     {
                         IEnumerable<users> r = from a in KasabaDB.users where a.user_name == u.login select a;
                         foreach (var b in r)
@@ -46,6 +48,10 @@ namespace KasabaKIAT.Controllers
                                 return RedirectToAction("index", "Home");
                             }
                         }
+                    }
+                    else if (retCode == -999)
+                    {
+                        message = "9";
                     }
                     else
                     {

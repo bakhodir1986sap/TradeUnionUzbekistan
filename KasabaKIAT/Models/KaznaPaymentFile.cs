@@ -34,8 +34,8 @@ namespace KasabaKIAT.Models
         public string PURPOSE { get; set; }
         public string CHAPTER { get; set; }
         public string OKONH { get; set; }
-        public Nullable<decimal> OTCHISLEN { get; set; }
         public Nullable<long> FILE_ID { get; set; }
+        public Nullable<decimal> OTCHISLEN { get; set; }
     
         public virtual KaznaFiles KaznaFiles { get; set; }
     }

@@ -29,6 +29,7 @@ namespace KasabaKIAT.Models
         public Nullable<System.DateTime> TIMESTAMP { get; set; }
         public Nullable<long> USER_ID { get; set; }
         public long REC_ID { get; set; }
+        public string INN { get; set; }
     
         public virtual users users { get; set; }
     }

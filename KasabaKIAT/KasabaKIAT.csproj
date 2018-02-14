@@ -48,8 +48,8 @@
       <HintPath>..\packages\ClosedXML.0.91.0\lib\net452\ClosedXML.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="DocumentFormat.OpenXml, Version=2.7.2.0, Culture=neutral, PublicKeyToken=8fb06cb64d019a17, processorArchitecture=MSIL">
-      <HintPath>..\packages\DocumentFormat.OpenXml.2.7.2\lib\net40\DocumentFormat.OpenXml.dll</HintPath>
+    <Reference Include="DocumentFormat.OpenXml, Version=2.8.1.0, Culture=neutral, PublicKeyToken=8fb06cb64d019a17, processorArchitecture=MSIL">
+      <HintPath>..\packages\DocumentFormat.OpenXml.2.8.1\lib\net40\DocumentFormat.OpenXml.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
@@ -77,6 +77,9 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.QualityTools.Testing.Fakes, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -140,6 +143,7 @@
       <Private>True</Private>
       <HintPath>..\packages\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll</HintPath>
     </Reference>
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Newtonsoft.Json">
@@ -313,7 +317,7 @@
     <Compile Include="Models\sp_rt_TalabnomaViloyat_Result.cs">
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\ViewModel.cs" />
+    <Compile Include="ViewModel\KurortService\ViewModel.cs" />
     <Compile Include="ViewModel\BankOplati\KaznaPaymentFile.cs" />
     <Compile Include="BusinessLogic\BankOplati\Kaznacheystvo\PaymentFileData.cs" />
     <Compile Include="Models\Balans.cs">
@@ -655,9 +659,6 @@
     <Compile Include="Models\tbpt_sanatory_info.cs">
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\tbpt_yearlyplanorganization.cs">
-      <DependentUpon>KasabaKIAT.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\tbpt_yearlyplanotrasl.cs">
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
@@ -721,7 +722,7 @@
     <Compile Include="Models\t_sanatorium.cs">
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\user.cs" />
+    <Compile Include="BusinessLogic\Security\Login\user.cs" />
     <Compile Include="Models\useractions.cs">
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>

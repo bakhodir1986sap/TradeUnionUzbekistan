@@ -48,7 +48,7 @@ namespace KurortUrvServiceTest.ServiceInterAction.ActionLogic
             else
             {
                 //Delete All Old Data
-                StrokaProfsoyzaDataManager.DeleteAllPravsoyuzData();
+                //StrokaProfsoyzaDataManager.DeleteAllPravsoyuzData();
 
                 journal.State = 1; //Success
             }
@@ -66,7 +66,7 @@ namespace KurortUrvServiceTest.ServiceInterAction.ActionLogic
                     model.ProfsoyzKod = prof.ProfsoyzKod;
                     model.ProfsoyzNaimenovanie = prof.ProfsoyzNaimenovanie;
 
-                    StrokaProfsoyzaDataManager.AddPravsoyuzData(model);
+                    StrokaProfsoyzaDataManager.AddPravsoyuzDataN(model);
                 }
             }
 

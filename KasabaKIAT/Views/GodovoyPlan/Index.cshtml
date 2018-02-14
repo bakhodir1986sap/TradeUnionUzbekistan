@@ -115,9 +115,10 @@
                             <div class="form-group row align-items-center">
                                 <label class="col-md-5 col-form-label text-md-right py-0">Квартал:</label>
                                 <div class="col-md-7">
-                                    <input type="text" name="K" required ng-minlength="1" ng-maxlength="1" ng-model="K" class="form-control" value="1" placeholder="">
-                                    <span class="alert alert-warning" style="padding:0px" ng-show="myForm.K.$error.required">заполнить поле</span>
-                                    <span class="alert alert-warning" style="padding:0px" ng-show="!myForm.K.$error.required&&!myForm.K.$valid">1 шт. номер</span>
+                                    @*<input type="text" name="K" required ng-minlength="1" ng-maxlength="1" ng-model="K" class="form-control" value="1" placeholder="">*@
+                                    <select ng-model="Kvartal" name="Kvartal" required ng-options="kv as kv.value for kv in kvartal track by kv.id" class="form-control"></select>
+                                    <span class="alert alert-warning" style="padding:0px" ng-show="myForm.Kvartal.$error.required">Выберите поле</span>
+                                    <span class="alert alert-warning" style="padding:0px" ng-show="!myForm.Kvartal.$error.required&&!myForm.Kvartal.$valid">1 шт. номер</span>
                                 </div>
                             </div>
                             <div class="form-group row align-items-center">
@@ -137,7 +138,7 @@
                                 </div>
                             </div>
                             <div class="mb-4 text-right">
-                                <button href="#" ng-disabled="myForm.R.$error.required||myForm.O.$error.required||s&&myForm.CS.$error.required||myForm.PlaceType.$error.required||myForm.K.$error.required||(!myForm.K.$error.required&&!myForm.K.$valid)||myForm.P.$error.required||myForm.Q.$error.required" ng-click="AddUpdateGP()" data-dismiss="modal" class="btn btn-blue d-block d-md-inline-block mb-2">Сохранить</button>
+                                <button href="#" ng-disabled="myForm.R.$error.required||myForm.O.$error.required||s&&myForm.CS.$error.required||myForm.PlaceType.$error.required||myForm.Kvartal.$error.required||(!myForm.Kvartal.$error.required&&!myForm.Kvartal.$valid)||myForm.P.$error.required||myForm.Q.$error.required" ng-click="AddUpdateGP()" data-dismiss="modal" class="btn btn-blue d-block d-md-inline-block mb-2">Сохранить</button>
                                 <a href="#" ng-click="deleteGP(ID)"  ng-show="showdelete" data-dismiss="modal" class="btn btn-red d-block d-md-inline-block mb-2">Удалить</a>
                                 <a href="#" class="btn btn-grey d-block d-md-inline-block mb-2" data-dismiss="modal">Отмена</a>
                             </div>

@@ -39,5 +39,27 @@ namespace KurortUrvServiceTest.ServiceInterAction.DataManagers
                 db.SaveChanges();
             }
         }
+
+
+        public static void AddPravsoyuzDataN(StrokaProfsoyzaViewModel model)
+        {
+            using (KasabaKIATEntities db = new KasabaKIATEntities())
+            {
+                var pf = db.tbku_StrokaProfsoyza.FirstOrDefault(z => z.ProfsoyzKod == model.ProfsoyzKod);
+
+                if (pf != null) return;
+
+
+                tbku_StrokaProfsoyza pr = new tbku_StrokaProfsoyza();
+
+                pr.ProfsoyzKod = model.ProfsoyzKod;
+                pr.ProfsoyzNaimenovanie = model.ProfsoyzNaimenovanie;
+                pr.CreateDT = DateTime.Now;
+
+                db.tbku_StrokaProfsoyza.Add(pr);
+
+                db.SaveChanges();
+            }
+        }
     }
 }

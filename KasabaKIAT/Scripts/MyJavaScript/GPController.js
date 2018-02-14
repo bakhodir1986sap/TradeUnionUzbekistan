@@ -5,13 +5,14 @@
     AllRegion();
     AllPlaceType();
     AllSanatory();
+    KvartalList();
     $scope.LoadGPData = function () {
         //alert($scope.SCf.id);
-        if ($scope.s == "option1") {
+        if ($scope.s === "option1") {
             GetGP_S($scope.RegionFilter.id, $scope.SCFilter.id);
             //GetPP_SUM_S();
         } else {
-            if ($scope.s == "option2") {
+            if ($scope.s === "option2") {
                 GetGP_C($scope.RegionFilter.id, $scope.SCFilter.id);
                 //GetPP_SUM_C();
             }
@@ -20,12 +21,12 @@
     $scope.LoadSC = function () {
         document.getElementById('connection').style.visibility = "visible";
         $("#hh").modal({
-            backdrop: 'static',
             backdrop: 'static'
         });
         Tozala();
         AllRegion();
         AllPlaceType();
+        KvartalList();
         if ($scope.s === "option1") {
             AllSanatory();
         }
@@ -49,6 +50,12 @@
         REC_ID: '1',
         NAME_UZ: ''
     };
+
+    $scope.Kvartal = {
+        id: '1',
+        value: ''
+    };
+
     $scope.SCFilter = {
         id: '1',
         value: ''
@@ -68,7 +75,7 @@
             url: "GetGodovoyPlan_S?R=" + R_id + "&SC=" + SC_id,
         }).then(function (d) {
             $scope.GP = d.data;
-            if (d.data.length != 0) {
+            if (d.data.length !== 0) {
                 $scope.GPdiv = true;
             }
         }, function () {
@@ -84,7 +91,7 @@
             url: "GetGodovoyPlan_C?R=" + R_id + "&SC=" + SC_id,
         }).then(function (d) {
             $scope.GP = d.data;
-            if (d.data.length != 0) {
+            if (d.data.length !== 0) {
                 $scope.GPdiv = true;
             }
         }, function () {
@@ -106,9 +113,26 @@
             document.getElementById('connection').style.visibility = "hidden";
             $("#hh").modal('hide');
         });
-}
-function AllRegion(){
-$http({
+    }
+
+
+    function KvartalList() {
+        $http({
+            method: 'get',
+            url: '/GodovoyPlan/GetKvartal'
+        }).then(function (response) {
+            $scope.kvartal = response.data;
+        }, function (error) {
+            //alert("error in Getdictionary");
+            console.log("error in GetKvartal");
+            document.getElementById('connection').style.visibility = "hidden";
+            $("#hh").modal('hide');
+        });
+    }
+
+
+        function AllRegion(){
+        $http({
             method: 'get',
             url: '/GodovoyPlan/GetRegion'
         }).then(function (response) {
@@ -119,10 +143,11 @@ $http({
             document.getElementById('connection').style.visibility = "hidden";
             $("#hh").modal('hide');
         });
-}
-function AllSanatory() {
-    $scope.scname = "Санаторий";
-    $http({
+        }
+
+        function AllSanatory() {
+        $scope.scname = "Санаторий";
+        $http({
         method: 'get',
         url: '/Home/GetSanatory'
     }).then(function (s) {
@@ -161,11 +186,11 @@ $scope.AddGPDiv = function () {
     function Tozala() {
         $scope.RegionFilter.id = 1;
         $scope.SCFilter.id = 1;
-        if ($scope.s == "option1") {
+        if ($scope.s === "option1") {
             GetGP_S($scope.RegionFilter.id, $scope.SCFilter.id);
             //GetPP_SUM_S();
         } else {
-            if ($scope.s == "option2") {
+            if ($scope.s === "option2") {
                 GetGP_C($scope.RegionFilter.id, $scope.SCFilter.id);
                 //GetPP_SUM_C();
             }
@@ -194,9 +219,9 @@ $scope.AddGPDiv = function () {
     $scope.AddUpdateGP = function () {
         var getGPAction = $scope.Action;
         var GP;
-        if ($scope.s == "option1") {
+        if ($scope.s === "option1") {
             GP = {
-                KVARTAL: $scope.K,
+                KVARTAL: $scope.Kvartal.id,
                 SANATORIUM_ID: $scope.SC.id,
                 TIP_MEST_ID: $scope.PlaceType.REC_ID,
                 PRICE: $scope.P,
@@ -204,9 +229,9 @@ $scope.AddGPDiv = function () {
                 REGION_ID: $scope.Region.id,
             };
         } else {
-            if ($scope.s == "option2") {
+            if ($scope.s === "option2") {
                 GP = {
-                    KVARTAL: $scope.K,
+                    KVARTAL: $scope.Kvartal.id,
                     CAMP_ID: $scope.SC.id,
                     TIP_MEST_ID: $scope.PlaceType.REC_ID,
                     PRICE: $scope.P,
@@ -215,7 +240,7 @@ $scope.AddGPDiv = function () {
                 };
             }
         }
-        if (getGPAction == "Изменить") {
+        if (getGPAction === "Изменить") {
             GP.REC_ID = $scope.ID;
             $http({
                 method: "post",
@@ -262,7 +287,6 @@ $scope.AddGPDiv = function () {
     $scope.deleteGP = function (ID) {
         document.getElementById('connection').style.visibility = "visible";
         $("#hh").modal({
-            backdrop: 'static',
             backdrop: 'static'
         });
         reset();

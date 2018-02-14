@@ -39,12 +39,12 @@ namespace KasabaKIAT.Models
             }
             catch(SqlException ex)
             {
-                return -999;
                 log.Error(ex);
+                return -999;
+                
             }
             catch(Exception ex)
             {
-                
                 log.Error(ex);
             }
 

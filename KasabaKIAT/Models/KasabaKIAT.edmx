@@ -4207,9 +4207,6 @@ warning 6035: The relationship 'FK_tbpt_yearlyplanotrasl_sp_soato' has columns t
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <!--Errors Found During Generation:
-warning 6035: The relationship 'FK_tbpt_yearlyplanregion_sp_soato' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
-        <Association Name="FK_tbpt_yearlyplanregion_sp_soato" />-->
         <Association Name="FK_tbpt_yearlyplanregion_t_sanatorium">
           <End Role="t_sanatorium" Type="Self.t_sanatorium" Multiplicity="0..1" />
           <End Role="tbpt_yearlyplanregion" Type="Self.tbpt_yearlyplanregion" Multiplicity="*" />

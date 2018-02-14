@@ -45,6 +45,19 @@ namespace KasabaKIAT.Controllers
                      });
             return Json(S.ToList(), JsonRequestBehavior.AllowGet);
         }
+
+        public JsonResult GetKvartal()
+        {
+            var S = (from s in KasabaDB.tblSprav_Kv
+                     select new
+                     {
+                         id = s.ID,
+                         value = s.Name_Kv
+                     });
+            return Json(S.ToList(), JsonRequestBehavior.AllowGet);
+        }
+
+
         public JsonResult GetCamp()
         {
             var C = (from s in KasabaDB.t_camp
@@ -75,12 +88,12 @@ namespace KasabaKIAT.Controllers
             }
             else
             {
-                var R = from r in KasabaDB.sp_soato
-                        where r.parent_code == "17"
+                var R = from r in KasabaDB.tbku_StrokaProfsoyza
+                        where r.MATCH_DEPARTMENTBASE != null
                         select new
                         {
-                            id = r.code,
-                            value = r.name_uz
+                            id = r.MATCH_DEPARTMENTBASE,
+                            value = r.ProfsoyzNaimenovanie
                         };
                 return Json(R, JsonRequestBehavior.AllowGet);
             }
@@ -129,7 +142,7 @@ namespace KasabaKIAT.Controllers
                             join sc in KasabaDB.t_sanatorium on a.SANATORIUM_ID equals sc.id
                             join d in KasabaDB.t_departmentbase on a.DEPARTMENT_BASE equals d.code
                             join dc in KasabaDB.tbcs_dictionary on a.TIP_MEST_ID equals dc.REC_ID
-                            join r in KasabaDB.sp_soato on a.REGION_ID equals r.code
+                            join r in KasabaDB.tbku_StrokaProfsoyza on a.REGION_ID equals r.MATCH_DEPARTMENTBASE
                             select new
                             {
                                 ID = a.REC_ID,
@@ -141,8 +154,8 @@ namespace KasabaKIAT.Controllers
                                 TM_id = dc.REC_ID,
                                 P = a.PRICE,
                                 Q = a.QUANTITY,
-                                R = r.name_uz,
-                                R_id = r.code,
+                                R = r.ProfsoyzNaimenovanie,
+                                R_id = r.MATCH_DEPARTMENTBASE,
                                 MD = a.MODIFY_DATE,
                                 O = d.name_uz,
                                 O_id = d.code

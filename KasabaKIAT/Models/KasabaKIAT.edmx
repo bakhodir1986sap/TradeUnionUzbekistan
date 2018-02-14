@@ -2221,6 +2221,7 @@ warning 6002: The table/view 'KasabaKIAT.dbo.tblPutevka' does not have a primary
           <Property Name="Name_San" Type="varchar" MaxLength="100" />
           <Property Name="Num_Kod" Type="varchar" MaxLength="4" />
           <Property Name="UserId" Type="bigint" />
+          <Property Name="KurortSanID" Type="int" />
         </EntityType>
         <EntityType Name="tblSprav_Vil">
           <Key>
@@ -8920,6 +8921,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <NavigationProperty Name="users" Relationship="Self.FK_tblSprav_San_Users" FromRole="tblSprav_San" ToRole="users" />
           <NavigationProperty Name="tblVipl_Put" Relationship="Self.FK_tblVipl_Put_tblSprav_San" FromRole="tblSprav_San" ToRole="tblVipl_Put" />
           <NavigationProperty Name="tblVozVrat" Relationship="Self.FK_tblVozVrat_tblSprav_San" FromRole="tblSprav_San" ToRole="tblVozVrat" />
+          <Property Name="KurortSanID" Type="Int32" />
         </EntityType>
         <EntityType Name="tblSprav_Vil">
           <Key>
@@ -15389,6 +15391,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <EntitySetMapping Name="tblSprav_San">
             <EntityTypeMapping TypeName="KasabaKIATModel.tblSprav_San">
               <MappingFragment StoreEntitySet="tblSprav_San">
+                <ScalarProperty Name="KurortSanID" ColumnName="KurortSanID" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Name_San" ColumnName="Name_San" />
                 <ScalarProperty Name="Num_Kod" ColumnName="Num_Kod" />

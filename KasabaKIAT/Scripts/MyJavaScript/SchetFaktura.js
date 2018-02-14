@@ -11,7 +11,7 @@
             url: "/Administirirovaniye/GetSchetFaktura?B=" + b.toISOString() + "&E=" + e.toISOString() + "&p=" + p,
         }).then(function (d) {
             $scope.DATA = d.data;
-            if (d.data.length != 0) {
+            if (d.data.length !== 0) {
                 $scope.showdata = true;
             }
             else {
@@ -34,6 +34,21 @@
             //alert("error in O_SOZ");
         });
     }
+    function Oprixod(b, e, p) {
+        $http({
+            method: "post",
+            url: "/Administirirovaniye/OprixodovaniyaSchetFaktura?B=" + b.toISOString() + "&E=" + e.toISOString() + "&p=" + p,
+        }).then(function (d) {
+            document.getElementById('connection').style.visibility = "hidden";
+            $("#hh").modal('hide');
+            GetData($scope.ZB, $scope.ZE, $scope.SP.d1);
+        }, function () {
+            $("#hh").modal('hide');
+            //alert("error in O_SOZ");
+        });
+    }
+
+
     var d = "";
     $scope.LoadStrokaSchetFakturi = function (id) {
         d = id;
@@ -42,7 +57,7 @@
             url: "/Administirirovaniye/GetStrokaSchetFakturi?id=" + id,
         }).then(function (d) {
             $scope.DATA2 = d.data;
-            if (d.data.length != 0) {
+            if (d.data.length !== 0) {
                 $scope.showdata2 = true;
             }
             else {
@@ -54,7 +69,6 @@
     }
     $scope.LoadDATA = function () {
         $("#hh").modal({
-            backdrop: 'static',
             backdrop: 'static'
         });
         reset();
@@ -71,6 +85,26 @@
         });
         return false;
     };
+
+    $scope.OPRIXDATA = function () {
+        $("#hh").modal({
+            backdrop: 'static'
+        });
+        reset();
+        alertify.set({ buttonFocus: "cancel" });
+        alertify.confirm("Вы действительно хотите получить?", function (e) {
+            if (e) {
+                alertify.success("Операция выполняется");
+                document.getElementById('connection').style.visibility = "visible";
+                Oprixod($scope.ZB, $scope.ZE, $scope.SP.d1);
+            } else {
+                alertify.error("Операция отменена");
+                $("#hh").modal('hide');
+            }
+        });
+        return false;
+    };
+
     $scope.SP = {
         d1: '000000039',
         d2: ''

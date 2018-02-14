@@ -14,6 +14,8 @@ using ClosedXML.Excel;
 using System.Configuration;
 using System.Data.SqlClient;
 using System.Data;
+using KasabaKIAT.BusinessLogic.Putyovki.PrixodPutyovok;
+using KasabaKiat.Helpers;
 
 namespace KasabaKIAT.Controllers
 {
@@ -278,10 +280,34 @@ namespace KasabaKIAT.Controllers
                 log.Error(ex);
             }
         }
+
+        public void OprixodovaniyaSchetFaktura(DateTime B, DateTime E, string p)
+        {
+
+            try
+            {
+                int UserId = Convert.ToInt32(User.Identity.Name);
+
+                var ustinfo = UserInfo.GetUserInfo(UserId);
+                //service.LoadSchetFactura(B, E, p);
+                var op = new Oprixodovaniye();
+
+                op.PrixodKurort(B, E, p, UserId, ustinfo.DepartmentBase);
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex);
+            }
+        }
+
         public JsonResult GetSchetFaktura(DateTime B,DateTime E,string p)
         {
+            DateTime aperiodOkonchaniye = E;
+            TimeSpan ts = new TimeSpan(23, 59, 59);
+            aperiodOkonchaniye = aperiodOkonchaniye.Date + ts;
+
             var O = from o in KasabaDB.tbku_DocumentSchetFaktura
-                    where o.DocData >= B&&o.DocData <= E&&o.ProfsoyzKod==p
+                    where o.DocData >= B && o.DocData <= aperiodOkonchaniye && o.ProfsoyzKod==p
                     select new
                     {
                         d0=o.ID,

@@ -10,17 +10,18 @@
                 <h4>Создание проводок</h4>
                 <nav aria-label="breadcrumb" class="breadcrumb__block">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="/Home/Admin">Администрирование</a></li>
-                        <li class="breadcrumb-item"><a href="/Administirirovaniye/index">Администрирование</a></li>
+                        <li class="breadcrumb-item load"><a href="/Home/Admin">Администрирование</a></li>
+                        <li class="breadcrumb-item load"><a href="/Administirirovaniye/index">Администрирование</a></li>
                         <li class="breadcrumb-item active" aria-current="page">Создание проводок</li>
                     </ol>
                 </nav>
             </div>
             <div class="col-sm-6 text-md-right">
-                <a href="#" ng-click="AddSPDiv()" class="btn btn-blue d-block d-md-inline-block mb-2" data-toggle="modal" data-target="#dobavit"><i class="fas fa-plus"></i> Добавить</a>
+                <a href="#" ng-click="AddSPDiv()" class="btn btn-blue d-block d-md-inline-block mb-3 mb-md-0" data-toggle="modal" data-target="#dobavit"><i class="fas fa-plus"></i> Добавить</a>
+                <button ng-click="exportData()" class="btn btn-green d-block d-md-inline-block mb-3 mb-md-0"><i class="fas fa-file-excel"></i> Экспорт</button>
             </div>
         </div>
-        <div class="table-responsive box-shadow mb-4">
+        <div class="table-responsive box-shadow mb-4" id="export">
             <table class="table table__block t-hover">
                 <thead>
                     <tr>

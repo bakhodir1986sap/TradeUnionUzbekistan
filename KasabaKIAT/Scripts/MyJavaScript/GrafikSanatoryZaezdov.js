@@ -24,8 +24,10 @@
             url: "/Administirirovaniye/ServiceGrafikSanatoryZaezdov?yil="+yil,
         }).then(function (d) {
             document.getElementById('connection').style.visibility = "hidden";
+            $("#hh").modal('hide');
             GetData($scope.ZB);
         }, function () {
+            $("#hh").modal('hide');
             //alert("error in O_SOZ");
         });
     }
@@ -40,7 +42,6 @@
             if (e) {
                 alertify.success("Операция выполняется");
                 document.getElementById('connection').style.visibility = "visible";
-                $("#hh").modal('hide');
                 Load($scope.ZB);
             } else {
                 alertify.error("Операция отменена");

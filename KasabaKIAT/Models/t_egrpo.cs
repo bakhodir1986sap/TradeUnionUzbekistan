@@ -56,7 +56,6 @@ namespace KasabaKIAT.Models
         public string soato_id { get; set; }
         public string soogu_id { get; set; }
         public string okpo { get; set; }
-        public string BANK_ACCOUNT { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<t_agreement> t_agreement { get; set; }

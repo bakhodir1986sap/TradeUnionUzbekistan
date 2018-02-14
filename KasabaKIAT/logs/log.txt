@@ -560,3 +560,14 @@ ERROR 2018-02-14 16:02:09,411 41035ms userlogin              Ruxsatni_tekshir   
    at KasabaKIAT.Models.userlogin.Ruxsatni_tekshir(user user) in C:\RADSOFT\Projects\PravSouz\Project\KasabaKIAT\KasabaKIAT\KasabaKIAT\KasabaKIAT\Models\user.cs:line 32
 ClientConnectionId:00000000-0000-0000-0000-000000000000
 Error Number:-1,State:0,Class:20
+ERROR 2018-02-14 16:41:39,060  1306ms MvcApplication         Application_Error  - Global log
+ERROR 2018-02-14 16:41:39,093  1339ms MvcApplication         Application_Error  - System.Web.HttpException (0x80004005): The controller for path '/__browserLink/requestData/d48f093cf5804da385b58e187aa2dd22' was not found or does not implement IController.
+   at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.DefaultControllerFactory.CreateController(RequestContext requestContext, String controllerName)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContext httpContext, AsyncCallback callback, Object state)
+   at System.Web.Mvc.MvcHandler.System.Web.IHttpAsyncHandler.BeginProcessRequest(HttpContext context, AsyncCallback cb, Object extraData)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStepImpl(IExecutionStep step)
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)

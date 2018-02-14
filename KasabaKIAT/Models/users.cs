@@ -100,7 +100,6 @@ namespace KasabaKIAT.Models
             this.tbpt_putyovkarealizasiya = new HashSet<tbpt_putyovkarealizasiya>();
             this.tbpt_putyovki = new HashSet<tbpt_putyovki>();
             this.tbpt_sanatory_info = new HashSet<tbpt_sanatory_info>();
-            this.tbpt_yearlyplanorganization = new HashSet<tbpt_yearlyplanorganization>();
             this.tbpt_yearlyplanotrasl = new HashSet<tbpt_yearlyplanotrasl>();
             this.tbpt_yearlyplanregion = new HashSet<tbpt_yearlyplanregion>();
             this.tbpt_zaezdi = new HashSet<tbpt_zaezdi>();
@@ -323,8 +322,6 @@ namespace KasabaKIAT.Models
         public virtual ICollection<tbpt_putyovki> tbpt_putyovki { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tbpt_sanatory_info> tbpt_sanatory_info { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tbpt_yearlyplanorganization> tbpt_yearlyplanorganization { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tbpt_yearlyplanotrasl> tbpt_yearlyplanotrasl { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

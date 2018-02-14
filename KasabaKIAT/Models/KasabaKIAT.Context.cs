@@ -20,7 +20,6 @@ namespace KasabaKIAT.Models
         public KasabaKIATEntities()
             : base("name=KasabaKIATEntities")
         {
-            this.Configuration.ProxyCreationEnabled = false;
         }
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -136,7 +135,6 @@ namespace KasabaKIAT.Models
         public virtual DbSet<tbpt_putyovki> tbpt_putyovki { get; set; }
         public virtual DbSet<tbpt_putyovki_changehistory> tbpt_putyovki_changehistory { get; set; }
         public virtual DbSet<tbpt_sanatory_info> tbpt_sanatory_info { get; set; }
-        public virtual DbSet<tbpt_yearlyplanorganization> tbpt_yearlyplanorganization { get; set; }
         public virtual DbSet<tbpt_yearlyplanotrasl> tbpt_yearlyplanotrasl { get; set; }
         public virtual DbSet<tbpt_yearlyplanregion> tbpt_yearlyplanregion { get; set; }
         public virtual DbSet<tbpt_zaezdi> tbpt_zaezdi { get; set; }
@@ -539,6 +537,19 @@ namespace KasabaKIAT.Models
                 new ObjectParameter("VilSoato", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_rt_TalabnomaViloyat_Result>("sp_rt_TalabnomaViloyat", aYearParameter, vilSoatoParameter);
+        }
+    
+        public virtual int sp_rt_FormaN14_2(Nullable<int> year, Nullable<int> kvartal)
+        {
+            var yearParameter = year.HasValue ?
+                new ObjectParameter("year", year) :
+                new ObjectParameter("year", typeof(int));
+    
+            var kvartalParameter = kvartal.HasValue ?
+                new ObjectParameter("Kvartal", kvartal) :
+                new ObjectParameter("Kvartal", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_rt_FormaN14_2", yearParameter, kvartalParameter);
         }
     }
 }

@@ -28,47 +28,30 @@
             //alert("error in O_SOZ");
         });
     }
-
-
-    function Export() {
-        $http({
-            method: "post",
-            url: "/Administirirovaniye/ExportToExcelPravsoyuz",
-        }).then(function (d) {
-            document.getElementById('connection').style.visibility = "hidden";
-        }, function () {
-            alert("error in O_SOZ");
-        });
-    }
-
     $scope.LoadDATA = function () {
+        $("#hh").modal({
+            backdrop: 'static',
+            backdrop: 'static'
+        });
         reset();
         alertify.set({ buttonFocus: "cancel" });
-        alertify.confirm("Вы действительно хотите ...?", function (e) {
+        alertify.confirm("Вы действительно хотите получить?", function (e) {
             if (e) {
                 alertify.success("Операция выполняется");
                 document.getElementById('connection').style.visibility = "visible";
+                $("#hh").modal('hide');
                 Load();
             } else {
                 alertify.error("Операция отменена");
+                $("#hh").modal('hide');
             }
         });
         return false;
     };
-
-
-    $scope.ExportDATA = function () {
-        reset();
-        alertify.set({ buttonFocus: "cancel" });
-        alertify.confirm("Вы действительно хотите Export...?", function (e) {
-            if (e) {
-                alertify.success("Операция Export выполняется");
-                document.getElementById('connection').style.visibility = "visible";
-                Export();
-            } else {
-                alertify.error("Операция отменена");
-            }
+    $scope.exportData = function () {
+        var blob = new Blob([document.getElementById('export').innerHTML], {
+            type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=utf-8"
         });
-        return false;
+        saveAs(blob, "Список правсоюзов.xls");
     };
 }]);

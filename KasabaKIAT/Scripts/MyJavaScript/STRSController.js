@@ -9,6 +9,7 @@
      };
      $scope.PlaceTypeFilter.REC_ID = 1;
      GetSTRS();
+     $scope.showdelete = false;
      function GetSTRS() {
         $http({
             method: "post",
@@ -20,11 +21,13 @@
         });
     }
      $scope.editSTRS = function (pz) {
+         $scope.showdelete = true;
          $scope.ID = pz.REC_ID;
         $scope.PTI= pz.NAME_UZ;
         $scope.Action = "Изменить";
     }
      $scope.AddSTRSDiv = function () {
+         $scope.showdelete = false;
          $scope.PTI="";
         $scope.Action = "Добавить";
     }

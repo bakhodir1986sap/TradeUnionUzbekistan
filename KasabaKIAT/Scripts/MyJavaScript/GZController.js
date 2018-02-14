@@ -11,6 +11,7 @@
         id: '1',
         value: ''
     };
+    $scope.showdelete = false;
     $scope.GZdiv = true;
     Load_S();
     LoadPT();
@@ -62,7 +63,6 @@
                 $scope.GZdiv = true;
             }
         }, function () {
-            document.getElementById('connection').style.visibility = "hidden";
             $("#hh").modal('hide');
             //alert('Error in GetAllGrafikZaezdov_S');
             console.log('Error in GetAllGrafikZaezdov_S');
@@ -78,7 +78,6 @@
                 $scope.GZdiv = true;
             }
         }, function () {
-            document.getElementById('connection').style.visibility = "hidden";
             $("#hh").modal('hide');
             //alert('Error in GetAllGrafikZaezdov_C');
             console.log('Error in GetAllGrafikZaezdov_C');
@@ -86,7 +85,6 @@
     }
     //To Get all GetAllGrafikZaezdov records  
     $scope.GetCS = function () {
-        document.getElementById('connection').style.visibility = "visible";
         $("#hh").modal({
             backdrop: 'static'
         });
@@ -101,7 +99,6 @@
                 Load_C();
             }
         }
-        document.getElementById('connection').style.visibility = "hidden";
         $("#hh").modal('hide');
     }
     $scope.GetDATA = function () {
@@ -116,6 +113,7 @@
         }
     }
     $scope.editGZ = function (gz) {
+        $scope.showdelete = true;
         $scope.ID = gz.ID;
         var zb = (gz.ZB) ? $filter('date')(parseInt(gz.ZB.substr(6)), 'dd.MM.yyyy') : '';
         var ze = (gz.ZE) ? $filter('date')(parseInt(gz.ZE.substr(6)), 'dd.MM.yyyy') : '';
@@ -170,7 +168,6 @@
                     }
                 }
             }, function () {
-                document.getElementById('connection').style.visibility = "hidden";
                 $("#hh").modal('hide');
                 //alert('Error in UpdateGrafikZaezdov');
                 console.log('Error in UpdateGrafikZaezdov');
@@ -192,7 +189,6 @@
                     }
                 }
             }, function () {
-                document.getElementById('connection').style.visibility = "hidden";
                 $("#hh").modal('hide');
                 //alert('Error in AddGrafikZaezdov');
                 console.log('Error in AddGrafikZaezdov');
@@ -200,15 +196,20 @@
         }
     }
     $scope.AddGZDiv = function () {
+        $scope.showdelete = false;
         ClearFields();
         $scope.Action = "Добавить";
     }
     $scope.deleteGZ = function (ID) {
+        $("#hh").modal({
+            backdrop: 'static'
+        });
         reset();
         alertify.set({ buttonFocus: "cancel" });
         alertify.confirm("Вы действительно хотите удалить?", function (e) {
             if (e) {
                 alertify.success("Операция выполняется");
+                $("#hh").modal('hide');
                 $http({
                     method: "post",
                     url: "/GrafikZaezdov/DeleteGrafikZaezdov",
@@ -230,6 +231,7 @@
                 });    
             } else {
                 alertify.error("Операция отменена");
+                $("#hh").modal('hide');
             }
         });
         return false;
@@ -244,5 +246,11 @@
     }
     $scope.Cancel = function () {
        
+    };
+    $scope.exportData = function () {
+        var blob = new Blob([document.getElementById('export').innerHTML], {
+            type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=utf-8"
+        });
+        saveAs(blob, "График заездов.xls");
     };
 }]);

@@ -1,5 +1,6 @@
 ﻿app.controller("SSSPController", ["$scope", "$http", "$filter", "crudAJService", function ($scope, $http, $filter, crudAJService) {
     GetData();
+    $scope.showdelete = false;
     function GetData() {
         $http({
             method: "post",
@@ -11,6 +12,7 @@
         });
     }
     $scope.editSSSP = function (pz) {
+        $scope.showdelete = true;
         var zb = (pz.ST) ? $filter('date')(parseInt(pz.ST.substr(6)), 'dd.MM.yyyy') : '';
         $scope.ST = new Date(zb.substring(6, 10), zb.substring(3, 5) - 1, zb.substring(0, 2));
         $scope.ID = pz.ID;
@@ -18,6 +20,7 @@
         $scope.Action = "Изменить";
     }
     $scope.AddSSSPDiv = function () {
+        $scope.showdelete = false;
         $scope.A ="";
         $scope.ST = $filter('date')(new Date(), 'dd.MM.yyyy');
         $scope.Action = "Добавить";

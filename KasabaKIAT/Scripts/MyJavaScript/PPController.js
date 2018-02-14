@@ -11,6 +11,7 @@
     GetPP_S(1);
     GetPP_SUM_S(1);
     LoadDATA_S();
+    $scope.showdelete = false;
     function GetPP_SUM_S(id) {
         $http({
             method: "post",
@@ -155,7 +156,8 @@
         document.getElementById('connection').style.visibility = "hidden";
         $("#hh").modal('hide');
     }
-  $scope.AddPPDiv = function () {
+   $scope.AddPPDiv = function () {
+       $scope.showdelete = false;
       $scope.SC.id = 1;
       ClearFields();
       $scope.Action = "Добавить";
@@ -172,7 +174,8 @@
       $scope.Q_IN = "";
       $scope.Q_OUT = "";
   }
-    $scope.editPP = function (pp) {
+  $scope.editPP = function (pp) {
+      $scope.showdelete = true;
         $scope.ID = pp.ID;
         var rbd = (pp.RBD) ? $filter('date')(parseInt(pp.RBD.substr(6)), 'dd.MM.yyyy') : '';
         var red = (pp.RED) ? $filter('date')(parseInt(pp.RED.substr(6)), 'dd.MM.yyyy') : '';
@@ -408,5 +411,11 @@
         }
         $scope.rr = arr;
         $scope.items = arr;
-    }     
+    }
+    $scope.exportData = function () {
+        var blob = new Blob([document.getElementById('export').innerHTML], {
+            type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=utf-8"
+        });
+        saveAs(blob, "Приход путевок.xls");
+    };
 }]);

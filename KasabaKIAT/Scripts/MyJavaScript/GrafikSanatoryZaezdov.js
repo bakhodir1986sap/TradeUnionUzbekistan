@@ -30,17 +30,29 @@
         });
     }
     $scope.LoadDATA = function () {
+        $("#hh").modal({
+            backdrop: 'static',
+            backdrop: 'static'
+        });
         reset();
         alertify.set({ buttonFocus: "cancel" });
-        alertify.confirm("Вы действительно хотите ...?", function (e) {
+        alertify.confirm("Вы действительно хотите получить?", function (e) {
             if (e) {
                 alertify.success("Операция выполняется");
                 document.getElementById('connection').style.visibility = "visible";
+                $("#hh").modal('hide');
                 Load($scope.ZB);
             } else {
                 alertify.error("Операция отменена");
+                $("#hh").modal('hide');
             }
         });
         return false;
+    };
+    $scope.exportData = function () {
+        var blob = new Blob([document.getElementById('export').innerHTML], {
+            type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=utf-8"
+        });
+        saveAs(blob, "График санаторий заездов.xls");
     };
 }]);

@@ -9,6 +9,7 @@
     };
     $scope.PlaceTypeFilter.REC_ID = 1;
     GetSNP();
+    $scope.showdelete = false;
     function GetSNP() {
         $http({
             method: "post",
@@ -20,11 +21,13 @@
         });
     }
     $scope.editSNP = function (pz) {
+        $scope.showdelete = true;
         $scope.ID = pz.REC_ID;
         $scope.PTI = pz.NAME_UZ;
         $scope.Action = "Изменить";
     }
     $scope.AddSNPDiv = function () {
+        $scope.showdelete = false;
         $scope.PTI = "";
         $scope.Action = "Добавить";
     }

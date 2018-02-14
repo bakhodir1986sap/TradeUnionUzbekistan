@@ -1,6 +1,7 @@
 ﻿app.controller("GPController", ["$scope", "$http", "$filter", "crudAJService", function ($scope, $http, $filter, crudAJService) {
     GetGP_S(1, 1);
     $scope.GPdiv = true;
+    $scope.showdelete = false;
     AllRegion();
     AllPlaceType();
     AllSanatory();
@@ -147,7 +148,8 @@ function AllCamp() {
         $("#hh").modal('hide');
     });
 }
-    $scope.AddGPDiv = function () {
+$scope.AddGPDiv = function () {
+    $scope.showdelete = false;
         ClearFields();
         $scope.Action = "Добавить";
     }
@@ -176,6 +178,7 @@ function AllCamp() {
         Tozala();
     }
     $scope.editGP = function (gp) {
+        $scope.showdelete = true;
         $scope.ID = gp.ID;
         $scope.Region.id = gp.R_id;
         $scope.Region.value = gp.R;
@@ -297,4 +300,10 @@ function AllCamp() {
         });
         return false;
     }
+    $scope.exportData = function () {
+        var blob = new Blob([document.getElementById('export').innerHTML], {
+            type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=utf-8"
+        });
+        saveAs(blob, "Годовой план.xls");
+    };
 }]);

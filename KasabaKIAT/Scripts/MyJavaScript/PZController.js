@@ -1,5 +1,6 @@
 ﻿app.controller("PZController", ["$scope", "$http", "$filter", "crudAJService", function ($scope, $http, $filter, crudAJService) {
     $scope.OTPdiv = false;
+    $scope.showdelete = false;
     AllSanatory();
     GetPZ_S(1);
     $scope.SC = {
@@ -39,6 +40,7 @@
         });
     }
     $scope.editPZ = function (pz) {
+        $scope.showdelete = true;
         $scope.ID = pz.ID;
         var zb = (pz.ZB) ? $filter('date')(parseInt(pz.ZB.substr(6)), 'dd.MM.yyyy') : '';
         var ze = (pz.ZE) ? $filter('date')(parseInt(pz.ZE.substr(6)), 'dd.MM.yyyy') : '';
@@ -57,6 +59,7 @@
         $scope.Action = "Изменить";
     }
     $scope.AddPZDiv = function () {
+        $scope.showdelete = false;
         $scope.MOE = false;
         $scope.Q = 1;
         ClearFields();
@@ -75,8 +78,9 @@
                 $scope.OTPdiv = false;
             }
         }, function () {
-            alert('Error in getting Санаторий records');
-            document.getElementById('connection').style.visibility = "hidden";
+            //alert('Error in getting Санаторий records');
+            //document.getElementById('connection').style.visibility = "hidden";
+            console.log("GetAllPZ_S");
             $("#hh").modal('hide');
         });
     }
@@ -108,12 +112,10 @@
         }
     }
     $scope.LoadSC = function () {
-        document.getElementById('connection').style.visibility = "visible";
         $("#hh").modal({
             backdrop: 'static'
         });
         $scope.SCFilter.id = 1;
-        $scope.PZdiv = false;
         if ($scope.ss === "option1s") {
             AllSanatory()
             GetPZ_S($scope.SCFilter.id);
@@ -124,7 +126,6 @@
                 GetPZ_C($scope.SCFilter.id);
             }
         }
-        document.getElementById('connection').style.visibility = "hidden";
         $("#hh").modal('hide');
     }
     $scope.MOE_ch = function () {
@@ -224,7 +225,6 @@
         }
     }
     $scope.OTPpz = function () {
-        document.getElementById('connection').style.visibility = "visible";
         $("#hh").modal({
             backdrop: 'static',
             backdrop: 'static'
@@ -247,14 +247,12 @@
                             GetPZ_C($scope.SCFilter.id);
                         }
                     }
-                    document.getElementById('connection').style.visibility = "hidden";
                     $("#hh").modal('hide');
                 }, function () {
                     //alert('Error in OTPPodachaZayavok');
                     console.log('Error in OTPPodachaZayavok');
                 });
             } else {
-                document.getElementById('connection').style.visibility = "hidden";
                 $("#hh").modal('hide');
                 alertify.error("Операция отменена");
             }
@@ -262,7 +260,6 @@
         return false;
     }
     $scope.deletePZ = function (ID) {
-        document.getElementById('connection').style.visibility = "visible";
         $("#hh").modal({
             backdrop: 'static',
             backdrop: 'static'
@@ -286,14 +283,12 @@
                             GetPZ_C($scope.SCFilter.id);
                         }
                     }
-                    document.getElementById('connection').style.visibility = "hidden";
                     $("#hh").modal('hide');
                 }, function () {
                     //alert('Error in DeletePodachaZayavok');
                     console.log('Error in DeletePodachaZayavok');
                 });
             } else {
-                document.getElementById('connection').style.visibility = "hidden";
                 $("#hh").modal('hide');
                 alertify.error("Операция отменена");
             }
@@ -314,5 +309,11 @@
     }
     $scope.Cancel = function () {
 
+    };
+    $scope.exportData = function () {
+        var blob = new Blob([document.getElementById('export').innerHTML], {
+            type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=utf-8"
+        });
+        saveAs(blob, "Подача заявок.xls");
     };
 }]);

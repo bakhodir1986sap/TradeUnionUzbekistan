@@ -1186,6 +1186,22 @@ namespace KasabaKIAT.Controllers
         {
             return View();
         }
+        public ActionResult OsushestvleniyeProvodki()
+        {
+            return View();
+        }
+        public ActionResult Nakladniye()
+        {
+            return View();
+        }
+        public ActionResult PlanByudjetaOblastey()
+        {
+            return View();
+        }
+        public ActionResult RaspredleniyeByudjeta()
+        {
+            return View();
+        }
 
         /// <summary>
         /// 

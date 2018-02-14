@@ -7,8 +7,13 @@ using KasabaKIAT.Models;
 using KurortUrvServiceTest.ServiceInterAction.ActionLogic;
 using System.IO;
 using log4net;
-using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Web.UI;
+using ClosedXML;
+using ClosedXML.Excel;
+using System.Configuration;
+using System.Data.SqlClient;
+using System.Data;
 
 namespace KasabaKIAT.Controllers
 {
@@ -18,6 +23,7 @@ namespace KasabaKIAT.Controllers
         ServiceActionController service = new ServiceActionController();
         ILog log = log4net.LogManager.GetLogger(typeof(AdministirirovaniyeController));
         KasabaKIATEntities KasabaDB = new KasabaKIATEntities();
+
 
         public ActionResult Index()
         {
@@ -49,7 +55,13 @@ namespace KasabaKIAT.Controllers
         }
         public ActionResult SpisokPravsoyuzov()
         {
-            return View();
+            IList<Models.ViewModel> O = (from o in KasabaDB.tbku_StrokaProfsoyza
+                                         select new Models.ViewModel
+                                         {
+                                             Kod = o.ProfsoyzKod,
+                                             Name = o.ProfsoyzNaimenovanie
+                                         }).ToList();
+            return View(O);
         }
         public ActionResult GrafikSanatoryZaezdov()
         {
@@ -59,7 +71,6 @@ namespace KasabaKIAT.Controllers
         {
             return View();
         }
-
         public void ServiceSpisokPravsoyuzov()
         {
             try
@@ -82,69 +93,6 @@ namespace KasabaKIAT.Controllers
             return Json(O.ToList(), JsonRequestBehavior.AllowGet);
 
         }
-
-
-        public ActionResult ExportToExcelPravsoyuz()
-        {
-            var products = new System.Data.DataTable("teste");
-            products.Columns.Add("col1", typeof(int));
-            products.Columns.Add("col2", typeof(string));
-
-            products.Rows.Add(1, "product 1");
-            products.Rows.Add(2, "product 2");
-            products.Rows.Add(3, "product 3");
-            products.Rows.Add(4, "product 4");
-            products.Rows.Add(5, "product 5");
-            products.Rows.Add(6, "product 6");
-            products.Rows.Add(7, "product 7");
-
-
-            var grid = new GridView();
-            grid.DataSource = products;
-            grid.DataBind();
-
-            Response.ClearContent();
-            Response.Buffer = true;
-            Response.AddHeader("content-disposition", "attachment; filename=MyExcelFile.xls");
-            Response.ContentType = "application/ms-excel";
-
-            Response.Charset = "";
-            StringWriter sw = new StringWriter();
-            HtmlTextWriter htw = new HtmlTextWriter(sw);
-
-            grid.RenderControl(htw);
-
-            Response.Output.Write(sw.ToString());
-            Response.Flush();
-            Response.End();
-
-            return View("MyView");
-
-            //var O = from o in KasabaDB.tbku_StrokaProfsoyza
-            //        select new
-            //        {
-            //            d1 = o.ProfsoyzKod,
-            //            d2 = o.ProfsoyzNaimenovanie
-            //        };
-
-            //var gv = new GridView();
-            //gv.DataSource = O.ToList();
-            //gv.DataBind();
-            //Response.ClearContent();
-            //Response.Buffer = true;
-            //Response.AddHeader("content-disposition", "attachment; filename=DemoExcel.xls");
-            //Response.ContentType = "application/ms-excel";
-            //Response.Charset = "";
-            //StringWriter objStringWriter = new StringWriter();
-            //HtmlTextWriter objHtmlTextWriter = new HtmlTextWriter(objStringWriter);
-            //gv.RenderControl(objHtmlTextWriter);
-            //Response.Output.Write(objStringWriter.ToString());
-            //Response.Flush();
-            //Response.End();
-
-            //return View("MyView");
-        }
-
         public void ServiceGrafikSanatoryZaezdov(string yil)
         {
             try

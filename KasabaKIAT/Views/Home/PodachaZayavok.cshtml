@@ -19,8 +19,9 @@
                 </nav>
             </div>
             <div class="col-sm-6 text-md-right">
-                <a href="#"  ng-click="AddPZDiv()" class="btn btn-blue d-block d-md-inline-block mb-2" data-toggle="modal" data-target="#dobavit"><i class="fas fa-plus"></i> Добавить</a>
-                <a href="#" class="btn btn-green d-block d-md-inline-block mb-2"><i class="fas fa-file-excel"></i> Загрузить</a>
+                <button  ng-click="AddPZDiv()" class="btn btn-blue d-block d-md-inline-block mb-3 mb-md-0" data-toggle="modal" data-target="#dobavit"><i class="fas fa-plus"></i> Добавить</button>
+                <button class="btn btn-green d-block d-md-inline-block mb-3 mb-md-0"><i class="fas fa-file-excel"></i> Загрузить</button>
+                <button ng-click="exportData()" class="btn btn-green d-block d-md-inline-block mb-3 mb-md-0"><i class="fas fa-file-excel"></i> Экспорт</button>
             </div>
         </div>
         <form class="form-group  justify-content-end" name="myForm1" novalidate>
@@ -39,46 +40,39 @@
             <p><strong>Спасибо! Заявка успешно отправлена..</strong></p>
             <p style="width:500px">Тут будет текст который будет говорить о том, что заявка успешно добавлена...можно поставить ссылки на <a href="/Home/PoiskRedaktZayavok">Поиск и редактирование заявок</a></p>
         </div>
-        @*<div ng-show="OTPdiv" class="row" style="padding-top:15px;" id="result">
-            <b>Спасибо! Заявка успешно отправлена..</b>
-            <p>
-                Ту будет текст который будет говорить о том, что заявка успешно добавлена...можно поставить<br>
-                ссылки на <a href="/Home/PoiskRedaktZayavok" class="btn btn-info">Поиск и редактирование заявок</a>
-            </p>
-        </div>*@
-                <div  ng-show="PZdiv" class="table-responsive box-shadow mb-4">
-                    <table class="table table__block t-hover">
-                        <thead>
-                            <tr>
-                                @*<th>№</th>*@
-                                <th style="text-align:center">Дата подачи</th>
-                                <th style="text-align:center;width:200px"><select class="custom-select form-control" ng-model="SCFilter" ng-change="LoadData()" required name="CSFilter" ng-options="item as item.value for item in CS track by item.id"></select></th>
-                                @*<th style="text-align:center;width:125px"><input type="text" ng-model="INN_Filter" class="form-control" style="text-align:center" placeholder="Инн" /></th>*@
-                                <th style="text-align:center;width:200px"><input type="text" ng-model="O_Filter" class="form-control" style="text-align:center" placeholder="Организация" /></th>
-                                <th style="text-align:center;width:200px"><input type="text" ng-model="FN_Filter" class="form-control" style="text-align:center" placeholder="ФИО" /></th>
-                                <th style="text-align:center;width:125px"><input type="text" ng-model="Position_Filter" class="form-control" style="text-align:center" placeholder="Должность" /></th>
-                                <th style="text-align:center;width:100px"><input type="text" ng-model="Q_Filter" class="form-control" style="text-align:center" placeholder="Кол-во" /></th>
-                                <th style="text-align:center">Месяц</th>                            
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr ng-repeat="pz in PZ | filter:INN_Filter | filter:O_Filter | filter:FN_Filter | filter:Position_Filter | filter:Q_Filter" ng-click="editPZ(pz)" data-toggle="modal" data-target="#dobavit">
-                                @*<td>{{pz.ID}}</td>*@
-                                <td>{{pz.TS | jsonDate: 'dd.MM.yyyy'}}</td>
-                                <td style="text-align:center">{{pz.SC}}</td>
-                                @*<td style="text-align:center">{{pz.INN}}</td>*@
-                                <td style="text-align:center">{{pz.O}}</td>
-                                <td style="text-align:center">{{pz.FN}}</td>
-                                <td style="text-align:center">{{pz.P}}</td>
-                                <td style="text-align:center">{{pz.Q}}</td>
-                                <td>{{pz.ZB | jsonDate: 'dd.MM.yyyy'}}</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <div class="mb-4">
-                        <a href="#" ng-click="OTPpz()" class="btn btn-blue d-block d-md-inline-block mb-2">Отправить</a>
-                    </div>
-                </div>
+    <div  ng-show="PZdiv" class="table-responsive box-shadow mb-4" id="export">
+        <table class="table table__block t-hover">
+            <thead>
+                <tr>
+                    @*<th>№</th>*@
+                    <th style="text-align:center">Дата подачи</th>
+                    <th style="text-align:center;width:200px"><select class="custom-select form-control" ng-model="SCFilter" ng-change="LoadData()" required name="CSFilter" ng-options="item as item.value for item in CS track by item.id"></select></th>
+                    @*<th style="text-align:center;width:125px"><input type="text" ng-model="INN_Filter" class="form-control" style="text-align:center" placeholder="Инн" /></th>*@
+                    <th style="text-align:center;width:200px"><input type="text" ng-model="O_Filter" class="form-control" style="text-align:center" placeholder="Организация" /></th>
+                    <th style="text-align:center;width:200px"><input type="text" ng-model="FN_Filter" class="form-control" style="text-align:center" placeholder="ФИО" /></th>
+                    <th style="text-align:center;width:125px"><input type="text" ng-model="Position_Filter" class="form-control" style="text-align:center" placeholder="Должность" /></th>
+                    <th style="text-align:center;width:100px"><input type="text" ng-model="Q_Filter" class="form-control" style="text-align:center" placeholder="Кол-во" /></th>
+                    <th style="text-align:center">Месяц</th>                            
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="pz in PZ | filter:INN_Filter | filter:O_Filter | filter:FN_Filter | filter:Position_Filter | filter:Q_Filter" ng-click="editPZ(pz)" data-toggle="modal" data-target="#dobavit">
+                    @*<td>{{pz.ID}}</td>*@
+                    <td>{{pz.TS | jsonDate: 'dd.MM.yyyy'}}</td>
+                    <td style="text-align:center">{{pz.SC}}</td>
+                    @*<td style="text-align:center">{{pz.INN}}</td>*@
+                    <td style="text-align:center">{{pz.O}}</td>
+                    <td style="text-align:center">{{pz.FN}}</td>
+                    <td style="text-align:center">{{pz.P}}</td>
+                    <td style="text-align:center">{{pz.Q}}</td>
+                    <td>{{pz.ZB | jsonDate: 'dd.MM.yyyy'}}</td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="mb-4">
+            <a href="#" ng-click="OTPpz()" class="btn btn-blue d-block d-md-inline-block mb-2">Отправить</a>
+        </div>
+    </div>
                
 </section>
     <div class="modal__block modal fade" id="dobavit" tabindex="-1" role="dialog" aria-labelledby="dobavitLabel">
@@ -159,7 +153,7 @@
                             </div>
                             <div class="mb-4 text-right">
                                 <button ng-disabled="myForm.INN.$error.required||myForm.FN.$error.required||myForm.P.$error.required||(!myForm.INN.$error.required&&!myForm.INN.$valid)||O=='No Data Found'||MOE&&myForm.MO.$error.required" ng-click="AddUpdatePZ()"   data-dismiss="modal" class="btn btn-blue d-block d-md-inline-block mb-2">Сохранить</button>
-                                <button ng-click="deletePZ(ID)"  data-dismiss="modal" class="btn btn-red d-block d-md-inline-block mb-2">Удалить</button>
+                                <button ng-click="deletePZ(ID)"  ng-show="showdelete" data-dismiss="modal" class="btn btn-red d-block d-md-inline-block mb-2">Удалить</button>
                                 <button class="btn btn-grey d-block d-md-inline-block mb-2" data-dismiss="modal">Отмена</button>
                             </div>
                         </form>

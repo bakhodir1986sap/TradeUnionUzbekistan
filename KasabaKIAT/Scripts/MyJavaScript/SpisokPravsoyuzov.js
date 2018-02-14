@@ -23,8 +23,10 @@
             url: "/Administirirovaniye/ServiceSpisokPravsoyuzov",
         }).then(function (d) {
             document.getElementById('connection').style.visibility = "hidden";
+            $("#hh").modal('hide');
             GetData();
         }, function () {
+            $("#hh").modal('hide');
             //alert("error in O_SOZ");
         });
     }
@@ -39,7 +41,6 @@
             if (e) {
                 alertify.success("Операция выполняется");
                 document.getElementById('connection').style.visibility = "visible";
-                $("#hh").modal('hide');
                 Load();
             } else {
                 alertify.error("Операция отменена");

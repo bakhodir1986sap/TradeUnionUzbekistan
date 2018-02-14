@@ -951,6 +951,7 @@
     <Content Include="Scripts\MyJavaScript\PPController.js" />
     <Content Include="Scripts\MyJavaScript\PRZController.js" />
     <Content Include="Scripts\MyJavaScript\PZController.js" />
+    <Content Include="Scripts\MyJavaScript\RaspredeleniyeZaezdov.js" />
     <Content Include="Scripts\MyJavaScript\RZController.js" />
     <Content Include="Scripts\MyJavaScript\SchetFaktura.js" />
     <Content Include="Scripts\MyJavaScript\SController.js" />
@@ -1035,6 +1036,7 @@
     <Content Include="Views\Home\Nakladniye.cshtml" />
     <Content Include="Views\Home\PlanByudjetaOblastey.cshtml" />
     <Content Include="Views\Home\RaspredleniyeByudjeta.cshtml" />
+    <Content Include="Views\Administirirovaniye\RaspredeleniyeZaezdov.cshtml" />
     <None Include="Web References\KurortUrlService\SkuTradeUnionExchg.wsdl" />
     <Content Include="Web References\KurortUrlService\typeGrafikZaezdovSanatoriev.datasource">
       <DependentUpon>Reference.map</DependentUpon>

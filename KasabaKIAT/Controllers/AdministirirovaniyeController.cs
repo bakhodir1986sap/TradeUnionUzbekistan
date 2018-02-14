@@ -71,6 +71,148 @@ namespace KasabaKIAT.Controllers
         {
             return View();
         }
+        public ActionResult RaspredeleniyeZaezdov()
+        {
+            return View();
+        }
+        public JsonResult GetRaspredeleniyeZaezdov1(int yil,string kod)
+        {
+            var O = from o in KasabaDB.tbku_GrafikZaezdovSanatoriev
+                    where o.GodZaezdov == yil&&o.SanatoryKod==kod
+                    select new
+                    {
+                        d1 = o.SanatoryNaimenovanie,
+                        d2 = o.SanatoryProfil,
+                        d3 = o.SanatoryOblast,
+                        d4 = o.SanatoryKoekVsego,
+                        d5 = o.SanatoryKoekLetom,
+                        d6 = o.SanatoryKoekZimoy,
+                        d7 = o.SanatoryRazmeshenieNaimenovanie,
+                        d8 = o.Putevok1kv,
+                        d9 = o.Putevok2kv,
+                        d10 = o.Putevok3kv,
+                        d11 = o.Putevok4kv
+                    };
+            return Json(O.ToList(), JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult GetRaspredeleniyeZaezdov2(int yil, string kod)
+        {
+            var O = from o in KasabaDB.tbku_SpisokRaspredeleniya
+                    where o.GodZaezdov == yil && o.SanatoryKod == kod
+                    select new
+                    {
+                        ID=o.ID,
+                        d1 = o.GodZaezdov,
+                        d2 = o.SanatoryKod,
+                        d3 = o.ProfsoyzKod,
+                        d4 = o.SanatoryRazmeshenieKod,
+                        d5 = o.Putevok1kv,
+                        d6 = o.Putevok2kv,
+                        d7 = o.Putevok3kv,
+                        d8 = o.Putevok4kv
+                    };
+            return Json(O.ToList(), JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult GetSanatory(int yil)
+        {
+            var O = from o in KasabaDB.tbku_GrafikZaezdovSanatoriev
+                    where o.GodZaezdov==yil
+                    select new
+                    {
+                        d1 = o.SanatoryKod,
+                        d2 = o.SanatoryNaimenovanie,
+                    };
+            var Groups = from p in O
+                         group p by new { p.d1,p.d2 } into g
+                         select new {d1=g.Key.d1,d2=g.Key.d2  };
+            return Json(Groups.ToList(), JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult GetKod(int yil,string kod)
+        {
+            var O = from o in KasabaDB.tbku_GrafikZaezdovSanatoriev
+                    where o.GodZaezdov == yil&&o.SanatoryKod==kod
+                    select new
+                    {
+                        d1 = o.SanatoryRazmeshenieKod,
+                        d2 = o.SanatoryRazmeshenieKod,
+                    };
+            return Json(O.ToList(), JsonRequestBehavior.AllowGet);
+        }
+        public String AddSpisokRaspredeleniya(tbku_SpisokRaspredeleniya PP)
+        {
+            int UserId = Convert.ToInt32(User.Identity.Name);
+            if (PP != null)
+            {
+                using (KasabaKIATEntities k = new KasabaKIATEntities())
+                {
+                    tbku_SpisokRaspredeleniya p1 = new tbku_SpisokRaspredeleniya();
+                    p1.GodZaezdov = PP.GodZaezdov;
+                    p1.SanatoryKod = PP.SanatoryKod;
+                    p1.ProfsoyzKod = PP.ProfsoyzKod;
+                    p1.SanatoryRazmeshenieKod = PP.SanatoryRazmeshenieKod;
+                    p1.Putevok1kv = PP.Putevok1kv;
+                    p1.Putevok2kv = PP.Putevok2kv;
+                    p1.Putevok3kv = PP.Putevok3kv;
+                    p1.Putevok4kv = PP.Putevok4kv;
+                    k.tbku_SpisokRaspredeleniya.Add(p1);
+                    k.SaveChanges();
+                    return "ok";
+                }
+            }
+            else
+            {
+                return "error";
+            }
+        }
+        public string UpdateSpisokRaspredeleniya(tbku_SpisokRaspredeleniya PP)
+        {
+            if (PP != null)
+            {
+                using (KasabaKIATEntities k = new KasabaKIATEntities())
+                {
+                    tbku_SpisokRaspredeleniya p1 = new tbku_SpisokRaspredeleniya();
+                    p1.GodZaezdov = PP.GodZaezdov;
+                    p1.SanatoryKod = PP.SanatoryKod;
+                    p1.ProfsoyzKod = PP.ProfsoyzKod;
+                    p1.SanatoryRazmeshenieKod = PP.SanatoryRazmeshenieKod;
+                    p1.Putevok1kv = PP.Putevok1kv;
+                    p1.Putevok2kv = PP.Putevok2kv;
+                    p1.Putevok3kv = PP.Putevok3kv;
+                    p1.Putevok4kv = PP.Putevok4kv;
+                    k.SaveChanges();
+                    return "ok";
+                }
+            }
+            else
+            {
+                return "error";
+            }
+        }
+        public string DeleteSpisokRaspredeleniya(string id)
+        {
+            if (!String.IsNullOrEmpty(id))
+            {
+                try
+                {
+                    int _bookId = Int32.Parse(id);
+                    using (KasabaKIATEntities contextObj = new KasabaKIATEntities())
+                    {
+                        var _book = contextObj.tbku_SpisokRaspredeleniya.Find(_bookId);
+                        contextObj.tbku_SpisokRaspredeleniya.Remove(_book);
+                        contextObj.SaveChanges();
+                        return "Selected book record deleted sucessfully";
+                    }
+                }
+                catch (Exception)
+                {
+                    return "Book details not found";
+                }
+            }
+            else
+            {
+                return "Invalid operation";
+            }
+        }
         public void ServiceSpisokPravsoyuzov()
         {
             try
@@ -182,6 +324,7 @@ namespace KasabaKIAT.Controllers
                     };
             return Json(O.ToList(), JsonRequestBehavior.AllowGet);
         }
+
         public JsonResult GetSNP()
         {
             var camp = from dict in KasabaDB.tbcs_dictionary

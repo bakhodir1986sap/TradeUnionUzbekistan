@@ -179,7 +179,6 @@ $scope.AddGPDiv = function () {
         $scope.Action = "Добавить";
     }
     function ClearFields() {
-        $scope.K ="";
         $scope.P = "";
         $scope.Q = "";
     }
@@ -209,7 +208,7 @@ $scope.AddGPDiv = function () {
         $scope.Region.value = gp.R;
         $scope.SC.id = gp.SC_id;
         $scope.SC.value = gp.SC;
-        $scope.K = gp.K;
+        $scope.Kvartal.id = gp.K;
         $scope.PlaceType.NAME_UZ = gp.TM;
         $scope.PlaceType.REC_ID = gp.TM_id;
         $scope.P = gp.P;

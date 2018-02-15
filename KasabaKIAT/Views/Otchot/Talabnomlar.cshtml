@@ -3,6 +3,9 @@
     ViewBag.Title = "Отчеты";
 }
 <script src="~/Scripts/MyJavaScript/O_TController.js"></script>
+<div id="connection" style="visibility:hidden;position:absolute;margin-left:560px;margin-top:200px">
+    <img src="~/Content/Login/buffering.gif" />
+</div>
 <div ng-controller="O_TController" >
     <section class="content__block container">
         <div class="row mb-4 align-items-center">
@@ -67,14 +70,18 @@
             </div>
             <div class="row mb-4 align-items-center">
                 <div>
-                    <button ng-click="LoadDATA()" ng-disabled="myForm1.zb.$error.required||myForm1.INN.$error.required" class="btn btn-blue d-block d-md-inline-block mb-2"> ПОКАЗАТ</button>
+                    @*<button ng-click="LoadDATA()" ng-disabled="s!='option1'&&s!='option2'" class="btn btn-blue d-block d-md-inline-block mb-3 mb-md-0"> ПОКАЗАТ</button>*@
+                    <button ng-click="LoadDATA()" ng-disabled="s!='option2'&&(myForm1.INN.$error.required||(!myForm1.INN.$error.required&&!myForm1.INN.$valid))" class="btn btn-blue d-block d-md-inline-block mb-3 mb-md-0"> ПОКАЗАТ</button>
                 </div>
                 <div>
-                    <a href="#" ng-click="Clear()" style="margin-left:200px" class="btn btn-default d-block d-md-inline-block mb-2"> ОЧИСТИТЬ ФИЛЬТР</a>
+                    <a href="#" ng-click="Clear()" style="margin-left:200px" class="btn btn-default d-block d-md-inline-block mb-3 mb-md-0"> ОЧИСТИТЬ ФИЛЬТР</a>
+                </div>
+                <div>
+                    <button ng-show="showdata" ng-click="exportData()" style="margin-left:200px" class="btn btn-green d-block d-md-inline-block mb-3 mb-md-0"><i class="fas fa-file-excel"></i> Экспорт</button>
                 </div>
             </div>
         </form>
-        <div class="table-responsive box-shadow mb-4" ng-show="showdata">
+        <div class="table-responsive box-shadow mb-4" id="export" ng-show="showdata">
             <table class="table table__block t-hover">
                 <thead>
                     <tr>

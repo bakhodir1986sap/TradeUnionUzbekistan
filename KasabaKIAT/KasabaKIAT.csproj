@@ -222,6 +222,7 @@
     <Compile Include="BusinessLogic\Putyovki\PlanGrafikZaezdov\GrafikZaezdov.cs" />
     <Compile Include="BusinessLogic\Putyovki\PlanGrafikZaezdov\GrafikZaezdovDataManager.cs" />
     <Compile Include="BusinessLogic\Putyovki\PrixodPutyovok\IPostupleniyaEnter.cs" />
+    <Compile Include="BusinessLogic\Putyovki\PrixodPutyovok\Oprixodovaniye.cs" />
     <Compile Include="BusinessLogic\Putyovki\PrixodPutyovok\PostMainDataManager.cs" />
     <Compile Include="BusinessLogic\Putyovki\PrixodPutyovok\PostPutDetailDataManager.cs" />
     <Compile Include="BusinessLogic\Putyovki\PrixodPutyovok\Postupleniya.cs" />

@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Data.Entity.Validation;
 
 namespace KasabaKiat.BusinessLogic.Putyovki.PrixodPutyovok
 {
@@ -19,7 +20,7 @@ namespace KasabaKiat.BusinessLogic.Putyovki.PrixodPutyovok
                 //post.ID     = model.Id                ;
                 post.ID_Post     = model.IdPost            ;
                 post.ID_Sanat     = model.IdSanat           ;
-                post.tblSprav_San.Name_San     = model.SanatName         ;
+                //post.tblSprav_San.Name_San     = model.SanatName         ;
                 post.Num_Put     = model.Num_Put           ;
                 post.DataSan     = model.DataSan           ;
                 post.DataSanEnd     = model.DataSanEnd        ;
@@ -31,9 +32,26 @@ namespace KasabaKiat.BusinessLogic.Putyovki.PrixodPutyovok
 
                 var pst = db.tblPos_Put.Add(post);
 
-                model.Id = pst.ID;
+                try
+                {
+                    db.SaveChanges();
+                }
+                catch (DbEntityValidationException e)
+                {
+                    foreach (var eve in e.EntityValidationErrors)
+                    {
+                        Console.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
+                            eve.Entry.Entity.GetType().Name, eve.Entry.State);
+                        foreach (var ve in eve.ValidationErrors)
+                        {
+                            Console.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
+                                ve.PropertyName, ve.ErrorMessage);
+                        }
+                    }
+                    throw;
+                }
 
-                db.SaveChanges();
+                model.Id = post.ID;
             }
         }
 

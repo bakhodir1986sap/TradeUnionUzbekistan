@@ -33,6 +33,7 @@ namespace KasabaKIAT.Models
         public string Name_San { get; set; }
         public string Num_Kod { get; set; }
         public Nullable<long> UserId { get; set; }
+        public Nullable<int> KurortSanID { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ot_oplata> ot_oplata { get; set; }

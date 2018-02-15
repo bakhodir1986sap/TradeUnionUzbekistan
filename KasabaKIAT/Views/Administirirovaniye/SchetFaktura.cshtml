@@ -38,8 +38,11 @@
             <input class="form-control" style="width:200px;" required type="date" ng-model="ZE" id="ZAEZD_END" name="ZAEZD_END" />
             <span class="alert alert-warning" style="padding:0px" ng-show="myForm1.ZAEZD_END.$error.required">Выберите поле</span>
         </div>
-        <div style="margin-left:100px">
+        <div style="margin-left:20px">
             <button ng-click="LoadDATA()" ng-disabled="myForm1.SP.$error.required||myForm1.ZAEZD_BEGIN.$error.required||myForm1.ZAEZD_END.$error.required" class="btn btn-blue d-block d-md-inline-block mb-2" style="margin-top:45px"> Получить</button>
+        </div>
+        <div style="margin-left:20px">
+            <button ng-click="OPRIXDATA()" ng-disabled="myForm1.SP.$error.required||myForm1.ZAEZD_BEGIN.$error.required||myForm1.ZAEZD_END.$error.required" class="btn btn-blue d-block d-md-inline-block mb-2" style="margin-top:45px"> Оприходовать</button>
         </div>
     </form>
     <div class="row mb-5 pb-md-5"  ng-show="showdata">

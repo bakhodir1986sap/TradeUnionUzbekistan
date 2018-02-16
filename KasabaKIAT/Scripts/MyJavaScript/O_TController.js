@@ -2,6 +2,7 @@
     AllRegion();
     AllOtrasl();
     $scope.showdata = false;
+    $scope.showexp = false;
     $scope.zb = "2018";
     $scope.showINN = true;//position:absolute
     $scope.Load = function () {
@@ -42,6 +43,11 @@
         }
     };
     $scope.LoadDATA = function () {
+        document.getElementById('connection').style.visibility = "visible";
+        $("#hh").modal({
+            backdrop: 'static',
+            backdrop: 'static'
+        });
         if ($scope.s == "option1") {
             GetData_Korxona($scope.zb, $scope.INN);
         } else {
@@ -59,6 +65,8 @@
             method: "post",
             url: "/Otchot/GetTalabnomlar_Korxona?yil=" + yil + "&inn=" + inn,
         }).then(function (d) {
+            document.getElementById('connection').style.visibility = "hidden";
+            $("#hh").modal('hide');
             $scope.O_T = d.data;
             if (d.data.length != 0) {
                 $scope.showdata = true;
@@ -67,6 +75,8 @@
                 $scope.showdata = false;
             }
         }, function () {
+            document.getElementById('connection').style.visibility = "hidden";
+            $("#hh").modal('hide');
             //alert("error in O_SOZ");
         });
     }
@@ -75,6 +85,8 @@
             method: "post",
             url: "/Otchot/GetTalabnomlar_Tarmoq?yil=" + yil + "&soato=" + s + "&branch=" + b,
         }).then(function (d) {
+            document.getElementById('connection').style.visibility = "hidden";
+            $("#hh").modal('hide');
             $scope.O_T = d.data;
             if (d.data.length != 0) {
                 $scope.showdata = true;
@@ -83,6 +95,8 @@
                 $scope.showdata = false;
             }
         }, function () {
+            document.getElementById('connection').style.visibility = "hidden";
+            $("#hh").modal('hide');
             //alert("error in O_SOZ");
         });
     }
@@ -91,6 +105,8 @@
             method: "post",
             url: "/Otchot/GetTalabnomlar_Viloyat?yil=" + yil + "&soato=" + s,
         }).then(function (d) {
+            document.getElementById('connection').style.visibility = "hidden";
+            $("#hh").modal('hide');
             $scope.O_T = d.data;
             if (d.data.length != 0) {
                 $scope.showdata = true;
@@ -99,6 +115,8 @@
                 $scope.showdata = false;
             }
         }, function () {
+            document.getElementById('connection').style.visibility = "hidden";
+            $("#hh").modal('hide');
             //alert("error in O_SOZ");
         });
     }
@@ -140,4 +158,10 @@
         $scope.zb = "2018";
         $scope.showdata = false;
     }
+    $scope.exportData = function () {
+        var blob = new Blob([document.getElementById('export').innerHTML], {
+            type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=utf-8"
+        });
+        saveAs(blob, "Талабномалар.xls");
+    };
 }]);

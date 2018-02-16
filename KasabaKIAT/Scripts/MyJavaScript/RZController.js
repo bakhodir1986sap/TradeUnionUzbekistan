@@ -260,51 +260,51 @@
                 [
                     {
                         "ZB_g": "1",
-                        "oy": "YANVAR " + z
+                        "oy": "Январь " + z
                     },
                     {
                         "ZB_g": "2",
-                        "oy": "FEVRAL " + z
+                        "oy": "Февраль " + z
                     },
                     {
                         "ZB_g": "3",
-                        "oy": "MART " + z
+                        "oy": "Март " + z
                     },
                     {
                         "ZB_g": "4",
-                        "oy": "APREL " + z
+                        "oy": "Апрель " + z
                     },
                     {
                         "ZB_g": "5",
-                        "oy": "MAY " + z
+                        "oy": "Май " + z
                     },
                     {
                         "ZB_g": "6",
-                        "oy": "IYUN " + z
+                        "oy": "Июнь " + z
                     },
                     {
                         "ZB_g": "7",
-                        "oy": "IYUL " + z
+                        "oy": "Июль " + z
                     },
                     {
                         "ZB_g": "8",
-                        "oy": "AVGUST " + z
+                        "oy": "Август " + z
                     },
                     {
                         "ZB_g": "9",
-                        "oy": "SENTABR " + z
+                        "oy": "Сентябрь " + z
                     },
                     {
                         "ZB_g": "10",
-                        "oy": "OKTABR " + z
+                        "oy": "Октябрь " + z
                     },
                     {
                         "ZB_g": "11",
-                        "oy": "NOYABR " + z
+                        "oy": "Ноябрь " + z
                     },
                     {
                         "ZB_g": "12",
-                        "oy": "DEKABR " + z
+                        "oy": "Декабрь " + z
                     }
                 ]
             };

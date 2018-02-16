@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using KasabaKIAT.BusinessLogic.Putyovki.RealizasiyaPutyovok;
 
 namespace KasabaKiat.BusinessLogic.Putyovki.RealizasiyaPutyovok
 {
@@ -11,6 +12,8 @@ namespace KasabaKiat.BusinessLogic.Putyovki.RealizasiyaPutyovok
     {
         public static void Create(ref RealizasiyaViplMainViewModel model)
         {
+            var numGen = new ViplNumGen();
+
             using (KasabaKIATEntities db = new KasabaKIATEntities())
             {
                 tblVipl vipl = new tblVipl();
@@ -18,7 +21,7 @@ namespace KasabaKiat.BusinessLogic.Putyovki.RealizasiyaPutyovok
                 //vipl.ID                 = model.id                  ;
                 vipl.ID_Org             = model.id_org              ;
                 vipl.Data_Post          = model.data_post           ;
-                vipl.Num_Doc            = model.num_doc             ;
+                vipl.Num_Doc = numGen.GetNextNumDoc(model.departmentbase, model.smfil).ToString().PadLeft(6, '0');
                 vipl.ID_Pok             = model.id_pok              ;
                 vipl.Num_Kol            = model.num_kol             ;
                 vipl.Symma              = model.symma               ;
@@ -31,9 +34,9 @@ namespace KasabaKiat.BusinessLogic.Putyovki.RealizasiyaPutyovok
 
                 var pst = db.tblVipl.Add(vipl);
 
-                model.id = pst.ID;
-
                 db.SaveChanges();
+
+                model.id = vipl.ID;
             }
         }
 

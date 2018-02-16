@@ -156,7 +156,7 @@ namespace KasabaKIAT.BusinessLogic.Putyovki.PrixodPutyovok
                                                 postPut.IdSanat = db.tblSprav_San.First().ID;
                                             }
 
-                                            postPut.Num_Put = j.ToString();
+                                            postPut.Num_Put = j.ToString().PadLeft(6, '0');
 
                                             if ((DateTime.MinValue >= prixDetail.DataZaezda) 
                                                 || (DateTime.MaxValue <= prixDetail.DataZaezda))

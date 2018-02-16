@@ -27,7 +27,7 @@ namespace KasabaKiat.BusinessLogic
 
             if (brExists == null)
             {
-                BronDataManager.Create(ref model);
+                BronDataManager.Create(model);
             }
             else
             {
@@ -35,6 +35,31 @@ namespace KasabaKiat.BusinessLogic
 
                 BronDataManager.EnableExistingBron(model.Id);
             }
+        }
+
+
+        /// <summary>
+        /// Make putyovka in pron
+        /// </summary>
+        /// <param name="model"></param>
+        public void PostavitV_Bron(List<BronViewModel> Lmodel)
+        {
+            foreach(var model in Lmodel)
+            {
+                var brExists = BronDataManager.GetBronByPutyovka(model.Num_Put, model.ID_San);
+
+                if (brExists == null)
+                {
+                    BronDataManager.Create(model);
+                }
+                else
+                {
+                    BronDataManager.Update(model);
+
+                    BronDataManager.EnableExistingBron(model.Id);
+                }
+            }
+
         }
 
         /// <summary>

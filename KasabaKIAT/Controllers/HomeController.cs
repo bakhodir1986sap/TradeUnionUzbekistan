@@ -1204,10 +1204,7 @@ namespace KasabaKIAT.Controllers
         /// 
         /// </summary>
         /// <returns></returns>
-        public ActionResult Buxgalter()
-        {
-            return View();
-        }
+       
 
         /// <summary>
         /// 

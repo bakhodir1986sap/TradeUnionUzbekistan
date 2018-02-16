@@ -122,7 +122,6 @@ namespace KasabaKIAT.Models
             this.tbgl_jnlmst = new HashSet<tbgl_jnlmst>();
             this.users1 = new HashSet<users>();
             this.roles2 = new HashSet<roles>();
-            this.tbpt_yearlyplanorganization = new HashSet<tbpt_yearlyplanorganization>();
         }
     
         public long id { get; set; }
@@ -368,7 +367,5 @@ namespace KasabaKIAT.Models
         public virtual users users2 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<roles> roles2 { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tbpt_yearlyplanorganization> tbpt_yearlyplanorganization { get; set; }
     }
 }

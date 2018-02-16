@@ -11,5 +11,7 @@ namespace KasabaKiat.BusinessLogic.Utils.References
       public string Name_San   {get; set;}
       public string Num_Kod    {get; set;}
       public long?   UserId     {get; set;}
+
+      public int KurortSanId { get; set; }
     }
 }

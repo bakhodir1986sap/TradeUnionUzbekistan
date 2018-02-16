@@ -349,6 +349,11 @@
         <AssociationConnector Association="KasabaKIATModel.feedback_files" ManuallyRouted="false" />
         <AssociationConnector Association="KasabaKIATModel.gagreement_files" ManuallyRouted="false" />
         <AssociationConnector Association="KasabaKIATModel.user_role" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="KasabaKIATModel.tblVipl_NumGEn" Width="1.5" PointX="16.375" PointY="19.75" />
+        <EntityTypeShape EntityType="KasabaKIATModel.tbpt_yearlyplanorganization" Width="1.5" PointX="33" PointY="215.75" />
+        <AssociationConnector Association="KasabaKIATModel.tbpt_yearlyplanorganization_3" />
+        <AssociationConnector Association="KasabaKIATModel.tbpt_yearlyplanorganization_1" />
+        <AssociationConnector Association="KasabaKIATModel.tbpt_yearlyplanorganization_2" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

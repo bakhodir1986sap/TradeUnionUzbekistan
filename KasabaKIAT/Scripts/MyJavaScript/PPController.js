@@ -8,10 +8,56 @@
         value: ''
     };
     GetSanatory();
-    GetPP_S(1);
-    GetPP_SUM_S(1);
-    LoadDATA_S();
-    $scope.showdelete = false;
+    GetPP(1);
+    GetPP_SUM(1);
+    //LoadDATA_S();
+    $scope.LoadPPData = function () {
+        GetPP($scope.SCFilter.id);
+        GetPP_SUM($scope.SCFilter.id);
+    }
+    function GetPP(id) {
+        $http({
+            method: "post",
+            url: "/PrixodPutevok/GetPP?sc_id=" + id,
+        }).then(function (d) {
+            $scope.PP = d.data;
+            if (d.data.length != 0) {
+                $scope.PPdiv = true;
+            }
+        }, function () {
+            //alert("error in GetPrixodPutevok_S");
+            console.log("error in GetPP");
+            $("#hh").modal('hide');
+        });
+    }
+    function GetPP_SUM(id) {
+        $http({
+            method: "post",
+            url: "/PrixodPutevok/GetPP_SUM?sc_id=" + id,
+        }).then(function (d) {
+            $scope.PP_SUM = d.data;
+            if (d.data.length != 0) {
+                $scope.PPdiv = true;
+            }
+        }, function () {
+            //alert("error in GetPP_SUM_S");
+            console.log("error in GetPP_SUM");
+            document.getElementById('connection').style.visibility = "hidden";
+            $("#hh").modal('hide');
+        });
+    }
+    function GetSanatory() {
+        $http({
+            method: "post",
+            url: "/PrixodPutevok/GetSanatory",
+        }).then(function (s) {
+            $scope.CS = s.data;
+        }, function () {
+            //alert('Error in GetSanatory');
+            console.log('Error in GetSanatory');
+            $("#hh").modal('hide');
+        });
+    }
     function GetPP_SUM_S(id) {
         $http({
             method: "post",
@@ -20,14 +66,14 @@
             $scope.PP_SUM = d.data;
             if (d.data.length != 0) {
                 $scope.PPdiv = true;
-            } 
+            }
         }, function () {
             //alert("error in GetPP_SUM_S");
             console.log("error in GetPP_SUM_S");
             document.getElementById('connection').style.visibility = "hidden";
             $("#hh").modal('hide');
         });
-  }
+    }
   function GetPP_SUM_C(id) {
         $http({
             method: "post",
@@ -43,21 +89,6 @@
             document.getElementById('connection').style.visibility = "hidden";
             $("#hh").modal('hide');
         });
-  }
-  function GetPP(id) {
-      $http({
-          method: "post",
-          url: "GetPrixodPutevok_S?sc_id=" + id,
-      }).then(function (d) {
-          $scope.PP = d.data;
-          if (d.data.length != 0) {
-              $scope.PPdiv = true;
-          }
-      }, function () {
-          //alert("error in GetPrixodPutevok_S");
-          console.log("error in GetPrixodPutevok_S");
-          $("#hh").modal('hide');
-      });
   }
   function GetPP_S(id) {
       $scope.scname = "Санаторий";
@@ -93,34 +124,6 @@
           $("#hh").modal('hide');
       });
   }
-  function GetSanatory() {
-      $scope.scname = "Санаторий";
-      $http({
-          method: "post",
-          url: "GetSanatory",
-      }).then(function (s) {
-          $scope.CS = s.data;
-      }, function () {
-          //alert('Error in GetSanatory');
-          console.log('Error in GetSanatory');
-          document.getElementById('connection').style.visibility = "hidden";
-          $("#hh").modal('hide');
-      });
-  }
-  function GetCamp() {
-      $scope.scname = "Дет. лагер";
-      $http({
-          method: "post",
-          url: "GetCamp",
-      }).then(function (c) {
-          $scope.CS = c.data;
-      }, function () {
-          //alert('Error in GetCamp');
-          console.log('Error in GetCamp');
-          document.getElementById('connection').style.visibility = "hidden";
-          $("#hh").modal('hide');
-      });
-  }
   function Tozala() {
       $scope.SCFilter.id = 1;
       $scope.PFilter = "";
@@ -140,37 +143,6 @@
   $scope.ok = function () {
       Tozala();
   }
-   $scope.LoadPPData = function () {
-       if ($scope.s === "option1") {
-           GetPP_S($scope.SCFilter.id);
-           GetPP_SUM_S($scope.SCFilter.id);
-       }
-       else {
-           if ($scope.s === "option2") {
-               GetPP_C($scope.SCFilter.id);
-               GetPP_SUM_C($scope.SCFilter.id);
-           }
-       }
-   }
-   $scope.LoadSC = function (value) {
-      document.getElementById('connection').style.visibility = "visible";
-      $("#hh").modal({
-          backdrop: 'static'
-      });
-      if (value == "") {
-          Tozala();
-      }
-        if ($scope.s === "option1") {
-            GetSanatory();
-        }
-        else {
-            if ($scope.s === "option2") {
-                GetCamp();
-            }
-        }
-        document.getElementById('connection').style.visibility = "hidden";
-        $("#hh").modal('hide');
-    }
    $scope.AddPPDiv = function () {
        $scope.showdelete = false;
       $scope.SC.id = 1;
@@ -431,6 +403,6 @@
         var blob = new Blob([document.getElementById('export').innerHTML], {
             type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=utf-8"
         });
-        saveAs(blob, "Приход путевок.xls");
+        saveAs(blob, "Просмотр остатков путевок.xls");
     };
 }]);

@@ -23,8 +23,6 @@ namespace KasabaKIAT.Models
         public Nullable<long> USER_ID { get; set; }
         public Nullable<long> SANATORY_ID { get; set; }
         public Nullable<long> CAMP_ID { get; set; }
-        public string STATUS { get; set; }
-        public string DEPARTMENT_BASE { get; set; }
     
         public virtual t_camp t_camp { get; set; }
         public virtual t_sanatorium t_sanatorium { get; set; }

@@ -1,0 +1,86 @@
+﻿
+@{
+    ViewBag.Title = "бухгалтерия";
+}
+
+<section class="content__block container">
+    <div class="row mb-4 align-items-center">
+        <div class="col title__block">
+            <h4>Планирование бюджета регионов</h4>
+            <nav aria-label="breadcrumb" class="breadcrumb__block">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item load"><a href="/Buxgalter/Index">Бухгалтерия</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Планирование бюджета регионов</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+    <div class="row mb-4">
+        <div class="col-md-6">
+            <div class="r-title mb-4 row">
+                <div class="col-md-6">
+                </div>
+                <div class="col-md-6 text-right">
+                    <span><img src="~/Content/images/s-gr.png" alt="" title="" /> - незавершеный план</span>
+                </div>
+            </div>
+            <div class="accordion mb-4 box-shadow" id="accordion">
+                <div class="card r-card">
+                    <div class="card-header r-card-header text-right" id="headingOne">
+                        <span class="r-header-t red float-left"><strong>2015</strong></span>
+                        <span class="r-header-c">1</span>
+                        <span class="r-header-a float-right collapsed" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne"></span>
+                    </div>
+                    <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+                        <div class="card-body r-card-body">
+                            <div class="list-group r-list-group">
+                                <a href="#" class="list-group-item list-group-item-action">Андижанская область</a>
+                                <a href="#" class="list-group-item list-group-item-action">Ташкентская область</a>
+                                <a href="#" class="list-group-item list-group-item-action">Бухарская область</a>
+                                <a href="#" class="list-group-item list-group-item-action">Ферганская область</a>
+                                <a href="#" class="list-group-item list-group-item-action">Чимган</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card r-card">
+                    <div class="card-header r-card-header" id="headingTwo">
+                        <span class="r-header-t"><strong>2016</strong></span>
+                        <span class="r-header-a float-right collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo"></span>
+                    </div>
+                    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+                        <div class="card-body r-card-body">
+                            <div class="list-group r-list-group">
+                                <a href="#" class="list-group-item list-group-item-action">Андижанская область</a>
+                                <a href="#" class="list-group-item list-group-item-action">Ташкентская область</a>
+                                <a href="#" class="list-group-item list-group-item-action">Бухарская область</a>
+                                <a href="#" class="list-group-item list-group-item-action">Ферганская область</a>
+                                <a href="#" class="list-group-item list-group-item-action">Чимган</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card r-card">
+                    <div class="card-header r-card-header" id="headingThree">
+                        <span class="r-header-t"><strong>2017</strong></span>
+                        <span class="r-header-a float-right collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree"></span>
+                    </div>
+                    <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+                        <div class="card-body r-card-body">
+                            <div class="list-group r-list-group">
+                                <a href="#" class="list-group-item list-group-item-action">Андижанская область</a>
+                                <a href="#" class="list-group-item list-group-item-action">Ташкентская область</a>
+                                <a href="#" class="list-group-item list-group-item-action">Бухарская область</a>
+                                <a href="#" class="list-group-item list-group-item-action">Ферганская область</a>
+                                <a href="#" class="list-group-item list-group-item-action">Чимган</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="mb-4">
+                <a href="/Buxgalter/PlanByudjetaOblasteyNoviy" class="btn btn-blue d-block d-md-inline-block mb-2">Составить новый</a>
+            </div>
+        </div>
+    </div>
+</section>

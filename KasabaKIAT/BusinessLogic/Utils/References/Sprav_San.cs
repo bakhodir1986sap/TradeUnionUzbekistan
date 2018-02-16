@@ -14,15 +14,30 @@ namespace KasabaKiat.BusinessLogic.Utils.References
             {
                 tblSprav_San sanatory = new tblSprav_San();
 
+                int maxId = 0;
+
+                try
+                {
+                    maxId = db.tblSprav_San.Max(z => z.ID);
+                }
+                catch(Exception)
+                {
+                    maxId = 0;
+                }
+
+                maxId += 1;
+
+                sanatory.ID = maxId;
                 sanatory.Name_San = model.Name_San;
                 sanatory.Num_Kod =  model.Num_Kod ;
                 sanatory.UserId = model.UserId;
+                sanatory.KurortSanID = model.KurortSanId;
 
                 var sanatoryIns = db.tblSprav_San.Add(sanatory);
 
-                model.ID = sanatoryIns.ID;
-
                 db.SaveChanges();
+
+                model.ID = sanatory.ID;
             }
         }
 

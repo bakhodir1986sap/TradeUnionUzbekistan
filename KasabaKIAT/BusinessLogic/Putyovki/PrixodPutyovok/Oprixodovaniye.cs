@@ -1,4 +1,5 @@
 ﻿using KasabaKiat.BusinessLogic.Putyovki.PrixodPutyovok;
+using KasabaKiat.BusinessLogic.Utils.References;
 using KasabaKiat.ViewModel;
 using KasabaKiat.ViewModel.Putyovki;
 using KasabaKIAT.Models;
@@ -61,18 +62,27 @@ namespace KasabaKIAT.BusinessLogic.Putyovki.PrixodPutyovok
                             prixMain.Num_Kol = docSchetfak.KolichestvoPutevok;
                             prixMain.Symma = docSchetfak.SummaDoc;
 
-                            var totalRes = string.Format("{0} {1} {2} {3}",
+                            var totalStr = string.Format("{0} {1} {2} {3}",
                                 docSchetfak.ProfsoyzDoverennost, docSchetfak.ProfsoyzDoverennostData,
                                 docSchetfak.ProfsoyzDoverennostMOL, docSchetfak.ProfsoyzDogovor);
 
-                            if (totalRes.Length > 50)
+                            if (!string.IsNullOrEmpty(totalStr))
                             {
-                                prixMain.Name_Dov = totalRes.Substring(49);
+                                if (totalStr.Length > 50)
+                                {
+                                    prixMain.Name_Dov = totalStr.Substring(49);
+                                }
+                                else
+                                {
+                                    prixMain.Name_Dov = totalStr;
+                                }
                             }
                             else
                             {
-                                prixMain.Name_Dov = totalRes;
+                                prixMain.Name_Dov = string.Empty;
                             }
+
+                               
 
                             prixMain.Vid = false;
                             prixMain.SmFil = null;
@@ -128,6 +138,18 @@ namespace KasabaKIAT.BusinessLogic.Putyovki.PrixodPutyovok
                                                 {
                                                     postPut.IdSanat = query21.First().ID;
                                                 }
+                                                else
+                                                {
+                                                    var sabViewModel = new Sprav_SanViewModel();
+
+                                                    sabViewModel.Name_San = prixDetail.SanatoryNaimenovanie;
+                                                    sabViewModel.Num_Kod = prixDetail.SanatoryKod;
+                                                    sabViewModel.KurortSanId = sanatId;
+
+                                                    Sprav_San.Create(ref sabViewModel);
+
+                                                    postPut.IdSanat = sabViewModel.ID;
+                                                }
                                             }
                                             else
                                             {
@@ -135,7 +157,18 @@ namespace KasabaKIAT.BusinessLogic.Putyovki.PrixodPutyovok
                                             }
 
                                             postPut.Num_Put = j.ToString();
-                                            postPut.DataSan = prixDetail.DataZaezda;
+
+                                            if ((DateTime.MinValue >= prixDetail.DataZaezda) 
+                                                || (DateTime.MaxValue <= prixDetail.DataZaezda))
+                                            {
+                                                postPut.DataSan = null;
+                                            }
+                                            else
+                                            {
+                                                postPut.DataSan = prixDetail.DataZaezda;
+                                            }
+
+                                            
                                             postPut.Symma_Put = prixDetail.Cena;
                                             postPut.ID_PolVoz = false;
                                             postPut.Data_Post = DateTime.Now.Date;

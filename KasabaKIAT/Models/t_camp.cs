@@ -22,6 +22,7 @@ namespace KasabaKIAT.Models
             this.tbpt_putyovki = new HashSet<tbpt_putyovki>();
             this.tbpt_zaezdi = new HashSet<tbpt_zaezdi>();
             this.tbpt_zayavki = new HashSet<tbpt_zayavki>();
+            this.tbpt_yearlyplanorganization = new HashSet<tbpt_yearlyplanorganization>();
         }
     
         public long id { get; set; }
@@ -62,5 +63,7 @@ namespace KasabaKIAT.Models
         public virtual ICollection<tbpt_zaezdi> tbpt_zaezdi { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tbpt_zayavki> tbpt_zayavki { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tbpt_yearlyplanorganization> tbpt_yearlyplanorganization { get; set; }
     }
 }

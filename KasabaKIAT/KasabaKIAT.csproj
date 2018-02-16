@@ -257,6 +257,7 @@
     <Compile Include="BusinessLogic\Utils\References\Sprav_San.cs" />
     <Compile Include="BusinessLogic\Utils\References\Sprav_Vil.cs" />
     <Compile Include="Controllers\AdministirirovaniyeController.cs" />
+    <Compile Include="Controllers\BuxgalterController.cs" />
     <Compile Include="Controllers\ErrorHandlerController.cs" />
     <Compile Include="Controllers\GodovoyPlanController.cs" />
     <Compile Include="Controllers\GrafikZaezdovController.cs" />
@@ -299,6 +300,12 @@
     <Compile Include="Models\sp_get_BankPaymentSoatoYearQuaterMonthly_Result.cs">
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\sp_get_RealizasiyaPutyovokDetail_Result.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_get_RealizasiyaPutyovokGroup_Result.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\sp_rt_FormaN13_Result.cs">
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
@@ -312,6 +319,12 @@
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\sp_rt_TalabnomaViloyat_Result.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tblVipl_NumGEn.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tbpt_yearlyplanorganization.cs">
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\KurortService\ViewModel.cs" />
@@ -846,6 +859,7 @@
     <Content Include="Content\images\main_icon_7.png" />
     <Content Include="Content\images\main_icon_8.png" />
     <Content Include="Content\images\main_icon_9.png" />
+    <Content Include="Content\images\s-gr.png" />
     <Content Include="Content\images\v-gr.png" />
     <Content Include="Content\images\v-r.png" />
     <Content Include="Content\images\v-w.png" />
@@ -950,6 +964,7 @@
     <Content Include="Scripts\MyJavaScript\PRZController.js" />
     <Content Include="Scripts\MyJavaScript\PZController.js" />
     <Content Include="Scripts\MyJavaScript\RaspredeleniyeZaezdov.js" />
+    <Content Include="Scripts\MyJavaScript\RealizatsiyaPutevok.js" />
     <Content Include="Scripts\MyJavaScript\RZController.js" />
     <Content Include="Scripts\MyJavaScript\SchetFaktura.js" />
     <Content Include="Scripts\MyJavaScript\SController.js" />
@@ -985,9 +1000,6 @@
     <Content Include="Views\Home\buxgalteriya.cshtml" />
     <Content Include="Views\Home\PoiskRedaktZayavok.cshtml" />
     <Content Include="Views\Home\ProsmotrRealzPutevok.cshtml" />
-    <Content Include="Views\Home\BU_RuchnayaPravodka.cshtml" />
-    <Content Include="Views\Home\BU_PrasmotrDannix.cshtml" />
-    <Content Include="Views\Home\VvodDannix.cshtml" />
     <Content Include="Views\Home\SverkaDannix.cshtml" />
     <Content Include="Views\GodovoyPlan\Index.cshtml" />
     <Content Include="Views\PrixodPutevok\Index.cshtml" />
@@ -1013,7 +1025,6 @@
     <Content Include="Views\Otchot\Index.cshtml" />
     <Content Include="Views\Home\Putyovki.cshtml" />
     <Content Include="Views\Home\Zayavok.cshtml" />
-    <Content Include="Views\Home\Buxgalter.cshtml" />
     <Content Include="Views\Home\Otchot.cshtml" />
     <Content Include="Views\Home\Admin.cshtml" />
     <Content Include="Views\Otchot\SvodniyOtchot.cshtml" />
@@ -1030,11 +1041,17 @@
     <Content Include="Views\Administirirovaniye\SchetFaktura.cshtml" />
     <Content Include="Views\ErrorHandler\ServerErrorView.cshtml" />
     <Content Include="Views\ErrorHandler\NotFoundView.cshtml" />
-    <Content Include="Views\Home\OsushestvleniyeProvodki.cshtml" />
-    <Content Include="Views\Home\Nakladniye.cshtml" />
-    <Content Include="Views\Home\PlanByudjetaOblastey.cshtml" />
-    <Content Include="Views\Home\RaspredleniyeByudjeta.cshtml" />
     <Content Include="Views\Administirirovaniye\RaspredeleniyeZaezdov.cshtml" />
+    <Content Include="Views\Buxgalter\Index.cshtml" />
+    <Content Include="Views\Buxgalter\BU_RuchnayaPravodka.cshtml" />
+    <Content Include="Views\Buxgalter\BU_PrasmotrDannix.cshtml" />
+    <Content Include="Views\Buxgalter\VvodDannix.cshtml" />
+    <Content Include="Views\Buxgalter\RaspredleniyeByudjeta.cshtml" />
+    <Content Include="Views\Buxgalter\PlanByudjetaOblastey.cshtml" />
+    <Content Include="Views\Buxgalter\PlanByudjetaOblasteyNoviy.cshtml" />
+    <Content Include="Views\Buxgalter\PlanByudjetaOblasteyIzmenit.cshtml" />
+    <Content Include="Views\Buxgalter\OsushestvleniyeProvodki.cshtml" />
+    <Content Include="Views\Buxgalter\Nakladniye.cshtml" />
     <None Include="Web References\KurortUrlService\SkuTradeUnionExchg.wsdl" />
     <Content Include="Web References\KurortUrlService\typeGrafikZaezdovSanatoriev.datasource">
       <DependentUpon>Reference.map</DependentUpon>

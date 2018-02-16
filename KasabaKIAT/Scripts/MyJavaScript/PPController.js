@@ -127,18 +127,8 @@
   function Tozala() {
       $scope.SCFilter.id = 1;
       $scope.PFilter = "";
-      $scope.QFilter = "";
-      $scope.OCFilter = "";
-      if ($scope.s === "option1") {
-          GetPP_S($scope.SCFilter.id);
-          GetPP_SUM_S($scope.SCFilter.id);
-      }
-      else {
-          if ($scope.s === "option2") {
-              GetPP_C($scope.SCFilter.id);
-              GetPP_SUM_C($scope.SCFilter.id);
-          }
-      }
+      GetPP(1);
+      GetPP_SUM(1);
   }
   $scope.ok = function () {
       Tozala();

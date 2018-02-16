@@ -13,7 +13,7 @@
             $("#hh").modal('hide');
         });
     }
-   
+  
     
   
   
@@ -36,22 +36,31 @@
         GetPP_S_LoadINN($scope.INN);
     }
     function LoadDATA() {
-        $scope.scname = "Санаторий";
         $http({
             method: "post",
-            url: "RP",
+            url: "/PrixodPutevok/RP",
         }).then(function (d) {
             $scope.RP = d.data;
         }, function () {
             //alert("error in PP_S");
-            console.log("error in PP_S");
+            console.log("error in RP");
             $("#hh").modal('hide');
         });
     }
     $scope.LoadDATA = function () {
         LoadDATA();
     }
-    $scope.data = function (sb, se) {
+    $scope.data = function (id) {
+        $http({
+            method: "post",
+            url: "/PrixodPutevok/RP2?id="+id,
+        }).then(function (d) {
+            $scope.RP2 = d.data;
+        }, function () {
+            //alert("error in PP_S");
+            console.log("error in RP2");
+            $("#hh").modal('hide');
+        });
         //$scope.accordion = {
         //    current: null
         //};
@@ -67,12 +76,12 @@
         //    });
 
         //}).call(this);
-        var arr = []; var j = 0;
-        for (var i = sb; i <= se; i++) {
-            arr[j] = i;
-            j++;
-        }
-        $scope.rr = arr;
-        $scope.items = arr;
+        //var arr = []; var j = 0;
+        //for (var i = sb; i <= se; i++) {
+        //    arr[j] = i;
+        //    j++;
+        //}
+        //$scope.rr = arr;
+        //$scope.items = arr;
     }
 }]);

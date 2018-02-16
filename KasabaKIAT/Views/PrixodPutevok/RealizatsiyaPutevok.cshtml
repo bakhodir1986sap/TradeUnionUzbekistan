@@ -28,7 +28,7 @@
         text-decoration: none;
     }
 </style>*@
-<section class="content__block container" ng-controller="PPController">
+<section class="content__block container" ng-controller="RealizatsiyaPutevok">
     <div class="row mb-4 align-items-center">
         <div class="col title__block">
             <h4>Реализация путевок</h4>
@@ -40,16 +40,6 @@
             </nav>
         </div>
     </div>
-    <form class="form-group mb-4"  name="myForm1" novalidate>
-        <div class="custom-control custom-radio custom-control-inline">
-            <input type="radio" ng-model="s" required ng-change="LoadDATA()" name="inlineRadioOptions3" id="inlineRadio1" value="option1" class="custom-control-input" checked="" />
-            <label for="inlineRadio1" class="custom-control-label">Санаторий</label>
-        </div>
-        <div class="custom-control custom-radio custom-control-inline">
-            <input type="radio" ng-model="s" required ng-change="LoadDATA()" name="inlineRadioOptions3" id="inlineRadio2" value="option2" class="custom-control-input" />
-            <label for="inlineRadio2" class="custom-control-label">Дет. лагер</label>
-        </div>
-    </form>
     <div class="row mb-4">
         <div class="col-md-6">
             <div class="r-title mb-4 row">
@@ -64,19 +54,19 @@
             <div class="accordion mb-4 box-shadow" id="accordion">
                 <div class="card r-card"  ng-repeat="rp in RP">
                     <div class="r-card-title">
-                        <p>{{rp.d1}}</p>
+                        <p>{{rp.d2}}</p>
                     </div>
                     <div class="card-header r-card-header" id="headingOne">
-                        <span class="r-header-t"><strong>{{rp.SB}} - {{rp.SE}}</strong> {{rp.RBD | jsonDate: 'dd.MM.yyyy'}} - {{rp.RED | jsonDate: 'dd.MM.yyyy'}}</span>
-                        <span class="r-header-b">1</span>
-                        <span class="r-header-v">2</span>
-                        <span  ng-click="data(rp.SB,rp.SE)" class="r-header-a float-right collapsed" data-toggle="collapse" data-target="#collapse{{rp.SB}}" aria-expanded="true" aria-controls="collapseOne"></span>
+                        <span class="r-header-t"><strong>{{rp.d3}} - {{rp.d4}}</strong> {{rp.d5 | jsonDate: 'dd.MM.yyyy'}} - {{rp.d6 | jsonDate: 'dd.MM.yyyy'}}</span>
+                        <span class="r-header-b" ng-show="rp.d7!='0'">{{rp.d7}}</span>
+                        <span class="r-header-v" ng-show="rp.d8!='0'">{{rp.d8}}</span>
+                        <span  ng-click="data(rp.d1)" class="r-header-a float-right collapsed" data-toggle="collapse" data-target="#collapse{{rp.d1}}" aria-expanded="true" aria-controls="collapseOne"></span>
                     </div>
-                    <div id="collapse{{rp.SB}}"  class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
-                        <div class="card-body r-card-body"  ng-repeat="ar in rr">
+                    <div id="collapse{{rp.d1}}"  class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+                        <div class="card-body r-card-body"  ng-repeat="rp2 in RP2">
                             <div class="custom-control custom-checkbox r-checkbox">
                                 <input type="checkbox" class="custom-control-input" id="customCheck1">
-                                <label class="custom-control-label r-label" for="customCheck1"><strong>{{ar}}</strong> ({{rp.RBD | jsonDate: 'dd.MM.yyyy'}} - {{rp.RED | jsonDate: 'dd.MM.yyyy'}})</label>
+                                <label class="custom-control-label r-label" for="customCheck1"><strong>{{rp2.d3}}</strong> ({{rp2.d4 | jsonDate: 'dd.MM.yyyy'}})<span ng-show="rp2.d5=='1'"><img src="~/Content/images/b-g.png" alt="" title="" /></span><span ng-show="rp2.d6=='1'"><img src="~/Content/images/v-r.png" alt="" title="" /></span></label>
                             </div>
                         </div>
                     </div>

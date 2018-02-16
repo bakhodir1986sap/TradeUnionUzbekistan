@@ -106,7 +106,7 @@ namespace KasabaKIAT.Controllers
                             d5 = a.Data_Post
                         });
             var Groups = from p in list
-                         group p by p.ID into g
+                         group p by p.d1_id into g
                          select new { P_SUM = g.Sum(i => i.d4) };
             return Json(Groups.ToList(), JsonRequestBehavior.AllowGet);
         }
@@ -114,49 +114,37 @@ namespace KasabaKIAT.Controllers
         {
             int UserId = Convert.ToInt32(User.Identity.Name);
             var ustinfo = UserInfo.GetUserInfo(UserId);
-            var list = (from a in KasabaDB.tblPos_Put
-                        where a.ID_PolVoz == false && a.Departmentbase == ustinfo.DepartmentBase
-                        join sc in KasabaDB.tblSprav_San on a.ID_Sanat equals sc.ID
-                        select new
-                        {
-                            ID = a.ID,
-                            d1 = sc.Name_San,
-                            d1_id = sc.ID,
-                            d2 = a.Num_Put,
-                            d3 = a.DataSan,
-                            d4 = a.Symma_Put,
-                            d5 = a.Data_Post
-                        });
-            var Groups = from p in list
-                         group p by p.d1_id into g
-                         select new { P_SUM = g.Sum(i => i.d4) };
-            return Json(Groups.ToList(), JsonRequestBehavior.AllowGet);
-            //var list = (from a in KasabaDB.tbpt_putyovki
-            //            where a.STATUS == "1" //&& a.SANATORIUM_ID == sc_id
-            //            //join u in KasabaDB.users on a.USER_ID equals u.id
-            //            join sc in KasabaDB.t_sanatorium on a.SANATORIUM_ID equals sc.id
-            //            join d in KasabaDB.t_departmentbase on a.DEPARTMENT_CODE equals d.code
-            //            select new
-            //            {
-            //                ID = a.REC_ID,
-            //                SB = a.SERIAL_BEGIN,
-            //                SE = a.SERIAL_END,
-            //                SC = sc.sanatorium_name,
-            //                SC_id = sc.id,
-            //                RBD = a.REST_BEGIN_DATE,
-            //                RED = a.REST_END_DATE,
-            //                P = a.PRICE,
-            //                RB = a.REMAIN_BAL,
-            //                Q_IN = a.QUANTITY_IN,
-            //                Q_OUT = a.QUANTITY_OUT,
-            //                QR = a.QUANTITY_REMAIN,
-            //                //id = a.SANATORIUM_ID,
-            //                //name = sc.sanatorium_name
-            //            });
-            ////var Groups = from p in list
-            ////             group p by new { p.id, p.name } into g
-            ////             select new { SC = g.Key.name, SC_id = g.Key.id, count = g.Count() };
-            //return Json(list.ToList(), JsonRequestBehavior.AllowGet);
+            var data = KasabaDB.sp_get_RealizasiyaPutyovokGroup(ustinfo.DepartmentBase);
+            var list = from d in data
+                       select new
+                       {
+                           d1=d.SANID,
+                           d2=d.SAN_NAME,
+                           d3=d.MIN_NUM,
+                           d4=d.MAX_NUM,
+                           d5=d.MIN_DATE,
+                           d6=d.MAX_DATE,
+                           d7=d.BRON,
+                           d8=d.URGENT
+                       };
+            return Json(list.ToList(), JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult RP2(int id)
+        {
+            int UserId = Convert.ToInt32(User.Identity.Name);
+            var ustinfo = UserInfo.GetUserInfo(UserId);
+            var data = KasabaDB.sp_get_RealizasiyaPutyovokDetail(ustinfo.DepartmentBase,id);
+            var list = from d in data
+                       select new
+                       {
+                           d1 = d.ID_SANAT,
+                           d2 = d.Name_San,
+                           d3 = d.NUM_PUT,
+                           d4 = d.DATASAN,
+                           d5 = d.BRON_FLG,
+                           d6 = d.URGENT_FLG
+                       };
+            return Json(list.ToList(), JsonRequestBehavior.AllowGet);
         }
         public JsonResult GetPrixodPutevok_S(int sc_id)
         {

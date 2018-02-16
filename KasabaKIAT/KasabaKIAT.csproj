@@ -306,6 +306,9 @@
     <Compile Include="Models\sp_get_RealizasiyaPutyovokGroup_Result.cs">
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\sp_get_RealizasiyaPutyovokGroup_Result1.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\sp_rt_FormaN13_Result.cs">
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>

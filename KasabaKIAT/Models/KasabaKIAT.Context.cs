@@ -161,6 +161,7 @@ namespace KasabaKIAT.Models
         public virtual DbSet<tblVipl_Put> tblVipl_Put { get; set; }
         public virtual DbSet<tblVozVrat> tblVozVrat { get; set; }
         public virtual DbSet<Zapros_ZK> Zapros_ZK { get; set; }
+        public virtual DbSet<tblVipl_NumGEn> tblVipl_NumGEn { get; set; }
     
         public virtual ObjectResult<Nullable<decimal>> sp_get_BankPaymentCompanyMonthly(string inn, Nullable<int> year, Nullable<int> month)
         {
@@ -550,6 +551,28 @@ namespace KasabaKIAT.Models
                 new ObjectParameter("Kvartal", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_rt_FormaN14_2", yearParameter, kvartalParameter);
+        }
+    
+        public virtual ObjectResult<sp_get_RealizasiyaPutyovokDetail_Result> sp_get_RealizasiyaPutyovokDetail(string dEP_BASE, Nullable<int> sANID)
+        {
+            var dEP_BASEParameter = dEP_BASE != null ?
+                new ObjectParameter("DEP_BASE", dEP_BASE) :
+                new ObjectParameter("DEP_BASE", typeof(string));
+    
+            var sANIDParameter = sANID.HasValue ?
+                new ObjectParameter("SANID", sANID) :
+                new ObjectParameter("SANID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_get_RealizasiyaPutyovokDetail_Result>("sp_get_RealizasiyaPutyovokDetail", dEP_BASEParameter, sANIDParameter);
+        }
+    
+        public virtual ObjectResult<sp_get_RealizasiyaPutyovokGroup_Result1> sp_get_RealizasiyaPutyovokGroup(string dEP_BASE)
+        {
+            var dEP_BASEParameter = dEP_BASE != null ?
+                new ObjectParameter("DEP_BASE", dEP_BASE) :
+                new ObjectParameter("DEP_BASE", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_get_RealizasiyaPutyovokGroup_Result1>("sp_get_RealizasiyaPutyovokGroup", dEP_BASEParameter);
         }
     }
 }

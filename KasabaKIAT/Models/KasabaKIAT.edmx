@@ -2250,6 +2250,16 @@ warning 6002: The table/view 'KasabaKIAT.dbo.tblPutevka' does not have a primary
           <Property Name="UserId" Type="bigint" />
           <Property Name="DepartmentBase" Type="varchar" MaxLength="255" />
         </EntityType>
+        <EntityType Name="tblVipl_NumGEn">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DEPARTMENT_BASE" Type="varchar" MaxLength="255" />
+          <Property Name="NUMDOC_GEN" Type="int" />
+          <Property Name="USER_ID" Type="bigint" />
+          <Property Name="YEAR" Type="int" />
+        </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'KasabaKIAT.dbo.tblVipl_Put' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="tblVipl_Put">
@@ -5481,6 +5491,13 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <Parameter Name="soato" Type="varchar" Mode="In" />
           <Parameter Name="year" Type="int" Mode="In" />
         </Function>
+        <Function Name="sp_get_RealizasiyaPutyovokDetail" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="DEP_BASE" Type="varchar" Mode="In" />
+          <Parameter Name="SANID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_get_RealizasiyaPutyovokGroup" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="DEP_BASE" Type="varchar" Mode="In" />
+        </Function>
         <Function Name="sp_rt_FormaN13" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="aYear" Type="int" Mode="In" />
           <Parameter Name="orgInn" Type="varchar" Mode="In" />
@@ -5621,6 +5638,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <EntitySet Name="tblSprav_San" EntityType="Self.tblSprav_San" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblSprav_Vil" EntityType="Self.tblSprav_Vil" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblVipl" EntityType="Self.tblVipl" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblVipl_NumGEn" EntityType="Self.tblVipl_NumGEn" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbpt_avarageprice" EntityType="Self.tbpt_avarageprice" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbpt_bronputyovka" EntityType="Self.tbpt_bronputyovka" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbpt_otkazputyovka" EntityType="Self.tbpt_otkazputyovka" Schema="dbo" store:Type="Tables" />
@@ -13341,6 +13359,14 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
             <Parameter Name="year" Mode="In" Type="Int32" />
             <Parameter Name="Kvartal" Mode="In" Type="Int32" />
           </FunctionImport>
+          <EntitySet Name="tblVipl_NumGEn" EntityType="KasabaKIATModel.tblVipl_NumGEn" />
+          <FunctionImport Name="sp_get_RealizasiyaPutyovokDetail" ReturnType="Collection(KasabaKIATModel.sp_get_RealizasiyaPutyovokDetail_Result)">
+            <Parameter Name="DEP_BASE" Mode="In" Type="String" />
+            <Parameter Name="SANID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_get_RealizasiyaPutyovokGroup" ReturnType="Collection(KasabaKIATModel.sp_get_RealizasiyaPutyovokGroup_Result1)">
+            <Parameter Name="DEP_BASE" Mode="In" Type="String" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="sp_get_BankPaymentCompanyYearlyQ_Result">
           <Property Type="Int32" Name="MONTH_NUM" Nullable="true" />
@@ -13424,6 +13450,44 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <Property Type="Int32" Name="KV2" Nullable="true" />
           <Property Type="Int32" Name="KV3" Nullable="true" />
           <Property Type="Int32" Name="KV4" Nullable="true" />
+        </ComplexType>
+        <EntityType Name="tblVipl_NumGEn">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DEPARTMENT_BASE" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="NUMDOC_GEN" Type="Int32" />
+          <Property Name="USER_ID" Type="Int64" />
+          <Property Name="YEAR" Type="Int32" />
+        </EntityType>
+        <ComplexType Name="sp_get_RealizasiyaPutyovokDetail_Result">
+          <Property Type="Int32" Name="ID_SANAT" Nullable="true" />
+          <Property Type="String" Name="Name_San" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="NUM_PUT" Nullable="true" MaxLength="10" />
+          <Property Type="DateTime" Name="DATASAN" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="BRON_FLG" Nullable="false" />
+          <Property Type="Int32" Name="URGENT_FLG" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="sp_get_RealizasiyaPutyovokGroup_Result">
+          <Property Type="Int32" Name="SANID" Nullable="true" />
+          <Property Type="String" Name="SAN_NAME" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="MIN_NUM" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="MAX_NUM" Nullable="true" MaxLength="10" />
+          <Property Type="DateTime" Name="MIN_NUM1" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="MAX_NUM1" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="BRON" Nullable="true" />
+          <Property Type="Int32" Name="URGENT" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="sp_get_RealizasiyaPutyovokGroup_Result1">
+          <Property Type="Int32" Name="SANID" Nullable="true" />
+          <Property Type="String" Name="SAN_NAME" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="MIN_NUM" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="MAX_NUM" Nullable="true" MaxLength="10" />
+          <Property Type="DateTime" Name="MIN_DATE" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="MAX_DATE" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="BRON" Nullable="true" />
+          <Property Type="Int32" Name="URGENT" Nullable="true" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -16284,6 +16348,43 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="sp_rt_FormaN14_2" FunctionName="KasabaKIATModel.Store.sp_rt_FormaN14_2" />
+          <EntitySetMapping Name="tblVipl_NumGEn">
+            <EntityTypeMapping TypeName="KasabaKIATModel.tblVipl_NumGEn">
+              <MappingFragment StoreEntitySet="tblVipl_NumGEn">
+                <ScalarProperty Name="YEAR" ColumnName="YEAR" />
+                <ScalarProperty Name="USER_ID" ColumnName="USER_ID" />
+                <ScalarProperty Name="NUMDOC_GEN" ColumnName="NUMDOC_GEN" />
+                <ScalarProperty Name="DEPARTMENT_BASE" ColumnName="DEPARTMENT_BASE" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="sp_get_RealizasiyaPutyovokDetail" FunctionName="KasabaKIATModel.Store.sp_get_RealizasiyaPutyovokDetail">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="KasabaKIATModel.sp_get_RealizasiyaPutyovokDetail_Result">
+                <ScalarProperty Name="ID_SANAT" ColumnName="ID_SANAT" />
+                <ScalarProperty Name="Name_San" ColumnName="Name_San" />
+                <ScalarProperty Name="NUM_PUT" ColumnName="NUM_PUT" />
+                <ScalarProperty Name="DATASAN" ColumnName="DATASAN" />
+                <ScalarProperty Name="BRON_FLG" ColumnName="BRON_FLG" />
+                <ScalarProperty Name="URGENT_FLG" ColumnName="URGENT_FLG" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_get_RealizasiyaPutyovokGroup" FunctionName="KasabaKIATModel.Store.sp_get_RealizasiyaPutyovokGroup">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="KasabaKIATModel.sp_get_RealizasiyaPutyovokGroup_Result1">
+                <ScalarProperty Name="SANID" ColumnName="SANID" />
+                <ScalarProperty Name="SAN_NAME" ColumnName="SAN_NAME" />
+                <ScalarProperty Name="MIN_NUM" ColumnName="MIN_NUM" />
+                <ScalarProperty Name="MAX_NUM" ColumnName="MAX_NUM" />
+                <ScalarProperty Name="MIN_DATE" ColumnName="MIN_DATE" />
+                <ScalarProperty Name="MAX_DATE" ColumnName="MAX_DATE" />
+                <ScalarProperty Name="BRON" ColumnName="BRON" />
+                <ScalarProperty Name="URGENT" ColumnName="URGENT" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

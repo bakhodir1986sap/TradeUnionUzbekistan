@@ -10,7 +10,7 @@ namespace KasabaKiat.BusinessLogic.Bron
 {
     public class BronDataManager
     {
-        public static void Create(ref BronViewModel model)
+        public static void Create(BronViewModel model)
         {
             using (KasabaKIATEntities db = new KasabaKIATEntities())
             {

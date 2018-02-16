@@ -60,9 +60,19 @@ namespace KasabaKIAT.BusinessLogic.Putyovki.PrixodPutyovok
                             prixMain.ID_Pos = 2; //Po dannim Kurortnoe Upravleniye
                             prixMain.Num_Kol = docSchetfak.KolichestvoPutevok;
                             prixMain.Symma = docSchetfak.SummaDoc;
-                            prixMain.Name_Dov = string.Format("{0} {1} {2} {3}", 
+
+                            var totalRes = string.Format("{0} {1} {2} {3}",
                                 docSchetfak.ProfsoyzDoverennost, docSchetfak.ProfsoyzDoverennostData,
-                                docSchetfak.ProfsoyzDoverennostMOL, docSchetfak.ProfsoyzDogovor).Substring(49);
+                                docSchetfak.ProfsoyzDoverennostMOL, docSchetfak.ProfsoyzDogovor);
+
+                            if (totalRes.Length > 50)
+                            {
+                                prixMain.Name_Dov = totalRes.Substring(49);
+                            }
+                            else
+                            {
+                                prixMain.Name_Dov = totalRes;
+                            }
 
                             prixMain.Vid = false;
                             prixMain.SmFil = null;

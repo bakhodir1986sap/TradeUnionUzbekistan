@@ -44,6 +44,21 @@
             $("#hh").modal('hide');
         });
   }
+  function GetPP(id) {
+      $http({
+          method: "post",
+          url: "GetPrixodPutevok_S?sc_id=" + id,
+      }).then(function (d) {
+          $scope.PP = d.data;
+          if (d.data.length != 0) {
+              $scope.PPdiv = true;
+          }
+      }, function () {
+          //alert("error in GetPrixodPutevok_S");
+          console.log("error in GetPrixodPutevok_S");
+          $("#hh").modal('hide');
+      });
+  }
   function GetPP_S(id) {
       $scope.scname = "Санаторий";
       $scope.s = "option1";

@@ -92,7 +92,7 @@
         });
         reset();
         alertify.set({ buttonFocus: "cancel" });
-        alertify.confirm("Вы действительно хотите получить?", function (e) {
+        alertify.confirm("Вы действительно хотите Оприходовать?", function (e) {
             if (e) {
                 alertify.success("Операция выполняется");
                 document.getElementById('connection').style.visibility = "visible";
@@ -110,7 +110,6 @@
         d2: ''
     };
     function All() {
-        $scope.s = "option1";
         $http({
             method: 'get',
             url: '/Administirirovaniye/GetSpisokPravsoyuzov'

@@ -1,4 +1,6 @@
-﻿using KasabaKiat.Helpers;
+﻿using KasabaKiat.BusinessLogic;
+using KasabaKiat.Helpers;
+using KasabaKiat.ViewModel.Putyovki;
 using KasabaKIAT.Models;
 using System;
 using System.Collections.Generic;
@@ -12,6 +14,7 @@ namespace KasabaKIAT.Controllers
     public class PrixodPutevokController : Controller
     {
         KasabaKIATEntities KasabaDB = new KasabaKIATEntities();
+        BronirovaniyaPutyovki BP = new BronirovaniyaPutyovki();
         public ActionResult Index()
         {
             int UserId = Convert.ToInt32(User.Identity.Name);
@@ -125,7 +128,7 @@ namespace KasabaKIAT.Controllers
                            d5=d.MIN_DATE,
                            d6=d.MAX_DATE,
                            d7=d.BRON,
-                           d8=d.URGENT
+                           d8=d.URGENT,
                        };
             return Json(list.ToList(), JsonRequestBehavior.AllowGet);
         }
@@ -142,9 +145,30 @@ namespace KasabaKIAT.Controllers
                            d3 = d.NUM_PUT,
                            d4 = d.DATASAN,
                            d5 = d.BRON_FLG,
-                           d6 = d.URGENT_FLG
+                           d6 = d.URGENT_FLG,
+                           green = d.BRON_FLG == 1 ? "green" : "",
+                           red = d.URGENT_FLG == 1 ? "red" : "",
                        };
             return Json(list.ToList(), JsonRequestBehavior.AllowGet);
+        }
+
+        public class BronTemp
+        {
+            public int ID_San { get; set; }
+            public string Num_Put { get; set; }
+        }
+
+        public void RPBron(List<BronTemp> b)
+        {
+            foreach (var bb in b)
+            {
+                var br = new BronViewModel();
+                br.ID_San = bb.ID_San;
+                br.Num_Put = bb.Num_Put;
+
+                BP.PostavitV_Bron(br);
+            }
+            //BP.PostavitV_Bron(b);
         }
         public JsonResult GetPrixodPutevok_S(int sc_id)
         {

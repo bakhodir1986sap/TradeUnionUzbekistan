@@ -59,7 +59,7 @@
             url: "/GrafikZaezdov/GetAllGrafikZaezdov_S?id=" + id+"&pt="+pt,
         }).then(function (gz) {
             $scope.GZ = gz.data;
-            if (gz.data.length != 0) {
+            if (gz.data.length !== 0) {
                 $scope.GZdiv = true;
             }
         }, function () {
@@ -74,7 +74,7 @@
             url: "/GrafikZaezdov/GetAllGrafikZaezdov_C?id="+id+"&pt="+pt,
         }).then(function (gz) {
             $scope.GZ = gz.data;
-            if (gz.data.length != 0) {
+            if (gz.data.length !== 0) {
                 $scope.GZdiv = true;
             }
         }, function () {
@@ -89,12 +89,12 @@
             backdrop: 'static'
         });
         //debugger;
-        if ($scope.s == "option1") {
+        if ($scope.s === "option1") {
             $scope.myVar = "Санаторий";
             Load_S();
         }
         else {
-            if ($scope.s == "option2") {
+            if ($scope.s === "option2") {
                 $scope.myVar = "Дет/лагер";
                 Load_C();
             }
@@ -102,12 +102,12 @@
         $("#hh").modal('hide');
     }
     $scope.GetDATA = function () {
-        if ($scope.s == "option1") {
+        if ($scope.s === "option1") {
             getGZ_S($scope.SC.id,$scope.PlaceTypeFilter.REC_ID);
         }
         else
         {
-            if ($scope.s == "option2") {
+            if ($scope.s === "option2") {
                 getGZ_C($scope.SC.id, $scope.PlaceTypeFilter.REC_ID);
             }
         }
@@ -127,7 +127,7 @@
     }
     $scope.AddUpdateGZ = function () {
         var GZ;
-        if ($scope.s == "option1") {
+        if ($scope.s === "option1") {
             GZ = {
                 ZAEZD_BEGIN: $scope.ZB,
                 ZAEZD_END: $scope.ZE,
@@ -137,7 +137,7 @@
                 PLACE_TYPE_ID: $scope.PlaceType.REC_ID
             };
         } else {
-            if ($scope.s == "option2") {
+            if ($scope.s === "option2") {
                 GZ = {
                     ZAEZD_BEGIN: $scope.ZB,
                     ZAEZD_END: $scope.ZE,
@@ -150,7 +150,7 @@
         }
         var getGZAction = $scope.Action;
 
-        if (getGZAction == "Изменить") {
+        if (getGZAction === "Изменить") {
             GZ.REC_ID = $scope.ID;
             //alert("ID : " + GZ.REC_ID + " ZAEZD_BEGIN : " + GZ.ZAEZD_BEGIN + " ZAEZD_END : " + GZ.ZAEZD_END + " PRICE : " + GZ.PRICE + " QUANTITY : " + GZ.QUANTITY + " SANATORY_ID : " + GZ.SANATORY_ID + " CAMP_ID : " + GZ.CAMP_ID + " PLACE_TYPE_ID : " + GZ.PLACE_TYPE_ID);
             $http({
@@ -159,11 +159,11 @@
                 data: JSON.stringify(GZ),
                 dataType: "json"
             }).then(function (msg) {
-                if ($scope.s == "option1") {
+                if ($scope.s === "option1") {
                     getGZ_S($scope.SC.id, $scope.PlaceTypeFilter.REC_ID);
                 }
                 else {
-                    if ($scope.s == "option2") {
+                    if ($scope.s === "option2") {
                         getGZ_C($scope.SC.id, $scope.PlaceTypeFilter.REC_ID);
                     }
                 }
@@ -180,11 +180,11 @@
                 data: JSON.stringify(GZ),
                 dataType: "json"
             }).then(function (msg) {
-                if ($scope.s == "option1") {
+                if ($scope.s === "option1") {
                     getGZ_S($scope.SC.id, $scope.PlaceTypeFilter.REC_ID);
                 }
                 else {
-                    if ($scope.s == "option2") {
+                    if ($scope.s === "option2") {
                         getGZ_C($scope.SC.id, $scope.PlaceTypeFilter.REC_ID);
                     }
                 }
@@ -217,11 +217,11 @@
                         bookId: JSON.stringify(ID)
                     }
                 }).then(function (msg) {
-                    if ($scope.s == "option1") {
+                    if ($scope.s === "option1") {
                         getGZ_S($scope.SC.id, $scope.PlaceTypeFilter.REC_ID);
                     }
                     else {
-                        if ($scope.s == "option2") {
+                        if ($scope.s === "option2") {
                             getGZ_C($scope.SC.id, $scope.PlaceTypeFilter.REC_ID);
                         }
                     }

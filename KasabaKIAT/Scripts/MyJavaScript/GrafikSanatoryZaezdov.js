@@ -8,7 +8,7 @@
             url: "/Administirirovaniye/GetGrafikSanatoryZaezdov?yil="+yil,
         }).then(function (d) {
             $scope.DATA = d.data;
-            if (d.data.length != 0) {
+            if (d.data.length !== 0) {
                 $scope.showdata = true;
             }
             else {

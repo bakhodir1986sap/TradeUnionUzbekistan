@@ -55,7 +55,15 @@ namespace KasabaKIAT.BusinessLogic.Putyovki.PrixodPutyovok
                             //Main Insert
                             var prixMain = new PostupleniyaViewModel();
 
-                            prixMain.Id_Kv = null;
+                            if (doc_Date.HasValue)
+                            {
+                                prixMain.Id_Kv = (doc_Date.Value.Month + 2) / 3;
+                            }
+                            else
+                            {
+                                prixMain.Id_Kv = 1; //By Default
+                            }
+                            
                             prixMain.Data_Post = doc_Date;
                             prixMain.Num_Doc = docSchetfak.DocNomer;
                             prixMain.ID_Pos = 2; //Po dannim Kurortnoe Upravleniye
@@ -85,7 +93,7 @@ namespace KasabaKIAT.BusinessLogic.Putyovki.PrixodPutyovok
                                
 
                             prixMain.Vid = false;
-                            prixMain.SmFil = null;
+                            prixMain.SmFil = doc_Date.Value.Year;
                             prixMain.UserId = userId;
 
                             var query11 = from prof in db.tbku_StrokaProfsoyza

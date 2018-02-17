@@ -966,6 +966,7 @@
     <Content Include="Scripts\MyJavaScript\PRZController.js" />
     <Content Include="Scripts\MyJavaScript\PZController.js" />
     <Content Include="Scripts\MyJavaScript\RaspredeleniyeZaezdov.js" />
+    <Content Include="Scripts\MyJavaScript\RealizatsiyaPutevok.js" />
     <Content Include="Scripts\MyJavaScript\RZController.js" />
     <Content Include="Scripts\MyJavaScript\SchetFaktura.js" />
     <Content Include="Scripts\MyJavaScript\SController.js" />

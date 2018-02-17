@@ -84,4 +84,82 @@
         //$scope.rr = arr;
         //$scope.items = arr;
     }
+    var i = 0;
+    var ar1 = new Array();
+    var ar2 = new Array();
+    var d = {};
+    $scope.BronChange=function(BronNumber,SanID){
+        ar1[i] = BronNumber;
+        ar2[i] = SanID;
+        alert(ar1[i] + " : " + ar2[i] + " : " + i);
+        i++;
+
+    }
+    $scope.Bron = function () {
+        var stringArray = new Array();
+        for (var k = 0; k < ar1.length; k++) {
+            d = {
+                ID_San: ar2[k],
+                Num_Put: ar1[k],
+            };
+            stringArray[k] = d;
+            //alert(d.ID_San + " : " + d.Num_Put);
+        }
+        
+        var postData = { b: stringArray };
+        $("#hh").modal({
+            backdrop: 'static',
+            backdrop: 'static'
+        });
+        reset();
+        alertify.set({ buttonFocus: "cancel" });
+        alertify.confirm("Вы действительно хотите Забронировать?", function (e) {
+            if (e) {
+                alertify.success("Операция выполняется");
+                //$.ajax({
+                //    type: "POST",
+                //    url: "/PrixodPutevok/RPBron",
+                //    data: postData,
+                //    success: function (data) {
+                //        alert(data.Result);
+                //        LoadDATA();
+                //    },
+                //    dataType: "json",
+                //    traditional: true
+                //});
+                $.ajax({
+                    type: "POST",
+                    url: "/PrixodPutevok/RPBron",
+                    data: JSON.stringify(postData),
+                    contentType: "application/json; charset=utf-8",
+                    success: function (data) {
+                            LoadDATA();
+                            console.log(data.data);
+                        alert(data.Result);
+                    },
+                    dataType: "json",
+                    traditional: true
+                });
+                $("#hh").modal('hide');
+                //$http({
+                //    method: "post",
+                //    url: "/Administirirovaniye/RPBron",
+                //    params: {
+                //        b: JSON.stringify(d)
+                //    }
+                //}).then(function (msg) {
+                //    LoadDATA();
+                //    console.log(msg.data);
+                //}, function () {
+                //    //alert('Error DeleteGodovoyPlan');
+                //    console.log('Error RPBron');
+                //    $("#hh").modal('hide');
+                //});
+            } else {
+                $("#hh").modal('hide');
+                alertify.error("Операция отменена");
+            }
+        });
+        return false;
+    }
 }]);

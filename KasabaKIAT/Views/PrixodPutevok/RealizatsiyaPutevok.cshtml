@@ -56,17 +56,17 @@
                     <div class="r-card-title">
                         <p>{{rp.d2}}</p>
                     </div>
-                    <div class="card-header r-card-header" id="headingOne">
+                    <div class="card-header r-card-header" id="headingOne{{rp.d1}}">
                         <span class="r-header-t"><strong>{{rp.d3}} - {{rp.d4}}</strong> {{rp.d5 | jsonDate: 'dd.MM.yyyy'}} - {{rp.d6 | jsonDate: 'dd.MM.yyyy'}}</span>
                         <span class="r-header-b" ng-show="rp.d7!='0'">{{rp.d7}}</span>
                         <span class="r-header-v" ng-show="rp.d8!='0'">{{rp.d8}}</span>
                         <span  ng-click="data(rp.d1)" class="r-header-a float-right collapsed" data-toggle="collapse" data-target="#collapse{{rp.d1}}" aria-expanded="true" aria-controls="collapseOne"></span>
                     </div>
-                    <div id="collapse{{rp.d1}}"  class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+                    <div id="collapse{{rp.d1}}"  class="collapse" aria-labelledby="headingOne{{rp.d1}}" data-parent="#accordion">
                         <div class="card-body r-card-body"  ng-repeat="rp2 in RP2">
                             <div class="custom-control custom-checkbox r-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="customCheck1">
-                                <label class="custom-control-label r-label" for="customCheck1"><strong>{{rp2.d3}}</strong> ({{rp2.d4 | jsonDate: 'dd.MM.yyyy'}})<span ng-show="rp2.d5=='1'"><img src="~/Content/images/b-g.png" alt="" title="" /></span><span ng-show="rp2.d6=='1'"><img src="~/Content/images/v-r.png" alt="" title="" /></span></label>
+                                <input type="checkbox" ng-click="BronChange(rp2.d3,rp.d1)" class="custom-control-input" id="customCheck{{rp2.d3}}">
+                                <label ng-class="rp2.red" class="custom-control-label r-label" for="customCheck{{rp2.d3}}"><strong>{{rp2.d3}}</strong> ({{rp2.d4 | jsonDate: 'dd.MM.yyyy'}})<span ng-show="rp2.d5=='1'"><img src="~/Content/images/b-g.png" alt="" title="" /></span><span ng-show="rp2.d6=='1'"><img src="~/Content/images/v-r.png" alt="" title="" /></span></label>
                             </div>
                         </div>
                     </div>
@@ -140,7 +140,7 @@
                 </div>*@
             </div>
             <div class="mb-4">
-                <a href="" class="btn btn-grey d-block d-md-inline-block mb-2">Отменить выбор</a>
+                <button class="btn btn-grey d-block d-md-inline-block mb-2">Отменить выбор</button>
             </div>
         </div>
         <div class="col-md-6">
@@ -188,8 +188,8 @@
                 <div class="row mb-4">
                     <div class="col-md-4">
                         <a href="oform_real_put.html" class="btn btn-blue d-block mb-2">Реализовать</a>
-                        <a href="#" class="btn btn-green d-block mb-2">Забронировать</a>
-                        <a href="#" class="btn btn-grey d-block mb-2">Отменить бронь</a>
+                        <button ng-click="Bron()" class="btn btn-green d-block mb-2">Забронировать</button>
+                        <button class="btn btn-grey d-block mb-2">Отменить бронь</button>
                     </div>
                 </div>
             </div>

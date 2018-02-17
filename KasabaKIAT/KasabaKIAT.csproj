@@ -156,8 +156,6 @@
     <Compile Include="BusinessLogic\BankOplati\BankOplatiDataManager.cs" />
     <Compile Include="BusinessLogic\BankOplati\BankOplatiTotalManager.cs" />
     <Compile Include="BusinessLogic\BankOplati\ExcelBankSource.cs" />
-    <Compile Include="BusinessLogic\BankOplati\Firmi\FirmiDataManager.cs" />
-    <Compile Include="BusinessLogic\BankOplati\Firmi\Firmi_Ergo.cs" />
     <Compile Include="BusinessLogic\BankOplati\Oplata\BankOplata.cs" />
     <Compile Include="BusinessLogic\BankOplati\Oplata\OplataDataManager.cs" />
     <Compile Include="BusinessLogic\BankOplati\OraslAndRegionDefine\IlxomPersonalization.cs" />
@@ -1070,6 +1068,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="BusinessLogic\BankOplati\Firmi\" />
     <Folder Include="BusinessLogic\Buxgalteriya\PlanProvodok\" />
     <Folder Include="BusinessLogic\ClosePeriod\CloseDay\" />
     <Folder Include="BusinessLogic\ClosePeriod\CloseKvartal\" />
@@ -1110,15 +1109,6 @@
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == '1|AnyCPU'">
-    <DebugSymbols>true</DebugSymbols>
-    <OutputPath>bin\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <DebugType>full</DebugType>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />

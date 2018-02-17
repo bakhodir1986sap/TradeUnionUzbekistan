@@ -25,7 +25,7 @@ namespace KasabaKiat.BusinessLogic
         {
             var brExists = BronDataManager.GetBronByPutyovka(model.Num_Put, model.ID_San);
 
-            if (brExists == null)
+            if (brExists.Count == 0)
             {
                 BronDataManager.Create(model);
             }

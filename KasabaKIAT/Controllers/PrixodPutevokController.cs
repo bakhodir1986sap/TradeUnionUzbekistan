@@ -113,6 +113,23 @@ namespace KasabaKIAT.Controllers
                          select new { P_SUM = g.Sum(i => i.d4) };
             return Json(Groups.ToList(), JsonRequestBehavior.AllowGet);
         }
+        public JsonResult Getegrpo(string inn,string name)
+        {
+            int UserId = Convert.ToInt32(User.Identity.Name);
+            var ustinfo = UserInfo.GetUserInfo(UserId);
+            string str = ustinfo.DepartmentBase.Substring(0, 2) + ustinfo.DepartmentBase.Substring(3, 2);
+            var list = (from a in KasabaDB.t_egrpo
+                        where a.soato_id.Contains(str)&&(a.inn.Contains(inn)||a.name_full.Trim().Contains(name.Trim())||a.name_short.Trim().Contains(name.Trim()))
+                        select new
+                        {
+                            d0 = a.id,
+                            d1 = a.address,
+                            d2 = a.name_full,
+                            d3 = a.name_short,
+                            d4 = a.inn,
+                        });
+            return Json(list.ToList(), JsonRequestBehavior.AllowGet);
+        }
         public JsonResult RP()
         {
             int UserId = Convert.ToInt32(User.Identity.Name);
@@ -158,7 +175,7 @@ namespace KasabaKIAT.Controllers
             public string Num_Put { get; set; }
         }
 
-        public void RPBron(List<BronTemp> b)
+        public string RPBron(List<BronTemp> b)
         {
             foreach (var bb in b)
             {
@@ -169,6 +186,20 @@ namespace KasabaKIAT.Controllers
                 BP.PostavitV_Bron(br);
             }
             //BP.PostavitV_Bron(b);
+            return "yes";
+        }
+        public string RPSnyat(List<BronTemp> b)
+        {
+            foreach (var bb in b)
+            {
+                var br = new BronViewModel();
+                br.ID_San = bb.ID_San;
+                br.Num_Put = bb.Num_Put;
+
+                BP.SnyatBron(br);
+            }
+            //BP.PostavitV_Bron(b);
+            return "yes";
         }
         public JsonResult GetPrixodPutevok_S(int sc_id)
         {

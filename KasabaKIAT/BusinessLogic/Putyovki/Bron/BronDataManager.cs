@@ -70,7 +70,7 @@ namespace KasabaKiat.BusinessLogic.Bron
                 {
                     var bronP = bron.FirstOrDefault();
 
-                    if (bronP == null)
+                    if (bronP != null)
                     {
                         bronP.Uchet = true;
                     }
@@ -92,7 +92,7 @@ namespace KasabaKiat.BusinessLogic.Bron
                 {
                     var bronP = bron.FirstOrDefault();
 
-                    if (bronP == null)
+                    if (bronP != null)
                     {
                         bronP.Uchet = false;
                     }
@@ -115,7 +115,7 @@ namespace KasabaKiat.BusinessLogic.Bron
                 {
                     var bronP = bron.FirstOrDefault();
 
-                    if (bronP == null)
+                    if (bronP != null)
                     {
                         bronP.ExpireDate = model.ExpireDate;
                     }
@@ -137,7 +137,7 @@ namespace KasabaKiat.BusinessLogic.Bron
                 {
                     var bronP = bron.FirstOrDefault();
 
-                    if (bronP == null)
+                    if (bronP != null)
                     {
                         db.tblBron.Remove(bronP);
                     }
@@ -156,8 +156,8 @@ namespace KasabaKiat.BusinessLogic.Bron
                 var queryRes = from bron in db.tblBron
                                where
                                bron.ID_San == aSanId && 
-                               bron.Num_Put == aNumPut && 
-                               bron.Uchet == true
+                               bron.Num_Put == aNumPut //&& 
+                               //bron.Uchet == true
                                select new BronViewModel
                                {
                                    Id = bron.ID,

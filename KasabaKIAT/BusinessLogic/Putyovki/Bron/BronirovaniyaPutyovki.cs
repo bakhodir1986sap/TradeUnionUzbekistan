@@ -33,7 +33,7 @@ namespace KasabaKiat.BusinessLogic
             {
                 BronDataManager.Update(model);
 
-                BronDataManager.EnableExistingBron(model.Id);
+                BronDataManager.EnableExistingBron(brExists.First().Id);
             }
         }
 
@@ -48,7 +48,7 @@ namespace KasabaKiat.BusinessLogic
             {
                 var brExists = BronDataManager.GetBronByPutyovka(model.Num_Put, model.ID_San);
 
-                if (brExists == null)
+                if (brExists.Count == 0)
                 {
                     BronDataManager.Create(model);
                 }
@@ -56,7 +56,7 @@ namespace KasabaKiat.BusinessLogic
                 {
                     BronDataManager.Update(model);
 
-                    BronDataManager.EnableExistingBron(model.Id);
+                    BronDataManager.EnableExistingBron(brExists.First().Id);
                 }
             }
 
@@ -70,9 +70,9 @@ namespace KasabaKiat.BusinessLogic
         {
             var brExists = BronDataManager.GetBronByPutyovka(model.Num_Put, model.ID_San);
 
-            if (brExists != null)
+            if (brExists.Count != 0)
             {
-                BronDataManager.DisableExistingBron(model.Id);
+                BronDataManager.DisableExistingBron(brExists.First().Id);
             }
         }
 
@@ -102,7 +102,7 @@ namespace KasabaKiat.BusinessLogic
         {
             var list = BronDataManager.GetBronByPutyovka(put_number, IdSan);
 
-            if (list != null)
+            if (list.Count != 0)
             {
                 if (list.Count > 0)
                 {

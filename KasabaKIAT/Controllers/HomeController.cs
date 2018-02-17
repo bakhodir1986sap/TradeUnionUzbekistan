@@ -42,7 +42,10 @@ namespace KasabaKIAT.Controllers
                 return View();
             }
         }
-
+        public ActionResult INN()
+        {
+            return View();
+        }
         /// <summary>
         /// 
         /// </summary>

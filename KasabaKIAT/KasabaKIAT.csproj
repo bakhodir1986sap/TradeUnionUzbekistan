@@ -955,6 +955,7 @@
     <Content Include="Scripts\MyJavaScript\GrafikSanatoryZaezdov.js" />
     <Content Include="Scripts\MyJavaScript\GZController.js" />
     <Content Include="Scripts\MyJavaScript\KasabaKIATService.js" />
+    <Content Include="Scripts\MyJavaScript\LoadINN.js" />
     <Content Include="Scripts\MyJavaScript\main.js" />
     <Content Include="Scripts\MyJavaScript\Module.js" />
     <Content Include="Scripts\MyJavaScript\O_SOZController.js" />
@@ -1052,6 +1053,7 @@
     <Content Include="Views\Buxgalter\PlanByudjetaOblasteyNoviy.cshtml" />
     <Content Include="Views\Buxgalter\RaspredleniyeByudjeta.cshtml" />
     <Content Include="Views\Buxgalter\VvodDannix.cshtml" />
+    <Content Include="Views\Home\INN.cshtml" />
     <None Include="Web References\KurortUrlService\SkuTradeUnionExchg.wsdl" />
     <Content Include="Web References\KurortUrlService\typeGrafikZaezdovSanatoriev.datasource">
       <DependentUpon>Reference.map</DependentUpon>

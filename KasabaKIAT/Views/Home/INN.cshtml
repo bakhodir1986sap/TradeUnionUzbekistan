@@ -1,0 +1,102 @@
+﻿
+@{
+    ViewBag.Title = "INN";
+    Layout = "/Views/Shared/_Layout0.cshtml";
+}
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link href="https://use.fontawesome.com/releases/v5.0.2/css/all.css" rel="stylesheet">
+<link rel="stylesheet" href="~/Content/styles/main.css">
+
+<link href="~/Content/themes/alertify.default.css" rel="stylesheet" />
+<link href="~/Content/themes/alertify.core.css" rel="stylesheet" />
+<link href="~/Content/themes/alertify.bootstrap.css" rel="stylesheet" />
+
+<script src="~/Scripts/kendo/angular.min.js"></script>
+<script src="~/Scripts/MyJavaScript/Module.js"></script>
+<script src="~/Scripts/MyJavaScript/KasabaKIATService.js"></script>
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="https://fastcdn.org/FileSaver.js/1.1.20151003/FileSaver.min.js"></script>
+@*<script src="~/Scripts/kendo/kendo.all.min.js"></script>*@
+<script src="~/Scripts/lib/alertify.min.js"></script>
+<script>
+    function reset () {
+        $("#toggleCSS").attr("href", "../Content/themes/alertify.default.css");
+        alertify.set({
+            labels : {
+                ok     : "Да",
+                cancel : "Нет"
+            },
+            delay : 5000,
+            buttonReverse : false,
+            buttonFocus   : "ok"
+        });
+    }
+</script>
+<script src="~/Scripts/MyJavaScript/LoadINN.js"></script>
+<section class="content__block container" ng-controller="LoadINN">
+    <div id="connection" style="visibility:hidden;position:absolute;margin-left:430px;margin-top:100px">
+        <img src="~/Content/Login/buffering.gif" />
+    </div>
+    <div class="row justify-content-center">
+        <form class="row mb-4 align-items-center" name="myForm1" novalidate>
+            <div class="custom-control-inline" style="margin-left:20px">
+                <div>
+                    <p>ИНН:</p>
+                    <input type="text" class="form-control col-md-6" ng-model="I" placeholder="ИНН" />
+                    <span class="alert alert-warning" style="padding:0px" ng-show="myForm1.I.$error.required">Выберите поле</span>
+                </div>
+                <div style="margin-left:100px">
+                    <p>ИМЯ:</p>
+                    <input type="text" class="form-control col-md-6" ng-model="N" placeholder="ИМЯ" />
+                    <span class="alert alert-warning" style="padding:0px" ng-show="myForm1.N.$error.required">Выберите поле</span>
+                </div>
+                <div style="margin-left:20px">
+                    <button ng-click="LoadDATA()" ng-disabled="" class="btn btn-blue d-block d-md-inline-block mb-2" style="margin-top:45px"> Получить</button>
+                </div>
+            </div>
+        </form>
+        <table class="table table__block t-hover" onscroll="yes">
+            <thead>
+                <tr>
+                    <th class="dropdown dropdown__table">Адрес</th>
+                    <th class="dropdown dropdown__table">Имя</th>
+                    <th class="dropdown dropdown__table">Имя</th>
+                    <th class="dropdown dropdown__table">Инн</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="item in DATA">
+                    <td>{{item.d1}}</td>
+                    <td>{{item.d2}}</td>
+                    <td>{{item.d3}}</td>
+                    <td>{{item.d4}}</td>
+                </tr>
+            </tbody>
+        </table>
+        @*<div class="row mb-5 pb-md-5 align-content-md-center">
+            <div class="col-md-6">
+                <div class="table-responsive box-shadow mb-4" id="export">
+                    <table class="table table__block t-hover" onscroll="yes">
+                        <thead>
+                            <tr>
+                                <th class="dropdown dropdown__table">Адрес</th>
+                                <th class="dropdown dropdown__table">Имя</th>
+                                <th class="dropdown dropdown__table">Имя</th>
+                                <th class="dropdown dropdown__table">Инн</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="item in DATA">
+                                <td>{{item.d1}}</td>
+                                <td>{{item.d2}}</td>
+                                <td>{{item.d3}}</td>
+                                <td>{{item.d4}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>*@
+    </div>
+</section>
+

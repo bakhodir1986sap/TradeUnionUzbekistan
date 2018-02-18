@@ -206,15 +206,15 @@ namespace KasabaKIAT.Controllers
             var list = (from a in KasabaDB.tbpt_putyovki
                         where a.STATUS == "1" && a.SANATORIUM_ID==sc_id
                         //join u in KasabaDB.users on a.USER_ID equals u.id
-                        join sc in KasabaDB.t_sanatorium on a.SANATORIUM_ID equals sc.id
+                        join sc in KasabaDB.tblSprav_San on a.SANATORIUM_ID equals sc.ID
                         //join d in KasabaDB.t_departmentbase on a.DEPARTMENT_CODE equals d.code
                         select new
                         {
                             ID = a.REC_ID,
                             SB = a.SERIAL_BEGIN,
                             SE = a.SERIAL_END,
-                            SC = sc.sanatorium_name,
-                            SC_id = sc.id,
+                            SC = sc.Name_San,
+                            SC_id = sc.ID,
                             RBD = a.REST_BEGIN_DATE,
                             RED = a.REST_END_DATE,
                             P = a.PRICE,
@@ -254,7 +254,7 @@ namespace KasabaKIAT.Controllers
             var list = (from a in KasabaDB.tbpt_putyovki
                         where a.STATUS == "1" && a.SANATORIUM_ID == sc_id
                         //join u in KasabaDB.users on a.USER_ID equals u.id
-                        join sc in KasabaDB.t_sanatorium on a.SANATORIUM_ID equals sc.id
+                        join sc in KasabaDB.tblSprav_San on a.SANATORIUM_ID equals sc.ID
                         //join d in KasabaDB.t_departmentbase on a.DEPARTMENT_CODE equals d.code
                         select new
                         {
@@ -292,7 +292,7 @@ namespace KasabaKIAT.Controllers
             var list = (from a in KasabaDB.tbpt_putyovki
                         where a.STATUS == "1" //&& a.SANATORIUM_ID == sc_id
                         //join u in KasabaDB.users on a.USER_ID equals u.id
-                        join sc in KasabaDB.t_sanatorium on a.SANATORIUM_ID equals sc.id
+                        join sc in KasabaDB.tblSprav_San on a.SANATORIUM_ID equals sc.ID
                         join d in KasabaDB.t_departmentbase on a.DEPARTMENT_CODE equals d.code
                         where d.inn==inn
                         select new
@@ -300,8 +300,8 @@ namespace KasabaKIAT.Controllers
                             ID = a.REC_ID,
                             SB = a.SERIAL_BEGIN,
                             SE = a.SERIAL_END,
-                            SC = sc.sanatorium_name,
-                            SC_id = sc.id,
+                            SC = sc.Name_San,
+                            SC_id = sc.ID,
                             RBD = a.REST_BEGIN_DATE,
                             RED = a.REST_END_DATE,
                             P = a.PRICE,

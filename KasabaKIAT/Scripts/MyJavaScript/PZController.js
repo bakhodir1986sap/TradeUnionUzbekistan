@@ -2,13 +2,13 @@
     $scope.OTPdiv = false;
     $scope.showdelete = false;
     AllSanatory();
-    GetPZ_S(1);
+    GetPZ_S(-1);
     $scope.SC = {
-        id: '1',
+        id: '-1',
         value: ''
     };
     $scope.SCFilter = {
-        id: '1',
+        id: '-1',
         value: ''
     };
     function AllSanatory() {

@@ -70,7 +70,7 @@
         }
     }
     $scope.LoadSC = function () {
-        $scope.SCf.id = 1;
+        //$scope.SCf.id = 1;
         //alert($scope.SCf.id);
         if ($scope.s == "option1") {
             Load_PRZ_S($scope.SCf.id);

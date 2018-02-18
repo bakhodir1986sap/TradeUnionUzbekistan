@@ -25,7 +25,7 @@
                     <input type="radio" ng-model="s" required ng-change="LoadSC()" name="RadioOptions" id="inlineRadios1" value="option1" class="custom-control-input" checked="" />
                     <label for="inlineRadios1" class="custom-control-label">Санаторий</label>
                 </div>
-                <div class="custom-control custom-radio custom-control-inline">
+                <div class="custom-control custom-radio custom-control-inline" hidden>
                     <input type="radio" ng-model="s" required ng-change="LoadSC()" name="RadioOptions" id="inlineRadios2" value="option2" class="custom-control-input" />
                     <label for="inlineRadios2" class="custom-control-label">Дет. лагер</label>
                     <span class="alert alert-warning" style="padding:0px" ng-show="myForm1.RadioOptions.$error.required">Выберите поле</span>

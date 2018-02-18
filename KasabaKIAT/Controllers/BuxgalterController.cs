@@ -6,6 +6,7 @@ using System.Web.Mvc;
 
 namespace KasabaKIAT.Controllers
 {
+    [Authorize(Roles = "ADMIN")]
     public class BuxgalterController : Controller
     {
         // GET: Buxgalter

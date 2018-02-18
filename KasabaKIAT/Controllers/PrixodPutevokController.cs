@@ -10,6 +10,7 @@ using System.Web.Mvc;
 
 namespace KasabaKIAT.Controllers
 {
+    //[Authorize(Roles = "ADMIN")]
     [Authorize]
     public class PrixodPutevokController : Controller
     {
@@ -26,8 +27,8 @@ namespace KasabaKIAT.Controllers
             {
                 return View();
             }
-            
         }
+        [Authorize(Roles = "COUNCIL_REGIONAL_REGION,ADMIN")]
         public ActionResult ProsmotrOstatPutevok()
         {
             int UserId = Convert.ToInt32(User.Identity.Name);
@@ -40,7 +41,20 @@ namespace KasabaKIAT.Controllers
                 return View();
             }
         }
+        [Authorize(Roles = "COUNCIL_REGIONAL_REGION,ADMIN")]
         public ActionResult RealizatsiyaPutevok()
+        {
+            int UserId = Convert.ToInt32(User.Identity.Name);
+            if (UserId == 0)
+            {
+                return RedirectToAction("SignOut", "Login");
+            }
+            else
+            {
+                return View();
+            }
+        }
+        public ActionResult OformleniyaRealizatsiyaPutevok()
         {
             int UserId = Convert.ToInt32(User.Identity.Name);
             if (UserId == 0)
@@ -129,6 +143,18 @@ namespace KasabaKIAT.Controllers
                             d4 = a.inn,
                         });
             return Json(list.ToList(), JsonRequestBehavior.AllowGet);
+        }
+        public string LoadINN(int inn)
+        {
+            string strInn = inn.ToString();
+            var query = from department in KasabaDB.t_egrpo
+                        where department.inn == strInn
+                        select department.name_full;
+            if (query.Any())
+            {
+                return query.First();
+            }
+            return "No Data Found";
         }
         public JsonResult RP()
         {

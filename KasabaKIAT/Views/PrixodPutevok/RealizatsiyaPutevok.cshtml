@@ -5,7 +5,7 @@
 @*<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-animate.js"></script>
 <script src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-1.3.2.js"></script>*@
 <script src="~/Scripts/MyJavaScript/RealizatsiyaPutevok.js"></script>
-<script src="~/Scripts/MyJavaScript/LoadINN.js"></script>
+@*<script src="~/Scripts/MyJavaScript/LoadINN.js"></script>*@
 @*<h2 style="color:#428bca">Реализация путевок</h2>*@
 
 
@@ -176,12 +176,25 @@
             <div class="mb-5">
                 <a href="" class="btn btn-grey d-block d-md-inline-block mb-2">Отменить выбор</a>
             </div>
-            <div class="pt-5 mt-5">
-                <div class="mb-4">
-                    <input type="text"  class="form-control col-md-6" placeholder="ИНН" />
+            <form class="pt-5 mt-5" name="myForm2" novalidate>
+                <div class="mb-5">
+                    <div class="custom-control-inline">
+                        <input type="text" required class="custom-select form-control" name="INN" id="inn" ng-model="INN" ng-change="LoadINN()" ng-maxlength="9" ng-minlength="9"  placeholder="Инн" />
+                        <span class="alert alert-warning" style="padding:0px;position:absolute;margin-top:40px" ng-show="myForm2.INN.$error.required">заполнить поле</span>
+                        <span class="alert alert-warning" style="padding:0px;position:absolute;margin-top:40px" ng-show="!myForm2.INN.$error.required&&!myForm2.INN.$valid">9 шт. номер</span>
+                        <button style="margin-left:20px" class="btn btn-green d-block d-md-inline-block mb-3 mb-md-0" data-toggle="modal" data-target="#dobavit">Поиск</button>
+                    </div>
                 </div>
-                <div class="mb-4">
-                    <button class="btn btn-green d-block d-md-inline-block mb-3 mb-md-0"  data-toggle="modal" data-target="#dobavit">Поиск</button>
+                <div class="mb-5">
+                    <div class="col-md-7">
+                        <label name="O" ng-model="O">{{O}}</label>
+                    </div>
+                </div>
+                <div class="mb-5">
+                    <div class="col-md-7">
+                        @*<textarea class="form-control" id="name"></textarea>*@
+                        <p id="name"></p>
+                    </div>
                 </div>
                 <div class="r-text mb-4">
                     <p>Организации положено путевок: <strong>6</strong></p>
@@ -194,21 +207,28 @@
                         <button ng-click="Snyat()" class="btn btn-grey d-block mb-2">Отменить бронь</button>
                     </div>
                 </div>
-            </div>
+            </form>
         </div>
     </div>
-
-
+    <script>
+        function HelloFromChild(inn, name) {
+            //$('#youriframeid').remove();
+            //document.getElementById("dobavit").className = "modal__block modal fade";
+            //document.getElementById("dobavit").style = "display: none;";
+            //$('#dobavit').remove();
+            $('#dobavit').modal('toggle');
+            document.getElementById("name").innerHTML = name;
+            document.getElementById("inn").value = inn;
+            //document.getElementById("dobavit").data
+        }
+    </script>
     <div class="modal__block modal fade" id="dobavit" tabindex="-1" role="dialog" aria-labelledby="dobavitLabel">
         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-body">
-                    @*<div class="modal-title">
-                        <h4 class="text-center mt-4 mb-4">____</h4>
-                    </div>*@
                     <div class="row justify-content-center">
-                        <iframe src="http://localhost:60115/Home/INN" width="800" height="800" scrolling="yes"></iframe>
-                        </div>
+                        <iframe src="/Home/INN" id="youriframeid" width="800" height="800" scrolling="yes"></iframe>
+                    </div>
                 </div>
             </div>
         </div>

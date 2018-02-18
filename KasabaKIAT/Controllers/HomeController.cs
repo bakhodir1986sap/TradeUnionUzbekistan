@@ -9,6 +9,7 @@ using System.Web.Security;
 
 namespace KasabaKIAT.Controllers
 {
+    //[Authorize(Roles = "ADMIN")]
     [Authorize]
     public class HomeController : Controller
     {
@@ -97,6 +98,8 @@ namespace KasabaKIAT.Controllers
         /// 
         /// </summary>
         /// <returns></returns>
+        /// 
+        [Authorize(Roles = "BKUT,ADMIN")]
         public ActionResult PodachaZayavok()
         {
            
@@ -1154,6 +1157,8 @@ namespace KasabaKIAT.Controllers
         /// 
         /// </summary>
         /// <returns></returns>
+       
+        [Authorize(Roles = "BKUT,ADMIN")]
         public ActionResult PoiskRedaktZayavok()
         {
             return View();
@@ -1162,17 +1167,21 @@ namespace KasabaKIAT.Controllers
         /// <summary>
         /// 
         /// </summary>
-        /// <returns></returns>
+        /// <returns></returns> 
+        /// 
+
+        [Authorize(Roles = "COUNCIL_REGIONAL_REGION,ADMIN")]
         public ActionResult ProsmotrRealzPutevok()
         {
             return View();
         }
 
-       
+
         /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>
+        [Authorize(Roles = "COUNCIL_REGIONAL_REGION,ADMIN")]
         public ActionResult SverkaDannix()
         {
             return View();

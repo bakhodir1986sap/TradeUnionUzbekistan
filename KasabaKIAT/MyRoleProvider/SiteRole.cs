@@ -3,12 +3,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Caching;
 using System.Web.Security;
 
 namespace KasabaKIAT.MyRoleProvider
 {
     public class SiteRole : RoleProvider
     {
+        private int _cacheTimeoutInMinute = 20;
         public override string ApplicationName
         {
             get
@@ -47,11 +49,37 @@ namespace KasabaKIAT.MyRoleProvider
             throw new NotImplementedException();
         }
 
-        public override string[] GetRolesForUser(string username)
+        public override string[] GetRolesForUser(string userID)
         {
+            //int UserID = Convert.ToInt32(userID);
+            //if (!HttpContext.Current.User.Identity.IsAuthenticated)
+            //{
+            //    return null;
+            //}
+            //var cacheKey = string.Format("{0_role}", userID);
+            //if (HttpRuntime.Cache[cacheKey] != null)
+            //{
+            //    return (string[])HttpRuntime.Cache[cacheKey];
+            //}
+            //string[] roles = new string[] {};
+            //using(KasabaKIATEntities DB=new KasabaKIATEntities())
+            //{
+            //    roles = (from u in DB.users
+            //             join r in DB.roles on u.role_id equals r.id
+            //              //where u.id == UserID
+            //             select r.name).ToArray<string>();
+            //    if (roles.Count() > 0)
+            //    {
+            //        HttpRuntime.Cache.Insert(cacheKey, roles, null, DateTime.Now.AddMilliseconds(_cacheTimeoutInMinute), Cache.NoSlidingExpiration);
+
+            //    }
+            //}
+            //return roles;
+            //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
+            int UserID = Convert.ToInt32(userID);
             KasabaKIATEntities db = new KasabaKIATEntities();
             var list = from u in db.users
-                       where u.user_name == username
+                       where u.id == UserID
                        join r in db.roles on u.role_id equals r.id
                        select new
                        {
@@ -69,7 +97,8 @@ namespace KasabaKIAT.MyRoleProvider
 
         public override bool IsUserInRole(string username, string roleName)
         {
-            throw new NotImplementedException();
+            var userRoles = GetRolesForUser(username);
+            return userRoles.Contains(roleName);
         }
 
         public override void RemoveUsersFromRoles(string[] usernames, string[] roleNames)

@@ -1,4 +1,4 @@
-﻿app.controller("RealizatsiyaPutevok", ["$scope", "$http", "$filter", "crudAJService", function ($scope, $http, $filter, crudAJService) {
+﻿app.controller("RealizatsiyaPutevok", ["$scope", "$http", "$filter", "DataService", function ($scope, $http, $filter, DataService) {
     LoadDATA();
     $scope.showdata = false;
     function GetSanatory() {
@@ -13,9 +13,33 @@
             $("#hh").modal('hide');
         });
     }
-  
-    
-  
+    $scope.iframeLoadedCallBack = function () {
+        $scope.desiredLocation = DataService.get();
+        alert($scope.desiredLocation.inn);
+    }
+    function LoadINN(inn) {
+        $scope.O = "";
+        try {
+            if (inn.length == 9) {
+                $http({
+                    method: 'get',
+                    url: '/PrixodPutevok/LoadINN?inn=' + inn
+                }).then(function (response) {
+                    console.log(response, 'res');
+                    $scope.O = response.data;
+                }, function (error) {
+                    console.log(error, 'error in LoadINN');
+                });
+            }
+        }
+        catch (err) {
+            $scope.O = "";
+        }
+    }
+    $scope.LoadINN = function () {
+        var inn = $scope.INN;
+        LoadINN(inn);
+    }
   
     
     function LoadDATA() {
@@ -28,43 +52,6 @@
             //alert("error in PP_S");
             console.log("error in RP");
             $("#hh").modal('hide');
-        });
-    }
-    $scope.LoadDATA = function () {
-        $("#hh").modal({
-            backdrop: 'static'
-        });
-        reset();
-        alertify.set({ buttonFocus: "cancel" });
-        alertify.confirm("Вы действительно хотите получить?", function (e) {
-            if (e) {
-                alertify.success("Операция выполняется");
-                document.getElementById('connection').style.visibility = "visible";
-                Load($scope.I, $scope.N);
-            } else {
-                alertify.error("Операция отменена");
-                $("#hh").modal('hide');
-            }
-        });
-        return false;
-    }
-    function Load(inn,name) {
-        $http({
-            method: "post",
-            url: "/PrixodPutevok/Getegrpo?inn=" + inn + "&name=" + name,
-        }).then(function (d) {
-            $scope.DATA = d.data;
-            if (d.data.length !== 0) {
-                $scope.showdata = true;
-            }
-            else {
-                $scope.showdata = false;
-            }
-            document.getElementById('connection').style.visibility = "hidden";
-            $("#hh").modal('hide');
-        }, function () {
-            $("#hh").modal('hide');
-            //alert("error in O_SOZ");
         });
     }
     $scope.data = function (id) {
@@ -198,4 +185,9 @@
         });
         return false;
     }
+
+
+    //---------------------------------------//
+    
+    //======================================//
 }]);

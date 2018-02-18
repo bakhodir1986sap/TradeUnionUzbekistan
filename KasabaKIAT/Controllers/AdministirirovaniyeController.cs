@@ -19,6 +19,7 @@ using KasabaKiat.Helpers;
 
 namespace KasabaKIAT.Controllers
 {
+    //[Authorize(Roles = "ADMIN")]
     [Authorize]
     public class AdministirirovaniyeController : Controller
     {
@@ -55,6 +56,7 @@ namespace KasabaKIAT.Controllers
         {
             return View();
         }
+        [Authorize(Roles = "COUNCIL_REGIONAL_REGION,ADMIN")]
         public ActionResult SpisokPravsoyuzov()
         {
             IList<Models.ViewModel> O = (from o in KasabaDB.tbku_StrokaProfsoyza
@@ -65,14 +67,17 @@ namespace KasabaKIAT.Controllers
                                          }).ToList();
             return View(O);
         }
+        [Authorize(Roles = "COUNCIL_REGIONAL_REGION,ADMIN")]
         public ActionResult GrafikSanatoryZaezdov()
         {
             return View();
         }
+        [Authorize(Roles = "COUNCIL_REGIONAL_REGION,ADMIN")]
         public ActionResult SchetFaktura()
         {
             return View();
         }
+        [Authorize(Roles = "COUNCIL_REGIONAL_REGION,ADMIN")]
         public ActionResult RaspredeleniyeZaezdov()
         {
             return View();

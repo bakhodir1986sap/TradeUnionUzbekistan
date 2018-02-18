@@ -7,7 +7,7 @@ using KasabaKIAT.Models;
 
 namespace KasabaKIAT.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "COUNCIL_REGIONAL_REGION,ADMIN")]
     public class OtchotController : Controller
     {
         KasabaKIATEntities KasabaDB = new KasabaKIATEntities();

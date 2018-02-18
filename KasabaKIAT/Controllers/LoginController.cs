@@ -22,6 +22,7 @@ namespace KasabaKIAT.Controllers
         }
 
         [HttpPost]
+        //[ValidateAntiForgeryToken]
         public ActionResult Login(user u,string ReturnUrl = "")
         {
 

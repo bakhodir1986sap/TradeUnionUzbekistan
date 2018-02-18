@@ -7,7 +7,8 @@ using KasabaKIAT.Models;
 
 namespace KasabaKIAT.Controllers
 {
-    //[Authorize]
+    //[Authorize(Roles = "ADMIN")]
+    [Authorize]
     public class PlatejnoyePorucheniyeController : Controller
     {
         // GET: PlatejnoyePorucheniye

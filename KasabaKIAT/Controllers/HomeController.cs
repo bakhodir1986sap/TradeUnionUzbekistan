@@ -112,13 +112,18 @@ namespace KasabaKIAT.Controllers
         /// <returns></returns>
         public JsonResult GetSanatory()
         {
-            var S = (from s in KasabaDB.t_sanatorium
+            var S = (from s in KasabaDB.tblSprav_San
                      select new
                      {
-                         id = s.id,
-                         value = s.sanatorium_name
+                         id = s.ID,
+                         value = s.Name_San
                      });
-            return Json(S.ToList(), JsonRequestBehavior.AllowGet);
+
+            var resList = S.ToList();
+
+            resList.Insert(0, new { id = -1, value = "Все" });
+
+            return Json(resList, JsonRequestBehavior.AllowGet);
         }
 
         /// <summary>
@@ -161,7 +166,7 @@ namespace KasabaKIAT.Controllers
             var list = (from e in KasabaDB.tbpt_zayavki
                         where e.USER_ID == UserId
                         where e.STATUS == "1"
-                        join d in KasabaDB.t_sanatorium on e.SANATORY_ID equals d.id
+                        join d in KasabaDB.tblSprav_San on e.SANATORY_ID equals d.ID
                         //join  a in KasabaDB.t_camp on  e.CAMP_ID equals a.id
                         join c in KasabaDB.t_departmentbase on e.DEPARTMENT_CODE equals c.code
                         select new
@@ -169,8 +174,8 @@ namespace KasabaKIAT.Controllers
                             ID = e.REC_ID,
                             ZB = e.ZAEZD_BEGIN,
                             ZE = e.ZAEZD_END,
-                            SC = d.sanatorium_name,//a.camps_name,
-                            SC_id = d.id,
+                            SC = d.Name_San,//a.camps_name,
+                            SC_id = d.ID,
                             P = e.POSITION,
                             FN = e.FULL_NAME,
                             S = e.STATUS,
@@ -194,7 +199,7 @@ namespace KasabaKIAT.Controllers
             var list = (from e in KasabaDB.tbpt_zayavki
                         where e.USER_ID == UserId
                         where e.STATUS == "1"
-                        //join d in KasabaDB.t_sanatorium on e.SANATORY_ID equals d.id
+                        //join d in KasabaDB.tblSprav_San on e.SANATORY_ID equals d.id
                         join a in KasabaDB.t_camp on e.CAMP_ID equals a.id
                         join c in KasabaDB.t_departmentbase on e.DEPARTMENT_CODE equals c.code
                         select new
@@ -228,8 +233,8 @@ namespace KasabaKIAT.Controllers
             var list = (from e in KasabaDB.tbpt_zayavki
                         where e.USER_ID == UserId
                         where e.STATUS == "1"
-                        join d in KasabaDB.t_sanatorium on e.SANATORY_ID equals d.id
-                        where e.SANATORY_ID == id
+                        join d in KasabaDB.tblSprav_San on e.SANATORY_ID equals d.ID
+                        where e.SANATORY_ID == (id == -1 ? e.SANATORY_ID : id)
                         //join  a in KasabaDB.t_camp on  e.CAMP_ID equals a.id
                         join c in KasabaDB.t_departmentbase on e.DEPARTMENT_CODE equals c.code
                         select new
@@ -237,8 +242,8 @@ namespace KasabaKIAT.Controllers
                             ID = e.REC_ID,
                             ZB = e.ZAEZD_BEGIN,
                             ZE = e.ZAEZD_END,
-                            SC = d.sanatorium_name,//a.camps_name,
-                            SC_id = d.id,
+                            SC = d.Name_San,//a.camps_name,
+                            SC_id = d.ID,
                             P = e.POSITION,
                             FN = e.FULL_NAME,
                             S = e.STATUS,
@@ -263,9 +268,9 @@ namespace KasabaKIAT.Controllers
             var list = (from e in KasabaDB.tbpt_zayavki
                         where e.USER_ID == UserId
                         where e.STATUS == "1"
-                        //join d in KasabaDB.t_sanatorium on e.SANATORY_ID equals d.id
+                        //join d in KasabaDB.tblSprav_San on e.SANATORY_ID equals d.id
                         join a in KasabaDB.t_camp on e.CAMP_ID equals a.id
-                        where e.CAMP_ID == id
+                        where e.CAMP_ID ==  (id == -1 ? e.SANATORY_ID : id)
                         join c in KasabaDB.t_departmentbase on e.DEPARTMENT_CODE equals c.code
                         select new
                         {
@@ -299,7 +304,7 @@ namespace KasabaKIAT.Controllers
                         where e.USER_ID == UserId
                         where e.TIMESTAMP == date
                         where e.STATUS == "1"
-                        join d in KasabaDB.t_sanatorium on e.SANATORY_ID equals d.id
+                        join d in KasabaDB.tblSprav_San on e.SANATORY_ID equals d.ID
                         //join  a in KasabaDB.t_camp on  e.CAMP_ID equals a.id
                         join c in KasabaDB.t_departmentbase on e.DEPARTMENT_CODE equals c.code
                         select new
@@ -307,8 +312,8 @@ namespace KasabaKIAT.Controllers
                             ID = e.REC_ID,
                             ZB = e.ZAEZD_BEGIN,
                             ZE = e.ZAEZD_END,
-                            SC = d.sanatorium_name,//a.camps_name,
-                            SC_id = d.id,
+                            SC = d.Name_San,//a.camps_name,
+                            SC_id = d.ID,
                             P = e.POSITION,
                             FN = e.FULL_NAME,
                             S = e.STATUS,
@@ -369,7 +374,7 @@ namespace KasabaKIAT.Controllers
                         where e.USER_ID == UserId
                         where e.ZAEZD_BEGIN == date
                         where e.STATUS == "1"
-                        join d in KasabaDB.t_sanatorium on e.SANATORY_ID equals d.id
+                        join d in KasabaDB.tblSprav_San on e.SANATORY_ID equals d.ID
                         //join  a in KasabaDB.t_camp on  e.CAMP_ID equals a.id
                         join c in KasabaDB.t_departmentbase on e.DEPARTMENT_CODE equals c.code
                         select new
@@ -377,8 +382,8 @@ namespace KasabaKIAT.Controllers
                             ID = e.REC_ID,
                             ZB = e.ZAEZD_BEGIN,
                             ZE = e.ZAEZD_END,
-                            SC = d.sanatorium_name,//a.camps_name,
-                            SC_id = d.id,
+                            SC = d.Name_San,//a.camps_name,
+                            SC_id = d.ID,
                             P = e.POSITION,
                             FN = e.FULL_NAME,
                             S = e.STATUS,
@@ -439,7 +444,7 @@ namespace KasabaKIAT.Controllers
                         where e.USER_ID == UserId
                         where e.REC_ID == id
                         where e.STATUS == "1"
-                        join d in KasabaDB.t_sanatorium on e.SANATORY_ID equals d.id
+                        join d in KasabaDB.tblSprav_San on e.SANATORY_ID equals d.ID
                         //join  a in KasabaDB.t_camp on  e.CAMP_ID equals a.id
                         join c in KasabaDB.t_departmentbase on e.DEPARTMENT_CODE equals c.code
                         select new
@@ -447,8 +452,8 @@ namespace KasabaKIAT.Controllers
                             ID = e.REC_ID,
                             ZB = e.ZAEZD_BEGIN,
                             ZE = e.ZAEZD_END,
-                            SC = d.sanatorium_name,//a.camps_name,
-                            SC_id = d.id,
+                            SC = d.Name_San,//a.camps_name,
+                            SC_id = d.ID,
                             P = e.POSITION,
                             FN = e.FULL_NAME,
                             S = e.STATUS,
@@ -507,7 +512,7 @@ namespace KasabaKIAT.Controllers
             var list = (from e in KasabaDB.tbpt_zayavki
                         where e.USER_ID == UserId
                         where e.STATUS == "0"
-                        join d in KasabaDB.t_sanatorium on e.SANATORY_ID equals d.id
+                        join d in KasabaDB.tblSprav_San on e.SANATORY_ID equals d.ID
                         //join  a in KasabaDB.t_camp on  e.CAMP_ID equals a.id
                         join c in KasabaDB.t_departmentbase on e.DEPARTMENT_CODE equals c.code
                         where e.SANATORY_ID != null || e.CAMP_ID != null
@@ -516,8 +521,8 @@ namespace KasabaKIAT.Controllers
                             ID = e.REC_ID,
                             ZB = e.ZAEZD_BEGIN,
                             ZE = e.ZAEZD_END,
-                            SC = (e.CAMP_ID == null) ? d.sanatorium_name : "",//a.camps_name,
-                            SC_id = d.id,
+                            SC = (e.CAMP_ID == null) ? d.Name_San : "",//a.camps_name,
+                            SC_id = d.ID,
                             P = e.POSITION,
                             FN = e.FULL_NAME,
                             S = e.STATUS,
@@ -540,8 +545,8 @@ namespace KasabaKIAT.Controllers
         {
             int UserId = Convert.ToInt32(User.Identity.Name);
             var list = (from e in KasabaDB.tbpt_zayavki
-                        where e.USER_ID == UserId&& e.STATUS == "0"&&e.SANATORY_ID==sc_id
-                        join d in KasabaDB.t_sanatorium on e.SANATORY_ID equals d.id
+                        where e.USER_ID == UserId&& e.STATUS == "0" &&e.SANATORY_ID==(sc_id == -1 ? e.SANATORY_ID : sc_id)
+                        join d in KasabaDB.tblSprav_San on e.SANATORY_ID equals d.ID
                         //join  a in KasabaDB.t_camp on  e.CAMP_ID equals a.id
                         join c in KasabaDB.t_departmentbase on e.DEPARTMENT_CODE equals c.code
                         where e.SANATORY_ID != null || e.CAMP_ID != null
@@ -550,8 +555,8 @@ namespace KasabaKIAT.Controllers
                             ID = e.REC_ID,
                             ZB = e.ZAEZD_BEGIN,
                             ZE = e.ZAEZD_END,
-                            SC = (e.CAMP_ID == null) ? d.sanatorium_name : "",//a.camps_name,
-                            SC_id = d.id,
+                            SC = (e.CAMP_ID == null) ? d.Name_San : "",//a.camps_name,
+                            SC_id = d.ID,
                             P = e.POSITION,
                             FN = e.FULL_NAME,
                             S = e.STATUS,
@@ -575,7 +580,7 @@ namespace KasabaKIAT.Controllers
             int UserId = Convert.ToInt32(User.Identity.Name);
             var list = (from e in KasabaDB.tbpt_zayavki
                         where e.USER_ID == UserId&& e.STATUS == "0"&&e.CAMP_ID==sc_id
-                        //join d in KasabaDB.t_sanatorium on e.SANATORY_ID equals d.id
+                        //join d in KasabaDB.tblSprav_San on e.SANATORY_ID equals d.id
                         join a in KasabaDB.t_camp on e.CAMP_ID equals a.id
                         join c in KasabaDB.t_departmentbase on e.DEPARTMENT_CODE equals c.code
                         where e.SANATORY_ID != null || e.CAMP_ID != null
@@ -612,7 +617,7 @@ namespace KasabaKIAT.Controllers
             var list = (from e in KasabaDB.tbpt_zayavki
                         //where e.USER_ID == UserId
                         where e.STATUS == "1"
-                        join d in KasabaDB.t_sanatorium on e.SANATORY_ID equals d.id
+                        join d in KasabaDB.tblSprav_San on e.SANATORY_ID equals d.ID
                         //join  a in KasabaDB.t_camp on  e.CAMP_ID equals a.id
                         join c in KasabaDB.t_departmentbase on e.DEPARTMENT_CODE equals c.code
                         where c.inn == inn && e.ZAEZD_BEGIN.Value.Year == zb && e.ZAEZD_BEGIN.Value.Day > 0 && e.ZAEZD_BEGIN.Value.Month > 0
@@ -621,8 +626,8 @@ namespace KasabaKIAT.Controllers
                             ID = e.REC_ID,
                             ZB = e.ZAEZD_BEGIN,
                             ZE = e.ZAEZD_END,
-                            SC = (e.CAMP_ID == null) ? d.sanatorium_name : "",//a.camps_name,
-                            SC_id = d.id,
+                            SC = (e.CAMP_ID == null) ? d.Name_San : "",//a.camps_name,
+                            SC_id = d.ID,
                             P = e.POSITION,
                             FN = e.FULL_NAME,
                             S = e.STATUS,
@@ -648,7 +653,7 @@ namespace KasabaKIAT.Controllers
             var list = (from e in KasabaDB.tbpt_zayavki
                             //where e.USER_ID == UserId
                         where e.STATUS == "1"
-                        //join d in KasabaDB.t_sanatorium on e.SANATORY_ID equals d.id
+                        //join d in KasabaDB.tblSprav_San on e.SANATORY_ID equals d.id
                         join a in KasabaDB.t_camp on e.CAMP_ID equals a.id
                         join c in KasabaDB.t_departmentbase on e.DEPARTMENT_CODE equals c.code
                         where c.inn == inn && e.ZAEZD_BEGIN.Value.Year == zb && e.ZAEZD_BEGIN.Value.Day > 0 && e.ZAEZD_BEGIN.Value.Month > 0
@@ -682,14 +687,14 @@ namespace KasabaKIAT.Controllers
         {
             var list = (from e in KasabaDB.tbpt_zayavki
                         where e.STATUS == "1"
-                        join d in KasabaDB.t_sanatorium on e.SANATORY_ID equals d.id
+                        join d in KasabaDB.tblSprav_San on e.SANATORY_ID equals d.ID
                         join c in KasabaDB.t_departmentbase on e.DEPARTMENT_CODE equals c.code
                         where c.inn == inn && e.ZAEZD_BEGIN.Value.Year == zb
                         select new
                         {
                             ZB = e.ZAEZD_BEGIN,
-                            SC = d.sanatorium_name,
-                            SC_id = d.id,
+                            SC = d.Name_San,
+                            SC_id = d.ID,
                             Q = e.QUANTITY,
                             OQ = e.ORDER_QUANTITY
                         });
@@ -715,7 +720,7 @@ namespace KasabaKIAT.Controllers
                 int i = 0;
                 var list = from a in KasabaDB.tbpt_zayavki
                            orderby a.ZAEZD_BEGIN
-                           //join d in KasabaDB.t_sanatorium on a.SANATORY_ID equals d.id
+                           //join d in KasabaDB.tblSprav_San on a.SANATORY_ID equals d.id
                            join c in KasabaDB.t_departmentbase on a.DEPARTMENT_CODE equals c.code
                            where a.STATUS == "1" && c.inn == inn && a.ZAEZD_BEGIN.Value.Year == zb && a.ZAEZD_BEGIN.Value.Month == zb_g && a.SANATORY_ID == SC_id
                            select a.REC_ID;
@@ -847,14 +852,14 @@ namespace KasabaKIAT.Controllers
         public JsonResult Getbankpayments(string inn, int zb)
         {
             var list = from a in KasabaDB.tbgl_bankpayments
-                       where a.TRAN_DATE.Value.Year == zb && a.BENEF_INN == inn
+                       where a.TRAN_DATE.Year == zb && a.BENEF_INN == inn
                        select new
                        {
                            TD = a.TRAN_DATE,
                            A = a.AMOUNT
                        };
             var Groups = from p in list
-                         group p by p.TD.Value.Month into g
+                         group p by p.TD.Month into g
                          select new { ZB_g = g.Key, Count = g.Count(), A_Sum = g.Sum(i => i.A) };
             return Json(Groups.ToList(), JsonRequestBehavior.AllowGet);
         }
@@ -881,14 +886,14 @@ namespace KasabaKIAT.Controllers
         public JsonResult GetbankpaymentsYear(string inn, int zb)
         {
             var list = from a in KasabaDB.tbgl_bankpayments
-                       where a.TRAN_DATE.Value.Year == zb && a.BENEF_INN == inn
+                       where a.TRAN_DATE.Year == zb && a.BENEF_INN == inn
                        select new
                        {
                            TD = a.TRAN_DATE,
                            A = a.AMOUNT
                        };
             var Groups = from p in list
-                         group p by p.TD.Value.Year into g
+                         group p by p.TD.Year into g
                          select new { ZB_g = g.Key, Count = g.Count(), A_Sum = g.Sum(i => i.A) };
             return Json(Groups.ToList(), JsonRequestBehavior.AllowGet);
         }
@@ -994,7 +999,7 @@ namespace KasabaKIAT.Controllers
             string strInn = inn.ToString();
 
             var query = from department in KasabaDB.t_departmentbase
-                        where department.inn == strInn
+                        where department.le_inn == strInn
                         select department.name_uz;
 
             if (query.Any())

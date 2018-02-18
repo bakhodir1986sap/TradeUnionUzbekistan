@@ -229,6 +229,8 @@
     <Compile Include="BusinessLogic\Putyovki\RaznoskaPoPutyovki\Face_MedDataManager.cs" />
     <Compile Include="BusinessLogic\Putyovki\RaznoskaPoPutyovki\RaznoskaDataManager.cs" />
     <Compile Include="BusinessLogic\Putyovki\RaznoskaPoPutyovki\RaznoskaPutyovok.cs" />
+    <Compile Include="BusinessLogic\Putyovki\RealizasiyaPutyovok\RealizasitaPoTz\RealizasiyaDataManager.cs" />
+    <Compile Include="BusinessLogic\Putyovki\RealizasiyaPutyovok\RealizasitaPoTz\RealizasiyaPoTzCl.cs" />
     <Compile Include="BusinessLogic\Putyovki\RealizasiyaPutyovok\Realizasiya.cs" />
     <Compile Include="BusinessLogic\Putyovki\RealizasiyaPutyovok\ViplMainDataManager.cs" />
     <Compile Include="BusinessLogic\Putyovki\RealizasiyaPutyovok\ViplNumGen.cs" />
@@ -771,9 +773,11 @@
     <Compile Include="ViewModel\Putyovki\PutPostTempViewModel.cs" />
     <Compile Include="ViewModel\Putyovki\RaznoskaPutyovok\FaceViewModel.cs" />
     <Compile Include="ViewModel\Putyovki\RaznoskaPutyovok\Face_MedViewModel.cs" />
+    <Compile Include="ViewModel\Putyovki\RealizasiyaByTzViewModel.cs" />
     <Compile Include="ViewModel\Putyovki\RealizasiyaOtraslViewModel.cs" />
     <Compile Include="ViewModel\Putyovki\RealizasiyaViplMainViewModel.cs" />
     <Compile Include="ViewModel\Putyovki\RealizasiyaViplPutViewModel.cs" />
+    <Compile Include="ViewModel\Putyovki\SanAndPutViewModel.cs" />
     <Compile Include="ViewModel\Putyovki\SverkaViewModel.cs" />
     <Compile Include="ViewModel\Putyovki\Utils\PutyovkaViewModel.cs" />
     <Compile Include="ViewModel\Putyovki\ViplNumGenViewModel.cs" />

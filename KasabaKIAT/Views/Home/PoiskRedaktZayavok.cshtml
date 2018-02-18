@@ -29,7 +29,7 @@
                 <input type="radio" ng-model="s" required ng-click="LoadCSName()" name="inlineRadioOptions3" id="inlineRadio1" value="option1" class="custom-control-input" checked="" />
                 <label for="inlineRadio1" class="custom-control-label">Санаторий</label>
             </div>
-            <div class="custom-control custom-radio custom-control-inline">
+            <div class="custom-control custom-radio custom-control-inline" hidden>
                 <input type="radio" ng-model="s" required ng-click="LoadCSName()" name="inlineRadioOptions3" id="inlineRadio2" value="option2" class="custom-control-input" />
                 <label for="inlineRadio2" class="custom-control-label">Дет. лагер</label>
             </div>
@@ -100,7 +100,7 @@
                             <div class="form-group row align-items-center">
                                 <label class="col-md-5 col-form-label py-0">{{MyVal}}:</label>
                                 <div class="col-md-7">
-                                    <select class="form-control" name="SC" required ng-model="SC" ng-options="item as item.value for item in CS track by item.id"></select>
+                                    <select class="form-control" name="SC" required ng-model="SCf" ng-options="item as item.value for item in CS track by item.id"></select>
                                     <span class="alert alert-warning" style="padding:0px" ng-show="myForm.SC.$error.required">Выберите поле</span>
                                 </div>
                             </div>

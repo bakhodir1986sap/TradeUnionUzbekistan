@@ -19,6 +19,8 @@ namespace KasabaKIAT.Models
         public Nullable<int> CodeReg { get; set; }
         public Nullable<long> UserId { get; set; }
         public string DepartmentBase { get; set; }
+        public Nullable<long> VilId { get; set; }
+        public string SOATO_CODE { get; set; }
     
         public virtual users users { get; set; }
     }

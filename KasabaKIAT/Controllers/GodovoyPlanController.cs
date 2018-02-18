@@ -39,11 +39,11 @@ namespace KasabaKIAT.Controllers
         }
         public JsonResult GetSanatory()
         {
-            var S = (from s in KasabaDB.t_sanatorium
+            var S = (from s in KasabaDB.tblSprav_San
                      select new
                      {
-                         id = s.id,
-                         value = s.sanatorium_name
+                         id = s.ID,
+                         value = s.Name_San
                      });
             return Json(S.ToList(), JsonRequestBehavior.AllowGet);
         }
@@ -112,7 +112,7 @@ namespace KasabaKIAT.Controllers
                 var list = (from a in KasabaDB.tbpt_yearlyplanotrasl
                             where a.STATUS == "1"&&a.USER_ID == UserId && a.OTRASL_ID == R&&a.SANATORIUM_ID==SC
                             //join u in KasabaDB.users on a.USER_ID equals u.id
-                            join sc in KasabaDB.t_sanatorium on a.SANATORIUM_ID equals sc.id
+                            join sc in KasabaDB.tblSprav_San on a.SANATORIUM_ID equals sc.ID
                             join d in KasabaDB.t_departmentbase on a.DEPARTMANT_BASE equals d.code
                             //join dc in KasabaDB.tbcs_dictionary on a.TIP_MEST_ID equals dc.REC_ID
                             join r in KasabaDB.sp_branch on a.OTRASL_ID equals r.id
@@ -121,8 +121,8 @@ namespace KasabaKIAT.Controllers
                                 ID = a.REC_ID,
                                 Y = a.YEAR,
                                 K = a.KVARTAL,
-                                SC = sc.sanatorium_name,
-                                SC_id = sc.id,
+                                SC = sc.Name_San,
+                                SC_id = sc.ID,
                                 TM = "",
                                 TM_id = 0,
                                 P = a.PRICE,
@@ -141,7 +141,7 @@ namespace KasabaKIAT.Controllers
                 var list = (from a in KasabaDB.tbpt_yearlyplanregion
                             where a.STATUS == "1"&&a.USER_ID == UserId && a.REGION_ID==re&&a.SANATORIUM_ID==SC
                             //join u in KasabaDB.users on a.USER_ID equals u.id
-                            join sc in KasabaDB.t_sanatorium on a.SANATORIUM_ID equals sc.id
+                            join sc in KasabaDB.tblSprav_San on a.SANATORIUM_ID equals sc.ID
                             join d in KasabaDB.t_departmentbase on a.DEPARTMENT_BASE equals d.code
                             join dc in KasabaDB.tbcs_dictionary on a.TIP_MEST_ID equals dc.REC_ID
                             join r in KasabaDB.tbku_StrokaProfsoyza on a.REGION_ID equals r.MATCH_DEPARTMENTBASE
@@ -150,8 +150,8 @@ namespace KasabaKIAT.Controllers
                                 ID = a.REC_ID,
                                 Y = a.YEAR,
                                 K = a.KVARTAL,
-                                SC = sc.sanatorium_name,
-                                SC_id = sc.id,
+                                SC = sc.Name_San,
+                                SC_id = sc.ID,
                                 TM = dc.NAME_UZ,
                                 TM_id = dc.REC_ID,
                                 P = a.PRICE,

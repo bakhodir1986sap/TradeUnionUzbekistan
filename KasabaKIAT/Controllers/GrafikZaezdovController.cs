@@ -29,7 +29,7 @@ namespace KasabaKIAT.Controllers
         {
 
             var list = (from e in KasabaDB.tbpt_zaezdi
-                        join d in KasabaDB.t_sanatorium on e.SANATORY_ID equals d.id
+                        join d in KasabaDB.tblSprav_San on e.SANATORY_ID equals d.ID
                         join a in KasabaDB.tbcs_dictionary on e.PLACE_TYPE_ID equals a.REC_ID
                         where e.SANATORY_ID==id &&e.PLACE_TYPE_ID==pt
                         select new
@@ -37,8 +37,8 @@ namespace KasabaKIAT.Controllers
                             ID = e.REC_ID,
                             ZB = e.ZAEZD_BEGIN,
                             ZE = e.ZAEZD_END,
-                            SC = d.sanatorium_name,
-                            SC_id = d.id,
+                            SC = d.Name_San,
+                            SC_id = d.ID,
                             PTI = a.NAME_UZ,
                             PTI_ID = a.REC_ID,
                             P = e.PRICE,

@@ -11,18 +11,25 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConverterTester", "Converte
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		1|Any CPU = 1|Any CPU
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6B3871A6-4419-4BEA-B258-51C2B80FF5B1}.1|Any CPU.ActiveCfg = Release|Any CPU
+		{6B3871A6-4419-4BEA-B258-51C2B80FF5B1}.1|Any CPU.Build.0 = Release|Any CPU
 		{6B3871A6-4419-4BEA-B258-51C2B80FF5B1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{6B3871A6-4419-4BEA-B258-51C2B80FF5B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6B3871A6-4419-4BEA-B258-51C2B80FF5B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6B3871A6-4419-4BEA-B258-51C2B80FF5B1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{10AFA817-06AD-4A37-9BB3-AD854316C186}.1|Any CPU.ActiveCfg = Release|Any CPU
+		{10AFA817-06AD-4A37-9BB3-AD854316C186}.1|Any CPU.Build.0 = Release|Any CPU
 		{10AFA817-06AD-4A37-9BB3-AD854316C186}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{10AFA817-06AD-4A37-9BB3-AD854316C186}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{10AFA817-06AD-4A37-9BB3-AD854316C186}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{10AFA817-06AD-4A37-9BB3-AD854316C186}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5B596502-8B87-41FE-B78E-5B94B95E2C25}.1|Any CPU.ActiveCfg = Release|Any CPU
+		{5B596502-8B87-41FE-B78E-5B94B95E2C25}.1|Any CPU.Build.0 = Release|Any CPU
 		{5B596502-8B87-41FE-B78E-5B94B95E2C25}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{5B596502-8B87-41FE-B78E-5B94B95E2C25}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5B596502-8B87-41FE-B78E-5B94B95E2C25}.Release|Any CPU.ActiveCfg = Release|Any CPU

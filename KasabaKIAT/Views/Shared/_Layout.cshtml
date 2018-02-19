@@ -61,7 +61,8 @@
             <div class="collapse navbar-collapse justify-content-between" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item dropdown" id="p">
-                        <a class="nav-link dropdown-toggle" href="tours.html" id="tours" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Путевки</a>
+                        <a id="tours1" class="nav-link" style="visibility:hidden;position:absolute;">Путевки</a>
+                        <a disabled class="nav-link dropdown-toggle" href="tours.html" id="tours" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Путевки</a>
                         <div class="dropdown-menu rounded-0 box-shadow m-0 border-0" aria-labelledby="tours">
                             <a class="dropdown-item load" href="/GrafikZaezdov/index">График заездов</a>
                             <a class="dropdown-item load" href="/GodovoyPlan/index">Годовой план</a>
@@ -73,6 +74,7 @@
                         </div>
                     </li>
                     <li class="nav-item dropdown" id="z">
+                        <a id="claims1" class="nav-link" style="visibility:hidden;position:absolute;">Заявки</a>
                         <a class="nav-link dropdown-toggle" href="claims.html" id="claims" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Заявки</a>
                         <div class="dropdown-menu rounded-0 box-shadow m-0 border-0" aria-labelledby="claims">
                             <a class="dropdown-item load" href="/Home/PodachaZayavok">Подача заявок</a>
@@ -114,27 +116,35 @@
                     </li>
                 </ul>
                 <script>
-                var i = 0;
-                if ("@ViewBag.Title" == "Подача заявок") {
-                    document.getElementById("z").className = "nav-item dropdown show";
-                    document.getElementById("z").style = "";
+                    var i = 0;
+                    if(@Session["role"]==8){
+                        document.getElementById("tours").style.visibility = "hidden";
+                        document.getElementById('tours1').style.visibility = "visible";
                     }
-                        if ("@ViewBag.Title" == "Путевки") {
-                            document.getElementById("p").className = "nav-item dropdown show";
-                            document.getElementById("p").style = "";
-                        }
-                        if ("@ViewBag.Title" == "Отчеты") {
-                            document.getElementById("o").className = "nav-item dropdown show";
-                            document.getElementById("o").style = "";
-                        }
-                        if ("@ViewBag.Title" == "Администрирование") {
-                            document.getElementById("a").className = "nav-item dropdown show";
-                            document.getElementById("a").style = "";
-                        }
-                        if ("@ViewBag.Title" == "бухгалтерия") {
-                            document.getElementById("b").className = "nav-item dropdown show";
-                            document.getElementById("b").style = "";
-                        }
+                    if(@Session["role"]==13){
+                        document.getElementById("claims").style.visibility = "hidden";
+                        document.getElementById('claims1').style.visibility = "visible";
+                    }
+                if ("@ViewBag.Title" == "Подача заявок") {
+                        document.getElementById("z").className = "nav-item dropdown show";
+                        document.getElementById("z").style = "";
+                    }
+                    if ("@ViewBag.Title" == "Путевки") {
+                        document.getElementById("p").className = "nav-item dropdown show";
+                        document.getElementById("p").style = "";
+                    }
+                    if ("@ViewBag.Title" == "Отчеты") {
+                        document.getElementById("o").className = "nav-item dropdown show";
+                        document.getElementById("o").style = "";
+                    }
+                    if ("@ViewBag.Title" == "Администрирование") {
+                        document.getElementById("a").className = "nav-item dropdown show";
+                        document.getElementById("a").style = "";
+                    }
+                    if ("@ViewBag.Title" == "бухгалтерия") {
+                        document.getElementById("b").className = "nav-item dropdown show";
+                        document.getElementById("b").style = "";
+                    }
                 </script>
             </div>
         </div>

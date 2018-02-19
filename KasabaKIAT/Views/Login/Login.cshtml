@@ -56,7 +56,7 @@
 @*background-image: url(../Content/Login/giphy-downsized-large.gif)*@
 <div class="modal" id="myModal" role="dialog" style="background-color:white; margin-top:00px; margin-left:00px; width: 100%; height:100%;">
     <div class="modal-dialog">
-        <div id="connection" style="visibility:hidden;position:absolute;margin-left:130px">
+        <div id="connection" style="visibility:hidden;position:absolute;margin-left:130px;margin-top:100px">
             <img src="~/Content/Login/buffering.gif" />
         </div>
         <div class="modal-content" id="modelcon">
@@ -169,7 +169,7 @@
              {
                  //alert(result);
                  console.log(result);
-                 if (result.toString() == "1")
+                 if (result.toString() == "-1")
                  {
                      document.getElementById('modelcon').className = "modal-content";
                      document.getElementById('modelcon').style.visibility = "visible";
@@ -179,7 +179,7 @@
                      $("#xabarchi").html('<div class="failed"> login yoki parol noto`g`ri kiritilgan </div>');
                  }
                  else
-                     if (result.toString() == "2") {
+                     if (result.toString() == "-2") {
                          document.getElementById('modelcon').className = "modal-content";
                          document.getElementById('modelcon').style.visibility = "visible";
                      $("#login").val("");
@@ -188,8 +188,13 @@
                      $("#xabarchi").html('<div class="failed"> login yoki parol maydoni to`ldirilmagan! </div>');
                  }
                  else
-                 {
-                         window.location.href = "/Home/Putyovki";
+                     {
+                         if (result.toString() == "8") {
+                             window.location.href = "/Home/Zayavok";
+                         }
+                         if (result.toString() == "13") {
+                             window.location.href = "/Home/Putyovki";
+                         }
                  }
              },
              error: function (result)

@@ -37,33 +37,45 @@ namespace KasabaKIAT.Controllers
                         IEnumerable<users> r = from a in KasabaDB.users where a.user_name == u.login select a;
                         foreach (var b in r)
                         {
+                            //~~~~~~~~~~~~~~~~~~~~~
+                            int UserID = Convert.ToInt32(b.id);
+                            KasabaKIATEntities db = new KasabaKIATEntities();
+                            var list = from uu in db.users
+                                       where uu.id == UserID
+                                       join rr in db.roles on uu.role_id equals rr.id
+                                       select new
+                                       {
+                                           R = rr.id
+                                       };
+                            //~~~~~~~~~~~~~~~~~~~~~
                             Session["name"] = b.email;
+                            Session["role"] = list.FirstOrDefault().R;
                             FormsAuthentication.SetAuthCookie(b.id.ToString(), false);
-                            message = b.user_name;
+                            message = list.FirstOrDefault().R.ToString();
                             if (Url.IsLocalUrl(ReturnUrl))
                             {
                                 return Redirect(ReturnUrl);
                             }
                             else
                             {
-                                return RedirectToAction("index", "Home");
+                                return Json(message, JsonRequestBehavior.AllowGet);
                             }
                         }
                     }
                     else if (retCode == -999)
                     {
-                        message = "9";
+                        message = "-9";
                     }
                     else
                     {
-                        message = "1";
+                        message = "-1";
                     }
                 }
                 else
                 {
-                    message = "2";
+                    message = "-2";
                 }
-                if (message != "1" && message != "2")
+                if (message != "-1" && message != "-2")
                 {
                     return RedirectToAction("Index", "Home");
                 }

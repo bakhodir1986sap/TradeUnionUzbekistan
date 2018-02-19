@@ -1204,7 +1204,6 @@ namespace KasabaKIAT.Controllers
                   
                 }
             }
-
             return View();
         }
 

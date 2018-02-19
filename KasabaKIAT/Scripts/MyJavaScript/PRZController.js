@@ -56,13 +56,13 @@
         $scope.myVal1 = "Выбрать санаторий";
         $scope.myVal2 = "или дет. лагерь:";
         getPs();
-        if ($scope.s == "option1") {
+        if ($scope.s === "option1") {
             getSs();
             document.getElementById('connection').style.visibility = "hidden";
             $("#hh").modal('hide');
         }
         else {
-            if ($scope.s == "option2") {
+            if ($scope.s === "option2") {
                 getCs();
                 document.getElementById('connection').style.visibility = "hidden";
                 $("#hh").modal('hide');
@@ -72,10 +72,10 @@
     $scope.LoadSC = function () {
         //$scope.SCf.id = 1;
         //alert($scope.SCf.id);
-        if ($scope.s == "option1") {
+        if ($scope.s === "option1") {
             Load_PRZ_S($scope.SCf.id);
         } else {
-            if ($scope.s == "option2") {
+            if ($scope.s === "option2") {
                 Load_PRZ_C($scope.SCf.id);
             }
         }
@@ -158,11 +158,11 @@
         });
     }
     $scope.searchD0_CH = function () {
-        if ($scope.s == "option1") {
+        if ($scope.s === "option1") {
             Load_PRZ_D0_S();
         }
         else {
-            if ($scope.s == "option2") {
+            if ($scope.s === "option2") {
                 Load_PRZ_D0_C();
             }
         }
@@ -192,11 +192,11 @@
         });
     }
     $scope.searchD1_CH = function () {
-        if ($scope.s == "option1") {
+        if ($scope.s === "option1") {
             Load_PRZ_D1_S();
         }
         else {
-            if ($scope.s == "option2") {
+            if ($scope.s === "option2") {
                 Load_PRZ_D1_C();
             }
         }
@@ -230,24 +230,24 @@
         });
     }
     $scope.LoadP = function () {
-        if ($scope.s == "option1") {
+        if ($scope.s === "option1") {
             Load_PRZ_P_S();
         }
         else {
-            if ($scope.s == "option2") {
+            if ($scope.s === "option2") {
                 Load_PRZ_P_C();
             }
         }
     }
     $scope.MOE_ch = function () {
-        if ($scope.MOE == false) {
+        if ($scope.MOE === false) {
             $scope.MO = "";
         }
 }
     $scope.LoadINN = function () {
     $scope.O = "";
         var inn = $scope.INN;
-        if (inn.length == 9) {
+        if (inn.length === 9) {
             //alert(inn);
             $http({
                 method: 'get',
@@ -282,7 +282,7 @@
     }
     $scope.UpdatePRZ = function () {
         var PRZ;
-        if ($scope.s == "option1") {
+        if ($scope.s === "option1") {
             PRZ = {
                 ZAEZD_BEGIN: $scope.ZB,
                 ZAEZD_END: $scope.ZE,
@@ -295,7 +295,7 @@
                 MEDICAL_ORDER_EXISTS: $scope.MOE
             };
         } else {
-            if ($scope.s == "option2") {
+            if ($scope.s === "option2") {
                 PRZ = {
                     ZAEZD_BEGIN: $scope.ZB,
                     ZAEZD_END: $scope.ZE,
@@ -309,7 +309,7 @@
                 };
             }
         }
-        if ($scope.SC == null) {
+        if ($scope.SC === null) {
             //alert("Sanatoriya yoki lager nomi tanlanmagan");
             console.log('Sanatoriya yoki lager nomi tanlanmagan');
         }

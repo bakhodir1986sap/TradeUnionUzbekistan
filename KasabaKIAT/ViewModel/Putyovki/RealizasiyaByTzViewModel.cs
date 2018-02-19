@@ -128,5 +128,7 @@ namespace KasabaKIAT.ViewModel.Putyovki
         /// 
         /// </summary>
         public string org_inn { get; set; }
+
+        public string SanatoryName { get; set; }
     }
 }

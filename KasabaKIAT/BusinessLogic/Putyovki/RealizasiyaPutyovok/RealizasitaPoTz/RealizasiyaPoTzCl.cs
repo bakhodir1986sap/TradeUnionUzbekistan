@@ -26,14 +26,40 @@ namespace KasabaKIAT.BusinessLogic.Putyovki.RealizasiyaPutyovok.RealizasitaPoTz
                         var real = new RealizasiyaByTzViewModel();
 
                         real.sanatorium_id = chk.SanId;
+                        real.serail_number = chk.NumPut;
+
+                        var sanName = db.tblSprav_San.Where(z => z.ID == chk.SanId);
+
+                        if (sanName.Any())
+                        {
+                            real.SanatoryName = sanName.First().Name_San;
+                        }
+                        else
+                        {
+                            throw new ApplicationException("Invalid Sanatory Id");
+                        }
 
                         var queryZayav = db.tbpt_zayavki.Where(z => z.DEPARTMENT_CODE == orgDepBase.code 
                         && z.SANATORY_ID == chk.SanId);
 
                         if (queryZayav.Any())
                         {
+                            var queryZayavL = queryZayav.ToList();
 
+                            foreach (var zayka in queryZayavL)
+                            {
+                                var zayavka = queryZayavL.FirstOrDefault();
+
+                                if (zayavka == null) break;
+
+                                real.zayavka_id = zayavka.REC_ID;
+                                real.full_name = zayavka.FULL_NAME;
+
+                                queryZayavL.Remove(zayavka);
+                            }
                         }
+
+                        list.Add(real);
                     }
                    
                 }

@@ -28,6 +28,17 @@ namespace KasabaKIAT.BusinessLogic.Putyovki.RealizasiyaPutyovok.RealizasitaPoTz
                         real.sanatorium_id = chk.SanId;
                         real.serail_number = chk.NumPut;
 
+                        var putyovka = db.tblPos_Put.Where(f => f.Num_Put == chk.NumPut && f.ID_Sanat == chk.SanId);
+
+                        if (putyovka.Any())
+                        {
+                            real.rest_begin_date = putyovka.First().DataSan;
+                        }
+                        else
+                        {
+                            throw new ApplicationException("Invalid Putyovka Number");
+                        }
+
                         var sanName = db.tblSprav_San.Where(z => z.ID == chk.SanId);
 
                         if (sanName.Any())
@@ -72,7 +83,7 @@ namespace KasabaKIAT.BusinessLogic.Putyovki.RealizasiyaPutyovok.RealizasitaPoTz
             }
 
 
-            return null;
+            return list;
         }
     }
 }

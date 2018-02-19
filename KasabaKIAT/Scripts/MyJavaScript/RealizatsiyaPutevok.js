@@ -13,10 +13,6 @@
             $("#hh").modal('hide');
         });
     }
-    $scope.iframeLoadedCallBack = function () {
-        $scope.desiredLocation = DataService.get();
-        alert($scope.desiredLocation.inn);
-    }
     function LoadINN(inn) {
         $scope.O = "";
         try {
@@ -188,6 +184,8 @@
 
 
     //---------------------------------------//
-    
+    $scope.Realiz = function () {
+        DataService.set(ar2, ar1, $scope.INN);
+    }
     //======================================//
 }]);

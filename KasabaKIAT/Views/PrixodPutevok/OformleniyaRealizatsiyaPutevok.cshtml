@@ -38,7 +38,7 @@
                 <tbody>
                     <tr  class="poin" ng-repeat="item in DATA">
                         <td>Турон</td>
-                        <td>35005</td>
+                        <td>{{item.serail_number}}</td>
                         <td>10.08.2018-20.08.2017</td>
                         <td>  Каюмов З.Х.</td>
                         <td>1 200 000</td>
@@ -49,10 +49,10 @@
                             <a href="#" class="table-link" data-toggle="modal" data-target="#zayavki">Заявки</a>
                         </td>
                     </tr>
-                    <tr ng-repeat="item in DATA_sum">
+                    @*<tr ng-repeat="item in DATA_sum">
                         <td colspan="4" class="text-right">Итого:</td>
                         <td colspan="3"><strong>{{item.d1}}</strong></td>
-                    </tr>
+                    </tr>*@
                 </tbody>
             </table>
         </div>

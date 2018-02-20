@@ -1,7 +1,9 @@
 ﻿using KasabaKiat.BusinessLogic;
 using KasabaKiat.Helpers;
 using KasabaKiat.ViewModel.Putyovki;
+using KasabaKIAT.BusinessLogic.Putyovki.RealizasiyaPutyovok.RealizasitaPoTz;
 using KasabaKIAT.Models;
+using KasabaKIAT.ViewModel.Putyovki;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,6 +18,7 @@ namespace KasabaKIAT.Controllers
     {
         KasabaKIATEntities KasabaDB = new KasabaKIATEntities();
         BronirovaniyaPutyovki BP = new BronirovaniyaPutyovki();
+        RealizasiyaPoTzCl OR = new RealizasiyaPoTzCl();
         public ActionResult Index()
         {
             int UserId = Convert.ToInt32(User.Identity.Name);
@@ -65,6 +68,32 @@ namespace KasabaKIAT.Controllers
             {
                 return View();
             }
+        }
+        public class SanPutTemp1
+        {
+            public int SanId { get; set; }
+
+            public string NumPut { get; set; }
+        }
+        public class SanPutTemp
+        {
+            public List<SanPutTemp1> b { get; set; }
+
+            public string inn { get; set; }
+        }
+        [AcceptVerbs(HttpVerbs.Post)]
+        public List<RealizasiyaByTzViewModel> ORP(List<SanAndPutViewModel> b, string inn)
+        {
+            //List<SanAndPutViewModel> br = new List<SanAndPutViewModel>();
+            //foreach (var bb in b)
+            //{
+            //    var mm = new SanAndPutViewModel();
+
+            //    mm.SanId = bb.SanId;
+            //    mm.NumPut = bb.NumPut;
+            //    br.Add(mm);
+            //}
+            return OR.GetOformRealizList(b, inn);
         }
         public JsonResult GetSanatory()
         {

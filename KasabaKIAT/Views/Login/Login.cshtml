@@ -178,23 +178,33 @@
                      $("#login").focus();
                      $("#xabarchi").html('<div class="failed"> login yoki parol noto`g`ri kiritilgan </div>');
                  }
-                 else
+                 else {
                      if (result.toString() == "-2") {
                          document.getElementById('modelcon').className = "modal-content";
                          document.getElementById('modelcon').style.visibility = "visible";
-                     $("#login").val("");
-                     $("#parol").val("");
-                     $("#login").focus();
-                     $("#xabarchi").html('<div class="failed"> login yoki parol maydoni to`ldirilmagan! </div>');
-                 }
-                 else
-                     {
-                         if (result.toString() == "8") {
-                             window.location.href = "/Home/Zayavok";
-                         }
-                         if (result.toString() == "13") {
-                             window.location.href = "/Home/Putyovki";
-                         }
+                         $("#login").val("");
+                         $("#parol").val("");
+                         $("#login").focus();
+                         $("#xabarchi").html('<div class="failed"> login yoki parol maydoni to`ldirilmagan! </div>');
+                     } else {
+                             if (result.toString() == "-9") {
+                                 document.getElementById('modelcon').className = "modal-content";
+                                 document.getElementById('modelcon').style.visibility = "visible";
+                                 $("#login").val("");
+                                 $("#parol").val("");
+                                 $("#login").focus();
+                                 $("#xabarchi").html('<div class="failed"> Serverda xatolik yuz berdi! </div>');
+                             }
+                             else
+                             {
+                                 if (result.toString() == "8") {
+                                     window.location.href = "/Home/Zayavok";
+                                 }
+                                 if (result.toString() == "13") {
+                                     window.location.href = "/Home/Putyovki";
+                                 }
+                             }
+                        }
                  }
              },
              error: function (result)

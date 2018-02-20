@@ -59,12 +59,25 @@ namespace KasabaKIAT.Controllers
         [Authorize(Roles = "COUNCIL_REGIONAL_REGION,ADMIN")]
         public ActionResult SpisokPravsoyuzov()
         {
-            IList<Models.ViewModel> O = (from o in KasabaDB.tbku_StrokaProfsoyza
-                                         select new Models.ViewModel
-                                         {
-                                             Kod = o.ProfsoyzKod,
-                                             Name = o.ProfsoyzNaimenovanie
-                                         }).ToList();
+            log.Info("SpisokPravsoyuzov");
+            IList<Models.ViewModel> O = null;
+
+            try
+            {
+                O = (from o in KasabaDB.tbku_StrokaProfsoyza
+                                             select new Models.ViewModel
+                                             {
+                                                 Kod = o.ProfsoyzKod,
+                                                 Name = o.ProfsoyzNaimenovanie
+                                             }).ToList();
+
+                log.Info("Count = " + O.ToList().Count); 
+            }
+            catch(Exception ex)
+            {
+                log.Info(ex);
+            }
+
             return View(O);
         }
         [Authorize(Roles = "COUNCIL_REGIONAL_REGION,ADMIN")]
@@ -84,144 +97,247 @@ namespace KasabaKIAT.Controllers
         }
         public JsonResult GetRaspredeleniyeZaezdov1(int yil,string kod)
         {
-            var O = from o in KasabaDB.tbku_GrafikZaezdovSanatoriev
-                    where o.GodZaezdov == yil&&o.SanatoryKod==kod
-                    select new
-                    {
-                        d1 = o.SanatoryNaimenovanie,
-                        d2 = o.SanatoryProfil,
-                        d3 = o.SanatoryOblast,
-                        d4 = o.SanatoryKoekVsego,
-                        d5 = o.SanatoryKoekLetom,
-                        d6 = o.SanatoryKoekZimoy,
-                        d7 = o.SanatoryRazmeshenieNaimenovanie,
-                        d8 = o.Putevok1kv,
-                        d9 = o.Putevok2kv,
-                        d10 = o.Putevok3kv,
-                        d11 = o.Putevok4kv
-                    };
-            return Json(O.ToList(), JsonRequestBehavior.AllowGet);
+
+            log.Info("GetRaspredeleniyeZaezdov1");
+            log.Info("yil = " + yil);
+            log.Info("kod = " + kod);
+
+            try
+            {
+                var O = from o in KasabaDB.tbku_GrafikZaezdovSanatoriev
+                        where o.GodZaezdov == yil && o.SanatoryKod == kod
+                        select new
+                        {
+                            d1 = o.SanatoryNaimenovanie,
+                            d2 = o.SanatoryProfil,
+                            d3 = o.SanatoryOblast,
+                            d4 = o.SanatoryKoekVsego,
+                            d5 = o.SanatoryKoekLetom,
+                            d6 = o.SanatoryKoekZimoy,
+                            d7 = o.SanatoryRazmeshenieNaimenovanie,
+                            d8 = o.Putevok1kv,
+                            d9 = o.Putevok2kv,
+                            d10 = o.Putevok3kv,
+                            d11 = o.Putevok4kv
+                        };
+
+                log.Info("Count = " + O.ToList().Count);
+
+                return Json(O.ToList(), JsonRequestBehavior.AllowGet);
+            }
+            catch(Exception ex)
+            {
+                log.Info(ex);
+            }
+
+            return null;
         }
         public JsonResult GetRaspredeleniyeZaezdov2(int yil, string kod)
         {
-            var O = from o in KasabaDB.tbku_SpisokRaspredeleniya
-                    where o.GodZaezdov == yil && o.SanatoryKod == kod
-                    select new
-                    {
-                        ID=o.ID,
-                        d1 = o.GodZaezdov,
-                        d2 = o.SanatoryKod,
-                        d3 = o.ProfsoyzKod,
-                        d4 = o.SanatoryRazmeshenieKod,
-                        d5 = o.Putevok1kv,
-                        d6 = o.Putevok2kv,
-                        d7 = o.Putevok3kv,
-                        d8 = o.Putevok4kv
-                    };
-            return Json(O.ToList(), JsonRequestBehavior.AllowGet);
+
+            log.Info("GetRaspredeleniyeZaezdov2");
+            log.Info("yil = " + yil);
+            log.Info("kod = " + kod);
+
+
+            try
+            {
+                var O = from o in KasabaDB.tbku_SpisokRaspredeleniya
+                        where o.GodZaezdov == yil && o.SanatoryKod == kod
+                        select new
+                        {
+                            ID = o.ID,
+                            d1 = o.GodZaezdov,
+                            d2 = o.SanatoryKod,
+                            d3 = o.ProfsoyzKod,
+                            d4 = o.SanatoryRazmeshenieKod,
+                            d5 = o.Putevok1kv,
+                            d6 = o.Putevok2kv,
+                            d7 = o.Putevok3kv,
+                            d8 = o.Putevok4kv
+                        };
+
+                log.Info("Count = " + O.ToList().Count);
+
+                return Json(O.ToList(), JsonRequestBehavior.AllowGet);
+            }
+            catch(Exception ex)
+            {
+                log.Error(ex);
+            }
+
+
+            return null;
         }
         public JsonResult GetSanatory(int yil)
         {
-            var O = from o in KasabaDB.tbku_GrafikZaezdovSanatoriev
-                    where o.GodZaezdov==yil
-                    select new
-                    {
-                        d1 = o.SanatoryKod,
-                        d2 = o.SanatoryNaimenovanie,
-                    };
-            var Groups = from p in O
-                         group p by new { p.d1,p.d2 } into g
-                         select new {d1=g.Key.d1,d2=g.Key.d2  };
-            return Json(Groups.ToList(), JsonRequestBehavior.AllowGet);
+            log.Info("GetSanatory");
+            log.Info("yil = " + yil);
+
+            try
+            {
+                var O = from o in KasabaDB.tbku_GrafikZaezdovSanatoriev
+                        where o.GodZaezdov == yil
+                        select new
+                        {
+                            d1 = o.SanatoryKod,
+                            d2 = o.SanatoryNaimenovanie,
+                        };
+                var Groups = from p in O
+                             group p by new { p.d1, p.d2 } into g
+                             select new { d1 = g.Key.d1, d2 = g.Key.d2 };
+                return Json(Groups.ToList(), JsonRequestBehavior.AllowGet);
+            }
+            catch(Exception ex)
+            {
+                log.Error(ex);
+            }
+
+            return null;
         }
+
         public JsonResult GetKod(int yil,string kod)
         {
-            var O = from o in KasabaDB.tbku_GrafikZaezdovSanatoriev
-                    where o.GodZaezdov == yil&&o.SanatoryKod==kod
-                    select new
-                    {
-                        d1 = o.SanatoryRazmeshenieKod,
-                        d2 = o.SanatoryRazmeshenieKod,
-                    };
-            return Json(O.ToList(), JsonRequestBehavior.AllowGet);
+
+            log.Info("GetKod");
+            log.Info("yil = " + yil);
+            log.Info("kod = " + kod);
+
+            try
+            {
+                var O = from o in KasabaDB.tbku_GrafikZaezdovSanatoriev
+                        where o.GodZaezdov == yil && o.SanatoryKod == kod
+                        select new
+                        {
+                            d1 = o.SanatoryRazmeshenieKod,
+                            d2 = o.SanatoryRazmeshenieKod,
+                        };
+                return Json(O.ToList(), JsonRequestBehavior.AllowGet);
+            }
+            catch(Exception ex)
+            {
+                log.Error(ex);
+            }
+
+            return null;
+
         }
         public String AddSpisokRaspredeleniya(tbku_SpisokRaspredeleniya PP)
         {
-            int UserId = Convert.ToInt32(User.Identity.Name);
-            if (PP != null)
+            log.Info("AddSpisokRaspredeleniya");
+
+            try
             {
-                using (KasabaKIATEntities k = new KasabaKIATEntities())
+                int UserId = Convert.ToInt32(User.Identity.Name);
+                if (PP != null)
                 {
-                    tbku_SpisokRaspredeleniya p1 = new tbku_SpisokRaspredeleniya();
-                    p1.GodZaezdov = PP.GodZaezdov;
-                    p1.SanatoryKod = PP.SanatoryKod;
-                    p1.ProfsoyzKod = PP.ProfsoyzKod;
-                    p1.SanatoryRazmeshenieKod = PP.SanatoryRazmeshenieKod;
-                    p1.Putevok1kv = PP.Putevok1kv;
-                    p1.Putevok2kv = PP.Putevok2kv;
-                    p1.Putevok3kv = PP.Putevok3kv;
-                    p1.Putevok4kv = PP.Putevok4kv;
-                    k.tbku_SpisokRaspredeleniya.Add(p1);
-                    k.SaveChanges();
-                    return "ok";
+                    using (KasabaKIATEntities k = new KasabaKIATEntities())
+                    {
+                        tbku_SpisokRaspredeleniya p1 = new tbku_SpisokRaspredeleniya();
+                        p1.GodZaezdov = PP.GodZaezdov;
+                        p1.SanatoryKod = PP.SanatoryKod;
+                        p1.ProfsoyzKod = PP.ProfsoyzKod;
+                        p1.SanatoryRazmeshenieKod = PP.SanatoryRazmeshenieKod;
+                        p1.Putevok1kv = PP.Putevok1kv;
+                        p1.Putevok2kv = PP.Putevok2kv;
+                        p1.Putevok3kv = PP.Putevok3kv;
+                        p1.Putevok4kv = PP.Putevok4kv;
+                        k.tbku_SpisokRaspredeleniya.Add(p1);
+                        k.SaveChanges();
+                        return "ok";
+                    }
+                }
+                else
+                {
+                    return "error";
                 }
             }
-            else
+            catch(Exception ex)
             {
-                return "error";
+                log.Error(ex);
             }
+
+            return null;
+
         }
+
+
         public string UpdateSpisokRaspredeleniya(tbku_SpisokRaspredeleniya PP)
         {
-            if (PP != null)
+            log.Info("UpdateSpisokRaspredeleniya");
+
+            try
             {
-                using (KasabaKIATEntities k = new KasabaKIATEntities())
+                if (PP != null)
                 {
-                    tbku_SpisokRaspredeleniya p1 = new tbku_SpisokRaspredeleniya();
-                    p1.GodZaezdov = PP.GodZaezdov;
-                    p1.SanatoryKod = PP.SanatoryKod;
-                    p1.ProfsoyzKod = PP.ProfsoyzKod;
-                    p1.SanatoryRazmeshenieKod = PP.SanatoryRazmeshenieKod;
-                    p1.Putevok1kv = PP.Putevok1kv;
-                    p1.Putevok2kv = PP.Putevok2kv;
-                    p1.Putevok3kv = PP.Putevok3kv;
-                    p1.Putevok4kv = PP.Putevok4kv;
-                    k.SaveChanges();
-                    return "ok";
+                    using (KasabaKIATEntities k = new KasabaKIATEntities())
+                    {
+                        tbku_SpisokRaspredeleniya p1 = new tbku_SpisokRaspredeleniya();
+                        p1.GodZaezdov = PP.GodZaezdov;
+                        p1.SanatoryKod = PP.SanatoryKod;
+                        p1.ProfsoyzKod = PP.ProfsoyzKod;
+                        p1.SanatoryRazmeshenieKod = PP.SanatoryRazmeshenieKod;
+                        p1.Putevok1kv = PP.Putevok1kv;
+                        p1.Putevok2kv = PP.Putevok2kv;
+                        p1.Putevok3kv = PP.Putevok3kv;
+                        p1.Putevok4kv = PP.Putevok4kv;
+                        k.SaveChanges();
+                        return "ok";
+                    }
+                }
+                else
+                {
+                    return "error";
                 }
             }
-            else
+            catch(Exception ex)
             {
-                return "error";
+                log.Error(ex);
             }
+
+            return "";
         }
         public string DeleteSpisokRaspredeleniya(string id)
         {
-            if (!String.IsNullOrEmpty(id))
+            log.Info("DeleteSpisokRaspredeleniya");
+
+            try
             {
-                try
+                if (!String.IsNullOrEmpty(id))
                 {
-                    int _bookId = Int32.Parse(id);
-                    using (KasabaKIATEntities contextObj = new KasabaKIATEntities())
+                    try
                     {
-                        var _book = contextObj.tbku_SpisokRaspredeleniya.Find(_bookId);
-                        contextObj.tbku_SpisokRaspredeleniya.Remove(_book);
-                        contextObj.SaveChanges();
-                        return "Selected book record deleted sucessfully";
+                        int _bookId = Int32.Parse(id);
+                        using (KasabaKIATEntities contextObj = new KasabaKIATEntities())
+                        {
+                            var _book = contextObj.tbku_SpisokRaspredeleniya.Find(_bookId);
+                            contextObj.tbku_SpisokRaspredeleniya.Remove(_book);
+                            contextObj.SaveChanges();
+                            return "Selected book record deleted sucessfully";
+                        }
+                    }
+                    catch (Exception)
+                    {
+                        return "Book details not found";
                     }
                 }
-                catch (Exception)
+                else
                 {
-                    return "Book details not found";
+                    return "Invalid operation";
                 }
             }
-            else
+            catch(Exception ex)
             {
-                return "Invalid operation";
+                log.Error(ex);
             }
+
+            return "";
         }
+
         public void ServiceSpisokPravsoyuzov()
         {
+            log.Info("ServiceSpisokPravsoyuzov");
+
             try
             {
                 service.LoadSpiskaProfsoyzov();
@@ -231,19 +347,34 @@ namespace KasabaKIAT.Controllers
                 log.Error(ex);
             }
         }
+
         public JsonResult GetSpisokPravsoyuzov()
         {
-            var O = from o in KasabaDB.tbku_StrokaProfsoyza
-                    select new
-                    {
-                        d1 = o.ProfsoyzKod,
-                        d2 = o.ProfsoyzNaimenovanie
-                    };
-            return Json(O.ToList(), JsonRequestBehavior.AllowGet);
+            log.Info("GetSpisokPravsoyuzov");
+
+            try
+            {
+                var O = from o in KasabaDB.tbku_StrokaProfsoyza
+                        select new
+                        {
+                            d1 = o.ProfsoyzKod,
+                            d2 = o.ProfsoyzNaimenovanie
+                        };
+                return Json(O.ToList(), JsonRequestBehavior.AllowGet);
+            }
+            catch(Exception ex)
+            {
+                log.Error(ex);
+            }
+
+            return null;
 
         }
         public void ServiceGrafikSanatoryZaezdov(string yil)
         {
+            log.Info("ServiceGrafikSanatoryZaezdov");
+            log.Info("yil = " + yil);
+
             try
             {
                 service.LoadZaezdovSanatoriev(yil);
@@ -255,27 +386,45 @@ namespace KasabaKIAT.Controllers
         }
         public JsonResult GetGrafikSanatoryZaezdov(int yil)
         {
-            var O = from o in KasabaDB.tbku_GrafikZaezdovSanatoriev
-                    where o.GodZaezdov==yil
-                    select new
-                    {
-                        d1 = o.SanatoryNaimenovanie,
-                        d2 = o.SanatoryProfil,
-                        d3=o.SanatoryOblast,
-                        d4=o.SanatoryKoekVsego,
-                        d5=o.SanatoryKoekLetom,
-                        d6=o.SanatoryKoekZimoy,
-                        d7=o.SanatoryRazmeshenieNaimenovanie,
-                        d8=o.Putevok1kv,
-                        d9=o.Putevok2kv,
-                        d10=o.Putevok3kv,
-                        d11=o.Putevok4kv
-                    };
-            return Json(O.ToList(), JsonRequestBehavior.AllowGet);
+
+            log.Info("GetGrafikSanatoryZaezdov");
+            log.Info("yil = " + yil);
+
+            try
+            {
+                var O = from o in KasabaDB.tbku_GrafikZaezdovSanatoriev
+                        where o.GodZaezdov == yil
+                        select new
+                        {
+                            d1 = o.SanatoryNaimenovanie,
+                            d2 = o.SanatoryProfil,
+                            d3 = o.SanatoryOblast,
+                            d4 = o.SanatoryKoekVsego,
+                            d5 = o.SanatoryKoekLetom,
+                            d6 = o.SanatoryKoekZimoy,
+                            d7 = o.SanatoryRazmeshenieNaimenovanie,
+                            d8 = o.Putevok1kv,
+                            d9 = o.Putevok2kv,
+                            d10 = o.Putevok3kv,
+                            d11 = o.Putevok4kv
+                        };
+                return Json(O.ToList(), JsonRequestBehavior.AllowGet);
+            }
+            catch(Exception ex)
+            {
+                log.Error(ex);
+            }
+
+            return null;
+
         }
         public void ServiceSchetFaktura(DateTime B,DateTime E, string p)
         {
-            
+            log.Info("ServiceSchetFaktura");
+            log.Info("B = " + B);
+            log.Info("E = " + E);
+            log.Info("p = " + p);
+
             try
             {
                 service.LoadSchetFactura(B, E, p);
@@ -288,6 +437,11 @@ namespace KasabaKIAT.Controllers
 
         public void OprixodovaniyaSchetFaktura(DateTime B, DateTime E, string p)
         {
+
+            log.Info("OprixodovaniyaSchetFaktura");
+            log.Info("B = " + B);
+            log.Info("E = " + E);
+            log.Info("p = " + p);
 
             try
             {
@@ -307,309 +461,501 @@ namespace KasabaKIAT.Controllers
 
         public JsonResult GetSchetFaktura(DateTime B,DateTime E,string p)
         {
+            log.Info("GetSchetFaktura");
+            log.Info("B = " + B);
+            log.Info("E = " + E);
+            log.Info("p = " + p);
+
             DateTime aperiodOkonchaniye = E;
             TimeSpan ts = new TimeSpan(23, 59, 59);
             aperiodOkonchaniye = aperiodOkonchaniye.Date + ts;
 
-            var O = from o in KasabaDB.tbku_DocumentSchetFaktura
-                    where o.DocData >= B && o.DocData <= aperiodOkonchaniye && o.ProfsoyzKod==p
-                    select new
-                    {
-                        d0=o.ID,
-                        d1 = o.DocNomer,
-                        d2 = o.DocData,
-                        d3 = o.DocTypeRealVozv,
-                        d4 = o.ProfsoyzDogovor,
-                        d5 = o.DataKvartalaPutevok,
-                        d6 = o.ProfsoyzDoverennost,
-                        d7 = o.ProfsoyzDoverennostData,
-                        d8 = o.ProfsoyzDoverennostMOL,
-                        d9 = o.ProfsoyzDoverennostMOL,
-                        d10 = o.ProcentNacenki,
-                        d11 = o.SummaNacenki,
-                        d12 = o.KolichestvoPutevok,
-                        d13 = o.TovarOtpustil,
-                    };
-            return Json(O.ToList(), JsonRequestBehavior.AllowGet);
+            try
+            {
+                var O = from o in KasabaDB.tbku_DocumentSchetFaktura
+                        where o.DocData >= B && o.DocData <= aperiodOkonchaniye && o.ProfsoyzKod == p
+                        select new
+                        {
+                            d0 = o.ID,
+                            d1 = o.DocNomer,
+                            d2 = o.DocData,
+                            d3 = o.DocTypeRealVozv,
+                            d4 = o.ProfsoyzDogovor,
+                            d5 = o.DataKvartalaPutevok,
+                            d6 = o.ProfsoyzDoverennost,
+                            d7 = o.ProfsoyzDoverennostData,
+                            d8 = o.ProfsoyzDoverennostMOL,
+                            d9 = o.ProfsoyzDoverennostMOL,
+                            d10 = o.ProcentNacenki,
+                            d11 = o.SummaNacenki,
+                            d12 = o.KolichestvoPutevok,
+                            d13 = o.TovarOtpustil,
+                        };
+                return Json(O.ToList(), JsonRequestBehavior.AllowGet);
+            }
+            catch(Exception ex)
+            {
+                log.Error(ex);
+            }
+
+            return null;
+
         }
         public JsonResult GetStrokaSchetFakturi(int id)
         {
-            var O = from o in KasabaDB.tbku_StrokaSchetFakturi
-                    where o.SchetFactura_ID==id
-                    select new
-                    {
-                        d0 = o.ID,
-                        d1 = o.SchetFactura_ID,
-                        d2 = o.SanatoryNaimenovanie,
-                        d3 = o.SanatoryRazmeshenieNaimenovanie,
-                        d4 = o.SanatoryType,
-                        d5 = o.DataZaezda,
-                        d6 = o.Blank1,
-                        d7 = o.Blank2,
-                        d8 = o.Kolichestvo,
-                        d9 = o.Sebestoimost,
-                        d10 = o.SummaSebestoimosti,
-                        d11 = o.ProcentNacenki,
-                        d12 = o.Cena,
-                        d13 = o.Summa,
-                    };
-            return Json(O.ToList(), JsonRequestBehavior.AllowGet);
+            log.Info("GetStrokaSchetFakturi");
+            log.Info("id = " + id);
+
+            try
+            {
+                var O = from o in KasabaDB.tbku_StrokaSchetFakturi
+                        where o.SchetFactura_ID == id
+                        select new
+                        {
+                            d0 = o.ID,
+                            d1 = o.SchetFactura_ID,
+                            d2 = o.SanatoryNaimenovanie,
+                            d3 = o.SanatoryRazmeshenieNaimenovanie,
+                            d4 = o.SanatoryType,
+                            d5 = o.DataZaezda,
+                            d6 = o.Blank1,
+                            d7 = o.Blank2,
+                            d8 = o.Kolichestvo,
+                            d9 = o.Sebestoimost,
+                            d10 = o.SummaSebestoimosti,
+                            d11 = o.ProcentNacenki,
+                            d12 = o.Cena,
+                            d13 = o.Summa,
+                        };
+                return Json(O.ToList(), JsonRequestBehavior.AllowGet);
+            }
+            catch(Exception ex)
+            {
+                log.Error(ex);
+            }
+
+            return null;
         }
 
         public JsonResult GetSNP()
         {
-            var camp = from dict in KasabaDB.tbcs_dictionary
-                       join dictType in KasabaDB.tbcs_dictionarytype on
-                       dict.DICTIONARY_TYPE_ID equals dictType.REC_ID
-                       where dictType.CODE == "NaznacheniyaPlateja"
-                       select new
-                       {
-                           REC_ID = dict.REC_ID,
-                           NAME_UZ = dict.NAME_UZ
-                       };
+            log.Info("GetSNP");
 
-            return Json(camp, JsonRequestBehavior.AllowGet);
+            try
+            {
+                var camp = from dict in KasabaDB.tbcs_dictionary
+                           join dictType in KasabaDB.tbcs_dictionarytype on
+                           dict.DICTIONARY_TYPE_ID equals dictType.REC_ID
+                           where dictType.CODE == "NaznacheniyaPlateja"
+                           select new
+                           {
+                               REC_ID = dict.REC_ID,
+                               NAME_UZ = dict.NAME_UZ
+                           };
+
+                return Json(camp, JsonRequestBehavior.AllowGet);
+            }
+            catch(Exception ex)
+            {
+                log.Error(ex);
+            }
+
+            return null;
+
         }
         public JsonResult GetSPP()
         {
-            var camp = from dict in KasabaDB.tbcs_dictionary
-                       join dictType in KasabaDB.tbcs_dictionarytype on
-                       dict.DICTIONARY_TYPE_ID equals dictType.REC_ID
-                       where dictType.CODE == "order"
-                       select new
-                       {
-                           REC_ID = dict.REC_ID,
-                           NAME_UZ = dict.NAME_UZ
-                       };
 
-            return Json(camp, JsonRequestBehavior.AllowGet);
+            log.Info("GetSPP");
+
+
+            try
+            {
+                var camp = from dict in KasabaDB.tbcs_dictionary
+                           join dictType in KasabaDB.tbcs_dictionarytype on
+                           dict.DICTIONARY_TYPE_ID equals dictType.REC_ID
+                           where dictType.CODE == "order"
+                           select new
+                           {
+                               REC_ID = dict.REC_ID,
+                               NAME_UZ = dict.NAME_UZ
+                           };
+
+                return Json(camp, JsonRequestBehavior.AllowGet);
+            }
+            catch(Exception ex)
+            {
+                log.Error(ex);
+            }
+
+            return null;
+
         }
+
         public JsonResult GetSSPO()
         {
-            var camp = from dict in KasabaDB.tbcs_dictionary
-                       join dictType in KasabaDB.tbcs_dictionarytype on
-                       dict.DICTIONARY_TYPE_ID equals dictType.REC_ID
-                       where dictType.CODE == "Otdixayushix"
-                       select new
-                       {
-                           REC_ID = dict.REC_ID,
-                           NAME_UZ = dict.NAME_UZ
-                       };
-            return Json(camp, JsonRequestBehavior.AllowGet);
+            log.Info("GetSSPO");
+
+            try
+            {
+                var camp = from dict in KasabaDB.tbcs_dictionary
+                           join dictType in KasabaDB.tbcs_dictionarytype on
+                           dict.DICTIONARY_TYPE_ID equals dictType.REC_ID
+                           where dictType.CODE == "Otdixayushix"
+                           select new
+                           {
+                               REC_ID = dict.REC_ID,
+                               NAME_UZ = dict.NAME_UZ
+                           };
+                return Json(camp, JsonRequestBehavior.AllowGet);
+            }
+            catch(Exception ex)
+            {
+                log.Error(ex);
+            }
+
+            return null;
+
         }
+
+
         public string AddSTRS(tbcs_dictionary pz)
         {
-            if (pz != null)
+            log.Info("AddSTRS");
+
+            try
             {
-                using (KasabaKIATEntities contextObj = new KasabaKIATEntities())
+                if (pz != null)
                 {
-                    tbcs_dictionary z = new tbcs_dictionary();
-                    tbcs_dictionarytype pti = contextObj.tbcs_dictionarytype.Where(b => b.CODE == "placetype").FirstOrDefault();
-                    z.USER_ID = Convert.ToInt32(User.Identity.Name);
-                    z.NAME_RU = pz.NAME_RU;
-                    z.NAME_UZ = pz.NAME_UZ;
-                    z.NAME_LT = pz.NAME_LT;
-                    z.STATUS = true;
-                    z.DICTIONARY_TYPE_ID = pti.REC_ID;
-                    z.CODE = z.REC_ID.ToString();
-                    contextObj.tbcs_dictionary.Add(z);
-                    contextObj.SaveChanges();
-                    return "tbcs_dictionary record added successfully";
+                    using (KasabaKIATEntities contextObj = new KasabaKIATEntities())
+                    {
+                        tbcs_dictionary z = new tbcs_dictionary();
+                        tbcs_dictionarytype pti = contextObj.tbcs_dictionarytype.Where(b => b.CODE == "placetype").FirstOrDefault();
+                        z.USER_ID = Convert.ToInt32(User.Identity.Name);
+                        z.NAME_RU = pz.NAME_RU;
+                        z.NAME_UZ = pz.NAME_UZ;
+                        z.NAME_LT = pz.NAME_LT;
+                        z.STATUS = true;
+                        z.DICTIONARY_TYPE_ID = pti.REC_ID;
+                        z.CODE = z.REC_ID.ToString();
+                        contextObj.tbcs_dictionary.Add(z);
+                        contextObj.SaveChanges();
+                        return "tbcs_dictionary record added successfully";
+                    }
+                }
+                else
+                {
+                    return "Invalid tbcs_dictionary record";
                 }
             }
-            else
+            catch(Exception ex)
             {
-                return "Invalid tbcs_dictionary record";
+                log.Error(ex);
             }
+
+            return null;
         }
+
         public string AddSNP(tbcs_dictionary pz)
         {
-            if (pz != null)
+            log.Info("AddSNP");
+
+            try
             {
-                using (KasabaKIATEntities contextObj = new KasabaKIATEntities())
+                if (pz != null)
                 {
-                    tbcs_dictionary z = new tbcs_dictionary();
-                    tbcs_dictionarytype pti = contextObj.tbcs_dictionarytype.Where(b => b.CODE == "NaznacheniyaPlateja").FirstOrDefault();
-                    z.USER_ID = Convert.ToInt32(User.Identity.Name);
-                    z.NAME_RU = pz.NAME_RU;
-                    z.NAME_UZ = pz.NAME_UZ;
-                    z.NAME_LT = pz.NAME_LT;
-                    z.STATUS = true;
-                    z.DICTIONARY_TYPE_ID = pti.REC_ID;
-                    z.CODE = z.REC_ID.ToString();
-                    contextObj.tbcs_dictionary.Add(z);
-                    contextObj.SaveChanges();
-                    return "tbcs_dictionary record added successfully";
+                    using (KasabaKIATEntities contextObj = new KasabaKIATEntities())
+                    {
+                        tbcs_dictionary z = new tbcs_dictionary();
+                        tbcs_dictionarytype pti = contextObj.tbcs_dictionarytype.Where(b => b.CODE == "NaznacheniyaPlateja").FirstOrDefault();
+                        z.USER_ID = Convert.ToInt32(User.Identity.Name);
+                        z.NAME_RU = pz.NAME_RU;
+                        z.NAME_UZ = pz.NAME_UZ;
+                        z.NAME_LT = pz.NAME_LT;
+                        z.STATUS = true;
+                        z.DICTIONARY_TYPE_ID = pti.REC_ID;
+                        z.CODE = z.REC_ID.ToString();
+                        contextObj.tbcs_dictionary.Add(z);
+                        contextObj.SaveChanges();
+                        return "tbcs_dictionary record added successfully";
+                    }
+                }
+                else
+                {
+                    return "Invalid tbcs_dictionary record";
                 }
             }
-            else
+            catch(Exception ex)
             {
-                return "Invalid tbcs_dictionary record";
+                log.Error(ex);
             }
+
+            return null;
         }
+
         public string AddSSPO(tbcs_dictionary pz)
         {
-            if (pz != null)
+            log.Info("AddSSPO");
+
+            try
             {
-                using (KasabaKIATEntities contextObj = new KasabaKIATEntities())
+                if (pz != null)
                 {
-                    tbcs_dictionary z = new tbcs_dictionary();
-                    tbcs_dictionarytype pti = contextObj.tbcs_dictionarytype.Where(b => b.CODE == "Otdixayushix").FirstOrDefault();
-                    z.USER_ID = Convert.ToInt32(User.Identity.Name);
-                    z.NAME_RU = pz.NAME_RU;
-                    z.NAME_UZ = pz.NAME_UZ;
-                    z.NAME_LT = pz.NAME_LT;
-                    z.STATUS = true;
-                    z.DICTIONARY_TYPE_ID = pti.REC_ID;
-                    z.CODE = z.REC_ID.ToString();
-                    contextObj.tbcs_dictionary.Add(z);
-                    contextObj.SaveChanges();
-                    return "tbcs_dictionary record added successfully";
+                    using (KasabaKIATEntities contextObj = new KasabaKIATEntities())
+                    {
+                        tbcs_dictionary z = new tbcs_dictionary();
+                        tbcs_dictionarytype pti = contextObj.tbcs_dictionarytype.Where(b => b.CODE == "Otdixayushix").FirstOrDefault();
+                        z.USER_ID = Convert.ToInt32(User.Identity.Name);
+                        z.NAME_RU = pz.NAME_RU;
+                        z.NAME_UZ = pz.NAME_UZ;
+                        z.NAME_LT = pz.NAME_LT;
+                        z.STATUS = true;
+                        z.DICTIONARY_TYPE_ID = pti.REC_ID;
+                        z.CODE = z.REC_ID.ToString();
+                        contextObj.tbcs_dictionary.Add(z);
+                        contextObj.SaveChanges();
+                        return "tbcs_dictionary record added successfully";
+                    }
+                }
+                else
+                {
+                    return "Invalid tbcs_dictionary record";
                 }
             }
-            else
+            catch(Exception ex)
             {
-                return "Invalid tbcs_dictionary record";
+                log.Error(ex);
             }
+
+            return null;
         }
+
         public string UpdateSTRS(tbcs_dictionary pz)
         {
-            if (pz != null)
+
+            log.Info("UpdateSTRS");
+
+            try
             {
-                using (KasabaKIATEntities contextObj = new KasabaKIATEntities())
+                if (pz != null)
                 {
-                    int bookId = Convert.ToInt32(pz.REC_ID);
-                    tbcs_dictionary z = contextObj.tbcs_dictionary.Where(b => b.REC_ID == bookId).FirstOrDefault();
-                    z.USER_ID = Convert.ToInt32(User.Identity.Name);
-                    z.NAME_RU = pz.NAME_RU;
-                    z.NAME_UZ = pz.NAME_UZ;
-                    z.NAME_LT = pz.NAME_LT;
-                    z.CODE = z.REC_ID.ToString();
-                    z.STATUS = true;
-                    contextObj.SaveChanges();
-                    return "tbcs_dictionary record updated successfully";
+                    using (KasabaKIATEntities contextObj = new KasabaKIATEntities())
+                    {
+                        int bookId = Convert.ToInt32(pz.REC_ID);
+                        tbcs_dictionary z = contextObj.tbcs_dictionary.Where(b => b.REC_ID == bookId).FirstOrDefault();
+                        z.USER_ID = Convert.ToInt32(User.Identity.Name);
+                        z.NAME_RU = pz.NAME_RU;
+                        z.NAME_UZ = pz.NAME_UZ;
+                        z.NAME_LT = pz.NAME_LT;
+                        z.CODE = z.REC_ID.ToString();
+                        z.STATUS = true;
+                        contextObj.SaveChanges();
+                        return "tbcs_dictionary record updated successfully";
+                    }
+                }
+                else
+                {
+                    return "Invalid tbcs_dictionary record";
                 }
             }
-            else
+            catch (Exception ex)
             {
-                return "Invalid tbcs_dictionary record";
+                log.Error(ex);
             }
+
+            return null;
         }
+
         public string DeleteSTRS(string id)
         {
 
-            if (!String.IsNullOrEmpty(id))
+            log.Info("DeleteSTRS");
+            log.Info("id = " + id);
+
+            try
             {
-                try
+                if (!String.IsNullOrEmpty(id))
                 {
-                    int _bookId = Int32.Parse(id);
-                    using (KasabaKIATEntities contextObj = new KasabaKIATEntities())
+                    try
                     {
-                        var _book = contextObj.tbcs_dictionary.Find(_bookId);
-                        contextObj.tbcs_dictionary.Remove(_book);
-                        contextObj.SaveChanges();
-                        return "sucessfully";
+                        int _bookId = Int32.Parse(id);
+                        using (KasabaKIATEntities contextObj = new KasabaKIATEntities())
+                        {
+                            var _book = contextObj.tbcs_dictionary.Find(_bookId);
+                            contextObj.tbcs_dictionary.Remove(_book);
+                            contextObj.SaveChanges();
+                            return "sucessfully";
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        log.Error(ex);
+                        return "not found";
                     }
                 }
-                catch (Exception ex)
+                else
                 {
-                    log.Error(ex);
-                    return "not found";
+                    return "Invalid operation";
                 }
             }
-            else
+            catch(Exception ex)
             {
-                return "Invalid operation";
+                log.Error(ex);
             }
+
+            return null;
+ 
         }
         public JsonResult GetSSSP()
         {
-            var camp = from dict in KasabaDB.tbpt_avarageprice
-                       select new
-                       {
-                           ID = dict.REC_ID,
-                           ST = dict.SET_DATE,
-                           A=dict.AMOUNT
-                       };
+            log.Info("GetSSSP");
 
-            return Json(camp, JsonRequestBehavior.AllowGet);
+            try
+            {
+                var camp = from dict in KasabaDB.tbpt_avarageprice
+                           select new
+                           {
+                               ID = dict.REC_ID,
+                               ST = dict.SET_DATE,
+                               A = dict.AMOUNT
+                           };
+
+                return Json(camp, JsonRequestBehavior.AllowGet);
+            }
+            catch(Exception ex)
+            {
+                log.Error(ex);
+            }
+
+            return null;
+
         }
+
         public string AddSSSP(tbpt_avarageprice pz)
         {
-            if (pz != null)
+            log.Info("AddSSSP");
+
+            try
             {
-                using (KasabaKIATEntities contextObj = new KasabaKIATEntities())
+                if (pz != null)
                 {
-                    tbpt_avarageprice z = new tbpt_avarageprice();
-                    z.SET_DATE = pz.SET_DATE;
-                    z.AMOUNT = pz.AMOUNT;
-                    z.USER_ID = Convert.ToInt32(User.Identity.Name);
-                    contextObj.tbpt_avarageprice.Add(z);
-                    contextObj.SaveChanges();
-                    return "tbcs_dictionary record added successfully";
+                    using (KasabaKIATEntities contextObj = new KasabaKIATEntities())
+                    {
+                        tbpt_avarageprice z = new tbpt_avarageprice();
+                        z.SET_DATE = pz.SET_DATE;
+                        z.AMOUNT = pz.AMOUNT;
+                        z.USER_ID = Convert.ToInt32(User.Identity.Name);
+                        contextObj.tbpt_avarageprice.Add(z);
+                        contextObj.SaveChanges();
+                        return "tbcs_dictionary record added successfully";
+                    }
+                }
+                else
+                {
+                    return "Invalid tbcs_dictionary record";
                 }
             }
-            else
+            catch(Exception ex)
             {
-                return "Invalid tbcs_dictionary record";
+                log.Error(ex);
             }
+
+            return null;
         }
         public string UpdateSSSP(tbpt_avarageprice pz)
         {
-            if (pz != null)
-            {
-                using (KasabaKIATEntities contextObj = new KasabaKIATEntities())
-                {
-                    int bookId = Convert.ToInt32(pz.REC_ID);
-                    tbpt_avarageprice z = contextObj.tbpt_avarageprice.Where(b => b.REC_ID == bookId).FirstOrDefault();
-                    z.SET_DATE = pz.SET_DATE;
-                    z.AMOUNT = pz.AMOUNT;
-                    z.USER_ID = Convert.ToInt32(User.Identity.Name);
-                    contextObj.SaveChanges();
-                    return "tbcs_dictionary record updated successfully";
-                }
-            }
-            else
-            {
-                return "Invalid tbcs_dictionary record";
-            }
-        }
-        public string DeleteSSSP(string id)
-        {
+            log.Info("UpdateSSSP");
 
-            if (!String.IsNullOrEmpty(id))
+            try
             {
-                try
+                if (pz != null)
                 {
-                    int _bookId = Int32.Parse(id);
                     using (KasabaKIATEntities contextObj = new KasabaKIATEntities())
                     {
-                        var _book = contextObj.tbpt_avarageprice.Find(_bookId);
-                        contextObj.tbpt_avarageprice.Remove(_book);
+                        int bookId = Convert.ToInt32(pz.REC_ID);
+                        tbpt_avarageprice z = contextObj.tbpt_avarageprice.Where(b => b.REC_ID == bookId).FirstOrDefault();
+                        z.SET_DATE = pz.SET_DATE;
+                        z.AMOUNT = pz.AMOUNT;
+                        z.USER_ID = Convert.ToInt32(User.Identity.Name);
                         contextObj.SaveChanges();
-                        return "sucessfully";
+                        return "tbcs_dictionary record updated successfully";
                     }
                 }
-                catch (Exception)
+                else
                 {
-                    return "not found";
+                    return "Invalid tbcs_dictionary record";
                 }
             }
-            else
+            catch(Exception ex)
             {
-                return "Invalid operation";
+                log.Error(ex);
             }
+
+            return null;
         }
+
+
+        public string DeleteSSSP(string id)
+        {
+            log.Info("DeleteSSSP");
+            log.Info("id = " + id);
+
+            try
+            {
+                if (!String.IsNullOrEmpty(id))
+                {
+                    try
+                    {
+                        int _bookId = Int32.Parse(id);
+                        using (KasabaKIATEntities contextObj = new KasabaKIATEntities())
+                        {
+                            var _book = contextObj.tbpt_avarageprice.Find(_bookId);
+                            contextObj.tbpt_avarageprice.Remove(_book);
+                            contextObj.SaveChanges();
+                            return "sucessfully";
+                        }
+                    }
+                    catch (Exception)
+                    {
+                        return "not found";
+                    }
+                }
+                else
+                {
+                    return "Invalid operation";
+                }
+            }
+            catch(Exception ex)
+            {
+                log.Error(ex);
+            }
+
+            return null;
+        }
+
+
         public JsonResult GetDB()
         {
-            var data = from dp in KasabaDB.t_departmentbase
-                       select new
-                       {
-                           id = dp.code,
-                           value = dp.name_uz
-                       };
-            return Json(data, JsonRequestBehavior.AllowGet);
+            log.Info("GetDB");
+
+            try
+            {
+                var data = from dp in KasabaDB.t_departmentbase
+                           select new
+                           {
+                               id = dp.code,
+                               value = dp.name_uz
+                           };
+                return Json(data, JsonRequestBehavior.AllowGet);
+            }
+            catch(Exception ex)
+            {
+                log.Error(ex);
+            }
+
+            return null;
         }
+
         public JsonResult GetSP()
         {
             var camp = from dict in KasabaDB.provodok

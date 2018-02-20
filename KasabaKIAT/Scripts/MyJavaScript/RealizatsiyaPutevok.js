@@ -1,4 +1,5 @@
-﻿app.controller("RealizatsiyaPutevok", ["$scope", "$http", "$filter", "DataService", function ($scope, $http, $filter, DataService) {
+﻿app.controller("RealizatsiyaPutevok", ["$scope", "$http", "$filter", "DataService", "CalcService", function ($scope, $http, $filter, DataService, CalcService) {
+    //$scope.INN = "200382518";
     LoadDATA();
     $scope.showdata = false;
     function GetSanatory() {
@@ -21,7 +22,6 @@
                     method: 'get',
                     url: '/PrixodPutevok/LoadINN?inn=' + inn
                 }).then(function (response) {
-                    console.log(response, 'res');
                     $scope.O = response.data;
                 }, function (error) {
                     console.log(error, 'error in LoadINN');
@@ -35,6 +35,7 @@
     $scope.LoadINN = function () {
         var inn = $scope.INN;
         LoadINN(inn);
+        Data = { b: stringArrayd, inn: inn };
     }
   
     
@@ -88,10 +89,22 @@
     var ar1 = new Array();
     var ar2 = new Array();
     var d = {};
+    var dd = {};
+    var stringArrayd = new Array();
+    var Data = {};
+    
     $scope.BronChange = function (BronNumber, SanID) {
         ar1[i] = BronNumber;
         ar2[i] = SanID;
         i++;
+        for (var k = 0; k < ar2.length; k++) {
+            dd = {
+                SanId: ar2[k],
+                NumPut: ar1[k],
+            };
+            stringArrayd[k] = dd;
+            
+        }
     }
     $scope.Bron = function () {
         var stringArray = new Array();
@@ -182,10 +195,38 @@
         return false;
     }
 
-
     //---------------------------------------//
     $scope.Realiz = function () {
-        DataService.set(ar2, ar1, $scope.INN);
+        //$('#dobavit2').modal('hide');
+        //$('#dobavit2').modal('show');
+        var k = 0;
+        $http({
+            method: "POST",
+            url: "/PrixodPutevok/GetOformleniyaRealizatsiyaPutevok",
+            data: JSON.stringify(Data),
+            contentType: "application/json; charset=utf-8",
+        }).then(function (d) {
+            k++;
+            $scope.DATA = d.data;
+            console.log(d, k);
+            $("#hh").modal('hide');
+        }, function () {
+            //alert("error in PP_S");
+            console.log("error in GetOformleniyaRealizatsiyaPutevok");
+            $("#hh").modal('hide');
+        });
+    }
+    $scope.LoadZ = function () {
+        $http({
+            method: "POST",
+            url: "/PrixodPutevok/GetZList?inn=" + $scope.INN,
+        }).then(function (d) {
+            $scope.DATA2 = d.data;
+            $("#hh").modal('hide');
+        }, function () {
+            console.log("error in GetZList");
+            $("#hh").modal('hide');
+        });
     }
     //======================================//
 }]);

@@ -12,6 +12,7 @@ namespace KasabaKIAT.BusinessLogic.Putyovki.RealizasiyaPutyovok.RealizasitaPoTz
         public List<RealizasiyaByTzViewModel> GetOformRealizList(List<SanAndPutViewModel> checkedList , string inn)
         {
             var list = new List<RealizasiyaByTzViewModel>();
+            List<long> exceptList = new List<long>();
 
             if (checkedList == null) return null;
 
@@ -57,17 +58,30 @@ namespace KasabaKIAT.BusinessLogic.Putyovki.RealizasiyaPutyovok.RealizasitaPoTz
                         {
                             var queryZayavL = queryZayav.ToList();
 
+                            bool freeZayavkaExists = false;
+                            long zayka_rec = 0;
+
                             foreach (var zayka in queryZayavL)
                             {
-                                var zayavka = queryZayavL.FirstOrDefault();
 
-                                if (zayavka == null) break;
+                                var exists = exceptList.Where(ll => ll == zayka.REC_ID);
 
-                                real.zayavka_id = zayavka.REC_ID;
-                                real.full_name = zayavka.FULL_NAME;
+                                if (!exists.Any())
+                                {
+                                    freeZayavkaExists = true;
 
-                                queryZayavL.Remove(zayavka);
+                                    zayka_rec = zayka.REC_ID;
+
+
+                                    real.zayavka_id = zayka.REC_ID;
+                                    real.full_name = zayka.FULL_NAME;
+
+                                    break;
+                                }
                             }
+
+                            if (freeZayavkaExists) exceptList.Add(zayka_rec);
+                            
                         }
 
                         list.Add(real);

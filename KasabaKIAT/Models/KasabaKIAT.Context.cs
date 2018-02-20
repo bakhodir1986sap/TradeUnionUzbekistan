@@ -574,5 +574,14 @@ namespace KasabaKIAT.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_get_RealizasiyaPutyovokGroup_Result1>("sp_get_RealizasiyaPutyovokGroup", dEP_BASEParameter);
         }
+    
+        public virtual ObjectResult<sp_rt_ZayavkiList_Result> sp_rt_ZayavkiList(Nullable<int> iNN)
+        {
+            var iNNParameter = iNN.HasValue ?
+                new ObjectParameter("INN", iNN) :
+                new ObjectParameter("INN", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_rt_ZayavkiList_Result>("sp_rt_ZayavkiList", iNNParameter);
+        }
     }
 }

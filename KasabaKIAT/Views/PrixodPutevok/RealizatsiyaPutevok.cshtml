@@ -48,7 +48,7 @@
         <div class="col-md-6">
             <div class="r-title mb-4 row">
                 <div class="col-md-6">
-                    <h5>{{scname}}</h5>
+                    <h5>Санаторий</h5>
                 </div>
                 <div class="col-md-6">
                     <span><img src="~/Content/images/b-gr.png" alt="" title="" /> - бронь</span>
@@ -68,9 +68,9 @@
                     </div>
                     <div id="collapse{{rp.d1}}"  class="collapse" aria-labelledby="headingOne{{rp.d1}}" data-parent="#accordion">
                         <div class="card-body r-card-body"  ng-repeat="rp2 in RP2">
-                            <div class="custom-control custom-checkbox r-checkbox" id="a{{rp2.d1}}">
-                                <input type="checkbox" ng-click="BronChange(rp2.d3,rp2.d1)" class="custom-control-input" id="Check{{rp2.d3}}"/>
-                                <label ng-class="rp2.red" class="custom-control-label r-label" for="Check{{rp2.d3}}"><strong>{{rp2.d3}}</strong> ({{rp2.d4 | jsonDate: 'dd.MM.yyyy'}})<span ng-show="rp2.d5=='1'"><img src="~/Content/images/b-g.png" alt="" title="" /></span><span ng-show="rp2.d6=='1'"><img src="~/Content/images/v-r.png" alt="" title="" /></span></label>
+                            <div class="custom-control custom-checkbox r-checkbox">
+                                <input type="checkbox" ng-click="BronChange(rp2.d3,rp2.d1)" class="custom-control-input" id="customCheck{{rp2.d3}}"/>
+                                <label ng-class="rp2.red" class="custom-control-label r-label" for="customCheck{{rp2.d3}}"><strong>{{rp2.d3}}</strong> ({{rp2.d4 | jsonDate: 'dd.MM.yyyy'}})<span ng-show="rp2.d5=='1'"><img src="~/Content/images/b-g.png" alt="" title="" /></span><span ng-show="rp2.d6=='1'"><img src="~/Content/images/v-r.png" alt="" title="" /></span></label>
                             </div>
                         </div>
                     </div>
@@ -234,7 +234,7 @@
                 <div class="modal-body">
                     <div class="row justify-content-center">
                         <section class="content__block container">
-                            <div class="row mb-4 align-items-center">
+                            @*<div class="row mb-4 align-items-center">
                                 <div class="col title__block">
                                     <h4>Оформление реализации путевок</h4>
                                     <nav aria-label="breadcrumb" class="breadcrumb__block">
@@ -244,7 +244,7 @@
                                         </ol>
                                     </nav>
                                 </div>
-                            </div>
+                            </div>*@
                             <div class="table__title mb-4">
                                 <p>Организация: <strong>Профсоюзный комитет Тошкент вилоят ИИБ</strong></p>
                             </div>
@@ -265,28 +265,24 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr class="poin" ng-repeat="item in DATA">
-                                            <td>{{item.SanatoryName}}</td>
-                                            <td>{{item.serail_number}}</td>
-                                            <td>{{item.rest_begin_date | jsonDate: 'dd.MM.yyyy'}}</td>
-                                            <td>{{item.full_name}}</td>
-                                            <td>{{item.price}}</td>
+                                        <tr ng-repeat="item in DATA">
+                                            <td>{{item.d1}}</td>
+                                            <td>{{item.d2}}</td>
+                                            <td>{{item.d3 | jsonDate: 'dd.MM.yyyy'}}</td>
+                                            <td>{{item.d4}}</td>
+                                            <td>{{item.d5}}</td>
                                             <td>
                                                 <input class="form-control" placeholder="100%" />
                                             </td>
                                             <td>
-                                                <button ng-click="LoadZ()" ng-disabled="myForm2.INN.$error.required||!myForm2.INN.$error.required&&!myForm2.INN.$valid" class="table-link" data-toggle="modal" data-target="#zayavki">Заявки</button>
+                                                <a ng-click="LoadZ()" ng-disabled="myForm2.INN.$error.required||!myForm2.INN.$error.required&&!myForm2.INN.$valid" class="table-link" data-toggle="modal" data-target="#zayavki">Заявки</a>
                                             </td>
-                                        </tr>
-                                        <tr ng-repeat="">
-                                            <td colspan="4" class="text-right">Итого:</td>
-                                            <td colspan="3"><strong>{{}}</strong></td>
                                         </tr>
                                     </tbody>
                                 </table>
                             </div>
                             <div class="mb-4">
-                                <button ng-click="save()" class="btn btn-grey d-block d-md-inline-block my-2">Сохранить</button>
+                                <button ng-click="save()" class="btn btn-blue d-block d-md-inline-block my-2">Сохранить</button>
                             </div>
                         </section>
 
@@ -299,9 +295,9 @@
         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-body">
-                    <div class="table__title my-4">
+                    @*<div class="table__title my-4">
                         <p><strong>Проверка утвержденных заявок от<br /> Профсоюзный кометит Тошкент вилоят ИИБ</strong></p>
-                    </div>
+                    </div>*@
                     <div class="table-responsive box-shadow mb-4">
                         <table class="table table__block">
                             <thead>

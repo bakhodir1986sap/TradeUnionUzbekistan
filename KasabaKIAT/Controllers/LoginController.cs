@@ -78,7 +78,7 @@ namespace KasabaKIAT.Controllers
                 {
                     message = "-2";
                 }
-                if (message != "-1" && message != "-2")
+                if (message != "-1" && message != "-2" && message != "-9")
                 {
                     return RedirectToAction("Index", "Home");
                 }

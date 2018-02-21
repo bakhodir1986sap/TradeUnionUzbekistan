@@ -194,7 +194,6 @@
         });
         return false;
     }
-
     //---------------------------------------//
     $scope.Realiz = function () {
         //$('#dobavit2').modal('hide');

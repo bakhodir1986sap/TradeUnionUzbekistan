@@ -74,7 +74,18 @@ namespace KasabaKIAT.Controllers
         }
         public JsonResult GetOformleniyaRealizatsiyaPutevok(SanPutTemp s)
         {
-            return Json(OR.GetOformRealizList(s.b, s.inn).ToList(), JsonRequestBehavior.AllowGet);
+            var data = OR.GetOformRealizList(s.b, s.inn);
+            var list = from d in data
+                       select new
+                       {
+                           d0 = d.rec_id,
+                           d1 = d.SanatoryName,
+                           d2 = d.serail_number,
+                           d3 = d.rest_begin_date,
+                           d4 = d.full_name,
+                           d5 = d.price,
+                       };
+            return Json(list.ToList(), JsonRequestBehavior.AllowGet);
         }
         public class SanPutTemp
         {

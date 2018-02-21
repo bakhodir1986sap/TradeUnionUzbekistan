@@ -198,6 +198,9 @@
     $scope.Realiz = function () {
         //$('#dobavit2').modal('hide');
         //$('#dobavit2').modal('show');
+        real();
+    }
+    function real() {
         var k = 0;
         $http({
             method: "POST",
@@ -215,15 +218,18 @@
             $("#hh").modal('hide');
         });
     }
-    d = {
-        ID_San: ar2[k],
-        Num_Put: ar1[k],
-    };
-    $scope.PriceChange = function (id,price) {
-
-    }
-    $scope.save = function () {
-
+    $scope.save = function (id,foiz) {
+        $http({
+            method: "POST",
+            url: "/PrixodPutevok/Save?id=" + id + "&foiz=" + foiz,
+        }).then(function (d) {
+            console.log(d.data);
+            real();
+            $("#hh").modal('hide');
+        }, function () {
+            console.log("error in Save");
+            $("#hh").modal('hide');
+        });
     };
     $scope.LoadZ = function () {
         $http({

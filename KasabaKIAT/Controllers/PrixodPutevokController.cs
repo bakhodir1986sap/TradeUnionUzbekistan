@@ -78,7 +78,7 @@ namespace KasabaKIAT.Controllers
             var list = from d in data
                        select new
                        {
-                           d0 = d.sanatorium_id,
+                           d0 = d.rec_id,
                            d1 = d.SanatoryName,
                            d2 = d.serail_number,
                            d3 = d.rest_begin_date,
@@ -88,9 +88,9 @@ namespace KasabaKIAT.Controllers
                        };
             return Json(list.ToList(), JsonRequestBehavior.AllowGet);
         }
-        public string Save(RealizasiyaByTzViewModel s)
+        public string Save(int id,int foiz)
         {
-            RealizasiyaDataManager.Modify(s);
+            RealizasiyaDataManager.Modify(new RealizasiyaByTzViewModel { rec_id=id,payment_persent= foiz });
             return "yes";
         }
         public class SanPutTemp

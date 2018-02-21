@@ -592,5 +592,23 @@ namespace KasabaKIAT.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_get_ProsmotrRealizovannixPutyovok_Result>("sp_get_ProsmotrRealizovannixPutyovok", dEP_BASEParameter);
         }
+    
+        public virtual ObjectResult<sp_get_ProsmotrRealizovannixPutyovokDetali_Result> sp_get_ProsmotrRealizovannixPutyovokDetali(Nullable<long> rEC_ID)
+        {
+            var rEC_IDParameter = rEC_ID.HasValue ?
+                new ObjectParameter("REC_ID", rEC_ID) :
+                new ObjectParameter("REC_ID", typeof(long));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_get_ProsmotrRealizovannixPutyovokDetali_Result>("sp_get_ProsmotrRealizovannixPutyovokDetali", rEC_IDParameter);
+        }
+    
+        public virtual ObjectResult<sp_get_RealizasiyaPutyovokDetailN_Result> sp_get_RealizasiyaPutyovokDetailN(Nullable<long> rEC_ID)
+        {
+            var rEC_IDParameter = rEC_ID.HasValue ?
+                new ObjectParameter("REC_ID", rEC_ID) :
+                new ObjectParameter("REC_ID", typeof(long));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_get_RealizasiyaPutyovokDetailN_Result>("sp_get_RealizasiyaPutyovokDetailN", rEC_IDParameter);
+        }
     }
 }

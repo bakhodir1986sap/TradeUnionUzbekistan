@@ -41,6 +41,9 @@ namespace KasabaKIAT.BusinessLogic.Putyovki.RealizasiyaPutyovok.RealizasitaPoTz
                 put.TALON_BACK_DATE         = model.talon_back_date         ;
                 put.REMARK                  = model.remark                  ;
                 put.ORG_INN = model.org_inn;
+                put.NAKLADNOY_NOMER = numGen.GetNextNumDoc(model.to_department_code, DateTime.Now.Year).
+                    ToString().PadLeft(6, '0');
+                put.STATUS_CODE = true;
 
                 var pst = db.tbpt_putyovkarealizasiya.Add(put);
 
@@ -87,6 +90,27 @@ namespace KasabaKIAT.BusinessLogic.Putyovki.RealizasiyaPutyovok.RealizasitaPoTz
                         //put1.TALON_BACK_DATE = model.talon_back_date;
                         //put1.REMARK = model.remark;
                         //put1.ORG_INN = model.org_inn;
+                    }
+                }
+
+                db.SaveChanges();
+            }
+        }
+
+
+        public static void VozvratReal(RealizasiyaByTzViewModel model)
+        {
+            using (KasabaKIATEntities db = new KasabaKIATEntities())
+            {
+                var put = db.tbpt_putyovkarealizasiya.Where(z => z.REC_ID == model.rec_id);
+
+                if (put.Any())
+                {
+                    var put1 = put.FirstOrDefault();
+
+                    if (put1 != null)
+                    {
+                        put1.STATUS_CODE = false;
                     }
                 }
 

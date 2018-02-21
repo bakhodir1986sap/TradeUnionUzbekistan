@@ -44,9 +44,9 @@ namespace KasabaKIAT.BusinessLogic.Putyovki.RealizasiyaPutyovok.RealizasitaPoTz
 
                 var pst = db.tbpt_putyovkarealizasiya.Add(put);
 
-                db.SaveChanges();
-
                 model.rec_id = put.REC_ID;
+
+                db.SaveChanges();
             }
         }
 

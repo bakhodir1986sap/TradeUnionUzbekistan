@@ -14,6 +14,7 @@ namespace KasabaKIAT.BusinessLogic.Putyovki.RealizasiyaPutyovok.RealizasitaPoTz
         {
             var list = new List<RealizasiyaByTzViewModel>();
             List<long> exceptList = new List<long>();
+            List<string> procPut = new List<string>();
 
             if (checkedList == null) return null;
 
@@ -25,6 +26,13 @@ namespace KasabaKIAT.BusinessLogic.Putyovki.RealizasiyaPutyovok.RealizasitaPoTz
                 {
                     foreach (var chk in checkedList)
                     {
+                        var ccc = procPut.Where(zz => zz == chk.NumPut);
+
+                        if (ccc.Any())
+                        {
+                            continue;
+                        }
+
                         var real = new RealizasiyaByTzViewModel();
 
                         real.sanatorium_id = chk.SanId;
@@ -89,6 +97,7 @@ namespace KasabaKIAT.BusinessLogic.Putyovki.RealizasiyaPutyovok.RealizasitaPoTz
                             
                         }
 
+                        procPut.Add(chk.NumPut);
                         RealizasiyaDataManager.Create(ref real);
                         PostPutDetailDataManager.Polzov((int)real.sanatorium_id, real.serail_number);
                         list.Add(real);

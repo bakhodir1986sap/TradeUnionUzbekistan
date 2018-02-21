@@ -307,19 +307,10 @@
     <Compile Include="Models\sp_get_ProsmotrRealizovannixPutyovokDetali_Result.cs">
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\sp_get_ProsmotrRealizovannixPutyovokDetali_Result1.cs">
-      <DependentUpon>KasabaKIAT.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\sp_get_ProsmotrRealizovannixPutyovok_Result.cs">
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\sp_get_RealizasiyaPutyovokDetailN_Result.cs">
-      <DependentUpon>KasabaKIAT.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\sp_get_RealizasiyaPutyovokDetailN_Result1.cs">
-      <DependentUpon>KasabaKIAT.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\sp_get_RealizasiyaPutyovokDetailN_Result2.cs">
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\sp_get_RealizasiyaPutyovokDetail_Result.cs">

@@ -272,17 +272,18 @@
                                             <td>{{item.d4}}</td>
                                             <td>{{item.d5}}</td>
                                             <td>
-                                                <input class="form-control" ng-model="item.d6" ng-change="PriceChange(item.d0,item.d6)" placeholder="100%" />
+                                                <input class="form-control" ng-model="item.d6" placeholder="100%" />
                                             </td>
                                             <td>
                                                 <a ng-click="LoadZ()" ng-disabled="myForm2.INN.$error.required||!myForm2.INN.$error.required&&!myForm2.INN.$valid" class="table-link" data-toggle="modal" data-target="#zayavki">Заявки</a>
+                                                <button ng-click="save(item.d0,item.d6)" class="btn btn-blue d-block d-md-inline-block my-2">Сохранить</button>
                                             </td>
                                         </tr>
                                     </tbody>
                                 </table>
                             </div>
                             <div class="mb-4">
-                                <button ng-click="save()" class="btn btn-blue d-block d-md-inline-block my-2">Сохранить</button>
+                                
                             </div>
                         </section>
 

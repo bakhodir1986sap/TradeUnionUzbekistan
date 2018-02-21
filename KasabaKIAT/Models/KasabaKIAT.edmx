@@ -2366,6 +2366,8 @@ warning 6002: The table/view 'KasabaKIAT.dbo.tblVozVrat' does not have a primary
           <Property Name="TALON_BACK_DATE" Type="date" />
           <Property Name="REMARK" Type="varchar" MaxLength="1000" />
           <Property Name="ORG_INN" Type="varchar" MaxLength="9" />
+          <Property Name="NAKLADNOY_NOMER" Type="varchar" MaxLength="20" />
+          <Property Name="TALON_NUMBER" Type="varchar" MaxLength="20" />
         </EntityType>
         <EntityType Name="tbpt_putyovki">
           <Key>
@@ -2512,6 +2514,7 @@ warning 6002: The table/view 'KasabaKIAT.dbo.tblVozVrat' does not have a primary
           <Property Name="KUK_QARORI" Type="varchar" MaxLength="254" />
           <Property Name="MEDICAL_ORDER_EXISTS" Type="bit" />
           <Property Name="ORDER_QUANTITY" Type="int" />
+          <Property Name="SOTR_INN" Type="varchar" MaxLength="9" />
         </EntityType>
         <EntityType Name="user_role">
           <Key>
@@ -5500,9 +5503,15 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
         <Function Name="sp_get_ProsmotrRealizovannixPutyovok" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="DEP_BASE" Type="varchar" Mode="In" />
         </Function>
+        <Function Name="sp_get_ProsmotrRealizovannixPutyovokDetali" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="REC_ID" Type="bigint" Mode="In" />
+        </Function>
         <Function Name="sp_get_RealizasiyaPutyovokDetail" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="DEP_BASE" Type="varchar" Mode="In" />
           <Parameter Name="SANID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_get_RealizasiyaPutyovokDetailN" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="REC_ID" Type="bigint" Mode="In" />
         </Function>
         <Function Name="sp_get_RealizasiyaPutyovokGroup" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="DEP_BASE" Type="varchar" Mode="In" />
@@ -9066,6 +9075,8 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <NavigationProperty Name="tbpt_zayavki" Relationship="Self.tbpt_putyovkarealizasiya_1" FromRole="tbpt_putyovkarealizasiya" ToRole="tbpt_zayavki" />
           <NavigationProperty Name="users" Relationship="Self.tbpt_putyovkarealizasiya_2" FromRole="tbpt_putyovkarealizasiya" ToRole="users" />
           <Property Name="ORG_INN" Type="String" MaxLength="9" FixedLength="false" Unicode="false" />
+          <Property Name="NAKLADNOY_NOMER" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="TALON_NUMBER" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="tbpt_putyovki">
           <Key>
@@ -9233,6 +9244,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <NavigationProperty Name="tbpt_putyovkarealizasiya" Relationship="Self.tbpt_putyovkarealizasiya_1" FromRole="tbpt_zayavki" ToRole="tbpt_putyovkarealizasiya" />
           <NavigationProperty Name="tblVipl_Put" Relationship="Self.FK_tblVipl_Put_tbpt_zayavki" FromRole="tbpt_zayavki" ToRole="tblVipl_Put" />
           <NavigationProperty Name="users" Relationship="Self.tbpt_zayavki_3" FromRole="tbpt_zayavki" ToRole="users" />
+          <Property Name="SOTR_INN" Type="String" MaxLength="9" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="useractions">
           <Key>
@@ -13395,7 +13407,13 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <Parameter Name="INN" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="sp_get_ProsmotrRealizovannixPutyovok" ReturnType="Collection(KasabaKIATModel.sp_get_ProsmotrRealizovannixPutyovok_Result)">
-            <Parameter Name="DEP_BASE" Mode="In" Type="String" />
+          <Parameter Name="DEP_BASE" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_get_ProsmotrRealizovannixPutyovokDetali" ReturnType="Collection(KasabaKIATModel.sp_get_ProsmotrRealizovannixPutyovokDetali_Result1)">
+          <Parameter Name="REC_ID" Mode="In" Type="Int64" />
+          </FunctionImport>
+          <FunctionImport Name="sp_get_RealizasiyaPutyovokDetailN" ReturnType="Collection(KasabaKIATModel.sp_get_RealizasiyaPutyovokDetailN_Result2)">
+            <Parameter Name="REC_ID" Mode="In" Type="Int64" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="sp_get_BankPaymentCompanyYearlyQ_Result">
@@ -13552,6 +13570,114 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <Property Type="String" Name="REMARK" Nullable="true" MaxLength="1000" />
           <Property Type="String" Name="ORG_INN" Nullable="true" MaxLength="9" />
           <Property Type="String" Name="Name_San" Nullable="true" MaxLength="100" />
+        </ComplexType>
+        <ComplexType Name="sp_get_ProsmotrRealizovannixPutyovokDetali_Result">
+          <Property Type="Int64" Name="REC_ID" Nullable="false" />
+          <Property Type="String" Name="DEPARTMENT_CODE" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="TO_DEPARTMENT_CODE" Nullable="true" MaxLength="255" />
+          <Property Type="Int64" Name="USER_ID" Nullable="true" />
+          <Property Type="Int64" Name="SANATORIUM_ID" Nullable="true" />
+          <Property Type="Int64" Name="CAMP_ID" Nullable="true" />
+          <Property Type="String" Name="SERAIL_NUMBER" Nullable="true" MaxLength="254" />
+          <Property Type="DateTime" Name="REST_BEGIN_DATE" Nullable="true" />
+          <Property Type="DateTime" Name="REST_END_DATE" Nullable="true" />
+          <Property Type="String" Name="FULL_NAME" Nullable="true" MaxLength="254" />
+          <Property Type="Decimal" Name="PRICE" Nullable="true" Precision="19" />
+          <Property Type="Int32" Name="PAYMENT_PERSENT" Nullable="true" />
+          <Property Type="String" Name="RECIEVER" Nullable="true" MaxLength="254" />
+          <Property Type="String" Name="DOVERENNOST_NUMBER" Nullable="true" MaxLength="254" />
+          <Property Type="String" Name="DOVER_ISSUE_DATE" Nullable="true" MaxLength="254" />
+          <Property Type="String" Name="DOVER_EXPIRE_DATE" Nullable="true" MaxLength="254" />
+          <Property Type="Int32" Name="QUANTITY" Nullable="true" />
+          <Property Type="Int64" Name="ZAYAVKA_ID" Nullable="true" />
+          <Property Type="DateTime" Name="PLATEJ_DATE" Nullable="true" />
+          <Property Type="Decimal" Name="PLATEJ_AMOUNT" Nullable="true" Precision="19" />
+          <Property Type="String" Name="PLATEJ_NUMBER" Nullable="true" MaxLength="254" />
+          <Property Type="DateTime" Name="TALON_BACK_DATE" Nullable="true" />
+          <Property Type="String" Name="REMARK" Nullable="true" MaxLength="1000" />
+          <Property Type="String" Name="ORG_INN" Nullable="true" MaxLength="9" />
+          <Property Type="String" Name="Name_San" Nullable="true" MaxLength="100" />
+        </ComplexType>
+        <ComplexType Name="sp_get_ProsmotrRealizovannixPutyovokDetali_Result1">
+          <Property Type="Int64" Name="REC_ID" Nullable="false" />
+          <Property Type="String" Name="DEPARTMENT_CODE" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="MakeOrgName" Nullable="true" MaxLength="1024" />
+          <Property Type="String" Name="TO_DEPARTMENT_CODE" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="bkut_name" Nullable="true" MaxLength="255" />
+          <Property Type="Int64" Name="USER_ID" Nullable="true" />
+          <Property Type="Int64" Name="SANATORIUM_ID" Nullable="true" />
+          <Property Type="Int64" Name="CAMP_ID" Nullable="true" />
+          <Property Type="String" Name="SERAIL_NUMBER" Nullable="true" MaxLength="254" />
+          <Property Type="DateTime" Name="REST_BEGIN_DATE" Nullable="true" />
+          <Property Type="DateTime" Name="REST_END_DATE" Nullable="true" />
+          <Property Type="String" Name="FULL_NAME" Nullable="true" MaxLength="254" />
+          <Property Type="Decimal" Name="PRICE" Nullable="true" Precision="19" />
+          <Property Type="Int32" Name="PAYMENT_PERSENT" Nullable="true" />
+          <Property Type="String" Name="RECIEVER" Nullable="true" MaxLength="254" />
+          <Property Type="String" Name="DOVERENNOST_NUMBER" Nullable="true" MaxLength="254" />
+          <Property Type="String" Name="DOVER_ISSUE_DATE" Nullable="true" MaxLength="254" />
+          <Property Type="String" Name="DOVER_EXPIRE_DATE" Nullable="true" MaxLength="254" />
+          <Property Type="Int32" Name="QUANTITY" Nullable="true" />
+          <Property Type="Int64" Name="ZAYAVKA_ID" Nullable="true" />
+          <Property Type="DateTime" Name="PLATEJ_DATE" Nullable="true" />
+          <Property Type="Decimal" Name="PLATEJ_AMOUNT" Nullable="true" Precision="19" />
+          <Property Type="String" Name="PLATEJ_NUMBER" Nullable="true" MaxLength="254" />
+          <Property Type="DateTime" Name="TALON_BACK_DATE" Nullable="true" />
+          <Property Type="String" Name="REMARK" Nullable="true" MaxLength="1000" />
+          <Property Type="String" Name="ORG_INN" Nullable="true" MaxLength="9" />
+          <Property Type="String" Name="Name_San" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="NAKLADNOY_NOMER" Nullable="true" MaxLength="20" />
+        </ComplexType>
+        <ComplexType Name="sp_get_RealizasiyaPutyovokDetailN_Result">
+          <Property Type="Int64" Name="REC_ID" Nullable="false" />
+          <Property Type="String" Name="TO_DEPARTMENT_CODE" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="bkut_name" Nullable="true" MaxLength="255" />
+          <Property Type="Int64" Name="KOD" Nullable="false" />
+          <Property Type="String" Name="INN" Nullable="true" MaxLength="9" />
+          <Property Type="String" Name="name_full" Nullable="true" MaxLength="1024" />
+          <Property Type="String" Name="FULL_NAME" Nullable="true" MaxLength="254" />
+          <Property Type="String" Name="POSITION" Nullable="true" MaxLength="400" />
+          <Property Type="String" Name="SOTR_INN" Nullable="true" MaxLength="9" />
+          <Property Type="String" Name="REMARK" Nullable="true" MaxLength="1000" />
+          <Property Type="String" Name="TALON_NUMBER" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="DOVERENNOST_NUMBER" Nullable="true" MaxLength="254" />
+          <Property Type="String" Name="DOVER_ISSUE_DATE" Nullable="true" MaxLength="254" />
+          <Property Type="String" Name="DOVER_EXPIRE_DATE" Nullable="true" MaxLength="254" />
+        </ComplexType>
+        <ComplexType Name="sp_get_RealizasiyaPutyovokDetailN_Result1">
+          <Property Type="Int64" Name="REC_ID" Nullable="false" />
+          <Property Type="String" Name="TO_DEPARTMENT_CODE" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="bkut_name" Nullable="true" MaxLength="255" />
+          <Property Type="Int64" Name="KOD" Nullable="false" />
+          <Property Type="String" Name="INN" Nullable="true" MaxLength="9" />
+          <Property Type="String" Name="name_full" Nullable="true" MaxLength="1024" />
+          <Property Type="String" Name="FULL_NAME" Nullable="true" MaxLength="254" />
+          <Property Type="String" Name="POSITION" Nullable="true" MaxLength="400" />
+          <Property Type="String" Name="SOTR_INN" Nullable="true" MaxLength="9" />
+          <Property Type="String" Name="OKONX_NAME" Nullable="true" MaxLength="1024" />
+          <Property Type="String" Name="REMARK" Nullable="true" MaxLength="1000" />
+          <Property Type="String" Name="TALON_NUMBER" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="DOVERENNOST_NUMBER" Nullable="true" MaxLength="254" />
+          <Property Type="String" Name="DOVER_ISSUE_DATE" Nullable="true" MaxLength="254" />
+          <Property Type="String" Name="DOVER_EXPIRE_DATE" Nullable="true" MaxLength="254" />
+        </ComplexType>
+        <ComplexType Name="sp_get_RealizasiyaPutyovokDetailN_Result2">
+          <Property Type="Int64" Name="REC_ID" Nullable="false" />
+          <Property Type="String" Name="TO_DEPARTMENT_CODE" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="bkut_name" Nullable="true" MaxLength="255" />
+          <Property Type="Int64" Name="KOD" Nullable="false" />
+          <Property Type="String" Name="INN" Nullable="true" MaxLength="9" />
+          <Property Type="String" Name="name_full" Nullable="true" MaxLength="1024" />
+          <Property Type="String" Name="FULL_NAME" Nullable="true" MaxLength="254" />
+          <Property Type="String" Name="POSITION" Nullable="true" MaxLength="400" />
+          <Property Type="String" Name="SOTR_INN" Nullable="true" MaxLength="9" />
+          <Property Type="String" Name="OKONX_NAME" Nullable="true" MaxLength="1024" />
+          <Property Type="String" Name="REMARK" Nullable="true" MaxLength="1000" />
+          <Property Type="String" Name="TALON_NUMBER" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="RECIEVER" Nullable="true" MaxLength="254" />
+          <Property Type="String" Name="DOVERENNOST_NUMBER" Nullable="true" MaxLength="254" />
+          <Property Type="String" Name="DOVER_ISSUE_DATE" Nullable="true" MaxLength="254" />
+          <Property Type="String" Name="DOVER_EXPIRE_DATE" Nullable="true" MaxLength="254" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -15597,6 +15723,8 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <EntitySetMapping Name="tbpt_putyovkarealizasiya">
             <EntityTypeMapping TypeName="KasabaKIATModel.tbpt_putyovkarealizasiya">
               <MappingFragment StoreEntitySet="tbpt_putyovkarealizasiya">
+                <ScalarProperty Name="TALON_NUMBER" ColumnName="TALON_NUMBER" />
+                <ScalarProperty Name="NAKLADNOY_NOMER" ColumnName="NAKLADNOY_NOMER" />
                 <ScalarProperty Name="ORG_INN" ColumnName="ORG_INN" />
                 <ScalarProperty Name="REC_ID" ColumnName="REC_ID" />
                 <ScalarProperty Name="DEPARTMENT_CODE" ColumnName="DEPARTMENT_CODE" />
@@ -15756,6 +15884,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <EntitySetMapping Name="tbpt_zayavki">
             <EntityTypeMapping TypeName="KasabaKIATModel.tbpt_zayavki">
               <MappingFragment StoreEntitySet="tbpt_zayavki">
+                <ScalarProperty Name="SOTR_INN" ColumnName="SOTR_INN" />
                 <ScalarProperty Name="REC_ID" ColumnName="REC_ID" />
                 <ScalarProperty Name="GROUP_ID" ColumnName="GROUP_ID" />
                 <ScalarProperty Name="MEDICAL_ORDER" ColumnName="MEDICAL_ORDER" />
@@ -16492,6 +16621,62 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
                 <ScalarProperty Name="REMARK" ColumnName="REMARK" />
                 <ScalarProperty Name="ORG_INN" ColumnName="ORG_INN" />
                 <ScalarProperty Name="Name_San" ColumnName="Name_San" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_get_ProsmotrRealizovannixPutyovokDetali" FunctionName="KasabaKIATModel.Store.sp_get_ProsmotrRealizovannixPutyovokDetali">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="KasabaKIATModel.sp_get_ProsmotrRealizovannixPutyovokDetali_Result1">
+                <ScalarProperty Name="REC_ID" ColumnName="REC_ID" />
+                <ScalarProperty Name="DEPARTMENT_CODE" ColumnName="DEPARTMENT_CODE" />
+                <ScalarProperty Name="MakeOrgName" ColumnName="MakeOrgName" />
+                <ScalarProperty Name="TO_DEPARTMENT_CODE" ColumnName="TO_DEPARTMENT_CODE" />
+                <ScalarProperty Name="bkut_name" ColumnName="bkut_name" />
+                <ScalarProperty Name="USER_ID" ColumnName="USER_ID" />
+                <ScalarProperty Name="SANATORIUM_ID" ColumnName="SANATORIUM_ID" />
+                <ScalarProperty Name="CAMP_ID" ColumnName="CAMP_ID" />
+                <ScalarProperty Name="SERAIL_NUMBER" ColumnName="SERAIL_NUMBER" />
+                <ScalarProperty Name="REST_BEGIN_DATE" ColumnName="REST_BEGIN_DATE" />
+                <ScalarProperty Name="REST_END_DATE" ColumnName="REST_END_DATE" />
+                <ScalarProperty Name="FULL_NAME" ColumnName="FULL_NAME" />
+                <ScalarProperty Name="PRICE" ColumnName="PRICE" />
+                <ScalarProperty Name="PAYMENT_PERSENT" ColumnName="PAYMENT_PERSENT" />
+                <ScalarProperty Name="RECIEVER" ColumnName="RECIEVER" />
+                <ScalarProperty Name="DOVERENNOST_NUMBER" ColumnName="DOVERENNOST_NUMBER" />
+                <ScalarProperty Name="DOVER_ISSUE_DATE" ColumnName="DOVER_ISSUE_DATE" />
+                <ScalarProperty Name="DOVER_EXPIRE_DATE" ColumnName="DOVER_EXPIRE_DATE" />
+                <ScalarProperty Name="QUANTITY" ColumnName="QUANTITY" />
+                <ScalarProperty Name="ZAYAVKA_ID" ColumnName="ZAYAVKA_ID" />
+                <ScalarProperty Name="PLATEJ_DATE" ColumnName="PLATEJ_DATE" />
+                <ScalarProperty Name="PLATEJ_AMOUNT" ColumnName="PLATEJ_AMOUNT" />
+                <ScalarProperty Name="PLATEJ_NUMBER" ColumnName="PLATEJ_NUMBER" />
+                <ScalarProperty Name="TALON_BACK_DATE" ColumnName="TALON_BACK_DATE" />
+                <ScalarProperty Name="REMARK" ColumnName="REMARK" />
+                <ScalarProperty Name="ORG_INN" ColumnName="ORG_INN" />
+                <ScalarProperty Name="Name_San" ColumnName="Name_San" />
+                <ScalarProperty Name="NAKLADNOY_NOMER" ColumnName="NAKLADNOY_NOMER" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_get_RealizasiyaPutyovokDetailN" FunctionName="KasabaKIATModel.Store.sp_get_RealizasiyaPutyovokDetailN">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="KasabaKIATModel.sp_get_RealizasiyaPutyovokDetailN_Result2">
+                <ScalarProperty Name="REC_ID" ColumnName="REC_ID" />
+                <ScalarProperty Name="TO_DEPARTMENT_CODE" ColumnName="TO_DEPARTMENT_CODE" />
+                <ScalarProperty Name="bkut_name" ColumnName="bkut_name" />
+                <ScalarProperty Name="KOD" ColumnName="KOD" />
+                <ScalarProperty Name="INN" ColumnName="INN" />
+                <ScalarProperty Name="name_full" ColumnName="name_full" />
+                <ScalarProperty Name="FULL_NAME" ColumnName="FULL_NAME" />
+                <ScalarProperty Name="POSITION" ColumnName="POSITION" />
+                <ScalarProperty Name="SOTR_INN" ColumnName="SOTR_INN" />
+                <ScalarProperty Name="OKONX_NAME" ColumnName="OKONX_NAME" />
+                <ScalarProperty Name="REMARK" ColumnName="REMARK" />
+                <ScalarProperty Name="TALON_NUMBER" ColumnName="TALON_NUMBER" />
+                <ScalarProperty Name="RECIEVER" ColumnName="RECIEVER" />
+                <ScalarProperty Name="DOVERENNOST_NUMBER" ColumnName="DOVERENNOST_NUMBER" />
+                <ScalarProperty Name="DOVER_ISSUE_DATE" ColumnName="DOVER_ISSUE_DATE" />
+                <ScalarProperty Name="DOVER_EXPIRE_DATE" ColumnName="DOVER_EXPIRE_DATE" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

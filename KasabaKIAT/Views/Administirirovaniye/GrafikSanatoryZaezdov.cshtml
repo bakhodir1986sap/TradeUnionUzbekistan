@@ -34,7 +34,7 @@
         <div style="margin-left:100px">
             <button ng-click="LoadDATA()" ng-disabled="myForm1.ZB.$error.required" class="btn btn-blue d-block d-md-inline-block mb-2"> Получить</button>
         </div>
-        <div style="margin-left:100px">
+        <div ng-show="showdata" style="margin-left:100px">
             <button class="btn btn-green d-block d-md-inline-block mb-2" ng-click="exportData()">
                 <i class="fas fa-file-excel"></i>  ЭКСПОРТ
             </button>

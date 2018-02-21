@@ -559,3 +559,115 @@ ERROR 2018-02-21 13:15:59,328 129319ms userlogin              Ruxsatni_tekshir  
    â KasabaKIAT.Models.userlogin.Ruxsatni_tekshir(user user)
 ClientConnectionId:00000000-0000-0000-0000-000000000000
 Error Number: -1, State: 0, Class: 20
+INFO  2018-02-21 16:50:11,260 85287ms HomeController         Getdictionary      - Count = 3
+INFO  2018-02-21 16:50:11,642 85668ms HomeController         Getdictionary      - Count = 3
+INFO  2018-02-21 16:50:12,152 86178ms HomeController         GetSanatory        - GetSanatory 
+INFO  2018-02-21 16:50:12,209 86235ms HomeController         GetSanatory        - Count = 30
+INFO  2018-02-21 16:54:19,295 333321ms HomeController         Getbankpayments    - Getbankpayments
+INFO  2018-02-21 16:54:19,297 333323ms HomeController         Getbankpayments    - inn = undefined
+INFO  2018-02-21 16:54:19,298 333324ms HomeController         Getbankpayments    - zb = 2018
+INFO  2018-02-21 16:54:19,771 333797ms HomeController         GetAvarageprice    - GetAvarageprice
+INFO  2018-02-21 16:54:19,771 333797ms HomeController         GetAvarageprice    - yil = 2018
+INFO  2018-02-21 16:54:23,377 337404ms HomeController         etbankpaymentsYear - GetbankpaymentsYear
+INFO  2018-02-21 16:54:23,378 337405ms HomeController         etbankpaymentsYear - inn = undefined
+INFO  2018-02-21 16:54:23,379 337406ms HomeController         etbankpaymentsYear - zb = 2018
+INFO  2018-02-21 16:54:23,901 337927ms HomeController         GroupRZ_S          - GroupRZ_S
+INFO  2018-02-21 16:54:23,904 337930ms HomeController         GroupRZ_S          - inn = undefined
+INFO  2018-02-21 16:54:23,906 337932ms HomeController         GroupRZ_S          - zb = 2018
+INFO  2018-02-21 16:54:24,397 338423ms HomeController         aZayavok_S_LoadINN - GetAllPodachaZayavok_S_LoadINN
+INFO  2018-02-21 16:54:24,398 338424ms HomeController         aZayavok_S_LoadINN - inn = undefined
+INFO  2018-02-21 16:54:24,399 338425ms HomeController         aZayavok_S_LoadINN - zb = 2018
+INFO  2018-02-21 16:54:35,728 349754ms HomeController         GetAvarageprice    - GetAvarageprice
+INFO  2018-02-21 16:54:35,730 349756ms HomeController         GetAvarageprice    - yil = 2018
+INFO  2018-02-21 16:54:36,745 350772ms HomeController         aZayavok_S_LoadINN - GetAllPodachaZayavok_S_LoadINN
+INFO  2018-02-21 16:54:36,746 350773ms HomeController         aZayavok_S_LoadINN - inn = 200382518
+INFO  2018-02-21 16:54:36,747 350774ms HomeController         aZayavok_S_LoadINN - zb = 2018
+INFO  2018-02-21 16:54:37,246 351272ms HomeController         GroupRZ_S          - GroupRZ_S
+INFO  2018-02-21 16:54:37,247 351273ms HomeController         GroupRZ_S          - inn = 200382518
+INFO  2018-02-21 16:54:37,247 351273ms HomeController         GroupRZ_S          - zb = 2018
+INFO  2018-02-21 16:54:37,756 351782ms HomeController         etbankpaymentsYear - GetbankpaymentsYear
+INFO  2018-02-21 16:54:37,756 351782ms HomeController         etbankpaymentsYear - inn = 200382518
+INFO  2018-02-21 16:54:37,756 351782ms HomeController         etbankpaymentsYear - zb = 2018
+INFO  2018-02-21 16:54:38,267 352293ms HomeController         Getbankpayments    - Getbankpayments
+INFO  2018-02-21 16:54:38,267 352293ms HomeController         Getbankpayments    - inn = 200382518
+INFO  2018-02-21 16:54:38,267 352293ms HomeController         Getbankpayments    - zb = 2018
+INFO  2018-02-21 16:54:54,575 368601ms HomeController         GetAvarageprice    - GetAvarageprice
+INFO  2018-02-21 16:54:54,576 368602ms HomeController         GetAvarageprice    - yil = 2018
+INFO  2018-02-21 16:56:28,447 462473ms HomeController         aZayavok_S_LoadINN - GetAllPodachaZayavok_S_LoadINN
+INFO  2018-02-21 16:56:28,449 462475ms HomeController         aZayavok_S_LoadINN - inn = undefined
+INFO  2018-02-21 16:56:28,450 462476ms HomeController         aZayavok_S_LoadINN - zb = 2018
+INFO  2018-02-21 16:56:28,553 462579ms HomeController         etbankpaymentsYear - GetbankpaymentsYear
+INFO  2018-02-21 16:56:28,554 462580ms HomeController         etbankpaymentsYear - inn = undefined
+INFO  2018-02-21 16:56:28,555 462581ms HomeController         etbankpaymentsYear - zb = 2018
+INFO  2018-02-21 16:56:28,620 462646ms HomeController         GroupRZ_S          - GroupRZ_S
+INFO  2018-02-21 16:56:28,622 462648ms HomeController         GroupRZ_S          - inn = undefined
+INFO  2018-02-21 16:56:28,623 462649ms HomeController         GroupRZ_S          - zb = 2018
+INFO  2018-02-21 16:56:29,004 463030ms HomeController         GetAvarageprice    - GetAvarageprice
+INFO  2018-02-21 16:56:29,004 463030ms HomeController         GetAvarageprice    - yil = 2018
+INFO  2018-02-21 16:56:30,129 464155ms HomeController         Getbankpayments    - Getbankpayments
+INFO  2018-02-21 16:56:30,130 464156ms HomeController         Getbankpayments    - inn = undefined
+INFO  2018-02-21 16:56:30,131 464157ms HomeController         Getbankpayments    - zb = 2018
+INFO  2018-02-21 16:58:01,893 555919ms HomeController         aZayavok_S_LoadINN - GetAllPodachaZayavok_S_LoadINN
+INFO  2018-02-21 16:58:01,894 555920ms HomeController         aZayavok_S_LoadINN - inn = undefined
+INFO  2018-02-21 16:58:01,895 555921ms HomeController         aZayavok_S_LoadINN - zb = 2018
+INFO  2018-02-21 16:58:02,438 556464ms HomeController         GroupRZ_S          - GroupRZ_S
+INFO  2018-02-21 16:58:02,439 556465ms HomeController         GroupRZ_S          - inn = undefined
+INFO  2018-02-21 16:58:02,440 556466ms HomeController         GroupRZ_S          - zb = 2018
+INFO  2018-02-21 16:58:02,616 556643ms HomeController         Getbankpayments    - Getbankpayments
+INFO  2018-02-21 16:58:02,617 556644ms HomeController         Getbankpayments    - inn = undefined
+INFO  2018-02-21 16:58:02,618 556645ms HomeController         Getbankpayments    - zb = 2018
+INFO  2018-02-21 16:58:03,060 557086ms HomeController         etbankpaymentsYear - GetbankpaymentsYear
+INFO  2018-02-21 16:58:03,061 557087ms HomeController         etbankpaymentsYear - inn = undefined
+INFO  2018-02-21 16:58:03,062 557088ms HomeController         etbankpaymentsYear - zb = 2018
+INFO  2018-02-21 16:58:03,561 557587ms HomeController         GetAvarageprice    - GetAvarageprice
+INFO  2018-02-21 16:58:03,563 557589ms HomeController         GetAvarageprice    - yil = 2018
+INFO  2018-02-21 16:58:19,537 573564ms HomeController         Getbankpayments    - Getbankpayments
+INFO  2018-02-21 16:58:19,538 573565ms HomeController         Getbankpayments    - inn = 200382518
+INFO  2018-02-21 16:58:19,567 573594ms HomeController         Getbankpayments    - zb = 2018
+INFO  2018-02-21 16:58:20,041 574067ms HomeController         GroupRZ_S          - GroupRZ_S
+INFO  2018-02-21 16:58:20,043 574069ms HomeController         GroupRZ_S          - inn = 200382518
+INFO  2018-02-21 16:58:20,045 574071ms HomeController         GroupRZ_S          - zb = 2018
+INFO  2018-02-21 16:58:20,545 574571ms HomeController         aZayavok_S_LoadINN - GetAllPodachaZayavok_S_LoadINN
+INFO  2018-02-21 16:58:20,547 574573ms HomeController         aZayavok_S_LoadINN - inn = 200382518
+INFO  2018-02-21 16:58:20,548 574574ms HomeController         aZayavok_S_LoadINN - zb = 2018
+INFO  2018-02-21 16:58:20,657 574683ms HomeController         etbankpaymentsYear - GetbankpaymentsYear
+INFO  2018-02-21 16:58:20,658 574684ms HomeController         etbankpaymentsYear - inn = 200382518
+INFO  2018-02-21 16:58:20,658 574684ms HomeController         etbankpaymentsYear - zb = 2018
+INFO  2018-02-21 16:58:21,071 575097ms HomeController         GetAvarageprice    - GetAvarageprice
+INFO  2018-02-21 16:58:21,072 575098ms HomeController         GetAvarageprice    - yil = 2018
+INFO  2018-02-21 16:58:23,041 577067ms HomeController         aZayavok_S_LoadINN - GetAllPodachaZayavok_S_LoadINN
+INFO  2018-02-21 16:58:23,045 577071ms HomeController         aZayavok_S_LoadINN - inn = 200382518
+INFO  2018-02-21 16:58:23,046 577072ms HomeController         aZayavok_S_LoadINN - zb = 2017
+INFO  2018-02-21 16:58:23,551 577577ms HomeController         GetAvarageprice    - GetAvarageprice
+INFO  2018-02-21 16:58:23,552 577578ms HomeController         GetAvarageprice    - yil = 2017
+INFO  2018-02-21 16:58:23,617 577643ms HomeController         GroupRZ_S          - GroupRZ_S
+INFO  2018-02-21 16:58:23,618 577644ms HomeController         GroupRZ_S          - inn = 200382518
+INFO  2018-02-21 16:58:23,619 577645ms HomeController         GroupRZ_S          - zb = 2017
+INFO  2018-02-21 16:58:24,097 578123ms HomeController         Getbankpayments    - Getbankpayments
+INFO  2018-02-21 16:58:24,099 578125ms HomeController         Getbankpayments    - inn = 200382518
+INFO  2018-02-21 16:58:24,100 578126ms HomeController         Getbankpayments    - zb = 2017
+INFO  2018-02-21 16:58:24,170 578196ms HomeController         etbankpaymentsYear - GetbankpaymentsYear
+INFO  2018-02-21 16:58:24,171 578197ms HomeController         etbankpaymentsYear - inn = 200382518
+INFO  2018-02-21 16:58:24,172 578198ms HomeController         etbankpaymentsYear - zb = 2017
+INFO  2018-02-21 16:58:27,494 581520ms HomeController         GetAvarageprice    - GetAvarageprice
+INFO  2018-02-21 16:58:27,496 581522ms HomeController         GetAvarageprice    - yil = 2018
+INFO  2018-02-21 16:58:28,516 582542ms HomeController         aZayavok_S_LoadINN - GetAllPodachaZayavok_S_LoadINN
+INFO  2018-02-21 16:58:28,517 582543ms HomeController         aZayavok_S_LoadINN - inn = 200382518
+INFO  2018-02-21 16:58:28,518 582544ms HomeController         aZayavok_S_LoadINN - zb = 2018
+INFO  2018-02-21 16:58:29,031 583057ms HomeController         Getbankpayments    - Getbankpayments
+INFO  2018-02-21 16:58:29,032 583058ms HomeController         Getbankpayments    - inn = 200382518
+INFO  2018-02-21 16:58:29,034 583060ms HomeController         Getbankpayments    - zb = 2018
+INFO  2018-02-21 16:58:29,538 583564ms HomeController         GroupRZ_S          - GroupRZ_S
+INFO  2018-02-21 16:58:29,538 583564ms HomeController         GroupRZ_S          - inn = 200382518
+INFO  2018-02-21 16:58:29,538 583564ms HomeController         GroupRZ_S          - zb = 2018
+INFO  2018-02-21 16:58:30,044 584070ms HomeController         etbankpaymentsYear - GetbankpaymentsYear
+INFO  2018-02-21 16:58:30,044 584070ms HomeController         etbankpaymentsYear - inn = 200382518
+INFO  2018-02-21 16:58:30,044 584070ms HomeController         etbankpaymentsYear - zb = 2018
+INFO  2018-02-21 16:58:35,397 589423ms HomeController         GetAvarageprice    - GetAvarageprice
+INFO  2018-02-21 16:58:35,398 589424ms HomeController         GetAvarageprice    - yil = 2018
+INFO  2018-02-21 16:59:36,099 650125ms HomeController         GetAvarageprice    - GetAvarageprice
+INFO  2018-02-21 16:59:36,766 650793ms HomeController         GetAvarageprice    - yil = 2018
+INFO  2018-02-21 17:00:29,308 703334ms HomeController         GetAvarageprice    - GetAvarageprice
+INFO  2018-02-21 17:00:29,687 703714ms HomeController         GetAvarageprice    - yil = 2018
+INFO  2018-02-21 17:00:52,771 726798ms HomeController         GetAvarageprice    - GetAvarageprice
+INFO  2018-02-21 17:00:52,772 726799ms HomeController         GetAvarageprice    - yil = 2018

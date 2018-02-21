@@ -10,6 +10,7 @@
     GetSanatory();
     GetPP(1);
     GetPP_SUM(1);
+    $scope.PPdiv = false;
     //LoadDATA_S();
     $scope.LoadPPData = function () {
         GetPP($scope.SCFilter.id);
@@ -23,6 +24,8 @@
             $scope.PP = d.data;
             if (d.data.length != 0) {
                 $scope.PPdiv = true;
+            } else {
+                $scope.PPdiv = false;
             }
         }, function () {
             //alert("error in GetPrixodPutevok_S");
@@ -36,9 +39,6 @@
             url: "/PrixodPutevok/GetPP_SUM?sc_id=" + id,
         }).then(function (d) {
             $scope.PP_SUM = d.data;
-            if (d.data.length != 0) {
-                $scope.PPdiv = true;
-            }
         }, function () {
             //alert("error in GetPP_SUM_S");
             console.log("error in GetPP_SUM");
@@ -74,7 +74,7 @@
             $("#hh").modal('hide');
         });
     }
-  function GetPP_SUM_C(id) {
+    function GetPP_SUM_C(id) {
         $http({
             method: "post",
             url: "GetPP_SUM_C?sc_id=" + id,
@@ -90,7 +90,7 @@
             $("#hh").modal('hide');
         });
   }
-  function GetPP_S(id) {
+    function GetPP_S(id) {
       $scope.scname = "Санаторий";
       $scope.s = "option1";
         $http({
@@ -98,9 +98,6 @@
             url: "GetPrixodPutevok_S?sc_id="+id,
         }).then(function (d) {
             $scope.PP = d.data;
-            if (d.data.length != 0) {
-                $scope.PPdiv = true;
-            }
         }, function () {
             //alert("error in GetPrixodPutevok_S");
             console.log("error in GetPrixodPutevok_S");
@@ -114,9 +111,6 @@
           url: "GetPrixodPutevok_C?sc_id=" + id,
       }).then(function (d) {
           $scope.PP = d.data;
-          if (d.data.length != 0) {
-              $scope.PPdiv = true;
-          }
       }, function () {
           //alert("error in GetPrixodPutevok_C");
           console.log("error in GetPrixodPutevok_C");
@@ -124,22 +118,22 @@
           $("#hh").modal('hide');
       });
   }
-  function Tozala() {
+    function Tozala() {
       $scope.SCFilter.id = 1;
       $scope.PFilter = "";
       GetPP(1);
       GetPP_SUM(1);
   }
-  $scope.ok = function () {
+    $scope.ok = function () {
       Tozala();
   }
-   $scope.AddPPDiv = function () {
+    $scope.AddPPDiv = function () {
        $scope.showdelete = false;
       $scope.SC.id = 1;
       ClearFields();
       $scope.Action = "Добавить";
   }
-  function ClearFields() {
+    function ClearFields() {
       var rbd = $filter('date')(new Date(), 'dd.MM.yyyy');
       var red = $filter('date')(new Date(), 'dd.MM.yyyy');
       $scope.RBD = new Date(rbd.substring(6, 10), rbd.substring(3, 5) - 1, rbd.substring(0, 2));
@@ -151,7 +145,7 @@
       $scope.Q_IN = "";
       $scope.Q_OUT = "";
   }
-  $scope.editPP = function (pp) {
+    $scope.editPP = function (pp) {
       $scope.showdelete = true;
         $scope.ID = pp.ID;
         var rbd = (pp.RBD) ? $filter('date')(parseInt(pp.RBD.substr(6)), 'dd.MM.yyyy') : '';

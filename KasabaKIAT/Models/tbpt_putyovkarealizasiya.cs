@@ -44,6 +44,8 @@ namespace KasabaKIAT.Models
         public Nullable<System.DateTime> TALON_BACK_DATE { get; set; }
         public string REMARK { get; set; }
         public string ORG_INN { get; set; }
+        public string NAKLADNOY_NOMER { get; set; }
+        public string TALON_NUMBER { get; set; }
     
         public virtual t_camp t_camp { get; set; }
         public virtual t_sanatorium t_sanatorium { get; set; }

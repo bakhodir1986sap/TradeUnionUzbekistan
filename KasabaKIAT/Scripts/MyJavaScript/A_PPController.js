@@ -1,13 +1,20 @@
 ﻿app.controller("A_PPController", ["$scope", "$http", "$filter", "crudAJService", function ($scope, $http, $filter, crudAJService) {
     GetPP(14, 1726);
     AllRegion();
-    AllPlaceType();
+    AllPlaceType(); 
     $scope.showdelete = false;
+    $scope.showdata = false;
     function GetPP(o,r) {
         $http({
             method: "post",
             url: "/Administirirovaniye/GetPP?o_id="+o+"&r_id="+r,
         }).then(function (d) {
+            if (d.data.length !== 0) {
+                $scope.showdata = true;
+            }
+            else {
+                $scope.showdata = false;
+            }
             $scope.PP = d.data;
         }, function () {
             //alert("error in SP");

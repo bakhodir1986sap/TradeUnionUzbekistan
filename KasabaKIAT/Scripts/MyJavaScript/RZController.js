@@ -21,8 +21,10 @@
         });
     }
     function AddOQ_S(SC_g_id, ZB_g, OQ) {
-        var getData = crudAJService.AddOQ_S($scope.INN, $scope.ZB, ZB_g, SC_g_id, OQ);
-        getData.then(function (p) {
+        $http({
+            method: "post",
+            url: "Add_RZ_S_OQ?inn=" + $scope.INN + "&zb=" + $scope.ZB + "&zb_g=" + ZB_g + "&SC_id=" + SC_g_id + "&oq=" + OQ
+        }).then(function (p) {
             GetRZ_G_S();
         }, function () {
             //alert('Error in AddOQ_S');
@@ -32,8 +34,10 @@
         });
     }
     function AddOQ_C(SC_g_id, ZB_g, OQ) {
-        var getData = crudAJService.AddOQ_C($scope.INN, $scope.ZB, ZB_g, SC_g_id, OQ);
-        getData.then(function (p) {
+        $http({
+            method: "post",
+            url: "Add_RZ_C_OQ?inn=" + $scope.INN + "&zb=" + $scope.ZB + "&zb_g=" + ZB_g + "&SC_id=" + SC_g_id + "&oq=" + OQ
+        }).then(function (p) {
             GetRZ_G_C();
         }, function () {
             //alert('Error in AddOQ_C');
@@ -83,8 +87,10 @@
         alertify.confirm("Вы действительно хотите cохранить?", function (e) {
             if (e) {
                 alertify.success("Операция выполняется");
-                var getData = crudAJService.UpdateStatusRZ(id, s);
-                getData.then(function (p) {
+                $http({
+                    method: "post",
+                    url: "UpdateStatusRZ?id=" + id + "&s=" + s
+                }).then(function (p) {
                     if ($scope.s = "option1") {
                         GetRZ_S();
                         $("#hh").modal('hide');
@@ -112,8 +118,10 @@
         
     }
     function getPrice() {
-        var getData = crudAJService.GetPrice($scope.ZB);
-        getData.then(function (p) {
+        $http({
+            method: "post",
+            url: "GetAvarageprice?yil=" + $scope.ZB
+        }).then(function (p) {
             $scope.Price = p.data;
         }, function () {
             //alert('Error in getPrice');
@@ -121,15 +129,19 @@
         });
     }
     function GetBank() {
-        var getData = crudAJService.Getbankpayments($scope.INN, $scope.ZB);
-        getData.then(function (b) {
+        $http({
+            method: "post",
+            url: "Getbankpayments?inn=" + $scope.INN + "&zb=" + $scope.ZB
+        }).then(function (b) {
             $scope.Bank = b.data;
         }, function () {
             //alert('Error in GetBank');
             console.log('Error in GetBank');
         });
-        var d = crudAJService.GetbankpaymentsYear($scope.INN, $scope.ZB);
-        d.then(function (b) {
+        $http({
+            method: "post",
+            url: "GetbankpaymentsYear?inn=" + $scope.INN + "&zb=" + $scope.ZB
+        }).then(function (b) {
             $scope.GroupYear = b.data;
         }, function () {
             //alert('Error in GetbankpaymentsYear');
@@ -137,8 +149,10 @@
         });
     }
     function GetRZ_G_S(){
-        var getData = crudAJService.getGroupRZ_S($scope.INN, $scope.ZB);
-        getData.then(function (s) {
+        $http({
+            method: "post",
+            url: "GroupRZ_S?inn=" + $scope.INN + "&zb=" + $scope.ZB
+        }).then(function (s) {
             $scope.RZ_G = s.data;
             if (s.data.length != 0) {
                 $scope.RZ_Gdiv = true;
@@ -152,8 +166,10 @@
         });
     }
     function GetRZ_G_C() {
-        var getData = crudAJService.getGroupRZ_C($scope.INN, $scope.ZB);
-        getData.then(function (s) {
+        $http({
+            method: "post",
+            url: "GroupRZ_C?inn=" + inn + "&zb=" + zb
+        }).then(function (s) {
             $scope.RZ_G = s.data;
             if (s.data.length != 0) {
                 $scope.RZ_Gdiv = true;
@@ -169,8 +185,10 @@
     function GetRZ_S() {
         $scope.s = "option1";
         $scope.myValue = "санаторий";
-        var getData = crudAJService.getRZ_S_INN($scope.INN, $scope.ZB);
-        getData.then(function (s) {
+        $http({
+            method: "post",
+            url: "GetAllPodachaZayavok_S_LoadINN?inn=" + inn + "&zb=" + zb
+        }).then(function (s) {
             $scope.RZ = s.data;
             if (s.data.length != 0) {
                 $scope.RZdiv = true;
@@ -184,8 +202,10 @@
         });
     }
     function GetRZ_C() {
-        var getData = crudAJService.getRZ_C_INN($scope.INN,$scope.ZB);
-        getData.then(function (c) {
+        $http({
+            method: "post",
+            url: "GetAllPodachaZayavok_S_LoadINN?inn=" + inn + "&zb=" + zb
+        }).then(function (c) {
             $scope.RZ = c.data;
             if (c.data.length != 0) {
                 $scope.RZdiv = true;

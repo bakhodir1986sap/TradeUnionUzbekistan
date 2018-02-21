@@ -260,12 +260,55 @@ namespace KasabaKIAT.Controllers
                        select new
                        {
                            d0=d.REC_ID,
-                           d1 = d.DOVERENNOST_NUMBER,
+                           d1 = d.SERAIL_NUMBER,
                            d2 = d.Name_San,
                            d3 = d.REST_BEGIN_DATE,
                            d4 = d.REST_END_DATE,
                            d5 = d.PRICE,
                            d6 = d.QUANTITY,
+                       };
+            return Json(list.ToList(), JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult PRP2(int id)
+        {
+            var data = KasabaDB.sp_get_ProsmotrRealizovannixPutyovokDetali(id);
+            var list = from d in data
+                       select new
+                       {
+                           d0 = d.REC_ID,
+                           d1 = d.SERAIL_NUMBER,
+                           d2 = d.Name_San,
+                           d3 = d.REST_BEGIN_DATE,
+                           d4 = d.REST_END_DATE,
+                           d5 = d.PLATEJ_DATE,
+                           d6 = d.MakeOrgName,
+                           d7=d.PRICE,
+                           d8=d.PAYMENT_PERSENT,
+                           d9=d.NAKLADNOY_NOMER,
+                           d10= d.PRICE * d.PAYMENT_PERSENT/100,
+                       };
+            return Json(list.ToList(), JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult PRP3(int id)
+        {
+            var data = KasabaDB.sp_get_RealizasiyaPutyovokDetailN(id);
+            var list = from d in data
+                       select new
+                       {
+                           d0 = d.REC_ID,
+                           d1 = d.KOD,
+                           d2 = d.INN,
+                           d3 = d.OKONX_NAME,
+                           d4 = d.name_full,
+                           d5 = d.FULL_NAME,
+                           d6 = d.POSITION,
+                           d7 = d.SOTR_INN,
+                           d8 = d.REMARK,
+                           d9 = d.TALON_NUMBER,
+                           d10 = d.RECIEVER,
+                           d11=d.DOVER_ISSUE_DATE,
+                           d12=d.DOVER_EXPIRE_DATE,
+                           d13=d.DOVERENNOST_NUMBER
                        };
             return Json(list.ToList(), JsonRequestBehavior.AllowGet);
         }

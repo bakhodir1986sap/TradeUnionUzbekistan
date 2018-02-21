@@ -1211,15 +1211,21 @@ namespace KasabaKIAT.Controllers
         {
             log.Info("GetAvarageprice");
             log.Info("yil = " + yil);
-
+            //var list = from a in KasabaDB.tbpt_avarageprice
+            //           //where a.SET_DATE.Value.Year == yil
+            //           select a;
+            //return Json(list.ToList(), JsonRequestBehavior.AllowGet);
             try
             {
                 var list = from a in KasabaDB.tbpt_avarageprice
                            where a.SET_DATE.Value.Year == yil
-                           select a;
+                           select new
+                           {
+                               A = a.AMOUNT
+                           };
                 return Json(list.ToList(), JsonRequestBehavior.AllowGet);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 log.Error(ex);
             }

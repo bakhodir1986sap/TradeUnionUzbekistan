@@ -16,17 +16,7 @@
                 </nav>
             </div>
         </div>
-        @*<div class="form-group mb-4">
-            <div class="custom-control custom-radio custom-control-inline">
-                <input type="radio" name="inlineRadioOptions3" id="inlineRadio1" value="option1" class="custom-control-input" checked="" />
-                <label for="inlineRadio1" class="custom-control-label">Санаторий</label>
-            </div>
-            <div class="custom-control custom-radio custom-control-inline">
-                <input type="radio" name="inlineRadioOptions3" id="inlineRadio2" value="option2" class="custom-control-input" />
-                <label for="inlineRadio2" class="custom-control-label">Дет. лагер</label>
-            </div>
-        </div>*@
-        <div class="table-responsive box-shadow mb-4">
+        <div class="table-responsive box-shadow mb-4" ng-show="showdata">
             <table class="table table__block t-hover">
                 <thead>
                     <tr>
@@ -87,13 +77,13 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="item in DATA" data-toggle="modal" data-target="#vozvrat">
-                        <td>{{itam.d1}}</td>
-                        <td>{{itam.d2}}</td>
-                        <td>{{itam.d3 | jsonDate: 'dd.MM.yyyy'}} - {{itam.d4 | jsonDate: 'dd.MM.yyyy'}}</td>
-                        <td>{{itam.d5}}</td>
-                        <td>{{itam.d6}}</td>
-                        <td>{{itam.d5}}</td>
+                    <tr ng-repeat="item in DATA" ng-click="Load(item.d0)" data-toggle="modal" data-target="#vozvrat">
+                        <td>{{item.d1}}</td>
+                        <td>{{item.d2}}</td>
+                        <td>{{item.d3 | jsonDate: 'dd.MM.yyyy'}} - {{itam.d4 | jsonDate: 'dd.MM.yyyy'}}</td>
+                        <td>{{item.d5}}</td>
+                        <td>{{item.d6}}</td>
+                        <td>{{item.d5}}</td>
                     </tr>
                 </tbody>
             </table>
@@ -110,7 +100,7 @@
                     </div>
                     <div class="row justify-content-center">
                         <section class="content__block container">
-                            <div class="det__block mb-4 box-shadow">
+                            <div class="det__block mb-4 box-shadow" ng-repeat="item in DATA2">
                                 <div class="row">
                                     <div class="col-md-4">
                                         <div class="row no-gutters mb-2">
@@ -118,7 +108,7 @@
                                                 <p>№ путевки:</p>
                                             </div>
                                             <div class="col-6">
-                                                <p><strong>35004</strong></p>
+                                                <p><strong>{{item.d1}}</strong></p>
                                             </div>
                                         </div>
                                         <div class="row no-gutters mb-2">
@@ -126,7 +116,7 @@
                                                 <p>Санаторий:</p>
                                             </div>
                                             <div class="col-6">
-                                                <p><strong>Турон</strong></p>
+                                                <p><strong>{{item.d2}}</strong></p>
                                             </div>
                                         </div>
                                         <div class="row no-gutters mb-2">
@@ -134,7 +124,7 @@
                                                 <p>Даты:</p>
                                             </div>
                                             <div class="col-6">
-                                                <p><strong>10.08.2018 - 20.08.2018</strong></p>
+                                                <p><strong>{{item.d3 | jsonDate: 'dd.MM.yyyy'}} - {{item.d4 | jsonDate: 'dd.MM.yyyy'}}</strong></p>
                                             </div>
                                         </div>
                                         <div class="row no-gutters mb-2">
@@ -142,7 +132,7 @@
                                                 <p>Дата реализации:</p>
                                             </div>
                                             <div class="col-6">
-                                                <p><strong>5.08.2018</strong></p>
+                                                <p><strong>{{item.d5 | jsonDate: 'dd.MM.yyyy'}}</strong></p>
                                             </div>
                                         </div>
                                         <div class="row no-gutters mb-2">
@@ -150,7 +140,7 @@
                                                 <p>Путевка получена от:</p>
                                             </div>
                                             <div class="col-6">
-                                                <p><strong>Вышестоящий проф. орг. или другой орг</strong></p>
+                                                <p><strong>{{item.d6}}</strong></p>
                                             </div>
                                         </div>
                                     </div>
@@ -160,7 +150,7 @@
                                                 <p>Цена:</p>
                                             </div>
                                             <div class="col-6">
-                                                <p><strong>1 200 000 сум</strong></p>
+                                                <p><strong>{{item.d7}} сум</strong></p>
                                             </div>
                                         </div>
                                         <div class="row no-gutters mb-2">
@@ -168,7 +158,7 @@
                                                 <p>Оплачено:</p>
                                             </div>
                                             <div class="col-6">
-                                                <p><strong>45%</strong></p>
+                                                <p><strong>{{item.d8}}%</strong></p>
                                             </div>
                                         </div>
                                         <div class="row no-gutters mb-2">
@@ -176,7 +166,7 @@
                                                 <p>№ накладной:</p>
                                             </div>
                                             <div class="col-6">
-                                                <p><strong>25455876</strong></p>
+                                                <p><strong>{{item.d9}}</strong></p>
                                             </div>
                                         </div>
                                         <div class="row no-gutters mb-2">
@@ -184,7 +174,7 @@
                                                 <p>Сумма оплаты:</p>
                                             </div>
                                             <div class="col-6">
-                                                <p><strong>540 000 сум</strong></p>
+                                                <p><strong>{{item.d10}} сум</strong></p>
                                             </div>
                                         </div>
                                     </div>
@@ -210,7 +200,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="det__block mb-4 box-shadow">
+                            <div class="det__block mb-4 box-shadow" ng-repeat="item in DATA3">
                                 <div class="row">
                                     <div class="col-md-4">
                                         <div class="det-title">
@@ -221,7 +211,7 @@
                                                 <p>Код:</p>
                                             </div>
                                             <div class="col-6 text-right">
-                                                <p><strong>0002</strong></p>
+                                                <p><strong>{{item.d1}}</strong></p>
                                             </div>
                                         </div>
                                         <div class="row no-gutters mb-2">
@@ -229,7 +219,7 @@
                                                 <p>ИНН:</p>
                                             </div>
                                             <div class="col-6 text-right">
-                                                <p><strong>2656576348</strong></p>
+                                                <p><strong>{{item.d2}}</strong></p>
                                             </div>
                                         </div>
                                         <div class="row no-gutters mb-2">
@@ -237,7 +227,7 @@
                                                 <p>Отрасль:</p>
                                             </div>
                                             <div class="col-6 text-right">
-                                                <p><strong>Агро</strong></p>
+                                                <p><strong>{{item.d3}}</strong></p>
                                             </div>
                                         </div>
                                         <div class="row no-gutters align-items-center mb-2">
@@ -245,12 +235,7 @@
                                                 <p>Название:</p>
                                             </div>
                                             <div class="col-7">
-                                                <select class="custom-select form-control">
-                                                    <option>Проф комитет То...</option>
-                                                    <option>Option 1</option>
-                                                    <option>Option 2</option>
-                                                    <option>Option 3</option>
-                                                </select>
+                                                <p><strong>{{item.d4}}</strong></p>
                                             </div>
                                         </div>
                                     </div>
@@ -263,7 +248,7 @@
                                                 <p>ФИО:</p>
                                             </div>
                                             <div class="col-6 text-right">
-                                                <p><strong>Каюмов Р. М</strong></p>
+                                                <p><strong>{{item.d5}}</strong></p>
                                             </div>
                                         </div>
                                         <div class="row no-gutters mb-2">
@@ -271,7 +256,7 @@
                                                 <p>Должность:</p>
                                             </div>
                                             <div class="col-6 text-right">
-                                                <p><strong>Старший спец</strong></p>
+                                                <p><strong>{{item.d6}}</strong></p>
                                             </div>
                                         </div>
                                         <div class="row no-gutters mb-2">
@@ -279,7 +264,7 @@
                                                 <p>ИНН:</p>
                                             </div>
                                             <div class="col-6 text-right">
-                                                <p><strong>928769025</strong></p>
+                                                <p><strong>{{item.d7}}</strong></p>
                                             </div>
                                         </div>
                                         <div class="row no-gutters mb-2">
@@ -287,10 +272,10 @@
                                                 <p>Примечание:</p>
                                             </div>
                                             <div class="col-6 text-right">
-                                                <p><strong>Папка №2</strong></p>
+                                                <p><strong>{{item.d8}}</strong></p>
                                             </div>
                                         </div>
-                                        <div class="row no-gutters align-items-center mb-2">
+                                        @*<div class="row no-gutters align-items-center mb-2">
                                             <div class="col-5">
                                                 <p>Тип:</p>
                                             </div>
@@ -302,18 +287,13 @@
                                                     <option>Option 3</option>
                                                 </select>
                                             </div>
-                                        </div>
+                                        </div>*@
                                         <div class="row no-gutters align-items-center mb-2">
                                             <div class="col-5">
                                                 <p>Талон:</p>
                                             </div>
                                             <div class="col-7">
-                                                <select class="custom-select form-control">
-                                                    <option>3</option>
-                                                    <option>Option 1</option>
-                                                    <option>Option 2</option>
-                                                    <option>Option 3</option>
-                                                </select>
+                                                <input type="text" class="form-control" ng-model="item.d9" />
                                             </div>
                                         </div>
                                     </div>
@@ -326,7 +306,7 @@
                                                 <p>Получатель:</p>
                                             </div>
                                             <div class="col-6 text-right">
-                                                <p><strong>Сапаралиева К.К.</strong></p>
+                                                <p><strong>{{item.d10}}</strong></p>
                                             </div>
                                         </div>
                                         <div class="row no-gutters mb-2">
@@ -334,7 +314,7 @@
                                                 <p>Дата:</p>
                                             </div>
                                             <div class="col-6 text-right">
-                                                <p><strong>14.05.2017</strong></p>
+                                                <p><strong>{{item.d11 | jsonDate: 'dd.MM.yyyy'}}</strong></p>
                                             </div>
                                         </div>
                                         <div class="row no-gutters mb-2">
@@ -342,7 +322,7 @@
                                                 <p>Срок истечения:</p>
                                             </div>
                                             <div class="col-6 text-right">
-                                                <p><strong>14.05.2018</strong></p>
+                                                <p><strong>{{item.d12 | jsonDate: 'dd.MM.yyyy'}}</strong></p>
                                                 <p><a href="#">Посмотреть файл</a></p>
                                             </div>
                                         </div>
@@ -351,7 +331,7 @@
                                                 <p>Номер доверенности:</p>
                                             </div>
                                             <div class="col-5">
-                                                <input type="text" class="form-control" placeholder="Номер доверенности" />
+                                                <input type="text" class="form-control" ng-model="item.d13" />
                                             </div>
                                         </div>
                                     </div>
@@ -363,7 +343,7 @@
                                 <a href="" class="btn btn-grey d-block d-md-inline-block mb-2">Назад</a>
                             </div>
                         </section>
-                    </div>
+                    </div> 
                 </div>
             </div>
         </div>

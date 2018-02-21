@@ -34,6 +34,7 @@ namespace KasabaKIAT.BusinessLogic.Putyovki.RealizasiyaPutyovok.RealizasitaPoTz
                         if (putyovka.Any())
                         {
                             real.rest_begin_date = putyovka.First().DataSan;
+                            real.price = putyovka.First().Symma_Put.Value;
                         }
                         else
                         {

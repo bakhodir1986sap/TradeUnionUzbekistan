@@ -32,6 +32,11 @@ namespace KasabaKIAT.Controllers
             }
         }
         [Authorize(Roles = "COUNCIL_REGIONAL_REGION,ADMIN")]
+        public ActionResult ProsmotrRealzPutevok()
+        {
+            return View();
+        }
+        [Authorize(Roles = "COUNCIL_REGIONAL_REGION,ADMIN")]
         public ActionResult ProsmotrOstatPutevok()
         {
             int UserId = Convert.ToInt32(User.Identity.Name);
@@ -243,6 +248,24 @@ namespace KasabaKIAT.Controllers
                            d6 = d.URGENT_FLG,
                            green = d.BRON_FLG == 1 ? "green" : "",
                            red = d.URGENT_FLG == 1 ? "red" : "",
+                       };
+            return Json(list.ToList(), JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult PRP()
+        {
+            int UserId = Convert.ToInt32(User.Identity.Name);
+            var ustinfo = UserInfo.GetUserInfo(UserId);
+            var data = KasabaDB.sp_get_ProsmotrRealizovannixPutyovok(ustinfo.DepartmentBase);
+            var list = from d in data
+                       select new
+                       {
+                           d0=d.REC_ID,
+                           d1 = d.DOVERENNOST_NUMBER,
+                           d2 = d.Name_San,
+                           d3 = d.REST_BEGIN_DATE,
+                           d4 = d.REST_END_DATE,
+                           d5 = d.PRICE,
+                           d6 = d.QUANTITY,
                        };
             return Json(list.ToList(), JsonRequestBehavior.AllowGet);
         }

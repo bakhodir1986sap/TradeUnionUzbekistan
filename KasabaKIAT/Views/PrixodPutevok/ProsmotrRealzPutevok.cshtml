@@ -1,0 +1,372 @@
+﻿
+@{
+    ViewBag.Title = "Путевки";
+}
+<script src="~/Scripts/MyJavaScript/ProsmotrRealzPutevok.js"></script>
+<div ng-controller="ProsmotrRealzPutevok">
+    <section class="content__block container">
+        <div class="row mb-4 align-items-center">
+            <div class="col title__block">
+                <h4>Просмотр реализованных путевок</h4>
+                <nav aria-label="breadcrumb" class="breadcrumb__block">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item load"><a href="/Home/Putyovki">Путевки</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Просмотр реализованных путевок</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+        @*<div class="form-group mb-4">
+            <div class="custom-control custom-radio custom-control-inline">
+                <input type="radio" name="inlineRadioOptions3" id="inlineRadio1" value="option1" class="custom-control-input" checked="" />
+                <label for="inlineRadio1" class="custom-control-label">Санаторий</label>
+            </div>
+            <div class="custom-control custom-radio custom-control-inline">
+                <input type="radio" name="inlineRadioOptions3" id="inlineRadio2" value="option2" class="custom-control-input" />
+                <label for="inlineRadio2" class="custom-control-label">Дет. лагер</label>
+            </div>
+        </div>*@
+        <div class="table-responsive box-shadow mb-4">
+            <table class="table table__block t-hover">
+                <thead>
+                    <tr>
+                        <th class="dropdown dropdown__table">
+                            <span class="dropdown-toggle dr-link" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Номер путевок</span>
+                            <div class="dropdown-menu dr-menu rounded-0 border-0" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item dr-item" href="#">Номер путевок</a>
+                                <a class="dropdown-item dr-item" href="#">Номер путевок</a>
+                                <a class="dropdown-item dr-item" href="#">Номер путевок</a>
+                                <a class="dropdown-item dr-item" href="#">Номер путевок</a>
+                            </div>
+                        </th>
+                        <th class="dropdown dropdown__table">
+                            <span class="dropdown-toggle dr-link" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Санаторий</span>
+                            <div class="dropdown-menu dr-menu rounded-0 border-0" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item dr-item" href="#">Санаторий</a>
+                                <a class="dropdown-item dr-item" href="#">Санаторий</a>
+                                <a class="dropdown-item dr-item" href="#">Санаторий</a>
+                                <a class="dropdown-item dr-item" href="#">Санаторий</a>
+                            </div>
+                        </th>
+                        <th class="dropdown dropdown__table">
+                            <span class="dropdown-toggle dr-link" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Период</span>
+                            <div class="dropdown-menu dr-menu rounded-0 border-0" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item dr-item" href="#">Период</a>
+                                <a class="dropdown-item dr-item" href="#">Период</a>
+                                <a class="dropdown-item dr-item" href="#">Период</a>
+                                <a class="dropdown-item dr-item" href="#">Период</a>
+                            </div>
+                        </th>
+                        <th class="dropdown dropdown__table">
+                            <span class="dropdown-toggle dr-link" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Цена</span>
+                            <div class="dropdown-menu dr-menu rounded-0 border-0" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item dr-item" href="#">Цена</a>
+                                <a class="dropdown-item dr-item" href="#">Цена</a>
+                                <a class="dropdown-item dr-item" href="#">Цена</a>
+                                <a class="dropdown-item dr-item" href="#">Цена</a>
+                            </div>
+                        </th>
+                        <th class="dropdown dropdown__table">
+                            <span class="dropdown-toggle dr-link" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Кол-во</span>
+                            <div class="dropdown-menu dr-menu rounded-0 border-0" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item dr-item" href="#">Кол-во</a>
+                                <a class="dropdown-item dr-item" href="#">Кол-во</a>
+                                <a class="dropdown-item dr-item" href="#">Кол-во</a>
+                                <a class="dropdown-item dr-item" href="#">Кол-во</a>
+                            </div>
+                        </th>
+                        <th class="dropdown dropdown__table">
+                            <span class="dropdown-toggle dr-link" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Общая стоимость</span>
+                            <div class="dropdown-menu dr-menu rounded-0 border-0" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item dr-item" href="#">Общая стоимость</a>
+                                <a class="dropdown-item dr-item" href="#">Общая стоимость</a>
+                                <a class="dropdown-item dr-item" href="#">Общая стоимость</a>
+                                <a class="dropdown-item dr-item" href="#">Общая стоимость</a>
+                            </div>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="item in DATA" data-toggle="modal" data-target="#vozvrat">
+                        <td>{{itam.d1}}</td>
+                        <td>{{itam.d2}}</td>
+                        <td>{{itam.d3 | jsonDate: 'dd.MM.yyyy'}} - {{itam.d4 | jsonDate: 'dd.MM.yyyy'}}</td>
+                        <td>{{itam.d5}}</td>
+                        <td>{{itam.d6}}</td>
+                        <td>{{itam.d5}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+
+    <div class="modal__block modal fade" id="vozvrat" tabindex="-1" role="dialog" aria-labelledby="vozvrat">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="modal-title">
+                        <h4 class="text-center mt-4 mb-4">Детали</h4>
+                    </div>
+                    <div class="row justify-content-center">
+                        <section class="content__block container">
+                            <div class="det__block mb-4 box-shadow">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="row no-gutters mb-2">
+                                            <div class="col-6">
+                                                <p>№ путевки:</p>
+                                            </div>
+                                            <div class="col-6">
+                                                <p><strong>35004</strong></p>
+                                            </div>
+                                        </div>
+                                        <div class="row no-gutters mb-2">
+                                            <div class="col-6">
+                                                <p>Санаторий:</p>
+                                            </div>
+                                            <div class="col-6">
+                                                <p><strong>Турон</strong></p>
+                                            </div>
+                                        </div>
+                                        <div class="row no-gutters mb-2">
+                                            <div class="col-6">
+                                                <p>Даты:</p>
+                                            </div>
+                                            <div class="col-6">
+                                                <p><strong>10.08.2018 - 20.08.2018</strong></p>
+                                            </div>
+                                        </div>
+                                        <div class="row no-gutters mb-2">
+                                            <div class="col-6">
+                                                <p>Дата реализации:</p>
+                                            </div>
+                                            <div class="col-6">
+                                                <p><strong>5.08.2018</strong></p>
+                                            </div>
+                                        </div>
+                                        <div class="row no-gutters mb-2">
+                                            <div class="col-6">
+                                                <p>Путевка получена от:</p>
+                                            </div>
+                                            <div class="col-6">
+                                                <p><strong>Вышестоящий проф. орг. или другой орг</strong></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="row no-gutters mb-2">
+                                            <div class="col-6">
+                                                <p>Цена:</p>
+                                            </div>
+                                            <div class="col-6">
+                                                <p><strong>1 200 000 сум</strong></p>
+                                            </div>
+                                        </div>
+                                        <div class="row no-gutters mb-2">
+                                            <div class="col-6">
+                                                <p>Оплачено:</p>
+                                            </div>
+                                            <div class="col-6">
+                                                <p><strong>45%</strong></p>
+                                            </div>
+                                        </div>
+                                        <div class="row no-gutters mb-2">
+                                            <div class="col-6">
+                                                <p>№ накладной:</p>
+                                            </div>
+                                            <div class="col-6">
+                                                <p><strong>25455876</strong></p>
+                                            </div>
+                                        </div>
+                                        <div class="row no-gutters mb-2">
+                                            <div class="col-6">
+                                                <p>Сумма оплаты:</p>
+                                            </div>
+                                            <div class="col-6">
+                                                <p><strong>540 000 сум</strong></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="row no-gutters align-items-center mb-2">
+                                            <div class="col-7">
+                                                <p>Платежное поручение:</p>
+                                            </div>
+                                            <div class="col-5">
+                                                <input type="text" class="form-control" placeholder="Платежное поручение" />
+                                            </div>
+                                        </div>
+                                        <div class="row mb-2">
+                                            <div class="col-6">
+                                                <input type="text" class="form-control" placeholder="Д-т" />
+                                            </div>
+                                            <div class="col-6">
+                                                <div class="form-group">
+                                                    <input type="text" class="form-control" placeholder="К-т" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="det__block mb-4 box-shadow">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="det-title">
+                                            <h5>Организация</h5>
+                                        </div>
+                                        <div class="row no-gutters mb-2">
+                                            <div class="col-6">
+                                                <p>Код:</p>
+                                            </div>
+                                            <div class="col-6 text-right">
+                                                <p><strong>0002</strong></p>
+                                            </div>
+                                        </div>
+                                        <div class="row no-gutters mb-2">
+                                            <div class="col-6">
+                                                <p>ИНН:</p>
+                                            </div>
+                                            <div class="col-6 text-right">
+                                                <p><strong>2656576348</strong></p>
+                                            </div>
+                                        </div>
+                                        <div class="row no-gutters mb-2">
+                                            <div class="col-6">
+                                                <p>Отрасль:</p>
+                                            </div>
+                                            <div class="col-6 text-right">
+                                                <p><strong>Агро</strong></p>
+                                            </div>
+                                        </div>
+                                        <div class="row no-gutters align-items-center mb-2">
+                                            <div class="col-5">
+                                                <p>Название:</p>
+                                            </div>
+                                            <div class="col-7">
+                                                <select class="custom-select form-control">
+                                                    <option>Проф комитет То...</option>
+                                                    <option>Option 1</option>
+                                                    <option>Option 2</option>
+                                                    <option>Option 3</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="det-title">
+                                            <h5>Сотрудник <a href="">Заявки</a></h5>
+                                        </div>
+                                        <div class="row no-gutters mb-2">
+                                            <div class="col-6">
+                                                <p>ФИО:</p>
+                                            </div>
+                                            <div class="col-6 text-right">
+                                                <p><strong>Каюмов Р. М</strong></p>
+                                            </div>
+                                        </div>
+                                        <div class="row no-gutters mb-2">
+                                            <div class="col-6">
+                                                <p>Должность:</p>
+                                            </div>
+                                            <div class="col-6 text-right">
+                                                <p><strong>Старший спец</strong></p>
+                                            </div>
+                                        </div>
+                                        <div class="row no-gutters mb-2">
+                                            <div class="col-6">
+                                                <p>ИНН:</p>
+                                            </div>
+                                            <div class="col-6 text-right">
+                                                <p><strong>928769025</strong></p>
+                                            </div>
+                                        </div>
+                                        <div class="row no-gutters mb-2">
+                                            <div class="col-6">
+                                                <p>Примечание:</p>
+                                            </div>
+                                            <div class="col-6 text-right">
+                                                <p><strong>Папка №2</strong></p>
+                                            </div>
+                                        </div>
+                                        <div class="row no-gutters align-items-center mb-2">
+                                            <div class="col-5">
+                                                <p>Тип:</p>
+                                            </div>
+                                            <div class="col-7">
+                                                <select class="custom-select form-control">
+                                                    <option>Студент</option>
+                                                    <option>Option 1</option>
+                                                    <option>Option 2</option>
+                                                    <option>Option 3</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="row no-gutters align-items-center mb-2">
+                                            <div class="col-5">
+                                                <p>Талон:</p>
+                                            </div>
+                                            <div class="col-7">
+                                                <select class="custom-select form-control">
+                                                    <option>3</option>
+                                                    <option>Option 1</option>
+                                                    <option>Option 2</option>
+                                                    <option>Option 3</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="det-title">
+                                            <h5>Доверенность</h5>
+                                        </div>
+                                        <div class="row no-gutters mb-2">
+                                            <div class="col-6">
+                                                <p>Получатель:</p>
+                                            </div>
+                                            <div class="col-6 text-right">
+                                                <p><strong>Сапаралиева К.К.</strong></p>
+                                            </div>
+                                        </div>
+                                        <div class="row no-gutters mb-2">
+                                            <div class="col-6">
+                                                <p>Дата:</p>
+                                            </div>
+                                            <div class="col-6 text-right">
+                                                <p><strong>14.05.2017</strong></p>
+                                            </div>
+                                        </div>
+                                        <div class="row no-gutters mb-2">
+                                            <div class="col-6">
+                                                <p>Срок истечения:</p>
+                                            </div>
+                                            <div class="col-6 text-right">
+                                                <p><strong>14.05.2018</strong></p>
+                                                <p><a href="#">Посмотреть файл</a></p>
+                                            </div>
+                                        </div>
+                                        <div class="row no-gutters align-items-center mb-2">
+                                            <div class="col-7">
+                                                <p>Номер доверенности:</p>
+                                            </div>
+                                            <div class="col-5">
+                                                <input type="text" class="form-control" placeholder="Номер доверенности" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mb-4">
+                                <a href="" data-toggle="modal" data-target="#vozvrat" class="btn btn-red d-block d-md-inline-block mb-2">Возврат путевки</a>
+                                <a href="" class="btn btn-blue d-block d-md-inline-block mb-2">Сохранить</a>
+                                <a href="" class="btn btn-grey d-block d-md-inline-block mb-2">Назад</a>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

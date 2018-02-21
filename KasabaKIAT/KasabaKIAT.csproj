@@ -304,6 +304,9 @@
     <Compile Include="Models\sp_get_BankPaymentSoatoYearQuaterMonthly_Result.cs">
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\sp_get_ProsmotrRealizovannixPutyovok_Result.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\sp_get_RealizasiyaPutyovokDetail_Result.cs">
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
@@ -973,6 +976,7 @@
     <Content Include="Scripts\MyJavaScript\O_TController.js" />
     <Content Include="Scripts\MyJavaScript\PlatejPoruchController.js" />
     <Content Include="Scripts\MyJavaScript\PPController.js" />
+    <Content Include="Scripts\MyJavaScript\ProsmotrRealzPutevok.js" />
     <Content Include="Scripts\MyJavaScript\PRZController.js" />
     <Content Include="Scripts\MyJavaScript\PZController.js" />
     <Content Include="Scripts\MyJavaScript\RaspredeleniyeZaezdov.js" />
@@ -1011,7 +1015,6 @@
     <Content Include="Views\Home\PodachaZayavok.cshtml" />
     <Content Include="Views\Home\buxgalteriya.cshtml" />
     <Content Include="Views\Home\PoiskRedaktZayavok.cshtml" />
-    <Content Include="Views\Home\ProsmotrRealzPutevok.cshtml" />
     <Content Include="Views\Home\SverkaDannix.cshtml" />
     <Content Include="Views\GodovoyPlan\Index.cshtml" />
     <Content Include="Views\PrixodPutevok\Index.cshtml" />
@@ -1066,6 +1069,7 @@
     <Content Include="Views\Buxgalter\VvodDannix.cshtml" />
     <Content Include="Views\Home\INN.cshtml" />
     <Content Include="Views\PrixodPutevok\OformleniyaRealizatsiyaPutevok.cshtml" />
+    <Content Include="Views\PrixodPutevok\ProsmotrRealzPutevok.cshtml" />
     <None Include="Web References\KurortUrlService\SkuTradeUnionExchg.wsdl" />
     <Content Include="Web References\KurortUrlService\typeGrafikZaezdovSanatoriev.datasource">
       <DependentUpon>Reference.map</DependentUpon>

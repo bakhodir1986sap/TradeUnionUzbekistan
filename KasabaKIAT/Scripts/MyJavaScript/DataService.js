@@ -1,4 +1,4 @@
-﻿app.factory('DataService', ["$http", function () {
+﻿app.service('DataService', ["$http", function () {
     //var savedData = {
     //    inn:"",
     //    name:""
@@ -8,9 +8,12 @@
     var d = {};
     var stringArray = new Array();
     var postData = {};
-    var sss="00000000";
+    var sss = "00000000";
+    this.data = function (san, num, inn) {
+
+    };
     function set(san, num, inn) {
-        sss=inn;
+        sss = inn;
         for (var k = 0; k < san.length; k++) {
             d = {
                 SanId: san[k],

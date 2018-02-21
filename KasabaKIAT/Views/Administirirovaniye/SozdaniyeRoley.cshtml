@@ -14,16 +14,272 @@
             </nav>
         </div>
     </div>
-    <div style="margin-left:20px">
-        <br />
-        <h5><a style="text-decoration:none;color:#000000" href="#">Администратор</a></h5><br />
-        <h5><a style="text-decoration:none;color:#000000" href="#">Сотрудник СФП</a></h5><br />
-        <h5><a style="text-decoration:none;color:#000000" href="#">Сотрудник региона</a></h5><br />
-        <h5><a style="text-decoration:none;color:#000000" href="#">Сотрудник района</a></h5><br />
-        <h5><a style="text-decoration:none;color:#000000" href="#">Бухгалтерия СФП</a></h5><br />
-        <h5><a style="text-decoration:none;color:#000000" href="#">Региональный бухгалтер</a></h5><br />
-        <div class="col-xs-3 col-xs-offset-5">
-            <button ng-click="AddSRDiv()" style="background: #24C0DB;margin-right:10px" type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal"><i class="fa fa-plus-square" aria-hidden="true"></i>  добавить роль</button>
+    <div class="row mb-4">
+        <div class="col-md-6">
+            <div class="list-group r-list-group mb-4 box-shadow">
+                <a href="#" class="list-group-item list-group-item-action">Администратор</a>
+                <a href="#" class="list-group-item list-group-item-action">Сотрудник СФП</a>
+                <a href="#" class="list-group-item list-group-item-action">Сотрудник Региона</a>
+                <a href="#" class="list-group-item list-group-item-action">Сотрудник РАйона</a>
+                <a href="#" class="list-group-item list-group-item-action">Бухгалтерия СФП</a>
+                <a href="#" class="list-group-item list-group-item-action">Региональный бухгалтер</a>
+            </div>
+            <div class="mb-4">
+                <a href="" data-toggle="modal" data-target="#dobred" class="btn btn-blue d-block d-md-inline-block mb-2"><i class="fas fa-plus"></i> Добавить роль</a>
+            </div>
         </div>
     </div>
 </section>
+
+<div class="modal__block modal fade" id="dobred" tabindex="-1" role="dialog" aria-labelledby="dobavitLabel">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="modal-title">
+                    <h4 class="text-center mt-4 mb-4">Добавить / редактировать роль</h4>
+                </div>
+                <div class="row justify-content-center">
+                    <div class="col-md-6">
+                        <div class="form-group row align-items-center">
+                            <label class="col-md-5 col-form-label text-md-right py-0">Название:</label>
+                            <div class="col-md-7">
+                                <input type="text" class="form-control" placeholder="Название" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="table__title my-4">
+                    <p><strong>Путевки</strong></p>
+                </div>
+                <div class="row my-4">
+                    <div class="col-md-4">
+                        <div class="custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" id="customCheck1">
+                            <label class="custom-control-label r-label py-1" for="customCheck1">График заездов</label>
+                        </div>
+                        <div class="custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" id="customCheck2">
+                            <label class="custom-control-label r-label py-1" for="customCheck2">Годовой план путевок</label>
+                        </div>
+                        <div class="custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" id="customCheck3">
+                            <label class="custom-control-label r-label py-1" for="customCheck3">Приход путевок</label>
+                        </div>
+                        <div class="custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" id="customCheck4">
+                            <label class="custom-control-label r-label py-1" for="customCheck4">Просмотр остатков путевок</label>
+                        </div>
+                        <div class="custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" id="customCheck5">
+                            <label class="custom-control-label r-label py-1" for="customCheck5">Изменения путевки</label>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" id="customCheck6">
+                            <label class="custom-control-label r-label py-1" for="customCheck6">Реализация путевок</label>
+                        </div>
+                        <div class="custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" id="customCheck7">
+                            <label class="custom-control-label r-label py-1" for="customCheck7">Просмотрт реал. путевок</label>
+                        </div>
+                        <div class="custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" id="customCheck8">
+                            <label class="custom-control-label r-label py-1" for="customCheck8">Изменение дет. реал. путевок</label>
+                        </div>
+                        <div class="custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" id="customCheck9">
+                            <label class="custom-control-label r-label py-1" for="customCheck9">Оформление возрата путевок</label>
+                        </div>
+                        <div class="custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" id="customCheck10">
+                            <label class="custom-control-label r-label py-1" for="customCheck10">Сверка данных по отдыхающим</label>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" id="customCheck11">
+                            <label class="custom-control-label r-label py-1" for="customCheck11">Ввод заявок</label>
+                        </div>
+                        <div class="custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" id="customCheck12">
+                            <label class="custom-control-label r-label py-1" for="customCheck12">Поиск и редактиров. заявок</label>
+                        </div>
+                        <div class="custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" id="customCheck13">
+                            <label class="custom-control-label r-label py-1" for="customCheck13">Рассмотрение заявок</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="table__title my-4">
+                    <p><strong>Бух учет</strong></p>
+                </div>
+                <div class="row my-4">
+                    <div class="col-md-4">
+                        <div class="custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" id="customCheck1-1">
+                            <label class="custom-control-label r-label py-1" for="customCheck1-1">Буз учет ввод данных</label>
+                        </div>
+                        <div class="custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" id="customCheck1-2">
+                            <label class="custom-control-label r-label py-1" for="customCheck1-2">Просмотр остатков путевок</label>
+                        </div>
+                        <div class="custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" id="customCheck1-3">
+                            <label class="custom-control-label r-label py-1" for="customCheck1-3">Ручные проводки</label>
+                        </div>
+                        <div class="custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" id="customCheck1-4">
+                            <label class="custom-control-label r-label py-1" for="customCheck1-4">Платежные поручения</label>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" id="customCheck1-6">
+                            <label class="custom-control-label r-label py-1" for="customCheck1-6">План бюджета</label>
+                        </div>
+                        <div class="custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" id="customCheck1-7">
+                            <label class="custom-control-label r-label py-1" for="customCheck1-7">Разноска данных по отраслям</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="table__title my-4">
+                    <p><strong>Отчеты</strong></p>
+                </div>
+                <div class="row my-4">
+                    <div class="col-md-4">
+                        <div class="custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" id="customCheck2-1">
+                            <label class="custom-control-label r-label py-1" for="customCheck2-1">Сводный отчет по заявкам</label>
+                        </div>
+                        <div class="custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" id="customCheck2-2">
+                            <label class="custom-control-label r-label py-1" for="customCheck2-2">Талабомалар</label>
+                        </div>
+                        <div class="custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" id="customCheck2-3">
+                            <label class="custom-control-label r-label py-1" for="customCheck2-3">Форма №13</label>
+                        </div>
+                        <div class="custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" id="customCheck2-4">
+                            <label class="custom-control-label r-label py-1" for="customCheck2-4">Форма №14</label>
+                        </div>
+                        <div class="custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" id="customCheck2-5">
+                            <label class="custom-control-label r-label py-1" for="customCheck2-5">Таблица поп учуту отдыхающих</label>
+                        </div>
+                        <div class="custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" id="customCheck2-6">
+                            <label class="custom-control-label r-label py-1" for="customCheck2-6">Свободный отчет по накладным</label>
+                        </div>
+                        <div class="custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" id="customCheck2-7">
+                            <label class="custom-control-label r-label py-1" for="customCheck2-7">Главная книга</label>
+                        </div>
+                        <div class="custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" id="customCheck2-8">
+                            <label class="custom-control-label r-label py-1" for="customCheck2-8">Свод начислений по отраслям</label>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" id="customCheck2-9">
+                            <label class="custom-control-label r-label py-1" for="customCheck2-9">Журнал ордер 1</label>
+                        </div>
+                        <div class="custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" id="customCheck2-10">
+                            <label class="custom-control-label r-label py-1" for="customCheck2-10">Журнал ордер 2</label>
+                        </div>
+                        <div class="custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" id="customCheck2-11">
+                            <label class="custom-control-label r-label py-1" for="customCheck2-11">Журнал ордер 3</label>
+                        </div>
+                        <div class="custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" id="customCheck2-12">
+                            <label class="custom-control-label r-label py-1" for="customCheck2-12">Журнал ордер 4</label>
+                        </div>
+                        <div class="custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" id="customCheck2-13">
+                            <label class="custom-control-label r-label py-1" for="customCheck2-13">Журнал ордер 5</label>
+                        </div>
+                        <div class="custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" id="customCheck2-14">
+                            <label class="custom-control-label r-label py-1" for="customCheck2-14">Журнал ордер 6</label>
+                        </div>
+                        <div class="custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" id="customCheck2-15">
+                            <label class="custom-control-label r-label py-1" for="customCheck2-15">Журнал ордер 7</label>
+                        </div>
+                        <div class="custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" id="customCheck2-16">
+                            <label class="custom-control-label r-label py-1" for="customCheck2-16">Журнал ордер 8</label>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" id="customCheck2-17">
+                            <label class="custom-control-label r-label py-1" for="customCheck2-17">Финансовый квартальный</label>
+                        </div>
+                        <div class="custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" id="customCheck2-18">
+                            <label class="custom-control-label r-label py-1" for="customCheck2-18">Финансовый годовой</label>
+                        </div>
+                        <div class="custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" id="customCheck2-19">
+                            <label class="custom-control-label r-label py-1" for="customCheck2-19">Финансовый по лагерям</label>
+                        </div>
+                        <div class="custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" id="customCheck2-20">
+                            <label class="custom-control-label r-label py-1" for="customCheck2-20">По санаториям-профилакториям</label>
+                        </div>
+                        <div class="custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" id="customCheck2-21">
+                            <label class="custom-control-label r-label py-1" for="customCheck2-21">Движение средств по счетам</label>
+                        </div>
+                        <div class="custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" id="customCheck2-22">
+                            <label class="custom-control-label r-label py-1" for="customCheck2-22">Акт сверки</label>
+                        </div>
+                        <div class="custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" id="customCheck2-23">
+                            <label class="custom-control-label r-label py-1" for="customCheck2-23">Задолженность СФП</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="table__title my-4">
+                    <p><strong>Администрирование</strong></p>
+                </div>
+                <div class="row my-4">
+                    <div class="col-md-4">
+                        <div class="custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" id="customCheck3-1">
+                            <label class="custom-control-label r-label py-1" for="customCheck3-1">Создание учетных записей</label>
+                        </div>
+                        <div class="custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" id="customCheck3-2">
+                            <label class="custom-control-label r-label py-1" for="customCheck3-2">Создание ролей</label>
+                        </div>
+                        <div class="custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" id="customCheck3-3">
+                            <label class="custom-control-label r-label py-1" for="customCheck3-3">Создание проводок</label>
+                        </div>
+                        <div class="custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" id="customCheck3-4">
+                            <label class="custom-control-label r-label py-1" for="customCheck3-4">Привязка проводок к ЖО</label>
+                        </div>
+                        <div class="custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" id="customCheck3-5">
+                            <label class="custom-control-label r-label py-1" for="customCheck3-5">Управление справочниками</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-4 text-center">
+                    <a href="#" class="btn btn-blue d-block d-md-inline-block mb-2">Сохранить</a>
+                    <a href="#" class="btn btn-red d-block d-md-inline-block mb-2">Удалить</a>
+                    <a href="#" class="btn btn-grey d-block d-md-inline-block mb-2" data-dismiss="modal">Отмена</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

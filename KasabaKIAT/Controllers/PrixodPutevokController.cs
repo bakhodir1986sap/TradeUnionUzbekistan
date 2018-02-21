@@ -57,32 +57,33 @@ namespace KasabaKIAT.Controllers
                 return View();
             }
         }
-        public ActionResult OformleniyaRealizatsiyaPutevok()
+        public JsonResult GetZList(int inn)
         {
-            int UserId = Convert.ToInt32(User.Identity.Name);
-            if (UserId == 0)
-            {
-                return RedirectToAction("SignOut", "Login");
-            }
-            else
-            {
-                return View();
-            }
-        }
-        public class SanPutTemp1
-        {
-            public int SanId { get; set; }
+            var data = KasabaDB.sp_rt_ZayavkiList(inn);
+            var list = from d in data
+                       select new
+                       {
+                           d0=d.REC_ID,
+                           d1=d.FULL_NAME,
+                           d2=d.Name_San,
+                           d3=d.monthDate,
+                           d4=d.STATUS_ZAYAVKI
+                       };
+            return Json(list.ToList(), JsonRequestBehavior.AllowGet);
 
-            public string NumPut { get; set; }
+        }
+        public JsonResult GetOformleniyaRealizatsiyaPutevok(SanPutTemp s)
+        {
+            return Json(OR.GetOformRealizList(s.b, s.inn).ToList(), JsonRequestBehavior.AllowGet);
         }
         public class SanPutTemp
         {
-            public List<SanPutTemp1> b { get; set; }
+            public List<SanAndPutViewModel> b { get; set; }
 
             public string inn { get; set; }
         }
         [AcceptVerbs(HttpVerbs.Post)]
-        public List<RealizasiyaByTzViewModel> ORP(List<SanAndPutViewModel> b, string inn)
+        public ActionResult ORP(List<SanAndPutViewModel> b, string inn)
         {
             //List<SanAndPutViewModel> br = new List<SanAndPutViewModel>();
             //foreach (var bb in b)
@@ -93,7 +94,7 @@ namespace KasabaKIAT.Controllers
             //    mm.NumPut = bb.NumPut;
             //    br.Add(mm);
             //}
-            return OR.GetOformRealizList(b, inn);
+            return View(OR.GetOformRealizList(b, inn));
         }
         public JsonResult GetSanatory()
         {

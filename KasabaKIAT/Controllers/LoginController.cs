@@ -7,6 +7,7 @@ using KasabaKIAT.Models;
 using System.Web.Security;
 using System.IO;
 using log4net;
+using KasabaKiat.Helpers;
 
 namespace KasabaKIAT.Controllers
 {
@@ -15,6 +16,7 @@ namespace KasabaKIAT.Controllers
         KasabaKIATEntities KasabaDB = new KasabaKIATEntities();
         ILog log = log4net.LogManager.GetLogger(typeof(LoginController));
         userlogin ul = new userlogin();
+        UserInfo UserLog = new UserInfo();
         public static string message = "";
         public ActionResult Login()
         {
@@ -37,8 +39,9 @@ namespace KasabaKIAT.Controllers
                         IEnumerable<users> r = from a in KasabaDB.users where a.user_name == u.login select a;
                         foreach (var b in r)
                         {
-                            //~~~~~~~~~~~~~~~~~~~~~
                             int UserID = Convert.ToInt32(b.id);
+                            UserInfo.UserLoginAction(new KasabaKiat.ViewModel.UserViewModel { userid = UserID });
+                            //~~~~~~~~~~~~~~~~~~~~~
                             KasabaKIATEntities db = new KasabaKIATEntities();
                             var list = from uu in db.users
                                        where uu.id == UserID

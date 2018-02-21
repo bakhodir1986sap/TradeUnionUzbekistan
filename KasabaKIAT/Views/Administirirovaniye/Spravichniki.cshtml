@@ -2,7 +2,7 @@
 @{
     ViewBag.Title = "Администрирование";
 }
-<section class="content__block container">
+@*<section class="content__block container">
     <div class="row mb-4 align-items-center">
         <div class="col title__block">
             <h4>Cправочники</h4>
@@ -21,5 +21,30 @@
         <h5><a class="load" style="text-decoration:none;color:#000000" href="/Administirirovaniye/RazmesheniyaSanatorii">Справочник типов размещения в санатории</a></h5><br />
         <h5><a class="load" style="text-decoration:none;color:#000000" href="/Administirirovaniye/Otdixayushix">Справочник социальной принадлежности отдыхающих</a></h5><br />
         <h5><a class="load" style="text-decoration:none;color:#000000" href="/Administirirovaniye/NaznacheniyaPlateja">Справочник назначений платежей</a></h5><br />
+    </div>
+</section>*@
+
+<section class="content__block container">
+    <div class="row mb-4 align-items-center">
+        <div class="col title__block">
+            <h4>Справочники</h4>
+            <nav aria-label="breadcrumb" class="breadcrumb__block">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item load"><a href="/Home/Admin">Администрирование</a></li>
+                    <li class="breadcrumb-item load"><a href="/Administirirovaniye/index">Администрирование</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Справочники</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+    <div class="row mb-4">
+        <div class="col-md-6">
+            <div class="list-group r-list-group mb-4 box-shadow">
+                <a href="/Administirirovaniye/SredneyStoimostiPutevok" class="list-group-item list-group-item-action load">Справочник средней стоимости путевок</a>
+                <a href="/Administirirovaniye/RazmesheniyaSanatorii" class="list-group-item list-group-item-action load">Справочник типов размещения в санатории</a>
+                <a href="/Administirirovaniye/Otdixayushix" class="list-group-item list-group-item-action load">Справочник социальной принадлежности отдыхающих</a>
+                <a href="/Administirirovaniye/NaznacheniyaPlateja" class="list-group-item list-group-item-action load">Справочник назначения платежа</a>
+            </div>
+        </div>
     </div>
 </section>

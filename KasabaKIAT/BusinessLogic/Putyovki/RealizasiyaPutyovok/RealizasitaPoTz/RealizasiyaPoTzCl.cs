@@ -85,6 +85,7 @@ namespace KasabaKIAT.BusinessLogic.Putyovki.RealizasiyaPutyovok.RealizasitaPoTz
                             
                         }
 
+                        RealizasiyaDataManager.Create(ref real);
                         list.Add(real);
                     }
                    

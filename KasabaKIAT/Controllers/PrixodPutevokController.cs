@@ -78,14 +78,20 @@ namespace KasabaKIAT.Controllers
             var list = from d in data
                        select new
                        {
-                           d0 = d.rec_id,
+                           d0 = d.sanatorium_id,
                            d1 = d.SanatoryName,
                            d2 = d.serail_number,
                            d3 = d.rest_begin_date,
                            d4 = d.full_name,
                            d5 = d.price,
+                           d6=d.payment_persent
                        };
             return Json(list.ToList(), JsonRequestBehavior.AllowGet);
+        }
+        public string Save(RealizasiyaByTzViewModel s)
+        {
+            RealizasiyaDataManager.Modify(s);
+            return "yes";
         }
         public class SanPutTemp
         {

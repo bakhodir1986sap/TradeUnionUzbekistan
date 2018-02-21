@@ -46,6 +46,7 @@ namespace KasabaKIAT.Models
         public string ORG_INN { get; set; }
         public string NAKLADNOY_NOMER { get; set; }
         public string TALON_NUMBER { get; set; }
+        public Nullable<bool> STATUS_CODE { get; set; }
     
         public virtual t_camp t_camp { get; set; }
         public virtual t_sanatorium t_sanatorium { get; set; }

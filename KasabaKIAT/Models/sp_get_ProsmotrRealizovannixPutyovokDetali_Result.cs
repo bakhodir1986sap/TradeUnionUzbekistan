@@ -15,7 +15,9 @@ namespace KasabaKIAT.Models
     {
         public long REC_ID { get; set; }
         public string DEPARTMENT_CODE { get; set; }
+        public string MakeOrgName { get; set; }
         public string TO_DEPARTMENT_CODE { get; set; }
+        public string bkut_name { get; set; }
         public Nullable<long> USER_ID { get; set; }
         public Nullable<long> SANATORIUM_ID { get; set; }
         public Nullable<long> CAMP_ID { get; set; }
@@ -38,5 +40,6 @@ namespace KasabaKIAT.Models
         public string REMARK { get; set; }
         public string ORG_INN { get; set; }
         public string Name_San { get; set; }
+        public string NAKLADNOY_NOMER { get; set; }
     }
 }

@@ -22,8 +22,10 @@ namespace KasabaKIAT.Models
         public string FULL_NAME { get; set; }
         public string POSITION { get; set; }
         public string SOTR_INN { get; set; }
+        public string OKONX_NAME { get; set; }
         public string REMARK { get; set; }
         public string TALON_NUMBER { get; set; }
+        public string RECIEVER { get; set; }
         public string DOVERENNOST_NUMBER { get; set; }
         public string DOVER_ISSUE_DATE { get; set; }
         public string DOVER_EXPIRE_DATE { get; set; }

@@ -20,7 +20,7 @@ namespace KasabaKIAT.Models
         public string PAYER_INN { get; set; }
         public string PAYER_MFO { get; set; }
         public string PAYER_ACCOUNT { get; set; }
-        public Nullable<System.DateTime> TRAN_DATE { get; set; }
+        public System.DateTime TRAN_DATE { get; set; }
         public string PAYMENT_DATAIL { get; set; }
         public decimal AMOUNT { get; set; }
         public string BENEF_NAME { get; set; }

@@ -91,6 +91,7 @@ namespace KasabaKIAT.BusinessLogic.Putyovki.RealizasiyaPutyovok.RealizasitaPoTz
                 db.SaveChanges();
             }
         }
+
         public static void Remove(RealizasiyaByTzViewModel model)
         {
             using (KasabaKIATEntities db = new KasabaKIATEntities())

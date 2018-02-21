@@ -1,4 +1,5 @@
-﻿using KasabaKIAT.Models;
+﻿using KasabaKiat.BusinessLogic.Putyovki.PrixodPutyovok;
+using KasabaKIAT.Models;
 using KasabaKIAT.ViewModel.Putyovki;
 using System;
 using System.Collections.Generic;
@@ -86,6 +87,7 @@ namespace KasabaKIAT.BusinessLogic.Putyovki.RealizasiyaPutyovok.RealizasitaPoTz
                         }
 
                         RealizasiyaDataManager.Create(ref real);
+                        PostPutDetailDataManager.Polzov((int)real.sanatorium_id, real.serail_number);
                         list.Add(real);
                     }
                    

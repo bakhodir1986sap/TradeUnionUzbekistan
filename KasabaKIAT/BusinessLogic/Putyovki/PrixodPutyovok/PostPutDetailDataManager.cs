@@ -87,6 +87,27 @@ namespace KasabaKiat.BusinessLogic.Putyovki.PrixodPutyovok
 
         }
 
+        public static void Polzov(int SanId, string NumPut)
+        {
+            using (KasabaKIATEntities db = new KasabaKIATEntities())
+            {
+                var post = db.tblPos_Put.Where(z => z.ID_Sanat == SanId && z.Num_Put == NumPut);
+
+                if (post.Any())
+                {
+                    var post1 = post.FirstOrDefault();
+
+                    if (post1 != null)
+                    {
+                        post1.ID_PolVoz = true;
+                    }
+                }
+
+                db.SaveChanges();
+            }
+
+        }
+
         public static void Remove(PostPutyovkaViewModel model)
         {
             using (KasabaKIATEntities db = new KasabaKIATEntities())

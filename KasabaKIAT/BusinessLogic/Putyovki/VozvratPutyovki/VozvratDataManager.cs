@@ -32,9 +32,9 @@ namespace KasabaKiat.BusinessLogic.VozvratPutyovki
 
                 var vozz = db.tblVozVrat.Add(vozv);
 
-                model.id = vozz.ID;
-
                 db.SaveChanges();
+
+                model.id = vozz.ID;
             }
         }
 

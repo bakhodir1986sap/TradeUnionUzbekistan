@@ -10,7 +10,7 @@ namespace KasabaKIAT.BusinessLogic.Putyovki.RealizasiyaPutyovok.RealizasitaPoTz
 {
     public class RealizasiyaPoTzCl
     {
-        public List<RealizasiyaByTzViewModel> GetOformRealizList(List<SanAndPutViewModel> checkedList , string inn)
+        public List<RealizasiyaByTzViewModel> GetOformRealizList(List<SanAndPutViewModel> checkedList , string inn, string departmentBase, long userId)
         {
             var list = new List<RealizasiyaByTzViewModel>();
             List<long> exceptList = new List<long>();
@@ -29,6 +29,9 @@ namespace KasabaKIAT.BusinessLogic.Putyovki.RealizasiyaPutyovok.RealizasitaPoTz
 
                         real.sanatorium_id = chk.SanId;
                         real.serail_number = chk.NumPut;
+                        real.to_department_code = orgDepBase.code;
+                        real.department_code = departmentBase;
+                        real.user_id = userId;
 
                         var putyovka = db.tblPos_Put.Where(f => f.Num_Put == chk.NumPut && f.ID_Sanat == chk.SanId);
 

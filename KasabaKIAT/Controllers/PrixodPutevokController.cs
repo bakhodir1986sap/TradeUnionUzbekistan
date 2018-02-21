@@ -79,7 +79,9 @@ namespace KasabaKIAT.Controllers
         }
         public JsonResult GetOformleniyaRealizatsiyaPutevok(SanPutTemp s)
         {
-            var data = OR.GetOformRealizList(s.b, s.inn);
+            int UserId = Convert.ToInt32(User.Identity.Name);
+            var uu = UserInfo.GetUserInfo(UserId);
+            var data = OR.GetOformRealizList(s.b, s.inn, uu.DepartmentBase, uu.userid);
             var list = from d in data
                        select new
                        {
@@ -116,7 +118,10 @@ namespace KasabaKIAT.Controllers
             //    mm.NumPut = bb.NumPut;
             //    br.Add(mm);
             //}
-            return View(OR.GetOformRealizList(b, inn));
+            int UserId = Convert.ToInt32(User.Identity.Name);
+            var uu = UserInfo.GetUserInfo(UserId);
+
+            return View(OR.GetOformRealizList(b, inn, uu.DepartmentBase, uu.userid));
         }
         public JsonResult GetSanatory()
         {

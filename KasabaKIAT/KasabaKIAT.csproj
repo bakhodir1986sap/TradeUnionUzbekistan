@@ -240,6 +240,8 @@
     <Compile Include="BusinessLogic\Putyovki\SverkaDannixPoOtdixayuchim\SverkaDataManager.cs" />
     <Compile Include="BusinessLogic\Putyovki\VozvratPutyovki\Vozvrat.cs" />
     <Compile Include="BusinessLogic\Putyovki\VozvratPutyovki\VozvratDataManager.cs" />
+    <Compile Include="BusinessLogic\Putyovki\VozvratPutyovki\VozvratPoTz\VozvratPoTzDataManager.cs" />
+    <Compile Include="BusinessLogic\Putyovki\VozvratPutyovki\VozvratPoTz\VozvratPutyovki.cs" />
     <Compile Include="BusinessLogic\Putyovki\Zayavki\IRasmotreniyaZayavki.cs" />
     <Compile Include="BusinessLogic\Putyovki\Zayavki\IZayavkamanage.cs" />
     <Compile Include="BusinessLogic\Putyovki\Zayavki\RassmotreniyaFirst.cs" />
@@ -774,6 +776,7 @@
     <Compile Include="ViewModel\Putyovki\IPottupleniyaViewModel.cs" />
     <Compile Include="ViewModel\Putyovki\OplataRasxodiViewModel.cs" />
     <Compile Include="ViewModel\Putyovki\OplataViewModel.cs" />
+    <Compile Include="ViewModel\Putyovki\OtkazPutyovkiViewModel.cs" />
     <Compile Include="ViewModel\Putyovki\PostPutyovkaViewModel.cs" />
     <Compile Include="ViewModel\Putyovki\PostupleniyaViewModel.cs" />
     <Compile Include="ViewModel\Putyovki\PutPostTempViewModel.cs" />

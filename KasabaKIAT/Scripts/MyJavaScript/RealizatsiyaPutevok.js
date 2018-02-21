@@ -215,6 +215,16 @@
             $("#hh").modal('hide');
         });
     }
+    d = {
+        ID_San: ar2[k],
+        Num_Put: ar1[k],
+    };
+    $scope.PriceChange = function (id,price) {
+
+    }
+    $scope.save = function () {
+
+    };
     $scope.LoadZ = function () {
         $http({
             method: "POST",

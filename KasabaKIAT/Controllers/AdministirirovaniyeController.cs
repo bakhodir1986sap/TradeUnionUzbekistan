@@ -958,212 +958,331 @@ namespace KasabaKIAT.Controllers
 
         public JsonResult GetSP()
         {
-            var camp = from dict in KasabaDB.provodok
-                       join dp in KasabaDB.t_departmentbase on dict.DEPARTMENT_BASE equals dp.code
-                       select new
-                       {
-                           ID = dict.id,
-                           INN = dp.inn,
-                           O = dp.name_uz,
-                           D = dict.description,
-                           SB=dict.score_begin,
-                           SE=dict.score_end
-                       };
+            log.Info("GetSP");
 
-            return Json(camp, JsonRequestBehavior.AllowGet);
+            try
+            {
+                var camp = from dict in KasabaDB.provodok
+                           join dp in KasabaDB.t_departmentbase on dict.DEPARTMENT_BASE equals dp.code
+                           select new
+                           {
+                               ID = dict.id,
+                               INN = dp.inn,
+                               O = dp.name_uz,
+                               D = dict.description,
+                               SB = dict.score_begin,
+                               SE = dict.score_end
+                           };
+
+                return Json(camp, JsonRequestBehavior.AllowGet);
+            }
+            catch(Exception ex)
+            {
+                log.Info(ex);
+            }
+
+            return null;
+
         }
         public string AddSP(provodok pz)
         {
-            if (pz != null)
+            log.Info("AddSP");
+
+            try
             {
-                using (KasabaKIATEntities contextObj = new KasabaKIATEntities())
+                if (pz != null)
                 {
-                    provodok z = new provodok();
-                    z.DEPARTMENT_BASE = LOAD_DEPARTMENT_CODE(pz.DEPARTMENT_BASE);
-                    z.description = pz.description;
-                    z.score_begin = pz.score_begin;
-                    z.score_end = pz.score_end;
-                    z.USER_ID = Convert.ToInt32(User.Identity.Name);
-                    contextObj.provodok.Add(z);
-                    contextObj.SaveChanges();
-                    return "tbcs_dictionary record added successfully";
+                    using (KasabaKIATEntities contextObj = new KasabaKIATEntities())
+                    {
+                        provodok z = new provodok();
+                        z.DEPARTMENT_BASE = LOAD_DEPARTMENT_CODE(pz.DEPARTMENT_BASE);
+                        z.description = pz.description;
+                        z.score_begin = pz.score_begin;
+                        z.score_end = pz.score_end;
+                        z.USER_ID = Convert.ToInt32(User.Identity.Name);
+                        contextObj.provodok.Add(z);
+                        contextObj.SaveChanges();
+                        return "tbcs_dictionary record added successfully";
+                    }
+                }
+                else
+                {
+                    return "Invalid tbcs_dictionary record";
                 }
             }
-            else
+            catch(Exception ex)
             {
-                return "Invalid tbcs_dictionary record";
+                log.Error(ex);
             }
+
+            return null;
         }
         public string UpdateSP(provodok pz)
         {
-            if (pz != null)
+            log.Info("UpdateSP");
+
+            try
             {
-                using (KasabaKIATEntities contextObj = new KasabaKIATEntities())
+                if (pz != null)
                 {
-                    int bookId = Convert.ToInt32(pz.id);
-                    provodok z = contextObj.provodok.Where(b => b.id == bookId).FirstOrDefault();
-                    z.DEPARTMENT_BASE = LOAD_DEPARTMENT_CODE(pz.DEPARTMENT_BASE);
-                    z.description = pz.description;
-                    z.score_begin = pz.score_begin;
-                    z.score_end = pz.score_end;
-                    z.USER_ID = Convert.ToInt32(User.Identity.Name);
-                    contextObj.SaveChanges();
-                    return "tbcs_dictionary record updated successfully";
+                    using (KasabaKIATEntities contextObj = new KasabaKIATEntities())
+                    {
+                        int bookId = Convert.ToInt32(pz.id);
+                        provodok z = contextObj.provodok.Where(b => b.id == bookId).FirstOrDefault();
+                        z.DEPARTMENT_BASE = LOAD_DEPARTMENT_CODE(pz.DEPARTMENT_BASE);
+                        z.description = pz.description;
+                        z.score_begin = pz.score_begin;
+                        z.score_end = pz.score_end;
+                        z.USER_ID = Convert.ToInt32(User.Identity.Name);
+                        contextObj.SaveChanges();
+                        return "tbcs_dictionary record updated successfully";
+                    }
+                }
+                else
+                {
+                    return "Invalid tbcs_dictionary record";
                 }
             }
-            else
+            catch(Exception ex)
             {
-                return "Invalid tbcs_dictionary record";
+                log.Error(ex);
             }
+
+            return null;
         }
         public string DeleteSP(string id)
         {
+            log.Info("DeleteSP");
 
-            if (!String.IsNullOrEmpty(id))
+            try
             {
-                try
+                if (!String.IsNullOrEmpty(id))
                 {
-                    int _bookId = Int32.Parse(id);
-                    using (KasabaKIATEntities contextObj = new KasabaKIATEntities())
+                    try
                     {
-                        var _book = contextObj.provodok.Find(_bookId);
-                        contextObj.provodok.Remove(_book);
-                        contextObj.SaveChanges();
-                        return "sucessfully";
+                        int _bookId = Int32.Parse(id);
+                        using (KasabaKIATEntities contextObj = new KasabaKIATEntities())
+                        {
+                            var _book = contextObj.provodok.Find(_bookId);
+                            contextObj.provodok.Remove(_book);
+                            contextObj.SaveChanges();
+                            return "sucessfully";
+                        }
+                    }
+                    catch (Exception)
+                    {
+                        return "not found";
                     }
                 }
-                catch (Exception)
+                else
                 {
-                    return "not found";
+                    return "Invalid operation";
                 }
             }
-            else
+            catch(Exception ex)
             {
-                return "Invalid operation";
+                log.Error(ex);
             }
+
+            return null;
         }
+
         public JsonResult GetPP(int o_id,string r_id)
         {
-            var camp = from dict in KasabaDB.p_provodok
-                       where dict.order==o_id&&dict.REGION_ID==r_id
-                       join dp in KasabaDB.t_departmentbase on dict.DEPARTMENT_BASE equals dp.code
-                       join a in KasabaDB.tbcs_dictionary on dict.order equals a.REC_ID
-                       join r in KasabaDB.sp_soato on dict.REGION_ID equals r.code
-                       select new
-                       {
-                           ID = dict.id,
-                           INN = dp.inn,
-                           O = dp.name_uz,
-                           JO_id=a.REC_ID,
-                           JO=a.NAME_UZ,
-                           R_id=r.code,
-                           R=r.name_uz,
-                           D = dict.description,
-                           SB = dict.score_begin,
-                           SE = dict.score_end
-                       };
+            log.Info("GetPP");
+            log.Info("o_id = " + o_id);
+            log.Info("r_id = " + r_id);
 
-            return Json(camp, JsonRequestBehavior.AllowGet);
+            try
+            {
+                var camp = from dict in KasabaDB.p_provodok
+                           where dict.order == o_id && dict.REGION_ID == r_id
+                           join dp in KasabaDB.t_departmentbase on dict.DEPARTMENT_BASE equals dp.code
+                           join a in KasabaDB.tbcs_dictionary on dict.order equals a.REC_ID
+                           join r in KasabaDB.sp_soato on dict.REGION_ID equals r.code
+                           select new
+                           {
+                               ID = dict.id,
+                               INN = dp.inn,
+                               O = dp.name_uz,
+                               JO_id = a.REC_ID,
+                               JO = a.NAME_UZ,
+                               R_id = r.code,
+                               R = r.name_uz,
+                               D = dict.description,
+                               SB = dict.score_begin,
+                               SE = dict.score_end
+                           };
+
+                return Json(camp, JsonRequestBehavior.AllowGet);
+            }
+            catch(Exception ex)
+            {
+                log.Error(ex);
+            }
+
+            return null;
         }
         public string AddPP(p_provodok pz)
         {
-            if (pz != null)
+            log.Info("AddPP");
+
+            try
             {
-                using (KasabaKIATEntities contextObj = new KasabaKIATEntities())
+                if (pz != null)
                 {
-                    p_provodok z = new p_provodok();
-                    z.DEPARTMENT_BASE = LOAD_DEPARTMENT_CODE(pz.DEPARTMENT_BASE);
-                    z.description = pz.description;
-                    z.score_begin = pz.score_begin;
-                    z.score_end = pz.score_end;
-                    z.order = pz.order;
-                    z.REGION_ID = pz.REGION_ID;
-                    z.USER_ID = Convert.ToInt32(User.Identity.Name);
-                    contextObj.p_provodok.Add(z);
-                    contextObj.SaveChanges();
-                    return "tbcs_dictionary record added successfully";
+                    using (KasabaKIATEntities contextObj = new KasabaKIATEntities())
+                    {
+                        p_provodok z = new p_provodok();
+                        z.DEPARTMENT_BASE = LOAD_DEPARTMENT_CODE(pz.DEPARTMENT_BASE);
+                        z.description = pz.description;
+                        z.score_begin = pz.score_begin;
+                        z.score_end = pz.score_end;
+                        z.order = pz.order;
+                        z.REGION_ID = pz.REGION_ID;
+                        z.USER_ID = Convert.ToInt32(User.Identity.Name);
+                        contextObj.p_provodok.Add(z);
+                        contextObj.SaveChanges();
+                        return "tbcs_dictionary record added successfully";
+                    }
+                }
+                else
+                {
+                    return "Invalid tbcs_dictionary record";
                 }
             }
-            else
+            catch(Exception ex)
             {
-                return "Invalid tbcs_dictionary record";
+                log.Info(ex);
             }
+
+            return null;
         }
         public string UpdatePP(p_provodok pz)
         {
-            if (pz != null)
+            log.Info("UpdatePP");
+
+            try
             {
-                using (KasabaKIATEntities contextObj = new KasabaKIATEntities())
+                if (pz != null)
                 {
-                    int bookId = Convert.ToInt32(pz.id);
-                    p_provodok z = contextObj.p_provodok.Where(b => b.id == bookId).FirstOrDefault();
-                    z.DEPARTMENT_BASE = LOAD_DEPARTMENT_CODE(pz.DEPARTMENT_BASE);
-                    z.description = pz.description;
-                    z.score_begin = pz.score_begin;
-                    z.score_end = pz.score_end;
-                    z.order = pz.order;
-                    z.REGION_ID = pz.REGION_ID;
-                    z.USER_ID = Convert.ToInt32(User.Identity.Name);
-                    contextObj.SaveChanges();
-                    return "tbcs_dictionary record updated successfully";
+                    using (KasabaKIATEntities contextObj = new KasabaKIATEntities())
+                    {
+                        int bookId = Convert.ToInt32(pz.id);
+                        p_provodok z = contextObj.p_provodok.Where(b => b.id == bookId).FirstOrDefault();
+                        z.DEPARTMENT_BASE = LOAD_DEPARTMENT_CODE(pz.DEPARTMENT_BASE);
+                        z.description = pz.description;
+                        z.score_begin = pz.score_begin;
+                        z.score_end = pz.score_end;
+                        z.order = pz.order;
+                        z.REGION_ID = pz.REGION_ID;
+                        z.USER_ID = Convert.ToInt32(User.Identity.Name);
+                        contextObj.SaveChanges();
+                        return "tbcs_dictionary record updated successfully";
+                    }
+                }
+                else
+                {
+                    return "Invalid tbcs_dictionary record";
                 }
             }
-            else
+            catch(Exception ex)
             {
-                return "Invalid tbcs_dictionary record";
+                log.Error(ex);
             }
+
+            return null;
         }
         public string DeletePP(string id)
         {
+            log.Info("DeletePP");
+            log.Info("id = " + id);
 
-            if (!String.IsNullOrEmpty(id))
+
+            try
             {
-                try
+                if (!String.IsNullOrEmpty(id))
                 {
-                    int _bookId = Int32.Parse(id);
-                    using (KasabaKIATEntities contextObj = new KasabaKIATEntities())
+                    try
                     {
-                        var _book = contextObj.p_provodok.Find(_bookId);
-                        contextObj.p_provodok.Remove(_book);
-                        contextObj.SaveChanges();
-                        return "sucessfully";
+                        int _bookId = Int32.Parse(id);
+                        using (KasabaKIATEntities contextObj = new KasabaKIATEntities())
+                        {
+                            var _book = contextObj.p_provodok.Find(_bookId);
+                            contextObj.p_provodok.Remove(_book);
+                            contextObj.SaveChanges();
+                            return "sucessfully";
+                        }
+                    }
+                    catch (Exception)
+                    {
+                        return "not found";
                     }
                 }
-                catch (Exception)
+                else
                 {
-                    return "not found";
+                    return "Invalid operation";
                 }
             }
-            else
+            catch(Exception ex)
             {
-                return "Invalid operation";
+                log.Error(ex);
             }
+
+            return null;
         }
+
         public string LOAD_DEPARTMENT_CODE(string inn)
         {
-            string name = "";
-            var a = from d in KasabaDB.t_departmentbase orderby d.id select d;
-            foreach (var v in a)
+            log.Info("LOAD_DEPARTMENT_CODE");
+            log.Info("inn = " + inn);
+
+            try
             {
-                if (v.inn == inn)
+                string name = "";
+                var a = from d in KasabaDB.t_departmentbase orderby d.id select d;
+                foreach (var v in a)
                 {
-                    name = v.code;
-                    break;
+                    if (v.inn == inn)
+                    {
+                        name = v.code;
+                        break;
+                    }
                 }
+                return name;
             }
-            return name;
+            catch(Exception ex)
+            {
+                log.Error(ex);
+            }
+
+            return null;
+
         }
         public string LoadINN(int inn)
         {
-            string strInn = inn.ToString();
-            var query = from department in KasabaDB.t_departmentbase
-                        where department.inn == strInn
-                        select department.name_uz;
-            if (query.Any())
+            log.Info("LoadINN");
+            log.Info("inn = " + inn);
+
+            try
             {
-                return query.First();
+                string strInn = inn.ToString();
+                var query = from department in KasabaDB.t_departmentbase
+                            where department.inn == strInn
+                            select department.name_uz;
+                if (query.Any())
+                {
+                    return query.First();
+                }
+                return "No Data Found";
             }
-            return "No Data Found";
+            catch(Exception ex)
+            {
+                log.Error(ex);
+            }
+
+            return null;
+
         }
         public ActionResult SredneyStoimostiPutevok()
         {
@@ -1183,164 +1302,182 @@ namespace KasabaKIAT.Controllers
         }
         public JsonResult GetUZ()
         {
-            var U = from u in KasabaDB.users
-                    join d in KasabaDB.t_departmentbase on u.bkut_id equals d.id
-                    join r in KasabaDB.roles on u.role_id equals r.id
-                    join rg in KasabaDB.sp_soato on u.REGION_ID equals rg.code
-                    join ot in KasabaDB.sp_branch on u.BRANCH_ID equals ot.id
-                    select new
-                    {
-                        ID = u.id,
-                        O_id=d.id,
-                        O=d.name_uz,
-                        Rl_id=r.id,
-                        Rl=r.name,
-                        L = u.email,
-                        Rg_id= rg.code,
-                        Rg= rg.name_uz,
-                        Ot_id=ot.id,
-                        Ot=ot.name_uz,
-                        N=u.user_name,
-                        D=u.created,
-                        P=u.password
-                    };
-            return Json(U.ToList(), JsonRequestBehavior.AllowGet);
-            //string DEPARTMENT = "";
-            //long? DEP = null;
-            //var Usr = from u in KasabaDB.users select u;
-            //if (Usr.Any())
-            //{
-            //    var d = Usr.FirstOrDefault();
-            //    if (d.bkut_id != null)
-            //    {
-            //        DEP = Convert.ToInt32(d.bkut_id);
-            //    }
-            //    else
-            //    {
-            //        if (d.dep_id != null)
-            //        {
-            //            DEP = Convert.ToInt32(d.dep_id);
-            //        }
-            //        else
-            //        {
-            //            if (d.bkuq_id != null)
-            //            {
-            //                DEP = Convert.ToInt32(d.bkuq_id);
-            //            }
-            //        }
-            //    }
-            //}
-            //var Dpr = KasabaDB.t_departmentbase.Where(i => i.id == DEP).FirstOrDefault();
-            //DEPARTMENT = Dpr.code;
+            log.Info("GetUZ");
+
+            try
+            {
+                var U = from u in KasabaDB.users
+                        join d in KasabaDB.t_departmentbase on u.bkut_id equals d.id
+                        join r in KasabaDB.roles on u.role_id equals r.id
+                        join rg in KasabaDB.sp_soato on u.REGION_ID equals rg.code
+                        join ot in KasabaDB.sp_branch on u.BRANCH_ID equals ot.id
+                        select new
+                        {
+                            ID = u.id,
+                            O_id = d.id,
+                            O = d.name_uz,
+                            Rl_id = r.id,
+                            Rl = r.name,
+                            L = u.email,
+                            Rg_id = rg.code,
+                            Rg = rg.name_uz,
+                            Ot_id = ot.id,
+                            Ot = ot.name_uz,
+                            N = u.user_name,
+                            D = u.created,
+                            P = u.password
+                        };
+                return Json(U.ToList(), JsonRequestBehavior.AllowGet);
+            }
+            catch(Exception ex)
+            {
+                log.Error(ex);
+            }
+
+            return null;
         }
         public string AddUZ(users pz)
         {
-            if (pz != null)
+            log.Info("AddUZ");
+
+            try
             {
-                using (KasabaKIATEntities contextObj = new KasabaKIATEntities())
+                if (pz != null)
                 {
-                    users z = new users();
-                    z.version = 0;
-                    z.account_expired = false;
-                    z.account_locked = false;
-                    z.changed = DateTime.Now;
-                    z.created = DateTime.Now;
-                    z.email = pz.email;
-                    z.last_logged = DateTime.Now;
-                    z.last_logged_id = HttpContext.Server.ToString();
-                    z.state = "ACTIVE";
-                    z.password = pz.password;
-                    z.salt = "";
-                    z.language = "UZ";
-                    z.is_super_admin = false;
-                    z.user_name = pz.user_name;
-                    z.s_comment = "";
-                    z.s_create = DateTime.Now;
-                    z.s_status = "ACTIVE";
-                    z.s_user_id = 12;
-                    z.usertype = "BKUT";
-                    z.bkut_id = pz.bkut_id;
-                    z.role_id = pz.role_id;
-                    z.REGION_ID = pz.REGION_ID;
-                    z.BRANCH_ID = pz.BRANCH_ID;
-                    contextObj.users.Add(z);
-                    contextObj.SaveChanges();
-                    return "tbcs_dictionary record added successfully";
+                    using (KasabaKIATEntities contextObj = new KasabaKIATEntities())
+                    {
+                        users z = new users();
+                        z.version = 0;
+                        z.account_expired = false;
+                        z.account_locked = false;
+                        z.changed = DateTime.Now;
+                        z.created = DateTime.Now;
+                        z.email = pz.email;
+                        z.last_logged = DateTime.Now;
+                        z.last_logged_id = HttpContext.Server.ToString();
+                        z.state = "ACTIVE";
+                        z.password = pz.password;
+                        z.salt = "";
+                        z.language = "UZ";
+                        z.is_super_admin = false;
+                        z.user_name = pz.user_name;
+                        z.s_comment = "";
+                        z.s_create = DateTime.Now;
+                        z.s_status = "ACTIVE";
+                        z.s_user_id = 12;
+                        z.usertype = "BKUT";
+                        z.bkut_id = pz.bkut_id;
+                        z.role_id = pz.role_id;
+                        z.REGION_ID = pz.REGION_ID;
+                        z.BRANCH_ID = pz.BRANCH_ID;
+                        contextObj.users.Add(z);
+                        contextObj.SaveChanges();
+                        return "tbcs_dictionary record added successfully";
+                    }
+                }
+                else
+                {
+                    return "Invalid tbcs_dictionary record";
                 }
             }
-            else
+            catch(Exception ex)
             {
-                return "Invalid tbcs_dictionary record";
+                log.Error(ex);
             }
+
+            return null;
+ 
         }
         public string UpdateUZ(users pz)
         {
-            if (pz != null)
+            log.Info("UpdateUZ");
+
+            try
             {
-                using (KasabaKIATEntities contextObj = new KasabaKIATEntities())
+                if (pz != null)
                 {
-                    int bookId = Convert.ToInt32(pz.id);
-                    users z = contextObj.users.Where(b => b.id == bookId).FirstOrDefault();
-                    z.version = 0;
-                    z.account_expired = false;
-                    z.account_locked = false;
-                    z.changed = DateTime.Now;
-                    z.created = DateTime.Now;
-                    z.email = pz.email;
-                    z.last_logged = DateTime.Now;
-                    z.last_logged_id = HttpContext.Server.ToString();
-                    z.state = "ACTIVE";
-                    z.password = pz.password;
-                    z.salt = "";
-                    z.language = "UZ";
-                    z.is_super_admin = false;
-                    z.user_name = pz.user_name;
-                    z.s_comment = "";
-                    z.s_create = DateTime.Now;
-                    z.s_status = "ACTIVE";
-                    z.s_user_id = 12;
-                    z.usertype = "BKUT";
-                    z.bkut_id = pz.bkut_id;
-                    z.role_id = pz.role_id;
-                    z.REGION_ID = pz.REGION_ID;
-                    z.BRANCH_ID = pz.BRANCH_ID;
-                    contextObj.SaveChanges();
-                    return "tbcs_dictionary record updated successfully";
+                    using (KasabaKIATEntities contextObj = new KasabaKIATEntities())
+                    {
+                        int bookId = Convert.ToInt32(pz.id);
+                        users z = contextObj.users.Where(b => b.id == bookId).FirstOrDefault();
+                        z.version = 0;
+                        z.account_expired = false;
+                        z.account_locked = false;
+                        z.changed = DateTime.Now;
+                        z.created = DateTime.Now;
+                        z.email = pz.email;
+                        z.last_logged = DateTime.Now;
+                        z.last_logged_id = HttpContext.Server.ToString();
+                        z.state = "ACTIVE";
+                        z.password = pz.password;
+                        z.salt = "";
+                        z.language = "UZ";
+                        z.is_super_admin = false;
+                        z.user_name = pz.user_name;
+                        z.s_comment = "";
+                        z.s_create = DateTime.Now;
+                        z.s_status = "ACTIVE";
+                        z.s_user_id = 12;
+                        z.usertype = "BKUT";
+                        z.bkut_id = pz.bkut_id;
+                        z.role_id = pz.role_id;
+                        z.REGION_ID = pz.REGION_ID;
+                        z.BRANCH_ID = pz.BRANCH_ID;
+                        contextObj.SaveChanges();
+                        return "tbcs_dictionary record updated successfully";
+                    }
+                }
+                else
+                {
+                    return "Invalid tbcs_dictionary record";
                 }
             }
-            else
+            catch(Exception ex)
             {
-                return "Invalid tbcs_dictionary record";
+                log.Error(ex);
             }
+
+            return null;
         }
         public string DeleteUZ(string id)
         {
+            log.Info("DeleteUZ");
 
-            if (!String.IsNullOrEmpty(id))
+            try
             {
-                try
+                if (!String.IsNullOrEmpty(id))
                 {
-                    int _bookId = Int32.Parse(id);
-                    using (KasabaKIATEntities contextObj = new KasabaKIATEntities())
+                    try
                     {
-                        var _book = contextObj.users.Find(_bookId);
-                        contextObj.users.Remove(_book);
-                        contextObj.SaveChanges();
-                        return "sucessfully";
+                        int _bookId = Int32.Parse(id);
+                        using (KasabaKIATEntities contextObj = new KasabaKIATEntities())
+                        {
+                            var _book = contextObj.users.Find(_bookId);
+                            contextObj.users.Remove(_book);
+                            contextObj.SaveChanges();
+                            return "sucessfully";
+                        }
+                    }
+                    catch (Exception)
+                    {
+                        return "not found";
                     }
                 }
-                catch (Exception)
+                else
                 {
-                    return "not found";
+                    return "Invalid operation";
                 }
             }
-            else
+            catch(Exception ex)
             {
-                return "Invalid operation";
+                log.Error(ex);
             }
+
+            return null;
         }
         public JsonResult GelOrganizatsiya()
         {
+
             var O = from o in KasabaDB.t_departmentbase
                     select new
                     {

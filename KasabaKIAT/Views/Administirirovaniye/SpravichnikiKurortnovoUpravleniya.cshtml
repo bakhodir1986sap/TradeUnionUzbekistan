@@ -2,6 +2,7 @@
 @{
     ViewBag.Title = "Администрирование";
 }
+
 <section class="content__block container">
     <div class="row mb-4 align-items-center">
         <div class="col title__block">
@@ -15,11 +16,14 @@
             </nav>
         </div>
     </div>
-    <div style="margin-left:20px">
-        <br />
-        <h5><a class="load" style="text-decoration:none;color:#000000" href="/Administirirovaniye/SpisokPravsoyuzov">Список правсоюзов</a></h5><br />
-        <h5><a class="load" style="text-decoration:none;color:#000000" href="/Administirirovaniye/GrafikSanatoryZaezdov">График санаторий заездов</a></h5><br />
-        <h5><a class="load" style="text-decoration:none;color:#000000" href="/Administirirovaniye/SchetFaktura">Счет фактура</a></h5><br />
-        <h5><a class="load" style="text-decoration:none;color:#000000" href="/Administirirovaniye/RaspredeleniyeZaezdov">Распределение Заездов</a></h5><br />
+    <div class="row mb-4">
+        <div class="col-md-6">
+            <div class="list-group r-list-group mb-4 box-shadow">
+                <a href="/Administirirovaniye/SpisokPravsoyuzov" class="list-group-item list-group-item-action load">Создание учетных записей</a>
+                <a href="/Administirirovaniye/GrafikSanatoryZaezdov" class="list-group-item list-group-item-action load">Создание ролей</a>
+                <a href="/Administirirovaniye/SchetFaktura" class="list-group-item list-group-item-action load">Создание проводок</a>
+                <a href="/Administirirovaniye/RaspredeleniyeZaezdov" class="list-group-item list-group-item-action load">Привязка проводок к ЖО</a>
+            </div>
+        </div>
     </div>
 </section>

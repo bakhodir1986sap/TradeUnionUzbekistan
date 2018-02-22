@@ -21,7 +21,9 @@
             $("#hh").modal('hide');
         });
     }
+    var ID;
     $scope.Load = function (id) {
+        ID = id;
         $http({
             method: 'POST',
             url: "/PrixodPutevok/PRP2?id="+id,
@@ -50,6 +52,19 @@
         }, function (error) {
             //alert("error in Getdictionary");
             console.log("error in PRP3 -> ", error);
+            $("#hh").modal('hide');
+        });
+    }
+    $scope.vozvrat = function () {
+        $http({
+            method: 'POST',
+            url: "/PrixodPutevok/vozvrat?id=" + ID + "&remark=" + $scope.V,
+        }).then(function (d) {
+            console.log(d.data);
+            LoadDATA();
+        }, function (error) {
+            //alert("error in Getdictionary");
+            console.log("error in vozvrat -> ", error);
             $("#hh").modal('hide');
         });
     }

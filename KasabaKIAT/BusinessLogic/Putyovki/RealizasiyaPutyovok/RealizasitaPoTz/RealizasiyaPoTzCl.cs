@@ -1,4 +1,5 @@
 ﻿using KasabaKiat.BusinessLogic.Putyovki.PrixodPutyovok;
+using KasabaKiat.BusinessLogic.Zayavki;
 using KasabaKIAT.Models;
 using KasabaKIAT.ViewModel.Putyovki;
 using System;
@@ -26,6 +27,20 @@ namespace KasabaKIAT.BusinessLogic.Putyovki.RealizasiyaPutyovok.RealizasitaPoTz
                 {
                     foreach (var chk in checkedList)
                     {
+                        var chkput = db.tbpt_putyovkarealizasiya.Where(z => z.SERAIL_NUMBER == chk.NumPut && z.SANATORIUM_ID == chk.SanId);
+
+                        if (chkput.Any())
+                        {
+                            var retList = RealizasiyaDataManager.Get(new RealizasiyaByTzViewModel() { rec_id = chkput.First().REC_ID });
+
+                            if (retList.Any())
+                            {
+                                list.Add(retList.First());
+
+                                continue;
+                            }
+                        }
+
                         var ccc = procPut.Where(zz => zz == chk.NumPut);
 
                         if (ccc.Any())
@@ -65,7 +80,7 @@ namespace KasabaKIAT.BusinessLogic.Putyovki.RealizasiyaPutyovok.RealizasitaPoTz
                         }
 
                         var queryZayav = db.tbpt_zayavki.Where(z => z.DEPARTMENT_CODE == orgDepBase.code 
-                        && z.SANATORY_ID == chk.SanId);
+                        && z.SANATORY_ID == chk.SanId && z.STATUS == "4"); //Maqullangan Zayavkalarni oladi
 
                         if (queryZayav.Any())
                         {
@@ -88,6 +103,8 @@ namespace KasabaKIAT.BusinessLogic.Putyovki.RealizasiyaPutyovok.RealizasitaPoTz
 
                                     real.zayavka_id = zayka.REC_ID;
                                     real.full_name = zayka.FULL_NAME;
+
+                                    ZayavkiDataManager.ChangeState(zayka_rec, "5"); //Sold
 
                                     break;
                                 }

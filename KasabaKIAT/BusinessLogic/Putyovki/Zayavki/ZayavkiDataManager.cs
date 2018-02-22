@@ -114,6 +114,24 @@ namespace KasabaKiat.BusinessLogic.Zayavki
             }
         }
 
+
+
+        public static void ChangeState(long rec_id , string state)
+        {
+            using (KasabaKIATEntities db = new KasabaKIATEntities())
+            {
+                var zayavka = db.tbpt_zayavki.Where(z => (z.REC_ID == rec_id))
+                    .FirstOrDefault();
+
+                if (zayavka != null)
+                {
+                    zayavka.STATUS = state;
+
+                    db.SaveChanges();
+                }
+            }
+        }
+
         public static void DeleteZayavka(ZayavkiViewModel model)
         {
             using (KasabaKIATEntities db = new KasabaKIATEntities())

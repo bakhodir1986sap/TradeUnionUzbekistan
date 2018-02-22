@@ -25,17 +25,17 @@ namespace KasabaKIAT.ViewModel.Putyovki
         /// <summary>
         /// 
         /// </summary>
-        public long user_id { get; set; }
+        public long? user_id { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public long sanatorium_id { get; set; }
+        public long? sanatorium_id { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public long camp_id { get; set; }
+        public long? camp_id { get; set; }
 
         /// <summary>
         /// 
@@ -60,12 +60,12 @@ namespace KasabaKIAT.ViewModel.Putyovki
         /// <summary>
         /// 
         /// </summary>
-        public decimal price { get; set; }
+        public decimal? price { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public int payment_persent { get; set; }
+        public int? payment_persent { get; set; }
 
         /// <summary>
         /// 
@@ -90,12 +90,12 @@ namespace KasabaKIAT.ViewModel.Putyovki
         /// <summary>
         /// 
         /// </summary>
-        public int quantity { get; set; }
+        public int? quantity { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public long zayavka_id { get; set; }
+        public long? zayavka_id { get; set; }
 
         public string zayavitelName { get; set; }
 
@@ -107,7 +107,7 @@ namespace KasabaKIAT.ViewModel.Putyovki
         /// <summary>
         /// 
         /// </summary>
-        public decimal platej_amount { get; set; }
+        public decimal? platej_amount { get; set; }
 
         /// <summary>
         /// 
@@ -130,5 +130,10 @@ namespace KasabaKIAT.ViewModel.Putyovki
         public string org_inn { get; set; }
 
         public string SanatoryName { get; set; }
+
+
+        public string nakladnoy_nomer { get; set; }
+
+        public bool? status_code { get; set; }
     }
 }

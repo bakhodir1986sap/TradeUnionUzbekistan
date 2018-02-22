@@ -17,7 +17,7 @@ namespace KasabaKIAT.BusinessLogic.Putyovki.RealizasiyaPutyovok.RealizasitaPoTz
             {
                 tbpt_putyovkarealizasiya put = new tbpt_putyovkarealizasiya();
 
-                //put.REC_ID                  = 
+              //put.REC_ID                  = 
                 put.DEPARTMENT_CODE         = model.department_code         ;
                 put.TO_DEPARTMENT_CODE      = model.to_department_code      ;
                 put.USER_ID                 = model.user_id                 ;
@@ -40,10 +40,10 @@ namespace KasabaKIAT.BusinessLogic.Putyovki.RealizasiyaPutyovok.RealizasitaPoTz
                 put.PLATEJ_NUMBER           = model.platej_number           ;
                 put.TALON_BACK_DATE         = model.talon_back_date         ;
                 put.REMARK                  = model.remark                  ;
-                put.ORG_INN = model.org_inn;
-                put.NAKLADNOY_NOMER = numGen.GetNextNumDoc(model.to_department_code, DateTime.Now.Year).
-                    ToString().PadLeft(6, '0');
-                put.STATUS_CODE = true;
+                put.ORG_INN                 = model.org_inn;
+                put.NAKLADNOY_NOMER         =   numGen.GetNextNumDoc(model.to_department_code, DateTime.Now.Year).
+                                                ToString().PadLeft(6, '0');
+                put.STATUS_CODE             = true;
 
                 var pst = db.tbpt_putyovkarealizasiya.Add(put);
                 
@@ -118,27 +118,42 @@ namespace KasabaKIAT.BusinessLogic.Putyovki.RealizasiyaPutyovok.RealizasitaPoTz
         {
             List<RealizasiyaByTzViewModel> list = null;
 
-            //using (KasabaKIATEntities db = new KasabaKIATEntities())
-            //{
-            //    var query = from vipl in db.tblVipl
-            //                select new RealizasiyaByTzViewModel
-            //                {
-            //                    id_org = vipl.ID_Org,
-            //                    data_post = vipl.Data_Post,
-            //                    num_doc = vipl.Num_Doc,
-            //                    id_pok = vipl.ID_Pok,
-            //                    num_kol = vipl.Num_Kol,
-            //                    symma = vipl.Symma,
-            //                    name_dov = vipl.Name_Dov,
-            //                    id_kv = vipl.ID_Kv,
-            //                    vid = vipl.Vid,
-            //                    smfil = vipl.SmFil,
-            //                    userid = vipl.UserId,
-            //                    departmentbase = vipl.DepartmentBase
-            //                };
+            using (KasabaKIATEntities db = new KasabaKIATEntities())
+            {
+                var query = from vipl in db.tbpt_putyovkarealizasiya
+                            where vipl.REC_ID == model.rec_id
+                            select new RealizasiyaByTzViewModel
+                            {
+rec_id                                          = vipl.REC_ID                               ,
+department_code                                          = vipl.DEPARTMENT_CODE             ,
+to_department_code                                          = vipl.TO_DEPARTMENT_CODE       ,
+user_id                                          = vipl.USER_ID                             ,
+sanatorium_id                                          = vipl.SANATORIUM_ID                 ,
+camp_id                                          = vipl.CAMP_ID                             ,
+serail_number                                          = vipl.SERAIL_NUMBER                 ,
+rest_begin_date                                          = vipl.REST_BEGIN_DATE             ,
+rest_end_date                                          = vipl.REST_END_DATE                 ,
+full_name                                          = vipl.FULL_NAME                         ,
+price                                          = vipl.PRICE                                 ,
+payment_persent                                          = vipl.PAYMENT_PERSENT             ,
+reciever                                          = vipl.RECIEVER                           ,
+doverennost_number                                          = vipl.DOVERENNOST_NUMBER       ,
+dover_issue_date                                          = vipl.DOVER_ISSUE_DATE           ,
+dover_expire_date                                          = vipl.DOVER_EXPIRE_DATE         ,
+quantity                                          = vipl.QUANTITY                           ,
+zayavka_id                                          = vipl.ZAYAVKA_ID                       ,
+platej_date                                          = vipl.PLATEJ_DATE                     ,
+platej_amount                                          = vipl.PLATEJ_AMOUNT                 ,
+platej_number                                          = vipl.PLATEJ_NUMBER                 ,
+talon_back_date                                          = vipl.TALON_BACK_DATE             ,
+remark                                          = vipl.REMARK                               ,
+org_inn                                          = vipl.ORG_INN                             ,
+nakladnoy_nomer                                          = vipl.NAKLADNOY_NOMER             ,
+status_code                                = vipl.STATUS_CODE
+                            };
 
-            //    list = query.ToList();
-            //}
+                list = query.ToList();
+            }
 
             return list;
         }

@@ -66,6 +66,7 @@ namespace KasabaKIAT.Controllers
         {
             var data = KasabaDB.sp_rt_ZayavkiList(inn);
             var list = from d in data
+                       where d.STATUS_ZAYAVKI == "4" //Ma'qullangan
                        select new
                        {
                            d0=d.REC_ID,

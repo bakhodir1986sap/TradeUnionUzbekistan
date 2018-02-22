@@ -250,6 +250,10 @@
     <Compile Include="BusinessLogic\Putyovki\Zayavki\ZayavkiDataManager.cs" />
     <Compile Include="BusinessLogic\Putyovki\Zayavki\ZayavkiTotalManager.cs" />
     <Compile Include="BusinessLogic\Security\Helpers\UserInfo.cs" />
+    <Compile Include="BusinessLogic\Security\Roles\RolePermissions\FunctionalityAndDbDataMatch.cs" />
+    <Compile Include="BusinessLogic\Security\Roles\RolePermissions\FunctionalityList.cs" />
+    <Compile Include="BusinessLogic\Security\Roles\Roles\Roles.cs" />
+    <Compile Include="BusinessLogic\Security\Roles\UserRoles\UserRoles.cs" />
     <Compile Include="BusinessLogic\Utils\References\ReferencesDataManager.cs" />
     <Compile Include="BusinessLogic\Utils\References\Sprav_Face.cs" />
     <Compile Include="BusinessLogic\Utils\References\Sprav_Kv.cs" />
@@ -828,6 +832,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="BusinessLogic\Security\Roles\RolePermissions\temp.txt" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\font-awesome.css" />
@@ -1104,6 +1109,7 @@
     <Folder Include="BusinessLogic\ClosePeriod\CloseMonth\" />
     <Folder Include="BusinessLogic\Reports\Buxgalteriya\NewFolder1\" />
     <Folder Include="BusinessLogic\Reports\Putyovki\NewFolder1\" />
+    <Folder Include="BusinessLogic\Security\Roles\Users\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

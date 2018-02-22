@@ -46,9 +46,7 @@ namespace KasabaKIAT.BusinessLogic.Putyovki.RealizasiyaPutyovok.RealizasitaPoTz
                 put.STATUS_CODE = true;
 
                 var pst = db.tbpt_putyovkarealizasiya.Add(put);
-
-
-
+                
                 db.SaveChanges();
 
                 model.rec_id = put.REC_ID;
@@ -67,29 +65,7 @@ namespace KasabaKIAT.BusinessLogic.Putyovki.RealizasiyaPutyovok.RealizasitaPoTz
 
                     if (put1 != null)
                     {
-                        //put1.DEPARTMENT_CODE = model.department_code;
-                        //put1.TO_DEPARTMENT_CODE = model.to_department_code;
-                        //put1.USER_ID = model.user_id;
-                        //put1.SANATORIUM_ID = model.sanatorium_id;
-                        //put1.CAMP_ID = model.camp_id;
-                        //put1.SERAIL_NUMBER = model.serail_number;
-                        //put1.REST_BEGIN_DATE = model.rest_begin_date;
-                        //put1.REST_END_DATE = model.rest_end_date;
-                        //put1.FULL_NAME = model.full_name;
-                        //put1.PRICE = model.price;
                         put1.PAYMENT_PERSENT = model.payment_persent;
-                        //put1.RECIEVER = model.reciever;
-                        //put1.DOVERENNOST_NUMBER = model.doverennost_number;
-                        //put1.DOVER_ISSUE_DATE = model.dover_issue_date;
-                        //put1.DOVER_EXPIRE_DATE = model.dover_expire_date;
-                        //put1.QUANTITY = model.quantity;
-                        //put1.ZAYAVKA_ID = model.zayavka_id;
-                        //put1.PLATEJ_DATE = model.platej_date;
-                        //put1.PLATEJ_AMOUNT = model.platej_amount;
-                        //put1.PLATEJ_NUMBER = model.platej_number;
-                        //put1.TALON_BACK_DATE = model.talon_back_date;
-                        //put1.REMARK = model.remark;
-                        //put1.ORG_INN = model.org_inn;
                     }
                 }
 

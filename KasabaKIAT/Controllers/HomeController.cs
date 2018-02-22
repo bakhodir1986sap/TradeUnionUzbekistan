@@ -1211,10 +1211,7 @@ namespace KasabaKIAT.Controllers
         {
             log.Info("GetAvarageprice");
             log.Info("yil = " + yil);
-            //var list = from a in KasabaDB.tbpt_avarageprice
-            //           //where a.SET_DATE.Value.Year == yil
-            //           select a;
-            //return Json(list.ToList(), JsonRequestBehavior.AllowGet);
+
             try
             {
                 var list = from a in KasabaDB.tbpt_avarageprice

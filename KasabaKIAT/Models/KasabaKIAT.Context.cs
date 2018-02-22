@@ -162,6 +162,7 @@ namespace KasabaKIAT.Models
         public virtual DbSet<tblVozVrat> tblVozVrat { get; set; }
         public virtual DbSet<Zapros_ZK> Zapros_ZK { get; set; }
         public virtual DbSet<tblVipl_NumGEn> tblVipl_NumGEn { get; set; }
+        public virtual DbSet<tbpt_putyovka_statechange> tbpt_putyovka_statechange { get; set; }
     
         public virtual ObjectResult<Nullable<decimal>> sp_get_BankPaymentCompanyMonthly(string inn, Nullable<int> year, Nullable<int> month)
         {

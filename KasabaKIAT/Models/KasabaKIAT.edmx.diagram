@@ -350,6 +350,7 @@
         <AssociationConnector Association="KasabaKIATModel.gagreement_files" ManuallyRouted="false" />
         <AssociationConnector Association="KasabaKIATModel.user_role" ManuallyRouted="false" />
         <EntityTypeShape EntityType="KasabaKIATModel.tblVipl_NumGEn" Width="1.5" PointX="16.375" PointY="19.75" />
+        <EntityTypeShape EntityType="KasabaKIATModel.tbpt_putyovka_statechange" Width="1.5" PointX="18.375" PointY="19.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

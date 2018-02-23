@@ -22,5 +22,6 @@ namespace KiatPostgres2SqlConverter
         public string translate_uzl { get; set; }
         public string label { get; set; }
         public Nullable<bool> state { get; set; }
+        public Nullable<long> NATIVE_ID { get; set; }
     }
 }

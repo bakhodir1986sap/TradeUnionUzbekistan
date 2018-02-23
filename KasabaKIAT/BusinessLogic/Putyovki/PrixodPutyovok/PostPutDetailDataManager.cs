@@ -120,7 +120,7 @@ namespace KasabaKiat.BusinessLogic.Putyovki.PrixodPutyovok
 
                     if (post1 != null)
                     {
-                        post1.ID_PolVoz = true;
+                        post1.ID_PolVoz = false;
                     }
                 }
 

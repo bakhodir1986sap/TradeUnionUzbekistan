@@ -55,6 +55,7 @@ namespace KasabaKIAT.BusinessLogic.Putyovki.RealizasiyaPutyovok.RealizasitaPoTz
                         real.to_department_code = orgDepBase.code;
                         real.department_code = departmentBase;
                         real.user_id = userId;
+                        real.payment_persent = 0;
 
                         var putyovka = db.tblPos_Put.Where(f => f.Num_Put == chk.NumPut && f.ID_Sanat == chk.SanId);
 

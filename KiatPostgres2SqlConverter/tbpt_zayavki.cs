@@ -39,6 +39,7 @@ namespace KiatPostgres2SqlConverter
         public string KUK_QARORI { get; set; }
         public Nullable<bool> MEDICAL_ORDER_EXISTS { get; set; }
         public Nullable<int> ORDER_QUANTITY { get; set; }
+        public string SOTR_INN { get; set; }
     
         public virtual t_camp t_camp { get; set; }
         public virtual t_sanatorium t_sanatorium { get; set; }

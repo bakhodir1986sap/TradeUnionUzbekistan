@@ -38,6 +38,9 @@
       <HintPath>..\packages\EntityFramework.6.0.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="log4net">
+      <HintPath>..\..\..\..\..\..\SmartCardDesc\SmartCardDesc\SmartCardDesc\Lib\log4net.dll</HintPath>
+    </Reference>
     <Reference Include="Npgsql, Version=3.2.6.0, Culture=neutral, PublicKeyToken=5d8b90d52f46fda7, processorArchitecture=MSIL">
       <HintPath>..\packages\Npgsql.3.2.6\lib\net451\Npgsql.dll</HintPath>
       <Private>True</Private>
@@ -68,6 +71,52 @@
     <Compile Include="buildingfixedasset.cs">
       <DependentUpon>KiatSqlModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="ConvertClasses\buildingfixedassetCl.cs" />
+    <Compile Include="ConvertClasses\eco_platejCl.cs" />
+    <Compile Include="ConvertClasses\eco_xsCl.cs" />
+    <Compile Include="ConvertClasses\fill_rateCl.cs" />
+    <Compile Include="ConvertClasses\rolesCl.cs" />
+    <Compile Include="ConvertClasses\role_permissionCl.cs" />
+    <Compile Include="ConvertClasses\sps_translateCl.cs" />
+    <Compile Include="ConvertClasses\sp_branchCl.cs" />
+    <Compile Include="ConvertClasses\sp_classnameCl.cs" />
+    <Compile Include="ConvertClasses\sp_contracttypeCl.cs" />
+    <Compile Include="ConvertClasses\sp_countryCl.cs" />
+    <Compile Include="ConvertClasses\sp_degreeCl.cs" />
+    <Compile Include="ConvertClasses\sp_departmenttypeCl.cs" />
+    <Compile Include="ConvertClasses\sp_employeesCl.cs" />
+    <Compile Include="ConvertClasses\sp_feedbackCl.cs" />
+    <Compile Include="ConvertClasses\sp_filesCl.cs" />
+    <Compile Include="ConvertClasses\sp_fixedassettypeCl.cs" />
+    <Compile Include="ConvertClasses\sp_fsCl.cs" />
+    <Compile Include="ConvertClasses\sp_measureCl.cs" />
+    <Compile Include="ConvertClasses\sp_nationCl.cs" />
+    <Compile Include="ConvertClasses\sp_okonxCl.cs" />
+    <Compile Include="ConvertClasses\sp_opfCl.cs" />
+    <Compile Include="ConvertClasses\sp_organizationCl.cs" />
+    <Compile Include="ConvertClasses\sp_position1Cl.cs" />
+    <Compile Include="ConvertClasses\sp_positionCl.cs" />
+    <Compile Include="ConvertClasses\sp_sanatorium_profilCl.cs" />
+    <Compile Include="ConvertClasses\sp_sanatorium_typeCl.cs" />
+    <Compile Include="ConvertClasses\sp_sectionCl.cs" />
+    <Compile Include="ConvertClasses\sp_soatoCl.cs" />
+    <Compile Include="ConvertClasses\sp_sooguCl.cs" />
+    <Compile Include="ConvertClasses\t_agreementCl.cs" />
+    <Compile Include="ConvertClasses\t_bkut_statisticsCl.cs" />
+    <Compile Include="ConvertClasses\t_campCl.cs" />
+    <Compile Include="ConvertClasses\t_camp_statisticsCl.cs" />
+    <Compile Include="ConvertClasses\t_collectiveagreementCl.cs" />
+    <Compile Include="ConvertClasses\t_contractappendixCl.cs" />
+    <Compile Include="ConvertClasses\t_contractCl.cs" />
+    <Compile Include="ConvertClasses\t_departmentbaseCl.cs" />
+    <Compile Include="ConvertClasses\t_egrpoCl.cs" />
+    <Compile Include="ConvertClasses\t_fixedassetsCl.cs" />
+    <Compile Include="ConvertClasses\t_generalagreementCl.cs" />
+    <Compile Include="ConvertClasses\t_ku_reportCl.cs" />
+    <Compile Include="ConvertClasses\t_normativdocCl.cs" />
+    <Compile Include="ConvertClasses\useractionsCl.cs" />
+    <Compile Include="ConvertClasses\useractivityCl.cs" />
+    <Compile Include="ConvertClasses\usersCl.cs" />
     <Compile Include="eco_platej.cs">
       <DependentUpon>KiatSqlModel.tt</DependentUpon>
     </Compile>
@@ -116,7 +165,7 @@
     <Compile Include="ot_oplata.cs">
       <DependentUpon>KiatSqlModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="PostgresADO.cs" />
+    <Compile Include="ConvertClasses\PostgresADO.cs" />
     <Compile Include="PostgresConnectionStrings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="provodok.cs">
@@ -377,6 +426,9 @@
     <Compile Include="tblVipl.cs">
       <DependentUpon>KiatSqlModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="tblVipl_NumGEn.cs">
+      <DependentUpon>KiatSqlModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="tblVipl_Put.cs">
       <DependentUpon>KiatSqlModel.tt</DependentUpon>
     </Compile>
@@ -393,6 +445,9 @@
       <DependentUpon>KiatSqlModel.tt</DependentUpon>
     </Compile>
     <Compile Include="tbpt_putyovkarealizasiya.cs">
+      <DependentUpon>KiatSqlModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbpt_putyovka_statechange.cs">
       <DependentUpon>KiatSqlModel.tt</DependentUpon>
     </Compile>
     <Compile Include="tbpt_putyovki.cs">
@@ -495,6 +550,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="ConvertClasses\TextFile1.txt" />
     <Content Include="KiatSqlModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>KiatSqlModel.edmx</DependentUpon>

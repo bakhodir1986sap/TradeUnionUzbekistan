@@ -80,5 +80,6 @@ namespace KiatPostgres2SqlConverter
         public string upd_date { get; set; }
         public string valid_flag { get; set; }
         public string zip { get; set; }
+        public Nullable<long> NATIVE_ID { get; set; }
     }
 }

@@ -19,6 +19,7 @@ namespace KiatPostgres2SqlConverter
         public Nullable<System.DateTime> last_logged { get; set; }
         public string last_logged_id { get; set; }
         public Nullable<long> user_id { get; set; }
+        public Nullable<long> NATIVE_ID { get; set; }
     
         public virtual user user { get; set; }
     }

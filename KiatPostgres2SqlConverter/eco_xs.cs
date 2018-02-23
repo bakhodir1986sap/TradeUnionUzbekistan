@@ -21,5 +21,6 @@ namespace KiatPostgres2SqlConverter
         public string bank_code { get; set; }
         public string bank_name { get; set; }
         public string budget { get; set; }
+        public Nullable<long> NATIVE_ID { get; set; }
     }
 }

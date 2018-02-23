@@ -16,7 +16,9 @@
     Load_S();
     LoadPT();
     $scope.PlaceTypeFilter.REC_ID = 1;
+
     getGZ_S($scope.SC.id, $scope.PlaceTypeFilter.REC_ID);
+
     function LoadPT() {
         $http({
             method: 'get',
@@ -27,6 +29,7 @@
             console.log(error, 'can not get data.');
         });
     }
+
     $scope.LoadPlaceType = function () {
         LoadPT();
     }

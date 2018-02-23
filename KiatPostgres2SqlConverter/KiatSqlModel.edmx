@@ -64,6 +64,7 @@ warning 6002: The table/view 'KasabaKIAT.dbo.buildingfixedasset' does not have a
           <Property Name="start_price" Type="real" />
           <Property Name="start_year" Type="int" />
           <Property Name="soato_code" Type="varchar" MaxLength="10" />
+          <Property Name="NATIVE_ID" Type="bigint" />
         </EntityType>
         <EntityType Name="collectivecontract_files">
           <Key>
@@ -104,6 +105,7 @@ warning 6002: The table/view 'KasabaKIAT.dbo.buildingfixedasset' does not have a
           <Property Name="schet" Type="varchar" MaxLength="255" />
           <Property Name="textpayment" Type="varchar" MaxLength="255" />
           <Property Name="yr" Type="varchar" MaxLength="255" />
+          <Property Name="NATIVE_ID" Type="bigint" />
         </EntityType>
         <EntityType Name="eco_xs">
           <Key>
@@ -116,6 +118,7 @@ warning 6002: The table/view 'KasabaKIAT.dbo.buildingfixedasset' does not have a
           <Property Name="bank_code" Type="varchar" MaxLength="255" />
           <Property Name="bank_name" Type="varchar" MaxLength="255" />
           <Property Name="budget" Type="varchar" MaxLength="255" />
+          <Property Name="NATIVE_ID" Type="bigint" />
         </EntityType>
         <EntityType Name="feedback_files">
           <Key>
@@ -137,6 +140,7 @@ warning 6002: The table/view 'KasabaKIAT.dbo.buildingfixedasset' does not have a
           <Property Name="formname" Type="varchar" MaxLength="255" />
           <Property Name="updated" Type="datetime" />
           <Property Name="whenfull" Type="int" Nullable="false" />
+          <Property Name="NATIVE_ID" Type="bigint" />
         </EntityType>
         <EntityType Name="frZapros">
           <Key>
@@ -523,6 +527,7 @@ warning 6002: The table/view 'KasabaKIAT.dbo.buildingfixedasset' does not have a
           <Property Name="s_create" Type="datetime" />
           <Property Name="s_status" Type="varchar" MaxLength="255" />
           <Property Name="s_user_id" Type="bigint" />
+          <Property Name="NATIVE_ID" Type="bigint" />
         </EntityType>
         <EntityType Name="roles">
           <Key>
@@ -535,6 +540,7 @@ warning 6002: The table/view 'KasabaKIAT.dbo.buildingfixedasset' does not have a
           <Property Name="s_create" Type="datetime" />
           <Property Name="s_status" Type="varchar" MaxLength="255" />
           <Property Name="s_user_id" Type="bigint" />
+          <Property Name="NATIVE_ID" Type="bigint" />
         </EntityType>
         <EntityType Name="sp_branch">
           <Key>
@@ -550,6 +556,7 @@ warning 6002: The table/view 'KasabaKIAT.dbo.buildingfixedasset' does not have a
           <Property Name="name_uz" Type="varchar" MaxLength="1024" />
           <Property Name="name_uzl" Type="varchar" MaxLength="1024" />
           <Property Name="s_user_id" Type="bigint" />
+          <Property Name="NATIVE_ID" Type="bigint" />
         </EntityType>
         <EntityType Name="sp_classname">
           <Key>
@@ -559,6 +566,7 @@ warning 6002: The table/view 'KasabaKIAT.dbo.buildingfixedasset' does not have a
           <Property Name="version" Type="int" Nullable="false" />
           <Property Name="classname" Type="varchar" MaxLength="255" />
           <Property Name="title" Type="varchar" MaxLength="255" />
+          <Property Name="NATIVE_ID" Type="bigint" />
         </EntityType>
         <EntityType Name="sp_contracttype">
           <Key>
@@ -574,6 +582,7 @@ warning 6002: The table/view 'KasabaKIAT.dbo.buildingfixedasset' does not have a
           <Property Name="name_uz" Type="varchar" MaxLength="1024" />
           <Property Name="name_uzl" Type="varchar" MaxLength="1024" />
           <Property Name="s_user_id" Type="bigint" />
+          <Property Name="NATIVE_ID" Type="bigint" />
         </EntityType>
         <EntityType Name="sp_country">
           <Key>
@@ -592,6 +601,7 @@ warning 6002: The table/view 'KasabaKIAT.dbo.buildingfixedasset' does not have a
           <Property Name="name_short_uz" Type="varchar" MaxLength="64" />
           <Property Name="name_short_uzl" Type="varchar" MaxLength="64" />
           <Property Name="s_user_id" Type="bigint" />
+          <Property Name="NATIVE_ID" Type="bigint" />
         </EntityType>
         <EntityType Name="sp_degree">
           <Key>
@@ -606,6 +616,7 @@ warning 6002: The table/view 'KasabaKIAT.dbo.buildingfixedasset' does not have a
           <Property Name="name_uz" Type="varchar" MaxLength="1024" />
           <Property Name="name_uzl" Type="varchar" MaxLength="1024" />
           <Property Name="s_user_id" Type="bigint" />
+          <Property Name="NATIVE_ID" Type="bigint" />
         </EntityType>
         <EntityType Name="sp_departmenttype">
           <Key>
@@ -623,6 +634,7 @@ warning 6002: The table/view 'KasabaKIAT.dbo.buildingfixedasset' does not have a
           <Property Name="name_uzl" Type="varchar" MaxLength="1024" />
           <Property Name="parent_id" Type="bigint" />
           <Property Name="s_user_id" Type="bigint" />
+          <Property Name="NATIVE_ID" Type="bigint" />
         </EntityType>
         <EntityType Name="sp_doctype">
           <Key>
@@ -669,6 +681,7 @@ warning 6002: The table/view 'KasabaKIAT.dbo.buildingfixedasset' does not have a
           <Property Name="nation_id" Type="bigint" />
           <Property Name="section_id" Type="bigint" />
           <Property Name="full_name" Type="varchar" MaxLength="255" />
+          <Property Name="NATIVE_ID" Type="bigint" />
         </EntityType>
         <EntityType Name="sp_feedback">
           <Key>
@@ -682,6 +695,7 @@ warning 6002: The table/view 'KasabaKIAT.dbo.buildingfixedasset' does not have a
           <Property Name="phone" Type="varchar" MaxLength="255" />
           <Property Name="type" Type="varchar" MaxLength="255" />
           <Property Name="user_id" Type="bigint" />
+          <Property Name="NATIVE_ID" Type="bigint" />
         </EntityType>
         <EntityType Name="sp_files">
           <Key>
@@ -697,6 +711,7 @@ warning 6002: The table/view 'KasabaKIAT.dbo.buildingfixedasset' does not have a
           <Property Name="file_name" Type="varchar" MaxLength="255" />
           <Property Name="content" Type="varchar(max)" />
           <Property Name="s_user_id" Type="bigint" />
+          <Property Name="NATIVE_ID" Type="bigint" />
         </EntityType>
         <EntityType Name="sp_fixedassettype">
           <Key>
@@ -714,6 +729,7 @@ warning 6002: The table/view 'KasabaKIAT.dbo.buildingfixedasset' does not have a
           <Property Name="name_uzl" Type="varchar" MaxLength="1024" />
           <Property Name="parent_code" Type="varchar" MaxLength="255" />
           <Property Name="s_user_id" Type="bigint" />
+          <Property Name="NATIVE_ID" Type="bigint" />
         </EntityType>
         <EntityType Name="sp_fs">
           <Key>
@@ -731,6 +747,7 @@ warning 6002: The table/view 'KasabaKIAT.dbo.buildingfixedasset' does not have a
           <Property Name="s_user_id" Type="bigint" />
           <Property Name="parent_id" Type="bigint" />
           <Property Name="keys" Type="varchar" MaxLength="256" />
+          <Property Name="NATIVE_ID" Type="bigint" />
         </EntityType>
         <EntityType Name="sp_measure">
           <Key>
@@ -746,6 +763,7 @@ warning 6002: The table/view 'KasabaKIAT.dbo.buildingfixedasset' does not have a
           <Property Name="name_uz" Type="varchar" MaxLength="1024" />
           <Property Name="name_uzl" Type="varchar" MaxLength="1024" />
           <Property Name="s_user_id" Type="bigint" />
+          <Property Name="NATIVE_ID" Type="bigint" />
         </EntityType>
         <EntityType Name="sp_nation">
           <Key>
@@ -760,6 +778,7 @@ warning 6002: The table/view 'KasabaKIAT.dbo.buildingfixedasset' does not have a
           <Property Name="name_uz" Type="varchar" MaxLength="1024" />
           <Property Name="name_uzl" Type="varchar" MaxLength="1024" />
           <Property Name="s_user_id" Type="bigint" />
+          <Property Name="NATIVE_ID" Type="bigint" />
         </EntityType>
         <EntityType Name="sp_okonx">
           <Key>
@@ -778,6 +797,7 @@ warning 6002: The table/view 'KasabaKIAT.dbo.buildingfixedasset' does not have a
           <Property Name="parent_id" Type="bigint" />
           <Property Name="keys" Type="varchar" MaxLength="256" />
           <Property Name="branch_code" Type="varchar" MaxLength="10" />
+          <Property Name="NATIVE_ID" Type="bigint" />
         </EntityType>
         <EntityType Name="sp_okonx_aud">
           <Key>
@@ -805,6 +825,7 @@ warning 6002: The table/view 'KasabaKIAT.dbo.buildingfixedasset' does not have a
           <Property Name="s_user_id" Type="bigint" />
           <Property Name="parent_id" Type="bigint" />
           <Property Name="keys" Type="varchar" MaxLength="256" />
+          <Property Name="NATIVE_ID" Type="bigint" />
         </EntityType>
         <EntityType Name="sp_organization">
           <Key>
@@ -822,6 +843,7 @@ warning 6002: The table/view 'KasabaKIAT.dbo.buildingfixedasset' does not have a
           <Property Name="name_uzl" Type="varchar" MaxLength="1024" />
           <Property Name="parent_id" Type="bigint" />
           <Property Name="s_user_id" Type="bigint" />
+          <Property Name="NATIVE_ID" Type="bigint" />
         </EntityType>
         <EntityType Name="sp_position">
           <Key>
@@ -836,6 +858,7 @@ warning 6002: The table/view 'KasabaKIAT.dbo.buildingfixedasset' does not have a
           <Property Name="name_uz" Type="varchar" MaxLength="1024" />
           <Property Name="name_uzl" Type="varchar" MaxLength="1024" />
           <Property Name="s_user_id" Type="bigint" />
+          <Property Name="NATIVE_ID" Type="bigint" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'KasabaKIAT.dbo.sp_position1' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -862,6 +885,7 @@ warning 6002: The table/view 'KasabaKIAT.dbo.sp_position1' does not have a prima
           <Property Name="s_tarifrate" Type="varchar" MaxLength="512" />
           <Property Name="s_worktype" Type="varchar" MaxLength="1" />
           <Property Name="s_user_id" Type="bigint" />
+          <Property Name="NATIVE_ID" Type="bigint" />
         </EntityType>
         <EntityType Name="sp_sanatorium_profil">
           <Key>
@@ -876,6 +900,7 @@ warning 6002: The table/view 'KasabaKIAT.dbo.sp_position1' does not have a prima
           <Property Name="name_uz" Type="varchar" MaxLength="1024" />
           <Property Name="name_uzl" Type="varchar" MaxLength="1024" />
           <Property Name="s_user_id" Type="bigint" />
+          <Property Name="NATIVE_ID" Type="bigint" />
         </EntityType>
         <EntityType Name="sp_sanatorium_type">
           <Key>
@@ -890,6 +915,7 @@ warning 6002: The table/view 'KasabaKIAT.dbo.sp_position1' does not have a prima
           <Property Name="name_uz" Type="varchar" MaxLength="1024" />
           <Property Name="name_uzl" Type="varchar" MaxLength="1024" />
           <Property Name="s_user_id" Type="bigint" />
+          <Property Name="NATIVE_ID" Type="bigint" />
         </EntityType>
         <EntityType Name="sp_section">
           <Key>
@@ -904,6 +930,7 @@ warning 6002: The table/view 'KasabaKIAT.dbo.sp_position1' does not have a prima
           <Property Name="name_uz" Type="varchar" MaxLength="1024" />
           <Property Name="name_uzl" Type="varchar" MaxLength="1024" />
           <Property Name="s_user_id" Type="bigint" />
+          <Property Name="NATIVE_ID" Type="bigint" />
         </EntityType>
         <EntityType Name="sp_soato">
           <Key>
@@ -924,6 +951,7 @@ warning 6002: The table/view 'KasabaKIAT.dbo.sp_position1' does not have a prima
           <Property Name="s_user_id" Type="bigint" />
           <Property Name="parent_code" Type="varchar" MaxLength="10" />
           <Property Name="keys" Type="varchar" MaxLength="256" />
+          <Property Name="NATIVE_ID" Type="bigint" />
         </EntityType>
         <EntityType Name="sp_soogu">
           <Key>
@@ -940,6 +968,7 @@ warning 6002: The table/view 'KasabaKIAT.dbo.sp_position1' does not have a prima
           <Property Name="name_uzl" Type="varchar" MaxLength="1024" />
           <Property Name="s_user_id" Type="bigint" />
           <Property Name="code" Type="varchar" MaxLength="255" />
+          <Property Name="NATIVE_ID" Type="bigint" />
         </EntityType>
         <EntityType Name="sp_soogu_copy">
           <Key>
@@ -956,6 +985,7 @@ warning 6002: The table/view 'KasabaKIAT.dbo.sp_position1' does not have a prima
           <Property Name="name_uzl" Type="varchar" MaxLength="1024" />
           <Property Name="s_user_id" Type="bigint" />
           <Property Name="code" Type="varchar" MaxLength="255" />
+          <Property Name="NATIVE_ID" Type="bigint" />
         </EntityType>
         <EntityType Name="SprSchet">
           <Key>
@@ -978,6 +1008,7 @@ warning 6002: The table/view 'KasabaKIAT.dbo.sp_position1' does not have a prima
           <Property Name="translate_uzl" Type="varchar" MaxLength="255" />
           <Property Name="label" Type="varchar" MaxLength="255" />
           <Property Name="state" Type="bit" />
+          <Property Name="NATIVE_ID" Type="bigint" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -1007,6 +1038,7 @@ warning 6002: The table/view 'KasabaKIAT.dbo.sp_position1' does not have a prima
           <Property Name="s_user_id" Type="bigint" />
           <Property Name="egrpo_id" Type="bigint" />
           <Property Name="department_id" Type="bigint" />
+          <Property Name="NATIVE_ID" Type="bigint" />
         </EntityType>
         <EntityType Name="t_bkut_statistics">
           <Key>
@@ -1042,6 +1074,7 @@ warning 6002: The table/view 'KasabaKIAT.dbo.sp_position1' does not have a prima
           <Property Name="yolgiz_ayollar" Type="int" />
           <Property Name="bkut_id" Type="bigint" />
           <Property Name="s_user_id" Type="bigint" />
+          <Property Name="NATIVE_ID" Type="bigint" />
         </EntityType>
         <EntityType Name="t_camp">
           <Key>
@@ -1071,6 +1104,7 @@ warning 6002: The table/view 'KasabaKIAT.dbo.sp_position1' does not have a prima
           <Property Name="soato_organization_id" Type="bigint" />
           <Property Name="s_user_id" Type="bigint" />
           <Property Name="soato_id" Type="bigint" />
+          <Property Name="NATIVE_ID" Type="bigint" />
         </EntityType>
         <EntityType Name="t_camp_statistics">
           <Key>
@@ -1098,6 +1132,7 @@ warning 6002: The table/view 'KasabaKIAT.dbo.sp_position1' does not have a prima
           <Property Name="year" Type="datetime" />
           <Property Name="camp_id" Type="bigint" />
           <Property Name="s_user_id" Type="bigint" />
+          <Property Name="NATIVE_ID" Type="bigint" />
         </EntityType>
         <EntityType Name="t_collectiveagreement">
           <Key>
@@ -1114,6 +1149,7 @@ warning 6002: The table/view 'KasabaKIAT.dbo.sp_position1' does not have a prima
           <Property Name="end_year" Type="int" />
           <Property Name="start_year" Type="int" />
           <Property Name="s_user_id" Type="bigint" />
+          <Property Name="NATIVE_ID" Type="bigint" />
         </EntityType>
         <EntityType Name="t_contract">
           <Key>
@@ -1135,6 +1171,7 @@ warning 6002: The table/view 'KasabaKIAT.dbo.sp_position1' does not have a prima
           <Property Name="bkut" Type="bigint" />
           <Property Name="s_user_id" Type="bigint" />
           <Property Name="ctype" Type="varchar" MaxLength="32" />
+          <Property Name="NATIVE_ID" Type="bigint" />
         </EntityType>
         <EntityType Name="t_contractappendix">
           <Key>
@@ -1149,6 +1186,7 @@ warning 6002: The table/view 'KasabaKIAT.dbo.sp_position1' does not have a prima
           <Property Name="s_status" Type="varchar" MaxLength="255" />
           <Property Name="contract_id" Type="bigint" />
           <Property Name="s_user_id" Type="bigint" />
+          <Property Name="NATIVE_ID" Type="bigint" />
         </EntityType>
         <EntityType Name="t_departmentbase">
           <Key>
@@ -1219,6 +1257,7 @@ warning 6002: The table/view 'KasabaKIAT.dbo.sp_position1' does not have a prima
           <Property Name="dep_name" Type="varchar" MaxLength="255" />
           <Property Name="le_inn" Type="varchar" MaxLength="255" />
           <Property Name="group_2ti" Type="smallint" />
+          <Property Name="NATIVE_ID" Type="bigint" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'KasabaKIAT.dbo.t_departmentbase_aud' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -1309,6 +1348,7 @@ warning 6002: The table/view 'KasabaKIAT.dbo.t_departmentbase_aud' does not have
           <Property Name="soogu_id" Type="varchar" MaxLength="255" />
           <Property Name="okpo" Type="varchar" MaxLength="20" />
           <Property Name="BANK_ACCOUNT" Type="varchar" MaxLength="20" />
+          <Property Name="NATIVE_ID" Type="bigint" />
         </EntityType>
         <EntityType Name="t_egrpo_about">
           <Key>
@@ -1327,6 +1367,7 @@ warning 6002: The table/view 'KasabaKIAT.dbo.t_departmentbase_aud' does not have
           <Property Name="sp_country_id" Type="bigint" />
           <Property Name="s_user_id" Type="bigint" />
           <Property Name="t_egrpo_id" Type="bigint" />
+          <Property Name="NATIVE_ID" Type="bigint" />
         </EntityType>
         <EntityType Name="t_egrpotest">
           <Key>
@@ -1398,6 +1439,7 @@ warning 6002: The table/view 'KasabaKIAT.dbo.t_departmentbase_aud' does not have
           <Property Name="upd_date" Type="varchar" MaxLength="255" />
           <Property Name="valid_flag" Type="varchar" MaxLength="255" />
           <Property Name="zip" Type="varchar" MaxLength="255" />
+          <Property Name="NATIVE_ID" Type="bigint" />
         </EntityType>
         <EntityType Name="t_fixedassets">
           <Key>
@@ -1427,6 +1469,7 @@ warning 6002: The table/view 'KasabaKIAT.dbo.t_departmentbase_aud' does not have
           <Property Name="count" Type="int" />
           <Property Name="measure" Type="varchar" MaxLength="32" />
           <Property Name="fagroup" Type="varchar" MaxLength="255" />
+          <Property Name="NATIVE_ID" Type="bigint" />
         </EntityType>
         <EntityType Name="t_generalagreement">
           <Key>
@@ -1443,6 +1486,7 @@ warning 6002: The table/view 'KasabaKIAT.dbo.t_departmentbase_aud' does not have
           <Property Name="end_year" Type="int" />
           <Property Name="start_year" Type="int" />
           <Property Name="s_user_id" Type="bigint" />
+          <Property Name="NATIVE_ID" Type="bigint" />
         </EntityType>
         <EntityType Name="t_ku_report">
           <Key>
@@ -1489,6 +1533,7 @@ warning 6002: The table/view 'KasabaKIAT.dbo.t_departmentbase_aud' does not have
           <Property Name="yuqori_jamoa_shartnoma" Type="int" />
           <Property Name="member_kasanachilar" Type="int" />
           <Property Name="member_nogironlar" Type="int" />
+          <Property Name="NATIVE_ID" Type="bigint" />
         </EntityType>
         <EntityType Name="t_normativdoc">
           <Key>
@@ -1508,6 +1553,7 @@ warning 6002: The table/view 'KasabaKIAT.dbo.t_departmentbase_aud' does not have
           <Property Name="doctype" Type="bigint" />
           <Property Name="url" Type="varchar" MaxLength="255" />
           <Property Name="shortmean" Type="varchar" MaxLength="255" />
+          <Property Name="NATIVE_ID" Type="bigint" />
         </EntityType>
         <EntityType Name="t_sanatorium">
           <Key>
@@ -2203,6 +2249,7 @@ warning 6002: The table/view 'KasabaKIAT.dbo.tblPutevka' does not have a primary
           <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="UserId" Type="bigint" />
           <Property Name="DepartmentBase" Type="varchar" MaxLength="255" />
+          <Property Name="BRANCH_CODE" Type="varchar" MaxLength="10" />
         </EntityType>
         <EntityType Name="tblSprav_Pr">
           <Key>
@@ -2222,6 +2269,8 @@ warning 6002: The table/view 'KasabaKIAT.dbo.tblPutevka' does not have a primary
           <Property Name="CodeReg" Type="int" />
           <Property Name="UserId" Type="bigint" />
           <Property Name="DepartmentBase" Type="varchar" MaxLength="255" />
+          <Property Name="VilId" Type="bigint" />
+          <Property Name="SOATO_CODE" Type="varchar" MaxLength="10" />
         </EntityType>
         <EntityType Name="tblSprav_San">
           <Key>
@@ -2241,6 +2290,7 @@ warning 6002: The table/view 'KasabaKIAT.dbo.tblPutevka' does not have a primary
           <Property Name="FullName" Type="varchar" MaxLength="70" />
           <Property Name="ID_Code" Type="int" />
           <Property Name="UserId" Type="bigint" />
+          <Property Name="SOATO_CODE" Type="varchar" MaxLength="10" />
         </EntityType>
         <EntityType Name="tblVipl">
           <Key>
@@ -2259,6 +2309,16 @@ warning 6002: The table/view 'KasabaKIAT.dbo.tblPutevka' does not have a primary
           <Property Name="SmFil" Type="int" />
           <Property Name="UserId" Type="bigint" />
           <Property Name="DepartmentBase" Type="varchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="tblVipl_NumGEn">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DEPARTMENT_BASE" Type="varchar" MaxLength="255" />
+          <Property Name="NUMDOC_GEN" Type="int" />
+          <Property Name="USER_ID" Type="bigint" />
+          <Property Name="YEAR" Type="int" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'KasabaKIAT.dbo.tblVipl_Put' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -2333,6 +2393,18 @@ warning 6002: The table/view 'KasabaKIAT.dbo.tblVozVrat' does not have a primary
           <Property Name="REALIZATION_ID" Type="bigint" />
           <Property Name="REMARK" Type="varchar" MaxLength="254" />
         </EntityType>
+        <EntityType Name="tbpt_putyovka_statechange">
+          <Key>
+            <PropertyRef Name="REC_ID" />
+          </Key>
+          <Property Name="REC_ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_SANAT" Type="int" />
+          <Property Name="NUM_PUT" Type="varchar" MaxLength="10" />
+          <Property Name="CHANGE_DT" Type="datetime" />
+          <Property Name="STATE" Type="int" />
+          <Property Name="DEPARTMENT_BASE" Type="varchar" MaxLength="255" />
+          <Property Name="USER_ID" Type="bigint" />
+        </EntityType>
         <EntityType Name="tbpt_putyovkarealizasiya">
           <Key>
             <PropertyRef Name="REC_ID" />
@@ -2360,6 +2432,10 @@ warning 6002: The table/view 'KasabaKIAT.dbo.tblVozVrat' does not have a primary
           <Property Name="PLATEJ_NUMBER" Type="varchar" MaxLength="254" />
           <Property Name="TALON_BACK_DATE" Type="date" />
           <Property Name="REMARK" Type="varchar" MaxLength="1000" />
+          <Property Name="ORG_INN" Type="varchar" MaxLength="9" />
+          <Property Name="NAKLADNOY_NOMER" Type="varchar" MaxLength="20" />
+          <Property Name="TALON_NUMBER" Type="varchar" MaxLength="20" />
+          <Property Name="STATUS_CODE" Type="bit" />
         </EntityType>
         <EntityType Name="tbpt_putyovki">
           <Key>
@@ -2431,6 +2507,8 @@ warning 6002: The table/view 'KasabaKIAT.dbo.tblVozVrat' does not have a primary
           <Property Name="TREATING_DOCTOR" Type="varchar" MaxLength="254" />
           <Property Name="TALON_BACK" Type="varchar" MaxLength="254" />
           <Property Name="DEPARTMENT_CODE" Type="varchar" MaxLength="255" />
+          <Property Name="SANATORY_NAME" Type="nvarchar" MaxLength="255" />
+          <Property Name="INN" Type="varchar" MaxLength="9" />
         </EntityType>
         <EntityType Name="tbpt_yearlyplanotrasl">
           <Key>
@@ -2506,6 +2584,7 @@ warning 6002: The table/view 'KasabaKIAT.dbo.tblVozVrat' does not have a primary
           <Property Name="KUK_QARORI" Type="varchar" MaxLength="254" />
           <Property Name="MEDICAL_ORDER_EXISTS" Type="bit" />
           <Property Name="ORDER_QUANTITY" Type="int" />
+          <Property Name="SOTR_INN" Type="varchar" MaxLength="9" />
         </EntityType>
         <EntityType Name="user_role">
           <Key>
@@ -2527,6 +2606,7 @@ warning 6002: The table/view 'KasabaKIAT.dbo.tblVozVrat' does not have a primary
           <Property Name="object_id" Type="bigint" />
           <Property Name="user_id" Type="bigint" />
           <Property Name="object_name" Type="varchar" MaxLength="255" />
+          <Property Name="NATIVE_ID" Type="bigint" />
         </EntityType>
         <EntityType Name="useractivity">
           <Key>
@@ -2537,6 +2617,7 @@ warning 6002: The table/view 'KasabaKIAT.dbo.tblVozVrat' does not have a primary
           <Property Name="last_logged" Type="datetime" />
           <Property Name="last_logged_id" Type="varchar" MaxLength="255" />
           <Property Name="user_id" Type="bigint" />
+          <Property Name="NATIVE_ID" Type="bigint" />
         </EntityType>
         <EntityType Name="users">
           <Key>
@@ -2568,6 +2649,7 @@ warning 6002: The table/view 'KasabaKIAT.dbo.tblVozVrat' does not have a primary
           <Property Name="bkuq_id" Type="bigint" />
           <Property Name="REGION_ID" Type="varchar" MaxLength="10" />
           <Property Name="BRANCH_ID" Type="bigint" />
+          <Property Name="NATIVE_ID" Type="bigint" />
         </EntityType>
         <EntityType Name="users_aud">
           <Key>
@@ -3973,6 +4055,9 @@ warning 6035: The relationship 'FK_tblSprav_Org_t_departmentbase' has columns th
           </ReferentialConstraint>
         </Association>
         <!--Errors Found During Generation:
+warning 6035: The relationship 'FK_tblSprav_Otras_sp_branch' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
+        <Association Name="FK_tblSprav_Otras_sp_branch" />-->
+        <!--Errors Found During Generation:
 warning 6035: The relationship 'FK_tblSprav_Otras_t_departmentbase' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
         <Association Name="FK_tblSprav_Otras_t_departmentbase" />-->
         <Association Name="FK_tblSprav_Otras_Users">
@@ -4000,6 +4085,9 @@ warning 6035: The relationship 'FK_tblSprav_Otras_t_departmentbase' has columns 
           </ReferentialConstraint>
         </Association>
         <!--Errors Found During Generation:
+warning 6035: The relationship 'FK_tblSprav_Reg_sp_soato' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
+        <Association Name="FK_tblSprav_Reg_sp_soato" />-->
+        <!--Errors Found During Generation:
 warning 6035: The relationship 'FK_tblSprav_Reg_t_departmentbase' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
         <Association Name="FK_tblSprav_Reg_t_departmentbase" />-->
         <Association Name="FK_tblSprav_Reg_Users">
@@ -4026,6 +4114,9 @@ warning 6035: The relationship 'FK_tblSprav_Reg_t_departmentbase' has columns th
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <!--Errors Found During Generation:
+warning 6035: The relationship 'FK_tblSprav_Vil_sp_soato' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
+        <Association Name="FK_tblSprav_Vil_sp_soato" />-->
         <Association Name="FK_tblSprav_Vil_Users">
           <End Role="users" Type="Self.users" Multiplicity="0..1" />
           <End Role="tblSprav_Vil" Type="Self.tblSprav_Vil" Multiplicity="*" />
@@ -4206,18 +4297,6 @@ warning 6035: The relationship 'FK_tblVozVrat_t_departmentbase' has columns that
         <!--Errors Found During Generation:
 warning 6035: The relationship 'FK_tbpt_yearlyplanotrasl_sp_soato' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
         <Association Name="FK_tbpt_yearlyplanotrasl_sp_soato" />-->
-        <Association Name="FK_tbpt_yearlyplanotrasl_t_sanatorium">
-          <End Role="t_sanatorium" Type="Self.t_sanatorium" Multiplicity="0..1" />
-          <End Role="tbpt_yearlyplanotrasl" Type="Self.tbpt_yearlyplanotrasl" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="t_sanatorium">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="tbpt_yearlyplanotrasl">
-              <PropertyRef Name="SANATORIUM_ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_tbpt_yearlyplanregion_t_sanatorium">
           <End Role="t_sanatorium" Type="Self.t_sanatorium" Multiplicity="0..1" />
           <End Role="tbpt_yearlyplanregion" Type="Self.tbpt_yearlyplanregion" Multiplicity="*" />
@@ -5087,33 +5166,9 @@ warning 6035: The relationship 'tbpt_otkazputyovka_2' has columns that are not p
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="tbpt_putyovkarealizasiya_3">
-          <End Role="t_camp" Type="Self.t_camp" Multiplicity="0..1" />
-          <End Role="tbpt_putyovkarealizasiya" Type="Self.tbpt_putyovkarealizasiya" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="t_camp">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="tbpt_putyovkarealizasiya">
-              <PropertyRef Name="CAMP_ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <!--Errors Found During Generation:
 warning 6035: The relationship 'tbpt_putyovkarealizasiya_4' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
         <Association Name="tbpt_putyovkarealizasiya_4" />-->
-        <Association Name="tbpt_putyovkarealizasiya_5">
-          <End Role="t_sanatorium" Type="Self.t_sanatorium" Multiplicity="0..1" />
-          <End Role="tbpt_putyovkarealizasiya" Type="Self.tbpt_putyovkarealizasiya" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="t_sanatorium">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="tbpt_putyovkarealizasiya">
-              <PropertyRef Name="SANATORIUM_ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <!--Errors Found During Generation:
 warning 6035: The relationship 'tbpt_putyovki_1' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
         <Association Name="tbpt_putyovki_1" />-->
@@ -5255,18 +5310,6 @@ warning 6035: The relationship 'tbpt_yearlyplanregion_1' has columns that are no
             </Principal>
             <Dependent Role="tbpt_zayavki">
               <PropertyRef Name="CAMP_ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="tbpt_zayavki_2">
-          <End Role="t_sanatorium" Type="Self.t_sanatorium" Multiplicity="0..1" />
-          <End Role="tbpt_zayavki" Type="Self.tbpt_zayavki" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="t_sanatorium">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="tbpt_zayavki">
-              <PropertyRef Name="SANATORY_ID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -5515,9 +5558,11 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <EntitySet Name="tblSprav_San" EntityType="Self.tblSprav_San" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblSprav_Vil" EntityType="Self.tblSprav_Vil" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblVipl" EntityType="Self.tblVipl" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblVipl_NumGEn" EntityType="Self.tblVipl_NumGEn" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbpt_avarageprice" EntityType="Self.tbpt_avarageprice" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbpt_bronputyovka" EntityType="Self.tbpt_bronputyovka" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbpt_otkazputyovka" EntityType="Self.tbpt_otkazputyovka" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbpt_putyovka_statechange" EntityType="Self.tbpt_putyovka_statechange" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbpt_putyovkarealizasiya" EntityType="Self.tbpt_putyovkarealizasiya" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbpt_putyovki" EntityType="Self.tbpt_putyovki" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbpt_putyovki_changehistory" EntityType="Self.tbpt_putyovki_changehistory" Schema="dbo" store:Type="Tables" />
@@ -5542,7 +5587,8 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
     [buildingfixedasset].[square] AS [square], 
     [buildingfixedasset].[start_price] AS [start_price], 
     [buildingfixedasset].[start_year] AS [start_year], 
-    [buildingfixedasset].[soato_code] AS [soato_code]
+    [buildingfixedasset].[soato_code] AS [soato_code], 
+    [buildingfixedasset].[NATIVE_ID] AS [NATIVE_ID]
     FROM [dbo].[buildingfixedasset] AS [buildingfixedasset]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="sp_position1" EntityType="Self.sp_position1" store:Type="Tables" store:Schema="dbo">
@@ -5563,7 +5609,8 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
     [sp_position1].[s_nskz] AS [s_nskz], 
     [sp_position1].[s_tarifrate] AS [s_tarifrate], 
     [sp_position1].[s_worktype] AS [s_worktype], 
-    [sp_position1].[s_user_id] AS [s_user_id]
+    [sp_position1].[s_user_id] AS [s_user_id], 
+    [sp_position1].[NATIVE_ID] AS [NATIVE_ID]
     FROM [dbo].[sp_position1] AS [sp_position1]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="t_departmentbase_aud" EntityType="Self.t_departmentbase_aud" store:Type="Tables" store:Schema="dbo">
@@ -6334,10 +6381,6 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
             <End Role="sp_branch" EntitySet="sp_branch" />
             <End Role="tbpt_yearlyplanotrasl" EntitySet="tbpt_yearlyplanotrasl" />
           </AssociationSet>
-          <AssociationSet Name="FK_tbpt_yearlyplanotrasl_t_sanatorium" Association="Self.FK_tbpt_yearlyplanotrasl_t_sanatorium">
-            <End Role="t_sanatorium" EntitySet="t_sanatorium" />
-            <End Role="tbpt_yearlyplanotrasl" EntitySet="tbpt_yearlyplanotrasl" />
-          </AssociationSet>
           <AssociationSet Name="FK_tbpt_yearlyplanregion_t_sanatorium" Association="Self.FK_tbpt_yearlyplanregion_t_sanatorium">
             <End Role="t_sanatorium" EntitySet="t_sanatorium" />
             <End Role="tbpt_yearlyplanregion" EntitySet="tbpt_yearlyplanregion" />
@@ -6602,14 +6645,6 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
             <End Role="users" EntitySet="users" />
             <End Role="tbpt_putyovkarealizasiya" EntitySet="tbpt_putyovkarealizasiya" />
           </AssociationSet>
-          <AssociationSet Name="tbpt_putyovkarealizasiya_3" Association="Self.tbpt_putyovkarealizasiya_3">
-            <End Role="t_camp" EntitySet="t_camp" />
-            <End Role="tbpt_putyovkarealizasiya" EntitySet="tbpt_putyovkarealizasiya" />
-          </AssociationSet>
-          <AssociationSet Name="tbpt_putyovkarealizasiya_5" Association="Self.tbpt_putyovkarealizasiya_5">
-            <End Role="t_sanatorium" EntitySet="t_sanatorium" />
-            <End Role="tbpt_putyovkarealizasiya" EntitySet="tbpt_putyovkarealizasiya" />
-          </AssociationSet>
           <AssociationSet Name="tbpt_putyovki_2" Association="Self.tbpt_putyovki_2">
             <End Role="users" EntitySet="users" />
             <End Role="tbpt_putyovki" EntitySet="tbpt_putyovki" />
@@ -6652,10 +6687,6 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           </AssociationSet>
           <AssociationSet Name="tbpt_zayavki_1" Association="Self.tbpt_zayavki_1">
             <End Role="t_camp" EntitySet="t_camp" />
-            <End Role="tbpt_zayavki" EntitySet="tbpt_zayavki" />
-          </AssociationSet>
-          <AssociationSet Name="tbpt_zayavki_2" Association="Self.tbpt_zayavki_2">
-            <End Role="t_sanatorium" EntitySet="t_sanatorium" />
             <End Role="tbpt_zayavki" EntitySet="tbpt_zayavki" />
           </AssociationSet>
           <AssociationSet Name="tbpt_zayavki_3" Association="Self.tbpt_zayavki_3">
@@ -6760,6 +6791,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <Property Name="schet" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="textpayment" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="yr" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="NATIVE_ID" Type="Int64" />
         </EntityType>
         <EntityType Name="eco_xs">
           <Key>
@@ -6772,6 +6804,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <Property Name="bank_code" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="bank_name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="budget" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="NATIVE_ID" Type="Int64" />
         </EntityType>
         <EntityType Name="fill_rate">
           <Key>
@@ -6785,6 +6818,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <Property Name="formname" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="updated" Type="DateTime" Precision="3" />
           <Property Name="whenfull" Type="Int32" Nullable="false" />
+          <Property Name="NATIVE_ID" Type="Int64" />
         </EntityType>
         <EntityType Name="frZapro">
           <Key>
@@ -7181,6 +7215,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <Property Name="s_user_id" Type="Int64" />
           <NavigationProperty Name="role" Relationship="Self.FK_role_permission_roles" FromRole="role_permission" ToRole="roles" />
           <NavigationProperty Name="user" Relationship="Self.FK_role_permission_users" FromRole="role_permission" ToRole="users" />
+          <Property Name="NATIVE_ID" Type="Int64" />
         </EntityType>
         <EntityType Name="role">
           <Key>
@@ -7197,6 +7232,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <NavigationProperty Name="user" Relationship="Self.FK_roles_users" FromRole="roles" ToRole="users" />
           <NavigationProperty Name="users" Relationship="Self.users_5" FromRole="roles" ToRole="users" />
           <NavigationProperty Name="users1" Relationship="Self.user_role" FromRole="roles" ToRole="users" />
+          <Property Name="NATIVE_ID" Type="Int64" />
         </EntityType>
         <EntityType Name="sp_branch">
           <Key>
@@ -7214,6 +7250,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <Property Name="s_user_id" Type="Int64" />
           <NavigationProperty Name="user" Relationship="Self.FK_sp_branch_users" FromRole="sp_branch" ToRole="users" />
           <NavigationProperty Name="tbpt_yearlyplanotrasl" Relationship="Self.FK_tbpt_yearlyplanotrasl_sp_branch" FromRole="sp_branch" ToRole="tbpt_yearlyplanotrasl" />
+          <Property Name="NATIVE_ID" Type="Int64" />
         </EntityType>
         <EntityType Name="sp_classname">
           <Key>
@@ -7223,6 +7260,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <Property Name="version" Type="Int32" Nullable="false" />
           <Property Name="classname" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="title" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="NATIVE_ID" Type="Int64" />
         </EntityType>
         <EntityType Name="sp_contracttype">
           <Key>
@@ -7239,6 +7277,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <Property Name="name_uzl" Type="String" MaxLength="1024" FixedLength="false" Unicode="false" />
           <Property Name="s_user_id" Type="Int64" />
           <NavigationProperty Name="user" Relationship="Self.FK_sp_contracttype_users" FromRole="sp_contracttype" ToRole="users" />
+          <Property Name="NATIVE_ID" Type="Int64" />
         </EntityType>
         <EntityType Name="sp_country">
           <Key>
@@ -7259,6 +7298,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <Property Name="s_user_id" Type="Int64" />
           <NavigationProperty Name="user" Relationship="Self.FK_sp_country_users" FromRole="sp_country" ToRole="users" />
           <NavigationProperty Name="t_egrpo_about" Relationship="Self.t_egrpo_about_3" FromRole="sp_country" ToRole="t_egrpo_about" />
+          <Property Name="NATIVE_ID" Type="Int64" />
         </EntityType>
         <EntityType Name="sp_degree">
           <Key>
@@ -7275,6 +7315,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <Property Name="s_user_id" Type="Int64" />
           <NavigationProperty Name="user" Relationship="Self.FK_sp_degree_users" FromRole="sp_degree" ToRole="users" />
           <NavigationProperty Name="sp_employees" Relationship="Self.FK_sp_employees_sp_degree" FromRole="sp_degree" ToRole="sp_employees" />
+          <Property Name="NATIVE_ID" Type="Int64" />
         </EntityType>
         <EntityType Name="sp_departmenttype">
           <Key>
@@ -7295,6 +7336,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <NavigationProperty Name="sp_departmenttype1" Relationship="Self.FK_sp_departmenttype_sp_departmenttype" FromRole="sp_departmenttype" ToRole="sp_departmenttype1" />
           <NavigationProperty Name="sp_departmenttype2" Relationship="Self.FK_sp_departmenttype_sp_departmenttype" FromRole="sp_departmenttype1" ToRole="sp_departmenttype" />
           <NavigationProperty Name="user" Relationship="Self.FK_sp_departmenttype_users" FromRole="sp_departmenttype" ToRole="users" />
+          <Property Name="NATIVE_ID" Type="Int64" />
         </EntityType>
         <EntityType Name="sp_doctype">
           <Key>
@@ -7353,6 +7395,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <NavigationProperty Name="user" Relationship="Self.FK_sp_employees_users" FromRole="sp_employees" ToRole="users" />
           <NavigationProperty Name="t_departmentbase1" Relationship="Self.t_departmentbase_9" FromRole="sp_employees" ToRole="t_departmentbase" />
           <NavigationProperty Name="t_sanatorium" Relationship="Self.t_sanatorium_3" FromRole="sp_employees" ToRole="t_sanatorium" />
+          <Property Name="NATIVE_ID" Type="Int64" />
         </EntityType>
         <EntityType Name="sp_feedback">
           <Key>
@@ -7368,6 +7411,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <Property Name="user_id" Type="Int64" />
           <NavigationProperty Name="user" Relationship="Self.FK_sp_feedback_users" FromRole="sp_feedback" ToRole="users" />
           <NavigationProperty Name="sp_files" Relationship="Self.feedback_files" FromRole="sp_feedback" ToRole="sp_files" />
+          <Property Name="NATIVE_ID" Type="Int64" />
         </EntityType>
         <EntityType Name="sp_files">
           <Key>
@@ -7389,6 +7433,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <NavigationProperty Name="t_normativdoc" Relationship="Self.doc_files" FromRole="sp_files" ToRole="t_normativdoc" />
           <NavigationProperty Name="sp_feedback" Relationship="Self.feedback_files" FromRole="sp_files" ToRole="sp_feedback" />
           <NavigationProperty Name="t_generalagreement" Relationship="Self.gagreement_files" FromRole="sp_files" ToRole="t_generalagreement" />
+          <Property Name="NATIVE_ID" Type="Int64" />
         </EntityType>
         <EntityType Name="sp_fixedassettype">
           <Key>
@@ -7407,6 +7452,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <Property Name="parent_code" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="s_user_id" Type="Int64" />
           <NavigationProperty Name="user" Relationship="Self.FK_sp_fixedassettype_users" FromRole="sp_fixedassettype" ToRole="users" />
+          <Property Name="NATIVE_ID" Type="Int64" />
         </EntityType>
         <EntityType Name="sp_fs">
           <Key>
@@ -7427,6 +7473,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <NavigationProperty Name="sp_fs1" Relationship="Self.FK_sp_fs_sp_fs" FromRole="sp_fs" ToRole="sp_fs1" />
           <NavigationProperty Name="sp_fs2" Relationship="Self.FK_sp_fs_sp_fs" FromRole="sp_fs1" ToRole="sp_fs" />
           <NavigationProperty Name="user" Relationship="Self.FK_sp_fs_users" FromRole="sp_fs" ToRole="users" />
+          <Property Name="NATIVE_ID" Type="Int64" />
         </EntityType>
         <EntityType Name="sp_measure">
           <Key>
@@ -7443,6 +7490,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <Property Name="name_uzl" Type="String" MaxLength="1024" FixedLength="false" Unicode="false" />
           <Property Name="s_user_id" Type="Int64" />
           <NavigationProperty Name="user" Relationship="Self.FK_sp_measure_users" FromRole="sp_measure" ToRole="users" />
+          <Property Name="NATIVE_ID" Type="Int64" />
         </EntityType>
         <EntityType Name="sp_nation">
           <Key>
@@ -7459,6 +7507,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <Property Name="s_user_id" Type="Int64" />
           <NavigationProperty Name="sp_employees" Relationship="Self.FK_sp_employees_sp_nation" FromRole="sp_nation" ToRole="sp_employees" />
           <NavigationProperty Name="user" Relationship="Self.FK_sp_nation_users" FromRole="sp_nation" ToRole="users" />
+          <Property Name="NATIVE_ID" Type="Int64" />
         </EntityType>
         <EntityType Name="sp_okonx">
           <Key>
@@ -7480,6 +7529,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <NavigationProperty Name="user" Relationship="Self.sp_okonx1" FromRole="sp_okonx" ToRole="users" />
           <NavigationProperty Name="sp_okonx1" Relationship="Self.sp_okonx2" FromRole="sp_okonx" ToRole="sp_okonx1" />
           <NavigationProperty Name="sp_okonx2" Relationship="Self.sp_okonx2" FromRole="sp_okonx1" ToRole="sp_okonx" />
+          <Property Name="NATIVE_ID" Type="Int64" />
         </EntityType>
         <EntityType Name="sp_okonx_aud">
           <Key>
@@ -7511,6 +7561,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <NavigationProperty Name="sp_opf1" Relationship="Self.sp_opf1" FromRole="sp_opf" ToRole="sp_opf1" />
           <NavigationProperty Name="sp_opf2" Relationship="Self.sp_opf1" FromRole="sp_opf1" ToRole="sp_opf" />
           <NavigationProperty Name="user" Relationship="Self.sp_opf2" FromRole="sp_opf" ToRole="users" />
+          <Property Name="NATIVE_ID" Type="Int64" />
         </EntityType>
         <EntityType Name="sp_organization">
           <Key>
@@ -7531,6 +7582,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <NavigationProperty Name="user" Relationship="Self.sp_organization1" FromRole="sp_organization" ToRole="users" />
           <NavigationProperty Name="sp_organization1" Relationship="Self.sp_organization2" FromRole="sp_organization" ToRole="sp_organization1" />
           <NavigationProperty Name="sp_organization2" Relationship="Self.sp_organization2" FromRole="sp_organization1" ToRole="sp_organization" />
+          <Property Name="NATIVE_ID" Type="Int64" />
         </EntityType>
         <EntityType Name="sp_position">
           <Key>
@@ -7547,6 +7599,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <Property Name="s_user_id" Type="Int64" />
           <NavigationProperty Name="sp_employees" Relationship="Self.FK_sp_employees_sp_position" FromRole="sp_position" ToRole="sp_employees" />
           <NavigationProperty Name="user" Relationship="Self.sp_position_1" FromRole="sp_position" ToRole="users" />
+          <Property Name="NATIVE_ID" Type="Int64" />
         </EntityType>
         <EntityType Name="sp_sanatorium_profil">
           <Key>
@@ -7564,6 +7617,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <NavigationProperty Name="user" Relationship="Self.sp_sanatorium_profil1" FromRole="sp_sanatorium_profil" ToRole="users" />
           <NavigationProperty Name="t_departmentbase" Relationship="Self.t_departmentbase_11" FromRole="sp_sanatorium_profil" ToRole="t_departmentbase" />
           <NavigationProperty Name="t_sanatorium" Relationship="Self.t_sanatorium_1" FromRole="sp_sanatorium_profil" ToRole="t_sanatorium" />
+          <Property Name="NATIVE_ID" Type="Int64" />
         </EntityType>
         <EntityType Name="sp_sanatorium_type">
           <Key>
@@ -7581,6 +7635,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <NavigationProperty Name="user" Relationship="Self.sp_sanatorium_type1" FromRole="sp_sanatorium_type" ToRole="users" />
           <NavigationProperty Name="t_departmentbase" Relationship="Self.t_departmentbase_8" FromRole="sp_sanatorium_type" ToRole="t_departmentbase" />
           <NavigationProperty Name="t_sanatorium" Relationship="Self.t_sanatorium_2" FromRole="sp_sanatorium_type" ToRole="t_sanatorium" />
+          <Property Name="NATIVE_ID" Type="Int64" />
         </EntityType>
         <EntityType Name="sp_section">
           <Key>
@@ -7597,6 +7652,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <Property Name="s_user_id" Type="Int64" />
           <NavigationProperty Name="sp_employees" Relationship="Self.FK_sp_employees_sp_section" FromRole="sp_section" ToRole="sp_employees" />
           <NavigationProperty Name="user" Relationship="Self.sp_section1" FromRole="sp_section" ToRole="users" />
+          <Property Name="NATIVE_ID" Type="Int64" />
         </EntityType>
         <EntityType Name="sp_soato">
           <Key>
@@ -7622,6 +7678,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <NavigationProperty Name="t_camp1" Relationship="Self.t_camp_3" FromRole="sp_soato" ToRole="t_camp" />
           <NavigationProperty Name="t_departmentbase" Relationship="Self.t_departmentbase_3" FromRole="sp_soato" ToRole="t_departmentbase" />
           <NavigationProperty Name="t_sanatorium" Relationship="Self.t_sanatorium_5" FromRole="sp_soato" ToRole="t_sanatorium" />
+          <Property Name="NATIVE_ID" Type="Int64" />
         </EntityType>
         <EntityType Name="sp_soogu">
           <Key>
@@ -7639,6 +7696,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <Property Name="s_user_id" Type="Int64" />
           <Property Name="code" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="user" Relationship="Self.sp_soogu_1" FromRole="sp_soogu" ToRole="users" />
+          <Property Name="NATIVE_ID" Type="Int64" />
         </EntityType>
         <EntityType Name="sp_soogu_copy">
           <Key>
@@ -7656,6 +7714,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <Property Name="s_user_id" Type="Int64" />
           <Property Name="code" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="user" Relationship="Self.sp_soogu_copy_1" FromRole="sp_soogu_copy" ToRole="users" />
+          <Property Name="NATIVE_ID" Type="Int64" />
         </EntityType>
         <EntityType Name="SprSchet">
           <Key>
@@ -7681,6 +7740,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <Property Name="translate_uzl" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="label" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="state" Type="Boolean" />
+          <Property Name="NATIVE_ID" Type="Int64" />
         </EntityType>
         <EntityType Name="sysdiagram">
           <Key>
@@ -7714,6 +7774,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <NavigationProperty Name="t_departmentbase" Relationship="Self.t_agreement_2" FromRole="t_agreement" ToRole="t_departmentbase" />
           <NavigationProperty Name="user" Relationship="Self.t_agreement_3" FromRole="t_agreement" ToRole="users" />
           <NavigationProperty Name="sp_files" Relationship="Self.agreement_files" FromRole="t_agreement" ToRole="sp_files" />
+          <Property Name="NATIVE_ID" Type="Int64" />
         </EntityType>
         <EntityType Name="t_bkut_statistics">
           <Key>
@@ -7751,6 +7812,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <Property Name="s_user_id" Type="Int64" />
           <NavigationProperty Name="t_departmentbase" Relationship="Self.t_bkut_statistics_1" FromRole="t_bkut_statistics" ToRole="t_departmentbase" />
           <NavigationProperty Name="user" Relationship="Self.t_bkut_statistics_2" FromRole="t_bkut_statistics" ToRole="users" />
+          <Property Name="NATIVE_ID" Type="Int64" />
         </EntityType>
         <EntityType Name="t_camp">
           <Key>
@@ -7788,6 +7850,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <NavigationProperty Name="tbpt_putyovki" Relationship="Self.tbpt_putyovki_4" FromRole="t_camp" ToRole="tbpt_putyovki" />
           <NavigationProperty Name="tbpt_zaezdi" Relationship="Self.tbpt_zaezdi_3" FromRole="t_camp" ToRole="tbpt_zaezdi" />
           <NavigationProperty Name="tbpt_zayavki" Relationship="Self.tbpt_zayavki_1" FromRole="t_camp" ToRole="tbpt_zayavki" />
+          <Property Name="NATIVE_ID" Type="Int64" />
         </EntityType>
         <EntityType Name="t_camp_statistics">
           <Key>
@@ -7817,6 +7880,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <Property Name="s_user_id" Type="Int64" />
           <NavigationProperty Name="t_camp" Relationship="Self.t_camp_statistics_1" FromRole="t_camp_statistics" ToRole="t_camp" />
           <NavigationProperty Name="user" Relationship="Self.t_camp_statistics_2" FromRole="t_camp_statistics" ToRole="users" />
+          <Property Name="NATIVE_ID" Type="Int64" />
         </EntityType>
         <EntityType Name="t_collectiveagreement">
           <Key>
@@ -7834,6 +7898,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <Property Name="start_year" Type="Int32" />
           <Property Name="s_user_id" Type="Int64" />
           <NavigationProperty Name="user" Relationship="Self.t_collectiveagreement_1" FromRole="t_collectiveagreement" ToRole="users" />
+          <Property Name="NATIVE_ID" Type="Int64" />
         </EntityType>
         <EntityType Name="t_contract">
           <Key>
@@ -7859,6 +7924,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <NavigationProperty Name="user" Relationship="Self.t_contract_3" FromRole="t_contract" ToRole="users" />
           <NavigationProperty Name="t_contractappendix" Relationship="Self.t_contractappendix_1" FromRole="t_contract" ToRole="t_contractappendix" />
           <NavigationProperty Name="sp_files" Relationship="Self.collectivecontract_files" FromRole="t_contract" ToRole="sp_files" />
+          <Property Name="NATIVE_ID" Type="Int64" />
         </EntityType>
         <EntityType Name="t_contractappendix">
           <Key>
@@ -7876,6 +7942,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <NavigationProperty Name="occupationalsafety" Relationship="Self.FK_occupationalsafety_t_contractappendix" FromRole="t_contractappendix" ToRole="occupationalsafety" />
           <NavigationProperty Name="t_contract" Relationship="Self.t_contractappendix_1" FromRole="t_contractappendix" ToRole="t_contract" />
           <NavigationProperty Name="user" Relationship="Self.t_contractappendix_2" FromRole="t_contractappendix" ToRole="users" />
+          <Property Name="NATIVE_ID" Type="Int64" />
         </EntityType>
         <EntityType Name="t_departmentbase">
           <Key>
@@ -7962,6 +8029,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <NavigationProperty Name="users1" Relationship="Self.users_3" FromRole="t_departmentbase" ToRole="users" />
           <NavigationProperty Name="users2" Relationship="Self.users_4" FromRole="t_departmentbase" ToRole="users" />
           <NavigationProperty Name="t_egrpo" Relationship="Self.bkut_egrpo" FromRole="t_departmentbase" ToRole="t_egrpo" />
+          <Property Name="NATIVE_ID" Type="Int64" />
         </EntityType>
         <EntityType Name="t_egrpo">
           <Key>
@@ -8006,6 +8074,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <NavigationProperty Name="user" Relationship="Self.t_egrpo_3" FromRole="t_egrpo" ToRole="users" />
           <NavigationProperty Name="t_egrpo_about" Relationship="Self.t_egrpo_about_2" FromRole="t_egrpo" ToRole="t_egrpo_about" />
           <NavigationProperty Name="t_departmentbase" Relationship="Self.bkut_egrpo" FromRole="t_egrpo" ToRole="t_departmentbase" />
+          <Property Name="NATIVE_ID" Type="Int64" />
         </EntityType>
         <EntityType Name="t_egrpo_about">
           <Key>
@@ -8027,6 +8096,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <NavigationProperty Name="sp_country" Relationship="Self.t_egrpo_about_3" FromRole="t_egrpo_about" ToRole="sp_country" />
           <NavigationProperty Name="t_egrpo" Relationship="Self.t_egrpo_about_2" FromRole="t_egrpo_about" ToRole="t_egrpo" />
           <NavigationProperty Name="user" Relationship="Self.t_egrpo_about_1" FromRole="t_egrpo_about" ToRole="users" />
+          <Property Name="NATIVE_ID" Type="Int64" />
         </EntityType>
         <EntityType Name="t_egrpotest">
           <Key>
@@ -8098,6 +8168,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <Property Name="upd_date" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="valid_flag" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="zip" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="NATIVE_ID" Type="Int64" />
         </EntityType>
         <EntityType Name="t_fixedassets">
           <Key>
@@ -8128,6 +8199,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <Property Name="measure" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
           <Property Name="fagroup" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="user" Relationship="Self.t_fixedassets_4" FromRole="t_fixedassets" ToRole="users" />
+          <Property Name="NATIVE_ID" Type="Int64" />
         </EntityType>
         <EntityType Name="t_generalagreement">
           <Key>
@@ -8146,6 +8218,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <Property Name="s_user_id" Type="Int64" />
           <NavigationProperty Name="user" Relationship="Self.t_generalagreement_1" FromRole="t_generalagreement" ToRole="users" />
           <NavigationProperty Name="sp_files" Relationship="Self.gagreement_files" FromRole="t_generalagreement" ToRole="sp_files" />
+          <Property Name="NATIVE_ID" Type="Int64" />
         </EntityType>
         <EntityType Name="t_ku_report">
           <Key>
@@ -8194,6 +8267,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <Property Name="member_nogironlar" Type="Int32" />
           <NavigationProperty Name="t_departmentbase" Relationship="Self.t_ku_report_2" FromRole="t_ku_report" ToRole="t_departmentbase" />
           <NavigationProperty Name="user" Relationship="Self.t_ku_report_1" FromRole="t_ku_report" ToRole="users" />
+          <Property Name="NATIVE_ID" Type="Int64" />
         </EntityType>
         <EntityType Name="t_normativdoc">
           <Key>
@@ -8216,6 +8290,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <NavigationProperty Name="sp_doctype" Relationship="Self.t_normativdoc_2" FromRole="t_normativdoc" ToRole="sp_doctype" />
           <NavigationProperty Name="user" Relationship="Self.t_normativdoc_1" FromRole="t_normativdoc" ToRole="users" />
           <NavigationProperty Name="sp_files" Relationship="Self.doc_files" FromRole="t_normativdoc" ToRole="sp_files" />
+          <Property Name="NATIVE_ID" Type="Int64" />
         </EntityType>
         <EntityType Name="t_sanatorium">
           <Key>
@@ -8796,6 +8871,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <NavigationProperty Name="tblOplatas" Relationship="Self.FK_tblOplata_tblSprav_Otras" FromRole="tblSprav_Otras" ToRole="tblOplata" />
           <NavigationProperty Name="user" Relationship="Self.FK_tblSprav_Otras_Users" FromRole="tblSprav_Otras" ToRole="users" />
           <NavigationProperty Name="tblVozVrats" Relationship="Self.FK_tblVozVrat_tblSprav_Otras" FromRole="tblSprav_Otras" ToRole="tblVozVrat" />
+          <Property Name="BRANCH_CODE" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="tblSprav_Pr">
           <Key>
@@ -8820,6 +8896,8 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <Property Name="UserId" Type="Int64" />
           <Property Name="DepartmentBase" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="user" Relationship="Self.FK_tblSprav_Reg_Users" FromRole="tblSprav_Reg" ToRole="users" />
+          <Property Name="VilId" Type="Int64" />
+          <Property Name="SOATO_CODE" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="tblSprav_San">
           <Key>
@@ -8851,6 +8929,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <Property Name="ID_Code" Type="Int32" />
           <Property Name="UserId" Type="Int64" />
           <NavigationProperty Name="user" Relationship="Self.FK_tblSprav_Vil_Users" FromRole="tblSprav_Vil" ToRole="users" />
+          <Property Name="SOATO_CODE" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="tblVipl">
           <Key>
@@ -8943,6 +9022,10 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <NavigationProperty Name="tbpt_otkazputyovka" Relationship="Self.tbpt_otkazputyovka_3" FromRole="tbpt_putyovkarealizasiya" ToRole="tbpt_otkazputyovka" />
           <NavigationProperty Name="tbpt_zayavki" Relationship="Self.tbpt_putyovkarealizasiya_1" FromRole="tbpt_putyovkarealizasiya" ToRole="tbpt_zayavki" />
           <NavigationProperty Name="user" Relationship="Self.tbpt_putyovkarealizasiya_2" FromRole="tbpt_putyovkarealizasiya" ToRole="users" />
+          <Property Name="ORG_INN" Type="String" MaxLength="9" FixedLength="false" Unicode="false" />
+          <Property Name="NAKLADNOY_NOMER" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="TALON_NUMBER" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="STATUS_CODE" Type="Boolean" />
         </EntityType>
         <EntityType Name="tbpt_putyovki">
           <Key>
@@ -9019,6 +9102,8 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <Property Name="TALON_BACK" Type="String" MaxLength="254" FixedLength="false" Unicode="false" />
           <Property Name="DEPARTMENT_CODE" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="user" Relationship="Self.tbpt_sanatory_info_2" FromRole="tbpt_sanatory_info" ToRole="users" />
+          <Property Name="SANATORY_NAME" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="INN" Type="String" MaxLength="9" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="tbpt_yearlyplanotrasl">
           <Key>
@@ -9109,6 +9194,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <NavigationProperty Name="tbpt_putyovkarealizasiya" Relationship="Self.tbpt_putyovkarealizasiya_1" FromRole="tbpt_zayavki" ToRole="tbpt_putyovkarealizasiya" />
           <NavigationProperty Name="tblVipl_Put" Relationship="Self.FK_tblVipl_Put_tbpt_zayavki" FromRole="tbpt_zayavki" ToRole="tblVipl_Put" />
           <NavigationProperty Name="user" Relationship="Self.tbpt_zayavki_3" FromRole="tbpt_zayavki" ToRole="users" />
+          <Property Name="SOTR_INN" Type="String" MaxLength="9" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="useraction">
           <Key>
@@ -9123,6 +9209,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <Property Name="user_id" Type="Int64" />
           <Property Name="object_name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="user" Relationship="Self.useractions_1" FromRole="useractions" ToRole="users" />
+          <Property Name="NATIVE_ID" Type="Int64" />
         </EntityType>
         <EntityType Name="useractivity">
           <Key>
@@ -9134,6 +9221,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <Property Name="last_logged_id" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="user_id" Type="Int64" />
           <NavigationProperty Name="user" Relationship="Self.useractivity_1" FromRole="useractivity" ToRole="users" />
+          <Property Name="NATIVE_ID" Type="Int64" />
         </EntityType>
         <EntityType Name="user">
           <Key>
@@ -9275,6 +9363,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <NavigationProperty Name="users1" Relationship="Self.users_2" FromRole="users" ToRole="users1" />
           <NavigationProperty Name="user1" Relationship="Self.users_2" FromRole="users1" ToRole="users" />
           <NavigationProperty Name="roles1" Relationship="Self.user_role" FromRole="users" ToRole="roles" />
+          <Property Name="NATIVE_ID" Type="Int64" />
         </EntityType>
         <EntityType Name="users_aud">
           <Key>
@@ -9301,6 +9390,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <Property Name="start_price" Type="Single" />
           <Property Name="start_year" Type="Int32" />
           <Property Name="soato_code" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="NATIVE_ID" Type="Int64" />
         </EntityType>
         <EntityType Name="sp_position1">
           <Key>
@@ -9325,6 +9415,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <Property Name="s_tarifrate" Type="String" MaxLength="512" FixedLength="false" Unicode="false" />
           <Property Name="s_worktype" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
           <Property Name="s_user_id" Type="Int64" />
+          <Property Name="NATIVE_ID" Type="Int64" />
         </EntityType>
         <EntityType Name="t_departmentbase_aud">
           <Key>
@@ -13077,7 +13168,31 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
             <End Role="roles" EntitySet="roles" />
             <End Role="users" EntitySet="users" />
           </AssociationSet>
+          <EntitySet Name="tbpt_putyovka_statechange" EntityType="KasabaKIATModel.tbpt_putyovka_statechange" />
+          <EntitySet Name="tblVipl_NumGEn" EntityType="KasabaKIATModel.tblVipl_NumGEn" />
         </EntityContainer>
+        <EntityType Name="tbpt_putyovka_statechange">
+          <Key>
+            <PropertyRef Name="REC_ID" />
+          </Key>
+          <Property Name="REC_ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_SANAT" Type="Int32" />
+          <Property Name="NUM_PUT" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="CHANGE_DT" Type="DateTime" Precision="3" />
+          <Property Name="STATE" Type="Int32" />
+          <Property Name="DEPARTMENT_BASE" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="USER_ID" Type="Int64" />
+        </EntityType>
+        <EntityType Name="tblVipl_NumGEn">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DEPARTMENT_BASE" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="NUMDOC_GEN" Type="Int32" />
+          <Property Name="USER_ID" Type="Int64" />
+          <Property Name="YEAR" Type="Int32" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -13113,6 +13228,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <EntitySetMapping Name="eco_platej">
             <EntityTypeMapping TypeName="KasabaKIATModel.eco_platej">
               <MappingFragment StoreEntitySet="eco_platej">
+                <ScalarProperty Name="NATIVE_ID" ColumnName="NATIVE_ID" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="version" ColumnName="version" />
                 <ScalarProperty Name="accountnumber" ColumnName="accountnumber" />
@@ -13138,6 +13254,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <EntitySetMapping Name="eco_xs">
             <EntityTypeMapping TypeName="KasabaKIATModel.eco_xs">
               <MappingFragment StoreEntitySet="eco_xs">
+                <ScalarProperty Name="NATIVE_ID" ColumnName="NATIVE_ID" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="inn" ColumnName="inn" />
                 <ScalarProperty Name="activity" ColumnName="activity" />
@@ -13151,6 +13268,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <EntitySetMapping Name="fill_rate">
             <EntityTypeMapping TypeName="KasabaKIATModel.fill_rate">
               <MappingFragment StoreEntitySet="fill_rate">
+                <ScalarProperty Name="NATIVE_ID" ColumnName="NATIVE_ID" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="version" ColumnName="version" />
                 <ScalarProperty Name="entityclassname" ColumnName="entityclassname" />
@@ -13544,6 +13662,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <EntitySetMapping Name="role_permission">
             <EntityTypeMapping TypeName="KasabaKIATModel.role_permission">
               <MappingFragment StoreEntitySet="role_permission">
+                <ScalarProperty Name="NATIVE_ID" ColumnName="NATIVE_ID" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="version" ColumnName="version" />
                 <ScalarProperty Name="action" ColumnName="action" />
@@ -13559,6 +13678,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <EntitySetMapping Name="roles">
             <EntityTypeMapping TypeName="KasabaKIATModel.role">
               <MappingFragment StoreEntitySet="roles">
+                <ScalarProperty Name="NATIVE_ID" ColumnName="NATIVE_ID" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="version" ColumnName="version" />
                 <ScalarProperty Name="name" ColumnName="name" />
@@ -13572,6 +13692,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <EntitySetMapping Name="sp_branch">
             <EntityTypeMapping TypeName="KasabaKIATModel.sp_branch">
               <MappingFragment StoreEntitySet="sp_branch">
+                <ScalarProperty Name="NATIVE_ID" ColumnName="NATIVE_ID" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="version" ColumnName="version" />
                 <ScalarProperty Name="code" ColumnName="code" />
@@ -13588,6 +13709,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <EntitySetMapping Name="sp_classname">
             <EntityTypeMapping TypeName="KasabaKIATModel.sp_classname">
               <MappingFragment StoreEntitySet="sp_classname">
+                <ScalarProperty Name="NATIVE_ID" ColumnName="NATIVE_ID" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="version" ColumnName="version" />
                 <ScalarProperty Name="classname" ColumnName="classname" />
@@ -13598,6 +13720,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <EntitySetMapping Name="sp_contracttype">
             <EntityTypeMapping TypeName="KasabaKIATModel.sp_contracttype">
               <MappingFragment StoreEntitySet="sp_contracttype">
+                <ScalarProperty Name="NATIVE_ID" ColumnName="NATIVE_ID" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="version" ColumnName="version" />
                 <ScalarProperty Name="code" ColumnName="code" />
@@ -13614,6 +13737,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <EntitySetMapping Name="sp_country">
             <EntityTypeMapping TypeName="KasabaKIATModel.sp_country">
               <MappingFragment StoreEntitySet="sp_country">
+                <ScalarProperty Name="NATIVE_ID" ColumnName="NATIVE_ID" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="version" ColumnName="version" />
                 <ScalarProperty Name="code" ColumnName="code" />
@@ -13633,6 +13757,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <EntitySetMapping Name="sp_degree">
             <EntityTypeMapping TypeName="KasabaKIATModel.sp_degree">
               <MappingFragment StoreEntitySet="sp_degree">
+                <ScalarProperty Name="NATIVE_ID" ColumnName="NATIVE_ID" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="version" ColumnName="version" />
                 <ScalarProperty Name="s_comment" ColumnName="s_comment" />
@@ -13648,6 +13773,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <EntitySetMapping Name="sp_departmenttype">
             <EntityTypeMapping TypeName="KasabaKIATModel.sp_departmenttype">
               <MappingFragment StoreEntitySet="sp_departmenttype">
+                <ScalarProperty Name="NATIVE_ID" ColumnName="NATIVE_ID" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="version" ColumnName="version" />
                 <ScalarProperty Name="keys" ColumnName="keys" />
@@ -13686,6 +13812,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <EntitySetMapping Name="sp_employees">
             <EntityTypeMapping TypeName="KasabaKIATModel.sp_employees">
               <MappingFragment StoreEntitySet="sp_employees">
+                <ScalarProperty Name="NATIVE_ID" ColumnName="NATIVE_ID" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="version" ColumnName="version" />
                 <ScalarProperty Name="address" ColumnName="address" />
@@ -13714,6 +13841,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <EntitySetMapping Name="sp_feedback">
             <EntityTypeMapping TypeName="KasabaKIATModel.sp_feedback">
               <MappingFragment StoreEntitySet="sp_feedback">
+                <ScalarProperty Name="NATIVE_ID" ColumnName="NATIVE_ID" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="version" ColumnName="version" />
                 <ScalarProperty Name="date" ColumnName="date" />
@@ -13728,6 +13856,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <EntitySetMapping Name="sp_files">
             <EntityTypeMapping TypeName="KasabaKIATModel.sp_files">
               <MappingFragment StoreEntitySet="sp_files">
+                <ScalarProperty Name="NATIVE_ID" ColumnName="NATIVE_ID" />
                 <ScalarProperty Name="dtype" ColumnName="dtype" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="version" ColumnName="version" />
@@ -13744,6 +13873,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <EntitySetMapping Name="sp_fixedassettype">
             <EntityTypeMapping TypeName="KasabaKIATModel.sp_fixedassettype">
               <MappingFragment StoreEntitySet="sp_fixedassettype">
+                <ScalarProperty Name="NATIVE_ID" ColumnName="NATIVE_ID" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="version" ColumnName="version" />
                 <ScalarProperty Name="keys" ColumnName="keys" />
@@ -13762,6 +13892,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <EntitySetMapping Name="sp_fs">
             <EntityTypeMapping TypeName="KasabaKIATModel.sp_fs">
               <MappingFragment StoreEntitySet="sp_fs">
+                <ScalarProperty Name="NATIVE_ID" ColumnName="NATIVE_ID" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="version" ColumnName="version" />
                 <ScalarProperty Name="code" ColumnName="code" />
@@ -13780,6 +13911,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <EntitySetMapping Name="sp_measure">
             <EntityTypeMapping TypeName="KasabaKIATModel.sp_measure">
               <MappingFragment StoreEntitySet="sp_measure">
+                <ScalarProperty Name="NATIVE_ID" ColumnName="NATIVE_ID" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="version" ColumnName="version" />
                 <ScalarProperty Name="code" ColumnName="code" />
@@ -13796,6 +13928,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <EntitySetMapping Name="sp_nation">
             <EntityTypeMapping TypeName="KasabaKIATModel.sp_nation">
               <MappingFragment StoreEntitySet="sp_nation">
+                <ScalarProperty Name="NATIVE_ID" ColumnName="NATIVE_ID" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="version" ColumnName="version" />
                 <ScalarProperty Name="s_comment" ColumnName="s_comment" />
@@ -13811,6 +13944,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <EntitySetMapping Name="sp_okonx">
             <EntityTypeMapping TypeName="KasabaKIATModel.sp_okonx">
               <MappingFragment StoreEntitySet="sp_okonx">
+                <ScalarProperty Name="NATIVE_ID" ColumnName="NATIVE_ID" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="version" ColumnName="version" />
                 <ScalarProperty Name="code" ColumnName="code" />
@@ -13840,6 +13974,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <EntitySetMapping Name="sp_opf">
             <EntityTypeMapping TypeName="KasabaKIATModel.sp_opf">
               <MappingFragment StoreEntitySet="sp_opf">
+                <ScalarProperty Name="NATIVE_ID" ColumnName="NATIVE_ID" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="version" ColumnName="version" />
                 <ScalarProperty Name="code" ColumnName="code" />
@@ -13858,6 +13993,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <EntitySetMapping Name="sp_organization">
             <EntityTypeMapping TypeName="KasabaKIATModel.sp_organization">
               <MappingFragment StoreEntitySet="sp_organization">
+                <ScalarProperty Name="NATIVE_ID" ColumnName="NATIVE_ID" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="version" ColumnName="version" />
                 <ScalarProperty Name="keys" ColumnName="keys" />
@@ -13876,6 +14012,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <EntitySetMapping Name="sp_position">
             <EntityTypeMapping TypeName="KasabaKIATModel.sp_position">
               <MappingFragment StoreEntitySet="sp_position">
+                <ScalarProperty Name="NATIVE_ID" ColumnName="NATIVE_ID" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="version" ColumnName="version" />
                 <ScalarProperty Name="s_comment" ColumnName="s_comment" />
@@ -13891,6 +14028,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <EntitySetMapping Name="sp_sanatorium_profil">
             <EntityTypeMapping TypeName="KasabaKIATModel.sp_sanatorium_profil">
               <MappingFragment StoreEntitySet="sp_sanatorium_profil">
+                <ScalarProperty Name="NATIVE_ID" ColumnName="NATIVE_ID" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="version" ColumnName="version" />
                 <ScalarProperty Name="s_comment" ColumnName="s_comment" />
@@ -13906,6 +14044,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <EntitySetMapping Name="sp_sanatorium_type">
             <EntityTypeMapping TypeName="KasabaKIATModel.sp_sanatorium_type">
               <MappingFragment StoreEntitySet="sp_sanatorium_type">
+                <ScalarProperty Name="NATIVE_ID" ColumnName="NATIVE_ID" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="version" ColumnName="version" />
                 <ScalarProperty Name="s_comment" ColumnName="s_comment" />
@@ -13921,6 +14060,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <EntitySetMapping Name="sp_section">
             <EntityTypeMapping TypeName="KasabaKIATModel.sp_section">
               <MappingFragment StoreEntitySet="sp_section">
+                <ScalarProperty Name="NATIVE_ID" ColumnName="NATIVE_ID" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="version" ColumnName="version" />
                 <ScalarProperty Name="s_comment" ColumnName="s_comment" />
@@ -13936,6 +14076,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <EntitySetMapping Name="sp_soato">
             <EntityTypeMapping TypeName="KasabaKIATModel.sp_soato">
               <MappingFragment StoreEntitySet="sp_soato">
+                <ScalarProperty Name="NATIVE_ID" ColumnName="NATIVE_ID" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="version" ColumnName="version" />
                 <ScalarProperty Name="code" ColumnName="code" />
@@ -13957,6 +14098,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <EntitySetMapping Name="sp_soogu">
             <EntityTypeMapping TypeName="KasabaKIATModel.sp_soogu">
               <MappingFragment StoreEntitySet="sp_soogu">
+                <ScalarProperty Name="NATIVE_ID" ColumnName="NATIVE_ID" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="version" ColumnName="version" />
                 <ScalarProperty Name="code_okpo" ColumnName="code_okpo" />
@@ -13974,6 +14116,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <EntitySetMapping Name="sp_soogu_copy">
             <EntityTypeMapping TypeName="KasabaKIATModel.sp_soogu_copy">
               <MappingFragment StoreEntitySet="sp_soogu_copy">
+                <ScalarProperty Name="NATIVE_ID" ColumnName="NATIVE_ID" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="version" ColumnName="version" />
                 <ScalarProperty Name="code_okpo" ColumnName="code_okpo" />
@@ -14001,6 +14144,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <EntitySetMapping Name="sps_translate">
             <EntityTypeMapping TypeName="KasabaKIATModel.sps_translate">
               <MappingFragment StoreEntitySet="sps_translate">
+                <ScalarProperty Name="NATIVE_ID" ColumnName="NATIVE_ID" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="version" ColumnName="version" />
                 <ScalarProperty Name="name" ColumnName="name" />
@@ -14026,6 +14170,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <EntitySetMapping Name="t_agreement">
             <EntityTypeMapping TypeName="KasabaKIATModel.t_agreement">
               <MappingFragment StoreEntitySet="t_agreement">
+                <ScalarProperty Name="NATIVE_ID" ColumnName="NATIVE_ID" />
                 <ScalarProperty Name="dtype" ColumnName="dtype" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="version" ColumnName="version" />
@@ -14046,6 +14191,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <EntitySetMapping Name="t_bkut_statistics">
             <EntityTypeMapping TypeName="KasabaKIATModel.t_bkut_statistics">
               <MappingFragment StoreEntitySet="t_bkut_statistics">
+                <ScalarProperty Name="NATIVE_ID" ColumnName="NATIVE_ID" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="version" ColumnName="version" />
                 <ScalarProperty Name="C_16_y_nogiron_far_ayollar" ColumnName="_16_y_nogiron_far_ayollar" />
@@ -14082,6 +14228,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <EntitySetMapping Name="t_camp">
             <EntityTypeMapping TypeName="KasabaKIATModel.t_camp">
               <MappingFragment StoreEntitySet="t_camp">
+                <ScalarProperty Name="NATIVE_ID" ColumnName="NATIVE_ID" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="version" ColumnName="version" />
                 <ScalarProperty Name="camps_address" ColumnName="camps_address" />
@@ -14112,6 +14259,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <EntitySetMapping Name="t_camp_statistics">
             <EntityTypeMapping TypeName="KasabaKIATModel.t_camp_statistics">
               <MappingFragment StoreEntitySet="t_camp_statistics">
+                <ScalarProperty Name="NATIVE_ID" ColumnName="NATIVE_ID" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="version" ColumnName="version" />
                 <ScalarProperty Name="capital_reapir" ColumnName="capital_reapir" />
@@ -14140,6 +14288,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <EntitySetMapping Name="t_collectiveagreement">
             <EntityTypeMapping TypeName="KasabaKIATModel.t_collectiveagreement">
               <MappingFragment StoreEntitySet="t_collectiveagreement">
+                <ScalarProperty Name="NATIVE_ID" ColumnName="NATIVE_ID" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="version" ColumnName="version" />
                 <ScalarProperty Name="code" ColumnName="code" />
@@ -14157,6 +14306,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <EntitySetMapping Name="t_contract">
             <EntityTypeMapping TypeName="KasabaKIATModel.t_contract">
               <MappingFragment StoreEntitySet="t_contract">
+                <ScalarProperty Name="NATIVE_ID" ColumnName="NATIVE_ID" />
                 <ScalarProperty Name="contracttype" ColumnName="contracttype" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="version" ColumnName="version" />
@@ -14179,6 +14329,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <EntitySetMapping Name="t_contractappendix">
             <EntityTypeMapping TypeName="KasabaKIATModel.t_contractappendix">
               <MappingFragment StoreEntitySet="t_contractappendix">
+                <ScalarProperty Name="NATIVE_ID" ColumnName="NATIVE_ID" />
                 <ScalarProperty Name="appendixtype" ColumnName="appendixtype" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="version" ColumnName="version" />
@@ -14194,6 +14345,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <EntitySetMapping Name="t_departmentbase">
             <EntityTypeMapping TypeName="KasabaKIATModel.t_departmentbase">
               <MappingFragment StoreEntitySet="t_departmentbase">
+                <ScalarProperty Name="NATIVE_ID" ColumnName="NATIVE_ID" />
                 <ScalarProperty Name="dtype" ColumnName="dtype" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="version" ColumnName="version" />
@@ -14265,6 +14417,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <EntitySetMapping Name="t_egrpo">
             <EntityTypeMapping TypeName="KasabaKIATModel.t_egrpo">
               <MappingFragment StoreEntitySet="t_egrpo">
+                <ScalarProperty Name="NATIVE_ID" ColumnName="NATIVE_ID" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="version" ColumnName="version" />
                 <ScalarProperty Name="address" ColumnName="address" />
@@ -14306,6 +14459,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <EntitySetMapping Name="t_egrpo_about">
             <EntityTypeMapping TypeName="KasabaKIATModel.t_egrpo_about">
               <MappingFragment StoreEntitySet="t_egrpo_about">
+                <ScalarProperty Name="NATIVE_ID" ColumnName="NATIVE_ID" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="version" ColumnName="version" />
                 <ScalarProperty Name="s_comment" ColumnName="s_comment" />
@@ -14325,6 +14479,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <EntitySetMapping Name="t_egrpotest">
             <EntityTypeMapping TypeName="KasabaKIATModel.t_egrpotest">
               <MappingFragment StoreEntitySet="t_egrpotest">
+                <ScalarProperty Name="NATIVE_ID" ColumnName="NATIVE_ID" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="version" ColumnName="version" />
                 <ScalarProperty Name="acron_en" ColumnName="acron_en" />
@@ -14397,6 +14552,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <EntitySetMapping Name="t_fixedassets">
             <EntityTypeMapping TypeName="KasabaKIATModel.t_fixedassets">
               <MappingFragment StoreEntitySet="t_fixedassets">
+                <ScalarProperty Name="NATIVE_ID" ColumnName="NATIVE_ID" />
                 <ScalarProperty Name="group_code" ColumnName="group_code" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="version" ColumnName="version" />
@@ -14427,6 +14583,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <EntitySetMapping Name="t_generalagreement">
             <EntityTypeMapping TypeName="KasabaKIATModel.t_generalagreement">
               <MappingFragment StoreEntitySet="t_generalagreement">
+                <ScalarProperty Name="NATIVE_ID" ColumnName="NATIVE_ID" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="version" ColumnName="version" />
                 <ScalarProperty Name="code" ColumnName="code" />
@@ -14444,6 +14601,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <EntitySetMapping Name="t_ku_report">
             <EntityTypeMapping TypeName="KasabaKIATModel.t_ku_report">
               <MappingFragment StoreEntitySet="t_ku_report">
+                <ScalarProperty Name="NATIVE_ID" ColumnName="NATIVE_ID" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="version" ColumnName="version" />
                 <ScalarProperty Name="azolikdan_chiqarilgan_xodimlar" ColumnName="azolikdan_chiqarilgan_xodimlar" />
@@ -14491,6 +14649,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <EntitySetMapping Name="t_normativdoc">
             <EntityTypeMapping TypeName="KasabaKIATModel.t_normativdoc">
               <MappingFragment StoreEntitySet="t_normativdoc">
+                <ScalarProperty Name="NATIVE_ID" ColumnName="NATIVE_ID" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="version" ColumnName="version" />
                 <ScalarProperty Name="code" ColumnName="code" />
@@ -15041,6 +15200,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <EntitySetMapping Name="tblSprav_Otras">
             <EntityTypeMapping TypeName="KasabaKIATModel.tblSprav_Otras">
               <MappingFragment StoreEntitySet="tblSprav_Otras">
+                <ScalarProperty Name="BRANCH_CODE" ColumnName="BRANCH_CODE" />
                 <ScalarProperty Name="ID_Ot" ColumnName="ID_Ot" />
                 <ScalarProperty Name="Name_Ot" ColumnName="Name_Ot" />
                 <ScalarProperty Name="Priz" ColumnName="Priz" />
@@ -15063,6 +15223,8 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <EntitySetMapping Name="tblSprav_Reg">
             <EntityTypeMapping TypeName="KasabaKIATModel.tblSprav_Reg">
               <MappingFragment StoreEntitySet="tblSprav_Reg">
+                <ScalarProperty Name="SOATO_CODE" ColumnName="SOATO_CODE" />
+                <ScalarProperty Name="VilId" ColumnName="VilId" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="NameReg" ColumnName="NameReg" />
                 <ScalarProperty Name="CodeReg" ColumnName="CodeReg" />
@@ -15085,6 +15247,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <EntitySetMapping Name="tblSprav_Vil">
             <EntityTypeMapping TypeName="KasabaKIATModel.tblSprav_Vil">
               <MappingFragment StoreEntitySet="tblSprav_Vil">
+                <ScalarProperty Name="SOATO_CODE" ColumnName="SOATO_CODE" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="FullName" ColumnName="FullName" />
                 <ScalarProperty Name="ID_Code" ColumnName="ID_Code" />
@@ -15148,6 +15311,10 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <EntitySetMapping Name="tbpt_putyovkarealizasiya">
             <EntityTypeMapping TypeName="KasabaKIATModel.tbpt_putyovkarealizasiya">
               <MappingFragment StoreEntitySet="tbpt_putyovkarealizasiya">
+                <ScalarProperty Name="STATUS_CODE" ColumnName="STATUS_CODE" />
+                <ScalarProperty Name="TALON_NUMBER" ColumnName="TALON_NUMBER" />
+                <ScalarProperty Name="NAKLADNOY_NOMER" ColumnName="NAKLADNOY_NOMER" />
+                <ScalarProperty Name="ORG_INN" ColumnName="ORG_INN" />
                 <ScalarProperty Name="REC_ID" ColumnName="REC_ID" />
                 <ScalarProperty Name="DEPARTMENT_CODE" ColumnName="DEPARTMENT_CODE" />
                 <ScalarProperty Name="TO_DEPARTMENT_CODE" ColumnName="TO_DEPARTMENT_CODE" />
@@ -15218,6 +15385,8 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <EntitySetMapping Name="tbpt_sanatory_info">
             <EntityTypeMapping TypeName="KasabaKIATModel.tbpt_sanatory_info">
               <MappingFragment StoreEntitySet="tbpt_sanatory_info">
+                <ScalarProperty Name="INN" ColumnName="INN" />
+                <ScalarProperty Name="SANATORY_NAME" ColumnName="SANATORY_NAME" />
                 <ScalarProperty Name="REC_ID" ColumnName="REC_ID" />
                 <ScalarProperty Name="USER_ID" ColumnName="USER_ID" />
                 <ScalarProperty Name="SERIAL_NUMBER" ColumnName="SERIAL_NUMBER" />
@@ -15306,6 +15475,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <EntitySetMapping Name="tbpt_zayavki">
             <EntityTypeMapping TypeName="KasabaKIATModel.tbpt_zayavki">
               <MappingFragment StoreEntitySet="tbpt_zayavki">
+                <ScalarProperty Name="SOTR_INN" ColumnName="SOTR_INN" />
                 <ScalarProperty Name="REC_ID" ColumnName="REC_ID" />
                 <ScalarProperty Name="GROUP_ID" ColumnName="GROUP_ID" />
                 <ScalarProperty Name="MEDICAL_ORDER" ColumnName="MEDICAL_ORDER" />
@@ -15330,6 +15500,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <EntitySetMapping Name="useractions">
             <EntityTypeMapping TypeName="KasabaKIATModel.useraction">
               <MappingFragment StoreEntitySet="useractions">
+                <ScalarProperty Name="NATIVE_ID" ColumnName="NATIVE_ID" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="version" ColumnName="version" />
                 <ScalarProperty Name="accesstime" ColumnName="accesstime" />
@@ -15344,6 +15515,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <EntitySetMapping Name="useractivities">
             <EntityTypeMapping TypeName="KasabaKIATModel.useractivity">
               <MappingFragment StoreEntitySet="useractivity">
+                <ScalarProperty Name="NATIVE_ID" ColumnName="NATIVE_ID" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="version" ColumnName="version" />
                 <ScalarProperty Name="last_logged" ColumnName="last_logged" />
@@ -15355,6 +15527,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <EntitySetMapping Name="users">
             <EntityTypeMapping TypeName="KasabaKIATModel.user">
               <MappingFragment StoreEntitySet="users">
+                <ScalarProperty Name="NATIVE_ID" ColumnName="NATIVE_ID" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="version" ColumnName="version" />
                 <ScalarProperty Name="account_expired" ColumnName="account_expired" />
@@ -15396,6 +15569,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <EntitySetMapping Name="buildingfixedassets">
             <EntityTypeMapping TypeName="KasabaKIATModel.buildingfixedasset">
               <MappingFragment StoreEntitySet="buildingfixedasset">
+                <ScalarProperty Name="NATIVE_ID" ColumnName="NATIVE_ID" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="version" ColumnName="version" />
                 <ScalarProperty Name="accept_date" ColumnName="accept_date" />
@@ -15412,6 +15586,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <EntitySetMapping Name="sp_position1">
             <EntityTypeMapping TypeName="KasabaKIATModel.sp_position1">
               <MappingFragment StoreEntitySet="sp_position1">
+                <ScalarProperty Name="NATIVE_ID" ColumnName="NATIVE_ID" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="version" ColumnName="version" />
                 <ScalarProperty Name="s_category" ColumnName="s_category" />
@@ -15798,6 +15973,30 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
               <ScalarProperty Name="id" ColumnName="user_id" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="tbpt_putyovka_statechange">
+            <EntityTypeMapping TypeName="KasabaKIATModel.tbpt_putyovka_statechange">
+              <MappingFragment StoreEntitySet="tbpt_putyovka_statechange">
+                <ScalarProperty Name="USER_ID" ColumnName="USER_ID" />
+                <ScalarProperty Name="DEPARTMENT_BASE" ColumnName="DEPARTMENT_BASE" />
+                <ScalarProperty Name="STATE" ColumnName="STATE" />
+                <ScalarProperty Name="CHANGE_DT" ColumnName="CHANGE_DT" />
+                <ScalarProperty Name="NUM_PUT" ColumnName="NUM_PUT" />
+                <ScalarProperty Name="ID_SANAT" ColumnName="ID_SANAT" />
+                <ScalarProperty Name="REC_ID" ColumnName="REC_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblVipl_NumGEn">
+            <EntityTypeMapping TypeName="KasabaKIATModel.tblVipl_NumGEn">
+              <MappingFragment StoreEntitySet="tblVipl_NumGEn">
+                <ScalarProperty Name="YEAR" ColumnName="YEAR" />
+                <ScalarProperty Name="USER_ID" ColumnName="USER_ID" />
+                <ScalarProperty Name="NUMDOC_GEN" ColumnName="NUMDOC_GEN" />
+                <ScalarProperty Name="DEPARTMENT_BASE" ColumnName="DEPARTMENT_BASE" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

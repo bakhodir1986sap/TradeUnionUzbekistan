@@ -36,6 +36,7 @@ namespace KiatPostgres2SqlConverter
         public Nullable<System.DateTime> year { get; set; }
         public Nullable<long> camp_id { get; set; }
         public Nullable<long> s_user_id { get; set; }
+        public Nullable<long> NATIVE_ID { get; set; }
     
         public virtual t_camp t_camp { get; set; }
         public virtual user user { get; set; }

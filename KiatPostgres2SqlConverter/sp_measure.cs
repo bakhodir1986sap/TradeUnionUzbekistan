@@ -24,6 +24,7 @@ namespace KiatPostgres2SqlConverter
         public string name_uz { get; set; }
         public string name_uzl { get; set; }
         public Nullable<long> s_user_id { get; set; }
+        public Nullable<long> NATIVE_ID { get; set; }
     
         public virtual user user { get; set; }
     }

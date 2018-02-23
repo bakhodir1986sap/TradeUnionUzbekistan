@@ -168,7 +168,7 @@
     function GetRZ_G_C() {
         $http({
             method: "post",
-            url: "GroupRZ_C?inn=" + inn + "&zb=" + zb
+            url: "GroupRZ_C?inn=" + $scope.INN + "&zb=" + $scope.ZB
         }).then(function (s) {
             $scope.RZ_G = s.data;
             if (s.data.length != 0) {
@@ -187,7 +187,7 @@
         $scope.myValue = "санаторий";
         $http({
             method: "post",
-            url: "GetAllPodachaZayavok_S_LoadINN?inn=" + inn + "&zb=" + zb
+            url: "GetAllPodachaZayavok_S_LoadINN?inn=" + $scope.INN + "&zb=" + $scope.ZB
         }).then(function (s) {
             $scope.RZ = s.data;
             if (s.data.length != 0) {
@@ -204,7 +204,7 @@
     function GetRZ_C() {
         $http({
             method: "post",
-            url: "GetAllPodachaZayavok_S_LoadINN?inn=" + inn + "&zb=" + zb
+            url: "GetAllPodachaZayavok_S_LoadINN?inn=" + $scope.INN + "&zb=" + $scope.ZB
         }).then(function (c) {
             $scope.RZ = c.data;
             if (c.data.length != 0) {

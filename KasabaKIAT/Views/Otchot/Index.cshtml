@@ -1,5 +1,7 @@
-﻿
+﻿@using KasabaKIAT.BusinessLogic.Security.Roles.RolePermissions;
 @{
+    var UserId = Convert.ToInt32(User.Identity.Name);
+    FunctionalityList List = FunctionalityAndDbDataMatch.MatchProcess(UserId);
     ViewBag.Title = "Отчеты";
 }
 <section class="content__block container">
@@ -17,14 +19,43 @@
     <div class="row mb-4">
         <div class="col-md-6">
             <div class="list-group r-list-group mb-4 box-shadow">
-                <a href="/Otchot/SvodniyOtchot" class="list-group-item list-group-item-action load">Сводный отчет по заявкам</a>
-                <a href="/Otchot/Talabnomlar" class="list-group-item list-group-item-action load">Талабномалар</a>
-                <a href="/Otchot/Forma13" class="list-group-item list-group-item-action load">Форма №13 по получению путевок</a>
-                <a href="/Otchot/Forma14" class="list-group-item list-group-item-action load">форма №14 свободная</a>
-                <a href="/Otchot/TablitsaOtdixayushix" class="list-group-item list-group-item-action load">Таблица по учету отдыхающих</a>
-                <a href="/Otchot/JurnalniyOrder" class="list-group-item list-group-item-action load">Журнальный ордер</a>
-                <a href="/Otchot/FinalniyOtchot" class="list-group-item list-group-item-action load">Финансовый отчет</a>
-                <a href="/Otchot/GlavnayaKniga" class="list-group-item list-group-item-action load">Главная книга</a>
+                @if (List.SvodniyOtchetPoNakladnim)
+                {
+                    <a href="/Otchot/SvodniyOtchot" class="list-group-item list-group-item-action load">Сводный отчет по заявкам</a>
+                }
+                @if (List.Talabnomalar)
+                {
+                    <a href="/Otchot/Talabnomlar" class="list-group-item list-group-item-action load">Талабномалар</a>
+                }
+                @if (List.FormaN13)
+                {
+                    <a href="/Otchot/Forma13" class="list-group-item list-group-item-action load">Форма №13 по получению путевок</a>
+                }
+                @if (List.FormaN14)
+                {
+                    <a href="/Otchot/Forma14" class="list-group-item list-group-item-action load">форма №14 свободная</a>
+
+                }
+                @if (List.TablisaPoUchetuOtdixayushix)
+                {
+                    <a href="/Otchot/TablitsaOtdixayushix" class="list-group-item list-group-item-action load">Таблица по учету отдыхающих</a>
+
+                }
+                @if (List.JurnalniyOrder1)
+                {
+                    <a href="/Otchot/JurnalniyOrder" class="list-group-item list-group-item-action load">Журнальный ордер</a>
+
+                }
+                @if (List.PoSanatoriyamProfilaktoriyam)
+                {
+                    <a href="/Otchot/FinalniyOtchot" class="list-group-item list-group-item-action load">Финансовый отчет</a>
+
+                }
+                @if (List.GlavnayaKniga)
+                {
+                    <a href="/Otchot/GlavnayaKniga" class="list-group-item list-group-item-action load">Главная книга</a>
+                }
+
             </div>
             <div class="mb-4">
                 <a href="/Buxgalter/PlanByudjetaOblasteyNoviy" class="btn btn-blue d-block d-md-inline-block mb-2">Приступить к оформлению</a>

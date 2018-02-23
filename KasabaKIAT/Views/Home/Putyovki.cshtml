@@ -1,55 +1,87 @@
-﻿@{
+﻿@using KasabaKIAT.BusinessLogic.Security.Roles.RolePermissions;
+@{
     ViewBag.Title = "Путевки";
     ViewBag.n = Session["role"];
+    var  UserId = Convert.ToInt32(User.Identity.Name);
+    FunctionalityList List = FunctionalityAndDbDataMatch.MatchProcess(UserId);
 }
+
+
 <section class="main__block container-fluid">
-    @if (ViewBag.n != 8)
-    {
-        <div class="row no-gutters">
+    <div class="row no-gutters">
+        @if (List.GrafikZaezdov)
+            {
             <div class="col-6 col-sm-3">
                 <a href="/GrafikZaezdov/index" class="d-block text-center item load" data-mh="main-item">
                     <img src="~/Content/images/main_icon_1.png" alt="" title="" />
                     <span class="d-block">График заездов</span>
                 </a>
             </div>
+        }
+        @if (List.GodovoyPlanPutyovok)
+        {
             <div class="col-6 col-sm-3">
                 <a href="/GodovoyPlan/index" class="d-block text-center item load" data-mh="main-item">
                     <img src="~/Content/images/main_icon_6.png" alt="" title="" />
                     <span class="d-block">Годовой план распределения путевок по отраслям</span>
                 </a>
             </div>
+        }
+        @if (List.ProsmotrRealPutyovok)
+            {
             <div class="col-6 col-sm-3">
                 <a href="/PrixodPutevok/ProsmotrRealzPutevok" class="d-block text-center item load" data-mh="main-item">
                     <img src="~/Content/images/main_icon_7.png" alt="" title="" />
                     <span class="d-block">Просмотр реализованных путевок</span>
                 </a>
             </div>
+        }
+        @if (List.PrixodPutyovok)
+            {
             <div class="col-6 col-sm-3">
                 <a href="/Administirirovaniye/SchetFaktura" class="d-block text-center item load" data-mh="main-item">
                     <img src="~/Content/images/main_icon_8.png" alt="" title="" />
                     <span class="d-block">Приход путевок</span>
                 </a>
             </div>
+        }
+        @if (List.ProsmotrOstatkaPutyovok)
+            {
             <div class="col-6 col-sm-3">
                 <a href="/PrixodPutevok/ProsmotrOstatPutevok" class="d-block text-center item load" data-mh="main-item">
                     <img src="~/Content/images/main_icon_9.png" alt="" title="" />
                     <span class="d-block">Просмотр остатков путевок</span>
                 </a>
             </div>
+        }
+        @if (List.RealizasiyaPutyovok)
+            {
             <div class="col-6 col-sm-3">
                 <a href="/PrixodPutevok/RealizatsiyaPutevok" class="d-block text-center item load" data-mh="main-item">
                     <img src="~/Content/images/main_icon_10.png" alt="" title="" />
                     <span class="d-block">Реализация путевок</span>
                 </a>
             </div>
+        }
+        @if (List.SverkaDannixPoOtdixayushim)
+            {
             <div class="col-6 col-sm-3">
                 <a href="/Home/SverkaDannix" class="d-block text-center item load" data-mh="main-item">
                     <img src="~/Content/images/main_icon_17.png" alt="" title="" />
                     <span class="d-block">Сверка данных по отдыхающим</span>
                 </a>
             </div>
-        </div>
-    }
-    
+        }
+        @if (List.RassmotreniyaZayavok)
+            {
+            <div class="col-6 col-sm-3">
+                <a href="/Home/RassmotreniyeZayavok" class="d-block text-center item load" data-mh="main-item">
+                    <img src="~/Content/images/main_icon_3.png" alt="" title="" />
+                    <span class="d-block">Рассмотрение заявок</span>
+                </a>
+            </div>
+        }
+    </div>
+
 </section>
 

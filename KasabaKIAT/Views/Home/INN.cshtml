@@ -23,7 +23,7 @@
 <script src="~/Scripts/MyJavaScript/LoadINN.js"></script>
 
 <section class="content__block container" ng-controller="LoadINN">
-    <div id="connection" style="visibility:hidden;position:absolute;margin-left:430px;margin-top:100px">
+    <div id="connection" style="visibility:hidden;position:absolute;margin-left:430px;margin-top:100px;z-index:9999">
         <img src="~/Content/Login/buffering.gif" />
     </div>
     <div class="row justify-content-center">
@@ -55,7 +55,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="item in DATA" ng-click="T(item.d3,item.d4)" data-dismiss="modal">
+                    <tr ng-repeat="item in DATA" ng-click="T(item.d2,item.d4)" data-dismiss="modal">
                         <td>{{item.d1}}</td>
                         <td>{{item.d2}}</td>
                         <td>{{item.d3}}</td>
@@ -64,7 +64,7 @@
                 </tbody>
             </table>
         </div>
-        <button ng-show="showdata" onclick="onClick();">Tanlash</button>
+        <button ng-show="showdata" onclick="onClick();" ng-click="Tanlash()">Tanlash</button>
         <script>
                 function onClick() {
                     parent.HelloFromChild(document.getElementById("inn").value, document.getElementById("name").value);

@@ -1,27 +1,29 @@
-﻿
+﻿@using KasabaKIAT.BusinessLogic.Security.Roles.RolePermissions;
 @{
+    var UserId = Convert.ToInt32(User.Identity.Name);
+    FunctionalityList List = FunctionalityAndDbDataMatch.MatchProcess(UserId);
     ViewBag.Title = "Подача заявок";
 }
 <section class="main__block container-fluid">
     <div class="row no-gutters">
-         <div class="col-6 col-sm-3">
+        @if (List.VvodZayavok)
+        {
+        <div class="col-6 col-sm-3">
             <a href="/Home/PodachaZayavok" class="d-block text-center item load" data-mh="main-item">
                 <img src="~/Content/images/main_icon_4.png" alt="" title="" />
                 <span class="d-block">Подача заявок</span>
             </a>
         </div>
-        <div class="col-6 col-sm-3">
-            <a href="/Home/RassmotreniyeZayavok" class="d-block text-center item load" data-mh="main-item">
-                <img src="~/Content/images/main_icon_3.png" alt="" title="" />
-                <span class="d-block">Рассмотрение заявок</span>
-            </a>
-        </div>
-        <div class="col-6 col-sm-3">
-            <a href="/Home/PoiskRedaktZayavok" class="d-block text-center item load" data-mh="main-item">
-                <img src="~/Content/images/main_icon_5.png" alt="" title="" />
-                <span class="d-block">Поиск и редактирование заявок</span>
-            </a>
-        </div>
+        }
+        @if (List.PoiskIRedaktirovaniyaZayavok)
+        {
+            <div class="col-6 col-sm-3">
+                <a href="/Home/PoiskRedaktZayavok" class="d-block text-center item load" data-mh="main-item">
+                    <img src="~/Content/images/main_icon_5.png" alt="" title="" />
+                    <span class="d-block">Поиск и редактирование заявок</span>
+                </a>
+            </div>
+        }
     </div>
 </section>
 

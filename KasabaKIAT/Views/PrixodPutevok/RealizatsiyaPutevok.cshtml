@@ -30,7 +30,7 @@
     }
 </style>*@
 <section class="content__block container" ng-controller="RealizatsiyaPutevok">
-    <div id="connection" style="visibility:hidden;position:absolute;margin-left:430px;margin-top:100px">
+    <div id="connection" style="visibility:hidden;position:absolute;margin-left:430px;margin-top:100px;z-index:9999">
         <img src="~/Content/Login/buffering.gif" />
     </div>
     <div class="row mb-4 align-items-center">
@@ -62,86 +62,19 @@
                     </div>
                     <div class="card-header r-card-header" id="headingOne{{rp.d1}}">
                         <span class="r-header-t"><strong>{{rp.d3}} - {{rp.d4}}</strong> {{rp.d5 | jsonDate: 'dd.MM.yyyy'}} - {{rp.d6 | jsonDate: 'dd.MM.yyyy'}}</span>
-                        <span class="r-header-b" ng-show="rp.d7!='0'">{{rp.d7}}</span>
-                        <span class="r-header-v" ng-show="rp.d8!='0'">{{rp.d8}}</span>
-                        <span  ng-click="data(rp.d1)" class="r-header-a float-right collapsed" data-toggle="collapse" data-target="#collapse{{rp.d1}}" aria-expanded="true" aria-controls="collapseOne"></span>
+                        <span class="r-header-b" style="background-color:green" ng-show="rp.d7!='0'">{{rp.d7}}</span>
+                        <span class="r-header-v" style="background-color:red" ng-show="rp.d8!='0'">{{rp.d8}}</span>
+                        <span  ng-click="data(rp.d1)"  class="r-header-a float-right collapsed" data-toggle="collapse" data-target="#collapse{{rp.d1}}" aria-expanded="true" aria-controls="collapseOne"></span>
                     </div>
                     <div id="collapse{{rp.d1}}"  class="collapse" aria-labelledby="headingOne{{rp.d1}}" data-parent="#accordion">
-                        <div class="card-body r-card-body"  ng-repeat="rp2 in RP2">
-                            <div class="custom-control custom-checkbox r-checkbox">
-                                <input type="checkbox" ng-click="BronChange(rp2.d3,rp2.d1)" class="custom-control-input" id="customCheck{{rp2.d3}}"/>
-                                <label ng-class="rp2.red" class="custom-control-label r-label" for="customCheck{{rp2.d3}}"><strong>{{rp2.d3}}</strong> ({{rp2.d4 | jsonDate: 'dd.MM.yyyy'}})<span ng-show="rp2.d5=='1'"><img src="~/Content/images/b-g.png" alt="" title="" /></span><span ng-show="rp2.d6=='1'"><img src="~/Content/images/v-r.png" alt="" title="" /></span></label>
+                        <div class="card-body r-card-body" ng-repeat="rp2 in RP2">
+                            <div class="custom-control custom-checkbox r-checkbox" id="checkbox{{rp2.d0}}">
+                                <input type="checkbox"  ng-model="rp2.Checked" @*ng-change="checkinTask(rp2)"*@  class="custom-control-input" id="{{'j' + $index}}" name="{{'j' + $index}}"/>
+                                <label ng-class="rp2.red"class="custom-control-label r-label"  ng-click="BronChange(rp2)" for="{{'j' + $index}}" id="{{'jG' + $index}}"><strong>{{rp2.d3}}</strong> ({{rp2.d4 | jsonDate: 'dd.MM.yyyy'}})<span ng-show="rp2.d5=='1'"><img src="~/Content/images/b-g.png" alt="" title="" /></span><span ng-show="rp2.d6=='1'"><img src="~/Content/images/v-r.png" alt="" title="" /></span></label>
                             </div>
                         </div>
                     </div>
                 </div>
-                @*<div class="card r-card">
-                    <div class="r-card-title">
-                        <p>Замин</p>
-                    </div>
-                    <div class="card-header r-card-header" id="headingTwo">
-                        <span class="r-header-t"><strong>35015 - 35020</strong> 10.07.2018 - 20.07.2018</span>
-                        <span class="r-header-v">2</span>
-                        <span class="r-header-a float-right collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo"></span>
-                    </div>
-                    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
-                        <div class="card-body r-card-body">
-                            <div class="custom-control custom-checkbox r-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="customCheck11">
-                                <label class="custom-control-label r-label" for="customCheck11"><strong>35004</strong> (10.08.2018 - 10.08.2018)</label>
-                            </div>
-                            <div class="custom-control custom-checkbox r-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="customCheck22">
-                                <label class="custom-control-label r-label red" for="customCheck22"><strong>35005</strong> (10.08.2018 - 10.08.20<span><img src="~/Content/images/b-g.png" alt="" title="" /></span><span><img src="~/Content/images/v-r.png" alt="" title="" /></span></label>
-                            </div>
-                            <div class="custom-control custom-checkbox r-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="customCheck33">
-                                <label class="custom-control-label r-label" for="customCheck33"><strong>35004</strong> (10.08.2018 - 10.08.2018)</label>
-                            </div>
-                            <div class="custom-control custom-checkbox r-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="customCheck44">
-                                <label class="custom-control-label r-label green" for="customCheck44"><strong>35004</strong> (10.08.2018 - 10.08.2018)<span><img src="~/Content/images/b-g.png" alt="" title="" /></span></label>
-                            </div>
-                            <div class="custom-control custom-checkbox r-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="customCheck55">
-                                <label class="custom-control-label r-label" for="customCheck55"><strong>35004</strong> (10.08.2018 - 10.08.2018)</label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="card r-card">
-                    <div class="r-card-title">
-                        <p>Ботаника</p>
-                    </div>
-                    <div class="card-header r-card-header" id="headingThree">
-                        <span class="r-header-t"><strong>35050 - 35055</strong> 10.08.2018 - 20.08.2018</span>
-                        <span class="r-header-a float-right collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree"></span>
-                    </div>
-                    <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
-                        <div class="card-body r-card-body">
-                            <div class="custom-control custom-checkbox r-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="customCheck111">
-                                <label class="custom-control-label r-label" for="customCheck111"><strong>35004</strong> (10.08.2018 - 10.08.2018)</label>
-                            </div>
-                            <div class="custom-control custom-checkbox r-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="customCheck222">
-                                <label class="custom-control-label r-label red" for="customCheck222"><strong>35005</strong> (10.08.2018 - 10.08.20</label>
-                            </div>
-                            <div class="custom-control custom-checkbox r-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="customCheck333">
-                                <label class="custom-control-label r-label" for="customCheck333"><strong>35004</strong> (10.08.2018 - 10.08.2018)</label>
-                            </div>
-                            <div class="custom-control custom-checkbox r-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="customCheck444">
-                                <label class="custom-control-label r-label green" for="customCheck444"><strong>35004</strong> (10.08.2018 - 10.08.2018)</label>
-                            </div>
-                            <div class="custom-control custom-checkbox r-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="customCheck555">
-                                <label class="custom-control-label r-label" for="customCheck555"><strong>35004</strong> (10.08.2018 - 10.08.2018)</label>
-                            </div>
-                        </div>
-                    </div>
-                </div>*@
             </div>
             <div class="mb-4">
                 <button class="btn btn-grey d-block d-md-inline-block mb-2">Отменить выбор</button>
@@ -173,6 +106,10 @@
                 <a href="" class="btn btn-grey d-block d-md-inline-block mb-2">Отменить выбор</a>
             </div>
             <form class="pt-5 mt-5" name="myForm2" novalidate>
+                @*<div class="mb-4">
+                    <select class="custom-select form-control col-md-6" required ng-model="O" ng-change="LoadINN()" ng-options="d as d.value for d in OR track by d.id" name="O" id="O"></select>
+                    <span class="alert alert-warning" style="padding:0px" ng-show="myForm2.O.$error.required">Выберите  </span>
+                </div>*@
                 <div class="mb-5">
                     <div class="custom-control-inline">
                         <input type="text" required class="custom-select form-control" name="INN" id="inn" ng-model="INN" ng-change="LoadINN()" ng-maxlength="9" ng-minlength="9"  placeholder="Инн" />
@@ -183,12 +120,12 @@
                 </div>
                 <div class="mb-5">
                     <div class="col-md-7">
-                        <label name="O" ng-model="O">{{O}}</label>
+                        <label  name="O" ng-model="O">{{O}}</label>
                     </div>
                 </div>
                 <div class="mb-5">
                     <div class="col-md-7">
-                        <p id="name"></p>
+                        <p id="O"></p>
                     </div>
                 </div>
                 <div class="r-text mb-4">
@@ -197,7 +134,7 @@
                 </div>
                 <div class="row mb-4">
                     <div class="col-md-4">
-                        <button ng-click="Realiz()" ng-disabled="myForm2.INN.$error.required||!myForm2.INN.$error.required&&!myForm2.INN.$valid" data-toggle="modal" data-target="#dobavit2" class="btn btn-blue d-block mb-2">Реализовать</button>
+                        <button ng-click="Realiz()" @*ng-disabled="myForm2.O.$error.required"*@ ng-disabled="myForm2.INN.$error.required||!myForm2.INN.$error.required&&!myForm2.INN.$valid" data-toggle="modal" data-target="#dobavit2" class="btn btn-blue d-block mb-2">Реализовать</button>
                         <button ng-click="Bron()" class="btn btn-green d-block mb-2">Забронировать</button>
                         <button ng-click="Snyat()" class="btn btn-grey d-block mb-2">Отменить бронь</button>
                     </div>
@@ -207,9 +144,12 @@
     </div>
     
     <script>
+        function INNchange() {
+            document.getElementById("O").innerHTML = "";
+        }
         function HelloFromChild(inn, name) {
             $('#dobavit').modal('toggle');
-            document.getElementById("name").innerHTML = name;
+            document.getElementById("O").innerHTML = name;
             document.getElementById("inn").value = inn;
         }
     </script>

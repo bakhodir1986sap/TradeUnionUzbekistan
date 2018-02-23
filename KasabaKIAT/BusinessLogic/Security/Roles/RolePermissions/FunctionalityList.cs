@@ -49,7 +49,7 @@ namespace KasabaKIAT.BusinessLogic.Security.Roles.RolePermissions
 
         public bool BuxUchetVvodDannix                  { get; set; }
 
-        public bool ProsmotrOstatkovPutyovok            { get; set; }
+        public bool PrasmotrDannix              { get; set; }
 
         public bool RuchniyeProvodki                    { get; set; }
 

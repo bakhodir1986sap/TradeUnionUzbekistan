@@ -1,4 +1,5 @@
-﻿using KasabaKiat.ViewModel;
+﻿using KasabaKiat.Helpers;
+using KasabaKiat.ViewModel;
 using KasabaKIAT.Models;
 using System;
 using System.Collections.Generic;
@@ -9,7 +10,7 @@ namespace KasabaKIAT.BusinessLogic.Security.Roles.RolePermissions
 {
     public class FunctionalityAndDbDataMatch
     {
-        public FunctionalityList MatchProcess(UserViewModel user)
+        public static FunctionalityList MatchProcess(UserViewModel user)
         {
             var rolFumc = new FunctionalityList();
 
@@ -44,6 +45,20 @@ namespace KasabaKIAT.BusinessLogic.Security.Roles.RolePermissions
             }
 
             return null;
+        }
+
+        public static FunctionalityList MatchProcess(long userId)
+        {
+            var userinf = UserInfo.GetUserInfo(userId);
+
+            return MatchProcess(userinf);
+        }
+
+        public static FunctionalityList MatchProcess(string userName)
+        {
+            var userinf = UserInfo.GetUserInfo(userName);
+
+            return MatchProcess(userinf);
         }
     }
 }

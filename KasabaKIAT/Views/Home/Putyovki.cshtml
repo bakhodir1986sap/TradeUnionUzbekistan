@@ -2,7 +2,8 @@
 @{
     ViewBag.Title = "Путевки";
     ViewBag.n = Session["role"];
-    FunctionalityList List = new FunctionalityList();
+    var  UserId = Convert.ToInt32(User.Identity.Name);
+    FunctionalityList List = FunctionalityAndDbDataMatch.MatchProcess(UserId);
 }
 
 

@@ -47,7 +47,7 @@ namespace KasabaKIAT.BusinessLogic.Security.Roles.RolePermissions
                         if (rolperm.action.Contains("Asp.PoiskIRedaktirovaniyaZayavok")) { rolFumc.PoiskIRedaktirovaniyaZayavok = true; }
                         if (rolperm.action.Contains("Asp.RassmotreniyaZayavok")) { rolFumc.RassmotreniyaZayavok = true; }
                         if (rolperm.action.Contains("Asp.BuxUchetVvodDannix")) { rolFumc.BuxUchetVvodDannix = true; }
-                        if (rolperm.action.Contains("Asp.ProsmotrOstatkovPutyovok")) { rolFumc.ProsmotrOstatkovPutyovok = true; }
+                        if (rolperm.action.Contains("Asp.ProsmotrOstatkovPutyovok")) { rolFumc.PrasmotrDannix = true; }
                         if (rolperm.action.Contains("Asp.RuchniyeProvodki")) { rolFumc.RuchniyeProvodki = true; }
                         if (rolperm.action.Contains("Asp.PlatejniyePorucheniya")) { rolFumc.PlatejniyePorucheniya = true; }
                         if (rolperm.action.Contains("Asp.PlanByudjeta")) { rolFumc.PlanByudjeta = true; }
@@ -85,7 +85,7 @@ namespace KasabaKIAT.BusinessLogic.Security.Roles.RolePermissions
                 }
                 else
                 {
-                    throw new ApplicationException("");
+                   //// throw new ApplicationException("");
                 }
 
                 

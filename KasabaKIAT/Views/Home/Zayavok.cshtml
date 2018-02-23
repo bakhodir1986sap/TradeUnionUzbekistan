@@ -1,6 +1,7 @@
 ﻿@using KasabaKIAT.BusinessLogic.Security.Roles.RolePermissions;
 @{
-    FunctionalityList List = new FunctionalityList();
+    var UserId = Convert.ToInt32(User.Identity.Name);
+    FunctionalityList List = FunctionalityAndDbDataMatch.MatchProcess(UserId);
     ViewBag.Title = "Подача заявок";
 }
 <section class="main__block container-fluid">

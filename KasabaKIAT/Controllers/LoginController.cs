@@ -8,6 +8,7 @@ using System.Web.Security;
 using System.IO;
 using log4net;
 using KasabaKiat.Helpers;
+using KasabaKIAT.BusinessLogic.Security.Roles.RolePermissions;
 
 namespace KasabaKIAT.Controllers
 {
@@ -17,6 +18,7 @@ namespace KasabaKIAT.Controllers
         ILog log = log4net.LogManager.GetLogger(typeof(LoginController));
         userlogin ul = new userlogin();
         UserInfo UserLog = new UserInfo();
+        
         public static string message = "";
         public ActionResult Login()
         {
@@ -51,6 +53,7 @@ namespace KasabaKIAT.Controllers
                                            R = rr.id
                                        };
                             //~~~~~~~~~~~~~~~~~~~~~
+                            
                             Session["name"] = b.email;
                             Session["role"] = list.FirstOrDefault().R;
                             FormsAuthentication.SetAuthCookie(b.id.ToString(), false);

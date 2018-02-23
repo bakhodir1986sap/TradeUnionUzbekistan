@@ -31,5 +31,6 @@ namespace KasabaKIAT.Models
         public string s_tarifrate { get; set; }
         public string s_worktype { get; set; }
         public Nullable<long> s_user_id { get; set; }
+        public Nullable<long> NATIVE_ID { get; set; }
     }
 }

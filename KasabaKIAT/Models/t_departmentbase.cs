@@ -94,6 +94,7 @@ namespace KasabaKIAT.Models
         public string dep_name { get; set; }
         public string le_inn { get; set; }
         public Nullable<short> group_2ti { get; set; }
+        public Nullable<long> NATIVE_ID { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<sp_employees> sp_employees { get; set; }

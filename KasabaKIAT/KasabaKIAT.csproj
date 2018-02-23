@@ -312,6 +312,9 @@
     <Compile Include="Models\sp_get_ProsmotrRealizovannixPutyovokDetali_Result.cs">
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\sp_get_ProsmotrRealizovannixPutyovokDetali_Result1.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\sp_get_ProsmotrRealizovannixPutyovok_Result.cs">
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
@@ -319,6 +322,9 @@
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\sp_get_RealizasiyaPutyovokDetail_Result.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_get_RealizasiyaPutyovokDetail_Result1.cs">
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\sp_get_RealizasiyaPutyovokGroup_Result.cs">
@@ -1008,6 +1014,7 @@
     <Content Include="Scripts\MyJavaScript\SSPOController.js" />
     <Content Include="Scripts\MyJavaScript\SSSPController.js" />
     <Content Include="Scripts\MyJavaScript\STRSController.js" />
+    <Content Include="Scripts\MyJavaScript\SverkaDannix.js" />
     <Content Include="Scripts\MyJavaScript\UZController.js" />
     <Content Include="Scripts\plugins.js" />
     <Content Include="Scripts\respond.js" />
@@ -1031,7 +1038,6 @@
     <Content Include="Views\Home\PodachaZayavok.cshtml" />
     <Content Include="Views\Home\buxgalteriya.cshtml" />
     <Content Include="Views\Home\PoiskRedaktZayavok.cshtml" />
-    <Content Include="Views\Home\SverkaDannix.cshtml" />
     <Content Include="Views\GodovoyPlan\Index.cshtml" />
     <Content Include="Views\PrixodPutevok\Index.cshtml" />
     <Content Include="Views\PrixodPutevok\ProsmotrOstatPutevok.cshtml" />
@@ -1086,6 +1092,7 @@
     <Content Include="Views\Home\INN.cshtml" />
     <Content Include="Views\PrixodPutevok\OformleniyaRealizatsiyaPutevok.cshtml" />
     <Content Include="Views\PrixodPutevok\ProsmotrRealzPutevok.cshtml" />
+    <Content Include="Views\PrixodPutevok\SverkaDannix.cshtml" />
     <None Include="Web References\KurortUrlService\SkuTradeUnionExchg.wsdl" />
     <Content Include="Web References\KurortUrlService\typeGrafikZaezdovSanatoriev.datasource">
       <DependentUpon>Reference.map</DependentUpon>

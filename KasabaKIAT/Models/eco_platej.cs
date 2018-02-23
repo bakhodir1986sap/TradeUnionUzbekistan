@@ -33,5 +33,6 @@ namespace KasabaKIAT.Models
         public string schet { get; set; }
         public string textpayment { get; set; }
         public string yr { get; set; }
+        public Nullable<long> NATIVE_ID { get; set; }
     }
 }

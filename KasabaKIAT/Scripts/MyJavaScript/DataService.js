@@ -1,30 +1,19 @@
 ﻿app.service('DataService', ["$http", function () {
-    //var savedData = {
-    //    inn:"",
-    //    name:""
-    //}
+    var savedData = {
+        inn:"123456789",
+        name:"aaaaaaaa"
+    }
     //service
     //factory
-    var d = {};
-    var stringArray = new Array();
-    var postData = {};
-    var sss = "00000000";
-    this.data = function (san, num, inn) {
-
-    };
-    function set(san, num, inn) {
-        sss = inn;
-        for (var k = 0; k < san.length; k++) {
-            d = {
-                SanId: san[k],
-                NumPut: num[k],
-            };
-            stringArray[k] = d;
-            postData = { b: stringArray, inn: inn };
-        }
+   
+    function set(inn, name) {
+        savedData.inn = inn;
+        savedData.name = name;
+        //alert("set " + savedData.inn + " " + savedData.name);
     }
     function get() {
-        return postData;
+       //alert("get " + savedData.inn + " " + savedData.name);
+        return savedData;
     }
 
     return {

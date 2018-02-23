@@ -64,6 +64,11 @@ namespace KasabaKIAT.Controllers
                 return View();
             }
         }
+        [Authorize(Roles = "COUNCIL_REGIONAL_REGION,ADMIN")]
+        public ActionResult SverkaDannix()
+        {
+            return View();
+        }
         public JsonResult GetZList(int inn)
         {
             var data = KasabaDB.sp_rt_ZayavkiList(inn);
@@ -146,6 +151,16 @@ namespace KasabaKIAT.Controllers
                      });
             return Json(C, JsonRequestBehavior.AllowGet);
         }
+        public JsonResult GetOR()
+        {
+            var C = (from s in KasabaDB.t_departmentbase
+                     select new
+                     {
+                         id = s.id,
+                         value = s.bkut_name
+                     });
+            return Json(C, JsonRequestBehavior.AllowGet);
+        }
         public JsonResult GetPP(int sc_id)
         {
             int UserId = Convert.ToInt32(User.Identity.Name);
@@ -193,7 +208,7 @@ namespace KasabaKIAT.Controllers
             var ustinfo = UserInfo.GetUserInfo(UserId);
             string str = ustinfo.DepartmentBase.Substring(0, 2) + ustinfo.DepartmentBase.Substring(3, 2);
             var list = (from a in KasabaDB.t_egrpo
-                        where a.soato_id.Contains(str)&&(a.inn.Contains(inn)||a.name_full.Trim().Contains(name.Trim())||a.name_short.Trim().Contains(name.Trim()))
+                        where a.soato_id.Contains(str) &&(a.inn==inn|| a.inn.Contains(inn)||a.name_full.Trim().Contains(name.Trim())||a.name_short.Trim().Contains(name.Trim()))
                         select new
                         {
                             d0 = a.id,
@@ -215,6 +230,23 @@ namespace KasabaKIAT.Controllers
                 return query.First();
             }
             return "No Data Found";
+        }
+        public JsonResult SD()
+        {
+            var list = from d in KasabaDB.tbpt_sanatory_info
+                       select new
+                       {
+                           d1 = d.SERIAL_NUMBER,
+                           d2 = d.SANATORY_NAME,
+                           d3 = d.FACT_REST_BEGIN_DT,
+                           d4 = d.FULL_NAME,
+                           d5 = d.INN,
+                           d6 = d.PASSPORT_NUMBER,
+                           d7 = d.WORK_PALCE,
+                           d8 = d.PUTYOVKA_PRICE,
+                           d9=d.PUTYOVKA_PRICE+d.ADDITIONAL_PAYMENTS
+                       };
+            return Json(list.ToList(), JsonRequestBehavior.AllowGet);
         }
         public JsonResult RP()
         {
@@ -243,6 +275,7 @@ namespace KasabaKIAT.Controllers
             var list = from d in data
                        select new
                        {
+                           d0=d.ID,
                            d1 = d.ID_SANAT,
                            d2 = d.Name_San,
                            d3 = d.NUM_PUT,

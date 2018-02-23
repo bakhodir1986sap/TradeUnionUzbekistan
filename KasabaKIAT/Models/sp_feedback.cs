@@ -28,6 +28,7 @@ namespace KasabaKIAT.Models
         public string phone { get; set; }
         public string type { get; set; }
         public Nullable<long> user_id { get; set; }
+        public Nullable<long> NATIVE_ID { get; set; }
     
         public virtual users users { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

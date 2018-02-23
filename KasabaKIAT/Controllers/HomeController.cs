@@ -1622,11 +1622,6 @@ namespace KasabaKIAT.Controllers
         /// 
         /// </summary>
         /// <returns></returns>
-        [Authorize(Roles = "COUNCIL_REGIONAL_REGION,ADMIN")]
-        public ActionResult SverkaDannix()
-        {
-            return View();
-        }
 
         /// <summary>
         /// 

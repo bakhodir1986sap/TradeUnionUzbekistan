@@ -1,13 +1,18 @@
 ﻿app.controller("RealizatsiyaPutevok", ["$scope", "$http", "$filter", "DataService", "CalcService", function ($scope, $http, $filter, DataService, CalcService) {
     //$scope.INN = "200382518";
     LoadDATA();
+    //GetOR();
     $scope.showdata = false;
-    function GetSanatory() {
+    //$scope.O = {
+    //    id: 1,
+    //    value: ""
+    //};
+    function GetOR() {
         $http({
             method: "post",
-            url: "/PrixodPutevok/GetSanatory",
+            url: "/PrixodPutevok/GetOR",
         }).then(function (s) {
-            $scope.CS = s.data;
+            $scope.OR = s.data;
         }, function () {
             //alert('Error in GetSanatory');
             console.log('Error in GetSanatory');
@@ -40,26 +45,41 @@
   
     
     function LoadDATA() {
+        document.getElementById('connection').style.visibility = "visible";
+        $("#hh").modal({
+            backdrop: 'static'
+        });
         $http({
             method: "post",
             url: "/PrixodPutevok/RP",
         }).then(function (d) {
             $scope.RP = d.data;
+            document.getElementById('connection').style.visibility = "hidden";
+            $("#hh").modal('hide');
         }, function () {
             //alert("error in PP_S");
             console.log("error in RP");
+            document.getElementById('connection').style.visibility = "hidden";
             $("#hh").modal('hide');
         });
     }
     $scope.data = function (id) {
+        document.getElementById('connection').style.visibility = "visible";
+        $("#hh").modal({
+            backdrop: 'static'
+        });
+        //alert(id);
         $http({
             method: "post",
             url: "/PrixodPutevok/RP2?id="+id,
         }).then(function (d) {
             $scope.RP2 = d.data;
+            document.getElementById('connection').style.visibility = "hidden";
+            $("#hh").modal('hide');
         }, function () {
             //alert("error in PP_S");
             console.log("error in RP2");
+            document.getElementById('connection').style.visibility = "hidden";
             $("#hh").modal('hide');
         });
         //$scope.accordion = {
@@ -92,10 +112,41 @@
     var dd = {};
     var stringArrayd = new Array();
     var Data = {};
-    
-    $scope.BronChange = function (BronNumber, SanID) {
-        ar1[i] = BronNumber;
-        ar2[i] = SanID;
+    $scope.checkboxModel = {
+        value1: true,
+        value2: 'YES'
+    };
+    $scope.invited = [];
+    $scope.checkinTask = function (task) {
+        //alert("task=" + task);
+        if (task.Checked === true) {
+            task.Lineclass = "checkedTask";
+            $scope.disabled = false;
+            //trash.removeClass("disabled");
+        } else {
+            task.Lineclass = "";
+        }
+        //var checkedExist = false;
+        //tasks.forEach(function (v) {
+        //    if (v.Checked) {
+        //        checkedExist = true;
+        //    }
+        //});
+        //if (!checkedExist) {
+        //    $scope.disabled = true;
+        //    trash.addClass("disabled");
+        //}
+    };
+    $scope.BronChange = function (task) {
+        //alert("BronNumber=" + task.d3 + " SanID=" + task.d1 + " task=" + task);
+        if (task.Checked === true) {
+            task.Lineclass = "checkedTask";
+            $scope.disabled = false;
+        } else {
+            task.Lineclass = "";
+        }
+        ar1[i] = task.d3;
+        ar2[i] = task.d1;
         i++;
         for (var k = 0; k < ar2.length; k++) {
             dd = {
@@ -196,27 +247,58 @@
     }
     //---------------------------------------//
     $scope.Realiz = function () {
+        $("#hh").modal({
+            backdrop: 'static',
+            backdrop: 'static'
+        });
+        reset();
+        alertify.set({ buttonFocus: "cancel" });
+        alertify.confirm("Вы действительно хотите Реализовать?", function (e) {
+            if (e) {
+                alertify.success("Операция выполняется");
+                real();
+            } else {
+                $("#hh").modal('hide');
+                alertify.error("Операция отменена");
+            }
+        });
+        return false;
         //$('#dobavit2').modal('hide');
         //$('#dobavit2').modal('show');
-        real();
     }
     function real() {
-        var k = 0;
-        $http({
-            method: "POST",
-            url: "/PrixodPutevok/GetOformleniyaRealizatsiyaPutevok",
-            data: JSON.stringify(Data),
-            contentType: "application/json; charset=utf-8",
-        }).then(function (d) {
-            k++;
-            $scope.DATA = d.data;
-            console.log(d, k);
-            $("#hh").modal('hide');
-        }, function () {
-            //alert("error in PP_S");
-            console.log("error in GetOformleniyaRealizatsiyaPutevok");
-            $("#hh").modal('hide');
-        });
+        $scope.DATA = null;
+        if (stringArrayd.length !== 0) {
+            document.getElementById('connection').style.visibility = "visible";
+            $("#hh").modal({
+                backdrop: 'static'
+            });
+            var k = 0;
+            $http({
+                method: "POST",
+                url: "/PrixodPutevok/GetOformleniyaRealizatsiyaPutevok",
+                data: JSON.stringify(Data),
+                contentType: "application/json; charset=utf-8",
+            }).then(function (d) {
+                k++;
+                $scope.DATA = d.data;
+                stringArrayd = new Array();
+                ar1 = new Array();
+                ar2 = new Array();
+                console.log(d, k);
+                document.getElementById('connection').style.visibility = "hidden";
+                $("#hh").modal('hide');
+            }, function () {
+                //alert("error in PP_S");
+                console.log("error in GetOformleniyaRealizatsiyaPutevok");
+                document.getElementById('connection').style.visibility = "hidden";
+                $("#hh").modal('hide');
+                alertify.error("ошибка");
+            });
+        }
+        else {
+            alertify.error("Путевки не выбран");
+        }
     }
     $scope.save = function (id,foiz) {
         $http({
@@ -224,7 +306,7 @@
             url: "/PrixodPutevok/Save?id=" + id + "&foiz=" + foiz,
         }).then(function (d) {
             console.log(d.data);
-            real();
+            LoadDATA();
             $("#hh").modal('hide');
         }, function () {
             console.log("error in Save");

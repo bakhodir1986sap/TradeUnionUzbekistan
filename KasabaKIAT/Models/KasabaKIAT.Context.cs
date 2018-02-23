@@ -554,19 +554,6 @@ namespace KasabaKIAT.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_rt_FormaN14_2", yearParameter, kvartalParameter);
         }
     
-        public virtual ObjectResult<sp_get_RealizasiyaPutyovokDetail_Result> sp_get_RealizasiyaPutyovokDetail(string dEP_BASE, Nullable<int> sANID)
-        {
-            var dEP_BASEParameter = dEP_BASE != null ?
-                new ObjectParameter("DEP_BASE", dEP_BASE) :
-                new ObjectParameter("DEP_BASE", typeof(string));
-    
-            var sANIDParameter = sANID.HasValue ?
-                new ObjectParameter("SANID", sANID) :
-                new ObjectParameter("SANID", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_get_RealizasiyaPutyovokDetail_Result>("sp_get_RealizasiyaPutyovokDetail", dEP_BASEParameter, sANIDParameter);
-        }
-    
         public virtual ObjectResult<sp_get_RealizasiyaPutyovokGroup_Result1> sp_get_RealizasiyaPutyovokGroup(string dEP_BASE)
         {
             var dEP_BASEParameter = dEP_BASE != null ?
@@ -594,15 +581,6 @@ namespace KasabaKIAT.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_get_ProsmotrRealizovannixPutyovok_Result>("sp_get_ProsmotrRealizovannixPutyovok", dEP_BASEParameter);
         }
     
-        public virtual ObjectResult<sp_get_ProsmotrRealizovannixPutyovokDetali_Result> sp_get_ProsmotrRealizovannixPutyovokDetali(Nullable<long> rEC_ID)
-        {
-            var rEC_IDParameter = rEC_ID.HasValue ?
-                new ObjectParameter("REC_ID", rEC_ID) :
-                new ObjectParameter("REC_ID", typeof(long));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_get_ProsmotrRealizovannixPutyovokDetali_Result>("sp_get_ProsmotrRealizovannixPutyovokDetali", rEC_IDParameter);
-        }
-    
         public virtual ObjectResult<sp_get_RealizasiyaPutyovokDetailN_Result> sp_get_RealizasiyaPutyovokDetailN(Nullable<long> rEC_ID)
         {
             var rEC_IDParameter = rEC_ID.HasValue ?
@@ -610,6 +588,28 @@ namespace KasabaKIAT.Models
                 new ObjectParameter("REC_ID", typeof(long));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_get_RealizasiyaPutyovokDetailN_Result>("sp_get_RealizasiyaPutyovokDetailN", rEC_IDParameter);
+        }
+    
+        public virtual ObjectResult<sp_get_ProsmotrRealizovannixPutyovokDetali_Result1> sp_get_ProsmotrRealizovannixPutyovokDetali(Nullable<long> rEC_ID)
+        {
+            var rEC_IDParameter = rEC_ID.HasValue ?
+                new ObjectParameter("REC_ID", rEC_ID) :
+                new ObjectParameter("REC_ID", typeof(long));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_get_ProsmotrRealizovannixPutyovokDetali_Result1>("sp_get_ProsmotrRealizovannixPutyovokDetali", rEC_IDParameter);
+        }
+    
+        public virtual ObjectResult<sp_get_RealizasiyaPutyovokDetail_Result1> sp_get_RealizasiyaPutyovokDetail(string dEP_BASE, Nullable<int> sANID)
+        {
+            var dEP_BASEParameter = dEP_BASE != null ?
+                new ObjectParameter("DEP_BASE", dEP_BASE) :
+                new ObjectParameter("DEP_BASE", typeof(string));
+    
+            var sANIDParameter = sANID.HasValue ?
+                new ObjectParameter("SANID", sANID) :
+                new ObjectParameter("SANID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_get_RealizasiyaPutyovokDetail_Result1>("sp_get_RealizasiyaPutyovokDetail", dEP_BASEParameter, sANIDParameter);
         }
     }
 }

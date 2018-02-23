@@ -24,5 +24,6 @@ namespace KiatPostgres2SqlConverter
         public Nullable<float> start_price { get; set; }
         public Nullable<int> start_year { get; set; }
         public string soato_code { get; set; }
+        public Nullable<long> NATIVE_ID { get; set; }
     }
 }

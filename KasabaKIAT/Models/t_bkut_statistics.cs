@@ -44,6 +44,7 @@ namespace KasabaKIAT.Models
         public Nullable<int> yolgiz_ayollar { get; set; }
         public Nullable<long> bkut_id { get; set; }
         public Nullable<long> s_user_id { get; set; }
+        public Nullable<long> NATIVE_ID { get; set; }
     
         public virtual t_departmentbase t_departmentbase { get; set; }
         public virtual users users { get; set; }

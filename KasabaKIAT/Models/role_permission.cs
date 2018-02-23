@@ -23,6 +23,7 @@ namespace KasabaKIAT.Models
         public Nullable<System.DateTime> s_create { get; set; }
         public string s_status { get; set; }
         public Nullable<long> s_user_id { get; set; }
+        public Nullable<long> NATIVE_ID { get; set; }
     
         public virtual roles roles { get; set; }
         public virtual users users { get; set; }

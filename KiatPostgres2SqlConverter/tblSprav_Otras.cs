@@ -28,6 +28,7 @@ namespace KiatPostgres2SqlConverter
         public long ID { get; set; }
         public Nullable<long> UserId { get; set; }
         public string DepartmentBase { get; set; }
+        public string BRANCH_CODE { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Balan> Balans { get; set; }

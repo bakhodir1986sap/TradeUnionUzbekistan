@@ -22,5 +22,6 @@ namespace KasabaKIAT.Models
         public string formname { get; set; }
         public Nullable<System.DateTime> updated { get; set; }
         public int whenfull { get; set; }
+        public Nullable<long> NATIVE_ID { get; set; }
     }
 }

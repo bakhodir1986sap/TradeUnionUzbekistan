@@ -66,50 +66,6 @@ namespace KiatPostgres2SqlConverter
         }
 
 
-        public long MaxEgrpo(string sqript)
-        {
-            long rowsCount = 0;
-
-            NpgsqlConnection conn = new NpgsqlConnection(PostgresConnectionStrings.pgsqlConnectionString);
-            conn.Open();
-
-            // Define a query returning a single row result set
-            NpgsqlCommand command = new NpgsqlCommand(sqript, conn);
-
-            // Execute the query and obtain the value of the first column of the first row
-            rowsCount = (long)command.ExecuteScalar();
-
-            conn.Close();
-
-            return rowsCount;
-        }
-
-
-        public void MigrateEgrpo()
-        {
-            NpgsqlConnection conn = new NpgsqlConnection(PostgresConnectionStrings.pgsqlConnectionString);
-            conn.Open();
-
-            // Define a query
-            NpgsqlCommand cmd = new NpgsqlCommand("select * from t_egrpo", conn);
-
-            // Execute a query
-            NpgsqlDataReader dr = cmd.ExecuteReader();
-
-            // Read all rows and output the first column in each row
-            while (dr.Read())
-            {
-                for(int j = 0; j < dr.FieldCount; j++)
-                    Console.Write("{0} ", dr[j]);
-
-                Console.WriteLine("=================================");
-
-            }
-
-            conn.Close();
-
-        }
-
         public void MigrateEgrpoController()
         {
             var SqlCount = SqlServerEgrpoCount();
@@ -190,6 +146,7 @@ namespace KiatPostgres2SqlConverter
                     model.soato_id          = dr[31]==DBNull.Value ? null: (string)dr[31];
                     model.soogu_id          = dr[32]==DBNull.Value ? null: (string)dr[32];
                     model.okpo              = dr[33]==DBNull.Value ? null: (string)dr[33];
+                    model.NATIVE_ID         = dr[0] == DBNull.Value ? 0 : (long)dr[0];
 
                     db.t_egrpo.Add(model);
 

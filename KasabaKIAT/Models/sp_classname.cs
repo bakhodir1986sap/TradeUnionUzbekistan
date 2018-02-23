@@ -18,5 +18,6 @@ namespace KasabaKIAT.Models
         public int version { get; set; }
         public string classname { get; set; }
         public string title { get; set; }
+        public Nullable<long> NATIVE_ID { get; set; }
     }
 }

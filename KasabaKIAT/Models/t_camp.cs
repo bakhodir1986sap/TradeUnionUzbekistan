@@ -48,6 +48,7 @@ namespace KasabaKIAT.Models
         public Nullable<long> soato_organization_id { get; set; }
         public Nullable<long> s_user_id { get; set; }
         public Nullable<long> soato_id { get; set; }
+        public Nullable<long> NATIVE_ID { get; set; }
     
         public virtual sp_soato sp_soato { get; set; }
         public virtual sp_soato sp_soato1 { get; set; }

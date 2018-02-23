@@ -27,6 +27,7 @@ namespace KasabaKIAT.Models
         public Nullable<long> sp_country_id { get; set; }
         public Nullable<long> s_user_id { get; set; }
         public Nullable<long> t_egrpo_id { get; set; }
+        public Nullable<long> NATIVE_ID { get; set; }
     
         public virtual sp_country sp_country { get; set; }
         public virtual t_egrpo t_egrpo { get; set; }

@@ -29,6 +29,7 @@ namespace KasabaKIAT.Models
         public Nullable<System.DateTime> s_create { get; set; }
         public string s_status { get; set; }
         public Nullable<long> s_user_id { get; set; }
+        public Nullable<long> NATIVE_ID { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<role_permission> role_permission { get; set; }

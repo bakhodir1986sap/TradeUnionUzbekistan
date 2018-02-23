@@ -117,14 +117,14 @@
                 </ul>
                 <script>
                     var i = 0;
-                    if(@Session["role"]==8){
+                    @*if(@Session["role"]==8){
                         document.getElementById("tours").style.visibility = "hidden";
                         document.getElementById('tours1').style.visibility = "visible";
                     }
                     if(@Session["role"]==13){
                         document.getElementById("claims").style.visibility = "hidden";
                         document.getElementById('claims1').style.visibility = "visible";
-                    }
+                    }*@
                 if ("@ViewBag.Title" == "Подача заявок") {
                         document.getElementById("z").className = "nav-item dropdown show";
                         document.getElementById("z").style = "";

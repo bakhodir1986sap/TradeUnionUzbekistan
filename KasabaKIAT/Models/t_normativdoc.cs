@@ -34,6 +34,7 @@ namespace KasabaKIAT.Models
         public Nullable<long> doctype { get; set; }
         public string url { get; set; }
         public string shortmean { get; set; }
+        public Nullable<long> NATIVE_ID { get; set; }
     
         public virtual sp_doctype sp_doctype { get; set; }
         public virtual users users { get; set; }

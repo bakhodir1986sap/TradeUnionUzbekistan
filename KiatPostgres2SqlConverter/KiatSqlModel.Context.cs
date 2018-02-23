@@ -160,5 +160,7 @@ namespace KiatPostgres2SqlConverter
         public virtual DbSet<tblVipl_Put> tblVipl_Put { get; set; }
         public virtual DbSet<tblVozVrat> tblVozVrats { get; set; }
         public virtual DbSet<Zapros_ZK> Zapros_ZK { get; set; }
+        public virtual DbSet<tbpt_putyovka_statechange> tbpt_putyovka_statechange { get; set; }
+        public virtual DbSet<tblVipl_NumGEn> tblVipl_NumGEn { get; set; }
     }
 }

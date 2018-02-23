@@ -43,6 +43,7 @@ namespace KasabaKIAT.Models
         public Nullable<long> nation_id { get; set; }
         public Nullable<long> section_id { get; set; }
         public string full_name { get; set; }
+        public Nullable<long> NATIVE_ID { get; set; }
     
         public virtual sp_degree sp_degree { get; set; }
         public virtual sp_nation sp_nation { get; set; }

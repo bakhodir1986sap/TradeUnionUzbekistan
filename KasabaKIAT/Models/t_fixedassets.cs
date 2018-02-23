@@ -38,6 +38,7 @@ namespace KasabaKIAT.Models
         public Nullable<int> count { get; set; }
         public string measure { get; set; }
         public string fagroup { get; set; }
+        public Nullable<long> NATIVE_ID { get; set; }
     
         public virtual users users { get; set; }
     }

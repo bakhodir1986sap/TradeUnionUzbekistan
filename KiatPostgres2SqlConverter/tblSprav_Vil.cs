@@ -18,6 +18,7 @@ namespace KiatPostgres2SqlConverter
         public string FullName { get; set; }
         public Nullable<int> ID_Code { get; set; }
         public Nullable<long> UserId { get; set; }
+        public string SOATO_CODE { get; set; }
     
         public virtual user user { get; set; }
     }

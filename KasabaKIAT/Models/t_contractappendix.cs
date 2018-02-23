@@ -23,6 +23,7 @@ namespace KasabaKIAT.Models
         public string s_status { get; set; }
         public Nullable<long> contract_id { get; set; }
         public Nullable<long> s_user_id { get; set; }
+        public Nullable<long> NATIVE_ID { get; set; }
     
         public virtual occupationalsafety occupationalsafety { get; set; }
         public virtual t_contract t_contract { get; set; }

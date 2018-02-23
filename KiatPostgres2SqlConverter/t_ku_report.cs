@@ -55,6 +55,7 @@ namespace KiatPostgres2SqlConverter
         public Nullable<int> yuqori_jamoa_shartnoma { get; set; }
         public Nullable<int> member_kasanachilar { get; set; }
         public Nullable<int> member_nogironlar { get; set; }
+        public Nullable<long> NATIVE_ID { get; set; }
     
         public virtual t_departmentbase t_departmentbase { get; set; }
         public virtual user user { get; set; }

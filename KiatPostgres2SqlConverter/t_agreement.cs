@@ -34,6 +34,7 @@ namespace KiatPostgres2SqlConverter
         public Nullable<long> s_user_id { get; set; }
         public Nullable<long> egrpo_id { get; set; }
         public Nullable<long> department_id { get; set; }
+        public Nullable<long> NATIVE_ID { get; set; }
     
         public virtual t_egrpo t_egrpo { get; set; }
         public virtual t_departmentbase t_departmentbase { get; set; }

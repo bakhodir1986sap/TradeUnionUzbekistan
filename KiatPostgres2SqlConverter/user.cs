@@ -150,6 +150,7 @@ namespace KiatPostgres2SqlConverter
         public Nullable<long> bkuq_id { get; set; }
         public string REGION_ID { get; set; }
         public Nullable<long> BRANCH_ID { get; set; }
+        public Nullable<long> NATIVE_ID { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Balan> Balans { get; set; }

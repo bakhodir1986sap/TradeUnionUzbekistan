@@ -41,6 +41,8 @@ namespace KasabaKIAT.Models
         public string TREATING_DOCTOR { get; set; }
         public string TALON_BACK { get; set; }
         public string DEPARTMENT_CODE { get; set; }
+        public string SANATORY_NAME { get; set; }
+        public string INN { get; set; }
     
         public virtual users users { get; set; }
     }

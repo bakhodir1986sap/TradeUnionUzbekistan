@@ -62,8 +62,8 @@
                     </div>
                     <div class="card-header r-card-header" id="headingOne{{rp.d1}}">
                         <span class="r-header-t"><strong>{{rp.d3}} - {{rp.d4}}</strong> {{rp.d5 | jsonDate: 'dd.MM.yyyy'}} - {{rp.d6 | jsonDate: 'dd.MM.yyyy'}}</span>
-                        <span class="r-header-b" ng-show="rp.d7!='0'">{{rp.d7}}</span>
-                        <span class="r-header-v" ng-show="rp.d8!='0'">{{rp.d8}}</span>
+                        <span class="r-header-b" style="background-color:green" ng-show="rp.d7!='0'">{{rp.d7}}</span>
+                        <span class="r-header-v" style="background-color:red" ng-show="rp.d8!='0'">{{rp.d8}}</span>
                         <span  ng-click="data(rp.d1)"  class="r-header-a float-right collapsed" data-toggle="collapse" data-target="#collapse{{rp.d1}}" aria-expanded="true" aria-controls="collapseOne"></span>
                     </div>
                     <div id="collapse{{rp.d1}}"  class="collapse" aria-labelledby="headingOne{{rp.d1}}" data-parent="#accordion">

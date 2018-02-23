@@ -2,6 +2,7 @@
 using KasabaKiat.Helpers;
 using KasabaKiat.ViewModel.Putyovki;
 using KasabaKIAT.BusinessLogic.Putyovki.RealizasiyaPutyovok.RealizasitaPoTz;
+using KasabaKIAT.BusinessLogic.Putyovki.VozvratPutyovki.VozvratPoTz;
 using KasabaKIAT.Models;
 using KasabaKIAT.ViewModel.Putyovki;
 using System;
@@ -19,6 +20,7 @@ namespace KasabaKIAT.Controllers
         KasabaKIATEntities KasabaDB = new KasabaKIATEntities();
         BronirovaniyaPutyovki BP = new BronirovaniyaPutyovki();
         RealizasiyaPoTzCl OR = new RealizasiyaPoTzCl();
+        VozvratPutyovki VP = new VozvratPutyovki();
         public ActionResult Index()
         {
             int UserId = Convert.ToInt32(User.Identity.Name);
@@ -313,7 +315,11 @@ namespace KasabaKIAT.Controllers
                        };
             return Json(list.ToList(), JsonRequestBehavior.AllowGet);
         }
-
+        public string vozvrat(long id,string remark)
+        {
+            VP.VozvratPutyovkiProcess(id, remark);
+            return "yes";
+        }
         public class BronTemp
         {
             public int ID_San { get; set; }

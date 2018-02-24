@@ -29,8 +29,7 @@ namespace KasabaKIAT.BusinessLogic.Security.Roles.RolePermissions
         private bool _izmeneniyaDetaleyRealizasiiPutyovok   { get; set; }
         private bool _oformleniyaVozvrataPutyovok           { get; set; }
         private bool _sverkaDannixPoOtdixayushim            { get; set; }
-        private bool _vvodZayavok                           { get; set; }
-        private bool _poiskIRedaktirovaniyaZayavok          { get; set; }
+
         private bool _rassmotreniyaZayavok                  { get; set; }
 
         public bool GrafikZaezdov
@@ -80,13 +79,20 @@ namespace KasabaKIAT.BusinessLogic.Security.Roles.RolePermissions
         public bool IzmeneniyaDetaleyRealizasiiPutyovok { get{ return _izmeneniyaDetaleyRealizasiiPutyovok;}set{_izmeneniyaDetaleyRealizasiiPutyovok= value;  if (_izmeneniyaDetaleyRealizasiiPutyovok)  {TotalPutyovki = true;}}}
         public bool OformleniyaVozvrataPutyovok         { get{ return _oformleniyaVozvrataPutyovok        ;}set{_oformleniyaVozvrataPutyovok        = value;  if (_oformleniyaVozvrataPutyovok        )  {TotalPutyovki = true;}}}
         public bool SverkaDannixPoOtdixayushim          { get{ return _sverkaDannixPoOtdixayushim         ;}set{_sverkaDannixPoOtdixayushim         = value;  if (_sverkaDannixPoOtdixayushim         )  {TotalPutyovki = true;}}}  
-        public bool VvodZayavok                         { get{ return _vvodZayavok                        ;}set{_vvodZayavok                        = value;  if (_vvodZayavok                        )  {TotalPutyovki = true;}}}
-        public bool PoiskIRedaktirovaniyaZayavok        { get{ return _poiskIRedaktirovaniyaZayavok       ;}set{_poiskIRedaktirovaniyaZayavok       = value;  if (_poiskIRedaktirovaniyaZayavok       )  {TotalPutyovki = true;}}}
+
         public bool RassmotreniyaZayavok { get { return               _rassmotreniyaZayavok               ;}set{ _rassmotreniyaZayavok = value;               if (_rassmotreniyaZayavok               )  { TotalPutyovki = true; } } }
 
 
- 
+
         #endregion
+
+        public bool TotalZayavki { get; private set; }
+
+        private bool _vvodZayavok { get; set; }
+        private bool _poiskIRedaktirovaniyaZayavok { get; set; }
+
+        public bool VvodZayavok { get { return _vvodZayavok; } set { _vvodZayavok = value; if (_vvodZayavok) { TotalZayavki = true; } } }
+        public bool PoiskIRedaktirovaniyaZayavok { get { return _poiskIRedaktirovaniyaZayavok; } set { _poiskIRedaktirovaniyaZayavok = value; if (_poiskIRedaktirovaniyaZayavok) { TotalZayavki = true; } } }
 
         #region BuxUchet
         public bool TotalBuxUchet { get; private set; }

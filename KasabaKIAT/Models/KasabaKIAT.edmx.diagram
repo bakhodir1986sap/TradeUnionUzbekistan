@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="298726c96b884914b1085bbf5341386a" Name="Diagram1" ZoomLevel="93">
+      <Diagram DiagramId="298726c96b884914b1085bbf5341386a" Name="Diagram1" ZoomLevel="62">
         <EntityTypeShape EntityType="KasabaKIATModel.Balans" Width="1.5" PointX="24.75" PointY="267.375" IsExpanded="true" />
         <EntityTypeShape EntityType="KasabaKIATModel.bkut_egrpo_aud" Width="1.5" PointX="3" PointY="1.625" IsExpanded="true" />
         <EntityTypeShape EntityType="KasabaKIATModel.eco_platej" Width="1.5" PointX="5.75" PointY="7.75" IsExpanded="true" />
@@ -130,7 +130,6 @@
         <EntityTypeShape EntityType="KasabaKIATModel.tbbSprOsnov" Width="1.5" PointX="22.5" PointY="372.5" IsExpanded="true" />
         <EntityTypeShape EntityType="KasabaKIATModel.tbbSprTabel" Width="1.5" PointX="22.5" PointY="375.625" IsExpanded="true" />
         <EntityTypeShape EntityType="KasabaKIATModel.tbbTabel" Width="1.5" PointX="22.5" PointY="378.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="KasabaKIATModel.tbgl_bankpayments" Width="1.5" PointX="4.75" PointY="19.75" IsExpanded="true" />
         <EntityTypeShape EntityType="KasabaKIATModel.tbgl_jnlmst" Width="1.5" PointX="22.5" PointY="381.125" IsExpanded="true" />
         <EntityTypeShape EntityType="KasabaKIATModel.tblFace_Two" Width="1.5" PointX="33" PointY="239" IsExpanded="true" />
         <EntityTypeShape EntityType="KasabaKIATModel.tblOplata_Ras" Width="1.5" PointX="33" PointY="275.75" IsExpanded="true" />
@@ -351,6 +350,7 @@
         <AssociationConnector Association="KasabaKIATModel.user_role" ManuallyRouted="false" />
         <EntityTypeShape EntityType="KasabaKIATModel.tblVipl_NumGEn" Width="1.5" PointX="16.375" PointY="19.75" />
         <EntityTypeShape EntityType="KasabaKIATModel.tbpt_putyovka_statechange" Width="1.5" PointX="18.375" PointY="19.75" />
+        <EntityTypeShape EntityType="KasabaKIATModel.tbgl_bankpayments" Width="1.5" PointX="20.375" PointY="5.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

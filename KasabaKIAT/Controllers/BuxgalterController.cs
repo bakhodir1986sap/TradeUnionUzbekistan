@@ -1,7 +1,9 @@
-﻿using KasabaKIAT.ViewModel.Buxgalteriya;
+﻿using KasabaKIAT.BusinessLogic.Buxgalteriya.PrixodChastichka;
+using KasabaKIAT.ViewModel.Buxgalteriya;
 using OfficeOpenXml;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -73,6 +75,8 @@ namespace KasabaKIAT.Controllers
                         var noOfCol = workSheet.Dimension.End.Column;
                         var noOfRow = workSheet.Dimension.End.Row;
 
+                        var bb = new Bankpayments();
+
                         for (int rowIterator = 2; rowIterator <= noOfRow; rowIterator++)
                         {
                             var user = new BankpaymentsViewModel();
@@ -82,9 +86,38 @@ namespace KasabaKIAT.Controllers
                             user.payer_inn      = workSheet.Cells[rowIterator, 1].Value.ToString();
                             user.payer_mfo      = workSheet.Cells[rowIterator, 1].Value.ToString();
                             user.payer_account  = workSheet.Cells[rowIterator, 1].Value.ToString();
-                            //user.tran_date      = workSheet.Cells[rowIterator, 1].Value.ToString();
+
+                            DateTime trandate;
+
+                            if (DateTime.TryParseExact(workSheet.Cells[rowIterator, 6].Value.ToString() , "dd.MM.yyyy", CultureInfo.InvariantCulture
+                             , DateTimeStyles.NoCurrentDateDefault   , out trandate))
+                             {
+                                user.tran_date = trandate;
+                            }
+                            else
+                            {
+                                user.tran_date = DateTime.Now;
+
+                            }
+
+                            
+
+
                             user.payment_datail = workSheet.Cells[rowIterator, 1].Value.ToString();
-                            //user.amount         = workSheet.Cells[rowIterator, 1].Value.ToString();
+
+                            decimal amount = 0;
+
+                            if (decimal.TryParse(workSheet.Cells[rowIterator, 8].Value.ToString(), out amount))
+                            {
+                                user.amount = amount;
+                            }
+                            else
+                            {
+                                user.amount = 0;
+
+                            }
+
+
                             user.benef_name     = workSheet.Cells[rowIterator, 1].Value.ToString();
                             user.benef_inn      = workSheet.Cells[rowIterator, 1].Value.ToString();
                             user.benef_mfo      = workSheet.Cells[rowIterator, 1].Value.ToString();
@@ -92,6 +125,10 @@ namespace KasabaKIAT.Controllers
                             user.dbcrflg        = workSheet.Cells[rowIterator, 1].Value.ToString();
 
                             platList.Add(user);
+
+
+                            bb.EnterData(user);
+
                         }
                     }
                 }

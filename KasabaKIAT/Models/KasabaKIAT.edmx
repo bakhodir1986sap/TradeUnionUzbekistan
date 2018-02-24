@@ -1791,16 +1791,11 @@ warning 6002: The table/view 'KasabaKIAT.dbo.tbbTabel' does not have a primary k
           <Property Name="REC_ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="INN" Type="varchar" MaxLength="9" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'KasabaKIAT.dbo.tbgl_bankpayments' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="tbgl_bankpayments">
           <Key>
-            <PropertyRef Name="PAYER_INN" />
-            <PropertyRef Name="PAYER_ACCOUNT" />
-            
-            <PropertyRef Name="AMOUNT" />
+            <PropertyRef Name="REC_ID" />
           </Key>
-          <Property Name="REC_ID" Type="bigint" />
+          <Property Name="REC_ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="NUM_DOC" Type="varchar" MaxLength="10" />
           <Property Name="PAYER_NAME" Type="varchar" MaxLength="500" />
           <Property Name="PAYER_INN" Type="varchar" MaxLength="9" Nullable="false" />
@@ -5653,6 +5648,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <EntitySet Name="tbcs_dictionarytype" EntityType="Self.tbcs_dictionarytype" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbgl_accounttype" EntityType="Self.tbgl_accounttype" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbgl_balance" EntityType="Self.tbgl_balance" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbgl_bankpayments" EntityType="Self.tbgl_bankpayments" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbgl_jnldd" EntityType="Self.tbgl_jnldd" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbgl_jnlmst" EntityType="Self.tbgl_jnlmst" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbgl_opersettings" EntityType="Self.tbgl_opersettings" Schema="dbo" store:Type="Tables" />
@@ -5846,27 +5842,6 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
     [tbbTabel].[Symma] AS [Symma], 
     [tbbTabel].[UserId] AS [UserId]
     FROM [dbo].[tbbTabel] AS [tbbTabel]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="tbgl_bankpayments" EntityType="Self.tbgl_bankpayments" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [tbgl_bankpayments].[REC_ID] AS [REC_ID], 
-    [tbgl_bankpayments].[NUM_DOC] AS [NUM_DOC], 
-    [tbgl_bankpayments].[PAYER_NAME] AS [PAYER_NAME], 
-    [tbgl_bankpayments].[PAYER_INN] AS [PAYER_INN], 
-    [tbgl_bankpayments].[PAYER_MFO] AS [PAYER_MFO], 
-    [tbgl_bankpayments].[PAYER_ACCOUNT] AS [PAYER_ACCOUNT], 
-    [tbgl_bankpayments].[TRAN_DATE] AS [TRAN_DATE], 
-    [tbgl_bankpayments].[PAYMENT_DATAIL] AS [PAYMENT_DATAIL], 
-    [tbgl_bankpayments].[AMOUNT] AS [AMOUNT], 
-    [tbgl_bankpayments].[BENEF_NAME] AS [BENEF_NAME], 
-    [tbgl_bankpayments].[BENEF_INN] AS [BENEF_INN], 
-    [tbgl_bankpayments].[BENEF_MFO] AS [BENEF_MFO], 
-    [tbgl_bankpayments].[BENEF_ACCOUNT] AS [BENEF_ACCOUNT], 
-    [tbgl_bankpayments].[DBCRFLG] AS [DBCRFLG], 
-    [tbgl_bankpayments].[PARENT_ID] AS [PARENT_ID], 
-    [tbgl_bankpayments].[DEPARTMENT_BASE] AS [DEPARTMENT_BASE], 
-    [tbgl_bankpayments].[USER_ID] AS [USER_ID]
-    FROM [dbo].[tbgl_bankpayments] AS [tbgl_bankpayments]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="tblFace_Two" EntityType="Self.tblFace_Two" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
@@ -9650,30 +9625,6 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <Property Name="UserId" Type="Int64" />
           <NavigationProperty Name="users" Relationship="Self.FK_tbbTabel_Users" FromRole="tbbTabel" ToRole="users" />
         </EntityType>
-        <EntityType Name="tbgl_bankpayments">
-          <Key>
-            <PropertyRef Name="PAYER_INN" />
-            <PropertyRef Name="PAYER_ACCOUNT" />
-            <PropertyRef Name="AMOUNT" />
-          </Key>
-          <Property Name="REC_ID" Type="Int64" />
-          <Property Name="NUM_DOC" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="PAYER_NAME" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Name="PAYER_INN" Type="String" MaxLength="9" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="PAYER_MFO" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
-          <Property Name="PAYER_ACCOUNT" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="TRAN_DATE" Type="DateTime" Precision="0" Nullable="false" />
-          <Property Name="PAYMENT_DATAIL" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Name="AMOUNT" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
-          <Property Name="BENEF_NAME" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Name="BENEF_INN" Type="String" MaxLength="9" FixedLength="false" Unicode="false" />
-          <Property Name="BENEF_MFO" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
-          <Property Name="BENEF_ACCOUNT" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
-          <Property Name="DBCRFLG" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="PARENT_ID" Type="Int64" />
-          <Property Name="DEPARTMENT_BASE" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="USER_ID" Type="Int64" />
-        </EntityType>
         <EntityType Name="tbgl_jnlmst">
           <Key>
             <PropertyRef Name="REC_ID" />
@@ -12487,7 +12438,6 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <EntitySet Name="tbbSprOsnov" EntityType="Self.tbbSprOsnov" />
           <EntitySet Name="tbbSprTabel" EntityType="Self.tbbSprTabel" />
           <EntitySet Name="tbbTabel" EntityType="Self.tbbTabel" />
-          <EntitySet Name="tbgl_bankpayments" EntityType="Self.tbgl_bankpayments" />
           <EntitySet Name="tbgl_jnlmst" EntityType="Self.tbgl_jnlmst" />
           <EntitySet Name="tblFace_Two" EntityType="Self.tblFace_Two" />
           <EntitySet Name="tblOplata_Ras" EntityType="Self.tblOplata_Ras" />
@@ -13474,6 +13424,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
             <Parameter Name="DEP_BASE" Mode="In" Type="String" />
             <Parameter Name="SANID" Mode="In" Type="Int32" />
           </FunctionImport>
+          <EntitySet Name="tbgl_bankpayments" EntityType="KasabaKIATModel.tbgl_bankpayments" />
         </EntityContainer>
         <ComplexType Name="sp_get_BankPaymentCompanyYearlyQ_Result">
           <Property Type="Int32" Name="MONTH_NUM" Nullable="true" />
@@ -13729,6 +13680,28 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <Property Type="Int32" Name="BRON_FLG" Nullable="false" />
           <Property Type="Int32" Name="URGENT_FLG" Nullable="false" />
         </ComplexType>
+        <EntityType Name="tbgl_bankpayments">
+          <Key>
+            <PropertyRef Name="REC_ID" />
+          </Key>
+          <Property Name="REC_ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NUM_DOC" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="PAYER_NAME" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="PAYER_INN" Type="String" Nullable="false" MaxLength="9" FixedLength="false" Unicode="false" />
+          <Property Name="PAYER_MFO" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="PAYER_ACCOUNT" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="TRAN_DATE" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="PAYMENT_DATAIL" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="AMOUNT" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="BENEF_NAME" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="BENEF_INN" Type="String" MaxLength="9" FixedLength="false" Unicode="false" />
+          <Property Name="BENEF_MFO" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="BENEF_ACCOUNT" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="DBCRFLG" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="PARENT_ID" Type="Int64" />
+          <Property Name="DEPARTMENT_BASE" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="USER_ID" Type="Int64" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -16238,29 +16211,6 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="tbgl_bankpayments">
-            <EntityTypeMapping TypeName="KasabaKIATModel.tbgl_bankpayments">
-              <MappingFragment StoreEntitySet="tbgl_bankpayments">
-                <ScalarProperty Name="USER_ID" ColumnName="USER_ID" />
-                <ScalarProperty Name="DEPARTMENT_BASE" ColumnName="DEPARTMENT_BASE" />
-                <ScalarProperty Name="REC_ID" ColumnName="REC_ID" />
-                <ScalarProperty Name="NUM_DOC" ColumnName="NUM_DOC" />
-                <ScalarProperty Name="PAYER_NAME" ColumnName="PAYER_NAME" />
-                <ScalarProperty Name="PAYER_INN" ColumnName="PAYER_INN" />
-                <ScalarProperty Name="PAYER_MFO" ColumnName="PAYER_MFO" />
-                <ScalarProperty Name="PAYER_ACCOUNT" ColumnName="PAYER_ACCOUNT" />
-                <ScalarProperty Name="TRAN_DATE" ColumnName="TRAN_DATE" />
-                <ScalarProperty Name="PAYMENT_DATAIL" ColumnName="PAYMENT_DATAIL" />
-                <ScalarProperty Name="AMOUNT" ColumnName="AMOUNT" />
-                <ScalarProperty Name="BENEF_NAME" ColumnName="BENEF_NAME" />
-                <ScalarProperty Name="BENEF_INN" ColumnName="BENEF_INN" />
-                <ScalarProperty Name="BENEF_MFO" ColumnName="BENEF_MFO" />
-                <ScalarProperty Name="BENEF_ACCOUNT" ColumnName="BENEF_ACCOUNT" />
-                <ScalarProperty Name="DBCRFLG" ColumnName="DBCRFLG" />
-                <ScalarProperty Name="PARENT_ID" ColumnName="PARENT_ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="tbgl_jnlmst">
             <EntityTypeMapping TypeName="KasabaKIATModel.tbgl_jnlmst">
               <MappingFragment StoreEntitySet="tbgl_jnlmst">
@@ -16798,6 +16748,29 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <EntitySetMapping Name="tbgl_bankpayments">
+            <EntityTypeMapping TypeName="KasabaKIATModel.tbgl_bankpayments">
+              <MappingFragment StoreEntitySet="tbgl_bankpayments">
+                <ScalarProperty Name="USER_ID" ColumnName="USER_ID" />
+                <ScalarProperty Name="DEPARTMENT_BASE" ColumnName="DEPARTMENT_BASE" />
+                <ScalarProperty Name="PARENT_ID" ColumnName="PARENT_ID" />
+                <ScalarProperty Name="DBCRFLG" ColumnName="DBCRFLG" />
+                <ScalarProperty Name="BENEF_ACCOUNT" ColumnName="BENEF_ACCOUNT" />
+                <ScalarProperty Name="BENEF_MFO" ColumnName="BENEF_MFO" />
+                <ScalarProperty Name="BENEF_INN" ColumnName="BENEF_INN" />
+                <ScalarProperty Name="BENEF_NAME" ColumnName="BENEF_NAME" />
+                <ScalarProperty Name="AMOUNT" ColumnName="AMOUNT" />
+                <ScalarProperty Name="PAYMENT_DATAIL" ColumnName="PAYMENT_DATAIL" />
+                <ScalarProperty Name="TRAN_DATE" ColumnName="TRAN_DATE" />
+                <ScalarProperty Name="PAYER_ACCOUNT" ColumnName="PAYER_ACCOUNT" />
+                <ScalarProperty Name="PAYER_MFO" ColumnName="PAYER_MFO" />
+                <ScalarProperty Name="PAYER_INN" ColumnName="PAYER_INN" />
+                <ScalarProperty Name="PAYER_NAME" ColumnName="PAYER_NAME" />
+                <ScalarProperty Name="NUM_DOC" ColumnName="NUM_DOC" />
+                <ScalarProperty Name="REC_ID" ColumnName="REC_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

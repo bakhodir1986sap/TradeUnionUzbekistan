@@ -14,7 +14,7 @@ namespace KasabaKIAT.Models
     
     public partial class tbgl_bankpayments
     {
-        public Nullable<long> REC_ID { get; set; }
+        public long REC_ID { get; set; }
         public string NUM_DOC { get; set; }
         public string PAYER_NAME { get; set; }
         public string PAYER_INN { get; set; }

@@ -13,7 +13,7 @@ namespace KasabaKIAT.ViewModel.Buxgalteriya
       public string     payer_inn          {get; set;}
       public string     payer_mfo          {get; set;}
       public string     payer_account      {get; set;}
-      public DateTime  tran_date          {get; set;}
+      public DateTime   tran_date          {get; set;}
       public string     payment_datail     {get; set;}
       public decimal    amount             {get; set;}
       public string     benef_name         {get; set;}

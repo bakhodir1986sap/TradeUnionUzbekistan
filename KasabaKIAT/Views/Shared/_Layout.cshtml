@@ -1,4 +1,9 @@
-﻿<!DOCTYPE html>
+﻿@using KasabaKIAT.BusinessLogic.Security.Roles.RolePermissions;
+@{
+    var UserId = Convert.ToInt32(User.Identity.Name);
+    FunctionalityList List = FunctionalityAndDbDataMatch.MatchProcess(UserId);
+}
+<!DOCTYPE html>
 <html ng-app="mvcCRUDApp" class="no-js" lang="">
 <head>
     <meta charset="utf-8">
@@ -64,34 +69,76 @@
                         <a id="tours1" class="nav-link" style="visibility:hidden;position:absolute;">Путевки</a>
                         <a disabled class="nav-link dropdown-toggle" href="tours.html" id="tours" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Путевки</a>
                         <div class="dropdown-menu rounded-0 box-shadow m-0 border-0" aria-labelledby="tours">
-                            <a class="dropdown-item load" href="/GrafikZaezdov/index">График заездов</a>
-                            <a class="dropdown-item load" href="/GodovoyPlan/index">Годовой план</a>
-                            <a class="dropdown-item load" href="/Home/RassmotreniyeZayavok">Рассмотрение заявок</a>
-                            <a class="dropdown-item load" href="/Administirirovaniye/SchetFaktura">Приход путевок</a>
-                            <a class="dropdown-item load" href="/PrixodPutevok/ProsmotrOstatPutevok">Просмотр остатков путевок</a>
-                            <a class="dropdown-item load" href="/PrixodPutevok/RealizatsiyaPutevok">Реализация путевок</a>
-                            <a class="dropdown-item load" href="/PrixodPutevok/ProsmotrRealzPutevok">Просмотр реализованных путевок</a>
-                            <a class="dropdown-item load" href="/PrixodPutevok/SverkaDannix">Сверка данных по отдыхающим</a>
+                            @if (List.GrafikZaezdov)
+                            {
+                                <a class="dropdown-item load" href="/GrafikZaezdov/index">График заездов</a>
+                            }
+                            @if (List.GodovoyPlanPutyovok)
+                            {
+                                <a class="dropdown-item load" href="/GodovoyPlan/index">Годовой план</a>
+                            }
+                            @if (List.RassmotreniyaZayavok)
+                            {
+                                <a class="dropdown-item load" href="/Home/RassmotreniyeZayavok">Рассмотрение заявок</a>
+                            }
+                            @if (List.PrixodPutyovok)
+                            {
+                                <a class="dropdown-item load" href="/Administirirovaniye/SchetFaktura">Приход путевок</a>
+                            }
+                            @if (List.ProsmotrOstatkaPutyovok)
+                            {
+                                <a class="dropdown-item load" href="/PrixodPutevok/ProsmotrOstatPutevok">Просмотр остатков путевок</a>
+                            }
+                            @if (List.RealizasiyaPutyovok)
+                            {
+                                <a class="dropdown-item load" href="/PrixodPutevok/RealizatsiyaPutevok">Реализация путевок</a>
+                            }
+                            @if (List.ProsmotrRealPutyovok)
+                            {
+                                <a class="dropdown-item load" href="/PrixodPutevok/ProsmotrRealzPutevok">Просмотр реализованных путевок</a>
+                            }
+                            @if (List.SverkaDannixPoOtdixayushim)
+                            {
+                                <a class="dropdown-item load" href="/PrixodPutevok/SverkaDannix">Сверка данных по отдыхающим</a>
+                            }
                         </div>
                     </li>
                     <li class="nav-item dropdown" id="z">
                         <a id="claims1" class="nav-link" style="visibility:hidden;position:absolute;">Заявки</a>
                         <a class="nav-link dropdown-toggle" href="claims.html" id="claims" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Заявки</a>
                         <div class="dropdown-menu rounded-0 box-shadow m-0 border-0" aria-labelledby="claims">
-                            <a class="dropdown-item load" href="/Home/PodachaZayavok">Подача заявок</a>
-                            <a class="dropdown-item load" href="/Home/PoiskRedaktZayavok">Поиск и редактирование заявок</a>
+                            @if (List.VvodZayavok)
+                            {
+                                <a class="dropdown-item load" href="/Home/PodachaZayavok">Подача заявок</a>
+                            }
+                            @if (List.PoiskIRedaktirovaniyaZayavok)
+                            {
+                                <a class="dropdown-item load" href="/Home/PoiskRedaktZayavok">Поиск и редактирование заявок</a>
+                            }
                         </div>
                     </li>
                     <li class="nav-item dropdown" id="b">
                         <a class="nav-link dropdown-toggle" href="accounting.html" id="accounting" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Бухгалтерия</a>
                         <div class="dropdown-menu rounded-0 box-shadow m-0 border-0" aria-labelledby="accounting">
-                            <a class="dropdown-item load" href="/Buxgalter/VvodDannix">Ввод данных</a>
-                            <a class="dropdown-item load" href="/Buxgalter/BU_PrasmotrDannix">Просмотр</a>
+                            @if (List.BuxUchetVvodDannix)
+                            {
+                                <a class="dropdown-item load" href="/Buxgalter/VvodDannix">Ввод данных</a>
+                            }
+                            @if (List.PrasmotrDannix)
+                            {
+                                <a class="dropdown-item load" href="/Buxgalter/BU_PrasmotrDannix">Просмотр</a>
+                            }
                             <a class="dropdown-item load" href="/Buxgalter/OsushestvleniyeProvodki">Осуществление проводки</a>
-                            <a class="dropdown-item load" href="/PlatejnoyePorucheniye/Index">Платежные поручения</a>
+                            @if (List.PlatejniyePorucheniya)
+                            {
+                                <a class="dropdown-item load" href="/PlatejnoyePorucheniye/Index">Платежные поручения</a>
+                            }
                             <a class="dropdown-item load" href="/Buxgalter/Nakladniye">Накладные</a>
                             <a class="dropdown-item load" href="/Buxgalter/PlanByudjetaOblastey">План бюджета областей</a>
-                            <a class="dropdown-item load" href="/Buxgalter/RaspredleniyeByudjeta">Распределение бюджета по отраслям</a>
+                            @if (List.RaznoskaDannixPoOtraslyam)
+                            {
+                                <a class="dropdown-item load" href="/Buxgalter/RaspredleniyeByudjeta">Распределение бюджета по отраслям</a>
+                            }
                         </div>
                     </li>
                     <li class="nav-item" id="o">

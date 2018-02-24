@@ -33,6 +33,7 @@ namespace KasabaKIAT.BusinessLogic.Security.Roles.RolePermissions
                 {
                     foreach(var rolperm in rolPermitL)
                     {
+                        
                         if (rolperm.action.Contains("Asp.GrafikZaezdov")) { rolFumc.GrafikZaezdov = true; }
                         if (rolperm.action.Contains("Asp.GodovoyPlanPutyovok")) { rolFumc.GodovoyPlanPutyovok = true; }
                         if (rolperm.action.Contains("Asp.PrixodPutyovok")) { rolFumc.PrixodPutyovok = true; }

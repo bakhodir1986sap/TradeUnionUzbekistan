@@ -1,396 +1,214 @@
-﻿
+﻿@using KasabaKIAT.BusinessLogic.Security.Roles.RolePermissions;
 @{
     ViewBag.Title = "Подача заявок";
+    var UserId = Convert.ToInt32(User.Identity.Name);
+    FunctionalityList List = FunctionalityAndDbDataMatch.MatchProcess(UserId);
 }
 <script src="~/Scripts/MyJavaScript/RZController.js"></script>
 @*<h2 style="color:#428bca">Рассмотрение заявок</h2>*@
 <div id="connection" style="visibility:hidden;position:absolute;margin-left:430px;margin-top:100px;z-index:9999">
     <img src="~/Content/Login/buffering.gif" />
 </div>
-<div ng-controller="RZController">
-    <section class="content__block container">
-        <div class="row mb-4 align-items-center">
-            <div class="col title__block">
-                <h4>Рассмотрение заявок</h4>
-                <nav aria-label="breadcrumb" class="breadcrumb__block">
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item load"><a href="/Home/Putyovki">Путевки</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Рассмотрение заявок</li>
-                    </ol>
-                </nav>
-            </div>
-        </div>
-        <form class="form-group mb-4"  name="myForm"  novalidate>
-            <div class="custom-control custom-radio custom-control-inline">
-                <input type="radio" ng-model="s" required ng-change="LoadINN()" name="inlineRadioOptions3" id="inlineRadio1" value="option1" class="custom-control-input" checked="" />
-                <label for="inlineRadio1" class="custom-control-label">Санаторий</label>
-            </div>
-            <div class="custom-control custom-radio custom-control-inline" hidden>
-                <input type="radio" ng-model="s" required ng-change="LoadINN()" name="inlineRadioOptions3" id="inlineRadio2" value="option2" class="custom-control-input" />
-                <label for="inlineRadio2" class="custom-control-label">Дет. лагер</label>
-            </div>
-        </form>
-        <form class="row mb-5" name="myForm2"  novalidate>
-            <div class="col-lg-7">
-                <div class="row">
-                    <div class="col-md-4 form-group">
-                        <input type="text" required class="custom-select form-control" name="INN" ng-model="INN" ng-maxlength="9" ng-minlength="9" ng-change="LoadINN()" placeholder="Инн" />
-                        <span class="alert alert-warning" style="padding:0px" ng-show="myForm2.INN.$error.required">заполнить поле</span>
-                        <span class="alert alert-warning" style="padding:0px" ng-show="!myForm2.INN.$error.required&&!myForm2.INN.$valid">9 шт. номер</span>
-                    </div>
-                    <div class="col-md-4 form-group">
-                        <select ng-model="ZB" name="zb" class="custom-select form-control" ng-change="LoadINN()" required>
-                            @for (int i = DateTime.Now.Year; i > 1991; i--)
-                            {
-                                <option>@(i)</option>
-                            }
-                        </select>
-                        <span class="alert alert-warning" style="padding:0px" ng-show="myForm2.zb.$error.required">Выберите поле</span>
-                    </div>
+@if (List.RassmotreniyaZayavok)
+{
+    <div ng-controller="RZController">
+        <section class="content__block container">
+            <div class="row mb-4 align-items-center">
+                <div class="col title__block">
+                    <h4>Рассмотрение заявок</h4>
+                    <nav aria-label="breadcrumb" class="breadcrumb__block">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item load"><a href="/Home/Putyovki">Путевки</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Рассмотрение заявок</li>
+                        </ol>
+                    </nav>
                 </div>
             </div>
-        </form>
-        <div ng-show="RZdiv">
-            <div class="row mb-5 pb-md-5">
-                <div ng-show="RZ_Gdiv" class="col-md-5 mb-4">
+            <form class="form-group mb-4" name="myForm" novalidate>
+                <div class="custom-control custom-radio custom-control-inline">
+                    <input type="radio" ng-model="s" required ng-change="LoadINN()" name="inlineRadioOptions3" id="inlineRadio1" value="option1" class="custom-control-input" checked="" />
+                    <label for="inlineRadio1" class="custom-control-label">Санаторий</label>
+                </div>
+                <div class="custom-control custom-radio custom-control-inline" hidden>
+                    <input type="radio" ng-model="s" required ng-change="LoadINN()" name="inlineRadioOptions3" id="inlineRadio2" value="option2" class="custom-control-input" />
+                    <label for="inlineRadio2" class="custom-control-label">Дет. лагер</label>
+                </div>
+            </form>
+            <form class="row mb-5" name="myForm2" novalidate>
+                <div class="col-lg-7">
+                    <div class="row">
+                        <div class="col-md-4 form-group">
+                            <input type="text" required class="custom-select form-control" name="INN" ng-model="INN" ng-maxlength="9" ng-minlength="9" ng-change="LoadINN()" placeholder="Инн" />
+                            <span class="alert alert-warning" style="padding:0px" ng-show="myForm2.INN.$error.required">заполнить поле</span>
+                            <span class="alert alert-warning" style="padding:0px" ng-show="!myForm2.INN.$error.required&&!myForm2.INN.$valid">9 шт. номер</span>
+                        </div>
+                        <div class="col-md-4 form-group">
+                            <select ng-model="ZB" name="zb" class="custom-select form-control" ng-change="LoadINN()" required>
+                                @for (int i = DateTime.Now.Year; i > 1991; i--)
+                                {
+                                    <option>@(i)</option>
+                                }
+                            </select>
+                            <span class="alert alert-warning" style="padding:0px" ng-show="myForm2.zb.$error.required">Выберите поле</span>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <div ng-show="RZdiv">
+                <div class="row mb-5 pb-md-5">
+                    <div ng-show="RZ_Gdiv" class="col-md-5 mb-4">
+                        <div class="table__title mb-3">
+                            <h6>Запрашиваемые путевки</h6>
+                        </div>
+                        <div class="table-responsive box-shadow">
+                            <table class="table table-stripped">
+                                <thead class="table table__block">
+                                    <tr>
+                                        <th style="width:200px;text-align:center">Санаторий</th>
+                                        <th style="width:100px;text-align:center">Кол-во</th>
+                                        <th style="width:200px;text-align:center">Период</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="rz_g in RZ_G">
+                                        <td>{{rz_g.SC_g}}</td>
+                                        <td style="text-align:center">{{rz_g.Q_Sum}}</td>
+                                        <td style="text-align:center"><select style="width:150px;background-color:#f9f9f9;border-color:#f9f9f9;" required disabled="disabled" ng-model="rz_g" ng-options="item.oy for item in Sana.SANA track by item.ZB_g"></select></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-4">
+                        <div class="table__title mb-3">
+                            <h6>Отчисления за {{ZB}} год</h6>
+                        </div>
+                        <div class="table-responsive box-shadow">
+                            <table class="table table-stripped">
+                                <thead>
+                                    <tr>
+                                        <th>Месяц</th>
+                                        <th>Сумма</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="b in Bank">
+                                        <td><select style="width:150px;background-color:#f9f9f9;border-color:#f9f9f9;" required disabled="disabled" ng-model="b" ng-options="item.oy for item in Sana.SANA track by item.ZB_g"></select></td>
+                                        <td>{{b.A_Sum}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Всего</td>
+                                        <td><b ng-repeat="y in GroupYear">{{y.A_Sum}}</b></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-5 pb-md-5">
                     <div class="table__title mb-3">
-                        <h6>Запрашиваемые путевки</h6>
+                        <p><span>Путевки.</span> Cредняя стоимость: <strong ng-repeat="pr in Price">{{pr.A}}</strong></p>
                     </div>
                     <div class="table-responsive box-shadow">
-                        <table class="table table-stripped">
-                            <thead class="table table__block">
+                        <table class="table table__block">
+                            <thead>
                                 <tr>
-                                    <th style="width:200px;text-align:center">Санаторий</th>
-                                    <th style="width:100px;text-align:center">Кол-во</th>
-                                    <th style="width:200px;text-align:center">Период</th>
-
+                                    <th style="text-align:center">Санаторий</th>
+                                    <th style="text-align:center">Период</th>
+                                    <th style="text-align:center">Запрашивается</th>
+                                    <th style="text-align:center">В нал на ук.период</th>
+                                    <th style="text-align:center">Положено по отч.</th>
+                                    <th style="text-align:center">Выдать</th>
+                                    <th></th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr ng-repeat="rz_g in RZ_G">
                                     <td>{{rz_g.SC_g}}</td>
-                                    <td style="text-align:center">{{rz_g.Q_Sum}}</td>
                                     <td style="text-align:center"><select style="width:150px;background-color:#f9f9f9;border-color:#f9f9f9;" required disabled="disabled" ng-model="rz_g" ng-options="item.oy for item in Sana.SANA track by item.ZB_g"></select></td>
+                                    <td style="text-align:center">{{rz_g.Q_Sum}}</td>
+                                    <td style="text-align:center">{{rz_g.Q_Sum}}</td>
+                                    <td style="text-align:center">{{rz_g.Q_Sum}}</td>
+                                    <td style="align-items:center"><input type="text" ng-model="rz_g.OQ" class="form-control" style="width:100px"></td>
+                                    <td><button type="button" ng-click="AddOQ(rz_g.SC_g_id,rz_g.ZB_g,rz_g.OQ)" class="btn btn-info modal4">Добавить</button></td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
                 </div>
-                <div class="col-md-4 mb-4">
+                <div class="mb-5 pb-md-5">
                     <div class="table__title mb-3">
-                        <h6>Отчисления за {{ZB}} год</h6>
-                    </div>
-                    <div class="table-responsive box-shadow">
-                        <table class="table table-stripped">
-                            <thead>
-                                <tr>
-                                    <th>Месяц</th>
-                                    <th>Сумма</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr ng-repeat="b in Bank">
-                                    <td><select style="width:150px;background-color:#f9f9f9;border-color:#f9f9f9;" required disabled="disabled" ng-model="b" ng-options="item.oy for item in Sana.SANA track by item.ZB_g"></select></td>
-                                    <td>{{b.A_Sum}}</td>
-                                </tr>
-                                <tr>
-                                    <td>Всего</td>
-                                    <td><b ng-repeat="y in GroupYear">{{y.A_Sum}}</b></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-            <div class="mb-5 pb-md-5">
-                <div class="table__title mb-3">
-                    <p><span>Путевки.</span> Cредняя стоимость: <strong ng-repeat="pr in Price">{{pr.A}}</strong></p>
-                </div>
-                <div class="table-responsive box-shadow">
-                    <table class="table table__block">
-                        <thead>
-                            <tr>
-                                <th style="text-align:center">Санаторий</th>
-                                <th style="text-align:center">Период</th>
-                                <th style="text-align:center">Запрашивается</th>
-                                <th style="text-align:center">В нал на ук.период</th>
-                                <th style="text-align:center">Положено по отч.</th>
-                                <th style="text-align:center">Выдать</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr ng-repeat="rz_g in RZ_G">
-                                <td>{{rz_g.SC_g}}</td>
-                                <td style="text-align:center"><select style="width:150px;background-color:#f9f9f9;border-color:#f9f9f9;" required disabled="disabled" ng-model="rz_g" ng-options="item.oy for item in Sana.SANA track by item.ZB_g"></select></td>
-                                <td style="text-align:center">{{rz_g.Q_Sum}}</td>
-                                <td style="text-align:center">{{rz_g.Q_Sum}}</td>
-                                <td style="text-align:center">{{rz_g.Q_Sum}}</td>
-                                <td style="align-items:center"><input type="text" ng-model="rz_g.OQ" class="form-control" style="width:100px"></td>
-                                <td><button type="button" ng-click="AddOQ(rz_g.SC_g_id,rz_g.ZB_g,rz_g.OQ)" class="btn btn-info modal4">Добавить</button></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-            <div class="mb-5 pb-md-5">
-                <div class="table__title mb-3">
-                    <p>Детали заявок</p>
-                </div>
-                <div class="table-responsive box-shadow mb-4">
-                    <table  class="table table__block">
-                        <thead>
-                            <tr>
-                                <th style="text-align:center">Дата подачи</th>
-                                <th style="text-align:center">ФИО</th>
-                                <th style="text-align:center">Должность</th>
-                                <th style="text-align:center">ИНН</th>
-                                <th style="text-align:center">Мед.справка</th>
-                                <th style="text-align:center">Статус</th>
-                                <th></th>
-                                <th></th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr ng-repeat="rz in RZ">
-                                <td>{{rz.TS| jsonDate: 'dd.MM.yyyy'}}</td>
-                                <td style="text-align:center">{{rz.FN}}</td>
-                                <td style="text-align:center">{{rz.P}}</td>
-                                <td style="text-align:center">{{rz.INN}}</td>
-                                <td style="text-align:center">{{rz.MOE}}</td>
-                                <td style="padding:0;vertical-align:central">
-                                    <select ng-model="rz.S" required ng-init="LoadRZStatus()" ng-options="d.ID as d.NAME_UZ for d in S track by d.ID" class="custom-select form-control" ></select>
-                                </td>
-                                <td  class="table-link" data-toggle="modal" data-target="#history" ng-click="editRZ(rz)"><a href="#">История</a></td>
-                                <td><a href="#" class="table-link">Решение</a></td>
-                                <td><button type="button" ng-click="UpdateStatusRZ(rz.ID,rz.S)" class="btn btn-info modal4">Добавить</button></td>
-                            </tr>
-                        </tbody>
-                    </table>
-
-                </div>
-            </div>
-        </div>
-       
-    </section>
-    <footer class="footer">
-        <div class="container">
-            <p>&copy;2018</p>
-        </div>
-    </footer>
-
-    <div class="modal__block modal fade" id="history" tabindex="-1" role="dialog" aria-labelledby="dobavitLabel">
-        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-            <div class="modal-content">
-                <div class="modal-body">
-                    <div class="modal-title">
-                        <h4 class="mt-4 mb-4">История</h4>
-                    </div>
-                    <div class="modal-text mb-4">
-                        <p>ФИО: <strong>{{FN}}</strong></p>
-                        <p>ИНН: <strong>{{INN}}</strong></p>
-                    </div>
-                    <div class="table__title mb-3">
-                        <p><strong>Детали заявок</strong></p>
+                        <p>Детали заявок</p>
                     </div>
                     <div class="table-responsive box-shadow mb-4">
                         <table class="table table__block">
                             <thead>
                                 <tr>
-                                    @*<th>Путевка №</th>
-                                    <th>Дата реал..</th>
-                                    <th>Санаторий</th>
-                                    <th>Регион/Обл</th>
-                                    <th>Организация</th>
-                                    <th></th>*@
-                                    @*<th>Путевка №</th>*@
-                                    <th style="width:200px">Дата реал.</th>
-                                    <th style="width:200px">Санаторий</th>
-                                    <th style="width:200px">Организация</th>
-                                    <th style="width:200px">Должность</th>
+                                    <th style="text-align:center">Дата подачи</th>
+                                    <th style="text-align:center">ФИО</th>
+                                    <th style="text-align:center">Должность</th>
+                                    <th style="text-align:center">ИНН</th>
+                                    <th style="text-align:center">Мед.справка</th>
+                                    <th style="text-align:center">Статус</th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td><input type="date" class="form-control" disabled="disabled" ng-model="TZ" /></td>
-                                    <td>{{SC.value}}</td>
-                                    <td>{{O}}</td>
-                                    <td>{{P}}</td>
+                                <tr ng-repeat="rz in RZ">
+                                    <td>{{rz.TS| jsonDate: 'dd.MM.yyyy'}}</td>
+                                    <td style="text-align:center">{{rz.FN}}</td>
+                                    <td style="text-align:center">{{rz.P}}</td>
+                                    <td style="text-align:center">{{rz.INN}}</td>
+                                    <td style="text-align:center">{{rz.MOE}}</td>
+                                    <td style="padding:0;vertical-align:central">
+                                        <select ng-model="rz.S" required ng-init="LoadRZStatus()" ng-options="d.ID as d.NAME_UZ for d in S track by d.ID" class="custom-select form-control"></select>
+                                    </td>
+                                    <td class="table-link" data-toggle="modal" data-target="#history" ng-click="editRZ(rz)"><a href="#">История</a></td>
+                                    <td><a href="#" class="table-link">Решение</a></td>
+                                    <td><button type="button" ng-click="UpdateStatusRZ(rz.ID,rz.S)" class="btn btn-info modal4">Добавить</button></td>
                                 </tr>
                             </tbody>
                         </table>
-                    </div>
-                    <div class="mb-4">
-                        <a href="#" class="btn btn-blue d-block d-md-inline-block mb-2">ОК</a>
+
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
 
+        </section>
+        <footer class="footer">
+            <div class="container">
+                <p>&copy;2018</p>
+            </div>
+        </footer>
 
-    @*<form name="myForm" class="row" novalidate>
-        <div class="col-xs-3" style="margin-top: 30px;">
-            <label class="radio-inline">
-                <input ng-model="s" required ng-change="LoadINN()" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1"> Санаторий
-            </label>
-            <label class="radio-inline">
-                <input ng-model="s" required ng-change="LoadINN()" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2"> Дет. лагер
-            </label>
-            <span class="alert alert-warning" style="padding:0px" ng-show="myForm.inlineRadioOptions.$error.required">Выберите поля</span>
-        </div>
-        <div class="col-xs-3" style="margin-top: 30px;">
-            <div class="col-xs-5 text-right">
-                <p>Инн:</p>
-            </div>
-            <div class="col-xs-6">
-                <input type="text" required class="form-control" name="INN" ng-model="INN" ng-maxlength="9" ng-minlength="9" ng-change="LoadINN()" />
-                <span class="alert alert-warning" style="padding:0px" ng-show="myForm.INN.$error.required">Выберите поля</span>
-                <span class="alert alert-warning" style="padding:0px" ng-show="!myForm.INN.$error.required&&!myForm.INN.$valid">9 шт. номер</span>
-            </div>
-        </div>
-        <div class="col-xs-3" style="margin-top: 30px;">
-            <div class="col-xs-5 text-right">
-                <p>Дата заезды:</p>
-            </div>
-            <div class="col-xs-6">
-                <select ng-model="ZB" name="zb" class="form-control" ng-change="LoadINN()" required>
-                    @for (int i = DateTime.Now.Year; i > 1991; i--)
-                    {
-                        <option>@(i)</option>
-                    }
-                </select>
-                <span class="alert alert-warning" style="padding:0px" ng-show="myForm.zb.$error.required">Выберите поля</span>
-            </div>
-        </div>
-    </form>
-    <div ng-show="RZdiv">
-        <div ng-show="RZ_Gdiv" class="row" style="margin-top:30px;">
-            <div class="col-xs-5">
-                <h3>Запрашиваемые путевки</h3>
-                <table class="table table-stripped">
-                    <thead>
-                        <tr>
-                            <th style="width:200px;text-align:center">Санаторий</th>
-                            <th style="width:100px;text-align:center">Кол-во</th>
-                            <th style="width:200px;text-align:center">Период</th>
-
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr ng-repeat="rz_g in RZ_G">
-                            <td>{{rz_g.SC_g}}</td>
-                            <td style="text-align:center">{{rz_g.Q_Sum}}</td>
-                            <td style="text-align:center"><select style="width:120px;background-color:#f9f9f9;border-color:#f9f9f9;" required disabled="disabled" ng-model="rz_g" ng-options="item.oy for item in Sana.SANA track by item.ZB_g"></select></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <div class="col-xs-4">
-                <h3>Отчисления за {{ZB}} год</h3>
-                <table class="table table-stripped">
-                    <thead>
-                        <tr>
-                            <th>Месяц</th>
-                            <th>Сумма</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr ng-repeat="b in Bank">
-                            <td><select style="width:120px;background-color:#f9f9f9;border-color:#f9f9f9;" required disabled="disabled" ng-model="b" ng-options="item.oy for item in Sana.SANA track by item.ZB_g"></select></td>
-                            <td>{{b.A_Sum}}</td>
-                        </tr>
-                        <tr>
-                            <td>Всего</td>
-                            <td><b ng-repeat="y in GroupYear">{{y.A_Sum}}</b></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-        <!-- row table -->
-        <div class="row">
-            <h3>Путевки средняя стоимость: <b ng-repeat="pr in Price">{{pr.AMOUNT}}</b></h3>
-            <table class="table table-stripped">
-                <thead>
-                    <tr>
-                        <th style="text-align:center">Санаторий</th>
-                        <th style="text-align:center">Период</th>
-                        <th style="text-align:center">Запрашивается</th>
-                        <th style="text-align:center">В нал на ук.период</th>
-                        <th style="text-align:center">Положено по отч.</th>
-                        <th style="text-align:center">Выдать</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr ng-repeat="rz_g in RZ_G">
-                        <td>{{rz_g.SC_g}}</td>
-                        <td style="text-align:center"><select style="width:120px;background-color:#f9f9f9;border-color:#f9f9f9;" required disabled="disabled" ng-model="rz_g" ng-options="item.oy for item in Sana.SANA track by item.ZB_g"></select></td>
-                        <td style="text-align:center">{{rz_g.Q_Sum}}</td>
-                        <td style="text-align:center">{{rz_g.Q_Sum}}</td>
-                        <td style="text-align:center">{{rz_g.Q_Sum}}</td>
-                        <td style="align-items:center"><input type="text" ng-model="rz_g.OQ" class="form-control" style="width:100px"></td>
-                        <td><button type="button" ng-click="AddOQ(rz_g.SC_g_id,rz_g.ZB_g,rz_g.OQ)" class="btn btn-info modal4">Добавить</button></td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-        <div class="row">
-            <h3>Детали заявок</h3>
-
-            <table class="table table-stripped">
-                <thead>
-                    <tr>
-                        <th style="text-align:center">Дата подачи</th>
-                        <th style="text-align:center">ФИО</th>
-                        <th style="text-align:center">Должность</th>
-                        <th style="text-align:center">ИНН</th>
-                        <th style="text-align:center">Мед.справка</th>
-                        <th style="text-align:center">Статус</th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr ng-repeat="rz in RZ">
-                        <td>{{rz.TS| jsonDate: 'dd.MM.yyyy'}}</td>
-                        <td style="text-align:center">{{rz.FN}}</td>
-                        <td style="text-align:center">{{rz.P}}</td>
-                        <td style="text-align:center">{{rz.INN}}</td>
-                        <td style="text-align:center">{{rz.MOE}}</td>
-                        <td style="padding:0;vertical-align:central">
-                            <select ng-model="rz.S" required ng-init="LoadRZStatus()" ng-options="d.ID as d.NAME_UZ for d in S track by d.ID" class="form-control" style="width:150px"></select>
-                        </td>
-                        <td class="modal4 text-center" ng-click="editRZ(rz)" data-toggle="modal" data-target="#myModal"><a href="#" style="font-size: 10px;">История</a></td>
-                        <td><a href="#" style="font-size: 10px;">Решение</a></td>
-                        <td><button type="button" ng-click="UpdateStatusRZ(rz.ID,rz.S)" class="btn btn-info modal4">Добавить</button></td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-        <!-- Modal -->
-        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content" style="width:1000px;margin-left:-200px">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title text-left" id="myModalLabel">История</h4>
-                    </div>
-                    <div class="modal-body" style="padding-left:20px">
-                        <div class="row">
-                            <p>ФИО:<b>{{FN}}</b></p>
-                            <p>ИНН:<b>{{INN}}</b></p>
-                            <br>
-                            <h5>Детали заявок</h5>
+        <div class="modal__block modal fade" id="history" tabindex="-1" role="dialog" aria-labelledby="dobavitLabel">
+            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <div class="modal-title">
+                            <h4 class="mt-4 mb-4">История</h4>
                         </div>
-                        <div class="row">
-                            <table class="table table-stripped">
+                        <div class="modal-text mb-4">
+                            <p>ФИО: <strong>{{FN}}</strong></p>
+                            <p>ИНН: <strong>{{INN}}</strong></p>
+                        </div>
+                        <div class="table__title mb-3">
+                            <p><strong>Детали заявок</strong></p>
+                        </div>
+                        <div class="table-responsive box-shadow mb-4">
+                            <table class="table table__block">
                                 <thead>
                                     <tr>
-                                        <th>Путевка №</th>
+                                        @*<th>Путевка №</th>
+                                            <th>Дата реал..</th>
+                                            <th>Санаторий</th>
+                                            <th>Регион/Обл</th>
+                                            <th>Организация</th>
+                                            <th></th>*@
+                                        @*<th>Путевка №</th>*@
                                         <th style="width:200px">Дата реал.</th>
                                         <th style="width:200px">Санаторий</th>
                                         <th style="width:200px">Организация</th>
@@ -407,16 +225,12 @@
                                 </tbody>
                             </table>
                         </div>
-                    </div>
-                    <div class="modal-footer">
-                        <div class="col-xs-2 text-left">
-                            <button type="button" class="btn btn-info"> ok</button>
+                        <div class="mb-4">
+                            <a href="#" class="btn btn-blue d-block d-md-inline-block mb-2">ОК</a>
                         </div>
                     </div>
                 </div>
-
             </div>
-        </div> <!-- modal fade <-->
-    </div>*@
-
-</div>
+        </div>
+    </div>
+}

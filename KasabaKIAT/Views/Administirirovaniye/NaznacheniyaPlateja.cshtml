@@ -1,68 +1,76 @@
-﻿
+﻿@using KasabaKIAT.BusinessLogic.Security.Roles.RolePermissions;
+@{
+    var UserId = Convert.ToInt32(User.Identity.Name);
+    FunctionalityList List = FunctionalityAndDbDataMatch.MatchProcess(UserId);
+}
 @{
     ViewBag.Title = "Администрирование";
 }
 <script src="~/Scripts/MyJavaScript/SNPController.js"></script>
-<div ng-controller="SNPController">
-    <section class="content__block container">
-        <div class="row mb-4 align-items-center">
-            <div class="col-sm-6 title__block">
-                <h4>Справочники назначения платежа</h4>
-                <nav aria-label="breadcrumb" class="breadcrumb__block">
-                    <ol class="breadcrumb" style="width:1000px">
-                        <li class="breadcrumb-item load"><a href="/Home/Admin">Администрирование</a></li>
-                        <li class="breadcrumb-item load"><a href="/Administirirovaniye/index">Администрирование</a></li>
-                        <li class="breadcrumb-item load"><a href="/Administirirovaniye/Spravichniki">справочники</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Справочники назначения платежа</li>
-                    </ol>
-                </nav>
+@if (List.UpravleniyaSpravochnikami)
+{
+    <div ng-controller="SNPController">
+        <section class="content__block container">
+            <div class="row mb-4 align-items-center">
+                <div class="col-sm-6 title__block">
+                    <h4>Справочники назначения платежа</h4>
+                    <nav aria-label="breadcrumb" class="breadcrumb__block">
+                        <ol class="breadcrumb" style="width:1000px">
+                            <li class="breadcrumb-item load"><a href="/Home/Admin">Администрирование</a></li>
+                            <li class="breadcrumb-item load"><a href="/Administirirovaniye/index">Администрирование</a></li>
+                            <li class="breadcrumb-item load"><a href="/Administirirovaniye/Spravichniki">справочники</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Справочники назначения платежа</li>
+                        </ol>
+                    </nav>
+                </div>
+                <div class="col-sm-6 text-md-right">
+                    <a href="#" ng-click="AddSNPDiv()" class="btn btn-blue d-block d-md-inline-block mb-2" data-toggle="modal" data-target="#dobavit"><i class="fas fa-plus"></i> Добавить</a>
+                </div>
             </div>
-            <div class="col-sm-6 text-md-right">
-                <a href="#" ng-click="AddSNPDiv()" class="btn btn-blue d-block d-md-inline-block mb-2" data-toggle="modal" data-target="#dobavit"><i class="fas fa-plus"></i> Добавить</a>
+            <div class="table-responsive box-shadow mb-4">
+                <table class="table table__block t-hover">
+                    <thead>
+                        <tr>
+                            <th class="dropdown dropdown__table">тип мест</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="item in SNP" ng-click="editSNP(item)" data-toggle="modal" data-target="#dobavit">
+                            <td>{{item.NAME_UZ}}</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
-        </div>
-        <div class="table-responsive box-shadow mb-4">
-            <table class="table table__block t-hover">
-                <thead>
-                    <tr>
-                        <th class="dropdown dropdown__table">тип мест</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr ng-repeat="item in SNP" ng-click="editSNP(item)" data-toggle="modal" data-target="#dobavit">
-                        <td>{{item.NAME_UZ}}</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </section>
+        </section>
 
-    <div class="modal__block modal fade" id="dobavit" tabindex="-1" role="dialog" aria-labelledby="dobavitLabel">
-        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-            <div class="modal-content">
-                <div class="modal-body">
-                    <div class="modal-title">
-                        <h4 class="text-center mt-4 mb-4">{{Action}}</h4>
-                    </div>
-                    <div class="row justify-content-center">
-                        <form class="col-md-8" name="myForm" novalidate>
-                            <input type="hidden" style="position:absolute" ng-model="ID;" />
-                            <div class="form-group row align-items-center">
-                                <label class="col-md-5 col-form-label text-md-right py-0">Тип размещения:</label>
-                                <div class="col-md-7">
-                                    <input type="text" class="form-control" required placeholder="" name="PTI" ng-model="PTI" value="">
-                                    <span class="alert alert-warning" style="padding:0px" ng-show="myForm.PTI.$error.required">заполнить поле</span>
+        <div class="modal__block modal fade" id="dobavit" tabindex="-1" role="dialog" aria-labelledby="dobavitLabel">
+            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <div class="modal-title">
+                            <h4 class="text-center mt-4 mb-4">{{Action}}</h4>
+                        </div>
+                        <div class="row justify-content-center">
+                            <form class="col-md-8" name="myForm" novalidate>
+                                <input type="hidden" style="position:absolute" ng-model="ID;" />
+                                <div class="form-group row align-items-center">
+                                    <label class="col-md-5 col-form-label text-md-right py-0">Тип размещения:</label>
+                                    <div class="col-md-7">
+                                        <input type="text" class="form-control" required placeholder="" name="PTI" ng-model="PTI" value="">
+                                        <span class="alert alert-warning" style="padding:0px" ng-show="myForm.PTI.$error.required">заполнить поле</span>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="mb-4 text-right">
-                                <button data-dismiss="modal" ng-click="AddUpdateSNP()" ng-disabled="myForm.PTI.$error.required" class="btn btn-blue d-block d-md-inline-block mb-2">Сохранить</button>
-                                <button ng-click="deleteSNP(ID)" ng-show="showdelete" data-dismiss="modal" class="btn btn-red d-block d-md-inline-block mb-2">Удалить</button>
-                                <button class="btn btn-grey d-block d-md-inline-block mb-2" data-dismiss="modal">Отмена</button>
-                            </div>
-                        </form>
+                                <div class="mb-4 text-right">
+                                    <button data-dismiss="modal" ng-click="AddUpdateSNP()" ng-disabled="myForm.PTI.$error.required" class="btn btn-blue d-block d-md-inline-block mb-2">Сохранить</button>
+                                    <button ng-click="deleteSNP(ID)" ng-show="showdelete" data-dismiss="modal" class="btn btn-red d-block d-md-inline-block mb-2">Удалить</button>
+                                    <button class="btn btn-grey d-block d-md-inline-block mb-2" data-dismiss="modal">Отмена</button>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
+}
+

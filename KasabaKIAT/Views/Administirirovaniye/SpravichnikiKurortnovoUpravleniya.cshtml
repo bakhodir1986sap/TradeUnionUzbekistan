@@ -1,29 +1,35 @@
-﻿
+﻿@using KasabaKIAT.BusinessLogic.Security.Roles.RolePermissions;
+@{
+    var UserId = Convert.ToInt32(User.Identity.Name);
+    FunctionalityList List = FunctionalityAndDbDataMatch.MatchProcess(UserId);
+}
 @{
     ViewBag.Title = "Администрирование";
 }
-
-<section class="content__block container">
-    <div class="row mb-4 align-items-center">
-        <div class="col title__block">
-            <h4>Справочник с курортного управления</h4>
-            <nav aria-label="breadcrumb" class="breadcrumb__block">
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item load"><a href="/Home/Admin">Администрирование</a></li>
-                    <li class="breadcrumb-item load"><a href="/Administirirovaniye/index">Администрирование</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Справочник с курортного управления</li>
-                </ol>
-            </nav>
-        </div>
-    </div>
-    <div class="row mb-4">
-        <div class="col-md-6">
-            <div class="list-group r-list-group mb-4 box-shadow">
-                <a href="/Administirirovaniye/SpisokPravsoyuzov" class="list-group-item list-group-item-action load">Список правсоюзов</a>
-                <a href="/Administirirovaniye/GrafikSanatoryZaezdov" class="list-group-item list-group-item-action load">График санаторий заездов</a>
-                <a href="/Administirirovaniye/SchetFaktura" class="list-group-item list-group-item-action load">Счет фактура</a>
-                <a href="/Administirirovaniye/RaspredeleniyeZaezdov" class="list-group-item list-group-item-action load">Распределение Заездов</a>
+@if (List.UpravleniyaSpravochnikami)
+{
+    <section class="content__block container">
+        <div class="row mb-4 align-items-center">
+            <div class="col title__block">
+                <h4>Справочник с курортного управления</h4>
+                <nav aria-label="breadcrumb" class="breadcrumb__block">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item load"><a href="/Home/Admin">Администрирование</a></li>
+                        <li class="breadcrumb-item load"><a href="/Administirirovaniye/index">Администрирование</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Справочник с курортного управления</li>
+                    </ol>
+                </nav>
             </div>
         </div>
-    </div>
-</section>
+        <div class="row mb-4">
+            <div class="col-md-6">
+                <div class="list-group r-list-group mb-4 box-shadow">
+                    <a href="/Administirirovaniye/SpisokPravsoyuzov" class="list-group-item list-group-item-action load">Список правсоюзов</a>
+                    <a href="/Administirirovaniye/GrafikSanatoryZaezdov" class="list-group-item list-group-item-action load">График санаторий заездов</a>
+                    <a href="/Administirirovaniye/SchetFaktura" class="list-group-item list-group-item-action load">Счет фактура</a>
+                    <a href="/Administirirovaniye/RaspredeleniyeZaezdov" class="list-group-item list-group-item-action load">Распределение Заездов</a>
+                </div>
+            </div>
+        </div>
+    </section>
+}

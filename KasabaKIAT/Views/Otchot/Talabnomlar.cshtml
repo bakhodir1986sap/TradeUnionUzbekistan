@@ -1,4 +1,8 @@
-﻿
+﻿@using KasabaKIAT.BusinessLogic.Security.Roles.RolePermissions;
+@{
+    var UserId = Convert.ToInt32(User.Identity.Name);
+    FunctionalityList List = FunctionalityAndDbDataMatch.MatchProcess(UserId);
+}
 @{
     ViewBag.Title = "Отчеты";
 }
@@ -6,102 +10,106 @@
 <div id="connection" style="visibility:hidden;position:absolute;margin-left:560px;margin-top:200px;z-index:9999">
     <img src="~/Content/Login/buffering.gif" />
 </div>
-<div ng-controller="O_TController" >
-    <section class="content__block container">
-        <div class="row mb-4 align-items-center">
-            <div class="col title__block">
-                <h4>Талабномалар</h4>
-                <nav aria-label="breadcrumb" class="breadcrumb__block">
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item load"><a href="/Home/Otchot">Отчеты</a></li>
-                        <li class="breadcrumb-item load"><a href="/Otchot/index">Отчеты</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Талабномалар</li>
-                    </ol>
-                </nav>
-            </div>
-        </div>
-        <form name="myForm1" novalidate>
+@if (List.Talabnomalar)
+{
+    <div ng-controller="O_TController">
+        <section class="content__block container">
             <div class="row mb-4 align-items-center">
-                <div class="col-md-6">
-                    <div class="form-group mb-3 mb-md-0">
-                        <p>Тип счета:</p>
-                        <div class="custom-control custom-radio custom-control-inline">
-                            <input type="radio" required ng-model="s" ng-change="Load()" name="inlineRadioOptions3" id="inlineRadio1" value="option1" class="custom-control-input" checked="" />
-                            <label for="inlineRadio1" class="custom-control-label">По организации</label>
-                        </div>
-                        <div class="custom-control custom-radio custom-control-inline">
-                            <input type="radio" required ng-model="s" ng-change="Load()" name="inlineRadioOptions3" id="inlineRadio2" value="option2" class="custom-control-input" />
-                            <label for="inlineRadio2" class="custom-control-label">По отрасли</label>
-                        </div>
-                        <div class="custom-control custom-radio custom-control-inline">
-                            <input type="radio" required ng-model="s" ng-change="Load()" name="inlineRadioOptions3" id="inlineRadio3" value="option3" class="custom-control-input" checked="" />
-                            <label for="inlineRadio3" class="custom-control-label">По региону</label>
+                <div class="col title__block">
+                    <h4>Талабномалар</h4>
+                    <nav aria-label="breadcrumb" class="breadcrumb__block">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item load"><a href="/Home/Otchot">Отчеты</a></li>
+                            <li class="breadcrumb-item load"><a href="/Otchot/index">Отчеты</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Талабномалар</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+            <form name="myForm1" novalidate>
+                <div class="row mb-4 align-items-center">
+                    <div class="col-md-6">
+                        <div class="form-group mb-3 mb-md-0">
+                            <p>Тип счета:</p>
+                            <div class="custom-control custom-radio custom-control-inline">
+                                <input type="radio" required ng-model="s" ng-change="Load()" name="inlineRadioOptions3" id="inlineRadio1" value="option1" class="custom-control-input" checked="" />
+                                <label for="inlineRadio1" class="custom-control-label">По организации</label>
+                            </div>
+                            <div class="custom-control custom-radio custom-control-inline">
+                                <input type="radio" required ng-model="s" ng-change="Load()" name="inlineRadioOptions3" id="inlineRadio2" value="option2" class="custom-control-input" />
+                                <label for="inlineRadio2" class="custom-control-label">По отрасли</label>
+                            </div>
+                            <div class="custom-control custom-radio custom-control-inline">
+                                <input type="radio" required ng-model="s" ng-change="Load()" name="inlineRadioOptions3" id="inlineRadio3" value="option3" class="custom-control-input" checked="" />
+                                <label for="inlineRadio3" class="custom-control-label">По региону</label>
+                            </div>
                         </div>
                     </div>
                 </div>
+                <div class="row mb-4 align-items-center">
+                    <div ng-show="showRegion" id="Region" style="visibility:hidden">
+                        <p>Регион:</p>
+                        <select style="width:200px" ng-model="Region" name="Region" required ng-options="d as d.value for d in R track by d.id" class="custom-select form-control"></select>
+                        <span class="alert alert-warning" style="padding:0px" ng-show="myForm1.Region.$error.required">Выберите поле</span>
+                    </div>
+                    <div ng-show="showOtrasl" id="Otrasl" style="visibility:hidden;">
+                        <p>Отрасль:</p>
+                        <select style="width:200px;" ng-model="Otrasl" required ng-options="item as item.value for item in O track by item.id" class="custom-select form-control" name="Otrasl"></select>
+                        <span class="alert alert-warning" style="padding:0px" ng-show="myForm1.Otrasl.$error.required">Выберите поле</span>
+                    </div>
+                    <div ng-show="showINN" id="INN" style="">
+                        <p>Инн:</p>
+                        <input type="text" required name="INN" ng-model="INN" class="custom-select form-control" ng-maxlength="9" ng-minlength="9" placeholder="Инн" />
+                        <span class="alert alert-warning" style="padding:0px" ng-show="myForm1.INN.$error.required">заполнить поле</span>
+                        <span class="alert alert-warning" style="padding:0px" ng-show="!myForm1.INN.$error.required&&!myForm1.INN.$valid">9 шт. номер</span>
+                    </div>
+                    <div style="margin-left:100px">
+                        <p>Период:</p>
+                        <select ng-model="zb" name="zb" class="custom-select form-control" required>
+                            @for (int i = DateTime.Now.Year; i > 1991; i--)
+                            {
+                                <option>@(i)</option>
+                            }
+                        </select>
+                        <span class="alert alert-warning" style="padding:0px" ng-show="myForm1.zb.$error.required">Выберите поле</span>
+                    </div>
+                </div>
+                <div class="row mb-4 align-items-center">
+                    <div>
+                        @*<button ng-click="LoadDATA()" ng-disabled="s!='option1'&&s!='option2'" class="btn btn-blue d-block d-md-inline-block mb-3 mb-md-0"> ПОКАЗАТ</button>*@
+                        <button ng-click="LoadDATA()" ng-disabled="s!='option2'&&(myForm1.INN.$error.required||(!myForm1.INN.$error.required&&!myForm1.INN.$valid))" class="btn btn-blue d-block d-md-inline-block mb-3 mb-md-0"> ПОКАЗАТ</button>
+                    </div>
+                    <div>
+                        <a href="#" ng-click="Clear()" style="margin-left:200px" class="btn btn-default d-block d-md-inline-block mb-3 mb-md-0"> ОЧИСТИТЬ ФИЛЬТР</a>
+                    </div>
+                    <div>
+                        <button ng-show="showdata" ng-click="exportData()" style="margin-left:200px" class="btn btn-green d-block d-md-inline-block mb-3 mb-md-0"><i class="fas fa-file-excel"></i> Экспорт</button>
+                    </div>
+                </div>
+            </form>
+            <div class="table-responsive box-shadow mb-4" id="export" ng-show="showdata">
+                <table class="table table__block t-hover">
+                    <thead>
+                        <tr>
+                            <th class="dropdown dropdown__table">Санаторий</th>
+                            <th class="dropdown dropdown__table">1кв</th>
+                            <th class="dropdown dropdown__table">2кв</th>
+                            <th class="dropdown dropdown__table">3кв</th>
+                            <th class="dropdown dropdown__table">4кв</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="item in O_T">
+                            <td>{{item.SN}}</td>
+                            <td>{{item.KV1}}</td>
+                            <td>{{item.KV2}}</td>
+                            <td>{{item.KV3}}</td>
+                            <td>{{item.KV4}}</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
-            <div class="row mb-4 align-items-center">
-                <div ng-show="showRegion" id="Region" style="visibility:hidden">
-                    <p>Регион:</p>
-                    <select style="width:200px" ng-model="Region"  name="Region" required ng-options="d as d.value for d in R track by d.id" class="custom-select form-control"></select>
-                    <span class="alert alert-warning" style="padding:0px" ng-show="myForm1.Region.$error.required">Выберите поле</span>
-                </div>
-                <div ng-show="showOtrasl" id="Otrasl" style="visibility:hidden;">
-                    <p>Отрасль:</p>
-                    <select style="width:200px;" ng-model="Otrasl"  required ng-options="item as item.value for item in O track by item.id" class="custom-select form-control" name="Otrasl"></select>
-                    <span class="alert alert-warning" style="padding:0px" ng-show="myForm1.Otrasl.$error.required">Выберите поле</span>
-                </div>
-                <div ng-show="showINN" id="INN" style="">
-                    <p>Инн:</p>
-                    <input type="text" required  name="INN" ng-model="INN"  class="custom-select form-control" ng-maxlength="9" ng-minlength="9" placeholder="Инн" />
-                    <span class="alert alert-warning" style="padding:0px" ng-show="myForm1.INN.$error.required">заполнить поле</span>
-                    <span class="alert alert-warning" style="padding:0px" ng-show="!myForm1.INN.$error.required&&!myForm1.INN.$valid">9 шт. номер</span>
-                </div>
-                <div style="margin-left:100px">
-                    <p>Период:</p>
-                    <select ng-model="zb" name="zb" class="custom-select form-control"  required>
-                        @for (int i = DateTime.Now.Year; i > 1991; i--)
-                        {
-                            <option>@(i)</option>
-                        }
-                    </select>
-                    <span class="alert alert-warning" style="padding:0px" ng-show="myForm1.zb.$error.required">Выберите поле</span>
-                </div>
-            </div>
-            <div class="row mb-4 align-items-center">
-                <div>
-                    @*<button ng-click="LoadDATA()" ng-disabled="s!='option1'&&s!='option2'" class="btn btn-blue d-block d-md-inline-block mb-3 mb-md-0"> ПОКАЗАТ</button>*@
-                    <button ng-click="LoadDATA()" ng-disabled="s!='option2'&&(myForm1.INN.$error.required||(!myForm1.INN.$error.required&&!myForm1.INN.$valid))" class="btn btn-blue d-block d-md-inline-block mb-3 mb-md-0"> ПОКАЗАТ</button>
-                </div>
-                <div>
-                    <a href="#" ng-click="Clear()" style="margin-left:200px" class="btn btn-default d-block d-md-inline-block mb-3 mb-md-0"> ОЧИСТИТЬ ФИЛЬТР</a>
-                </div>
-                <div>
-                    <button ng-show="showdata" ng-click="exportData()" style="margin-left:200px" class="btn btn-green d-block d-md-inline-block mb-3 mb-md-0"><i class="fas fa-file-excel"></i> Экспорт</button>
-                </div>
-            </div>
-        </form>
-        <div class="table-responsive box-shadow mb-4" id="export" ng-show="showdata">
-            <table class="table table__block t-hover">
-                <thead>
-                    <tr>
-                        <th class="dropdown dropdown__table">Санаторий</th>
-                        <th class="dropdown dropdown__table">1кв</th>
-                        <th class="dropdown dropdown__table">2кв</th>
-                        <th class="dropdown dropdown__table">3кв</th>
-                        <th class="dropdown dropdown__table">4кв</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr ng-repeat="item in O_T">
-                        <td>{{item.SN}}</td>
-                        <td>{{item.KV1}}</td>
-                        <td>{{item.KV2}}</td>
-                        <td>{{item.KV3}}</td>
-                        <td>{{item.KV4}}</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </section>
-</div>
+        </section>
+    </div>
+}
+

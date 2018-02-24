@@ -1,4 +1,5 @@
 ﻿using KasabaKIAT.BusinessLogic.Buxgalteriya.PrixodChastichka;
+using KasabaKIAT.Models;
 using KasabaKIAT.ViewModel.Buxgalteriya;
 using OfficeOpenXml;
 using System;
@@ -14,6 +15,7 @@ namespace KasabaKIAT.Controllers
     [Authorize]
     public class BuxgalterController : Controller
     {
+        KasabaKIATEntities KasabaDB = new KasabaKIATEntities();
         // GET: Buxgalter
         public ActionResult Index()
         {
@@ -75,23 +77,19 @@ namespace KasabaKIAT.Controllers
                         var noOfCol = workSheet.Dimension.End.Column;
                         var noOfRow = workSheet.Dimension.End.Row;
 
-                        var bb = new Bankpayments();
-
                         for (int rowIterator = 2; rowIterator <= noOfRow; rowIterator++)
                         {
                             var user = new BankpaymentsViewModel();
 
                             user.num_doc        = workSheet.Cells[rowIterator, 1].Value.ToString();
-                            user.payer_name     = workSheet.Cells[rowIterator, 1].Value.ToString();
-                            user.payer_inn      = workSheet.Cells[rowIterator, 1].Value.ToString();
-                            user.payer_mfo      = workSheet.Cells[rowIterator, 1].Value.ToString();
-                            user.payer_account  = workSheet.Cells[rowIterator, 1].Value.ToString();
-
+                            user.payer_name     = workSheet.Cells[rowIterator, 2].Value.ToString();
+                            user.payer_inn      = workSheet.Cells[rowIterator, 3].Value.ToString();
+                            user.payer_mfo      = workSheet.Cells[rowIterator, 4].Value.ToString();
+                            user.payer_account  = workSheet.Cells[rowIterator, 5].Value.ToString();
                             DateTime trandate;
 
-                            if (DateTime.TryParseExact(workSheet.Cells[rowIterator, 6].Value.ToString() , "dd.MM.yyyy", CultureInfo.InvariantCulture
-                             , DateTimeStyles.NoCurrentDateDefault   , out trandate))
-                             {
+                            if (DateTime.TryParseExact(workSheet.Cells[rowIterator, 6].Value.ToString(), "dd.MM.yyyy", CultureInfo.InvariantCulture,DateTimeStyles.None ,out trandate))
+                            {
                                 user.tran_date = trandate;
                             }
                             else
@@ -99,12 +97,7 @@ namespace KasabaKIAT.Controllers
                                 user.tran_date = DateTime.Now;
 
                             }
-
-                            
-
-
-                            user.payment_datail = workSheet.Cells[rowIterator, 1].Value.ToString();
-
+                            user.payment_datail = workSheet.Cells[rowIterator, 7].Value.ToString();
                             decimal amount = 0;
 
                             if (decimal.TryParse(workSheet.Cells[rowIterator, 8].Value.ToString(), out amount))
@@ -116,24 +109,19 @@ namespace KasabaKIAT.Controllers
                                 user.amount = 0;
 
                             }
-
-
-                            user.benef_name     = workSheet.Cells[rowIterator, 1].Value.ToString();
-                            user.benef_inn      = workSheet.Cells[rowIterator, 1].Value.ToString();
-                            user.benef_mfo      = workSheet.Cells[rowIterator, 1].Value.ToString();
-                            user.benef_account  = workSheet.Cells[rowIterator, 1].Value.ToString();
-                            user.dbcrflg        = workSheet.Cells[rowIterator, 1].Value.ToString();
+                            user.benef_name     = workSheet.Cells[rowIterator, 9].Value.ToString();
+                            user.benef_inn      = workSheet.Cells[rowIterator, 10].Value.ToString();
+                            user.benef_mfo      = workSheet.Cells[rowIterator, 11].Value.ToString();
+                            user.benef_account  = workSheet.Cells[rowIterator, 12].Value.ToString();
+                            user.dbcrflg        = workSheet.Cells[rowIterator, 13].Value.ToString();
 
                             platList.Add(user);
-
-
-                            bb.EnterData(user);
-
+                            BankpaymentsDataManager.Create(ref user);
                         }
                     }
                 }
             }
-            return View("Index");
+            return View("VvodDannix");
         }
     }
 }

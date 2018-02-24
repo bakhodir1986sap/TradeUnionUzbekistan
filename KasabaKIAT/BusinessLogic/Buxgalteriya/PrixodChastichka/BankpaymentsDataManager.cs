@@ -2,7 +2,6 @@
 using KasabaKIAT.ViewModel.Buxgalteriya;
 using System;
 using System.Collections.Generic;
-using System.Data.Entity.Validation;
 using System.Linq;
 using System.Web;
 
@@ -16,7 +15,6 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.PrixodChastichka
             {
                 tbgl_bankpayments reg = new tbgl_bankpayments();
 
-                //reg.REC_ID =            model.rec_id                ;
                 reg.NUM_DOC =           model.num_doc               ;
                 reg.PAYER_NAME =        model.payer_name            ;
                 reg.PAYER_INN =         model.payer_inn             ;
@@ -41,24 +39,7 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.PrixodChastichka
                     model.rec_id = planOtrasl.REC_ID;
                 }
 
-                try
-                {
-                    db.SaveChanges();
-                }
-                catch (DbEntityValidationException e)
-                {
-                    foreach (var eve in e.EntityValidationErrors)
-                    {
-                        Console.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
-                            eve.Entry.Entity.GetType().Name, eve.Entry.State);
-                        foreach (var ve in eve.ValidationErrors)
-                        {
-                            Console.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
-                                ve.PropertyName, ve.ErrorMessage);
-                        }
-                    }
-                    throw;
-                }
+                db.SaveChanges();
             }
         }
 
@@ -74,7 +55,6 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.PrixodChastichka
 
                     if (reg != null)
                     {
-                        //reg.REC_ID = model.rec_id;
                         reg.NUM_DOC = model.num_doc;
                         reg.PAYER_NAME = model.payer_name;
                         reg.PAYER_INN = model.payer_inn;

@@ -1,55 +1,62 @@
-﻿
+﻿@using KasabaKIAT.BusinessLogic.Security.Roles.RolePermissions;
+@{
+    var UserId = Convert.ToInt32(User.Identity.Name);
+    FunctionalityList List = FunctionalityAndDbDataMatch.MatchProcess(UserId);
+}
 @{
     ViewBag.Title = "Администрирование";
 }
 <script src="~/Scripts/MyJavaScript/SpisokPravsoyuzov.js"></script>
+@if (List.UpravleniyaSpravochnikami)
+{
+    <section class="content__block container" ng-controller="SpisokPravsoyuzov">
+        <div id="connection" style="visibility:hidden;position:absolute;margin-left:430px;margin-top:100px;z-index:9999">
+            <img src="~/Content/Login/buffering.gif" />
+        </div>
+        <div class="row mb-4 align-items-center">
+            <div class="col title__block">
+                <h4>Список правсоюзов</h4>
+                <nav aria-label="breadcrumb" class="breadcrumb__block">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item load"><a href="/Home/Admin">Администрирование</a></li>
+                        <li class="breadcrumb-item load"><a href="/Administirirovaniye/index">Администрирование</a></li>
+                        <li class="breadcrumb-item load"><a href="/Administirirovaniye/SpravichnikiKurortnovoUpravleniya">Справочник с курортного управления</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Список правсоюзов</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+        <div class="row mb-4 align-items-center">
+            <div style="margin-left:20px">
+                <button ng-click="LoadDATA()" class="btn btn-blue d-block d-md-inline-block mb-2"> Получить</button>
+            </div>
+            <div style="margin-left:100px">
+                <button class="btn btn-green d-block d-md-inline-block mb-2" ng-click="exportData()">
+                    <i class="fas fa-file-excel"></i>  ЭКСПОРТ
+                </button>
+            </div>
+        </div>
+        <div class="table-responsive box-shadow mb-4" ng-show="showdata">
+            <div id="export">
+                <table class="table table__block t-hover">
+                    <thead>
+                        <tr class="noExl">
+                            <th class="dropdown dropdown__table">Код</th>
+                            <th class="dropdown dropdown__table">Названия</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="item in DATA">
+                            <td>{{item.d1}}</td>
+                            <td>{{item.d2}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row mb-4 align-items-center">
 
-<section class="content__block container" ng-controller="SpisokPravsoyuzov">
-    <div id="connection" style="visibility:hidden;position:absolute;margin-left:430px;margin-top:100px;z-index:9999">
-        <img src="~/Content/Login/buffering.gif" />
-    </div>
-    <div class="row mb-4 align-items-center">
-        <div class="col title__block">
-            <h4>Список правсоюзов</h4>
-            <nav aria-label="breadcrumb" class="breadcrumb__block">
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item load"><a href="/Home/Admin">Администрирование</a></li>
-                    <li class="breadcrumb-item load"><a href="/Administirirovaniye/index">Администрирование</a></li>
-                    <li class="breadcrumb-item load"><a href="/Administirirovaniye/SpravichnikiKurortnovoUpravleniya">Справочник с курортного управления</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Список правсоюзов</li>
-                </ol>
-            </nav>
         </div>
-    </div>
-    <div class="row mb-4 align-items-center">
-        <div style="margin-left:20px">
-            <button ng-click="LoadDATA()" class="btn btn-blue d-block d-md-inline-block mb-2"> Получить</button>
-        </div>
-        <div style="margin-left:100px">
-            <button class="btn btn-green d-block d-md-inline-block mb-2" ng-click="exportData()">
-                <i class="fas fa-file-excel"></i>  ЭКСПОРТ
-            </button>
-        </div>
-    </div>
-    <div class="table-responsive box-shadow mb-4" ng-show="showdata" >
-        <div id="export">
-            <table class="table table__block t-hover">
-                <thead>
-                    <tr class="noExl">
-                        <th class="dropdown dropdown__table">Код</th>
-                        <th class="dropdown dropdown__table">Названия</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr ng-repeat="item in DATA">
-                        <td>{{item.d1}}</td>
-                        <td>{{item.d2}}</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-    <div class="row mb-4 align-items-center">
-       
-    </div>
-</section>
+    </section>
+}
+

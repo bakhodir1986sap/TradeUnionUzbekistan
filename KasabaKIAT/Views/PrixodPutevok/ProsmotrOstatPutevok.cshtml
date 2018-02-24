@@ -1,73 +1,80 @@
-﻿@{
+﻿@using KasabaKIAT.BusinessLogic.Security.Roles.RolePermissions;
+@{
     ViewBag.Title = "Путевки";
+    var UserId = Convert.ToInt32(User.Identity.Name);
+    FunctionalityList List = FunctionalityAndDbDataMatch.MatchProcess(UserId);
 }
 <script src="~/Scripts/MyJavaScript/PPController.js"></script>
 @*<h2 style="color:#428bca">Просмотр остатков путевок</h2>*@
 <div id="connection" style="visibility:hidden;position:absolute;margin-left:430px;z-index:9999">
     <img src="~/Content/Login/buffering.gif" />
 </div>
-<div ng-controller="PPController">
-    <section class="content__block container">
-        <div class="row mb-4 align-items-center">
-            <div class="col-sm-6 title__block">
-                <h4>Просмотр остатков путевок</h4>
-                <nav aria-label="breadcrumb" class="breadcrumb__block">
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item load"><a href="/Home/Putyovki">Путевки</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Просмотр остатков путевок</li>
-                    </ol>
-                </nav>
+@if (List.ProsmotrOstatkaPutyovok)
+{
+    <div ng-controller="PPController">
+        <section class="content__block container">
+            <div class="row mb-4 align-items-center">
+                <div class="col-sm-6 title__block">
+                    <h4>Просмотр остатков путевок</h4>
+                    <nav aria-label="breadcrumb" class="breadcrumb__block">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item load"><a href="/Home/Putyovki">Путевки</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Просмотр остатков путевок</li>
+                        </ol>
+                    </nav>
+                </div>
+                <div class="col-sm-6 text-md-right">
+                    <button ng-click="exportData()" class="btn btn-green d-block d-md-inline-block mb-3 mb-md-0"><i class="fas fa-file-excel"></i> Экспорт</button>
+                </div>
             </div>
-            <div class="col-sm-6 text-md-right">
-                <button ng-click="exportData()" class="btn btn-green d-block d-md-inline-block mb-3 mb-md-0"><i class="fas fa-file-excel"></i> Экспорт</button>
+            <div class="table-responsive box-shadow mb-4" id="export">
+                <table class="table table__block t-hover">
+                    <thead>
+                        <tr>
+                            <th class="dropdown dropdown__table" style="width:150px;text-align:center">
+                                <select class="form-control" ng-change="LoadPPData()" required name="CSFilter" ng-model="SCFilter" ng-options="item as item.value for item in CS track by item.id"></select>
+                            </th>
+                            <th class="dropdown dropdown__table" style="width:200px;text-align:center">
+                                Номера путевок
+                            </th>
+                            <th class="dropdown dropdown__table" style="width:150px;text-align:center">
+                                Период с
+                            </th>
+                            <th class="dropdown dropdown__table" style="width:100px;text-align:center">
+                                <input ng-model="PFilter" name="PFilter" type="text" class="form-control" placeholder="Цена" />
+                            </th>
+                            <th class="dropdown dropdown__table" style="width:150px;text-align:center">
+                                Период по
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="poin" ng-repeat="pp in PP | filter:PFilter | filter:QFilter | filter:OCFilter">
+                            <td style="text-align:center">{{pp.d1}}</td>
+                            <td style="text-align:center">{{pp.d2}}</td>
+                            <td style="text-align:center">{{pp.d3 | jsonDate: 'dd.MM.yyyy'}}</td>
+                            <td style="text-align:center">{{pp.d4}}</td>
+                            <td style="text-align:center">{{pp.d5 | jsonDate: 'dd.MM.yyyy'}}</td>
+                        </tr>
+                        <tr ng-repeat="pp_sum in PP_SUM">
+                            <td style="text-align:center">
+                                @*<button type="button" ng-click="ok()" class="btn btn-default">очистить фильтр</button>*@
+                            </td>
+                            <td style="text-align:center">
+                                @*<button type="button" class="btn btn-default">отчет</button>*@
+                            </td>
+                            <td style="text-align:center"></td>
+                            <td style="text-align:center">Итого:</td>
+                            <td style="text-align:center"><b>{{pp_sum.P_SUM}}</b></td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
-        </div>
-        <div class="table-responsive box-shadow mb-4" id="export">
-            <table class="table table__block t-hover">
-                <thead>
-                    <tr>
-                        <th class="dropdown dropdown__table" style="width:150px;text-align:center">
-                            <select class="form-control" ng-change="LoadPPData()" required name="CSFilter" ng-model="SCFilter" ng-options="item as item.value for item in CS track by item.id"></select>
-                        </th>
-                        <th class="dropdown dropdown__table" style="width:200px;text-align:center">
-                            Номера путевок
-                        </th>
-                        <th class="dropdown dropdown__table" style="width:150px;text-align:center">
-                            Период с
-                        </th>
-                        <th class="dropdown dropdown__table" style="width:100px;text-align:center">
-                            <input ng-model="PFilter" name="PFilter" type="text" class="form-control" placeholder="Цена" />
-                        </th>
-                        <th class="dropdown dropdown__table" style="width:150px;text-align:center">
-                            Период по
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr class="poin" ng-repeat="pp in PP | filter:PFilter | filter:QFilter | filter:OCFilter">
-                        <td style="text-align:center">{{pp.d1}}</td>
-                        <td style="text-align:center">{{pp.d2}}</td>
-                        <td style="text-align:center">{{pp.d3 | jsonDate: 'dd.MM.yyyy'}}</td>
-                        <td style="text-align:center">{{pp.d4}}</td>
-                        <td style="text-align:center">{{pp.d5 | jsonDate: 'dd.MM.yyyy'}}</td>
-                    </tr>
-                    <tr ng-repeat="pp_sum in PP_SUM">
-                        <td style="text-align:center">
-                            @*<button type="button" ng-click="ok()" class="btn btn-default">очистить фильтр</button>*@
-                        </td>
-                        <td style="text-align:center">
-                            @*<button type="button" class="btn btn-default">отчет</button>*@
-                        </td>
-                        <td style="text-align:center"></td>
-                        <td style="text-align:center">Итого:</td>
-                        <td style="text-align:center"><b>{{pp_sum.P_SUM}}</b></td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-        <div class="mb-4">
-            <button ng-click="ok()" class="btn btn-grey d-block d-md-inline-block my-2">очистить фильтр</button>
-            <button class="btn btn-grey d-block d-md-inline-block my-2">отчет</button>
-        </div>
-    </section>
-</div>
+            <div class="mb-4">
+                <button ng-click="ok()" class="btn btn-grey d-block d-md-inline-block my-2">очистить фильтр</button>
+                <button class="btn btn-grey d-block d-md-inline-block my-2">отчет</button>
+            </div>
+        </section>
+    </div>
+}
+

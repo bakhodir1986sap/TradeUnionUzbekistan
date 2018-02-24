@@ -130,7 +130,6 @@
         <EntityTypeShape EntityType="KasabaKIATModel.tbbSprOsnov" Width="1.5" PointX="22.5" PointY="372.5" IsExpanded="true" />
         <EntityTypeShape EntityType="KasabaKIATModel.tbbSprTabel" Width="1.5" PointX="22.5" PointY="375.625" IsExpanded="true" />
         <EntityTypeShape EntityType="KasabaKIATModel.tbbTabel" Width="1.5" PointX="22.5" PointY="378.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="KasabaKIATModel.tbgl_bankpayments" Width="1.5" PointX="4.75" PointY="19.75" IsExpanded="true" />
         <EntityTypeShape EntityType="KasabaKIATModel.tbgl_jnlmst" Width="1.5" PointX="22.5" PointY="381.125" IsExpanded="true" />
         <EntityTypeShape EntityType="KasabaKIATModel.tblFace_Two" Width="1.5" PointX="33" PointY="239" IsExpanded="true" />
         <EntityTypeShape EntityType="KasabaKIATModel.tblOplata_Ras" Width="1.5" PointX="33" PointY="275.75" IsExpanded="true" />
@@ -351,6 +350,7 @@
         <AssociationConnector Association="KasabaKIATModel.user_role" ManuallyRouted="false" />
         <EntityTypeShape EntityType="KasabaKIATModel.tblVipl_NumGEn" Width="1.5" PointX="16.375" PointY="19.75" />
         <EntityTypeShape EntityType="KasabaKIATModel.tbpt_putyovka_statechange" Width="1.5" PointX="18.375" PointY="19.75" />
+        <EntityTypeShape EntityType="KasabaKIATModel.tbgl_bankpayments" Width="1.5" PointX="20.375" PointY="5.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

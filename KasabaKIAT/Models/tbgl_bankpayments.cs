@@ -11,11 +11,10 @@ namespace KasabaKIAT.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.Web;
-
+    
     public partial class tbgl_bankpayments
     {
-        public Nullable<long> REC_ID { get; set; }
+        public long REC_ID { get; set; }
         public string NUM_DOC { get; set; }
         public string PAYER_NAME { get; set; }
         public string PAYER_INN { get; set; }
@@ -30,6 +29,7 @@ namespace KasabaKIAT.Models
         public string BENEF_ACCOUNT { get; set; }
         public string DBCRFLG { get; set; }
         public Nullable<long> PARENT_ID { get; set; }
-        public HttpPostedFileBase File { get; set; }
+        public string DEPARTMENT_BASE { get; set; }
+        public Nullable<long> USER_ID { get; set; }
     }
 }

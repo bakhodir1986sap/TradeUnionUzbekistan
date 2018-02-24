@@ -29,20 +29,16 @@ namespace KasabaKIAT.Controllers
         //[ValidateAntiForgeryToken]
         public ActionResult Login(user u,string ReturnUrl = "")
         {
-            log.Info("Begin Login");
+
             try
             {
                 if (ModelState.IsValid)
                 {
-                    log.Info("ModelState.IsValid");
-
                     var retCode = ul.Ruxsatni_tekshir(u);
-
-                    log.Info("ModelState.IsValid");
 
                     if (retCode > 0)
                     {
-                        IEnumerable<users> r = from a in KasabaDB.users where a.id == retCode select a;
+                        IEnumerable<users> r = from a in KasabaDB.users where a.user_name == u.login select a;
                         foreach (var b in r)
                         {
                             int UserID = Convert.ToInt32(b.id);

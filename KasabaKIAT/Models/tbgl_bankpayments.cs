@@ -29,5 +29,7 @@ namespace KasabaKIAT.Models
         public string BENEF_ACCOUNT { get; set; }
         public string DBCRFLG { get; set; }
         public Nullable<long> PARENT_ID { get; set; }
+        public string DEPARTMENT_BASE { get; set; }
+        public Nullable<long> USER_ID { get; set; }
     }
 }

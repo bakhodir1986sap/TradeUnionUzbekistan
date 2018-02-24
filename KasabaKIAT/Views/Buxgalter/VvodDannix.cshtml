@@ -1,142 +1,168 @@
-﻿
+﻿@using KasabaKIAT.BusinessLogic.Security.Roles.RolePermissions;
 @{
     ViewBag.Title = "бухгалтерия";
+    var UserId = Convert.ToInt32(User.Identity.Name);
+    FunctionalityList List = FunctionalityAndDbDataMatch.MatchProcess(UserId);
 }
-
-<section class="content__block container">
-    <div class="row mb-4 align-items-center">
-        <div class="col title__block">
-            <h4>Ввод данных</h4>
-            <nav aria-label="breadcrumb" class="breadcrumb__block">
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item load"><a href="/Buxgalter/Index">Бухгалтерия</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Ввод данных</li>
-                </ol>
-            </nav>
-        </div>
-    </div>
-    <div class="row mb-5 align-items-center">
-        <div class="col-md-7">
-            <div class="form-group mb-3 mb-md-0">
-                <div class="custom-control custom-radio custom-control-inline">
-                    <input type="radio" name="inlineRadioOptions3" id="inlineRadio1" value="option1" class="custom-control-input" checked="" />
-                    <label for="inlineRadio1" class="custom-control-label">Баковская справка</label>
-                </div>
-                <div class="custom-control custom-radio custom-control-inline">
-                    <input type="radio" name="inlineRadioOptions3" id="inlineRadio2" value="option2" class="custom-control-input" />
-                    <label for="inlineRadio2" class="custom-control-label">Банк клиент</label>
-                </div>
+@if (List.BuxUchetVvodDannix)
+{
+    <section class="content__block container">
+        <div class="row mb-4 align-items-center">
+            <div class="col title__block">
+                <h4>Ввод данных</h4>
+                <nav aria-label="breadcrumb" class="breadcrumb__block">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item load"><a href="/Buxgalter/Index">Бухгалтерия</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Ввод данных</li>
+                    </ol>
+                </nav>
             </div>
         </div>
-        <div class="col-md-5 text-md-right">
-            <a href="#" class="btn btn-green d-block d-md-inline-block mb-3 mb-md-0"><i class="fas fa-file-excel"></i> Загрузить</a>
+        <div class="row mb-5 align-items-center">
+            <div class="col-md-7">
+                <div class="form-group mb-3 mb-md-0">
+                    <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" name="inlineRadioOptions3" id="inlineRadio1" value="option1" class="custom-control-input" checked="" />
+                        <label for="inlineRadio1" class="custom-control-label">Баковская справка</label>
+                    </div>
+                    <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" name="inlineRadioOptions3" id="inlineRadio2" value="option2" class="custom-control-input" />
+                        <label for="inlineRadio2" class="custom-control-label">Банк клиент</label>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-5 text-md-right">
+                <a href="#" class="btn btn-green d-block d-md-inline-block mb-3 mb-md-0"><i class="fas fa-file-excel"></i> Загрузить</a>
+                <div class="custom-file">
+                    <input type="file" class="custom-file-input" id="customFile">
+                    <label class="custom-file-label" for="customFile">Загрузить</label>
+                </div>
+                @using (Html.BeginForm("UploadFile", "Buxgalter", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    @Html.ValidationSummary(true)
+                    <table border="0" style="background-color:#00ffff;">
+                        <tr>
+                            <td><label style="width:130px">Rasmni tanlang : </label></td>
+                            <td>
+                                <input id="UploadedFile" name="UploadedFile" type="file" value="as" />
+                                @*@Html.TextBoxFor(Model => Model.File, new { type = "file", style = "color:red;",value=""})*@
+                                @Html.ValidationMessage("xatolik")
+                            </td>
+                            <td>
+                                <input type="submit" value="Rasm qo`shish" />
+                            </td>
+                        </tr>
+                    </table>
+
+                }
+            </div>
         </div>
-    </div>
-    <div class="table__title mb-5">
-        <h5>Справка о дебетовых оборотах по счету 20212000800136154002 за период c 03.01.2017 по 28.02.2017</h5>
-        <p>Общая сумма: <strong>20 349 000</strong></p>
-    </div>
-    <div class="table-responsive box-shadow mb-5">
-        <table class="table table__block va-top t-scroll">
-            <thead>
-                <tr>
-                    <th>№ док.</th>
-                    <th>Информация плательщика</th>
-                    <th>Дата п-жа</th>
-                    <th>Название </th>
-                    <th>Сумма п-жа</th>
-                    <th>Инофрмация получателя</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>OK9</td>
-                    <td>TOSHKENT SHAHAR KASABA UYUSH<br />MALARI  TASHKILOTLARI BIRLASHMASI<br />NING KENGA соцстрах)<br /> ИНН: 201273304 <br /> МФО: 00425<br /> Рас. счет: 20212000800136154002</td>
-                    <td>03.01.2017</td>
-                    <td>00667Комиссия за <br /> операционное <br /> обслуживание счета <br />20212000500136154006 с  01.01.17 по 03.01.17</td>
-                    <td>1 200 000</td>
-                    <td>ЗавХоз</td>
-                </tr>
-                <tr>
-                    <td>ОК31</td>
-                    <td>TOSHKENT SHAHAR KASABA UYUSH<br />MALARI  TASHKILOTLARI BIRLASHMASI<br />NING KENGA соцстрах)<br /> МФО: 06726<br /> Рас. счет: 24686000800148158606</td>
-                    <td>12.06.2017</td>
-                    <td>00667Комиссия за <br /> операционное <br /> обслуживание счета <br />20212000500136154006 с  01.01.17 по 03.01.17</td>
-                    <td>1 000 000</td>
-                    <td>Директор</td>
-                </tr>
-                <tr>
-                    <td>ОК18</td>
-                    <td>TOSHKENT SHAHAR KASABA UYUSH<br />MALARI  TASHKILOTLARI BIRLASHMASI<br />NING KENGA соцстрах)<br /> МФО: 01142<br /> Рас. счет: 24686000843767346734</td>
-                    <td>06.03.2017</td>
-                    <td>00668 Оплата <br /> процентов за ОПК.</td>
-                    <td>3 953 987</td>
-                    <td>Директор</td>
-                </tr>
-                <tr>
-                    <td>ОК9</td>
-                    <td>TOSHKENT SHAHAR KASABA UYUSH<br />MALARI  TASHKILOTLARI BIRLASHMASI<br />NING KENGA соцстрах)<br /> ИНН: 201273304 <br /> МФО: 00425 <br /> Рас. счет: 20212000800136154002</td>
-                    <td>03.01.2017</td>
-                    <td>00667Комиссия за <br /> операционное <br /> обслуживание счета <br />20212000500136154006 с  01.01.17 по 03.01.17</td>
-                    <td>1 200 000</td>
-                    <td>ЗавХоз</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-    <div class="table__title mb-5">
-        <h5>Справка о дебетовых оборотах по счету 20212000800136154002 за период c 03.01.2017 по 28.02.2017</h5>
-        <p>Общая сумма: <strong>20 349 000</strong></p>
-    </div>
-    <div class="table-responsive box-shadow mb-5">
-        <table class="table table__block va-top">
-            <thead>
-                <tr>
-                    <th>№ док.</th>
-                    <th>Информация плательщика</th>
-                    <th>Дата п-жа</th>
-                    <th>Название </th>
-                    <th>Сумма п-жа</th>
-                    <th>Инофрмация получателя</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>OK9</td>
-                    <td>TOSHKENT SHAHAR KASABA UYUSH<br />MALARI  TASHKILOTLARI BIRLASHMASI<br />NING KENGA соцстрах)<br /> ИНН: 201273304 <br /> МФО: 00425<br /> Рас. счет: 20212000800136154002</td>
-                    <td>03.01.2017</td>
-                    <td>00667Комиссия за <br /> операционное <br /> обслуживание счета <br />20212000500136154006 с  01.01.17 по 03.01.17</td>
-                    <td>1 200 000</td>
-                    <td>ЗавХоз</td>
-                </tr>
-                <tr>
-                    <td>ОК31</td>
-                    <td>TOSHKENT SHAHAR KASABA UYUSH<br />MALARI  TASHKILOTLARI BIRLASHMASI<br />NING KENGA соцстрах)<br /> МФО: 06726<br /> Рас. счет: 24686000800148158606</td>
-                    <td>12.06.2017</td>
-                    <td>00667Комиссия за <br /> операционное <br /> обслуживание счета <br />20212000500136154006 с  01.01.17 по 03.01.17</td>
-                    <td>1 000 000</td>
-                    <td>Директор</td>
-                </tr>
-                <tr>
-                    <td>ОК18</td>
-                    <td>TOSHKENT SHAHAR KASABA UYUSH<br />MALARI  TASHKILOTLARI BIRLASHMASI<br />NING KENGA соцстрах)<br /> МФО: 01142<br /> Рас. счет: 24686000843767346734</td>
-                    <td>06.03.2017</td>
-                    <td>00668 Оплата <br /> процентов за ОПК.</td>
-                    <td>3 953 987</td>
-                    <td>Директор</td>
-                </tr>
-                <tr>
-                    <td>ОК9</td>
-                    <td>TOSHKENT SHAHAR KASABA UYUSH<br />MALARI  TASHKILOTLARI BIRLASHMASI<br />NING KENGA соцстрах)<br /> ИНН: 201273304 <br /> МФО: 00425 <br /> Рас. счет: 20212000800136154002</td>
-                    <td>03.01.2017</td>
-                    <td>00667Комиссия за <br /> операционное <br /> обслуживание счета <br />20212000500136154006 с  01.01.17 по 03.01.17</td>
-                    <td>1 200 000</td>
-                    <td>ЗавХоз</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-    <div class="mb-4">
-        <a href="#" class="btn btn-blue d-block d-md-inline-block">Подтвердить</a>
-    </div>
-</section>
+        <div class="table__title mb-5">
+            <h5>Справка о дебетовых оборотах по счету 20212000800136154002 за период c 03.01.2017 по 28.02.2017</h5>
+            <p>Общая сумма: <strong>20 349 000</strong></p>
+        </div>
+        <div class="table-responsive box-shadow mb-5">
+            <table class="table table__block va-top t-scroll">
+                <thead>
+                    <tr>
+                        <th>№ док.</th>
+                        <th>Информация плательщика</th>
+                        <th>Дата п-жа</th>
+                        <th>Название </th>
+                        <th>Сумма п-жа</th>
+                        <th>Инофрмация получателя</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>OK9</td>
+                        <td>TOSHKENT SHAHAR KASABA UYUSH<br />MALARI  TASHKILOTLARI BIRLASHMASI<br />NING KENGA соцстрах)<br /> ИНН: 201273304 <br /> МФО: 00425<br /> Рас. счет: 20212000800136154002</td>
+                        <td>03.01.2017</td>
+                        <td>00667Комиссия за <br /> операционное <br /> обслуживание счета <br />20212000500136154006 с  01.01.17 по 03.01.17</td>
+                        <td>1 200 000</td>
+                        <td>ЗавХоз</td>
+                    </tr>
+                    <tr>
+                        <td>ОК31</td>
+                        <td>TOSHKENT SHAHAR KASABA UYUSH<br />MALARI  TASHKILOTLARI BIRLASHMASI<br />NING KENGA соцстрах)<br /> МФО: 06726<br /> Рас. счет: 24686000800148158606</td>
+                        <td>12.06.2017</td>
+                        <td>00667Комиссия за <br /> операционное <br /> обслуживание счета <br />20212000500136154006 с  01.01.17 по 03.01.17</td>
+                        <td>1 000 000</td>
+                        <td>Директор</td>
+                    </tr>
+                    <tr>
+                        <td>ОК18</td>
+                        <td>TOSHKENT SHAHAR KASABA UYUSH<br />MALARI  TASHKILOTLARI BIRLASHMASI<br />NING KENGA соцстрах)<br /> МФО: 01142<br /> Рас. счет: 24686000843767346734</td>
+                        <td>06.03.2017</td>
+                        <td>00668 Оплата <br /> процентов за ОПК.</td>
+                        <td>3 953 987</td>
+                        <td>Директор</td>
+                    </tr>
+                    <tr>
+                        <td>ОК9</td>
+                        <td>TOSHKENT SHAHAR KASABA UYUSH<br />MALARI  TASHKILOTLARI BIRLASHMASI<br />NING KENGA соцстрах)<br /> ИНН: 201273304 <br /> МФО: 00425 <br /> Рас. счет: 20212000800136154002</td>
+                        <td>03.01.2017</td>
+                        <td>00667Комиссия за <br /> операционное <br /> обслуживание счета <br />20212000500136154006 с  01.01.17 по 03.01.17</td>
+                        <td>1 200 000</td>
+                        <td>ЗавХоз</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="table__title mb-5">
+            <h5>Справка о дебетовых оборотах по счету 20212000800136154002 за период c 03.01.2017 по 28.02.2017</h5>
+            <p>Общая сумма: <strong>20 349 000</strong></p>
+        </div>
+        <div class="table-responsive box-shadow mb-5">
+            <table class="table table__block va-top">
+                <thead>
+                    <tr>
+                        <th>№ док.</th>
+                        <th>Информация плательщика</th>
+                        <th>Дата п-жа</th>
+                        <th>Название </th>
+                        <th>Сумма п-жа</th>
+                        <th>Инофрмация получателя</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>OK9</td>
+                        <td>TOSHKENT SHAHAR KASABA UYUSH<br />MALARI  TASHKILOTLARI BIRLASHMASI<br />NING KENGA соцстрах)<br /> ИНН: 201273304 <br /> МФО: 00425<br /> Рас. счет: 20212000800136154002</td>
+                        <td>03.01.2017</td>
+                        <td>00667Комиссия за <br /> операционное <br /> обслуживание счета <br />20212000500136154006 с  01.01.17 по 03.01.17</td>
+                        <td>1 200 000</td>
+                        <td>ЗавХоз</td>
+                    </tr>
+                    <tr>
+                        <td>ОК31</td>
+                        <td>TOSHKENT SHAHAR KASABA UYUSH<br />MALARI  TASHKILOTLARI BIRLASHMASI<br />NING KENGA соцстрах)<br /> МФО: 06726<br /> Рас. счет: 24686000800148158606</td>
+                        <td>12.06.2017</td>
+                        <td>00667Комиссия за <br /> операционное <br /> обслуживание счета <br />20212000500136154006 с  01.01.17 по 03.01.17</td>
+                        <td>1 000 000</td>
+                        <td>Директор</td>
+                    </tr>
+                    <tr>
+                        <td>ОК18</td>
+                        <td>TOSHKENT SHAHAR KASABA UYUSH<br />MALARI  TASHKILOTLARI BIRLASHMASI<br />NING KENGA соцстрах)<br /> МФО: 01142<br /> Рас. счет: 24686000843767346734</td>
+                        <td>06.03.2017</td>
+                        <td>00668 Оплата <br /> процентов за ОПК.</td>
+                        <td>3 953 987</td>
+                        <td>Директор</td>
+                    </tr>
+                    <tr>
+                        <td>ОК9</td>
+                        <td>TOSHKENT SHAHAR KASABA UYUSH<br />MALARI  TASHKILOTLARI BIRLASHMASI<br />NING KENGA соцстрах)<br /> ИНН: 201273304 <br /> МФО: 00425 <br /> Рас. счет: 20212000800136154002</td>
+                        <td>03.01.2017</td>
+                        <td>00667Комиссия за <br /> операционное <br /> обслуживание счета <br />20212000500136154006 с  01.01.17 по 03.01.17</td>
+                        <td>1 200 000</td>
+                        <td>ЗавХоз</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="mb-4">
+            <a href="#" class="btn btn-blue d-block d-md-inline-block">Подтвердить</a>
+        </div>
+    </section>
+}

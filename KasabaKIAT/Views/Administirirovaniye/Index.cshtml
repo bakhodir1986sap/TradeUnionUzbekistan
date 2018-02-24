@@ -1,4 +1,8 @@
-﻿
+﻿@using KasabaKIAT.BusinessLogic.Security.Roles.RolePermissions;
+@{
+    var UserId = Convert.ToInt32(User.Identity.Name);
+    FunctionalityList List = FunctionalityAndDbDataMatch.MatchProcess(UserId);
+}
 @{
     ViewBag.Title = "Администрирование";
 }
@@ -22,12 +26,27 @@
     <div class="row mb-4">
         <div class="col-md-6">
             <div class="list-group r-list-group mb-4 box-shadow">
-                <a href="/Administirirovaniye/UchetniyZapis" class="list-group-item list-group-item-action load">Создание учетных записей</a>
-                <a href="/Administirirovaniye/SozdaniyeRoley" class="list-group-item list-group-item-action load">Создание ролей</a>
-                <a href="/Administirirovaniye/SozdaniyeProvodok" class="list-group-item list-group-item-action load">Создание проводок</a>
-                <a href="/Administirirovaniye/PrivyazkaProvodok" class="list-group-item list-group-item-action load">Привязка проводок к ЖО</a>
-                <a href="/Administirirovaniye/Spravichniki" class="list-group-item list-group-item-action load">Справочники</a>
-                <a href="/Administirirovaniye/SpravichnikiKurortnovoUpravleniya" class="list-group-item list-group-item-action load">Справочник с курортного управления</a>
+                @if (List.SozdaniyaUchetnixZapisey)
+                {
+                    <a href="/Administirirovaniye/UchetniyZapis" class="list-group-item list-group-item-action load">Создание учетных записей</a>
+                }
+                @if (List.SozdaniyaRoley)
+                {
+                    <a href="/Administirirovaniye/SozdaniyeRoley" class="list-group-item list-group-item-action load">Создание ролей</a>
+                }
+                @if (List.SozdaniyaProvodok)
+                {
+                    <a href="/Administirirovaniye/SozdaniyeProvodok" class="list-group-item list-group-item-action load">Создание проводок</a>
+                }
+                @if (List.PrivyazkaProvodokkJO)
+                {
+                    <a href="/Administirirovaniye/PrivyazkaProvodok" class="list-group-item list-group-item-action load">Привязка проводок к ЖО</a>
+                }
+                @if (List.UpravleniyaSpravochnikami)
+                {
+                    <a href="/Administirirovaniye/Spravichniki" class="list-group-item list-group-item-action load">Справочники</a>
+                    <a href="/Administirirovaniye/SpravichnikiKurortnovoUpravleniya" class="list-group-item list-group-item-action load">Справочник с курортного управления</a>
+                }
             </div>
             <div class="mb-4">
                 <a href="/Buxgalter/PlanByudjetaOblasteyNoviy" class="btn btn-blue d-block d-md-inline-block mb-2">Приступить к оформлению</a>

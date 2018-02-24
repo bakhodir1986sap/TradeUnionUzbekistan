@@ -1,375 +1,380 @@
-﻿
+﻿@using KasabaKIAT.BusinessLogic.Security.Roles.RolePermissions;
 @{
     ViewBag.Title = "Путевки";
+    var UserId = Convert.ToInt32(User.Identity.Name);
+    FunctionalityList List = FunctionalityAndDbDataMatch.MatchProcess(UserId);
 }
 <script src="~/Scripts/MyJavaScript/ProsmotrRealzPutevok.js"></script>
-<div ng-controller="ProsmotrRealzPutevok">
-    <section class="content__block container">
-        <div class="row mb-4 align-items-center">
-            <div class="col title__block">
-                <h4>Просмотр реализованных путевок</h4>
-                <nav aria-label="breadcrumb" class="breadcrumb__block">
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item load"><a href="/Home/Putyovki">Путевки</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Просмотр реализованных путевок</li>
-                    </ol>
-                </nav>
+@if (List.ProsmotrRealPutyovok)
+{
+    <div ng-controller="ProsmotrRealzPutevok">
+        <section class="content__block container">
+            <div class="row mb-4 align-items-center">
+                <div class="col title__block">
+                    <h4>Просмотр реализованных путевок</h4>
+                    <nav aria-label="breadcrumb" class="breadcrumb__block">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item load"><a href="/Home/Putyovki">Путевки</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Просмотр реализованных путевок</li>
+                        </ol>
+                    </nav>
+                </div>
             </div>
-        </div>
-        <div class="table-responsive box-shadow mb-4" ng-show="showdata">
-            <table class="table table__block t-hover">
-                <thead>
-                    <tr>
-                        <th class="dropdown dropdown__table">
-                            <span class="dropdown-toggle dr-link" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Номер путевок</span>
-                            <div class="dropdown-menu dr-menu rounded-0 border-0" aria-labelledby="dropdownMenuButton">
-                                <a class="dropdown-item dr-item" href="#">Номер путевок</a>
-                                <a class="dropdown-item dr-item" href="#">Номер путевок</a>
-                                <a class="dropdown-item dr-item" href="#">Номер путевок</a>
-                                <a class="dropdown-item dr-item" href="#">Номер путевок</a>
-                            </div>
-                        </th>
-                        <th class="dropdown dropdown__table">
-                            <span class="dropdown-toggle dr-link" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Санаторий</span>
-                            <div class="dropdown-menu dr-menu rounded-0 border-0" aria-labelledby="dropdownMenuButton">
-                                <a class="dropdown-item dr-item" href="#">Санаторий</a>
-                                <a class="dropdown-item dr-item" href="#">Санаторий</a>
-                                <a class="dropdown-item dr-item" href="#">Санаторий</a>
-                                <a class="dropdown-item dr-item" href="#">Санаторий</a>
-                            </div>
-                        </th>
-                        <th class="dropdown dropdown__table">
-                            <span class="dropdown-toggle dr-link" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Период</span>
-                            <div class="dropdown-menu dr-menu rounded-0 border-0" aria-labelledby="dropdownMenuButton">
-                                <a class="dropdown-item dr-item" href="#">Период</a>
-                                <a class="dropdown-item dr-item" href="#">Период</a>
-                                <a class="dropdown-item dr-item" href="#">Период</a>
-                                <a class="dropdown-item dr-item" href="#">Период</a>
-                            </div>
-                        </th>
-                        <th class="dropdown dropdown__table">
-                            <span class="dropdown-toggle dr-link" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Цена</span>
-                            <div class="dropdown-menu dr-menu rounded-0 border-0" aria-labelledby="dropdownMenuButton">
-                                <a class="dropdown-item dr-item" href="#">Цена</a>
-                                <a class="dropdown-item dr-item" href="#">Цена</a>
-                                <a class="dropdown-item dr-item" href="#">Цена</a>
-                                <a class="dropdown-item dr-item" href="#">Цена</a>
-                            </div>
-                        </th>
-                        <th class="dropdown dropdown__table">
-                            <span class="dropdown-toggle dr-link" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Кол-во</span>
-                            <div class="dropdown-menu dr-menu rounded-0 border-0" aria-labelledby="dropdownMenuButton">
-                                <a class="dropdown-item dr-item" href="#">Кол-во</a>
-                                <a class="dropdown-item dr-item" href="#">Кол-во</a>
-                                <a class="dropdown-item dr-item" href="#">Кол-во</a>
-                                <a class="dropdown-item dr-item" href="#">Кол-во</a>
-                            </div>
-                        </th>
-                        <th class="dropdown dropdown__table">
-                            <span class="dropdown-toggle dr-link" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Общая стоимость</span>
-                            <div class="dropdown-menu dr-menu rounded-0 border-0" aria-labelledby="dropdownMenuButton">
-                                <a class="dropdown-item dr-item" href="#">Общая стоимость</a>
-                                <a class="dropdown-item dr-item" href="#">Общая стоимость</a>
-                                <a class="dropdown-item dr-item" href="#">Общая стоимость</a>
-                                <a class="dropdown-item dr-item" href="#">Общая стоимость</a>
-                            </div>
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr ng-repeat="item in DATA" ng-click="Load(item.d0)" data-toggle="modal" data-target="#vozvrat">
-                        <td>{{item.d1}}</td>
-                        <td>{{item.d2}}</td>
-                        <td>{{item.d3 | jsonDate: 'dd.MM.yyyy'}} - {{itam.d4 | jsonDate: 'dd.MM.yyyy'}}</td>
-                        <td>{{item.d5}}</td>
-                        <td>{{item.d6}}</td>
-                        <td>{{item.d5}}</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </section>
+            <div class="table-responsive box-shadow mb-4" ng-show="showdata">
+                <table class="table table__block t-hover">
+                    <thead>
+                        <tr>
+                            <th class="dropdown dropdown__table">
+                                <span class="dropdown-toggle dr-link" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Номер путевок</span>
+                                <div class="dropdown-menu dr-menu rounded-0 border-0" aria-labelledby="dropdownMenuButton">
+                                    <a class="dropdown-item dr-item" href="#">Номер путевок</a>
+                                    <a class="dropdown-item dr-item" href="#">Номер путевок</a>
+                                    <a class="dropdown-item dr-item" href="#">Номер путевок</a>
+                                    <a class="dropdown-item dr-item" href="#">Номер путевок</a>
+                                </div>
+                            </th>
+                            <th class="dropdown dropdown__table">
+                                <span class="dropdown-toggle dr-link" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Санаторий</span>
+                                <div class="dropdown-menu dr-menu rounded-0 border-0" aria-labelledby="dropdownMenuButton">
+                                    <a class="dropdown-item dr-item" href="#">Санаторий</a>
+                                    <a class="dropdown-item dr-item" href="#">Санаторий</a>
+                                    <a class="dropdown-item dr-item" href="#">Санаторий</a>
+                                    <a class="dropdown-item dr-item" href="#">Санаторий</a>
+                                </div>
+                            </th>
+                            <th class="dropdown dropdown__table">
+                                <span class="dropdown-toggle dr-link" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Период</span>
+                                <div class="dropdown-menu dr-menu rounded-0 border-0" aria-labelledby="dropdownMenuButton">
+                                    <a class="dropdown-item dr-item" href="#">Период</a>
+                                    <a class="dropdown-item dr-item" href="#">Период</a>
+                                    <a class="dropdown-item dr-item" href="#">Период</a>
+                                    <a class="dropdown-item dr-item" href="#">Период</a>
+                                </div>
+                            </th>
+                            <th class="dropdown dropdown__table">
+                                <span class="dropdown-toggle dr-link" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Цена</span>
+                                <div class="dropdown-menu dr-menu rounded-0 border-0" aria-labelledby="dropdownMenuButton">
+                                    <a class="dropdown-item dr-item" href="#">Цена</a>
+                                    <a class="dropdown-item dr-item" href="#">Цена</a>
+                                    <a class="dropdown-item dr-item" href="#">Цена</a>
+                                    <a class="dropdown-item dr-item" href="#">Цена</a>
+                                </div>
+                            </th>
+                            <th class="dropdown dropdown__table">
+                                <span class="dropdown-toggle dr-link" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Кол-во</span>
+                                <div class="dropdown-menu dr-menu rounded-0 border-0" aria-labelledby="dropdownMenuButton">
+                                    <a class="dropdown-item dr-item" href="#">Кол-во</a>
+                                    <a class="dropdown-item dr-item" href="#">Кол-во</a>
+                                    <a class="dropdown-item dr-item" href="#">Кол-во</a>
+                                    <a class="dropdown-item dr-item" href="#">Кол-во</a>
+                                </div>
+                            </th>
+                            <th class="dropdown dropdown__table">
+                                <span class="dropdown-toggle dr-link" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Общая стоимость</span>
+                                <div class="dropdown-menu dr-menu rounded-0 border-0" aria-labelledby="dropdownMenuButton">
+                                    <a class="dropdown-item dr-item" href="#">Общая стоимость</a>
+                                    <a class="dropdown-item dr-item" href="#">Общая стоимость</a>
+                                    <a class="dropdown-item dr-item" href="#">Общая стоимость</a>
+                                    <a class="dropdown-item dr-item" href="#">Общая стоимость</a>
+                                </div>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="item in DATA" ng-click="Load(item.d0)" data-toggle="modal" data-target="#vozvrat">
+                            <td>{{item.d1}}</td>
+                            <td>{{item.d2}}</td>
+                            <td>{{item.d3 | jsonDate: 'dd.MM.yyyy'}} - {{itam.d4 | jsonDate: 'dd.MM.yyyy'}}</td>
+                            <td>{{item.d5}}</td>
+                            <td>{{item.d6}}</td>
+                            <td>{{item.d5}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
 
 
-    <div class="modal__block modal fade" id="vozvrat" tabindex="-1" role="dialog" aria-labelledby="vozvrat">
-        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-            <div class="modal-content">
-                <div class="modal-body">
-                    <div class="modal-title">
-                        <h4 class="text-center mt-4 mb-4">Детали</h4>
-                    </div>
-                    <div class="row justify-content-center">
-                        <section class="content__block container">
-                            <div class="det__block mb-4 box-shadow" ng-repeat="item in DATA2">
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <div class="row no-gutters mb-2">
-                                            <div class="col-6">
-                                                <p>№ путевки:</p>
+        <div class="modal__block modal fade" id="vozvrat" tabindex="-1" role="dialog" aria-labelledby="vozvrat">
+            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <div class="modal-title">
+                            <h4 class="text-center mt-4 mb-4">Детали</h4>
+                        </div>
+                        <div class="row justify-content-center">
+                            <section class="content__block container">
+                                <div class="det__block mb-4 box-shadow" ng-repeat="item in DATA2">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <div class="row no-gutters mb-2">
+                                                <div class="col-6">
+                                                    <p>№ путевки:</p>
+                                                </div>
+                                                <div class="col-6">
+                                                    <p><strong>{{item.d1}}</strong></p>
+                                                </div>
                                             </div>
-                                            <div class="col-6">
-                                                <p><strong>{{item.d1}}</strong></p>
+                                            <div class="row no-gutters mb-2">
+                                                <div class="col-6">
+                                                    <p>Санаторий:</p>
+                                                </div>
+                                                <div class="col-6">
+                                                    <p><strong>{{item.d2}}</strong></p>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="row no-gutters mb-2">
-                                            <div class="col-6">
-                                                <p>Санаторий:</p>
+                                            <div class="row no-gutters mb-2">
+                                                <div class="col-6">
+                                                    <p>Даты:</p>
+                                                </div>
+                                                <div class="col-6">
+                                                    <p><strong>{{item.d3 | jsonDate: 'dd.MM.yyyy'}} - {{item.d4 | jsonDate: 'dd.MM.yyyy'}}</strong></p>
+                                                </div>
                                             </div>
-                                            <div class="col-6">
-                                                <p><strong>{{item.d2}}</strong></p>
+                                            <div class="row no-gutters mb-2">
+                                                <div class="col-6">
+                                                    <p>Дата реализации:</p>
+                                                </div>
+                                                <div class="col-6">
+                                                    <p><strong>{{item.d5 | jsonDate: 'dd.MM.yyyy'}}</strong></p>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="row no-gutters mb-2">
-                                            <div class="col-6">
-                                                <p>Даты:</p>
-                                            </div>
-                                            <div class="col-6">
-                                                <p><strong>{{item.d3 | jsonDate: 'dd.MM.yyyy'}} - {{item.d4 | jsonDate: 'dd.MM.yyyy'}}</strong></p>
-                                            </div>
-                                        </div>
-                                        <div class="row no-gutters mb-2">
-                                            <div class="col-6">
-                                                <p>Дата реализации:</p>
-                                            </div>
-                                            <div class="col-6">
-                                                <p><strong>{{item.d5 | jsonDate: 'dd.MM.yyyy'}}</strong></p>
-                                            </div>
-                                        </div>
-                                        <div class="row no-gutters mb-2">
-                                            <div class="col-6">
-                                                <p>Путевка получена от:</p>
-                                            </div>
-                                            <div class="col-6">
-                                                <p><strong>{{item.d6}}</strong></p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="row no-gutters mb-2">
-                                            <div class="col-6">
-                                                <p>Цена:</p>
-                                            </div>
-                                            <div class="col-6">
-                                                <p><strong>{{item.d7}} сум</strong></p>
+                                            <div class="row no-gutters mb-2">
+                                                <div class="col-6">
+                                                    <p>Путевка получена от:</p>
+                                                </div>
+                                                <div class="col-6">
+                                                    <p><strong>{{item.d6}}</strong></p>
+                                                </div>
                                             </div>
                                         </div>
-                                        <div class="row no-gutters mb-2">
-                                            <div class="col-6">
-                                                <p>Оплачено:</p>
+                                        <div class="col-md-4">
+                                            <div class="row no-gutters mb-2">
+                                                <div class="col-6">
+                                                    <p>Цена:</p>
+                                                </div>
+                                                <div class="col-6">
+                                                    <p><strong>{{item.d7}} сум</strong></p>
+                                                </div>
                                             </div>
-                                            <div class="col-6">
-                                                <p><strong>{{item.d8}}%</strong></p>
+                                            <div class="row no-gutters mb-2">
+                                                <div class="col-6">
+                                                    <p>Оплачено:</p>
+                                                </div>
+                                                <div class="col-6">
+                                                    <p><strong>{{item.d8}}%</strong></p>
+                                                </div>
+                                            </div>
+                                            <div class="row no-gutters mb-2">
+                                                <div class="col-6">
+                                                    <p>№ накладной:</p>
+                                                </div>
+                                                <div class="col-6">
+                                                    <p><strong>{{item.d9}}</strong></p>
+                                                </div>
+                                            </div>
+                                            <div class="row no-gutters mb-2">
+                                                <div class="col-6">
+                                                    <p>Сумма оплаты:</p>
+                                                </div>
+                                                <div class="col-6">
+                                                    <p><strong>{{item.d10}} сум</strong></p>
+                                                </div>
                                             </div>
                                         </div>
-                                        <div class="row no-gutters mb-2">
-                                            <div class="col-6">
-                                                <p>№ накладной:</p>
+                                        <div class="col-md-4">
+                                            <div class="row no-gutters align-items-center mb-2">
+                                                <div class="col-7">
+                                                    <p>Платежное поручение:</p>
+                                                </div>
+                                                <div class="col-5">
+                                                    <input type="text" class="form-control" placeholder="Платежное поручение" />
+                                                </div>
                                             </div>
-                                            <div class="col-6">
-                                                <p><strong>{{item.d9}}</strong></p>
-                                            </div>
-                                        </div>
-                                        <div class="row no-gutters mb-2">
-                                            <div class="col-6">
-                                                <p>Сумма оплаты:</p>
-                                            </div>
-                                            <div class="col-6">
-                                                <p><strong>{{item.d10}} сум</strong></p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="row no-gutters align-items-center mb-2">
-                                            <div class="col-7">
-                                                <p>Платежное поручение:</p>
-                                            </div>
-                                            <div class="col-5">
-                                                <input type="text" class="form-control" placeholder="Платежное поручение" />
-                                            </div>
-                                        </div>
-                                        <div class="row mb-2">
-                                            <div class="col-6">
-                                                <input type="text" class="form-control" placeholder="Д-т" />
-                                            </div>
-                                            <div class="col-6">
-                                                <div class="form-group">
-                                                    <input type="text" class="form-control" placeholder="К-т" />
+                                            <div class="row mb-2">
+                                                <div class="col-6">
+                                                    <input type="text" class="form-control" placeholder="Д-т" />
+                                                </div>
+                                                <div class="col-6">
+                                                    <div class="form-group">
+                                                        <input type="text" class="form-control" placeholder="К-т" />
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="det__block mb-4 box-shadow" ng-repeat="item in DATA3">
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <div class="det-title">
-                                            <h5>Организация</h5>
-                                        </div>
-                                        <div class="row no-gutters mb-2">
-                                            <div class="col-6">
-                                                <p>Код:</p>
+                                <div class="det__block mb-4 box-shadow" ng-repeat="item in DATA3">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <div class="det-title">
+                                                <h5>Организация</h5>
                                             </div>
-                                            <div class="col-6 text-right">
-                                                <p><strong>{{item.d1}}</strong></p>
+                                            <div class="row no-gutters mb-2">
+                                                <div class="col-6">
+                                                    <p>Код:</p>
+                                                </div>
+                                                <div class="col-6 text-right">
+                                                    <p><strong>{{item.d1}}</strong></p>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="row no-gutters mb-2">
-                                            <div class="col-6">
-                                                <p>ИНН:</p>
+                                            <div class="row no-gutters mb-2">
+                                                <div class="col-6">
+                                                    <p>ИНН:</p>
+                                                </div>
+                                                <div class="col-6 text-right">
+                                                    <p><strong>{{item.d2}}</strong></p>
+                                                </div>
                                             </div>
-                                            <div class="col-6 text-right">
-                                                <p><strong>{{item.d2}}</strong></p>
+                                            <div class="row no-gutters mb-2">
+                                                <div class="col-6">
+                                                    <p>Отрасль:</p>
+                                                </div>
+                                                <div class="col-6 text-right">
+                                                    <p><strong>{{item.d3}}</strong></p>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="row no-gutters mb-2">
-                                            <div class="col-6">
-                                                <p>Отрасль:</p>
-                                            </div>
-                                            <div class="col-6 text-right">
-                                                <p><strong>{{item.d3}}</strong></p>
-                                            </div>
-                                        </div>
-                                        <div class="row no-gutters align-items-center mb-2">
-                                            <div class="col-5">
-                                                <p>Название:</p>
-                                            </div>
-                                            <div class="col-7">
-                                                <p><strong>{{item.d4}}</strong></p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="det-title">
-                                            <h5>Сотрудник <a href="">Заявки</a></h5>
-                                        </div>
-                                        <div class="row no-gutters mb-2">
-                                            <div class="col-6">
-                                                <p>ФИО:</p>
-                                            </div>
-                                            <div class="col-6 text-right">
-                                                <p><strong>{{item.d5}}</strong></p>
+                                            <div class="row no-gutters align-items-center mb-2">
+                                                <div class="col-5">
+                                                    <p>Название:</p>
+                                                </div>
+                                                <div class="col-7">
+                                                    <p><strong>{{item.d4}}</strong></p>
+                                                </div>
                                             </div>
                                         </div>
-                                        <div class="row no-gutters mb-2">
-                                            <div class="col-6">
-                                                <p>Должность:</p>
+                                        <div class="col-md-4">
+                                            <div class="det-title">
+                                                <h5>Сотрудник <a href="">Заявки</a></h5>
                                             </div>
-                                            <div class="col-6 text-right">
-                                                <p><strong>{{item.d6}}</strong></p>
+                                            <div class="row no-gutters mb-2">
+                                                <div class="col-6">
+                                                    <p>ФИО:</p>
+                                                </div>
+                                                <div class="col-6 text-right">
+                                                    <p><strong>{{item.d5}}</strong></p>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="row no-gutters mb-2">
-                                            <div class="col-6">
-                                                <p>ИНН:</p>
+                                            <div class="row no-gutters mb-2">
+                                                <div class="col-6">
+                                                    <p>Должность:</p>
+                                                </div>
+                                                <div class="col-6 text-right">
+                                                    <p><strong>{{item.d6}}</strong></p>
+                                                </div>
                                             </div>
-                                            <div class="col-6 text-right">
-                                                <p><strong>{{item.d7}}</strong></p>
+                                            <div class="row no-gutters mb-2">
+                                                <div class="col-6">
+                                                    <p>ИНН:</p>
+                                                </div>
+                                                <div class="col-6 text-right">
+                                                    <p><strong>{{item.d7}}</strong></p>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="row no-gutters mb-2">
-                                            <div class="col-6">
-                                                <p>Примечание:</p>
+                                            <div class="row no-gutters mb-2">
+                                                <div class="col-6">
+                                                    <p>Примечание:</p>
+                                                </div>
+                                                <div class="col-6 text-right">
+                                                    <p><strong>{{item.d8}}</strong></p>
+                                                </div>
                                             </div>
-                                            <div class="col-6 text-right">
-                                                <p><strong>{{item.d8}}</strong></p>
-                                            </div>
-                                        </div>
-                                        @*<div class="row no-gutters align-items-center mb-2">
-                                            <div class="col-5">
-                                                <p>Тип:</p>
-                                            </div>
-                                            <div class="col-7">
-                                                <select class="custom-select form-control">
-                                                    <option>Студент</option>
-                                                    <option>Option 1</option>
-                                                    <option>Option 2</option>
-                                                    <option>Option 3</option>
-                                                </select>
-                                            </div>
-                                        </div>*@
-                                        <div class="row no-gutters align-items-center mb-2">
-                                            <div class="col-5">
-                                                <p>Талон:</p>
-                                            </div>
-                                            <div class="col-7">
-                                                <input type="text" class="form-control" ng-model="item.d9" />
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="det-title">
-                                            <h5>Доверенность</h5>
-                                        </div>
-                                        <div class="row no-gutters mb-2">
-                                            <div class="col-6">
-                                                <p>Получатель:</p>
-                                            </div>
-                                            <div class="col-6 text-right">
-                                                <p><strong>{{item.d10}}</strong></p>
-                                            </div>
-                                        </div>
-                                        <div class="row no-gutters mb-2">
-                                            <div class="col-6">
-                                                <p>Дата:</p>
-                                            </div>
-                                            <div class="col-6 text-right">
-                                                <p><strong>{{item.d11 | jsonDate: 'dd.MM.yyyy'}}</strong></p>
+                                            @*<div class="row no-gutters align-items-center mb-2">
+                                                    <div class="col-5">
+                                                        <p>Тип:</p>
+                                                    </div>
+                                                    <div class="col-7">
+                                                        <select class="custom-select form-control">
+                                                            <option>Студент</option>
+                                                            <option>Option 1</option>
+                                                            <option>Option 2</option>
+                                                            <option>Option 3</option>
+                                                        </select>
+                                                    </div>
+                                                </div>*@
+                                            <div class="row no-gutters align-items-center mb-2">
+                                                <div class="col-5">
+                                                    <p>Талон:</p>
+                                                </div>
+                                                <div class="col-7">
+                                                    <input type="text" class="form-control" ng-model="item.d9" />
+                                                </div>
                                             </div>
                                         </div>
-                                        <div class="row no-gutters mb-2">
-                                            <div class="col-6">
-                                                <p>Срок истечения:</p>
+                                        <div class="col-md-4">
+                                            <div class="det-title">
+                                                <h5>Доверенность</h5>
                                             </div>
-                                            <div class="col-6 text-right">
-                                                <p><strong>{{item.d12 | jsonDate: 'dd.MM.yyyy'}}</strong></p>
-                                                <p><a href="#">Посмотреть файл</a></p>
+                                            <div class="row no-gutters mb-2">
+                                                <div class="col-6">
+                                                    <p>Получатель:</p>
+                                                </div>
+                                                <div class="col-6 text-right">
+                                                    <p><strong>{{item.d10}}</strong></p>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="row no-gutters align-items-center mb-2">
-                                            <div class="col-7">
-                                                <p>Номер доверенности:</p>
+                                            <div class="row no-gutters mb-2">
+                                                <div class="col-6">
+                                                    <p>Дата:</p>
+                                                </div>
+                                                <div class="col-6 text-right">
+                                                    <p><strong>{{item.d11 | jsonDate: 'dd.MM.yyyy'}}</strong></p>
+                                                </div>
                                             </div>
-                                            <div class="col-5">
-                                                <input type="text" class="form-control" ng-model="item.d13" />
+                                            <div class="row no-gutters mb-2">
+                                                <div class="col-6">
+                                                    <p>Срок истечения:</p>
+                                                </div>
+                                                <div class="col-6 text-right">
+                                                    <p><strong>{{item.d12 | jsonDate: 'dd.MM.yyyy'}}</strong></p>
+                                                    <p><a href="#">Посмотреть файл</a></p>
+                                                </div>
+                                            </div>
+                                            <div class="row no-gutters align-items-center mb-2">
+                                                <div class="col-7">
+                                                    <p>Номер доверенности:</p>
+                                                </div>
+                                                <div class="col-5">
+                                                    <input type="text" class="form-control" ng-model="item.d13" />
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="mb-4">
-                                <a href="" data-toggle="modal" data-target="#vozvrat2" class="btn btn-red d-block d-md-inline-block mb-2">Возврат путевки</a>
-                                <a href="" class="btn btn-blue d-block d-md-inline-block mb-2" data-dismiss="modal">Сохранить</a>
-                                <a href="" class="btn btn-grey d-block d-md-inline-block mb-2" data-dismiss="modal">Назад</a>
-                            </div>
-                        </section>
-                        <div class="modal__block modal fade" id="vozvrat2" tabindex="-1" role="dialog" aria-labelledby="vozvrat2">
-                            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-body">
-                                        <div class="modal-title">
-                                            <h4 class="text-center mt-4 mb-4">Возврат путевки</h4>
-                                        </div>
-                                        <div class="row justify-content-center">
-                                            <div class="col-md-8">
-                                                <div class="form-group row align-items-center">
-                                                    <label class="col-md-5 col-form-label py-0">Письмо:</label>
-                                                    <div class="col-md-7">
-                                                        <div class="custom-file">
-                                                            <input type="file" class="custom-file-input" id="customFile">
-                                                            <label class="custom-file-label" for="customFile">Выбрать файл</label>
+                                <div class="mb-4">
+                                    <a href="" data-toggle="modal" data-target="#vozvrat2" class="btn btn-red d-block d-md-inline-block mb-2">Возврат путевки</a>
+                                    <a href="" class="btn btn-blue d-block d-md-inline-block mb-2" data-dismiss="modal">Сохранить</a>
+                                    <a href="" class="btn btn-grey d-block d-md-inline-block mb-2" data-dismiss="modal">Назад</a>
+                                </div>
+                            </section>
+                            <div class="modal__block modal fade" id="vozvrat2" tabindex="-1" role="dialog" aria-labelledby="vozvrat2">
+                                <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-body">
+                                            <div class="modal-title">
+                                                <h4 class="text-center mt-4 mb-4">Возврат путевки</h4>
+                                            </div>
+                                            <div class="row justify-content-center">
+                                                <div class="col-md-8">
+                                                    <div class="form-group row align-items-center">
+                                                        <label class="col-md-5 col-form-label py-0">Письмо:</label>
+                                                        <div class="col-md-7">
+                                                            <div class="custom-file">
+                                                                <input type="file" class="custom-file-input" id="customFile">
+                                                                <label class="custom-file-label" for="customFile">Выбрать файл</label>
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                                <div class="form-group row align-items-center">
-                                                    <label class="col-md-5 col-form-label py-0">Причина:</label>
-                                                    <div class="col-md-7">
-                                                        <textarea rows="5" ng-model="V" class="form-control" placeholder="Дата выдачи справки"></textarea>
+                                                    <div class="form-group row align-items-center">
+                                                        <label class="col-md-5 col-form-label py-0">Причина:</label>
+                                                        <div class="col-md-7">
+                                                            <textarea rows="5" ng-model="V" class="form-control" placeholder="Дата выдачи справки"></textarea>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                                <div class="mb-4 text-right">
-                                                    <a href="#" ng-click="vozvrat()" class="btn btn-blue d-block d-md-inline-block mb-2" data-dismiss="modal">Ок</a>
-                                                    <a href="#" class="btn btn-grey d-block d-md-inline-block mb-2" data-dismiss="modal">Отмена</a>
+                                                    <div class="mb-4 text-right">
+                                                        <a href="#" ng-click="vozvrat()" class="btn btn-blue d-block d-md-inline-block mb-2" data-dismiss="modal">Ок</a>
+                                                        <a href="#" class="btn btn-grey d-block d-md-inline-block mb-2" data-dismiss="modal">Отмена</a>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -377,10 +382,11 @@
                                 </div>
                             </div>
                         </div>
-                    </div> 
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
+}
+
 

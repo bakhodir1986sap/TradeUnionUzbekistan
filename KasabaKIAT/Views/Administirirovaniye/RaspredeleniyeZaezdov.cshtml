@@ -1,220 +1,228 @@
-﻿
+﻿@using KasabaKIAT.BusinessLogic.Security.Roles.RolePermissions;
+@{
+    var UserId = Convert.ToInt32(User.Identity.Name);
+    FunctionalityList List = FunctionalityAndDbDataMatch.MatchProcess(UserId);
+}
 @{
     ViewBag.Title = "Администрирование";
 }
 <script src="~/Scripts/MyJavaScript/RaspredeleniyeZaezdov.js"></script>
-<section class="content__block container" ng-controller="RaspredeleniyeZaezdov">
-    <div id="connection" style="visibility:hidden;position:absolute;margin-left:430px;margin-top:100px;z-index:9999">
-        <img src="~/Content/Login/buffering.gif" />
-    </div>
-    <div class="row mb-4 align-items-center">
-        <div class="col title__block">
-            <h4>Распределение Заездов</h4>
-            <nav aria-label="breadcrumb" class="breadcrumb__block">
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item load"><a href="/Home/Admin">Администрирование</a></li>
-                    <li class="breadcrumb-item load"><a href="/Administirirovaniye/index">Администрирование</a></li>
-                    <li class="breadcrumb-item load"><a href="/Administirirovaniye/SpravichnikiKurortnovoUpravleniya">Справочник с курортного управления</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Распределение Заездов</li>
-                </ol>
-            </nav>
+@if (List.UpravleniyaSpravochnikami)
+{
+    <section class="content__block container" ng-controller="RaspredeleniyeZaezdov">
+        <div id="connection" style="visibility:hidden;position:absolute;margin-left:430px;margin-top:100px;z-index:9999">
+            <img src="~/Content/Login/buffering.gif" />
         </div>
-    </div>
-    <form class="row mb-4 align-items-center" name="myForm1" novalidate>
-        <div class="custom-control-inline" style="margin-left:20px">
-            <div>
-                <p>Период:</p>
-                <select ng-change="Load()" ng-model="ZB" name="ZB" class="custom-select form-control" required>
-                    @for (int i = DateTime.Now.Year; i > 1991; i--)
-                    {
-                        <option>@(i)</option>
-                    }
-                </select>
-                <span class="alert alert-warning" style="padding:0px" ng-show="myForm1.ZB.$error.required">Выберите поле</span>
+        <div class="row mb-4 align-items-center">
+            <div class="col title__block">
+                <h4>Распределение Заездов</h4>
+                <nav aria-label="breadcrumb" class="breadcrumb__block">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item load"><a href="/Home/Admin">Администрирование</a></li>
+                        <li class="breadcrumb-item load"><a href="/Administirirovaniye/index">Администрирование</a></li>
+                        <li class="breadcrumb-item load"><a href="/Administirirovaniye/SpravichnikiKurortnovoUpravleniya">Справочник с курортного управления</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Распределение Заездов</li>
+                    </ol>
+                </nav>
             </div>
         </div>
-        <div style="margin-left:100px">
-            <p>Список:</p>
-            <select style="width:200px" ng-change="LoadDATA()" ng-model="SP" name="SP" required ng-options="d as d.d2 for d in R track by d.d1" class="custom-select form-control"></select>
-            <span class="alert alert-warning" style="padding:0px" ng-show="myForm1.SP.$error.required">Выберите поле</span>
-        </div>
-        @*<div style="margin-left:100px">
-            <button ng-click="LoadDATA()" ng-disabled="myForm1.SP.$error.required||myForm1.ZB.$error.required" class="btn btn-blue d-block d-md-inline-block mb-2" style="margin-top:45px"> Получить</button>
-        </div>*@
-    </form>
-    <div class="row mb-5 pb-md-5" ng-show="showdata">
-        <div class="col-md-12">
-            <div class="table__title mb-3">
-                <div class="row mb-4 align-items-center">
-                    <div style="margin-left:50px">
-                        <h6>@*Документ Счет фактуры*@</h6>
-                    </div>
-                    <div style="margin-left:690px;">
-                        <button class="btn btn-green d-block d-md-inline-block mb-2" ng-click="exportData1()">
-                            <i class="fas fa-file-excel"></i>  ЭКСПОРТ
-                        </button>
-                    </div>
+        <form class="row mb-4 align-items-center" name="myForm1" novalidate>
+            <div class="custom-control-inline" style="margin-left:20px">
+                <div>
+                    <p>Период:</p>
+                    <select ng-change="Load()" ng-model="ZB" name="ZB" class="custom-select form-control" required>
+                        @for (int i = DateTime.Now.Year; i > 1991; i--)
+                        {
+                            <option>@(i)</option>
+                        }
+                    </select>
+                    <span class="alert alert-warning" style="padding:0px" ng-show="myForm1.ZB.$error.required">Выберите поле</span>
                 </div>
             </div>
-            <div class="table-responsive box-shadow mb-4" id="export1">
-                <table class="table table__block t-hover">
-                    <thead>
-                        <tr>
-                            <th class="dropdown dropdown__table">Номер документа</th>
-                            <th class="dropdown dropdown__table">Дата документа</th>
-                            <th class="dropdown dropdown__table">Флаг</th>
-                            <th class="dropdown dropdown__table">Договор</th>
-                            <th class="dropdown dropdown__table">Дата путевок</th>
-                            <th class="dropdown dropdown__table">Доверенность</th>
-                            <th class="dropdown dropdown__table">Дата Доверенности</th>
-                            <th class="dropdown dropdown__table">Кому выдан дов</th>
-                            <th class="dropdown dropdown__table">Сумма Документа</th>
-                            <th class="dropdown dropdown__table">Процент Наценки</th>
-                            <th class="dropdown dropdown__table">Сумма Наценки</th>
-                            <th class="dropdown dropdown__table">Количество Путевок</th>
-                            <th class="dropdown dropdown__table">Товар отпустил</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr ng-repeat="item in DATA">
-                            <td>{{item.d1}}</td>
-                            <td>{{item.d2}}</td>
-                            <td>{{item.d3}}</td>
-                            <td>{{item.d4}}</td>
-                            <td>{{item.d5}}</td>
-                            <td>{{item.d6}}</td>
-                            <td>{{item.d7}}</td>
-                            <td>{{item.d8}}</td>
-                            <td>{{item.d9}}</td>
-                            <td>{{item.d10}}</td>
-                            <td>{{item.d11}}</td>
-                            <td>{{item.d12}}</td>
-                            <td>{{item.d13}}</td>
-                        </tr>
-                    </tbody>
-                </table>
+            <div style="margin-left:100px">
+                <p>Список:</p>
+                <select style="width:200px" ng-change="LoadDATA()" ng-model="SP" name="SP" required ng-options="d as d.d2 for d in R track by d.d1" class="custom-select form-control"></select>
+                <span class="alert alert-warning" style="padding:0px" ng-show="myForm1.SP.$error.required">Выберите поле</span>
             </div>
-        </div>
-        <div class="col-md-12" ng-show="showdata">
-            <div class="table__title mb-3">
-                <div class="row mb-4 align-items-center">
-                    <div style="margin-left:50px">
-                        <h6>@*Детали счет фактуры*@</h6>
-                    </div>
-                    <div style="margin-left:710px;">
-                        <button ng-click="AddDiv()" class="btn btn-blue d-block d-md-inline-block mb-3 mb-md-0" data-toggle="modal" data-target="#dobavit"><i class="fas fa-plus"></i> Добавить</button>
-                        <button class="btn btn-green d-block d-md-inline-block mb-3 mb-md-0" ng-click="exportData2()">
-                            <i class="fas fa-file-excel"></i>  ЭКСПОРТ
-                        </button>
+            @*<div style="margin-left:100px">
+                    <button ng-click="LoadDATA()" ng-disabled="myForm1.SP.$error.required||myForm1.ZB.$error.required" class="btn btn-blue d-block d-md-inline-block mb-2" style="margin-top:45px"> Получить</button>
+                </div>*@
+        </form>
+        <div class="row mb-5 pb-md-5" ng-show="showdata">
+            <div class="col-md-12">
+                <div class="table__title mb-3">
+                    <div class="row mb-4 align-items-center">
+                        <div style="margin-left:50px">
+                            <h6>@*Документ Счет фактуры*@</h6>
+                        </div>
+                        <div style="margin-left:690px;">
+                            <button class="btn btn-green d-block d-md-inline-block mb-2" ng-click="exportData1()">
+                                <i class="fas fa-file-excel"></i>  ЭКСПОРТ
+                            </button>
+                        </div>
                     </div>
                 </div>
+                <div class="table-responsive box-shadow mb-4" id="export1">
+                    <table class="table table__block t-hover">
+                        <thead>
+                            <tr>
+                                <th class="dropdown dropdown__table">Номер документа</th>
+                                <th class="dropdown dropdown__table">Дата документа</th>
+                                <th class="dropdown dropdown__table">Флаг</th>
+                                <th class="dropdown dropdown__table">Договор</th>
+                                <th class="dropdown dropdown__table">Дата путевок</th>
+                                <th class="dropdown dropdown__table">Доверенность</th>
+                                <th class="dropdown dropdown__table">Дата Доверенности</th>
+                                <th class="dropdown dropdown__table">Кому выдан дов</th>
+                                <th class="dropdown dropdown__table">Сумма Документа</th>
+                                <th class="dropdown dropdown__table">Процент Наценки</th>
+                                <th class="dropdown dropdown__table">Сумма Наценки</th>
+                                <th class="dropdown dropdown__table">Количество Путевок</th>
+                                <th class="dropdown dropdown__table">Товар отпустил</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="item in DATA">
+                                <td>{{item.d1}}</td>
+                                <td>{{item.d2}}</td>
+                                <td>{{item.d3}}</td>
+                                <td>{{item.d4}}</td>
+                                <td>{{item.d5}}</td>
+                                <td>{{item.d6}}</td>
+                                <td>{{item.d7}}</td>
+                                <td>{{item.d8}}</td>
+                                <td>{{item.d9}}</td>
+                                <td>{{item.d10}}</td>
+                                <td>{{item.d11}}</td>
+                                <td>{{item.d12}}</td>
+                                <td>{{item.d13}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
-            <div class="table-responsive box-shadow mb-4" id="export2">
-                <table class="table table__block t-hover">
-                    <thead>
-                        <tr>
-                            <th class="dropdown dropdown__table">Код</th>
-                            <th class="dropdown dropdown__table">Код</th>
-                            <th class="dropdown dropdown__table">1 кв</th>
-                            <th class="dropdown dropdown__table">2 кв</th>
-                            <th class="dropdown dropdown__table">3 кв</th>
-                            <th class="dropdown dropdown__table">4 кв</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr ng-repeat="item in DATA2" ng-click="edit(item)" data-toggle="modal" data-target="#dobavit">
-                            <td>{{item.d3}}</td>
-                            <td>{{item.d4}}</td>
-                            <td>{{item.d5}}</td>
-                            <td>{{item.d6}}</td>
-                            <td>{{item.d7}}</td>
-                            <td>{{item.d8}}</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-    <div class="modal__block modal fade" id="dobavit" tabindex="-1" role="dialog" aria-labelledby="dobavitLabel">
-        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-            <div class="modal-content">
-                <div class="modal-body">
-                    <div class="modal-title">
-                        <h4 class="text-center mt-4 mb-4">{{Action}}</h4>
+            <div class="col-md-12" ng-show="showdata">
+                <div class="table__title mb-3">
+                    <div class="row mb-4 align-items-center">
+                        <div style="margin-left:50px">
+                            <h6>@*Детали счет фактуры*@</h6>
+                        </div>
+                        <div style="margin-left:710px;">
+                            <button ng-click="AddDiv()" class="btn btn-blue d-block d-md-inline-block mb-3 mb-md-0" data-toggle="modal" data-target="#dobavit"><i class="fas fa-plus"></i> Добавить</button>
+                            <button class="btn btn-green d-block d-md-inline-block mb-3 mb-md-0" ng-click="exportData2()">
+                                <i class="fas fa-file-excel"></i>  ЭКСПОРТ
+                            </button>
+                        </div>
                     </div>
-                    <div class="row justify-content-center">
-                        <form class="col-md-8" name="myForm" novalidate>
-                            <input type="hidden" ng-model="ID" style="position:absolute">
-                            <div class="form-group row align-items-center">
-                                <label class="col-md-5 col-form-label text-right py-0">Год:</label>
-                                <div class="col-md-7">
-                                    <select ng-model="ZB2" name="ZB2" class="custom-select form-control" required>
-                                        @for (int i = DateTime.Now.Year; i > 1991; i--)
-                                        {
-                                            <option>@(i)</option>
-                                        }
-                                    </select>
-                                    <span class="alert alert-warning" style="padding:0px" ng-show="myForm.ZB2.$error.required">Выберите поле</span>
-                                </div>
-                            </div>
-                            <div class="form-group row align-items-center">
-                                <label class="col-md-5 col-form-label text-right py-0">Санаторий:</label>
-                                <div class="col-md-7">
-                                    <select  ng-model="SP2" name="SP2" required ng-options="d as d.d2 for d in R track by d.d1" class="custom-select form-control"></select>
-                                    <span class="alert alert-warning" style="padding:0px" ng-show="myForm.SP2.$error.required">Выберите поле</span>
-                                </div>
-                            </div>
-                            <div class="form-group row align-items-center">
-                                <label class="col-md-5 col-form-label text-right py-0">Список правсоюзов:</label>
-                                <div class="col-md-7">
-                                    <select ng-model="SP3" name="SP3" required ng-options="d as d.d2 for d in Rr track by d.d1" class="custom-select form-control"></select>
-                                    <span class="alert alert-warning" style="padding:0px" ng-show="myForm.SP3.$error.required">Выберите поле</span>
-                                </div>
-                            </div>
-                            <div class="form-group row align-items-center">
-                                <label class="col-md-5 col-form-label text-right py-0">Код:</label>
-                                <div class="col-md-7">
-                                    <select ng-model="SP4" name="SP4" required ng-options="d as d.d2 for d in Rr2 track by d.d1" class="custom-select form-control"></select>
-                                    <span class="alert alert-warning" style="padding:0px" ng-show="myForm.SP4.$error.required">Выберите поле</span>
-                                </div>
-                            </div>
-                            <div class="form-group row align-items-center">
-                                <label class="col-md-5 col-form-label text-right py-0">Кол-во 1 кв:</label>
-                                <div class="col-md-7">
-                                    <input type="text" class="form-control" required ng-model="Q1" name="Q1" placeholder="" value="">
-                                    <span class="alert alert-warning" style="padding:0px" ng-show="myForm.Q1.$error.required">заполнить поле</span>
-                                </div>
-                            </div>
-                            <div class="form-group row align-items-center">
-                                <label class="col-md-5 col-form-label text-right py-0">Кол-во 2 кв:</label>
-                                <div class="col-md-7">
-                                    <input type="text" class="form-control" required ng-model="Q2" name="Q2" placeholder="" value="">
-                                    <span class="alert alert-warning" style="padding:0px" ng-show="myForm.Q2.$error.required">заполнить поле</span>
-                                </div>
-                            </div>
-                            <div class="form-group row align-items-center">
-                                <label class="col-md-5 col-form-label text-right py-0">Кол-во 3 кв:</label>
-                                <div class="col-md-7">
-                                    <input type="text" class="form-control" required ng-model="Q3" name="Q3" placeholder="" value="">
-                                    <span class="alert alert-warning" style="padding:0px" ng-show="myForm.Q3.$error.required">заполнить поле</span>
-                                </div>
-                            </div>
-                            <div class="form-group row align-items-center">
-                                <label class="col-md-5 col-form-label text-right py-0">Кол-во 4 кв:</label>
-                                <div class="col-md-7">
-                                    <input type="text" class="form-control" required ng-model="Q4" name="Q4" placeholder="" value="">
-                                    <span class="alert alert-warning" style="padding:0px" ng-show="myForm.Q4.$error.required">заполнить поле</span>
-                                </div>
-                            </div>
-                            <div class="mb-4 text-right">
-                                <button ng-click="AddUpdate()" ng-disabled="myForm.ZB2.$error.required||myForm1.SP2.$error.required||myForm.SP3.$error.required||myForm.SP4.$error.required||myForm.Q1.$error.required||myForm.Q2.$error.required||myForm.Q3.$error.required||myForm.Q4.$error.required" class="btn btn-blue d-block d-md-inline-block mb-2" data-dismiss="modal">Сохранить</button>
-                                <button ng-click="delete(ID)" ng-show="showdelete" class="btn btn-red d-block d-md-inline-block mb-2" data-dismiss="modal">Удалить</button>
-                                <button class="btn btn-grey d-block d-md-inline-block mb-2" data-dismiss="modal">Отмена</button>
-                            </div>
-                        </form>
-                    </div>
+                </div>
+                <div class="table-responsive box-shadow mb-4" id="export2">
+                    <table class="table table__block t-hover">
+                        <thead>
+                            <tr>
+                                <th class="dropdown dropdown__table">Код</th>
+                                <th class="dropdown dropdown__table">Код</th>
+                                <th class="dropdown dropdown__table">1 кв</th>
+                                <th class="dropdown dropdown__table">2 кв</th>
+                                <th class="dropdown dropdown__table">3 кв</th>
+                                <th class="dropdown dropdown__table">4 кв</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="item in DATA2" ng-click="edit(item)" data-toggle="modal" data-target="#dobavit">
+                                <td>{{item.d3}}</td>
+                                <td>{{item.d4}}</td>
+                                <td>{{item.d5}}</td>
+                                <td>{{item.d6}}</td>
+                                <td>{{item.d7}}</td>
+                                <td>{{item.d8}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
-    </div>
-</section>
+        <div class="modal__block modal fade" id="dobavit" tabindex="-1" role="dialog" aria-labelledby="dobavitLabel">
+            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <div class="modal-title">
+                            <h4 class="text-center mt-4 mb-4">{{Action}}</h4>
+                        </div>
+                        <div class="row justify-content-center">
+                            <form class="col-md-8" name="myForm" novalidate>
+                                <input type="hidden" ng-model="ID" style="position:absolute">
+                                <div class="form-group row align-items-center">
+                                    <label class="col-md-5 col-form-label text-right py-0">Год:</label>
+                                    <div class="col-md-7">
+                                        <select ng-model="ZB2" name="ZB2" class="custom-select form-control" required>
+                                            @for (int i = DateTime.Now.Year; i > 1991; i--)
+                                            {
+                                                <option>@(i)</option>
+                                            }
+                                        </select>
+                                        <span class="alert alert-warning" style="padding:0px" ng-show="myForm.ZB2.$error.required">Выберите поле</span>
+                                    </div>
+                                </div>
+                                <div class="form-group row align-items-center">
+                                    <label class="col-md-5 col-form-label text-right py-0">Санаторий:</label>
+                                    <div class="col-md-7">
+                                        <select ng-model="SP2" name="SP2" required ng-options="d as d.d2 for d in R track by d.d1" class="custom-select form-control"></select>
+                                        <span class="alert alert-warning" style="padding:0px" ng-show="myForm.SP2.$error.required">Выберите поле</span>
+                                    </div>
+                                </div>
+                                <div class="form-group row align-items-center">
+                                    <label class="col-md-5 col-form-label text-right py-0">Список правсоюзов:</label>
+                                    <div class="col-md-7">
+                                        <select ng-model="SP3" name="SP3" required ng-options="d as d.d2 for d in Rr track by d.d1" class="custom-select form-control"></select>
+                                        <span class="alert alert-warning" style="padding:0px" ng-show="myForm.SP3.$error.required">Выберите поле</span>
+                                    </div>
+                                </div>
+                                <div class="form-group row align-items-center">
+                                    <label class="col-md-5 col-form-label text-right py-0">Код:</label>
+                                    <div class="col-md-7">
+                                        <select ng-model="SP4" name="SP4" required ng-options="d as d.d2 for d in Rr2 track by d.d1" class="custom-select form-control"></select>
+                                        <span class="alert alert-warning" style="padding:0px" ng-show="myForm.SP4.$error.required">Выберите поле</span>
+                                    </div>
+                                </div>
+                                <div class="form-group row align-items-center">
+                                    <label class="col-md-5 col-form-label text-right py-0">Кол-во 1 кв:</label>
+                                    <div class="col-md-7">
+                                        <input type="text" class="form-control" required ng-model="Q1" name="Q1" placeholder="" value="">
+                                        <span class="alert alert-warning" style="padding:0px" ng-show="myForm.Q1.$error.required">заполнить поле</span>
+                                    </div>
+                                </div>
+                                <div class="form-group row align-items-center">
+                                    <label class="col-md-5 col-form-label text-right py-0">Кол-во 2 кв:</label>
+                                    <div class="col-md-7">
+                                        <input type="text" class="form-control" required ng-model="Q2" name="Q2" placeholder="" value="">
+                                        <span class="alert alert-warning" style="padding:0px" ng-show="myForm.Q2.$error.required">заполнить поле</span>
+                                    </div>
+                                </div>
+                                <div class="form-group row align-items-center">
+                                    <label class="col-md-5 col-form-label text-right py-0">Кол-во 3 кв:</label>
+                                    <div class="col-md-7">
+                                        <input type="text" class="form-control" required ng-model="Q3" name="Q3" placeholder="" value="">
+                                        <span class="alert alert-warning" style="padding:0px" ng-show="myForm.Q3.$error.required">заполнить поле</span>
+                                    </div>
+                                </div>
+                                <div class="form-group row align-items-center">
+                                    <label class="col-md-5 col-form-label text-right py-0">Кол-во 4 кв:</label>
+                                    <div class="col-md-7">
+                                        <input type="text" class="form-control" required ng-model="Q4" name="Q4" placeholder="" value="">
+                                        <span class="alert alert-warning" style="padding:0px" ng-show="myForm.Q4.$error.required">заполнить поле</span>
+                                    </div>
+                                </div>
+                                <div class="mb-4 text-right">
+                                    <button ng-click="AddUpdate()" ng-disabled="myForm.ZB2.$error.required||myForm1.SP2.$error.required||myForm.SP3.$error.required||myForm.SP4.$error.required||myForm.Q1.$error.required||myForm.Q2.$error.required||myForm.Q3.$error.required||myForm.Q4.$error.required" class="btn btn-blue d-block d-md-inline-block mb-2" data-dismiss="modal">Сохранить</button>
+                                    <button ng-click="delete(ID)" ng-show="showdelete" class="btn btn-red d-block d-md-inline-block mb-2" data-dismiss="modal">Удалить</button>
+                                    <button class="btn btn-grey d-block d-md-inline-block mb-2" data-dismiss="modal">Отмена</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+}
+

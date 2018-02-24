@@ -1,208 +1,214 @@
-﻿
+﻿@using KasabaKIAT.BusinessLogic.Security.Roles.RolePermissions;
 @{
     ViewBag.Title = "бухгалтерия";
+    var UserId = Convert.ToInt32(User.Identity.Name);
+    FunctionalityList List = FunctionalityAndDbDataMatch.MatchProcess(UserId);
 }
-<section class="content__block container">
-    <div class="row mb-4 align-items-center">
-        <div class="col title__block">
-            <h4>Просмотр данных</h4>
-            <nav aria-label="breadcrumb" class="breadcrumb__block">
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item load"><a href="/Buxgalter/Index">Бухгалтерия</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Просмотр данных</li>
-                </ol>
-            </nav>
-        </div>
-    </div>
-    <div class="mb-5">
-        <div class="row align-items-center mb-5">
-            <div class="col-md-6 form-group">
-                <select class="custom-select form-control">
-                    <option>1 кв 2017</option>
-                    <option>Option 1</option>
-                    <option>Option 2</option>
-                    <option>Option 3</option>
-                </select>
-            </div>
-            <div class="col-md-6 form-group">
-                <div class="row">
-                    <div class="col-md-6">
-                        <label>Тип счета:</label>
-                        <div class="form-group mb-3 mb-md-0">
-                            <div class="custom-control custom-radio custom-control-inline">
-                                <input type="radio" name="inlineRadio1" id="inlineRadio1" value="option1" class="custom-control-input" checked="" />
-                                <label for="inlineRadio1" class="custom-control-label">Актив</label>
-                            </div>
-                            <div class="custom-control custom-radio custom-control-inline">
-                                <input type="radio" name="inlineRadio1" id="inlineRadio2" value="option2" class="custom-control-input" />
-                                <label for="inlineRadio2" class="custom-control-label">Пассив</label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <label>Тип оборота:</label>
-                        <div class="form-group mb-3 mb-md-0">
-                            <div class="custom-control custom-radio custom-control-inline">
-                                <input type="radio" name="inlineRadio2" id="inlineRadio3" value="option1" class="custom-control-input" checked="" />
-                                <label for="inlineRadio3" class="custom-control-label">Дебет</label>
-                            </div>
-                            <div class="custom-control custom-radio custom-control-inline">
-                                <input type="radio" name="inlineRadio2" id="inlineRadio4" value="option2" class="custom-control-input" />
-                                <label for="inlineRadio4" class="custom-control-label">Кредит</label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row mb-5">
-            <div class="col-md-6 form-group">
-                <label>Плательщик Р/c:</label>
-                <select class="custom-select form-control mb-3">
-                    <option>Номер счета</option>
-                    <option>Option 1</option>
-                    <option>Option 2</option>
-                    <option>Option 3</option>
-                </select>
-                <div class="text__block">
-                    <p>Название: <strong>ООО "Ucell"</strong></p>
-                    <p>ИНН: <strong>633564735637</strong></p>
-                    <p>МФО: <strong>567545647</strong></p>
-                </div>
-            </div>
-            <div class="col-md-6 form-group">
-                <label>Номер счета:</label>
-                <select class="custom-select form-control mb-3">
-                    <option>Номер счета</option>
-                    <option>Option 1</option>
-                    <option>Option 2</option>
-                    <option>Option 3</option>
-                </select>
-                <div class="text__block">
-                    <p>Название: <strong>ООО "Ucell"</strong></p>
-                    <p>ИНН: <strong>633564735637</strong></p>
-                    <p>МФО: <strong>567545647</strong></p>
-                </div>
+@if (List.PrasmotrDannix)
+{
+    <section class="content__block container">
+        <div class="row mb-4 align-items-center">
+            <div class="col title__block">
+                <h4>Просмотр данных</h4>
+                <nav aria-label="breadcrumb" class="breadcrumb__block">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item load"><a href="/Buxgalter/Index">Бухгалтерия</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Просмотр данных</li>
+                    </ol>
+                </nav>
             </div>
         </div>
         <div class="mb-5">
-            <a href="#" class="btn btn-blue d-block d-md-inline-block mb-2" data-toggle="modal" data-target="#dobavit">Показать</a>
-            <a href="#" class="btn btn-grey d-block d-md-inline-block mb-2">Очистить фильтр</a>
+            <div class="row align-items-center mb-5">
+                <div class="col-md-6 form-group">
+                    <select class="custom-select form-control">
+                        <option>1 кв 2017</option>
+                        <option>Option 1</option>
+                        <option>Option 2</option>
+                        <option>Option 3</option>
+                    </select>
+                </div>
+                <div class="col-md-6 form-group">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label>Тип счета:</label>
+                            <div class="form-group mb-3 mb-md-0">
+                                <div class="custom-control custom-radio custom-control-inline">
+                                    <input type="radio" name="inlineRadio1" id="inlineRadio1" value="option1" class="custom-control-input" checked="" />
+                                    <label for="inlineRadio1" class="custom-control-label">Актив</label>
+                                </div>
+                                <div class="custom-control custom-radio custom-control-inline">
+                                    <input type="radio" name="inlineRadio1" id="inlineRadio2" value="option2" class="custom-control-input" />
+                                    <label for="inlineRadio2" class="custom-control-label">Пассив</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label>Тип оборота:</label>
+                            <div class="form-group mb-3 mb-md-0">
+                                <div class="custom-control custom-radio custom-control-inline">
+                                    <input type="radio" name="inlineRadio2" id="inlineRadio3" value="option1" class="custom-control-input" checked="" />
+                                    <label for="inlineRadio3" class="custom-control-label">Дебет</label>
+                                </div>
+                                <div class="custom-control custom-radio custom-control-inline">
+                                    <input type="radio" name="inlineRadio2" id="inlineRadio4" value="option2" class="custom-control-input" />
+                                    <label for="inlineRadio4" class="custom-control-label">Кредит</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-5">
+                <div class="col-md-6 form-group">
+                    <label>Плательщик Р/c:</label>
+                    <select class="custom-select form-control mb-3">
+                        <option>Номер счета</option>
+                        <option>Option 1</option>
+                        <option>Option 2</option>
+                        <option>Option 3</option>
+                    </select>
+                    <div class="text__block">
+                        <p>Название: <strong>ООО "Ucell"</strong></p>
+                        <p>ИНН: <strong>633564735637</strong></p>
+                        <p>МФО: <strong>567545647</strong></p>
+                    </div>
+                </div>
+                <div class="col-md-6 form-group">
+                    <label>Номер счета:</label>
+                    <select class="custom-select form-control mb-3">
+                        <option>Номер счета</option>
+                        <option>Option 1</option>
+                        <option>Option 2</option>
+                        <option>Option 3</option>
+                    </select>
+                    <div class="text__block">
+                        <p>Название: <strong>ООО "Ucell"</strong></p>
+                        <p>ИНН: <strong>633564735637</strong></p>
+                        <p>МФО: <strong>567545647</strong></p>
+                    </div>
+                </div>
+            </div>
+            <div class="mb-5">
+                <a href="#" class="btn btn-blue d-block d-md-inline-block mb-2" data-toggle="modal" data-target="#dobavit">Показать</a>
+                <a href="#" class="btn btn-grey d-block d-md-inline-block mb-2">Очистить фильтр</a>
+            </div>
         </div>
-    </div>
-    <div class="table__title mb-5">
-        <h5>Справка о дебетовых оборотах по счету 20212000800136154002 за период c 03.01.2017 по 28.02.2017</h5>
-        <p>Общая сумма: <strong>20 349 000</strong></p>
-    </div>
-    <div class="table-responsive box-shadow mb-5">
-        <table class="table table__block va-top t-scroll">
-            <thead>
-                <tr>
-                    <th>№ док.</th>
-                    <th>Информация плательщика</th>
-                    <th>Дата п-жа</th>
-                    <th>Название </th>
-                    <th>Сумма п-жа</th>
-                    <th>Инофрмация получателя</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>OK9</td>
-                    <td>TOSHKENT SHAHAR KASABA UYUSH<br />MALARI  TASHKILOTLARI BIRLASHMASI<br />NING KENGA соцстрах)<br /> ИНН: 201273304 <br /> МФО: 00425<br /> Рас. счет: 20212000800136154002</td>
-                    <td>03.01.2017</td>
-                    <td>00667Комиссия за <br /> операционное <br /> обслуживание счета <br />20212000500136154006 с  01.01.17 по 03.01.17</td>
-                    <td>1 200 000</td>
-                    <td>ЗавХоз</td>
-                </tr>
-                <tr>
-                    <td>ОК31</td>
-                    <td>TOSHKENT SHAHAR KASABA UYUSH<br />MALARI  TASHKILOTLARI BIRLASHMASI<br />NING KENGA соцстрах)<br /> МФО: 06726<br /> Рас. счет: 24686000800148158606</td>
-                    <td>12.06.2017</td>
-                    <td>00667Комиссия за <br /> операционное <br /> обслуживание счета <br />20212000500136154006 с  01.01.17 по 03.01.17</td>
-                    <td>1 000 000</td>
-                    <td>Директор</td>
-                </tr>
-                <tr>
-                    <td>ОК18</td>
-                    <td>TOSHKENT SHAHAR KASABA UYUSH<br />MALARI  TASHKILOTLARI BIRLASHMASI<br />NING KENGA соцстрах)<br /> МФО: 01142<br /> Рас. счет: 24686000843767346734</td>
-                    <td>06.03.2017</td>
-                    <td>00668 Оплата <br /> процентов за ОПК.</td>
-                    <td>3 953 987</td>
-                    <td>Директор</td>
-                </tr>
-                <tr>
-                    <td>ОК9</td>
-                    <td>TOSHKENT SHAHAR KASABA UYUSH<br />MALARI  TASHKILOTLARI BIRLASHMASI<br />NING KENGA соцстрах)<br /> ИНН: 201273304 <br /> МФО: 00425 <br /> Рас. счет: 20212000800136154002</td>
-                    <td>03.01.2017</td>
-                    <td>00667Комиссия за <br /> операционное <br /> обслуживание счета <br />20212000500136154006 с  01.01.17 по 03.01.17</td>
-                    <td>1 200 000</td>
-                    <td>ЗавХоз</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-    <div class="table__title mb-5">
-        <h5>Справка о дебетовых оборотах по счету 20212000800136154002 за период c 03.01.2017 по 28.02.2017</h5>
-        <p>Общая сумма: <strong>20 349 000</strong></p>
-    </div>
-    <div class="table-responsive box-shadow mb-5">
-        <table class="table table__block va-top">
-            <thead>
-                <tr>
-                    <th>№ док.</th>
-                    <th>Информация плательщика</th>
-                    <th>Дата п-жа</th>
-                    <th>Название </th>
-                    <th>Сумма п-жа</th>
-                    <th>Инофрмация получателя</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>OK9</td>
-                    <td>TOSHKENT SHAHAR KASABA UYUSH<br />MALARI  TASHKILOTLARI BIRLASHMASI<br />NING KENGA соцстрах)<br /> ИНН: 201273304 <br /> МФО: 00425<br /> Рас. счет: 20212000800136154002</td>
-                    <td>03.01.2017</td>
-                    <td>00667Комиссия за <br /> операционное <br /> обслуживание счета <br />20212000500136154006 с  01.01.17 по 03.01.17</td>
-                    <td>1 200 000</td>
-                    <td>ЗавХоз</td>
-                </tr>
-                <tr>
-                    <td>ОК31</td>
-                    <td>TOSHKENT SHAHAR KASABA UYUSH<br />MALARI  TASHKILOTLARI BIRLASHMASI<br />NING KENGA соцстрах)<br /> МФО: 06726<br /> Рас. счет: 24686000800148158606</td>
-                    <td>12.06.2017</td>
-                    <td>00667Комиссия за <br /> операционное <br /> обслуживание счета <br />20212000500136154006 с  01.01.17 по 03.01.17</td>
-                    <td>1 000 000</td>
-                    <td>Директор</td>
-                </tr>
-                <tr>
-                    <td>ОК18</td>
-                    <td>TOSHKENT SHAHAR KASABA UYUSH<br />MALARI  TASHKILOTLARI BIRLASHMASI<br />NING KENGA соцстрах)<br /> МФО: 01142<br /> Рас. счет: 24686000843767346734</td>
-                    <td>06.03.2017</td>
-                    <td>00668 Оплата <br /> процентов за ОПК.</td>
-                    <td>3 953 987</td>
-                    <td>Директор</td>
-                </tr>
-                <tr>
-                    <td>ОК9</td>
-                    <td>TOSHKENT SHAHAR KASABA UYUSH<br />MALARI  TASHKILOTLARI BIRLASHMASI<br />NING KENGA соцстрах)<br /> ИНН: 201273304 <br /> МФО: 00425 <br /> Рас. счет: 20212000800136154002</td>
-                    <td>03.01.2017</td>
-                    <td>00667Комиссия за <br /> операционное <br /> обслуживание счета <br />20212000500136154006 с  01.01.17 по 03.01.17</td>
-                    <td>1 200 000</td>
-                    <td>ЗавХоз</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-    <div class="pagination__block text-center text-md-right">
-        <ul class="list-inline">
-            <li class="list-inline-item">1</li>
-            <li class="list-inline-item"><a href="#">2</a></li>
-            <li class="list-inline-item"><a href="#">3</a></li>
-            <li class="list-inline-item"><a href="#">4</a></li>
-            <li class="list-inline-item"><a href="#">5</a></li>
-            <li class="list-inline-item">...</li>
-            <li class="list-inline-item"><a href="#">15</a></li>
-        </ul>
-    </div>
-</section>
+        <div class="table__title mb-5">
+            <h5>Справка о дебетовых оборотах по счету 20212000800136154002 за период c 03.01.2017 по 28.02.2017</h5>
+            <p>Общая сумма: <strong>20 349 000</strong></p>
+        </div>
+        <div class="table-responsive box-shadow mb-5">
+            <table class="table table__block va-top t-scroll">
+                <thead>
+                    <tr>
+                        <th>№ док.</th>
+                        <th>Информация плательщика</th>
+                        <th>Дата п-жа</th>
+                        <th>Название </th>
+                        <th>Сумма п-жа</th>
+                        <th>Инофрмация получателя</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>OK9</td>
+                        <td>TOSHKENT SHAHAR KASABA UYUSH<br />MALARI  TASHKILOTLARI BIRLASHMASI<br />NING KENGA соцстрах)<br /> ИНН: 201273304 <br /> МФО: 00425<br /> Рас. счет: 20212000800136154002</td>
+                        <td>03.01.2017</td>
+                        <td>00667Комиссия за <br /> операционное <br /> обслуживание счета <br />20212000500136154006 с  01.01.17 по 03.01.17</td>
+                        <td>1 200 000</td>
+                        <td>ЗавХоз</td>
+                    </tr>
+                    <tr>
+                        <td>ОК31</td>
+                        <td>TOSHKENT SHAHAR KASABA UYUSH<br />MALARI  TASHKILOTLARI BIRLASHMASI<br />NING KENGA соцстрах)<br /> МФО: 06726<br /> Рас. счет: 24686000800148158606</td>
+                        <td>12.06.2017</td>
+                        <td>00667Комиссия за <br /> операционное <br /> обслуживание счета <br />20212000500136154006 с  01.01.17 по 03.01.17</td>
+                        <td>1 000 000</td>
+                        <td>Директор</td>
+                    </tr>
+                    <tr>
+                        <td>ОК18</td>
+                        <td>TOSHKENT SHAHAR KASABA UYUSH<br />MALARI  TASHKILOTLARI BIRLASHMASI<br />NING KENGA соцстрах)<br /> МФО: 01142<br /> Рас. счет: 24686000843767346734</td>
+                        <td>06.03.2017</td>
+                        <td>00668 Оплата <br /> процентов за ОПК.</td>
+                        <td>3 953 987</td>
+                        <td>Директор</td>
+                    </tr>
+                    <tr>
+                        <td>ОК9</td>
+                        <td>TOSHKENT SHAHAR KASABA UYUSH<br />MALARI  TASHKILOTLARI BIRLASHMASI<br />NING KENGA соцстрах)<br /> ИНН: 201273304 <br /> МФО: 00425 <br /> Рас. счет: 20212000800136154002</td>
+                        <td>03.01.2017</td>
+                        <td>00667Комиссия за <br /> операционное <br /> обслуживание счета <br />20212000500136154006 с  01.01.17 по 03.01.17</td>
+                        <td>1 200 000</td>
+                        <td>ЗавХоз</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="table__title mb-5">
+            <h5>Справка о дебетовых оборотах по счету 20212000800136154002 за период c 03.01.2017 по 28.02.2017</h5>
+            <p>Общая сумма: <strong>20 349 000</strong></p>
+        </div>
+        <div class="table-responsive box-shadow mb-5">
+            <table class="table table__block va-top">
+                <thead>
+                    <tr>
+                        <th>№ док.</th>
+                        <th>Информация плательщика</th>
+                        <th>Дата п-жа</th>
+                        <th>Название </th>
+                        <th>Сумма п-жа</th>
+                        <th>Инофрмация получателя</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>OK9</td>
+                        <td>TOSHKENT SHAHAR KASABA UYUSH<br />MALARI  TASHKILOTLARI BIRLASHMASI<br />NING KENGA соцстрах)<br /> ИНН: 201273304 <br /> МФО: 00425<br /> Рас. счет: 20212000800136154002</td>
+                        <td>03.01.2017</td>
+                        <td>00667Комиссия за <br /> операционное <br /> обслуживание счета <br />20212000500136154006 с  01.01.17 по 03.01.17</td>
+                        <td>1 200 000</td>
+                        <td>ЗавХоз</td>
+                    </tr>
+                    <tr>
+                        <td>ОК31</td>
+                        <td>TOSHKENT SHAHAR KASABA UYUSH<br />MALARI  TASHKILOTLARI BIRLASHMASI<br />NING KENGA соцстрах)<br /> МФО: 06726<br /> Рас. счет: 24686000800148158606</td>
+                        <td>12.06.2017</td>
+                        <td>00667Комиссия за <br /> операционное <br /> обслуживание счета <br />20212000500136154006 с  01.01.17 по 03.01.17</td>
+                        <td>1 000 000</td>
+                        <td>Директор</td>
+                    </tr>
+                    <tr>
+                        <td>ОК18</td>
+                        <td>TOSHKENT SHAHAR KASABA UYUSH<br />MALARI  TASHKILOTLARI BIRLASHMASI<br />NING KENGA соцстрах)<br /> МФО: 01142<br /> Рас. счет: 24686000843767346734</td>
+                        <td>06.03.2017</td>
+                        <td>00668 Оплата <br /> процентов за ОПК.</td>
+                        <td>3 953 987</td>
+                        <td>Директор</td>
+                    </tr>
+                    <tr>
+                        <td>ОК9</td>
+                        <td>TOSHKENT SHAHAR KASABA UYUSH<br />MALARI  TASHKILOTLARI BIRLASHMASI<br />NING KENGA соцстрах)<br /> ИНН: 201273304 <br /> МФО: 00425 <br /> Рас. счет: 20212000800136154002</td>
+                        <td>03.01.2017</td>
+                        <td>00667Комиссия за <br /> операционное <br /> обслуживание счета <br />20212000500136154006 с  01.01.17 по 03.01.17</td>
+                        <td>1 200 000</td>
+                        <td>ЗавХоз</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="pagination__block text-center text-md-right">
+            <ul class="list-inline">
+                <li class="list-inline-item">1</li>
+                <li class="list-inline-item"><a href="#">2</a></li>
+                <li class="list-inline-item"><a href="#">3</a></li>
+                <li class="list-inline-item"><a href="#">4</a></li>
+                <li class="list-inline-item"><a href="#">5</a></li>
+                <li class="list-inline-item">...</li>
+                <li class="list-inline-item"><a href="#">15</a></li>
+            </ul>
+        </div>
+    </section>
+}
+

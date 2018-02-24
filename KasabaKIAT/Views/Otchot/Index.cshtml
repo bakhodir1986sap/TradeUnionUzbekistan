@@ -19,7 +19,7 @@
     <div class="row mb-4">
         <div class="col-md-6">
             <div class="list-group r-list-group mb-4 box-shadow">
-                @if (List.SvodniyOtchetPoNakladnim)
+                @if (List.SvodniyOtchetPoZayavkam)
                 {
                     <a href="/Otchot/SvodniyOtchot" class="list-group-item list-group-item-action load">Сводный отчет по заявкам</a>
                 }
@@ -46,7 +46,7 @@
                     <a href="/Otchot/JurnalniyOrder" class="list-group-item list-group-item-action load">Журнальный ордер</a>
 
                 }
-                @if (List.PoSanatoriyamProfilaktoriyam)
+                @if (List.FinansoviyKvartalniy)
                 {
                     <a href="/Otchot/FinalniyOtchot" class="list-group-item list-group-item-action load">Финансовый отчет</a>
 

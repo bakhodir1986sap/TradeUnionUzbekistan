@@ -103,7 +103,7 @@ namespace KasabaKIAT.BusinessLogic.Security.Roles.RolePermissions
         private bool _ruchniyeProvodki          ;
         private bool _platejniyePorucheniya     ;
         private bool _planByudjeta              ;
-        private bool _raznoskaDannixPoOtraslyam;
+        private bool _raznoskaDannixPoOtraslyam ;
 
         public bool BuxUchetVvodDannix { get { return _buxUchetVvodDannix; } set { _buxUchetVvodDannix = value; if (_buxUchetVvodDannix) { TotalBuxUchet = true; } } }
         public bool PrasmotrDannix { get { return _prasmotrDannix; } set { _prasmotrDannix = value; if (_prasmotrDannix) { TotalBuxUchet = true; } } }

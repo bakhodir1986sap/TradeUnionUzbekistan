@@ -32,29 +32,31 @@
                 </div>
             </div>
             <div class="col-md-5 text-md-right">
-                <a href="#" class="btn btn-green d-block d-md-inline-block mb-3 mb-md-0"><i class="fas fa-file-excel"></i> Загрузить</a>
+                @*<a href="#" class="btn btn-green d-block d-md-inline-block mb-3 mb-md-0"><i class="fas fa-file-excel"></i> Загрузить</a>
                 <div class="custom-file">
                     <input type="file" class="custom-file-input" id="customFile">
                     <label class="custom-file-label" for="customFile">Загрузить</label>
+                </div>*@
+               @using (Html.BeginForm("Upload", "Buxgalter", FormMethod.Post, new { enctype = "multipart/form-data" }))
+               {
+                <div class="custom-file">
+                    <input type="file" class="custom-file-input" style="opacity:1;margin-left:-200px" name="UploadedFile" />
+                    <input type="submit" class="custom-file-label" style="margin-left:400px"  name="Submit"  value="Загрузить" />    
                 </div>
-                @using (Html.BeginForm("UploadFile", "Buxgalter", FormMethod.Post, new { enctype = "multipart/form-data" }))
-                {
-                    @Html.ValidationSummary(true)
-                    <table border="0" style="background-color:#00ffff;">
-                        <tr>
-                            <td><label style="width:130px">Rasmni tanlang : </label></td>
-                            <td>
-                                <input id="UploadedFile" name="UploadedFile" type="file" value="as" />
-                                @*@Html.TextBoxFor(Model => Model.File, new { type = "file", style = "color:red;",value=""})*@
-                                @Html.ValidationMessage("xatolik")
-                            </td>
-                            <td>
-                                <input type="submit" value="Rasm qo`shish" />
-                            </td>
-                        </tr>
-                    </table>
-
-                }
+                @*<table class="table table-secondary">
+                    <tr>
+                        <td>File:</td>
+                        <td>
+                            <input type="file" class="custom-file-input" name="UploadedFile" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <input type="submit" class="custom-file-label" name="Submit" value="Submit" />
+                        </td>
+                    </tr>
+                </table>*@
+               }
             </div>
         </div>
         <div class="table__title mb-5">

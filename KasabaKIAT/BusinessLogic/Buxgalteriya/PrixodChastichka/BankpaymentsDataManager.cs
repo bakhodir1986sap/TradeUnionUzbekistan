@@ -15,7 +15,6 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.PrixodChastichka
             {
                 tbgl_bankpayments reg = new tbgl_bankpayments();
 
-                reg.REC_ID =            model.rec_id                ;
                 reg.NUM_DOC =           model.num_doc               ;
                 reg.PAYER_NAME =        model.payer_name            ;
                 reg.PAYER_INN =         model.payer_inn             ;
@@ -56,7 +55,6 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.PrixodChastichka
 
                     if (reg != null)
                     {
-                        reg.REC_ID = model.rec_id;
                         reg.NUM_DOC = model.num_doc;
                         reg.PAYER_NAME = model.payer_name;
                         reg.PAYER_INN = model.payer_inn;

@@ -74,7 +74,6 @@ namespace KasabaKIAT.Models
             this.tbcs_dictionary = new HashSet<tbcs_dictionary>();
             this.tbcs_dictionary1 = new HashSet<tbcs_dictionary>();
             this.tbcs_dictionarytype = new HashSet<tbcs_dictionarytype>();
-            this.tbgl_balance = new HashSet<tbgl_balance>();
             this.tbgl_jnldd = new HashSet<tbgl_jnldd>();
             this.tbgl_opersettings = new HashSet<tbgl_opersettings>();
             this.tblBron = new HashSet<tblBron>();
@@ -119,9 +118,10 @@ namespace KasabaKIAT.Models
             this.tblVipl_Put = new HashSet<tblVipl_Put>();
             this.tblVozVrat = new HashSet<tblVozVrat>();
             this.Zapros_ZK = new HashSet<Zapros_ZK>();
-            this.tbgl_jnlmst = new HashSet<tbgl_jnlmst>();
             this.users1 = new HashSet<users>();
             this.roles2 = new HashSet<roles>();
+            this.tbgl_balance = new HashSet<tbgl_balance>();
+            this.tbgl_jnlmst = new HashSet<tbgl_jnlmst>();
         }
     
         public long id { get; set; }
@@ -272,8 +272,6 @@ namespace KasabaKIAT.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tbcs_dictionarytype> tbcs_dictionarytype { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tbgl_balance> tbgl_balance { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tbgl_jnldd> tbgl_jnldd { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tbgl_opersettings> tbgl_opersettings { get; set; }
@@ -362,11 +360,13 @@ namespace KasabaKIAT.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Zapros_ZK> Zapros_ZK { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tbgl_jnlmst> tbgl_jnlmst { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<users> users1 { get; set; }
         public virtual users users2 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<roles> roles2 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tbgl_balance> tbgl_balance { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tbgl_jnlmst> tbgl_jnlmst { get; set; }
     }
 }

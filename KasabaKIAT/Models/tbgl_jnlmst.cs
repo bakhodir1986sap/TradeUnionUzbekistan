@@ -20,13 +20,13 @@ namespace KasabaKIAT.Models
         public Nullable<int> OPER_ID { get; set; }
         public string TRTP { get; set; }
         public string ORGTRDT { get; set; }
-        public Nullable<int> ORGORG_ID { get; set; }
-        public Nullable<int> ORGCRT_USR_ID { get; set; }
+        public Nullable<long> ORGORG_ID { get; set; }
+        public Nullable<long> ORGCRT_USR_ID { get; set; }
         public Nullable<int> ORGDYSEQ { get; set; }
         public string REMARK { get; set; }
         public Nullable<long> CRTUSER_ID { get; set; }
         public long REC_ID { get; set; }
     
-        public virtual users users { get; set; }
+        public virtual users user { get; set; }
     }
 }

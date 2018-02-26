@@ -100,7 +100,6 @@ namespace KasabaKIAT.Models
         public virtual DbSet<tbcs_dictionary> tbcs_dictionary { get; set; }
         public virtual DbSet<tbcs_dictionarytype> tbcs_dictionarytype { get; set; }
         public virtual DbSet<tbgl_accounttype> tbgl_accounttype { get; set; }
-        public virtual DbSet<tbgl_balance> tbgl_balance { get; set; }
         public virtual DbSet<tbgl_jnldd> tbgl_jnldd { get; set; }
         public virtual DbSet<tbgl_opersettings> tbgl_opersettings { get; set; }
         public virtual DbSet<tbku_DocumentSchetFaktura> tbku_DocumentSchetFaktura { get; set; }
@@ -152,7 +151,6 @@ namespace KasabaKIAT.Models
         public virtual DbSet<tbbSprOsnov> tbbSprOsnov { get; set; }
         public virtual DbSet<tbbSprTabel> tbbSprTabel { get; set; }
         public virtual DbSet<tbbTabel> tbbTabel { get; set; }
-        public virtual DbSet<tbgl_jnlmst> tbgl_jnlmst { get; set; }
         public virtual DbSet<tblFace_Two> tblFace_Two { get; set; }
         public virtual DbSet<tblOplata_Ras> tblOplata_Ras { get; set; }
         public virtual DbSet<tblPred> tblPred { get; set; }
@@ -163,6 +161,8 @@ namespace KasabaKIAT.Models
         public virtual DbSet<tblVipl_NumGEn> tblVipl_NumGEn { get; set; }
         public virtual DbSet<tbpt_putyovka_statechange> tbpt_putyovka_statechange { get; set; }
         public virtual DbSet<tbgl_bankpayments> tbgl_bankpayments { get; set; }
+        public virtual DbSet<tbgl_balance> tbgl_balance { get; set; }
+        public virtual DbSet<tbgl_jnlmst> tbgl_jnlmst { get; set; }
     
         public virtual ObjectResult<Nullable<decimal>> sp_get_BankPaymentCompanyMonthly(string inn, Nullable<int> year, Nullable<int> month)
         {

@@ -56,8 +56,8 @@
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="EPPlus, Version=4.1.0.0, Culture=neutral, PublicKeyToken=ea159fdaa78159a1, processorArchitecture=MSIL">
-      <HintPath>..\packages\EPPlus.4.1.0\lib\net40\EPPlus.dll</HintPath>
+    <Reference Include="EPPlus, Version=4.1.1.0, Culture=neutral, PublicKeyToken=ea159fdaa78159a1, processorArchitecture=MSIL">
+      <HintPath>..\packages\EPPlus.4.1.1\lib\net40\EPPlus.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="ExcelNumberFormat, Version=1.0.3.0, Culture=neutral, PublicKeyToken=23c6f5d73be07eca, processorArchitecture=MSIL">
@@ -66,10 +66,6 @@
     </Reference>
     <Reference Include="FastMember.Signed, Version=1.0.0.9, Culture=neutral, PublicKeyToken=9e8f22703bef9a29, processorArchitecture=MSIL">
       <HintPath>..\packages\FastMember.Signed.1.1.0\lib\net40\FastMember.Signed.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="ICSharpCode.SharpZipLib, Version=0.86.0.518, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL">
-      <HintPath>..\packages\NPOI.2.0.6\lib\net40\ICSharpCode.SharpZipLib.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="LinqToExcel, Version=1.11.0.0, Culture=neutral, PublicKeyToken=9c8ea65a58f03f1f, processorArchitecture=MSIL">
@@ -85,28 +81,8 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Microsoft.Office.Interop.Excel, Version=12.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c">
-      <HintPath>..\packages\ExcelPackage.1.0.0\lib\Microsoft.Office.Interop.Excel.dll</HintPath>
-      <EmbedInteropTypes>True</EmbedInteropTypes>
-    </Reference>
     <Reference Include="Microsoft.QualityTools.Testing.Fakes, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="NPOI, Version=2.0.6.0, Culture=neutral, PublicKeyToken=0df73ec7942b34e1, processorArchitecture=MSIL">
-      <HintPath>..\packages\NPOI.2.0.6\lib\net40\NPOI.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="NPOI.OOXML, Version=2.0.6.0, Culture=neutral, PublicKeyToken=0df73ec7942b34e1, processorArchitecture=MSIL">
-      <HintPath>..\packages\NPOI.2.0.6\lib\net40\NPOI.OOXML.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="NPOI.OpenXml4Net, Version=2.0.6.0, Culture=neutral, PublicKeyToken=0df73ec7942b34e1, processorArchitecture=MSIL">
-      <HintPath>..\packages\NPOI.2.0.6\lib\net40\NPOI.OpenXml4Net.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="NPOI.OpenXmlFormats, Version=2.0.6.0, Culture=neutral, PublicKeyToken=0df73ec7942b34e1, processorArchitecture=MSIL">
-      <HintPath>..\packages\NPOI.2.0.6\lib\net40\NPOI.OpenXmlFormats.dll</HintPath>
-      <Private>True</Private>
     </Reference>
     <Reference Include="Remotion, Version=1.13.52.2, Culture=neutral, PublicKeyToken=0669cf0452175907, processorArchitecture=MSIL">
       <HintPath>..\packages\LinqToExcel.1.11.0\lib\Remotion.dll</HintPath>
@@ -118,10 +94,6 @@
     </Reference>
     <Reference Include="Remotion.Interfaces, Version=1.13.52.2, Culture=neutral, PublicKeyToken=0669cf0452175907, processorArchitecture=MSIL">
       <HintPath>..\packages\LinqToExcel.1.11.0\lib\Remotion.Interfaces.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="SimpleExcelImport, Version=0.0.1.5, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SimpleExcelImport.0.0.1.5\lib\net35\SimpleExcelImport.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -215,16 +187,19 @@
     <Compile Include="BusinessLogic\BankOplati\TextFileBankSource.cs" />
     <Compile Include="BusinessLogic\Buxgalteriya\Balance\Balance\Balance.cs" />
     <Compile Include="BusinessLogic\Buxgalteriya\Balance\Balance\BalanceMasterDataManager.cs" />
+    <Compile Include="BusinessLogic\Buxgalteriya\Balance\BuxTransaction.cs" />
     <Compile Include="BusinessLogic\Buxgalteriya\Balance\Master\MasterDataManager.cs" />
-    <Compile Include="BusinessLogic\Buxgalteriya\Balance\PlanSchetov\PlanSchetov.cs" />
-    <Compile Include="BusinessLogic\Buxgalteriya\Balance\PlanSchetov\PlanSchetovDataManager.cs" />
     <Compile Include="BusinessLogic\Buxgalteriya\Balance\Provodka.cs" />
     <Compile Include="BusinessLogic\Buxgalteriya\Balance\ProvodkaParams.cs" />
     <Compile Include="BusinessLogic\Buxgalteriya\Balance\Transactions\JournalDetailDataManager.cs" />
     <Compile Include="BusinessLogic\Buxgalteriya\Balance\Transactions\JournalMasterDataManager.cs" />
+    <Compile Include="BusinessLogic\Buxgalteriya\OperationSettings\OperationSettings.cs" />
+    <Compile Include="BusinessLogic\Buxgalteriya\OperationSettings\OperationSettingsDataManager.cs" />
     <Compile Include="BusinessLogic\Buxgalteriya\PlanirovaniyaBudjeta\Calculations.cs" />
     <Compile Include="BusinessLogic\Buxgalteriya\PlanirovaniyaBudjeta\Otrasl\PlanOtraslDataManager.cs" />
     <Compile Include="BusinessLogic\Buxgalteriya\PlanirovaniyaBudjeta\Region\PlanRegionDataManager.cs" />
+    <Compile Include="BusinessLogic\Buxgalteriya\PlanProvodok\AccountType.cs" />
+    <Compile Include="BusinessLogic\Buxgalteriya\PlanProvodok\AccountTypeDataManager.cs" />
     <Compile Include="BusinessLogic\Buxgalteriya\PrixodChastichka\Bankpayments.cs" />
     <Compile Include="BusinessLogic\Buxgalteriya\PrixodChastichka\BankpaymentsDataManager.cs" />
     <Compile Include="BusinessLogic\ExportAndImport\Export2Excel.cs" />
@@ -405,6 +380,9 @@
     <Compile Include="Models\tbgl_bankpayments.cs">
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\tbgl_jnlmst.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\tblVipl_NumGEn.cs">
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
@@ -412,6 +390,9 @@
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\Buxgalteriya\BankpaymentsViewModel.cs" />
+    <Compile Include="ViewModel\Buxgalteriya\DetailViewModel.cs" />
+    <Compile Include="ViewModel\Buxgalteriya\MasterViewModel.cs" />
+    <Compile Include="ViewModel\Buxgalteriya\OperationSettingsViewModel.cs" />
     <Compile Include="ViewModel\KurortService\ViewModel.cs" />
     <Compile Include="ViewModel\BankOplati\KaznaPaymentFile.cs" />
     <Compile Include="BusinessLogic\BankOplati\Kaznacheystvo\PaymentFileData.cs" />
@@ -629,9 +610,6 @@
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tbgl_jnldd.cs">
-      <DependentUpon>KasabaKIAT.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\tbgl_jnlmst.cs">
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tbgl_opersettings.cs">
@@ -1170,7 +1148,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="BusinessLogic\BankOplati\Firmi\" />
-    <Folder Include="BusinessLogic\Buxgalteriya\PlanProvodok\" />
     <Folder Include="BusinessLogic\ClosePeriod\CloseDay\" />
     <Folder Include="BusinessLogic\ClosePeriod\CloseKvartal\" />
     <Folder Include="BusinessLogic\ClosePeriod\CloseMonth\" />

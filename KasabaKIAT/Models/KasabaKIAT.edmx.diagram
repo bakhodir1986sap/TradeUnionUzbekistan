@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="298726c96b884914b1085bbf5341386a" Name="Diagram1" ZoomLevel="93">
+      <Diagram DiagramId="298726c96b884914b1085bbf5341386a" Name="Diagram1" ZoomLevel="62">
         <EntityTypeShape EntityType="KasabaKIATModel.Balans" Width="1.5" PointX="24.75" PointY="267.375" IsExpanded="true" />
         <EntityTypeShape EntityType="KasabaKIATModel.bkut_egrpo_aud" Width="1.5" PointX="3" PointY="1.625" IsExpanded="true" />
         <EntityTypeShape EntityType="KasabaKIATModel.eco_platej" Width="1.5" PointX="5.75" PointY="7.75" IsExpanded="true" />
@@ -78,7 +78,6 @@
         <EntityTypeShape EntityType="KasabaKIATModel.tbcs_dictionary" Width="1.5" PointX="22.5" PointY="262.125" IsExpanded="true" />
         <EntityTypeShape EntityType="KasabaKIATModel.tbcs_dictionarytype" Width="1.5" PointX="22.5" PointY="266.5" IsExpanded="true" />
         <EntityTypeShape EntityType="KasabaKIATModel.tbgl_accounttype" Width="1.5" PointX="14.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="KasabaKIATModel.tbgl_balance" Width="1.5" PointX="22.5" PointY="269.625" IsExpanded="true" />
         <EntityTypeShape EntityType="KasabaKIATModel.tbgl_jnldd" Width="1.5" PointX="22.5" PointY="274.5" IsExpanded="true" />
         <EntityTypeShape EntityType="KasabaKIATModel.tbgl_opersettings" Width="1.5" PointX="22.5" PointY="278.75" IsExpanded="true" />
         <EntityTypeShape EntityType="KasabaKIATModel.tbku_DocumentSchetFaktura" Width="1.5" PointX="15.75" PointY="4.75" IsExpanded="true" />
@@ -130,14 +129,13 @@
         <EntityTypeShape EntityType="KasabaKIATModel.tbbSprOsnov" Width="1.5" PointX="22.5" PointY="372.5" IsExpanded="true" />
         <EntityTypeShape EntityType="KasabaKIATModel.tbbSprTabel" Width="1.5" PointX="22.5" PointY="375.625" IsExpanded="true" />
         <EntityTypeShape EntityType="KasabaKIATModel.tbbTabel" Width="1.5" PointX="22.5" PointY="378.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="KasabaKIATModel.tbgl_jnlmst" Width="1.5" PointX="22.5" PointY="381.125" IsExpanded="true" />
         <EntityTypeShape EntityType="KasabaKIATModel.tblFace_Two" Width="1.5" PointX="33" PointY="239" IsExpanded="true" />
         <EntityTypeShape EntityType="KasabaKIATModel.tblOplata_Ras" Width="1.5" PointX="33" PointY="275.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="KasabaKIATModel.tblPred" Width="1.5" PointX="22.5" PointY="385.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIATModel.tblPred" Width="1.5" PointX="22.5" PointY="381.125" IsExpanded="true" />
         <EntityTypeShape EntityType="KasabaKIATModel.tblPutevka" Width="1.5" PointX="33.75" PointY="281.875" IsExpanded="true" />
         <EntityTypeShape EntityType="KasabaKIATModel.tblVipl_Put" Width="1.5" PointX="24.75" PointY="272.5" IsExpanded="true" />
         <EntityTypeShape EntityType="KasabaKIATModel.tblVozVrat" Width="1.5" PointX="27.75" PointY="280.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="KasabaKIATModel.Zapros_ZK" Width="1.5" PointX="22.5" PointY="391.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIATModel.Zapros_ZK" Width="1.5" PointX="22.375" PointY="387.125" IsExpanded="true" />
         <AssociationConnector Association="KasabaKIATModel.FK_Balans_tblSprav_Org" ManuallyRouted="false" />
         <AssociationConnector Association="KasabaKIATModel.FK_Balans_tblSprav_Otras" ManuallyRouted="false" />
         <AssociationConnector Association="KasabaKIATModel.FK_Balans_Users" ManuallyRouted="false" />
@@ -260,7 +258,6 @@
         <AssociationConnector Association="KasabaKIATModel.tbcs_dictionary_1" ManuallyRouted="false" />
         <AssociationConnector Association="KasabaKIATModel.tbpt_yearlyplanregion_2" ManuallyRouted="false" />
         <AssociationConnector Association="KasabaKIATModel.tbcs_dictionarytype_1" ManuallyRouted="false" />
-        <AssociationConnector Association="KasabaKIATModel.FK_tbgl_balance_users" ManuallyRouted="false" />
         <AssociationConnector Association="KasabaKIATModel.tbgl_jnldd_1" ManuallyRouted="false" />
         <AssociationConnector Association="KasabaKIATModel.tbgl_opersettings_1" ManuallyRouted="false" />
         <AssociationConnector Association="KasabaKIATModel.FK_tblBron_tblSprav_San" ManuallyRouted="false" />
@@ -339,7 +336,6 @@
         <AssociationConnector Association="KasabaKIATModel.FK_tblVipl_Put_Users" ManuallyRouted="false" />
         <AssociationConnector Association="KasabaKIATModel.FK_tblVozVrat_Users" ManuallyRouted="false" />
         <AssociationConnector Association="KasabaKIATModel.FK_Zapros_ZK_Users" ManuallyRouted="false" />
-        <AssociationConnector Association="KasabaKIATModel.tbgl_jnlmst_1" ManuallyRouted="false" />
         <AssociationConnector Association="KasabaKIATModel.users_2" ManuallyRouted="false" />
         <AssociationConnector Association="KasabaKIATModel.agreement_files" ManuallyRouted="false" />
         <AssociationConnector Association="KasabaKIATModel.bkut_egrpo" ManuallyRouted="false" />
@@ -351,6 +347,10 @@
         <EntityTypeShape EntityType="KasabaKIATModel.tblVipl_NumGEn" Width="1.5" PointX="16.375" PointY="19.75" />
         <EntityTypeShape EntityType="KasabaKIATModel.tbpt_putyovka_statechange" Width="1.5" PointX="18.375" PointY="19.75" />
         <EntityTypeShape EntityType="KasabaKIATModel.tbgl_bankpayments" Width="1.5" PointX="20.375" PointY="5.75" />
+        <EntityTypeShape EntityType="KasabaKIATModel.tbgl_balance" Width="1.5" PointX="22.5" PointY="230.625" />
+        <AssociationConnector Association="KasabaKIATModel.FK_tbgl_balance_users" />
+        <EntityTypeShape EntityType="KasabaKIATModel.tbgl_jnlmst" Width="1.5" PointX="22.5" PointY="270" />
+        <AssociationConnector Association="KasabaKIATModel.tbgl_jnlmst_1" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

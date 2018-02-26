@@ -86,3 +86,15 @@ INSERT INTO [KasabaKIAT].[dbo].[role_permission] ([version] ,[action] ,[role_id]
 INSERT INTO [KasabaKIAT].[dbo].[role_permission] ([version] ,[action] ,[role_id] ,[access] ,[s_comment] ,[s_create] ,[s_status] ,[s_user_id]) VALUES (0 , 'Asp.DvijeniyaSredstvPoSchetam'    ,13  ,1  ,null ,GETDATE()  ,'ACTIVE'  ,1);
 INSERT INTO [KasabaKIAT].[dbo].[role_permission] ([version] ,[action] ,[role_id] ,[access] ,[s_comment] ,[s_create] ,[s_status] ,[s_user_id]) VALUES (0 , 'Asp.AktSverki'                    ,13  ,1  ,null ,GETDATE()  ,'ACTIVE'  ,1);
 INSERT INTO [KasabaKIAT].[dbo].[role_permission] ([version] ,[action] ,[role_id] ,[access] ,[s_comment] ,[s_create] ,[s_status] ,[s_user_id]) VALUES (0 , 'Asp.ZadoljennostSFP'              ,13  ,1  ,null ,GETDATE()  ,'ACTIVE'  ,1);
+
+
+
+--BKUT
+INSERT INTO [KasabaKIAT].[dbo].[role_permission] ([version] ,[action] ,[role_id] ,[access] ,[s_comment] ,[s_create] ,[s_status] ,[s_user_id]) VALUES (0 , 'Asp.VvodZayavok'                         ,8  ,1  ,null ,GETDATE()  ,'ACTIVE'  ,1);
+INSERT INTO [KasabaKIAT].[dbo].[role_permission] ([version] ,[action] ,[role_id] ,[access] ,[s_comment] ,[s_create] ,[s_status] ,[s_user_id]) VALUES (0 , 'Asp.PoiskIRedaktirovaniyaZayavok'        ,8  ,1  ,null ,GETDATE()  ,'ACTIVE'  ,1);
+INSERT INTO [KasabaKIAT].[dbo].[role_permission] ([version] ,[action] ,[role_id] ,[access] ,[s_comment] ,[s_create] ,[s_status] ,[s_user_id]) VALUES (0 , 'Asp.SvodniyOtchetPoZayavkam'      ,8  ,1  ,null ,GETDATE()  ,'ACTIVE'  ,1);
+INSERT INTO [KasabaKIAT].[dbo].[role_permission] ([version] ,[action] ,[role_id] ,[access] ,[s_comment] ,[s_create] ,[s_status] ,[s_user_id]) VALUES (0 , 'Asp.Talabnomalar'                 ,8  ,1  ,null ,GETDATE()  ,'ACTIVE'  ,1);
+
+
+
+

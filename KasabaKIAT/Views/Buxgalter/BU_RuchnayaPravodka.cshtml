@@ -4,6 +4,7 @@
     var UserId = Convert.ToInt32(User.Identity.Name);
     FunctionalityList List = FunctionalityAndDbDataMatch.MatchProcess(UserId);
 }
+
 @if (List.RuchniyeProvodki)
 {
     <section class="content__block container">
@@ -21,7 +22,7 @@
         <div class="nav form-group mb-4" id="myTab" role="tablist">
             <span class="pr-4">Проводка:</span>
             <div class="custom-control custom-radio custom-control-inline active" href="#first">
-                <input type="radio" name="inlineRadioOptions3" id="inlineRadio111" value="option1" class="custom-control-input" />
+                <input type="radio" name="inlineRadioOptions3" id="inlineRadio111" value="option1" class="custom-control-input" checked="" />
                 <label for="inlineRadio111" class="custom-control-label">Внешняя</label>
             </div>
             <div class="custom-control custom-radio custom-control-inline" href="#second">

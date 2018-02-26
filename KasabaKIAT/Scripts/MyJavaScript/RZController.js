@@ -17,6 +17,7 @@
         }).then(function (response) {
             $scope.S = response.data;
         }, function (error) {
+            alertify.error("ошибка");
             console.log(error, 'can not get data.');
         });
     }
@@ -27,7 +28,7 @@
         }).then(function (p) {
             GetRZ_G_S();
         }, function () {
-            //alert('Error in AddOQ_S');
+            alertify.error("ошибка");
             console.log("Error in AddOQ_S");
             document.getElementById('connection').style.visibility = "hidden";
             $("#hh").modal('hide');
@@ -40,7 +41,7 @@
         }).then(function (p) {
             GetRZ_G_C();
         }, function () {
-            //alert('Error in AddOQ_C');
+            alertify.error("ошибка");
             console.log('Error in AddOQ_C');
             document.getElementById('connection').style.visibility = "hidden";
             $("#hh").modal('hide');
@@ -104,7 +105,7 @@
                 }, function () {
                     document.getElementById('connection').style.visibility = "hidden";
                     $("#hh").modal('hide');
-                    //alert('Error in UpdateStatusRZ');
+                    alertify.error("ошибка");
                     console.log('Error in UpdateStatusRZ');
                 });
 
@@ -124,7 +125,7 @@
         }).then(function (p) {
             $scope.Price = p.data;
         }, function () {
-            //alert('Error in getPrice');
+            alertify.error("ошибка");
             console.log('Error in getPrice');
         });
     }
@@ -135,7 +136,7 @@
         }).then(function (b) {
             $scope.Bank = b.data;
         }, function () {
-            //alert('Error in GetBank');
+            alertify.error("ошибка");
             console.log('Error in GetBank');
         });
         $http({
@@ -144,7 +145,7 @@
         }).then(function (b) {
             $scope.GroupYear = b.data;
         }, function () {
-            //alert('Error in GetbankpaymentsYear');
+            alertify.error("ошибка");
             console.log('Error in GetbankpaymentsYear');
         });
     }
@@ -161,7 +162,7 @@
                 $scope.RZ_Gdiv = false;
             }
         }, function () {
-            //alert('Error in getting GetRZ_G_S records');
+            alertify.error("ошибка");
             console.log('Error in getting GetRZ_G_S records');
         });
     }
@@ -178,7 +179,7 @@
                 $scope.RZ_Gdiv = false;
             }
         }, function () {
-            //alert('Error in getting GetRZ_G_C records');
+            alertify.error("ошибка");
             console.log('Error in getting GetRZ_G_C records');
         });
     }
@@ -197,7 +198,7 @@
                 $scope.RZdiv = false;
             }
         }, function () {
-            //alert('Error in getting GetRZ_S records');
+            alertify.error("ошибка");
             console.log('Error in getting GetRZ_S records');
         });
     }
@@ -214,7 +215,7 @@
                 $scope.RZdiv = false;
             }
         }, function () {
-            //alert('Error in getting GetRZ_C records');
+            alertify.error("ошибка");
             console.log('Error in getting GetRZ_C records');
         });
     }

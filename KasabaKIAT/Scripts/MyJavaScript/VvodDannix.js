@@ -27,16 +27,24 @@
             },  
             transformRequest: angular.identity  
         }).then(function (d) {
-            var res = d.data;
-            $scope.BindData = res;
-            if (d.data.length != 0) {
-                $scope.showdata = true;
-            } else {
-                $scope.showdata = false;
+            $scope.showdata = false;
+            if (d.data == "error") {
+                alertify.error("ошибка");
             }
-            $scope.IsVisible = true; //showing the table after databinding  
-            $scope.showLoader = false; //after success hide spinner  
+            else {
+                var res = d.data;
+                $scope.BindData = res;
+                if (d.data.length != 0) {
+                    $scope.showdata = true;
+                } else {
+                    $scope.showdata = false;
+                }
+                $scope.IsVisible = true; //showing the table after databinding  
+                $scope.showLoader = false; //after success hide spinner  
+            }
+           
         }, function (err) {
+            alertify.error("ошибка : " + err.data);
             console.log(err.data);
             console.log("error in parse excel");
         });
@@ -48,6 +56,7 @@
         var SaveData = new FormData();
         var Savefile = $scope.SelectedFileForUpload;
         SaveData.append('UploadedFile', Savefile);
+        alertify.success("Операция выполняется");
         $http({
             method: "post",
             withCredentials: true,
@@ -58,8 +67,15 @@
             },
             transformRequest: angular.identity
         }).then(function (d) {
-            console.log(d.data);
+            $scope.showdata = false;
+            if (d.data == "error") {
+                alertify.error("ошибка");
+            } else {
+                console.log(d.data);
+            }
+            
         }, function (err) {
+            alertify.error("ошибка : " + err.data);
             console.log(err.data);
             console.log("error in parse excel");
         });

@@ -26,7 +26,7 @@
             //alert(m.data);
             $scope.PRZ = m.data;
         }, function () {
-            //alert('Error in Load_PRZ_S');
+            alertify.error("ошибка");
             console.log('Error in Load_PRZ_S');
         });
     }
@@ -41,7 +41,7 @@
             //alert(m.data);
             $scope.PRZ = m.data;
         }, function () {
-            //alert('Error in Load_PRZ_C');
+            alertify.error("ошибка");
             console.log('Error in Load_PRZ_C');
         });
     }
@@ -89,7 +89,7 @@
         }).then(function (s) {
             $scope.CS = s.data;
         }, function () {
-            //alert('Error in GetSanatory');
+            alertify.error("ошибка");
             console.log('Error in GetSanatory');
         });
         //$http({
@@ -109,7 +109,7 @@
         }).then(function (c) {
             $scope.CS = c.data;
         }, function () {
-            //alert('Error in GetCamp');
+            alertify.error("ошибка");
             console.log('Error in GetCamp');
         });
         //$http({
@@ -129,7 +129,7 @@
         }).then(function (s) {
             $scope.Ps = s.data;
         }, function () {
-            //alert('Error in GetPosition');
+            alertify.error("ошибка");
             console.log('Error in GetPosition');
         });
     }
@@ -141,7 +141,7 @@
         }).then(function (m) {
             $scope.PRZ = m.data;
         }, function () {
-            //alert('Error in load searchD0_CH');
+            alertify.error("ошибка");
             console.log('Error in load Load_PRZ_D0_S');
         });
     }
@@ -153,7 +153,7 @@
         }).then(function (m) {
             $scope.PRZ = m.data;
         }, function () {
-            //alert('Error in Load_PRZ_D0_C');
+            alertify.error("ошибка");
             console.log('Error in Load_PRZ_D0_C');
         });
     }
@@ -175,7 +175,7 @@
         }).then(function (m) {
             $scope.PRZ = m.data;
         }, function () {
-            //alert('Error in Load_PRZ_D1_S');
+            alertify.error("ошибка");
             console.log('Error in Load_PRZ_D1_S');
         });
     }
@@ -187,7 +187,7 @@
         }).then(function (m) {
             $scope.PRZ = m.data;
         }, function () {
-            //alert('Error in Load_PRZ_D1_C');
+            alertify.error("ошибка");
             console.log('Error in Load_PRZ_D1_C');
         });
     }
@@ -211,7 +211,7 @@
         }).then(function (m) {
             $scope.PRZ = m.data;
         }, function () {
-            //alert('Error in Load_PRZ_P_S');
+            alertify.error("ошибка");
             console.log('Error in Load_PRZ_P_S');
         });
     }
@@ -225,7 +225,7 @@
         }).then(function (m) {
             $scope.PRZ = m.data;
         }, function () {
-            //alert('Error in Load_PRZ_P_C');
+            alertify.error("ошибка");
             console.log('Error in Load_PRZ_P_C');
         });
     }
@@ -332,7 +332,7 @@
                     }
                 }
             }, function () {
-                //alert('Error in UpdatePodachaZayavok');
+                alertify.error("ошибка");
                 console.log('Error in UpdatePodachaZayavok');
             });
         }

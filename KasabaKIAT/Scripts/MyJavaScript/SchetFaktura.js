@@ -18,7 +18,7 @@
                 $scope.showdata = false;
             }
         }, function () {
-            //alert("error in O_SOZ");
+            alertify.error("ошибка");
         });
     }
     function Load(b, e, p) {
@@ -31,7 +31,7 @@
             GetData($scope.ZB, $scope.ZE, $scope.SP.d1);
         }, function () {
             $("#hh").modal('hide');
-            //alert("error in O_SOZ");
+            alertify.error("ошибка");
         });
     }
     function Oprixod(b, e, p) {
@@ -44,7 +44,7 @@
             GetData($scope.ZB, $scope.ZE, $scope.SP.d1);
         }, function () {
             $("#hh").modal('hide');
-            //alert("error in O_SOZ");
+            alertify.error("ошибка");
         });
     }
 
@@ -64,7 +64,7 @@
                 $scope.showdata2 = false;
             }
         }, function () {
-            //alert("error in O_SOZ");
+            alertify.error("ошибка");
         });
     }
     $scope.LoadDATA = function () {
@@ -116,7 +116,7 @@
         }).then(function (response) {
             $scope.R = response.data;
         }, function (error) {
-            //alert("error in GetRegion");
+            alertify.error("ошибка");
             console.log("error in GetRegion");
         });
     }

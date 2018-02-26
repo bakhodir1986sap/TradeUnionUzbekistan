@@ -15,7 +15,7 @@
                 $scope.showdata = false;
             }
         }, function () {
-            //alert("error in O_SOZ");
+            alertify.error("ошибка");
         });
     }
     function Load(yil) {
@@ -28,7 +28,7 @@
             GetData($scope.ZB);
         }, function () {
             $("#hh").modal('hide');
-            //alert("error in O_SOZ");
+            alertify.error("ошибка");
         });
     }
     $scope.LoadDATA = function () {

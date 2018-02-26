@@ -1,5 +1,6 @@
 ﻿app.controller("SPController", ["$scope", "$http", "$filter", "crudAJService", function ($scope, $http, $filter, crudAJService) {
     GetSP();
+    $scope.showdata = false;
     $scope.showdelete = false;
     function GetSP() {
         $http({
@@ -7,8 +8,14 @@
             url: "/Administirirovaniye/GetSP",
         }).then(function (d) {
             $scope.SP = d.data;
+            if (d.data.length != 0) {
+                $scope.showdata = true;
+            }
+            else {
+                $scope.showdata = false;
+            }
         }, function () {
-            //alert("error in SP");
+            alertify.error("ошибка");
         });
     }
     $scope.editSP = function (pz) {
@@ -49,7 +56,7 @@
             }).then(function (msg) {
                 GetSP();
             }, function () {
-                //alert('Error in updating');
+                alertify.error("ошибка");
             });
         }
         else {
@@ -61,7 +68,7 @@
             }).then(function (msg) {
                 GetSP();
             }, function () {
-                //alert('Error in adding book record');
+                alertify.error("ошибка");
             });
         }
     }
@@ -80,7 +87,7 @@
                 }).then(function (msg) {
                     GetSP();
                 }, function () {
-                    //alert('Error in deleting book record');
+                    alertify.error("ошибка");
                 });
             } else {
                 alertify.error("Операция отменена");
@@ -100,6 +107,7 @@
                     console.log(response, 'res');
                     $scope.O = response.data;
                 }, function (error) {
+                    alertify.error("ошибка");
                     console.log(error, 'error in LoadINN');
                 });
             }

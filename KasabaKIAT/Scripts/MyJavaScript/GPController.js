@@ -79,7 +79,7 @@
                 $scope.GPdiv = true;
             }
         }, function () {
-            //alert("error in GP");
+            alertify.error("ошибка");
             console.log("error in GP");
             document.getElementById('connection').style.visibility = "hidden";
             $("#hh").modal('hide');
@@ -95,7 +95,7 @@
                 $scope.GPdiv = true;
             }
         }, function () {
-            //alert("error in GetGodovoyPlan_C");
+            alertify.error("ошибка");
             console.log("error in GetGodovoyPlan_C");
             document.getElementById('connection').style.visibility = "hidden";
             $("#hh").modal('hide');
@@ -108,7 +108,7 @@
         }).then(function (response) {
             $scope.D = response.data;
         }, function (error) {
-            //alert("error in Getdictionary");
+            alertify.error("ошибка");
             console.log("error in Getdictionary");
             document.getElementById('connection').style.visibility = "hidden";
             $("#hh").modal('hide');
@@ -123,7 +123,7 @@
         }).then(function (response) {
             $scope.kvartal = response.data;
         }, function (error) {
-            //alert("error in Getdictionary");
+            alertify.error("ошибка");
             console.log("error in GetKvartal");
             document.getElementById('connection').style.visibility = "hidden";
             $("#hh").modal('hide');
@@ -138,7 +138,7 @@
         }).then(function (response) {
             $scope.R = response.data;
         }, function (error) {
-            //alert("error in GetRegion");
+            alertify.error("ошибка");
             console.log("error in GetRegion");
             document.getElementById('connection').style.visibility = "hidden";
             $("#hh").modal('hide');
@@ -153,7 +153,7 @@
     }).then(function (s) {
         $scope.CS = s.data;
     }, function () {
-        //alert('Error in GetSanatory');
+        alertify.error("ошибка");
         console.log('Error in GetSanatory');
         document.getElementById('connection').style.visibility = "hidden";
         $("#hh").modal('hide');
@@ -167,7 +167,7 @@ function AllCamp() {
     }).then(function (c) {
         $scope.CS = c.data;
     }, function () {
-        //alert('Error in GetCamp');
+        alertify.error("ошибка");
         console.log('Error in GetCamp');
         document.getElementById('connection').style.visibility = "hidden";
         $("#hh").modal('hide');
@@ -255,7 +255,7 @@ $scope.AddGPDiv = function () {
                     }
                 }
             }, function () {
-                //alert('Error in UpdateGodovoyPlan');
+                alertify.error("ошибка");
                 console.log('Error in UpdateGodovoyPlan');
                 document.getElementById('connection').style.visibility = "hidden";
                 $("#hh").modal('hide');
@@ -276,7 +276,7 @@ $scope.AddGPDiv = function () {
                     }
                 }
             }, function () {
-                //alert('Error in AddGodovoyPlan');
+                alertify.error("ошибка");
                 console.log('Error in AddGodovoyPlan');
                 document.getElementById('connection').style.visibility = "hidden";
                 $("#hh").modal('hide');
@@ -310,7 +310,7 @@ $scope.AddGPDiv = function () {
                         }
                     }
                 }, function () {
-                    //alert('Error DeleteGodovoyPlan');
+                    alertify.error("ошибка");
                     console.log('Error DeleteGodovoyPlan');
                     document.getElementById('connection').style.visibility = "hidden";
                     $("#hh").modal('hide');

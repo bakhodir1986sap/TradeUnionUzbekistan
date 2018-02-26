@@ -1,6 +1,8 @@
-﻿using KasabaKIAT.BusinessLogic.Buxgalteriya.PrixodChastichka;
+﻿using KasabaKiat.Helpers;
+using KasabaKIAT.BusinessLogic.Buxgalteriya.PrixodChastichka;
 using KasabaKIAT.Models;
 using KasabaKIAT.ViewModel.Buxgalteriya;
+using log4net;
 using OfficeOpenXml;
 using System;
 using System.Collections.Generic;
@@ -15,6 +17,7 @@ namespace KasabaKIAT.Controllers
     [Authorize]
     public class BuxgalterController : Controller
     {
+        ILog log = log4net.LogManager.GetLogger(typeof(BuxgalterController));
         KasabaKIATEntities KasabaDB = new KasabaKIATEntities();
         // GET: Buxgalter
         public ActionResult Index()
@@ -60,67 +63,83 @@ namespace KasabaKIAT.Controllers
 
         public ActionResult Upload(FormCollection formCollection)
         {
-            if (Request != null)
+            try
             {
-                HttpPostedFileBase file = Request.Files["UploadedFile"];
-                if ((file != null) && (file.ContentLength > 0) && !string.IsNullOrEmpty(file.FileName))
+                if (Request != null)
                 {
-                    string fileName = file.FileName;
-                    string fileContentType = file.ContentType;
-                    byte[] fileBytes = new byte[file.ContentLength];
-                    var data = file.InputStream.Read(fileBytes, 0, Convert.ToInt32(file.ContentLength));
-                    var platList = new List<BankpaymentsViewModel>();
-                    using (var package = new ExcelPackage(file.InputStream))
+                    var UserId = Convert.ToInt32(User.Identity.Name);
+
+                    var userInfo = UserInfo.GetUserInfo(UserId);
+
+                    HttpPostedFileBase file = Request.Files["UploadedFile"];
+                    if ((file != null) && (file.ContentLength > 0) && !string.IsNullOrEmpty(file.FileName))
                     {
-                        var currentSheet = package.Workbook.Worksheets;
-                        var workSheet = currentSheet.First();
-                        var noOfCol = workSheet.Dimension.End.Column;
-                        var noOfRow = workSheet.Dimension.End.Row;
-
-                        for (int rowIterator = 2; rowIterator <= noOfRow; rowIterator++)
+                        string fileName = file.FileName;
+                        string fileContentType = file.ContentType;
+                        byte[] fileBytes = new byte[file.ContentLength];
+                        var data = file.InputStream.Read(fileBytes, 0, Convert.ToInt32(file.ContentLength));
+                        var platList = new List<BankpaymentsViewModel>();
+                        using (var package = new ExcelPackage(file.InputStream))
                         {
-                            var user = new BankpaymentsViewModel();
+                            var currentSheet = package.Workbook.Worksheets;
+                            var workSheet = currentSheet.First();
+                            var noOfCol = workSheet.Dimension.End.Column;
+                            var noOfRow = workSheet.Dimension.End.Row;
 
-                            user.num_doc        = workSheet.Cells[rowIterator, 1].Value.ToString();
-                            user.payer_name     = workSheet.Cells[rowIterator, 2].Value.ToString();
-                            user.payer_inn      = workSheet.Cells[rowIterator, 3].Value.ToString();
-                            user.payer_mfo      = workSheet.Cells[rowIterator, 4].Value.ToString();
-                            user.payer_account  = workSheet.Cells[rowIterator, 5].Value.ToString();
-                            DateTime trandate;
-
-                            if (DateTime.TryParseExact(workSheet.Cells[rowIterator, 6].Value.ToString(), "dd.MM.yyyy", CultureInfo.InvariantCulture,DateTimeStyles.None ,out trandate))
+                            for (int rowIterator = 2; rowIterator <= noOfRow; rowIterator++)
                             {
-                                user.tran_date = trandate;
-                            }
-                            else
-                            {
-                                user.tran_date = DateTime.Now;
+                                var user = new BankpaymentsViewModel();
 
-                            }
-                            user.payment_datail = workSheet.Cells[rowIterator, 7].Value.ToString();
-                            decimal amount = 0;
+                                user.num_doc = workSheet.Cells[rowIterator, 1].Value.ToString();
+                                user.payer_name = workSheet.Cells[rowIterator, 2].Value.ToString();
+                                user.payer_inn = workSheet.Cells[rowIterator, 3].Value.ToString();
+                                user.payer_mfo = workSheet.Cells[rowIterator, 4].Value.ToString();
+                                user.payer_account = workSheet.Cells[rowIterator, 5].Value.ToString();
+                                DateTime trandate;
 
-                            if (decimal.TryParse(workSheet.Cells[rowIterator, 8].Value.ToString(), out amount))
-                            {
-                                user.amount = amount;
-                            }
-                            else
-                            {
-                                user.amount = 0;
+                                if (DateTime.TryParseExact(workSheet.Cells[rowIterator, 6].Value.ToString(), "dd.MM.yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out trandate))
+                                {
+                                    user.tran_date = trandate;
+                                }
+                                else
+                                {
+                                    user.tran_date = DateTime.Now;
 
-                            }
-                            user.benef_name     = workSheet.Cells[rowIterator, 9].Value.ToString();
-                            user.benef_inn      = workSheet.Cells[rowIterator, 10].Value.ToString();
-                            user.benef_mfo      = workSheet.Cells[rowIterator, 11].Value.ToString();
-                            user.benef_account  = workSheet.Cells[rowIterator, 12].Value.ToString();
-                            user.dbcrflg        = workSheet.Cells[rowIterator, 13].Value.ToString();
+                                }
+                                user.payment_datail = workSheet.Cells[rowIterator, 7].Value.ToString();
+                                decimal amount = 0;
 
-                            platList.Add(user);
-                            BankpaymentsDataManager.Create(ref user);
+                                if (decimal.TryParse(workSheet.Cells[rowIterator, 8].Value.ToString(), out amount))
+                                {
+                                    user.amount = amount;
+                                }
+                                else
+                                {
+                                    user.amount = 0;
+
+                                }
+                                user.benef_name = workSheet.Cells[rowIterator, 9].Value.ToString();
+                                user.benef_inn = workSheet.Cells[rowIterator, 10].Value.ToString();
+                                user.benef_mfo = workSheet.Cells[rowIterator, 11].Value.ToString();
+                                user.benef_account = workSheet.Cells[rowIterator, 12].Value.ToString();
+                                user.dbcrflg = workSheet.Cells[rowIterator, 13].Value.ToString();
+                                user.user_id = UserId;
+                                user.department_base = userInfo.DepartmentBase;
+
+                                platList.Add(user);
+                                BankpaymentsDataManager.Create(ref user);
+                            }
                         }
                     }
                 }
             }
+            catch(Exception ex)
+            {
+                log.Error(ex);
+
+                return new HttpNotFoundResult();
+            }
+
             return View("VvodDannix");
         }
     }

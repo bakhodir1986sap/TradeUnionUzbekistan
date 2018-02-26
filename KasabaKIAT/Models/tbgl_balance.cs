@@ -14,7 +14,7 @@ namespace KasabaKIAT.Models
     
     public partial class tbgl_balance
     {
-        public string TRDT { get; set; }
+        public System.DateTime TRDT { get; set; }
         public string ACCOUNT { get; set; }
         public string DEPARTMENT_CODE { get; set; }
         public Nullable<decimal> PRE_DEBIT_BAL { get; set; }
@@ -31,6 +31,6 @@ namespace KasabaKIAT.Models
         public long REC_ID { get; set; }
         public string INN { get; set; }
     
-        public virtual users users { get; set; }
+        public virtual users user { get; set; }
     }
 }

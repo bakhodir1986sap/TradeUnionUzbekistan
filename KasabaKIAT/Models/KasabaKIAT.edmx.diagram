@@ -351,6 +351,8 @@
         <AssociationConnector Association="KasabaKIATModel.FK_tbgl_balance_users" />
         <EntityTypeShape EntityType="KasabaKIATModel.tbgl_jnlmst" Width="1.5" PointX="22.5" PointY="270" />
         <AssociationConnector Association="KasabaKIATModel.tbgl_jnlmst_1" />
+        <EntityTypeShape EntityType="KasabaKIATModel.tbbu_platejka" Width="1.5" PointX="20.375" PointY="11.75" />
+        <EntityTypeShape EntityType="KasabaKIATModel.tbbu_provodki" Width="1.5" PointX="20.375" PointY="17.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

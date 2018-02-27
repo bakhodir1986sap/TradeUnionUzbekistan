@@ -230,5 +230,31 @@ namespace KasabaKIAT.Controllers
             }
 
         }
+        public JsonResult GetVvodDannix()
+        {
+            var data = KasabaDB.tbgl_bankpayments;
+            var list = from d in data
+                       select new
+                       {
+                           d0 = d.REC_ID,
+                           d1 = d.NUM_DOC,
+                           d2 = d.PAYER_NAME,
+                           d3 = d.PAYER_INN,
+                           d4 = d.PAYER_MFO,
+                           d5 = d.PAYER_ACCOUNT,
+                           d6 = d.TRAN_DATE,
+                           d7 = d.PAYMENT_DATAIL,
+                           d8 = d.AMOUNT,
+                           d9 = d.BENEF_NAME,
+                           d10 = d.BENEF_INN,
+                           d11 = d.BENEF_MFO,
+                           d12 = d.BENEF_ACCOUNT,
+                           d13 = d.DBCRFLG,
+                           d14 = d.PARENT_ID ,
+                           d15 = d.DEPARTMENT_BASE,
+                           d16 = d.USER_ID,
+                       };
+            return Json(list.ToList(), JsonRequestBehavior.AllowGet);
+        }
     }
 }

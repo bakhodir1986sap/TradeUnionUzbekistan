@@ -15,13 +15,13 @@
         </div>
         <div class="row mb-4 align-items-center">
             <div class="col title__block">
-                <h4>Распределение Заездов</h4>
+                <h4>Годовой план</h4>
                 <nav aria-label="breadcrumb" class="breadcrumb__block">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item load"><a href="/Home/Admin">Администрирование</a></li>
                         <li class="breadcrumb-item load"><a href="/Administirirovaniye/index">Администрирование</a></li>
                         <li class="breadcrumb-item load"><a href="/Administirirovaniye/SpravichnikiKurortnovoUpravleniya">Справочник с курортного управления</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Распределение Заездов</li>
+                        <li class="breadcrumb-item active" aria-current="page">Годовой план</li>
                     </ol>
                 </nav>
             </div>
@@ -40,7 +40,7 @@
                 </div>
             </div>
             <div style="margin-left:100px">
-                <p>Список:</p>
+                <p>Санаторий:</p>
                 <select style="width:200px" ng-change="LoadDATA()" ng-model="SP" name="SP" required ng-options="d as d.d2 for d in R track by d.d1" class="custom-select form-control"></select>
                 <span class="alert alert-warning" style="padding:0px" ng-show="myForm1.SP.$error.required">Выберите поле</span>
             </div>
@@ -73,8 +73,8 @@
                                 <th class="dropdown dropdown__table">Дата путевок</th>
                                 <th class="dropdown dropdown__table">Доверенность</th>
                                 <th class="dropdown dropdown__table">Дата Доверенности</th>
-                                <th class="dropdown dropdown__table">Кому выдан дов</th>
-                                <th class="dropdown dropdown__table">Сумма Документа</th>
+                                <th class="dropdown dropdown__table">Кому выдана дов</th>
+                                <th class="dropdown dropdown__table">Сумма</th>
                                 <th class="dropdown dropdown__table">Процент Наценки</th>
                                 <th class="dropdown dropdown__table">Сумма Наценки</th>
                                 <th class="dropdown dropdown__table">Количество Путевок</th>

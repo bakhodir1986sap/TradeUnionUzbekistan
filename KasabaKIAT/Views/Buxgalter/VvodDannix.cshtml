@@ -42,7 +42,7 @@
                 <div class="form-inline">
                     <input type="file" id="input08"  name="UploadedFile" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" onchange="angular.element(this).scope().UploadFiles(this.files)" />
                 </div> 
-                <input type="button" value="Preview" class="btn btn-primary" style="margin-top:-65px" ng-disabled="!SelectedFileForUpload" ng-click="ParseExcel() " />
+                <input type="button" value="Просмотреть" class="btn btn-primary" style="margin-top:-65px" ng-disabled="!SelectedFileForUpload" ng-click="ParseExcel() " />
                 <span style="color:red">
                     {{Message}}
                 </span> 
@@ -164,7 +164,7 @@
 			});
 
 			$('#input08').filestyle({
-				text : ' File',
+			    text: ' Выбрать',
 				btnClass : 'btn-success'
 			});
 

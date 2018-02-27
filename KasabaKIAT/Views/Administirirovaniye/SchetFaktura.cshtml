@@ -5,7 +5,7 @@
     FunctionalityList List = FunctionalityAndDbDataMatch.MatchProcess(UserId);
 }
 <script src="~/Scripts/MyJavaScript/SchetFaktura.js"></script>
-@if (List.PrixodPutyovok || List.UpravleniyaSpravochnikami)
+@if (List.UpravleniyaSpravochnikami)
 {
     <section class="content__block container" ng-controller="SchetFaktura">
         <div id="connection" style="visibility:hidden;position:absolute;margin-left:430px;margin-top:100px;z-index:9999">
@@ -13,12 +13,12 @@
         </div>
         <div class="row mb-4 align-items-center">
             <div class="col title__block">
-                <h4>Счет фактура</h4>
+                <h4>Накладные счет-фактуры</h4>
                 <nav aria-label="breadcrumb" class="breadcrumb__block">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item load"><a href="/Home/Admin">Администрирование</a></li>
                         <li class="breadcrumb-item load"><a href="/Administirirovaniye/index">Администрирование</a></li>
-                        <li class="breadcrumb-item load"><a href="/Administirirovaniye/SpravichnikiKurortnovoUpravleniya">Справочник с курортного управления</a></li>
+                        <li class="breadcrumb-item load"><a href="/Administirirovaniye/SpravichnikiKurortnovoUpravleniya">Накладные счет-фактуры</a></li>
                         <li class="breadcrumb-item active" aria-current="page">Счет фактура</li>
                     </ol>
                 </nav>
@@ -27,7 +27,7 @@
         <form class="row mb-4 align-items-center" name="myForm1" novalidate>
             <div class="custom-control-inline" style="margin-left:20px">
                 <div>
-                    <p>Список правсоюзов:</p>
+                    <p>Список профсоюзов:</p>
                     <select style="width:200px" ng-model="SP" name="SP" required ng-options="d as d.d2 for d in R track by d.d1" class="custom-select form-control"></select>
                     <span class="alert alert-warning" style="padding:0px" ng-show="myForm1.SP.$error.required">Выберите поле</span>
                 </div>

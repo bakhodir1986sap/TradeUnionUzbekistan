@@ -4,9 +4,10 @@
     var UserId = Convert.ToInt32(User.Identity.Name);
     FunctionalityList List = FunctionalityAndDbDataMatch.MatchProcess(UserId);
 }
+<script src="~/Scripts/MyJavaScript/BU_PrasmotrDannix.js"></script>
 @if (List.PrasmotrDannix)
 {
-    <section class="content__block container">
+    <section class="content__block container" ng-controller="BU_PrasmotrDannix">
         <div class="row mb-4 align-items-center">
             <div class="col title__block">
                 <h4>Просмотр данных</h4>
@@ -111,37 +112,13 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>OK9</td>
-                        <td>TOSHKENT SHAHAR KASABA UYUSH<br />MALARI  TASHKILOTLARI BIRLASHMASI<br />NING KENGA соцстрах)<br /> ИНН: 201273304 <br /> МФО: 00425<br /> Рас. счет: 20212000800136154002</td>
-                        <td>03.01.2017</td>
-                        <td>00667Комиссия за <br /> операционное <br /> обслуживание счета <br />20212000500136154006 с  01.01.17 по 03.01.17</td>
-                        <td>1 200 000</td>
-                        <td>ЗавХоз</td>
-                    </tr>
-                    <tr>
-                        <td>ОК31</td>
-                        <td>TOSHKENT SHAHAR KASABA UYUSH<br />MALARI  TASHKILOTLARI BIRLASHMASI<br />NING KENGA соцстрах)<br /> МФО: 06726<br /> Рас. счет: 24686000800148158606</td>
-                        <td>12.06.2017</td>
-                        <td>00667Комиссия за <br /> операционное <br /> обслуживание счета <br />20212000500136154006 с  01.01.17 по 03.01.17</td>
-                        <td>1 000 000</td>
-                        <td>Директор</td>
-                    </tr>
-                    <tr>
-                        <td>ОК18</td>
-                        <td>TOSHKENT SHAHAR KASABA UYUSH<br />MALARI  TASHKILOTLARI BIRLASHMASI<br />NING KENGA соцстрах)<br /> МФО: 01142<br /> Рас. счет: 24686000843767346734</td>
-                        <td>06.03.2017</td>
-                        <td>00668 Оплата <br /> процентов за ОПК.</td>
-                        <td>3 953 987</td>
-                        <td>Директор</td>
-                    </tr>
-                    <tr>
-                        <td>ОК9</td>
-                        <td>TOSHKENT SHAHAR KASABA UYUSH<br />MALARI  TASHKILOTLARI BIRLASHMASI<br />NING KENGA соцстрах)<br /> ИНН: 201273304 <br /> МФО: 00425 <br /> Рас. счет: 20212000800136154002</td>
-                        <td>03.01.2017</td>
-                        <td>00667Комиссия за <br /> операционное <br /> обслуживание счета <br />20212000500136154006 с  01.01.17 по 03.01.17</td>
-                        <td>1 200 000</td>
-                        <td>ЗавХоз</td>
+                    <tr ng-repeat="item in DATA">
+                        <td>{{item.d1}}</td>
+                        <td>{{item.d2}}<br /> ИНН: {{item.d3}} <br /> МФО: {{item.d4}}<br /> Рас. счет: {{item.d5}}</td>
+                        <td>{{item.d6 | jsonDate: 'dd.MM.yyyy'}}</td>
+                        <td>00667Комиссия за <br /> операционное <br /> обслуживание счета <br />{{item.d12}} с  01.01.17 по 03.01.17</td>
+                        <td>{{item.d8}}</td>
+                        <td>{{item.d9}}</td>
                     </tr>
                 </tbody>
             </table>

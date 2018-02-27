@@ -4,12 +4,16 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using KasabaKIAT.Models;
+using KurortUrvServiceTest.ServiceInterAction.ActionLogic;
+using log4net;
 
 namespace KasabaKIAT.Controllers
 {
     //[Authorize(Roles = "COUNCIL_REGIONAL_REGION,ADMIN")]
     public class OtchotController : Controller
     {
+        ServiceActionController service = new ServiceActionController();
+        ILog log = log4net.LogManager.GetLogger(typeof(AdministirirovaniyeController));
         KasabaKIATEntities KasabaDB = new KasabaKIATEntities();
         // GET: Otchot
         public ActionResult Index()
@@ -27,6 +31,44 @@ namespace KasabaKIAT.Controllers
         public ActionResult Forma13()
         {
             return View();
+        }
+        public JsonResult GetForma13(int yil, string inn)
+        {
+            log.Info("GetRaspredeleniyeZaezdov1");
+            log.Info("yil = " + yil);
+            log.Info("inn = " + inn);
+            try
+            {
+                var data = KasabaDB.sp_rt_FormaN13(yil, inn);
+                var O = from o in data
+                        select new
+                        {
+                            d1 = o.Data_Postupleniya,
+                            d2 = o.Nomer_SchetFacturi,
+                            d3 = o.NameimenovaniyeOrg,
+                            d4 = o.NomerPutyovki,
+                            d5 = o.DataZaezda,
+                            d6 = o.SenaPutyovki,
+                            d7 = o.DataPokupkiPutyovki,
+                            d8 = o.NomerResheniyaOVidache,
+                            d9 = o.FIO,
+                            d10 = o.MestoRaboti,
+                            d11 = o.DataPlateja,
+                            d12 = o.SymmaPlateja,
+                            d13 = o.NomerPlatejnogoPorucheniya,
+                            d14 = o.NomerTalona,
+                            d15 = o.DataTalona
+                        };
+
+                log.Info("Count = " + O.ToList().Count);
+
+                return Json(O.ToList(), JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                log.Info(ex);
+            }
+            return null;
         }
         public ActionResult Forma14()
         {

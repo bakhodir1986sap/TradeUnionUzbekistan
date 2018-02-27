@@ -1021,6 +1021,7 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\MyJavaScript\App.js" />
     <Content Include="Scripts\MyJavaScript\A_PPController.js" />
+    <Content Include="Scripts\MyJavaScript\BU_PrasmotrDannix.js" />
     <Content Include="Scripts\MyJavaScript\Controller.js" />
     <Content Include="Scripts\MyJavaScript\DataService.js" />
     <Content Include="Scripts\MyJavaScript\GPController.js" />

@@ -70,7 +70,7 @@
                     {
                         <li class="nav-item dropdown" id="p">
                             <a id="tours1" class="nav-link" style="visibility:hidden;position:absolute;">Путевки</a>
-                            <a disabled class="nav-link dropdown-toggle" href="tours.html" id="tours" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Путевки</a>
+                            <a disabled class="nav-link dropdown-toggle" href="/Home/Putyovki" id="tours" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Путевки</a>
                             <div class="dropdown-menu rounded-0 box-shadow m-0 border-0" aria-labelledby="tours">
                                 @if (List.GrafikZaezdov)
                                 {
@@ -86,7 +86,7 @@
                                 }
                                 @if (List.PrixodPutyovok)
                                 {
-                                    <a class="dropdown-item load" href="/Administirirovaniye/SchetFaktura">Приход путевок</a>
+                                    <a class="dropdown-item load" href="/PrixodPutevok/Index">Приход путевок</a>
                                 }
                                 @if (List.ProsmotrOstatkaPutyovok)
                                 {
@@ -111,7 +111,7 @@
                     {
                         <li class="nav-item dropdown" id="z">
                             <a id="claims1" class="nav-link" style="visibility:hidden;position:absolute;">Заявки</a>
-                            <a class="nav-link dropdown-toggle" href="claims.html" id="claims" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Заявки</a>
+                            <a class="nav-link dropdown-toggle" href="/Home/Zayavok" id="claims" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Заявки</a>
                             <div class="dropdown-menu rounded-0 box-shadow m-0 border-0" aria-labelledby="claims">
                                 @if (List.VvodZayavok)
                                 {
@@ -127,7 +127,7 @@
                     @if (List.TotalBuxUchet)
                     {
                         <li class="nav-item dropdown" id="b">
-                            <a class="nav-link dropdown-toggle" href="accounting.html" id="accounting" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Бухгалтерия</a>
+                            <a class="nav-link dropdown-toggle" href="/Buxgalter/Index" id="accounting" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Бухгалтерия</a>
                             <div class="dropdown-menu rounded-0 box-shadow m-0 border-0" aria-labelledby="accounting">
                                 @if (List.BuxUchetVvodDannix)
                                 {
@@ -161,15 +161,15 @@
                     @if (List.TotalAdmin)
                     {
                         <li class="nav-item dropdown" id="a">
-                            <a class="nav-link dropdown-toggle" href="administration.html" id="administration" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Администрирование</a>
+                            <a class="nav-link dropdown-toggle" href="/Home/Admin" id="administration" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Администрирование</a>
                             <div class="dropdown-menu rounded-0 box-shadow m-0 border-0" aria-labelledby="administration">
                                 @if (List.SozdaniyaUchetnixZapisey)
                                 {
-                                    <a class="dropdown-item load" href="/Administirirovaniye/UchetniyZapis">Создание учетных записей</a>
+                                    <a class="dropdown-item load" href="/Administirirovaniye/UchetniyZapis">Пользователи</a>
                                 }
                                 @if (List.SozdaniyaRoley)
                                 {
-                                    <a class="dropdown-item load" href="/Administirirovaniye/SozdaniyeRoley">Создание ролей</a>
+                                    <a class="dropdown-item load" href="/Administirirovaniye/SozdaniyeRoley">Ролей</a>
                                 }
                                 @if (List.SozdaniyaProvodok)
                                 {
@@ -181,7 +181,7 @@
                                 }
                                 @if (List.UpravleniyaSpravochnikami)
                                 {
-                                    <a class="dropdown-item load" href="/Administirirovaniye/Spravichniki">Справочники</a>
+                                    <a class="dropdown-item load" href="/Administirirovaniye/Spravichniki">Справочники СКУ</a>
                                     <a class="dropdown-item load" href="/Administirirovaniye/SpravichnikiKurortnovoUpravleniya">Справочник с курортного управления</a>
                                 }
                             </div>

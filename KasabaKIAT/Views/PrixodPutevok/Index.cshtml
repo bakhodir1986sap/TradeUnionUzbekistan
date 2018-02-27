@@ -1,15 +1,18 @@
-﻿@{
+﻿@using KasabaKIAT.BusinessLogic.Security.Roles.RolePermissions;
+@{
     ViewBag.Title = "Путевки";
+    var UserId = Convert.ToInt32(User.Identity.Name);
+    FunctionalityList List = FunctionalityAndDbDataMatch.MatchProcess(UserId);
 }
-<script src="~/Scripts/MyJavaScript/PPController.js"></script>
-@*<h2 style="color:#428bca">Приход путевок</h2>*@
-<div id="connection" style="visibility:hidden;position:absolute;margin-left:430px;margin-top:100px;z-index:9999">
-    <img src="~/Content/Login/buffering.gif" />
-</div>
-<div ng-controller="PPController">
-    <section class="content__block container">
+<script src="~/Scripts/MyJavaScript/SchetFaktura.js"></script>
+@if (List.PrixodPutyovok)
+{
+    <section class="content__block container" ng-controller="SchetFaktura">
+        <div id="connection" style="visibility:hidden;position:absolute;margin-left:430px;margin-top:100px;z-index:9999">
+            <img src="~/Content/Login/buffering.gif" />
+        </div>
         <div class="row mb-4 align-items-center">
-            <div class="col-sm-6 title__block">
+            <div class="col title__block">
                 <h4>Приход путевок</h4>
                 <nav aria-label="breadcrumb" class="breadcrumb__block">
                     <ol class="breadcrumb">
@@ -18,160 +21,135 @@
                     </ol>
                 </nav>
             </div>
-            <div class="col-sm-6 text-md-right">
-                <button ng-click="AddPPDiv()"  class="btn btn-blue d-block d-md-inline-block mb-3 mb-md-0" data-toggle="modal" data-target="#dobavit"><i class="fas fa-plus"></i> Добавить</button>
-                <button class="btn btn-green d-block d-md-inline-block mb-3 mb-md-0"><i class="fas fa-file-excel"></i> Загрузить</button>
-                <button ng-show="PPdiv" ng-click="exportData()" class="btn btn-green d-block d-md-inline-block mb-3 mb-md-0"><i class="fas fa-file-excel"></i> Экспорт</button>
-            </div>
         </div>
-        <form class="form-group  justify-content-end" name="myForm1" novalidate>
-            <div class="col-md-7">
-                <div class="custom-control custom-radio custom-control-inline">
-                    <input type="radio" ng-model="s" required ng-change="LoadSC('')" name="RadioOptions" id="inlineRadios1" value="option1" class="custom-control-input" checked="" />
-                    <label for="inlineRadios1" class="custom-control-label">Санаторий</label>
+        <form class="row mb-4 align-items-center" name="myForm1" novalidate>
+            <div class="custom-control-inline" style="margin-left:20px">
+                <div>
+                    <p>Список профсоюзов:</p>
+                    <select style="width:200px" ng-model="SP" name="SP" required ng-options="d as d.d2 for d in R track by d.d1" class="custom-select form-control"></select>
+                    <span class="alert alert-warning" style="padding:0px" ng-show="myForm1.SP.$error.required">Выберите поле</span>
                 </div>
-                <div class="custom-control custom-radio custom-control-inline">
-                    <input type="radio" ng-model="s" required ng-change="LoadSC('')" name="RadioOptions" id="inlineRadios2" value="option2" class="custom-control-input" />
-                    <label for="inlineRadios2" class="custom-control-label">Дет. лагер</label>
-                    <span class="alert alert-warning" style="padding:0px" ng-show="myForm1.RadioOptions.$error.required">Выберите поле</span>
-                </div>
+            </div>
+            <div style="margin-left:100px">
+                <p>Период с:</p>
+                <input class="form-control" style="width:200px;" required type="date" ng-model="ZB" id="ZAEZD_BEGIN" name="ZAEZD_BEGIN" />
+                <span class="alert alert-warning" style="padding:0px" ng-show="myForm1.ZAEZD_BEGIN.$error.required">Выберите поле</span>
+            </div>
+            <div style="margin-left:100px">
+                <p>Период по:</p>
+                <input class="form-control" style="width:200px;" required type="date" ng-model="ZE" id="ZAEZD_END" name="ZAEZD_END" />
+                <span class="alert alert-warning" style="padding:0px" ng-show="myForm1.ZAEZD_END.$error.required">Выберите поле</span>
+            </div>
+            <div style="margin-left:20px">
+                <button ng-click="LoadDATA()" ng-disabled="myForm1.SP.$error.required||myForm1.ZAEZD_BEGIN.$error.required||myForm1.ZAEZD_END.$error.required" class="btn btn-blue d-block d-md-inline-block mb-2" style="margin-top:45px"> Получить</button>
+            </div>
+            <div style="margin-left:20px">
+                <button ng-show="showdata" ng-click="OPRIXDATA()" ng-disabled="myForm1.SP.$error.required||myForm1.ZAEZD_BEGIN.$error.required||myForm1.ZAEZD_END.$error.required" class="btn btn-blue d-block d-md-inline-block mb-2" style="margin-top:45px"> Оприходовать</button>
             </div>
         </form>
-        <div class="table-responsive box-shadow mb-4" id="export">
-            <table class="table table__block t-hover">
-                <thead>
-                    <tr>
-                        <th class="dropdown dropdown__table"  style="width:200px;text-align:center">
-                            Номера путевок
-                        </th>
-                        <th class="dropdown dropdown__table" style="width:150px;text-align:center">
-                            <select class="form-control" ng-change="LoadPPData()" required name="CSFilter" ng-model="SCFilter" ng-options="item as item.value for item in CS track by item.id"></select>
-                        </th>
-                        <th class="dropdown dropdown__table" style="width:150px;text-align:center"  >
-                            Период с
-                        </th>
-                        <th class="dropdown dropdown__table" style="width:150px;text-align:center">
-                            Период по
-                        </th>
-                        <th class="dropdown dropdown__table" style="width:100px;text-align:center">
-                            <input ng-model="PFilter" name="PFilter" type="text" class="form-control" placeholder="Цена" />
-                        </th>
-                        <th  class="dropdown dropdown__table" style="width:100px;text-align:center">
-                            <input ng-model="QFilter" name="QFilter" type="text" class="form-control" placeholder="Кол-во" />
-                        </th>
-                        <th  class="dropdown dropdown__table" style="width:200px;text-align:center">
-                            <input ng-model="OCFilter" name="OCFilter" type="text" class="form-control" placeholder="Общая стоимость" />
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr class="poin" ng-repeat="pp in PP | filter:PFilter | filter:QFilter | filter:OCFilter" ng-click="editPP(pp)" data-toggle="modal" data-target="#dobavit">
-                        <td style="text-align:center">{{pp.SB}} - {{pp.SE}}</td>
-                        <td style="text-align:center">{{pp.SC}}</td>
-                        <td style="text-align:center">{{pp.RBD | jsonDate: 'dd.MM.yyyy'}}</td>
-                        <td style="text-align:center">{{pp.RED | jsonDate: 'dd.MM.yyyy'}}</td>
-                        <td style="text-align:center">{{pp.P}}</td>
-                        <td style="text-align:center">{{pp.QR}}</td>
-                        <td style="text-align:center">{{pp.RB}}</td>
-                    </tr>
-                    <tr ng-repeat="pp_sum in PP_SUM">
-                        <td style="text-align:center">
-                            @*<button type="button" ng-click="ok()" class="btn btn-default">очистить фильтр</button>*@
-                        </td>
-                        <td style="text-align:center">
-                            @*<button type="button" class="btn btn-default">отчет</button>*@
-                        </td>
-                        <td style="text-align:center"></td>
-                        <td style="text-align:center">Итого:</td>
-                        <td style="text-align:center"><b>{{pp_sum.P_SUM}}</b></td>
-                        <td style="text-align:center"><b>{{pp_sum.QR_SUM}}</b></td>
-                        <td style="text-align:center"><b>{{pp_sum.RB_SUM}}</b></td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-        <div class="mb-4">
-            <a href="#" ng-click="ok()" class="btn btn-grey d-block d-md-inline-block my-2">очистить фильтр</a>
-            <a href="#" class="btn btn-grey d-block d-md-inline-block my-2">отчет</a>
-        </div>
-    </section>
-   
-    <div class="modal__block modal fade" id="dobavit" tabindex="-1" role="dialog" aria-labelledby="dobavitLabel">
-        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-            <div class="modal-content">
-                <div class="modal-body">
-                    <div class="modal-title">
-                        <h4 class="text-center mt-4 mb-4">{{Action}} путевки</h4>
+        <div class="row mb-5 pb-md-5" ng-show="showdata">
+            <div class="col-md-12">
+                <div class="table__title mb-3">
+                    <div class="row mb-4 align-items-center">
+                        <div style="margin-left:50px">
+                            <h6>Документ Счет фактуры</h6>
+                        </div>
+                        <div style="margin-left:690px;">
+                            <button class="btn btn-green d-block d-md-inline-block mb-2" ng-click="exportData1()">
+                                <i class="fas fa-file-excel"></i>  ЭКСПОРТ
+                            </button>
+                        </div>
                     </div>
-                    <div class="row justify-content-center">
-                        <form class="col-md-8"  name="myForm" novalidate>
-                            <input type="hidden" style="position:absolute" ng-model="ID;" />
-                            <div class="form-group row align-items-center">
-                                <label class="col-md-5 col-form-label text-md-right py-0">Начальный номер:</label>
-                                <div class="col-md-7">
-                                    <input type="text" name="SB" ng-model="SB" required ng-minlength="6" ng-maxlength="6" class="form-control" placeholder="">
-                                    <span class="alert alert-warning" style="padding:0px" ng-show="myForm.SB.$error.required">заполнить поле</span>
-                                    <span class="alert alert-warning" style="padding:0px" ng-show="!myForm.SB.$error.required&&!myForm.SB.$valid">5 шт. номер</span>
-                                </div>
-                            </div>
-                            <div class="form-group row align-items-center">
-                                <label class="col-md-5 col-form-label text-md-right py-0">Конечный номер:</label>
-                                <div class="col-md-7">
-                                    <input type="text" name="SE" ng-model="SE" required ng-minlength="6" ng-maxlength="6" class="form-control" placeholder="">
-                                    <span class="alert alert-warning" style="padding:0px" ng-show="myForm.SE.$error.required">заполнить поле</span>
-                                    <span class="alert alert-warning" style="padding:0px" ng-show="!myForm.SE.$error.required&&!myForm.SE.$valid">5 шт. номер</span>
-                                </div>
-                            </div>
-                            <div class="form-group row align-items-center">
-                                <label class="col-md-5 col-form-label text-md-right py-0">{{scname}}:</label>
-                                <div class="col-md-7">
-                                    <select class="custom-select form-control" required name="CS" ng-model="SC" ng-options="item as item.value for item in CS track by item.id"></select>
-                                    <span class="alert alert-warning" style="padding:0px" ng-show="s&&myForm.CS.$error.required">Выберите поле</span>
-                                </div>
-                            </div>
-                            <div class="form-group row align-items-center">
-                                <label class="col-md-5 col-form-label text-md-right py-0">Дата с:</label>
-                                <div class="col-md-7">
-                                    <input type="date" class="form-control" ng-model="RBD" />
-                                </div>
-                            </div>
-                            <div class="form-group row align-items-center">
-                                <label class="col-md-5 col-form-label text-md-right py-0">Дата по:</label>
-                                <div class="col-md-7">
-                                    <input type="date" class="form-control" ng-model="RED" />
-                                </div>
-                            </div>
-                            <div class="form-group row align-items-center">
-                                <label class="col-md-5 col-form-label text-md-right py-0">Цена:</label>
-                                <div class="col-md-7">
-                                    <input type="text" name="P" ng-model="P" required class="form-control" placeholder="">
-                                    <span class="alert alert-warning" style="padding:0px" ng-show="myForm.P.$error.required">заполнить поле</span>
-                                </div>
-                            </div>
-                            <div class="form-group row align-items-center">
-                                <label class="col-md-5 col-form-label text-md-right py-0">Д-т:</label>
-                                <div class="col-md-7">
-                                    <input type="text" required name="Q_IN" ng-model="Q_IN" class="form-control" placeholder="">
-                                    <span class="alert alert-warning" style="padding:0px" ng-show="myForm.Q_IN.$error.required">заполнить поле</span>
-                                </div>
-                            </div>
-                            <div class="form-group row align-items-center">
-                                <label class="col-md-5 col-form-label text-md-right py-0">К-т:</label>
-                                <div class="col-md-7">
-                                    <input type="text" name="Q_OUT" ng-model="Q_OUT" required class="form-control" placeholder="">
-                                    <span class="alert alert-warning" style="padding:0px" ng-show="myForm.Q_OUT.$error.required">заполнить поле</span>
-                                </div>
-                            </div>
-                            <div class="mb-4 text-right">
-                                <button  data-dismiss="modal" ng-disabled="myForm.SB.$error.required||myForm.SE.$error.required||s&&myForm.CS.$error.required||myForm.P.$error.required||myForm.Q_IN.$error.required||myForm.Q_OUT.$error.required||(!myForm.SB.$error.required&&!myForm.SB.$valid)||(!myForm.SE.$error.required&&!myForm.SE.$valid)" ng-click="AddUpdatePP()"  class="btn btn-blue d-block d-md-inline-block mb-2">Сохранить</button>
-                                <button ng-click="deletePP(ID)"  ng-show="showdelete" data-dismiss="modal" class="btn btn-red d-block d-md-inline-block mb-2">Удалить</button>
-                                <button class="btn btn-grey d-block d-md-inline-block mb-2" data-dismiss="modal">Отмена</button>
-                            </div>
-                        </form>
+                </div>
+                <div class="table-responsive box-shadow mb-4" id="export1">
+                    <table class="table table__block t-hover">
+                        <thead>
+                            <tr>
+                                <th class="dropdown dropdown__table">Номер документа</th>
+                                <th class="dropdown dropdown__table">Дата документа</th>
+                                <th class="dropdown dropdown__table">Флаг</th>
+                                <th class="dropdown dropdown__table">Договор</th>
+                                <th class="dropdown dropdown__table">Дата путевок</th>
+                                <th class="dropdown dropdown__table">Доверенность</th>
+                                <th class="dropdown dropdown__table">Дата Доверенности</th>
+                                <th class="dropdown dropdown__table">Кому выдан дов</th>
+                                <th class="dropdown dropdown__table">Сумма Документа</th>
+                                <th class="dropdown dropdown__table">Процент Наценки</th>
+                                <th class="dropdown dropdown__table">Сумма Наценки</th>
+                                <th class="dropdown dropdown__table">Количество Путевок</th>
+                                <th class="dropdown dropdown__table">Товар отпустил</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="item in DATA" ng-click="LoadStrokaSchetFakturi(item.d0)">
+                                <td>{{item.d1}}</td>
+                                <td>{{item.d2 | jsonDate: 'dd.MM.yyyy'}}</td>
+                                <td>{{item.d3}}</td>
+                                <td>{{item.d4}}</td>
+                                <td>{{item.d5 | jsonDate: 'dd.MM.yyyy'}}</td>
+                                <td>{{item.d6}}</td>
+                                <td>{{item.d7 | jsonDate: 'dd.MM.yyyy'}}</td>
+                                <td>{{item.d8}}</td>
+                                <td>{{item.d9}}</td>
+                                <td>{{item.d10}}</td>
+                                <td>{{item.d11}}</td>
+                                <td>{{item.d12}}</td>
+                                <td>{{item.d13}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col-md-12" ng-show="showdata2">
+                <div class="table__title mb-3">
+                    <div class="row mb-4 align-items-center">
+                        <div style="margin-left:50px">
+                            <h6>Детали счет фактуры</h6>
+                        </div>
+                        <div style="margin-left:710px;">
+                            <button class="btn btn-green d-block d-md-inline-block mb-2" ng-click="exportData2()">
+                                <i class="fas fa-file-excel"></i>  ЭКСПОРТ
+                            </button>
+                        </div>
                     </div>
+                </div>
+                <div class="table-responsive box-shadow mb-4" id="export2">
+                    <table class="table table__block t-hover">
+                        <thead>
+                            <tr>
+                                <th class="dropdown dropdown__table">Санаторий</th>
+                                <th class="dropdown dropdown__table">Размещение</th>
+                                <th class="dropdown dropdown__table">Тип Санатория</th>
+                                <th class="dropdown dropdown__table">Дата заезда</th>
+                                <th class="dropdown dropdown__table">Номер с</th>
+                                <th class="dropdown dropdown__table">Номер по</th>
+                                <th class="dropdown dropdown__table">Количество</th>
+                                <th class="dropdown dropdown__table">Себестоимость</th>
+                                <th class="dropdown dropdown__table">Сумма Себестоимоси</th>
+                                <th class="dropdown dropdown__table">Процент Наценки</th>
+                                <th class="dropdown dropdown__table">Цена</th>
+                                <th class="dropdown dropdown__table">Сумма</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="item in DATA2">
+                                <td>{{item.d2}}</td>
+                                <td>{{item.d3}}</td>
+                                <td>{{item.d4}}</td>
+                                <td>{{item.d5 | jsonDate: 'dd.MM.yyyy'}}</td>
+                                <td>{{item.d6}}</td>
+                                <td>{{item.d7}}</td>
+                                <td>{{item.d8}}</td>
+                                <td>{{item.d9}}</td>
+                                <td>{{item.d10}}</td>
+                                <td>{{item.d11}}</td>
+                                <td>{{item.d12}}</td>
+                                <td>{{item.d13}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
-    </div>
-
-</div>
+    </section>
+}

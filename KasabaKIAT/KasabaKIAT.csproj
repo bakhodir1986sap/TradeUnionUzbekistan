@@ -197,7 +197,6 @@
     <Compile Include="BusinessLogic\Buxgalteriya\OperationSettings\OperationSettingsDataManager.cs" />
     <Compile Include="BusinessLogic\Buxgalteriya\PlanirovaniyaBudjeta\Calculations.cs" />
     <Compile Include="BusinessLogic\Buxgalteriya\PlanirovaniyaBudjeta\Otrasl\PlanOtraslDataManager.cs" />
-    <Compile Include="BusinessLogic\Buxgalteriya\PlanirovaniyaBudjeta\Region\PlanRegionDataManager.cs" />
     <Compile Include="BusinessLogic\Buxgalteriya\PlanProvodok\AccountType.cs" />
     <Compile Include="BusinessLogic\Buxgalteriya\PlanProvodok\AccountTypeDataManager.cs" />
     <Compile Include="BusinessLogic\Buxgalteriya\Platejki\Platejki.cs" />
@@ -282,6 +281,9 @@
     <Compile Include="BusinessLogic\Security\Helpers\UserInfo.cs" />
     <Compile Include="BusinessLogic\Security\Roles\RolePermissions\FunctionalityAndDbDataMatch.cs" />
     <Compile Include="BusinessLogic\Security\Roles\RolePermissions\FunctionalityList.cs" />
+    <Compile Include="BusinessLogic\Security\Roles\RolePermissions\RolePermission.cs" />
+    <Compile Include="BusinessLogic\Security\Roles\RolePermissions\RolePermissionDataManager.cs" />
+    <Compile Include="BusinessLogic\Security\Roles\Roles\RoleDataManager.cs" />
     <Compile Include="BusinessLogic\Security\Roles\Roles\Roles.cs" />
     <Compile Include="BusinessLogic\Security\Roles\UserRoles\UserRoles.cs" />
     <Compile Include="BusinessLogic\Utils\References\ReferencesDataManager.cs" />
@@ -403,6 +405,7 @@
     <Compile Include="ViewModel\Buxgalteriya\DetailViewModel.cs" />
     <Compile Include="ViewModel\Buxgalteriya\MasterViewModel.cs" />
     <Compile Include="ViewModel\Buxgalteriya\OperationSettingsViewModel.cs" />
+    <Compile Include="ViewModel\Buxgalteriya\PlanRegionViewModel.cs" />
     <Compile Include="ViewModel\Buxgalteriya\PlatejkiViewModel.cs" />
     <Compile Include="ViewModel\Buxgalteriya\ProvodkiViewModel.cs" />
     <Compile Include="ViewModel\KurortService\ViewModel.cs" />
@@ -871,6 +874,8 @@
     <Compile Include="ViewModel\References\Sprav_RegViewModel.cs" />
     <Compile Include="ViewModel\References\Sprav_SanViewModel.cs" />
     <Compile Include="ViewModel\References\Sprav_VilViewModel.cs" />
+    <Compile Include="ViewModel\Security\Role\RolePermissionViewModel.cs" />
+    <Compile Include="ViewModel\Security\Role\RoleViewModel.cs" />
     <Compile Include="ViewModel\UserViewModel.cs" />
     <Compile Include="ViewModel\ZayavkiViewModel.cs" />
     <Compile Include="Web References\KurortUrlService\Reference.cs">
@@ -962,6 +967,11 @@
     <Content Include="Content\img\item-8.JPG" />
     <Content Include="Content\img\item-9.JPG" />
     <Content Include="Content\img\item12.JPG" />
+    <Content Include="Content\img\left.png" />
+    <Content Include="Content\img\left_all.png" />
+    <Content Include="Content\img\right.png" />
+    <Content Include="Content\img\right_all.png" />
+    <Content Include="Content\ListBoxstyle.css" />
     <Content Include="Content\Login\1.ico" />
     <Content Include="Content\Login\11.ico" />
     <Content Include="Content\Login\buffering.gif" />
@@ -1029,6 +1039,8 @@
     <Content Include="Scripts\lib\alertify.js" />
     <Content Include="Scripts\lib\alertify.min.js" />
     <Content Include="Scripts\lib\jquery.js" />
+    <Content Include="Scripts\listbox.js" />
+    <Content Include="Scripts\listbox.pack.js" />
     <Content Include="Scripts\main.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\MyJavaScript\App.js" />
@@ -1164,6 +1176,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="BusinessLogic\BankOplati\Firmi\" />
+    <Folder Include="BusinessLogic\Buxgalteriya\PlanirovaniyaBudjeta\Region\" />
     <Folder Include="BusinessLogic\ClosePeriod\CloseDay\" />
     <Folder Include="BusinessLogic\ClosePeriod\CloseKvartal\" />
     <Folder Include="BusinessLogic\ClosePeriod\CloseMonth\" />

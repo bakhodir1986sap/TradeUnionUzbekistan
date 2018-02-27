@@ -16,6 +16,7 @@ using System.Data.SqlClient;
 using System.Data;
 using KasabaKIAT.BusinessLogic.Putyovki.PrixodPutyovok;
 using KasabaKiat.Helpers;
+using KasabaKIAT.BusinessLogic.Security.Roles.RolePermissions;
 
 namespace KasabaKIAT.Controllers
 {
@@ -205,6 +206,52 @@ namespace KasabaKIAT.Controllers
                         {
                             d1 = o.id,
                             d2 = o.name,
+                        };
+                return Json(O.ToList(), JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex);
+            }
+
+            return null;
+        }
+        public JsonResult GetRoleys()
+        {
+            RolePermission vrp = new RolePermission();
+            var data= vrp.GetRolePermitsAllList();
+            log.Info("GetRoley");
+            try
+            {
+                var O = from o in data
+                        select new
+                        {
+                            d1 = o.id,
+                            d2 = o.action,
+                            d3=o.role_id
+                        };
+                return Json(O.ToList(), JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex);
+            }
+
+            return null;
+        }
+        public JsonResult GetRoleys2(int id)
+        {
+            RolePermission vrp = new RolePermission();
+            var data = vrp.GetRolePermitsByRoleList(id);
+            log.Info("GetRoley");
+            try
+            {
+                var O = from o in data
+                        select new
+                        {
+                            d1 = o.id,
+                            d2 = o.action,
+                            d3 = o.role_id
                         };
                 return Json(O.ToList(), JsonRequestBehavior.AllowGet);
             }

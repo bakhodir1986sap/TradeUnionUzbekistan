@@ -1720,6 +1720,22 @@ warning 6002: The table/view 'KasabaKIAT.dbo.tbbTabel' does not have a primary k
           <Property Name="Symma" Type="money" />
           <Property Name="UserId" Type="bigint" />
         </EntityType>
+        <EntityType Name="tbbu_planbyudjetregion">
+          <Key>
+            <PropertyRef Name="REC_ID" />
+          </Key>
+          <Property Name="REC_ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DEPARTMENT_BASE" Type="varchar" MaxLength="255" />
+          <Property Name="USERID" Type="bigint" />
+          <Property Name="YEAR" Type="int" />
+          <Property Name="SOATO_CODE" Type="varchar" MaxLength="10" />
+          <Property Name="ITEM_CODE" Type="varchar" MaxLength="254" />
+          <Property Name="ITEM_NAME" Type="nvarchar" MaxLength="254" />
+          <Property Name="GODOVOY" Type="money" />
+          <Property Name="QUARTER1" Type="money" />
+          <Property Name="HALFYEAR" Type="money" />
+          <Property Name="MONTH9" Type="money" />
+        </EntityType>
         <EntityType Name="tbbu_platejka">
           <Key>
             <PropertyRef Name="REC_ID" />
@@ -5690,6 +5706,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <EntitySet Name="tbbKartoch" EntityType="Self.tbbKartoch" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbbOplata" EntityType="Self.tbbOplata" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbbOtchet" EntityType="Self.tbbOtchet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbbu_planbyudjetregion" EntityType="Self.tbbu_planbyudjetregion" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbbu_platejka" EntityType="Self.tbbu_platejka" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbbu_provodki" EntityType="Self.tbbu_provodki" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbbViplata" EntityType="Self.tbbViplata" Schema="dbo" store:Type="Tables" />
@@ -13412,6 +13429,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           </AssociationSet>
           <EntitySet Name="tbbu_platejka" EntityType="KasabaKIATModel.tbbu_platejka" />
           <EntitySet Name="tbbu_provodki" EntityType="KasabaKIATModel.tbbu_provodki" />
+          <EntitySet Name="tbbu_planbyudjetregion" EntityType="KasabaKIATModel.tbbu_planbyudjetregion" />
         </EntityContainer>
         <ComplexType Name="sp_get_BankPaymentCompanyYearlyQ_Result">
           <Property Type="Int32" Name="MONTH_NUM" Nullable="true" />
@@ -13799,6 +13817,22 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <Property Name="POLUCHRSCH" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Name="SUMMA" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="COMMENT" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="tbbu_planbyudjetregion">
+          <Key>
+            <PropertyRef Name="REC_ID" />
+          </Key>
+          <Property Name="REC_ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DEPARTMENT_BASE" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="USERID" Type="Int64" />
+          <Property Name="YEAR" Type="Int32" />
+          <Property Name="SOATO_CODE" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="ITEM_CODE" Type="String" MaxLength="254" FixedLength="false" Unicode="false" />
+          <Property Name="ITEM_NAME" Type="String" MaxLength="254" FixedLength="false" Unicode="true" />
+          <Property Name="GODOVOY" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="QUARTER1" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="HALFYEAR" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="MONTH9" Type="Decimal" Precision="19" Scale="4" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -16913,6 +16947,23 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
                 <ScalarProperty Name="TRDT" ColumnName="TRDT" />
                 <ScalarProperty Name="INOUTFLG" ColumnName="INOUTFLG" />
                 <ScalarProperty Name="USER_ID" ColumnName="USER_ID" />
+                <ScalarProperty Name="DEPARTMENT_BASE" ColumnName="DEPARTMENT_BASE" />
+                <ScalarProperty Name="REC_ID" ColumnName="REC_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbbu_planbyudjetregion">
+            <EntityTypeMapping TypeName="KasabaKIATModel.tbbu_planbyudjetregion">
+              <MappingFragment StoreEntitySet="tbbu_planbyudjetregion">
+                <ScalarProperty Name="MONTH9" ColumnName="MONTH9" />
+                <ScalarProperty Name="HALFYEAR" ColumnName="HALFYEAR" />
+                <ScalarProperty Name="QUARTER1" ColumnName="QUARTER1" />
+                <ScalarProperty Name="GODOVOY" ColumnName="GODOVOY" />
+                <ScalarProperty Name="ITEM_NAME" ColumnName="ITEM_NAME" />
+                <ScalarProperty Name="ITEM_CODE" ColumnName="ITEM_CODE" />
+                <ScalarProperty Name="SOATO_CODE" ColumnName="SOATO_CODE" />
+                <ScalarProperty Name="YEAR" ColumnName="YEAR" />
+                <ScalarProperty Name="USERID" ColumnName="USERID" />
                 <ScalarProperty Name="DEPARTMENT_BASE" ColumnName="DEPARTMENT_BASE" />
                 <ScalarProperty Name="REC_ID" ColumnName="REC_ID" />
               </MappingFragment>

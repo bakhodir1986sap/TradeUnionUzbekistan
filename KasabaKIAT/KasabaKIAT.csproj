@@ -197,6 +197,7 @@
     <Compile Include="BusinessLogic\Buxgalteriya\OperationSettings\OperationSettingsDataManager.cs" />
     <Compile Include="BusinessLogic\Buxgalteriya\PlanirovaniyaBudjeta\Calculations.cs" />
     <Compile Include="BusinessLogic\Buxgalteriya\PlanirovaniyaBudjeta\Otrasl\PlanOtraslDataManager.cs" />
+    <Compile Include="BusinessLogic\Buxgalteriya\PlanirovaniyaBudjeta\Region\PlanRegion.cs" />
     <Compile Include="BusinessLogic\Buxgalteriya\PlanirovaniyaBudjeta\Region\PlanRegionDataManager.cs" />
     <Compile Include="BusinessLogic\Buxgalteriya\PlanProvodok\AccountType.cs" />
     <Compile Include="BusinessLogic\Buxgalteriya\PlanProvodok\AccountTypeDataManager.cs" />
@@ -282,6 +283,9 @@
     <Compile Include="BusinessLogic\Security\Helpers\UserInfo.cs" />
     <Compile Include="BusinessLogic\Security\Roles\RolePermissions\FunctionalityAndDbDataMatch.cs" />
     <Compile Include="BusinessLogic\Security\Roles\RolePermissions\FunctionalityList.cs" />
+    <Compile Include="BusinessLogic\Security\Roles\RolePermissions\RolePermission.cs" />
+    <Compile Include="BusinessLogic\Security\Roles\RolePermissions\RolePermissionDataManager.cs" />
+    <Compile Include="BusinessLogic\Security\Roles\Roles\RoleDataManager.cs" />
     <Compile Include="BusinessLogic\Security\Roles\Roles\Roles.cs" />
     <Compile Include="BusinessLogic\Security\Roles\UserRoles\UserRoles.cs" />
     <Compile Include="BusinessLogic\Utils\References\ReferencesDataManager.cs" />
@@ -381,6 +385,9 @@
     <Compile Include="Models\sp_rt_ZayavkiList_Result.cs">
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\tbbu_planbyudjetregion.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\tbbu_platejka.cs">
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
@@ -403,6 +410,7 @@
     <Compile Include="ViewModel\Buxgalteriya\DetailViewModel.cs" />
     <Compile Include="ViewModel\Buxgalteriya\MasterViewModel.cs" />
     <Compile Include="ViewModel\Buxgalteriya\OperationSettingsViewModel.cs" />
+    <Compile Include="ViewModel\Buxgalteriya\PlanRegionViewModel.cs" />
     <Compile Include="ViewModel\Buxgalteriya\PlatejkiViewModel.cs" />
     <Compile Include="ViewModel\Buxgalteriya\ProvodkiViewModel.cs" />
     <Compile Include="ViewModel\KurortService\ViewModel.cs" />
@@ -871,6 +879,8 @@
     <Compile Include="ViewModel\References\Sprav_RegViewModel.cs" />
     <Compile Include="ViewModel\References\Sprav_SanViewModel.cs" />
     <Compile Include="ViewModel\References\Sprav_VilViewModel.cs" />
+    <Compile Include="ViewModel\Security\Role\RolePermissionViewModel.cs" />
+    <Compile Include="ViewModel\Security\Role\RoleViewModel.cs" />
     <Compile Include="ViewModel\UserViewModel.cs" />
     <Compile Include="ViewModel\ZayavkiViewModel.cs" />
     <Compile Include="Web References\KurortUrlService\Reference.cs">

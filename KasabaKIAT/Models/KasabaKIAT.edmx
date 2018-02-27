@@ -1720,6 +1720,53 @@ warning 6002: The table/view 'KasabaKIAT.dbo.tbbTabel' does not have a primary k
           <Property Name="Symma" Type="money" />
           <Property Name="UserId" Type="bigint" />
         </EntityType>
+        <EntityType Name="tbbu_platejka">
+          <Key>
+            <PropertyRef Name="REC_ID" />
+          </Key>
+          <Property Name="REC_ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DEPARTMENT_CODE" Type="varchar" MaxLength="255" />
+          <Property Name="USERID" Type="bigint" />
+          <Property Name="PLAT_DATE" Type="datetime" />
+          <Property Name="PLAT_NUM" Type="varchar" MaxLength="10" />
+          <Property Name="PLATELNAME" Type="nvarchar" MaxLength="500" />
+          <Property Name="PLATELINN" Type="varchar" MaxLength="9" />
+          <Property Name="PLATELRASCHET" Type="varchar" MaxLength="30" />
+          <Property Name="PLATELBANKNAME" Type="nvarchar" MaxLength="500" />
+          <Property Name="PLATELBANKMFO" Type="varchar" MaxLength="5" />
+          <Property Name="POLUCHNAME" Type="nvarchar" MaxLength="500" />
+          <Property Name="POLUCHINN" Type="varchar" MaxLength="9" />
+          <Property Name="POLUCHRASCHET" Type="varchar" MaxLength="30" />
+          <Property Name="POLUCHBANKNAME" Type="nvarchar" MaxLength="500" />
+          <Property Name="POLUCHBANKMFO" Type="varchar" MaxLength="5" />
+          <Property Name="SUMMA" Type="money" />
+          <Property Name="COMMENT" Type="nvarchar" MaxLength="500" />
+          <Property Name="RUKOVODITEL" Type="nvarchar" MaxLength="100" />
+          <Property Name="GLAVBUX" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="tbbu_provodki">
+          <Key>
+            <PropertyRef Name="REC_ID" />
+          </Key>
+          <Property Name="REC_ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DEPARTMENT_BASE" Type="varchar" MaxLength="255" />
+          <Property Name="USER_ID" Type="bigint" />
+          <Property Name="INOUTFLG" Type="bit" />
+          <Property Name="TRDT" Type="datetime" />
+          <Property Name="NUMBER" Type="nvarchar" MaxLength="50" />
+          <Property Name="TIPSCHETA" Type="bit" />
+          <Property Name="TIPOBOROTA" Type="bit" />
+          <Property Name="PLATELNAME" Type="nvarchar" MaxLength="500" />
+          <Property Name="PLATELINN" Type="varchar" MaxLength="9" />
+          <Property Name="PLATELMFO" Type="varchar" MaxLength="5" />
+          <Property Name="POLUCHNAME" Type="nvarchar" MaxLength="500" />
+          <Property Name="POLUCHINN" Type="varchar" MaxLength="9" />
+          <Property Name="POLUCHMFO" Type="varchar" MaxLength="5" />
+          <Property Name="PLATELRSCH" Type="varchar" MaxLength="30" />
+          <Property Name="POLUCHRSCH" Type="varchar" MaxLength="30" />
+          <Property Name="SUMMA" Type="money" />
+          <Property Name="COMMENT" Type="nvarchar" MaxLength="1000" />
+        </EntityType>
         <EntityType Name="tbbViplata">
           <Key>
             <PropertyRef Name="ID" />
@@ -1821,7 +1868,7 @@ warning 6002: The table/view 'KasabaKIAT.dbo.tbbTabel' does not have a primary k
           <Property Name="DEPARTMENT_CODE" Type="varchar" MaxLength="255" />
           <Property Name="DYSEQ" Type="int" />
           <Property Name="DYTRSEQ" Type="int" />
-          <Property Name="ACCOUNT" Type="varchar" MaxLength="10" />
+          <Property Name="ACCOUNT" Type="varchar" MaxLength="50" />
           <Property Name="DRCR" Type="char" MaxLength="1" />
           <Property Name="CCY" Type="char" MaxLength="3" />
           <Property Name="AMOUNT" Type="money" />
@@ -5643,6 +5690,8 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <EntitySet Name="tbbKartoch" EntityType="Self.tbbKartoch" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbbOplata" EntityType="Self.tbbOplata" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbbOtchet" EntityType="Self.tbbOtchet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbbu_platejka" EntityType="Self.tbbu_platejka" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbbu_provodki" EntityType="Self.tbbu_provodki" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbbViplata" EntityType="Self.tbbViplata" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbcs_dictionary" EntityType="Self.tbcs_dictionary" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbcs_dictionarytype" EntityType="Self.tbcs_dictionarytype" Schema="dbo" store:Type="Tables" />
@@ -8553,7 +8602,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <Property Name="DEPARTMENT_CODE" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="DYSEQ" Type="Int32" />
           <Property Name="DYTRSEQ" Type="Int32" />
-          <Property Name="ACCOUNT" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="ACCOUNT" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="DRCR" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
           <Property Name="CCY" Type="String" MaxLength="3" FixedLength="true" Unicode="false" />
           <Property Name="AMOUNT" Type="Decimal" Precision="19" Scale="4" />
@@ -13361,6 +13410,8 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
             <End Role="users" EntitySet="users" />
             <End Role="tbgl_jnlmst" EntitySet="tbgl_jnlmst" />
           </AssociationSet>
+          <EntitySet Name="tbbu_platejka" EntityType="KasabaKIATModel.tbbu_platejka" />
+          <EntitySet Name="tbbu_provodki" EntityType="KasabaKIATModel.tbbu_provodki" />
         </EntityContainer>
         <ComplexType Name="sp_get_BankPaymentCompanyYearlyQ_Result">
           <Property Type="Int32" Name="MONTH_NUM" Nullable="true" />
@@ -13702,6 +13753,53 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="tbbu_platejka">
+          <Key>
+            <PropertyRef Name="REC_ID" />
+          </Key>
+          <Property Name="REC_ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DEPARTMENT_CODE" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="USERID" Type="Int64" />
+          <Property Name="PLAT_DATE" Type="DateTime" Precision="3" />
+          <Property Name="PLAT_NUM" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="PLATELNAME" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="PLATELINN" Type="String" MaxLength="9" FixedLength="false" Unicode="false" />
+          <Property Name="PLATELRASCHET" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="PLATELBANKNAME" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="PLATELBANKMFO" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="POLUCHNAME" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="POLUCHINN" Type="String" MaxLength="9" FixedLength="false" Unicode="false" />
+          <Property Name="POLUCHRASCHET" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="POLUCHBANKNAME" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="POLUCHBANKMFO" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="SUMMA" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="COMMENT" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="RUKOVODITEL" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="GLAVBUX" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="tbbu_provodki">
+          <Key>
+            <PropertyRef Name="REC_ID" />
+          </Key>
+          <Property Name="REC_ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DEPARTMENT_BASE" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="USER_ID" Type="Int64" />
+          <Property Name="INOUTFLG" Type="Boolean" />
+          <Property Name="TRDT" Type="DateTime" Precision="3" />
+          <Property Name="NUMBER" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TIPSCHETA" Type="Boolean" />
+          <Property Name="TIPOBOROTA" Type="Boolean" />
+          <Property Name="PLATELNAME" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="PLATELINN" Type="String" MaxLength="9" FixedLength="false" Unicode="false" />
+          <Property Name="PLATELMFO" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="POLUCHNAME" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="POLUCHINN" Type="String" MaxLength="9" FixedLength="false" Unicode="false" />
+          <Property Name="POLUCHMFO" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="PLATELRSCH" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="POLUCHRSCH" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="SUMMA" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="COMMENT" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -16768,6 +16866,55 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
                 <ScalarProperty Name="DYSEQ" ColumnName="DYSEQ" />
                 <ScalarProperty Name="DEPARTMENT_BASE" ColumnName="DEPARTMENT_BASE" />
                 <ScalarProperty Name="TRDT" ColumnName="TRDT" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbbu_platejka">
+            <EntityTypeMapping TypeName="KasabaKIATModel.tbbu_platejka">
+              <MappingFragment StoreEntitySet="tbbu_platejka">
+                <ScalarProperty Name="GLAVBUX" ColumnName="GLAVBUX" />
+                <ScalarProperty Name="RUKOVODITEL" ColumnName="RUKOVODITEL" />
+                <ScalarProperty Name="COMMENT" ColumnName="COMMENT" />
+                <ScalarProperty Name="SUMMA" ColumnName="SUMMA" />
+                <ScalarProperty Name="POLUCHBANKMFO" ColumnName="POLUCHBANKMFO" />
+                <ScalarProperty Name="POLUCHBANKNAME" ColumnName="POLUCHBANKNAME" />
+                <ScalarProperty Name="POLUCHRASCHET" ColumnName="POLUCHRASCHET" />
+                <ScalarProperty Name="POLUCHINN" ColumnName="POLUCHINN" />
+                <ScalarProperty Name="POLUCHNAME" ColumnName="POLUCHNAME" />
+                <ScalarProperty Name="PLATELBANKMFO" ColumnName="PLATELBANKMFO" />
+                <ScalarProperty Name="PLATELBANKNAME" ColumnName="PLATELBANKNAME" />
+                <ScalarProperty Name="PLATELRASCHET" ColumnName="PLATELRASCHET" />
+                <ScalarProperty Name="PLATELINN" ColumnName="PLATELINN" />
+                <ScalarProperty Name="PLATELNAME" ColumnName="PLATELNAME" />
+                <ScalarProperty Name="PLAT_NUM" ColumnName="PLAT_NUM" />
+                <ScalarProperty Name="PLAT_DATE" ColumnName="PLAT_DATE" />
+                <ScalarProperty Name="USERID" ColumnName="USERID" />
+                <ScalarProperty Name="DEPARTMENT_CODE" ColumnName="DEPARTMENT_CODE" />
+                <ScalarProperty Name="REC_ID" ColumnName="REC_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbbu_provodki">
+            <EntityTypeMapping TypeName="KasabaKIATModel.tbbu_provodki">
+              <MappingFragment StoreEntitySet="tbbu_provodki">
+                <ScalarProperty Name="COMMENT" ColumnName="COMMENT" />
+                <ScalarProperty Name="SUMMA" ColumnName="SUMMA" />
+                <ScalarProperty Name="POLUCHRSCH" ColumnName="POLUCHRSCH" />
+                <ScalarProperty Name="PLATELRSCH" ColumnName="PLATELRSCH" />
+                <ScalarProperty Name="POLUCHMFO" ColumnName="POLUCHMFO" />
+                <ScalarProperty Name="POLUCHINN" ColumnName="POLUCHINN" />
+                <ScalarProperty Name="POLUCHNAME" ColumnName="POLUCHNAME" />
+                <ScalarProperty Name="PLATELMFO" ColumnName="PLATELMFO" />
+                <ScalarProperty Name="PLATELINN" ColumnName="PLATELINN" />
+                <ScalarProperty Name="PLATELNAME" ColumnName="PLATELNAME" />
+                <ScalarProperty Name="TIPOBOROTA" ColumnName="TIPOBOROTA" />
+                <ScalarProperty Name="TIPSCHETA" ColumnName="TIPSCHETA" />
+                <ScalarProperty Name="NUMBER" ColumnName="NUMBER" />
+                <ScalarProperty Name="TRDT" ColumnName="TRDT" />
+                <ScalarProperty Name="INOUTFLG" ColumnName="INOUTFLG" />
+                <ScalarProperty Name="USER_ID" ColumnName="USER_ID" />
+                <ScalarProperty Name="DEPARTMENT_BASE" ColumnName="DEPARTMENT_BASE" />
+                <ScalarProperty Name="REC_ID" ColumnName="REC_ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -202,6 +202,8 @@
     <Compile Include="BusinessLogic\Buxgalteriya\PlanProvodok\AccountTypeDataManager.cs" />
     <Compile Include="BusinessLogic\Buxgalteriya\PrixodChastichka\Bankpayments.cs" />
     <Compile Include="BusinessLogic\Buxgalteriya\PrixodChastichka\BankpaymentsDataManager.cs" />
+    <Compile Include="BusinessLogic\Buxgalteriya\Provodki\Provodki.cs" />
+    <Compile Include="BusinessLogic\Buxgalteriya\Provodki\ProvodkiDataManager.cs" />
     <Compile Include="BusinessLogic\ExportAndImport\Export2Excel.cs" />
     <Compile Include="BusinessLogic\ExportAndImport\Export2PDF.cs" />
     <Compile Include="BusinessLogic\ExportAndImport\ExportBase.cs" />
@@ -377,6 +379,12 @@
     <Compile Include="Models\sp_rt_ZayavkiList_Result.cs">
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\tbbu_platejka.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tbbu_provodki.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\tbgl_bankpayments.cs">
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
@@ -393,6 +401,7 @@
     <Compile Include="ViewModel\Buxgalteriya\DetailViewModel.cs" />
     <Compile Include="ViewModel\Buxgalteriya\MasterViewModel.cs" />
     <Compile Include="ViewModel\Buxgalteriya\OperationSettingsViewModel.cs" />
+    <Compile Include="ViewModel\Buxgalteriya\ProvodkiViewModel.cs" />
     <Compile Include="ViewModel\KurortService\ViewModel.cs" />
     <Compile Include="ViewModel\BankOplati\KaznaPaymentFile.cs" />
     <Compile Include="BusinessLogic\BankOplati\Kaznacheystvo\PaymentFileData.cs" />

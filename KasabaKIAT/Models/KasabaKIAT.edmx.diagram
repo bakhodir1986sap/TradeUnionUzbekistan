@@ -353,6 +353,7 @@
         <AssociationConnector Association="KasabaKIATModel.tbgl_jnlmst_1" />
         <EntityTypeShape EntityType="KasabaKIATModel.tbbu_platejka" Width="1.5" PointX="20.375" PointY="11.75" />
         <EntityTypeShape EntityType="KasabaKIATModel.tbbu_provodki" Width="1.5" PointX="20.375" PointY="17.75" />
+        <EntityTypeShape EntityType="KasabaKIATModel.tbbu_planbyudjetregion" Width="1.5" PointX="22.375" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

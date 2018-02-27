@@ -195,6 +195,26 @@ namespace KasabaKIAT.Controllers
 
             return null;
         }
+        public JsonResult GetRoley()
+        {
+            log.Info("GetRoley");
+            try
+            {
+                var O = from o in KasabaDB.roles
+                        select new
+                        {
+                            d1 = o.id,
+                            d2 = o.name,
+                        };
+                return Json(O.ToList(), JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex);
+            }
+
+            return null;
+        }
 
         public JsonResult GetKod(int yil,string kod)
         {

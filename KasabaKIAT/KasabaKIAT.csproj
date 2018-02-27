@@ -1044,6 +1044,7 @@
     <Content Include="Scripts\MyJavaScript\main.js" />
     <Content Include="Scripts\MyJavaScript\Module.js" />
     <Content Include="Scripts\MyJavaScript\OformleniyaRealizatsiyaPutevok.js" />
+    <Content Include="Scripts\MyJavaScript\OsushestvleniyeProvodki.js" />
     <Content Include="Scripts\MyJavaScript\O_SOZController.js" />
     <Content Include="Scripts\MyJavaScript\O_TController.js" />
     <Content Include="Scripts\MyJavaScript\PlatejPoruchController.js" />
@@ -1058,6 +1059,7 @@
     <Content Include="Scripts\MyJavaScript\SController.js" />
     <Content Include="Scripts\MyJavaScript\Service.js" />
     <Content Include="Scripts\MyJavaScript\SNPController.js" />
+    <Content Include="Scripts\MyJavaScript\SozdaniyeRoley.js" />
     <Content Include="Scripts\MyJavaScript\SPController.js" />
     <Content Include="Scripts\MyJavaScript\SpisokPravsoyuzov.js" />
     <Content Include="Scripts\MyJavaScript\SRController.js" />
@@ -1100,7 +1102,7 @@
     <Content Include="Views\Administirirovaniye\Spravichniki.cshtml" />
     <Content Include="Views\Administirirovaniye\SredneyStoimostiPutevok.cshtml" />
     <Content Include="Views\Administirirovaniye\RazmesheniyaSanatorii.cshtml" />
-    <Content Include="Views\Administirirovaniye\SozdaniyeRoley.cshtml" />
+    <Content Include="Views\Administirirovaniye\SozdaniyeRoley2.cshtml" />
     <Content Include="Views\Administirirovaniye\SozdaniyeProvodok.cshtml" />
     <Content Include="Views\Administirirovaniye\Otdixayushix.cshtml" />
     <Content Include="Views\Administirirovaniye\NaznacheniyaPlateja.cshtml" />
@@ -1144,6 +1146,7 @@
     <Content Include="Views\PrixodPutevok\OformleniyaRealizatsiyaPutevok.cshtml" />
     <Content Include="Views\PrixodPutevok\ProsmotrRealzPutevok.cshtml" />
     <Content Include="Views\PrixodPutevok\SverkaDannix.cshtml" />
+    <Content Include="Views\Administirirovaniye\SozdaniyeRoley.cshtml" />
     <None Include="Web References\KurortUrlService\SkuTradeUnionExchg.wsdl" />
     <Content Include="Web References\KurortUrlService\typeGrafikZaezdovSanatoriev.datasource">
       <DependentUpon>Reference.map</DependentUpon>

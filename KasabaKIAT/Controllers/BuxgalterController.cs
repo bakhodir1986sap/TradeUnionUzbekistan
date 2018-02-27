@@ -1,4 +1,6 @@
-﻿using KasabaKIAT.BusinessLogic.Buxgalteriya.PrixodChastichka;
+﻿using KasabaKiat.Helpers;
+using KasabaKIAT.BusinessLogic.Buxgalteriya.PrixodChastichka;
+using KasabaKIAT.BusinessLogic.Buxgalteriya.Provodki;
 using KasabaKIAT.Models;
 using KasabaKIAT.ViewModel.Buxgalteriya;
 using log4net;
@@ -38,6 +40,17 @@ namespace KasabaKIAT.Controllers
         public ActionResult OsushestvleniyeProvodki()
         {
             return View();
+        }
+        public string EnterOsushestvleniyeProvodki(ProvodkiViewModel d)
+        {
+            int UserId = Convert.ToInt32(User.Identity.Name);
+            var uu = UserInfo.GetUserInfo(UserId);
+            Provodki pr = new Provodki();
+            d.department_base = uu.DepartmentBase;
+            d.user_id = UserId;
+            //d.trdt = new DateTime();
+            pr.Enter(d);
+            return "yes";
         }
         public ActionResult Nakladniye()
         {

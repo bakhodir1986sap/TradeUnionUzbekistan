@@ -1479,6 +1479,7 @@ namespace KasabaKIAT.Controllers
         {
 
             var O = from o in KasabaDB.t_departmentbase
+                    where o.name_uz!=null
                     select new
                     {
                         id = o.id,

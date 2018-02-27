@@ -19,7 +19,7 @@
         }).then(function (s) {
             $scope.CS = s.data;
         }, function () {
-            //alert('Error in getting Санаторий records');
+            alertify.error("ошибка");
             console.log('Error in getting Санаторий records');
             document.getElementById('connection').style.visibility = "hidden";
             $("#hh").modal('hide');
@@ -33,7 +33,7 @@
         }).then(function (c) {
             $scope.CS = c.data;
         }, function () {
-            //alert('Error in getting Дет. лагер records');
+            alertify.error("ошибка");
             console.log('Error in getting Дет. лагер records');
             document.getElementById('connection').style.visibility = "hidden";
             $("#hh").modal('hide');
@@ -78,8 +78,7 @@
                 $scope.OTPdiv = false;
             }
         }, function () {
-            //alert('Error in getting Санаторий records');
-            //document.getElementById('connection').style.visibility = "hidden";
+            alertify.error("ошибка");
             console.log("GetAllPZ_S");
             $("#hh").modal('hide');
         });
@@ -95,7 +94,7 @@
                 $scope.OTPdiv = false;
             }
         }, function () {
-            //alert('Error in getting Дет. лагер records');
+            alertify.error("ошибка");
             console.log('Error in GetAllPZ_C');
             document.getElementById('connection').style.visibility = "hidden";
             $("#hh").modal('hide');
@@ -200,7 +199,7 @@
                     }
                 }
             }, function () {
-                //alert('Error in UpdatePodachaZayavok');
+                alertify.error("ошибка");
                 console.log('Error in UpdatePodachaZayavok');
             });
         }
@@ -219,7 +218,7 @@
                     }
                 }
             }, function () {
-                //alert('Error in AddPodachaZayavok');
+                alertify.error("ошибка");
                 console.log('Error in AddPodachaZayavok');
             });
         }
@@ -249,7 +248,7 @@
                     }
                     $("#hh").modal('hide');
                 }, function () {
-                    //alert('Error in OTPPodachaZayavok');
+                    alertify.error("ошибка");
                     console.log('Error in OTPPodachaZayavok');
                 });
             } else {
@@ -285,7 +284,7 @@
                     }
                     $("#hh").modal('hide');
                 }, function () {
-                    //alert('Error in DeletePodachaZayavok');
+                    alertify.error("ошибка");
                     console.log('Error in DeletePodachaZayavok');
                 });
             } else {

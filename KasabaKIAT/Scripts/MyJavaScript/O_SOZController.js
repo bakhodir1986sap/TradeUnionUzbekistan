@@ -17,7 +17,7 @@
                 $scope.showdata = false;
             }
         }, function () {
-            //alert("error in O_SOZ");
+            alertify.error("ошибка");
         });
     }
     $scope.Region = {
@@ -35,7 +35,7 @@
         }).then(function (response) {
             $scope.R = response.data;
         }, function (error) {
-            //alert("error in GetRegion");
+            alertify.error("ошибка");
             console.log("error in GetRegion");
         });
     }
@@ -46,7 +46,7 @@
         }).then(function (response) {
             $scope.O = response.data;
         }, function (error) {
-            //alert("error in GetRegion");
+            alertify.error("ошибка");
             console.log("error in GetOtrasl");
         });
     }

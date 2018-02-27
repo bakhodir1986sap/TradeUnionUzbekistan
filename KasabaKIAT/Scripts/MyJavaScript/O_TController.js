@@ -77,7 +77,7 @@
         }, function () {
             document.getElementById('connection').style.visibility = "hidden";
             $("#hh").modal('hide');
-            //alert("error in O_SOZ");
+            alertify.error("ошибка");
         });
     }
     function GetData_Tarmoq(yil, s, b) {
@@ -97,7 +97,7 @@
         }, function () {
             document.getElementById('connection').style.visibility = "hidden";
             $("#hh").modal('hide');
-            //alert("error in O_SOZ");
+            alertify.error("ошибка");
         });
     }
     function GetData_Viloyat(yil, s) {
@@ -117,7 +117,7 @@
         }, function () {
             document.getElementById('connection').style.visibility = "hidden";
             $("#hh").modal('hide');
-            //alert("error in O_SOZ");
+            alertify.error("ошибка");
         });
     }
     $scope.Region = {
@@ -136,7 +136,7 @@
         }).then(function (response) {
             $scope.R = response.data;
         }, function (error) {
-            //alert("error in GetRegion");
+            alertify.error("ошибка");
             console.log("error in GetRegion");
         });
     }
@@ -147,7 +147,7 @@
         }).then(function (response) {
             $scope.O = response.data;
         }, function (error) {
-            //alert("error in GetRegion");
+            alertify.error("ошибка");
             console.log("error in GetOtrasl");
         });
     }

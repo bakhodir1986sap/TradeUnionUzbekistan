@@ -21,7 +21,7 @@
                 $scope.showdata = false;
             }
         }, function () {
-            //alert("error in O_SOZ");
+            alertify.error("ошибка");
         });
     }
     function GetData2(y, k) {
@@ -37,7 +37,7 @@
                 $scope.showdata2 = false;
             }
         }, function () {
-            //alert("error in O_SOZ");
+            alertify.error("ошибка");
         });
     }
     $scope.Load = function (id) {
@@ -90,7 +90,7 @@
         }).then(function (response) {
             $scope.R = response.data;
         }, function (error) {
-            //alert("error in GetRegion");
+            alertify.error("ошибка");
             console.log("error in GetSanatory");
         });
     }
@@ -101,7 +101,7 @@
         }).then(function (response) {
             $scope.Rr = response.data;
         }, function (error) {
-            //alert("error in GetRegion");
+            alertify.error("ошибка");
             console.log("error in GetRegion");
         });
     }
@@ -112,7 +112,7 @@
         }).then(function (response) {
             $scope.Rr2 = response.data;
         }, function (error) {
-            //alert("error in GetRegion");
+            alertify.error("ошибка");
             console.log("error in GetRegion");
         });
     }
@@ -165,7 +165,7 @@
                 GetData2($scope.ZB, $scope.SP.d1);
                 All3($scope.ZB, $scope.SP.d1);
             }, function () {
-                //alert('Error in UpdateGodovoyPlan');
+                alertify.error("ошибка");
                 console.log('Error in UpdateGodovoyPlan');
                 $("#hh").modal('hide');
             });
@@ -181,7 +181,7 @@
                 GetData2($scope.ZB, $scope.SP.d1);
                 All3($scope.ZB, $scope.SP.d1);
             }, function () {
-                //alert('Error in AddGodovoyPlan');
+                alertify.error("ошибка");
                 console.log('Error in AddGodovoyPlan');
                 $("#hh").modal('hide');
             });
@@ -207,7 +207,7 @@
                     GetData2($scope.ZB, $scope.SP.d1);
                     All3($scope.ZB, $scope.SP.d1);
                 }, function () {
-                    //alert('Error DeleteGodovoyPlan');
+                    alertify.error("ошибка");
                     console.log('Error DeleteGodovoyPlan');
                     $("#hh").modal('hide');
                 });

@@ -16,7 +16,7 @@
             console.log(d.data);
             //alert(d.data);
         }, function (error) {
-            //alert("error in Getdictionary");
+            alertify.error("ошибка");
             console.log("error in Getdictionary -> ",error);
             $("#hh").modal('hide');
         });
@@ -37,7 +37,7 @@
             console.log("PRP2", $scope.DATA2);
             //alert(d.data);
         }, function (error) {
-            //alert("error in Getdictionary");
+            alertify.error("ошибка");
             console.log("error in PRP2 -> ", error);
             $("#hh").modal('hide');
         });
@@ -50,7 +50,7 @@
             console.log("PRP3", $scope.DATA3);
             //alert(d.data);
         }, function (error) {
-            //alert("error in Getdictionary");
+            alertify.error("ошибка");
             console.log("error in PRP3 -> ", error);
             $("#hh").modal('hide');
         });
@@ -63,7 +63,7 @@
             console.log(d.data);
             LoadDATA();
         }, function (error) {
-            //alert("error in Getdictionary");
+            alertify.error("ошибка");
             console.log("error in vozvrat -> ", error);
             $("#hh").modal('hide');
         });

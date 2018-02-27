@@ -968,6 +968,7 @@
     <Content Include="Content\Login\giphy-downsized-large.gif" />
     <Content Include="Content\Login\keys.ico" />
     <Content Include="Content\main.css" />
+    <Content Include="Content\open-iconic-bootstrap.css" />
     <Content Include="Content\styles\main.css" />
     <Content Include="Content\themes\alertify.bootstrap.css" />
     <Content Include="Content\themes\alertify.core.css" />
@@ -996,6 +997,8 @@
     <Content Include="Scripts\angular-ui\ui-bootstrap.min.js" />
     <Content Include="Scripts\angular.js" />
     <Content Include="Scripts\angular.min.js" />
+    <Content Include="Scripts\bootstrap-filestyle.js" />
+    <Content Include="Scripts\bootstrap-filestyle.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\angular.min.js.map" />
@@ -1062,6 +1065,7 @@
     <Content Include="Scripts\MyJavaScript\STRSController.js" />
     <Content Include="Scripts\MyJavaScript\SverkaDannix.js" />
     <Content Include="Scripts\MyJavaScript\UZController.js" />
+    <Content Include="Scripts\MyJavaScript\VvodDannix.js" />
     <Content Include="Scripts\plugins.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />

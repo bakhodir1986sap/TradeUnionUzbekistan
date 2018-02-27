@@ -22,6 +22,7 @@
     <link href="~/Content/main.css" rel="stylesheet" />
     <link href="~/Content/font-awesome.css" rel="stylesheet" />*@
 
+
     <link href="~/Content/themes/alertify.default.css" rel="stylesheet" />
     <link href="~/Content/themes/alertify.core.css" rel="stylesheet" />
     <link href="~/Content/themes/alertify.bootstrap.css" rel="stylesheet" />
@@ -145,7 +146,7 @@
                                 <a class="dropdown-item load" href="/Buxgalter/PlanByudjetaOblastey">План бюджета областей</a>
                                 @if (List.RaznoskaDannixPoOtraslyam)
                                 {
-                                    <a class="dropdown-item load" href="/Buxgalter/RaspredleniyeByudjeta">Распределение бюджета по отраслям</a>
+                                    @*<a class="dropdown-item load" href="/Buxgalter/RaspredleniyeByudjeta">Распределение бюджета по отраслям</a>*@
                                 }
                             </div>
                         </li>
@@ -255,7 +256,7 @@
     <script src="~/Scripts/plugins.js"></script>
 
     <script src="~/Scripts/main.js"></script>
-    <style>
+    @*<style>
         .active {
             color: black;
             background-color: white;
@@ -263,7 +264,7 @@
          .poin:hover {
             cursor: pointer;
         }
-    </style>
+    </style>*@
     <input id="hh" type="hidden" />
     @*@Scripts.Render("~/bundles/jquery")*@
     @*@Scripts.Render("~/bundles/bootstrap")*@

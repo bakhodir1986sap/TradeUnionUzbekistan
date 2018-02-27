@@ -8,7 +8,7 @@
         }).then(function (d) {
             $scope.SSSP = d.data;
         }, function () {
-            //alert("error in UZ");
+            alertify.error("ошибка");
         });
     }
     $scope.editSSSP = function (pz) {
@@ -41,7 +41,7 @@
             }).then(function (msg) {
                 GetData();
             }, function () {
-                //alert('Error in updating');
+                alertify.error("ошибка");
             });
         }
         else {
@@ -53,7 +53,7 @@
             }).then(function (msg) {
                 GetData();
             }, function () {
-                //alert('Error in adding book record');
+                alertify.error("ошибка");
             });
         }
     }
@@ -72,7 +72,7 @@
                 }).then(function (msg) {
                     GetData();
                 }, function () {
-                    //alert('Error in deleting book record');
+                    alertify.error("ошибка");
                 });
             } else {
                 alertify.error("Операция отменена");

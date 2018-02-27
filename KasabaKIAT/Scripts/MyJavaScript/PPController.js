@@ -28,7 +28,7 @@
                 $scope.PPdiv = false;
             }
         }, function () {
-            //alert("error in GetPrixodPutevok_S");
+            alertify.error("ошибка");
             console.log("error in GetPP");
             $("#hh").modal('hide');
         });
@@ -40,7 +40,7 @@
         }).then(function (d) {
             $scope.PP_SUM = d.data;
         }, function () {
-            //alert("error in GetPP_SUM_S");
+            alertify.error("ошибка");
             console.log("error in GetPP_SUM");
             document.getElementById('connection').style.visibility = "hidden";
             $("#hh").modal('hide');
@@ -53,7 +53,7 @@
         }).then(function (s) {
             $scope.CS = s.data;
         }, function () {
-            //alert('Error in GetSanatory');
+            alertify.error("ошибка");
             console.log('Error in GetSanatory');
             $("#hh").modal('hide');
         });
@@ -68,7 +68,7 @@
                 $scope.PPdiv = true;
             }
         }, function () {
-            //alert("error in GetPP_SUM_S");
+            alertify.error("ошибка");
             console.log("error in GetPP_SUM_S");
             document.getElementById('connection').style.visibility = "hidden";
             $("#hh").modal('hide');
@@ -84,7 +84,7 @@
                 $scope.PPdiv = true;
             } 
         }, function () {
-            //alert("error in GetPP_SUM_C");
+            alertify.error("ошибка");
             console.log("error in GetPP_SUM_C");
             document.getElementById('connection').style.visibility = "hidden";
             $("#hh").modal('hide');
@@ -99,7 +99,7 @@
         }).then(function (d) {
             $scope.PP = d.data;
         }, function () {
-            //alert("error in GetPrixodPutevok_S");
+            alertify.error("ошибка");
             console.log("error in GetPrixodPutevok_S");
             document.getElementById('connection').style.visibility = "hidden";
             $("#hh").modal('hide');
@@ -112,7 +112,7 @@
       }).then(function (d) {
           $scope.PP = d.data;
       }, function () {
-          //alert("error in GetPrixodPutevok_C");
+          alertify.error("ошибка");
           console.log("error in GetPrixodPutevok_C");
           document.getElementById('connection').style.visibility = "hidden";
           $("#hh").modal('hide');
@@ -289,7 +289,7 @@
         }).then(function (d) {
             $scope.RP = d.data;
         }, function () {
-            //alert("error in GetPrixodPutevok_S_LoadINN");
+            alertify.error("ошибка");
             console.log("error in GetPrixodPutevok_S_LoadINN");
             document.getElementById('connection').style.visibility = "hidden";
             $("#hh").modal('hide');
@@ -302,7 +302,7 @@
         }).then(function (d) {
             $scope.RP = d.data;
         }, function () {
-            //alert("error in GetPrixodPutevok_C_LoadINN");
+            alertify.error("ошибка");
             console.log("error in GetPrixodPutevok_C_LoadINN");
             document.getElementById('connection').style.visibility = "hidden";
             $("#hh").modal('hide');
@@ -329,7 +329,7 @@
         }).then(function (d) {
             $scope.RP = d.data;
         }, function () {
-            //alert("error in PP_S");
+            alertify.error("ошибка");
             console.log("error in PP_S");
             document.getElementById('connection').style.visibility = "hidden";
             $("#hh").modal('hide');
@@ -343,7 +343,7 @@
         }).then(function (d) {
             $scope.RP = d.data;
         }, function () {
-            //alert("error in PP_C");
+            alertify.error("ошибка");
             console.log("error in PP_C");
             document.getElementById('connection').style.visibility = "hidden";
             $("#hh").modal('hide');

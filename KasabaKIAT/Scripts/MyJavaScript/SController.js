@@ -7,7 +7,7 @@
         }).then(function (d) {
             $scope.UZ = d.data;
         }, function () {
-            //alert("error in UZ");
+            alertify.error("ошибка");
         });
     }
 }]);

@@ -26,6 +26,7 @@
         }).then(function (response) {
             $scope.D = response.data;
         }, function (error) {
+            alertify.error("ошибка");
             console.log(error, 'can not get data.');
         });
     }
@@ -42,6 +43,7 @@
         }).then(function (response) {
             $scope.CS = response.data;
         }, function (error) {
+            alertify.error("ошибка");
             console.log(error, 'GetSanatory');
         });
     }
@@ -52,6 +54,7 @@
         }).then(function (response) {
             $scope.CS = response.data;
         }, function (error) {
+            alertify.error("ошибка");
             console.log(error, 'GetCamp');
         });
     }
@@ -67,7 +70,7 @@
             }
         }, function () {
             $("#hh").modal('hide');
-            //alert('Error in GetAllGrafikZaezdov_S');
+            alertify.error("ошибка");
             console.log('Error in GetAllGrafikZaezdov_S');
         });
     }
@@ -82,7 +85,7 @@
             }
         }, function () {
             $("#hh").modal('hide');
-            //alert('Error in GetAllGrafikZaezdov_C');
+            alertify.error("ошибка");
             console.log('Error in GetAllGrafikZaezdov_C');
         });
     }
@@ -172,7 +175,7 @@
                 }
             }, function () {
                 $("#hh").modal('hide');
-                //alert('Error in UpdateGrafikZaezdov');
+                alertify.error("ошибка");
                 console.log('Error in UpdateGrafikZaezdov');
             });
         } else {
@@ -193,7 +196,7 @@
                 }
             }, function () {
                 $("#hh").modal('hide');
-                //alert('Error in AddGrafikZaezdov');
+                alertify.error("ошибка");
                 console.log('Error in AddGrafikZaezdov');
             });
         }
@@ -229,7 +232,7 @@
                         }
                     }
                 }, function () {
-                    //alert('Error in DeleteGrafikZaezdov');
+                    alertify.error("ошибка");
                     console.log('Error in DeleteGrafikZaezdov');
                 });    
             } else {

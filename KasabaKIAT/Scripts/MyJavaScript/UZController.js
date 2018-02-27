@@ -11,7 +11,7 @@
         }).then(function (d) {
             $scope.UZ = d.data;
         }, function () {
-            //alert("error in UZ");
+            alertify.error("ошибка");
         });
     }
     function GetRoles() {
@@ -21,7 +21,7 @@
         }).then(function (d) {
             $scope.Rl = d.data;
         }, function () {
-            //alert("error in UZ");
+            alertify.error("ошибка");
         });
     };
     function GetRegion() {
@@ -31,7 +31,7 @@
         }).then(function (d) {
             $scope.Rg = d.data;
         }, function () {
-            //alert("error in UZ");
+            alertify.error("ошибка");
         });
     };
     function GetOtrasl() {
@@ -41,7 +41,7 @@
         }).then(function (d) {
             $scope.Ot = d.data;
         }, function () {
-            //alert("error in UZ");
+            alertify.error("ошибка");
         });
     };
     function GetOrg() {
@@ -51,7 +51,7 @@
         }).then(function (d) {
             $scope.O = d.data;
         }, function () {
-            //alert("error in UZ");
+            alertify.error("ошибка");
         });
     };
     $scope.Roles = {
@@ -137,7 +137,7 @@
             }).then(function (msg) {
                 GetUZ();
             }, function () {
-                //alert('Error in UpdateGodovoyPlan');
+                alertify.error("ошибка");
                 console.log('Error in UpdateUZ');
                 $("#hh").modal('hide');
             });
@@ -151,7 +151,7 @@
             }).then(function (msg) {
                 GetUZ();
             }, function () {
-                //alert('Error in AddGodovoyPlan');
+                alertify.error("ошибка");
                 console.log('Error in AddUZ');
                 $("#hh").modal('hide');
             });
@@ -177,7 +177,7 @@
                     $("#hh").modal('hide');
                     GetUZ();
                 }, function () {
-                    //alert('Error DeleteGodovoyPlan');
+                    alertify.error("ошибка");
                     console.log('Error DeleteUZ');
                     $("#hh").modal('hide');
                 });

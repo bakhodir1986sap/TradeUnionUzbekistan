@@ -22,7 +22,7 @@
             $("#hh").modal('hide');
         }, function () {
             $("#hh").modal('hide');
-            //alert("error in O_SOZ");
+            alertify.error("ошибка");
         });
     }
     var i=null;

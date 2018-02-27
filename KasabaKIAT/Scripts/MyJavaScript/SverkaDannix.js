@@ -14,9 +14,8 @@
             }
             $scope.DATA = d.data;
             console.log(d.data);
-            //alert(d.data);
         }, function (error) {
-            //alert("error in Getdictionary");
+            alertify.error("ошибка");
             console.log("error in SD -> ", error);
             $("#hh").modal('hide');
         });

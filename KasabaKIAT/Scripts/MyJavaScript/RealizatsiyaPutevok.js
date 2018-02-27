@@ -267,8 +267,7 @@
         //$('#dobavit2').modal('show');
     }
     function real() {
-        $scope.DATA = null;
-        if (stringArrayd.length !== 0) {
+        if (ar1.length !== 0 || ar2.length !== 0) {
             document.getElementById('connection').style.visibility = "visible";
             $("#hh").modal({
                 backdrop: 'static'
@@ -282,14 +281,12 @@
             }).then(function (d) {
                 k++;
                 $scope.DATA = d.data;
-                stringArrayd = new Array();
                 ar1 = new Array();
                 ar2 = new Array();
                 console.log(d, k);
                 document.getElementById('connection').style.visibility = "hidden";
                 $("#hh").modal('hide');
             }, function () {
-                //alert("error in PP_S");
                 console.log("error in GetOformleniyaRealizatsiyaPutevok");
                 document.getElementById('connection').style.visibility = "hidden";
                 $("#hh").modal('hide');
@@ -297,6 +294,8 @@
             });
         }
         else {
+            document.getElementById('connection').style.visibility = "hidden";
+            $("#hh").modal('hide');
             alertify.error("Путевки не выбран");
         }
     }
@@ -309,6 +308,7 @@
             LoadDATA();
             $("#hh").modal('hide');
         }, function () {
+            alertify.error("ошибка");
             console.log("error in Save");
             $("#hh").modal('hide');
         });
@@ -321,6 +321,7 @@
             $scope.DATA2 = d.data;
             $("#hh").modal('hide');
         }, function () {
+            alertify.error("ошибка");
             console.log("error in GetZList");
             $("#hh").modal('hide');
         });

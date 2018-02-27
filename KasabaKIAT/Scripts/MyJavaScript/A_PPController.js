@@ -17,7 +17,7 @@
             }
             $scope.PP = d.data;
         }, function () {
-            //alert("error in SP");
+            alertify.error("ошибка");
         });
     }
     $scope.PlaceType = {
@@ -38,7 +38,7 @@
         }).then(function (response) {
             $scope.Dc = response.data;
         }, function (error) {
-            //alert("error in Getdictionary");
+            alertify.error("ошибка");
             console.log("error in GetSPP");
         });
     }
@@ -49,7 +49,7 @@
         }).then(function (response) {
             $scope.R = response.data;
         }, function (error) {
-            //alert("error in GetRegion");
+            alertify.error("ошибка");
             console.log("error in GetRegion");
         });
     }
@@ -97,7 +97,7 @@
             }).then(function (msg) {
                 GetPP($scope.PlaceType.REC_ID, $scope.Region.id);
             }, function () {
-                //alert('Error in updating');
+                alertify.error("ошибка");
             });
         }
         else {
@@ -109,7 +109,7 @@
             }).then(function (msg) {
                 GetPP($scope.PlaceType.REC_ID, $scope.Region.id);
             }, function () {
-                //alert('Error in adding book record');
+                alertify.error("ошибка");
             });
         }
     }
@@ -128,7 +128,7 @@
                 }).then(function (msg) {
                     GetPP($scope.PlaceType.REC_ID, $scope.Region.id);
                 }, function () {
-                    //alert('Error in deleting book record');
+                    alertify.error("ошибка");
                 });
             } else {
                 alertify.error("Операция отменена");

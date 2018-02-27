@@ -200,6 +200,8 @@
     <Compile Include="BusinessLogic\Buxgalteriya\PlanirovaniyaBudjeta\Region\PlanRegionDataManager.cs" />
     <Compile Include="BusinessLogic\Buxgalteriya\PlanProvodok\AccountType.cs" />
     <Compile Include="BusinessLogic\Buxgalteriya\PlanProvodok\AccountTypeDataManager.cs" />
+    <Compile Include="BusinessLogic\Buxgalteriya\Platejki\Platejki.cs" />
+    <Compile Include="BusinessLogic\Buxgalteriya\Platejki\PlatejkiDataManager.cs" />
     <Compile Include="BusinessLogic\Buxgalteriya\PrixodChastichka\Bankpayments.cs" />
     <Compile Include="BusinessLogic\Buxgalteriya\PrixodChastichka\BankpaymentsDataManager.cs" />
     <Compile Include="BusinessLogic\Buxgalteriya\Provodki\Provodki.cs" />
@@ -401,6 +403,7 @@
     <Compile Include="ViewModel\Buxgalteriya\DetailViewModel.cs" />
     <Compile Include="ViewModel\Buxgalteriya\MasterViewModel.cs" />
     <Compile Include="ViewModel\Buxgalteriya\OperationSettingsViewModel.cs" />
+    <Compile Include="ViewModel\Buxgalteriya\PlatejkiViewModel.cs" />
     <Compile Include="ViewModel\Buxgalteriya\ProvodkiViewModel.cs" />
     <Compile Include="ViewModel\KurortService\ViewModel.cs" />
     <Compile Include="ViewModel\BankOplati\KaznaPaymentFile.cs" />

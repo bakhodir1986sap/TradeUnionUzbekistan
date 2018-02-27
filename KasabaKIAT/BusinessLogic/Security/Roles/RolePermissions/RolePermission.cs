@@ -9,7 +9,7 @@ namespace KasabaKIAT.BusinessLogic.Security.Roles.RolePermissions
 {
     public class RolePermission
     {
-        public void EnterRolePermit(string rolepermitName)
+        public void EnterRolePermit(string rolepermitName, long role_id)
         {
             var role = new RolePermissionViewModel();
 
@@ -20,6 +20,37 @@ namespace KasabaKIAT.BusinessLogic.Security.Roles.RolePermissions
             else
             {
                 role.action = rolepermitName;
+                role.role_id = role_id;
+            }
+
+            role.s_create = DateTime.Now;
+
+            RolePermissionDataManager.Create(ref role);
+        }
+
+
+        public void EnterRolePermit(long rolep_id)
+        {
+
+            var rolep = RolePermissionDataManager.Get(rolep_id);
+
+            if (!rolep.Any())
+            {
+                return;
+            }
+
+            var rolepp = rolep.First();
+
+            var role = new RolePermissionViewModel();
+
+            if (string.IsNullOrEmpty(rolepp.action))
+            {
+                throw new ApplicationException("");
+            }
+            else
+            {
+                role.action = rolepp.action;
+                role.role_id = rolepp.role_id;
             }
 
             role.s_create = DateTime.Now;

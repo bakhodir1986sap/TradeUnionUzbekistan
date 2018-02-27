@@ -2,8 +2,8 @@
 @{
     ViewBag.Title = "бухгалтерия";
 }
-
-<section class="content__block container">
+<script src="~/Scripts/MyJavaScript/OsushestvleniyeProvodki.js"></script>
+<section class="content__block container" ng-controller="OsushestvleniyeProvodki">
     <div class="row mb-4 align-items-center">
         <div class="col title__block">
             <h4>Осуществление проводки</h4>
@@ -18,74 +18,73 @@
     <div class="nav form-group mb-4" id="myTab" role="tablist">
         <span class="pr-4">Проводка:</span>
         <div class="custom-control custom-radio custom-control-inline active" href="#first">
-            <input type="radio" name="inlineRadioOptions3" id="inlineRadio111" value="option1" class="custom-control-input" />
+            <input type="radio" ng-model="v" required ng-change="changeV()" name="inlineRadioOptions3" id="inlineRadio111" value="option1" class="custom-control-input" />
             <label for="inlineRadio111" class="custom-control-label">Внутренняя</label>
         </div>
         <div class="custom-control custom-radio custom-control-inline" href="#second">
-            <input type="radio" name="inlineRadioOptions3" id="inlineRadio222" value="option2" class="custom-control-input" />
+            <input type="radio" ng-model="v" required ng-change="changeV()" name="inlineRadioOptions3" id="inlineRadio222" value="option2" class="custom-control-input" />
             <label for="inlineRadio222" class="custom-control-label">Внешняя</label>
         </div>
     </div>
     <div class="tab-content mb-5" id="myTabContent">
         <div class="tab-pane fade show active" id="first" role="tabpanel" aria-labelledby="first-pill">
             <div class="row">
-                <div class="col-md-6">
+                <form class="col-md-6" name="myForm" novalidate>
                     <div class="text__block mb-4">
-                        <p>Дата: <strong>10.11.2017</strong></p>
+                        <p>Дата: <strong>{{TRDT}}</strong></p>
                     </div>
                     <div class="form-group">
                         <label>Получатель:</label>
-                        <select class="custom-select form-control">
-                            <option>Название</option>
-                            <option>Option 1</option>
-                            <option>Option 2</option>
-                            <option>Option 3</option>
-                        </select>
+                        <input type="text" class="form-control" ng-model="P1NAME" placeholder="Получатель" />
                     </div>
                     <div class="text__block mb-4">
-                        <p>ИНН: <strong>633564735637</strong></p>
-                        <p>МФО: <strong>567545647</strong></p>
+                        <p>ИНН: <strong><input type="text" ng-minlength="9" ng-maxlength="9"  required ng-model="P1INN" name="P1INN" class="form-control" placeholder="ИНН" /></strong></p>
+                        <span class="alert alert-warning" style="padding:0px" ng-show="myForm.P1INN.$error.required">заполнить поле</span>
+                        <span class="alert alert-warning" style="padding:0px" ng-show="!myForm.P1INN.$error.required&&!myForm.P1INN.$valid">9 шт. номер</span>
+                        <p>МФО: <strong><input type="text" ng-model="P1MFO" ng-minlength="5" ng-maxlength="5"  required name="P1MFO" class="form-control" placeholder="МФО" /></strong></p>
+                        <span class="alert alert-warning" style="padding:0px" ng-show="myForm.P1MFO.$error.required">заполнить поле</span>
+                        <span class="alert alert-warning" style="padding:0px" ng-show="!myForm.P1MFO.$error.required&&!myForm.P1MFO.$valid">5 шт. номер</span>
                     </div>
                     <div class="row mb-4">
                         <div class="col-md-6">
                             <label>Р/с дебет:</label>
                             <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Р/с дебет" />
+                                <input type="text" ng-model="D1" class="form-control" placeholder="Р/с дебет" />
                             </div>
                         </div>
                         <div class="col-md-6">
                             <label>Р/с кредит:</label>
                             <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Р/с кредит" />
+                                <input type="text" ng-model="K1" class="form-control" placeholder="Р/с кредит" />
                             </div>
                         </div>
                     </div>
                     <div class="form-group mb-4">
                         <label>Сумма:</label>
                         <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Сумма" />
+                            <input type="text" ng-model="SUM1" class="form-control" placeholder="Сумма" />
                         </div>
                     </div>
                     <div class="form-group mb-5">
                         <label>Комментарий:</label>
-                        <textarea class="form-control mb-4" rows="5" placeholder="Комментарий"></textarea>
+                        <textarea class="form-control mb-4" ng-model="COM1" rows="5" placeholder="Комментарий"></textarea>
                     </div>
-                </div>
+                </form>
             </div>
             <div class="mb-5">
-                <a href="#" class="btn btn-blue d-block d-md-inline-block mb-2">Выполнить</a>
+                <button ng-click="Add1()" class="btn btn-blue d-block d-md-inline-block mb-2">Выполнить</button>
             </div>
         </div>
         <div class="tab-pane fade" id="second" role="tabpanel" aria-labelledby="second-pill">
             <div class="text__block mb-4">
-                <p>Дата: <strong>10.11.2017</strong></p>
+                <p>Дата: <strong>{{TRDT}}</strong></p>
             </div>
-            <div class="row mb-4">
+            <form class="row mb-4" name="myForm2" novalidate>
                 <div class="col-md-6">
                     <div class="form-group">
                         <label>Номер платежного документа:</label>
                         <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Номер платежного документа" />
+                            <input type="text" ng-model="N" class="form-control" placeholder="Номер платежного документа" />
                         </div>
                     </div>
                 </div>
@@ -95,11 +94,11 @@
                             <label>Тип счета:</label>
                             <div class="form-group mb-3 mb-md-0">
                                 <div class="custom-control custom-radio custom-control-inline">
-                                    <input type="radio" name="inlineRadio1" id="inlineRadio11" value="option1" class="custom-control-input" checked="" />
+                                    <input type="radio" ng-model="s" required ng-change="changeS()" name="inlineRadio1" id="inlineRadio11" value="option1" class="custom-control-input" checked="" />
                                     <label for="inlineRadio11" class="custom-control-label">Актив</label>
                                 </div>
                                 <div class="custom-control custom-radio custom-control-inline">
-                                    <input type="radio" name="inlineRadio1" id="inlineRadio22" value="option2" class="custom-control-input" />
+                                    <input type="radio" ng-model="s" required ng-change="changeS()" name="inlineRadio1" id="inlineRadio22" value="option2" class="custom-control-input" />
                                     <label for="inlineRadio22" class="custom-control-label">Пассив</label>
                                 </div>
                             </div>
@@ -108,47 +107,45 @@
                             <label>Тип оборота:</label>
                             <div class="form-group mb-3 mb-md-0">
                                 <div class="custom-control custom-radio custom-control-inline">
-                                    <input type="radio" name="inlineRadio2" id="inlineRadio3" value="option1" class="custom-control-input" checked="" />
+                                    <input type="radio" required ng-model="o" ng-change="changeO()" name="inlineRadio2" id="inlineRadio3" value="option1" class="custom-control-input" checked="" />
                                     <label for="inlineRadio3" class="custom-control-label">Дебет</label>
                                 </div>
                                 <div class="custom-control custom-radio custom-control-inline">
-                                    <input type="radio" name="inlineRadio2" id="inlineRadio4" value="option2" class="custom-control-input" />
+                                    <input type="radio" required ng-model="o" ng-change="changeO()" name="inlineRadio2" id="inlineRadio4" value="option2" class="custom-control-input" />
                                     <label for="inlineRadio4" class="custom-control-label">Кредит</label>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            </form>
             <div class="row mb-4">
                 <div class="col-md-6">
                     <div class="form-group">
                         <label>Плательщик:</label>
-                        <select class="custom-select form-control">
-                            <option>Плательщик</option>
-                            <option>Option 1</option>
-                            <option>Option 2</option>
-                            <option>Option 3</option>
-                        </select>
+                        <input type="text" ng-model="P2NAME" class="form-control" placeholder="Плательщик" />
                     </div>
                     <div class="text__block mb-4">
-                        <p>ИНН: <strong>633564735637</strong></p>
-                        <p>МФО: <strong>567545647</strong></p>
+                        <p>ИНН: <strong><input ng-model="P2INN" required ng-minlength="9" ng-maxlength="9"  name="P2INN" type="text" class="form-control" placeholder="ИНН" /></strong></p>
+                        <span class="alert alert-warning" style="padding:0px" ng-show="myForm2.P2INN.$error.required">заполнить поле</span>
+                        <span class="alert alert-warning" style="padding:0px" ng-show="!myForm2.P2INN.$error.required&&!myForm2.P2INN.$valid">9 шт. номер</span>
+                        <p>МФО: <strong><input ng-model="P2MFO" name="P2MFO" required ng-minlength="5" ng-maxlength="5"  type="text" class="form-control" placeholder="МФО" /></strong></p>
+                        <span class="alert alert-warning" style="padding:0px" ng-show="myForm2.P2MFO.$error.required">заполнить поле</span>
+                        <span class="alert alert-warning" style="padding:0px" ng-show="!myForm2.P2MFO.$error.required&&!myForm2.P2MFO.$valid">5 шт. номер</span>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
                         <label>Получатель:</label>
-                        <select class="custom-select form-control">
-                            <option>Получатель</option>
-                            <option>Option 1</option>
-                            <option>Option 2</option>
-                            <option>Option 3</option>
-                        </select>
+                        <input type="text" ng-model="P3NAME" class="form-control" placeholder="Получатель" />
                     </div>
                     <div class="text__block mb-4">
-                        <p>ИНН: <strong>633564735637</strong></p>
-                        <p>МФО: <strong>567545647</strong></p>
+                        <p>ИНН: <input ng-model="P3INN" required ng-minlength="9" ng-maxlength="9"  name="P3INN" type="text" class="form-control" placeholder="ИНН" /></p>
+                        <span class="alert alert-warning" style="padding:0px" ng-show="myForm2.P3INN.$error.required">заполнить поле</span>
+                        <span class="alert alert-warning" style="padding:0px" ng-show="!myForm2.P3INN.$error.required&&!myForm2.P3INN.$valid">9 шт. номер</span>
+                        <p>МФО: <strong><input ng-model="P3MFO" name="P3MFO" required ng-minlength="9" ng-maxlength="9"  type="text" class="form-control" placeholder="МФО" /></strong></p>
+                        <span class="alert alert-warning" style="padding:0px" ng-show="myForm2.P3MFO.$error.required">заполнить поле</span>
+                        <span class="alert alert-warning" style="padding:0px" ng-show="!myForm2.P3MFO.$error.required&&!myForm2.P3MFO.$valid">5 шт. номер</span>
                     </div>
                 </div>
             </div>
@@ -156,23 +153,13 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label>Р/с:</label>
-                        <select class="custom-select form-control">
-                            <option>Номер счета</option>
-                            <option>Option 1</option>
-                            <option>Option 2</option>
-                            <option>Option 3</option>
-                        </select>
+                        <input type="text" ng-model="D2" class="form-control" placeholder="Номер счета" />
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
                         <label>Р/с:</label>
-                        <select class="custom-select form-control">
-                            <option>Номер счета</option>
-                            <option>Option 1</option>
-                            <option>Option 2</option>
-                            <option>Option 3</option>
-                        </select>
+                        <input type="text" ng-model="K2" class="form-control" placeholder="Номер счета" />
                     </div>
                 </div>
             </div>
@@ -181,17 +168,17 @@
                     <div class="form-group">
                         <label>Сумма:</label>
                         <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Сумма" />
+                            <input type="text" ng-model="SUM2" class="form-control" placeholder="Сумма" />
                         </div>
                     </div>
                     <div class="form-group">
                         <label>Комментарий:</label>
-                        <textarea class="form-control mb-4" rows="5" placeholder="Комментарий"></textarea>
+                        <textarea ng-model="COM2" class="form-control mb-4" rows="5" placeholder="Комментарий"></textarea>
                     </div>
                 </div>
             </div>
             <div class="mb-5">
-                <a href="#" class="btn btn-blue d-block d-md-inline-block mb-2">Выполнить</a>
+                <button ng-click="Add2()" class="btn btn-blue d-block d-md-inline-block mb-2">Выполнить</button>
             </div>
         </div>
     </div>

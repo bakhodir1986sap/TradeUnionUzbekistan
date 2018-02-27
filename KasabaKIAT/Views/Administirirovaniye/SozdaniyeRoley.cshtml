@@ -6,9 +6,56 @@
 @{
     ViewBag.Title = "Администрирование";
 }
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+    body {
+        font-family: Arial;
+    }
+
+    /* Style the tab */
+    .tab {
+        overflow: hidden;
+        border: 1px solid #ccc;
+        background-color: #f1f1f1;
+    }
+
+        /* Style the buttons inside the tab */
+        .tab button {
+            background-color: inherit;
+            float: left;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            padding: 14px 16px;
+            transition: 0.3s;
+            font-size: 17px;
+        }
+
+            /* Change background color of buttons on hover */
+            .tab button:hover {
+                background-color: #ddd;
+            }
+
+            /* Create an active/current tablink class */
+            .tab button.active {
+                background-color: #ccc;
+            }
+
+    /* Style the tab content */
+    .tabcontent {
+        display: none;
+        padding: 6px 12px;
+        border: 1px solid #ccc;
+        border-top: none;
+    }
+</style>
+<link href="~/Content/ListBoxstyle.css" rel="stylesheet" />
+<script src="~/Scripts/listbox.js"></script>
+
+<script src="~/Scripts/MyJavaScript/SozdaniyeRoley.js"></script>
 @if (List.SozdaniyaRoley)
 {
-    <section class="content__block container">
+    <section class="content__block container" ng-controller="SozdaniyeRoley">
         <div class="row mb-4 align-items-center">
             <div class="col title__block">
                 <h4>Ролей</h4>
@@ -21,276 +68,84 @@
                 </nav>
             </div>
         </div>
-        <div class="row mb-4">
-            <div class="col-md-6">
-                <div class="list-group r-list-group mb-4 box-shadow">
-                    @if (List.SozdaniyaRoley)
-                    {
-                        <a href="#" class="list-group-item list-group-item-action">Администратор</a>
-                        <a href="#" class="list-group-item list-group-item-action">Сотрудник СФП</a>
-                        <a href="#" class="list-group-item list-group-item-action">Сотрудник Региона</a>
-                        <a href="#" class="list-group-item list-group-item-action">Сотрудник РАйона</a>
-                        <a href="#" class="list-group-item list-group-item-action">Бухгалтерия СФП</a>
-                        <a href="#" class="list-group-item list-group-item-action">Региональный бухгалтер</a>
-                    }
-                </div>
-                <div class="mb-4">
-                    <a href="" data-toggle="modal" data-target="#dobred" class="btn btn-blue d-block d-md-inline-block mb-2"><i class="fas fa-plus"></i> Добавить роль</a>
-                </div>
+
+        <div class="tab">
+            <button class="tablinks active" onclick="openCity(event, 'London')">Роллар</button>
+            <button class="tablinks" onclick="openCity(event, 'Paris')">Рухсатлар</button>
+            @*<button class="tablinks" onclick="openCity(event, 'Tokyo')">Tokyo</button>*@
+        </div>
+
+        <div id="London" class="tabcontent" style="display:block">
+            <h3>Роллар</h3>
+            <div class="table-responsive box-shadow mb-4" ng-show="showdata">
+                <table class="table table__block t-hover">
+                    <thead>
+                        <tr>
+                            <th style="width:20px;text-align:left">№</th>
+                            <th style="width:200px;text-align:left">Номланиши</th>
+                            <th style="width:200px;text-align:left">Амаллар</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="item in DATA">
+                            <td>{{item.d1}}</td>
+                            <td style="width:200px;">{{item.d2}}</td>
+                            <td><button ng-click="V2(item.d1)" class="btn btn-grey d-block d-md-inline-block mb-2" data-dismiss="modal">Функцияларни тайинлаш</button></td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
+
+        <div id="Paris" class="tabcontent">
+            <h3>Рухсатлар</h3>
+            <div class="container_listbox">
+                <div class="select_1">
+                    <select id="select1" name="select1[]" multiple="multiple"  ng-model="R" class="custom-select form-control" required ng-options="item as item.d2 for item in DATA2 track by item.d1">
+                    </select>
+                </div>
+                <div class="operadores">
+                    @*<div class="add_all"  onclick="add_all('select1','select2',false,'values_selecteds_listbox');"></div>*@
+                    <div class="add" onclick="add('select1','select2',false,'values_selecteds_listbox');"></div>
+                    <div class="remove" onclick="add('select2','select1',true,'values_selecteds_listbox');"></div>
+                    @*<div class="remove_all" onclick="add_all('select2','select1',true,'values_selecteds_listbox');"></div>*@
+                </div>
+                <div class="select_2">
+                    <select id="select2" name="select2[]" multiple="multiple"  ng-model="R2" class="custom-select form-control" required ng-options="item as item.d2 for item in DATA3 track by item.d1"></select>
+                </div>
+            </div>
+            <input type="text" id="values_selecteds_listbox" name="values_selecteds_listbox" size="40" />
+            @*<div class="row col-4">
+                <select ng-model="R" class="custom-select form-control" required name="R" ng-options="item as item.d2 for item in DATA2 track by item.d1"></select>
+                <span class="alert alert-warning" style="padding:0px" ng-show="myForm.R.$error.required">Выберите поле</span>
+            </div>
+            <div class="row col-4">
+                <select ng-model="R2" class="custom-select form-control" required name="R2" ng-options="item as item.d2 for item in DATA3 track by item.d1"></select>
+                <span class="alert alert-warning" style="padding:0px" ng-show="myForm.R2.$error.required">Выберите поле</span>
+            </div>*@
+        </div>
+
+        <div id="Tokyo" class="tabcontent">
+            <h3>Tokyo</h3>
+            <p>Tokyo is the capital of Japan.</p>
+        </div>
+
+        <script>
+            function openCity(evt, cityName) {
+                var i, tabcontent, tablinks;
+                tabcontent = document.getElementsByClassName("tabcontent");
+                for (i = 0; i < tabcontent.length; i++) {
+                    tabcontent[i].style.display = "none";
+                }
+                tablinks = document.getElementsByClassName("tablinks");
+                for (i = 0; i < tablinks.length; i++) {
+                    tablinks[i].className = tablinks[i].className.replace(" active", "");
+                }
+                document.getElementById(cityName).style.display = "block";
+                evt.currentTarget.className += " active";
+            }
+        </script>
     </section>
 
-    <div class="modal__block modal fade" id="dobred" tabindex="-1" role="dialog" aria-labelledby="dobavitLabel">
-        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-            <div class="modal-content">
-                <div class="modal-body">
-                    <div class="modal-title">
-                        <h4 class="text-center mt-4 mb-4">Добавить / редактировать роль</h4>
-                    </div>
-                    <div class="row justify-content-center">
-                        <div class="col-md-6">
-                            <div class="form-group row align-items-center">
-                                <label class="col-md-5 col-form-label text-md-right py-0">Название:</label>
-                                <div class="col-md-7">
-                                    <input type="text" class="form-control" placeholder="Название" />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="table__title my-4">
-                        <p><strong>Путевки</strong></p>
-                    </div>
-                    <div class="row my-4">
-                        <div class="col-md-4">
-                            <div class="custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="customCheck1">
-                                <label class="custom-control-label r-label py-1" for="customCheck1">График заездов</label>
-                            </div>
-                            <div class="custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="customCheck2">
-                                <label class="custom-control-label r-label py-1" for="customCheck2">Годовой план путевок</label>
-                            </div>
-                            <div class="custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="customCheck3">
-                                <label class="custom-control-label r-label py-1" for="customCheck3">Приход путевок</label>
-                            </div>
-                            <div class="custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="customCheck4">
-                                <label class="custom-control-label r-label py-1" for="customCheck4">Просмотр остатков путевок</label>
-                            </div>
-                            <div class="custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="customCheck5">
-                                <label class="custom-control-label r-label py-1" for="customCheck5">Изменения путевки</label>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="customCheck6">
-                                <label class="custom-control-label r-label py-1" for="customCheck6">Реализация путевок</label>
-                            </div>
-                            <div class="custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="customCheck7">
-                                <label class="custom-control-label r-label py-1" for="customCheck7">Просмотр реал. путевок</label>
-                            </div>
-                            <div class="custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="customCheck8">
-                                <label class="custom-control-label r-label py-1" for="customCheck8">Изменение дет. реал. путевок</label>
-                            </div>
-                            <div class="custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="customCheck9">
-                                <label class="custom-control-label r-label py-1" for="customCheck9">Оформление возврата путевок</label>
-                            </div>
-                            <div class="custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="customCheck10">
-                                <label class="custom-control-label r-label py-1" for="customCheck10">Сверка данных по отдыхающим</label>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="customCheck11">
-                                <label class="custom-control-label r-label py-1" for="customCheck11">Ввод заявок</label>
-                            </div>
-                            <div class="custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="customCheck12">
-                                <label class="custom-control-label r-label py-1" for="customCheck12">Поиск и редактиров. заявок</label>
-                            </div>
-                            <div class="custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="customCheck13">
-                                <label class="custom-control-label r-label py-1" for="customCheck13">Рассмотрение заявок</label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="table__title my-4">
-                        <p><strong>Бух учет</strong></p>
-                    </div>
-                    <div class="row my-4">
-                        <div class="col-md-4">
-                            <div class="custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="customCheck1-1">
-                                <label class="custom-control-label r-label py-1" for="customCheck1-1">Ввод данных</label>
-                            </div>
-                            <div class="custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="customCheck1-2">
-                                <label class="custom-control-label r-label py-1" for="customCheck1-2">Просмотр остатков путевок</label>
-                            </div>
-                            <div class="custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="customCheck1-3">
-                                <label class="custom-control-label r-label py-1" for="customCheck1-3">Осуществление проводки</label>
-                            </div>
-                            <div class="custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="customCheck1-4">
-                                <label class="custom-control-label r-label py-1" for="customCheck1-4">Платежные поручения</label>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="customCheck1-6">
-                                <label class="custom-control-label r-label py-1" for="customCheck1-6">План бюджета</label>
-                            </div>
-                            <div class="custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="customCheck1-7">
-                                <label class="custom-control-label r-label py-1" for="customCheck1-7">убрать вообще этот пункт</label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="table__title my-4">
-                        <p><strong>Отчеты</strong></p>
-                    </div>
-                    <div class="row my-4">
-                        <div class="col-md-4">
-                            <div class="custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="customCheck2-1">
-                                <label class="custom-control-label r-label py-1" for="customCheck2-1">Сводный отчет по заявкам</label>
-                            </div>
-                            <div class="custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="customCheck2-2">
-                                <label class="custom-control-label r-label py-1" for="customCheck2-2">Заявки</label>
-                            </div>
-                            <div class="custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="customCheck2-3">
-                                <label class="custom-control-label r-label py-1" for="customCheck2-3">Форма №13</label>
-                            </div>
-                            <div class="custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="customCheck2-4">
-                                <label class="custom-control-label r-label py-1" for="customCheck2-4">Форма №14</label>
-                            </div>
-                            <div class="custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="customCheck2-5">
-                                <label class="custom-control-label r-label py-1" for="customCheck2-5">Таблица по учету отдыхающих</label>
-                            </div>
-                            @*<div class="custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="customCheck2-6">
-                                <label class="custom-control-label r-label py-1" for="customCheck2-6">Свободный отчет по накладным</label>
-                            </div>*@
-                            <div class="custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="customCheck2-7">
-                                <label class="custom-control-label r-label py-1" for="customCheck2-7">Главная книга</label>
-                            </div>
-                            <div class="custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="customCheck2-8">
-                                <label class="custom-control-label r-label py-1" for="customCheck2-8">Свод начислений по отраслям</label>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="customCheck2-9">
-                                <label class="custom-control-label r-label py-1" for="customCheck2-9">ЖО1</label>
-                            </div>
-                            <div class="custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="customCheck2-10">
-                                <label class="custom-control-label r-label py-1" for="customCheck2-10">ЖО2</label>
-                            </div>
-                            <div class="custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="customCheck2-11">
-                                <label class="custom-control-label r-label py-1" for="customCheck2-11">ЖО3</label>
-                            </div>
-                            <div class="custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="customCheck2-12">
-                                <label class="custom-control-label r-label py-1" for="customCheck2-12">ЖО4</label>
-                            </div>
-                            <div class="custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="customCheck2-13">
-                                <label class="custom-control-label r-label py-1" for="customCheck2-13">ЖО5</label>
-                            </div>
-                            <div class="custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="customCheck2-14">
-                                <label class="custom-control-label r-label py-1" for="customCheck2-14">ЖО6</label>
-                            </div>
-                            <div class="custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="customCheck2-15">
-                                <label class="custom-control-label r-label py-1" for="customCheck2-15">ЖО7</label>
-                            </div>
-                            <div class="custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="customCheck2-16">
-                                <label class="custom-control-label r-label py-1" for="customCheck2-16">ЖО8</label>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="customCheck2-17">
-                                <label class="custom-control-label r-label py-1" for="customCheck2-17">Финансовый квартальный</label>
-                            </div>
-                            <div class="custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="customCheck2-18">
-                                <label class="custom-control-label r-label py-1" for="customCheck2-18">Финансовый годовой</label>
-                            </div>
-                            <div class="custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="customCheck2-19">
-                                <label class="custom-control-label r-label py-1" for="customCheck2-19">Финансовый по лагерям</label>
-                            </div>
-                            <div class="custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="customCheck2-20">
-                                <label class="custom-control-label r-label py-1" for="customCheck2-20">По санаториям-профилакториям</label>
-                            </div>
-                            <div class="custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="customCheck2-21">
-                                <label class="custom-control-label r-label py-1" for="customCheck2-21">Движение средств по счетам</label>
-                            </div>
-                            <div class="custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="customCheck2-22">
-                                <label class="custom-control-label r-label py-1" for="customCheck2-22">Акт сверки</label>
-                            </div>
-                            <div class="custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="customCheck2-23">
-                                <label class="custom-control-label r-label py-1" for="customCheck2-23">Задолженность СФП</label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="table__title my-4">
-                        <p><strong>Администрирование</strong></p>
-                    </div>
-                    <div class="row my-4">
-                        <div class="col-md-4">
-                            <div class="custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="customCheck3-1">
-                                <label class="custom-control-label r-label py-1" for="customCheck3-1">Пользователи</label>
-                            </div>
-                            <div class="custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="customCheck3-2">
-                                <label class="custom-control-label r-label py-1" for="customCheck3-2">Роли</label>
-                            </div>
-                            <div class="custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="customCheck3-3">
-                                <label class="custom-control-label r-label py-1" for="customCheck3-3">Создание проводок</label>
-                            </div>
-                            <div class="custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="customCheck3-4">
-                                <label class="custom-control-label r-label py-1" for="customCheck3-4">Привязка проводок к ЖО</label>
-                            </div>
-                            <div class="custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="customCheck3-5">
-                                <label class="custom-control-label r-label py-1" for="customCheck3-5">Справочники</label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="mb-4 text-center">
-                        <a href="#" class="btn btn-blue d-block d-md-inline-block mb-2">Сохранить</a>
-                        <a href="#" class="btn btn-red d-block d-md-inline-block mb-2">Удалить</a>
-                        <a href="#" class="btn btn-grey d-block d-md-inline-block mb-2" data-dismiss="modal">Отмена</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    
 }

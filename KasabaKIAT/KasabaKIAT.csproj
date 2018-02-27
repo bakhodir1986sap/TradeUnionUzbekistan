@@ -197,8 +197,6 @@
     <Compile Include="BusinessLogic\Buxgalteriya\OperationSettings\OperationSettingsDataManager.cs" />
     <Compile Include="BusinessLogic\Buxgalteriya\PlanirovaniyaBudjeta\Calculations.cs" />
     <Compile Include="BusinessLogic\Buxgalteriya\PlanirovaniyaBudjeta\Otrasl\PlanOtraslDataManager.cs" />
-    <Compile Include="BusinessLogic\Buxgalteriya\PlanirovaniyaBudjeta\Region\PlanRegion.cs" />
-    <Compile Include="BusinessLogic\Buxgalteriya\PlanirovaniyaBudjeta\Region\PlanRegionDataManager.cs" />
     <Compile Include="BusinessLogic\Buxgalteriya\PlanProvodok\AccountType.cs" />
     <Compile Include="BusinessLogic\Buxgalteriya\PlanProvodok\AccountTypeDataManager.cs" />
     <Compile Include="BusinessLogic\Buxgalteriya\Platejki\Platejki.cs" />
@@ -383,9 +381,6 @@
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\sp_rt_ZayavkiList_Result.cs">
-      <DependentUpon>KasabaKIAT.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\tbbu_planbyudjetregion.cs">
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tbbu_platejka.cs">
@@ -972,6 +967,11 @@
     <Content Include="Content\img\item-8.JPG" />
     <Content Include="Content\img\item-9.JPG" />
     <Content Include="Content\img\item12.JPG" />
+    <Content Include="Content\img\left.png" />
+    <Content Include="Content\img\left_all.png" />
+    <Content Include="Content\img\right.png" />
+    <Content Include="Content\img\right_all.png" />
+    <Content Include="Content\ListBoxstyle.css" />
     <Content Include="Content\Login\1.ico" />
     <Content Include="Content\Login\11.ico" />
     <Content Include="Content\Login\buffering.gif" />
@@ -1039,6 +1039,8 @@
     <Content Include="Scripts\lib\alertify.js" />
     <Content Include="Scripts\lib\alertify.min.js" />
     <Content Include="Scripts\lib\jquery.js" />
+    <Content Include="Scripts\listbox.js" />
+    <Content Include="Scripts\listbox.pack.js" />
     <Content Include="Scripts\main.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\MyJavaScript\App.js" />
@@ -1054,6 +1056,7 @@
     <Content Include="Scripts\MyJavaScript\main.js" />
     <Content Include="Scripts\MyJavaScript\Module.js" />
     <Content Include="Scripts\MyJavaScript\OformleniyaRealizatsiyaPutevok.js" />
+    <Content Include="Scripts\MyJavaScript\OsushestvleniyeProvodki.js" />
     <Content Include="Scripts\MyJavaScript\O_SOZController.js" />
     <Content Include="Scripts\MyJavaScript\O_TController.js" />
     <Content Include="Scripts\MyJavaScript\PlatejPoruchController.js" />
@@ -1068,6 +1071,7 @@
     <Content Include="Scripts\MyJavaScript\SController.js" />
     <Content Include="Scripts\MyJavaScript\Service.js" />
     <Content Include="Scripts\MyJavaScript\SNPController.js" />
+    <Content Include="Scripts\MyJavaScript\SozdaniyeRoley.js" />
     <Content Include="Scripts\MyJavaScript\SPController.js" />
     <Content Include="Scripts\MyJavaScript\SpisokPravsoyuzov.js" />
     <Content Include="Scripts\MyJavaScript\SRController.js" />
@@ -1110,7 +1114,7 @@
     <Content Include="Views\Administirirovaniye\Spravichniki.cshtml" />
     <Content Include="Views\Administirirovaniye\SredneyStoimostiPutevok.cshtml" />
     <Content Include="Views\Administirirovaniye\RazmesheniyaSanatorii.cshtml" />
-    <Content Include="Views\Administirirovaniye\SozdaniyeRoley.cshtml" />
+    <Content Include="Views\Administirirovaniye\SozdaniyeRoley2.cshtml" />
     <Content Include="Views\Administirirovaniye\SozdaniyeProvodok.cshtml" />
     <Content Include="Views\Administirirovaniye\Otdixayushix.cshtml" />
     <Content Include="Views\Administirirovaniye\NaznacheniyaPlateja.cshtml" />
@@ -1154,6 +1158,7 @@
     <Content Include="Views\PrixodPutevok\OformleniyaRealizatsiyaPutevok.cshtml" />
     <Content Include="Views\PrixodPutevok\ProsmotrRealzPutevok.cshtml" />
     <Content Include="Views\PrixodPutevok\SverkaDannix.cshtml" />
+    <Content Include="Views\Administirirovaniye\SozdaniyeRoley.cshtml" />
     <None Include="Web References\KurortUrlService\SkuTradeUnionExchg.wsdl" />
     <Content Include="Web References\KurortUrlService\typeGrafikZaezdovSanatoriev.datasource">
       <DependentUpon>Reference.map</DependentUpon>
@@ -1171,6 +1176,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="BusinessLogic\BankOplati\Firmi\" />
+    <Folder Include="BusinessLogic\Buxgalteriya\PlanirovaniyaBudjeta\Region\" />
     <Folder Include="BusinessLogic\ClosePeriod\CloseDay\" />
     <Folder Include="BusinessLogic\ClosePeriod\CloseKvartal\" />
     <Folder Include="BusinessLogic\ClosePeriod\CloseMonth\" />

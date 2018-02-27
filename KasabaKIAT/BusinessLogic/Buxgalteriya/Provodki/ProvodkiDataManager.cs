@@ -2,6 +2,7 @@
 using KasabaKIAT.ViewModel.Buxgalteriya;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Validation;
 using System.Linq;
 using System.Web;
 
@@ -18,7 +19,7 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.Provodki
                 //reg.REC_ID          = model.rec_id          ;
                 reg.DEPARTMENT_BASE = model.department_base ;
                 reg.USER_ID         = model.user_id         ;
-                reg.INOUTFLG        = model.inoutflg        ;
+                reg.INOUTFLG        = model.inoutflg        ;//0 - vnut 1 vnesh
                 reg.TRDT            = model.trdt            ;
                 reg.NUMBER          = model.number          ;
                 reg.TIPSCHETA       = model.tipscheta       ;
@@ -41,7 +42,24 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.Provodki
                     model.rec_id = planOtrasl.REC_ID;
                 }
 
-                db.SaveChanges();
+                try
+                {
+                    db.SaveChanges();
+                } 
+                catch (DbEntityValidationException e)
+                {
+                    foreach (var eve in e.EntityValidationErrors)
+                    {
+                        Console.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
+                            eve.Entry.Entity.GetType().Name, eve.Entry.State);
+                        foreach (var ve in eve.ValidationErrors)
+                        {
+                            Console.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
+                                ve.PropertyName, ve.ErrorMessage);
+                        }
+                    }
+                    throw;
+                }
             }
         }
 

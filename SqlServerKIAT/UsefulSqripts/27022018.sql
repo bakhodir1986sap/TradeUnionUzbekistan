@@ -88,3 +88,42 @@ SET ANSI_PADDING OFF
 GO
 
 
+-------------------------------------------------------------
+
+
+USE [KasabaKIAT]
+GO
+
+/****** Object:  Table [dbo].[tbbu_planbyudjetregion]    Script Date: 02/27/2018 18:39:28 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+SET ANSI_PADDING ON
+GO
+
+CREATE TABLE [dbo].[tbbu_planbyudjetregion](
+	[REC_ID] [bigint] IDENTITY(1,1) NOT NULL,
+	[DEPARTMENT_BASE] [varchar](255) NULL,
+	[USERID] [bigint] NULL,
+	[YEAR] [int] NULL,
+	[SOATO_CODE] [varchar](10) NULL,
+	[ITEM_CODE] [varchar](254) NULL,
+	[ITEM_NAME] [nvarchar](254) NULL,
+	[GODOVOY] [money] NULL,
+	[QUARTER1] [money] NULL,
+	[HALFYEAR] [money] NULL,
+	[MONTH9] [money] NULL,
+ CONSTRAINT [PK_tbbu_planbyudjetregion] PRIMARY KEY CLUSTERED 
+(
+	[REC_ID] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+
+SET ANSI_PADDING OFF
+GO
+

@@ -13,13 +13,13 @@
         <section class="content__block container">
             <div class="row mb-4 align-items-center">
                 <div class="col-sm-6 title__block">
-                    <h4>Справочники назначения платежа</h4>
+                    <h4>Справочники назначений платежа</h4>
                     <nav aria-label="breadcrumb" class="breadcrumb__block">
                         <ol class="breadcrumb" style="width:1000px">
                             <li class="breadcrumb-item load"><a href="/Home/Admin">Администрирование</a></li>
                             <li class="breadcrumb-item load"><a href="/Administirirovaniye/index">Администрирование</a></li>
                             <li class="breadcrumb-item load"><a href="/Administirirovaniye/Spravichniki">справочники</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Справочники назначения платежа</li>
+                            <li class="breadcrumb-item active" aria-current="page">Справочники назначений платежа</li>
                         </ol>
                     </nav>
                 </div>
@@ -31,7 +31,7 @@
                 <table class="table table__block t-hover">
                     <thead>
                         <tr>
-                            <th class="dropdown dropdown__table">тип мест</th>
+                            <th class="dropdown dropdown__table">Назначение платежа</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -54,7 +54,7 @@
                             <form class="col-md-8" name="myForm" novalidate>
                                 <input type="hidden" style="position:absolute" ng-model="ID;" />
                                 <div class="form-group row align-items-center">
-                                    <label class="col-md-5 col-form-label text-md-right py-0">Тип размещения:</label>
+                                    <label class="col-md-5 col-form-label text-md-right py-0">Назначение платежа:</label>
                                     <div class="col-md-7">
                                         <input type="text" class="form-control" required placeholder="" name="PTI" ng-model="PTI" value="">
                                         <span class="alert alert-warning" style="padding:0px" ng-show="myForm.PTI.$error.required">заполнить поле</span>

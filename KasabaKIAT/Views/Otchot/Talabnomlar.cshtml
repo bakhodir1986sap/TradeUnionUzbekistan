@@ -30,7 +30,7 @@
                 <div class="row mb-4 align-items-center">
                     <div class="col-md-6">
                         <div class="form-group mb-3 mb-md-0">
-                            <p>Тип счета:</p>
+                            <p>Тип отчета:</p>
                             <div class="custom-control custom-radio custom-control-inline">
                                 <input type="radio" required ng-model="s" ng-change="Load()" name="inlineRadioOptions3" id="inlineRadio1" value="option1" class="custom-control-input" checked="" />
                                 <label for="inlineRadio1" class="custom-control-label">По организации</label>
@@ -76,8 +76,8 @@
                 </div>
                 <div class="row mb-4 align-items-center">
                     <div>
-                        @*<button ng-click="LoadDATA()" ng-disabled="s!='option1'&&s!='option2'" class="btn btn-blue d-block d-md-inline-block mb-3 mb-md-0"> ПОКАЗАТ</button>*@
-                        <button ng-click="LoadDATA()" ng-disabled="s!='option2'&&(myForm1.INN.$error.required||(!myForm1.INN.$error.required&&!myForm1.INN.$valid))" class="btn btn-blue d-block d-md-inline-block mb-3 mb-md-0"> ПОКАЗАТ</button>
+                        @*<button ng-click="LoadDATA()" ng-disabled="s!='option1'&&s!='option2'" class="btn btn-blue d-block d-md-inline-block mb-3 mb-md-0"> Показать</button>*@
+                        <button ng-click="LoadDATA()" ng-disabled="s!='option2'&&(myForm1.INN.$error.required||(!myForm1.INN.$error.required&&!myForm1.INN.$valid))" class="btn btn-blue d-block d-md-inline-block mb-3 mb-md-0"> Показать</button>
                     </div>
                     <div>
                         <a href="#" ng-click="Clear()" style="margin-left:200px" class="btn btn-default d-block d-md-inline-block mb-3 mb-md-0"> ОЧИСТИТЬ ФИЛЬТР</a>

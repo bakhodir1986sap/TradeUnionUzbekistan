@@ -1,6 +1,8 @@
 ﻿app.controller("SozdaniyeRoley", ["$scope", "$http", "$filter", "crudAJService", function ($scope, $http, $filter, crudAJService) {
     $scope.showdata = false;
     GetData();
+    var stringArray = new Array();
+    var rol_id;
     //$scope.R = {
     //    d1: '',
     //    d2: ''
@@ -22,6 +24,7 @@
         });
     }
     $scope.V2 = function (id) {
+        rol_id = id;
         $scope.R2 = null;
         $scope.R = null;
         $scope.DATA2 = null;
@@ -201,13 +204,14 @@
         else
             get_join_values(origem, input);
     }
-
+   
     /*função para varrer e juntar os valores relacionados no select desejado*/
     var get_join_values = function (id, input) {
         var select = document.getElementById(id);
         var values = "";
 
         for (var i = 0; i < select.length; i++) {
+            stringArray[i] = select.options[i].value;
             if (i == 0) {
                 values = select.options[i].value;
             } else {
@@ -219,6 +223,38 @@
     }
     //~~~~~~~~~~~~~~~~~~~~~~~~~~//
    
-
+    $scope.Save = function ()
+    {
+        var postData = { ids: stringArray, rolep_id: rol_id };
+        $("#hh").modal({
+            backdrop: 'static',
+            backdrop: 'static'
+        });
+        reset();
+        alertify.set({ buttonFocus: "cancel" });
+        alertify.confirm("Вы действительно хотите ...?", function (e) {
+            if (e) {
+                alertify.success("Операция выполняется");
+                $.ajax({
+                    type: "POST",
+                    url: "/Administirirovaniye/save",
+                    data: JSON.stringify(postData),
+                    contentType: "application/json; charset=utf-8",
+                    success: function (data) {
+                        console.log(data);
+                        $("#hh").modal('hide');
+                        alertify.success(data);
+                    },
+                    //dataType: "json",
+                    //traditional: true
+                });
+                $("#hh").modal('hide');
+            } else {
+                $("#hh").modal('hide');
+                alertify.error("Операция отменена");
+            }
+        });
+        return false;
+    }
    
 }]);

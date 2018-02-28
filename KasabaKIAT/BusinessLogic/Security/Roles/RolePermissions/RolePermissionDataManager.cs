@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace KasabaKIAT.BusinessLogic.Security.role_permission.RolePermissions
+namespace KasabaKIAT.BusinessLogic.Security.RolePermissions
 {
     public class RolePermissionDataManager
     {
@@ -13,9 +13,9 @@ namespace KasabaKIAT.BusinessLogic.Security.role_permission.RolePermissions
         {
             using (KasabaKIATEntities db = new KasabaKIATEntities())
             {
-                Models.role_permission reg = new Models.role_permission();
+                role_permission reg = new role_permission();
 
-                reg.id = model.id;
+                //.id = model.id;
                 reg.version = 0;
                 reg.action = model.action;
                 reg.s_comment = model.s_comment;
@@ -24,7 +24,9 @@ namespace KasabaKIAT.BusinessLogic.Security.role_permission.RolePermissions
                 reg.s_user_id = model.s_user_id;
                 reg.NATIVE_ID = null;
 
-                db.SaveChanges();
+                db.role_permission.Add(reg);
+
+                var res = db.SaveChanges();
             }
         }
 

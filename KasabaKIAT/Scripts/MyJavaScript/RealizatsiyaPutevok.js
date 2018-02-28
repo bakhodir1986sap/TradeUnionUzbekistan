@@ -230,7 +230,7 @@
                         LoadDATA();
                         ar1 = new Array();
                         ar2 = new Array();
-                        i=0;
+                        i = 0;
                         console.log(data);
                         $("#hh").modal('hide');
                     },

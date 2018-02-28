@@ -385,7 +385,7 @@
     }
     $scope.exportData = function () {
         var blob = new Blob([document.getElementById('export').innerHTML], {
-            type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=utf-8"
+            type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=utf-16"
         });
         saveAs(blob, "Просмотр остатков путевок.xls");
     };

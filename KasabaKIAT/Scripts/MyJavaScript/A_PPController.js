@@ -1,5 +1,5 @@
 ﻿app.controller("A_PPController", ["$scope", "$http", "$filter", "crudAJService", function ($scope, $http, $filter, crudAJService) {
-    GetPP(14, 1726);
+    GetPP(0, 0);
     AllRegion();
     AllPlaceType(); 
     $scope.showdelete = false;
@@ -54,18 +54,18 @@
         });
     }
     $scope.editPP = function (pz) {
-        $scope.showdelete = true;
-        $scope.ID = pz.ID;
-        $scope.INN = pz.INN;
-        $scope.Region.id = pz.R_id;
-        $scope.Region.value = pz.R;
-        $scope.PlaceType.REC_ID = pz.JO_id;
-        $scope.PlaceType.NAME_UZ = pz.JO;
-        $scope.O = pz.O;
-        $scope.D = pz.D;
-        $scope.SB = pz.SB;
-        $scope.SE = pz.SE;
-        $scope.Action = "Изменить";
+        //$scope.showdelete = true;
+        //$scope.ID = pz.ID;
+        //$scope.INN = pz.INN;
+        //$scope.Region.id = pz.R_id;
+        //$scope.Region.value = pz.R;
+        //$scope.PlaceType.REC_ID = pz.JO_id;
+        //$scope.PlaceType.NAME_UZ = pz.JO;
+        //$scope.O = pz.O;
+        //$scope.D = pz.D;
+        //$scope.SB = pz.SB;
+        //$scope.SE = pz.SE;
+        //$scope.Action = "Изменить";
     }
     $scope.AddPPDiv = function () {
         $scope.showdelete = false;
@@ -158,7 +158,7 @@
     }
     $scope.exportData = function () {
         var blob = new Blob([document.getElementById('export').innerHTML], {
-            type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=utf-8"
+            type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=utf-16"
         });
         saveAs(blob, "Привязка проводв к ЖО.xls");
     };

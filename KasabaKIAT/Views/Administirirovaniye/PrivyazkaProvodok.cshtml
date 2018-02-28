@@ -31,7 +31,7 @@
                     <select style="width:200px;margin-left:100px" ng-change="LoadDATA()" ng-model="Region" class="custom-select form-control" required name="Region" ng-options="item as item.value for item in R track by item.id"></select>
                 </div>
                 <div class="col-sm-6 text-md-right">
-                    <a href="#" ng-click="AddPPDiv()" class="btn btn-blue d-block d-md-inline-block mb-3 mb-md-0" data-toggle="modal" data-target="#dobavit"><i class="fas fa-plus"></i> Добавить</a>
+
                     <button ng-show="showdata" ng-click="exportData()" class="btn btn-green d-block d-md-inline-block mb-3 mb-md-0"><i class="fas fa-file-excel"></i> Экспорт</button>
                 </div>
             </div>
@@ -39,15 +39,15 @@
                 <table class="table table__block t-hover">
                     <thead>
                         <tr>
-                            @*<th class="dropdown dropdown__table" style="width:200px;text-align:center"><input type="text" style="text-align:center" class="form-control" ng-model="s1" placeholder="Организация" /></th>*@
+                            <th class="dropdown dropdown__table" style="width:200px;text-align:center">Выделить</th>
                             <th class="dropdown dropdown__table" style="width:200px;text-align:center">Счет д-т@*<input type="text" style="text-align:center" class="form-control" ng-model="s2" placeholder="Счет д-т" />*@</th>
                             <th class="dropdown dropdown__table" style="width:200px;text-align:center">Счет к-т@*<input type="text" style="text-align:center" class="form-control" ng-model="s3" placeholder="Счет к-т" />*@</th>
                             <th class="dropdown dropdown__table" style="width:200px;text-align:center">Описание@*<input type="text" style="text-align:center" class="form-control" ng-model="s4" placeholder="Описание" />*@</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr ng-repeat="item in PP | filter:s1 | filter:s2 | filter:s3 | filter:s4" ng-click="editPP(item)" data-toggle="modal" data-target="#dobavit">
-                            @*<td style="width:200px;text-align:center">{{item.O}}</td>*@
+                        <tr ng-repeat="item in PP ">
+                            <td style="width:200px;text-align:center"><input type="checkbox" ng-click="editPP(item)"/></td>
                             <td style="width:200px;text-align:center">{{item.SB}}</td>
                             <td style="width:200px;text-align:center">{{item.SE}}</td>
                             <td style="width:200px;text-align:center">{{item.D}}</td>
@@ -55,6 +55,7 @@
                     </tbody>
                 </table>
             </div>
+            <a href="#" ng-click="AddPPDiv()" class="btn btn-blue d-block d-md-inline-block mb-3 mb-md-0"><i class="fas fa-plus"></i> Применить</a>
         </section>
 
         <div class="modal__block modal fade" id="dobavit" tabindex="-1" role="dialog" aria-labelledby="dobavitLabel">

@@ -111,6 +111,28 @@ namespace KasabaKIAT.BusinessLogic.Security.role_permission.RolePermissions
             return list;
         }
 
+
+        public static List<RolePermissionViewModel> GetForCheck(long role_id, string action)
+        {
+            List<RolePermissionViewModel> list = null;
+
+            using (KasabaKIATEntities db = new KasabaKIATEntities())
+            {
+                var query = from bank in db.role_permission
+                            where bank.role_id == role_id && bank.action.Contains("Asp.") && bank.action.Contains(action)
+                            select new RolePermissionViewModel
+                            {
+                                id = bank.id,
+                                role_id = bank.role_id,
+                                action = bank.action
+                            };
+
+                list = query.ToList();
+            }
+
+            return list;
+        }
+
         //public static List<RolePermissionViewModel> Get(string action,int rol_id)
         //{
         //    List<RolePermissionViewModel> list = null;

@@ -1,5 +1,5 @@
 ﻿app.controller("A_PPController", ["$scope", "$http", "$filter", "crudAJService", function ($scope, $http, $filter, crudAJService) {
-    GetPP(14, 1726);
+    GetPP(0, 0);
     AllRegion();
     AllPlaceType(); 
     $scope.showdelete = false;

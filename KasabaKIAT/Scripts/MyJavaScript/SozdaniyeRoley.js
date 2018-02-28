@@ -3,9 +3,26 @@
     GetData();
     V();
     $scope.R = {
-        d1: 1726,
+        d1: 0,
         d2: ''
     };
+
+    $scope.currentRoleSet = {
+
+        roleId:0
+
+    };
+
+    $scope.MassiveAll =  {
+        d1: 0,
+        d2: ''
+    };
+
+    $scope.MassiveSelected = {
+        d1: 0,
+        d2: ''
+    };
+
     function GetData() {
         $http({
             method: "post",
@@ -23,6 +40,7 @@
         });
     }
     $scope.V2 = function (id) {
+        $scope.currentRoleSet.roleId = id;
         $http({
             method: "post",
             url: "/Administirirovaniye/GetRoleys2?id="+id,
@@ -33,6 +51,20 @@
             alertify.error("ошибка");
         });
     }
+
+    $scope.clickChangeTab = function () {
+        angular.element('#second').trigger('click');
+    };
+
+    $scope.Print =  function Print()
+    {
+
+        console.log($scope.DATA2);
+        console.log($scope.DATA3);
+        console.log($scope.MassiveAll);
+        console.log($scope.MassiveSelected);
+    }
+
     function V() {
         $http({
             method: "post",

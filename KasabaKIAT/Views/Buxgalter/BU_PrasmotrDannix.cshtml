@@ -24,9 +24,9 @@
                 <div class="col-md-6 form-group">
                     <select class="custom-select form-control">
                         <option>1 кв 2017</option>
-                        <option>Option 1</option>
+                        @*<option>Option 1</option>
                         <option>Option 2</option>
-                        <option>Option 3</option>
+                        <option>Option 3</option>*@
                     </select>
                 </div>
                 <div class="col-md-6 form-group">
@@ -65,28 +65,28 @@
                     <label>Плательщик Р/c:</label>
                     <select class="custom-select form-control mb-3">
                         <option>Номер счета</option>
-                        <option>Option 1</option>
+                        @*<option>Option 1</option>
                         <option>Option 2</option>
-                        <option>Option 3</option>
+                        <option>Option 3</option>*@
                     </select>
                     <div class="text__block">
-                        <p>Название: <strong>ООО "Ucell"</strong></p>
+                        @*<p>Название: <strong>ООО "Ucell"</strong></p>
                         <p>ИНН: <strong>633564735637</strong></p>
-                        <p>МФО: <strong>567545647</strong></p>
+                        <p>МФО: <strong>567545647</strong></p>*@
                     </div>
                 </div>
                 <div class="col-md-6 form-group">
                     <label>Номер счета:</label>
                     <select class="custom-select form-control mb-3">
                         <option>Номер счета</option>
-                        <option>Option 1</option>
+                        @*<option>Option 1</option>
                         <option>Option 2</option>
-                        <option>Option 3</option>
+                        <option>Option 3</option>*@
                     </select>
                     <div class="text__block">
-                        <p>Название: <strong>ООО "Ucell"</strong></p>
+                        @*<p>Название: <strong>ООО "Ucell"</strong></p>
                         <p>ИНН: <strong>633564735637</strong></p>
-                        <p>МФО: <strong>567545647</strong></p>
+                        <p>МФО: <strong>567545647</strong></p>*@
                     </div>
                 </div>
             </div>
@@ -95,10 +95,10 @@
                 <a href="#" class="btn btn-grey d-block d-md-inline-block mb-2">Очистить фильтр</a>
             </div>
         </div>
-        <div class="table__title mb-5">
+        @*<div class="table__title mb-5">
             <h5>Справка о дебетовых оборотах по счету 20212000800136154002 за период c 03.01.2017 по 28.02.2017</h5>
             <p>Общая сумма: <strong>20 349 000</strong></p>
-        </div>
+        </div>*@
         <div class="table-responsive box-shadow mb-5">
             <table class="table table__block va-top t-scroll">
                 <thead>
@@ -116,18 +116,18 @@
                         <td>{{item.d1}}</td>
                         <td>{{item.d2}}<br /> ИНН: {{item.d3}} <br /> МФО: {{item.d4}}<br /> Рас. счет: {{item.d5}}</td>
                         <td>{{item.d6 | jsonDate: 'dd.MM.yyyy'}}</td>
-                        <td>00667Комиссия за <br /> операционное <br /> обслуживание счета <br />{{item.d12}} с  01.01.17 по 03.01.17</td>
+                        <td>{{item.d12}}</td>
                         <td>{{item.d8}}</td>
                         <td>{{item.d9}}</td>
                     </tr>
                 </tbody>
             </table>
         </div>
-        <div class="table__title mb-5">
+        @*<div class="table__title mb-5">
             <h5>Справка о дебетовых оборотах по счету 20212000800136154002 за период c 03.01.2017 по 28.02.2017</h5>
             <p>Общая сумма: <strong>20 349 000</strong></p>
-        </div>
-        <div class="table-responsive box-shadow mb-5">
+        </div>*@
+        @*<div class="table-responsive box-shadow mb-5">
             <table class="table table__block va-top">
                 <thead>
                     <tr>
@@ -174,7 +174,7 @@
                     </tr>
                 </tbody>
             </table>
-        </div>
+        </div>*@
         <div class="pagination__block text-center text-md-right">
             <ul class="list-inline">
                 <li class="list-inline-item">1</li>

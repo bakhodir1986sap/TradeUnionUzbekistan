@@ -1162,20 +1162,20 @@ namespace KasabaKIAT.Controllers
 
             try
             {
-                var camp = from dict in KasabaDB.p_provodok
-                           where dict.order == o_id && dict.REGION_ID == r_id
-                           join dp in KasabaDB.t_departmentbase on dict.DEPARTMENT_BASE equals dp.code
-                           join a in KasabaDB.tbcs_dictionary on dict.order equals a.REC_ID
-                           join r in KasabaDB.sp_soato on dict.REGION_ID equals r.code
+                var camp = from dict in KasabaDB.provodok
+                           //where dict.order == o_id && dict.REGION_ID == r_id
+                           //join dp in KasabaDB.t_departmentbase on dict.DEPARTMENT_BASE equals dp.code
+                           //join a in KasabaDB.tbcs_dictionary on dict.order equals a.REC_ID
+                           //join r in KasabaDB.sp_soato on dict.REGION_ID equals r.code
                            select new
                            {
                                ID = dict.id,
-                               INN = dp.inn,
-                               O = dp.name_uz,
-                               JO_id = a.REC_ID,
-                               JO = a.NAME_UZ,
-                               R_id = r.code,
-                               R = r.name_uz,
+                               //INN = dp.inn,
+                               //O = dp.name_uz,
+                               //JO_id = a.REC_ID,
+                               //JO = a.NAME_UZ,
+                               //R_id = r.code,
+                               //R = r.name_uz,
                                D = dict.description,
                                SB = dict.score_begin,
                                SE = dict.score_end

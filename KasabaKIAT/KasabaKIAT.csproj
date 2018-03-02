@@ -285,6 +285,7 @@
     <Compile Include="BusinessLogic\Security\Roles\RolePermissions\FunctionalityList.cs" />
     <Compile Include="BusinessLogic\Security\Roles\RolePermissions\RolePermission.cs" />
     <Compile Include="BusinessLogic\Security\Roles\RolePermissions\RolePermissionDataManager.cs" />
+    <Compile Include="BusinessLogic\Security\Roles\RolePermissions\UserPermissions.cs" />
     <Compile Include="BusinessLogic\Security\Roles\Roles\RoleDataManager.cs" />
     <Compile Include="BusinessLogic\Security\Roles\Roles\Roles.cs" />
     <Compile Include="BusinessLogic\Security\Roles\UserRoles\UserRoles.cs" />

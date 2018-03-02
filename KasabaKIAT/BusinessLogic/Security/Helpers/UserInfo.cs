@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using KasabaKIAT.BusinessLogic.Security.Roles.RolePermissions;
 
 namespace KasabaKiat.Helpers
 {
@@ -12,6 +13,11 @@ namespace KasabaKiat.Helpers
         public static UserViewModel GetUserInfo(string userName)
         {
             UserViewModel model = null;
+
+            if (UserPermissions.userData != null)
+            {
+                return UserPermissions.userData;
+            }
 
             try
             {
@@ -78,6 +84,8 @@ namespace KasabaKiat.Helpers
             {
 
             }
+
+            UserPermissions.userData = model;
 
             return model;
         }

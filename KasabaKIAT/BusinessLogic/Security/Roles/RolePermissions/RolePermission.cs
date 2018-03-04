@@ -1,4 +1,4 @@
-﻿using KasabaKIAT.BusinessLogic.Security.role_permission.RolePermissions;
+﻿using KasabaKIAT.BusinessLogic.Security.RolePermissions;
 using KasabaKIAT.ViewModel.Security.Role;
 using System;
 using System.Collections.Generic;

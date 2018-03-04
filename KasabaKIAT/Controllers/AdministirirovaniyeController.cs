@@ -259,10 +259,14 @@ namespace KasabaKIAT.Controllers
             {
                 log.Error(ex);
             }
-
             return null;
         }
-
+        public string save(List<long> ids, long rolep_id)
+        {
+            RolePermission rp = new RolePermission();
+            rp.EnterRolePermitN(ids, rolep_id);
+            return "yes";
+        }
         public JsonResult GetKod(int yil,string kod)
         {
 

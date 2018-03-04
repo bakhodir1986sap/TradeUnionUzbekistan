@@ -50,7 +50,7 @@
     }
 </style>
 <link href="~/Content/ListBoxstyle.css" rel="stylesheet" />
-<script src="~/Scripts/listbox.js"></script>
+@*<script src="~/Scripts/listbox.js"></script>*@
 
 <script src="~/Scripts/MyJavaScript/SozdaniyeRoley.js"></script>
 @if (List.SozdaniyaRoley)
@@ -69,61 +69,18 @@
             </div>
         </div>
 
-        <div class="tab">
-            <button class="tablinks active" onclick="openCity(event, 'London')" id="first">Роли</button>
-            <button class="tablinks" onclick="openCity(event, 'Paris')" id="second">Доступы</button>
-            @*<button class="tablinks" onclick="openCity(event, 'Tokyo')">Tokyo</button>*@
+        @*<div class="tab">
+            <button class="tablinks active" onclick="openCity(event, 'London')">Роллар</button>
+            <button class="tablinks" onclick="openCity(event, 'Paris')">Рухсатлар</button>
+            <button class="tablinks" onclick="openCity(event, 'Tokyo')">Tokyo</button>
         </div>
 
         <div id="London" class="tabcontent" style="display:block">
-            <h3>Роли</h3>
-            <div class="table-responsive box-shadow mb-4" ng-show="showdata">
-                <table class="table table__block t-hover">
-                    <thead>
-                        <tr>
-                            <th style="width:20px;text-align:left">№</th>
-                            <th style="width:200px;text-align:left">Название</th>
-                            <th style="width:200px;text-align:left">Операции</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr ng-repeat="item in DATA">
-                            <td>{{item.d1}}</td>
-                            <td style="width:200px;">{{item.d2}}</td>
-                            <td><button ng-click="V2(item.d1); clickChangeTab()" class="btn btn-grey d-block d-md-inline-block mb-2" data-dismiss="modal">Назначить функционал</button></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+           
         </div>
 
         <div id="Paris" class="tabcontent">
-            <h3>Доступы</h3>
-            <div class="container_listbox">
-                <div class="select_1">
-                    <select id="select1" name="select1[]"  ng-model="MassiveAll" class="custom-select form-control" required ng-options="item as item.d2 for item in DATA2 track by item.d1">
-                    </select>
-                </div>
-                <div class="operadores">
-                    @*<div class="add_all"  onclick="add_all('select1','select2',false,'values_selecteds_listbox');"></div>*@
-                    <div class="add" onclick="add('select1','select2',false,'values_selecteds_listbox');"></div>
-                    <div class="remove" onclick="add('select2','select1',true,'values_selecteds_listbox');"></div>
-                    @*<div class="remove_all" onclick="add_all('select2','select1',true,'values_selecteds_listbox');"></div>*@
-                    <div class="remove_all" ng-click="Print();"></div>
-                </div>
-                <div class="select_2">
-                    <select id="select2" name="select2[]"  ng-model="MassiveSelected" class="custom-select form-control" required ng-options="item as item.d2 for item in DATA3 track by item.d1"></select>
-                </div>
-            </div>
-            <input type="text" id="values_selecteds_listbox" name="values_selecteds_listbox" size="40" />
-            @*<div class="row col-4">
-                <select ng-model="R" class="custom-select form-control" required name="R" ng-options="item as item.d2 for item in DATA2 track by item.d1"></select>
-                <span class="alert alert-warning" style="padding:0px" ng-show="myForm.R.$error.required">Выберите поле</span>
-            </div>
-            <div class="row col-4">
-                <select ng-model="R2" class="custom-select form-control" required name="R2" ng-options="item as item.d2 for item in DATA3 track by item.d1"></select>
-                <span class="alert alert-warning" style="padding:0px" ng-show="myForm.R2.$error.required">Выберите поле</span>
-            </div>*@
+           
         </div>
 
         <div id="Tokyo" class="tabcontent">
@@ -145,7 +102,61 @@
                 document.getElementById(cityName).style.display = "block";
                 evt.currentTarget.className += " active";
             }
-        </script>
+        </script>*@
+        <h3>Роллар</h3>
+        <div class="table-responsive box-shadow mb-4" ng-show="showdata">
+            <table class="table table__block t-hover">
+                <thead>
+                    <tr>
+                        <th style="width:20px;text-align:left">№</th>
+                        <th style="width:200px;text-align:left">Номланиши</th>
+                        <th style="width:200px;text-align:left">Амаллар</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="item in DATA">
+                        <td>{{item.d1}}</td>
+                        <td style="width:200px;">{{item.d2}}</td>
+                        <td><button ng-click="V2(item.d1)" class="btn btn-grey d-block d-md-inline-block mb-2"  data-toggle="modal" data-target="#dobavit">Функцияларни тайинлаш</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="modal__block modal fade" id="dobavit" tabindex="-1" role="dialog" aria-labelledby="dobavitLabel">
+            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <div class="modal-title">
+                            <h4 class="text-center mt-4 mb-4">{{Action}}</h4>
+                        </div>
+                        <div class="row justify-content-center">
+                            <form class="col-md-8" name="myForm" novalidate>
+                                <h3>Рухсатлар</h3>
+                                <div class="container_listbox">
+                                    <div class="select_1">
+                                        <select id="select1" name="select1[]" multiple="multiple" ng-model="R" class="custom-select form-control" required ng-options="item as item.d2 for item in DATA2 track by item.d1"></select>
+                                    </div>
+                                    <div class="operadores">
+                                        <div class="add_all" ng-click="add_all('select1','select2',false,'values_selecteds_listbox');"></div>
+                                        <div class="add" ng-click="add('select1','select2',false,'values_selecteds_listbox');"></div>
+                                        <div class="remove" ng-click="add('select2','select1',true,'values_selecteds_listbox');"></div>
+                                        <div class="remove_all" ng-click="add_all('select2','select1',true,'values_selecteds_listbox');"></div>
+                                    </div>
+                                    <div class="select_2">
+                                        <select id="select2" name="select2[]" multiple="multiple" ng-model="R2" class="custom-select form-control" required ng-options="item as item.d2 for item in DATA3 track by item.d1"></select>
+                                    </div>
+                                </div>
+                                <input type="text" id="values_selecteds_listbox" name="values_selecteds_listbox" size="40" />
+                                <div class="mb-4 text-right">
+                                    <button data-dismiss="modal" ng-click="Save()" class="btn btn-blue d-block d-md-inline-block mb-2">Сохранить</button>
+                                    <button class="btn btn-grey d-block d-md-inline-block mb-2" data-dismiss="modal">Отмена</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </section>
 
     

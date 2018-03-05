@@ -58,12 +58,12 @@
     <section class="content__block container" ng-controller="SozdaniyeRoley">
         <div class="row mb-4 align-items-center">
             <div class="col title__block">
-                <h4>Ролей</h4>
+                <h4>Роли</h4>
                 <nav aria-label="breadcrumb" class="breadcrumb__block">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item load"><a href="/Home/Admin">Администрирование</a></li>
                         <li class="breadcrumb-item load"><a href="/Administirirovaniye/index">Администрирование</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Ролей</li>
+                        <li class="breadcrumb-item active" aria-current="page">Роли</li>
                     </ol>
                 </nav>
             </div>
@@ -137,10 +137,10 @@
                                         <select id="select1" name="select1[]" multiple="multiple" ng-model="R" class="custom-select form-control" required ng-options="item as item.d2 for item in DATA2 track by item.d1"></select>
                                     </div>
                                     <div class="operadores">
-                                        <div class="add_all" ng-click="add_all('select1','select2',false,'values_selecteds_listbox');"></div>
+                                        @*<div class="add_all" ng-click="add_all('select1','select2',false,'values_selecteds_listbox');"></div>*@
                                         <div class="add" ng-click="add('select1','select2',false,'values_selecteds_listbox');"></div>
                                         <div class="remove" ng-click="add('select2','select1',true,'values_selecteds_listbox');"></div>
-                                        <div class="remove_all" ng-click="add_all('select2','select1',true,'values_selecteds_listbox');"></div>
+                                        @*<div class="remove_all" ng-click="add_all('select2','select1',true,'values_selecteds_listbox');"></div>*@
                                     </div>
                                     <div class="select_2">
                                         <select id="select2" name="select2[]" multiple="multiple" ng-model="R2" class="custom-select form-control" required ng-options="item as item.d2 for item in DATA3 track by item.d1"></select>
@@ -149,6 +149,7 @@
                                 <input type="text" id="values_selecteds_listbox" name="values_selecteds_listbox" size="40" />
                                 <div class="mb-4 text-right">
                                     <button data-dismiss="modal" ng-click="Save()" class="btn btn-blue d-block d-md-inline-block mb-2">Сохранить</button>
+                                    <button data-dismiss="modal" class="btn btn-blue d-block d-md-inline-block mb-2">Удалить</button>
                                     <button class="btn btn-grey d-block d-md-inline-block mb-2" data-dismiss="modal">Отмена</button>
                                 </div>
                             </form>

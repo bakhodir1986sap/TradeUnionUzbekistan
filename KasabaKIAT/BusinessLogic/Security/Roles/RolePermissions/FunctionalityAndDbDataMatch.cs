@@ -12,6 +12,11 @@ namespace KasabaKIAT.BusinessLogic.Security.Roles.RolePermissions
     {
         public static FunctionalityList MatchProcess(UserViewModel user)
         {
+            if (UserPermissions.pernit != null)
+            {
+                return UserPermissions.pernit;
+            }
+
             var rolFumc = new FunctionalityList();
 
             rolFumc.UserId = user.userid;
@@ -91,6 +96,8 @@ namespace KasabaKIAT.BusinessLogic.Security.Roles.RolePermissions
 
                 
             }
+
+            UserPermissions.pernit = rolFumc;
 
             return rolFumc;
         }

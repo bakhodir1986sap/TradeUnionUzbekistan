@@ -27,11 +27,12 @@ namespace KasabaKIAT.Controllers
         ServiceActionController service = new ServiceActionController();
         ILog log = log4net.LogManager.GetLogger(typeof(AdministirirovaniyeController));
         KasabaKIATEntities KasabaDB = new KasabaKIATEntities();
-
-
+        static int x = 9;
+        [OutputCache(Duration = 30, Location = OutputCacheLocation.Downstream)]
         public ActionResult Index()
         {
-            return View();
+            x++;
+            return View(x);
         }
         public ActionResult UchetniyZapis()
         {
@@ -267,6 +268,19 @@ namespace KasabaKIAT.Controllers
             rp.EnterRolePermitN(ids, rolep_id);
             return "yes";
         }
+
+        public string Remove(List<long> ids)
+        { 
+            RolePermission rp = new RolePermission();
+
+            foreach(var id in ids)
+            {
+                rp.DeleteRolePermit(id);
+            }
+
+            return "yes";
+        }
+
         public JsonResult GetKod(int yil,string kod)
         {
 

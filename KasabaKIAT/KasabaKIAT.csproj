@@ -280,11 +280,12 @@
     <Compile Include="BusinessLogic\Putyovki\Zayavki\RassmotreniyaZayavkiDataManager.cs" />
     <Compile Include="BusinessLogic\Putyovki\Zayavki\ZayavkiDataManager.cs" />
     <Compile Include="BusinessLogic\Putyovki\Zayavki\ZayavkiTotalManager.cs" />
-    <Compile Include="BusinessLogic\Security\Helpers\UserInfo.cs" />
     <Compile Include="BusinessLogic\Security\Roles\RolePermissions\FunctionalityAndDbDataMatch.cs" />
     <Compile Include="BusinessLogic\Security\Roles\RolePermissions\FunctionalityList.cs" />
     <Compile Include="BusinessLogic\Security\Roles\RolePermissions\RolePermission.cs" />
     <Compile Include="BusinessLogic\Security\Roles\RolePermissions\RolePermissionDataManager.cs" />
+    <Compile Include="BusinessLogic\Security\Helpers\UserInfo.cs" />
+    <Compile Include="BusinessLogic\Security\Roles\RolePermissions\UserPermissions.cs" />
     <Compile Include="BusinessLogic\Security\Roles\Roles\RoleDataManager.cs" />
     <Compile Include="BusinessLogic\Security\Roles\Roles\Roles.cs" />
     <Compile Include="BusinessLogic\Security\Roles\UserRoles\UserRoles.cs" />
@@ -990,6 +991,7 @@
     <Content Include="Content\themes\alertify.default.css" />
     <Content Include="Content\ui-bootstrap-csp.css" />
     <Content Include="favicon.ico" />
+    <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
@@ -1024,6 +1026,22 @@
     <Content Include="Models\KasabaKIAT.edmx.diagram">
       <DependentUpon>KasabaKIAT.edmx</DependentUpon>
     </Content>
+    <Content Include="Content\styles\all.css" />
+    <Content Include="fonts\fontawesome-webfont.eot" />
+    <Content Include="fonts\fontawesome-webfont.ttf" />
+    <Content Include="fonts\fontawesome-webfont.woff" />
+    <Content Include="fonts\fontawesome-webfont.woff2" />
+    <Content Include="fonts\FontAwesome.otf" />
+    <Content Include="fonts\OpenSans-Bold.ttf" />
+    <Content Include="fonts\OpenSans-BoldItalic.ttf" />
+    <Content Include="fonts\OpenSans-ExtraBold.ttf" />
+    <Content Include="fonts\OpenSans-ExtraBoldItalic.ttf" />
+    <Content Include="fonts\OpenSans-Italic.ttf" />
+    <Content Include="fonts\OpenSans-Light.ttf" />
+    <Content Include="fonts\OpenSans-LightItalic.ttf" />
+    <Content Include="fonts\OpenSans-Regular.ttf" />
+    <Content Include="fonts\OpenSans-Semibold.ttf" />
+    <Content Include="fonts\OpenSans-SemiboldItalic.ttf" />
     <None Include="Properties\PublishProfiles\WebKIAT.pubxml" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

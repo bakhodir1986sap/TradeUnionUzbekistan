@@ -81,6 +81,7 @@ namespace KasabaKIAT.BusinessLogic.Security.Roles.RolePermissions
 
                 if (ownRolePermit.Any())
                 {
+                    //DeleteRolePermit(ownRolePermit.First().id);
                     continue;
                 }
 

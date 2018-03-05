@@ -48,7 +48,7 @@ namespace KasabaKIAT.Controllers
             Provodki pr = new Provodki();
             d.department_base = uu.DepartmentBase;
             d.user_id = UserId;
-            //d.trdt = new DateTime();
+            d.trdt = DateTime.Now;
             pr.Enter(d);
             return "yes";
         }

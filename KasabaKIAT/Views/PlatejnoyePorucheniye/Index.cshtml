@@ -4,25 +4,24 @@
     var UserId = Convert.ToInt32(User.Identity.Name);
     FunctionalityList List = FunctionalityAndDbDataMatch.MatchProcess(UserId);
 }
-<script src="~/Scripts/MyJavaScript/PlatejPoruchController.js"></script>
+<script src="~/Scripts/MyJavaScript/PlatejnoyePorucheniye.js"></script>
 @if (List.PlanByudjeta)
 {
-    <section class="content__block container">
+    <section class="content__block container" ng-controller="PlatejnoyePorucheniye">
         <div class="row mb-4 align-items-center">
             <div class="col title__block">
-                <h4>Платежные поручения</h4>
+                <h4>Платежное поручение</h4>
                 <nav aria-label="breadcrumb" class="breadcrumb__block">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item load"><a href="/Home/Buxgalter">Бухгалтерия</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Платежные поручения</li>
+                        <li class="breadcrumb-item active" aria-current="page">Платежное поручение</li>
                     </ol>
                 </nav>
             </div>
             <div class="col-sm-6 text-md-right">
-                <a href="#" class="btn btn-blue d-block d-md-inline-block mb-2" data-toggle="modal" data-target="#novoe">Новое</a>
+                <button class="btn btn-blue d-block d-md-inline-block mb-2" ng-click="novoe()" data-toggle="modal" data-target="#novoe">Новое</button>
             </div>
         </div>
-
         <div class="table-responsive box-shadow mb-4">
             <table class="table table__block">
                 <thead>
@@ -84,219 +83,191 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>65</td>
-                        <td>12.06.2017</td>
-                        <td>Ташгорсовет<br>объединения<br>профорганизаций</td>
-                        <td>ОПК работников налоговых<br>органов</td>
-                        <td>9 000 000</td>
-                        <td>Возмещеия из бюджета соцстраха за<br>путевки ДОЛ согласно бюджета 2017<br>года и отчета...</td>
-                    </tr>
-                    <tr>
-                        <td>66</td>
-                        <td>10.06.2017</td>
-                        <td>Ташгорсовет<br>объединения<br>профорганизаций</td>
-                        <td>ОПК работников налоговых<br>органов</td>
-                        <td>3 000 000</td>
-                        <td>Возмещеия из бюджета соцстраха за<br>путевки ДОЛ согласно бюджета 2017<br>года и отчета...</td>
-                    </tr>
-                    <tr>
-                        <td>67</td>
-                        <td>10.06.2017</td>
-                        <td>Школа №194</td>
-                        <td>ОПК работников налоговых<br>органов</td>
-                        <td>3 000 000</td>
-                        <td>Просто комментарий...</td>
-                    </tr>
-                    <tr>
-                        <td>68</td>
-                        <td>15.07.2017</td>
-                        <td>ООО "Фирма"</td>
-                        <td>Капитал банк</td>
-                        <td>8 000 000</td>
-                        <td>Просто комментарий...</td>
-                    </tr>
-                    <tr>
-                        <td>65</td>
-                        <td>12.06.2017</td>
-                        <td>Ташгорсовет<br>объеденения <br> профорганизаций</td>
-                        <td>ОПК работников налоговых<br>органов</td>
-                        <td>9 000 000</td>
-                        <td>Возмещеия из бюджета соцстраха за<br>путевки ДОЛ согласно бюджета 2017<br>года и отчета...</td>
-                    </tr>
-                    <tr>
-                        <td>66</td>
-                        <td>10.06.2017</td>
-                        <td>Ташгорсовет <br> объеденения <br> профорганизаций</td>
-                        <td>ОПК работников налоговых<br>органов</td>
-                        <td>3 000 000</td>
-                        <td>Возмещеия из бюджета соцстраха за<br>путевки ДОЛ согласно бюджета 2017<br>года и отчета...</td>
-                    </tr>
-                    <tr>
-                        <td>67</td>
-                        <td>10.06.2017</td>
-                        <td>Школа №194</td>
-                        <td>ОПК работников налоговых<br>органов</td>
-                        <td>3 000 000</td>
-                        <td>Просто комментарий...</td>
-                    </tr>
-                    <tr>
-                        <td>68</td>
-                        <td>15.07.2017</td>
-                        <td>ООО "Фирма"</td>
-                        <td>Капитал банк</td>
-                        <td>8 000 000</td>
-                        <td>Просто комментарий...</td>
+                    <tr ng-repeat="item in DATA">
+                        <td>{{item.d2}}</td>
+                        <td>{{item.d1 | jsonDate: 'dd.MM.yyyy'}}</td>
+                        <td>{{item.d3}}</td>
+                        <td>{{item.d8}}</td>
+                        <td>{{item.d13}}</td>
+                        <td>{{item.d14}}<br>{{item.d15}}<br>{{item.d16}}</td>
                     </tr>
                 </tbody>
             </table>
         </div>
         <div class="mb-4">
-            <a href="claims-send.html" class="btn btn-grey d-block d-md-inline-block mb-2">Экспорт</a>
-            <a href="claims-send.html" class="btn btn-grey d-block d-md-inline-block mb-2">Печать</a>
+            <a href="" class="btn btn-grey d-block d-md-inline-block mb-2">Экспорт</a>
+            <a href="" class="btn btn-grey d-block d-md-inline-block mb-2">Печать</a>
         </div>
-    </section>
 
 
-    <div class="modal__block modal fade" id="novoe" tabindex="-1" role="dialog" aria-labelledby="dobavitLabel">
-        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-            <div class="modal-content">
-                <div class="modal-body">
-                    <div class="modal-title">
-                        <h4 class="text-center mt-4 mb-4">Детали платежного поручения</h4>
-                    </div>
-                    <div class="row justify-content-center">
-                        <div class="col-md-9">
-                            <div class="form-group row align-items-center">
-                                <label class="col-md-5 col-form-label text-md-right py-0">Дата:</label>
-                                <div class="col-md-7">
-                                    <input type="text" class="form-control" placeholder="Дата" />
-                                </div>
-                            </div>
-                            <div class="form-group row align-items-center">
-                                <label class="col-md-5 col-form-label text-md-right py-0">№ Платежного поручения:</label>
-                                <div class="col-md-7">
-                                    <input type="text" class="form-control" placeholder="№ Платежного поручения" />
-                                </div>
-                            </div>
-                            <hr />
-                            <div class="form-group row align-items-center">
-                                <label class="col-md-5 col-form-label py-0">Плательщик:</label>
-                                <div class="col-md-7">
-                                    <select class="custom-select form-control mb-3">
-                                        <option>Плательщик</option>
-                                        <option>Option 1</option>
-                                        <option>Option 2</option>
-                                        <option>Option 3</option>
-                                    </select>
-                                    <div class="text__block">
-                                        <p>ИНН: <strong>735453365</strong></p>
+
+        <div class="modal__block modal fade" id="novoe" tabindex="-1" role="dialog" aria-labelledby="dobavitLabel">
+            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <div class="modal-title">
+                            <h4 class="text-center mt-4 mb-4">Детали платежного поручения</h4>
+                        </div>
+                        <div class="row justify-content-center">
+                            <form class="col-md-9" name="myForm" novalidate>
+                                <div class="form-group row align-items-center">
+                                    <label class="col-md-5 col-form-label text-md-right py-0">Дата:</label>
+                                    <div class="col-md-7">
+                                        <input class="form-control" type="date" ng-model="PD" required />
+                                        @*<input type="text" class="form-control" placeholder="Дата" />*@
                                     </div>
                                 </div>
-                            </div>
-                            <div class="form-group row align-items-center">
-                                <label class="col-md-5 col-form-label py-0">№ счета:</label>
-                                <div class="col-md-7">
-                                    <select class="custom-select form-control">
-                                        <option>№ счета</option>
-                                        <option>Option 1</option>
-                                        <option>Option 2</option>
-                                        <option>Option 3</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="form-group row align-items-center">
-                                <label class="col-md-5 col-form-label py-0">Банк:</label>
-                                <div class="col-md-7">
-                                    <select class="custom-select form-control mb-3">
-                                        <option>Банк</option>
-                                        <option>Option 1</option>
-                                        <option>Option 2</option>
-                                        <option>Option 3</option>
-                                    </select>
-                                    <div class="text__block">
-                                        <p>Код банка: <strong>123</strong></p>
+                                <div class="form-group row align-items-center">
+                                    <label class="col-md-5 col-form-label text-md-right py-0">№ Платежного поручения:</label>
+                                    <div class="col-md-7">
+                                        <input type="text" ng-model="N" name="N" required class="form-control" placeholder="№ Платежного поручения" />
+                                        <span class="alert alert-warning" style="padding:0px" ng-show="myForm.N.$error.required">заполнить поле</span>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="form-group row align-items-center">
-                                <label class="col-md-5 col-form-label py-0">Получатель:</label>
-                                <div class="col-md-7">
-                                    <select class="custom-select form-control mb-3">
-                                        <option>Получатель</option>
-                                        <option>Option 1</option>
-                                        <option>Option 2</option>
-                                        <option>Option 3</option>
-                                    </select>
-                                    <div class="text__block">
-                                        <p>ИНН: <strong>436568365</strong></p>
+                                <hr />
+                                <div class="form-group row align-items-center">
+                                    <label class="col-md-5 col-form-label py-0">Плательщик:</label>
+                                    <div class="col-md-7">
+                                        <input type="text" ng-model="P1NAME" name="P1NAME" required class="form-control" placeholder="Плательщик" />
+                                        <span class="alert alert-warning" style="padding:0px" ng-show="myForm.P1NAME.$error.required">заполнить поле</span>
+                                        @*<select class="custom-select form-control mb-3">
+                                            <option>Плательщик</option>
+                                            <option>Option 1</option>
+                                            <option>Option 2</option>
+                                            <option>Option 3</option>
+                                        </select>*@
+                                        <div class="text__block">
+                                            <p>ИНН: <strong><input type="text" name="P1INN" ng-model="P1INN" ng-minlength="9" ng-maxlength="9" required class="form-control" placeholder="ИНН" /></strong></p>
+                                            <span class="alert alert-warning" style="padding:0px" ng-show="myForm.P1INN.$error.required">заполнить поле</span>
+                                            <span class="alert alert-warning" style="padding:0px" ng-show="!myForm.P1INN.$error.required&&!myForm.P1INN.$valid">9 шт. номер</span>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="form-group row align-items-center">
-                                <label class="col-md-5 col-form-label py-0">№ счета:</label>
-                                <div class="col-md-7">
-                                    <select class="custom-select form-control">
-                                        <option>№ счета</option>
-                                        <option>Option 1</option>
-                                        <option>Option 2</option>
-                                        <option>Option 3</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="form-group row align-items-center">
-                                <label class="col-md-5 col-form-label py-0">Банк:</label>
-                                <div class="col-md-7">
-                                    <select class="custom-select form-control mb-3">
-                                        <option>Банк</option>
-                                        <option>Option 1</option>
-                                        <option>Option 2</option>
-                                        <option>Option 3</option>
-                                    </select>
-                                    <div class="text__block">
-                                        <p>Код банка: <strong>123</strong></p>
+                                <div class="form-group row align-items-center">
+                                    <label class="col-md-5 col-form-label py-0">№ счета:</label>
+                                    <div class="col-md-7">
+                                        <input type="text" ng-model="P1SCH" name="P1SCH" required class="form-control" placeholder="№ счета" />
+                                        <span class="alert alert-warning" style="padding:0px" ng-show="myForm.P1SCH.$error.required">заполнить поле</span>
+                                        @*<select class="custom-select form-control">
+                                            <option>№ счета</option>
+                                            <option>Option 1</option>
+                                            <option>Option 2</option>
+                                            <option>Option 3</option>
+                                        </select>*@
                                     </div>
                                 </div>
-                            </div>
-                            <div class="form-group row align-items-center">
-                                <label class="col-md-5 col-form-label py-0">Сумма:</label>
-                                <div class="col-md-7">
-                                    <input type="text" class="form-control mb-3" placeholder="Сумма" />
-                                    <div class="text__block">
-                                        <p>девять миллионов сум</p>
+                                <div class="form-group row align-items-center">
+                                    <label class="col-md-5 col-form-label py-0">Банк:</label>
+                                    <div class="col-md-7">
+                                        <input type="text" ng-model="P1BN" name="P1BN" required class="form-control" placeholder="Банк" />
+                                        <span class="alert alert-warning" style="padding:0px" ng-show="myForm.P1BN.$error.required">заполнить поле</span>
+                                        @*<select class="custom-select form-control mb-3">
+                                            <option>Банк</option>
+                                            <option>Option 1</option>
+                                            <option>Option 2</option>
+                                            <option>Option 3</option>
+                                        </select>*@
+                                        <div class="text__block">
+                                            <p>Код банка: <strong><input type="text" name="P1MFO" ng-model="P1MFO" required class="form-control" placeholder="Код банка" /></strong></p>
+                                            <span class="alert alert-warning" style="padding:0px" ng-show="myForm.P1MFO.$error.required">заполнить поле</span>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="form-group row align-items-center">
-                                <label class="col-md-5 col-form-label py-0">Комментарий:</label>
-                                <div class="col-md-7">
-                                    <textarea class="form-control" rows="5" placeholder="Комментарий"></textarea>
+                                <div class="form-group row align-items-center">
+                                    <label class="col-md-5 col-form-label py-0">Получатель:</label>
+                                    <div class="col-md-7">
+                                        <input type="text" ng-model="P2NAME" name="P2NAME" required class="form-control" placeholder="Получатель" />
+                                        <span class="alert alert-warning" style="padding:0px" ng-show="myForm.P2NAME.$error.required">заполнить поле</span>
+                                        @*<select class="custom-select form-control mb-3">
+                                            <option>Получатель</option>
+                                            <option>Option 1</option>
+                                            <option>Option 2</option>
+                                            <option>Option 3</option>
+                                        </select>*@
+                                        <div class="text__block">
+                                            <p>ИНН: <strong><input type="text" ng-minlength="9" ng-maxlength="9" name="P2INN" ng-model="P2INN" required class="form-control" placeholder="ИНН" /></strong></p>
+                                            <span class="alert alert-warning" style="padding:0px" ng-show="myForm.P2INN.$error.required">заполнить поле</span>
+                                            <span class="alert alert-warning" style="padding:0px" ng-show="!myForm.P2INN.$error.required&&!myForm.P2INN.$valid">9 шт. номер</span>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-group row align-items-center">
-                                <label class="col-md-5 col-form-label py-0">Руководитель:</label>
-                                <div class="col-md-7">
-                                    <input type="text" class="form-control" placeholder="Руководитель" />
+                                <div class="form-group row align-items-center">
+                                    <label class="col-md-5 col-form-label py-0">№ счета:</label>
+                                    <div class="col-md-7">
+                                        <input type="text" ng-model="P2SCH" name="P2SCH" required class="form-control" placeholder="№ счета" />
+                                        <span class="alert alert-warning" style="padding:0px" ng-show="myForm.P2SCH.$error.required">заполнить поле</span>
+                                        @*<select class="custom-select form-control">
+                                            <option>№ счета</option>
+                                            <option>Option 1</option>
+                                            <option>Option 2</option>
+                                            <option>Option 3</option>
+                                        </select>*@
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-group row align-items-center">
-                                <label class="col-md-5 col-form-label py-0">Глав. Бухгалтер:</label>
-                                <div class="col-md-7">
-                                    <input type="text" class="form-control" placeholder="Глав. Бухгалтер" />
+                                <div class="form-group row align-items-center">
+                                    <label class="col-md-5 col-form-label py-0">Банк:</label>
+                                    <div class="col-md-7">
+                                        <input type="text" ng-model="P2BN" name="P2BN" required class="form-control" placeholder="Банк" />
+                                        <span class="alert alert-warning" style="padding:0px" ng-show="myForm.P2BN.$error.required">заполнить поле</span>
+                                        @*<select class="custom-select form-control mb-3">
+                                            <option>Банк</option>
+                                            <option>Option 1</option>
+                                            <option>Option 2</option>
+                                            <option>Option 3</option>
+                                        </select>*@
+                                        <div class="text__block">
+                                            <p>Код банка: <strong><input type="text" name="P2MFO" ng-model="P2MFO" required class="form-control" placeholder="Код банка" /></strong></p>
+                                            <span class="alert alert-warning" style="padding:0px" ng-show="myForm.P2MFO.$error.required">заполнить поле</span>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="mb-4 text-right">
-                                <a href="#" class="btn btn-grey d-block d-md-inline-block mb-2">Экспорт</a>
-                                <a href="#" class="btn btn-grey d-block d-md-inline-block mb-2">Печать</a>
-                                <a href="#" class="btn btn-blue d-block d-md-inline-block mb-2">Сохранить</a>
-                                <a href="#" class="btn btn-grey d-block d-md-inline-block mb-2" data-dismiss="modal">Отмена</a>
-                            </div>
+                                <div class="form-group row align-items-center">
+                                    <label class="col-md-5 col-form-label py-0">Сумма:</label>
+                                    <div class="col-md-7">
+                                        <input type="text" ng-model="SUM" name="SUM" required class="form-control mb-3" placeholder="Сумма" />
+                                        <span class="alert alert-warning" style="padding:0px" ng-show="myForm.SUM.$error.required">заполнить поле</span>
+                                        @*<div class="text__block">
+                                            <p>девять миллионов сум</p>
+                                        </div>*@
+                                    </div>
+                                </div>
+                                <div class="form-group row align-items-center">
+                                    <label class="col-md-5 col-form-label py-0">Комментарий:</label>
+                                    <div class="col-md-7">
+                                        <textarea class="form-control" ng-model="COM" name="COM" required rows="5" placeholder="Комментарий"></textarea>
+                                        <span class="alert alert-warning" style="padding:0px" ng-show="myForm.COM.$error.required">заполнить поле</span>
+                                    </div>
+                                </div>
+                                <div class="form-group row align-items-center">
+                                    <label class="col-md-5 col-form-label py-0">Руководитель:</label>
+                                    <div class="col-md-7">
+                                        <input type="text" ng-model="R" name="R" required class="form-control" placeholder="Руководитель" />
+                                        <span class="alert alert-warning" style="padding:0px" ng-show="myForm.R.$error.required">заполнить поле</span>
+                                    </div>
+                                </div>
+                                <div class="form-group row align-items-center">
+                                    <label class="col-md-5 col-form-label py-0">Глав. Бухгалтер:</label>
+                                    <div class="col-md-7">
+                                        <input type="text" ng-model="GB" name="GB" required class="form-control" placeholder="Глав. Бухгалтер" />
+                                        <span class="alert alert-warning" style="padding:0px" ng-show="myForm.GB.$error.required">заполнить поле</span>
+                                    </div>
+                                </div>
+                                <div class="mb-4 text-right">
+                                    <a href="#" class="btn btn-grey d-block d-md-inline-block mb-2">Экспорт</a>
+                                    <a href="#" class="btn btn-grey d-block d-md-inline-block mb-2">Печать</a>
+                                    <button ng-click="Add()" ng-disabled="myForm.N.$error.required||myForm.P1NAME.$error.required||myForm.P1INN.$error.required||myForm.P1SCH.$error.required||myForm.P1BN.$error.required||myForm.P1MFO.$error.required||(!myForm.P1INN.$error.required&&!myForm.P1INN.$valid)||myForm.P2NAME.$error.required||myForm.P2INN.$error.required||myForm.P2SCH.$error.required||myForm.P2BN.$error.required||myForm.P2MFO.$error.required||(!myForm.P2INN.$error.required&&!myForm.P2INN.$valid)||myForm.SUM.$error.required||myForm.COM.$error.required||myForm.R.$error.required||myForm.GB.$error.required" data-dismiss="modal" class="btn btn-blue d-block d-md-inline-block mb-2">Сохранить</button>
+                                    <a href="#" class="btn btn-grey d-block d-md-inline-block mb-2" data-dismiss="modal">Отмена</a>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    </section>
+
+
+   
 
     <div class="modal__block modal fade" id="redaktirovat" tabindex="-1" role="dialog" aria-labelledby="redaktirovatTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">

@@ -1082,7 +1082,7 @@
     <Content Include="Scripts\MyJavaScript\OsushestvleniyeProvodki.js" />
     <Content Include="Scripts\MyJavaScript\O_SOZController.js" />
     <Content Include="Scripts\MyJavaScript\O_TController.js" />
-    <Content Include="Scripts\MyJavaScript\PlatejPoruchController.js" />
+    <Content Include="Scripts\MyJavaScript\PlatejnoyePorucheniye.js" />
     <Content Include="Scripts\MyJavaScript\PPController.js" />
     <Content Include="Scripts\MyJavaScript\ProsmotrRealzPutevok.js" />
     <Content Include="Scripts\MyJavaScript\PRZController.js" />

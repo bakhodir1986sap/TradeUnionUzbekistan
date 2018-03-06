@@ -4,6 +4,8 @@
     var UserId = Convert.ToInt32(User.Identity.Name);
     FunctionalityList List = FunctionalityAndDbDataMatch.MatchProcess(UserId);
 }
+<link href="~/Content/css/smoothness/jquery-ui-1.8.17.custom.css" rel="stylesheet" />
+@*<link href="~/Content/css/main.css" rel="stylesheet" />*@
 <script src="~/Scripts/MyJavaScript/PlatejnoyePorucheniye.js"></script>
 @if (List.PlanByudjeta)
 {
@@ -83,7 +85,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="item in DATA">
+                    <tr ng-repeat="item in DATA" ng-click="Load(item)" data-toggle="modal" class="poin"  data-target="#export">
                         <td>{{item.d2}}</td>
                         <td>{{item.d1 | jsonDate: 'dd.MM.yyyy'}}</td>
                         <td>{{item.d3}}</td>
@@ -96,7 +98,7 @@
         </div>
         <div class="mb-4">
             <a href="" class="btn btn-grey d-block d-md-inline-block mb-2">Экспорт</a>
-            <a href="" class="btn btn-grey d-block d-md-inline-block mb-2">Печать</a>
+            <button class="btn btn-grey d-block d-md-inline-block mb-2">Печать</button>
         </div>
 
 
@@ -264,6 +266,172 @@
                 </div>
             </div>
         </div>
+
+
+        <div class="modal__block modal fade"  id="export" tabindex="-1" role="dialog" aria-labelledby="dobavitLabel">
+            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <div style="border-width: 2px; border-style: dotted; padding: 1em; font-size:120%;line-height: 1.5em;">
+                            <table class="table table-nobordered table-sm" id="StudentInfoListTable">
+                                <tr>
+                                    <td></td>
+                                    <td colspan="2" class="text-center">@*ТЎЛОВ ТОПШИРИҚНОМАСИ*@TO`LOV TOPSHIRIQNOMASI</td>
+                                    <td></td>
+                                    <td class="border border-dark bg-warning">@*Поле*@</td>
+                                    <td></td>
+                                    <td colspan="2"></td>
+                                </tr>
+                                <tr>
+                                    <td class="text-center">@*САНА*@SANA</td>
+                                    <td colspan="2" class="border border-dark bg-warning">{{d1 | jsonDate: 'dd.MM.yyyy'}}</td>
+                                    <td colspan="5" class="border-0"></td>
+                                </tr>
+                                <tr>
+                                    <td class="text-center">@*Тўловчи*@To`lovchi</td>
+                                    <td colspan="7" class="border-bottom border-dark">{{d3}}</td>
+                                </tr>
+                                <tr>
+                                    <td class="text-center border-0">@*ДЕБЕТ*@DEBET</td>
+                                    <td colspan="7"></td>
+                                </tr>
+                                <tr>
+                                    <td class="text-center">@*Тўловчинингҳисоб рақами*@To`lovchining hisob raqami</td>
+                                    <td colspan="4" class="border border-dark bg-warning">{{d5}}</td>
+                                    <td class="text-right">@*ИНН*@INN</td>
+                                    <td colspan="2" class="border border-dark bg-warning">{{d4}}</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="8"></td>
+                                </tr>
+                                <tr>
+                                    <td class="text-center">@*Тўловчининг банки*@To`lovchining banki</td>
+                                    <td colspan="4" class="border-bottom border-dark">{{d6}}</td>
+                                    <td class="text-center">@*Тўловчи банккоди*@ To`lovchi bank kodi</td>
+                                    <td colspan="2" class="border border-dark bg-warning">{{d7}}</td>
+                                </tr>
+                                <tr>
+                                    <td class="text-center">@*СУММА*@SUMMA</td>
+                                    <td colspan="4" class="border-bottom border-dark">{{d13}}</td>
+                                    <td colspan="3"></td>
+                                </tr>
+                                <tr>
+                                    <td class="text-center">@*Олувчи*@Oluvchi</td>
+                                    <td colspan="7" class="border-bottom border-dark">{{d8}}</td>
+                                </tr>
+                                <tr>
+                                    <td class="text-center">@*КРЕДИТ*@KREDIT</td>
+                                    <td colspan="7"></td>
+                                </tr>
+                                <tr>
+                                    <td class="text-center">@*Олувчинингҳисоб рақами*@Oluvchining hisob raqami</td>
+                                    <td colspan="4" class="border border-dark bg-warning">{{d10}}</td>
+                                    <td class="text-right">@*ИНН*@INN</td>
+                                    <td colspan="2" class="border border-dark bg-warning">{{d9}}</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="8"></td>
+                                </tr>
+                                <tr>
+                                    <td class="text-center">@*Олувчининг банки*@Oluvching banki</td>
+                                    <td colspan="4" class="border-bottom border-dark">{{d11}}</td>
+                                    <td class="text-center">@*Олувчибанк коди*@Oluvchi bank kodi</td>
+                                    <td colspan="2" class="border border-dark bg-warning">{{d12}}</td>
+                                </tr>
+                                <tr>
+                                    <td class="text-center">@*Сумма сўз биланёзилади*@Summasi</td>
+                                    <td colspan="5" class="border-bottom border-dark"></td>
+                                    <td colspan="2"></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="8"></td>
+                                </tr>
+                                <tr>
+                                    <td class="text-center">@*Тўлов мақсади*@To`lov maqsadi</td>
+                                    <td colspan="7" class="border border-dark"></td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td>@*Раис*@Rais</td>
+                                    <td colspan="2" class="border-bottom border-dark">{{d15}}</td>
+                                    <td colspan="3"></td>
+                                </tr>
+                                <tr>
+                                    <td class="text-center"><strong>@*М.У.*@</strong></td>
+                                    <td></td>
+                                    <td>@*Бош ҳисобчи*@Bosh hisobchi</td>
+                                    <td colspan="2" class="border-bottom border-dark">{{d16}}</td>
+                                    <td colspan="3"></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="8"></td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td class="border-top border-left border-dark"></td>
+                                    <td class="border-top border-dark"></td>
+                                    <td class="border-top border-dark"></td>
+                                    <td class="border-top border-dark"></td>
+                                    <td class="border-top border-right border-dark"></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td class="text-center border-left border-dark">@*БАНК*@BANK</td>
+                                    <td class="border border-dark text-center">@*Текширди*@Tekshirdi</td>
+                                    <td class="border border-dark text-center">@*Маъқуллади*@Ma`qulladi</td>
+                                    <td class="border border-dark text-center">@*Банкдан ўтказилди*@Bankdan o`tkazildi</td>
+                                    <td class="border-right border-dark"></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td class="border-left border-dark"></td>
+                                    <td class="border border-dark text-center"></td>
+                                    <td class="border border-dark text-center"></td>
+                                    <td class="border border-dark text-center"></td>
+                                    <td class="border-right border-dark"></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td class="border-bottom border-left border-dark"></td>
+                                    <td class="border-bottom border-dark"></td>
+                                    <td class="border-bottom border-dark"></td>
+                                    <td class="border-bottom border-dark"></td>
+                                    <td class="border-bottom border-right border-dark"></td>
+                                    <td></td>
+                                </tr>
+                            </table>
+                            @*<table id="StudentInfoListTable">
+                                <tr>
+                                    <td>Nq</td>
+                                    <td>SANA</td>
+                                    <td>SOTUVCHI</td>
+                                    <td>OLUVCHI</td>
+                                    <td>SUMMA</td>
+                                    <td>DETALL</td>
+                                </tr>
+                                <tr ng-repeat="item in DATA">
+                                    <td>{{item.d2}}</td>
+                                    <td>{{item.d1 | jsonDate: 'dd.MM.yyyy'}}</td>
+                                    <td>{{item.d3}}</td>
+                                    <td>{{item.d8}}</td>
+                                    <td>{{item.d13}}</td>
+                                    <td>{{item.d14}}<br>{{item.d15}}<br>{{item.d16}}</td>
+                                </tr>
+                            </table>*@
+                            <button ng-click="cmd()" class="btn btn-grey d-block d-md-inline-block mb-2">Печать</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </section>
 
 
@@ -378,6 +546,9 @@
             </div>
         </div>
     </div>
+
+    <script src="~/Scripts/dist/jspdf.debug.js"></script>
+    <script src="~/Scripts/basic.js"></script>
     @*<div ng-controller="PlatejPoruchController">
             <div class="container one">
                 <div class="row">

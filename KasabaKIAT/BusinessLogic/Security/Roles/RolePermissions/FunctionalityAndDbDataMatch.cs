@@ -12,7 +12,7 @@ namespace KasabaKIAT.BusinessLogic.Security.Roles.RolePermissions
     {
         public static FunctionalityList MatchProcess(UserViewModel user)
         {
-            if (UserPermissions.pernit != null)
+            if ((UserPermissions.pernit != null) && (UserPermissions.pernit.UserId == user.userid))
             {
                 return UserPermissions.pernit;
             }

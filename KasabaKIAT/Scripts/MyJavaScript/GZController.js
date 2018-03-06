@@ -258,5 +258,8 @@
             type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=utf-8"
         });
         saveAs(blob, "График заездов.xls");
+
+        //var blob = new Blob([document.getElementById('export').innerHTML], { type: "application/pdf;charset=utf-8" });
+        //saveAs(blob, "file.pdf");
     };
 }]);

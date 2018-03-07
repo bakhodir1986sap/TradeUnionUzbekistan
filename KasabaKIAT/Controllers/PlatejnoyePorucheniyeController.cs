@@ -52,6 +52,7 @@ namespace KasabaKIAT.Controllers
             Platejki pl = new Platejki();
             d.department_code = uu.DepartmentBase;
             d.userid = UserId;
+
             pl.Enter(d);
             return "yes";
         }

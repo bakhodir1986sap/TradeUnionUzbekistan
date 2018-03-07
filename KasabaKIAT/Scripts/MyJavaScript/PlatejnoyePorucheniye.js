@@ -143,35 +143,35 @@
             margins
           )
     }
-    $scope.cmd = function () {
-        var table = tableToJson($('#StudentInfoListTable').get(0));
-        var doc = new jsPDF('l', 'pt', 'letter', true);
-        doc.cellInitialize();
-        $.each(table, function (i, row) {
-            doc.setFontSize(10);
+    $scope.cmd1 = function () {
+        var doc = new jsPDF();
+        var utf_8_string_to_render = 'any_value_you_want';
+        Promise.all(
+                [
+                    new Promise(function (resolve) {
+                        var temp = document.createElement("div");
+                        temp.id = "temp";
+                        temp.style = "color: black;margin:0px;font-size:20px;";
+                        phrase = utf_8_string_to_render;
+                        temp.innerHTML = phrase;
+                        //need to render element, otherwise it won't be displayed
+                        document.body.appendChild(temp);
 
-            $.each(row, function (j, cell) {
-                if (j == 'N') {
-                    doc.cell(10, 50, 100, 30, cell, i);
-                }
-                else if (j == 'SANA') {
-                    doc.cell(10, 50, 130, 30, cell, i);
-                }
-                else if (j == 'SOTUVCHI') {
-                    doc.cell(10, 50, 40, 30, cell, i);
-                }
-                else if (j == 'OLUVCHI') {
-                    doc.cell(10, 50, 51, 30, cell, i);
-                }
-                else if (j == 'SUMMA') {
-                    doc.cell(10, 50, 51, 30, cell, i);
-                }
-                else {
-                    doc.cell(10, 50, 70, 30, cell, i);
-                }
-            })
-        })
-        doc.save("Платежное поручение.pdf");
+                        html2canvas($("#temp"), {
+                            onrendered: function (canvas) {
+
+                               // $("#temp").remove();
+                                resolve(canvas.toDataURL('image/png'));
+                            },
+                        });
+                    })
+                ]).then(function (ru_text) {
+
+                    doc.addImage(ru_text[0], 'JPEG', 0, 30);
+                    //doc.text(0, 10, 'Non-utf-8-string');
+
+                    doc.save('filename.pdf');
+                });
     }
     function tableToJson(table) {
         var data = [];

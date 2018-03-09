@@ -7,6 +7,7 @@ using KasabaKIAT.Models;
 using KasabaKIAT.ViewModel.Buxgalteriya;
 using KasabaKiat.Helpers;
 using KasabaKIAT.BusinessLogic.Buxgalteriya.Platejki;
+using log4net;
 
 namespace KasabaKIAT.Controllers
 {
@@ -16,6 +17,7 @@ namespace KasabaKIAT.Controllers
     {
         // GET: PlatejnoyePorucheniye
         KasabaKIATEntities KasabaDB = new KasabaKIATEntities();
+        ILog log = log4net.LogManager.GetLogger(typeof(AdministirirovaniyeController));
         public ActionResult Index()
         {
             return View();
@@ -47,14 +49,29 @@ namespace KasabaKIAT.Controllers
         }
         public string EnterPlatejnoyePorucheniye(PlatejkiViewModel d)
         {
-            int UserId = Convert.ToInt32(User.Identity.Name);
-            var uu = UserInfo.GetUserInfo(UserId);
-            Platejki pl = new Platejki();
-            d.department_code = uu.DepartmentBase;
-            d.userid = UserId;
+            log.Info("EnterPlatejnoyePorucheniye");
+            log.Info("PlatejkiViewModel = " + d);
+            try
+            {
+                int UserId = Convert.ToInt32(User.Identity.Name);
+                var uu = UserInfo.GetUserInfo(UserId);
+                Platejki pl = new Platejki();
+                d.department_code = uu.DepartmentBase;
+                d.userid = UserId;
 
-            pl.Enter(d);
-            return "yes";
+                pl.Enter(d);
+                log.Info("Count = "+d.ToString().Count());
+                return "yes";
+
+                
+            }
+            catch (Exception ex)
+            {
+                log.Info(ex);
+            }
+
+            return null;
+           
         }
     }
 }

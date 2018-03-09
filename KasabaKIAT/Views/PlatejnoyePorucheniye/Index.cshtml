@@ -4,8 +4,8 @@
     var UserId = Convert.ToInt32(User.Identity.Name);
     FunctionalityList List = FunctionalityAndDbDataMatch.MatchProcess(UserId);
 }
-<script src="https://code.jquery.com/jquery-1.12.3.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/0.9.0rc1/jspdf.min.js"></script>
+@*<script src="https://code.jquery.com/jquery-1.12.3.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/0.9.0rc1/jspdf.min.js"></script>*@
 
 <script src="~/Scripts/dist/jspdf.debug.js"></script>
 <script src="~/Scripts/basic.js"></script>
@@ -15,6 +15,9 @@
 @if (List.PlanByudjeta)
 {
     <section class="content__block container" ng-controller="PlatejnoyePorucheniye">
+        <div id="connection" style="visibility:hidden;position:absolute;margin-left:430px;margin-top:100px;z-index:9999">
+            <img src="~/Content/Login/buffering.gif" />
+        </div>
         <div class="row mb-4 align-items-center">
             <div class="col title__block">
                 <h4>Платежное поручение</h4>
@@ -273,14 +276,14 @@
         <div class="modal__block modal fade" style="width:120%;margin-left:-200px"  id="export" tabindex="-1" role="dialog" aria-labelledby="dobavitLabel">
             <div class="modal-dialog modal-dialog-centered modal-lg" style="width:120%;display:block"  role="document">
                 <div class="modal-content" style="width:120%;display:block" >
-                    <div class="modal-body" >
+                    <div class="modal-body">
                         <button ng-click="cmd1()" class="btn btn-grey d-block d-md-inline-block mb-2">Печать</button>
                         <table class="table table-nobordered table-sm" id="temp">
                             <tr>
                                 <td></td>
                                 <td colspan="2" class="text-center">ТЎЛОВ ТОПШИРИҚНОМАСИ</td>
                                 <td></td>
-                                <td class="border border-dark bg-warning">Поле</td>
+                                <td class="border border-dark bg-warning"></td>
                                 <td></td>
                                 <td colspan="2"></td>
                             </tr>

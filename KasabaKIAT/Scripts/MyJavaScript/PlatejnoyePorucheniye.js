@@ -4,6 +4,10 @@
     $scope.showdata2 = false;
     
     function LoadDATA() {
+        document.getElementById('connection').style.visibility = "visible";
+        $("#hh").modal({
+            backdrop: 'static'
+        });
         $http({
             method: 'POST',
             url: "/PlatejnoyePorucheniye/GetPlatejnoyePorucheniye",
@@ -15,9 +19,12 @@
             }
             $scope.DATA = d.data;
             console.log(d.data);
+            document.getElementById('connection').style.visibility = "hidden";
+            $("#hh").modal('hide');
         }, function (error) {
             alertify.error("ошибка");
             console.log("error in GetPlatejnoyePorucheniye -> ", error);
+            document.getElementById('connection').style.visibility = "hidden";
             $("#hh").modal('hide');
         });
     }
@@ -61,6 +68,10 @@
         $scope.d16 = data.d16;
     };
     $scope.Add = function () {
+        document.getElementById('connection').style.visibility = "visible";
+        $("#hh").modal({
+            backdrop: 'static'
+        });
         var GZ = {
             plat_date: $scope.PD,
             plat_num: $scope.N,
@@ -88,8 +99,11 @@
             dataType: "json"
         }).then(function (msg) {
             LoadDATA();
+            document.getElementById('connection').style.visibility = "hidden";
+            $("#hh").modal('hide');
             //alertify.success(msg.data);
         }, function () {
+            document.getElementById('connection').style.visibility = "hidden";
             $("#hh").modal('hide');
             alertify.error("ошибка");
             console.log('Error in EnterPlatejnoyePorucheniye');
@@ -144,7 +158,14 @@
           )
     }
     $scope.cmd1 = function () {
+        document.getElementById('connection').style.visibility = "visible";
+        $("#hh").modal({
+            backdrop: 'static'
+        });
+
         var doc = new jsPDF();
+        var width = doc.internal.pageSize.width;
+        var height = doc.internal.pageSize.height;
         var utf_8_string_to_render = 'any_value_you_want';
         Promise.all(
                 [
@@ -153,24 +174,27 @@
                         temp.id = "temp";
                         temp.style = "color: black;margin:0px;font-size:20px;";
                         phrase = utf_8_string_to_render;
-                        temp.innerHTML = phrase;
+                        //temp.innerHTML = phrase;
                         //need to render element, otherwise it won't be displayed
                         document.body.appendChild(temp);
 
                         html2canvas($("#temp"), {
                             onrendered: function (canvas) {
 
-                               // $("#temp").remove();
+                                // $("#temp").remove();
+                                //width = canvas.width;
+                                //height =canvas.height;
                                 resolve(canvas.toDataURL('image/png'));
                             },
                         });
                     })
                 ]).then(function (ru_text) {
-
-                    doc.addImage(ru_text[0], 'JPEG', 0, 30);
+                    doc.addImage(ru_text[0], 'JPEG', 10, 10, (width - 20), (height - 20), 'monkey');
                     //doc.text(0, 10, 'Non-utf-8-string');
 
-                    doc.save('filename.pdf');
+                    doc.save('Платежное поручение.pdf');
+                    document.getElementById('connection').style.visibility = "hidden";
+                    $("#hh").modal('hide');
                 });
     }
     function tableToJson(table) {

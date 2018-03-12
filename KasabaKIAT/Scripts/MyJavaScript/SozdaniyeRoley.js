@@ -24,11 +24,10 @@
         });
     }
     $scope.V2 = function (id) {
-        rol_id = id;
-        $scope.R2 = null;
-        $scope.R = null;
-        $scope.DATA2 = null;
+        document.getElementById("select2").value = "";
         $scope.DATA3 = null;
+        $scope.R2 = null;
+        rol_id = id;
         V();
         $http({
             method: "post",
@@ -238,6 +237,40 @@
                 $.ajax({
                     type: "POST",
                     url: "/Administirirovaniye/save",
+                    data: JSON.stringify(postData),
+                    contentType: "application/json; charset=utf-8",
+                    success: function (data) {
+                        console.log(data);
+                        $("#hh").modal('hide');
+                        alertify.success(data);
+                    },
+                    //dataType: "json",
+                    //traditional: true
+                });
+                $("#hh").modal('hide');
+            } else {
+                $("#hh").modal('hide');
+                alertify.error("Операция отменена");
+            }
+        });
+        return false;
+    }
+
+
+    $scope.Remove = function () {
+        var postData = { ids: stringArray, rolep_id: rol_id };
+        $("#hh").modal({
+            backdrop: 'static',
+            backdrop: 'static'
+        });
+        reset();
+        alertify.set({ buttonFocus: "cancel" });
+        alertify.confirm("Вы действительно хотите ...?", function (e) {
+            if (e) {
+                alertify.success("Операция выполняется");
+                $.ajax({
+                    type: "POST",
+                    url: "/Administirirovaniye/Remove",
                     data: JSON.stringify(postData),
                     contentType: "application/json; charset=utf-8",
                     success: function (data) {

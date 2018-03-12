@@ -16,6 +16,7 @@ namespace KasabaKIAT.BusinessLogic.Security.RolePermissions
                 role_permission reg = new role_permission();
 
                 //.id = model.id;
+                reg.role_id = model.role_id;
                 reg.version = 0;
                 reg.action = model.action;
                 reg.s_comment = model.s_comment;

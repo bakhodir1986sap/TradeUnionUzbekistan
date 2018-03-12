@@ -280,11 +280,11 @@
     <Compile Include="BusinessLogic\Putyovki\Zayavki\RassmotreniyaZayavkiDataManager.cs" />
     <Compile Include="BusinessLogic\Putyovki\Zayavki\ZayavkiDataManager.cs" />
     <Compile Include="BusinessLogic\Putyovki\Zayavki\ZayavkiTotalManager.cs" />
-    <Compile Include="BusinessLogic\Security\Helpers\UserInfo.cs" />
     <Compile Include="BusinessLogic\Security\Roles\RolePermissions\FunctionalityAndDbDataMatch.cs" />
     <Compile Include="BusinessLogic\Security\Roles\RolePermissions\FunctionalityList.cs" />
     <Compile Include="BusinessLogic\Security\Roles\RolePermissions\RolePermission.cs" />
     <Compile Include="BusinessLogic\Security\Roles\RolePermissions\RolePermissionDataManager.cs" />
+    <Compile Include="BusinessLogic\Security\Helpers\UserInfo.cs" />
     <Compile Include="BusinessLogic\Security\Roles\RolePermissions\UserPermissions.cs" />
     <Compile Include="BusinessLogic\Security\Roles\Roles\RoleDataManager.cs" />
     <Compile Include="BusinessLogic\Security\Roles\Roles\Roles.cs" />
@@ -898,6 +898,22 @@
     <Content Include="BusinessLogic\Security\Roles\RolePermissions\TextFile4.txt" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\css\editor.css" />
+    <Content Include="Content\css\main.css" />
+    <Content Include="Content\css\smoothness\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="Content\css\smoothness\images\ui-bg_flat_75_ffffff_40x100.png" />
+    <Content Include="Content\css\smoothness\images\ui-bg_glass_55_fbf9ee_1x400.png" />
+    <Content Include="Content\css\smoothness\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="Content\css\smoothness\images\ui-bg_glass_75_dadada_1x400.png" />
+    <Content Include="Content\css\smoothness\images\ui-bg_glass_75_e6e6e6_1x400.png" />
+    <Content Include="Content\css\smoothness\images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="Content\css\smoothness\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <Content Include="Content\css\smoothness\images\ui-icons_222222_256x240.png" />
+    <Content Include="Content\css\smoothness\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Content\css\smoothness\images\ui-icons_454545_256x240.png" />
+    <Content Include="Content\css\smoothness\images\ui-icons_888888_256x240.png" />
+    <Content Include="Content\css\smoothness\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="Content\css\smoothness\jquery-ui-1.8.17.custom.css" />
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\icons\administ.png" />
     <Content Include="Content\icons\cancell_button.png" />
@@ -991,6 +1007,7 @@
     <Content Include="Content\themes\alertify.default.css" />
     <Content Include="Content\ui-bootstrap-csp.css" />
     <Content Include="favicon.ico" />
+    <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
@@ -1013,6 +1030,7 @@
     <Content Include="Scripts\angular-ui\ui-bootstrap.min.js" />
     <Content Include="Scripts\angular.js" />
     <Content Include="Scripts\angular.min.js" />
+    <Content Include="Scripts\basic.js" />
     <Content Include="Scripts\bootstrap-filestyle.js" />
     <Content Include="Scripts\bootstrap-filestyle.min.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -1025,6 +1043,22 @@
     <Content Include="Models\KasabaKIAT.edmx.diagram">
       <DependentUpon>KasabaKIAT.edmx</DependentUpon>
     </Content>
+    <Content Include="Content\styles\all.css" />
+    <Content Include="fonts\fontawesome-webfont.eot" />
+    <Content Include="fonts\fontawesome-webfont.ttf" />
+    <Content Include="fonts\fontawesome-webfont.woff" />
+    <Content Include="fonts\fontawesome-webfont.woff2" />
+    <Content Include="fonts\FontAwesome.otf" />
+    <Content Include="fonts\OpenSans-Bold.ttf" />
+    <Content Include="fonts\OpenSans-BoldItalic.ttf" />
+    <Content Include="fonts\OpenSans-ExtraBold.ttf" />
+    <Content Include="fonts\OpenSans-ExtraBoldItalic.ttf" />
+    <Content Include="fonts\OpenSans-Italic.ttf" />
+    <Content Include="fonts\OpenSans-Light.ttf" />
+    <Content Include="fonts\OpenSans-LightItalic.ttf" />
+    <Content Include="fonts\OpenSans-Regular.ttf" />
+    <Content Include="fonts\OpenSans-Semibold.ttf" />
+    <Content Include="fonts\OpenSans-SemiboldItalic.ttf" />
     <None Include="Properties\PublishProfiles\WebKIAT.pubxml" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -1033,10 +1067,13 @@
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\dist\jquery.table2excel.js" />
     <Content Include="Scripts\dist\jquery.table2excel.min.js" />
+    <Content Include="Scripts\dist\jspdf.debug.js" />
+    <Content Include="Scripts\dist\jspdf.min.js" />
     <Content Include="Scripts\FileSaver.min.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery-ui-1.8.17.custom.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
@@ -1065,7 +1102,7 @@
     <Content Include="Scripts\MyJavaScript\OsushestvleniyeProvodki.js" />
     <Content Include="Scripts\MyJavaScript\O_SOZController.js" />
     <Content Include="Scripts\MyJavaScript\O_TController.js" />
-    <Content Include="Scripts\MyJavaScript\PlatejPoruchController.js" />
+    <Content Include="Scripts\MyJavaScript\PlatejnoyePorucheniye.js" />
     <Content Include="Scripts\MyJavaScript\PPController.js" />
     <Content Include="Scripts\MyJavaScript\ProsmotrRealzPutevok.js" />
     <Content Include="Scripts\MyJavaScript\PRZController.js" />

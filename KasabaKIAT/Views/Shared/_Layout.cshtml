@@ -14,7 +14,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>@ViewBag.Title - My ASP.NET Application</title>*@
     <link rel="apple-touch-icon" href="apple-touch-icon.png">
-    <link href="https://use.fontawesome.com/releases/v5.0.2/css/all.css" rel="stylesheet">
+    <link href="~/Content/styles/all.css" rel="stylesheet" />
     <link rel="stylesheet" href="~/Content/styles/main.css">
     <script src="~/Scripts/vendor/modernizr.js"></script>
     
@@ -36,7 +36,9 @@
     @*@Styles.Render("~/Content/css")*@
     @Scripts.Render("~/bundles/modernizr")
     <script src="~/Scripts/jquery-1.10.2.min.js"></script>
-    <script src="https://fastcdn.org/FileSaver.js/1.1.20151003/FileSaver.min.js"></script>
+    <script src="~/Scripts/jquery-ui-1.8.17.custom.min.js"></script>
+   
+    <script src="~/Scripts/FileSaver.min.js"></script>
     @*<script src="~/Scripts/kendo/kendo.all.min.js"></script>*@
     <script src="~/Scripts/lib/alertify.min.js"></script>
     <script>
@@ -194,7 +196,7 @@
                         <a class="nav-link" id="ch" href="#">Выход</a>
                     </li>
                 </ul>
-                <script>
+                @*<script>
                 if ("@ViewBag.Title" == "Подача заявок") {
                         document.getElementById("z").className = "nav-item dropdown show";
                         document.getElementById("z").style = "";
@@ -215,7 +217,7 @@
                         document.getElementById("b").className = "nav-item dropdown show";
                         document.getElementById("b").style = "";
                     }
-                </script>
+                </script>*@
             </div>
         </div>
     </nav>
@@ -256,15 +258,15 @@
     <script src="~/Scripts/plugins.js"></script>
 
     <script src="~/Scripts/main.js"></script>
-    @*<style>
-        .active {
+    <style>
+        /*.active {
             color: black;
             background-color: white;
-        }
+        }*/
          .poin:hover {
             cursor: pointer;
         }
-    </style>*@
+    </style>
     <input id="hh" type="hidden" />
     @*@Scripts.Render("~/bundles/jquery")*@
     @*@Scripts.Render("~/bundles/bootstrap")*@

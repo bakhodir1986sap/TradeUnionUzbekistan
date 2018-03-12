@@ -1,4 +1,5 @@
-﻿using KasabaKIAT.Models;
+﻿using KasabaKIAT.BusinessLogic.Buxgalteriya.PlanirovaniyaBudjeta.Region;
+using KasabaKIAT.Models;
 using KasabaKIAT.ViewModel.Buxgalteriya;
 using System;
 using System.Collections.Generic;
@@ -15,35 +16,22 @@ namespace KasabaKiat.BusinessLogic.Buxgalteriya.PlanirovaniyaBudjeta.Region
             {
                 tbbu_planbyudjetregion reg = new tbbu_planbyudjetregion();
 
-
-                //reg.REC_ID              = model.rec_id          ;
-                //reg.DEPARTMENT_CODE = model.department_code;
-                //reg.USERID = model.userid;
-                //reg.PLAT_DATE = model.plat_date;
-                //reg.PLAT_NUM = model.plat_num;
-                //reg.PLATELNAME = model.platelname;
-                //reg.PLATELINN = model.platelinn;
-                //reg.PLATELRASCHET = model.platelraschet;
-                //reg.PLATELBANKNAME = model.platelbankname;
-                //reg.PLATELBANKMFO = model.platelbankmfo;
-                //reg.POLUCHNAME = model.poluchname;
-                //reg.POLUCHINN = model.poluchinn;
-                //reg.POLUCHRASCHET = model.poluchraschet;
-                //reg.POLUCHBANKNAME = model.poluchbankname;
-                //reg.POLUCHBANKMFO = model.poluchbankmfo;
-                //reg.SUMMA = model.summa;
-                //reg.COMMENT = model.comment;
-                //reg.RUKOVODITEL = model.rukovoditel;
-                //reg.GLAVBUX = model.glavbux;
-
+               reg.DEPARTMENT_BASE  = model.department_base ;
+               reg.USERID           = model.userid          ;
+               reg.YEAR             = model.year            ;
+               reg.SOATO_CODE       = model.soato_code      ;
+               reg.ITEM_CODE        = model.item_code       ;
+               reg.ITEM_NAME        = model.item_name       ;
+               reg.GODOVOY          = model.godovoy         ;
+               reg.QUARTER1         = model.quarter1        ;
+               reg.HALFYEAR         = model.halfyear        ;
+               reg.MONTH9           = model.month9          ;
+        
                 var planOtrasl = db.tbbu_planbyudjetregion.Add(reg);
 
-                if (planOtrasl != null)
-                {
-                    model.rec_id = planOtrasl.REC_ID;
-                }
-
                 db.SaveChanges();
+
+                model.rec_id = reg.REC_ID;
             }
         }
 
@@ -59,24 +47,16 @@ namespace KasabaKiat.BusinessLogic.Buxgalteriya.PlanirovaniyaBudjeta.Region
 
                     if (reg != null)
                     {
-                        //reg.DEPARTMENT_CODE = model.department_code;
-                        //reg.USERID = model.userid;
-                        //reg.PLAT_DATE = model.plat_date;
-                        //reg.PLAT_NUM = model.plat_num;
-                        //reg.PLATELNAME = model.platelname;
-                        //reg.PLATELINN = model.platelinn;
-                        //reg.PLATELRASCHET = model.platelraschet;
-                        //reg.PLATELBANKNAME = model.platelbankname;
-                        //reg.PLATELBANKMFO = model.platelbankmfo;
-                        //reg.POLUCHNAME = model.poluchname;
-                        //reg.POLUCHINN = model.poluchinn;
-                        //reg.POLUCHRASCHET = model.poluchraschet;
-                        //reg.POLUCHBANKNAME = model.poluchbankname;
-                        //reg.POLUCHBANKMFO = model.poluchbankmfo;
-                        //reg.SUMMA = model.summa;
-                        //reg.COMMENT = model.comment;
-                        //reg.RUKOVODITEL = model.rukovoditel;
-                        //reg.GLAVBUX = model.glavbux;
+                        reg.DEPARTMENT_BASE = model.department_base;
+                        reg.USERID = model.userid;
+                        reg.YEAR = model.year;
+                        reg.SOATO_CODE = model.soato_code;
+                        reg.ITEM_CODE = model.item_code;
+                        reg.ITEM_NAME = model.item_name;
+                        reg.GODOVOY = model.godovoy;
+                        reg.QUARTER1 = model.quarter1;
+                        reg.HALFYEAR = model.halfyear;
+                        reg.MONTH9 = model.month9;
                     }
                 }
 
@@ -110,34 +90,104 @@ namespace KasabaKiat.BusinessLogic.Buxgalteriya.PlanirovaniyaBudjeta.Region
 
             using (KasabaKIATEntities db = new KasabaKIATEntities())
             {
-                //var query = from bank in db.tbbu_planbyudjetregion
-                //            where bank.DEPARTMENT_CODE == model.department_code
-                //            select new PlanRegionViewModel
-                //            {
-                //                department_code = bank.DEPARTMENT_CODE,
-                //                userid = bank.USERID,
-                //                plat_date = bank.PLAT_DATE,
-                //                plat_num = bank.PLAT_NUM,
-                //                platelname = bank.PLATELNAME,
-                //                platelinn = bank.PLATELINN,
-                //                platelraschet = bank.PLATELRASCHET,
-                //                platelbankname = bank.PLATELBANKNAME,
-                //                platelbankmfo = bank.PLATELBANKMFO,
-                //                poluchname = bank.POLUCHNAME,
-                //                poluchinn = bank.POLUCHINN,
-                //                poluchraschet = bank.POLUCHRASCHET,
-                //                poluchbankname = bank.POLUCHBANKNAME,
-                //                poluchbankmfo = bank.POLUCHBANKMFO,
-                //                summa = bank.SUMMA,
-                //                comment = bank.COMMENT,
-                //                rukovoditel = bank.RUKOVODITEL,
-                //                glavbux = bank.GLAVBUX
-                //            };
+                var query = from bank in db.tbbu_planbyudjetregion
+                            where bank.DEPARTMENT_BASE == model.department_base
+                            select new PlanRegionViewModel
+                            {
+                                rec_id           = bank.REC_ID          ,
+                                department_base  = bank.DEPARTMENT_BASE ,
+                                userid           = bank.USERID          ,
+                                year             = bank.YEAR            ,
+                                soato_code       = bank.SOATO_CODE      ,
+                                item_code        = bank.ITEM_CODE       ,
+                                item_name        = bank.ITEM_NAME       ,
+                                godovoy          = bank.GODOVOY         ,
+                                quarter1         = bank.QUARTER1        ,
+                                halfyear         = bank.HALFYEAR        ,
+                                month9           = bank.MONTH9         
+                            };
 
-                //list = query.ToList();
+                list = query.ToList();
             }
 
             return list;
+        }
+
+
+        public static List<PlanRegionViewModel> Get(string soato_code, int year)
+        {
+            List<PlanRegionViewModel> list = null;
+
+            using (KasabaKIATEntities db = new KasabaKIATEntities())
+            {
+                var query = from bank in db.tbbu_planbyudjetregion
+                            where ((bank.YEAR == year) && (bank.SOATO_CODE == soato_code)) 
+                            select new PlanRegionViewModel
+                            {
+                                rec_id = bank.REC_ID,
+                                department_base = bank.DEPARTMENT_BASE,
+                                userid = bank.USERID,
+                                year = bank.YEAR,
+                                soato_code = bank.SOATO_CODE,
+                                item_code = bank.ITEM_CODE,
+                                item_name = bank.ITEM_NAME,
+                                godovoy = bank.GODOVOY,
+                                quarter1 = bank.QUARTER1,
+                                halfyear = bank.HALFYEAR,
+                                month9 = bank.MONTH9
+                            };
+
+                list = query.ToList();
+            }
+
+            return list;
+        }
+
+        public static List<int> GetYears()
+        {
+            List<int> yearsList = new List<int>();
+
+            using (KasabaKIATEntities db = new KasabaKIATEntities())
+            {
+                var list = db.tbbu_planbyudjetregion.GroupBy(p => p.YEAR).Select(g=>new { Year = g.Key });
+
+                foreach(var year in list)
+                {
+                    yearsList.Add(year.Year.Value);
+                }
+            }
+
+            return yearsList;
+        }
+
+        public static List<YearAndRegion> GetRegionByYears(int year)
+        {
+            List<YearAndRegion> regionsList = new List<YearAndRegion>();
+
+            using (KasabaKIATEntities db = new KasabaKIATEntities())
+            {
+                var list = db.tbbu_planbyudjetregion.Where(p=>p.YEAR == year).
+                    GroupBy(p => p.SOATO_CODE).
+                    Select(g => new { SoatoCode = g.Key });
+
+                foreach(var region in list)
+                {
+                    var obj = new YearAndRegion();
+
+                    var RegionName = db.sp_soato.Where(s => s.code == region.SoatoCode);
+                    
+                    if (RegionName.Any())
+                    {
+                        obj.Year = year;
+                        obj.SoatoCode = region.SoatoCode;
+                        obj.RegionName = RegionName.First().name_ru;
+
+                        regionsList.Add(obj);
+                    } 
+                }
+            }
+
+            return regionsList;
         }
     }
 }

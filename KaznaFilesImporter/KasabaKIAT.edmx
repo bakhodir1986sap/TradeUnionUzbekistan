@@ -1,0 +1,389 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="KasabaKIATModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="KaznaFiles">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FileName" Type="varchar" MaxLength="50" />
+          <Property Name="CreateDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="KaznaPaymentFile">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="K_TYPE" Type="char" MaxLength="1" />
+          <Property Name="OPERDAY" Type="datetime" />
+          <Property Name="ID" Type="numeric" Precision="12" Scale="0" Nullable="false" />
+          <Property Name="BANKID" Type="numeric" Precision="17" Scale="0" />
+          <Property Name="KLSDOX" Type="varchar" MaxLength="25" />
+          <Property Name="DOCNUMB" Type="varchar" MaxLength="10" />
+          <Property Name="DOCDATE" Type="datetime" />
+          <Property Name="DOCTYPE" Type="char" MaxLength="2" />
+          <Property Name="SUMPAY" Type="numeric" Precision="20" Scale="0" />
+          <Property Name="CLMFO" Type="varchar" MaxLength="5" />
+          <Property Name="CLACC" Type="varchar" MaxLength="20" />
+          <Property Name="CLINN" Type="varchar" MaxLength="9" />
+          <Property Name="CLNAME" Type="nvarchar" MaxLength="160" />
+          <Property Name="COMFO" Type="varchar" MaxLength="5" />
+          <Property Name="COACC" Type="varchar" MaxLength="20" />
+          <Property Name="COINN" Type="varchar" MaxLength="9" />
+          <Property Name="CONAME" Type="nvarchar" MaxLength="160" />
+          <Property Name="PURPOSE" Type="nvarchar" MaxLength="500" />
+          <Property Name="CHAPTER" Type="varchar" MaxLength="3" />
+          <Property Name="OKONH" Type="varchar" MaxLength="5" />
+          <Property Name="FILE_ID" Type="bigint" />
+          <Property Name="OTCHISLEN" Type="money" />
+        </EntityType>
+        <EntityType Name="KaznaSverkaFile">
+          <Key>
+            <PropertyRef Name="REC_ID" />
+          </Key>
+          <Property Name="REC_ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="K_TYPE" Type="varchar" MaxLength="3" />
+          <Property Name="K_OPERDAY" Type="date" />
+          <Property Name="FILE_NAME" Type="varchar" MaxLength="50" />
+          <Property Name="CREATE_DATETIME" Type="varchar" MaxLength="50" />
+          <Property Name="FILE_ID" Type="bigint" />
+        </EntityType>
+        <EntityType Name="t_egrpo">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" Nullable="false" />
+          <Property Name="address" Type="varchar" MaxLength="1024" />
+          <Property Name="close_date" Type="datetime" />
+          <Property Name="close_number" Type="varchar" MaxLength="20" />
+          <Property Name="count_workers" Type="int" />
+          <Property Name="s_comment" Type="varchar" MaxLength="500" />
+          <Property Name="s_create" Type="datetime" />
+          <Property Name="s_status" Type="varchar" MaxLength="255" />
+          <Property Name="email" Type="varchar" MaxLength="64" />
+          <Property Name="fin_xoz_work" Type="bit" />
+          <Property Name="name_full" Type="varchar" MaxLength="1024" />
+          <Property Name="inn" Type="varchar" MaxLength="9" />
+          <Property Name="liquidation" Type="bit" />
+          <Property Name="osn_worktype" Type="varchar" MaxLength="500" />
+          <Property Name="phones" Type="varchar" MaxLength="500" />
+          <Property Name="recreate" Type="bit" />
+          <Property Name="reg_date" Type="datetime" />
+          <Property Name="reg_number" Type="varchar" MaxLength="20" />
+          <Property Name="reg_org" Type="varchar" MaxLength="1024" />
+          <Property Name="reorganization" Type="bit" />
+          <Property Name="restored" Type="bit" />
+          <Property Name="name_short" Type="varchar" MaxLength="512" />
+          <Property Name="street" Type="varchar" MaxLength="1024" />
+          <Property Name="update_doc" Type="bit" />
+          <Property Name="update_email" Type="bit" />
+          <Property Name="mail_index" Type="varchar" MaxLength="7" />
+          <Property Name="s_user_id" Type="bigint" />
+          <Property Name="okonx_id" Type="varchar" MaxLength="10" />
+          <Property Name="opf_id" Type="varchar" MaxLength="10" />
+          <Property Name="fs_id" Type="varchar" MaxLength="10" />
+          <Property Name="soato_id" Type="varchar" MaxLength="10" />
+          <Property Name="soogu_id" Type="varchar" MaxLength="255" />
+          <Property Name="okpo" Type="varchar" MaxLength="20" />
+          <Property Name="BANK_ACCOUNT" Type="varchar" MaxLength="20" />
+          <Property Name="NATIVE_ID" Type="bigint" />
+        </EntityType>
+        <Association Name="FK_KaznaPaymentFile_KaznaFiles">
+          <End Role="KaznaFiles" Type="Self.KaznaFiles" Multiplicity="0..1" />
+          <End Role="KaznaPaymentFile" Type="Self.KaznaPaymentFile" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KaznaFiles">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="KaznaPaymentFile">
+              <PropertyRef Name="FILE_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_KaznaSverkaFile_KaznaFiles">
+          <End Role="KaznaFiles" Type="Self.KaznaFiles" Multiplicity="0..1" />
+          <End Role="KaznaSverkaFile" Type="Self.KaznaSverkaFile" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KaznaFiles">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="KaznaSverkaFile">
+              <PropertyRef Name="FILE_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="sp_im_KaznaNewOrg" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <EntityContainer Name="KasabaKIATModelStoreContainer">
+          <EntitySet Name="KaznaFiles" EntityType="Self.KaznaFiles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="KaznaPaymentFile" EntityType="Self.KaznaPaymentFile" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="KaznaSverkaFile" EntityType="Self.KaznaSverkaFile" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="t_egrpo" EntityType="Self.t_egrpo" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_KaznaPaymentFile_KaznaFiles" Association="Self.FK_KaznaPaymentFile_KaznaFiles">
+            <End Role="KaznaFiles" EntitySet="KaznaFiles" />
+            <End Role="KaznaPaymentFile" EntitySet="KaznaPaymentFile" />
+          </AssociationSet>
+          <AssociationSet Name="FK_KaznaSverkaFile_KaznaFiles" Association="Self.FK_KaznaSverkaFile_KaznaFiles">
+            <End Role="KaznaFiles" EntitySet="KaznaFiles" />
+            <End Role="KaznaSverkaFile" EntitySet="KaznaSverkaFile" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="KasabaKIATModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="KaznaFile">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FileName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CreateDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="KaznaPaymentFiles" Relationship="Self.FK_KaznaPaymentFile_KaznaFiles" FromRole="KaznaFiles" ToRole="KaznaPaymentFile" />
+          <NavigationProperty Name="KaznaSverkaFiles" Relationship="KasabaKIATModel.FK_KaznaSverkaFile_KaznaFiles" FromRole="KaznaFile" ToRole="KaznaSverkaFile" />
+        </EntityType>
+        <EntityType Name="KaznaPaymentFile">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="K_TYPE" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="OPERDAY" Type="DateTime" Precision="3" />
+          <Property Name="ID" Type="Decimal" Precision="12" Scale="0" Nullable="false" />
+          <Property Name="BANKID" Type="Decimal" Precision="17" Scale="0" />
+          <Property Name="KLSDOX" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="DOCNUMB" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="DOCDATE" Type="DateTime" Precision="3" />
+          <Property Name="DOCTYPE" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="SUMPAY" Type="Decimal" Precision="20" Scale="0" />
+          <Property Name="CLMFO" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="CLACC" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="CLINN" Type="String" MaxLength="9" FixedLength="false" Unicode="false" />
+          <Property Name="CLNAME" Type="String" MaxLength="160" FixedLength="false" Unicode="true" />
+          <Property Name="COMFO" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="COACC" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="COINN" Type="String" MaxLength="9" FixedLength="false" Unicode="false" />
+          <Property Name="CONAME" Type="String" MaxLength="160" FixedLength="false" Unicode="true" />
+          <Property Name="PURPOSE" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="CHAPTER" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Name="OKONH" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="FILE_ID" Type="Int64" />
+          <Property Name="OTCHISLEN" Type="Decimal" Precision="19" Scale="4" />
+          <NavigationProperty Name="KaznaFile" Relationship="Self.FK_KaznaPaymentFile_KaznaFiles" FromRole="KaznaPaymentFile" ToRole="KaznaFiles" />
+        </EntityType>
+        <Association Name="FK_KaznaPaymentFile_KaznaFiles">
+          <End Role="KaznaFiles" Type="Self.KaznaFile" Multiplicity="0..1" />
+          <End Role="KaznaPaymentFile" Type="Self.KaznaPaymentFile" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KaznaFiles">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="KaznaPaymentFile">
+              <PropertyRef Name="FILE_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="KasabaKIATEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="KaznaFiles" EntityType="Self.KaznaFile" />
+          <EntitySet Name="KaznaPaymentFiles" EntityType="Self.KaznaPaymentFile" />
+          <AssociationSet Name="FK_KaznaPaymentFile_KaznaFiles" Association="Self.FK_KaznaPaymentFile_KaznaFiles">
+            <End Role="KaznaFiles" EntitySet="KaznaFiles" />
+            <End Role="KaznaPaymentFile" EntitySet="KaznaPaymentFiles" />
+          </AssociationSet>
+          <EntitySet Name="KaznaSverkaFiles" EntityType="KasabaKIATModel.KaznaSverkaFile" />
+          <AssociationSet Name="FK_KaznaSverkaFile_KaznaFiles" Association="KasabaKIATModel.FK_KaznaSverkaFile_KaznaFiles">
+            <End Role="KaznaFile" EntitySet="KaznaFiles" />
+            <End Role="KaznaSverkaFile" EntitySet="KaznaSverkaFiles" />
+          </AssociationSet>
+          <EntitySet Name="t_egrpo" EntityType="KasabaKIATModel.t_egrpo" />
+          <FunctionImport Name="sp_im_KaznaNewOrg" />
+        </EntityContainer>
+        <EntityType Name="KaznaSverkaFile">
+          <Key>
+            <PropertyRef Name="REC_ID" />
+          </Key>
+          <Property Name="REC_ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="K_TYPE" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Name="K_OPERDAY" Type="DateTime" Precision="0" />
+          <Property Name="FILE_NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CREATE_DATETIME" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FILE_ID" Type="Int64" />
+          <NavigationProperty Name="KaznaFile" Relationship="KasabaKIATModel.FK_KaznaSverkaFile_KaznaFiles" FromRole="KaznaSverkaFile" ToRole="KaznaFile" />
+        </EntityType>
+        <Association Name="FK_KaznaSverkaFile_KaznaFiles">
+          <End Type="KasabaKIATModel.KaznaFile" Role="KaznaFile" Multiplicity="0..1" />
+          <End Type="KasabaKIATModel.KaznaSverkaFile" Role="KaznaSverkaFile" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KaznaFile">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="KaznaSverkaFile">
+              <PropertyRef Name="FILE_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="t_egrpo">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" Nullable="false" />
+          <Property Name="address" Type="String" MaxLength="1024" FixedLength="false" Unicode="false" />
+          <Property Name="close_date" Type="DateTime" Precision="3" />
+          <Property Name="close_number" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="count_workers" Type="Int32" />
+          <Property Name="s_comment" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="s_create" Type="DateTime" Precision="3" />
+          <Property Name="s_status" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="email" Type="String" MaxLength="64" FixedLength="false" Unicode="false" />
+          <Property Name="fin_xoz_work" Type="Boolean" />
+          <Property Name="name_full" Type="String" MaxLength="1024" FixedLength="false" Unicode="false" />
+          <Property Name="inn" Type="String" MaxLength="9" FixedLength="false" Unicode="false" />
+          <Property Name="liquidation" Type="Boolean" />
+          <Property Name="osn_worktype" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="phones" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="recreate" Type="Boolean" />
+          <Property Name="reg_date" Type="DateTime" Precision="3" />
+          <Property Name="reg_number" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="reg_org" Type="String" MaxLength="1024" FixedLength="false" Unicode="false" />
+          <Property Name="reorganization" Type="Boolean" />
+          <Property Name="restored" Type="Boolean" />
+          <Property Name="name_short" Type="String" MaxLength="512" FixedLength="false" Unicode="false" />
+          <Property Name="street" Type="String" MaxLength="1024" FixedLength="false" Unicode="false" />
+          <Property Name="update_doc" Type="Boolean" />
+          <Property Name="update_email" Type="Boolean" />
+          <Property Name="mail_index" Type="String" MaxLength="7" FixedLength="false" Unicode="false" />
+          <Property Name="s_user_id" Type="Int64" />
+          <Property Name="okonx_id" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="opf_id" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="fs_id" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="soato_id" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="soogu_id" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="okpo" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="BANK_ACCOUNT" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="NATIVE_ID" Type="Int64" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="KasabaKIATModelStoreContainer" CdmEntityContainer="KasabaKIATEntities">
+          <EntitySetMapping Name="KaznaFiles">
+            <EntityTypeMapping TypeName="KasabaKIATModel.KaznaFile">
+              <MappingFragment StoreEntitySet="KaznaFiles">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="FileName" ColumnName="FileName" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="KaznaPaymentFiles">
+            <EntityTypeMapping TypeName="KasabaKIATModel.KaznaPaymentFile">
+              <MappingFragment StoreEntitySet="KaznaPaymentFile">
+                <ScalarProperty Name="K_TYPE" ColumnName="K_TYPE" />
+                <ScalarProperty Name="OPERDAY" ColumnName="OPERDAY" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="BANKID" ColumnName="BANKID" />
+                <ScalarProperty Name="KLSDOX" ColumnName="KLSDOX" />
+                <ScalarProperty Name="DOCNUMB" ColumnName="DOCNUMB" />
+                <ScalarProperty Name="DOCDATE" ColumnName="DOCDATE" />
+                <ScalarProperty Name="DOCTYPE" ColumnName="DOCTYPE" />
+                <ScalarProperty Name="SUMPAY" ColumnName="SUMPAY" />
+                <ScalarProperty Name="CLMFO" ColumnName="CLMFO" />
+                <ScalarProperty Name="CLACC" ColumnName="CLACC" />
+                <ScalarProperty Name="CLINN" ColumnName="CLINN" />
+                <ScalarProperty Name="CLNAME" ColumnName="CLNAME" />
+                <ScalarProperty Name="COMFO" ColumnName="COMFO" />
+                <ScalarProperty Name="COACC" ColumnName="COACC" />
+                <ScalarProperty Name="COINN" ColumnName="COINN" />
+                <ScalarProperty Name="CONAME" ColumnName="CONAME" />
+                <ScalarProperty Name="PURPOSE" ColumnName="PURPOSE" />
+                <ScalarProperty Name="CHAPTER" ColumnName="CHAPTER" />
+                <ScalarProperty Name="OKONH" ColumnName="OKONH" />
+                <ScalarProperty Name="FILE_ID" ColumnName="FILE_ID" />
+                <ScalarProperty Name="OTCHISLEN" ColumnName="OTCHISLEN" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="KaznaSverkaFiles">
+            <EntityTypeMapping TypeName="KasabaKIATModel.KaznaSverkaFile">
+              <MappingFragment StoreEntitySet="KaznaSverkaFile">
+                <ScalarProperty Name="FILE_ID" ColumnName="FILE_ID" />
+                <ScalarProperty Name="CREATE_DATETIME" ColumnName="CREATE_DATETIME" />
+                <ScalarProperty Name="FILE_NAME" ColumnName="FILE_NAME" />
+                <ScalarProperty Name="K_OPERDAY" ColumnName="K_OPERDAY" />
+                <ScalarProperty Name="K_TYPE" ColumnName="K_TYPE" />
+                <ScalarProperty Name="REC_ID" ColumnName="REC_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="t_egrpo">
+            <EntityTypeMapping TypeName="KasabaKIATModel.t_egrpo">
+              <MappingFragment StoreEntitySet="t_egrpo">
+                <ScalarProperty Name="NATIVE_ID" ColumnName="NATIVE_ID" />
+                <ScalarProperty Name="BANK_ACCOUNT" ColumnName="BANK_ACCOUNT" />
+                <ScalarProperty Name="okpo" ColumnName="okpo" />
+                <ScalarProperty Name="soogu_id" ColumnName="soogu_id" />
+                <ScalarProperty Name="soato_id" ColumnName="soato_id" />
+                <ScalarProperty Name="fs_id" ColumnName="fs_id" />
+                <ScalarProperty Name="opf_id" ColumnName="opf_id" />
+                <ScalarProperty Name="okonx_id" ColumnName="okonx_id" />
+                <ScalarProperty Name="s_user_id" ColumnName="s_user_id" />
+                <ScalarProperty Name="mail_index" ColumnName="mail_index" />
+                <ScalarProperty Name="update_email" ColumnName="update_email" />
+                <ScalarProperty Name="update_doc" ColumnName="update_doc" />
+                <ScalarProperty Name="street" ColumnName="street" />
+                <ScalarProperty Name="name_short" ColumnName="name_short" />
+                <ScalarProperty Name="restored" ColumnName="restored" />
+                <ScalarProperty Name="reorganization" ColumnName="reorganization" />
+                <ScalarProperty Name="reg_org" ColumnName="reg_org" />
+                <ScalarProperty Name="reg_number" ColumnName="reg_number" />
+                <ScalarProperty Name="reg_date" ColumnName="reg_date" />
+                <ScalarProperty Name="recreate" ColumnName="recreate" />
+                <ScalarProperty Name="phones" ColumnName="phones" />
+                <ScalarProperty Name="osn_worktype" ColumnName="osn_worktype" />
+                <ScalarProperty Name="liquidation" ColumnName="liquidation" />
+                <ScalarProperty Name="inn" ColumnName="inn" />
+                <ScalarProperty Name="name_full" ColumnName="name_full" />
+                <ScalarProperty Name="fin_xoz_work" ColumnName="fin_xoz_work" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="s_status" ColumnName="s_status" />
+                <ScalarProperty Name="s_create" ColumnName="s_create" />
+                <ScalarProperty Name="s_comment" ColumnName="s_comment" />
+                <ScalarProperty Name="count_workers" ColumnName="count_workers" />
+                <ScalarProperty Name="close_number" ColumnName="close_number" />
+                <ScalarProperty Name="close_date" ColumnName="close_date" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="sp_im_KaznaNewOrg" FunctionName="KasabaKIATModel.Store.sp_im_KaznaNewOrg" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

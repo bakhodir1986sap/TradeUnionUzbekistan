@@ -10,7 +10,7 @@ namespace KasabaKIAT.ViewModel.Buxgalteriya
       public long       rec_id             {get; set;}
       public string     department_base    {get; set;}
       public long?      userid             {get; set;}
-      public int        year               {get; set;}
+      public int?        year               {get; set;}
       public string     soato_code         {get; set;}
       public string     item_code          {get; set;}
       public string     item_name          {get; set;}

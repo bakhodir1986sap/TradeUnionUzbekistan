@@ -189,7 +189,7 @@
                         });
                     })
                 ]).then(function (ru_text) {
-                    doc.addImage(ru_text[0], 'JPEG', 10, 10, (width - 20), (height - 20), 'monkey');
+                    doc.addImage(ru_text[0], 'JPEG', 10, 10, (width - 20), (height - 20)/2, 'monkey');
                     //doc.text(0, 10, 'Non-utf-8-string');
 
                     doc.save('Платежное поручение.pdf');

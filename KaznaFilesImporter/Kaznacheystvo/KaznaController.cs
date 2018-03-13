@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.IO;
 using System.Linq;
 using System.Web;
 
@@ -22,6 +23,15 @@ namespace KasabaKIAT.BusinessLogic.BankOplati.Kaznacheystvo
             string filePath = ConfigurationManager.AppSettings["RecieveFilePath"];
             string arxivePath = ConfigurationManager.AppSettings["ArxiveFilePath"];
 
+            if (!Directory.Exists(filePath))
+            {
+                Directory.CreateDirectory(filePath);
+            }
+
+            if (!Directory.Exists(arxivePath))
+            {
+                Directory.CreateDirectory(arxivePath);
+            }
 
             _logService.Info("File Path: " + filePath);
             _logService.Info("Arxive Directory: " + arxivePath);

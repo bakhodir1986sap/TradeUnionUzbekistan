@@ -4,7 +4,12 @@
     $scope.showdata = false;
     $scope.ZB = new Date
     $scope.ZE = new Date();
-    function GetData(Bdt,Edt,s,b) {
+    function GetData(Bdt, Edt, s, b) {
+        document.getElementById('connection').style.visibility = "visible";
+        $("#hh").modal({
+            backdrop: 'static',
+            backdrop: 'static'
+        });
         $http({
             method: "post",
             url: "/Otchot/GetSvodniyOtchot?Begindt=" + Bdt.toISOString() + "&Enddt=" + Edt.toISOString() + "&Soato=" + s + "&Branch=" + b,
@@ -16,8 +21,12 @@
             else {
                 $scope.showdata = false;
             }
+            document.getElementById('connection').style.visibility = "hidden";
+            $("#hh").modal('hide');
         }, function () {
             alertify.error("ошибка");
+            document.getElementById('connection').style.visibility = "hidden";
+            $("#hh").modal('hide');
         });
     }
     $scope.Region = {
@@ -60,7 +69,7 @@
     $scope.Clear = function () {
         $scope.Region.id = 1726;
         $scope.Otrasl.id = 'А1';
-        $scope.ZB = $filter('date')(new Date(), 'dd.MM.yyyy');
-        $scope.ZE = $filter('date')(new Date(), 'dd.MM.yyyy');
+        $scope.ZB = new Date
+        $scope.ZE = new Date();
     }
 }]);

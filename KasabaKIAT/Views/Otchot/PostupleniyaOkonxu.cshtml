@@ -1,0 +1,78 @@
+﻿@{
+    ViewBag.Title = "Отчеты";
+}
+<script src="~/Scripts/MyJavaScript/PostupleniyaOkonxu.js"></script>
+<div ng-controller="PostupleniyaOkonxu">
+    <div id="connection" style="visibility:hidden;position:absolute;margin-left:600px;margin-top:100px;z-index:9999">
+        <img src="~/Content/Login/buffering.gif" />
+    </div>
+    <section class="content__block container">
+        <div class="row mb-4 align-items-center">
+            <div class="col title__block">
+                <h4>Поступление Группированно По Оконху</h4>
+                <nav aria-label="breadcrumb" class="breadcrumb__block">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item load"><a href="/Home/Otchot">Отчеты</a></li>
+                        <li class="breadcrumb-item load"><a href="/Otchot/index">Отчеты</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Поступление Группированно По Оконху</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+        <form name="myForm1" novalidate>
+            <div class="row mb-4 align-items-center">
+                <div>
+                    <p>Регион:</p>
+                    <select style="width:200px" ng-model="Region" name="Region" required ng-options="d as d.value for d in R track by d.id" class="custom-select form-control"></select>
+                    <span class="alert alert-warning" style="padding:0px" ng-show="myForm1.Region.$error.required">Выберите поле</span>
+                </div>
+                <div style="margin-left:100px">
+                    <p>Период с:</p>
+                    <input class="form-control" style="width:200px;" required type="date" ng-model="ZB" id="ZAEZD_BEGIN" name="ZAEZD_BEGIN" />
+                    <span class="alert alert-warning" style="padding:0px" ng-show="myForm1.ZAEZD_BEGIN.$error.required">Выберите поле</span>
+                </div>
+                <div style="margin-left:100px">
+                    <p>Период по:</p>
+                    <input class="form-control" style="width:200px;" required type="date" ng-model="ZE" id="ZAEZD_END" name="ZAEZD_END" />
+                    <span class="alert alert-warning" style="padding:0px" ng-show="myForm1.ZAEZD_END.$error.required">Выберите поле</span>
+                </div>
+            </div>
+            <div class="row mb-4 align-items-center">
+                <div>
+                    <button ng-click="LoadDATA()" ng-disabled="myForm1.ZAEZD_BEGIN.$error.required||myForm1.ZAEZD_END.$error.required" class="btn btn-blue d-block d-md-inline-block mb-2"> ПОКАЗАТ</button>
+                </div>
+                <div>
+                    <button ng-click="Clear()" style="margin-left:200px" class="btn btn-default d-block d-md-inline-block mb-2"> ОЧИСТИТЬ ФИЛЬТР</button>
+                </div>
+                <div>
+                    <button ng-show="showdata" ng-click="exportData()" class="btn btn-green d-block d-md-inline-block mb-3 mb-md-0" style="margin-left:500px"><i class="fas fa-file-excel"></i> Экспорт</button>
+                </div>
+            </div>
+        </form>
+        <div class="table-responsive box-shadow mb-4" ng-show="showdata" id="export">
+            <table class="table table__block t-hover">
+                <thead>
+                    <tr>
+                        <th style="text-align:center">Сумма отрасли</th>
+                        <th style="text-align:center">ОКОНХ</th>
+                        <th style="text-align:center">Количество Строк</th>
+                        <th style="text-align:center">Общая сумма</th>
+                        <th style="text-align:center">Сумма отрасли</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="poin" ng-repeat="item in DATA">
+                        <td style="text-align:center">{{item.d1}}</td>
+                        <td style="text-align:center">{{item.d2}}</td>
+                        <td style="text-align:center">{{item.d3}}</td>
+                        <td style="text-align:center">{{item.d4}}</td>
+                        <td style="text-align:center">{{item.d5}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+</div>
+
+
+

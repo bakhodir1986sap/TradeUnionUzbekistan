@@ -317,6 +317,9 @@
     <Compile Include="BusinessLogic\BankOplati\Kaznacheystvo\KaznaController.cs" />
     <Compile Include="BusinessLogic\BankOplati\Kaznacheystvo\KaznaFiles.cs" />
     <Compile Include="BusinessLogic\BankOplati\Kaznacheystvo\KaznaFilesDataManager.cs" />
+    <Compile Include="Models\KaznaSverkaFile.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\sp_get_BankPaymentCompanyYearlyQ_Result.cs">
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
@@ -371,6 +374,21 @@
     <Compile Include="Models\sp_rt_FormaN13_Result.cs">
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\sp_rt_Postupleniya_Result.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_rt_Razbivka_Postup_OblastGroup_Result.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_rt_Razbivka_Postup_OkonxGroup_Result.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_rt_Razbivka_Postup_OtraslGroup_Result.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_rt_Razbivka_Postup_Result.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\sp_rt_SvodniyOtchet_Result.cs">
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
@@ -393,6 +411,9 @@
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tbbu_provodki.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tbgl_balance.cs">
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tbgl_bankpayments.cs">
@@ -625,9 +646,6 @@
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tbgl_accounttype.cs">
-      <DependentUpon>KasabaKIAT.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\tbgl_balance.cs">
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tbgl_jnldd.cs">
@@ -1002,13 +1020,22 @@
     <Content Include="Content\main.css" />
     <Content Include="Content\open-iconic-bootstrap.css" />
     <Content Include="Content\styles\main.css" />
+    <Content Include="Content\styles\vendor.css" />
     <Content Include="Content\themes\alertify.bootstrap.css" />
     <Content Include="Content\themes\alertify.core.css" />
     <Content Include="Content\themes\alertify.default.css" />
     <Content Include="Content\ui-bootstrap-csp.css" />
     <Content Include="favicon.ico" />
-    <Content Include="fonts\fontawesome-webfont.svg" />
-    <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="fonts\OpenSans-Bold.svg" />
+    <Content Include="fonts\OpenSans-BoldItalic.svg" />
+    <Content Include="fonts\OpenSans-ExtraBold.svg" />
+    <Content Include="fonts\OpenSans-ExtraBoldItalic.svg" />
+    <Content Include="fonts\OpenSans-Italic.svg" />
+    <Content Include="fonts\OpenSans-Light.svg" />
+    <Content Include="fonts\OpenSans-LightItalic.svg" />
+    <Content Include="fonts\OpenSans-Regular.svg" />
+    <Content Include="fonts\OpenSans-Semibold.svg" />
+    <Content Include="fonts\OpenSans-SemiboldItalic.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Models\KasabaKIAT.Context.tt">
@@ -1044,21 +1071,46 @@
       <DependentUpon>KasabaKIAT.edmx</DependentUpon>
     </Content>
     <Content Include="Content\styles\all.css" />
-    <Content Include="fonts\fontawesome-webfont.eot" />
-    <Content Include="fonts\fontawesome-webfont.ttf" />
-    <Content Include="fonts\fontawesome-webfont.woff" />
-    <Content Include="fonts\fontawesome-webfont.woff2" />
-    <Content Include="fonts\FontAwesome.otf" />
+    <Content Include="fonts\OpenSans-Bold.eot" />
     <Content Include="fonts\OpenSans-Bold.ttf" />
+    <Content Include="fonts\OpenSans-Bold.woff" />
+    <Content Include="fonts\OpenSans-Bold.woff2" />
+    <Content Include="fonts\OpenSans-BoldItalic.eot" />
     <Content Include="fonts\OpenSans-BoldItalic.ttf" />
+    <Content Include="fonts\OpenSans-BoldItalic.woff" />
+    <Content Include="fonts\OpenSans-BoldItalic.woff2" />
+    <Content Include="fonts\OpenSans-ExtraBold.eot" />
     <Content Include="fonts\OpenSans-ExtraBold.ttf" />
+    <Content Include="fonts\OpenSans-ExtraBold.woff" />
+    <Content Include="fonts\OpenSans-ExtraBold.woff2" />
+    <Content Include="fonts\OpenSans-ExtraBoldItalic.eot" />
     <Content Include="fonts\OpenSans-ExtraBoldItalic.ttf" />
+    <Content Include="fonts\OpenSans-ExtraBoldItalic.woff" />
+    <Content Include="fonts\OpenSans-ExtraBoldItalic.woff2" />
+    <Content Include="fonts\OpenSans-Italic.eot" />
     <Content Include="fonts\OpenSans-Italic.ttf" />
+    <Content Include="fonts\OpenSans-Italic.woff" />
+    <Content Include="fonts\OpenSans-Italic.woff2" />
+    <Content Include="fonts\OpenSans-Light.eot" />
     <Content Include="fonts\OpenSans-Light.ttf" />
+    <Content Include="fonts\OpenSans-Light.woff" />
+    <Content Include="fonts\OpenSans-Light.woff2" />
+    <Content Include="fonts\OpenSans-LightItalic.eot" />
     <Content Include="fonts\OpenSans-LightItalic.ttf" />
+    <Content Include="fonts\OpenSans-LightItalic.woff" />
+    <Content Include="fonts\OpenSans-LightItalic.woff2" />
+    <Content Include="fonts\OpenSans-Regular.eot" />
     <Content Include="fonts\OpenSans-Regular.ttf" />
+    <Content Include="fonts\OpenSans-Regular.woff" />
+    <Content Include="fonts\OpenSans-Regular.woff2" />
+    <Content Include="fonts\OpenSans-Semibold.eot" />
     <Content Include="fonts\OpenSans-Semibold.ttf" />
+    <Content Include="fonts\OpenSans-Semibold.woff" />
+    <Content Include="fonts\OpenSans-Semibold.woff2" />
+    <Content Include="fonts\OpenSans-SemiboldItalic.eot" />
     <Content Include="fonts\OpenSans-SemiboldItalic.ttf" />
+    <Content Include="fonts\OpenSans-SemiboldItalic.woff" />
+    <Content Include="fonts\OpenSans-SemiboldItalic.woff2" />
     <None Include="Properties\PublishProfiles\WebKIAT.pubxml" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -1103,11 +1155,16 @@
     <Content Include="Scripts\MyJavaScript\O_SOZController.js" />
     <Content Include="Scripts\MyJavaScript\O_TController.js" />
     <Content Include="Scripts\MyJavaScript\PlatejnoyePorucheniye.js" />
+    <Content Include="Scripts\MyJavaScript\Postupleniya.js" />
+    <Content Include="Scripts\MyJavaScript\PostupleniyaOblastyam.js" />
+    <Content Include="Scripts\MyJavaScript\PostupleniyaOkonxu.js" />
+    <Content Include="Scripts\MyJavaScript\PostupleniyaOtrasli.js" />
     <Content Include="Scripts\MyJavaScript\PPController.js" />
     <Content Include="Scripts\MyJavaScript\ProsmotrRealzPutevok.js" />
     <Content Include="Scripts\MyJavaScript\PRZController.js" />
     <Content Include="Scripts\MyJavaScript\PZController.js" />
     <Content Include="Scripts\MyJavaScript\RaspredeleniyeZaezdov.js" />
+    <Content Include="Scripts\MyJavaScript\RazbivkaPostupleniya.js" />
     <Content Include="Scripts\MyJavaScript\RealizatsiyaPutevok.js" />
     <Content Include="Scripts\MyJavaScript\RZController.js" />
     <Content Include="Scripts\MyJavaScript\SchetFaktura.js" />
@@ -1202,6 +1259,11 @@
     <Content Include="Views\PrixodPutevok\ProsmotrRealzPutevok.cshtml" />
     <Content Include="Views\PrixodPutevok\SverkaDannix.cshtml" />
     <Content Include="Views\Administirirovaniye\SozdaniyeRoley.cshtml" />
+    <Content Include="Views\Otchot\Postupleniya.cshtml" />
+    <Content Include="Views\Otchot\RazbivkaPostupleniya.cshtml" />
+    <Content Include="Views\Otchot\PostupleniyaOblastyam.cshtml" />
+    <Content Include="Views\Otchot\PostupleniyaOtrasli.cshtml" />
+    <Content Include="Views\Otchot\PostupleniyaOkonxu.cshtml" />
     <None Include="Web References\KurortUrlService\SkuTradeUnionExchg.wsdl" />
     <Content Include="Web References\KurortUrlService\typeGrafikZaezdovSanatoriev.datasource">
       <DependentUpon>Reference.map</DependentUpon>
@@ -1227,9 +1289,6 @@
     <Folder Include="BusinessLogic\Security\Roles\Users\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="fonts\glyphicons-halflings-regular.woff" />
-    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
-    <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />

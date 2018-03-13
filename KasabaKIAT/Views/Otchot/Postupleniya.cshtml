@@ -1,0 +1,123 @@
+﻿
+@{
+    ViewBag.Title = "Отчеты";
+}
+<script src="~/Scripts/MyJavaScript/Postupleniya.js"></script>
+<div ng-controller="Postupleniya">
+    <div id="connection" style="visibility:hidden;position:absolute;margin-left:600px;margin-top:100px;z-index:9999">
+        <img src="~/Content/Login/buffering.gif" />
+    </div>
+    <section class="content__block container">
+        <div class="row mb-4 align-items-center">
+            <div class="col title__block">
+                <h4>Поступления</h4>
+                <nav aria-label="breadcrumb" class="breadcrumb__block">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item load"><a href="/Home/Otchot">Отчеты</a></li>
+                        <li class="breadcrumb-item load"><a href="/Otchot/index">Отчеты</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Поступления</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+        <form class="row mb-5" name="myForm2" novalidate>
+            <div class="col-lg-7">
+                <div class="row">
+                    <div class="col-md-4 form-group">
+                        <input type="text" required class="custom-select form-control" name="INN" ng-model="INN" ng-maxlength="9" ng-minlength="9" ng-change="LoadINN()" placeholder="Инн" />
+                        <span class="alert alert-warning" style="padding:0px" ng-show="myForm2.INN.$error.required">заполнить поле</span>
+                        <span class="alert alert-warning" style="padding:0px" ng-show="!myForm2.INN.$error.required&&!myForm2.INN.$valid">9 шт. номер</span>
+                    </div>
+                    <div class="col-md-4 form-group">
+                        <button ng-show="showdata" ng-click="exportData()" class="btn btn-green d-block d-md-inline-block mb-3 mb-md-0" style="margin-left:700px"><i class="fas fa-file-excel"></i> Экспорт</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+       
+        <div class="table-responsive box-shadow mb-4" ng-show="showdata" id="export">
+            <table class="table table__block t-hover">
+                <thead>
+                    <tr>
+                        <th>Тип строки</th>
+                        <th>Банковский опердень</th>
+                        <th>
+                            Уникальный <br />
+                            ID поступления в <br />
+                            казначействе
+                        </th>
+                        <th>Уникальный ID банка</th>
+                        <th>
+                            Казначейский лицевой <br />
+                            счет дохода
+                        </th>
+                        <th>Номер документа</th>
+                        <th>Дата документа</th>
+                        <th>Тип документа</th>
+                        <th>Сумма документа</th>
+                        <th>МФО плательщика</th>
+                        <th>
+                            Банковский счет <br />
+                            плательщика
+                        </th>
+                        <th>ИНН плательщика</th>
+                        <th>
+                            Наименование счета <br />
+                            плательщика
+                        </th>
+                        <th>МФО получателя</th>
+                        <th>
+                            Банковский счет <br />
+                            получателя
+                        </th>
+                        <th>ИНН получателя</th>
+                        <th>
+                            Наименование счета <br />
+                            получателя
+                        </th>
+                        <th>Детали платежа</th>
+                        <th>
+                            Код организационной <br />
+                            классификации <br />
+                            плательщика
+                        </th>
+                        <th>ОКОНХ плательщика</th>
+                        <th>Файл ИД</th>
+                        <th>Отчислен</th>
+                        <th>Имя файла</th>
+                        <th>Дата создания файла</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="poin" ng-repeat="item in DATA">
+                        <td style="text-align:center">{{item.d1}}</td>
+                        <td style="text-align:center">{{item.d2 | jsonDate: 'dd.MM.yyyy'}}</td>
+                        <td style="text-align:center">{{item.d3}}</td>
+                        <td style="text-align:center">{{item.d4}}</td>
+                        <td style="text-align:center">{{item.d5}}</td>
+                        <td style="text-align:center">{{item.d6}}</td>
+                        <td style="text-align:center">{{item.d7 | jsonDate: 'dd.MM.yyyy'}}</td>
+                        <td style="text-align:center">{{item.d8}}</td>
+                        <td style="text-align:center">{{item.d9}} kv</td>
+                        <td style="text-align:center">{{item.d10}}</td>
+                        <td style="text-align:center">{{item.d11}}</td>
+                        <td style="text-align:center">{{item.d12}}</td>
+                        <td style="text-align:center">{{item.d13}}</td>
+                        <td style="text-align:center">{{item.d14}}</td>
+                        <td style="text-align:center">{{item.d15}}</td>
+                        <td style="text-align:center">{{item.d16}}</td>
+                        <td style="text-align:center">{{item.d17}}</td>
+                        <td style="text-align:center">{{item.d18}}</td>
+                        <td style="text-align:center">{{item.d19}}</td>
+                        <td style="text-align:center">{{item.d20}}</td>
+                        <td style="text-align:center">{{item.d21}} kv</td>
+                        <td style="text-align:center">{{item.d22}}</td>
+                        <td style="text-align:center">{{item.d23}}</td>
+                        <td style="text-align:center">{{item.d24 | jsonDate: 'dd.MM.yyyy'}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+</div>
+

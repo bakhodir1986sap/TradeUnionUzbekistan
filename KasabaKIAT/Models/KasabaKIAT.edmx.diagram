@@ -347,13 +347,15 @@
         <EntityTypeShape EntityType="KasabaKIATModel.tblVipl_NumGEn" Width="1.5" PointX="16.375" PointY="19.75" />
         <EntityTypeShape EntityType="KasabaKIATModel.tbpt_putyovka_statechange" Width="1.5" PointX="18.375" PointY="19.75" />
         <EntityTypeShape EntityType="KasabaKIATModel.tbgl_bankpayments" Width="1.5" PointX="20.375" PointY="5.75" />
-        <EntityTypeShape EntityType="KasabaKIATModel.tbgl_balance" Width="1.5" PointX="22.5" PointY="230.625" />
-        <AssociationConnector Association="KasabaKIATModel.FK_tbgl_balance_users" />
-        <EntityTypeShape EntityType="KasabaKIATModel.tbgl_jnlmst" Width="1.5" PointX="22.5" PointY="270" />
-        <AssociationConnector Association="KasabaKIATModel.tbgl_jnlmst_1" />
         <EntityTypeShape EntityType="KasabaKIATModel.tbbu_platejka" Width="1.5" PointX="20.375" PointY="11.75" />
         <EntityTypeShape EntityType="KasabaKIATModel.tbbu_provodki" Width="1.5" PointX="20.375" PointY="17.75" />
         <EntityTypeShape EntityType="KasabaKIATModel.tbbu_planbyudjetregion" Width="1.5" PointX="22.375" PointY="0.75" />
+        <EntityTypeShape EntityType="KasabaKIATModel.KaznaSverkaFile" Width="1.5" PointX="8" PointY="22.625" />
+        <AssociationConnector Association="KasabaKIATModel.FK_KaznaSverkaFile_KaznaFiles" />
+        <EntityTypeShape EntityType="KasabaKIATModel.tbgl_balance" Width="1.5" PointX="22.5" PointY="282.75" />
+        <EntityTypeShape EntityType="KasabaKIATModel.tbgl_jnlmst" Width="1.5" PointX="22.5" PointY="230.5" />
+        <AssociationConnector Association="KasabaKIATModel.FK_tbgl_balance_users" />
+        <AssociationConnector Association="KasabaKIATModel.tbgl_jnlmst_1" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -148,6 +148,206 @@ namespace KasabaKIAT.Controllers
                        };
             return Json(list.ToList(), JsonRequestBehavior.AllowGet);
         }
+        public ActionResult Postupleniya()
+        {
+            return View();
+        }
+        public JsonResult GetPostupleniya(string inn)
+        {
+            log.Info("GetPostupleniya");
+            log.Info("inn = " + inn);
+            try
+            {
+                var data = KasabaDB.sp_rt_Postupleniya(inn);
+                var O = from o in data
+                        select new
+                        {
+                            d1 = o.K_TYPE,
+                            d2 = o.OPERDAY,
+                            d3 = o.ID,
+                            d4 = o.BANKID,
+                            d5 = o.KLSDOX,
+                            d6 = o.DOCNUMB,
+                            d7 = o.DOCDATE,
+                            d8 = o.DOCTYPE,
+                            d9 = o.SUMPAY,
+                            d10 =o.CLMFO,
+                            d11 =o.CLACC,
+                            d12 =o.CLINN,
+                            d13 =o.CLNAME,
+                            d14 =o.COMFO,
+                            d15 =o.COACC,
+                            d16=o.COINN,
+                            d17=o.CONAME,
+                            d18=o.PURPOSE,
+                            d19=o.CHAPTER,
+                            d20=o.OKONH,
+                            d21=o.FILE_ID,//
+                            d22=o.OTCHISLEN,//
+                            d23=o.FileName,//
+                            d24=o.CreateDate// 
+                        };
+
+                //log.Info("Count = " + O.ToList().Count);
+
+                return Json(O.ToList(), JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                log.Info(ex);
+            }
+            return null;
+        }
+        public ActionResult RazbivkaPostupleniya()
+        {
+            return View();
+        }
+        public JsonResult GetRazbivkaPostupleniya(string s,string b,DateTime? bg,DateTime? end)
+        {
+            log.Info("GetPostupleniya");
+            log.Info("SOATO = " + s);
+            log.Info("BRANCH = " + b);
+            log.Info("BEGIN_DATE = " + bg);
+            log.Info("END_DATE = " + end);
+            try
+            {
+                var data = KasabaDB.sp_rt_Razbivka_Postup(s, b, bg, end);
+                var O = from o in data
+                        select new
+                        {
+                            d1 = o.K_TYPE,
+                            d2 = o.OPERDAY,
+                            d3 = o.ID,
+                            d4 = o.BANKID,
+                            d5 = o.KLSDOX,
+                            d6 = o.DOCNUMB,
+                            d7 = o.DOCDATE,
+                            d8 = o.DOCTYPE,
+                            d9 = o.SUMPAY,
+                            d10 = o.CLMFO,
+                            d11 = o.CLACC,
+                            d12 = o.CLINN,
+                            d13 = o.CLNAME,
+                            d14 = o.COMFO,
+                            d15 = o.COACC,
+                            d16 = o.COINN,
+                            d17 = o.CONAME,
+                            d18 = o.PURPOSE,
+                            d19 = o.CHAPTER,
+                            d20 = o.OKONH,
+                            d21 = o.FILE_ID,//
+                            d22 = o.OTCHISLEN,//
+                            //d23 = o.FileName,//
+                            //d24 = o.CreateDate// 
+                        };
+
+                //log.Info("Count = " + O.ToList().Count);
+
+                return Json(O.ToList(), JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                log.Info(ex);
+            }
+            return null;
+        }
+        public ActionResult PostupleniyaOblastyam()
+        {
+            return View();
+        }
+        public JsonResult GetPostupleniyaOblastyam(DateTime? bg, DateTime? end)
+        {
+            log.Info("GetPostupleniyaOblastyam");
+            log.Info("BEGIN_DATE = " + bg);
+            log.Info("END_DATE = " + end);
+            try
+            {
+                var data = KasabaDB.sp_rt_Razbivka_Postup_OblastGroup(bg, end);
+                var O = from o in data
+                        select new
+                        {
+                            d1 = o.OblastName,
+                            d2 = o.Kolichestvo,
+                            d3 = o.TOTALSUM,
+                            d4 = o.OBLASTSUM,
+                        };
+
+                //log.Info("Count = " + O.ToList().Count);
+
+                return Json(O.ToList(), JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                log.Info(ex);
+            }
+            return null;
+        }
+        public ActionResult PostupleniyaOtrasli()
+        {
+            return View();
+        }
+        public JsonResult GetPostupleniyaOtrasli(string s, DateTime? bg, DateTime? end)
+        {
+            log.Info("GetPostupleniyaOtrasli");
+            log.Info("SOATO = " + s);
+            log.Info("BEGIN_DATE = " + bg);
+            log.Info("END_DATE = " + end);
+            try
+            {
+                var data = KasabaDB.sp_rt_Razbivka_Postup_OtraslGroup(s, bg, end);
+                var O = from o in data
+                        select new
+                        {
+                            d1 = o.OblastName,
+                            d2 = o.otraslName,
+                            d3 = o.Kolichestvo,
+                            d4 = o.TOTALSUM,
+                            d5 = o.OBLASTSUM,
+                        };
+
+                //log.Info("Count = " + O.ToList().Count);
+
+                return Json(O.ToList(), JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                log.Info(ex);
+            }
+            return null;
+        }
+        public ActionResult PostupleniyaOkonxu()
+        {
+            return View();
+        }
+        public JsonResult GetPostupleniyaOkonxu(string s, DateTime? bg, DateTime? end)
+        {
+            log.Info("GetPostupleniyaOkonxu");
+            log.Info("SOATO = " + s);
+            log.Info("BEGIN_DATE = " + bg);
+            log.Info("END_DATE = " + end);
+            try
+            {
+                var data = KasabaDB.sp_rt_Razbivka_Postup_OkonxGroup(s, bg, end);
+                var O = from o in data
+                        select new
+                        {
+                            d1=o.OblastName,
+                            d2 = o.OkonxName,
+                            d3 = o.Kolichestvo,
+                            d4 = o.TOTALSUM,
+                            d5 = o.OBLASTSUM,
+                        };
+
+                //log.Info("Count = " + O.ToList().Count);
+
+                return Json(O.ToList(), JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                log.Info(ex);
+            }
+            return null;
+        }
         public JsonResult GetOtrasl()
         {
             var O = from o in KasabaDB.sp_branch

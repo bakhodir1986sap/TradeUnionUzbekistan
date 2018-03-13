@@ -172,7 +172,8 @@
                     new Promise(function (resolve) {
                         var temp = document.createElement("div");
                         temp.id = "temp";
-                        temp.style = "color: black;margin:0px;font-size:20px;";
+                        temp.style = "color:black;margin:0px;font-size:20px;";
+                        //black
                         phrase = utf_8_string_to_render;
                         //temp.innerHTML = phrase;
                         //need to render element, otherwise it won't be displayed
@@ -189,7 +190,7 @@
                         });
                     })
                 ]).then(function (ru_text) {
-                    doc.addImage(ru_text[0], 'JPEG', 10, 10, (width - 20), (height - 20)/2, 'monkey');
+                    doc.addImage(ru_text[0], 'JPEG', 10, 10, (width - 20), (height - 20)/2);
                     //doc.text(0, 10, 'Non-utf-8-string');
 
                     doc.save('Платежное поручение.pdf');

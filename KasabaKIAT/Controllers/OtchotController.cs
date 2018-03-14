@@ -237,12 +237,14 @@ namespace KasabaKIAT.Controllers
                             d20 = o.OKONH,
                             d21 = o.FILE_ID,//
                             d22 = o.OTCHISLEN,//
-                            //d23 = o.FileName,//
-                            //d24 = o.CreateDate// 
+                            d23 = o.SUMMATOTAL,//
+                            d24 = o.FEDERATIONSUM,// 
+                            d25 = o.OBLASTSUM,
+                            d26 = o.OblastName,
+                            d27 = o.OkonxName,
+                            d28 = o.otraslName
                         };
-
                 //log.Info("Count = " + O.ToList().Count);
-
                 return Json(O.ToList(), JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
@@ -356,18 +358,24 @@ namespace KasabaKIAT.Controllers
                         id = o.code,
                         value = o.name_uz
                     };
-            return Json(O.ToList(), JsonRequestBehavior.AllowGet);
+            var resList = O.ToList();
+
+            resList.Insert(0, new { id = "0", value = "Все" });
+            return Json(resList, JsonRequestBehavior.AllowGet);
         }
         public JsonResult GetRegion()
         {
-            var R = from r in KasabaDB.sp_soato
-                    where r.parent_code == "17"
-                    select new
-                    {
-                        id = r.code,
-                        value = r.name_uz
-                    };
-            return Json(R, JsonRequestBehavior.AllowGet);
+            var R = (from r in KasabaDB.sp_soato
+                     where r.parent_code == "17"
+                     select new
+                     {
+                         id = r.code,
+                         value = r.name_uz
+                     });
+            var resList = R.ToList();
+
+            resList.Insert(0, new { id = "0", value = "Все" });
+            return Json(resList, JsonRequestBehavior.AllowGet);
         }
     }
 }

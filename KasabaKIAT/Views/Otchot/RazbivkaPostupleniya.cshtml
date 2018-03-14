@@ -44,7 +44,7 @@
             </div>
             <div class="row mb-4 align-items-center">
                 <div>
-                    <button ng-click="LoadDATA()" ng-disabled="myForm1.ZAEZD_BEGIN.$error.required||myForm1.ZAEZD_END.$error.required" class="btn btn-blue d-block d-md-inline-block mb-2"> ПОКАЗАТ</button>
+                    <button ng-click="LoadDATA()" ng-disabled="myForm1.ZAEZD_BEGIN.$error.required||myForm1.ZAEZD_END.$error.required" class="btn btn-blue d-block d-md-inline-block mb-2"> Показать</button>
                 </div>
                 <div>
                     <button ng-click="Clear()" style="margin-left:200px" class="btn btn-default d-block d-md-inline-block mb-2"> ОЧИСТИТЬ ФИЛЬТР</button>
@@ -118,8 +118,12 @@
                         <th>ОКОНХ плательщика</th>
                         <th>Файл ИД</th>
                         <th>Отчислен</th>
-                        @*<th>Имя файла</th>
-                        <th>Дата создания файла</th>*@
+                        <th>Общая сумма для правсоюза</th>
+                        <th>Сумма Федерации</th>
+                        <th>Сумма области</th>
+                        <th>Название области</th>
+                        <th>ОКОНХ</th>
+                        <th>Отрасль</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -138,16 +142,20 @@
                         <td style="text-align:center">{{item.d12}}</td>
                         <td style="text-align:center">{{item.d13}}</td>
                         <td style="text-align:center">{{item.d14}}</td>
-                        <td style="text-align:center">{{item.d15}} kv</td>
+                        <td style="text-align:center">{{item.d15}}</td>
                         <td style="text-align:center">{{item.d16}}</td>
                         <td style="text-align:center">{{item.d17}}</td>
                         <td style="text-align:center">{{item.d18}}</td>
                         <td style="text-align:center">{{item.d19}}</td>
                         <td style="text-align:center">{{item.d20}}</td>
-                        <td style="text-align:center">{{item.d21}} kv</td>
+                        <td style="text-align:center">{{item.d21}}</td>
                         <td style="text-align:center">{{item.d22}}</td>
-                        @*<td style="text-align:center">{{item.d23}}</td>
-                        <td style="text-align:center">{{item.d24 | jsonDate: 'dd.MM.yyyy'}}</td>*@
+                        <td style="text-align:center">{{item.d23}}</td>
+                        <td style="text-align:center">{{item.d24}}</td>
+                        <td style="text-align:center">{{item.d25}}</td>
+                        <td style="text-align:center">{{item.d26}}</td>
+                        <td style="text-align:center">{{item.d27}}</td>
+                        <td style="text-align:center">{{item.d28}}</td>
                     </tr>
                 </tbody>
             </table>

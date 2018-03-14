@@ -30,11 +30,11 @@
         });
     }
     $scope.Region = {
-        id: 1726,
+        id: 0,
         value: ''
     };
     $scope.Otrasl = {
-        id: 'А1',
+        id: '0',
         value: ''
     };
     function AllRegion() {
@@ -67,8 +67,8 @@
         GetData($scope.ZB,$scope.ZE,$scope.Region.id, $scope.Otrasl.id);
     };
     $scope.Clear = function () {
-        $scope.Region.id = 1726;
-        $scope.Otrasl.id = 'А1';
+        $scope.Region.id = 0;
+        $scope.Otrasl.id = '0';
         $scope.ZB = new Date
         $scope.ZE = new Date();
     }

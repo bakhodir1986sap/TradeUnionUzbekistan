@@ -99,7 +99,9 @@ namespace KasabaKIAT.Controllers
                            d3 = d.rest_begin_date,
                            d4 = d.full_name,
                            d5 = d.price,
-                           d6=d.payment_persent
+                           d6=d.payment_persent,
+                           d7=d.org_inn,
+                           d8=d.nakladnoy_nomer,
                        };
             return Json(list.ToList(), JsonRequestBehavior.AllowGet);
         }

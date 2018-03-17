@@ -1,5 +1,9 @@
 ﻿app.controller("RealizatsiyaPutevok", ["$scope", "$http", "$filter", "DataService", "CalcService", function ($scope, $http, $filter, DataService, CalcService) {
     //$scope.INN = "200382518";
+    var zb = new Date();// ? $filter('date')(parseInt(new Date().substr(6)), 'dd.MM.yyyy') : '';
+    $scope.sana = zb.getDay();
+    $scope.oy = zb.getMonth();
+    $scope.yil = zb.getFullYear();
     LoadDATA();
     //GetOR();
     $scope.showdata = false;
@@ -327,4 +331,53 @@
         });
     }
     //======================================//
+    $scope.exportData = function () {
+        var blob = new Blob([document.getElementById('export').innerHTML], {
+            type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=utf-8"
+        });
+        saveAs(blob, "Реализация путевок.xls");
+    };
+    $scope.exportData1 = function () {
+        document.getElementById('connection').style.visibility = "visible";
+        document.getElementById('temp').style.visibility = "visible";
+        $("#hh").modal({
+            backdrop: 'static'
+        });
+
+        var doc = new jsPDF();
+        var width = doc.internal.pageSize.width;
+        var height = doc.internal.pageSize.height;
+        var utf_8_string_to_render = 'any_value_you_want';
+        Promise.all(
+                [
+                    new Promise(function (resolve) {
+                        var temp = document.createElement("div");
+                        temp.id = "temp";
+                        temp.style = "color:black;margin:0px;font-size:20px;";
+                        //black
+                        phrase = utf_8_string_to_render;
+                        //temp.innerHTML = phrase;
+                        //need to render element, otherwise it won't be displayed
+                        document.body.appendChild(temp);
+
+                        html2canvas($("#temp"), {
+                            onrendered: function (canvas) {
+
+                                // $("#temp").remove();
+                                //width = canvas.width;
+                                //height =canvas.height;
+                                resolve(canvas.toDataURL('image/png'));
+                            },
+                        });
+                    })
+                ]).then(function (ru_text) {
+                    doc.addImage(ru_text[0], 'JPEG', 10, 10, (width - 20), (height - 20));
+                    //doc.text(0, 10, 'Non-utf-8-string');
+
+                    doc.save('Реализация путевок.pdf');
+                    document.getElementById('connection').style.visibility = "hidden";
+                    document.getElementById('temp').style.visibility = "hidden";
+                    $("#hh").modal('hide');
+                });
+    }
 }]);

@@ -25,9 +25,16 @@
             alertify.error("ошибка");
         });
     }
+   
     var i=null;
     var n=null;
     $scope.T = function (name, inn) {
+        //alert(inn);
+        $("#table tr").click(function () {
+            $(this).addClass('selected').siblings().removeClass('selected');
+            var value = $(this).find('td:first').html();
+            //alert(value);
+        });
         n = name;
         i = inn;
         document.getElementById("name").value = name;
@@ -38,7 +45,8 @@
     $scope.Tanlash = function () {
         if (i != null && n != null)
         {
-            DataService.set(i, n);
+            //DataService.set(i, n);
+            //parent.HelloFromChild(inn, name);
         }
     }
 }]);

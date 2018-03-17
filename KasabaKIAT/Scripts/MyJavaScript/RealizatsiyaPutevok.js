@@ -47,7 +47,15 @@
         Data = { b: stringArrayd, inn: inn };
     }
   
-    
+    function INNchange() {
+        document.getElementById("O").innerHTML = "";
+    }
+    function HelloFromChild(inn, name) {
+        $scope.INN = inn;
+        $('#dobavit').modal('toggle');
+        document.getElementById("O").innerHTML = name;
+        document.getElementById("inn").value = inn;
+    }
     function LoadDATA() {
         document.getElementById('connection').style.visibility = "visible";
         $("#hh").modal({

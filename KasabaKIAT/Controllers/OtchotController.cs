@@ -211,41 +211,128 @@ namespace KasabaKIAT.Controllers
             log.Info("END_DATE = " + end);
             try
             {
-                var data = KasabaDB.sp_rt_Razbivka_Postup(s, b, bg, end);
+                var data = KasabaDB.sp_rt_Razbivka_Postup(s, b, bg.Value.Date, end.Value.Date);
                 var O = from o in data
                         select new
                         {
-                            d1 = o.K_TYPE,
-                            d2 = o.OPERDAY,
-                            d3 = o.ID,
-                            d4 = o.BANKID,
-                            d5 = o.KLSDOX,
-                            d6 = o.DOCNUMB,
-                            d7 = o.DOCDATE,
-                            d8 = o.DOCTYPE,
-                            d9 = o.SUMPAY,
-                            d10 = o.CLMFO,
-                            d11 = o.CLACC,
-                            d12 = o.CLINN,
-                            d13 = o.CLNAME,
-                            d14 = o.COMFO,
-                            d15 = o.COACC,
-                            d16 = o.COINN,
-                            d17 = o.CONAME,
-                            d18 = o.PURPOSE,
-                            d19 = o.CHAPTER,
-                            d20 = o.OKONH,
-                            d21 = o.FILE_ID,//
-                            d22 = o.OTCHISLEN,//
-                            d23 = o.SUMMATOTAL,//
-                            d24 = o.FEDERATIONSUM,// 
-                            d25 = o.OBLASTSUM,
-                            d26 = o.OblastName,
-                            d27 = o.OkonxName,
+                            d1 =  o.K_TYPE           ,
+                            d2 =  o.OPERDAY          ,
+                            d3 =  o.ID               ,
+                            d4 =  o.BANKID           ,
+                            d5 =  o.KLSDOX           ,
+                            d6 =  o.DOCNUMB          ,
+                            d7 =  o.DOCDATE          ,
+                            d8 =  o.DOCTYPE          ,
+                            d9 =  o.SUMPAY           ,
+                            d10 = o.CLMFO           ,
+                            d11 = o.CLACC           ,
+                            d12 = o.CLINN           ,
+                            d13 = o.CLNAME          ,
+                            d14 = o.COMFO           ,
+                            d15 = o.COACC           ,
+                            d16 = o.COINN           ,
+                            d17 = o.CONAME          ,
+                            d18 = o.PURPOSE         ,
+                            d19 = o.CHAPTER         ,
+                            d20 = o.OKONH           ,
+                            d21 = o.FILE_ID         ,//
+                            d22 = o.OTCHISLEN       ,//
+                            d23 = o.SUMMATOTAL      ,//
+                            d24 = o.FEDERATIONSUM   ,// 
+                            d25 = o.OBLASTSUM       ,
+                            d26 = o.OblastName      ,
+                            d27 = o.OkonxName       ,
                             d28 = o.otraslName
                         };
-                //log.Info("Count = " + O.ToList().Count);
-                return Json(O.ToList(), JsonRequestBehavior.AllowGet);
+
+                //var resultList = O.ToList();
+
+                //string csv = string.Empty;
+
+                //csv += "K_TYPE         " + ',';
+                //csv += "OPERDAY        " + ',';
+                //csv += "ID             " + ',';
+                //csv += "BANKID         " + ',';
+                //csv += "KLSDOX         " + ',';
+                //csv += "DOCNUMB        " + ',';
+                //csv += "DOCDATE        " + ',';
+                //csv += "DOCTYPE        " + ',';
+                //csv += "SUMPAY         " + ',';
+                //csv += "CLMFO          " + ',';
+                //csv += "CLACC          " + ',';
+                //csv += "CLINN          " + ',';
+                //csv += "CLNAME         " + ',';
+                //csv += "COMFO          " + ',';
+                //csv += "COACC          " + ',';
+                //csv += "COINN          " + ',';
+                //csv += "CONAME         " + ',';
+                //csv += "PURPOSE        " + ',';
+                //csv += "CHAPTER        " + ',';
+                //csv += "OKONH          " + ',';
+                //csv += "FILE_ID        " + ',';
+                //csv += "OTCHISLEN      " + ',';
+                //csv += "SUMMATOTAL     " + ',';
+                //csv += "FEDERATIONSUM  " + ',';
+                //csv += "OBLASTSUM      " + ',';
+                //csv += "OblastName     " + ',';
+                //csv += "OkonxName      " + ',';
+                //csv += "otraslName     " + ',';
+
+                //foreach (var row in resultList)
+                //{
+
+                //    //Add the Data rows.
+                //    //csv += row[column.ColumnName].ToString().Replace(",", ";") + ',';
+
+                //    csv += row.d1.ToString().Replace(",", ";") + ',';
+                //    csv += row.d2.ToString().Replace(",", ";") + ',';
+                //    csv += row.d3.ToString().Replace(",", ";") + ',';
+                //    csv += row.d4.ToString().Replace(",", ";") + ',';
+                //    csv += row.d5.ToString().Replace(",", ";") + ',';
+                //    csv += row.d6.ToString().Replace(",", ";") + ',';
+                //    csv += row.d7.ToString().Replace(",", ";") + ',';
+                //    csv += row.d8.ToString().Replace(",", ";") + ',';
+                //    csv += row.d9.ToString().Replace(",", ";") + ',';
+                //    csv += row.d10.ToString().Replace(",", ";") + ',';
+                //    csv += row.d11.ToString().Replace(",", ";") + ',';
+                //    csv += row.d12.ToString().Replace(",", ";") + ',';
+                //    csv += row.d13.ToString().Replace(",", ";") + ',';
+                //    csv += row.d14.ToString().Replace(",", ";") + ',';
+                //    csv += row.d15.ToString().Replace(",", ";") + ',';
+                //    csv += row.d16.ToString().Replace(",", ";") + ',';
+                //    csv += row.d17.ToString().Replace(",", ";") + ',';
+                //    csv += row.d18.ToString().Replace(",", ";") + ',';
+                //    csv += row.d19.ToString().Replace(",", ";") + ',';
+                //    csv += row.d20.ToString().Replace(",", ";") + ',';
+                //    csv += row.d21.ToString().Replace(",", ";") + ',';
+                //    csv += row.d22.ToString().Replace(",", ";") + ',';
+                //    csv += row.d23.ToString().Replace(",", ";") + ',';
+                //    csv += row.d24.ToString().Replace(",", ";") + ',';
+                //    csv += row.d25.ToString().Replace(",", ";") + ',';
+                //    csv += row.d26.ToString().Replace(",", ";") + ',';
+                //    csv += row.d27.ToString().Replace(",", ";") + ',';
+                //    csv += row.d28.ToString().Replace(",", ";") + ',';
+
+
+                //    //Add new line.
+                //    csv += "\r\n";
+                //}
+
+                //Download the CSV file.
+                //Response.Clear();
+                //Response.Buffer = true;
+                //Response.AddHeader("content-disposition", "attachment;filename=SqlExport.csv");
+                //Response.Charset = "";
+                //Response.ContentType = "application/text";
+                //Response.Output.Write(csv);
+                //Response.Flush();
+                //Response.End();
+
+                //return File(new System.Text.UTF8Encoding().GetBytes(csv), "text/csv", "Report123.csv");
+
+                var resultList = O.ToList();
+
+                return Json(resultList, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
@@ -264,7 +351,7 @@ namespace KasabaKIAT.Controllers
             log.Info("END_DATE = " + end);
             try
             {
-                var data = KasabaDB.sp_rt_Razbivka_Postup_OblastGroup(bg, end);
+                var data = KasabaDB.sp_rt_Razbivka_Postup_OblastGroup(bg.Value.Date, end.Value.Date);
                 var O = from o in data
                         select new
                         {
@@ -274,9 +361,9 @@ namespace KasabaKIAT.Controllers
                             d4 = o.OBLASTSUM,
                         };
 
-                //log.Info("Count = " + O.ToList().Count);
+                var resultList = O.ToList();
 
-                return Json(O.ToList(), JsonRequestBehavior.AllowGet);
+                return Json(resultList, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
@@ -296,7 +383,7 @@ namespace KasabaKIAT.Controllers
             log.Info("END_DATE = " + end);
             try
             {
-                var data = KasabaDB.sp_rt_Razbivka_Postup_OtraslGroup(s, bg, end);
+                var data = KasabaDB.sp_rt_Razbivka_Postup_OtraslGroup(s, bg.Value.Date, end.Value.Date);
                 var O = from o in data
                         select new
                         {
@@ -307,9 +394,9 @@ namespace KasabaKIAT.Controllers
                             d5 = o.OBLASTSUM,
                         };
 
-                //log.Info("Count = " + O.ToList().Count);
+                var resultList = O.ToList();
 
-                return Json(O.ToList(), JsonRequestBehavior.AllowGet);
+                return Json(resultList, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
@@ -329,7 +416,7 @@ namespace KasabaKIAT.Controllers
             log.Info("END_DATE = " + end);
             try
             {
-                var data = KasabaDB.sp_rt_Razbivka_Postup_OkonxGroup(s, bg, end);
+                var data = KasabaDB.sp_rt_Razbivka_Postup_OkonxGroup(s, bg.Value.Date, end.Value.Date);
                 var O = from o in data
                         select new
                         {
@@ -340,9 +427,9 @@ namespace KasabaKIAT.Controllers
                             d5 = o.OBLASTSUM,
                         };
 
-                //log.Info("Count = " + O.ToList().Count);
+                var resultList = O.ToList();
 
-                return Json(O.ToList(), JsonRequestBehavior.AllowGet);
+                return Json(resultList, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {

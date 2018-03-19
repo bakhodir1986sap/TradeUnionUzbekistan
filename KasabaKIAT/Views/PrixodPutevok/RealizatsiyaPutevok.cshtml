@@ -151,21 +151,22 @@
             </div>
         </div>
         <script>
-        function INNchange() {
-            document.getElementById("O").innerHTML = "";
-        }
-        function HelloFromChild(inn, name) {
-            $('#dobavit').modal('toggle');
-            document.getElementById("O").innerHTML = name;
-            document.getElementById("inn").value = inn;
-        }
+            function INNchange() {
+                document.getElementById("O").innerHTML = "";
+            }
+            function HelloFromChild(inn, name) {
+                //$scope.INN = inn;
+                $('#dobavit').modal('toggle');
+                document.getElementById("O").innerHTML = name;
+                document.getElementById("inn").value = inn;
+            }
         </script>
         <div class="modal__block modal fade" id="dobavit" tabindex="-1" role="dialog" aria-labelledby="dobavitLabel">
             <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
                 <div class="modal-content">
                     <div class="modal-body">
                         <div class="row justify-content-center">
-                            <iframe src="/Home/INN" id="youriframeid" width="800" height="200" scrolling="yes"></iframe>
+                            <iframe src="/Home/INN" id="youriframeid" width="800" height="640" scrolling="yes"></iframe>
                         </div>
                         @*<div class="modal-title">
                             <h4 class="text-center mt-4 mb-4">123</h4>
@@ -360,10 +361,10 @@
                     <td colspan="14" class="text-center"></td>
                     <td colspan="2" class="text-center">от </td>
                     <td class="text-right">&quot;</td>
-                    <td colspan="2" class="bg-warning text-center">14</td>
+                    <td colspan="2" class="bg-warning text-center"></td>
                     <td class="text-left">&quot;</td>
-                    <td colspan="5" class="bg-warning text-center">Мая</td>
-                    <td colspan="3" class="bg-warning text-center">2015</td>
+                    <td colspan="5" class="bg-warning text-center"></td>
+                    <td colspan="3" class="bg-warning text-center"></td>
                     <td colspan="6" class="text-left">года</td>
                 </tr>
                 <tr>

@@ -15,6 +15,7 @@
             url: "/Otchot/GetSvodniyOtchot?Begindt=" + Bdt.toISOString() + "&Enddt=" + Edt.toISOString() + "&Soato=" + s + "&Branch=" + b,
         }).then(function (d) {
             $scope.O_SOZ = d.data;
+            console.log(d.data);
             if (d.data.length != 0) {
                 $scope.showdata = true;
             }

@@ -14,6 +14,12 @@ namespace KasabaKIAT.Models
     
     public partial class provodok
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public provodok()
+        {
+            this.PrivyazkaProvodoks = new HashSet<PrivyazkaProvodok>();
+        }
+    
         public int id { get; set; }
         public Nullable<long> USER_ID { get; set; }
         public string DEPARTMENT_BASE { get; set; }
@@ -22,5 +28,7 @@ namespace KasabaKIAT.Models
         public string score_end { get; set; }
     
         public virtual users users { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PrivyazkaProvodok> PrivyazkaProvodoks { get; set; }
     }
 }

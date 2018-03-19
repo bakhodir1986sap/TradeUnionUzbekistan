@@ -1,5 +1,6 @@
 ﻿using Epigov.Log;
 using KasabaKIAT.BusinessLogic.BankOplati.Kaznacheystvo;
+using KasabaKIAT.BusinessLogic.Buxgalteriya.Provodki.AutomaticTransactions.KaznaTransactions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,6 +24,10 @@ namespace KaznaFilesImporter
                 var kk = new KaznaController();
 
                 kk.Process();
+
+                var obj = new EcpCalculation();
+
+                obj.CalcProcess();
             }
         }
     }

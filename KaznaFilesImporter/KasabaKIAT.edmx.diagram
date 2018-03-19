@@ -11,6 +11,8 @@
         <EntityTypeShape EntityType="KasabaKIATModel.KaznaSverkaFile" Width="1.5" PointX="3.25" PointY="4.375" />
         <AssociationConnector Association="KasabaKIATModel.FK_KaznaSverkaFile_KaznaFiles" />
         <EntityTypeShape EntityType="KasabaKIATModel.t_egrpo" Width="1.5" PointX="7.625" PointY="0.5" />
+        <EntityTypeShape EntityType="KasabaKIATModel.tbbu_ecp_calc" Width="1.5" PointX="0.75" PointY="5.75" />
+        <EntityTypeShape EntityType="KasabaKIATModel.tbbFermer" Width="1.5" PointX="5.25" PointY="7.125" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

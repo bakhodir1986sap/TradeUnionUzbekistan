@@ -21,6 +21,7 @@ namespace KasabaKIAT.Models
             this.tbpt_zaezdi = new HashSet<tbpt_zaezdi>();
             this.tbpt_zaezdi1 = new HashSet<tbpt_zaezdi>();
             this.tbpt_yearlyplanregion = new HashSet<tbpt_yearlyplanregion>();
+            this.PrivyazkaProvodoks = new HashSet<PrivyazkaProvodok>();
         }
     
         public long REC_ID { get; set; }
@@ -42,5 +43,7 @@ namespace KasabaKIAT.Models
         public virtual users users1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tbpt_yearlyplanregion> tbpt_yearlyplanregion { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PrivyazkaProvodok> PrivyazkaProvodoks { get; set; }
     }
 }

@@ -16,7 +16,12 @@ namespace KasabaKiat.Helpers
 
             if (UserPermissions.userData != null)
             {
-                return UserPermissions.userData;
+                var users =  UserPermissions.userData.FirstOrDefault(u=>u.username == userName);
+
+                if (users != null)
+                {
+                    return users;
+                }
             }
 
             try
@@ -85,7 +90,16 @@ namespace KasabaKiat.Helpers
 
             }
 
-            UserPermissions.userData = model;
+            if (UserPermissions.userData == null)
+            {
+                UserPermissions.userData = new List<UserViewModel>();
+            }
+            else
+            {
+                UserPermissions.userData.Add(model);
+            }
+            
+            
 
             return model;
         }

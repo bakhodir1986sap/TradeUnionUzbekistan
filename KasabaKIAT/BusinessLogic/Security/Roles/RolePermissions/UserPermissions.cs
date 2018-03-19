@@ -8,8 +8,8 @@ namespace KasabaKIAT.BusinessLogic.Security.Roles.RolePermissions
 {
     public class UserPermissions
     {
-        public static FunctionalityList pernit { get; set; }
+        public static List<FunctionalityList> pernit { get; set; }
 
-        public static UserViewModel userData { get; set; }
+        public static List<UserViewModel> userData { get; set; }
     }
 }

@@ -356,6 +356,10 @@
         <EntityTypeShape EntityType="KasabaKIATModel.tbgl_jnlmst" Width="1.5" PointX="22.5" PointY="230.5" />
         <AssociationConnector Association="KasabaKIATModel.FK_tbgl_balance_users" />
         <AssociationConnector Association="KasabaKIATModel.tbgl_jnlmst_1" />
+        <EntityTypeShape EntityType="KasabaKIATModel.PrivyazkaProvodok" Width="1.5" PointX="27.75" PointY="198.125" />
+        <AssociationConnector Association="KasabaKIATModel.FK_PrivyazkaProvodok_provodok" />
+        <AssociationConnector Association="KasabaKIATModel.FK_PrivyazkaProvodok_tbcs_dictionary" />
+        <EntityTypeShape EntityType="KasabaKIATModel.tbbu_ecp_calc" Width="1.5" PointX="22.375" PointY="4.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

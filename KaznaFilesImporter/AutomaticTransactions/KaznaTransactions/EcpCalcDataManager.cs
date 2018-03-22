@@ -61,11 +61,11 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.Provodki.AutomaticTransactions.K
 
                     if (reg != null)
                     {
-                        reg.PAYMENT_ID = model.payment_id;
-                        reg.PROFSOUZ_AMT = model.profsouz_amt;
-                        reg.FEDERATION_AMT = model.federation_amt;
-                        reg.OBLSOVPROF_AMT = model.oblsovprof_amt;
-                        reg.OBL_DEPARTMENT_BASE = model.obl_department_base;
+                        //reg.PAYMENT_ID = model.payment_id;
+                        //reg.PROFSOUZ_AMT = model.profsouz_amt;
+                        //reg.FEDERATION_AMT = model.federation_amt;
+                        //reg.OBLSOVPROF_AMT = model.oblsovprof_amt;
+                        //reg.OBL_DEPARTMENT_BASE = model.obl_department_base;
                         reg.PROVODKA_ID = model.provodka_id;
                     }
                 }

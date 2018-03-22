@@ -61,6 +61,9 @@
     <Compile Include="AutomaticTransactions\KaznaTransactions\EcpCalcDataManager.cs" />
     <Compile Include="AutomaticTransactions\KaznaTransactions\EcpCalculation.cs" />
     <Compile Include="AutomaticTransactions\KaznaTransactions\EcpCalcViewModel.cs" />
+    <Compile Include="AutomaticTransactions\Provodki.cs" />
+    <Compile Include="AutomaticTransactions\ProvodkiDataManager.cs" />
+    <Compile Include="AutomaticTransactions\ProvodkiViewModel.cs" />
     <Compile Include="BankOplati\BaseKaznaFile.cs" />
     <Compile Include="BankOplati\KaznaPaymentFile.cs" />
     <Compile Include="BankOplati\SverkaFile.cs" />
@@ -107,6 +110,9 @@
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
     <Compile Include="tbbu_ecp_calc.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbbu_provodki.cs">
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
     <Compile Include="t_egrpo.cs">

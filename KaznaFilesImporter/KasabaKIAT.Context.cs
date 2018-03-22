@@ -33,6 +33,7 @@ namespace KaznaFilesImporter
         public virtual DbSet<t_egrpo> t_egrpo { get; set; }
         public virtual DbSet<tbbu_ecp_calc> tbbu_ecp_calc { get; set; }
         public virtual DbSet<tbbFermer> tbbFermers { get; set; }
+        public virtual DbSet<tbbu_provodki> tbbu_provodki { get; set; }
     
         public virtual int sp_im_KaznaNewOrg()
         {

@@ -22,10 +22,19 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.Provodki.AutomaticTransactions.K
 
                 if (procList != null)
                 {
-                    foreach(var payment in procList)
+                    var model = new EcpCalcViewModel();
+
+                    foreach (var payment in procList)
                     {
-                        
-                        var model = new EcpCalcViewModel();
+                        //Clear Model
+                        model.federation_amt = 0;
+                        model.id = 0;
+                        model.oblsovprof_amt = 0;
+                        model.obl_department_base = string.Empty;
+                        model.payment_id = 0;
+                        model.profsouz_amt = 0;
+                        model.provodka_id = 0;
+
 
                         model.payment_id = (long)payment.ID;
 
@@ -65,14 +74,14 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.Provodki.AutomaticTransactions.K
                         //Formula Calculation
                         #region Formula Calculation
 
-                        decimal sumAmount = ((payment.SUMPAY.HasValue ? payment.SUMPAY.Value: 0) / 100);
+                        decimal sumAmount = ((payment.SUMPAY.HasValue ? payment.SUMPAY.Value : 0) / 100);
                         decimal profsouzAmount = 0;
                         decimal federationAmount = 0;
                         decimal oblsovprofAmount = 0;
 
                         if (payment.PURPOSE.Contains("3212110"))
                         {
-                            profsouzAmount = (decimal)((double)(sumAmount ) * 0.4 / 100);
+                            profsouzAmount = (decimal)((double)(sumAmount) * 0.4 / 100);
                         }
                         else if (payment.PURPOSE.Contains("3212120"))
                         {
@@ -87,9 +96,9 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.Provodki.AutomaticTransactions.K
                             profsouzAmount = (decimal)((double)(sumAmount) * 0.4 / 100);
                         }
 
-                        federationAmount = Math.Round(profsouzAmount * 30/100, 2);
+                        federationAmount = Math.Round(profsouzAmount * 30 / 100, 2);
 
-                        oblsovprofAmount = Math.Round(profsouzAmount * 70/100, 2);
+                        oblsovprofAmount = Math.Round(profsouzAmount * 70 / 100, 2);
 
                         model.profsouz_amt = Math.Round(profsouzAmount, 2);
                         model.federation_amt = federationAmount;
@@ -132,11 +141,148 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.Provodki.AutomaticTransactions.K
                             }
                         }
 
+                        #endregion
+
                         EcpCalcDataManager.Create(ref model);
 
-                        #endregion
                     }
                 }
+
+               var provodki = new Provodki();
+
+               var trans = new ProvodkiViewModel();
+
+               var NotProcList = db.tbbu_ecp_calc.Where(z => z.PROVODKA_ID == null && z.OBL_DEPARTMENT_BASE != null);
+
+               if (NotProcList.Any())
+               {
+                   foreach(var pp in NotProcList)
+                   {
+
+                       trans.comment = string.Empty;
+                       trans.department_base = string.Empty;
+                       trans.inoutflg = false;
+                       trans.number = string.Empty;
+                       trans.platelinn = string.Empty;
+                       trans.platelmfo = string.Empty;
+                       trans.platelname = string.Empty;
+                       trans.platelrsch = string.Empty;
+                       trans.poluchinn = string.Empty;
+                       trans.poluchmfo = string.Empty;
+                       trans.poluchname = string.Empty;
+                       trans.poluchrsch = string.Empty;
+                       trans.rec_id = 0;
+                       trans.summa = 0;
+                       trans.tipoborota = false;
+                       trans.tipscheta = false;
+                       trans.trdt = DateTime.MinValue;
+                       trans.user_id = 0;
+
+                       //Obshaya provodka
+                       trans.comment = "Postupleniya po ECP vsego";
+                       trans.department_base = pp.OBL_DEPARTMENT_BASE;
+                       trans.inoutflg = false;
+                       trans.platelrsch = "004";
+                       trans.poluchrsch = "18";
+                       trans.summa = pp.PROFSOUZ_AMT;
+                       trans.user_id = 1;
+                       trans.trdt = DateTime.Now;
+
+                       ProvodkiDataManager.Create(ref trans);
+
+                       pp.PROVODKA_ID = trans.rec_id;
+
+                       var ppmodel = new EcpCalcViewModel();
+                       ppmodel.id = pp.ID;
+                       ppmodel.provodka_id = pp.PROVODKA_ID;
+
+                       EcpCalcDataManager.Modify(ppmodel);
+
+                       //----------------------------------
+
+                       trans.comment = string.Empty;
+                       trans.department_base = string.Empty;
+                       trans.inoutflg = false;
+                       trans.number = string.Empty;
+                       trans.platelinn = string.Empty;
+                       trans.platelmfo = string.Empty;
+                       trans.platelname = string.Empty;
+                       trans.platelrsch = string.Empty;
+                       trans.poluchinn = string.Empty;
+                       trans.poluchmfo = string.Empty;
+                       trans.poluchname = string.Empty;
+                       trans.poluchrsch = string.Empty;
+                       trans.rec_id = 0;
+                       trans.summa = 0;
+                       trans.tipoborota = false;
+                       trans.tipscheta = false;
+                       trans.trdt = DateTime.MinValue;
+                       trans.user_id = 0;
+
+                       //Obshaya provodka
+                       trans.comment = "Postupleniya po ECP federasiya";
+                       trans.department_base = pp.OBL_DEPARTMENT_BASE;
+                       trans.inoutflg = false;
+                       trans.platelrsch = "22";
+                       trans.poluchrsch = "004";
+                       trans.summa = pp.FEDERATION_AMT;
+                       trans.user_id = 1;
+                       trans.trdt = DateTime.Now;
+
+                       ProvodkiDataManager.Create(ref trans);
+
+                       pp.PROVODKA_ID = trans.rec_id;
+
+                       var ppmodel2 = new EcpCalcViewModel();
+                       ppmodel2.id = pp.ID;
+                       ppmodel2.provodka_id = pp.PROVODKA_ID;
+
+                       EcpCalcDataManager.Modify(ppmodel2);
+
+                       //----------------------------------
+
+                       trans.comment = string.Empty;
+                       trans.department_base = string.Empty;
+                       trans.inoutflg = false;
+                       trans.number = string.Empty;
+                       trans.platelinn = string.Empty;
+                       trans.platelmfo = string.Empty;
+                       trans.platelname = string.Empty;
+                       trans.platelrsch = string.Empty;
+                       trans.poluchinn = string.Empty;
+                       trans.poluchmfo = string.Empty;
+                       trans.poluchname = string.Empty;
+                       trans.poluchrsch = string.Empty;
+                       trans.rec_id = 0;
+                       trans.summa = 0;
+                       trans.tipoborota = false;
+                       trans.tipscheta = false;
+                       trans.trdt = DateTime.MinValue;
+                       trans.user_id = 0;
+
+                       //Obshaya provodka
+                       trans.comment = "Postupleniya po ECP oblsovprof";
+                       trans.department_base = pp.OBL_DEPARTMENT_BASE;
+                       trans.inoutflg = false;
+                       trans.platelrsch = "20";
+                       trans.poluchrsch = "004";
+                       trans.summa = pp.OBLSOVPROF_AMT;
+                       trans.user_id = 1;
+                       trans.trdt = DateTime.Now;
+
+                       ProvodkiDataManager.Create(ref trans);
+
+                       pp.PROVODKA_ID = trans.rec_id;
+
+                       var ppmodel3 = new EcpCalcViewModel();
+                       ppmodel3.id = pp.ID;
+                       ppmodel3.provodka_id = pp.PROVODKA_ID;
+
+                       EcpCalcDataManager.Modify(ppmodel3);
+
+                   }
+               }
+                
             }
         }
     }

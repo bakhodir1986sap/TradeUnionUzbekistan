@@ -1,4 +1,13 @@
 ﻿app.service("crudAJService", function ($http) {
+    this.inninn = function (inn) {
+        i = inn;
+        alert("inn=" + inn + " i=" + i);
+        return i;
+    }
+    this.inninn2 = function () {
+        alert("i=" + i);
+        return i;
+    }
     //Delete GrafikZaezdov
     this.DeleteGrafikZaezdov = function (bookId) {
         var response = $http({

@@ -9,10 +9,10 @@
     function set(inn, name) {
         savedData.inn = inn;
         savedData.name = name;
-        //alert("set " + savedData.inn + " " + savedData.name);
+        alert("set " + savedData.inn + " " + savedData.name);
     }
     function get() {
-       //alert("get " + savedData.inn + " " + savedData.name);
+       alert("get " + savedData.inn + " " + savedData.name);
         return savedData;
     }
 

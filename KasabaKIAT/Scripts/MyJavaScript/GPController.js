@@ -1,5 +1,5 @@
 ﻿app.controller("GPController", ["$scope", "$http", "$filter", "crudAJService", function ($scope, $http, $filter, crudAJService) {
-    GetGP_S(1, 1);
+    GetGP_S(17203, -1);
     $scope.GPdiv = true;
     $scope.showdelete = false;
     AllRegion();
@@ -39,11 +39,11 @@
         $("#hh").modal('hide');
     }
     $scope.SC = {
-        id: '1',
+        id: '-1',
         value: ''
     };
     $scope.Region = {
-        id: 1726,
+        id: 17203,
         value: ''
     };
     $scope.PlaceType = {
@@ -57,11 +57,11 @@
     };
 
     $scope.SCFilter = {
-        id: '1',
+        id: '-1',
         value: ''
     };
     $scope.RegionFilter = {
-        id: 1726,
+        id: 17203,
         value: ''
     };
     $scope.PlaceTypeFilter = {
@@ -184,7 +184,7 @@ $scope.AddGPDiv = function () {
     }
     function Tozala() {
         $scope.RegionFilter.id = 1;
-        $scope.SCFilter.id = 1;
+        $scope.SCFilter.id = -1;
         if ($scope.s === "option1") {
             GetGP_S($scope.RegionFilter.id, $scope.SCFilter.id);
             //GetPP_SUM_S();

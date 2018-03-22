@@ -5,12 +5,7 @@
     $scope.oy = zb.getMonth();
     $scope.yil = zb.getFullYear();
     LoadDATA();
-    //GetOR();
     $scope.showdata = false;
-    //$scope.O = {
-    //    id: 1,
-    //    value: ""
-    //};
     function GetOR() {
         $http({
             method: "post",
@@ -18,21 +13,28 @@
         }).then(function (s) {
             $scope.OR = s.data;
         }, function () {
-            //alert('Error in GetSanatory');
             console.log('Error in GetSanatory');
             $("#hh").modal('hide');
         });
     }
     function LoadINN(inn) {
+        Data = { b: stringArrayd, inn: inn };
         $scope.O = "";
         try {
             if (inn.length == 9) {
                 $http({
                     method: 'get',
-                    url: '/PrixodPutevok/LoadINN?inn=' + inn
+                    url: "/PrixodPutevok/Getegrpo?inn=" + inn + "&name=' '",
                 }).then(function (response) {
-                    $scope.O = response.data;
-                }, function (error) {
+                    if (response.data.length == 0) {
+                        $scope.O = "No Data Found";
+                    }
+                    else {
+                        $scope.O = response.data;
+                    }
+                    console.log($scope.O);
+                    console.log(response.data);
+                },function(error){
                     console.log(error, 'error in LoadINN');
                 });
             }
@@ -44,17 +46,20 @@
     $scope.LoadINN = function () {
         var inn = $scope.INN;
         LoadINN(inn);
-        Data = { b: stringArrayd, inn: inn };
     }
   
     function INNchange() {
         document.getElementById("O").innerHTML = "";
     }
-    function HelloFromChild(inn, name) {
-        $scope.INN = inn;
-        $('#dobavit').modal('toggle');
-        document.getElementById("O").innerHTML = name;
-        document.getElementById("inn").value = inn;
+    $scope.HelloFromChild1 = function () {
+        $scope.ddd=CalcService.square2();
+        //$scope.ddd = DataService.get();
+        alert($scope.ddd);
+        //$scope.INN = inn;
+        //alert("inn=" + inn);
+        //$('#dobavit').modal('toggle');
+        //document.getElementById("O").innerHTML = name;
+        //document.getElementById("inn").value = inn;
     }
     function LoadDATA() {
         document.getElementById('connection').style.visibility = "visible";
@@ -80,7 +85,6 @@
         $("#hh").modal({
             backdrop: 'static'
         });
-        //alert(id);
         $http({
             method: "post",
             url: "/PrixodPutevok/RP2?id="+id,
@@ -89,33 +93,10 @@
             document.getElementById('connection').style.visibility = "hidden";
             $("#hh").modal('hide');
         }, function () {
-            //alert("error in PP_S");
             console.log("error in RP2");
             document.getElementById('connection').style.visibility = "hidden";
             $("#hh").modal('hide');
         });
-        //$scope.accordion = {
-        //    current: null
-        //};
-        //$scope.accordion.current = sb;
-        //(function () {
-        //    $(".panel").on("show.bs.collapse hide.bs.collapse", function (e) {
-        //        $(".panel").removeClass('active');
-        //        if (e.type == 'show') {
-        //            $(this).addClass('active');
-        //        } else {
-        //            $(this).removeClass('active');
-        //        }
-        //    });
-
-        //}).call(this);
-        //var arr = []; var j = 0;
-        //for (var i = sb; i <= se; i++) {
-        //    arr[j] = i;
-        //    j++;
-        //}
-        //$scope.rr = arr;
-        //$scope.items = arr;
     }
     var i = 0;
     var ar1 = new Array();
@@ -285,6 +266,7 @@
                 backdrop: 'static'
             });
             var k = 0;
+            console.log(Data);
             $http({
                 method: "POST",
                 url: "/PrixodPutevok/GetOformleniyaRealizatsiyaPutevok",
@@ -387,5 +369,52 @@
                     document.getElementById('temp').style.visibility = "hidden";
                     $("#hh").modal('hide');
                 });
+    }
+
+    $scope.LoadDATA2 = function () {
+        Load($scope.I, $scope.N);
+    }
+    function Load(inn, name) {
+        document.getElementById('connection2').style.visibility = "visible";
+        $("#hh").modal({
+            backdrop: 'static',
+            backdrop: 'static'
+        });
+        if (name == null) {
+            name = " ";
+        }
+        $http({
+            method: "post",
+            url: "/PrixodPutevok/Getegrpo?inn=" + inn + "&name=" + name,
+        }).then(function (d) {
+            $scope.DATA3 = d.data;
+            if (d.data.length !== 0) {
+                $scope.showdata = true;
+            }
+            else {
+                $scope.showdata = false;
+            }
+            document.getElementById('connection2').style.visibility = "hidden";
+            $("#hh").modal('hide');
+        }, function () {
+            document.getElementById('connection2').style.visibility = "hidden";
+            $("#hh").modal('hide');
+            alertify.error("ошибка");
+        });
+    }
+
+    var ii = null;
+    var ni = null;
+    $scope.T = function (name, inn) {
+        ni = name;
+        ii = inn;
+        document.getElementById("name").value = name;
+        document.getElementById("inn1").value = inn;
+    }
+    $scope.Tanlash = function () {
+        if (ii != null && ni != null) {
+            $scope.INN = ii;
+            LoadINN(ii);
+        }
     }
 }]);

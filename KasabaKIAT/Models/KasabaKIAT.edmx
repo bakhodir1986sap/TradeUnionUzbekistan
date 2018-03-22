@@ -5667,6 +5667,11 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <Parameter Name="aYear" Type="int" Mode="In" />
           <Parameter Name="orgInn" Type="varchar" Mode="In" />
         </Function>
+        <Function Name="sp_rt_GetOrganization" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="DEPARTMENT_BASE" Type="varchar" Mode="In" />
+          <Parameter Name="INN" Type="varchar" Mode="In" />
+          <Parameter Name="ORG_NAME" Type="nvarchar" Mode="In" />
+        </Function>
         <Function Name="sp_rt_Postupleniya" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="INN" Type="varchar" Mode="In" />
         </Function>
@@ -13563,6 +13568,11 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
             <Parameter Name="BEGIN_DATE" Mode="In" Type="DateTime" />
             <Parameter Name="END_DATE" Mode="In" Type="DateTime" />
           </FunctionImport>
+          <FunctionImport Name="sp_rt_GetOrganization" ReturnType="Collection(KasabaKIATModel.sp_rt_GetOrganization_Result)">
+            <Parameter Name="DEPARTMENT_BASE" Mode="In" Type="String" />
+            <Parameter Name="INN" Mode="In" Type="String" />
+            <Parameter Name="ORG_NAME" Mode="In" Type="String" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="sp_get_BankPaymentCompanyYearlyQ_Result">
           <Property Type="Int32" Name="MONTH_NUM" Nullable="true" />
@@ -14066,6 +14076,44 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <Property Type="Int32" Name="Kolichestvo" Nullable="true" />
           <Property Type="Decimal" Name="TOTALSUM" Nullable="true" Precision="38" Scale="0" />
           <Property Type="Decimal" Name="OBLASTSUM" Nullable="true" Precision="38" Scale="9" />
+        </ComplexType>
+        <ComplexType Name="sp_rt_GetOrganization_Result">
+          <Property Type="Int64" Name="id" Nullable="false" />
+          <Property Type="Int32" Name="version" Nullable="false" />
+          <Property Type="String" Name="address" Nullable="true" MaxLength="1024" />
+          <Property Type="DateTime" Name="close_date" Nullable="true" Precision="23" />
+          <Property Type="String" Name="close_number" Nullable="true" MaxLength="20" />
+          <Property Type="Int32" Name="count_workers" Nullable="true" />
+          <Property Type="String" Name="s_comment" Nullable="true" MaxLength="500" />
+          <Property Type="DateTime" Name="s_create" Nullable="true" Precision="23" />
+          <Property Type="String" Name="s_status" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="email" Nullable="true" MaxLength="64" />
+          <Property Type="Boolean" Name="fin_xoz_work" Nullable="true" />
+          <Property Type="String" Name="name_full" Nullable="true" MaxLength="1024" />
+          <Property Type="String" Name="inn" Nullable="true" MaxLength="9" />
+          <Property Type="Boolean" Name="liquidation" Nullable="true" />
+          <Property Type="String" Name="osn_worktype" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="phones" Nullable="true" MaxLength="500" />
+          <Property Type="Boolean" Name="recreate" Nullable="true" />
+          <Property Type="DateTime" Name="reg_date" Nullable="true" Precision="23" />
+          <Property Type="String" Name="reg_number" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="reg_org" Nullable="true" MaxLength="1024" />
+          <Property Type="Boolean" Name="reorganization" Nullable="true" />
+          <Property Type="Boolean" Name="restored" Nullable="true" />
+          <Property Type="String" Name="name_short" Nullable="true" MaxLength="512" />
+          <Property Type="String" Name="street" Nullable="true" MaxLength="1024" />
+          <Property Type="Boolean" Name="update_doc" Nullable="true" />
+          <Property Type="Boolean" Name="update_email" Nullable="true" />
+          <Property Type="String" Name="mail_index" Nullable="true" MaxLength="7" />
+          <Property Type="Int64" Name="s_user_id" Nullable="true" />
+          <Property Type="String" Name="okonx_id" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="opf_id" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="fs_id" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="soato_id" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="soogu_id" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="okpo" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="BANK_ACCOUNT" Nullable="true" MaxLength="30" />
+          <Property Type="Int64" Name="NATIVE_ID" Nullable="true" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -17308,6 +17356,48 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
                 <ScalarProperty Name="Kolichestvo" ColumnName="Kolichestvo" />
                 <ScalarProperty Name="TOTALSUM" ColumnName="TOTALSUM" />
                 <ScalarProperty Name="OBLASTSUM" ColumnName="OBLASTSUM" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_rt_GetOrganization" FunctionName="KasabaKIATModel.Store.sp_rt_GetOrganization">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="KasabaKIATModel.sp_rt_GetOrganization_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="close_date" ColumnName="close_date" />
+                <ScalarProperty Name="close_number" ColumnName="close_number" />
+                <ScalarProperty Name="count_workers" ColumnName="count_workers" />
+                <ScalarProperty Name="s_comment" ColumnName="s_comment" />
+                <ScalarProperty Name="s_create" ColumnName="s_create" />
+                <ScalarProperty Name="s_status" ColumnName="s_status" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="fin_xoz_work" ColumnName="fin_xoz_work" />
+                <ScalarProperty Name="name_full" ColumnName="name_full" />
+                <ScalarProperty Name="inn" ColumnName="inn" />
+                <ScalarProperty Name="liquidation" ColumnName="liquidation" />
+                <ScalarProperty Name="osn_worktype" ColumnName="osn_worktype" />
+                <ScalarProperty Name="phones" ColumnName="phones" />
+                <ScalarProperty Name="recreate" ColumnName="recreate" />
+                <ScalarProperty Name="reg_date" ColumnName="reg_date" />
+                <ScalarProperty Name="reg_number" ColumnName="reg_number" />
+                <ScalarProperty Name="reg_org" ColumnName="reg_org" />
+                <ScalarProperty Name="reorganization" ColumnName="reorganization" />
+                <ScalarProperty Name="restored" ColumnName="restored" />
+                <ScalarProperty Name="name_short" ColumnName="name_short" />
+                <ScalarProperty Name="street" ColumnName="street" />
+                <ScalarProperty Name="update_doc" ColumnName="update_doc" />
+                <ScalarProperty Name="update_email" ColumnName="update_email" />
+                <ScalarProperty Name="mail_index" ColumnName="mail_index" />
+                <ScalarProperty Name="s_user_id" ColumnName="s_user_id" />
+                <ScalarProperty Name="okonx_id" ColumnName="okonx_id" />
+                <ScalarProperty Name="opf_id" ColumnName="opf_id" />
+                <ScalarProperty Name="fs_id" ColumnName="fs_id" />
+                <ScalarProperty Name="soato_id" ColumnName="soato_id" />
+                <ScalarProperty Name="soogu_id" ColumnName="soogu_id" />
+                <ScalarProperty Name="okpo" ColumnName="okpo" />
+                <ScalarProperty Name="BANK_ACCOUNT" ColumnName="BANK_ACCOUNT" />
+                <ScalarProperty Name="NATIVE_ID" ColumnName="NATIVE_ID" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

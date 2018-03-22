@@ -2,6 +2,7 @@
     AllRegion();
     AllOtrasl();
     $scope.showdata = false;
+    $scope.showdata2 = false;
     $scope.showexp = false;
     $scope.zb = "2018";
     $scope.showINN = true;//position:absolute
@@ -164,4 +165,51 @@
         });
         saveAs(blob, "Талабномалар.xls");
     };
+    //--------------------------//
+    $scope.LoadDATA2 = function () {
+        Load2($scope.I, $scope.N);
+    }
+    function Load2(inn, name) {
+        document.getElementById('connection2').style.visibility = "visible";
+        $("#hh").modal({
+            backdrop: 'static',
+            backdrop: 'static'
+        });
+        if (name == null) {
+            name = " ";
+        }
+        $http({
+            method: "post",
+            url: "/PrixodPutevok/Getegrpo?inn=" + inn + "&name=" + name,
+        }).then(function (d) {
+            $scope.DATA3 = d.data;
+            if (d.data.length !== 0) {
+                $scope.showdata2 = true;
+            }
+            else {
+                $scope.showdata2 = false;
+            }
+            document.getElementById('connection2').style.visibility = "hidden";
+            $("#hh").modal('hide');
+        }, function () {
+            document.getElementById('connection2').style.visibility = "hidden";
+            $("#hh").modal('hide');
+            alertify.error("ошибка");
+        });
+    }
+
+    var ii = null;
+    var ni = null;
+    $scope.T = function (name, inn) {
+        ni = name;
+        ii = inn;
+        document.getElementById("name").value = name;
+        document.getElementById("inn1").value = inn;
+    }
+    $scope.Tanlash = function () {
+        if (ii != null && ni != null) {
+            $scope.INN = ii;
+        }
+    }
+    //-------------------------//
 }]);

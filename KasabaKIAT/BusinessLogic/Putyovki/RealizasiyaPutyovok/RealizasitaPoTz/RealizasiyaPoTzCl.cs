@@ -21,6 +21,35 @@ namespace KasabaKIAT.BusinessLogic.Putyovki.RealizasiyaPutyovok.RealizasitaPoTz
 
             using (KasabaKIATEntities db = new KasabaKIATEntities())
             {
+                var orgDepBase0 = db.t_departmentbase.Where(d => d.le_inn == inn).FirstOrDefault();
+
+                if (orgDepBase0 == null)
+                {
+                    var egrpo = db.t_egrpo.Where(e => e.inn == inn);
+
+                    if (egrpo.Any())
+                    {
+                        var fermer = egrpo.FirstOrDefault();
+
+                        if (fermer != null)
+                        {
+                            t_departmentbase dd = new t_departmentbase();
+
+                            dd.le_inn = inn;
+                            dd.parent_code = departmentBase;
+                            dd.code = string.Format("{0}{1}", departmentBase, inn);
+                            dd.name_ru = fermer.name_full;
+                            dd.name_uz = fermer.name_short;
+                            dd.dtype = "Bkut";
+                            dd.version = 0;
+
+                            db.t_departmentbase.Add(dd);
+
+                            db.SaveChanges();
+                        }
+                    }
+                }
+
                 var orgDepBase = db.t_departmentbase.Where(d => d.le_inn == inn).FirstOrDefault();
 
                 if (orgDepBase != null)

@@ -12,9 +12,14 @@ namespace KasabaKIAT.BusinessLogic.Security.Roles.RolePermissions
     {
         public static FunctionalityList MatchProcess(UserViewModel user)
         {
-            if ((UserPermissions.pernit != null) && (UserPermissions.pernit.UserId == user.userid))
+            if (UserPermissions.pernit != null)
             {
-                return UserPermissions.pernit;
+                var ppermits = UserPermissions.pernit.FirstOrDefault(x => x.UserId == user.userid);
+
+                if (ppermits != null)
+                {
+                    return ppermits;
+                }
             }
 
             var rolFumc = new FunctionalityList();
@@ -97,7 +102,14 @@ namespace KasabaKIAT.BusinessLogic.Security.Roles.RolePermissions
                 
             }
 
-            UserPermissions.pernit = rolFumc;
+            if (UserPermissions.pernit == null)
+            {
+                UserPermissions.pernit = new List<FunctionalityList>();
+            }
+            else
+            {
+                UserPermissions.pernit.Add(rolFumc);
+            }
 
             return rolFumc;
         }

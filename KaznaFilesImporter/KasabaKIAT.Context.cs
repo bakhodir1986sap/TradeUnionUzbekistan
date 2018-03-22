@@ -31,10 +31,18 @@ namespace KaznaFilesImporter
         public virtual DbSet<KaznaPaymentFile> KaznaPaymentFiles { get; set; }
         public virtual DbSet<KaznaSverkaFile> KaznaSverkaFiles { get; set; }
         public virtual DbSet<t_egrpo> t_egrpo { get; set; }
+        public virtual DbSet<tbbu_ecp_calc> tbbu_ecp_calc { get; set; }
+        public virtual DbSet<tbbFermer> tbbFermers { get; set; }
+        public virtual DbSet<tbbu_provodki> tbbu_provodki { get; set; }
     
         public virtual int sp_im_KaznaNewOrg()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_im_KaznaNewOrg");
+        }
+    
+        public virtual ObjectResult<sp_pr_GetNewTransactions_Result1> sp_pr_GetNewTransactions()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_pr_GetNewTransactions_Result1>("sp_pr_GetNewTransactions");
         }
     }
 }

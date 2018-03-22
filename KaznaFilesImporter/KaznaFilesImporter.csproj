@@ -58,6 +58,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AutomaticTransactions\KaznaTransactions\EcpCalcDataManager.cs" />
+    <Compile Include="AutomaticTransactions\KaznaTransactions\EcpCalculation.cs" />
+    <Compile Include="AutomaticTransactions\KaznaTransactions\EcpCalcViewModel.cs" />
+    <Compile Include="AutomaticTransactions\Provodki.cs" />
+    <Compile Include="AutomaticTransactions\ProvodkiDataManager.cs" />
+    <Compile Include="AutomaticTransactions\ProvodkiViewModel.cs" />
     <Compile Include="BankOplati\BaseKaznaFile.cs" />
     <Compile Include="BankOplati\KaznaPaymentFile.cs" />
     <Compile Include="BankOplati\SverkaFile.cs" />
@@ -94,6 +100,21 @@
     <Compile Include="Log\ILogService.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="sp_pr_GetNewTransactions_Result.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_pr_GetNewTransactions_Result1.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbbFermer.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbbu_ecp_calc.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbbu_provodki.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
     <Compile Include="t_egrpo.cs">
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>

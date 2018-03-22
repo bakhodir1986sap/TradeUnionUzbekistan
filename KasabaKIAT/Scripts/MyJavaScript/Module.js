@@ -7,44 +7,23 @@ app.filter('jsonDate', ['$filter', function ($filter) {
     };
 }]);
 app.factory('MathService', function () {
-    //var factory = {};
+    var factory = {};
 
-    //factory.multiply = function (a, b) {
-    //    return a * b
-    //}
-    //return factory;
-
-    var d = {};
-    var stringArray = new Array();
-    var postData = {};
-    postData.multiply = function (san, num, inn) {
-        sss = inn;
-        alert(sss);
-        for (var k = 0; k < san.length; k++) {
-            d = {
-                SanId: san[k],
-                NumPut: num[k],
-            };
-            stringArray[k] = d;
-            postData = { b: stringArray, inn: inn };
-        }
+    factory.multiply = function (a, b) {
+        return a * b
     }
-    return postData;
+    return factory;
 });
-var s = {};
-var n = {};
-var i;
-app.service('CalcService', function (MathService) {
-    this.square = function (san, num, inn) {
-        s = san;
-        n = num;
+var i=0;
+app.service('CalcService', function () {
+    this.square = function (inn) {
         i = inn;
-        alert("inn="+i);
-       // return MathService.multiply(san, num, inn);
+        //alert("inn="+inn+" i="+i);
+        return i;
     }
     this.square2 = function () {
         alert("i=" + i);
-        return MathService.multiply(s, n, i);
+        return i;
     }
 });
 

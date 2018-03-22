@@ -7,7 +7,9 @@
 <link href="https://use.fontawesome.com/releases/v5.0.2/css/all.css" rel="stylesheet">
 <link rel="stylesheet" href="~/Content/styles/main.css">
 <script src="~/Scripts/vendor/modernizr.js"></script>
-
+<link href="~/Content/themes/alertify.default.css" rel="stylesheet" />
+<link href="~/Content/themes/alertify.core.css" rel="stylesheet" />
+<link href="~/Content/themes/alertify.bootstrap.css" rel="stylesheet" />
 
 
 <script src="~/Scripts/kendo/angular.min.js"></script>
@@ -21,6 +23,22 @@
 
 <script src="~/Scripts/MyJavaScript/DataService.js"></script>
 <script src="~/Scripts/MyJavaScript/LoadINN.js"></script>
+
+<script src="~/Scripts/lib/alertify.min.js"></script>
+<script>
+    function reset () {
+        $("#toggleCSS").attr("href", "../Content/themes/alertify.default.css");
+        alertify.set({
+            labels : {
+                ok     : "Да",
+                cancel : "Нет"
+            },
+            delay : 5000,
+            buttonReverse : false,
+            buttonFocus   : "ok"
+        });
+    }
+</script>
 
 <script>
     // Change the selector if needed
@@ -36,9 +54,11 @@
         }).get();
 
         // Set the width of thead columns
-        $table.find('thead tr').children().each(function (i, v) {
-            $(v).width(colWidth[i]);
-        });
+        //$table.find('thead tr').children().each(function (i, v) {
+        //    $(v).width(colWidth[i]);
+        //});
+       
+
     }).resize(); // Trigger resize handler
 </script>
 <style>
@@ -111,23 +131,24 @@ tbody td, thead th {
             </div>
         </form> @*style="width:200px;text-align:center"*@
         <div class="table-responsive box-shadow mb-4" ng-show="showdata" id="export">
-           <div class="row" style="margin-left:10%;margin-right:0px;margin-top:15px">
+           @*<div class="row" style="margin-left:10%;margin-right:0px;margin-top:15px">
                <div><h5>Адрес</h5></div>
                <div style="margin-left:15%"><h5>Названия</h5></div>
                <div style="margin-left:15%"><h5>Названия</h5></div>
                <div style="margin-left:15%"><h5>Инн</h5></div>
-           </div>
+           </div>*@
             @*table table__block t-hover*@ 
+            @*class="dropdown dropdown__table"*@
             <table class="table table-bordered scroll" id="table" onscroll="yes">
-                    <thead style="display:none">
+                    <thead style="display:block">
                         <tr>
-                            <td class="dropdown dropdown__table">Адрес</td>
-                            <td class="dropdown dropdown__table">Названия</td>
-                            <td class="dropdown dropdown__table">Названия</td>
-                            <td class="dropdown dropdown__table">Инн</td>
+                            <th>Адрес</th>
+                            <th>Названия</th>
+                            <th>Названия</th>
+                            <th>Инн</th>
                         </tr>
                     </thead>
-                    <tbody style="display:block">
+                    <tbody style="display:block" class="table">
                           <tr ng-repeat="item in DATA" ng-click="T(item.d2,item.d4)">
                             <td>{{item.d1}}</td>
                             <td>{{item.d2}}</td>

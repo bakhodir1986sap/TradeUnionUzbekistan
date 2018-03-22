@@ -3,6 +3,76 @@
     ViewBag.Title = "Отчеты";
 }
 <script src="~/Scripts/MyJavaScript/Postupleniya.js"></script>
+<script>
+    // Change the selector if needed
+    var $table = $('table.scroll'),
+        $bodyCells = $table.find('tbody tr:first').children(),
+        colWidth;
+
+    // Adjust the width of thead cells when window resizes
+    $(window).resize(function () {
+        // Get the tbody columns width array
+        colWidth = $bodyCells.map(function () {
+            return $(this).width();
+        }).get();
+
+        // Set the width of thead columns
+        $table.find('thead tr').children().each(function (i, v) {
+            $(v).width(colWidth[i]);
+        });
+    }).resize(); // Trigger resize handler
+</script>
+<style>
+    table.scroll {
+        /* width: 100%; */ /* Optional */
+        /* border-collapse: collapse; */
+        border-spacing: 0;
+        /*border: 2px solid black;*/
+    }
+
+        table.scroll tbody,
+        table.scroll thead {
+            display: block;
+        }
+
+    thead tr th {
+        height: 30px;
+        line-height: 30px;
+        /* text-align: left; */
+    }
+
+    table.scroll tbody {
+        height: 300px;
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+
+    tbody {
+        border-top: 2px solid black;
+    }
+
+        tbody td, thead th {
+            /* width: 20%; */ /* Optional */
+            /*border-right: 1px solid black;*/
+            /* white-space: nowrap; */
+        }
+
+            tbody td:last-child, thead th:last-child {
+                border-right: none;
+            }
+</style>
+<style>
+    td {
+        border: 1px #DDD solid;
+        padding: 5px;
+        cursor: pointer;
+    }
+
+    .selected {
+        background-color: #24c0db;
+        color: #FFF;
+    }
+</style>
 <div ng-controller="Postupleniya">
     <div id="connection" style="visibility:hidden;position:absolute;margin-left:600px;margin-top:100px;z-index:9999">
         <img src="~/Content/Login/buffering.gif" />
@@ -29,12 +99,14 @@
                         <span class="alert alert-warning" style="padding:0px" ng-show="!myForm2.INN.$error.required&&!myForm2.INN.$valid">9 шт. номер</span>
                     </div>
                     <div class="col-md-4 form-group">
+                        <button class="btn btn-green d-block d-md-inline-block mb-3 mb-md-0" data-toggle="modal" data-target="#dobavit">Поиск</button>
+                    </div>
+                    <div class="col-md-4 form-group">
                         <button ng-show="showdata" ng-click="exportData()" class="btn btn-green d-block d-md-inline-block mb-3 mb-md-0" style="margin-left:700px"><i class="fas fa-file-excel"></i> Экспорт</button>
                     </div>
                 </div>
             </div>
         </form>
-       
         <div class="table-responsive box-shadow mb-4" ng-show="showdata" id="export">
             <table class="table table__block t-hover">
                 <thead>
@@ -119,5 +191,68 @@
             </table>
         </div>
     </section>
+    <div class="modal__block modal fade" id="dobavit" tabindex="-1" role="dialog" aria-labelledby="dobavitLabel">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <section class="content__block container">
+                        <div id="connection2" style="visibility:hidden;position:absolute;margin-left:300px;margin-top:100px;z-index:9999">
+                            <img src="~/Content/Login/buffering.gif" />
+                        </div>
+                        <div class="row justify-content-center">
+                            <form class="row" name="myForm1" novalidate>
+                                <div class="custom-control-inline" style="margin-left:20px;">
+                                    <div>
+                                        <p>ИНН:</p>
+                                        <input type="text" class="form-control" id="inn1" ng-model="I" placeholder="ИНН" style="width:200px" />
+                                        <span class="alert alert-warning" style="padding:0px" ng-show="myForm1.I.$error.required">Выберите поле</span>
+                                    </div>
+                                    <div style="margin-left:100px">
+                                        <p>ИМЯ:</p>
+                                        <input type="text" required id="name" class="form-control" ng-model="N" placeholder="ИМЯ" style="width:200px" />
+                                        <span class="alert alert-warning" style="padding:0px" ng-show="myForm1.N.$error.required">Выберите поле</span>
+                                    </div>
+                                    <div style="margin-left:100px">
+                                        <button ng-click="LoadDATA2()" class="btn btn-blue d-block d-md-inline-block mb-2" style="margin-top:40px"> Получить</button>
+                                    </div>
+                                </div>
+                            </form>
+                            <div class="table-responsive box-shadow mb-4" ng-show="showdata2" id="export">
+                                @*class="table table-bordered scroll"*@
+                                <table class="scroll" id="table">
+                                    <thead>
+                                        <tr>
+                                            <th style="width:200px;text-align:center">Адрес</th>
+                                            <th style="width:200px;text-align:center">Названия</th>
+                                            <th style="width:200px;text-align:center">Названия</th>
+                                            <th style="width:200px;text-align:center">Инн</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="item in DATA3" onclick="MyFunction()" ng-click="T(item.d2,item.d4)">
+                                            <td style="width:200px">{{item.d1}}</td>
+                                            <td style="width:200px">{{item.d2}}</td>
+                                            <td style="width:200px">{{item.d3}}</td>
+                                            <td style="width:200px">{{item.d4}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <script>
+                                        function MyFunction() {
+                                            $("#table tr").click(function () {
+                                                $(this).addClass('selected').siblings().removeClass('selected');
+                                                var value = $(this).find('td:first').html();
+                                                //alert("value=" + value);
+                                            });
+                                        }
+                                </script>
+                            </div>
+                            <button ng-show="showdata2" ng-click="Tanlash()" data-dismiss="modal">Выбрать</button>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 

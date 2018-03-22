@@ -1,4 +1,4 @@
-﻿app.controller("LoadINN", ["$scope", "$http", "$filter", "DataService", function ($scope, $http, $filter, DataService) {
+﻿app.controller("LoadINN", ["$scope", "$http", "$filter", "DataService", "CalcService", function ($scope, $http, $filter, DataService, CalcService) {
     $scope.showdata = false;
     $scope.LoadDATA = function () {
         Load($scope.I, $scope.N);
@@ -30,6 +30,8 @@
     var n=null;
     $scope.T = function (name, inn) {
         //alert(inn);
+        CalcService.square(inn);
+        //DataService.set(inn, name);
         $("#table tr").click(function () {
             $(this).addClass('selected').siblings().removeClass('selected');
             var value = $(this).find('td:first').html();
@@ -45,6 +47,7 @@
     $scope.Tanlash = function () {
         if (i != null && n != null)
         {
+            
             //DataService.set(i, n);
             //parent.HelloFromChild(inn, name);
         }

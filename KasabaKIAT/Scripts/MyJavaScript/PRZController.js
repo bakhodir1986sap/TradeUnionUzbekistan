@@ -1,5 +1,6 @@
 ﻿app.controller("PRZController", ["$scope", "$http", "$filter", "crudAJService", function ($scope, $http, $filter, crudAJService) {
     $scope.PRZdiv = true;
+    $scope.showdata = false;
     $scope.SCf = {
         id: '1',
         value: ''
@@ -15,6 +16,54 @@
     getSs();
     getPs();
     Load_PRZ_S(1);
+    //--------------------------//
+    $scope.LoadDATA2 = function () {
+        Load($scope.I, $scope.N);
+    }
+    function Load(inn, name) {
+        document.getElementById('connection2').style.visibility = "visible";
+        $("#hh").modal({
+            backdrop: 'static',
+            backdrop: 'static'
+        });
+        if (name == null) {
+            name = " ";
+        }
+        $http({
+            method: "post",
+            url: "/PrixodPutevok/Getegrpo?inn=" + inn + "&name=" + name,
+        }).then(function (d) {
+            $scope.DATA3 = d.data;
+            if (d.data.length !== 0) {
+                $scope.showdata = true;
+            }
+            else {
+                $scope.showdata = false;
+            }
+            document.getElementById('connection2').style.visibility = "hidden";
+            $("#hh").modal('hide');
+        }, function () {
+            document.getElementById('connection2').style.visibility = "hidden";
+            $("#hh").modal('hide');
+            alertify.error("ошибка");
+        });
+    }
+
+    var ii = null;
+    var ni = null;
+    $scope.T = function (name, inn) {
+        ni = name;
+        ii = inn;
+        document.getElementById("name").value = name;
+        document.getElementById("inn1").value = inn;
+    }
+    $scope.Tanlash = function () {
+        if (ii != null && ni != null) {
+            $scope.INN = ii;
+            LoadINN(ii);
+        }
+    }
+    //-------------------------//
     function Load_PRZ_S(id) {
         $http({
             method: "post",
@@ -243,10 +292,9 @@
         if ($scope.MOE === false) {
             $scope.MO = "";
         }
-}
-    $scope.LoadINN = function () {
-    $scope.O = "";
-        var inn = $scope.INN;
+    }
+    function LoadINN(inn) {
+        $scope.O = "";
         if (inn.length === 9) {
             //alert(inn);
             $http({
@@ -261,6 +309,10 @@
         else {
             $scope.O = "";
         }
+    }
+    $scope.LoadINN = function () {
+        var inn = $scope.INN;
+        LoadINN(inn);
     }
     $scope.editPRZ = function (prz) {
         $scope.ID = prz.ID;

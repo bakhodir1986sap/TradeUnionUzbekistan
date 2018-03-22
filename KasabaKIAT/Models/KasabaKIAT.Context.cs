@@ -167,8 +167,6 @@ namespace KasabaKIAT.Models
         public virtual DbSet<KaznaSverkaFile> KaznaSverkaFiles { get; set; }
         public virtual DbSet<tbgl_balance> tbgl_balance { get; set; }
         public virtual DbSet<tbgl_jnlmst> tbgl_jnlmst { get; set; }
-        public virtual DbSet<PrivyazkaProvodok> PrivyazkaProvodoks { get; set; }
-        public virtual DbSet<tbbu_ecp_calc> tbbu_ecp_calc { get; set; }
     
         public virtual ObjectResult<Nullable<decimal>> sp_get_BankPaymentCompanyMonthly(string inn, Nullable<int> year, Nullable<int> month)
         {
@@ -700,9 +698,21 @@ namespace KasabaKIAT.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_rt_Razbivka_Postup_OtraslGroup_Result>("sp_rt_Razbivka_Postup_OtraslGroup", sOATOParameter, bEGIN_DATEParameter, eND_DATEParameter);
         }
     
-        public virtual ObjectResult<sp_pr_GetNewTransactions_Result1> sp_pr_GetNewTransactions()
+        public virtual ObjectResult<sp_rt_GetOrganization_Result> sp_rt_GetOrganization(string dEPARTMENT_BASE, string iNN, string oRG_NAME)
         {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_pr_GetNewTransactions_Result1>("sp_pr_GetNewTransactions");
+            var dEPARTMENT_BASEParameter = dEPARTMENT_BASE != null ?
+                new ObjectParameter("DEPARTMENT_BASE", dEPARTMENT_BASE) :
+                new ObjectParameter("DEPARTMENT_BASE", typeof(string));
+    
+            var iNNParameter = iNN != null ?
+                new ObjectParameter("INN", iNN) :
+                new ObjectParameter("INN", typeof(string));
+    
+            var oRG_NAMEParameter = oRG_NAME != null ?
+                new ObjectParameter("ORG_NAME", oRG_NAME) :
+                new ObjectParameter("ORG_NAME", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_rt_GetOrganization_Result>("sp_rt_GetOrganization", dEPARTMENT_BASEParameter, iNNParameter, oRG_NAMEParameter);
         }
     }
 }

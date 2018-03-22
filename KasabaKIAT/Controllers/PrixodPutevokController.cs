@@ -5,6 +5,7 @@ using KasabaKIAT.BusinessLogic.Putyovki.RealizasiyaPutyovok.RealizasitaPoTz;
 using KasabaKIAT.BusinessLogic.Putyovki.VozvratPutyovki.VozvratPoTz;
 using KasabaKIAT.Models;
 using KasabaKIAT.ViewModel.Putyovki;
+using log4net;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,6 +18,7 @@ namespace KasabaKIAT.Controllers
     [Authorize]
     public class PrixodPutevokController : Controller
     {
+        ILog log = log4net.LogManager.GetLogger(typeof(HomeController));
         KasabaKIATEntities KasabaDB = new KasabaKIATEntities();
         BronirovaniyaPutyovki BP = new BronirovaniyaPutyovki();
         RealizasiyaPoTzCl OR = new RealizasiyaPoTzCl();
@@ -206,20 +208,37 @@ namespace KasabaKIAT.Controllers
         }
         public JsonResult Getegrpo(string inn,string name)
         {
-            int UserId = Convert.ToInt32(User.Identity.Name);
-            var ustinfo = UserInfo.GetUserInfo(UserId);
-            string str = ustinfo.DepartmentBase.Substring(0, 2) + ustinfo.DepartmentBase.Substring(3, 2);
-            var list = (from a in KasabaDB.t_egrpo
-                        where a.soato_id.Contains(str) &&(a.inn==inn|| a.inn.Contains(inn)||a.name_full.Trim().Contains(name.Trim())||a.name_short.Trim().Contains(name.Trim()))
-                        select new
-                        {
-                            d0 = a.id,
-                            d1 = a.address,
-                            d2 = a.name_full,
-                            d3 = a.name_short,
-                            d4 = a.inn,
-                        });
-            return Json(list.ToList(), JsonRequestBehavior.AllowGet);
+            log.Info("Getegrpo");
+            log.Info("inn="+inn);
+            log.Info("name="+name);
+            try
+            {
+                int UserId = Convert.ToInt32(User.Identity.Name);
+                var ustinfo = UserInfo.GetUserInfo(UserId);
+                string str = ustinfo.DepartmentBase.Substring(0, 2) + ustinfo.DepartmentBase.Substring(3, 2);
+                var data = KasabaDB.sp_rt_GetOrganization(ustinfo.DepartmentBase, inn, name);
+                var list = (from a in data //KasabaDB.t_egrpo
+                            //where a.soato_id.Contains(str) && (a.inn == inn || a.inn.Contains(inn) || a.name_full.Trim().Contains(name.Trim()) || a.name_short.Trim().Contains(name.Trim()))
+                            select new
+                            {
+                                d0 = a.id,
+                                d1 = a.address,
+                                d2 = a.name_full,
+                                d3 = a.name_short,
+                                d4 = a.inn,
+                            });
+
+                var resList = list.ToList();
+                log.Info("Count = " + resList.Count);
+
+                return Json(resList, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex);
+            }
+
+            return null;
         }
         public string LoadINN(int inn)
         {

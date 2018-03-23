@@ -34,7 +34,7 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.Provodki.AutomaticTransactions.K
                         model.payment_id = 0;
                         model.profsouz_amt = 0;
                         model.provodka_id = 0;
-
+                        model.remark = string.Empty;
 
                         model.payment_id = (long)payment.ID;
 
@@ -110,6 +110,16 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.Provodki.AutomaticTransactions.K
                         #region Region and Branch Difinition
                         var egrpo = db.t_egrpo.Where(z => z.inn == payment.CLINN);
 
+                        var nibddNumber1 = payment.CLACC.Substring(9, 8);
+
+                        var fermer1 = db.tbbFermers.Where(z => z.INN == nibddNumber1);
+
+                        if (fermer1.Any())
+                        {
+                            model.remark = string.Format("{0}-{1}", fermer1.First().ID, "TASHKENT");
+                        }
+                        
+
                         if (egrpo.Any())
                         {
                             var egrpo1 = egrpo.First();
@@ -128,7 +138,7 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.Provodki.AutomaticTransactions.K
                         {
                             if (!string.IsNullOrEmpty(payment.CLACC))
                             {
-                                var nibddNumber = payment.CLACC.Substring(9, 8);
+                                var nibddNumber = payment.CLACC.Substring(10, 8);
 
                                 var fermer = db.tbbFermers.Where(z => z.INN == nibddNumber);
 

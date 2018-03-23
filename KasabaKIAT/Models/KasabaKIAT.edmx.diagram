@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="298726c96b884914b1085bbf5341386a" Name="Diagram1" ZoomLevel="15">
+      <Diagram DiagramId="298726c96b884914b1085bbf5341386a" Name="Diagram1" ZoomLevel="47">
         <EntityTypeShape EntityType="KasabaKIATModel.Balans" Width="1.5" PointX="24.75" PointY="267.375" IsExpanded="true" />
         <EntityTypeShape EntityType="KasabaKIATModel.bkut_egrpo_aud" Width="1.5" PointX="3" PointY="1.625" IsExpanded="true" />
         <EntityTypeShape EntityType="KasabaKIATModel.eco_platej" Width="1.5" PointX="5.75" PointY="7.75" IsExpanded="true" />
@@ -360,6 +360,8 @@
         <AssociationConnector Association="KasabaKIATModel.FK_PrivyazkaProvodok_provodok" />
         <AssociationConnector Association="KasabaKIATModel.FK_PrivyazkaProvodok_tbcs_dictionary" />
         <EntityTypeShape EntityType="KasabaKIATModel.tbbu_ecp_calc" Width="1.5" PointX="22.375" PointY="4.75" />
+        <AssociationConnector Association="KasabaKIATModel.FK_PrivyazkaProvodok_provodok" />
+        <AssociationConnector Association="KasabaKIATModel.FK_PrivyazkaProvodok_tbcs_dictionary" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

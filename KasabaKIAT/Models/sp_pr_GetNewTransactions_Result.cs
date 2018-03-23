@@ -18,5 +18,6 @@ namespace KasabaKIAT.Models
         public string CLINN { get; set; }
         public string COINN { get; set; }
         public string PURPOSE { get; set; }
+        public string CLACC { get; set; }
     }
 }

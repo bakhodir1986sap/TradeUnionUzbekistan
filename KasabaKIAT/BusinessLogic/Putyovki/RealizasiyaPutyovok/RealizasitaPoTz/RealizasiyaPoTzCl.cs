@@ -40,6 +40,8 @@ namespace KasabaKIAT.BusinessLogic.Putyovki.RealizasiyaPutyovok.RealizasitaPoTz
                             dd.code = string.Format("{0}{1}", departmentBase, inn);
                             dd.name_ru = fermer.name_full;
                             dd.name_uz = fermer.name_short;
+                            dd.soato_code = fermer.soato_id;
+                            dd.okonx = fermer.okonx_id;
                             dd.dtype = "Bkut";
                             dd.version = 0;
 
@@ -54,6 +56,10 @@ namespace KasabaKIAT.BusinessLogic.Putyovki.RealizasiyaPutyovok.RealizasitaPoTz
 
                 if (orgDepBase != null)
                 {
+                    var numGen = new ViplNumGen();
+                    var nakladnoyNomer = numGen.GetNextNumDoc(departmentBase, DateTime.Now.Year).
+                                                ToString().PadLeft(6, '0');
+
                     foreach (var chk in checkedList)
                     {
                         var chkput = db.tbpt_putyovkarealizasiya.Where(z => z.SERAIL_NUMBER == chk.NumPut && z.SANATORIUM_ID == chk.SanId);
@@ -85,6 +91,9 @@ namespace KasabaKIAT.BusinessLogic.Putyovki.RealizasiyaPutyovok.RealizasitaPoTz
                         real.department_code = departmentBase;
                         real.user_id = userId;
                         real.payment_persent = 0;
+                        real.org_inn = inn;
+                        real.quantity = 1;
+                        real.nakladnoy_nomer = nakladnoyNomer;
 
                         var putyovka = db.tblPos_Put.Where(f => f.Num_Put == chk.NumPut && f.ID_Sanat == chk.SanId);
 

@@ -35,12 +35,12 @@ namespace KasabaKIAT.Controllers
                 return View();
             }
         }
-        [Authorize(Roles = "COUNCIL_REGIONAL_REGION,ADMIN")]
+        //[Authorize(Roles = "COUNCIL_REGIONAL_REGION,ADMIN")]
         public ActionResult ProsmotrRealzPutevok()
         {
             return View();
         }
-        [Authorize(Roles = "COUNCIL_REGIONAL_REGION,ADMIN")]
+        //[Authorize(Roles = "COUNCIL_REGIONAL_REGION,ADMIN")]
         public ActionResult ProsmotrOstatPutevok()
         {
             int UserId = Convert.ToInt32(User.Identity.Name);
@@ -53,7 +53,7 @@ namespace KasabaKIAT.Controllers
                 return View();
             }
         }
-        [Authorize(Roles = "COUNCIL_REGIONAL_REGION,ADMIN")]
+        //[Authorize(Roles = "COUNCIL_REGIONAL_REGION,ADMIN")]
         public ActionResult RealizatsiyaPutevok()
         {
             int UserId = Convert.ToInt32(User.Identity.Name);
@@ -66,7 +66,7 @@ namespace KasabaKIAT.Controllers
                 return View();
             }
         }
-        [Authorize(Roles = "COUNCIL_REGIONAL_REGION,ADMIN")]
+        //[Authorize(Roles = "COUNCIL_REGIONAL_REGION,ADMIN")]
         public ActionResult SverkaDannix()
         {
             return View();
@@ -216,6 +216,12 @@ namespace KasabaKIAT.Controllers
                 int UserId = Convert.ToInt32(User.Identity.Name);
                 var ustinfo = UserInfo.GetUserInfo(UserId);
                 string str = ustinfo.DepartmentBase.Substring(0, 2) + ustinfo.DepartmentBase.Substring(3, 2);
+
+                if ((string.IsNullOrEmpty(name)) || (name.ToLower().Contains("undefined")))
+                {
+                    name = string.Empty;
+                }
+
                 var data = KasabaDB.sp_rt_GetOrganization(ustinfo.DepartmentBase, inn, name);
                 var list = (from a in data //KasabaDB.t_egrpo
                             //where a.soato_id.Contains(str) && (a.inn == inn || a.inn.Contains(inn) || a.name_full.Trim().Contains(name.Trim()) || a.name_short.Trim().Contains(name.Trim()))
@@ -240,6 +246,50 @@ namespace KasabaKIAT.Controllers
 
             return null;
         }
+
+
+        public JsonResult Getegrpo1(string inn, string name)
+        {
+            log.Info("Getegrpo");
+            log.Info("inn=" + inn);
+            log.Info("name=" + name);
+            try
+            {
+                int UserId = Convert.ToInt32(User.Identity.Name);
+                var ustinfo = UserInfo.GetUserInfo(UserId);
+                string str = ustinfo.DepartmentBase.Substring(0, 2) + ustinfo.DepartmentBase.Substring(3, 2);
+
+                if (string.IsNullOrEmpty(name))
+                {
+                    name = string.Empty;
+                }
+
+                var data = KasabaDB.sp_rt_GetOrganization(ustinfo.DepartmentBase, inn, name);
+                var list = (from a in data //KasabaDB.t_egrpo
+                                           //where a.soato_id.Contains(str) && (a.inn == inn || a.inn.Contains(inn) || a.name_full.Trim().Contains(name.Trim()) || a.name_short.Trim().Contains(name.Trim()))
+                            select new
+                            {
+                                d0 = a.id,
+                                d1 = a.address,
+                                d2 = a.name_full,
+                                d3 = a.name_short,
+                                d4 = a.inn,
+                            });
+
+                var resList = list.ToList();
+                log.Info("Count = " + resList.Count);
+
+                return Json(resList.First(), JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex);
+            }
+
+            return null;
+        }
+
+
         public string LoadINN(int inn)
         {
             string strInn = inn.ToString();

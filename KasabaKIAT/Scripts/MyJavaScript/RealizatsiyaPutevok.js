@@ -21,12 +21,13 @@
         Data = { b: stringArrayd, inn: inn };
         $scope.O = "";
         try {
-            if (inn.length == 9) {
+            if (inn.length === 9) {
                 $http({
                     method: 'get',
-                    url: "/PrixodPutevok/Getegrpo?inn=" + inn + "&name=' '",
+                    url: "/PrixodPutevok/Getegrpo1?inn=" + inn,
+                    //url: "/PrixodPutevok/Getegrpo?inn=" + inn + "&name=' '",
                 }).then(function (response) {
-                    if (response.data.length == 0) {
+                    if (response.data.length === 0) {
                         $scope.O = "No Data Found";
                     }
                     else {
@@ -380,7 +381,7 @@
             backdrop: 'static',
             backdrop: 'static'
         });
-        if (name == null) {
+        if (name === null) {
             name = " ";
         }
         $http({
@@ -412,7 +413,7 @@
         document.getElementById("inn1").value = inn;
     }
     $scope.Tanlash = function () {
-        if (ii != null && ni != null) {
+        if (ii !== null && ni !== null) {
             $scope.INN = ii;
             LoadINN(ii);
         }

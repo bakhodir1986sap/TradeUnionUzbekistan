@@ -360,6 +360,8 @@
         <AssociationConnector Association="KasabaKIATModel.FK_PrivyazkaProvodok_provodok" />
         <AssociationConnector Association="KasabaKIATModel.FK_PrivyazkaProvodok_tbcs_dictionary" />
         <EntityTypeShape EntityType="KasabaKIATModel.tbbu_ecp_calc" Width="1.5" PointX="22.375" PointY="4.75" />
+        <AssociationConnector Association="KasabaKIATModel.FK_PrivyazkaProvodok_provodok" />
+        <AssociationConnector Association="KasabaKIATModel.FK_PrivyazkaProvodok_tbcs_dictionary" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

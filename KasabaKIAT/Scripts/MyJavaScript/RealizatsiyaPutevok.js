@@ -24,7 +24,7 @@
             if (inn.length == 9) {
                 $http({
                     method: 'get',
-                    url: "/PrixodPutevok/Getegrpo?inn=" + inn + "&name=' '",
+                    url: "/PrixodPutevok/Getegrpo?inn=" + inn,
                 }).then(function (response) {
                     if (response.data.length == 0) {
                         $scope.O = "No Data Found";
@@ -275,8 +275,6 @@
             }).then(function (d) {
                 k++;
                 $scope.DATA = d.data;
-                ar1 = new Array();
-                ar2 = new Array();
                 console.log(d, k);
                 document.getElementById('connection').style.visibility = "hidden";
                 $("#hh").modal('hide');
@@ -376,7 +374,7 @@
     }
     function Load(inn, name) {
         document.getElementById('connection2').style.visibility = "visible";
-        $("#hh").modal({
+        $("#hh2").modal({
             backdrop: 'static',
             backdrop: 'static'
         });
@@ -395,10 +393,10 @@
                 $scope.showdata = false;
             }
             document.getElementById('connection2').style.visibility = "hidden";
-            $("#hh").modal('hide');
+            $("#hh2").modal('hide');
         }, function () {
             document.getElementById('connection2').style.visibility = "hidden";
-            $("#hh").modal('hide');
+            $("#hh2").modal('hide');
             alertify.error("ошибка");
         });
     }

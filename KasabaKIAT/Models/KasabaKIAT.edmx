@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="KasabaKIATModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="KasabaKIATModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="agreement_files">
           <Key>
             <PropertyRef Name="agreement_id" />
@@ -179,6 +179,21 @@ warning 6002: The table/view 'KasabaKIAT.dbo.buildingfixedasset' does not have a
           <Property Name="Symma_Opl" Type="bigint" />
           <Property Name="UserId" Type="bigint" />
           <Property Name="id" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Kazna_Account">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="KOD_BANKA" Type="varchar" MaxLength="5" />
+          <Property Name="VILOYAT" Type="nvarchar" MaxLength="200" />
+          <Property Name="TUMAN_SHAXAR" Type="nvarchar" MaxLength="200" />
+          <Property Name="BANK_XISOBRAQAM" Type="varchar" MaxLength="10" />
+          <Property Name="SHARTLI_RAQAM" Type="varchar" MaxLength="10" />
+          <Property Name="XISOB_RAQAM" Type="varchar" MaxLength="50" />
+          <Property Name="XR_NOMI" Type="nvarchar" MaxLength="1000" />
+          <Property Name="DAROMAT_YIG_NOMI" Type="nvarchar" MaxLength="1000" />
+          <Property Name="BYUDJET_TURI" Type="nvarchar" MaxLength="1000" />
         </EntityType>
         <EntityType Name="KaznaFiles">
           <Key>
@@ -1358,7 +1373,7 @@ warning 6002: The table/view 'KasabaKIAT.dbo.t_departmentbase_aud' does not have
           <Property Name="soato_id" Type="varchar" MaxLength="10" />
           <Property Name="soogu_id" Type="varchar" MaxLength="255" />
           <Property Name="okpo" Type="varchar" MaxLength="20" />
-          <Property Name="BANK_ACCOUNT" Type="varchar" MaxLength="20" />
+          <Property Name="BANK_ACCOUNT" Type="varchar" MaxLength="30" />
           <Property Name="NATIVE_ID" Type="bigint" />
         </EntityType>
         <EntityType Name="t_egrpo_about">
@@ -1913,17 +1928,17 @@ warning 6002: The table/view 'KasabaKIAT.dbo.tbbTabel' does not have a primary k
           <Key>
             <PropertyRef Name="REC_ID" />
           </Key>
-          <Property Name="TRDT" Type="datetime" />
+          <Property Name="TRDT" Type="date" />
           <Property Name="DEPARTMENT_CODE" Type="varchar" MaxLength="255" />
           <Property Name="DYSEQ" Type="int" />
           <Property Name="DYTRSEQ" Type="int" />
-          <Property Name="ACCOUNT" Type="varchar" MaxLength="50" />
+          <Property Name="ACCOUNT" Type="varchar" MaxLength="10" />
           <Property Name="DRCR" Type="char" MaxLength="1" />
           <Property Name="CCY" Type="char" MaxLength="3" />
           <Property Name="AMOUNT" Type="money" />
           <Property Name="REMARK" Type="varchar" MaxLength="500" />
           <Property Name="CRTUSER_ID" Type="bigint" />
-          <Property Name="REC_ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="REC_ID" Type="bigint" Nullable="false" />
           <Property Name="INN" Type="varchar" MaxLength="9" />
         </EntityType>
         <EntityType Name="tbgl_jnlmst">
@@ -2008,7 +2023,7 @@ warning 6002: The table/view 'KasabaKIAT.dbo.tbbTabel' does not have a primary k
           <Property Name="DepartmentBase" Type="varchar" MaxLength="255" />
           <Property Name="State" Type="int" />
           <Property Name="ErrorCode" Type="int" />
-          <Property Name="ErrorDesc" Type="varchar" MaxLength="1000" />
+          <Property Name="ErrorDesc" Type="varchar" MaxLength="100" />
         </EntityType>
         <EntityType Name="tbku_servicetype">
           <Key>
@@ -2619,7 +2634,7 @@ warning 6002: The table/view 'KasabaKIAT.dbo.tblVozVrat' does not have a primary
           <Property Name="YEAR" Type="varchar" MaxLength="4" Nullable="false" />
           <Property Name="KVARTAL" Type="char" MaxLength="1" Nullable="false" />
           <Property Name="SANATORIUM_ID" Type="bigint" />
-          <Property Name="CAMP_ID" Type="int" />
+          <Property Name="CAMP_ID" Type="bigint" />
           <Property Name="TIP_MEST_ID" Type="bigint" />
           <Property Name="PRICE" Type="money" />
           <Property Name="QUANTITY" Type="int" />
@@ -3151,6 +3166,18 @@ warning 6035: The relationship 'FK_p_provodok_sp_soato_code' has columns that ar
         <!--Errors Found During Generation:
 warning 6035: The relationship 'FK_p_provodok_t_departmentbase_code' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
         <Association Name="FK_p_provodok_t_departmentbase_code" />-->
+        <Association Name="FK_p_provodok_tbcs_dictionary_REC_ID">
+          <End Role="tbcs_dictionary" Type="Self.tbcs_dictionary" Multiplicity="0..1" />
+          <End Role="p_provodok" Type="Self.p_provodok" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbcs_dictionary">
+              <PropertyRef Name="REC_ID" />
+            </Principal>
+            <Dependent Role="p_provodok">
+              <PropertyRef Name="order" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_p_provodok_users_id">
           <End Role="users" Type="Self.users" Multiplicity="0..1" />
           <End Role="p_provodok" Type="Self.p_provodok" Multiplicity="*" />
@@ -3160,33 +3187,6 @@ warning 6035: The relationship 'FK_p_provodok_t_departmentbase_code' has columns
             </Principal>
             <Dependent Role="p_provodok">
               <PropertyRef Name="USER_ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_PrivyazkaProvodok_provodok">
-          <End Role="provodok" Type="Self.provodok" Multiplicity="0..1" />
-          <End Role="PrivyazkaProvodok" Type="Self.PrivyazkaProvodok" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="provodok">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="PrivyazkaProvodok">
-              <PropertyRef Name="PROVODOK_ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <!--Errors Found During Generation:
-warning 6035: The relationship 'FK_PrivyazkaProvodok_sp_soato' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
-        <Association Name="FK_PrivyazkaProvodok_sp_soato" />-->
-        <Association Name="FK_PrivyazkaProvodok_tbcs_dictionary">
-          <End Role="tbcs_dictionary" Type="Self.tbcs_dictionary" Multiplicity="0..1" />
-          <End Role="PrivyazkaProvodok" Type="Self.PrivyazkaProvodok" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tbcs_dictionary">
-              <PropertyRef Name="REC_ID" />
-            </Principal>
-            <Dependent Role="PrivyazkaProvodok">
-              <PropertyRef Name="JO_REF" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -4446,6 +4446,9 @@ warning 6035: The relationship 'FK_tblVozVrat_t_departmentbase' has columns that
         <!--Errors Found During Generation:
 warning 6035: The relationship 'FK_tbpt_yearlyplanotrasl_sp_soato' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
         <Association Name="FK_tbpt_yearlyplanotrasl_sp_soato" />-->
+        <!--Errors Found During Generation:
+warning 6035: The relationship 'FK_tbpt_yearlyplanregion_sp_soato' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
+        <Association Name="FK_tbpt_yearlyplanregion_sp_soato" />-->
         <Association Name="FK_tbpt_yearlyplanregion_t_sanatorium">
           <End Role="t_sanatorium" Type="Self.t_sanatorium" Multiplicity="0..1" />
           <End Role="tbpt_yearlyplanregion" Type="Self.tbpt_yearlyplanregion" Multiplicity="*" />
@@ -4458,9 +4461,6 @@ warning 6035: The relationship 'FK_tbpt_yearlyplanotrasl_sp_soato' has columns t
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <!--Errors Found During Generation:
-warning 6035: The relationship 'FK_tbpt_zaezdi_t_departmentbase' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
-        <Association Name="FK_tbpt_zaezdi_t_departmentbase" />-->
         <Association Name="FK_tbpt_zaezdi_tbcs_dictionary">
           <End Role="tbcs_dictionary" Type="Self.tbcs_dictionary" Multiplicity="0..1" />
           <End Role="tbpt_zaezdi" Type="Self.tbpt_zaezdi" Multiplicity="*" />
@@ -4473,6 +4473,33 @@ warning 6035: The relationship 'FK_tbpt_zaezdi_t_departmentbase' has columns tha
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_tbpt_zaezdi_tbcs_dictionary_REC_ID">
+          <End Role="tbcs_dictionary" Type="Self.tbcs_dictionary" Multiplicity="0..1" />
+          <End Role="tbpt_zaezdi" Type="Self.tbpt_zaezdi" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbcs_dictionary">
+              <PropertyRef Name="REC_ID" />
+            </Principal>
+            <Dependent Role="tbpt_zaezdi">
+              <PropertyRef Name="PLACE_TYPE_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_users_sp_branch_id">
+          <End Role="sp_branch" Type="Self.sp_branch" Multiplicity="0..1" />
+          <End Role="users" Type="Self.users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="sp_branch">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="users">
+              <PropertyRef Name="BRANCH_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <!--Errors Found During Generation:
+warning 6035: The relationship 'FK_users_sp_soato_code' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
+        <Association Name="FK_users_sp_soato_code" />-->
         <Association Name="FK_Zapros_ZK_Users">
           <End Role="users" Type="Self.users" Multiplicity="0..1" />
           <End Role="Zapros_ZK" Type="Self.Zapros_ZK" Multiplicity="*" />
@@ -5773,6 +5800,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <EntitySet Name="frZapros" EntityType="Self.frZapros" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="gagreement_files" EntityType="Self.gagreement_files" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Kartoch" EntityType="Self.Kartoch" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Kazna_Account" EntityType="Self.Kazna_Account" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="KaznaFiles" EntityType="Self.KaznaFiles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="KaznaPaymentFile" EntityType="Self.KaznaPaymentFile" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="KaznaSverkaFile" EntityType="Self.KaznaSverkaFile" Schema="dbo" store:Type="Tables" />
@@ -6295,6 +6323,10 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
             <End Role="users" EntitySet="users" />
             <End Role="Ot14" EntitySet="Ot14" />
           </AssociationSet>
+          <AssociationSet Name="FK_p_provodok_tbcs_dictionary_REC_ID" Association="Self.FK_p_provodok_tbcs_dictionary_REC_ID">
+            <End Role="tbcs_dictionary" EntitySet="tbcs_dictionary" />
+            <End Role="p_provodok" EntitySet="p_provodok" />
+          </AssociationSet>
           <AssociationSet Name="FK_p_provodok_users_id" Association="Self.FK_p_provodok_users_id">
             <End Role="users" EntitySet="users" />
             <End Role="p_provodok" EntitySet="p_provodok" />
@@ -6698,6 +6730,14 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <AssociationSet Name="FK_tbpt_zaezdi_tbcs_dictionary" Association="Self.FK_tbpt_zaezdi_tbcs_dictionary">
             <End Role="tbcs_dictionary" EntitySet="tbcs_dictionary" />
             <End Role="tbpt_zaezdi" EntitySet="tbpt_zaezdi" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbpt_zaezdi_tbcs_dictionary_REC_ID" Association="Self.FK_tbpt_zaezdi_tbcs_dictionary_REC_ID">
+            <End Role="tbcs_dictionary" EntitySet="tbcs_dictionary" />
+            <End Role="tbpt_zaezdi" EntitySet="tbpt_zaezdi" />
+          </AssociationSet>
+          <AssociationSet Name="FK_users_sp_branch_id" Association="Self.FK_users_sp_branch_id">
+            <End Role="sp_branch" EntitySet="sp_branch" />
+            <End Role="users" EntitySet="users" />
           </AssociationSet>
           <AssociationSet Name="FK_Zapros_ZK_Users" Association="Self.FK_Zapros_ZK_Users">
             <End Role="users" EntitySet="users" />
@@ -8762,11 +8802,11 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <Key>
             <PropertyRef Name="REC_ID" />
           </Key>
-          <Property Name="TRDT" Type="DateTime" Precision="3" />
+          <Property Name="TRDT" Type="DateTime" Precision="0" />
           <Property Name="DEPARTMENT_CODE" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="DYSEQ" Type="Int32" />
           <Property Name="DYTRSEQ" Type="Int32" />
-          <Property Name="ACCOUNT" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ACCOUNT" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="DRCR" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
           <Property Name="CCY" Type="String" MaxLength="3" FixedLength="true" Unicode="false" />
           <Property Name="AMOUNT" Type="Decimal" Precision="19" Scale="4" />
@@ -8842,7 +8882,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <Property Name="DepartmentBase" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="State" Type="Int32" />
           <Property Name="ErrorCode" Type="Int32" />
-          <Property Name="ErrorDesc" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="ErrorDesc" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="tbku_servicetype">
           <Key>
@@ -13622,6 +13662,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
             <End Role="PrivyazkaProvodok" EntitySet="PrivyazkaProvodoks" />
           </AssociationSet>
           <FunctionImport Name="sp_pr_GetNewTransactions" ReturnType="Collection(KasabaKIATModel.sp_pr_GetNewTransactions_Result)" />
+          <EntitySet Name="Kazna_Account" EntityType="KasabaKIATModel.Kazna_Account" />
         </EntityContainer>
         <ComplexType Name="sp_get_BankPaymentCompanyYearlyQ_Result">
           <Property Type="Int32" Name="MONTH_NUM" Nullable="true" />
@@ -14220,6 +14261,21 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <Property Type="String" Name="PURPOSE" Nullable="true" MaxLength="500" />
           <Property Type="String" Name="CLACC" Nullable="true" MaxLength="20" />
         </ComplexType>
+        <EntityType Name="Kazna_Account">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="KOD_BANKA" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="VILOYAT" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="TUMAN_SHAXAR" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="BANK_XISOBRAQAM" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="SHARTLI_RAQAM" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="XISOB_RAQAM" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="XR_NOMI" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="DAROMAT_YIG_NOMI" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="BYUDJET_TURI" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -17542,6 +17598,22 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <EntitySetMapping Name="Kazna_Account">
+            <EntityTypeMapping TypeName="KasabaKIATModel.Kazna_Account">
+              <MappingFragment StoreEntitySet="Kazna_Account">
+                <ScalarProperty Name="BYUDJET_TURI" ColumnName="BYUDJET_TURI" />
+                <ScalarProperty Name="DAROMAT_YIG_NOMI" ColumnName="DAROMAT_YIG_NOMI" />
+                <ScalarProperty Name="XR_NOMI" ColumnName="XR_NOMI" />
+                <ScalarProperty Name="XISOB_RAQAM" ColumnName="XISOB_RAQAM" />
+                <ScalarProperty Name="SHARTLI_RAQAM" ColumnName="SHARTLI_RAQAM" />
+                <ScalarProperty Name="BANK_XISOBRAQAM" ColumnName="BANK_XISOBRAQAM" />
+                <ScalarProperty Name="TUMAN_SHAXAR" ColumnName="TUMAN_SHAXAR" />
+                <ScalarProperty Name="VILOYAT" ColumnName="VILOYAT" />
+                <ScalarProperty Name="KOD_BANKA" ColumnName="KOD_BANKA" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

@@ -326,6 +326,9 @@
     <Compile Include="Models\KaznaSverkaFile.cs">
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Kazna_Account.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\PrivyazkaProvodok.cs">
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>

@@ -172,7 +172,7 @@ tbody td:last-child, thead th:last-child {
                     </div>
                     <div class="mb-5">
                         <div class="col-md-7">
-                            <label name="O" ng-model="O">{{O}}</label>
+                            <label name="O" ng-repeat="item in O">{{item.d2}}</label>
                         </div>
                     </div>
                     <div class="mb-5">
@@ -290,13 +290,13 @@ tbody td:last-child, thead th:last-child {
                     <td colspan="15" class="border-top border-right border-dark text-left"><strong></strong></td>
                     <td rowspan="7"></td>
                     <td colspan="5" class="border-top border-left border-dark text-left">Покупатель:</td>
-                    <td colspan="16" class="border-top border-right border-dark bg-warning"><strong>{{O}}</strong></td>
+                    <td colspan="16" class="border-top border-right border-dark bg-warning"><strong ng-repeat="item in O">{{item.d2}}</strong></td>
                 </tr>
                 <tr>
                     <td colspan="3" class="border-left border-dark text-left">Адрес:</td>
                     <td colspan="17" class="border-right border-dark text-left"><strong></strong></td>
                     <td colspan="3" class="border-left border-dark text-center">Адрес:</td>
-                    <td colspan="18" class="border-right border-dark bg-warning text-left"><strong></strong></td>
+                    <td colspan="18" class="border-right border-dark bg-warning text-left"><strong ng-repeat="item in O">{{item.d1}}</strong></td>
                 </tr>
                 <tr>
                     <td colspan="4" class="border-left border-dark text-center">Телефон:</td>
@@ -378,8 +378,8 @@ tbody td:last-child, thead th:last-child {
                     <td colspan="2" class="border border-dark bg-warning text-center">1</td>
                     <td colspan="4" class="border border-dark bg-warning text-right">{{item.d5}}</td>
                     <td colspan="5" class="border border-dark text-right">{{item.d5}}</td>
-                    <td colspan="4" rowspan="{{$index}}" class="border border-dark text-center">без акцизного налога</td>
-                    <td colspan="4" rowspan="{{$index}}" class="border border-dark text-center">без НДС</td>
+                    <td colspan="4" rowspan="{{$index-2}}" class="border border-dark text-center">без акцизного налога</td>
+                    <td colspan="4" rowspan="{{$index-2}}" class="border border-dark text-center">без НДС</td>
                     <td colspan="4" class="border border-dark text-center"></td>
                 </tr>
                 <tr>
@@ -465,9 +465,6 @@ tbody td:last-child, thead th:last-child {
                 </tr>
             </table>
         </div>
-        @*<section class="content__block container-fluid">
-           
-        </section>*@
         <div class="modal__block modal fade" id="dobavit2" tabindex="-1" role="dialog" aria-labelledby="dobavitLabel">
             <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
                 <div class="modal-content">
@@ -475,7 +472,7 @@ tbody td:last-child, thead th:last-child {
                         <input id="hh2" type="hidden" />
                         <div class="table__title mb-4">
                             <div class="row">
-                                <p>Организация: <strong>{{O}}</strong></p>
+                                <p>Организация: <strong ng-repeat="item in O">{{item.d2}}</strong></p>
                                 <div class="col-md-5 text-md-right">
                                     <button ng-click="exportData1()" class="btn btn-green d-block d-md-inline-block mb-3 mb-md-0"><i class="fas fa-file-excel"></i> Экспорт</button>
                                 </div>
@@ -505,7 +502,7 @@ tbody td:last-child, thead th:last-child {
                                         <td>{{item.d4}}</td>
                                         <td>{{item.d5}}</td>
                                         <td>
-                                            <input class="form-control" ng-model="item.d6" placeholder="100%" />
+                                            <input class="form-control" style="width:100px" ng-model="item.d6" placeholder="100%" />
                                         </td>
                                         <td>
                                             @*<a ng-click="LoadZ()" ng-disabled="myForm2.INN.$error.required||!myForm2.INN.$error.required&&!myForm2.INN.$valid" class="table-link" data-toggle="modal" data-target="#zayavki">Заявки</a>*@

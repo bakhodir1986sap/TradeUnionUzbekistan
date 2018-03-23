@@ -121,6 +121,7 @@ warning 6002: The table/view 'KasabaKIAT.dbo.tbbFermer' does not have a primary 
           <Property Name="OBLSOVPROF_AMT" Type="money" />
           <Property Name="OBL_DEPARTMENT_BASE" Type="varchar" MaxLength="255" />
           <Property Name="PROVODKA_ID" Type="bigint" />
+          <Property Name="REMARK" Type="varchar" MaxLength="100" />
         </EntityType>
         <EntityType Name="tbbu_provodki">
           <Key>
@@ -349,6 +350,7 @@ warning 6002: The table/view 'KasabaKIAT.dbo.tbbFermer' does not have a primary 
           <Property Name="OBLSOVPROF_AMT" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="OBL_DEPARTMENT_BASE" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="PROVODKA_ID" Type="Int64" />
+          <Property Name="REMARK" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
         </EntityType>
         <ComplexType Name="sp_pr_GetNewTransactions_Result">
           <Property Type="Decimal" Name="ID" Nullable="false" Precision="12" Scale="0" />
@@ -505,6 +507,7 @@ warning 6002: The table/view 'KasabaKIAT.dbo.tbbFermer' does not have a primary 
           <EntitySetMapping Name="tbbu_ecp_calc">
             <EntityTypeMapping TypeName="KasabaKIATModel.tbbu_ecp_calc">
               <MappingFragment StoreEntitySet="tbbu_ecp_calc">
+                <ScalarProperty Name="REMARK" ColumnName="REMARK" />
                 <ScalarProperty Name="PROVODKA_ID" ColumnName="PROVODKA_ID" />
                 <ScalarProperty Name="OBL_DEPARTMENT_BASE" ColumnName="OBL_DEPARTMENT_BASE" />
                 <ScalarProperty Name="OBLSOVPROF_AMT" ColumnName="OBLSOVPROF_AMT" />

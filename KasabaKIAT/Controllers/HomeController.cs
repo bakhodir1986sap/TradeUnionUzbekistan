@@ -128,7 +128,7 @@ namespace KasabaKIAT.Controllers
         /// </summary>
         /// <returns></returns>
         /// 
-        [Authorize(Roles = "BKUT,ADMIN")]
+        //[Authorize(Roles = "BKUT,ADMIN")]
         public ActionResult PodachaZayavok()
         {
            
@@ -1605,7 +1605,7 @@ namespace KasabaKIAT.Controllers
         /// </summary>
         /// <returns></returns>
        
-        [Authorize(Roles = "BKUT,ADMIN")]
+        //[Authorize(Roles = "BKUT,ADMIN")]
         public ActionResult PoiskRedaktZayavok()
         {
             return View();

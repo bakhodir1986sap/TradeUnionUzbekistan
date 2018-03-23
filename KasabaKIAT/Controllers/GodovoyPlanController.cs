@@ -14,7 +14,7 @@ namespace KasabaKIAT.Controllers
     {
         ILog log = log4net.LogManager.GetLogger(typeof(AdministirirovaniyeController));
         KasabaKIATEntities KasabaDB = new KasabaKIATEntities();
-        [Authorize(Roles = "COUNCIL_REGIONAL_REGION,ADMIN")]
+        //[Authorize(Roles = "COUNCIL_REGIONAL_REGION,ADMIN")]
         public ActionResult Index()
         {
             int UserId = Convert.ToInt32(User.Identity.Name);

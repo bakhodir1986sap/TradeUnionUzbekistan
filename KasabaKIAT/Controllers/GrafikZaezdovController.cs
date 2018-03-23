@@ -12,7 +12,7 @@ namespace KasabaKIAT.Controllers
     public class GrafikZaezdovController : Controller
     {
         KasabaKIATEntities KasabaDB = new KasabaKIATEntities();
-        [Authorize(Roles = "COUNCIL_REGIONAL_REGION,ADMIN")]
+        //[Authorize(Roles = "COUNCIL_REGIONAL_REGION,ADMIN")]
         public ActionResult Index()
         {
             int UserId = Convert.ToInt32(User.Identity.Name);

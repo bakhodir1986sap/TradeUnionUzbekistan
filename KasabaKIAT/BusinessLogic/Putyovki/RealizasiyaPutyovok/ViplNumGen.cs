@@ -33,7 +33,8 @@ namespace KasabaKIAT.BusinessLogic.Putyovki.RealizasiyaPutyovok
             {
                 if (resmodel.Any())
                 {
-                    nextNum = resmodel.First().numdoc_gen + 1;
+                    nextNum = resmodel.First().numdoc_gen.Value + 1;
+
                     amodel.numdoc_gen = nextNum;
 
                     ViplNumGenDataManager.Increase(amodel);

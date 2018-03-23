@@ -14,5 +14,7 @@ namespace KasabaKIAT.ViewModel.Buxgalteriya
       public decimal? oblsovprof_amt        { get; set;}
       public string obl_department_base   { get; set;}
       public long? provodka_id           { get; set; }
+
+        public string remark { get; set; }
     }
 }

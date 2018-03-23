@@ -9,8 +9,8 @@ namespace KasabaKIAT.ViewModel.Putyovki
     {
         public long id                {get; set;}
         public string department_base   {get; set;}
-        public int numdoc_gen        {get; set;}
+        public int? numdoc_gen        {get; set;}
         public long? user_id { get; set; }
-        public int year { get; set; }
+        public int? year { get; set; }
     }
 }

@@ -104,10 +104,10 @@ namespace KasabaKIAT.BusinessLogic.Putyovki.RealizasiyaPutyovok
                             vipl.YEAR == model.year
                             select new ViplNumGenViewModel
                             {
-                                department_base    = model.department_base,
-                                numdoc_gen         = model.numdoc_gen,
-                                user_id            = model.user_id,
-                                year               = model.year
+                                department_base    = vipl.DEPARTMENT_BASE,
+                                numdoc_gen         = vipl.NUMDOC_GEN,
+                                user_id            = vipl.USER_ID,
+                                year               = vipl.YEAR
                             };
 
                 list = query.ToList();

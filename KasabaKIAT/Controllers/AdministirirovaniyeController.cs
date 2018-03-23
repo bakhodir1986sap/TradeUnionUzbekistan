@@ -58,7 +58,7 @@ namespace KasabaKIAT.Controllers
         {
             return View();
         }
-        [Authorize(Roles = "COUNCIL_REGIONAL_REGION,ADMIN")]
+        //[Authorize(Roles = "COUNCIL_REGIONAL_REGION,ADMIN")]
         public ActionResult SpisokPravsoyuzov()
         {
             log.Info("SpisokPravsoyuzov");
@@ -67,6 +67,7 @@ namespace KasabaKIAT.Controllers
             try
             {
                 O = (from o in KasabaDB.tbku_StrokaProfsoyza
+                     where o.MATCH_DEPARTMENTBASE != null
                                              select new Models.ViewModel
                                              {
                                                  Kod = o.ProfsoyzKod,
@@ -82,17 +83,17 @@ namespace KasabaKIAT.Controllers
 
             return View(O);
         }
-        [Authorize(Roles = "COUNCIL_REGIONAL_REGION,ADMIN")]
+        //[Authorize(Roles = "COUNCIL_REGIONAL_REGION,ADMIN")]
         public ActionResult GrafikSanatoryZaezdov()
         {
             return View();
         }
-        [Authorize(Roles = "COUNCIL_REGIONAL_REGION,ADMIN")]
+        //[Authorize(Roles = "COUNCIL_REGIONAL_REGION,ADMIN")]
         public ActionResult SchetFaktura()
         {
             return View();
         }
-        [Authorize(Roles = "COUNCIL_REGIONAL_REGION,ADMIN")]
+        //[Authorize(Roles = "COUNCIL_REGIONAL_REGION,ADMIN")]
         public ActionResult RaspredeleniyeZaezdov()
         {
             return View();
@@ -440,6 +441,7 @@ namespace KasabaKIAT.Controllers
             try
             {
                 var O = from o in KasabaDB.tbku_StrokaProfsoyza
+                        where o.MATCH_DEPARTMENTBASE != null
                         select new
                         {
                             d1 = o.ProfsoyzKod,

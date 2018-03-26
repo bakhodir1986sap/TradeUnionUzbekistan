@@ -378,8 +378,8 @@ tbody td:last-child, thead th:last-child {
                     <td colspan="2" class="border border-dark bg-warning text-center">1</td>
                     <td colspan="4" class="border border-dark bg-warning text-right">{{item.d5}}</td>
                     <td colspan="5" class="border border-dark text-right">{{item.d5}}</td>
-                    <td colspan="4" rowspan="{{$index-2}}" class="border border-dark text-center">без акцизного налога</td>
-                    <td colspan="4" rowspan="{{$index-2}}" class="border border-dark text-center">без НДС</td>
+                    <td colspan="4" rowspan="{{($index-10)/2}}" class="border border-dark text-center">без акцизного налога</td>
+                    <td colspan="4" rowspan="{{($index-10)/2}}" class="border border-dark text-center">без НДС</td>
                     <td colspan="4" class="border border-dark text-center"></td>
                 </tr>
                 <tr>
@@ -470,18 +470,21 @@ tbody td:last-child, thead th:last-child {
                 <div class="modal-content">
                     <div class="modal-body">
                         <input id="hh2" type="hidden" />
+                        <div id="connection3" style="visibility:hidden;position:absolute;margin-left:300px;margin-top:100px;z-index:9999">
+                            <img src="~/Content/Login/buffering.gif" />
+                        </div>
                         <div class="table__title mb-4">
                             <div class="row">
                                 <p>Организация: <strong ng-repeat="item in O">{{item.d2}}</strong></p>
                                 <div class="col-md-5 text-md-right">
-                                    <button ng-click="exportData1()" class="btn btn-green d-block d-md-inline-block mb-3 mb-md-0"><i class="fas fa-file-excel"></i> Экспорт</button>
+                                    <button ng-show="exp" ng-click="exportData1()" class="btn btn-green d-block d-md-inline-block mb-3 mb-md-0"><i class="fas fa-file-excel"></i> Экспорт</button>
                                 </div>
                             </div>
                         </div>
                         <div class="table__title mb-3">
                             <h5>Детали заявок</h5>
                         </div>
-                        <div class="table-responsive box-shadow mb-4" id="export">
+                        <div class="table-responsive box-shadow mb-4" ng-show="exp" id="export">
                             <table class="table table__block scroll">
                                 <thead>
                                     <tr>

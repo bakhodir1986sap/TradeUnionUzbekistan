@@ -17,6 +17,7 @@ using System.Data;
 using KasabaKIAT.BusinessLogic.Putyovki.PrixodPutyovok;
 using KasabaKiat.Helpers;
 using KasabaKIAT.BusinessLogic.Security.Roles.RolePermissions;
+using KasabaKIAT.BusinessLogic.Security.Roles.Roles;
 
 namespace KasabaKIAT.Controllers
 {
@@ -24,6 +25,7 @@ namespace KasabaKIAT.Controllers
     [Authorize]
     public class AdministirirovaniyeController : Controller
     {
+        Roles R = new Roles();
         ServiceActionController service = new ServiceActionController();
         ILog log = log4net.LogManager.GetLogger(typeof(AdministirirovaniyeController));
         KasabaKIATEntities KasabaDB = new KasabaKIATEntities();
@@ -210,6 +212,22 @@ namespace KasabaKIAT.Controllers
                             d2 = o.name,
                         };
                 return Json(O.ToList(), JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex);
+            }
+
+            return null;
+        }
+        public JsonResult AddRoley(string roleName)
+        {
+            log.Info("AddRoley");
+            log.Info("roleName="+ roleName);
+            try
+            {
+                R.EnterRole(roleName);
+                return Json("yes", JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {

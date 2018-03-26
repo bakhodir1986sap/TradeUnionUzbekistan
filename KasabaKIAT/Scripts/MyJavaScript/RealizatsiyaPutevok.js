@@ -21,13 +21,12 @@
         Data = { b: stringArrayd, inn: inn };
         $scope.O = "";
         try {
-            if (inn.length === 9) {
+            if (inn.length == 9) {
                 $http({
                     method: 'get',
-                    url: "/PrixodPutevok/Getegrpo1?inn=" + inn,
-                    //url: "/PrixodPutevok/Getegrpo?inn=" + inn + "&name=' '",
+                    url: "/PrixodPutevok/Getegrpo?inn=" + inn,
                 }).then(function (response) {
-                    if (response.data.length === 0) {
+                    if (response.data.length == 0) {
                         $scope.O = "No Data Found";
                     }
                     else {
@@ -276,8 +275,6 @@
             }).then(function (d) {
                 k++;
                 $scope.DATA = d.data;
-                ar1 = new Array();
-                ar2 = new Array();
                 console.log(d, k);
                 document.getElementById('connection').style.visibility = "hidden";
                 $("#hh").modal('hide');
@@ -377,11 +374,11 @@
     }
     function Load(inn, name) {
         document.getElementById('connection2').style.visibility = "visible";
-        $("#hh").modal({
+        $("#hh2").modal({
             backdrop: 'static',
             backdrop: 'static'
         });
-        if (name === null) {
+        if (name == null) {
             name = " ";
         }
         $http({
@@ -396,10 +393,10 @@
                 $scope.showdata = false;
             }
             document.getElementById('connection2').style.visibility = "hidden";
-            $("#hh").modal('hide');
+            $("#hh2").modal('hide');
         }, function () {
             document.getElementById('connection2').style.visibility = "hidden";
-            $("#hh").modal('hide');
+            $("#hh2").modal('hide');
             alertify.error("ошибка");
         });
     }
@@ -413,7 +410,7 @@
         document.getElementById("inn1").value = inn;
     }
     $scope.Tanlash = function () {
-        if (ii !== null && ni !== null) {
+        if (ii != null && ni != null) {
             $scope.INN = ii;
             LoadINN(ii);
         }

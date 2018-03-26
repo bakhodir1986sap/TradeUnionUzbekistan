@@ -169,6 +169,7 @@ namespace KasabaKIAT.Models
         public virtual DbSet<tbgl_jnlmst> tbgl_jnlmst { get; set; }
         public virtual DbSet<PrivyazkaProvodok> PrivyazkaProvodoks { get; set; }
         public virtual DbSet<tbbu_ecp_calc> tbbu_ecp_calc { get; set; }
+        public virtual DbSet<Kazna_Account> Kazna_Account { get; set; }
     
         public virtual ObjectResult<Nullable<decimal>> sp_get_BankPaymentCompanyMonthly(string inn, Nullable<int> year, Nullable<int> month)
         {

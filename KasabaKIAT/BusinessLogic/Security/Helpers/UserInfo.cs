@@ -93,13 +93,13 @@ namespace KasabaKiat.Helpers
             if (UserPermissions.userData == null)
             {
                 UserPermissions.userData = new List<UserViewModel>();
+
+                UserPermissions.userData.Add(model);
             }
             else
             {
                 UserPermissions.userData.Add(model);
             }
-            
-            
 
             return model;
         }
@@ -107,6 +107,16 @@ namespace KasabaKiat.Helpers
         public static UserViewModel GetUserInfo(long userId)
         {
             UserViewModel model = null;
+
+            if (UserPermissions.userData != null)
+            {
+                var users = UserPermissions.userData.FirstOrDefault(u => u.userid == userId);
+
+                if (users != null)
+                {
+                    return users;
+                }
+            }
 
             try
             {
@@ -172,6 +182,17 @@ namespace KasabaKiat.Helpers
             catch
             {
 
+            }
+
+            if (UserPermissions.userData == null)
+            {
+                UserPermissions.userData = new List<UserViewModel>();
+
+                UserPermissions.userData.Add(model);
+            }
+            else
+            {
+                UserPermissions.userData.Add(model);
             }
 
             return model;

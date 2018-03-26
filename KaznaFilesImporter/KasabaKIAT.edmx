@@ -5,6 +5,21 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="KasabaKIATModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Kazna_Account">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="KOD_BANKA" Type="varchar" MaxLength="5" />
+          <Property Name="VILOYAT" Type="nvarchar" MaxLength="200" />
+          <Property Name="TUMAN_SHAXAR" Type="nvarchar" MaxLength="200" />
+          <Property Name="BANK_XISOBRAQAM" Type="varchar" MaxLength="10" />
+          <Property Name="SHARTLI_RAQAM" Type="varchar" MaxLength="10" />
+          <Property Name="XISOB_RAQAM" Type="varchar" MaxLength="50" />
+          <Property Name="XR_NOMI" Type="nvarchar" MaxLength="1000" />
+          <Property Name="DAROMAT_YIG_NOMI" Type="nvarchar" MaxLength="1000" />
+          <Property Name="BYUDJET_TURI" Type="nvarchar" MaxLength="1000" />
+        </EntityType>
         <EntityType Name="KaznaFiles">
           <Key>
             <PropertyRef Name="ID" />
@@ -146,6 +161,17 @@ warning 6002: The table/view 'KasabaKIAT.dbo.tbbFermer' does not have a primary 
           <Property Name="SUMMA" Type="money" />
           <Property Name="COMMENT" Type="nvarchar" MaxLength="1000" />
         </EntityType>
+        <EntityType Name="tbsp_soato_new">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="KODI" Type="varchar" MaxLength="15" />
+          <Property Name="NAME_LN" Type="nvarchar" MaxLength="1000" />
+          <Property Name="CENTRE_NAME_LN" Type="nvarchar" MaxLength="1000" />
+          <Property Name="NAME_RU" Type="nvarchar" MaxLength="1000" />
+          <Property Name="CENTRE_NAME_RU" Type="nvarchar" MaxLength="1000" />
+        </EntityType>
         <Association Name="FK_KaznaPaymentFile_KaznaFiles">
           <End Role="KaznaFiles" Type="Self.KaznaFiles" Multiplicity="0..1" />
           <End Role="KaznaPaymentFile" Type="Self.KaznaPaymentFile" Multiplicity="*" />
@@ -173,12 +199,14 @@ warning 6002: The table/view 'KasabaKIAT.dbo.tbbFermer' does not have a primary 
         <Function Name="sp_im_KaznaNewOrg" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="sp_pr_GetNewTransactions" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <EntityContainer Name="KasabaKIATModelStoreContainer">
+          <EntitySet Name="Kazna_Account" EntityType="Self.Kazna_Account" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="KaznaFiles" EntityType="Self.KaznaFiles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="KaznaPaymentFile" EntityType="Self.KaznaPaymentFile" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="KaznaSverkaFile" EntityType="Self.KaznaSverkaFile" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="t_egrpo" EntityType="Self.t_egrpo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbbu_ecp_calc" EntityType="Self.tbbu_ecp_calc" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbbu_provodki" EntityType="Self.tbbu_provodki" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbsp_soato_new" EntityType="Self.tbsp_soato_new" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbbFermer" EntityType="Self.tbbFermer" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [tbbFermer].[ActivPol] AS [ActivPol], 
@@ -273,6 +301,8 @@ warning 6002: The table/view 'KasabaKIAT.dbo.tbbFermer' does not have a primary 
           <FunctionImport Name="sp_pr_GetNewTransactions" ReturnType="Collection(KasabaKIATModel.sp_pr_GetNewTransactions_Result1)" />
           <EntitySet Name="tbbFermers" EntityType="KasabaKIATModel.tbbFermer" />
           <EntitySet Name="tbbu_provodki" EntityType="KasabaKIATModel.tbbu_provodki" />
+          <EntitySet Name="Kazna_Account" EntityType="KasabaKIATModel.Kazna_Account" />
+          <EntitySet Name="tbsp_soato_new" EntityType="KasabaKIATModel.tbsp_soato_new" />
         </EntityContainer>
         <EntityType Name="KaznaSverkaFile">
           <Key>
@@ -405,6 +435,32 @@ warning 6002: The table/view 'KasabaKIAT.dbo.tbbFermer' does not have a primary 
           <Property Name="POLUCHRSCH" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Name="SUMMA" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="COMMENT" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Kazna_Account">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="KOD_BANKA" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="VILOYAT" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="TUMAN_SHAXAR" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="BANK_XISOBRAQAM" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="SHARTLI_RAQAM" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="XISOB_RAQAM" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="XR_NOMI" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="DAROMAT_YIG_NOMI" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="BYUDJET_TURI" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="tbsp_soato_new">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="KODI" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="NAME_LN" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="CENTRE_NAME_LN" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="NAME_RU" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="CENTRE_NAME_RU" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -566,6 +622,34 @@ warning 6002: The table/view 'KasabaKIAT.dbo.tbbFermer' does not have a primary 
                 <ScalarProperty Name="USER_ID" ColumnName="USER_ID" />
                 <ScalarProperty Name="DEPARTMENT_BASE" ColumnName="DEPARTMENT_BASE" />
                 <ScalarProperty Name="REC_ID" ColumnName="REC_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Kazna_Account">
+            <EntityTypeMapping TypeName="KasabaKIATModel.Kazna_Account">
+              <MappingFragment StoreEntitySet="Kazna_Account">
+                <ScalarProperty Name="BYUDJET_TURI" ColumnName="BYUDJET_TURI" />
+                <ScalarProperty Name="DAROMAT_YIG_NOMI" ColumnName="DAROMAT_YIG_NOMI" />
+                <ScalarProperty Name="XR_NOMI" ColumnName="XR_NOMI" />
+                <ScalarProperty Name="XISOB_RAQAM" ColumnName="XISOB_RAQAM" />
+                <ScalarProperty Name="SHARTLI_RAQAM" ColumnName="SHARTLI_RAQAM" />
+                <ScalarProperty Name="BANK_XISOBRAQAM" ColumnName="BANK_XISOBRAQAM" />
+                <ScalarProperty Name="TUMAN_SHAXAR" ColumnName="TUMAN_SHAXAR" />
+                <ScalarProperty Name="VILOYAT" ColumnName="VILOYAT" />
+                <ScalarProperty Name="KOD_BANKA" ColumnName="KOD_BANKA" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbsp_soato_new">
+            <EntityTypeMapping TypeName="KasabaKIATModel.tbsp_soato_new">
+              <MappingFragment StoreEntitySet="tbsp_soato_new">
+                <ScalarProperty Name="CENTRE_NAME_RU" ColumnName="CENTRE_NAME_RU" />
+                <ScalarProperty Name="NAME_RU" ColumnName="NAME_RU" />
+                <ScalarProperty Name="CENTRE_NAME_LN" ColumnName="CENTRE_NAME_LN" />
+                <ScalarProperty Name="NAME_LN" ColumnName="NAME_LN" />
+                <ScalarProperty Name="KODI" ColumnName="KODI" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

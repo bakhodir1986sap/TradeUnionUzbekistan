@@ -96,6 +96,9 @@
     <Compile Include="KaznaSverkaFile.cs">
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
+    <Compile Include="Kazna_Account.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
     <Compile Include="Log\FileLogService.cs" />
     <Compile Include="Log\ILogService.cs" />
     <Compile Include="Program.cs" />
@@ -113,6 +116,9 @@
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
     <Compile Include="tbbu_provodki.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbsp_soato_new.cs">
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
     <Compile Include="t_egrpo.cs">

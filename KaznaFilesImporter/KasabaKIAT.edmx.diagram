@@ -14,6 +14,8 @@
         <EntityTypeShape EntityType="KasabaKIATModel.tbbu_ecp_calc" Width="1.5" PointX="0.75" PointY="5.75" />
         <EntityTypeShape EntityType="KasabaKIATModel.tbbFermer" Width="1.5" PointX="5.25" PointY="7.125" />
         <EntityTypeShape EntityType="KasabaKIATModel.tbbu_provodki" Width="1.5" PointX="9.625" PointY="1.5" />
+        <EntityTypeShape EntityType="KasabaKIATModel.Kazna_Account" Width="1.5" PointX="0.75" PointY="9.75" />
+        <EntityTypeShape EntityType="KasabaKIATModel.tbsp_soato_new" Width="1.5" PointX="2.75" PointY="9.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

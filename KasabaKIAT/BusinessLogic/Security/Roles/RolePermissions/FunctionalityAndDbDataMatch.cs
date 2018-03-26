@@ -105,6 +105,8 @@ namespace KasabaKIAT.BusinessLogic.Security.Roles.RolePermissions
             if (UserPermissions.pernit == null)
             {
                 UserPermissions.pernit = new List<FunctionalityList>();
+
+                UserPermissions.pernit.Add(rolFumc);
             }
             else
             {

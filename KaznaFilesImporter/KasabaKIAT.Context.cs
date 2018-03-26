@@ -34,6 +34,8 @@ namespace KaznaFilesImporter
         public virtual DbSet<tbbu_ecp_calc> tbbu_ecp_calc { get; set; }
         public virtual DbSet<tbbFermer> tbbFermers { get; set; }
         public virtual DbSet<tbbu_provodki> tbbu_provodki { get; set; }
+        public virtual DbSet<Kazna_Account> Kazna_Account { get; set; }
+        public virtual DbSet<tbsp_soato_new> tbsp_soato_new { get; set; }
     
         public virtual int sp_im_KaznaNewOrg()
         {

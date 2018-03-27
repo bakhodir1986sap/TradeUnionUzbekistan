@@ -170,6 +170,7 @@ namespace KasabaKIAT.Models
         public virtual DbSet<PrivyazkaProvodok> PrivyazkaProvodoks { get; set; }
         public virtual DbSet<tbbu_ecp_calc> tbbu_ecp_calc { get; set; }
         public virtual DbSet<Kazna_Account> Kazna_Account { get; set; }
+        public virtual DbSet<tbsp_soato_new> tbsp_soato_new { get; set; }
     
         public virtual ObjectResult<Nullable<decimal>> sp_get_BankPaymentCompanyMonthly(string inn, Nullable<int> year, Nullable<int> month)
         {
@@ -721,6 +722,19 @@ namespace KasabaKIAT.Models
         public virtual ObjectResult<sp_pr_GetNewTransactions_Result> sp_pr_GetNewTransactions()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_pr_GetNewTransactions_Result>("sp_pr_GetNewTransactions");
+        }
+    
+        public virtual ObjectResult<sp_rt_Razbivka_Postup_OblastTumanGroup_Result> sp_rt_Razbivka_Postup_OblastTumanGroup(Nullable<System.DateTime> bEGIN_DATE, Nullable<System.DateTime> eND_DATE)
+        {
+            var bEGIN_DATEParameter = bEGIN_DATE.HasValue ?
+                new ObjectParameter("BEGIN_DATE", bEGIN_DATE) :
+                new ObjectParameter("BEGIN_DATE", typeof(System.DateTime));
+    
+            var eND_DATEParameter = eND_DATE.HasValue ?
+                new ObjectParameter("END_DATE", eND_DATE) :
+                new ObjectParameter("END_DATE", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_rt_Razbivka_Postup_OblastTumanGroup_Result>("sp_rt_Razbivka_Postup_OblastTumanGroup", bEGIN_DATEParameter, eND_DATEParameter);
         }
     }
 }

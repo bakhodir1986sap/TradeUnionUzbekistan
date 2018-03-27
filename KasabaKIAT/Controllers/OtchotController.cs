@@ -371,6 +371,37 @@ namespace KasabaKIAT.Controllers
             }
             return null;
         }
+        public ActionResult PostupleniyaTuman()
+        {
+            return View();
+        }
+        public JsonResult GetPostupleniyaTuman(DateTime? bg, DateTime? end)
+        {
+            log.Info("GetPostupleniyaTuman");
+            log.Info("BEGIN_DATE = " + bg);
+            log.Info("END_DATE = " + end);
+            try
+            {
+                var data = KasabaDB.sp_rt_Razbivka_Postup_OblastTumanGroup(bg.Value.Date, end.Value.Date);
+                var O = from o in data
+                        select new
+                        {
+                            d1 = o.OBLAST_NAME,
+                            d2 = o.TUMAN_NAME,
+                            d3 = o.KOLICHESTVO,
+                            d4 = o.summa,
+                        };
+
+                var resultList = O.ToList();
+
+                return Json(resultList, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                log.Info(ex);
+            }
+            return null;
+        }
         public ActionResult PostupleniyaOtrasli()
         {
             return View();

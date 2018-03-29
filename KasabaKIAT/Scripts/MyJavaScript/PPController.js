@@ -23,6 +23,7 @@
         }).then(function (d) {
             $scope.PP = d.data;
             if (d.data.length != 0) {
+                $scope.q = d.data.length;
                 $scope.PPdiv = true;
             } else {
                 $scope.PPdiv = false;

@@ -27,6 +27,14 @@
                     <button ng-click="exportData()" class="btn btn-green d-block d-md-inline-block mb-3 mb-md-0"><i class="fas fa-file-excel"></i> Экспорт</button>
                 </div>
             </div>
+            <div ng-show="PPdiv" class="row mb-4 align-items-center">
+                <div class="col-sm-3 text-md-left">
+                    Количество путевок : {{q}}
+                </div>
+                <div ng-repeat="pp_sum in PP_SUM">
+                    Сумма путевок : {{pp_sum.P_SUM | currency:' '}}
+                </div>
+            </div>
             <div class="table-responsive box-shadow mb-4" id="export">
                 <table class="table table__block t-hover">
                     <thead>
@@ -38,13 +46,13 @@
                                 Номера путевок
                             </th>
                             <th class="dropdown dropdown__table" style="width:150px;text-align:center">
-                                Период с
+                                Дата санатория
                             </th>
                             <th class="dropdown dropdown__table" style="width:100px;text-align:center">
                                 <input ng-model="PFilter" name="PFilter" type="text" class="form-control" placeholder="Цена" />
                             </th>
                             <th class="dropdown dropdown__table" style="width:150px;text-align:center">
-                                Период по
+                                Дата довереиности
                             </th>
                         </tr>
                     </thead>
@@ -53,7 +61,7 @@
                             <td style="text-align:center">{{pp.d1}}</td>
                             <td style="text-align:center">{{pp.d2}}</td>
                             <td style="text-align:center">{{pp.d3 | jsonDate: 'dd.MM.yyyy'}}</td>
-                            <td style="text-align:center">{{pp.d4}}</td>
+                            <td style="text-align:center">{{pp.d4 | currency:' '}}</td>
                             <td style="text-align:center">{{pp.d5 | jsonDate: 'dd.MM.yyyy'}}</td>
                         </tr>
                         <tr ng-repeat="pp_sum in PP_SUM">
@@ -65,12 +73,12 @@
                             </td>
                             <td style="text-align:center"></td>
                             <td style="text-align:center">Итого:</td>
-                            <td style="text-align:center"><b>{{pp_sum.P_SUM}}</b></td>
+                            <td style="text-align:center"><b>{{pp_sum.P_SUM | currency:' '}}</b></td>
                         </tr>
                     </tbody>
                 </table>
             </div>
-            <div class="mb-4">
+            <div class="mb-4" ng-show="PPdiv">
                 <button ng-click="ok()" class="btn btn-grey d-block d-md-inline-block my-2">Очистить фильтр</button>
                 <button class="btn btn-grey d-block d-md-inline-block my-2">Отчет</button>
             </div>

@@ -1,12 +1,14 @@
 ﻿app.controller("PRZController", ["$scope", "$http", "$filter", "crudAJService", function ($scope, $http, $filter, crudAJService) {
     $scope.PRZdiv = true;
     $scope.showdata = false;
+    $scope.searchD0 = new Date();
+    $scope.searchD1 = new Date();
     $scope.SCf = {
-        id: '1',
+        id: '-1',
         value: ''
     };
     $scope.SC = {
-        id: '1',
+        id: '-1',
         value: ''
     };
     $scope.Pf = {
@@ -99,8 +101,8 @@
         $("#hh").modal({
             backdrop: 'static'
         });
-        $scope.searchD0 = null;
-        $scope.searchD1 = "";
+        $scope.searchD0 = new Date();
+        $scope.searchD1 = new Date();
         $scope.PRZdiv = true;
         $scope.myVal1 = "Выбрать санаторий";
         $scope.myVal2 = "или дет. лагерь:";

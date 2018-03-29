@@ -6,6 +6,22 @@ app.filter('jsonDate', ['$filter', function ($filter) {
                : '';
     };
 }]);
+app.filter('customCurrency', function () {
+    return function (input, symbol, place) {
+        if (isNaN(input)) {
+            return input;
+        } else {
+            var symbol = symbol || ' ';
+            var place = place === undefined ? true : place;
+            if (place === true) {
+                return symbol + input;
+            } else {
+                var new_input = input.replace(".", " ");
+                return new_input + symbol;
+            }
+        }
+    }
+});
 app.factory('MathService', function () {
     var factory = {};
 

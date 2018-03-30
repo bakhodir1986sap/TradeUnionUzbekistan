@@ -68,7 +68,14 @@
                 </div>
             </div>
         </form>*@
-
+        <div ng-show="showdata" class="row mb-4 align-items-center">
+            <div class="col-sm-6 text-md-left">
+                Количество Разбивка поступления : {{q}}
+            </div>
+            @*<div ng-repeat="pp_sum in PP_SUM">
+                Сумма путевок : {{pp_sum.P_SUM | currency:' '}}
+            </div>*@
+        </div>
         <div class="table-responsive box-shadow mb-4" ng-show="showdata" id="export">
             <table class="table table__block t-hover">
                 <thead>
@@ -136,7 +143,7 @@
                         <td style="text-align:center">{{item.d6}}</td>
                         <td style="text-align:center">{{item.d7 | jsonDate: 'dd.MM.yyyy'}}</td>
                         <td style="text-align:center">{{item.d8}}</td>
-                        <td style="text-align:center">{{item.d9}}</td>
+                        <td style="text-align:center">{{item.d9 | currency:' '}}</td>
                         <td style="text-align:center">{{item.d10}}</td>
                         <td style="text-align:center">{{item.d11}}</td>
                         <td style="text-align:center">{{item.d12}}</td>
@@ -150,9 +157,9 @@
                         <td style="text-align:center">{{item.d20}}</td>
                         <td style="text-align:center">{{item.d21}}</td>
                         <td style="text-align:center">{{item.d22}}</td>
-                        <td style="text-align:center">{{item.d23}}</td>
-                        <td style="text-align:center">{{item.d24}}</td>
-                        <td style="text-align:center">{{item.d25}}</td>
+                        <td style="text-align:center">{{item.d23 | currency:' '}}</td>
+                        <td style="text-align:center">{{item.d24 | currency:' '}}</td>
+                        <td style="text-align:center">{{item.d25 | currency:' '}}</td>
                         <td style="text-align:center">{{item.d26}}</td>
                         <td style="text-align:center">{{item.d27}}</td>
                         <td style="text-align:center">{{item.d28}}</td>

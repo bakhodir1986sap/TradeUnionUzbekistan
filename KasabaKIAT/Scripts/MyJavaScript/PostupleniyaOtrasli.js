@@ -18,6 +18,7 @@
         }).then(function (d) {
             if (d.data.length != 0) {
                 $scope.showdata = true;
+                $scope.q = d.data.length;
             } else {
                 $scope.showdata = false;
             }

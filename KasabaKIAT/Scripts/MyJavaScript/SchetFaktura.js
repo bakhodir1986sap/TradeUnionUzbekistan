@@ -4,7 +4,7 @@
     $scope.ZB = new Date();
     $scope.ZE = new Date();
     All();
-    GetData($scope.ZB, $scope.ZE, "000000039");
+    GetData($scope.ZB, $scope.ZE, "000000025");
     function GetData(b,e,p) {
         $http({
             method: "post",
@@ -106,7 +106,7 @@
     };
 
     $scope.SP = {
-        d1: '000000039',
+        d1: '000000025',
         d2: ''
     };
     function All() {

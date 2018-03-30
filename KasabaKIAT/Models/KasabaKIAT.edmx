@@ -1767,6 +1767,7 @@ warning 6002: The table/view 'KasabaKIAT.dbo.tbbTabel' does not have a primary k
           <Property Name="OBLSOVPROF_AMT" Type="money" />
           <Property Name="OBL_DEPARTMENT_BASE" Type="varchar" MaxLength="255" />
           <Property Name="PROVODKA_ID" Type="bigint" />
+          <Property Name="REMARK" Type="varchar" MaxLength="100" />
         </EntityType>
         <EntityType Name="tbbu_planbyudjetregion">
           <Key>
@@ -2683,6 +2684,17 @@ warning 6002: The table/view 'KasabaKIAT.dbo.tblVozVrat' does not have a primary
           <Property Name="MEDICAL_ORDER_EXISTS" Type="bit" />
           <Property Name="ORDER_QUANTITY" Type="int" />
           <Property Name="SOTR_INN" Type="varchar" MaxLength="9" />
+        </EntityType>
+        <EntityType Name="tbsp_soato_new">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="KODI" Type="varchar" MaxLength="15" />
+          <Property Name="NAME_LN" Type="nvarchar" MaxLength="1000" />
+          <Property Name="CENTRE_NAME_LN" Type="nvarchar" MaxLength="1000" />
+          <Property Name="NAME_RU" Type="nvarchar" MaxLength="1000" />
+          <Property Name="CENTRE_NAME_RU" Type="nvarchar" MaxLength="1000" />
         </EntityType>
         <EntityType Name="user_role">
           <Key>
@@ -5750,6 +5762,10 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <Parameter Name="BEGIN_DATE" Type="datetime" Mode="In" />
           <Parameter Name="END_DATE" Type="datetime" Mode="In" />
         </Function>
+        <Function Name="sp_rt_Razbivka_Postup_OblastTumanGroup" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="BEGIN_DATE" Type="datetime" Mode="In" />
+          <Parameter Name="END_DATE" Type="datetime" Mode="In" />
+        </Function>
         <Function Name="sp_rt_Razbivka_Postup_OkonxGroup" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="SOATO" Type="varchar" Mode="In" />
           <Parameter Name="BEGIN_DATE" Type="datetime" Mode="In" />
@@ -5916,6 +5932,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <EntitySet Name="tbpt_yearlyplanregion" EntityType="Self.tbpt_yearlyplanregion" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbpt_zaezdi" EntityType="Self.tbpt_zaezdi" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbpt_zayavki" EntityType="Self.tbpt_zayavki" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbsp_soato_new" EntityType="Self.tbsp_soato_new" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="user_role" EntityType="Self.user_role" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="useractions" EntityType="Self.useractions" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="useractivity" EntityType="Self.useractivity" Schema="dbo" store:Type="Tables" />
@@ -13663,6 +13680,11 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           </AssociationSet>
           <FunctionImport Name="sp_pr_GetNewTransactions" ReturnType="Collection(KasabaKIATModel.sp_pr_GetNewTransactions_Result)" />
           <EntitySet Name="Kazna_Account" EntityType="KasabaKIATModel.Kazna_Account" />
+          <EntitySet Name="tbsp_soato_new" EntityType="KasabaKIATModel.tbsp_soato_new" />
+          <FunctionImport Name="sp_rt_Razbivka_Postup_OblastTumanGroup" ReturnType="Collection(KasabaKIATModel.sp_rt_Razbivka_Postup_OblastTumanGroup_Result)">
+            <Parameter Name="BEGIN_DATE" Mode="In" Type="DateTime" />
+            <Parameter Name="END_DATE" Mode="In" Type="DateTime" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="sp_get_BankPaymentCompanyYearlyQ_Result">
           <Property Type="Int32" Name="MONTH_NUM" Nullable="true" />
@@ -14228,6 +14250,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <Property Name="OBLSOVPROF_AMT" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="OBL_DEPARTMENT_BASE" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="PROVODKA_ID" Type="Int64" />
+          <Property Name="REMARK" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
         </EntityType>
         <Association Name="FK_PrivyazkaProvodok_provodok">
           <End Type="KasabaKIATModel.provodok" Role="provodok" Multiplicity="0..1" />
@@ -14276,6 +14299,23 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <Property Name="DAROMAT_YIG_NOMI" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
           <Property Name="BYUDJET_TURI" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
         </EntityType>
+        <EntityType Name="tbsp_soato_new">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="KODI" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="NAME_LN" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="CENTRE_NAME_LN" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="NAME_RU" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="CENTRE_NAME_RU" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <ComplexType Name="sp_rt_Razbivka_Postup_OblastTumanGroup_Result">
+          <Property Type="String" Name="OBLAST_NAME" Nullable="true" MaxLength="1000" />
+          <Property Type="String" Name="TUMAN_NAME" Nullable="true" MaxLength="1000" />
+          <Property Type="Int32" Name="KOLICHESTVO" Nullable="true" />
+          <Property Type="Decimal" Name="summa" Nullable="true" Precision="19" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -17576,6 +17616,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <EntitySetMapping Name="tbbu_ecp_calc">
             <EntityTypeMapping TypeName="KasabaKIATModel.tbbu_ecp_calc">
               <MappingFragment StoreEntitySet="tbbu_ecp_calc">
+                <ScalarProperty Name="REMARK" ColumnName="REMARK" />
                 <ScalarProperty Name="PROVODKA_ID" ColumnName="PROVODKA_ID" />
                 <ScalarProperty Name="OBL_DEPARTMENT_BASE" ColumnName="OBL_DEPARTMENT_BASE" />
                 <ScalarProperty Name="OBLSOVPROF_AMT" ColumnName="OBLSOVPROF_AMT" />
@@ -17614,6 +17655,28 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="tbsp_soato_new">
+            <EntityTypeMapping TypeName="KasabaKIATModel.tbsp_soato_new">
+              <MappingFragment StoreEntitySet="tbsp_soato_new">
+                <ScalarProperty Name="CENTRE_NAME_RU" ColumnName="CENTRE_NAME_RU" />
+                <ScalarProperty Name="NAME_RU" ColumnName="NAME_RU" />
+                <ScalarProperty Name="CENTRE_NAME_LN" ColumnName="CENTRE_NAME_LN" />
+                <ScalarProperty Name="NAME_LN" ColumnName="NAME_LN" />
+                <ScalarProperty Name="KODI" ColumnName="KODI" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="sp_rt_Razbivka_Postup_OblastTumanGroup" FunctionName="KasabaKIATModel.Store.sp_rt_Razbivka_Postup_OblastTumanGroup">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="KasabaKIATModel.sp_rt_Razbivka_Postup_OblastTumanGroup_Result">
+                <ScalarProperty Name="OBLAST_NAME" ColumnName="OBLAST_NAME" />
+                <ScalarProperty Name="TUMAN_NAME" ColumnName="TUMAN_NAME" />
+                <ScalarProperty Name="KOLICHESTVO" ColumnName="KOLICHESTVO" />
+                <ScalarProperty Name="summa" ColumnName="summa" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

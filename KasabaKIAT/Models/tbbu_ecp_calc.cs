@@ -21,5 +21,6 @@ namespace KasabaKIAT.Models
         public Nullable<decimal> OBLSOVPROF_AMT { get; set; }
         public string OBL_DEPARTMENT_BASE { get; set; }
         public Nullable<long> PROVODKA_ID { get; set; }
+        public string REMARK { get; set; }
     }
 }

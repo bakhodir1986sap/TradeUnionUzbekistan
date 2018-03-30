@@ -398,6 +398,9 @@
     <Compile Include="Models\sp_rt_Razbivka_Postup_OblastGroup_Result.cs">
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\sp_rt_Razbivka_Postup_OblastTumanGroup_Result.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\sp_rt_Razbivka_Postup_OkonxGroup_Result.cs">
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
@@ -447,6 +450,9 @@
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tbpt_putyovka_statechange.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tbsp_soato_new.cs">
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\Buxgalteriya\BankpaymentsViewModel.cs" />
@@ -1183,6 +1189,7 @@
     <Content Include="Scripts\MyJavaScript\PostupleniyaOblastyam.js" />
     <Content Include="Scripts\MyJavaScript\PostupleniyaOkonxu.js" />
     <Content Include="Scripts\MyJavaScript\PostupleniyaOtrasli.js" />
+    <Content Include="Scripts\MyJavaScript\PostupleniyaTuman.js" />
     <Content Include="Scripts\MyJavaScript\PPController.js" />
     <Content Include="Scripts\MyJavaScript\ProsmotrRealzPutevok.js" />
     <Content Include="Scripts\MyJavaScript\PRZController.js" />
@@ -1288,6 +1295,7 @@
     <Content Include="Views\Otchot\PostupleniyaOblastyam.cshtml" />
     <Content Include="Views\Otchot\PostupleniyaOtrasli.cshtml" />
     <Content Include="Views\Otchot\PostupleniyaOkonxu.cshtml" />
+    <Content Include="Views\Otchot\PostupleniyaTuman.cshtml" />
     <None Include="Web References\KurortUrlService\SkuTradeUnionExchg.wsdl" />
     <Content Include="Web References\KurortUrlService\typeGrafikZaezdovSanatoriev.datasource">
       <DependentUpon>Reference.map</DependentUpon>

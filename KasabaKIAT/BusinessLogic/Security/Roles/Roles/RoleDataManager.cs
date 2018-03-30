@@ -23,7 +23,7 @@ namespace KasabaKIAT.BusinessLogic.Security.Roles.Roles
                 reg.s_status    = model.s_status    ;
                 reg.s_user_id   = model.s_user_id   ;
                 reg.NATIVE_ID = null;
-
+                db.roles.Add(reg);
                 db.SaveChanges();
             }
         }

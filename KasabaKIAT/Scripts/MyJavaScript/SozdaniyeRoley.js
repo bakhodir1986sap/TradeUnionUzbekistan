@@ -50,6 +50,23 @@
             alertify.error("ошибка");
         });
     }
+    $scope.AddR = function () {
+        alertify.success("Операция выполняется");
+        $http({
+            method: "post",
+            url: "/Administirirovaniye/AddRoley?roleName=" + $scope.Q,
+        }).then(function (d) {
+            if (d.data == "yes") {
+                GetData();
+            }
+            else {
+                alertify.error("ошибка");
+            }
+
+        }, function () {
+            alertify.error("ошибка");
+        });
+    }
     //~~~~~~~~~~~~~~~~~~~~~~~~~~//
     $scope.add = function (origem, destino, ordenar, input) {
         var index_selected = new Array();

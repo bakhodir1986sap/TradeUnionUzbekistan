@@ -194,6 +194,7 @@
         });
         return false;
     }
+    $scope.exp = false;
     $scope.Snyat = function () {
         var stringArray = new Array();
         for (var k = 0; k < ar1.length; k++) {
@@ -261,8 +262,8 @@
     }
     function real() {
         if (ar1.length !== 0 || ar2.length !== 0) {
-            document.getElementById('connection').style.visibility = "visible";
-            $("#hh").modal({
+            document.getElementById('connection3').style.visibility = "visible";
+            $("#hh2").modal({
                 backdrop: 'static'
             });
             var k = 0;
@@ -275,13 +276,19 @@
             }).then(function (d) {
                 k++;
                 $scope.DATA = d.data;
+                if (d.data.length !== 0) {
+                    $scope.exp = true;
+                }
+                else {
+                    $scope.exp = false;
+                }
                 console.log(d, k);
-                document.getElementById('connection').style.visibility = "hidden";
-                $("#hh").modal('hide');
+                document.getElementById('connection3').style.visibility = "hidden";
+                $("#hh2").modal('hide');
             }, function () {
                 console.log("error in GetOformleniyaRealizatsiyaPutevok");
-                document.getElementById('connection').style.visibility = "hidden";
-                $("#hh").modal('hide');
+                document.getElementById('connection3').style.visibility = "hidden";
+                $("#hh2").modal('hide');
                 alertify.error("ошибка");
             });
         }
@@ -326,7 +333,7 @@
         saveAs(blob, "Реализация путевок.xls");
     };
     $scope.exportData1 = function () {
-        document.getElementById('connection').style.visibility = "visible";
+        document.getElementById('connection3').style.visibility = "visible";
         document.getElementById('temp').style.visibility = "visible";
         $("#hh").modal({
             backdrop: 'static'
@@ -363,7 +370,7 @@
                     //doc.text(0, 10, 'Non-utf-8-string');
 
                     doc.save('Реализация путевок.pdf');
-                    document.getElementById('connection').style.visibility = "hidden";
+                    document.getElementById('connection3').style.visibility = "hidden";
                     document.getElementById('temp').style.visibility = "hidden";
                     $("#hh").modal('hide');
                 });

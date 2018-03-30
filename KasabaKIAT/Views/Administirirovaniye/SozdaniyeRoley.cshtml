@@ -103,21 +103,29 @@
                 evt.currentTarget.className += " active";
             }
         </script>*@
-        <h3>Роллар</h3>
+        <div class="row mb-4 align-items-center">
+            <div class="col-md-7 text__block my-3">
+                <h3>Роли</h3>
+            </div>
+            <div class="col-md-5 text-md-right">
+                <button class="btn btn-blue d-block d-md-inline-block mb-3 mb-md-0" data-toggle="modal" data-target="#dobavit2"><i class="fas fa-plus"></i> Добавить</button>
+                @*<button ng-show="GPdiv" ng-click="exportData()" class="btn btn-green d-block d-md-inline-block mb-3 mb-md-0"><i class="fas fa-file-excel"></i> Экспорт</button>*@
+            </div>
+        </div>
         <div class="table-responsive box-shadow mb-4" ng-show="showdata">
             <table class="table table__block t-hover">
                 <thead>
                     <tr>
                         <th style="width:20px;text-align:left">№</th>
-                        <th style="width:200px;text-align:left">Номланиши</th>
-                        <th style="width:200px;text-align:left">Амаллар</th>
+                        <th style="width:200px;text-align:left">Название</th>
+                        <th style="width:200px;text-align:left">Действия</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr ng-repeat="item in DATA">
                         <td>{{item.d1}}</td>
                         <td style="width:200px;">{{item.d2}}</td>
-                        <td><button ng-click="V2(item.d1)" class="btn btn-grey d-block d-md-inline-block mb-2"  data-toggle="modal" data-target="#dobavit">Функцияларни тайинлаш</button></td>
+                        <td><button ng-click="V2(item.d1)" class="btn btn-grey d-block d-md-inline-block mb-2"  data-toggle="modal" data-target="#dobavit">Назначить</button></td>
                     </tr>
                 </tbody>
             </table>
@@ -130,8 +138,8 @@
                             <h4 class="text-center mt-4 mb-4">{{Action}}</h4>
                         </div>
                         <div class="row justify-content-center">
-                            <form class="col-md-8" name="myForm" novalidate>
-                                <h3>Рухсатлар</h3>
+                            <form class="col-md-8">
+                                <h3>ДОСТУПЫ </h3>
                                 <div class="container_listbox">
                                     <div class="select_1">
                                         <select id="select1" name="select1[]" multiple="multiple" ng-model="R" class="custom-select form-control" required ng-options="item as item.d2 for item in DATA2 track by item.d1"></select>
@@ -146,11 +154,38 @@
                                         <select id="select2" name="select2[]" multiple="multiple" ng-model="R2" class="custom-select form-control" required ng-options="item as item.d2 for item in DATA3 track by item.d1"></select>
                                     </div>
                                 </div>
-                                <input type="text" id="values_selecteds_listbox" name="values_selecteds_listbox" size="40" />
+                                <input type="text" style="visibility:hidden" id="values_selecteds_listbox" name="values_selecteds_listbox" size="40" />
                                 <div class="mb-4 text-right">
                                     <button data-dismiss="modal" ng-click="Save()" class="btn btn-blue d-block d-md-inline-block mb-2">Сохранить</button>
                                     <button data-dismiss="modal" class="btn btn-blue d-block d-md-inline-block mb-2">Удалить</button>
                                     <button class="btn btn-grey d-block d-md-inline-block mb-2" data-dismiss="modal">Отмена</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal__block modal fade" id="dobavit2" tabindex="-1" role="dialog" aria-labelledby="dobavitLabel">
+            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <div class="modal-title">
+                            <h4 class="text-center mt-4 mb-4">Добавить</h4>
+                        </div>
+                        <div class="row justify-content-center">
+                            <form class="col-md-8" name="myForm" novalidate>
+                                <input type="hidden" style="position:absolute" ng-model="ID;" />
+                                <div class="form-group row align-items-center">
+                                    <label class="col-md-5 col-form-label text-md-right py-0">Название:</label>
+                                    <div class="col-md-7">
+                                        <input type="text" required name="Q" ng-model="Q" class="form-control" placeholder="">
+                                        <span class="alert alert-warning" style="padding:0px" ng-show="myForm.Q.$error.required">заполнить поле</span>
+                                    </div>
+                                </div>
+                                <div class="mb-4 text-right">
+                                    <button href="#" ng-disabled="myForm.Q.$error.required" ng-click="AddR()" data-dismiss="modal" class="btn btn-blue d-block d-md-inline-block mb-2">Сохранить</button>
+                                    <a href="#" class="btn btn-grey d-block d-md-inline-block mb-2" data-dismiss="modal">Отмена</a>
                                 </div>
                             </form>
                         </div>

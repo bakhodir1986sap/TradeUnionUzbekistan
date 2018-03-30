@@ -243,13 +243,20 @@
         $scope.Action = "Изменить";
     }
     $scope.LoadINN = function () {
+        document.getElementById('connection').style.visibility = "visible";
+        $("#hh").modal({
+            backdrop: 'static',
+            backdrop: 'static'
+        });
+        LoadINN();
+        document.getElementById('connection').style.visibility = "hidden";
+        $("#hh").modal('hide');
+    }
+    function LoadINN() {
         if ($scope.s != null && $scope.INN != null && $scope.ZB != null) {
-            $("#hh").modal({
-                backdrop: 'static',
-                backdrop: 'static'
-            });
             document.getElementById('connection').style.visibility = "visible";
             $("#hh").modal({
+                backdrop: 'static',
                 backdrop: 'static'
             });
             $scope.RZdiv = false;
@@ -330,7 +337,53 @@
                 ]
             };
         }
+    }
 
-}
- 
+    $scope.LoadDATA2 = function () {
+        Load($scope.I, $scope.N);
+    }
+    function Load(inn, name) {
+        document.getElementById('connection2').style.visibility = "visible";
+        $("#hh2").modal({
+            backdrop: 'static',
+            backdrop: 'static'
+        });
+        if (name == null) {
+            name = " ";
+        }
+        $http({
+            method: "post",
+            url: "/PrixodPutevok/Getegrpo?inn=" + inn + "&name=" + name,
+        }).then(function (d) {
+            $scope.DATA3 = d.data;
+            if (d.data.length !== 0) {
+                $scope.showdata = true;
+            }
+            else {
+                $scope.showdata = false;
+            }
+            document.getElementById('connection2').style.visibility = "hidden";
+            $("#hh2").modal('hide');
+        }, function () {
+            document.getElementById('connection2').style.visibility = "hidden";
+            $("#hh2").modal('hide');
+            alertify.error("ошибка");
+        });
+    }
+
+    var ii = null;
+    var ni = null;
+    $scope.T = function (name, inn) {
+        ni = name;
+        ii = inn;
+        document.getElementById("name").value = name;
+        document.getElementById("inn1").value = inn;
+    }
+    $scope.Tanlash = function () {
+        if (ii != null && ni != null) {
+            $scope.INN = ii;
+            LoadINN();
+        }
+    }
+
 }]);

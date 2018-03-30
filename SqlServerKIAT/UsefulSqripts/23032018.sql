@@ -3952,3 +3952,7 @@ INSERT INTO [KasabaKIAT].[dbo].[tbsp_soato_new] ([KODI],[NAME_LN],[CENTRE_NAME_L
 INSERT INTO [KasabaKIAT].[dbo].[tbsp_soato_new] ([KODI],[NAME_LN],[CENTRE_NAME_LN] ,[NAME_RU],[CENTRE_NAME_RU]) VALUES (N'1735401' ,N'Нукус' ,N'' ,N'Нукус' ,N'');
 INSERT INTO [KasabaKIAT].[dbo].[tbsp_soato_new] ([KODI],[NAME_LN],[CENTRE_NAME_LN] ,[NAME_RU],[CENTRE_NAME_RU]) VALUES (N'1735401550' ,N'Городские поселки, подч. Нукусскому горхокимияту' ,N'' ,N'Городские поселки, подч. Нукусскому горхокимияту' ,N'');
 INSERT INTO [KasabaKIAT].[dbo].[tbsp_soato_new] ([KODI],[NAME_LN],[CENTRE_NAME_LN] ,[NAME_RU],[CENTRE_NAME_RU]) VALUES (N'1735401554' ,N'Каратау' ,N'' ,N'Каратау' ,N'');
+
+
+ALTER TABLE [KasabaKIAT].[dbo].[tbbu_ecp_calc]
+ADD [REMARK] varchar(100);

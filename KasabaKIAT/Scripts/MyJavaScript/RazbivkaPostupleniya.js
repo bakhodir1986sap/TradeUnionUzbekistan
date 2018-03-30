@@ -18,6 +18,7 @@
             url: "/Otchot/GetRazbivkaPostupleniya?s=" + s + "&b=" + b + "&bg=" + bg.toISOString() + "&end=" + end.toISOString(),
         }).then(function (d) {
             if (d.data.length != 0) {
+                $scope.q = d.data.length;
                 $scope.showdata = true;
             } else {
                 $scope.showdata = false;

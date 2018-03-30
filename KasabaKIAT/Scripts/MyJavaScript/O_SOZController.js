@@ -17,6 +17,7 @@
             $scope.O_SOZ = d.data;
             console.log(d.data);
             if (d.data.length != 0) {
+                $scope.q = d.data.length;
                 $scope.showdata = true;
             }
             else {

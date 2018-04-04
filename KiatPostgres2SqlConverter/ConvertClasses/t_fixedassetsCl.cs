@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace KiatPostgres2SqlConverter.ConvertClasses
 {
-    class t_fixedassetsCl
+    public class t_fixedassetsCl
     {
         public long CountEgrpo()
         {
@@ -109,7 +109,7 @@ namespace KiatPostgres2SqlConverter.ConvertClasses
             while (dr.Read())
             {
 
-                using (KasabaKIATEntities db = new KasabaKIATEntities())
+                using (KasabaKIAT_N1Entities db = new KasabaKIAT_N1Entities())
                 {
                     t_fixedassets model = new t_fixedassets();
 
@@ -124,11 +124,11 @@ namespace KiatPostgres2SqlConverter.ConvertClasses
                     model.address               = dr[9 ] == DBNull.Value ? null : (string)dr[9 ];
                     model.build_year            = dr[10] == DBNull.Value ? 0 : (int)dr[10];
                     model.floor_count           = dr[11] == DBNull.Value ? 0 : (int)dr[11];
-                    model.square                = dr[12] == DBNull.Value ? 0 : (int)dr[12];
-                    model.start_price           = dr[13] == DBNull.Value ? 0 : (int)dr[13];
+                    model.square                = dr[12] == DBNull.Value ? 0 : (float)dr[12];
+                    model.start_price           = dr[13] == DBNull.Value ? 0 : (float)dr[13];
                     model.start_year            = dr[14] == DBNull.Value ? 0 : (int)dr[14];
                     model.department_code       = dr[15] == DBNull.Value ? null : (string)dr[15];
-                    model.s_user_id             = dr[16] == DBNull.Value ? 0 : (int)dr[16];
+                    model.s_user_id             = dr[16] == DBNull.Value ? null : (long?)dr[16];
                     model.soato_code            = dr[17] == DBNull.Value ? null : (string)dr[17];
                     model.color                 = dr[18] == DBNull.Value ? null : (string)dr[18];
                     model.dvigatel              = dr[19] == DBNull.Value ? null : (string)dr[19];
@@ -136,7 +136,7 @@ namespace KiatPostgres2SqlConverter.ConvertClasses
                     model.count                 = dr[21] == DBNull.Value ? 0 : (int)dr[21];
                     model.measure               = dr[22] == DBNull.Value ? null : (string)dr[22];
                     model.fagroup               = dr[23] == DBNull.Value ? null : (string)dr[23];
-                    model.NATIVE_ID             = dr[1] == DBNull.Value ? 0 : (int)dr[1];
+                    model.NATIVE_ID             = dr[1] == DBNull.Value ? 0 : (long)dr[1];
                                                      
                     db.t_fixedassets.Add(model);
 
@@ -154,7 +154,7 @@ namespace KiatPostgres2SqlConverter.ConvertClasses
         {
             long maxId = 0;
 
-            using (KasabaKIATEntities db = new KasabaKIATEntities())
+            using (KasabaKIAT_N1Entities db = new KasabaKIAT_N1Entities())
             {
                 try
                 {
@@ -174,7 +174,7 @@ namespace KiatPostgres2SqlConverter.ConvertClasses
         {
             long maxId = 0;
 
-            using (KasabaKIATEntities db = new KasabaKIATEntities())
+            using (KasabaKIAT_N1Entities db = new KasabaKIAT_N1Entities())
             {
                 maxId = db.t_fixedassets.Count();
             }

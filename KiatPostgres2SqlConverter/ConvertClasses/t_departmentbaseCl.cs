@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace KiatPostgres2SqlConverter.ConvertClasses
 {
-    class t_departmentbaseCl
+    public class t_departmentbaseCl
     {
         public long CountEgrpo()
         {
@@ -75,7 +75,7 @@ namespace KiatPostgres2SqlConverter.ConvertClasses
 
             long retcount = 0;
             long beginId = SqlMaxId + 1;
-            long endId = beginId + 1000;
+            long endId = beginId + 16000;
 
             do
             {
@@ -87,7 +87,7 @@ namespace KiatPostgres2SqlConverter.ConvertClasses
                 MigrateEgrpo(sqript);
 
                 beginId = endId + 1;
-                endId = beginId + 1000;
+                endId = beginId + 16000;
 
             }
             while (retcount > 0);
@@ -109,7 +109,7 @@ namespace KiatPostgres2SqlConverter.ConvertClasses
             while (dr.Read())
             {
 
-                using (KasabaKIATEntities db = new KasabaKIATEntities())
+                using (KasabaKIAT_N1Entities db = new KasabaKIAT_N1Entities())
                 {
                     t_departmentbase model = new t_departmentbase();
 
@@ -147,9 +147,9 @@ namespace KiatPostgres2SqlConverter.ConvertClasses
                     model.parent_code                       = dr[32] == DBNull.Value ? null : (string)dr[32];
                     model.branch_code                       = dr[33] == DBNull.Value ? null : (string)dr[33];
                     model.deptype_code                      = dr[34] == DBNull.Value ? null : (string)dr[34];
-                    model.s_user_id                         = dr[35] == DBNull.Value ? 0 : (int)dr[35];
+                    model.s_user_id                         = dr[35] == DBNull.Value ? null : (long?)dr[35];
                     model.soato_code                        = dr[36] == DBNull.Value ? null : (string)dr[36];
-                    model.employee_id                       = dr[37] == DBNull.Value ? 0 : (int)dr[37];
+                    model.employee_id                       = dr[37] == DBNull.Value ? null : (long?)dr[37];
                     model.okonx                             = dr[38] == DBNull.Value ? null : (string)dr[38];
                     model.camps_address                     = dr[39] == DBNull.Value ? null : (string)dr[39];
                     model.camps_type1                       = dr[40] == DBNull.Value ? null : (string)dr[40];
@@ -166,18 +166,18 @@ namespace KiatPostgres2SqlConverter.ConvertClasses
                     model.camps_name                        = dr[51] == DBNull.Value ? null : (string)dr[51];
                     model.camps_site                        = dr[52] == DBNull.Value ? null : (string)dr[52];
                     model.camps_tel                         = dr[53] == DBNull.Value ? null : (string)dr[53];
-                    model.soato_organization_id             = dr[54] == DBNull.Value ? 0 : (int)dr[54];
-                    model.department_code                   = dr[55] == DBNull.Value ? 0 : (int)dr[55];
+                    model.soato_organization_id             = dr[54] == DBNull.Value ? null : (long?)dr[54];
+                    model.department_code                   = dr[55] == DBNull.Value ? null : (long?)dr[55];
                     model.sanatorium_name                   = dr[56] == DBNull.Value ? null : (string)dr[56];
                     model.site                              = dr[57] == DBNull.Value ? null : (string)dr[57];
                     model.telephone                         = dr[58] == DBNull.Value ? null : (string)dr[58];
-                    model.sanatorium_profil_id              = dr[59] == DBNull.Value ? 0 : (int)dr[59];
-                    model.sanatorium_type_id                = dr[60] == DBNull.Value ? 0 : (int)dr[60];
+                    model.sanatorium_profil_id              = dr[59] == DBNull.Value ? null : (long?)dr[59];
+                    model.sanatorium_type_id                = dr[60] == DBNull.Value ? null : (long?)dr[60];
                     model.employeefullname                  = dr[61] == DBNull.Value ? null : (string)dr[61];
                     model.dep_name                          = dr[62] == DBNull.Value ? null : (string)dr[62];
                     model.le_inn                            = dr[63] == DBNull.Value ? null : (string)dr[63];
                     model.group_2ti                         = dr[64] == DBNull.Value ? null : (short?)dr[64];
-                    model.NATIVE_ID                         = dr[1] == DBNull.Value ? 0 : (int)dr[1];
+                    model.NATIVE_ID                         = dr[1] == DBNull.Value ? 0 : (long)dr[1];
 
                     db.t_departmentbase.Add(model);
 
@@ -195,7 +195,7 @@ namespace KiatPostgres2SqlConverter.ConvertClasses
         {
             long maxId = 0;
 
-            using (KasabaKIATEntities db = new KasabaKIATEntities())
+            using (KasabaKIAT_N1Entities db = new KasabaKIAT_N1Entities())
             {
                 try
                 {
@@ -215,7 +215,7 @@ namespace KiatPostgres2SqlConverter.ConvertClasses
         {
             long maxId = 0;
 
-            using (KasabaKIATEntities db = new KasabaKIATEntities())
+            using (KasabaKIAT_N1Entities db = new KasabaKIAT_N1Entities())
             {
                 maxId = db.t_departmentbase.Count();
             }

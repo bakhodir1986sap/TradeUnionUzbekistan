@@ -7,7 +7,7 @@ using Npgsql;
 
 namespace KiatPostgres2SqlConverter.ConvertClasses
 {
-    class sps_translateCl
+    public class sps_translateCl
     {
         public long CountEgrpo()
         {
@@ -109,18 +109,18 @@ namespace KiatPostgres2SqlConverter.ConvertClasses
             while (dr.Read())
             {
 
-                using (KasabaKIATEntities db = new KasabaKIATEntities())
+                using (KasabaKIAT_N1Entities db = new KasabaKIAT_N1Entities())
                 {
                     sps_translate model = new sps_translate();
 
-                    model.version       = dr[1] == DBNull.Value ? 0 : (int)dr[1];
+                    model.version       = dr[1] == DBNull.Value ? 0 : (int)      dr[1];
                     model.name          = dr[2] == DBNull.Value ? null : (string)dr[2];
                     model.translate_ru  = dr[3] == DBNull.Value ? null : (string)dr[3];
                     model.translate_uz  = dr[4] == DBNull.Value ? null : (string)dr[4];
                     model.translate_uzl = dr[5] == DBNull.Value ? null : (string)dr[5];
                     model.label         = dr[6] == DBNull.Value ? null : (string)dr[6];
                     model.state         = dr[7] == DBNull.Value ? false : (bool?)dr[7];
-                    model.NATIVE_ID     = dr[0] == DBNull.Value ? 0 : (int)dr[0];
+                    model.NATIVE_ID     = dr[0] == DBNull.Value ? 0 : (long)      dr[0];
 
                     db.sps_translate.Add(model);
 
@@ -138,7 +138,7 @@ namespace KiatPostgres2SqlConverter.ConvertClasses
         {
             long maxId = 0;
 
-            using (KasabaKIATEntities db = new KasabaKIATEntities())
+            using (KasabaKIAT_N1Entities db = new KasabaKIAT_N1Entities())
             {
                 try
                 {
@@ -158,7 +158,7 @@ namespace KiatPostgres2SqlConverter.ConvertClasses
         {
             long maxId = 0;
 
-            using (KasabaKIATEntities db = new KasabaKIATEntities())
+            using (KasabaKIAT_N1Entities db = new KasabaKIAT_N1Entities())
             {
                 maxId = db.sps_translate.Count();
             }

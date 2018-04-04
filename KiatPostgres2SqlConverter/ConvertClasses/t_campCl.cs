@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace KiatPostgres2SqlConverter.ConvertClasses
 {
-    class t_campCl
+    public class t_campCl
     {
         public long CountEgrpo()
         {
@@ -109,7 +109,7 @@ namespace KiatPostgres2SqlConverter.ConvertClasses
             while (dr.Read())
             {
 
-                using (KasabaKIATEntities db = new KasabaKIATEntities())
+                using (KasabaKIAT_N1Entities db = new KasabaKIAT_N1Entities())
                 {
                     t_camp model = new t_camp();
 
@@ -133,10 +133,10 @@ namespace KiatPostgres2SqlConverter.ConvertClasses
                     model.camps_name                    = dr[18] == DBNull.Value ? null : (string)dr[18];
                     model.camps_site                    = dr[19] == DBNull.Value ? null : (string)dr[19];
                     model.camps_tel                     = dr[20] == DBNull.Value ? null : (string)dr[20];
-                    model.soato_organization_id         = dr[21] == DBNull.Value ? 0 : (int)dr[21];
-                    model.s_user_id                     = dr[22] == DBNull.Value ? 0 : (int)dr[22];
-                    model.soato_id                      = dr[23] == DBNull.Value ? 0 : (int)dr[23];
-                    model.NATIVE_ID                     = dr[24] == DBNull.Value ? 0 : (int)dr[24];
+                    model.soato_organization_id         = dr[21] == DBNull.Value ? null : (long?)dr[21];
+                    model.s_user_id                     = dr[22] == DBNull.Value ? null : (long?)dr[22];
+                    model.soato_id                      = dr[23] == DBNull.Value ? null : (long?)dr[23];
+                    model.NATIVE_ID                     = dr[0] == DBNull.Value ? 0 : (long)dr[0];
                                                                                                
                     db.t_camp.Add(model);
 
@@ -154,7 +154,7 @@ namespace KiatPostgres2SqlConverter.ConvertClasses
         {
             long maxId = 0;
 
-            using (KasabaKIATEntities db = new KasabaKIATEntities())
+            using (KasabaKIAT_N1Entities db = new KasabaKIAT_N1Entities())
             {
                 try
                 {
@@ -174,7 +174,7 @@ namespace KiatPostgres2SqlConverter.ConvertClasses
         {
             long maxId = 0;
 
-            using (KasabaKIATEntities db = new KasabaKIATEntities())
+            using (KasabaKIAT_N1Entities db = new KasabaKIAT_N1Entities())
             {
                 maxId = db.t_camp.Count();
             }

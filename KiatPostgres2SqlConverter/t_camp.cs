@@ -18,7 +18,6 @@ namespace KiatPostgres2SqlConverter
         public t_camp()
         {
             this.t_camp_statistics = new HashSet<t_camp_statistics>();
-            this.tbpt_putyovkarealizasiya = new HashSet<tbpt_putyovkarealizasiya>();
             this.tbpt_putyovki = new HashSet<tbpt_putyovki>();
             this.tbpt_zaezdi = new HashSet<tbpt_zaezdi>();
             this.tbpt_zayavki = new HashSet<tbpt_zayavki>();
@@ -55,8 +54,6 @@ namespace KiatPostgres2SqlConverter
         public virtual user user { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<t_camp_statistics> t_camp_statistics { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tbpt_putyovkarealizasiya> tbpt_putyovkarealizasiya { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tbpt_putyovki> tbpt_putyovki { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

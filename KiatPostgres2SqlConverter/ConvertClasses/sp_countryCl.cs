@@ -7,7 +7,7 @@ using Npgsql;
 
 namespace KiatPostgres2SqlConverter.ConvertClasses
 {
-    class sp_countryCl
+    public class sp_countryCl
     {
         public long CountEgrpo()
         {
@@ -75,7 +75,7 @@ namespace KiatPostgres2SqlConverter.ConvertClasses
 
             long retcount = 0;
             long beginId = SqlMaxId + 1;
-            long endId = beginId + 1000;
+            long endId = beginId + 3000;
 
             do
             {
@@ -87,7 +87,7 @@ namespace KiatPostgres2SqlConverter.ConvertClasses
                 MigrateEgrpo(sqript);
 
                 beginId = endId + 1;
-                endId = beginId + 1000;
+                endId = beginId + 3000;
 
             }
             while (retcount > 0);
@@ -109,7 +109,7 @@ namespace KiatPostgres2SqlConverter.ConvertClasses
             while (dr.Read())
             {
 
-                using (KasabaKIATEntities db = new KasabaKIATEntities())
+                using (KasabaKIAT_N1Entities db = new KasabaKIAT_N1Entities())
                 {
                     sp_country model = new sp_country();
 
@@ -125,8 +125,8 @@ namespace KiatPostgres2SqlConverter.ConvertClasses
                     model.name_short_ru   = dr[9 ] == DBNull.Value ? null : (string)    dr[9 ];
                     model.name_short_uz   = dr[10] == DBNull.Value ? null : (string)    dr[10];
                     model.name_short_uzl  = dr[11] == DBNull.Value ? null : (string)    dr[11];
-                    model.s_user_id       = dr[12] == DBNull.Value ? 0 : (int)          dr[12];
-                    model.NATIVE_ID       = dr[0 ] == DBNull.Value ? 0 : (int)dr[0];
+                    model.s_user_id       = dr[12] == DBNull.Value ? 0 : (long)          dr[12];
+                    model.NATIVE_ID       = dr[0 ] == DBNull.Value ? 0 : (long)dr[0];
 
                     db.sp_country.Add(model);
 
@@ -144,7 +144,7 @@ namespace KiatPostgres2SqlConverter.ConvertClasses
         {
             long maxId = 0;
 
-            using (KasabaKIATEntities db = new KasabaKIATEntities())
+            using (KasabaKIAT_N1Entities db = new KasabaKIAT_N1Entities())
             {
                 try
                 {
@@ -164,7 +164,7 @@ namespace KiatPostgres2SqlConverter.ConvertClasses
         {
             long maxId = 0;
 
-            using (KasabaKIATEntities db = new KasabaKIATEntities())
+            using (KasabaKIAT_N1Entities db = new KasabaKIAT_N1Entities())
             {
                 maxId = db.sp_country.Count();
             }

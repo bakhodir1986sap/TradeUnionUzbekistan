@@ -13,10 +13,10 @@ namespace KiatPostgres2SqlConverter
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class KasabaKIATEntities : DbContext
+    public partial class KasabaKIAT_N1Entities : DbContext
     {
-        public KasabaKIATEntities()
-            : base("name=KasabaKIATEntities")
+        public KasabaKIAT_N1Entities()
+            : base("name=KasabaKIAT_N1Entities")
         {
         }
     
@@ -32,13 +32,16 @@ namespace KiatPostgres2SqlConverter
         public virtual DbSet<fill_rate> fill_rate { get; set; }
         public virtual DbSet<frZapro> frZapros { get; set; }
         public virtual DbSet<Kartoch> Kartoches { get; set; }
+        public virtual DbSet<Kazna_Account> Kazna_Account { get; set; }
         public virtual DbSet<KaznaFile> KaznaFiles { get; set; }
         public virtual DbSet<KaznaPaymentFile> KaznaPaymentFiles { get; set; }
+        public virtual DbSet<KaznaSverkaFile> KaznaSverkaFiles { get; set; }
         public virtual DbSet<occupationalsafety> occupationalsafeties { get; set; }
         public virtual DbSet<ot_oplata> ot_oplata { get; set; }
         public virtual DbSet<Ot13> Ot13 { get; set; }
         public virtual DbSet<Ot14> Ot14 { get; set; }
         public virtual DbSet<p_provodok> p_provodok { get; set; }
+        public virtual DbSet<PrivyazkaProvodok> PrivyazkaProvodoks { get; set; }
         public virtual DbSet<provodok> provodoks { get; set; }
         public virtual DbSet<report1ti> report1ti { get; set; }
         public virtual DbSet<report2ti1> report2ti1 { get; set; }
@@ -74,7 +77,6 @@ namespace KiatPostgres2SqlConverter
         public virtual DbSet<sp_soogu_copy> sp_soogu_copy { get; set; }
         public virtual DbSet<SprSchet> SprSchets { get; set; }
         public virtual DbSet<sps_translate> sps_translate { get; set; }
-        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<t_agreement> t_agreement { get; set; }
         public virtual DbSet<t_bkut_statistics> t_bkut_statistics { get; set; }
         public virtual DbSet<t_camp> t_camp { get; set; }
@@ -95,11 +97,16 @@ namespace KiatPostgres2SqlConverter
         public virtual DbSet<tbbKartoch> tbbKartoches { get; set; }
         public virtual DbSet<tbbOplata> tbbOplatas { get; set; }
         public virtual DbSet<tbbOtchet> tbbOtchets { get; set; }
+        public virtual DbSet<tbbu_ecp_calc> tbbu_ecp_calc { get; set; }
+        public virtual DbSet<tbbu_planbyudjetregion> tbbu_planbyudjetregion { get; set; }
+        public virtual DbSet<tbbu_platejka> tbbu_platejka { get; set; }
+        public virtual DbSet<tbbu_provodki> tbbu_provodki { get; set; }
         public virtual DbSet<tbbViplata> tbbViplatas { get; set; }
         public virtual DbSet<tbcs_dictionary> tbcs_dictionary { get; set; }
         public virtual DbSet<tbcs_dictionarytype> tbcs_dictionarytype { get; set; }
         public virtual DbSet<tbgl_accounttype> tbgl_accounttype { get; set; }
         public virtual DbSet<tbgl_balance> tbgl_balance { get; set; }
+        public virtual DbSet<tbgl_bankpayments> tbgl_bankpayments { get; set; }
         public virtual DbSet<tbgl_jnldd> tbgl_jnldd { get; set; }
         public virtual DbSet<tbgl_jnlmst> tbgl_jnlmst { get; set; }
         public virtual DbSet<tbgl_opersettings> tbgl_opersettings { get; set; }
@@ -128,9 +135,11 @@ namespace KiatPostgres2SqlConverter
         public virtual DbSet<tblSprav_San> tblSprav_San { get; set; }
         public virtual DbSet<tblSprav_Vil> tblSprav_Vil { get; set; }
         public virtual DbSet<tblVipl> tblVipls { get; set; }
+        public virtual DbSet<tblVipl_NumGEn> tblVipl_NumGEn { get; set; }
         public virtual DbSet<tbpt_avarageprice> tbpt_avarageprice { get; set; }
         public virtual DbSet<tbpt_bronputyovka> tbpt_bronputyovka { get; set; }
         public virtual DbSet<tbpt_otkazputyovka> tbpt_otkazputyovka { get; set; }
+        public virtual DbSet<tbpt_putyovka_statechange> tbpt_putyovka_statechange { get; set; }
         public virtual DbSet<tbpt_putyovkarealizasiya> tbpt_putyovkarealizasiya { get; set; }
         public virtual DbSet<tbpt_putyovki> tbpt_putyovki { get; set; }
         public virtual DbSet<tbpt_putyovki_changehistory> tbpt_putyovki_changehistory { get; set; }
@@ -139,12 +148,11 @@ namespace KiatPostgres2SqlConverter
         public virtual DbSet<tbpt_yearlyplanregion> tbpt_yearlyplanregion { get; set; }
         public virtual DbSet<tbpt_zaezdi> tbpt_zaezdi { get; set; }
         public virtual DbSet<tbpt_zayavki> tbpt_zayavki { get; set; }
+        public virtual DbSet<tbsp_soato_new> tbsp_soato_new { get; set; }
         public virtual DbSet<useraction> useractions { get; set; }
         public virtual DbSet<useractivity> useractivities { get; set; }
         public virtual DbSet<user> users { get; set; }
         public virtual DbSet<users_aud> users_aud { get; set; }
-        public virtual DbSet<buildingfixedasset> buildingfixedassets { get; set; }
-        public virtual DbSet<sp_position1> sp_position1 { get; set; }
         public virtual DbSet<t_departmentbase_aud> t_departmentbase_aud { get; set; }
         public virtual DbSet<tbbDopTabel> tbbDopTabels { get; set; }
         public virtual DbSet<tbbFermer> tbbFermers { get; set; }
@@ -152,7 +160,6 @@ namespace KiatPostgres2SqlConverter
         public virtual DbSet<tbbSprOsnov> tbbSprOsnovs { get; set; }
         public virtual DbSet<tbbSprTabel> tbbSprTabels { get; set; }
         public virtual DbSet<tbbTabel> tbbTabels { get; set; }
-        public virtual DbSet<tbgl_bankpayments> tbgl_bankpayments { get; set; }
         public virtual DbSet<tblFace_Two> tblFace_Two { get; set; }
         public virtual DbSet<tblOplata_Ras> tblOplata_Ras { get; set; }
         public virtual DbSet<tblPred> tblPreds { get; set; }
@@ -160,7 +167,7 @@ namespace KiatPostgres2SqlConverter
         public virtual DbSet<tblVipl_Put> tblVipl_Put { get; set; }
         public virtual DbSet<tblVozVrat> tblVozVrats { get; set; }
         public virtual DbSet<Zapros_ZK> Zapros_ZK { get; set; }
-        public virtual DbSet<tbpt_putyovka_statechange> tbpt_putyovka_statechange { get; set; }
-        public virtual DbSet<tblVipl_NumGEn> tblVipl_NumGEn { get; set; }
+        public virtual DbSet<buildingfixedasset> buildingfixedassets { get; set; }
+        public virtual DbSet<sp_position1> sp_position1 { get; set; }
     }
 }

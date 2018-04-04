@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using KiatPostgres2SqlConverter.ConvertClasses;
 
 namespace ConverterTester
 {
@@ -11,7 +12,7 @@ namespace ConverterTester
     {
         static void Main(string[] args)
         {
-            PostgresADO cl = new PostgresADO();
+            t_sanatoriumCl cl = new t_sanatoriumCl();
 
             //var count = cl.CountEgrpo();
 

@@ -17,6 +17,7 @@ namespace KiatPostgres2SqlConverter
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public tbcs_dictionary()
         {
+            this.PrivyazkaProvodoks = new HashSet<PrivyazkaProvodok>();
             this.tbpt_zaezdi = new HashSet<tbpt_zaezdi>();
             this.tbpt_yearlyplanregion = new HashSet<tbpt_yearlyplanregion>();
         }
@@ -30,6 +31,8 @@ namespace KiatPostgres2SqlConverter
         public Nullable<bool> STATUS { get; set; }
         public Nullable<long> USER_ID { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PrivyazkaProvodok> PrivyazkaProvodoks { get; set; }
         public virtual user user { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tbpt_zaezdi> tbpt_zaezdi { get; set; }

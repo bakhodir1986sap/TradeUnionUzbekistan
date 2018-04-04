@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace KiatPostgres2SqlConverter.ConvertClasses
 {
-    class role_permissionCl
+    public class role_permissionCl
     {
         public long CountEgrpo()
         {
@@ -109,20 +109,20 @@ namespace KiatPostgres2SqlConverter.ConvertClasses
             while (dr.Read())
             {
 
-                using (KasabaKIATEntities db = new KasabaKIATEntities())
+                using (KasabaKIAT_N1Entities db = new KasabaKIAT_N1Entities())
                 {
                     role_permission model = new role_permission();
 
                     //model.id            = dr[] == DBNull.Value ? 0 : (int)          dr[];
                     model.version       = dr[1] == DBNull.Value ? 0 : (int)         dr[1];
                     model.action        = dr[2] == DBNull.Value ? null : (string)   dr[2];
-                    model.role_id       = dr[3] == DBNull.Value ? 0 : (int)         dr[3];
+                    model.role_id       = dr[3] == DBNull.Value ? 0 : (long)         dr[3];
                     model.access        = dr[4] == DBNull.Value ? false : (bool?)   dr[4];
                     model.s_comment     = dr[5] == DBNull.Value ? null : (string)   dr[5];
                     model.s_create      = dr[6] == DBNull.Value ? null : (DateTime?)dr[6];
                     model.s_status      = dr[7] == DBNull.Value ? null : (string)   dr[7];
-                    model.s_user_id     = dr[8] == DBNull.Value ? 0 : (int)         dr[8];
-                    model.NATIVE_ID     = dr[0] == DBNull.Value ? 0 : (int)         dr[0];
+                    model.s_user_id     = dr[8] == DBNull.Value ? 0 : (long)         dr[8];
+                    model.NATIVE_ID     = dr[0] == DBNull.Value ? 0 : (long)         dr[0];
 
                     db.role_permission.Add(model);
 
@@ -140,7 +140,7 @@ namespace KiatPostgres2SqlConverter.ConvertClasses
         {
             long maxId = 0;
 
-            using (KasabaKIATEntities db = new KasabaKIATEntities())
+            using (KasabaKIAT_N1Entities db = new KasabaKIAT_N1Entities())
             {
                 try
                 {
@@ -160,7 +160,7 @@ namespace KiatPostgres2SqlConverter.ConvertClasses
         {
             long maxId = 0;
 
-            using (KasabaKIATEntities db = new KasabaKIATEntities())
+            using (KasabaKIAT_N1Entities db = new KasabaKIAT_N1Entities())
             {
                 maxId = db.role_permission.Count();
             }

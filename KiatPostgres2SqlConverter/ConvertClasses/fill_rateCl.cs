@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace KiatPostgres2SqlConverter.ConvertClasses
 {
-    class fill_rateCl
+    public class fill_rateCl
     {
         public long CountEgrpo()
         {
@@ -109,19 +109,19 @@ namespace KiatPostgres2SqlConverter.ConvertClasses
             while (dr.Read())
             {
 
-                using (KasabaKIATEntities db = new KasabaKIATEntities())
+                using (KasabaKIAT_N1Entities db = new KasabaKIAT_N1Entities())
                 {
                     fill_rate model = new fill_rate();
 
                     //model.id                = dr[1] == DBNull.Value ? 0 : (int)dr[1];
                     model.version           = dr[1] == DBNull.Value ? 0 : (int)         dr[1];
                     model.entityclassname   = dr[2] == DBNull.Value ? null : (string)   dr[2];
-                    model.entityid          = dr[3] == DBNull.Value ? 0 : (int)         dr[3];
+                    model.entityid          = dr[3] == DBNull.Value ? 0 : (long)         dr[3];
                     model.filled            = dr[4] == DBNull.Value ? 0 : (int)         dr[4];
                     model.formname          = dr[5] == DBNull.Value ? null : (string)   dr[5];
                     model.updated           = dr[6] == DBNull.Value ? null : (DateTime?)dr[6];
                     model.whenfull          = dr[7] == DBNull.Value ? 0 : (int)         dr[7];
-                    model.NATIVE_ID         = dr[0] == DBNull.Value ? 0 : (int)         dr[0];
+                    model.NATIVE_ID         = dr[0] == DBNull.Value ? 0 : (long)         dr[0];
 
                     db.fill_rate.Add(model);
 
@@ -139,7 +139,7 @@ namespace KiatPostgres2SqlConverter.ConvertClasses
         {
             long maxId = 0;
 
-            using (KasabaKIATEntities db = new KasabaKIATEntities())
+            using (KasabaKIAT_N1Entities db = new KasabaKIAT_N1Entities())
             {
                 try
                 {
@@ -159,7 +159,7 @@ namespace KiatPostgres2SqlConverter.ConvertClasses
         {
             long maxId = 0;
 
-            using (KasabaKIATEntities db = new KasabaKIATEntities())
+            using (KasabaKIAT_N1Entities db = new KasabaKIAT_N1Entities())
             {
                 maxId = db.fill_rate.Count();
             }

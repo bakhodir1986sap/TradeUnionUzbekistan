@@ -109,7 +109,7 @@ namespace KiatPostgres2SqlConverter
             while (dr.Read())
             {
 
-                using (KasabaKIATEntities db = new KasabaKIATEntities())
+                using (KasabaKIAT_N1Entities db = new KasabaKIAT_N1Entities())
                 {
                     t_egrpo model = new t_egrpo();
 
@@ -164,7 +164,7 @@ namespace KiatPostgres2SqlConverter
         {
             long maxId = 0;
 
-            using (KasabaKIATEntities db = new KasabaKIATEntities())
+            using (KasabaKIAT_N1Entities db = new KasabaKIAT_N1Entities())
             {
                 try
                 {
@@ -184,7 +184,7 @@ namespace KiatPostgres2SqlConverter
         {
             long maxId = 0;
 
-            using (KasabaKIATEntities db = new KasabaKIATEntities())
+            using (KasabaKIAT_N1Entities db = new KasabaKIAT_N1Entities())
             {
                 maxId = db.t_egrpo.Count();
             }

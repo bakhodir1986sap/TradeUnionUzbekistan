@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace KiatPostgres2SqlConverter.ConvertClasses
 {
-    class t_generalagreementCl
+    public class t_generalagreementCl
     {
         public long CountEgrpo()
         {
@@ -109,7 +109,7 @@ namespace KiatPostgres2SqlConverter.ConvertClasses
             while (dr.Read())
             {
 
-                using (KasabaKIATEntities db = new KasabaKIATEntities())
+                using (KasabaKIAT_N1Entities db = new KasabaKIAT_N1Entities())
                 {
                     t_generalagreement model = new t_generalagreement();
 
@@ -122,8 +122,8 @@ namespace KiatPostgres2SqlConverter.ConvertClasses
                     model.s_status      = dr[7 ] == DBNull.Value ? null : (string)dr[7 ];
                     model.end_year      = dr[8 ] == DBNull.Value ? 0 : (int)dr[8 ];
                     model.start_year    = dr[9 ] == DBNull.Value ? 0 : (int)dr[9 ];
-                    model.s_user_id     = dr[10] == DBNull.Value ? 0 : (int)dr[10];
-                    model.NATIVE_ID     = dr[0] == DBNull.Value ? 0 : (int)dr[0];
+                    model.s_user_id     = dr[10] == DBNull.Value ? null : (long?)dr[10];
+                    model.NATIVE_ID     = dr[0] == DBNull.Value ? 0 : (long)dr[0];
 
                     db.t_generalagreement.Add(model);
 
@@ -141,7 +141,7 @@ namespace KiatPostgres2SqlConverter.ConvertClasses
         {
             long maxId = 0;
 
-            using (KasabaKIATEntities db = new KasabaKIATEntities())
+            using (KasabaKIAT_N1Entities db = new KasabaKIAT_N1Entities())
             {
                 try
                 {
@@ -161,7 +161,7 @@ namespace KiatPostgres2SqlConverter.ConvertClasses
         {
             long maxId = 0;
 
-            using (KasabaKIATEntities db = new KasabaKIATEntities())
+            using (KasabaKIAT_N1Entities db = new KasabaKIAT_N1Entities())
             {
                 maxId = db.t_generalagreement.Count();
             }

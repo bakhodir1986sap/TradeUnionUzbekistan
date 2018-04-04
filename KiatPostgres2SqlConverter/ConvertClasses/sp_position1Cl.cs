@@ -7,7 +7,7 @@ using Npgsql;
 
 namespace KiatPostgres2SqlConverter.ConvertClasses
 {
-    class sp_position1Cl
+    public class sp_position1Cl
     {
         public long CountEgrpo()
         {
@@ -75,7 +75,7 @@ namespace KiatPostgres2SqlConverter.ConvertClasses
 
             long retcount = 0;
             long beginId = SqlMaxId + 1;
-            long endId = beginId + 1000;
+            long endId = beginId + 7000;
 
             do
             {
@@ -109,7 +109,7 @@ namespace KiatPostgres2SqlConverter.ConvertClasses
             while (dr.Read())
             {
 
-                using (KasabaKIATEntities db = new KasabaKIATEntities())
+                using (KasabaKIAT_N1Entities db = new KasabaKIAT_N1Entities())
                 {
                     sp_position1 model = new sp_position1();
 
@@ -129,7 +129,7 @@ namespace KiatPostgres2SqlConverter.ConvertClasses
                     model.s_tarifrate           = dr[14] == DBNull.Value ? null : (string)dr[14];
                     model.s_worktype            = dr[15] == DBNull.Value ? null : (string)dr[15];
                     model.s_user_id             = dr[16] == DBNull.Value ? null : (long?)dr[16];
-                    model.NATIVE_ID             = dr[0] == DBNull.Value ? 0 : (int)dr[0];
+                    model.NATIVE_ID             = dr[0] == DBNull.Value ? 0 : (long)dr[0];
 
                     db.sp_position1.Add(model);
 
@@ -147,7 +147,7 @@ namespace KiatPostgres2SqlConverter.ConvertClasses
         {
             long maxId = 0;
 
-            using (KasabaKIATEntities db = new KasabaKIATEntities())
+            using (KasabaKIAT_N1Entities db = new KasabaKIAT_N1Entities())
             {
                 try
                 {
@@ -167,7 +167,7 @@ namespace KiatPostgres2SqlConverter.ConvertClasses
         {
             long maxId = 0;
 
-            using (KasabaKIATEntities db = new KasabaKIATEntities())
+            using (KasabaKIAT_N1Entities db = new KasabaKIAT_N1Entities())
             {
                 maxId = db.sp_position1.Count();
             }

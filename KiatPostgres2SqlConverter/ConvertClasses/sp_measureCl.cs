@@ -7,7 +7,7 @@ using Npgsql;
 
 namespace KiatPostgres2SqlConverter.ConvertClasses
 {
-    class sp_measureCl
+    public class sp_measureCl
     {
         public long CountEgrpo()
         {
@@ -109,19 +109,20 @@ namespace KiatPostgres2SqlConverter.ConvertClasses
             while (dr.Read())
             {
 
-                using (KasabaKIATEntities db = new KasabaKIATEntities())
+                using (KasabaKIAT_N1Entities db = new KasabaKIAT_N1Entities())
                 {
                     sp_measure model = new sp_measure();
 
-                    model.code      = dr[1 ] == DBNull.Value ? null : (string)dr[1 ];
-                    model.s_comment = dr[2 ] == DBNull.Value ? null : (string)dr[2 ];
-                    model.s_create  = dr[3 ] == DBNull.Value ? null : (DateTime?)dr[3 ];
-                    model.s_status  = dr[4 ] == DBNull.Value ? null : (string)dr[4 ];
-                    model.name_ru   = dr[5 ] == DBNull.Value ? null : (string)dr[5 ];
-                    model.name_uz   = dr[6 ] == DBNull.Value ? null : (string)dr[6 ];
-                    model.name_uzl  = dr[7 ] == DBNull.Value ? null : (string)dr[7 ];
-                    model.s_user_id = dr[8 ] == DBNull.Value ? 0 : (int)dr[8];
-                    model.NATIVE_ID = dr[0] == DBNull.Value ? 0 : (int)dr[1];
+                    model.version   = dr[1] == DBNull.Value ? 0 : (int)dr[1];
+                    model.code      = dr[2 ] == DBNull.Value ? null : (string)      dr[2];
+                    model.s_comment = dr[3 ] == DBNull.Value ? null : (string)      dr[3];
+                    model.s_create  = dr[4 ] == DBNull.Value ? null : (DateTime?)   dr[4];
+                    model.s_status  = dr[5 ] == DBNull.Value ? null : (string)      dr[5];
+                    model.name_ru   = dr[6 ] == DBNull.Value ? null : (string)      dr[6];
+                    model.name_uz   = dr[7 ] == DBNull.Value ? null : (string)      dr[7];
+                    model.name_uzl  = dr[8 ] == DBNull.Value ? null : (string)      dr[8];
+                    model.s_user_id = dr[9 ] == DBNull.Value ? 0    : (long)        dr[9];
+                    model.NATIVE_ID = dr[0] ==  DBNull.Value ? 0    : (long)        dr[0];
 
                     db.sp_measure.Add(model);
 
@@ -139,7 +140,7 @@ namespace KiatPostgres2SqlConverter.ConvertClasses
         {
             long maxId = 0;
 
-            using (KasabaKIATEntities db = new KasabaKIATEntities())
+            using (KasabaKIAT_N1Entities db = new KasabaKIAT_N1Entities())
             {
                 try
                 {
@@ -159,7 +160,7 @@ namespace KiatPostgres2SqlConverter.ConvertClasses
         {
             long maxId = 0;
 
-            using (KasabaKIATEntities db = new KasabaKIATEntities())
+            using (KasabaKIAT_N1Entities db = new KasabaKIAT_N1Entities())
             {
                 maxId = db.sp_measure.Count();
             }

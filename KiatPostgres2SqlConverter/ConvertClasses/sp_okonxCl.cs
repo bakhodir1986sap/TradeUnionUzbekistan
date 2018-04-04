@@ -7,7 +7,7 @@ using Npgsql;
 
 namespace KiatPostgres2SqlConverter.ConvertClasses
 {
-    class sp_okonxCl
+    public class sp_okonxCl
     {
         public long CountEgrpo()
         {
@@ -109,7 +109,7 @@ namespace KiatPostgres2SqlConverter.ConvertClasses
             while (dr.Read())
             {
 
-                using (KasabaKIATEntities db = new KasabaKIATEntities())
+                using (KasabaKIAT_N1Entities db = new KasabaKIAT_N1Entities())
                 {
                     sp_okonx model = new sp_okonx();
 
@@ -121,11 +121,11 @@ namespace KiatPostgres2SqlConverter.ConvertClasses
                     model.name_ru       = dr[6 ] == DBNull.Value ? null : (string)dr[6 ];
                     model.name_uz       = dr[7 ] == DBNull.Value ? null : (string)dr[7 ];
                     model.name_uzl      = dr[8 ] == DBNull.Value ? null : (string)dr[8 ];
-                    model.s_user_id     = dr[9 ] == DBNull.Value ? 0 : (int)dr[9 ];
-                    model.parent_id     = dr[10] == DBNull.Value ? 0 : (int)dr[10];
+                    model.s_user_id     = dr[9 ] == DBNull.Value ? 0 : (long)dr[9 ];
+                    model.parent_id     = dr[10] == DBNull.Value ? null : (long?)dr[10];
                     model.keys          = dr[11] == DBNull.Value ? null : (string)dr[11];
                     model.branch_code   = dr[12] == DBNull.Value ? null : (string)dr[12];
-                    model.NATIVE_ID     = dr[0] == DBNull.Value ? 0 : (int)dr[0];
+                    model.NATIVE_ID     = dr[0] == DBNull.Value ? 0 : (long)dr[0];
 
                     db.sp_okonx.Add(model);
 
@@ -143,7 +143,7 @@ namespace KiatPostgres2SqlConverter.ConvertClasses
         {
             long maxId = 0;
 
-            using (KasabaKIATEntities db = new KasabaKIATEntities())
+            using (KasabaKIAT_N1Entities db = new KasabaKIAT_N1Entities())
             {
                 try
                 {
@@ -163,7 +163,7 @@ namespace KiatPostgres2SqlConverter.ConvertClasses
         {
             long maxId = 0;
 
-            using (KasabaKIATEntities db = new KasabaKIATEntities())
+            using (KasabaKIAT_N1Entities db = new KasabaKIAT_N1Entities())
             {
                 maxId = db.sp_okonx.Count();
             }

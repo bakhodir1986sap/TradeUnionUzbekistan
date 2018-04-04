@@ -14,7 +14,7 @@ namespace KiatPostgres2SqlConverter
     
     public partial class tbgl_balance
     {
-        public string TRDT { get; set; }
+        public System.DateTime TRDT { get; set; }
         public string ACCOUNT { get; set; }
         public string DEPARTMENT_CODE { get; set; }
         public Nullable<decimal> PRE_DEBIT_BAL { get; set; }

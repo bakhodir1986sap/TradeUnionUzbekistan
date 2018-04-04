@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace KiatPostgres2SqlConverter.ConvertClasses
 {
-    class eco_platejCl
+    public class eco_platejCl
     {
         public long CountEgrpo()
         {
@@ -109,7 +109,7 @@ namespace KiatPostgres2SqlConverter.ConvertClasses
             while (dr.Read())
             {
 
-                using (KasabaKIATEntities db = new KasabaKIATEntities())
+                using (KasabaKIAT_N1Entities db = new KasabaKIAT_N1Entities())
                 {
                     eco_platej model = new eco_platej();
 
@@ -119,9 +119,9 @@ namespace KiatPostgres2SqlConverter.ConvertClasses
                     model.cnt               = dr[4 ] == DBNull.Value ? 0 : (int)        dr[4 ];
                     model.codepayment       = dr[5 ] == DBNull.Value ? null : (string)  dr[5 ];
                     model.companyname       = dr[6 ] == DBNull.Value ? null : (string)  dr[6 ];
-                    model.credit            = dr[7 ] == DBNull.Value ? 0 : (int)        dr[7 ];
+                    model.credit            = dr[7 ] == DBNull.Value ? 0 : (double)        dr[7 ];
                     model.datetime          = dr[8 ] == DBNull.Value ? null : (string)  dr[8 ];
-                    model.debit             = dr[9 ] == DBNull.Value ? 0 : (int)        dr[9 ];
+                    model.debit             = dr[9 ] == DBNull.Value ? 0 : (double)        dr[9 ];
                     model.filename          = dr[10] == DBNull.Value ? null : (string)  dr[10];
                     model.inn               = dr[11] == DBNull.Value ? null : (string)  dr[11];
                     model.innnumber         = dr[12] == DBNull.Value ? null : (string)  dr[12];
@@ -149,7 +149,7 @@ namespace KiatPostgres2SqlConverter.ConvertClasses
         {
             long maxId = 0;
 
-            using (KasabaKIATEntities db = new KasabaKIATEntities())
+            using (KasabaKIAT_N1Entities db = new KasabaKIAT_N1Entities())
             {
                 try
                 {
@@ -169,7 +169,7 @@ namespace KiatPostgres2SqlConverter.ConvertClasses
         {
             long maxId = 0;
 
-            using (KasabaKIATEntities db = new KasabaKIATEntities())
+            using (KasabaKIAT_N1Entities db = new KasabaKIAT_N1Entities())
             {
                 maxId = db.eco_platej.Count();
             }

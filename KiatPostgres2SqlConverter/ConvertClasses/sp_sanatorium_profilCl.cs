@@ -7,7 +7,7 @@ using Npgsql;
 
 namespace KiatPostgres2SqlConverter.ConvertClasses
 {
-    class sp_sanatorium_profilCl
+    public class sp_sanatorium_profilCl
     {
         public long CountEgrpo()
         {
@@ -109,7 +109,7 @@ namespace KiatPostgres2SqlConverter.ConvertClasses
             while (dr.Read())
             {
 
-                using (KasabaKIATEntities db = new KasabaKIATEntities())
+                using (KasabaKIAT_N1Entities db = new KasabaKIAT_N1Entities())
                 {
                     sp_sanatorium_profil model = new sp_sanatorium_profil();
 
@@ -120,8 +120,8 @@ namespace KiatPostgres2SqlConverter.ConvertClasses
                     model.name_ru   = dr[5] == DBNull.Value ? null : (string)dr[5];
                     model.name_uz   = dr[6] == DBNull.Value ? null : (string)dr[6];
                     model.name_uzl  = dr[7] == DBNull.Value ? null : (string)dr[7];
-                    model.s_user_id = dr[8] == DBNull.Value ? 0 : (int)dr[8];
-                    model.NATIVE_ID = dr[0] == DBNull.Value ? 0 : (int)dr[0];
+                    model.s_user_id =null;
+                    model.NATIVE_ID = dr[0] == DBNull.Value ? 0 : (long)dr[0];
 
                     db.sp_sanatorium_profil.Add(model);
 
@@ -139,7 +139,7 @@ namespace KiatPostgres2SqlConverter.ConvertClasses
         {
             long maxId = 0;
 
-            using (KasabaKIATEntities db = new KasabaKIATEntities())
+            using (KasabaKIAT_N1Entities db = new KasabaKIAT_N1Entities())
             {
                 try
                 {
@@ -159,7 +159,7 @@ namespace KiatPostgres2SqlConverter.ConvertClasses
         {
             long maxId = 0;
 
-            using (KasabaKIATEntities db = new KasabaKIATEntities())
+            using (KasabaKIAT_N1Entities db = new KasabaKIAT_N1Entities())
             {
                 maxId = db.sp_sanatorium_profil.Count();
             }

@@ -7,7 +7,7 @@ using Npgsql;
 
 namespace KiatPostgres2SqlConverter.ConvertClasses
 {
-    class sp_filesCl
+    public class sp_filesCl
     {
         public long CountEgrpo()
         {
@@ -109,7 +109,7 @@ namespace KiatPostgres2SqlConverter.ConvertClasses
             while (dr.Read())
             {
 
-                using (KasabaKIATEntities db = new KasabaKIATEntities())
+                using (KasabaKIAT_N1Entities db = new KasabaKIAT_N1Entities())
                 {
                     sp_files model = new sp_files();
 
@@ -120,9 +120,9 @@ namespace KiatPostgres2SqlConverter.ConvertClasses
                     model.s_status =    dr[5] == DBNull.Value ? null : (string)dr[5];
                     model.mime_type =   dr[6] == DBNull.Value ? null : (string)dr[6];
                     model.file_name =   dr[7] == DBNull.Value ? null : (string)dr[7];
-                    model.content =     dr[8] == DBNull.Value ? null : (string)dr[8];
-                    model.s_user_id =   dr[9] == DBNull.Value ? 0 : (int)dr[9];
-                    model.NATIVE_ID =   dr[1] == DBNull.Value ? 0 : (int)dr[1];
+                    //model.content =     dr[8] == DBNull.Value ? null : (string)dr[8];
+                    model.s_user_id =   dr[9] == DBNull.Value ? 0 : (long)dr[9];
+                    model.NATIVE_ID =   dr[1] == DBNull.Value ? 0 : (long)dr[1];
 
                     db.sp_files.Add(model);
 
@@ -140,7 +140,7 @@ namespace KiatPostgres2SqlConverter.ConvertClasses
         {
             long maxId = 0;
 
-            using (KasabaKIATEntities db = new KasabaKIATEntities())
+            using (KasabaKIAT_N1Entities db = new KasabaKIAT_N1Entities())
             {
                 try
                 {
@@ -160,7 +160,7 @@ namespace KiatPostgres2SqlConverter.ConvertClasses
         {
             long maxId = 0;
 
-            using (KasabaKIATEntities db = new KasabaKIATEntities())
+            using (KasabaKIAT_N1Entities db = new KasabaKIAT_N1Entities())
             {
                 maxId = db.sp_files.Count();
             }

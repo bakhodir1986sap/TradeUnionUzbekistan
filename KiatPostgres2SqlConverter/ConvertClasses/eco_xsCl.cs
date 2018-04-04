@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace KiatPostgres2SqlConverter.ConvertClasses
 {
-    class eco_xsCl
+    public class eco_xsCl
     {
         public long CountEgrpo()
         {
@@ -109,18 +109,18 @@ namespace KiatPostgres2SqlConverter.ConvertClasses
             while (dr.Read())
             {
 
-                using (KasabaKIATEntities db = new KasabaKIATEntities())
+                using (KasabaKIAT_N1Entities db = new KasabaKIAT_N1Entities())
                 {
                     eco_xs model = new eco_xs();
 
-                    model.id            = dr[1] == DBNull.Value ? 0 : (int)     dr[1];
-                    model.inn           = dr[2] == DBNull.Value ? "" : (string) dr[2];
-                    model.activity      = dr[3] == DBNull.Value ? "" : (string) dr[3];
-                    model.bank_account  = dr[4] == DBNull.Value ? "" : (string) dr[4];
-                    model.bank_code     = dr[5] == DBNull.Value ? "" : (string) dr[5];
-                    model.bank_name     = dr[6] == DBNull.Value ? "" : (string) dr[6];
-                    model.budget        = dr[7] == DBNull.Value ? "" : (string) dr[7];
-                    model.NATIVE_ID     = dr[0] == DBNull.Value ? 0 : (int)     dr[0];
+                    //model.id            = dr[1] == DBNull.Value ? 0 : (int)     dr[1];
+                    model.inn           = dr[1] == DBNull.Value ? "" : (string) dr[1];
+                    model.activity      = dr[2] == DBNull.Value ? "" : (string) dr[2];
+                    model.bank_account  = dr[3] == DBNull.Value ? "" : (string) dr[3];
+                    model.bank_code     = dr[4] == DBNull.Value ? "" : (string) dr[4];
+                    model.bank_name     = dr[5] == DBNull.Value ? "" : (string) dr[5];
+                    model.budget        = dr[6] == DBNull.Value ? "" : (string) dr[6];
+                    model.NATIVE_ID     = dr[0] == DBNull.Value ? 0 : (long)     dr[0];
 
                     db.eco_xs.Add(model);
 
@@ -138,7 +138,7 @@ namespace KiatPostgres2SqlConverter.ConvertClasses
         {
             long maxId = 0;
 
-            using (KasabaKIATEntities db = new KasabaKIATEntities())
+            using (KasabaKIAT_N1Entities db = new KasabaKIAT_N1Entities())
             {
                 try
                 {
@@ -158,7 +158,7 @@ namespace KiatPostgres2SqlConverter.ConvertClasses
         {
             long maxId = 0;
 
-            using (KasabaKIATEntities db = new KasabaKIATEntities())
+            using (KasabaKIAT_N1Entities db = new KasabaKIAT_N1Entities())
             {
                 maxId = db.eco_xs.Count();
             }

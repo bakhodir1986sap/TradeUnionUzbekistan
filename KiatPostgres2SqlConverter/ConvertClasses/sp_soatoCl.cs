@@ -7,7 +7,7 @@ using Npgsql;
 
 namespace KiatPostgres2SqlConverter.ConvertClasses
 {
-    class sp_soatoCl
+    public class sp_soatoCl
     {
         public long CountEgrpo()
         {
@@ -109,11 +109,11 @@ namespace KiatPostgres2SqlConverter.ConvertClasses
             while (dr.Read())
             {
 
-                using (KasabaKIATEntities db = new KasabaKIATEntities())
+                using (KasabaKIAT_N1Entities db = new KasabaKIAT_N1Entities())
                 {
                     sp_soato model = new sp_soato();
 
-                    model.version           = dr[1] == DBNull.Value ? 0 : (int)dr[1];
+                    model.version           = dr[1 ] == DBNull.Value ? 0 : (int)dr[1];
                     model.code              = dr[2 ] == DBNull.Value ? null : (string)dr[2 ];
                     model.s_comment         = dr[3 ] == DBNull.Value ? null : (string)dr[3 ];
                     model.s_create          = dr[4 ] == DBNull.Value ? null : (DateTime?)dr[4 ];
@@ -124,10 +124,10 @@ namespace KiatPostgres2SqlConverter.ConvertClasses
                     model.name_center_ru    = dr[9 ] == DBNull.Value ? null : (string)dr[9 ];
                     model.name_center_uz    = dr[10] == DBNull.Value ? null : (string)dr[10];
                     model.name_center_uzl   = dr[11] == DBNull.Value ? null : (string)dr[11];
-                    model.s_user_id         = dr[12] == DBNull.Value ? 0 : (int)dr[12];
+                    model.s_user_id         = dr[12] == DBNull.Value ? null : (long?)dr[12];
                     model.parent_code       = dr[13] == DBNull.Value ? null : (string)dr[13];
                     model.keys              = dr[14] == DBNull.Value ? null : (string)dr[14];
-                    model.NATIVE_ID         = dr[0]  == DBNull.Value ? 0 : (int)dr[0];
+                    model.NATIVE_ID         = dr[0]  == DBNull.Value ? 0 : (long)dr[0];
 
                     db.sp_soato.Add(model);
 
@@ -145,7 +145,7 @@ namespace KiatPostgres2SqlConverter.ConvertClasses
         {
             long maxId = 0;
 
-            using (KasabaKIATEntities db = new KasabaKIATEntities())
+            using (KasabaKIAT_N1Entities db = new KasabaKIAT_N1Entities())
             {
                 try
                 {
@@ -165,7 +165,7 @@ namespace KiatPostgres2SqlConverter.ConvertClasses
         {
             long maxId = 0;
 
-            using (KasabaKIATEntities db = new KasabaKIATEntities())
+            using (KasabaKIAT_N1Entities db = new KasabaKIAT_N1Entities())
             {
                 maxId = db.sp_soato.Count();
             }

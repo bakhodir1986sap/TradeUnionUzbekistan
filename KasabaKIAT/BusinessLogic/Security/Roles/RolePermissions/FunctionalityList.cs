@@ -185,6 +185,15 @@ namespace KasabaKIAT.BusinessLogic.Security.Roles.RolePermissions
         public bool PrivyazkaProvodokkJO { get { return _privyazkaProvodokkJO; } set { _privyazkaProvodokkJO = value; if (_privyazkaProvodokkJO) { TotalAdmin = true; } } }//Привязка проводок к ЖО
         public bool UpravleniyaSpravochnikami { get { return _upravleniyaSpravochnikami; } set { _upravleniyaSpravochnikami = value; if (_upravleniyaSpravochnikami) { TotalAdmin = true; } } }//Управление справочниками
 
+        private DateTime _lastUpdateTime;
+
+        public DateTime LastUpdateTime
+        {
+            get { return _lastUpdateTime; }
+
+            set { _lastUpdateTime = value; }
+        }
+
         #endregion
     }
 }

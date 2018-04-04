@@ -7,7 +7,7 @@ using Npgsql;
 
 namespace KiatPostgres2SqlConverter.ConvertClasses
 {
-    class sp_feedbackCl
+    public class sp_feedbackCl
     {
         public long CountEgrpo()
         {
@@ -109,7 +109,7 @@ namespace KiatPostgres2SqlConverter.ConvertClasses
             while (dr.Read())
             {
 
-                using (KasabaKIATEntities db = new KasabaKIATEntities())
+                using (KasabaKIAT_N1Entities db = new KasabaKIAT_N1Entities())
                 {
                     sp_feedback model = new sp_feedback();
 
@@ -119,8 +119,8 @@ namespace KiatPostgres2SqlConverter.ConvertClasses
                     model.message   = dr[4] == DBNull.Value ? null : (string)dr[4];
                     model.phone     = dr[5] == DBNull.Value ? null : (string)dr[5];
                     model.type      = dr[6] == DBNull.Value ? null : (string)dr[6];
-                    model.user_id   = dr[7] == DBNull.Value ? 0 : (int)dr[7];
-                    model.NATIVE_ID = dr[0] == DBNull.Value ? 0 : (int)dr[0];
+                    model.user_id   = dr[7] == DBNull.Value ? 0 : (long)dr[7];
+                    model.NATIVE_ID = dr[0] == DBNull.Value ? 0 : (long)dr[0];
 
                     db.sp_feedback.Add(model);
 
@@ -138,7 +138,7 @@ namespace KiatPostgres2SqlConverter.ConvertClasses
         {
             long maxId = 0;
 
-            using (KasabaKIATEntities db = new KasabaKIATEntities())
+            using (KasabaKIAT_N1Entities db = new KasabaKIAT_N1Entities())
             {
                 try
                 {
@@ -158,7 +158,7 @@ namespace KiatPostgres2SqlConverter.ConvertClasses
         {
             long maxId = 0;
 
-            using (KasabaKIATEntities db = new KasabaKIATEntities())
+            using (KasabaKIAT_N1Entities db = new KasabaKIAT_N1Entities())
             {
                 maxId = db.sp_feedback.Count();
             }

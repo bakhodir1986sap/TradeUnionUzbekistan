@@ -17,12 +17,9 @@ namespace KiatPostgres2SqlConverter
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public t_sanatorium()
         {
-            this.tbpt_yearlyplanotrasl = new HashSet<tbpt_yearlyplanotrasl>();
             this.tbpt_yearlyplanregion = new HashSet<tbpt_yearlyplanregion>();
-            this.tbpt_putyovkarealizasiya = new HashSet<tbpt_putyovkarealizasiya>();
             this.tbpt_putyovki = new HashSet<tbpt_putyovki>();
             this.tbpt_zaezdi = new HashSet<tbpt_zaezdi>();
-            this.tbpt_zayavki = new HashSet<tbpt_zayavki>();
         }
     
         public long id { get; set; }
@@ -47,17 +44,11 @@ namespace KiatPostgres2SqlConverter
         public virtual sp_sanatorium_type sp_sanatorium_type { get; set; }
         public virtual sp_soato sp_soato { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tbpt_yearlyplanotrasl> tbpt_yearlyplanotrasl { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tbpt_yearlyplanregion> tbpt_yearlyplanregion { get; set; }
         public virtual user user { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tbpt_putyovkarealizasiya> tbpt_putyovkarealizasiya { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tbpt_putyovki> tbpt_putyovki { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tbpt_zaezdi> tbpt_zaezdi { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tbpt_zayavki> tbpt_zayavki { get; set; }
     }
 }

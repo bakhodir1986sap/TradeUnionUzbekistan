@@ -7,7 +7,7 @@ using Npgsql;
 
 namespace KiatPostgres2SqlConverter.ConvertClasses
 {
-    class sp_fixedassettypeCl
+    public class sp_fixedassettypeCl
     {
         public long CountEgrpo()
         {
@@ -109,7 +109,7 @@ namespace KiatPostgres2SqlConverter.ConvertClasses
             while (dr.Read())
             {
 
-                using (KasabaKIATEntities db = new KasabaKIATEntities())
+                using (KasabaKIAT_N1Entities db = new KasabaKIAT_N1Entities())
                 {
                     sp_fixedassettype model = new sp_fixedassettype();
 
@@ -123,8 +123,8 @@ namespace KiatPostgres2SqlConverter.ConvertClasses
                     model.name_uz =     dr[8 ] == DBNull.Value ? null : (string)dr[8 ];
                     model.name_uzl =    dr[9 ] == DBNull.Value ? null : (string)dr[9 ];
                     model.parent_code = dr[10] == DBNull.Value ? null : (string)dr[10];
-                    model.s_user_id =   dr[11] == DBNull.Value ? 0 : (int)dr[11];
-                    model.NATIVE_ID =   dr[0] == DBNull.Value ? 0 : (int)dr[1];
+                    model.s_user_id =   dr[11] == DBNull.Value ? 0 : (long)dr[11];
+                    model.NATIVE_ID =   dr[0] == DBNull.Value ? 0 : (long)dr[0];
 
                     db.sp_fixedassettype.Add(model);
 
@@ -142,7 +142,7 @@ namespace KiatPostgres2SqlConverter.ConvertClasses
         {
             long maxId = 0;
 
-            using (KasabaKIATEntities db = new KasabaKIATEntities())
+            using (KasabaKIAT_N1Entities db = new KasabaKIAT_N1Entities())
             {
                 try
                 {
@@ -162,7 +162,7 @@ namespace KiatPostgres2SqlConverter.ConvertClasses
         {
             long maxId = 0;
 
-            using (KasabaKIATEntities db = new KasabaKIATEntities())
+            using (KasabaKIAT_N1Entities db = new KasabaKIAT_N1Entities())
             {
                 maxId = db.sp_fixedassettype.Count();
             }

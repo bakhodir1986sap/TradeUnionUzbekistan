@@ -20,8 +20,8 @@ namespace KiatPostgres2SqlConverter
         public Nullable<int> OPER_ID { get; set; }
         public string TRTP { get; set; }
         public string ORGTRDT { get; set; }
-        public Nullable<int> ORGORG_ID { get; set; }
-        public Nullable<int> ORGCRT_USR_ID { get; set; }
+        public Nullable<long> ORGORG_ID { get; set; }
+        public Nullable<long> ORGCRT_USR_ID { get; set; }
         public Nullable<int> ORGDYSEQ { get; set; }
         public string REMARK { get; set; }
         public Nullable<long> CRTUSER_ID { get; set; }

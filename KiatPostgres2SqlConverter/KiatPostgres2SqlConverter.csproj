@@ -114,9 +114,11 @@
     <Compile Include="ConvertClasses\t_generalagreementCl.cs" />
     <Compile Include="ConvertClasses\t_ku_reportCl.cs" />
     <Compile Include="ConvertClasses\t_normativdocCl.cs" />
+    <Compile Include="ConvertClasses\t_sanatoriumCl.cs" />
     <Compile Include="ConvertClasses\useractionsCl.cs" />
     <Compile Include="ConvertClasses\useractivityCl.cs" />
     <Compile Include="ConvertClasses\usersCl.cs" />
+    <Compile Include="ConvertClasses\PostgresADO.cs" />
     <Compile Include="eco_platej.cs">
       <DependentUpon>KiatSqlModel.tt</DependentUpon>
     </Compile>
@@ -136,6 +138,12 @@
       <DependentUpon>KiatSqlModel.tt</DependentUpon>
     </Compile>
     <Compile Include="KaznaPaymentFile.cs">
+      <DependentUpon>KiatSqlModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="KaznaSverkaFile.cs">
+      <DependentUpon>KiatSqlModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Kazna_Account.cs">
       <DependentUpon>KiatSqlModel.tt</DependentUpon>
     </Compile>
     <Compile Include="KiatSqlModel.Context.cs">
@@ -165,8 +173,10 @@
     <Compile Include="ot_oplata.cs">
       <DependentUpon>KiatSqlModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="ConvertClasses\PostgresADO.cs" />
     <Compile Include="PostgresConnectionStrings.cs" />
+    <Compile Include="PrivyazkaProvodok.cs">
+      <DependentUpon>KiatSqlModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="provodok.cs">
       <DependentUpon>KiatSqlModel.tt</DependentUpon>
@@ -279,9 +289,6 @@
     <Compile Include="sp_soogu_copy.cs">
       <DependentUpon>KiatSqlModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="sysdiagram.cs">
-      <DependentUpon>KiatSqlModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="tbbBank_Oplat.cs">
       <DependentUpon>KiatSqlModel.tt</DependentUpon>
     </Compile>
@@ -310,6 +317,18 @@
       <DependentUpon>KiatSqlModel.tt</DependentUpon>
     </Compile>
     <Compile Include="tbbTabel.cs">
+      <DependentUpon>KiatSqlModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbbu_ecp_calc.cs">
+      <DependentUpon>KiatSqlModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbbu_planbyudjetregion.cs">
+      <DependentUpon>KiatSqlModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbbu_platejka.cs">
+      <DependentUpon>KiatSqlModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbbu_provodki.cs">
       <DependentUpon>KiatSqlModel.tt</DependentUpon>
     </Compile>
     <Compile Include="tbbViplata.cs">
@@ -469,6 +488,9 @@
       <DependentUpon>KiatSqlModel.tt</DependentUpon>
     </Compile>
     <Compile Include="tbpt_zayavki.cs">
+      <DependentUpon>KiatSqlModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbsp_soato_new.cs">
       <DependentUpon>KiatSqlModel.tt</DependentUpon>
     </Compile>
     <Compile Include="t_agreement.cs">

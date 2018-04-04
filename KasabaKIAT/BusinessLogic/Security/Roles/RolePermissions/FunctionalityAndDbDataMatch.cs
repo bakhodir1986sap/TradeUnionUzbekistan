@@ -16,7 +16,7 @@ namespace KasabaKIAT.BusinessLogic.Security.Roles.RolePermissions
             {
                 var ppermits = UserPermissions.pernit.FirstOrDefault(x => x.UserId == user.userid);
 
-                if (ppermits != null)
+                if ((ppermits != null) && (ppermits.LastUpdateTime.AddHours(1) > DateTime.Now))
                 {
                     return ppermits;
                 }
@@ -104,12 +104,16 @@ namespace KasabaKIAT.BusinessLogic.Security.Roles.RolePermissions
 
             if (UserPermissions.pernit == null)
             {
+                rolFumc.LastUpdateTime = DateTime.Now;
+
                 UserPermissions.pernit = new List<FunctionalityList>();
 
                 UserPermissions.pernit.Add(rolFumc);
             }
             else
             {
+                rolFumc.LastUpdateTime = DateTime.Now;
+
                 UserPermissions.pernit.Add(rolFumc);
             }
 

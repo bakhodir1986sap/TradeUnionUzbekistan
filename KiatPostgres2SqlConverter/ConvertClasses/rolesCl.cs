@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace KiatPostgres2SqlConverter.ConvertClasses
 {
-    class rolesCl
+    public class rolesCl
     {
         public long CountEgrpo()
         {
@@ -109,7 +109,7 @@ namespace KiatPostgres2SqlConverter.ConvertClasses
             while (dr.Read())
             {
 
-                using (KasabaKIATEntities db = new KasabaKIATEntities())
+                using (KasabaKIAT_N1Entities db = new KasabaKIAT_N1Entities())
                 {
                     role model = new role();
 
@@ -119,8 +119,8 @@ namespace KiatPostgres2SqlConverter.ConvertClasses
                     model.s_comment   = dr[3] == DBNull.Value ? null : (string)     dr[3];
                     model.s_create    = dr[4] == DBNull.Value ? null : (DateTime?)  dr[4];
                     model.s_status    = dr[5] == DBNull.Value ? null : (string)     dr[5];
-                    model.s_user_id   = dr[6] == DBNull.Value ? 0 : (int)           dr[6];
-                    model.NATIVE_ID   = dr[0] == DBNull.Value ? 0 : (int)           dr[0];
+                    model.s_user_id   = dr[6] == DBNull.Value ? 0 : (long)           dr[6];
+                    model.NATIVE_ID   = dr[0] == DBNull.Value ? 0 : (long)           dr[0];
 
                     db.roles.Add(model);
 
@@ -138,7 +138,7 @@ namespace KiatPostgres2SqlConverter.ConvertClasses
         {
             long maxId = 0;
 
-            using (KasabaKIATEntities db = new KasabaKIATEntities())
+            using (KasabaKIAT_N1Entities db = new KasabaKIAT_N1Entities())
             {
                 try
                 {
@@ -158,7 +158,7 @@ namespace KiatPostgres2SqlConverter.ConvertClasses
         {
             long maxId = 0;
 
-            using (KasabaKIATEntities db = new KasabaKIATEntities())
+            using (KasabaKIAT_N1Entities db = new KasabaKIAT_N1Entities())
             {
                 maxId = db.roles.Count();
             }

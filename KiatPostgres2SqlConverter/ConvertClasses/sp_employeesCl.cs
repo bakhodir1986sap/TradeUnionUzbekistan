@@ -7,7 +7,7 @@ using Npgsql;
 
 namespace KiatPostgres2SqlConverter.ConvertClasses
 {
-    class sp_employeesCl
+    public class sp_employeesCl
     {
         public long CountEgrpo()
         {
@@ -109,7 +109,7 @@ namespace KiatPostgres2SqlConverter.ConvertClasses
             while (dr.Read())
             {
 
-                using (KasabaKIATEntities db = new KasabaKIATEntities())
+                using (KasabaKIAT_N1Entities db = new KasabaKIAT_N1Entities())
                 {
                     sp_employees model = new sp_employees();
 
@@ -126,15 +126,15 @@ namespace KiatPostgres2SqlConverter.ConvertClasses
                     model.phone =        dr[11] == DBNull.Value ? null : (string)dr[11];
                     model.surname =      dr[12] == DBNull.Value ? null : (string)dr[12];
                     model.dep_id =       dr[13] == DBNull.Value ? null : (string)dr[13];
-                    model.s_user_id =    dr[14] == DBNull.Value ? 0 : (int)dr[14];
-                    model.pos_id =       dr[15] == DBNull.Value ? 0 : (int)dr[15];
-                    model.birthday =     dr[16] == DBNull.Value ? null : (DateTime?)dr[16];
-                    model.bkut_id =      dr[17] == DBNull.Value ? 0 : (int)dr[17];
-                    model.degree_id =    dr[18] == DBNull.Value ? 0 : (int)dr[18];
-                    model.nation_id =    dr[19] == DBNull.Value ? 0 : (int)dr[19];
-                    model.section_id =   dr[20] == DBNull.Value ? 0 : (int)dr[20];
+                    model.s_user_id =    dr[14] == DBNull.Value ? 0 : (long)dr[14];
+                    model.pos_id =       dr[15] == DBNull.Value ? 0 : (long)dr[15];
+                    model.birthday = null;//dr[16] == DBNull.Value ? null : (DateTime?)dr[16];
+                    model.bkut_id =      dr[17] == DBNull.Value ? 0 : (long)dr[17];
+                    model.degree_id =    dr[18] == DBNull.Value ? 0 : (long)dr[18];
+                    model.nation_id =    dr[19] == DBNull.Value ? 0 : (long)dr[19];
+                    model.section_id =   dr[20] == DBNull.Value ? 0 : (long)dr[20];
                     model.full_name =    dr[21] == DBNull.Value ? null : (string)dr[21];
-                    model.NATIVE_ID  =   dr[0] == DBNull.Value ? 0 : (int)dr[0];
+                    model.NATIVE_ID  =   dr[0] == DBNull.Value ? 0 : (long)dr[0];
 
                     db.sp_employees.Add(model);
 
@@ -152,7 +152,7 @@ namespace KiatPostgres2SqlConverter.ConvertClasses
         {
             long maxId = 0;
 
-            using (KasabaKIATEntities db = new KasabaKIATEntities())
+            using (KasabaKIAT_N1Entities db = new KasabaKIAT_N1Entities())
             {
                 try
                 {
@@ -172,7 +172,7 @@ namespace KiatPostgres2SqlConverter.ConvertClasses
         {
             long maxId = 0;
 
-            using (KasabaKIATEntities db = new KasabaKIATEntities())
+            using (KasabaKIAT_N1Entities db = new KasabaKIAT_N1Entities())
             {
                 maxId = db.sp_employees.Count();
             }

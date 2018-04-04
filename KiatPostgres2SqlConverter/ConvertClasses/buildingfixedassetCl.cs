@@ -132,7 +132,7 @@ namespace KiatPostgres2SqlConverter
             while (dr.Read())
             {
 
-                using (KasabaKIATEntities db = new KasabaKIATEntities())
+                using (KasabaKIAT_N1Entities db = new KasabaKIAT_N1Entities())
                 {
                     buildingfixedasset model = new buildingfixedasset();
 
@@ -142,8 +142,8 @@ namespace KiatPostgres2SqlConverter
                     model.address       = dr[3] == DBNull.Value ? null : (string)dr[3];
                     model.build_year    = dr[4] == DBNull.Value ? 0 : (int)dr[4];
                     model.floor_count   = dr[5] == DBNull.Value ? 0 : (int)dr[5];
-                    model.square        = dr[6] == DBNull.Value ? 0 : (int)dr[6];
-                    model.start_price   = dr[7] == DBNull.Value ? 0 : (int)dr[7];
+                    model.square        = dr[6] == DBNull.Value ? 0 : (float)dr[6];
+                    model.start_price   = dr[7] == DBNull.Value ? 0 : (float)dr[7];
                     model.start_year    = dr[8] == DBNull.Value ? 0 : (int)dr[8];
                     model.soato_code    = dr[9] == DBNull.Value ? null : (string)dr[9];
                     model.NATIVE_ID     = dr[0] == DBNull.Value ? 0 : (long)dr[0];
@@ -164,7 +164,7 @@ namespace KiatPostgres2SqlConverter
         {
             long maxId = 0;
 
-            using (KasabaKIATEntities db = new KasabaKIATEntities())
+            using (KasabaKIAT_N1Entities db = new KasabaKIAT_N1Entities())
             {
                 try
                 {
@@ -184,7 +184,7 @@ namespace KiatPostgres2SqlConverter
         {
             long maxId = 0;
 
-            using (KasabaKIATEntities db = new KasabaKIATEntities())
+            using (KasabaKIAT_N1Entities db = new KasabaKIAT_N1Entities())
             {
                 maxId = db.buildingfixedassets.Count();
             }

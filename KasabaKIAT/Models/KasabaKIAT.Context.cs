@@ -736,5 +736,22 @@ namespace KasabaKIAT.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_rt_Razbivka_Postup_OblastTumanGroup_Result>("sp_rt_Razbivka_Postup_OblastTumanGroup", bEGIN_DATEParameter, eND_DATEParameter);
         }
+    
+        public virtual ObjectResult<sp_rt_Razbivka_Postup_OblastTumanOtraslGroup_Result> sp_rt_Razbivka_Postup_OblastTumanOtraslGroup(Nullable<System.DateTime> bEGIN_DATE, Nullable<System.DateTime> eND_DATE, string sOATO)
+        {
+            var bEGIN_DATEParameter = bEGIN_DATE.HasValue ?
+                new ObjectParameter("BEGIN_DATE", bEGIN_DATE) :
+                new ObjectParameter("BEGIN_DATE", typeof(System.DateTime));
+    
+            var eND_DATEParameter = eND_DATE.HasValue ?
+                new ObjectParameter("END_DATE", eND_DATE) :
+                new ObjectParameter("END_DATE", typeof(System.DateTime));
+    
+            var sOATOParameter = sOATO != null ?
+                new ObjectParameter("SOATO", sOATO) :
+                new ObjectParameter("SOATO", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_rt_Razbivka_Postup_OblastTumanOtraslGroup_Result>("sp_rt_Razbivka_Postup_OblastTumanOtraslGroup", bEGIN_DATEParameter, eND_DATEParameter, sOATOParameter);
+        }
     }
 }

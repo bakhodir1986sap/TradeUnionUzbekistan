@@ -1461,7 +1461,7 @@ namespace KasabaKIAT.Controllers
                         z.last_logged = DateTime.Now;
                         z.last_logged_id = HttpContext.Server.ToString();
                         z.state = "ACTIVE";
-                        z.password = pz.password;
+                        z.password = MD5.MD5Hash(pz.password);
                         z.salt = "";
                         z.language = "UZ";
                         z.is_super_admin = false;
@@ -1514,7 +1514,7 @@ namespace KasabaKIAT.Controllers
                         z.last_logged = DateTime.Now;
                         z.last_logged_id = HttpContext.Server.ToString();
                         z.state = "ACTIVE";
-                        z.password = pz.password;
+                        z.password = MD5.MD5Hash(pz.password);
                         z.salt = "";
                         z.language = "UZ";
                         z.is_super_admin = false;

@@ -13,7 +13,7 @@ namespace KasabaKIAT.Models
         {
             StringBuilder hash = new StringBuilder();
             MD5CryptoServiceProvider md5provider = new MD5CryptoServiceProvider();
-            byte[] bytes = md5provider.ComputeHash(new UTF8Encoding().GetBytes(input));
+            byte[] bytes = md5provider.ComputeHash(new UnicodeEncoding().GetBytes(input));
 
             for (int i = 0; i < bytes.Length; i++)
             {

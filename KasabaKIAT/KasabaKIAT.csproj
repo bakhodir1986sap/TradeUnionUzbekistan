@@ -1180,6 +1180,7 @@
     <Content Include="Scripts\MyJavaScript\GPController.js" />
     <Content Include="Scripts\MyJavaScript\GrafikSanatoryZaezdov.js" />
     <Content Include="Scripts\MyJavaScript\GZController.js" />
+    <Content Include="Scripts\MyJavaScript\izmParol.js" />
     <Content Include="Scripts\MyJavaScript\KasabaKIATService.js" />
     <Content Include="Scripts\MyJavaScript\LoadINN.js" />
     <Content Include="Scripts\MyJavaScript\main.js" />
@@ -1302,6 +1303,7 @@
     <Content Include="Views\Otchot\PostupleniyaOkonxu.cshtml" />
     <Content Include="Views\Otchot\PostupleniyaTuman.cshtml" />
     <Content Include="Views\Otchot\PostupleniyaOblastTumanOtraslGroup.cshtml" />
+    <Content Include="Views\Home\izmParol.cshtml" />
     <None Include="Web References\KurortUrlService\SkuTradeUnionExchg.wsdl" />
     <Content Include="Web References\KurortUrlService\typeGrafikZaezdovSanatoriev.datasource">
       <DependentUpon>Reference.map</DependentUpon>

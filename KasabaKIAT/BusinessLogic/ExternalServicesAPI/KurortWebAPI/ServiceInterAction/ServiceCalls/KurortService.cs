@@ -83,7 +83,9 @@ namespace KurortUrvServiceTest.ServiceInterAction.ServiceCalls
         {
             if (service == null) return null;
 
-            var zaezdovclientov = service.ZaprosZaezdovClientov(SanatoryKod, PeriodNachalo, PeriodOkonchanie);
+            //Профбюджет P
+            //Соцстраха S
+            var zaezdovclientov = service.ZaprosZaezdovClientov(SanatoryKod, PeriodNachalo, PeriodOkonchanie, "S");
 
             return zaezdovclientov;
         }

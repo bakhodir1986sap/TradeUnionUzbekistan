@@ -112,6 +112,7 @@
           <xs:element name="OplachenaStoimost" type="xs:decimal" />
           <xs:element name="ClientFIO" type="xs:string" />
           <xs:element name="ClientPasport" type="xs:string" />
+          <xs:element name="VidProfsouza" type="xs:string" />
         </xs:sequence>
       </xs:complexType>
       <xs:complexType name="typeZaezdyClientov">
@@ -185,6 +186,7 @@
             <xs:element name="SanatoryKod" type="xs:string" />
             <xs:element name="PeriodNachalo" type="xs:date" />
             <xs:element name="PeriodOkonchanie" type="xs:date" />
+            <xs:element name="TipProfsouza" nillable="true" type="xs:string" />
           </xs:sequence>
         </xs:complexType>
       </xs:element>

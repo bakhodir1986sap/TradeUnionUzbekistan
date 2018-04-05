@@ -23,7 +23,7 @@ namespace KasabaKIAT.KurortUrlService {
     
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.2046.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.2556.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Web.Services.WebServiceBindingAttribute(Name="SkuTradeUnionExchgSoapBinding", Namespace="http://www.sku-tradeunion.uz")]
@@ -221,28 +221,30 @@ namespace KasabaKIAT.KurortUrlService {
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://www.sku-tradeunion.uz#SkuTradeUnionExchg:ZaprosZaezdovClientov", RequestNamespace="http://www.sku-tradeunion.uz", ResponseNamespace="http://www.sku-tradeunion.uz", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
         [return: System.Xml.Serialization.XmlElementAttribute("return", IsNullable=true)]
-        public typeZaezdyClientov ZaprosZaezdovClientov(string SanatoryKod, [System.Xml.Serialization.XmlElementAttribute(DataType="date")] System.DateTime PeriodNachalo, [System.Xml.Serialization.XmlElementAttribute(DataType="date")] System.DateTime PeriodOkonchanie) {
+        public typeZaezdyClientov ZaprosZaezdovClientov(string SanatoryKod, [System.Xml.Serialization.XmlElementAttribute(DataType="date")] System.DateTime PeriodNachalo, [System.Xml.Serialization.XmlElementAttribute(DataType="date")] System.DateTime PeriodOkonchanie, [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)] string TipProfsouza) {
             object[] results = this.Invoke("ZaprosZaezdovClientov", new object[] {
                         SanatoryKod,
                         PeriodNachalo,
-                        PeriodOkonchanie});
+                        PeriodOkonchanie,
+                        TipProfsouza});
             return ((typeZaezdyClientov)(results[0]));
         }
         
         /// <remarks/>
-        public void ZaprosZaezdovClientovAsync(string SanatoryKod, System.DateTime PeriodNachalo, System.DateTime PeriodOkonchanie) {
-            this.ZaprosZaezdovClientovAsync(SanatoryKod, PeriodNachalo, PeriodOkonchanie, null);
+        public void ZaprosZaezdovClientovAsync(string SanatoryKod, System.DateTime PeriodNachalo, System.DateTime PeriodOkonchanie, string TipProfsouza) {
+            this.ZaprosZaezdovClientovAsync(SanatoryKod, PeriodNachalo, PeriodOkonchanie, TipProfsouza, null);
         }
         
         /// <remarks/>
-        public void ZaprosZaezdovClientovAsync(string SanatoryKod, System.DateTime PeriodNachalo, System.DateTime PeriodOkonchanie, object userState) {
+        public void ZaprosZaezdovClientovAsync(string SanatoryKod, System.DateTime PeriodNachalo, System.DateTime PeriodOkonchanie, string TipProfsouza, object userState) {
             if ((this.ZaprosZaezdovClientovOperationCompleted == null)) {
                 this.ZaprosZaezdovClientovOperationCompleted = new System.Threading.SendOrPostCallback(this.OnZaprosZaezdovClientovOperationCompleted);
             }
             this.InvokeAsync("ZaprosZaezdovClientov", new object[] {
                         SanatoryKod,
                         PeriodNachalo,
-                        PeriodOkonchanie}, this.ZaprosZaezdovClientovOperationCompleted, userState);
+                        PeriodOkonchanie,
+                        TipProfsouza}, this.ZaprosZaezdovClientovOperationCompleted, userState);
         }
         
         private void OnZaprosZaezdovClientovOperationCompleted(object arg) {
@@ -272,7 +274,7 @@ namespace KasabaKIAT.KurortUrlService {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.2102.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.2612.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -319,7 +321,7 @@ namespace KasabaKIAT.KurortUrlService {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.2102.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.2612.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -503,7 +505,7 @@ namespace KasabaKIAT.KurortUrlService {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.2102.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.2612.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -527,6 +529,8 @@ namespace KasabaKIAT.KurortUrlService {
         private string clientFIOField;
         
         private string clientPasportField;
+        
+        private string vidProfsouzaField;
         
         /// <remarks/>
         public string SanatoryKod {
@@ -619,10 +623,20 @@ namespace KasabaKIAT.KurortUrlService {
                 this.clientPasportField = value;
             }
         }
+        
+        /// <remarks/>
+        public string VidProfsouza {
+            get {
+                return this.vidProfsouzaField;
+            }
+            set {
+                this.vidProfsouzaField = value;
+            }
+        }
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.2102.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.2612.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -669,7 +683,7 @@ namespace KasabaKIAT.KurortUrlService {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.2102.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.2612.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -847,7 +861,7 @@ namespace KasabaKIAT.KurortUrlService {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.2102.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.2612.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -1039,7 +1053,7 @@ namespace KasabaKIAT.KurortUrlService {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.2102.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.2612.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -1086,7 +1100,7 @@ namespace KasabaKIAT.KurortUrlService {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.2102.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.2612.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -1119,7 +1133,7 @@ namespace KasabaKIAT.KurortUrlService {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.2102.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.2612.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -1166,11 +1180,11 @@ namespace KasabaKIAT.KurortUrlService {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.2046.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.2556.0")]
     public delegate void ZaprosZaezdovSanatorievCompletedEventHandler(object sender, ZaprosZaezdovSanatorievCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.2046.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.2556.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class ZaprosZaezdovSanatorievCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -1192,11 +1206,11 @@ namespace KasabaKIAT.KurortUrlService {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.2046.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.2556.0")]
     public delegate void ZaprosSpiskaProfsoyzovCompletedEventHandler(object sender, ZaprosSpiskaProfsoyzovCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.2046.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.2556.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class ZaprosSpiskaProfsoyzovCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -1218,11 +1232,11 @@ namespace KasabaKIAT.KurortUrlService {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.2046.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.2556.0")]
     public delegate void ZagruzkaRaspredeleniyaZaezdovCompletedEventHandler(object sender, ZagruzkaRaspredeleniyaZaezdovCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.2046.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.2556.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class ZagruzkaRaspredeleniyaZaezdovCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -1244,11 +1258,11 @@ namespace KasabaKIAT.KurortUrlService {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.2046.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.2556.0")]
     public delegate void ZaprosSpiskaSchetFakturCompletedEventHandler(object sender, ZaprosSpiskaSchetFakturCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.2046.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.2556.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class ZaprosSpiskaSchetFakturCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -1270,11 +1284,11 @@ namespace KasabaKIAT.KurortUrlService {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.2046.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.2556.0")]
     public delegate void ZaprosZaezdovClientovCompletedEventHandler(object sender, ZaprosZaezdovClientovCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.2046.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.2556.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class ZaprosZaezdovClientovCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {

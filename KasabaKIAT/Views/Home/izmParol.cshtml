@@ -1,0 +1,48 @@
+﻿@{
+    ViewBag.Title = "Изменить Пароль";
+    var UserId = Convert.ToInt32(User.Identity.Name);
+}
+<script src="~/Scripts/MyJavaScript/izmParol.js"></script>
+<section class="content__block container" ng-controller="izmParol">
+    <div class="row mb-4 align-items-center">
+        <div class="col title__block">
+            <h4>Изменить Пароль</h4>
+            @*<nav aria-label="breadcrumb" class="breadcrumb__block">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item load"><a href="/Home/Otchot">Отчеты</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Отчеты</li>
+                </ol>
+            </nav>*@
+        </div>
+    </div>
+    <form name="myForm1" novalidate>
+        <div class="row mb-4">
+            <div class="col-md-6">
+                <div>
+                    <p>Текущий пароль:</p>
+                    <input type="text" required name="P0" ng-model="P0" class="custom-select form-control" placeholder="Текущий пароль" />
+                    <span class="alert alert-warning" style="padding:0px" ng-show="myForm1.P0.$error.required">заполнить поле</span>
+                </div>
+                <br />
+                <div ng-show="showdata">
+                    <p>Новый пароль:</p>
+                    <input type="text" required name="P1" ng-model="P1" class="custom-select form-control" placeholder="Текущий пароль" />
+                    <span class="alert alert-warning" style="padding:0px" ng-show="myForm1.P1.$error.required">заполнить поле</span>
+                </div>
+                <br />
+                <div ng-show="showdata">
+                    <p>Повторите новый пароль:</p>
+                    <input type="text" required name="P2" ng-model="P2" class="custom-select form-control" placeholder="Текущий пароль" />
+                    <span class="alert alert-warning" style="padding:0px" ng-show="myForm1.P2.$error.required">заполнить поле</span>
+                    <span class="alert alert-warning" style="padding:0px" ng-show="!myForm1.P2.$error.required&&P1!=P2">???</span>
+                </div>
+            </div>
+            <div class="col-md-4">
+               <div>
+                   <p></p>
+                   <button style="margin-top:20px" class="btn btn-green d-block d-md-inline-block mb-3 mb-md-0" ng-click="TP()">Поиск</button>
+               </div>
+            </div>
+        </div>
+    </form>
+</section>

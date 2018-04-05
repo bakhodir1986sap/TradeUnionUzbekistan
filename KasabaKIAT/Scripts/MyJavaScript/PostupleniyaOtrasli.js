@@ -34,7 +34,7 @@
         });
     }
     $scope.Region = {
-        id: 1726,
+        id: 0,
         value: ''
     };
     function AllRegion() {

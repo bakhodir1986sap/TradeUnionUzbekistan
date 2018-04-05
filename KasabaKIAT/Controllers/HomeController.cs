@@ -52,6 +52,62 @@ namespace KasabaKIAT.Controllers
         {
             return View();
         }
+        public ActionResult izmParol()
+        {
+            return View();
+        }
+        public string TP(string p)
+        {
+            log.Info("TP");
+            log.Info("p="+p);
+            var UserId = Convert.ToInt32(User.Identity.Name);
+            try
+            {
+                var U = from u in KasabaDB.users
+                        where u.id == UserId
+                        select u.password;
+                if (U.Any())
+                {
+                    if (U.First().ToString() == MD5.MD5Hash(p))
+                    {
+                        return "yes";
+                    }
+                    else
+                    {
+                        return "no";
+                    }
+                }
+                return "no";
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex);
+            }
+
+            return null;
+        }
+        public string NP(string p)
+        {
+            var UserId = Convert.ToInt32(User.Identity.Name);
+            log.Info("NP");
+            log.Info("P="+p);
+            try
+            {
+                using (KasabaKIATEntities contextObj = new KasabaKIATEntities())
+                {
+                    users z = contextObj.users.Where(b => b.id == UserId).FirstOrDefault();
+                    z.password = MD5.MD5Hash(p);
+                    contextObj.SaveChanges();
+                    return "ok";
+                }
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex);
+            }
+
+            return null;
+        }
         /// <summary>
         /// 
         /// </summary>

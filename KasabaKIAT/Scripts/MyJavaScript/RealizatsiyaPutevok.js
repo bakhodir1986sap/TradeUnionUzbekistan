@@ -241,62 +241,61 @@
     }
     //---------------------------------------//
     $scope.Realiz = function () {
-        $("#hh").modal({
-            backdrop: 'static',
-            backdrop: 'static'
-        });
-        reset();
-        alertify.set({ buttonFocus: "cancel" });
-        alertify.confirm("Вы действительно хотите Реализовать?", function (e) {
-            if (e) {
-                alertify.success("Операция выполняется");
-                real();
-            } else {
-                $("#hh").modal('hide');
-                alertify.error("Операция отменена");
-            }
-        });
-        return false;
-        //$('#dobavit2').modal('hide');
-        //$('#dobavit2').modal('show');
-    }
-    function real() {
         if (ar1.length !== 0 || ar2.length !== 0) {
-            document.getElementById('connection3').style.visibility = "visible";
-            $("#hh2").modal({
+            $("#hh").modal({
+                backdrop: 'static',
                 backdrop: 'static'
             });
-            var k = 0;
-            console.log(Data);
-            $http({
-                method: "POST",
-                url: "/PrixodPutevok/GetOformleniyaRealizatsiyaPutevok",
-                data: JSON.stringify(Data),
-                contentType: "application/json; charset=utf-8",
-            }).then(function (d) {
-                k++;
-                $scope.DATA = d.data;
-                if (d.data.length !== 0) {
-                    $scope.exp = true;
+            reset();
+            alertify.set({ buttonFocus: "cancel" });
+            alertify.confirm("Вы действительно хотите Реализовать?", function (e) {
+                if (e) {
+                    alertify.success("Операция выполняется");
+                    real();
+                } else {
+                    $("#hh").modal('hide');
+                    alertify.error("Операция отменена");
                 }
-                else {
-                    $scope.exp = false;
-                }
-                console.log(d, k);
-                document.getElementById('connection3').style.visibility = "hidden";
-                $("#hh2").modal('hide');
-            }, function () {
-                console.log("error in GetOformleniyaRealizatsiyaPutevok");
-                document.getElementById('connection3').style.visibility = "hidden";
-                $("#hh2").modal('hide');
-                alertify.error("ошибка");
             });
+            $("#hh").modal('hide');
+            return false;
         }
         else {
             document.getElementById('connection').style.visibility = "hidden";
             $("#hh").modal('hide');
             alertify.error("Путевки не выбран");
         }
+    }
+    function real() {
+        document.getElementById('connection3').style.visibility = "visible";
+        $("#hh2").modal({
+            backdrop: 'static'
+        });
+        var k = 0;
+        console.log(Data);
+        $http({
+            method: "POST",
+            url: "/PrixodPutevok/GetOformleniyaRealizatsiyaPutevok",
+            data: JSON.stringify(Data),
+            contentType: "application/json; charset=utf-8",
+        }).then(function (d) {
+            k++;
+            $scope.DATA = d.data;
+            if (d.data.length !== 0) {
+                $scope.exp = true;
+            }
+            else {
+                $scope.exp = false;
+            }
+            console.log(d, k);
+            document.getElementById('connection3').style.visibility = "hidden";
+            $("#hh2").modal('hide');
+        }, function () {
+            console.log("error in GetOformleniyaRealizatsiyaPutevok");
+            document.getElementById('connection3').style.visibility = "hidden";
+            $("#hh2").modal('hide');
+            alertify.error("ошибка");
+        });
     }
     $scope.save = function (id,foiz) {
         $http({

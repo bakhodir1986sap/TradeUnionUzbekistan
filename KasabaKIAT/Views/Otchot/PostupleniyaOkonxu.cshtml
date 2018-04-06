@@ -64,7 +64,8 @@
                         <th style="text-align:center">Сумма отрасли</th>
                         <th style="text-align:center">ОКОНХ</th>
                         <th style="text-align:center">Количество Строк</th>
-                        <th style="text-align:center">Общая сумма</th>
+                        <th style="text-align:center">Сумма всего</th>
+                        <th style="text-align:center">Сумма федерации</th>
                         <th style="text-align:center">Сумма отрасли</th>
                     </tr>
                 </thead>
@@ -73,6 +74,7 @@
                         <td style="text-align:center">{{item.d1}}</td>
                         <td style="text-align:center">{{item.d2}}</td>
                         <td style="text-align:center">{{item.d3}}</td>
+                        <td style="text-align:center">{{item.d4 + item.d5 | currency:' '}}</td>
                         <td style="text-align:center">{{item.d4 | currency:' '}}</td>
                         <td style="text-align:center">{{item.d5 | currency:' '}}</td>
                     </tr>

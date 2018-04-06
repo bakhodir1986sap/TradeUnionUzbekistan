@@ -58,6 +58,7 @@
                     <tr>
                         <th style="text-align:center">Область</th>
                         <th style="text-align:center">Количество Строк</th>
+                        <th style="text-align:center">Всего</th>
                         <th style="text-align:center">Сумма Федерации</th>
                         <th style="text-align:center">Сумма области</th>
                     </tr>
@@ -66,6 +67,7 @@
                     <tr class="poin" ng-repeat="item in DATA">
                         <td style="text-align:center">{{item.d1}}</td>
                         <td style="text-align:center">{{item.d2}}</td>
+                        <td style="text-align:center">{{item.d3 + item.d4 | currency:' '}}</td>
                         <td style="text-align:center">{{item.d3 | currency:' '}}</td>
                         <td style="text-align:center">{{item.d4 | currency:' '}}</td>
                     </tr>

@@ -1255,10 +1255,10 @@
     <Content Include="Views\Administirirovaniye\SozdaniyeProvodok.cshtml" />
     <Content Include="Views\Administirirovaniye\Otdixayushix.cshtml" />
     <Content Include="Views\Administirirovaniye\NaznacheniyaPlateja.cshtml" />
-    <Content Include="Web References\KurortUrlService\Reference.map">
+    <None Include="Web References\KurortUrlService\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
-    </Content>
+    </None>
     <Content Include="Views\Administirirovaniye\PrivyazkaProvodok.cshtml" />
     <Content Include="Views\PlatejnoyePorucheniye\Index.cshtml" />
     <Content Include="Views\Otchot\Index.cshtml" />

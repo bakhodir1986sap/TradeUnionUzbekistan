@@ -435,6 +435,7 @@ namespace KasabaKIAT.Controllers
             }
             return null;
         }
+
         public ActionResult PostupleniyaOtrasli()
         {
             return View();
@@ -468,6 +469,7 @@ namespace KasabaKIAT.Controllers
             }
             return null;
         }
+
         public ActionResult PostupleniyaOkonxu()
         {
             return View();
@@ -501,6 +503,7 @@ namespace KasabaKIAT.Controllers
             }
             return null;
         }
+
         public JsonResult GetOtrasl()
         {
             var O = from o in KasabaDB.sp_branch

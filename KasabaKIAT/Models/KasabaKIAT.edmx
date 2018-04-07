@@ -2743,7 +2743,7 @@ warning 6002: The table/view 'KasabaKIAT.dbo.tblVozVrat' does not have a primary
           <Property Name="last_logged" Type="datetime" />
           <Property Name="last_logged_id" Type="varchar" MaxLength="255" />
           <Property Name="state" Type="varchar" MaxLength="255" />
-          <Property Name="password" Type="varchar" MaxLength="128" Nullable="false" />
+          <Property Name="password" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="salt" Type="varchar" MaxLength="128" />
           <Property Name="language" Type="varchar" MaxLength="8" />
           <Property Name="is_super_admin" Type="bit" />
@@ -5805,6 +5805,10 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
         </Function>
         <Function Name="uspLogin" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="login" Type="nvarchar" Mode="In" />
+          <Parameter Name="parol" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="uspLoginChange" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="user_id" Type="bigint" Mode="In" />
           <Parameter Name="parol" Type="nvarchar" Mode="In" />
         </Function>
         <EntityContainer Name="KasabaKIATModelStoreContainer">
@@ -9566,7 +9570,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <Property Name="last_logged" Type="DateTime" Precision="3" />
           <Property Name="last_logged_id" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="state" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="password" Type="String" MaxLength="128" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="password" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="salt" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
           <Property Name="language" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
           <Property Name="is_super_admin" Type="Boolean" />
@@ -13695,6 +13699,10 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
             <Parameter Name="END_DATE" Mode="In" Type="DateTime" />
             <Parameter Name="SOATO" Mode="In" Type="String" />
           </FunctionImport>
+          <FunctionImport Name="uspLoginChange">
+            <Parameter Name="user_id" Mode="In" Type="Int64" />
+            <Parameter Name="parol" Mode="In" Type="String" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="sp_get_BankPaymentCompanyYearlyQ_Result">
           <Property Type="Int32" Name="MONTH_NUM" Nullable="true" />
@@ -17705,6 +17713,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="uspLoginChange" FunctionName="KasabaKIATModel.Store.uspLoginChange" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

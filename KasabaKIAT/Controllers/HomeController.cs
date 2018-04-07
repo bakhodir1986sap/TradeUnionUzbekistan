@@ -1,4 +1,5 @@
-﻿using KasabaKIAT.Models;
+﻿using KasabaKiat.Helpers;
+using KasabaKIAT.Models;
 using log4net;
 using System;
 using System.Collections.Generic;
@@ -61,14 +62,14 @@ namespace KasabaKIAT.Controllers
             log.Info("TP");
             log.Info("p="+p);
             var UserId = Convert.ToInt32(User.Identity.Name);
+            var d= UserInfo.GetUserInfo(UserId);
             try
             {
-                var U = from u in KasabaDB.users
-                        where u.id == UserId
-                        select u.password;
-                if (U.Any())
+                var D = KasabaDB.uspLogin(d.username, p);
+                var resList = D.ToList();
+                if (resList.Any())
                 {
-                    if (U.First().ToString() == MD5.MD5Hash(p))
+                    if (resList.First() == UserId)
                     {
                         return "yes";
                     }
@@ -77,7 +78,10 @@ namespace KasabaKIAT.Controllers
                         return "no";
                     }
                 }
-                return "no";
+                else
+                {
+                    return "no";
+                }
             }
             catch (Exception ex)
             {
@@ -93,20 +97,14 @@ namespace KasabaKIAT.Controllers
             log.Info("P="+p);
             try
             {
-                using (KasabaKIATEntities contextObj = new KasabaKIATEntities())
-                {
-                    users z = contextObj.users.Where(b => b.id == UserId).FirstOrDefault();
-                    z.password = MD5.MD5Hash(p);
-                    contextObj.SaveChanges();
-                    return "ok";
-                }
+                KasabaDB.uspLoginChange(UserId, p);
+                return "yes";
             }
             catch (Exception ex)
             {
                 log.Error(ex);
+                return "no";
             }
-
-            return null;
         }
         /// <summary>
         /// 

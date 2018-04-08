@@ -590,7 +590,7 @@ namespace KasabaKIAT.Controllers
                             d6 = o.ProfsoyzDoverennost,
                             d7 = o.ProfsoyzDoverennostData,
                             d8 = o.ProfsoyzDoverennostMOL,
-                            d9 = o.ProfsoyzDoverennostMOL,
+                            d9 = o.SummaDoc,
                             d10 = o.ProcentNacenki,
                             d11 = o.SummaNacenki,
                             d12 = o.KolichestvoPutevok,

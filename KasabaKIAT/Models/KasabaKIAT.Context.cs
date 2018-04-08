@@ -753,5 +753,18 @@ namespace KasabaKIAT.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_rt_Razbivka_Postup_OblastTumanOtraslGroup_Result>("sp_rt_Razbivka_Postup_OblastTumanOtraslGroup", bEGIN_DATEParameter, eND_DATEParameter, sOATOParameter);
         }
+    
+        public virtual int uspLoginChange(Nullable<long> user_id, string parol)
+        {
+            var user_idParameter = user_id.HasValue ?
+                new ObjectParameter("user_id", user_id) :
+                new ObjectParameter("user_id", typeof(long));
+    
+            var parolParameter = parol != null ?
+                new ObjectParameter("parol", parol) :
+                new ObjectParameter("parol", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("uspLoginChange", user_idParameter, parolParameter);
+        }
     }
 }

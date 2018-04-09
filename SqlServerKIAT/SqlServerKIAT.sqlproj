@@ -80,6 +80,7 @@
     <None Include="UsefulSqripts\18032018\Script1.sql" />
     <None Include="UsefulSqripts\22032018.sql" />
     <None Include="UsefulSqripts\23032018.sql" />
+    <None Include="UsefulSqripts\06042018.sql" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="Procedures\sp_rt_FormaN13_1.sql" />

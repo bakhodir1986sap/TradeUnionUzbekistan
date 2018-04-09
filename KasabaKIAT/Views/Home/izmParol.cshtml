@@ -26,14 +26,14 @@
                 <br />
                 <div ng-show="showdata">
                     <p>Новый пароль:</p>
-                    <input type="password" required name="P1" ng-model="P1" ng-minlength="1" ng-maxlength="8" class="custom-select form-control" placeholder="Текущий пароль" />
+                    <input type="password" required name="P1" ng-model="P1" ng-minlength="1" ng-maxlength="50" class="custom-select form-control" placeholder="Текущий пароль" />
                     <span class="alert alert-warning" style="padding:0px" ng-show="myForm1.P1.$error.required">заполнить поле</span>
                     <span class="alert alert-warning" style="padding:0px" ng-show="!myForm1.P1.$error.required&&!myForm1.P1.$valid">мин 1 шт мах 8 шт. номер</span>
                 </div>
                 <br />
                 <div ng-show="showdata">
                     <p>Повторите новый пароль:</p>
-                    <input type="password" required name="P2" ng-minlength="1" ng-maxlength="8" ng-model="P2" class="custom-select form-control" placeholder="Текущий пароль" />
+                    <input type="password" required name="P2" ng-minlength="1" ng-maxlength="50" ng-model="P2" class="custom-select form-control" placeholder="Текущий пароль" />
                     <span class="alert alert-warning" style="padding:0px" ng-show="myForm1.P2.$error.required">заполнить поле</span>
                     <span class="alert alert-warning" style="padding:0px" ng-show="!myForm1.P2.$error.required&&!myForm1.P2.$valid">мин 1 шт мах 8 шт. номер</span>
                     <span class="alert alert-warning" style="padding:0px" ng-show="!myForm1.P2.$error.required&&P1!=P2">???</span>

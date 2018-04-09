@@ -151,7 +151,9 @@
     }
 </style>
 <script>
-    $("#login").focus();
+    window.onload = function () {
+        document.getElementById("login").focus();
+    };
     $(document).ready(function () {
         $("#login").focus();
          $("#myModal").modal({
@@ -221,6 +223,16 @@
                  $("#xabarchi").html('<div class="failed">' + result + 'Xatolik yuz berdi! yana urinib ko`ring...</div>');
              }
          });
+     });
+     $("#login").keyup(function (event) {
+         if (event.keyCode === 13) {
+             $("#lp").click();
+         }
+     });
+     $("#parol").keyup(function (event) {
+         if (event.keyCode === 13) {
+             $("#lp").click();
+         }
      });
 </script>
 

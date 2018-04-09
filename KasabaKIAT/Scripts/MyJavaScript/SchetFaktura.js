@@ -51,6 +51,13 @@
 
     var d = "";
     $scope.LoadStrokaSchetFakturi = function (id) {
+        $scope.DATA2 = null;
+        document.getElementById('connection2').style.visibility = "visible";
+        $("#hh2").modal({
+            backdrop: 'static',
+            backdrop: 'static'
+        });
+
         d = id;
         $http({
             method: "post",
@@ -63,8 +70,12 @@
             else {
                 $scope.showdata2 = false;
             }
+            document.getElementById('connection2').style.visibility = "hidden";
+            $("#hh2").modal('hide');
         }, function () {
             alertify.error("ошибка");
+            document.getElementById('connection2').style.visibility = "hidden";
+            $("#hh2").modal('hide');
         });
     }
     $scope.LoadDATA = function () {

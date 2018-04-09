@@ -5,12 +5,82 @@
     FunctionalityList List = FunctionalityAndDbDataMatch.MatchProcess(UserId);
 }
 <script src="~/Scripts/MyJavaScript/SchetFaktura.js"></script>
+<script>
+    // Change the selector if needed
+    var $table = $('table.scroll'),
+        $bodyCells = $table.find('tbody tr:first').children(),
+        colWidth;
+
+    // Adjust the width of thead cells when window resizes
+    $(window).resize(function () {
+        // Get the tbody columns width array
+        colWidth = $bodyCells.map(function () {
+            return $(this).width();
+        }).get();
+
+        // Set the width of thead columns
+        $table.find('thead tr').children().each(function (i, v) {
+            $(v).width(colWidth[i+100]);
+        });
+    }).resize(); // Trigger resize handler
+</script>
+<style>
+    table.scroll {
+        /* width: 100%; */ /* Optional */
+        /* border-collapse: collapse; */
+        border-spacing: 0;
+        /*border: 2px solid black;*/
+    }
+
+        table.scroll tbody,
+        table.scroll thead {
+            display: block;
+        }
+
+    thead tr th {
+        height: 30px;
+        line-height: 30px;
+        /* text-align: left; */
+    }
+
+    table.scroll tbody {
+        height: 300px;
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+
+    tbody {
+        border-top: 2px solid black;
+    }
+
+        tbody td, thead th {
+            /* width: 20%; */ /* Optional */
+            /*border-right: 1px solid black;*/
+            /* white-space: nowrap; */
+        }
+
+            tbody td:last-child, thead th:last-child {
+                border-right: none;
+            }
+</style>
+<style>
+    td {
+        border: 1px #DDD solid;
+        padding: 5px;
+        cursor: pointer;
+    }
+
+    .selected {
+        background-color: #24c0db;
+        color: #FFF;
+    }
+</style>
+<div id="connection" style="visibility:hidden;position:absolute;margin-left:600px;margin-top:100px;z-index:9999">
+    <img src="~/Content/Login/buffering.gif" />
+</div>
 @if (List.PrixodPutyovok)
 {
     <section class="content__block container" ng-controller="SchetFaktura">
-        <div id="connection" style="visibility:hidden;position:absolute;margin-left:430px;margin-top:100px;z-index:9999">
-            <img src="~/Content/Login/buffering.gif" />
-        </div>
         <div class="row mb-4 align-items-center">
             <div class="col title__block">
                 <h4>Приход путевок</h4>
@@ -81,7 +151,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr ng-repeat="item in DATA" ng-click="LoadStrokaSchetFakturi(item.d0)">
+                            <tr ng-repeat="item in DATA" ng-click="LoadStrokaSchetFakturi(item.d0)" data-toggle="modal" data-target="#dobavit">
                                 <td>{{item.d1}}</td>
                                 <td>{{item.d2 | jsonDate: 'dd.MM.yyyy'}}</td>
                                 <td>{{item.d3}}</td>
@@ -100,54 +170,76 @@
                     </table>
                 </div>
             </div>
-            <div class="col-md-12" ng-show="showdata2">
-                <div class="table__title mb-3">
-                    <div class="row mb-4 align-items-center">
-                        <div style="margin-left:50px">
-                            <h6>Детали счет фактуры</h6>
-                        </div>
-                        <div style="margin-left:710px;">
-                            <button class="btn btn-green d-block d-md-inline-block mb-2" ng-click="exportData2()">
-                                <i class="fas fa-file-excel"></i>  ЭКСПОРТ
-                            </button>
+            <div class="modal__block modal fade" id="dobavit" tabindex="-1" role="dialog" aria-labelledby="dobavitLabel">
+                <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-body">
+                            @*class="table table__block t-hover"*@
+                            <input id="hh2" type="hidden" />
+                            <div id="connection2" style="visibility:hidden;position:absolute;margin-left:300px;margin-top:100px;z-index:9999">
+                                <img src="~/Content/Login/buffering.gif" />
+                            </div>
+                            <div class="col-md-12">
+                                <div class="table__title mb-3">
+                                    <div class="row mb-4 align-items-center">
+                                        <div style="margin-left:50px">
+                                            <h6>Детали счет фактуры</h6>
+                                        </div>
+                                        <div style="margin-left:410px;">
+                                            <button class="btn btn-green d-block d-md-inline-block mb-2" ng-click="exportData2()">
+                                                <i class="fas fa-file-excel"></i>  ЭКСПОРТ
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="table-responsive box-shadow mb-4" id="export2">
+                                    <table class="scroll" id="table">
+                                        <thead>
+                                            <tr>
+                                                <th class="dropdown dropdown__table">Санаторий</th>
+                                                <th class="dropdown dropdown__table">Размещение</th>
+                                                <th class="dropdown dropdown__table">Тип Санатория</th>
+                                                <th class="dropdown dropdown__table">Дата заезда</th>
+                                                <th class="dropdown dropdown__table">Номер с</th>
+                                                <th class="dropdown dropdown__table">Номер по</th>
+                                                <th class="dropdown dropdown__table">Количество</th>
+                                                <th class="dropdown dropdown__table">Себестоимость</th>
+                                                <th class="dropdown dropdown__table">Сумма Себестоимоси</th>
+                                                <th class="dropdown dropdown__table">Процент Наценки</th>
+                                                <th class="dropdown dropdown__table">Цена</th>
+                                                <th class="dropdown dropdown__table">Сумма</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr ng-repeat="item in DATA2" onclick="MyFunction()">
+                                                <td>{{item.d2}}</td>
+                                                <td>{{item.d3}}</td>
+                                                <td>{{item.d4}}</td>
+                                                <td>{{item.d5 | jsonDate: 'dd.MM.yyyy'}}</td>
+                                                <td>{{item.d6}}</td>
+                                                <td>{{item.d7}}</td>
+                                                <td>{{item.d8}}</td>
+                                                <td>{{item.d9}}</td>
+                                                <td>{{item.d10 | currency:' '}}</td>
+                                                <td>{{item.d11}}</td>
+                                                <td>{{item.d12 | currency:' '}}</td>
+                                                <td>{{item.d13}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <script>
+                                    function MyFunction() {
+                                        $("#table tr").click(function () {
+                                            $(this).addClass('selected').siblings().removeClass('selected');
+                                            var value = $(this).find('td:first').html();
+                                            //alert("value=" + value);
+                                        });
+                                    }
+                                    </script>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="table-responsive box-shadow mb-4" id="export2">
-                    <table class="table table__block t-hover">
-                        <thead>
-                            <tr>
-                                <th class="dropdown dropdown__table">Санаторий</th>
-                                <th class="dropdown dropdown__table">Размещение</th>
-                                <th class="dropdown dropdown__table">Тип Санатория</th>
-                                <th class="dropdown dropdown__table">Дата заезда</th>
-                                <th class="dropdown dropdown__table">Номер с</th>
-                                <th class="dropdown dropdown__table">Номер по</th>
-                                <th class="dropdown dropdown__table">Количество</th>
-                                <th class="dropdown dropdown__table">Себестоимость</th>
-                                <th class="dropdown dropdown__table">Сумма Себестоимоси</th>
-                                <th class="dropdown dropdown__table">Процент Наценки</th>
-                                <th class="dropdown dropdown__table">Цена</th>
-                                <th class="dropdown dropdown__table">Сумма</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr ng-repeat="item in DATA2">
-                                <td>{{item.d2}}</td>
-                                <td>{{item.d3}}</td>
-                                <td>{{item.d4}}</td>
-                                <td>{{item.d5 | jsonDate: 'dd.MM.yyyy'}}</td>
-                                <td>{{item.d6}}</td>
-                                <td>{{item.d7}}</td>
-                                <td>{{item.d8}}</td>
-                                <td>{{item.d9}}</td>
-                                <td>{{item.d10}}</td>
-                                <td>{{item.d11}}</td>
-                                <td>{{item.d12}}</td>
-                                <td>{{item.d13}}</td>
-                            </tr>
-                        </tbody>
-                    </table>
                 </div>
             </div>
         </div>

@@ -85,7 +85,6 @@
 <input id="hh" type="hidden" />
 
 <style>
-
     .modal-dialog {
         max-width: 480px;
         /*background-color: black;*/
@@ -152,24 +151,9 @@
     }
 </style>
 <script>
-    //$("#lp").focus();
-    //$(document).ready(function () {
-    //    $("#lp").focus();
-    //    $('#login').keypress(function (e) {
-    //        if (e.keyCode == 13)
-    //            $('#lp').click();
-    //    });
-    //    $('#parol').keypress(function (e) {
-    //        if (e.keyCode == 13)
-    //            $('#lp').click();
-    //    });
-    //    $('#lp').keypress(function (e) {
-    //        if (e.keyCode == 13)
-    //            $('#lp').click();
-    //    });
-    //});
-
-    $("#login").focus();
+    window.onload = function () {
+        document.getElementById("login").focus();
+    };
     $(document).ready(function () {
         $("#login").focus();
          $("#myModal").modal({
@@ -239,6 +223,16 @@
                  $("#xabarchi").html('<div class="failed">' + result + 'Xatolik yuz berdi! yana urinib ko`ring...</div>');
              }
          });
+     });
+     $("#login").keyup(function (event) {
+         if (event.keyCode === 13) {
+             $("#lp").click();
+         }
+     });
+     $("#parol").keyup(function (event) {
+         if (event.keyCode === 13) {
+             $("#lp").click();
+         }
      });
 </script>
 

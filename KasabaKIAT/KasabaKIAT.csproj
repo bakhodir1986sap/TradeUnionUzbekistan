@@ -1245,7 +1245,7 @@
     <Content Include="Views\PrixodPutevok\Index.cshtml" />
     <Content Include="Views\PrixodPutevok\ProsmotrOstatPutevok.cshtml" />
     <Content Include="Views\Shared\_Layout0.cshtml" />
-    <Content Include="Views\GrafikZaezdov\Index.cshtml" />
+    <Content Include="Views\GrafikZaezdov\Index1.cshtml" />
     <Content Include="Views\PrixodPutevok\RealizatsiyaPutevok.cshtml" />
     <Content Include="Views\Administirirovaniye\Index.cshtml" />
     <Content Include="Views\Administirirovaniye\UchetniyZapis.cshtml" />
@@ -1256,6 +1256,7 @@
     <Content Include="Views\Administirirovaniye\SozdaniyeProvodok.cshtml" />
     <Content Include="Views\Administirirovaniye\Otdixayushix.cshtml" />
     <Content Include="Views\Administirirovaniye\NaznacheniyaPlateja.cshtml" />
+    <Content Include="Views\GrafikZaezdov\Index.cshtml" />
     <None Include="Web References\KurortUrlService\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>

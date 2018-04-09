@@ -1,0 +1,161 @@
+﻿@using KasabaKIAT.BusinessLogic.Security.Roles.RolePermissions;
+@{
+    var UserId = Convert.ToInt32(User.Identity.Name);
+    FunctionalityList List = FunctionalityAndDbDataMatch.MatchProcess(UserId);
+
+
+#line default
+#line hidden
+
+#line 3 "C:\RADSOFT\Projects\PravSouz\Project\KasabaKIAT\KasabaKIAT\KasabaKIAT\KasabaKIAT\Views\GrafikZaezdov\Index.cshtml"
+
+    ViewBag.Title = "Администрирование";
+
+}
+<script src="~/Scripts/MyJavaScript/GZController.js"></script>
+<div id="connection" style="visibility:hidden;position:absolute;margin-left:430px;margin-top:100px;z-index:9999">
+    <img src="~/Content/Login/buffering.gif" />
+</div>
+@if (List.UpravleniyaSpravochnikami)
+{
+
+
+#line default
+#line hidden
+
+#line 5 "C:\RADSOFT\Projects\PravSouz\Project\KasabaKIAT\KasabaKIAT\KasabaKIAT\KasabaKIAT\Views\GrafikZaezdov\Index.cshtml"
+    for (int i = DateTime.Now.Year; i > 1991; i--)
+    <div ng-controller="GZController">
+        <section class="content__block container">
+            <div class="row mb-4 align-items-center">
+                <div class="col title__block">
+                    <h4>График заездов</h4>
+                    <nav aria-label="breadcrumb" class="breadcrumb__block">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item load"><a href="/Home/Putyovki">Путевки</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">График заездов</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+            <div class="row mb-4 align-items-center">
+                <div class="col-md-7">
+                    <div class="row align-items-center">
+                        <div class="col-md-6">
+                            <div class="form-group mb-3 mb-md-0">
+                                <div class="custom-control custom-radio custom-control-inline">
+                                    <input type="radio" required ng-model="s" ng-change="GetCS()" name="inlineRadioOptions3" id="inlineRadio1" value="option1" class="custom-control-input" checked="" />
+                                    <label for="inlineRadio1" class="custom-control-label">Санаторий</label>
+                                </div>
+                                <div class="custom-control custom-radio custom-control-inline" hidden>
+                                    <input type="radio" required ng-model="s" ng-change="GetCS()" name="inlineRadioOptions3" id="inlineRadio2" value="option2" class="custom-control-input" />
+                                    <label for="inlineRadio2" class="custom-control-label">Дет. лагер</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group mb-3 mb-md-0">
+                                <select class="custom-select form-control" required ng-model="SC" ng-change="GetDATA()" ng-options="d as d.value for d in CS track by d.id" name="SC" id="SC"></select>
+                                <span class="alert alert-warning" style="padding:0px" ng-show="s&&myForm1.SC.$error.required">Выберите  {{myVar}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-5 text-md-right">
+                    <button ng-click="AddGZDiv()" class="btn btn-blue d-block d-md-inline-block mb-3 mb-md-0" data-toggle="modal" data-target="#dobavit"><i class="fas fa-plus"></i> Добавить</button>
+                    <button class="btn btn-green d-block d-md-inline-block mb-3 mb-md-0"><i class="fas fa-file-excel"></i> Загрузить</button>
+                    <button ng-show="GZdiv" ng-click="exportData()" class="btn btn-green d-block d-md-inline-block mb-3 mb-md-0"><i class="fas fa-file-excel"></i> Экспорт</button>
+                </div>
+                @*<div style="margin-left:100px">
+                        <button class="btn btn-green d-block d-md-inline-block mb-2" ng-click="exportData()">
+                            <i class="fas fa-file-excel"></i>  ЭКСПОРТ
+                        </button>
+                    </div>*@
+            </div>
+            <div class="table-responsive box-shadow mb-4" id="export">
+                <table ng-show="GZdiv" class="table table__block t-hover">
+                    <thead>
+                        <tr>
+                            <th style="text-align:center">Дата с</th>
+                            <th style="text-align:center">Дата по</th>
+                            <th style="text-align:center;width:200px"><select ng-model="PlaceTypeFilter" name="PlaceTypeFilter" required ng-change="GetDATA()" ng-options="d as d.NAME_UZ for d in D track by d.REC_ID" class="form-control">Тип размещения</select></th>
+                            <th style="text-align:center;width:200px"><input type="text" class="form-control" placeholder="Цена путевки" /></th>
+                            <th style="text-align:center;width:200px"><input type="text" class="form-control" placeholder="Кол-во" /></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="gz in GZ" data-toggle="modal" class="poin" data-target="#dobavit" ng-click="editGZ(gz)">
+                            <td style="text-align:center">{{gz.ZB | jsonDate: 'dd.MM.yyyy'}}</td>
+                            <td style="text-align:center"><p>{{gz.ZE | jsonDate: 'dd.MM.yyyy'}}</p></td>
+                            <td style="text-align:center"><p>{{gz.PTI}}</p></td>
+                            <td style="text-align:center"><p>{{gz.P}}</p></td>
+                            <td style="text-align:center"><p>{{gz.Q}}</p></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+        <footer class="footer">
+            <div class="container">
+                <p>&copy;2018</p>
+            </div>
+        </footer>
+
+        <div class="modal__block modal fade" id="dobavit" tabindex="-1" role="dialog" aria-labelledby="dobavitLabel">
+            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <div class="modal-title">
+                            <h4 class="text-center mt-4 mb-4">{{Action}}</h4>
+                        </div>
+                        <div class="row justify-content-center">
+                            <form class="col-md-8" name="myForm" novalidate>
+                                <input type="hidden" ng-model="ID" style="position:absolute">
+                                <div class="form-group row align-items-center">
+                                    <label class="col-md-5 col-form-label text-right py-0">Дата с:</label>
+                                    <div class="col-md-7">
+                                        <input class="form-control" type="date" ng-model="ZB" id="ZAEZD_BEGIN" />
+                                    </div>
+                                </div>
+                                <div class="form-group row align-items-center">
+                                    <label class="col-md-5 col-form-label text-right py-0">Дата по:</label>
+                                    <div class="col-md-7">
+                                        <input class="form-control" type="date" ng-model="ZE" id="ZAEZD_END" />
+                                    </div>
+                                </div>
+                                <div class="form-group row align-items-center">
+                                    <label class="col-md-5 col-form-label text-right py-0">Тип размещения:</label>
+                                    <div class="col-md-7">
+                                        <select ng-model="PlaceType" name="PlaceType" required ng-init="LoadPlaceType()" ng-options="d as d.NAME_UZ for d in D track by d.REC_ID" class="custom-select form-control"></select>
+                                        <span class="alert alert-warning" style="padding:0px" ng-show="myForm.PlaceType.$error.required">Выберите тип размещению</span>
+                                    </div>
+                                </div>
+                                <div class="form-group row align-items-center">
+                                    <label class="col-md-5 col-form-label text-right py-0">Цена:</label>
+                                    <div class="col-md-7">
+                                        <input type="text" class="form-control" required placeholder="" name="P" ng-model="P" value="">
+                                        <span class="alert alert-warning" style="padding:0px" ng-show="myForm.P.$error.required">заполнить поле</span>
+                                    </div>
+                                </div>
+                                <div class="form-group row align-items-center">
+                                    <label class="col-md-5 col-form-label text-right py-0">Кол-во:</label>
+                                    <div class="col-md-7">
+                                        <input type="text" class="form-control" required ng-model="Q" name="Q" placeholder="" value="">
+                                        <span class="alert alert-warning" style="padding:0px" ng-show="myForm.Q.$error.required">заполнить поле</span>
+                                    </div>
+                                </div>
+                                <div class="mb-4 text-right">
+                                    <button ng-click="AddUpdateGZ()" ng-disabled="myForm1.inlineRadioOptions.$error.required||myForm1.SC.$error.required||myForm.P.$error.required||myForm.Q.$error.required||myForm.PT.$error.required" class="btn btn-blue d-block d-md-inline-block mb-2" data-dismiss="modal">Сохранить</button>
+                                    <a href="#" ng-click="deleteGZ(ID)" ng-show="showdelete" class="btn btn-red d-block d-md-inline-block mb-2" data-dismiss="modal">Удалить</a>
+                                    <a href="#" class="btn btn-grey d-block d-md-inline-block mb-2" data-dismiss="modal">Отмена</a>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+

@@ -46,6 +46,7 @@ namespace KasabaKIAT.BusinessLogic.Putyovki.PrixodPutyovok
                                      && tblpost.Data_Post == doc_Date
                                      select tblpost;
 
+                        //Proverka chto uje oprixodavanno
                         if (query1.Any())
                         {
                             continue;

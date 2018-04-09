@@ -40,6 +40,59 @@ namespace KurortUrvServiceTest.ServiceInterAction.DataManagers
 
         }
 
+
+        public static void Modify(DocumentSchetFakturaViewModel model)
+        {
+            using (KasabaKIATEntities db = new KasabaKIATEntities())
+            {
+                var list = db.tbku_DocumentSchetFaktura.Where(z => z.ID == model.ID);
+
+                if (list.Any())
+                {
+                    var docFac = list.FirstOrDefault();
+
+                    if (docFac == null) return;
+
+                    docFac.DocNomer = model.DocNomer;
+                    docFac.DocData = model.DocData;
+                    docFac.DocTypeRealVozv = model.DocTypeRealVozv;
+                    docFac.ProfsoyzKod = model.ProfsoyzKod;
+                    docFac.ProfsoyzDogovor = model.ProfsoyzDogovor;
+                    docFac.DataKvartalaPutevok = model.DataKvartalaPutevok;
+                    docFac.ProfsoyzDoverennost = model.ProfsoyzDoverennost;
+                    docFac.ProfsoyzDoverennostData = model.ProfsoyzDoverennostData;
+                    docFac.ProfsoyzDoverennostMOL = model.ProfsoyzDoverennostMOL;
+                    docFac.SummaDoc = model.SummaDoc;
+                    docFac.ProcentNacenki = model.ProcentNacenki;
+                    docFac.SummaNacenki = model.SummaNacenki;
+                    docFac.KolichestvoPutevok = model.KolichestvoPutevok;
+                    docFac.TovarOtpustil = model.TovarOtpustil;
+                }
+
+                db.SaveChanges();
+            }
+        }
+
+
+        public static void DeleteById(DocumentSchetFakturaViewModel model)
+        {
+            using (KasabaKIATEntities db = new KasabaKIATEntities())
+            {
+                var list = db.tbku_DocumentSchetFaktura.Where(z => z.ID == model.ID);
+
+                if (list.Any())
+                {
+                    var docFac = list.FirstOrDefault();
+
+                    if (docFac == null) return;
+
+                    db.tbku_DocumentSchetFaktura.Remove(docFac);
+                }
+
+                db.SaveChanges();
+            }
+        }
+
         public static void DeleteAlreadyLoaded(DocumentSchetFakturaViewModel model)
         {
             using (KasabaKIATEntities db = new KasabaKIATEntities())

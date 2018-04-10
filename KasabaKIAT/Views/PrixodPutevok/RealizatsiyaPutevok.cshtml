@@ -137,7 +137,7 @@ tbody td:last-child, thead th:last-child {
                     <h5>Отрасль</h5>
                 </div>
                 <div class="mb-5 box-shadow">
-                    <div class="custom-control custom-radio r-checkbox bgwhite">
+                    @*<div class="custom-control custom-radio r-checkbox bgwhite">
                         <input type="radio" name="customRadio" class="custom-control-input" id="customRadio">
                         <label class="custom-control-label r-label" for="customRadio"><strong>Образование</strong> (по плану - 50, Использовано - 20)</label>
                     </div>
@@ -152,7 +152,7 @@ tbody td:last-child, thead th:last-child {
                     <div class="custom-control custom-radio r-checkbox bgwhite">
                         <input type="radio" name="customRadio" class="custom-control-input" id="customRadio3">
                         <label class="custom-control-label r-label" for="customRadio3"><strong>Связь</strong> (по плану - 25, Использовано - 5)</label>
-                    </div>
+                    </div>*@
                 </div>
                 <div class="mb-5">
                     <a href="" class="btn btn-grey d-block d-md-inline-block mb-2">Отменить выбор</a>
@@ -491,7 +491,7 @@ tbody td:last-child, thead th:last-child {
                                         <th>Санаторий</th>
                                         <th>№Путевки</th>
                                         <th>Даты</th>
-                                        <th>ФИО отдыхающего</th>
+                                        @*<th>ФИО отдыхающего</th>*@
                                         <th>Цена</th>
                                         <th>Оплата</th>
                                         <th></th>
@@ -502,7 +502,7 @@ tbody td:last-child, thead th:last-child {
                                         <td>{{item.d1}}</td>
                                         <td>{{item.d2}}</td>
                                         <td>{{item.d3 | jsonDate: 'dd.MM.yyyy'}}</td>
-                                        <td>{{item.d4}}</td>
+                                        @*<td>{{item.d4}}</td>*@
                                         <td>{{item.d5}}</td>
                                         <td>
                                             <input class="form-control" style="width:100px" ng-model="item.d6" placeholder="100%" />

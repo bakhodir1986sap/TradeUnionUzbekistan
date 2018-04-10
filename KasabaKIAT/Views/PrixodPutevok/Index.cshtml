@@ -137,17 +137,17 @@
                             <tr>
                                 <th class="dropdown dropdown__table">Номер документа</th>
                                 <th class="dropdown dropdown__table">Дата документа</th>
-                                <th class="dropdown dropdown__table">Флаг</th>
+                                <th class="dropdown dropdown__table">Тип выдачи</th>
                                 <th class="dropdown dropdown__table">Договор</th>
-                                <th class="dropdown dropdown__table">Дата путевок</th>
-                                <th class="dropdown dropdown__table">Доверенность</th>
-                                <th class="dropdown dropdown__table">Дата Доверенности</th>
+                                <th class="dropdown dropdown__table">За квартал</th>
+                                <th class="dropdown dropdown__table">Дов.№</th>
+                                <th class="dropdown dropdown__table">Дата Дов.</th>
                                 <th class="dropdown dropdown__table">Кому выдан дов</th>
-                                <th class="dropdown dropdown__table">Сумма Документа</th>
-                                <th class="dropdown dropdown__table">Процент Наценки</th>
-                                <th class="dropdown dropdown__table">Сумма Наценки</th>
-                                <th class="dropdown dropdown__table">Количество Путевок</th>
-                                <th class="dropdown dropdown__table">Товар отпустил</th>
+                                <th class="dropdown dropdown__table">Кол-во Путевок</th>
+                                <th class="dropdown dropdown__table">Сумма</th>
+                                @*<th class="dropdown dropdown__table">Процент Наценки</th>
+                                <th class="dropdown dropdown__table">Сумма Наценки</th>*@
+                                @*<th class="dropdown dropdown__table">Товар отпустил</th>*@
                             </tr>
                         </thead>
                         <tbody>
@@ -160,11 +160,11 @@
                                 <td>{{item.d6}}</td>
                                 <td>{{item.d7 | jsonDate: 'dd.MM.yyyy'}}</td>
                                 <td>{{item.d8}}</td>
-                                <td>{{item.d9}}</td>
-                                <td>{{item.d10}}</td>
-                                <td>{{item.d11}}</td>
                                 <td>{{item.d12}}</td>
-                                <td>{{item.d13}}</td>
+                                <td>{{item.d9}}</td>
+                                @*<td>{{item.d10}}</td>
+                                <td>{{item.d11}}</td>*@
+                                @*<td>{{item.d13}}</td>*@
                             </tr>
                         </tbody>
                     </table>
@@ -193,25 +193,25 @@
                                     </div>
                                 </div>
                                 <div class="table-responsive box-shadow mb-4" id="export2">
-                                    <table class="scroll" id="table">
+                                    <table class="scroll" id="table" >
                                         <thead>
                                             <tr>
                                                 <th class="dropdown dropdown__table">Санаторий</th>
                                                 <th class="dropdown dropdown__table">Размещение</th>
-                                                <th class="dropdown dropdown__table">Тип Санатория</th>
+                                                <th class="dropdown dropdown__table">Тип</th>
                                                 <th class="dropdown dropdown__table">Дата заезда</th>
                                                 <th class="dropdown dropdown__table">Номер с</th>
                                                 <th class="dropdown dropdown__table">Номер по</th>
-                                                <th class="dropdown dropdown__table">Количество</th>
-                                                <th class="dropdown dropdown__table">Себестоимость</th>
-                                                <th class="dropdown dropdown__table">Сумма Себестоимоси</th>
-                                                <th class="dropdown dropdown__table">Процент Наценки</th>
-                                                <th class="dropdown dropdown__table">Цена</th>
+                                                <th class="dropdown dropdown__table"> Кол-во</th>
+                                                <th class="dropdown dropdown__table">Стоимость</th>
                                                 <th class="dropdown dropdown__table">Сумма</th>
+                                                @*<th class="dropdown dropdown__table">Процент Наценки</th>
+                                                <th class="dropdown dropdown__table">Цена</th>
+                                                <th class="dropdown dropdown__table">Сумма</th>*@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr ng-repeat="item in DATA2" onclick="MyFunction()">
+                                            <tr ng-repeat="item in DATA2" onclick="MyFunction()" ng-init="$last && finished()">
                                                 <td>{{item.d2}}</td>
                                                 <td>{{item.d3}}</td>
                                                 <td>{{item.d4}}</td>
@@ -221,9 +221,9 @@
                                                 <td>{{item.d8}}</td>
                                                 <td>{{item.d9}}</td>
                                                 <td>{{item.d10 | currency:' '}}</td>
-                                                <td>{{item.d11}}</td>
+                                                @*<td>{{item.d11}}</td>
                                                 <td>{{item.d12 | currency:' '}}</td>
-                                                <td>{{item.d13}}</td>
+                                                <td>{{item.d13}}</td>*@
                                             </tr>
                                         </tbody>
                                     </table>
@@ -235,6 +235,7 @@
                                             //alert("value=" + value);
                                         });
                                     }
+
                                     </script>
                                 </div>
                             </div>

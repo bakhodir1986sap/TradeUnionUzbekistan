@@ -148,23 +148,29 @@ namespace KasabaKIAT.Controllers
             try
             {
                 var O = from o in KasabaDB.tbku_SpisokRaspredeleniya
+                        join pravsoyuz in KasabaDB.tbku_StrokaProfsoyza on
+                        o.ProfsoyzKod equals pravsoyuz.ProfsoyzKod
+                        //join zaezd in KasabaDB.tbku_GrafikZaezdovSanatoriev on
+                        //o.SanatoryRazmeshenieKod equals zaezd.SanatoryRazmeshenieKod
                         where o.GodZaezdov == yil && o.SanatoryKod == kod
                         select new
                         {
                             ID = o.ID,
                             d1 = o.GodZaezdov,
                             d2 = o.SanatoryKod,
-                            d3 = o.ProfsoyzKod,
-                            d4 = o.SanatoryRazmeshenieKod,
+                            d3 = pravsoyuz.ProfsoyzNaimenovanie,
+                            d4 = KasabaDB.tbku_GrafikZaezdovSanatoriev.Where(z=>z.SanatoryRazmeshenieKod == o.SanatoryRazmeshenieKod).FirstOrDefault().SanatoryRazmeshenieNaimenovanie,//zaezd.SanatoryRazmeshenieNaimenovanie,
                             d5 = o.Putevok1kv,
                             d6 = o.Putevok2kv,
                             d7 = o.Putevok3kv,
                             d8 = o.Putevok4kv
                         };
 
-                log.Info("Count = " + O.ToList().Count);
+                var listRes = O.ToList();
 
-                return Json(O.ToList(), JsonRequestBehavior.AllowGet);
+                log.Info("Count = " + listRes.Count);
+
+                return Json(listRes, JsonRequestBehavior.AllowGet);
             }
             catch(Exception ex)
             {
@@ -314,7 +320,7 @@ namespace KasabaKIAT.Controllers
                         select new
                         {
                             d1 = o.SanatoryRazmeshenieKod,
-                            d2 = o.SanatoryRazmeshenieKod,
+                            d2 = o.SanatoryRazmeshenieNaimenovanie,
                         };
                 return Json(O.ToList(), JsonRequestBehavior.AllowGet);
             }

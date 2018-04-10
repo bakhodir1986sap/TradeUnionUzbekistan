@@ -11,6 +11,7 @@
             data: JSON.stringify($scope.result),
             contentType: "application/json; charset=utf-8",
             success: function (d) {
+
                 $scope.DATA = d.data;
                 console.log(d);
                 $("#hh").modal('hide');

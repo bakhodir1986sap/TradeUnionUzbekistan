@@ -69,8 +69,8 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr class="poin" ng-repeat="item in DATA">
-                        <td style="text-align:center">{{item.d1}}</td>
+                    <tr class="poin" ng-repeat="item in DATA" ng-style="item.d3=='Итого '&&{'background-color':'#24c0db'}">
+                        <td style="text-align:center;">{{item.d1}}</td>
                         <td style="text-align:center">{{item.d2}}</td>
                         <td style="text-align:center">{{item.d3}}</td>
                         <td style="text-align:center">{{item.d4}}</td>
@@ -80,6 +80,9 @@
             </table>
         </div>
     </section>
+</div>
+<div style="text-decoration-color:white">
+
 </div>
 
 

@@ -20,7 +20,6 @@ namespace KasabaKIAT.Models
         public KasabaKIATEntities()
             : base("name=KasabaKIATEntities")
         {
-            ((IObjectContextAdapter)this).ObjectContext.CommandTimeout = 180;
         }
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -143,8 +142,6 @@ namespace KasabaKIAT.Models
         public virtual DbSet<useractivity> useractivity { get; set; }
         public virtual DbSet<users> users { get; set; }
         public virtual DbSet<users_aud> users_aud { get; set; }
-        public virtual DbSet<buildingfixedasset> buildingfixedasset { get; set; }
-        public virtual DbSet<sp_position1> sp_position1 { get; set; }
         public virtual DbSet<t_departmentbase_aud> t_departmentbase_aud { get; set; }
         public virtual DbSet<tbbDopTabel> tbbDopTabel { get; set; }
         public virtual DbSet<tbbFermer> tbbFermer { get; set; }
@@ -486,27 +483,6 @@ namespace KasabaKIAT.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_rt_FormaN13_Result>("sp_rt_FormaN13", aYearParameter, orgInnParameter);
         }
     
-        public virtual ObjectResult<sp_rt_SvodniyOtchet_Result> sp_rt_SvodniyOtchet(Nullable<System.DateTime> beginDate, Nullable<System.DateTime> endDate, string vilSoato, string branchCode)
-        {
-            var beginDateParameter = beginDate.HasValue ?
-                new ObjectParameter("beginDate", beginDate) :
-                new ObjectParameter("beginDate", typeof(System.DateTime));
-    
-            var endDateParameter = endDate.HasValue ?
-                new ObjectParameter("endDate", endDate) :
-                new ObjectParameter("endDate", typeof(System.DateTime));
-    
-            var vilSoatoParameter = vilSoato != null ?
-                new ObjectParameter("VilSoato", vilSoato) :
-                new ObjectParameter("VilSoato", typeof(string));
-    
-            var branchCodeParameter = branchCode != null ?
-                new ObjectParameter("BranchCode", branchCode) :
-                new ObjectParameter("BranchCode", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_rt_SvodniyOtchet_Result>("sp_rt_SvodniyOtchet", beginDateParameter, endDateParameter, vilSoatoParameter, branchCodeParameter);
-        }
-    
         public virtual ObjectResult<sp_rt_TalabnomaKorxona_Result> sp_rt_TalabnomaKorxona(Nullable<int> aYear, string orgInn)
         {
             var aYearParameter = aYear.HasValue ?
@@ -626,83 +602,6 @@ namespace KasabaKIAT.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_im_KaznaNewOrg");
         }
     
-        public virtual ObjectResult<sp_rt_Postupleniya_Result> sp_rt_Postupleniya(string iNN)
-        {
-            var iNNParameter = iNN != null ?
-                new ObjectParameter("INN", iNN) :
-                new ObjectParameter("INN", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_rt_Postupleniya_Result>("sp_rt_Postupleniya", iNNParameter);
-        }
-    
-        public virtual ObjectResult<sp_rt_Razbivka_Postup_Result> sp_rt_Razbivka_Postup(string sOATO, string bRANCH, Nullable<System.DateTime> bEGIN_DATE, Nullable<System.DateTime> eND_DATE)
-        {
-            var sOATOParameter = sOATO != null ?
-                new ObjectParameter("SOATO", sOATO) :
-                new ObjectParameter("SOATO", typeof(string));
-    
-            var bRANCHParameter = bRANCH != null ?
-                new ObjectParameter("BRANCH", bRANCH) :
-                new ObjectParameter("BRANCH", typeof(string));
-    
-            var bEGIN_DATEParameter = bEGIN_DATE.HasValue ?
-                new ObjectParameter("BEGIN_DATE", bEGIN_DATE) :
-                new ObjectParameter("BEGIN_DATE", typeof(System.DateTime));
-    
-            var eND_DATEParameter = eND_DATE.HasValue ?
-                new ObjectParameter("END_DATE", eND_DATE) :
-                new ObjectParameter("END_DATE", typeof(System.DateTime));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_rt_Razbivka_Postup_Result>("sp_rt_Razbivka_Postup", sOATOParameter, bRANCHParameter, bEGIN_DATEParameter, eND_DATEParameter);
-        }
-    
-        public virtual ObjectResult<sp_rt_Razbivka_Postup_OblastGroup_Result> sp_rt_Razbivka_Postup_OblastGroup(Nullable<System.DateTime> bEGIN_DATE, Nullable<System.DateTime> eND_DATE)
-        {
-            var bEGIN_DATEParameter = bEGIN_DATE.HasValue ?
-                new ObjectParameter("BEGIN_DATE", bEGIN_DATE) :
-                new ObjectParameter("BEGIN_DATE", typeof(System.DateTime));
-    
-            var eND_DATEParameter = eND_DATE.HasValue ?
-                new ObjectParameter("END_DATE", eND_DATE) :
-                new ObjectParameter("END_DATE", typeof(System.DateTime));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_rt_Razbivka_Postup_OblastGroup_Result>("sp_rt_Razbivka_Postup_OblastGroup", bEGIN_DATEParameter, eND_DATEParameter);
-        }
-    
-        public virtual ObjectResult<sp_rt_Razbivka_Postup_OkonxGroup_Result> sp_rt_Razbivka_Postup_OkonxGroup(string sOATO, Nullable<System.DateTime> bEGIN_DATE, Nullable<System.DateTime> eND_DATE)
-        {
-            var sOATOParameter = sOATO != null ?
-                new ObjectParameter("SOATO", sOATO) :
-                new ObjectParameter("SOATO", typeof(string));
-    
-            var bEGIN_DATEParameter = bEGIN_DATE.HasValue ?
-                new ObjectParameter("BEGIN_DATE", bEGIN_DATE) :
-                new ObjectParameter("BEGIN_DATE", typeof(System.DateTime));
-    
-            var eND_DATEParameter = eND_DATE.HasValue ?
-                new ObjectParameter("END_DATE", eND_DATE) :
-                new ObjectParameter("END_DATE", typeof(System.DateTime));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_rt_Razbivka_Postup_OkonxGroup_Result>("sp_rt_Razbivka_Postup_OkonxGroup", sOATOParameter, bEGIN_DATEParameter, eND_DATEParameter);
-        }
-    
-        public virtual ObjectResult<sp_rt_Razbivka_Postup_OtraslGroup_Result> sp_rt_Razbivka_Postup_OtraslGroup(string sOATO, Nullable<System.DateTime> bEGIN_DATE, Nullable<System.DateTime> eND_DATE)
-        {
-            var sOATOParameter = sOATO != null ?
-                new ObjectParameter("SOATO", sOATO) :
-                new ObjectParameter("SOATO", typeof(string));
-    
-            var bEGIN_DATEParameter = bEGIN_DATE.HasValue ?
-                new ObjectParameter("BEGIN_DATE", bEGIN_DATE) :
-                new ObjectParameter("BEGIN_DATE", typeof(System.DateTime));
-    
-            var eND_DATEParameter = eND_DATE.HasValue ?
-                new ObjectParameter("END_DATE", eND_DATE) :
-                new ObjectParameter("END_DATE", typeof(System.DateTime));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_rt_Razbivka_Postup_OtraslGroup_Result>("sp_rt_Razbivka_Postup_OtraslGroup", sOATOParameter, bEGIN_DATEParameter, eND_DATEParameter);
-        }
-    
         public virtual ObjectResult<sp_rt_GetOrganization_Result> sp_rt_GetOrganization(string dEPARTMENT_BASE, string iNN, string oRG_NAME)
         {
             var dEPARTMENT_BASEParameter = dEPARTMENT_BASE != null ?
@@ -725,7 +624,58 @@ namespace KasabaKIAT.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_pr_GetNewTransactions_Result>("sp_pr_GetNewTransactions");
         }
     
-        public virtual ObjectResult<sp_rt_Razbivka_Postup_OblastTumanGroup_Result> sp_rt_Razbivka_Postup_OblastTumanGroup(Nullable<System.DateTime> bEGIN_DATE, Nullable<System.DateTime> eND_DATE)
+        public virtual int uspLoginChange(Nullable<long> user_id, string parol)
+        {
+            var user_idParameter = user_id.HasValue ?
+                new ObjectParameter("user_id", user_id) :
+                new ObjectParameter("user_id", typeof(long));
+    
+            var parolParameter = parol != null ?
+                new ObjectParameter("parol", parol) :
+                new ObjectParameter("parol", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("uspLoginChange", user_idParameter, parolParameter);
+        }
+    
+        public virtual ObjectResult<sp_rt_Postupleniya_Result1> sp_rt_Postupleniya(string iNN, string dEPARTMENT_BASE)
+        {
+            var iNNParameter = iNN != null ?
+                new ObjectParameter("INN", iNN) :
+                new ObjectParameter("INN", typeof(string));
+    
+            var dEPARTMENT_BASEParameter = dEPARTMENT_BASE != null ?
+                new ObjectParameter("DEPARTMENT_BASE", dEPARTMENT_BASE) :
+                new ObjectParameter("DEPARTMENT_BASE", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_rt_Postupleniya_Result1>("sp_rt_Postupleniya", iNNParameter, dEPARTMENT_BASEParameter);
+        }
+    
+        public virtual ObjectResult<sp_rt_Razbivka_Postup_Result1> sp_rt_Razbivka_Postup(string sOATO, string bRANCH, Nullable<System.DateTime> bEGIN_DATE, Nullable<System.DateTime> eND_DATE, string dEPARTMENT_BASE)
+        {
+            var sOATOParameter = sOATO != null ?
+                new ObjectParameter("SOATO", sOATO) :
+                new ObjectParameter("SOATO", typeof(string));
+    
+            var bRANCHParameter = bRANCH != null ?
+                new ObjectParameter("BRANCH", bRANCH) :
+                new ObjectParameter("BRANCH", typeof(string));
+    
+            var bEGIN_DATEParameter = bEGIN_DATE.HasValue ?
+                new ObjectParameter("BEGIN_DATE", bEGIN_DATE) :
+                new ObjectParameter("BEGIN_DATE", typeof(System.DateTime));
+    
+            var eND_DATEParameter = eND_DATE.HasValue ?
+                new ObjectParameter("END_DATE", eND_DATE) :
+                new ObjectParameter("END_DATE", typeof(System.DateTime));
+    
+            var dEPARTMENT_BASEParameter = dEPARTMENT_BASE != null ?
+                new ObjectParameter("DEPARTMENT_BASE", dEPARTMENT_BASE) :
+                new ObjectParameter("DEPARTMENT_BASE", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_rt_Razbivka_Postup_Result1>("sp_rt_Razbivka_Postup", sOATOParameter, bRANCHParameter, bEGIN_DATEParameter, eND_DATEParameter, dEPARTMENT_BASEParameter);
+        }
+    
+        public virtual ObjectResult<sp_rt_Razbivka_Postup_OblastGroup_Result1> sp_rt_Razbivka_Postup_OblastGroup(Nullable<System.DateTime> bEGIN_DATE, Nullable<System.DateTime> eND_DATE, string dEPARTMENT_BASE)
         {
             var bEGIN_DATEParameter = bEGIN_DATE.HasValue ?
                 new ObjectParameter("BEGIN_DATE", bEGIN_DATE) :
@@ -735,10 +685,31 @@ namespace KasabaKIAT.Models
                 new ObjectParameter("END_DATE", eND_DATE) :
                 new ObjectParameter("END_DATE", typeof(System.DateTime));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_rt_Razbivka_Postup_OblastTumanGroup_Result>("sp_rt_Razbivka_Postup_OblastTumanGroup", bEGIN_DATEParameter, eND_DATEParameter);
+            var dEPARTMENT_BASEParameter = dEPARTMENT_BASE != null ?
+                new ObjectParameter("DEPARTMENT_BASE", dEPARTMENT_BASE) :
+                new ObjectParameter("DEPARTMENT_BASE", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_rt_Razbivka_Postup_OblastGroup_Result1>("sp_rt_Razbivka_Postup_OblastGroup", bEGIN_DATEParameter, eND_DATEParameter, dEPARTMENT_BASEParameter);
         }
     
-        public virtual ObjectResult<sp_rt_Razbivka_Postup_OblastTumanOtraslGroup_Result> sp_rt_Razbivka_Postup_OblastTumanOtraslGroup(Nullable<System.DateTime> bEGIN_DATE, Nullable<System.DateTime> eND_DATE, string sOATO)
+        public virtual ObjectResult<sp_rt_Razbivka_Postup_OblastTumanGroup_Result1> sp_rt_Razbivka_Postup_OblastTumanGroup(Nullable<System.DateTime> bEGIN_DATE, Nullable<System.DateTime> eND_DATE, string dEPARTMENT_BASE)
+        {
+            var bEGIN_DATEParameter = bEGIN_DATE.HasValue ?
+                new ObjectParameter("BEGIN_DATE", bEGIN_DATE) :
+                new ObjectParameter("BEGIN_DATE", typeof(System.DateTime));
+    
+            var eND_DATEParameter = eND_DATE.HasValue ?
+                new ObjectParameter("END_DATE", eND_DATE) :
+                new ObjectParameter("END_DATE", typeof(System.DateTime));
+    
+            var dEPARTMENT_BASEParameter = dEPARTMENT_BASE != null ?
+                new ObjectParameter("DEPARTMENT_BASE", dEPARTMENT_BASE) :
+                new ObjectParameter("DEPARTMENT_BASE", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_rt_Razbivka_Postup_OblastTumanGroup_Result1>("sp_rt_Razbivka_Postup_OblastTumanGroup", bEGIN_DATEParameter, eND_DATEParameter, dEPARTMENT_BASEParameter);
+        }
+    
+        public virtual ObjectResult<sp_rt_Razbivka_Postup_OblastTumanOtraslGroup_Result1> sp_rt_Razbivka_Postup_OblastTumanOtraslGroup(Nullable<System.DateTime> bEGIN_DATE, Nullable<System.DateTime> eND_DATE, string sOATO, string dEPARTMENT_BASE)
         {
             var bEGIN_DATEParameter = bEGIN_DATE.HasValue ?
                 new ObjectParameter("BEGIN_DATE", bEGIN_DATE) :
@@ -752,20 +723,78 @@ namespace KasabaKIAT.Models
                 new ObjectParameter("SOATO", sOATO) :
                 new ObjectParameter("SOATO", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_rt_Razbivka_Postup_OblastTumanOtraslGroup_Result>("sp_rt_Razbivka_Postup_OblastTumanOtraslGroup", bEGIN_DATEParameter, eND_DATEParameter, sOATOParameter);
+            var dEPARTMENT_BASEParameter = dEPARTMENT_BASE != null ?
+                new ObjectParameter("DEPARTMENT_BASE", dEPARTMENT_BASE) :
+                new ObjectParameter("DEPARTMENT_BASE", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_rt_Razbivka_Postup_OblastTumanOtraslGroup_Result1>("sp_rt_Razbivka_Postup_OblastTumanOtraslGroup", bEGIN_DATEParameter, eND_DATEParameter, sOATOParameter, dEPARTMENT_BASEParameter);
         }
     
-        public virtual int uspLoginChange(Nullable<long> user_id, string parol)
+        public virtual ObjectResult<sp_rt_Razbivka_Postup_OkonxGroup_Result1> sp_rt_Razbivka_Postup_OkonxGroup(string sOATO, Nullable<System.DateTime> bEGIN_DATE, Nullable<System.DateTime> eND_DATE, string dEPARTMENT_BASE)
         {
-            var user_idParameter = user_id.HasValue ?
-                new ObjectParameter("user_id", user_id) :
-                new ObjectParameter("user_id", typeof(long));
+            var sOATOParameter = sOATO != null ?
+                new ObjectParameter("SOATO", sOATO) :
+                new ObjectParameter("SOATO", typeof(string));
     
-            var parolParameter = parol != null ?
-                new ObjectParameter("parol", parol) :
-                new ObjectParameter("parol", typeof(string));
+            var bEGIN_DATEParameter = bEGIN_DATE.HasValue ?
+                new ObjectParameter("BEGIN_DATE", bEGIN_DATE) :
+                new ObjectParameter("BEGIN_DATE", typeof(System.DateTime));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("uspLoginChange", user_idParameter, parolParameter);
+            var eND_DATEParameter = eND_DATE.HasValue ?
+                new ObjectParameter("END_DATE", eND_DATE) :
+                new ObjectParameter("END_DATE", typeof(System.DateTime));
+    
+            var dEPARTMENT_BASEParameter = dEPARTMENT_BASE != null ?
+                new ObjectParameter("DEPARTMENT_BASE", dEPARTMENT_BASE) :
+                new ObjectParameter("DEPARTMENT_BASE", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_rt_Razbivka_Postup_OkonxGroup_Result1>("sp_rt_Razbivka_Postup_OkonxGroup", sOATOParameter, bEGIN_DATEParameter, eND_DATEParameter, dEPARTMENT_BASEParameter);
+        }
+    
+        public virtual ObjectResult<sp_rt_Razbivka_Postup_OtraslGroup_Result1> sp_rt_Razbivka_Postup_OtraslGroup(string sOATO, Nullable<System.DateTime> bEGIN_DATE, Nullable<System.DateTime> eND_DATE, string dEPARTMENT_BASE)
+        {
+            var sOATOParameter = sOATO != null ?
+                new ObjectParameter("SOATO", sOATO) :
+                new ObjectParameter("SOATO", typeof(string));
+    
+            var bEGIN_DATEParameter = bEGIN_DATE.HasValue ?
+                new ObjectParameter("BEGIN_DATE", bEGIN_DATE) :
+                new ObjectParameter("BEGIN_DATE", typeof(System.DateTime));
+    
+            var eND_DATEParameter = eND_DATE.HasValue ?
+                new ObjectParameter("END_DATE", eND_DATE) :
+                new ObjectParameter("END_DATE", typeof(System.DateTime));
+    
+            var dEPARTMENT_BASEParameter = dEPARTMENT_BASE != null ?
+                new ObjectParameter("DEPARTMENT_BASE", dEPARTMENT_BASE) :
+                new ObjectParameter("DEPARTMENT_BASE", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_rt_Razbivka_Postup_OtraslGroup_Result1>("sp_rt_Razbivka_Postup_OtraslGroup", sOATOParameter, bEGIN_DATEParameter, eND_DATEParameter, dEPARTMENT_BASEParameter);
+        }
+    
+        public virtual ObjectResult<sp_rt_SvodniyOtchet_Result1> sp_rt_SvodniyOtchet(Nullable<System.DateTime> beginDate, Nullable<System.DateTime> endDate, string vilSoato, string branchCode, string dEPARTMENT_BASE)
+        {
+            var beginDateParameter = beginDate.HasValue ?
+                new ObjectParameter("beginDate", beginDate) :
+                new ObjectParameter("beginDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("endDate", endDate) :
+                new ObjectParameter("endDate", typeof(System.DateTime));
+    
+            var vilSoatoParameter = vilSoato != null ?
+                new ObjectParameter("VilSoato", vilSoato) :
+                new ObjectParameter("VilSoato", typeof(string));
+    
+            var branchCodeParameter = branchCode != null ?
+                new ObjectParameter("BranchCode", branchCode) :
+                new ObjectParameter("BranchCode", typeof(string));
+    
+            var dEPARTMENT_BASEParameter = dEPARTMENT_BASE != null ?
+                new ObjectParameter("DEPARTMENT_BASE", dEPARTMENT_BASE) :
+                new ObjectParameter("DEPARTMENT_BASE", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_rt_SvodniyOtchet_Result1>("sp_rt_SvodniyOtchet", beginDateParameter, endDateParameter, vilSoatoParameter, branchCodeParameter, dEPARTMENT_BASEParameter);
         }
     }
 }

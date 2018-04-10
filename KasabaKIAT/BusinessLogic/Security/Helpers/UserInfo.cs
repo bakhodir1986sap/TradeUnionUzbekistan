@@ -69,7 +69,7 @@ namespace KasabaKiat.Helpers
                             }
 
                             var departments = from dep in db.t_departmentbase
-                                              where dep.id == departmentcode
+                                              where (dep.id == departmentcode || dep.NATIVE_ID == departmentcode)
                                               select dep;
 
                             if (departments.Any())
@@ -163,7 +163,7 @@ namespace KasabaKiat.Helpers
                             }
 
                             var departments = from dep in db.t_departmentbase
-                                              where dep.id == departmentcode
+                                              where (dep.id == departmentcode || dep.NATIVE_ID == departmentcode)
                                               select dep;
 
                             if (departments.Any())

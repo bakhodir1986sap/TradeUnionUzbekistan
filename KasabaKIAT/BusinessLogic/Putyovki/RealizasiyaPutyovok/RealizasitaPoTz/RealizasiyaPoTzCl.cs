@@ -70,7 +70,7 @@ namespace KasabaKIAT.BusinessLogic.Putyovki.RealizasiyaPutyovok.RealizasitaPoTz
 
                             if (retList.Any())
                             {
-                                list.Add(retList.First());
+                               // list.Add(retList.First());
 
                                 continue;
                             }

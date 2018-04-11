@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using KasabaKIAT.Models;
 using KurortUrvServiceTest.ServiceInterAction.ActionLogic;
 using log4net;
+using KasabaKiat.Helpers;
 
 namespace KasabaKIAT.Controllers
 {
@@ -92,7 +93,11 @@ namespace KasabaKIAT.Controllers
         }
         public JsonResult GetSvodniyOtchot(DateTime? Begindt,DateTime? Enddt,string Soato,string Branch)
         {
-            var data = KasabaDB.sp_rt_SvodniyOtchet(Begindt, Enddt, Soato, Branch);
+            var UserId = Convert.ToInt32(User.Identity.Name);
+
+            var userInfo = UserInfo.GetUserInfo(UserId);
+
+            var data = KasabaDB.sp_rt_SvodniyOtchet(Begindt, Enddt, Soato, Branch, userInfo.DepartmentBase);
             var list = from d in data
                        select new
                        {
@@ -154,11 +159,15 @@ namespace KasabaKIAT.Controllers
         }
         public JsonResult GetPostupleniya(string inn)
         {
+            var UserId = Convert.ToInt32(User.Identity.Name);
+
+            var userInfo = UserInfo.GetUserInfo(UserId);
+
             log.Info("GetPostupleniya");
             log.Info("inn = " + inn);
             try
             {
-                var data = KasabaDB.sp_rt_Postupleniya(inn);
+                var data = KasabaDB.sp_rt_Postupleniya(inn, userInfo.DepartmentBase);
                 var O = from o in data
                         select new
                         {
@@ -204,6 +213,10 @@ namespace KasabaKIAT.Controllers
         }
         public JsonResult GetRazbivkaPostupleniya(string s,string b,DateTime? bg,DateTime? end)
         {
+            var UserId = Convert.ToInt32(User.Identity.Name);
+
+            var userInfo = UserInfo.GetUserInfo(UserId);
+
             log.Info("GetPostupleniya");
             log.Info("SOATO = " + s);
             log.Info("BRANCH = " + b);
@@ -211,7 +224,7 @@ namespace KasabaKIAT.Controllers
             log.Info("END_DATE = " + end);
             try
             {
-                var data = KasabaDB.sp_rt_Razbivka_Postup(s, b, bg.Value.Date, end.Value.Date);
+                var data = KasabaDB.sp_rt_Razbivka_Postup(s, b, bg.Value.Date, end.Value.Date, userInfo.DepartmentBase);
                 var O = from o in data
                         select new
                         {
@@ -346,12 +359,16 @@ namespace KasabaKIAT.Controllers
         }
         public JsonResult GetPostupleniyaOblastyam(DateTime? bg, DateTime? end)
         {
+            var UserId = Convert.ToInt32(User.Identity.Name);
+
+            var userInfo = UserInfo.GetUserInfo(UserId);
+
             log.Info("GetPostupleniyaOblastyam");
             log.Info("BEGIN_DATE = " + bg);
             log.Info("END_DATE = " + end);
             try
             {
-                var data = KasabaDB.sp_rt_Razbivka_Postup_OblastGroup(bg.Value.Date, end.Value.Date);
+                var data = KasabaDB.sp_rt_Razbivka_Postup_OblastGroup(bg.Value.Date, end.Value.Date, userInfo.DepartmentBase);
                 var O = from o in data
                         select new
                         {
@@ -377,12 +394,16 @@ namespace KasabaKIAT.Controllers
         }
         public JsonResult GetPostupleniyaTuman(DateTime? bg, DateTime? end)
         {
+            var UserId = Convert.ToInt32(User.Identity.Name);
+
+            var userInfo = UserInfo.GetUserInfo(UserId);
+
             log.Info("GetPostupleniyaTuman");
             log.Info("BEGIN_DATE = " + bg);
             log.Info("END_DATE = " + end);
             try
             {
-                var data = KasabaDB.sp_rt_Razbivka_Postup_OblastTumanGroup(bg.Value.Date, end.Value.Date);
+                var data = KasabaDB.sp_rt_Razbivka_Postup_OblastTumanGroup(bg.Value.Date, end.Value.Date, userInfo.DepartmentBase);
                 var O = from o in data
                         select new
                         {
@@ -408,13 +429,17 @@ namespace KasabaKIAT.Controllers
         }
         public JsonResult GetPostupleniyaOblastTumanOtraslGroup(string s, DateTime? bg, DateTime? end)
         {
+            var UserId = Convert.ToInt32(User.Identity.Name);
+
+            var userInfo = UserInfo.GetUserInfo(UserId);
+
             log.Info("GetPostupleniyaOblastTumanOtraslGroup");
             log.Info("SOATO = " + s);
             log.Info("BEGIN_DATE = " + bg);
             log.Info("END_DATE = " + end);
             try
             {
-                var data = KasabaDB.sp_rt_Razbivka_Postup_OblastTumanOtraslGroup(bg.Value.Date, end.Value.Date, s);
+                var data = KasabaDB.sp_rt_Razbivka_Postup_OblastTumanOtraslGroup(bg.Value.Date, end.Value.Date, s, userInfo.DepartmentBase);
                 var O = from o in data
                         select new
                         {
@@ -442,13 +467,17 @@ namespace KasabaKIAT.Controllers
         }
         public JsonResult GetPostupleniyaOtrasli(string s, DateTime? bg, DateTime? end)
         {
+            var UserId = Convert.ToInt32(User.Identity.Name);
+
+            var userInfo = UserInfo.GetUserInfo(UserId);
+
             log.Info("GetPostupleniyaOtrasli");
             log.Info("SOATO = " + s);
             log.Info("BEGIN_DATE = " + bg);
             log.Info("END_DATE = " + end);
             try
             {
-                var data = KasabaDB.sp_rt_Razbivka_Postup_OtraslGroup(s, bg.Value.Date, end.Value.Date);
+                var data = KasabaDB.sp_rt_Razbivka_Postup_OtraslGroup(s, bg.Value.Date, end.Value.Date, userInfo.DepartmentBase);
                 var O = from o in data
                         select new
                         {
@@ -476,13 +505,17 @@ namespace KasabaKIAT.Controllers
         }
         public JsonResult GetPostupleniyaOkonxu(string s, DateTime? bg, DateTime? end)
         {
+            var UserId = Convert.ToInt32(User.Identity.Name);
+
+            var userInfo = UserInfo.GetUserInfo(UserId);
+
             log.Info("GetPostupleniyaOkonxu");
             log.Info("SOATO = " + s);
             log.Info("BEGIN_DATE = " + bg);
             log.Info("END_DATE = " + end);
             try
             {
-                var data = KasabaDB.sp_rt_Razbivka_Postup_OkonxGroup(s, bg.Value.Date, end.Value.Date);
+                var data = KasabaDB.sp_rt_Razbivka_Postup_OkonxGroup(s, bg.Value.Date, end.Value.Date, userInfo.DepartmentBase);
                 var O = from o in data
                         select new
                         {
@@ -519,17 +552,45 @@ namespace KasabaKIAT.Controllers
         }
         public JsonResult GetRegion()
         {
-            var R = (from r in KasabaDB.sp_soato
-                     where r.parent_code == "17"
-                     select new
-                     {
-                         id = r.code,
-                         value = r.name_uz
-                     });
-            var resList = R.ToList();
+            var UserId = Convert.ToInt32(User.Identity.Name);
 
-            resList.Insert(0, new { id = "0", value = "Все" });
-            return Json(resList, JsonRequestBehavior.AllowGet);
+            var userInfo = UserInfo.GetUserInfo(UserId);
+
+
+            if (userInfo.DepartmentBase == "17")
+            {
+                var R = (from r in KasabaDB.sp_soato
+                         where r.parent_code == "17" && r.code.StartsWith(userInfo.DepartmentBase)
+                         select new
+                         {
+                             id = r.code,
+                             value = r.name_uz
+                         });
+                var resList = R.ToList();
+
+                resList.Insert(0, new { id = "0", value = "Все" });
+
+                return Json(resList, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                var soatoCode = userInfo.DepartmentBase.Length == 5 ?
+                    userInfo.DepartmentBase.Substring(0, 2) + userInfo.DepartmentBase.Substring(3, 2) : userInfo.DepartmentBase;
+
+                var R = (from r in KasabaDB.sp_soato
+                         where r.parent_code == "17" && r.code.StartsWith(soatoCode)
+                         select new
+                         {
+                             id = r.code,
+                             value = r.name_uz
+                         });
+                var resList = R.ToList();
+
+                //resList.Insert(0, new { id = "0", value = "Все" });
+
+                return Json(resList, JsonRequestBehavior.AllowGet);
+            }
+
         }
     }
 }

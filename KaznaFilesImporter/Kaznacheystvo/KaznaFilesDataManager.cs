@@ -50,7 +50,7 @@ namespace KasabaKIAT.BusinessLogic.BankOplati.Kaznacheystvo
                 {
                     file.OPERDAY = DateTime.ParseExact(row.k_operday, "ddMMyyyy", provider);
                 }
-                catch(Exception ex)
+                catch
                 {
                     file.OPERDAY = DateTime.Now;
                 }
@@ -59,7 +59,7 @@ namespace KasabaKIAT.BusinessLogic.BankOplati.Kaznacheystvo
                 {
                     file.ID = Int64.Parse(row.k_id);
                 }
-                catch(Exception ex)
+                catch
                 {
                     file.ID = 0;
                 }
@@ -68,7 +68,7 @@ namespace KasabaKIAT.BusinessLogic.BankOplati.Kaznacheystvo
                 {
                     file.BANKID = Int64.Parse(row.k_bankid);
                 }
-                catch(Exception ex)
+                catch
                 {
                     file.BANKID = 0;
                 }
@@ -81,7 +81,7 @@ namespace KasabaKIAT.BusinessLogic.BankOplati.Kaznacheystvo
                 {
                     file.DOCDATE = DateTime.ParseExact(row.k_docdate, "ddMMyyyy", provider);
                 } 
-                catch(Exception ex)
+                catch
                 {
                     file.DOCDATE = DateTime.Now;
                 }
@@ -92,7 +92,7 @@ namespace KasabaKIAT.BusinessLogic.BankOplati.Kaznacheystvo
                 {
                     file.SUMPAY = Int64.Parse(row.k_sumpay);
                 }
-                catch(Exception ex)
+                catch
                 {
                     file.SUMPAY = 0;
                 }
@@ -110,7 +110,103 @@ namespace KasabaKIAT.BusinessLogic.BankOplati.Kaznacheystvo
                 file.OKONH = row.k_okonh;
                 file.FILE_ID = row.file_id;
 
+                try
+                {
+                    file.GRPID = Int64.Parse(row.k_grpid);
+                }
+                catch
+                {
+                    file.GRPID = 0;
+                }
+
                 db.KaznaPaymentFiles.Add(file);
+
+                db.SaveChanges();
+
+            }
+        }
+
+
+        public static void InsertKaznaBankRows(BankPaymentFile row)
+        {
+            using (KasabaKIATEntities db = new KasabaKIATEntities())
+            {
+                KaznaFilesImporter.KaznaBankFile file = new KaznaFilesImporter.KaznaBankFile();
+                CultureInfo provider = CultureInfo.InvariantCulture;
+
+                file.K_TYPE = row.type;
+                try
+                {
+                    file.OPERDAY = DateTime.ParseExact(row.operday, "ddMMyyyy", provider);
+                }
+                catch
+                {
+                    file.OPERDAY = DateTime.Now;
+                }
+
+                try
+                {
+                    file.ID = Int64.Parse(row.id);
+                }
+                catch
+                {
+                    file.ID = 0;
+                }
+
+                //try
+                //{
+                //    file.BANKID = Int64.Parse(row.k_bankid);
+                //}
+                //catch
+                //{
+                //    file.BANKID = 0;
+                //}
+
+
+                file.KLSDOX = row.klsdox;
+                file.DOCNUMB = row.docnumb;
+
+                try
+                {
+                    file.DOCDATE = DateTime.ParseExact(row.docdate, "ddMMyyyy", provider);
+                }
+                catch
+                {
+                    file.DOCDATE = DateTime.Now;
+                }
+
+                file.DOCTYPE = row.doctype;
+
+                try
+                {
+                    file.SUMPAY = Int64.Parse(row.sumpay);
+                }
+                catch
+                {
+                    file.SUMPAY = 0;
+                }
+
+                file.CLMFO = row.clmfo;
+                file.CLACC = row.clacc;
+                file.CLINN = row.clinn;
+                file.CLNAME = row.clname;
+                file.COMFO = row.comfo;
+                file.COACC = row.coacc;
+                file.COINN = row.coinn;
+                file.CONAME = row.coname;
+                file.PURPOSE = row.purpose;
+                file.FILE_ID = row.file_id;
+
+                try
+                {
+                    file.GRPID = Int64.Parse(row.grpid);
+                }
+                catch
+                {
+                    file.GRPID = 0;
+                }
+
+                db.KaznaBankFiles.Add(file);
 
                 db.SaveChanges();
 

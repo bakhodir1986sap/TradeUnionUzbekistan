@@ -12,6 +12,7 @@ namespace KasabaKIAT.ViewModel.BankOplati
         public string k_operday        {get; set;} //ddmmyyyy
         public string k_id             {get; set;}
         public string k_bankid         {get; set;}
+        public string k_grpid { get; set; } //New Field
         public string k_klsdox         {get; set;}
         public string k_docnumb        {get; set;}
         public string k_docdate        {get; set; } //ddmmyyyy

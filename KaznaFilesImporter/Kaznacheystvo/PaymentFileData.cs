@@ -13,6 +13,7 @@ namespace KasabaKIAT.BusinessLogic.BankOplati.Kaznacheystvo
         private KaznaFiles file;
         private List<KaznaPaymentFile> paymentRows;
         private List<SverkaFile> sverkaFile;
+        private List<BankPaymentFile> bankFile;
 
         public PaymentFileData()
         {
@@ -20,6 +21,7 @@ namespace KasabaKIAT.BusinessLogic.BankOplati.Kaznacheystvo
 
             paymentRows = new List<KaznaPaymentFile>();
             sverkaFile = new List<SverkaFile>();
+            bankFile = new List<BankPaymentFile>();
         }
 
         public string FileName
@@ -45,6 +47,14 @@ namespace KasabaKIAT.BusinessLogic.BankOplati.Kaznacheystvo
             {
                 sverkaFile.Add((SverkaFile)row);
             }
+            else if (row is BankPaymentFile)
+            {
+                bankFile.Add((BankPaymentFile)row);
+            }
+            else
+            {
+                throw new NotImplementedException("3 uuuch!!!!");
+            }
 
         }
 
@@ -52,6 +62,7 @@ namespace KasabaKIAT.BusinessLogic.BankOplati.Kaznacheystvo
         {
             paymentRows.Clear();
             sverkaFile.Clear();
+            bankFile.Clear();
         }
 
         public void SaveData()
@@ -77,6 +88,19 @@ namespace KasabaKIAT.BusinessLogic.BankOplati.Kaznacheystvo
                 {
                     row.file_id = file.Id;
                     KaznaFilesDataManager.InsertSverkaFile(row);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+            }
+
+            foreach (var row in bankFile)
+            {
+                try
+                {
+                    row.file_id = file.Id;
+                    KaznaFilesDataManager.InsertKaznaBankRows(row);
                 }
                 catch (Exception ex)
                 {

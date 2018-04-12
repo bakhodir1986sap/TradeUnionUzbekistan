@@ -93,6 +93,7 @@ namespace KasabaKIAT.BusinessLogic.BankOplati.Kaznacheystvo
             BaseKaznaFile retLine = null;
             KaznaPaymentFile pLine = null;
             SverkaFile sLine = null;
+            BankPaymentFile bLine = null;
 
             if (!string.IsNullOrEmpty(line))
             {
@@ -109,22 +110,23 @@ namespace KasabaKIAT.BusinessLogic.BankOplati.Kaznacheystvo
                         pLine.k_operday = substrings[1];
                         pLine.k_id = substrings[2];
                         pLine.k_bankid = substrings[3];
-                        pLine.k_klsdox = substrings[4];
-                        pLine.k_docnumb = substrings[5];
-                        pLine.k_docdate = substrings[6];
-                        pLine.k_doctype = substrings[7];
-                        pLine.k_sumpay = substrings[8];
-                        pLine.k_clmfo = substrings[9];
-                        pLine.k_clacc = substrings[10];
-                        pLine.k_clinn = substrings[11];
-                        pLine.k_clname = substrings[12];
-                        pLine.k_comfo = substrings[13];
-                        pLine.k_coacc = substrings[14];
-                        pLine.k_coinn = substrings[15];
-                        pLine.k_coname = substrings[16];
-                        pLine.k_purpose = substrings[17];
-                        pLine.k_chapter = substrings[18];
-                        pLine.k_okonh = substrings[19];
+                        pLine.k_grpid = substrings[4];
+                        pLine.k_klsdox = substrings[5];
+                        pLine.k_docnumb = substrings[6];
+                        pLine.k_docdate = substrings[7];
+                        pLine.k_doctype = substrings[8];
+                        pLine.k_sumpay = substrings[9];
+                        pLine.k_clmfo = substrings[10];
+                        pLine.k_clacc = substrings[11];
+                        pLine.k_clinn = substrings[12];
+                        pLine.k_clname = substrings[13];
+                        pLine.k_comfo = substrings[14];
+                        pLine.k_coacc = substrings[15];
+                        pLine.k_coinn = substrings[16];
+                        pLine.k_coname = substrings[17];
+                        pLine.k_purpose = substrings[18];
+                        pLine.k_chapter = substrings[19];
+                        pLine.k_okonh = substrings[20];
                     }
                 }
                 else if (substrings[0].Equals("2"))
@@ -138,6 +140,37 @@ namespace KasabaKIAT.BusinessLogic.BankOplati.Kaznacheystvo
                         sLine.create_datetime = substrings[3];
                     }
                 }
+                else if (substrings[0].Equals("3"))
+                {
+                    bLine = new BankPaymentFile();
+
+                    bLine.type      = substrings[0];
+                    bLine.operday   = substrings[1];
+                    bLine.id        = substrings[2];
+                    bLine.grpid     = substrings[3];
+                    bLine.klsdox    = substrings[4];
+                    bLine.docnumb   = substrings[5];
+                    bLine.docdate   = substrings[6];
+                    bLine.doctype   = substrings[7];
+                    bLine.sumpay    = substrings[8];
+                    bLine.clmfo     = substrings[9];
+                    bLine.clacc     = substrings[10];
+                    bLine.clinn     = substrings[11];
+                    bLine.clname    = substrings[12];
+                    bLine.comfo     = substrings[13];
+                    bLine.coacc     = substrings[14];
+                    bLine.coinn     = substrings[15];
+                    bLine.coname    = substrings[16];
+                    bLine.purpose   = substrings[17];
+
+
+                }
+                else
+                {
+                    Console.WriteLine("ROW TYPE:");
+                    Console.WriteLine(substrings[0]);
+                    throw new NotImplementedException("oooooooo!!!!");
+                }
             }
 
             if (pLine != null)
@@ -148,7 +181,11 @@ namespace KasabaKIAT.BusinessLogic.BankOplati.Kaznacheystvo
             {
                 retLine = sLine;
             }
-            
+            else if (bLine != null)
+            {
+                retLine = bLine;
+            }
+
             return retLine;
         }
 

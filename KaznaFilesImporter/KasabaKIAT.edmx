@@ -10,22 +10,46 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="KOD_BANKA" Type="varchar" MaxLength="5" />
+          <Property Name="KOD_BANKA" Type="nvarchar" MaxLength="5" />
           <Property Name="VILOYAT" Type="nvarchar" MaxLength="200" />
           <Property Name="TUMAN_SHAXAR" Type="nvarchar" MaxLength="200" />
-          <Property Name="BANK_XISOBRAQAM" Type="varchar" MaxLength="10" />
-          <Property Name="SHARTLI_RAQAM" Type="varchar" MaxLength="10" />
-          <Property Name="XISOB_RAQAM" Type="varchar" MaxLength="50" />
+          <Property Name="BANK_XISOBRAQAM" Type="nvarchar" MaxLength="10" />
+          <Property Name="SHARTLI_RAQAM" Type="nvarchar" MaxLength="10" />
+          <Property Name="XISOB_RAQAM" Type="nvarchar" MaxLength="50" />
           <Property Name="XR_NOMI" Type="nvarchar" MaxLength="1000" />
           <Property Name="DAROMAT_YIG_NOMI" Type="nvarchar" MaxLength="1000" />
           <Property Name="BYUDJET_TURI" Type="nvarchar" MaxLength="1000" />
+        </EntityType>
+        <EntityType Name="KaznaBankFile">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="K_TYPE" Type="char" MaxLength="1" />
+          <Property Name="OPERDAY" Type="datetime" />
+          <Property Name="ID" Type="numeric" Precision="12" Scale="0" Nullable="false" />
+          <Property Name="GRPID" Type="numeric" Precision="12" Scale="0" Nullable="false" />
+          <Property Name="KLSDOX" Type="nvarchar" MaxLength="25" />
+          <Property Name="DOCNUMB" Type="nvarchar" MaxLength="10" />
+          <Property Name="DOCDATE" Type="datetime" />
+          <Property Name="DOCTYPE" Type="char" MaxLength="2" />
+          <Property Name="SUMPAY" Type="numeric" Precision="20" Scale="0" />
+          <Property Name="CLMFO" Type="nvarchar" MaxLength="5" />
+          <Property Name="CLACC" Type="nvarchar" MaxLength="20" />
+          <Property Name="CLINN" Type="nvarchar" MaxLength="9" />
+          <Property Name="CLNAME" Type="nvarchar" MaxLength="160" />
+          <Property Name="COMFO" Type="nvarchar" MaxLength="5" />
+          <Property Name="COACC" Type="nvarchar" MaxLength="20" />
+          <Property Name="COINN" Type="nvarchar" MaxLength="9" />
+          <Property Name="CONAME" Type="nvarchar" MaxLength="160" />
+          <Property Name="PURPOSE" Type="nvarchar" MaxLength="500" />
+          <Property Name="FILE_ID" Type="bigint" />
         </EntityType>
         <EntityType Name="KaznaFiles">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="FileName" Type="varchar" MaxLength="50" />
+          <Property Name="FileName" Type="nvarchar" MaxLength="50" />
           <Property Name="CreateDate" Type="datetime" />
         </EntityType>
         <EntityType Name="KaznaPaymentFile">
@@ -36,34 +60,35 @@
           <Property Name="OPERDAY" Type="datetime" />
           <Property Name="ID" Type="numeric" Precision="12" Scale="0" Nullable="false" />
           <Property Name="BANKID" Type="numeric" Precision="17" Scale="0" />
-          <Property Name="KLSDOX" Type="varchar" MaxLength="25" />
-          <Property Name="DOCNUMB" Type="varchar" MaxLength="10" />
+          <Property Name="KLSDOX" Type="nvarchar" MaxLength="25" />
+          <Property Name="DOCNUMB" Type="nvarchar" MaxLength="10" />
           <Property Name="DOCDATE" Type="datetime" />
           <Property Name="DOCTYPE" Type="char" MaxLength="2" />
           <Property Name="SUMPAY" Type="numeric" Precision="20" Scale="0" />
-          <Property Name="CLMFO" Type="varchar" MaxLength="5" />
-          <Property Name="CLACC" Type="varchar" MaxLength="20" />
-          <Property Name="CLINN" Type="varchar" MaxLength="9" />
+          <Property Name="CLMFO" Type="nvarchar" MaxLength="5" />
+          <Property Name="CLACC" Type="nvarchar" MaxLength="20" />
+          <Property Name="CLINN" Type="nvarchar" MaxLength="9" />
           <Property Name="CLNAME" Type="nvarchar" MaxLength="160" />
-          <Property Name="COMFO" Type="varchar" MaxLength="5" />
-          <Property Name="COACC" Type="varchar" MaxLength="20" />
-          <Property Name="COINN" Type="varchar" MaxLength="9" />
+          <Property Name="COMFO" Type="nvarchar" MaxLength="5" />
+          <Property Name="COACC" Type="nvarchar" MaxLength="20" />
+          <Property Name="COINN" Type="nvarchar" MaxLength="9" />
           <Property Name="CONAME" Type="nvarchar" MaxLength="160" />
           <Property Name="PURPOSE" Type="nvarchar" MaxLength="500" />
-          <Property Name="CHAPTER" Type="varchar" MaxLength="3" />
-          <Property Name="OKONH" Type="varchar" MaxLength="5" />
+          <Property Name="CHAPTER" Type="nvarchar" MaxLength="3" />
+          <Property Name="OKONH" Type="nvarchar" MaxLength="5" />
           <Property Name="FILE_ID" Type="bigint" />
           <Property Name="OTCHISLEN" Type="money" />
+          <Property Name="GRPID" Type="numeric" Precision="12" Scale="0" />
         </EntityType>
         <EntityType Name="KaznaSverkaFile">
           <Key>
             <PropertyRef Name="REC_ID" />
           </Key>
           <Property Name="REC_ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="K_TYPE" Type="varchar" MaxLength="3" />
+          <Property Name="K_TYPE" Type="nvarchar" MaxLength="3" />
           <Property Name="K_OPERDAY" Type="date" />
-          <Property Name="FILE_NAME" Type="varchar" MaxLength="50" />
-          <Property Name="CREATE_DATETIME" Type="varchar" MaxLength="50" />
+          <Property Name="FILE_NAME" Type="nvarchar" MaxLength="50" />
+          <Property Name="CREATE_DATETIME" Type="nvarchar" MaxLength="50" />
           <Property Name="FILE_ID" Type="bigint" />
         </EntityType>
         <EntityType Name="t_egrpo">
@@ -72,43 +97,43 @@
           </Key>
           <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="version" Type="int" Nullable="false" />
-          <Property Name="address" Type="varchar" MaxLength="1024" />
+          <Property Name="address" Type="nvarchar" MaxLength="1024" />
           <Property Name="close_date" Type="datetime" />
-          <Property Name="close_number" Type="varchar" MaxLength="20" />
+          <Property Name="close_number" Type="nvarchar" MaxLength="20" />
           <Property Name="count_workers" Type="int" />
-          <Property Name="s_comment" Type="varchar" MaxLength="500" />
+          <Property Name="s_comment" Type="nvarchar" MaxLength="500" />
           <Property Name="s_create" Type="datetime" />
-          <Property Name="s_status" Type="varchar" MaxLength="255" />
-          <Property Name="email" Type="varchar" MaxLength="64" />
+          <Property Name="s_status" Type="nvarchar" MaxLength="255" />
+          <Property Name="email" Type="nvarchar" MaxLength="64" />
           <Property Name="fin_xoz_work" Type="bit" />
-          <Property Name="name_full" Type="varchar" MaxLength="1024" />
-          <Property Name="inn" Type="varchar" MaxLength="9" />
+          <Property Name="name_full" Type="nvarchar" MaxLength="1024" />
+          <Property Name="inn" Type="nvarchar" MaxLength="9" />
           <Property Name="liquidation" Type="bit" />
-          <Property Name="osn_worktype" Type="varchar" MaxLength="500" />
-          <Property Name="phones" Type="varchar" MaxLength="500" />
+          <Property Name="osn_worktype" Type="nvarchar" MaxLength="500" />
+          <Property Name="phones" Type="nvarchar" MaxLength="500" />
           <Property Name="recreate" Type="bit" />
           <Property Name="reg_date" Type="datetime" />
-          <Property Name="reg_number" Type="varchar" MaxLength="20" />
-          <Property Name="reg_org" Type="varchar" MaxLength="1024" />
+          <Property Name="reg_number" Type="nvarchar" MaxLength="20" />
+          <Property Name="reg_org" Type="nvarchar" MaxLength="1024" />
           <Property Name="reorganization" Type="bit" />
           <Property Name="restored" Type="bit" />
-          <Property Name="name_short" Type="varchar" MaxLength="512" />
-          <Property Name="street" Type="varchar" MaxLength="1024" />
+          <Property Name="name_short" Type="nvarchar" MaxLength="512" />
+          <Property Name="street" Type="nvarchar" MaxLength="1024" />
           <Property Name="update_doc" Type="bit" />
           <Property Name="update_email" Type="bit" />
-          <Property Name="mail_index" Type="varchar" MaxLength="7" />
+          <Property Name="mail_index" Type="nvarchar" MaxLength="7" />
           <Property Name="s_user_id" Type="bigint" />
-          <Property Name="okonx_id" Type="varchar" MaxLength="10" />
-          <Property Name="opf_id" Type="varchar" MaxLength="10" />
-          <Property Name="fs_id" Type="varchar" MaxLength="10" />
-          <Property Name="soato_id" Type="varchar" MaxLength="10" />
-          <Property Name="soogu_id" Type="varchar" MaxLength="255" />
-          <Property Name="okpo" Type="varchar" MaxLength="20" />
-          <Property Name="BANK_ACCOUNT" Type="varchar" MaxLength="20" />
+          <Property Name="okonx_id" Type="nvarchar" MaxLength="10" />
+          <Property Name="opf_id" Type="nvarchar" MaxLength="10" />
+          <Property Name="fs_id" Type="nvarchar" MaxLength="10" />
+          <Property Name="soato_id" Type="nvarchar" MaxLength="10" />
+          <Property Name="soogu_id" Type="nvarchar" MaxLength="255" />
+          <Property Name="okpo" Type="nvarchar" MaxLength="20" />
+          <Property Name="BANK_ACCOUNT" Type="nvarchar" MaxLength="20" />
           <Property Name="NATIVE_ID" Type="bigint" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'KasabaKIAT.dbo.tbbFermer' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'KasabaKIAT_N1.dbo.tbbFermer' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="tbbFermer">
           <Key>
             <PropertyRef Name="ActivPol" />
@@ -116,12 +141,12 @@ warning 6002: The table/view 'KasabaKIAT.dbo.tbbFermer' does not have a primary 
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ActivPol" Type="bit" Nullable="false" />
-          <Property Name="INN" Type="varchar" MaxLength="9" />
-          <Property Name="NameFir" Type="varchar" MaxLength="200" />
+          <Property Name="INN" Type="nvarchar" MaxLength="9" />
+          <Property Name="NameFir" Type="nvarchar" MaxLength="200" />
           <Property Name="Otras" Type="int" />
           <Property Name="Region" Type="int" />
           <Property Name="Vid" Type="bit" Nullable="false" />
-          <Property Name="RS" Type="varchar" MaxLength="20" />
+          <Property Name="RS" Type="nvarchar" MaxLength="20" />
           <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="UserId" Type="bigint" />
         </EntityType>
@@ -134,16 +159,16 @@ warning 6002: The table/view 'KasabaKIAT.dbo.tbbFermer' does not have a primary 
           <Property Name="PROFSOUZ_AMT" Type="money" />
           <Property Name="FEDERATION_AMT" Type="money" />
           <Property Name="OBLSOVPROF_AMT" Type="money" />
-          <Property Name="OBL_DEPARTMENT_BASE" Type="varchar" MaxLength="255" />
+          <Property Name="OBL_DEPARTMENT_BASE" Type="nvarchar" MaxLength="255" />
           <Property Name="PROVODKA_ID" Type="bigint" />
-          <Property Name="REMARK" Type="varchar" MaxLength="100" />
+          <Property Name="REMARK" Type="nvarchar" MaxLength="100" />
         </EntityType>
         <EntityType Name="tbbu_provodki">
           <Key>
             <PropertyRef Name="REC_ID" />
           </Key>
           <Property Name="REC_ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="DEPARTMENT_BASE" Type="varchar" MaxLength="255" />
+          <Property Name="DEPARTMENT_BASE" Type="nvarchar" MaxLength="255" />
           <Property Name="USER_ID" Type="bigint" />
           <Property Name="INOUTFLG" Type="bit" />
           <Property Name="TRDT" Type="datetime" />
@@ -151,13 +176,13 @@ warning 6002: The table/view 'KasabaKIAT.dbo.tbbFermer' does not have a primary 
           <Property Name="TIPSCHETA" Type="bit" />
           <Property Name="TIPOBOROTA" Type="bit" />
           <Property Name="PLATELNAME" Type="nvarchar" MaxLength="500" />
-          <Property Name="PLATELINN" Type="varchar" MaxLength="9" />
-          <Property Name="PLATELMFO" Type="varchar" MaxLength="5" />
+          <Property Name="PLATELINN" Type="nvarchar" MaxLength="9" />
+          <Property Name="PLATELMFO" Type="nvarchar" MaxLength="5" />
           <Property Name="POLUCHNAME" Type="nvarchar" MaxLength="500" />
-          <Property Name="POLUCHINN" Type="varchar" MaxLength="9" />
-          <Property Name="POLUCHMFO" Type="varchar" MaxLength="5" />
-          <Property Name="PLATELRSCH" Type="varchar" MaxLength="30" />
-          <Property Name="POLUCHRSCH" Type="varchar" MaxLength="30" />
+          <Property Name="POLUCHINN" Type="nvarchar" MaxLength="9" />
+          <Property Name="POLUCHMFO" Type="nvarchar" MaxLength="5" />
+          <Property Name="PLATELRSCH" Type="nvarchar" MaxLength="30" />
+          <Property Name="POLUCHRSCH" Type="nvarchar" MaxLength="30" />
           <Property Name="SUMMA" Type="money" />
           <Property Name="COMMENT" Type="nvarchar" MaxLength="1000" />
         </EntityType>
@@ -166,12 +191,36 @@ warning 6002: The table/view 'KasabaKIAT.dbo.tbbFermer' does not have a primary 
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="KODI" Type="varchar" MaxLength="15" />
+          <Property Name="KODI" Type="nvarchar" MaxLength="15" />
           <Property Name="NAME_LN" Type="nvarchar" MaxLength="1000" />
           <Property Name="CENTRE_NAME_LN" Type="nvarchar" MaxLength="1000" />
           <Property Name="NAME_RU" Type="nvarchar" MaxLength="1000" />
           <Property Name="CENTRE_NAME_RU" Type="nvarchar" MaxLength="1000" />
         </EntityType>
+        <Association Name="FK_KaznaBankFile_KaznaFiles">
+          <End Role="KaznaFiles" Type="Self.KaznaFiles" Multiplicity="0..1" />
+          <End Role="KaznaPaymentFile" Type="Self.KaznaPaymentFile" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KaznaFiles">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="KaznaPaymentFile">
+              <PropertyRef Name="FILE_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_KaznaBankFile_KaznaFiles1">
+          <End Role="KaznaFiles" Type="Self.KaznaFiles" Multiplicity="0..1" />
+          <End Role="KaznaBankFile" Type="Self.KaznaBankFile" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KaznaFiles">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="KaznaBankFile">
+              <PropertyRef Name="FILE_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_KaznaPaymentFile_KaznaFiles">
           <End Role="KaznaFiles" Type="Self.KaznaFiles" Multiplicity="0..1" />
           <End Role="KaznaPaymentFile" Type="Self.KaznaPaymentFile" Multiplicity="*" />
@@ -200,6 +249,7 @@ warning 6002: The table/view 'KasabaKIAT.dbo.tbbFermer' does not have a primary 
         <Function Name="sp_pr_GetNewTransactions" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <EntityContainer Name="KasabaKIATModelStoreContainer">
           <EntitySet Name="Kazna_Account" EntityType="Self.Kazna_Account" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="KaznaBankFile" EntityType="Self.KaznaBankFile" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="KaznaFiles" EntityType="Self.KaznaFiles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="KaznaPaymentFile" EntityType="Self.KaznaPaymentFile" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="KaznaSverkaFile" EntityType="Self.KaznaSverkaFile" Schema="dbo" store:Type="Tables" />
@@ -220,6 +270,14 @@ warning 6002: The table/view 'KasabaKIAT.dbo.tbbFermer' does not have a primary 
     [tbbFermer].[UserId] AS [UserId]
     FROM [dbo].[tbbFermer] AS [tbbFermer]</DefiningQuery>
           </EntitySet>
+          <AssociationSet Name="FK_KaznaBankFile_KaznaFiles" Association="Self.FK_KaznaBankFile_KaznaFiles">
+            <End Role="KaznaFiles" EntitySet="KaznaFiles" />
+            <End Role="KaznaPaymentFile" EntitySet="KaznaPaymentFile" />
+          </AssociationSet>
+          <AssociationSet Name="FK_KaznaBankFile_KaznaFiles1" Association="Self.FK_KaznaBankFile_KaznaFiles1">
+            <End Role="KaznaFiles" EntitySet="KaznaFiles" />
+            <End Role="KaznaBankFile" EntitySet="KaznaBankFile" />
+          </AssociationSet>
           <AssociationSet Name="FK_KaznaPaymentFile_KaznaFiles" Association="Self.FK_KaznaPaymentFile_KaznaFiles">
             <End Role="KaznaFiles" EntitySet="KaznaFiles" />
             <End Role="KaznaPaymentFile" EntitySet="KaznaPaymentFile" />
@@ -238,10 +296,11 @@ warning 6002: The table/view 'KasabaKIAT.dbo.tbbFermer' does not have a primary 
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="FileName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FileName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="CreateDate" Type="DateTime" Precision="3" />
           <NavigationProperty Name="KaznaPaymentFiles" Relationship="Self.FK_KaznaPaymentFile_KaznaFiles" FromRole="KaznaFiles" ToRole="KaznaPaymentFile" />
           <NavigationProperty Name="KaznaSverkaFiles" Relationship="KasabaKIATModel.FK_KaznaSverkaFile_KaznaFiles" FromRole="KaznaFile" ToRole="KaznaSverkaFile" />
+          <NavigationProperty Name="KaznaBankFiles" Relationship="KasabaKIATModel.FK_KaznaBankFile_KaznaFiles1" FromRole="KaznaFile" ToRole="KaznaBankFile" />
         </EntityType>
         <EntityType Name="KaznaPaymentFile">
           <Key>
@@ -251,25 +310,26 @@ warning 6002: The table/view 'KasabaKIAT.dbo.tbbFermer' does not have a primary 
           <Property Name="OPERDAY" Type="DateTime" Precision="3" />
           <Property Name="ID" Type="Decimal" Precision="12" Scale="0" Nullable="false" />
           <Property Name="BANKID" Type="Decimal" Precision="17" Scale="0" />
-          <Property Name="KLSDOX" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
-          <Property Name="DOCNUMB" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="KLSDOX" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="DOCNUMB" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
           <Property Name="DOCDATE" Type="DateTime" Precision="3" />
           <Property Name="DOCTYPE" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
           <Property Name="SUMPAY" Type="Decimal" Precision="20" Scale="0" />
-          <Property Name="CLMFO" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
-          <Property Name="CLACC" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="CLINN" Type="String" MaxLength="9" FixedLength="false" Unicode="false" />
+          <Property Name="CLMFO" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="CLACC" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="CLINN" Type="String" MaxLength="9" FixedLength="false" Unicode="true" />
           <Property Name="CLNAME" Type="String" MaxLength="160" FixedLength="false" Unicode="true" />
-          <Property Name="COMFO" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
-          <Property Name="COACC" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="COINN" Type="String" MaxLength="9" FixedLength="false" Unicode="false" />
+          <Property Name="COMFO" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="COACC" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="COINN" Type="String" MaxLength="9" FixedLength="false" Unicode="true" />
           <Property Name="CONAME" Type="String" MaxLength="160" FixedLength="false" Unicode="true" />
           <Property Name="PURPOSE" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="CHAPTER" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
-          <Property Name="OKONH" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="CHAPTER" Type="String" MaxLength="3" FixedLength="false" Unicode="true" />
+          <Property Name="OKONH" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
           <Property Name="FILE_ID" Type="Int64" />
           <Property Name="OTCHISLEN" Type="Decimal" Precision="19" Scale="4" />
           <NavigationProperty Name="KaznaFile" Relationship="Self.FK_KaznaPaymentFile_KaznaFiles" FromRole="KaznaPaymentFile" ToRole="KaznaFiles" />
+          <Property Name="GRPID" Type="Decimal" Precision="12" Scale="0" />
         </EntityType>
         <Association Name="FK_KaznaPaymentFile_KaznaFiles">
           <End Role="KaznaFiles" Type="Self.KaznaFile" Multiplicity="0..1" />
@@ -303,16 +363,21 @@ warning 6002: The table/view 'KasabaKIAT.dbo.tbbFermer' does not have a primary 
           <EntitySet Name="tbbu_provodki" EntityType="KasabaKIATModel.tbbu_provodki" />
           <EntitySet Name="Kazna_Account" EntityType="KasabaKIATModel.Kazna_Account" />
           <EntitySet Name="tbsp_soato_new" EntityType="KasabaKIATModel.tbsp_soato_new" />
+          <EntitySet Name="KaznaBankFiles" EntityType="KasabaKIATModel.KaznaBankFile" />
+          <AssociationSet Name="FK_KaznaBankFile_KaznaFiles1" Association="KasabaKIATModel.FK_KaznaBankFile_KaznaFiles1">
+            <End Role="KaznaFile" EntitySet="KaznaFiles" />
+            <End Role="KaznaBankFile" EntitySet="KaznaBankFiles" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="KaznaSverkaFile">
           <Key>
             <PropertyRef Name="REC_ID" />
           </Key>
           <Property Name="REC_ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="K_TYPE" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Name="K_TYPE" Type="String" MaxLength="3" FixedLength="false" Unicode="true" />
           <Property Name="K_OPERDAY" Type="DateTime" Precision="0" />
-          <Property Name="FILE_NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="CREATE_DATETIME" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FILE_NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CREATE_DATETIME" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="FILE_ID" Type="Int64" />
           <NavigationProperty Name="KaznaFile" Relationship="KasabaKIATModel.FK_KaznaSverkaFile_KaznaFiles" FromRole="KaznaSverkaFile" ToRole="KaznaFile" />
         </EntityType>
@@ -334,39 +399,39 @@ warning 6002: The table/view 'KasabaKIAT.dbo.tbbFermer' does not have a primary 
           </Key>
           <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="version" Type="Int32" Nullable="false" />
-          <Property Name="address" Type="String" MaxLength="1024" FixedLength="false" Unicode="false" />
+          <Property Name="address" Type="String" MaxLength="1024" FixedLength="false" Unicode="true" />
           <Property Name="close_date" Type="DateTime" Precision="3" />
-          <Property Name="close_number" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="close_number" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="count_workers" Type="Int32" />
-          <Property Name="s_comment" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="s_comment" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="s_create" Type="DateTime" Precision="3" />
-          <Property Name="s_status" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="email" Type="String" MaxLength="64" FixedLength="false" Unicode="false" />
+          <Property Name="s_status" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="email" Type="String" MaxLength="64" FixedLength="false" Unicode="true" />
           <Property Name="fin_xoz_work" Type="Boolean" />
-          <Property Name="name_full" Type="String" MaxLength="1024" FixedLength="false" Unicode="false" />
-          <Property Name="inn" Type="String" MaxLength="9" FixedLength="false" Unicode="false" />
+          <Property Name="name_full" Type="String" MaxLength="1024" FixedLength="false" Unicode="true" />
+          <Property Name="inn" Type="String" MaxLength="9" FixedLength="false" Unicode="true" />
           <Property Name="liquidation" Type="Boolean" />
-          <Property Name="osn_worktype" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Name="phones" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="osn_worktype" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="phones" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="recreate" Type="Boolean" />
           <Property Name="reg_date" Type="DateTime" Precision="3" />
-          <Property Name="reg_number" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="reg_org" Type="String" MaxLength="1024" FixedLength="false" Unicode="false" />
+          <Property Name="reg_number" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="reg_org" Type="String" MaxLength="1024" FixedLength="false" Unicode="true" />
           <Property Name="reorganization" Type="Boolean" />
           <Property Name="restored" Type="Boolean" />
-          <Property Name="name_short" Type="String" MaxLength="512" FixedLength="false" Unicode="false" />
-          <Property Name="street" Type="String" MaxLength="1024" FixedLength="false" Unicode="false" />
+          <Property Name="name_short" Type="String" MaxLength="512" FixedLength="false" Unicode="true" />
+          <Property Name="street" Type="String" MaxLength="1024" FixedLength="false" Unicode="true" />
           <Property Name="update_doc" Type="Boolean" />
           <Property Name="update_email" Type="Boolean" />
-          <Property Name="mail_index" Type="String" MaxLength="7" FixedLength="false" Unicode="false" />
+          <Property Name="mail_index" Type="String" MaxLength="7" FixedLength="false" Unicode="true" />
           <Property Name="s_user_id" Type="Int64" />
-          <Property Name="okonx_id" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="opf_id" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="fs_id" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="soato_id" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="soogu_id" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="okpo" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="BANK_ACCOUNT" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="okonx_id" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="opf_id" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="fs_id" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="soato_id" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="soogu_id" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="okpo" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="BANK_ACCOUNT" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="NATIVE_ID" Type="Int64" />
         </EntityType>
         <EntityType Name="tbbu_ecp_calc">
@@ -378,9 +443,9 @@ warning 6002: The table/view 'KasabaKIAT.dbo.tbbFermer' does not have a primary 
           <Property Name="PROFSOUZ_AMT" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="FEDERATION_AMT" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="OBLSOVPROF_AMT" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="OBL_DEPARTMENT_BASE" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="OBL_DEPARTMENT_BASE" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="PROVODKA_ID" Type="Int64" />
-          <Property Name="REMARK" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="REMARK" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
         </EntityType>
         <ComplexType Name="sp_pr_GetNewTransactions_Result">
           <Property Type="Decimal" Name="ID" Nullable="false" Precision="12" Scale="0" />
@@ -404,12 +469,12 @@ warning 6002: The table/view 'KasabaKIAT.dbo.tbbFermer' does not have a primary 
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ActivPol" Type="Boolean" Nullable="false" />
-          <Property Name="INN" Type="String" MaxLength="9" FixedLength="false" Unicode="false" />
-          <Property Name="NameFir" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="INN" Type="String" MaxLength="9" FixedLength="false" Unicode="true" />
+          <Property Name="NameFir" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="Otras" Type="Int32" />
           <Property Name="Region" Type="Int32" />
           <Property Name="Vid" Type="Boolean" Nullable="false" />
-          <Property Name="RS" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="RS" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="UserId" Type="Int64" />
         </EntityType>
@@ -418,7 +483,7 @@ warning 6002: The table/view 'KasabaKIAT.dbo.tbbFermer' does not have a primary 
             <PropertyRef Name="REC_ID" />
           </Key>
           <Property Name="REC_ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="DEPARTMENT_BASE" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="DEPARTMENT_BASE" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="USER_ID" Type="Int64" />
           <Property Name="INOUTFLG" Type="Boolean" />
           <Property Name="TRDT" Type="DateTime" Precision="3" />
@@ -426,13 +491,13 @@ warning 6002: The table/view 'KasabaKIAT.dbo.tbbFermer' does not have a primary 
           <Property Name="TIPSCHETA" Type="Boolean" />
           <Property Name="TIPOBOROTA" Type="Boolean" />
           <Property Name="PLATELNAME" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="PLATELINN" Type="String" MaxLength="9" FixedLength="false" Unicode="false" />
-          <Property Name="PLATELMFO" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="PLATELINN" Type="String" MaxLength="9" FixedLength="false" Unicode="true" />
+          <Property Name="PLATELMFO" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
           <Property Name="POLUCHNAME" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="POLUCHINN" Type="String" MaxLength="9" FixedLength="false" Unicode="false" />
-          <Property Name="POLUCHMFO" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
-          <Property Name="PLATELRSCH" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
-          <Property Name="POLUCHRSCH" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="POLUCHINN" Type="String" MaxLength="9" FixedLength="false" Unicode="true" />
+          <Property Name="POLUCHMFO" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="PLATELRSCH" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="POLUCHRSCH" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
           <Property Name="SUMMA" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="COMMENT" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
         </EntityType>
@@ -441,12 +506,12 @@ warning 6002: The table/view 'KasabaKIAT.dbo.tbbFermer' does not have a primary 
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="KOD_BANKA" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="KOD_BANKA" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
           <Property Name="VILOYAT" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="TUMAN_SHAXAR" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="BANK_XISOBRAQAM" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="SHARTLI_RAQAM" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="XISOB_RAQAM" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="BANK_XISOBRAQAM" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="SHARTLI_RAQAM" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="XISOB_RAQAM" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="XR_NOMI" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
           <Property Name="DAROMAT_YIG_NOMI" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
           <Property Name="BYUDJET_TURI" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
@@ -456,12 +521,49 @@ warning 6002: The table/view 'KasabaKIAT.dbo.tbbFermer' does not have a primary 
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="KODI" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="KODI" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
           <Property Name="NAME_LN" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
           <Property Name="CENTRE_NAME_LN" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
           <Property Name="NAME_RU" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
           <Property Name="CENTRE_NAME_RU" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
         </EntityType>
+        <EntityType Name="KaznaBankFile">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="K_TYPE" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="OPERDAY" Type="DateTime" Precision="3" />
+          <Property Name="ID" Type="Decimal" Nullable="false" Precision="12" Scale="0" />
+          <Property Name="GRPID" Type="Decimal" Nullable="false" Precision="12" Scale="0" />
+          <Property Name="KLSDOX" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="DOCNUMB" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="DOCDATE" Type="DateTime" Precision="3" />
+          <Property Name="DOCTYPE" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="SUMPAY" Type="Decimal" Precision="20" Scale="0" />
+          <Property Name="CLMFO" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="CLACC" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="CLINN" Type="String" MaxLength="9" FixedLength="false" Unicode="true" />
+          <Property Name="CLNAME" Type="String" MaxLength="160" FixedLength="false" Unicode="true" />
+          <Property Name="COMFO" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="COACC" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="COINN" Type="String" MaxLength="9" FixedLength="false" Unicode="true" />
+          <Property Name="CONAME" Type="String" MaxLength="160" FixedLength="false" Unicode="true" />
+          <Property Name="PURPOSE" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="FILE_ID" Type="Int64" />
+          <NavigationProperty Name="KaznaFile" Relationship="KasabaKIATModel.FK_KaznaBankFile_KaznaFiles1" FromRole="KaznaBankFile" ToRole="KaznaFile" />
+        </EntityType>
+        <Association Name="FK_KaznaBankFile_KaznaFiles1">
+          <End Type="KasabaKIATModel.KaznaFile" Role="KaznaFile" Multiplicity="0..1" />
+          <End Type="KasabaKIATModel.KaznaBankFile" Role="KaznaBankFile" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KaznaFile">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="KaznaBankFile">
+              <PropertyRef Name="FILE_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -480,6 +582,7 @@ warning 6002: The table/view 'KasabaKIAT.dbo.tbbFermer' does not have a primary 
           <EntitySetMapping Name="KaznaPaymentFiles">
             <EntityTypeMapping TypeName="KasabaKIATModel.KaznaPaymentFile">
               <MappingFragment StoreEntitySet="KaznaPaymentFile">
+                <ScalarProperty Name="GRPID" ColumnName="GRPID" />
                 <ScalarProperty Name="K_TYPE" ColumnName="K_TYPE" />
                 <ScalarProperty Name="OPERDAY" ColumnName="OPERDAY" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
@@ -650,6 +753,31 @@ warning 6002: The table/view 'KasabaKIAT.dbo.tbbFermer' does not have a primary 
                 <ScalarProperty Name="NAME_LN" ColumnName="NAME_LN" />
                 <ScalarProperty Name="KODI" ColumnName="KODI" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="KaznaBankFiles">
+            <EntityTypeMapping TypeName="KasabaKIATModel.KaznaBankFile">
+              <MappingFragment StoreEntitySet="KaznaBankFile">
+                <ScalarProperty Name="FILE_ID" ColumnName="FILE_ID" />
+                <ScalarProperty Name="PURPOSE" ColumnName="PURPOSE" />
+                <ScalarProperty Name="CONAME" ColumnName="CONAME" />
+                <ScalarProperty Name="COINN" ColumnName="COINN" />
+                <ScalarProperty Name="COACC" ColumnName="COACC" />
+                <ScalarProperty Name="COMFO" ColumnName="COMFO" />
+                <ScalarProperty Name="CLNAME" ColumnName="CLNAME" />
+                <ScalarProperty Name="CLINN" ColumnName="CLINN" />
+                <ScalarProperty Name="CLACC" ColumnName="CLACC" />
+                <ScalarProperty Name="CLMFO" ColumnName="CLMFO" />
+                <ScalarProperty Name="SUMPAY" ColumnName="SUMPAY" />
+                <ScalarProperty Name="DOCTYPE" ColumnName="DOCTYPE" />
+                <ScalarProperty Name="DOCDATE" ColumnName="DOCDATE" />
+                <ScalarProperty Name="DOCNUMB" ColumnName="DOCNUMB" />
+                <ScalarProperty Name="KLSDOX" ColumnName="KLSDOX" />
+                <ScalarProperty Name="GRPID" ColumnName="GRPID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="OPERDAY" ColumnName="OPERDAY" />
+                <ScalarProperty Name="K_TYPE" ColumnName="K_TYPE" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

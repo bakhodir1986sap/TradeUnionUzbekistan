@@ -64,6 +64,7 @@
     <Compile Include="AutomaticTransactions\Provodki.cs" />
     <Compile Include="AutomaticTransactions\ProvodkiDataManager.cs" />
     <Compile Include="AutomaticTransactions\ProvodkiViewModel.cs" />
+    <Compile Include="BankOplati\BankPaymentFile.cs" />
     <Compile Include="BankOplati\BaseKaznaFile.cs" />
     <Compile Include="BankOplati\KaznaPaymentFile.cs" />
     <Compile Include="BankOplati\SverkaFile.cs" />
@@ -81,6 +82,9 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>KasabaKIAT.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="KaznaBankFile.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
     <Compile Include="Kaznacheystvo\FileProcessor.cs" />
     <Compile Include="Kaznacheystvo\KaznaController.cs" />

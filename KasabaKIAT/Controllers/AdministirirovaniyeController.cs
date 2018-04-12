@@ -66,10 +66,14 @@ namespace KasabaKIAT.Controllers
             log.Info("SpisokPravsoyuzov");
             IList<Models.ViewModel> O = null;
 
+            var UserId = Convert.ToInt32(User.Identity.Name);
+
+            var userInfo = UserInfo.GetUserInfo(UserId);
+
             try
             {
                 O = (from o in KasabaDB.tbku_StrokaProfsoyza
-                     where o.MATCH_DEPARTMENTBASE != null
+                     where o.MATCH_DEPARTMENTBASE != null  && o.MATCH_DEPARTMENTBASE.StartsWith(userInfo.DepartmentBase)
                                              select new Models.ViewModel
                                              {
                                                  Kod = o.ProfsoyzKod,
@@ -462,10 +466,14 @@ namespace KasabaKIAT.Controllers
         {
             log.Info("GetSpisokPravsoyuzov");
 
+            var UserId = Convert.ToInt32(User.Identity.Name);
+
+            var userInfo = UserInfo.GetUserInfo(UserId);
+
             try
             {
                 var O = from o in KasabaDB.tbku_StrokaProfsoyza
-                        where o.MATCH_DEPARTMENTBASE != null
+                        where o.MATCH_DEPARTMENTBASE != null && o.MATCH_DEPARTMENTBASE.StartsWith(userInfo.DepartmentBase)
                         select new
                         {
                             d1 = o.ProfsoyzKod,
@@ -1620,6 +1628,10 @@ namespace KasabaKIAT.Controllers
         }
         public JsonResult GetRegion()
         {
+            var UserId = Convert.ToInt32(User.Identity.Name);
+
+            var userInfo = UserInfo.GetUserInfo(UserId);
+
             var R = from r in KasabaDB.sp_soato
                     where r.parent_code == "17"
                     select new

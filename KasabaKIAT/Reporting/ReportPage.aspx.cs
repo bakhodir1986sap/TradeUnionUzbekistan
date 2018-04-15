@@ -22,7 +22,7 @@ namespace KasabaKIAT.Reporting
         {
             try
             {
-                string urlReportServer = "http://HP:80/Reports_SQLEXPRESS";
+                string urlReportServer = "http://localhost:80/Reports_SQLEXPRESS";
                 rptViewer.ProcessingMode = ProcessingMode.Remote; // ProcessingMode will be Either Remote or Local
                 rptViewer.ServerReport.ReportServerUrl = new Uri(urlReportServer); //Set the ReportServer Url
                 rptViewer.ServerReport.ReportPath = "/StartSSRS/OblastRayonOtrasl"; //Passing the Report Path                
@@ -38,7 +38,7 @@ namespace KasabaKIAT.Reporting
                 }
                 // pass crendentitilas
                 rptViewer.ServerReport.ReportServerCredentials =
-                  new CustomReportCredentials("BAKHODIR", "baxa", "HP");
+                  new CustomReportCredentials("BAKHODIR", "baxa", "");
 
                 //pass parmeters to report
                 rptViewer.ServerReport.SetParameters(param); //Set Report Parameters

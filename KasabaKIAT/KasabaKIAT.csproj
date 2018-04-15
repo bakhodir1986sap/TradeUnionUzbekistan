@@ -84,7 +84,7 @@
     <Reference Include="Microsoft.QualityTools.Testing.Fakes, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="Microsoft.ReportViewer.WebForms, Version=12.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.ReportViewer.WebForms, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="Remotion, Version=1.13.52.2, Culture=neutral, PublicKeyToken=0669cf0452175907, processorArchitecture=MSIL">
       <HintPath>..\packages\LinqToExcel.1.11.0\lib\Remotion.dll</HintPath>
       <Private>True</Private>
@@ -311,6 +311,7 @@
     <Compile Include="BusinessLogic\Utils\References\Sprav_Vil.cs" />
     <Compile Include="Controllers\AdministirirovaniyeController.cs" />
     <Compile Include="Controllers\BuxgalterController.cs" />
+    <Compile Include="Controllers\ChatController.cs" />
     <Compile Include="Controllers\ErrorHandlerController.cs" />
     <Compile Include="Controllers\GodovoyPlanController.cs" />
     <Compile Include="Controllers\GrafikZaezdovController.cs" />
@@ -326,6 +327,7 @@
     <Compile Include="BusinessLogic\BankOplati\Kaznacheystvo\KaznaController.cs" />
     <Compile Include="BusinessLogic\BankOplati\Kaznacheystvo\KaznaFiles.cs" />
     <Compile Include="BusinessLogic\BankOplati\Kaznacheystvo\KaznaFilesDataManager.cs" />
+    <Compile Include="Models\ChatModel.cs" />
     <Compile Include="Models\KaznaSverkaFile.cs">
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
@@ -1180,6 +1182,7 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\chat.js" />
     <Content Include="Scripts\dist\jquery.table2excel.js" />
     <Content Include="Scripts\dist\jquery.table2excel.min.js" />
     <Content Include="Scripts\dist\jspdf.debug.js" />
@@ -1189,6 +1192,8 @@
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery-ui-1.8.17.custom.min.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
@@ -1252,6 +1257,7 @@
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\vendor.js" />
     <Content Include="Scripts\vendor\modernizr.js" />
+    <None Include="Scripts\_references.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -1285,6 +1291,9 @@
     <Content Include="Views\Administirirovaniye\Otdixayushix.cshtml" />
     <Content Include="Views\Administirirovaniye\NaznacheniyaPlateja.cshtml" />
     <Content Include="Views\GrafikZaezdov\Index.cshtml" />
+    <Content Include="Views\Chat\ChatRoom.cshtml" />
+    <Content Include="Views\Chat\History.cshtml" />
+    <Content Include="Views\Chat\Index.cshtml" />
     <None Include="Web References\KurortUrlService\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>

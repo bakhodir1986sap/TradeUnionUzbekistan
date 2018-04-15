@@ -9,6 +9,7 @@ using System.IO;
 using log4net;
 using KasabaKiat.Helpers;
 using KasabaKIAT.BusinessLogic.Security.Roles.RolePermissions;
+using KasabaKIAT.Hubs;
 
 namespace KasabaKIAT.Controllers
 {
@@ -44,6 +45,7 @@ namespace KasabaKIAT.Controllers
                             int UserID = Convert.ToInt32(b.id);
                             UserInfo.UserLoginAction(new KasabaKiat.ViewModel.UserViewModel { userid = UserID });
                             Session["name"] = b.email;
+                            SendMessage(string.Format("Sistemaga {0} kirdi",b.email));
                             FormsAuthentication.SetAuthCookie(b.id.ToString(), false);
                             message = retCode.ToString();
                             if (Url.IsLocalUrl(ReturnUrl))
@@ -91,6 +93,25 @@ namespace KasabaKIAT.Controllers
         {
             FormsAuthentication.SignOut();
             return RedirectToAction("Index","Home");
+        }
+
+        private void SendMessage(string message)
+        {
+            // Получаем контекст хаба
+            var context =
+                Microsoft.AspNet.SignalR.GlobalHost.ConnectionManager.GetHubContext<NotificationHub>();
+            // отправляем сообщение
+            context.Clients.All.displayMessage(message);
+        }
+
+
+        private void UrgentSendMessage(string message)
+        {
+            // Получаем контекст хаба
+            var context =
+                Microsoft.AspNet.SignalR.GlobalHost.ConnectionManager.GetHubContext<NotificationHub>();
+            // отправляем сообщение
+            context.Clients.All.displayMessage(string.Format("99{0}",message));
         }
     }
 }

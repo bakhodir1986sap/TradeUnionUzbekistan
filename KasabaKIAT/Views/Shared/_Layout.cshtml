@@ -195,6 +195,9 @@
                     }
                 </ul>
                 <ul class="navbar-nav">
+                    @*<li class="nav-item">
+                        
+                    </li>*@
                     <li class="nav-item dropdown" id="p">
                         @*<a id="tourss1" class="nav-link">@Session["name"]</a>*@
                         <a disabled class="nav-link dropdown-toggle" href="/Home/izmParol" id="tourss" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">@userName.username</a>
@@ -239,6 +242,12 @@
     <div class="body-content">
         @RenderBody()
     </div>
+        <footer class="fixed-bottom">
+            <div><span id="general_notification" style="color:black;font-size:15px;"></span></div>
+            <div><span id="urgent_notification" style="color:red;font-size:15px; font-style:oblique"></span></div>
+            @*<div><span id="notification" style="color:black;font-size:15px;"></span></div>
+            <div><span id="notification" style="color:black;font-size:15px;"></span></div>*@
+        </footer>
     <script>
                     $(".load").on('click', function () {
                         document.getElementById('conn').style.visibility = "visible";
@@ -273,6 +282,35 @@
     <script src="~/Scripts/plugins.js"></script>
 
     <script src="~/Scripts/main.js"></script>
+    <script src="~/Scripts/jquery.signalR-2.2.3.min.js"></script>
+    <!--Ссылка на автоматически сгенерированный скрипт хаба SignalR -->
+    <script src="~/signalr/hubs"></script>
+    <script type="text/javascript">
+    $(function () {
+
+        var notificationhub = $.connection.notificationHub;
+
+        notificationhub.client.displayMessage = function (message) {
+
+            var str = message;
+
+            var cmd = message.substr(0, 2);
+
+            if (cmd === '99')
+            {
+                $('#urgent_notification').html(message.substr(2, str.length - 2));
+            }
+            else
+            {
+                $('#general_notification').html(message);
+            }
+            
+        };
+
+        $.connection.hub.start();
+
+    });
+    </script>
     <style>
         /*.active {
             color: black;

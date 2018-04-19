@@ -10,6 +10,7 @@ using log4net;
 using KasabaKiat.Helpers;
 using KasabaKIAT.BusinessLogic.Security.Roles.RolePermissions;
 using KasabaKIAT.Hubs;
+using System.Web.UI;
 
 namespace KasabaKIAT.Controllers
 {
@@ -21,6 +22,8 @@ namespace KasabaKIAT.Controllers
         UserInfo UserLog = new UserInfo();
         
         public static string message = "";
+
+        [OutputCache(Duration = 30000, Location = OutputCacheLocation.Any)]
         public ActionResult Login()
         {
             return View();

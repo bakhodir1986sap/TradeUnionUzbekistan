@@ -62,6 +62,8 @@
     <Folder Include="Procedures" />
     <Folder Include="UsefulSqripts\13032018" />
     <Folder Include="UsefulSqripts\18032018" />
+    <Folder Include="UsefulSqripts\16.04.2018" />
+    <Folder Include="UsefulSqripts\18042018" />
   </ItemGroup>
   <ItemGroup>
     <None Include="UsefulSqripts\usersDataUpdate.sql" />
@@ -83,6 +85,8 @@
     <None Include="UsefulSqripts\06042018.sql" />
     <None Include="UsefulSqripts\10042018.sql" />
     <None Include="UsefulSqripts\20180412.sql" />
+    <None Include="UsefulSqripts\16.04.2018\16.04.2018.sql" />
+    <None Include="UsefulSqripts\18042018\18042018.sql" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="Procedures\sp_rt_FormaN13_1.sql" />

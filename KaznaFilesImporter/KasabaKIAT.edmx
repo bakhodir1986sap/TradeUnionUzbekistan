@@ -162,6 +162,9 @@ warning 6002: The table/view 'KasabaKIAT_N1.dbo.tbbFermer' does not have a prima
           <Property Name="OBL_DEPARTMENT_BASE" Type="nvarchar" MaxLength="255" />
           <Property Name="PROVODKA_ID" Type="bigint" />
           <Property Name="REMARK" Type="nvarchar" MaxLength="100" />
+          <Property Name="INN" Type="varchar" MaxLength="20" />
+          <Property Name="SOATO" Type="varchar" MaxLength="20" />
+          <Property Name="SOATO_NAME" Type="nvarchar" MaxLength="500" />
         </EntityType>
         <EntityType Name="tbbu_provodki">
           <Key>
@@ -446,6 +449,9 @@ warning 6002: The table/view 'KasabaKIAT_N1.dbo.tbbFermer' does not have a prima
           <Property Name="OBL_DEPARTMENT_BASE" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="PROVODKA_ID" Type="Int64" />
           <Property Name="REMARK" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="INN" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="SOATO" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="SOATO_NAME" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
         </EntityType>
         <ComplexType Name="sp_pr_GetNewTransactions_Result">
           <Property Type="Decimal" Name="ID" Nullable="false" Precision="12" Scale="0" />
@@ -666,6 +672,9 @@ warning 6002: The table/view 'KasabaKIAT_N1.dbo.tbbFermer' does not have a prima
           <EntitySetMapping Name="tbbu_ecp_calc">
             <EntityTypeMapping TypeName="KasabaKIATModel.tbbu_ecp_calc">
               <MappingFragment StoreEntitySet="tbbu_ecp_calc">
+                <ScalarProperty Name="SOATO_NAME" ColumnName="SOATO_NAME" />
+                <ScalarProperty Name="SOATO" ColumnName="SOATO" />
+                <ScalarProperty Name="INN" ColumnName="INN" />
                 <ScalarProperty Name="REMARK" ColumnName="REMARK" />
                 <ScalarProperty Name="PROVODKA_ID" ColumnName="PROVODKA_ID" />
                 <ScalarProperty Name="OBL_DEPARTMENT_BASE" ColumnName="OBL_DEPARTMENT_BASE" />

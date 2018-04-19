@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace KaznaFilesImporter
@@ -21,6 +22,8 @@ namespace KaznaFilesImporter
 
             while (true)
             {
+                Console.WriteLine(DateTime.Now.ToString() + " " + "...");
+
                 var kk = new KaznaController();
 
                 kk.Process();
@@ -28,6 +31,8 @@ namespace KaznaFilesImporter
                 var obj = new EcpCalculation();
 
                 obj.CalcProcess();
+
+                Thread.Sleep(100000);
             }
         }
     }

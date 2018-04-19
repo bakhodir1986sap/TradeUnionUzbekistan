@@ -190,13 +190,16 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.Provodki.AutomaticTransactions.K
                             {
                                 //Problem with geting INN
                                 model.remark += string.Format("INN:{0};", "PROBLEM");
+                                model.inn = "PROBLEM";
                             }
                             else if (payment.CLINN.Equals(innFromDtl))
                             {
+                                model.inn = innFromDtl;
                                 //Good
                             }
                             else
                             {
+                                model.inn = innFromDtl;
                                 blackListInn.Add(payment.CLINN);
                             }
 
@@ -279,8 +282,12 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.Provodki.AutomaticTransactions.K
 
                             if (soatoExists.Any())
                             {
-                                model.remark += string.Format("SOATO:{0};SOATO_NAME:{1};", soatoExists.First().KODI, soatoExists.First().NAME_RU);
+                                var soato = soatoExists.First().KODI;
+                                var soato_nm = soatoExists.First().NAME_RU;
+                                model.remark += string.Format("SOATO:{0};SOATO_NAME:{1};", soato, soato_nm);
                                 model.obl_department_base = string.Format("{0}{1}{2}", prepsoato.Substring(0, 2), "2", prepsoato.Substring(2, 2));
+                                model.soato = soato;
+                                model.soato_name = soato_nm;
                             }
                             else
                             {
@@ -299,8 +306,15 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.Provodki.AutomaticTransactions.K
 
                                     if (soatoExists2.Any())
                                     {
-                                        model.remark += string.Format("SOATO:{0};SOATO_NAME:{1};", soatoExists2.First().KODI, soatoExists2.First().NAME_RU);
-                                        model.obl_department_base = string.Format("{0}{1}{2}", prepsoato2.Substring(0, 2), "2", prepsoato2.Substring(2, 2));
+                                        //model.remark += string.Format("SOATO:{0};SOATO_NAME:{1};", soatoExists2.First().KODI, soatoExists2.First().NAME_RU);
+                                        //model.obl_department_base = string.Format("{0}{1}{2}", prepsoato2.Substring(0, 2), "2", prepsoato2.Substring(2, 2));
+
+                                        var soato = soatoExists2.First().KODI;
+                                        var soato_nm = soatoExists2.First().NAME_RU;
+                                        model.remark += string.Format("SOATO:{0};SOATO_NAME:{1};", soato, soato_nm);
+                                        model.obl_department_base = string.Format("{0}{1}{2}", prepsoato.Substring(0, 2), "2", prepsoato.Substring(2, 2));
+                                        model.soato = soato;
+                                        model.soato_name = soato_nm;
                                     }
                                 }
                             }

@@ -23,7 +23,10 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.Provodki.AutomaticTransactions.K
                 reg.OBLSOVPROF_AMT          = model.oblsovprof_amt          ;
                 reg.OBL_DEPARTMENT_BASE     = model.obl_department_base     ;
                 reg.PROVODKA_ID             = model.provodka_id             ;
-                reg.REMARK = model.remark;
+                reg.REMARK                  = model.remark                  ;
+                reg.INN                     = model.inn                     ;
+                reg.SOATO                   = model.soato                   ;
+                reg.SOATO_NAME              = model.soato_name              ;
 
                 var planOtrasl = db.tbbu_ecp_calc.Add(reg);
 

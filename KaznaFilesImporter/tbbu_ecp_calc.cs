@@ -22,5 +22,8 @@ namespace KaznaFilesImporter
         public string OBL_DEPARTMENT_BASE { get; set; }
         public Nullable<long> PROVODKA_ID { get; set; }
         public string REMARK { get; set; }
+        public string INN { get; set; }
+        public string SOATO { get; set; }
+        public string SOATO_NAME { get; set; }
     }
 }

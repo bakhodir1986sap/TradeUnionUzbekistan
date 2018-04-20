@@ -104,7 +104,18 @@
     <Reference Include="Microsoft.QualityTools.Testing.Fakes, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="Microsoft.ReportViewer.WebForms, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.ReportViewer.Common, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Report.Viewer.11.0.0.0\lib\net\Microsoft.ReportViewer.Common.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.ProcessingObjectModel, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Report.Viewer.11.0.0.0\lib\net\Microsoft.ReportViewer.ProcessingObjectModel.DLL</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.WebForms, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Report.Viewer.11.0.0.0\lib\net\Microsoft.ReportViewer.WebForms.DLL</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
       <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
       <Private>True</Private>
@@ -121,6 +132,10 @@
       <HintPath>..\packages\LinqToExcel.1.11.0\lib\Remotion.Interfaces.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="ReportViewerForMvc, Version=1.1.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ReportViewerForMvc.1.1.1\lib\net45\ReportViewerForMvc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -132,6 +147,30 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.4\lib\net45\System.Web.Helpers.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.4.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.4\lib\net45\System.Web.Mvc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.4\lib\net45\System.Web.Razor.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.4\lib\net45\System.Web.WebPages.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.4\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.4\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
@@ -149,32 +188,8 @@
     </Reference>
     <Reference Include="System.Net.Http.WebRequest">
     </Reference>
-    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <Private>True</Private>
-      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.Helpers.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Web.Mvc, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <Private>True</Private>
-      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.3\lib\net45\System.Web.Mvc.dll</HintPath>
-    </Reference>
     <Reference Include="System.Web.Optimization">
       <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <Private>True</Private>
-      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.3\lib\net45\System.Web.Razor.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <Private>True</Private>
-      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <Private>True</Private>
-      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <Private>True</Private>
-      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
     </Reference>
     <Reference Include="WebGrease">
       <Private>True</Private>
@@ -322,7 +337,6 @@
     <Compile Include="BusinessLogic\Security\Roles\Roles\Roles.cs" />
     <Compile Include="BusinessLogic\Security\Roles\UserRoles\UserRoles.cs" />
     <Compile Include="BusinessLogic\Structure\StructureOfKiat.cs" />
-    <Compile Include="BusinessLogic\Utils\CustomReportCredentials.cs" />
     <Compile Include="BusinessLogic\Utils\References\ReferencesDataManager.cs" />
     <Compile Include="BusinessLogic\Utils\References\Sprav_Face.cs" />
     <Compile Include="BusinessLogic\Utils\References\Sprav_Kv.cs" />
@@ -345,6 +359,7 @@
     <Compile Include="Controllers\OtchotController.cs" />
     <Compile Include="Controllers\PlatejnoyePorucheniyeController.cs" />
     <Compile Include="Controllers\PrixodPutevokController.cs" />
+    <Compile Include="Controllers\ReportController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -364,6 +379,7 @@
     <Compile Include="Models\PrivyazkaProvodok.cs">
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ReportInfo.cs" />
     <Compile Include="Models\sp_get_BankPaymentCompanyYearlyQ_Result.cs">
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
@@ -514,12 +530,12 @@
     <Compile Include="Models\tbsp_soato_new.cs">
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
-    <Compile Include="Reporting\ReportPage.aspx.cs">
-      <DependentUpon>ReportPage.aspx</DependentUpon>
+    <Compile Include="Reports\ReportTemplate.aspx.cs">
+      <DependentUpon>ReportTemplate.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Reporting\ReportPage.aspx.designer.cs">
-      <DependentUpon>ReportPage.aspx</DependentUpon>
+    <Compile Include="Reports\ReportTemplate.aspx.designer.cs">
+      <DependentUpon>ReportTemplate.aspx</DependentUpon>
     </Compile>
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModel\Buxgalteriya\BankpaymentsViewModel.cs" />
@@ -1117,16 +1133,16 @@
     <Content Include="Content\themes\alertify.default.css" />
     <Content Include="Content\ui-bootstrap-csp.css" />
     <Content Include="favicon.ico" />
-    <Content Include="Content\styles\fonts\OpenSans-Bold.svg" />
-    <Content Include="Content\styles\fonts\OpenSans-BoldItalic.svg" />
-    <Content Include="Content\styles\fonts\OpenSans-ExtraBold.svg" />
-    <Content Include="Content\styles\fonts\OpenSans-ExtraBoldItalic.svg" />
+    <Content Include="Content\styles\fonts\Bold\OpenSans-Bold.svg" />
+    <Content Include="Content\styles\fonts\BoldItalic\OpenSans-BoldItalic.svg" />
+    <Content Include="Content\styles\fonts\ExtraBold\OpenSans-ExtraBold.svg" />
+    <Content Include="Content\styles\fonts\ExtraBoldItalic\OpenSans-ExtraBoldItalic.svg" />
     <Content Include="Content\styles\fonts\Italic\OpenSans-Italic.svg" />
-    <Content Include="Content\styles\fonts\OpenSans-Light.svg" />
-    <Content Include="Content\styles\fonts\OpenSans-LightItalic.svg" />
+    <Content Include="Content\styles\fonts\Light\OpenSans-Light.svg" />
+    <Content Include="Content\styles\fonts\LightItalic\OpenSans-LightItalic.svg" />
     <Content Include="Content\styles\fonts\Regular\OpenSans-Regular.svg" />
-    <Content Include="Content\styles\fonts\OpenSans-Semibold.svg" />
-    <Content Include="Content\styles\fonts\OpenSans-SemiboldItalic.svg" />
+    <Content Include="Content\styles\fonts\Semibold\OpenSans-Semibold.svg" />
+    <Content Include="Content\styles\fonts\SemiboldItalic\OpenSans-SemiboldItalic.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Models\KasabaKIAT.Context.tt">
@@ -1139,7 +1155,8 @@
       <DependentUpon>KasabaKIAT.edmx</DependentUpon>
       <LastGenOutput>KasabaKIAT.cs</LastGenOutput>
     </Content>
-    <Content Include="Reporting\ReportPage.aspx" />
+    <Content Include="Reports\ReportTemplate.aspx" />
+    <Content Include="ReportViewerWebForm.aspx" />
     <Content Include="Scripts\angular-messages.js" />
     <Content Include="Scripts\angular-messages.min.js" />
     <Content Include="Scripts\angular-mocks.js" />
@@ -1163,46 +1180,46 @@
       <DependentUpon>KasabaKIAT.edmx</DependentUpon>
     </Content>
     <Content Include="Content\styles\all.css" />
-    <Content Include="Content\styles\fonts\OpenSans-Bold.eot" />
-    <Content Include="Content\styles\fonts\OpenSans-Bold.ttf" />
-    <Content Include="Content\styles\fonts\OpenSans-Bold.woff" />
-    <Content Include="Content\styles\fonts\OpenSans-Bold.woff2" />
-    <Content Include="Content\styles\fonts\OpenSans-BoldItalic.eot" />
-    <Content Include="Content\styles\fonts\OpenSans-BoldItalic.ttf" />
-    <Content Include="Content\styles\fonts\OpenSans-BoldItalic.woff" />
-    <Content Include="Content\styles\fonts\OpenSans-BoldItalic.woff2" />
-    <Content Include="Content\styles\fonts\OpenSans-ExtraBold.eot" />
-    <Content Include="Content\styles\fonts\OpenSans-ExtraBold.ttf" />
-    <Content Include="Content\styles\fonts\OpenSans-ExtraBold.woff" />
-    <Content Include="Content\styles\fonts\OpenSans-ExtraBold.woff2" />
-    <Content Include="Content\styles\fonts\OpenSans-ExtraBoldItalic.eot" />
-    <Content Include="Content\styles\fonts\OpenSans-ExtraBoldItalic.ttf" />
-    <Content Include="Content\styles\fonts\OpenSans-ExtraBoldItalic.woff" />
-    <Content Include="Content\styles\fonts\OpenSans-ExtraBoldItalic.woff2" />
+    <Content Include="Content\styles\fonts\Bold\OpenSans-Bold.eot" />
+    <Content Include="Content\styles\fonts\Bold\OpenSans-Bold.ttf" />
+    <Content Include="Content\styles\fonts\Bold\OpenSans-Bold.woff" />
+    <Content Include="Content\styles\fonts\Bold\OpenSans-Bold.woff2" />
+    <Content Include="Content\styles\fonts\BoldItalic\OpenSans-BoldItalic.eot" />
+    <Content Include="Content\styles\fonts\BoldItalic\OpenSans-BoldItalic.ttf" />
+    <Content Include="Content\styles\fonts\BoldItalic\OpenSans-BoldItalic.woff" />
+    <Content Include="Content\styles\fonts\BoldItalic\OpenSans-BoldItalic.woff2" />
+    <Content Include="Content\styles\fonts\ExtraBold\OpenSans-ExtraBold.eot" />
+    <Content Include="Content\styles\fonts\ExtraBold\OpenSans-ExtraBold.ttf" />
+    <Content Include="Content\styles\fonts\ExtraBold\OpenSans-ExtraBold.woff" />
+    <Content Include="Content\styles\fonts\ExtraBold\OpenSans-ExtraBold.woff2" />
+    <Content Include="Content\styles\fonts\ExtraBoldItalic\OpenSans-ExtraBoldItalic.eot" />
+    <Content Include="Content\styles\fonts\ExtraBoldItalic\OpenSans-ExtraBoldItalic.ttf" />
+    <Content Include="Content\styles\fonts\ExtraBoldItalic\OpenSans-ExtraBoldItalic.woff" />
+    <Content Include="Content\styles\fonts\ExtraBoldItalic\OpenSans-ExtraBoldItalic.woff2" />
     <Content Include="Content\styles\fonts\Italic\OpenSans-Italic.eot" />
     <Content Include="Content\styles\fonts\Italic\OpenSans-Italic.ttf" />
     <Content Include="Content\styles\fonts\Italic\OpenSans-Italic.woff" />
     <Content Include="Content\styles\fonts\Italic\OpenSans-Italic.woff2" />
-    <Content Include="Content\styles\fonts\OpenSans-Light.eot" />
-    <Content Include="Content\styles\fonts\OpenSans-Light.ttf" />
-    <Content Include="Content\styles\fonts\OpenSans-Light.woff" />
-    <Content Include="Content\styles\fonts\OpenSans-Light.woff2" />
-    <Content Include="Content\styles\fonts\OpenSans-LightItalic.eot" />
-    <Content Include="Content\styles\fonts\OpenSans-LightItalic.ttf" />
-    <Content Include="Content\styles\fonts\OpenSans-LightItalic.woff" />
-    <Content Include="Content\styles\fonts\OpenSans-LightItalic.woff2" />
+    <Content Include="Content\styles\fonts\Light\OpenSans-Light.eot" />
+    <Content Include="Content\styles\fonts\Light\OpenSans-Light.ttf" />
+    <Content Include="Content\styles\fonts\Light\OpenSans-Light.woff" />
+    <Content Include="Content\styles\fonts\Light\OpenSans-Light.woff2" />
+    <Content Include="Content\styles\fonts\LightItalic\OpenSans-LightItalic.eot" />
+    <Content Include="Content\styles\fonts\LightItalic\OpenSans-LightItalic.ttf" />
+    <Content Include="Content\styles\fonts\LightItalic\OpenSans-LightItalic.woff" />
+    <Content Include="Content\styles\fonts\LightItalic\OpenSans-LightItalic.woff2" />
     <Content Include="Content\styles\fonts\Regular\OpenSans-Regular.eot" />
     <Content Include="Content\styles\fonts\Regular\OpenSans-Regular.ttf" />
     <Content Include="Content\styles\fonts\Regular\OpenSans-Regular.woff" />
     <Content Include="Content\styles\fonts\Regular\OpenSans-Regular.woff2" />
-    <Content Include="Content\styles\fonts\OpenSans-Semibold.eot" />
-    <Content Include="Content\styles\fonts\OpenSans-Semibold.ttf" />
-    <Content Include="Content\styles\fonts\OpenSans-Semibold.woff" />
-    <Content Include="Content\styles\fonts\OpenSans-Semibold.woff2" />
-    <Content Include="Content\styles\fonts\OpenSans-SemiboldItalic.eot" />
-    <Content Include="Content\styles\fonts\OpenSans-SemiboldItalic.ttf" />
-    <Content Include="Content\styles\fonts\OpenSans-SemiboldItalic.woff" />
-    <Content Include="Content\styles\fonts\OpenSans-SemiboldItalic.woff2" />
+    <Content Include="Content\styles\fonts\Semibold\OpenSans-Semibold.eot" />
+    <Content Include="Content\styles\fonts\Semibold\OpenSans-Semibold.ttf" />
+    <Content Include="Content\styles\fonts\Semibold\OpenSans-Semibold.woff" />
+    <Content Include="Content\styles\fonts\Semibold\OpenSans-Semibold.woff2" />
+    <Content Include="Content\styles\fonts\SemiboldItalic\OpenSans-SemiboldItalic.eot" />
+    <Content Include="Content\styles\fonts\SemiboldItalic\OpenSans-SemiboldItalic.ttf" />
+    <Content Include="Content\styles\fonts\SemiboldItalic\OpenSans-SemiboldItalic.woff" />
+    <Content Include="Content\styles\fonts\SemiboldItalic\OpenSans-SemiboldItalic.woff2" />
     <None Include="Properties\PublishProfiles\WebKIAT.pubxml" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -1287,7 +1304,9 @@
     <Content Include="Scripts\vendor.js" />
     <Content Include="Scripts\vendor\modernizr.js" />
     <None Include="Scripts\_references.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -1323,6 +1342,7 @@
     <Content Include="Views\Chat\ChatRoom.cshtml" />
     <Content Include="Views\Chat\History.cshtml" />
     <Content Include="Views\Chat\Index.cshtml" />
+    <Content Include="Views\Report\ReportTemplate.cshtml" />
     <None Include="Web References\KurortUrlService\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>

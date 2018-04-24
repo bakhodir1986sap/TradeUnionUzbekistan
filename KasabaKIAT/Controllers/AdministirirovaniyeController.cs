@@ -1,18 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using KasabaKIAT.Models;
 using KurortUrvServiceTest.ServiceInterAction.ActionLogic;
-using System.IO;
 using log4net;
 using System.Web.UI.WebControls;
 using System.Web.UI;
-using ClosedXML;
-using ClosedXML.Excel;
-using System.Configuration;
-using System.Data.SqlClient;
 using System.Data;
 using KasabaKIAT.BusinessLogic.Putyovki.PrixodPutyovok;
 using KasabaKiat.Helpers;
@@ -21,46 +15,301 @@ using KasabaKIAT.BusinessLogic.Security.Roles.Roles;
 
 namespace KasabaKIAT.Controllers
 {
-    //[Authorize(Roles = "ADMIN")]
+    /// <summary>
+    /// Administration Controller,defines methods for User Management, Role management
+    /// References management and others
+    /// </summary>
     [Authorize]
     public class AdministirirovaniyeController : Controller
     {
-        Roles R = new Roles();
+        #region Properties
+        /// <summary>
+        /// Kurort Upravleniya External API 
+        /// </summary>
         ServiceActionController service = new ServiceActionController();
+
+        /// <summary>
+        /// Logging 
+        /// </summary>
         ILog log = log4net.LogManager.GetLogger(typeof(AdministirirovaniyeController));
+
+        /// <summary>
+        /// DataBase Model
+        /// </summary>
         KasabaKIATEntities KasabaDB = new KasabaKIATEntities();
-        static int x = 9;
-        [OutputCache(Duration = 30, Location = OutputCacheLocation.Downstream)]
+
+        #endregion
+
+        #region Views
+        /// <summary>
+        /// StartUp Page for Administration Consist of Links to Users, Roles and References
+        /// </summary>
+        /// <returns>HTML Page</returns>
+        [OutputCache(Duration = 30000, Location = OutputCacheLocation.Client, VaryByCustom = "userId")]
         public ActionResult Index()
         {
-            x++;
-            return View(x);
+            return View();
         }
+
+        /// <summary>
+        /// User Management Page
+        /// </summary>
+        /// <returns>HTML</returns>
+        [OutputCache(Duration = 30000, Location = OutputCacheLocation.Client, VaryByCustom = "userId")]
         public ActionResult UchetniyZapis()
         {
             return View();
         }
+
+        /// <summary>
+        /// Role Management Page
+        /// </summary>
+        /// <returns>HTML</returns>
+        [OutputCache(Duration = 30000, Location = OutputCacheLocation.Client, VaryByCustom = "userId")]
         public ActionResult SozdaniyeRoley()
         {
             return View();
         }
+
+        /// <summary>
+        /// Transaction Make Reference 
+        /// </summary>
+        /// <returns>HTML</returns>
+        [OutputCache(Duration = 30000, Location = OutputCacheLocation.Client, VaryByCustom = "userId")]
         public ActionResult SozdaniyeProvodok()
         {
             return View();
         }
+
+        /// <summary>
+        /// Transaction Link Reference
+        /// </summary>
+        /// <returns>HTML</returns>
+        [OutputCache(Duration = 30000, Location = OutputCacheLocation.Client, VaryByCustom = "userId")]
         public ActionResult PrivyazkaProvodok()
         {
             return View();
         }
+
+        /// <summary>
+        /// References Management
+        /// </summary>
+        /// <returns>HTML</returns>
         public ActionResult Spravichniki()
         {
             return View();
         }
+
+        /// <summary>
+        /// Kurort Department References
+        /// </summary>
+        /// <returns>HTML</returns>
+        [OutputCache(Duration = 30000, Location = OutputCacheLocation.Client, VaryByCustom = "userId")]
         public ActionResult SpravichnikiKurortnovoUpravleniya()
         {
             return View();
         }
-        //[Authorize(Roles = "COUNCIL_REGIONAL_REGION,ADMIN")]
+
+        /// <summary>
+        /// Sanatory Enterence Grafik Reference
+        /// </summary>
+        /// <returns>HTML</returns>
+        [OutputCache(Duration = 30000, Location = OutputCacheLocation.Client, VaryByCustom = "userId")]
+        public ActionResult GrafikSanatoryZaezdov()
+        {
+            return View();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [OutputCache(Duration = 300, Location = OutputCacheLocation.ServerAndClient, VaryByCustom = "userId")]
+        public ActionResult SredneyStoimostiPutevok()
+        {
+            return View();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [OutputCache(Duration = 300, Location = OutputCacheLocation.ServerAndClient, VaryByCustom = "userId")]
+        public ActionResult RazmesheniyaSanatorii()
+        {
+            return View();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [OutputCache(Duration = 300, Location = OutputCacheLocation.ServerAndClient, VaryByCustom = "userId")]
+        public ActionResult Otdixayushix()
+        {
+            return View();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [OutputCache(Duration = 300, Location = OutputCacheLocation.ServerAndClient, VaryByCustom = "userId")]
+        public ActionResult NaznacheniyaPlateja()
+        {
+            return View();
+        }
+
+        #endregion
+
+        #region Methods and APIs
+
+        #region RoleManagement
+        /// <summary>
+        /// Get Roles List
+        /// </summary>
+        /// <returns>HTML</returns>
+        [OutputCache(Duration = 300, Location = OutputCacheLocation.Client, VaryByCustom = "userId")]
+        public JsonResult GetRoley()
+        {
+            log.Info("GetRoley");
+            try
+            {
+                var O = from o in KasabaDB.roles
+                        select new
+                        {
+                            d1 = o.id,
+                            d2 = o.name,
+                        };
+                return Json(O.ToList(), JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex);
+            }
+
+            return null;
+        }
+
+        /// <summary>
+        /// Add New Role
+        /// </summary>
+        /// <param name="roleName"></param>
+        /// <returns>Role Name</returns>
+        public JsonResult AddRoley(string roleName)
+        {
+            log.Info("AddRoley");
+            log.Info("roleName=" + roleName);
+            try
+            {
+                var R = new Roles();
+                R.EnterRole(roleName);
+                return Json("yes", JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex);
+            }
+
+            return null;
+        }
+
+        /// <summary>
+        /// Get Role Permissions List
+        /// </summary>
+        /// <returns>JSON</returns>
+        [OutputCache(Duration = 300, Location = OutputCacheLocation.Client, VaryByCustom = "userId")]
+        public JsonResult GetRoleys()
+        {
+            RolePermission vrp = new RolePermission();
+            var data = vrp.GetRolePermitsAllList();
+            log.Info("GetRoley");
+            try
+            {
+                var O = from o in data
+                        select new
+                        {
+                            d1 = o.id,
+                            d2 = o.action,
+                            d3 = o.role_id
+                        };
+                return Json(O.ToList(), JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex);
+            }
+
+            return null;
+        }
+
+        /// <summary>
+        /// Get Role Permission List Filtered by Id
+        /// </summary>
+        /// <param name="id">Role Id</param>
+        /// <returns>JSON</returns>
+        [OutputCache(Duration = 300, Location = OutputCacheLocation.Client, VaryByParam = "id", VaryByCustom = "userId")]
+        public JsonResult GetRoleys2(int id)
+        {
+            RolePermission vrp = new RolePermission();
+            var data = vrp.GetRolePermitsByRoleList(id);
+            log.Info("GetRoley");
+            try
+            {
+                var O = from o in data
+                        select new
+                        {
+                            d1 = o.id,
+                            d2 = o.action,
+                            d3 = o.role_id
+                        };
+                return Json(O.ToList(), JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex);
+            }
+            return null;
+        }
+
+        /// <summary>
+        /// Save Changes in Role Permission
+        /// </summary>
+        /// <param name="ids">Changed RolePermision Ids List</param>
+        /// <param name="rolep_id">Owner Role ID</param>
+        /// <returns>Result Message</returns>
+        public string save(List<long> ids, long rolep_id)
+        {
+            RolePermission rp = new RolePermission();
+            rp.EnterRolePermitN(ids, rolep_id);
+            return "yes";
+        }
+
+        /// <summary>
+        /// Remove Permission List
+        /// </summary>
+        /// <param name="ids">Changed RolePermision Ids List</param>
+        /// <returns>Result Message</returns>
+        public string Remove(List<long> ids)
+        {
+            RolePermission rp = new RolePermission();
+
+            foreach (var id in ids)
+            {
+                rp.DeleteRolePermit(id);
+            }
+
+            return "yes";
+        }
+
+        #endregion
+        
+        #region Spravochniki SKU
+        /// <summary>
+        /// Refererence of Trade Union List
+        /// </summary>
+        /// <returns>HTML</returns>
+        [OutputCache(Duration = 30000, Location = OutputCacheLocation.Client)]
         public ActionResult SpisokPravsoyuzov()
         {
             log.Info("SpisokPravsoyuzov");
@@ -89,21 +338,35 @@ namespace KasabaKIAT.Controllers
 
             return View(O);
         }
-        //[Authorize(Roles = "COUNCIL_REGIONAL_REGION,ADMIN")]
-        public ActionResult GrafikSanatoryZaezdov()
-        {
-            return View();
-        }
-        //[Authorize(Roles = "COUNCIL_REGIONAL_REGION,ADMIN")]
+
+        /// <summary>
+        /// Schet Faktura's List of Pravsoyus Organizations
+        /// </summary>
+        /// <returns>HTML</returns>
+        [OutputCache(Duration = 30000, Location = OutputCacheLocation.Client)]
         public ActionResult SchetFaktura()
         {
             return View();
         }
-        //[Authorize(Roles = "COUNCIL_REGIONAL_REGION,ADMIN")]
+
+        /// <summary>
+        /// Enterence divition Grafik
+        /// </summary>
+        /// <returns>HTML</returns>
+        [OutputCache(Duration = 30000, Location = OutputCacheLocation.Client)]
         public ActionResult RaspredeleniyeZaezdov()
         {
             return View();
         }
+
+
+        /// <summary>
+        /// Get Enterence Grafik
+        /// </summary>
+        /// <param name="yil">Year</param>
+        /// <param name="kod">Sanatory Code</param>
+        /// <returns></returns>
+        [OutputCache(Duration = 300, Location = OutputCacheLocation.Client, VaryByParam = "yil;kod")]
         public JsonResult GetRaspredeleniyeZaezdov1(int yil,string kod)
         {
 
@@ -141,21 +404,25 @@ namespace KasabaKIAT.Controllers
 
             return null;
         }
+
+        /// <summary>
+        /// Already Entered Divition
+        /// </summary>
+        /// <param name="yil">Year</param>
+        /// <param name="kod">Sanatory Code</param>
+        /// <returns></returns>
+        [OutputCache(Duration = 300, Location = OutputCacheLocation.Client, VaryByParam = "yil;kod")]
         public JsonResult GetRaspredeleniyeZaezdov2(int yil, string kod)
         {
-
             log.Info("GetRaspredeleniyeZaezdov2");
             log.Info("yil = " + yil);
             log.Info("kod = " + kod);
-
 
             try
             {
                 var O = from o in KasabaDB.tbku_SpisokRaspredeleniya
                         join pravsoyuz in KasabaDB.tbku_StrokaProfsoyza on
                         o.ProfsoyzKod equals pravsoyuz.ProfsoyzKod
-                        //join zaezd in KasabaDB.tbku_GrafikZaezdovSanatoriev on
-                        //o.SanatoryRazmeshenieKod equals zaezd.SanatoryRazmeshenieKod
                         where o.GodZaezdov == yil && o.SanatoryKod == kod
                         select new
                         {
@@ -181,9 +448,15 @@ namespace KasabaKIAT.Controllers
                 log.Error(ex);
             }
 
-
             return null;
         }
+
+        /// <summary>
+        /// Sanatory List from Enterence Grafik to Sanatories
+        /// </summary>
+        /// <param name="yil">Year</param>
+        /// <returns></returns>
+        [OutputCache(Duration = 300, Location = OutputCacheLocation.Client, VaryByParam = "yil")]
         public JsonResult GetSanatory(int yil)
         {
             log.Info("GetSanatory");
@@ -210,106 +483,14 @@ namespace KasabaKIAT.Controllers
 
             return null;
         }
-        public JsonResult GetRoley()
-        {
-            log.Info("GetRoley");
-            try
-            {
-                var O = from o in KasabaDB.roles
-                        select new
-                        {
-                            d1 = o.id,
-                            d2 = o.name,
-                        };
-                return Json(O.ToList(), JsonRequestBehavior.AllowGet);
-            }
-            catch (Exception ex)
-            {
-                log.Error(ex);
-            }
-
-            return null;
-        }
-        public JsonResult AddRoley(string roleName)
-        {
-            log.Info("AddRoley");
-            log.Info("roleName="+ roleName);
-            try
-            {
-                R.EnterRole(roleName);
-                return Json("yes", JsonRequestBehavior.AllowGet);
-            }
-            catch (Exception ex)
-            {
-                log.Error(ex);
-            }
-
-            return null;
-        }
-        public JsonResult GetRoleys()
-        {
-            RolePermission vrp = new RolePermission();
-            var data= vrp.GetRolePermitsAllList();
-            log.Info("GetRoley");
-            try
-            {
-                var O = from o in data
-                        select new
-                        {
-                            d1 = o.id,
-                            d2 = o.action,
-                            d3=o.role_id
-                        };
-                return Json(O.ToList(), JsonRequestBehavior.AllowGet);
-            }
-            catch (Exception ex)
-            {
-                log.Error(ex);
-            }
-
-            return null;
-        }
-        public JsonResult GetRoleys2(int id)
-        {
-            RolePermission vrp = new RolePermission();
-            var data = vrp.GetRolePermitsByRoleList(id);
-            log.Info("GetRoley");
-            try
-            {
-                var O = from o in data
-                        select new
-                        {
-                            d1 = o.id,
-                            d2 = o.action,
-                            d3 = o.role_id
-                        };
-                return Json(O.ToList(), JsonRequestBehavior.AllowGet);
-            }
-            catch (Exception ex)
-            {
-                log.Error(ex);
-            }
-            return null;
-        }
-        public string save(List<long> ids, long rolep_id)
-        {
-            RolePermission rp = new RolePermission();
-            rp.EnterRolePermitN(ids, rolep_id);
-            return "yes";
-        }
-
-        public string Remove(List<long> ids)
-        { 
-            RolePermission rp = new RolePermission();
-
-            foreach(var id in ids)
-            {
-                rp.DeleteRolePermit(id);
-            }
-
-            return "yes";
-        }
-
+        
+        /// <summary>
+        /// Get Razmesheniya Type List
+        /// </summary>
+        /// <param name="yil">Year</param>
+        /// <param name="kod">Sanatory Kod</param>
+        /// <returns>JSON</returns>
+        [OutputCache(Duration = 300, Location = OutputCacheLocation.Client, VaryByParam = "yil;kod")]
         public JsonResult GetKod(int yil,string kod)
         {
 
@@ -336,7 +517,13 @@ namespace KasabaKIAT.Controllers
             return null;
 
         }
-        public String AddSpisokRaspredeleniya(tbku_SpisokRaspredeleniya PP)
+
+        /// <summary>
+        /// Add Divition 
+        /// </summary>
+        /// <param name="PP"></param>
+        /// <returns></returns>
+        public string AddSpisokRaspredeleniya(tbku_SpisokRaspredeleniya PP)
         {
             log.Info("AddSpisokRaspredeleniya");
 
@@ -375,7 +562,11 @@ namespace KasabaKIAT.Controllers
 
         }
 
-
+        /// <summary>
+        /// Modify Divition
+        /// </summary>
+        /// <param name="PP"></param>
+        /// <returns></returns>
         public string UpdateSpisokRaspredeleniya(tbku_SpisokRaspredeleniya PP)
         {
             log.Info("UpdateSpisokRaspredeleniya");
@@ -386,7 +577,10 @@ namespace KasabaKIAT.Controllers
                 {
                     using (KasabaKIATEntities k = new KasabaKIATEntities())
                     {
-                        tbku_SpisokRaspredeleniya p1 = new tbku_SpisokRaspredeleniya();
+                        tbku_SpisokRaspredeleniya p1 = k.tbku_SpisokRaspredeleniya.Where(z=>z.ID == PP.ID).FirstOrDefault();
+
+                        if (p1 == null) return "error";
+
                         p1.GodZaezdov = PP.GodZaezdov;
                         p1.SanatoryKod = PP.SanatoryKod;
                         p1.ProfsoyzKod = PP.ProfsoyzKod;
@@ -395,7 +589,9 @@ namespace KasabaKIAT.Controllers
                         p1.Putevok2kv = PP.Putevok2kv;
                         p1.Putevok3kv = PP.Putevok3kv;
                         p1.Putevok4kv = PP.Putevok4kv;
+
                         k.SaveChanges();
+
                         return "ok";
                     }
                 }
@@ -411,6 +607,12 @@ namespace KasabaKIAT.Controllers
 
             return "";
         }
+
+        /// <summary>
+        /// Remove Divition
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public string DeleteSpisokRaspredeleniya(string id)
         {
             log.Info("DeleteSpisokRaspredeleniya");
@@ -448,6 +650,9 @@ namespace KasabaKIAT.Controllers
             return "";
         }
 
+        /// <summary>
+        /// Load Pravsoyuz List from Kurort Department
+        /// </summary>
         public void ServiceSpisokPravsoyuzov()
         {
             log.Info("ServiceSpisokPravsoyuzov");
@@ -462,6 +667,11 @@ namespace KasabaKIAT.Controllers
             }
         }
 
+        /// <summary>
+        /// Get PravSoyuz List
+        /// </summary>
+        /// <returns></returns>
+        [OutputCache(Duration = 300, Location = OutputCacheLocation.Client)]
         public JsonResult GetSpisokPravsoyuzov()
         {
             log.Info("GetSpisokPravsoyuzov");
@@ -489,6 +699,11 @@ namespace KasabaKIAT.Controllers
             return null;
 
         }
+
+        /// <summary>
+        /// External Api Load Grafik Sanatoriev
+        /// </summary>
+        /// <param name="yil">Year</param>
         public void ServiceGrafikSanatoryZaezdov(string yil)
         {
             log.Info("ServiceGrafikSanatoryZaezdov");
@@ -503,6 +718,13 @@ namespace KasabaKIAT.Controllers
                 log.Error(ex);
             }
         }
+
+        /// <summary>
+        /// Get Sanatory Zaezdov List
+        /// </summary>
+        /// <param name="yil">Year</param>
+        /// <returns></returns>
+        [OutputCache(Duration = 300, Location = OutputCacheLocation.Client, VaryByParam = "yil")]
         public JsonResult GetGrafikSanatoryZaezdov(int yil)
         {
 
@@ -537,6 +759,13 @@ namespace KasabaKIAT.Controllers
             return null;
 
         }
+
+        /// <summary>
+        /// Kurort Department External API
+        /// </summary>
+        /// <param name="B">Begin date</param>
+        /// <param name="E">End Date</param>
+        /// <param name="p">PravSoyuz Kod</param>
         public void ServiceSchetFaktura(DateTime B,DateTime E, string p)
         {
             log.Info("ServiceSchetFaktura");
@@ -554,6 +783,12 @@ namespace KasabaKIAT.Controllers
             }
         }
 
+        /// <summary>
+        /// Oprixodovaniye Schet Fakturi
+        /// </summary>
+        /// <param name="B">Begin date</param>
+        /// <param name="E">End Date</param>
+        /// <param name="p">PravSoyuz Kod</param>
         public void OprixodovaniyaSchetFaktura(DateTime B, DateTime E, string p)
         {
 
@@ -567,7 +802,7 @@ namespace KasabaKIAT.Controllers
                 int UserId = Convert.ToInt32(User.Identity.Name);
 
                 var ustinfo = UserInfo.GetUserInfo(UserId);
-                //service.LoadSchetFactura(B, E, p);
+
                 var op = new Oprixodovaniye();
 
                 op.PrixodKurort(B, E, p, UserId, ustinfo.DepartmentBase);
@@ -578,6 +813,14 @@ namespace KasabaKIAT.Controllers
             }
         }
 
+        /// <summary>
+        /// Get Main Row Of Schet Faktura 
+        /// </summary>
+        /// <param name="B">Begin date</param>
+        /// <param name="E">End Date</param>
+        /// <param name="p">PravSoyuz Kod</param>
+        /// <returns>JSON</returns>
+        [OutputCache(Duration = 300, Location = OutputCacheLocation.Client, VaryByParam = "B;E;p")]
         public JsonResult GetSchetFaktura(DateTime B,DateTime E,string p)
         {
             log.Info("GetSchetFaktura");
@@ -620,6 +863,13 @@ namespace KasabaKIAT.Controllers
             return null;
 
         }
+
+        /// <summary>
+        /// Get Detail Schet Fakturi
+        /// </summary>
+        /// <param name="id">Main SchetFaktura Dokument Id</param>
+        /// <returns>JSON</returns>
+        [OutputCache(Duration = 300, Location = OutputCacheLocation.Client, VaryByParam = "id")]
         public JsonResult GetStrokaSchetFakturi(int id)
         {
             log.Info("GetStrokaSchetFakturi");
@@ -656,6 +906,15 @@ namespace KasabaKIAT.Controllers
             return null;
         }
 
+        #endregion
+
+        #region Reference Management
+
+        /// <summary>
+        /// Naznacheniya plateja
+        /// </summary>
+        /// <returns></returns>
+        [OutputCache(Duration = 300, Location = OutputCacheLocation.Client, VaryByCustom = "userId")]
         public JsonResult GetSNP()
         {
             log.Info("GetSNP");
@@ -682,6 +941,12 @@ namespace KasabaKIAT.Controllers
             return null;
 
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [OutputCache(Duration = 300, Location = OutputCacheLocation.Client, VaryByCustom = "userId")]
         public JsonResult GetSPP()
         {
 
@@ -711,6 +976,11 @@ namespace KasabaKIAT.Controllers
 
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [OutputCache(Duration = 300, Location = OutputCacheLocation.Client, VaryByCustom = "userId")]
         public JsonResult GetSSPO()
         {
             log.Info("GetSSPO");
@@ -925,6 +1195,8 @@ namespace KasabaKIAT.Controllers
             return null;
  
         }
+
+        [OutputCache(Duration = 300, Location = OutputCacheLocation.Client, VaryByCustom = "userId")]
         public JsonResult GetSSSP()
         {
             log.Info("GetSSSP");
@@ -1052,7 +1324,7 @@ namespace KasabaKIAT.Controllers
             return null;
         }
 
-
+        [OutputCache(Duration = 300, Location = OutputCacheLocation.ServerAndClient, VaryByCustom = "userId")]
         public JsonResult GetDB()
         {
             log.Info("GetDB");
@@ -1075,6 +1347,7 @@ namespace KasabaKIAT.Controllers
             return null;
         }
 
+        [OutputCache(Duration = 300, Location = OutputCacheLocation.ServerAndClient, VaryByCustom = "userId")]
         public JsonResult GetSP()
         {
             log.Info("GetSP");
@@ -1206,6 +1479,7 @@ namespace KasabaKIAT.Controllers
             return null;
         }
 
+        [OutputCache(Duration = 300, Location = OutputCacheLocation.ServerAndClient, VaryByParam = "o_id;r_id", VaryByCustom = "userId")]
         public JsonResult GetPP(int o_id,string r_id)
         {
             log.Info("GetPP");
@@ -1215,19 +1489,9 @@ namespace KasabaKIAT.Controllers
             try
             {
                 var camp = from dict in KasabaDB.provodok
-                           //where dict.order == o_id && dict.REGION_ID == r_id
-                           //join dp in KasabaDB.t_departmentbase on dict.DEPARTMENT_BASE equals dp.code
-                           //join a in KasabaDB.tbcs_dictionary on dict.order equals a.REC_ID
-                           //join r in KasabaDB.sp_soato on dict.REGION_ID equals r.code
                            select new
                            {
                                ID = dict.id,
-                               //INN = dp.inn,
-                               //O = dp.name_uz,
-                               //JO_id = a.REC_ID,
-                               //JO = a.NAME_UZ,
-                               //R_id = r.code,
-                               //R = r.name_uz,
                                D = dict.description,
                                SB = dict.score_begin,
                                SE = dict.score_end
@@ -1351,6 +1615,7 @@ namespace KasabaKIAT.Controllers
             return null;
         }
 
+        [OutputCache(Duration = 300, Location = OutputCacheLocation.ServerAndClient, VaryByParam = "inn", VaryByCustom = "userId")]
         public string LOAD_DEPARTMENT_CODE(string inn)
         {
             log.Info("LOAD_DEPARTMENT_CODE");
@@ -1378,6 +1643,8 @@ namespace KasabaKIAT.Controllers
             return null;
 
         }
+
+        [OutputCache(Duration = 300, Location = OutputCacheLocation.ServerAndClient, VaryByParam = "inn", VaryByCustom = "userId")]
         public string LoadINN(int inn)
         {
             log.Info("LoadINN");
@@ -1403,22 +1670,10 @@ namespace KasabaKIAT.Controllers
             return null;
 
         }
-        public ActionResult SredneyStoimostiPutevok()
-        {
-            return View();
-        }
-        public ActionResult RazmesheniyaSanatorii()
-        {
-            return View();
-        }
-        public ActionResult Otdixayushix()
-        {
-            return View();
-        }
-        public ActionResult NaznacheniyaPlateja()
-        {
-            return View();
-        }
+        #endregion
+
+        #region User Management
+        [OutputCache(Duration = 300, Location = OutputCacheLocation.ServerAndClient, VaryByCustom = "userId")]
         public JsonResult GetUZ()
         {
             log.Info("GetUZ");
@@ -1594,6 +1849,8 @@ namespace KasabaKIAT.Controllers
 
             return null;
         }
+        
+        [OutputCache(Duration = 300, Location = OutputCacheLocation.ServerAndClient, VaryByCustom = "userId")]
         public JsonResult GelOrganizatsiya()
         {
 
@@ -1606,6 +1863,8 @@ namespace KasabaKIAT.Controllers
                     };
             return Json(O.ToList(), JsonRequestBehavior.AllowGet);
         }
+
+        [OutputCache(Duration = 300, Location = OutputCacheLocation.ServerAndClient, VaryByCustom = "userId")]
         public JsonResult GetRoles()
         {
             var R = from r in KasabaDB.roles
@@ -1616,6 +1875,8 @@ namespace KasabaKIAT.Controllers
                     };
             return Json(R.ToList(), JsonRequestBehavior.AllowGet);
         }
+
+        [OutputCache(Duration = 300, Location = OutputCacheLocation.ServerAndClient, VaryByCustom = "userId")]
         public JsonResult GetOtrasl()
         {
             var O = from o in KasabaDB.sp_branch
@@ -1626,6 +1887,8 @@ namespace KasabaKIAT.Controllers
                     };
             return Json(O.ToList(), JsonRequestBehavior.AllowGet);
         }
+
+        [OutputCache(Duration = 300, Location = OutputCacheLocation.ServerAndClient, VaryByCustom = "userId")]
         public JsonResult GetRegion()
         {
             var UserId = Convert.ToInt32(User.Identity.Name);
@@ -1641,5 +1904,8 @@ namespace KasabaKIAT.Controllers
                     };
             return Json(R, JsonRequestBehavior.AllowGet);
         }
+        #endregion
+
+        #endregion
     }
 }

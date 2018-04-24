@@ -11,18 +11,46 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.UI;
 
 namespace KasabaKIAT.Controllers
 {
-    //[Authorize(Roles = "ADMIN")]
+    /// <summary>
+    /// 
+    /// </summary>
     [Authorize]
     public class PrixodPutevokController : Controller
     {
+        /// <summary>
+        /// 
+        /// </summary>
         ILog log = log4net.LogManager.GetLogger(typeof(HomeController));
+
+        /// <summary>
+        /// 
+        /// </summary>
         KasabaKIATEntities KasabaDB = new KasabaKIATEntities();
+
+        /// <summary>
+        /// 
+        /// </summary>
         BronirovaniyaPutyovki BP = new BronirovaniyaPutyovki();
+
+        /// <summary>
+        /// 
+        /// </summary>
         RealizasiyaPoTzCl OR = new RealizasiyaPoTzCl();
+
+        /// <summary>
+        /// 
+        /// </summary>
         VozvratPutyovki VP = new VozvratPutyovki();
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [OutputCache(Duration = 3000, Location = OutputCacheLocation.ServerAndClient, VaryByCustom = "userId")]
         public ActionResult Index()
         {
             int UserId = Convert.ToInt32(User.Identity.Name);
@@ -35,12 +63,22 @@ namespace KasabaKIAT.Controllers
                 return View();
             }
         }
-        //[Authorize(Roles = "COUNCIL_REGIONAL_REGION,ADMIN")]
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [OutputCache(Duration = 3000, Location = OutputCacheLocation.ServerAndClient, VaryByCustom = "userId")]
         public ActionResult ProsmotrRealzPutevok()
         {
             return View();
         }
-        //[Authorize(Roles = "COUNCIL_REGIONAL_REGION,ADMIN")]
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [OutputCache(Duration = 3000, Location = OutputCacheLocation.ServerAndClient, VaryByCustom = "userId")]
         public ActionResult ProsmotrOstatPutevok()
         {
             int UserId = Convert.ToInt32(User.Identity.Name);
@@ -53,7 +91,12 @@ namespace KasabaKIAT.Controllers
                 return View();
             }
         }
-        //[Authorize(Roles = "COUNCIL_REGIONAL_REGION,ADMIN")]
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [OutputCache(Duration = 3000, Location = OutputCacheLocation.ServerAndClient, VaryByCustom = "userId")]
         public ActionResult RealizatsiyaPutevok()
         {
             int UserId = Convert.ToInt32(User.Identity.Name);
@@ -66,11 +109,23 @@ namespace KasabaKIAT.Controllers
                 return View();
             }
         }
-        //[Authorize(Roles = "COUNCIL_REGIONAL_REGION,ADMIN")]
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [OutputCache(Duration = 3000, Location = OutputCacheLocation.ServerAndClient, VaryByCustom = "userId")]
         public ActionResult SverkaDannix()
         {
             return View();
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="inn"></param>
+        /// <returns></returns>
+        [OutputCache(Duration = 3000, Location = OutputCacheLocation.ServerAndClient, VaryByParam = "inn", VaryByCustom = "userId")]
         public JsonResult GetZList(int inn)
         {
             var data = KasabaDB.sp_rt_ZayavkiList(inn);
@@ -87,6 +142,13 @@ namespace KasabaKIAT.Controllers
             return Json(list.ToList(), JsonRequestBehavior.AllowGet);
 
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="s"></param>
+        /// <returns></returns>
+        
         public JsonResult GetOformleniyaRealizatsiyaPutevok(SanPutTemp s)
         {
             int UserId = Convert.ToInt32(User.Identity.Name);
@@ -107,34 +169,41 @@ namespace KasabaKIAT.Controllers
                        };
             return Json(list.ToList(), JsonRequestBehavior.AllowGet);
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="foiz"></param>
+        /// <returns></returns>
         public string Save(int id,int foiz)
         {
             RealizasiyaDataManager.Modify(new RealizasiyaByTzViewModel { rec_id=id,payment_persent= foiz });
             return "yes";
         }
+
+
         public class SanPutTemp
         {
             public List<SanAndPutViewModel> b { get; set; }
 
             public string inn { get; set; }
         }
+
         [AcceptVerbs(HttpVerbs.Post)]
         public ActionResult ORP(List<SanAndPutViewModel> b, string inn)
         {
-            //List<SanAndPutViewModel> br = new List<SanAndPutViewModel>();
-            //foreach (var bb in b)
-            //{
-            //    var mm = new SanAndPutViewModel();
-
-            //    mm.SanId = bb.SanId;
-            //    mm.NumPut = bb.NumPut;
-            //    br.Add(mm);
-            //}
             int UserId = Convert.ToInt32(User.Identity.Name);
             var uu = UserInfo.GetUserInfo(UserId);
 
             return View(OR.GetOformRealizList(b, inn, uu.DepartmentBase, uu.userid));
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [OutputCache(Duration = 300, Location = OutputCacheLocation.ServerAndClient, VaryByCustom = "userId")]
         public JsonResult GetSanatory()
         {
             var S = (from s in KasabaDB.tblSprav_San
@@ -145,6 +214,12 @@ namespace KasabaKIAT.Controllers
                      });
             return Json(S.ToList(), JsonRequestBehavior.AllowGet);
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [OutputCache(Duration = 300, Location = OutputCacheLocation.ServerAndClient, VaryByCustom = "userId")]
         public JsonResult GetCamp()
         {
             var C = (from s in KasabaDB.t_camp
@@ -155,6 +230,12 @@ namespace KasabaKIAT.Controllers
                      });
             return Json(C, JsonRequestBehavior.AllowGet);
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [OutputCache(Duration = 300, Location = OutputCacheLocation.ServerAndClient, VaryByCustom = "userId")]
         public JsonResult GetOR()
         {
             var C = (from s in KasabaDB.t_departmentbase
@@ -165,6 +246,13 @@ namespace KasabaKIAT.Controllers
                      });
             return Json(C, JsonRequestBehavior.AllowGet);
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sc_id"></param>
+        /// <returns></returns>
+        [OutputCache(Duration = 30, Location = OutputCacheLocation.ServerAndClient, VaryByParam = "sc_id",VaryByCustom = "userId")]
         public JsonResult GetPP(int sc_id)
         {
             int UserId = Convert.ToInt32(User.Identity.Name);
@@ -184,6 +272,13 @@ namespace KasabaKIAT.Controllers
                         });
             return Json(list.ToList(), JsonRequestBehavior.AllowGet);
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sc_id"></param>
+        /// <returns></returns>
+        [OutputCache(Duration = 30, Location = OutputCacheLocation.ServerAndClient, VaryByParam = "sc_id", VaryByCustom = "userId")]
         public JsonResult GetPP_SUM(int sc_id)
         {
             int UserId = Convert.ToInt32(User.Identity.Name);
@@ -206,6 +301,14 @@ namespace KasabaKIAT.Controllers
                          select new { P_SUM = g.Sum(i => i.d4) };
             return Json(Groups.ToList(), JsonRequestBehavior.AllowGet);
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="inn"></param>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        [OutputCache(Duration = 60, Location = OutputCacheLocation.ServerAndClient, VaryByParam = "inn;name", VaryByCustom = "userId")]
         public JsonResult Getegrpo(string inn,string name)
         {
             log.Info("Getegrpo");
@@ -247,7 +350,13 @@ namespace KasabaKIAT.Controllers
             return null;
         }
 
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="inn"></param>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        [OutputCache(Duration = 300, Location = OutputCacheLocation.ServerAndClient, VaryByParam = "inn;name", VaryByCustom = "userId")]
         public JsonResult Getegrpo1(string inn, string name)
         {
             log.Info("Getegrpo");
@@ -289,7 +398,12 @@ namespace KasabaKIAT.Controllers
             return null;
         }
 
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="inn"></param>
+        /// <returns></returns>
+        [OutputCache(Duration = 300, Location = OutputCacheLocation.ServerAndClient, VaryByParam = "inn", VaryByCustom = "userId")]
         public string LoadINN(int inn)
         {
             string strInn = inn.ToString();
@@ -302,6 +416,12 @@ namespace KasabaKIAT.Controllers
             }
             return "No Data Found";
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [OutputCache(Duration = 3000, Location = OutputCacheLocation.ServerAndClient, VaryByCustom = "userId")]
         public JsonResult SD()
         {
             var list = from d in KasabaDB.tbpt_sanatory_info
@@ -319,6 +439,12 @@ namespace KasabaKIAT.Controllers
                        };
             return Json(list.ToList(), JsonRequestBehavior.AllowGet);
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [OutputCache(Duration = 30, Location = OutputCacheLocation.ServerAndClient, VaryByCustom = "userId")]
         public JsonResult RP()
         {
             int UserId = Convert.ToInt32(User.Identity.Name);
@@ -338,6 +464,13 @@ namespace KasabaKIAT.Controllers
                        };
             return Json(list.ToList(), JsonRequestBehavior.AllowGet);
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [OutputCache(Duration = 30, Location = OutputCacheLocation.ServerAndClient, VaryByParam = "id", VaryByCustom = "userId")]
         public JsonResult RP2(int id)
         {
             int UserId = Convert.ToInt32(User.Identity.Name);
@@ -358,6 +491,12 @@ namespace KasabaKIAT.Controllers
                        };
             return Json(list.ToList(), JsonRequestBehavior.AllowGet);
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [OutputCache(Duration = 30, Location = OutputCacheLocation.ServerAndClient, VaryByCustom = "userId")]
         public JsonResult PRP()
         {
             int UserId = Convert.ToInt32(User.Identity.Name);
@@ -376,6 +515,13 @@ namespace KasabaKIAT.Controllers
                        };
             return Json(list.ToList(), JsonRequestBehavior.AllowGet);
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [OutputCache(Duration = 30, Location = OutputCacheLocation.ServerAndClient, VaryByParam = "id", VaryByCustom = "userId")]
         public JsonResult PRP2(int id)
         {
             var data = KasabaDB.sp_get_ProsmotrRealizovannixPutyovokDetali(id);
@@ -396,6 +542,13 @@ namespace KasabaKIAT.Controllers
                        };
             return Json(list.ToList(), JsonRequestBehavior.AllowGet);
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [OutputCache(Duration = 30, Location = OutputCacheLocation.ServerAndClient, VaryByParam = "id", VaryByCustom = "userId")]
         public JsonResult PRP3(int id)
         {
             var data = KasabaDB.sp_get_RealizasiyaPutyovokDetailN(id);
@@ -443,6 +596,12 @@ namespace KasabaKIAT.Controllers
             //BP.PostavitV_Bron(b);
             return "yes";
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="b"></param>
+        /// <returns></returns>
         public string RPSnyat(List<BronTemp> b)
         {
             foreach (var bb in b)
@@ -456,6 +615,13 @@ namespace KasabaKIAT.Controllers
             //BP.PostavitV_Bron(b);
             return "yes";
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sc_id"></param>
+        /// <returns></returns>
+        [OutputCache(Duration = 30, Location = OutputCacheLocation.ServerAndClient, VaryByParam = "sc_id", VaryByCustom = "userId")]
         public JsonResult GetPrixodPutevok_S(int sc_id)
         {
             var list = (from a in KasabaDB.tbpt_putyovki
@@ -480,6 +646,13 @@ namespace KasabaKIAT.Controllers
                         });
             return Json(list.ToList(), JsonRequestBehavior.AllowGet);
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sc_id"></param>
+        /// <returns></returns>
+        [OutputCache(Duration = 30, Location = OutputCacheLocation.ServerAndClient, VaryByParam = "sc_id", VaryByCustom = "userId")]
         public JsonResult GetPrixodPutevok_C(int sc_id)
         {
             var list = (from a in KasabaDB.tbpt_putyovki
@@ -504,6 +677,13 @@ namespace KasabaKIAT.Controllers
                         });
             return Json(list.ToList(), JsonRequestBehavior.AllowGet);
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sc_id"></param>
+        /// <returns></returns>
+        [OutputCache(Duration = 30, Location = OutputCacheLocation.ServerAndClient, VaryByParam = "sc_id", VaryByCustom = "userId")]
         public JsonResult GetPP_SUM_S(int sc_id)
         {
             var list = (from a in KasabaDB.tbpt_putyovki
@@ -523,6 +703,13 @@ namespace KasabaKIAT.Controllers
                          select new { P_SUM = g.Sum(i => i.P), QR_SUM = g.Sum(i => i.QR), RB_SUM = g.Sum(i => i.RB) };
             return Json(Groups.ToList(), JsonRequestBehavior.AllowGet);
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sc_id"></param>
+        /// <returns></returns>
+        [OutputCache(Duration = 30, Location = OutputCacheLocation.ServerAndClient, VaryByParam = "sc_id", VaryByCustom = "userId")]
         public JsonResult GetPP_SUM_C(int sc_id)
         {
             var list = (from a in KasabaDB.tbpt_putyovki
@@ -542,6 +729,13 @@ namespace KasabaKIAT.Controllers
                          select new { P_SUM = g.Sum(i => i.P), QR_SUM = g.Sum(i => i.QR), RB_SUM = g.Sum(i => i.RB) };
             return Json(Groups.ToList(), JsonRequestBehavior.AllowGet);
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="inn"></param>
+        /// <returns></returns>
+        [OutputCache(Duration = 30, Location = OutputCacheLocation.ServerAndClient, VaryByParam = "inn", VaryByCustom = "userId")]
         public JsonResult GetPrixodPutevok_S_LoadINN(string inn)
         {
             var list = (from a in KasabaDB.tbpt_putyovki
@@ -567,6 +761,13 @@ namespace KasabaKIAT.Controllers
                         });
             return Json(list.ToList(), JsonRequestBehavior.AllowGet);
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="inn"></param>
+        /// <returns></returns>
+        [OutputCache(Duration = 30, Location = OutputCacheLocation.ServerAndClient, VaryByParam = "inn", VaryByCustom = "userId")]
         public JsonResult GetPrixodPutevok_C_LoadINN(string inn)
         {
             var list = (from a in KasabaDB.tbpt_putyovki
@@ -592,7 +793,13 @@ namespace KasabaKIAT.Controllers
                         });
             return Json(list.ToList(), JsonRequestBehavior.AllowGet);
         }
-        public String AddPrixodPutevok(tbpt_putyovki PP)
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="PP"></param>
+        /// <returns></returns>
+        public string AddPrixodPutevok(tbpt_putyovki PP)
         {
             int UserId = Convert.ToInt32(User.Identity.Name);
             if (PP != null)
@@ -652,6 +859,13 @@ namespace KasabaKIAT.Controllers
                 return "error";
             }
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="inn"></param>
+        /// <returns></returns>
+        [OutputCache(Duration = 30, Location = OutputCacheLocation.ServerAndClient, VaryByParam = "inn", VaryByCustom = "userId")]
         public string LOAD_DEPARTMENT_CODE(string inn)
         {
             string name = "";
@@ -666,6 +880,12 @@ namespace KasabaKIAT.Controllers
             }
             return name;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="PP"></param>
+        /// <returns></returns>
         public string UpdatePrixodPutevok(tbpt_putyovki PP)
         {
             if (PP != null)
@@ -697,6 +917,12 @@ namespace KasabaKIAT.Controllers
                 return "error";
             }
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public string DeletePrixodPutevok(string id)
         {
             using (KasabaKIATEntities k = new KasabaKIATEntities())

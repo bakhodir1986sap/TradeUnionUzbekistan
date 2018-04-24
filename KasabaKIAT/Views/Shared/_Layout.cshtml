@@ -12,38 +12,23 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>@ViewBag.Title</title>
-    @*<meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>@ViewBag.Title - My ASP.NET Application</title>*@
     <link rel="apple-touch-icon" href="apple-touch-icon.png">
     <link href="~/Content/styles/all.css" rel="stylesheet" />
-    <link href="https://use.fontawesome.com/releases/v5.0.2/css/all.css" rel="stylesheet">
+    <link href="~/Content/styles/all.css" rel="stylesheet" />
     <link href="~/Content/styles/vendor.css" rel="stylesheet" />
     <link href="~/Content/styles/main.css" rel="stylesheet" />
     <script src="~/Scripts/vendor/modernizr.js"></script>
-    
-    @*<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
-    <link href="~/Content/main.css" rel="stylesheet" />
-    <link href="~/Content/font-awesome.css" rel="stylesheet" />*@
-
-
     <link href="~/Content/themes/alertify.default.css" rel="stylesheet" />
     <link href="~/Content/themes/alertify.core.css" rel="stylesheet" />
     <link href="~/Content/themes/alertify.bootstrap.css" rel="stylesheet" />
-    @*<link href="~/Content/styles/kendo.common.min.css" rel="stylesheet" />
-    <link href="~/Content/styles/kendo.office365.min.css" rel="stylesheet" />*@
     <script src="~/Scripts/kendo/angular.min.js"></script>
     <script src="~/Scripts/MyJavaScript/Module.js"></script>
     <script src="~/Scripts/MyJavaScript/KasabaKIATService.js"></script>
     <script src="~/Scripts/MyJavaScript/DataService.js"></script>
-    
-    @*@Styles.Render("~/Content/css")*@
     @Scripts.Render("~/bundles/modernizr")
     <script src="~/Scripts/jquery-1.10.2.min.js"></script>
     <script src="~/Scripts/jquery-ui-1.8.17.custom.min.js"></script>
-   
     <script src="~/Scripts/FileSaver.min.js"></script>
-    @*<script src="~/Scripts/kendo/kendo.all.min.js"></script>*@
     <script src="~/Scripts/lib/alertify.min.js"></script>
     <script>
     function reset () {
@@ -152,7 +137,7 @@
                                 <a class="dropdown-item load" href="/Buxgalter/PlanByudjetaOblastey">План бюджета областей</a>
                                 @if (List.RaznoskaDannixPoOtraslyam)
                                 {
-                                    @*<a class="dropdown-item load" href="/Buxgalter/RaspredleniyeByudjeta">Распределение бюджета по отраслям</a>*@
+                                    
                                 }
                             </div>
                         </li>
@@ -195,17 +180,12 @@
                     }
                 </ul>
                 <ul class="navbar-nav">
-                    @*<li class="nav-item">
-                        
-                    </li>*@
                     <li class="nav-item dropdown" id="p">
-                        @*<a id="tourss1" class="nav-link">@Session["name"]</a>*@
                         <a disabled class="nav-link dropdown-toggle" href="/Home/izmParol" id="tourss" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">@userName.username</a>
                         <div class="dropdown-menu rounded-0 box-shadow m-0 border-0" aria-labelledby="tourss">
                             <a class="dropdown-item load" href="/Home/izmParol">Изменить Пароль</a>
                         </div>
                     </li>
-                    @*<li class="nav-item"><p style="margin-top:21px">@Session["name"]</p></li>*@
                     <li class="nav-item">
                         <a class="nav-link" id="chat" href="/Chat/Index">Чат</a>
                     </li>
@@ -214,28 +194,6 @@
                     </li>
 
                 </ul>
-                @*<script>
-                if ("@ViewBag.Title" == "Подача заявок") {
-                        document.getElementById("z").className = "nav-item dropdown show";
-                        document.getElementById("z").style = "";
-                    }
-                    if ("@ViewBag.Title" == "Путевки") {
-                        document.getElementById("p").className = "nav-item dropdown show";
-                        document.getElementById("p").style = "";
-                    }
-                    if ("@ViewBag.Title" == "Отчеты") {
-                        document.getElementById("o").className = "nav-item dropdown show";
-                        document.getElementById("o").style = "";
-                    }
-                    if ("@ViewBag.Title" == "Администрирование") {
-                        document.getElementById("a").className = "nav-item dropdown show";
-                        document.getElementById("a").style = "";
-                    }
-                    if ("@ViewBag.Title" == "бухгалтерия") {
-                        document.getElementById("b").className = "nav-item dropdown show";
-                        document.getElementById("b").style = "";
-                    }
-                </script>*@
             </div>
         </div>
     </nav>
@@ -245,8 +203,6 @@
         <footer class="fixed-bottom">
             <div><span id="general_notification" style="color:black;font-size:15px;"></span></div>
             <div><span id="urgent_notification" style="color:red;font-size:15px; font-style:oblique"></span></div>
-            @*<div><span id="notification" style="color:black;font-size:15px;"></span></div>
-            <div><span id="notification" style="color:black;font-size:15px;"></span></div>*@
         </footer>
     <script>
                     $(".load").on('click', function () {
@@ -312,18 +268,12 @@
     });
     </script>
     <style>
-        /*.active {
-            color: black;
-            background-color: white;
-        }*/
          .poin:hover {
             cursor: pointer;
             background-color:blue;
         }
     </style>
     <input id="hh" type="hidden" />
-    @*@Scripts.Render("~/bundles/jquery")*@
-    @*@Scripts.Render("~/bundles/bootstrap")*@
     @RenderSection("scripts", required: false)
 </body>
 </html>

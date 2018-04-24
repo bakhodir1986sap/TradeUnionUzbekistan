@@ -6,15 +6,31 @@ using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.UI;
+
 namespace KasabaKIAT.Controllers
 {
-    //[Authorize(Roles = "ADMIN")]
+    /// <summary>
+    /// 
+    /// </summary>
     [Authorize]
     public class GodovoyPlanController : Controller
     {
-        ILog log = log4net.LogManager.GetLogger(typeof(AdministirirovaniyeController));
+        /// <summary>
+        /// 
+        /// </summary>
+        ILog log = log4net.LogManager.GetLogger(typeof(GodovoyPlanController));
+
+        /// <summary>
+        /// 
+        /// </summary>
         KasabaKIATEntities KasabaDB = new KasabaKIATEntities();
-        //[Authorize(Roles = "COUNCIL_REGIONAL_REGION,ADMIN")]
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [OutputCache(Duration = 3000, Location = OutputCacheLocation.ServerAndClient, VaryByCustom = "userId")]
         public ActionResult Index()
         {
             int UserId = Convert.ToInt32(User.Identity.Name);
@@ -37,6 +53,12 @@ namespace KasabaKIAT.Controllers
             }
             return View();
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [OutputCache(Duration = 3000, Location = OutputCacheLocation.ServerAndClient, VaryByCustom = "userId")]
         public JsonResult GetSanatory()
         {
             var S = (from s in KasabaDB.tblSprav_San
@@ -48,6 +70,11 @@ namespace KasabaKIAT.Controllers
             return Json(S.ToList(), JsonRequestBehavior.AllowGet);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [OutputCache(Duration = 3000, Location = OutputCacheLocation.ServerAndClient, VaryByCustom = "userId")]
         public JsonResult GetKvartal()
         {
             var S = (from s in KasabaDB.tblSprav_Kv
@@ -59,7 +86,11 @@ namespace KasabaKIAT.Controllers
             return Json(S.ToList(), JsonRequestBehavior.AllowGet);
         }
 
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [OutputCache(Duration = 3000, Location = OutputCacheLocation.ServerAndClient, VaryByCustom = "userId")]
         public JsonResult GetCamp()
         {
             var C = (from s in KasabaDB.t_camp
@@ -70,6 +101,12 @@ namespace KasabaKIAT.Controllers
                      });
             return Json(C, JsonRequestBehavior.AllowGet);
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [OutputCache(Duration = 3000, Location = OutputCacheLocation.ServerAndClient, VaryByCustom = "userId")]
         public JsonResult GetRegion()
         {
             int UserId = Convert.ToInt32(User.Identity.Name);
@@ -100,6 +137,14 @@ namespace KasabaKIAT.Controllers
                 return Json(R, JsonRequestBehavior.AllowGet);
             }
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="R"></param>
+        /// <param name="SC"></param>
+        /// <returns></returns>
+        [OutputCache(Duration = 60, Location = OutputCacheLocation.ServerAndClient, VaryByParam = "R;SC", VaryByCustom = "userId")]
         public JsonResult GetGodovoyPlan_S(int R,int SC)
         {
             int UserId = Convert.ToInt32(User.Identity.Name);
@@ -165,7 +210,14 @@ namespace KasabaKIAT.Controllers
                 return Json(list.ToList(), JsonRequestBehavior.AllowGet);
             }
         }
-        //[HttpPost]
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="R"></param>
+        /// <param name="SC"></param>
+        /// <returns></returns>
+        [OutputCache(Duration = 60, Location = OutputCacheLocation.ServerAndClient, VaryByParam = "R;SC", VaryByCustom = "userId")]
         public JsonResult GetGodovoyPlan_C(int R, int SC)
         {
             int UserId = Convert.ToInt32(User.Identity.Name);
@@ -233,6 +285,12 @@ namespace KasabaKIAT.Controllers
             }
            
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="GP"></param>
+        /// <returns></returns>
         [HttpPost]
         public string AddGodovoyPlan(tbpt_yearlyplanregion GP)
         {
@@ -316,6 +374,12 @@ namespace KasabaKIAT.Controllers
                 return "error";
             }
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="GP"></param>
+        /// <returns></returns>
         [HttpPost]
         public string UpdateGodovoyPlan(tbpt_yearlyplanregion GP)
         {
@@ -408,6 +472,12 @@ namespace KasabaKIAT.Controllers
                 return "no";
             }
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpPost]
         public string DeleteGodovoyPlan(string id)
         {

@@ -7,32 +7,76 @@ using KasabaKIAT.Models;
 using KurortUrvServiceTest.ServiceInterAction.ActionLogic;
 using log4net;
 using KasabaKiat.Helpers;
+using System.Web.UI;
 
 namespace KasabaKIAT.Controllers
 {
-    //[Authorize(Roles = "COUNCIL_REGIONAL_REGION,ADMIN")]
+    /// <summary>
+    /// 
+    /// </summary>
     public class OtchotController : Controller
     {
+        /// <summary>
+        /// 
+        /// </summary>
         ServiceActionController service = new ServiceActionController();
+
+        /// <summary>
+        /// 
+        /// </summary>
         ILog log = log4net.LogManager.GetLogger(typeof(AdministirirovaniyeController));
+
+        /// <summary>
+        /// 
+        /// </summary>
         KasabaKIATEntities KasabaDB = new KasabaKIATEntities();
-        // GET: Otchot
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [OutputCache(Duration = 30000, Location = OutputCacheLocation.ServerAndClient, VaryByCustom = "userId")]
         public ActionResult Index()
         {
             return View();
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [OutputCache(Duration = 30, Location = OutputCacheLocation.ServerAndClient, VaryByCustom = "userId")]
         public ActionResult SvodniyOtchot()
         {
             return View();
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [OutputCache(Duration = 30, Location = OutputCacheLocation.ServerAndClient, VaryByCustom = "userId")]
         public ActionResult Talabnomlar()
         {
             return View();
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [OutputCache(Duration = 30, Location = OutputCacheLocation.ServerAndClient, VaryByCustom = "userId")]
         public ActionResult Forma13()
         {
             return View();
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="yil"></param>
+        /// <param name="inn"></param>
+        /// <returns></returns>
         public JsonResult GetForma13(int yil, string inn)
         {
             log.Info("GetRaspredeleniyeZaezdov1");
@@ -71,26 +115,62 @@ namespace KasabaKIAT.Controllers
             }
             return null;
         }
+
+        [OutputCache(Duration = 30, Location = OutputCacheLocation.ServerAndClient, VaryByCustom = "userId")]
         public ActionResult Forma14()
         {
             return View();
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [OutputCache(Duration = 30, Location = OutputCacheLocation.ServerAndClient, VaryByCustom = "userId")]
         public ActionResult TablitsaOtdixayushix()
         {
             return View();
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [OutputCache(Duration = 30, Location = OutputCacheLocation.ServerAndClient, VaryByCustom = "userId")]
         public ActionResult JurnalniyOrder()
         {
             return View();
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [OutputCache(Duration = 30, Location = OutputCacheLocation.ServerAndClient, VaryByCustom = "userId")]
         public ActionResult FinalniyOtchot()
         {
             return View();
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [OutputCache(Duration = 30, Location = OutputCacheLocation.ServerAndClient, VaryByCustom = "userId")]
         public ActionResult GlavnayaKniga()
         {
             return View();
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="Begindt"></param>
+        /// <param name="Enddt"></param>
+        /// <param name="Soato"></param>
+        /// <param name="Branch"></param>
+        /// <returns></returns>
+        [OutputCache(Duration = 300, Location = OutputCacheLocation.ServerAndClient, VaryByParam = "Begindt;Enddt;Soato;Branch", VaryByCustom = "userId")]
         public JsonResult GetSvodniyOtchot(DateTime? Begindt,DateTime? Enddt,string Soato,string Branch)
         {
             var UserId = Convert.ToInt32(User.Identity.Name);
@@ -111,6 +191,14 @@ namespace KasabaKIAT.Controllers
                        };
             return Json(list.ToList(), JsonRequestBehavior.AllowGet);
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="yil"></param>
+        /// <param name="inn"></param>
+        /// <returns></returns>
+        [OutputCache(Duration = 300, Location = OutputCacheLocation.ServerAndClient, VaryByParam = "yil;inn", VaryByCustom = "userId")]
         public JsonResult GetTalabnomlar_Korxona(int yil,string inn)
         {
             var data = KasabaDB.sp_rt_TalabnomaKorxona(yil,inn);
@@ -125,6 +213,15 @@ namespace KasabaKIAT.Controllers
                        };
             return Json(list.ToList(), JsonRequestBehavior.AllowGet);
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="yil"></param>
+        /// <param name="soato"></param>
+        /// <param name="branch"></param>
+        /// <returns></returns>
+        [OutputCache(Duration = 300, Location = OutputCacheLocation.ServerAndClient, VaryByParam = "yil;soato;branch", VaryByCustom = "userId")]
         public JsonResult GetTalabnomlar_Tarmoq(int yil, string soato,string branch)
         {
             var data1 = KasabaDB.sp_rt_TalabnomaTarmoq(yil, soato, branch);
@@ -139,6 +236,14 @@ namespace KasabaKIAT.Controllers
                        };
             return Json(list.ToList(), JsonRequestBehavior.AllowGet);
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="yil"></param>
+        /// <param name="soato"></param>
+        /// <returns></returns>
+        [OutputCache(Duration = 300, Location = OutputCacheLocation.ServerAndClient, VaryByParam = "yil;soato", VaryByCustom = "userId")]
         public JsonResult GetTalabnomlar_Viloyat(int yil, string soato)
         {
             var data3 = KasabaDB.sp_rt_TalabnomaViloyat(yil, soato);
@@ -153,10 +258,23 @@ namespace KasabaKIAT.Controllers
                        };
             return Json(list.ToList(), JsonRequestBehavior.AllowGet);
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [OutputCache(Duration = 300, Location = OutputCacheLocation.ServerAndClient, VaryByCustom = "userId")]
         public ActionResult Postupleniya()
         {
             return View();
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="inn"></param>
+        /// <returns></returns>
+        [OutputCache(Duration = 300, Location = OutputCacheLocation.ServerAndClient, VaryByParam = "inn", VaryByCustom = "userId")]
         public JsonResult GetPostupleniya(string inn)
         {
             var UserId = Convert.ToInt32(User.Identity.Name);
@@ -197,8 +315,6 @@ namespace KasabaKIAT.Controllers
                             d24=o.CreateDate// 
                         };
 
-                //log.Info("Count = " + O.ToList().Count);
-
                 return Json(O.ToList(), JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
@@ -207,10 +323,26 @@ namespace KasabaKIAT.Controllers
             }
             return null;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [OutputCache(Duration = 300, Location = OutputCacheLocation.ServerAndClient, VaryByCustom = "userId")]
         public ActionResult RazbivkaPostupleniya()
         {
             return View();
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="s"></param>
+        /// <param name="b"></param>
+        /// <param name="bg"></param>
+        /// <param name="end"></param>
+        /// <returns></returns>
+        [OutputCache(Duration = 300, Location = OutputCacheLocation.ServerAndClient, VaryByParam = "s;b;bg;end", VaryByCustom = "userId")]
         public JsonResult GetRazbivkaPostupleniya(string s,string b,DateTime? bg,DateTime? end)
         {
             var UserId = Convert.ToInt32(User.Identity.Name);
@@ -258,91 +390,6 @@ namespace KasabaKIAT.Controllers
                             d28 = o.otraslName
                         };
 
-                //var resultList = O.ToList();
-
-                //string csv = string.Empty;
-
-                //csv += "K_TYPE         " + ',';
-                //csv += "OPERDAY        " + ',';
-                //csv += "ID             " + ',';
-                //csv += "BANKID         " + ',';
-                //csv += "KLSDOX         " + ',';
-                //csv += "DOCNUMB        " + ',';
-                //csv += "DOCDATE        " + ',';
-                //csv += "DOCTYPE        " + ',';
-                //csv += "SUMPAY         " + ',';
-                //csv += "CLMFO          " + ',';
-                //csv += "CLACC          " + ',';
-                //csv += "CLINN          " + ',';
-                //csv += "CLNAME         " + ',';
-                //csv += "COMFO          " + ',';
-                //csv += "COACC          " + ',';
-                //csv += "COINN          " + ',';
-                //csv += "CONAME         " + ',';
-                //csv += "PURPOSE        " + ',';
-                //csv += "CHAPTER        " + ',';
-                //csv += "OKONH          " + ',';
-                //csv += "FILE_ID        " + ',';
-                //csv += "OTCHISLEN      " + ',';
-                //csv += "SUMMATOTAL     " + ',';
-                //csv += "FEDERATIONSUM  " + ',';
-                //csv += "OBLASTSUM      " + ',';
-                //csv += "OblastName     " + ',';
-                //csv += "OkonxName      " + ',';
-                //csv += "otraslName     " + ',';
-
-                //foreach (var row in resultList)
-                //{
-
-                //    //Add the Data rows.
-                //    //csv += row[column.ColumnName].ToString().Replace(",", ";") + ',';
-
-                //    csv += row.d1.ToString().Replace(",", ";") + ',';
-                //    csv += row.d2.ToString().Replace(",", ";") + ',';
-                //    csv += row.d3.ToString().Replace(",", ";") + ',';
-                //    csv += row.d4.ToString().Replace(",", ";") + ',';
-                //    csv += row.d5.ToString().Replace(",", ";") + ',';
-                //    csv += row.d6.ToString().Replace(",", ";") + ',';
-                //    csv += row.d7.ToString().Replace(",", ";") + ',';
-                //    csv += row.d8.ToString().Replace(",", ";") + ',';
-                //    csv += row.d9.ToString().Replace(",", ";") + ',';
-                //    csv += row.d10.ToString().Replace(",", ";") + ',';
-                //    csv += row.d11.ToString().Replace(",", ";") + ',';
-                //    csv += row.d12.ToString().Replace(",", ";") + ',';
-                //    csv += row.d13.ToString().Replace(",", ";") + ',';
-                //    csv += row.d14.ToString().Replace(",", ";") + ',';
-                //    csv += row.d15.ToString().Replace(",", ";") + ',';
-                //    csv += row.d16.ToString().Replace(",", ";") + ',';
-                //    csv += row.d17.ToString().Replace(",", ";") + ',';
-                //    csv += row.d18.ToString().Replace(",", ";") + ',';
-                //    csv += row.d19.ToString().Replace(",", ";") + ',';
-                //    csv += row.d20.ToString().Replace(",", ";") + ',';
-                //    csv += row.d21.ToString().Replace(",", ";") + ',';
-                //    csv += row.d22.ToString().Replace(",", ";") + ',';
-                //    csv += row.d23.ToString().Replace(",", ";") + ',';
-                //    csv += row.d24.ToString().Replace(",", ";") + ',';
-                //    csv += row.d25.ToString().Replace(",", ";") + ',';
-                //    csv += row.d26.ToString().Replace(",", ";") + ',';
-                //    csv += row.d27.ToString().Replace(",", ";") + ',';
-                //    csv += row.d28.ToString().Replace(",", ";") + ',';
-
-
-                //    //Add new line.
-                //    csv += "\r\n";
-                //}
-
-                //Download the CSV file.
-                //Response.Clear();
-                //Response.Buffer = true;
-                //Response.AddHeader("content-disposition", "attachment;filename=SqlExport.csv");
-                //Response.Charset = "";
-                //Response.ContentType = "application/text";
-                //Response.Output.Write(csv);
-                //Response.Flush();
-                //Response.End();
-
-                //return File(new System.Text.UTF8Encoding().GetBytes(csv), "text/csv", "Report123.csv");
-
                 var resultList = O.ToList();
 
                 return Json(resultList, JsonRequestBehavior.AllowGet);
@@ -353,10 +400,24 @@ namespace KasabaKIAT.Controllers
             }
             return null;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [OutputCache(Duration = 300, Location = OutputCacheLocation.ServerAndClient, VaryByCustom = "userId")]
         public ActionResult PostupleniyaOblastyam()
         {
             return View();
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="bg"></param>
+        /// <param name="end"></param>
+        /// <returns></returns>
+        [OutputCache(Duration = 300, Location = OutputCacheLocation.ServerAndClient, VaryByParam = "bg;end", VaryByCustom = "userId")]
         public JsonResult GetPostupleniyaOblastyam(DateTime? bg, DateTime? end)
         {
             var UserId = Convert.ToInt32(User.Identity.Name);
@@ -388,10 +449,24 @@ namespace KasabaKIAT.Controllers
             }
             return null;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [OutputCache(Duration = 300, Location = OutputCacheLocation.ServerAndClient, VaryByCustom = "userId")]
         public ActionResult PostupleniyaTuman()
         {
             return View();
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="bg"></param>
+        /// <param name="end"></param>
+        /// <returns></returns>
+        [OutputCache(Duration = 300, Location = OutputCacheLocation.ServerAndClient, VaryByParam = "bg;end", VaryByCustom = "userId")]
         public JsonResult GetPostupleniyaTuman(DateTime? bg, DateTime? end)
         {
             var UserId = Convert.ToInt32(User.Identity.Name);
@@ -423,10 +498,25 @@ namespace KasabaKIAT.Controllers
             }
             return null;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [OutputCache(Duration = 300, Location = OutputCacheLocation.ServerAndClient, VaryByCustom = "userId")]
         public ActionResult PostupleniyaOblastTumanOtraslGroup()
         {
             return View();
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="s"></param>
+        /// <param name="bg"></param>
+        /// <param name="end"></param>
+        /// <returns></returns>
+        [OutputCache(Duration = 300, Location = OutputCacheLocation.ServerAndClient, VaryByParam = "s;bg;end", VaryByCustom = "userId")]
         public JsonResult GetPostupleniyaOblastTumanOtraslGroup(string s, DateTime? bg, DateTime? end)
         {
             var UserId = Convert.ToInt32(User.Identity.Name);
@@ -461,10 +551,24 @@ namespace KasabaKIAT.Controllers
             return null;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [OutputCache(Duration = 300, Location = OutputCacheLocation.ServerAndClient, VaryByCustom = "userId")]
         public ActionResult PostupleniyaOtrasli()
         {
             return View();
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="s"></param>
+        /// <param name="bg"></param>
+        /// <param name="end"></param>
+        /// <returns></returns>
+        [OutputCache(Duration = 300, Location = OutputCacheLocation.ServerAndClient, VaryByParam = "s;bg;end", VaryByCustom = "userId")]
         public JsonResult GetPostupleniyaOtrasli(string s, DateTime? bg, DateTime? end)
         {
             var UserId = Convert.ToInt32(User.Identity.Name);
@@ -499,10 +603,24 @@ namespace KasabaKIAT.Controllers
             return null;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [OutputCache(Duration = 300, Location = OutputCacheLocation.ServerAndClient, VaryByCustom = "userId")]
         public ActionResult PostupleniyaOkonxu()
         {
             return View();
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="s"></param>
+        /// <param name="bg"></param>
+        /// <param name="end"></param>
+        /// <returns></returns>
+        [OutputCache(Duration = 300, Location = OutputCacheLocation.ServerAndClient, VaryByParam = "s;bg;end", VaryByCustom = "userId")]
         public JsonResult GetPostupleniyaOkonxu(string s, DateTime? bg, DateTime? end)
         {
             var UserId = Convert.ToInt32(User.Identity.Name);
@@ -537,6 +655,11 @@ namespace KasabaKIAT.Controllers
             return null;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [OutputCache(Duration = 3000, Location = OutputCacheLocation.ServerAndClient, VaryByCustom = "userId")]
         public JsonResult GetOtrasl()
         {
             var O = from o in KasabaDB.sp_branch
@@ -550,6 +673,12 @@ namespace KasabaKIAT.Controllers
             resList.Insert(0, new { id = "0", value = "Все" });
             return Json(resList, JsonRequestBehavior.AllowGet);
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [OutputCache(Duration = 3000, Location = OutputCacheLocation.ServerAndClient, VaryByCustom = "userId")]
         public JsonResult GetRegion()
         {
             var UserId = Convert.ToInt32(User.Identity.Name);

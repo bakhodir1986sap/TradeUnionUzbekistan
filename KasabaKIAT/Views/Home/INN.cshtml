@@ -4,13 +4,12 @@
     Layout = "/Views/Shared/_Layout0.cshtml";
 }
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
-<link href="https://use.fontawesome.com/releases/v5.0.2/css/all.css" rel="stylesheet">
+<link href="~/Content/styles/all.css" rel="stylesheet" />
 <link rel="stylesheet" href="~/Content/styles/main.css">
 <script src="~/Scripts/vendor/modernizr.js"></script>
 <link href="~/Content/themes/alertify.default.css" rel="stylesheet" />
 <link href="~/Content/themes/alertify.core.css" rel="stylesheet" />
 <link href="~/Content/themes/alertify.bootstrap.css" rel="stylesheet" />
-
 
 <script src="~/Scripts/kendo/angular.min.js"></script>
 <script src="~/Scripts/MyJavaScript/Module.js"></script>
@@ -18,8 +17,7 @@
 <script src="~/Scripts/MyJavaScript/DataService.js"></script>
 
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>
-<script src="https://fastcdn.org/FileSaver.js/1.1.20151003/FileSaver.min.js"></script>
-
+<script src="~/Scripts/FileSaver.min.js"></script>
 
 <script src="~/Scripts/MyJavaScript/DataService.js"></script>
 <script src="~/Scripts/MyJavaScript/LoadINN.js"></script>
@@ -53,12 +51,6 @@
             return $(this).width();
         }).get();
 
-        // Set the width of thead columns
-        //$table.find('thead tr').children().each(function (i, v) {
-        //    $(v).width(colWidth[i]);
-        //});
-       
-
     }).resize(); // Trigger resize handler
 </script>
 <style>
@@ -68,15 +60,6 @@
     border-spacing: 0;
     /*border: 2px solid black;*/
 }
-
-/*table.scroll tbody,
-table.scroll thead { display: block; }*/
-
-/*thead tr th { 
-    height: 30px;
-    line-height: 30px;
-     text-align: left; 
-}*/
 
 table.scroll tbody {
     height: 300px;
@@ -91,10 +74,6 @@ tbody td, thead th {
     border-right: 1px solid black;
     /* white-space: nowrap; */
 }
-
-/*tbody td:last-child, thead th:last-child {
-    border-right: none;
-}*/
 </style>
 <style>
     td {
@@ -131,14 +110,6 @@ tbody td, thead th {
             </div>
         </form> @*style="width:200px;text-align:center"*@
         <div class="table-responsive box-shadow mb-4" ng-show="showdata" id="export">
-           @*<div class="row" style="margin-left:10%;margin-right:0px;margin-top:15px">
-               <div><h5>Адрес</h5></div>
-               <div style="margin-left:15%"><h5>Названия</h5></div>
-               <div style="margin-left:15%"><h5>Названия</h5></div>
-               <div style="margin-left:15%"><h5>Инн</h5></div>
-           </div>*@
-            @*table table__block t-hover*@ 
-            @*class="dropdown dropdown__table"*@
             <table class="table table-bordered scroll" id="table" onscroll="yes">
                     <thead style="display:block">
                         <tr>

@@ -11,36 +11,72 @@ using System.Globalization;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.UI;
 
 namespace KasabaKIAT.Controllers
 {
-    //[Authorize(Roles = "ADMIN")]
+
     [Authorize]
     public class BuxgalterController : Controller
     {
         ILog log = log4net.LogManager.GetLogger(typeof(BuxgalterController));
         KasabaKIATEntities KasabaDB = new KasabaKIATEntities();
-        // GET: Buxgalter
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [OutputCache(Duration = 30, Location = OutputCacheLocation.ServerAndClient, VaryByCustom = "userId")]
         public ActionResult Index()
         {
             return View();
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [OutputCache(Duration = 30, Location = OutputCacheLocation.ServerAndClient, VaryByCustom = "userId")]
         public ActionResult BU_RuchnayaPravodka()
         {
             return View();
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [OutputCache(Duration = 30, Location = OutputCacheLocation.ServerAndClient, VaryByCustom = "userId")]
         public ActionResult BU_PrasmotrDannix()
         {
             return View();
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [OutputCache(Duration = 30, Location = OutputCacheLocation.ServerAndClient, VaryByCustom = "userId")]
         public ActionResult VvodDannix()
         {
             return View();
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [OutputCache(Duration = 30, Location = OutputCacheLocation.ServerAndClient, VaryByCustom = "userId")]
         public ActionResult OsushestvleniyeProvodki()
         {
             return View();
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="d"></param>
+        /// <returns></returns>
         public string EnterOsushestvleniyeProvodki(ProvodkiViewModel d)
         {
             int UserId = Convert.ToInt32(User.Identity.Name);
@@ -52,27 +88,62 @@ namespace KasabaKIAT.Controllers
             pr.Enter(d);
             return "yes";
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [OutputCache(Duration = 300, Location = OutputCacheLocation.ServerAndClient, VaryByCustom = "userId")]
         public ActionResult Nakladniye()
         {
             return View();
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [OutputCache(Duration = 300, Location = OutputCacheLocation.ServerAndClient, VaryByCustom = "userId")]
         public ActionResult RaspredleniyeByudjeta()
         {
             return View();
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [OutputCache(Duration = 300, Location = OutputCacheLocation.ServerAndClient, VaryByCustom = "userId")]
         public ActionResult PlanByudjetaOblastey()
         {
             return View();
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [OutputCache(Duration = 300, Location = OutputCacheLocation.ServerAndClient, VaryByCustom = "userId")]
         public ActionResult PlanByudjetaOblasteyNoviy()
         {
             return View();
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [OutputCache(Duration = 300, Location = OutputCacheLocation.ServerAndClient, VaryByCustom = "userId")]
         public ActionResult PlanByudjetaOblasteyIzmenit()
         {
             return View();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="formCollection"></param>
+        /// <returns></returns>
         public ActionResult Read(FormCollection formCollection)
         {
             log.Info("Read");
@@ -167,6 +238,12 @@ namespace KasabaKIAT.Controllers
                 return Json("error", JsonRequestBehavior.AllowGet);
             }
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="formCollection"></param>
+        /// <returns></returns>
         public ActionResult Save(FormCollection formCollection)
         {
             log.Info("Save");
@@ -243,6 +320,12 @@ namespace KasabaKIAT.Controllers
             }
 
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [OutputCache(Duration = 300, Location = OutputCacheLocation.ServerAndClient, VaryByCustom = "userId")]
         public JsonResult GetVvodDannix()
         {
             var data = KasabaDB.tbgl_bankpayments;

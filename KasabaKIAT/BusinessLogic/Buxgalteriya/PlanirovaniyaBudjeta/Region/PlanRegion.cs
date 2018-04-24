@@ -7,29 +7,65 @@ using System.Web;
 
 namespace KasabaKIAT.BusinessLogic.Buxgalteriya.PlanirovaniyaBudjeta.Region
 {
+    /// <summary>
+    /// Plan Byudjeta Region
+    /// </summary>
     public class Item
     {
+        /// <summary>
+        /// Code Rasxoda
+        /// </summary>
         public string ItemCode { get; set; }
 
+        /// <summary>
+        /// Opisaniya punkta rasxoda
+        /// </summary>
         public string ItemDescription { get; set; }
 
+        /// <summary>
+        /// Znacheniye za God
+        /// </summary>
         public decimal  ValueYearly         { get; set; }
 
+        /// <summary>
+        /// Priznak Izmenyaemosti
+        /// </summary>
         public bool     IsModValueYearly    { get; set; }
 
+        /// <summary>
+        /// Znacheniye za 1 Kvartal 
+        /// </summary>
         public decimal  Value1Quater        { get; set; }
 
+        /// <summary>
+        /// Priznak izmenyaemosti 1 Kvartal
+        /// </summary>
         public bool     IsModValue1Quater   { get; set; }
 
+        /// <summary>
+        /// Pervoe polugodiye Znacheniye
+        /// </summary>
         public decimal  Value1Half          { get; set; }
 
+        /// <summary>
+        /// Priznal izmenyaemosti Pervoe polugodiye
+        /// </summary>
         public bool     IsModValue1Half     { get; set; }
 
+        /// <summary>
+        /// Znacheniye 9 mesyasev Znacheniye
+        /// </summary>
         public decimal  Value9Month         { get; set; }
 
+        /// <summary>
+        /// Priznak izmenyaemosti 9 mesyasev
+        /// </summary>
         public bool     IsModValue9Month    { get; set; }
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
     public class ItemController
     {
         private List<Item> itemsList = null;

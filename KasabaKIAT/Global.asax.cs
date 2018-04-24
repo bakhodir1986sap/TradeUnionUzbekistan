@@ -23,6 +23,18 @@ namespace KasabaKIAT
             log4net.Config.XmlConfigurator.Configure();
         }
 
+        public override string GetVaryByCustomString(HttpContext context, string custom)
+        {
+            if (custom == "userId")
+            {
+                return User.Identity.Name;
+            }
+            else
+            {
+                return base.GetVaryByCustomString(context, custom);
+            }
+        }
+
         protected void Application_Error()
         {
             var ex = Server.GetLastError();

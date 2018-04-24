@@ -2,26 +2,33 @@
 using KasabaKIAT.Models;
 using log4net;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using System.Web.Security;
+using System.Web.UI;
 
 namespace KasabaKIAT.Controllers
 {
-    //[Authorize(Roles = "ADMIN")]
+    /// <summary>
+    /// 
+    /// </summary>
     [Authorize]
     public class HomeController : Controller
     {
+        /// <summary>
+        /// 
+        /// </summary>
         ILog log = log4net.LogManager.GetLogger(typeof(HomeController));
 
+        /// <summary>
+        /// 
+        /// </summary>
         KasabaKIATEntities KasabaDB = new KasabaKIATEntities();
 
         /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>
+        [OutputCache(Duration = 3000, Location = OutputCacheLocation.ServerAndClient, VaryByCustom = "userId")]
         public ActionResult Index()
         {
             int UserId = 0;
@@ -49,14 +56,32 @@ namespace KasabaKIAT.Controllers
                 return View();
             }
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [OutputCache(Duration = 3000, Location = OutputCacheLocation.ServerAndClient, VaryByCustom = "userId")]
         public ActionResult INN()
         {
             return View();
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [OutputCache(Duration = 3000, Location = OutputCacheLocation.ServerAndClient, VaryByCustom = "userId")]
         public ActionResult izmParol()
         {
             return View();
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="p"></param>
+        /// <returns></returns>
         public string TP(string p)
         {
             log.Info("TP");
@@ -90,6 +115,12 @@ namespace KasabaKIAT.Controllers
 
             return null;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="p"></param>
+        /// <returns></returns>
         public string NP(string p)
         {
             var UserId = Convert.ToInt32(User.Identity.Name);
@@ -106,10 +137,12 @@ namespace KasabaKIAT.Controllers
                 return "no";
             }
         }
+
         /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>
+        [OutputCache(Duration = 3000, Location = OutputCacheLocation.ServerAndClient, VaryByCustom = "userId")]
         public JsonResult Getdictionary()
         {
             try
@@ -141,6 +174,7 @@ namespace KasabaKIAT.Controllers
         /// 
         /// </summary>
         /// <returns></returns>
+        [OutputCache(Duration = 3000, Location = OutputCacheLocation.ServerAndClient, VaryByCustom = "userId")]
         public JsonResult Getdictionary_RZ()
         {
             try
@@ -172,6 +206,7 @@ namespace KasabaKIAT.Controllers
         /// 
         /// </summary>
         /// <returns></returns>
+        [OutputCache(Duration = 3000, Location = OutputCacheLocation.ServerAndClient, VaryByCustom = "userId")]
         public ActionResult RassmotreniyeZayavok()
         {
             return View();
@@ -181,8 +216,7 @@ namespace KasabaKIAT.Controllers
         /// 
         /// </summary>
         /// <returns></returns>
-        /// 
-        //[Authorize(Roles = "BKUT,ADMIN")]
+        [OutputCache(Duration = 3000, Location = OutputCacheLocation.ServerAndClient, VaryByCustom = "userId")]
         public ActionResult PodachaZayavok()
         {
            
@@ -193,6 +227,7 @@ namespace KasabaKIAT.Controllers
         /// 
         /// </summary>
         /// <returns></returns>
+        [OutputCache(Duration = 3000, Location = OutputCacheLocation.ServerAndClient, VaryByCustom = "userId")]
         public JsonResult GetSanatory()
         {
             log.Info("GetSanatory ");
@@ -227,6 +262,7 @@ namespace KasabaKIAT.Controllers
         /// 
         /// </summary>
         /// <returns></returns>
+        [OutputCache(Duration = 3000, Location = OutputCacheLocation.ServerAndClient, VaryByCustom = "userId")]
         public JsonResult GetCamp()
         {
             log.Info("GetCamp");
@@ -256,6 +292,7 @@ namespace KasabaKIAT.Controllers
         /// 
         /// </summary>
         /// <returns></returns>
+        [OutputCache(Duration = 3000, Location = OutputCacheLocation.ServerAndClient, VaryByCustom = "userId")]
         public JsonResult GetPosition()
         {
             log.Info("GetPosition");
@@ -285,6 +322,7 @@ namespace KasabaKIAT.Controllers
         /// 
         /// </summary>
         /// <returns></returns>
+        [OutputCache(Duration = 60, Location = OutputCacheLocation.ServerAndClient, VaryByCustom = "userId")]
         public JsonResult GetAllPRZ_S()
         {
             log.Info("GetAllPRZ_S");
@@ -332,6 +370,7 @@ namespace KasabaKIAT.Controllers
         /// 
         /// </summary>
         /// <returns></returns>
+        [OutputCache(Duration = 60, Location = OutputCacheLocation.ServerAndClient, VaryByCustom = "userId")]
         public JsonResult GetAllPRZ_C()
         {
             log.Info("GetAllPRZ_C");
@@ -381,6 +420,7 @@ namespace KasabaKIAT.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
+        [OutputCache(Duration = 60, Location = OutputCacheLocation.ServerAndClient, VaryByCustom = "userId")]
         public JsonResult Load_PRZ_S(int id)
         {
 
@@ -433,6 +473,7 @@ namespace KasabaKIAT.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
+        [OutputCache(Duration = 60, Location = OutputCacheLocation.ServerAndClient, VaryByParam = "id", VaryByCustom = "userId")]
         public JsonResult Load_PRZ_C(int id)
         {
             log.Info("Load_PRZ_C");
@@ -483,6 +524,7 @@ namespace KasabaKIAT.Controllers
         /// </summary>
         /// <param name="date"></param>
         /// <returns></returns>
+        [OutputCache(Duration = 60, Location = OutputCacheLocation.ServerAndClient, VaryByParam = "date", VaryByCustom = "userId")]
         public JsonResult Load_PRZ_D0_S(DateTime date)
         {
             log.Info("Load_PRZ_D0_S");
@@ -534,6 +576,7 @@ namespace KasabaKIAT.Controllers
         /// </summary>
         /// <param name="date"></param>
         /// <returns></returns>
+        [OutputCache(Duration = 60, Location = OutputCacheLocation.ServerAndClient, VaryByParam = "date", VaryByCustom = "userId")]
         public JsonResult Load_PRZ_D0_C(DateTime date)
         {
             log.Info("Load_PRZ_D0_C");
@@ -585,6 +628,7 @@ namespace KasabaKIAT.Controllers
         /// </summary>
         /// <param name="date"></param>
         /// <returns></returns>
+        [OutputCache(Duration = 60, Location = OutputCacheLocation.ServerAndClient, VaryByParam = "date", VaryByCustom = "userId")]
         public JsonResult Load_PRZ_D1_S(DateTime date)
         {
             log.Info("Load_PRZ_D1_S");
@@ -637,6 +681,7 @@ namespace KasabaKIAT.Controllers
         /// </summary>
         /// <param name="date"></param>
         /// <returns></returns>
+        [OutputCache(Duration = 60, Location = OutputCacheLocation.ServerAndClient, VaryByParam = "date", VaryByCustom = "userId")]
         public JsonResult Load_PRZ_D1_C(DateTime date)
         {
             log.Info("Load_PRZ_D1_C");
@@ -687,6 +732,7 @@ namespace KasabaKIAT.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
+        [OutputCache(Duration = 60, Location = OutputCacheLocation.ServerAndClient, VaryByParam = "id", VaryByCustom = "userId")]
         public JsonResult Load_PRZ_P_S(int id)
         {
             log.Info("Load_PRZ_P_S");
@@ -738,6 +784,7 @@ namespace KasabaKIAT.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
+        [OutputCache(Duration = 60, Location = OutputCacheLocation.ServerAndClient, VaryByParam = "id", VaryByCustom = "userId")]
         public JsonResult Load_PRZ_P_C(int id)
         {
             log.Info("Load_PRZ_P_C");
@@ -788,6 +835,7 @@ namespace KasabaKIAT.Controllers
         /// 
         /// </summary>
         /// <returns></returns>
+        [OutputCache(Duration = 60, Location = OutputCacheLocation.ServerAndClient, VaryByCustom = "userId")]
         public JsonResult GetAllPodachaZayavok()
         {
             log.Info("GetAllPodachaZayavok");
@@ -834,6 +882,7 @@ namespace KasabaKIAT.Controllers
         /// </summary>
         /// <param name="sc_id"></param>
         /// <returns></returns>
+        [OutputCache(Duration = 60, Location = OutputCacheLocation.ServerAndClient, VaryByParam = "sc_id", VaryByCustom = "userId")]
         public JsonResult GetAllPZ_S(int sc_id)
         {
             log.Info("GetAllPZ_S");
@@ -881,6 +930,7 @@ namespace KasabaKIAT.Controllers
         /// </summary>
         /// <param name="sc_id"></param>
         /// <returns></returns>
+        [OutputCache(Duration = 60, Location = OutputCacheLocation.ServerAndClient, VaryByParam = "sc_id", VaryByCustom = "userId")]
         public JsonResult GetAllPZ_C(int sc_id)
         {
 
@@ -929,6 +979,7 @@ namespace KasabaKIAT.Controllers
         /// <param name="inn"></param>
         /// <param name="zb"></param>
         /// <returns></returns>
+        [OutputCache(Duration = 60, Location = OutputCacheLocation.ServerAndClient, VaryByParam = "inn;zb", VaryByCustom = "userId")]
         public JsonResult GetAllPodachaZayavok_S_LoadINN(string inn, int zb)
         {
             log.Info("GetAllPodachaZayavok_S_LoadINN");
@@ -979,6 +1030,7 @@ namespace KasabaKIAT.Controllers
         /// <param name="inn"></param>
         /// <param name="zb"></param>
         /// <returns></returns>
+        [OutputCache(Duration = 60, Location = OutputCacheLocation.ServerAndClient, VaryByParam = "inn;zb", VaryByCustom = "userId")]
         public JsonResult GetAllPodachaZayavok_C_LoadINN(string inn, int zb)
         {
             log.Info("GetAllPodachaZayavok_C_LoadINN");
@@ -1029,6 +1081,7 @@ namespace KasabaKIAT.Controllers
         /// <param name="inn"></param>
         /// <param name="zb"></param>
         /// <returns></returns>
+        [OutputCache(Duration = 60, Location = OutputCacheLocation.ServerAndClient, VaryByParam = "inn;zb", VaryByCustom = "userId")]
         public JsonResult GroupRZ_S(string inn, int zb)
         {
             log.Info("GroupRZ_S");
@@ -1161,6 +1214,7 @@ namespace KasabaKIAT.Controllers
         /// <param name="inn"></param>
         /// <param name="zb"></param>
         /// <returns></returns>
+        [OutputCache(Duration = 60, Location = OutputCacheLocation.ServerAndClient, VaryByParam = "inn;zb", VaryByCustom = "userId")]
         public JsonResult GroupRZ_C(string inn, int zb)
         {
             log.Info("GroupRZ_C");
@@ -1228,6 +1282,7 @@ namespace KasabaKIAT.Controllers
         /// <param name="inn"></param>
         /// <param name="zb"></param>
         /// <returns></returns>
+        [OutputCache(Duration = 60, Location = OutputCacheLocation.ServerAndClient, VaryByParam = "inn;zb", VaryByCustom = "userId")]
         public JsonResult Getbankpayments(string inn, int zb)
         {
             log.Info("Getbankpayments");
@@ -1261,6 +1316,7 @@ namespace KasabaKIAT.Controllers
         /// </summary>
         /// <param name="yil"></param>
         /// <returns></returns>
+        [OutputCache(Duration = 300, Location = OutputCacheLocation.ServerAndClient, VaryByParam = "yil", VaryByCustom = "userId")]
         public JsonResult GetAvarageprice(int yil)
         {
             log.Info("GetAvarageprice");
@@ -1290,6 +1346,7 @@ namespace KasabaKIAT.Controllers
         /// <param name="inn"></param>
         /// <param name="zb"></param>
         /// <returns></returns>
+        [OutputCache(Duration = 300, Location = OutputCacheLocation.ServerAndClient, VaryByParam = "inn;zb", VaryByCustom = "userId")]
         public JsonResult GetbankpaymentsYear(string inn, int zb)
         {
 
@@ -1395,6 +1452,7 @@ namespace KasabaKIAT.Controllers
         /// </summary>
         /// <param name="inn"></param>
         /// <returns></returns>
+        [OutputCache(Duration = 300, Location = OutputCacheLocation.ServerAndClient, VaryByParam = "inn", VaryByCustom = "userId")]
         public string LOAD_DEPARTMENT_CODE(string inn)
         {
             log.Info("LOAD_DEPARTMENT_CODE ");
@@ -1426,6 +1484,7 @@ namespace KasabaKIAT.Controllers
         /// </summary>
         /// <param name="inn"></param>
         /// <returns></returns>
+        [OutputCache(Duration = 300, Location = OutputCacheLocation.ServerAndClient, VaryByParam = "inn", VaryByCustom = "userId")]
         public string LoadINN(int inn)
         {
             log.Info("LoadINN");
@@ -1496,6 +1555,7 @@ namespace KasabaKIAT.Controllers
         /// </summary>
         /// <param name="group_id"></param>
         /// <returns></returns>
+        [OutputCache(Duration = 30, Location = OutputCacheLocation.ServerAndClient, VaryByParam = "group_id", VaryByCustom = "userId")]
         public string STATUS(int group_id)
         {
             log.Info("STATUS");
@@ -1649,6 +1709,7 @@ namespace KasabaKIAT.Controllers
         /// 
         /// </summary>
         /// <returns></returns>
+        [OutputCache(Duration = 3000, Location = OutputCacheLocation.Client, VaryByCustom = "userId")]
         public ActionResult buxgalteriya()
         {
             return View();
@@ -1658,8 +1719,7 @@ namespace KasabaKIAT.Controllers
         /// 
         /// </summary>
         /// <returns></returns>
-       
-        //[Authorize(Roles = "BKUT,ADMIN")]
+        [OutputCache(Duration = 3000, Location = OutputCacheLocation.Client, VaryByCustom = "userId")]
         public ActionResult PoiskRedaktZayavok()
         {
             return View();
@@ -1668,34 +1728,10 @@ namespace KasabaKIAT.Controllers
         /// <summary>
         /// 
         /// </summary>
-        /// <returns></returns> 
-        /// 
-
-
-        /// <summary>
-        /// 
-        /// </summary>
         /// <returns></returns>
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
+        [OutputCache(Duration = 3000, Location = OutputCacheLocation.ServerAndClient, VaryByCustom = "userId")]
         public ActionResult Putyovki()
         {
-            int aaa = Convert.ToInt32(User.Identity.Name);
-
-            if (Session["name"] == null)
-            {
-                IEnumerable<users> r = from a in KasabaDB.users where a.id ==aaa select a;
-                foreach (var b in r)
-                {
-                    Session["name"] = b.email;
-                    //FormsAuthentication.SetAuthCookie(b.id.ToString(), false);
-                  
-                }
-            }
-
             return View();
         }
 
@@ -1703,6 +1739,7 @@ namespace KasabaKIAT.Controllers
         /// 
         /// </summary>
         /// <returns></returns>
+        [OutputCache(Duration = 3000, Location = OutputCacheLocation.Client, VaryByCustom = "userId")]
         public ActionResult Zayavok()
         {
             return View();
@@ -1712,12 +1749,7 @@ namespace KasabaKIAT.Controllers
         /// 
         /// </summary>
         /// <returns></returns>
-       
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
+        [OutputCache(Duration = 3000, Location = OutputCacheLocation.Client, VaryByCustom = "userId")]
         public ActionResult Otchot()
         {
             return View();
@@ -1727,6 +1759,7 @@ namespace KasabaKIAT.Controllers
         /// 
         /// </summary>
         /// <returns></returns>
+        [OutputCache(Duration = 3000, Location = OutputCacheLocation.Client, VaryByCustom = "userId")]
         public ActionResult Admin()
         {
             return View();

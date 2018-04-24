@@ -4,15 +4,26 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.UI;
 
 namespace KasabaKIAT.Controllers
 {
-    //[Authorize(Roles = "ADMIN")]
+    /// <summary>
+    /// 
+    /// </summary>
     [Authorize]
     public class GrafikZaezdovController : Controller
     {
+        /// <summary>
+        /// 
+        /// </summary>
         KasabaKIATEntities KasabaDB = new KasabaKIATEntities();
-        //[Authorize(Roles = "COUNCIL_REGIONAL_REGION,ADMIN")]
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [OutputCache(Duration = 3000, Location = OutputCacheLocation.ServerAndClient, VaryByCustom = "userId")]
         public ActionResult Index()
         {
             int UserId = Convert.ToInt32(User.Identity.Name);
@@ -25,6 +36,14 @@ namespace KasabaKIAT.Controllers
                 return View();
             }
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="pt"></param>
+        /// <returns></returns>
+        [OutputCache(Duration = 120, Location = OutputCacheLocation.ServerAndClient, VaryByParam = "id;pt", VaryByCustom = "userId")]
         public JsonResult GetAllGrafikZaezdov_S(int id,int pt)
         {
 
@@ -46,6 +65,14 @@ namespace KasabaKIAT.Controllers
                         });
             return Json(list.ToList(), JsonRequestBehavior.AllowGet);
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="pt"></param>
+        /// <returns></returns>
+        [OutputCache(Duration = 120, Location = OutputCacheLocation.ServerAndClient, VaryByParam = "id;pt", VaryByCustom = "userId")]
         public JsonResult GetAllGrafikZaezdov_C(int id,int pt)
         {
             var list = (from e in KasabaDB.tbpt_zaezdi
@@ -66,6 +93,12 @@ namespace KasabaKIAT.Controllers
                         });
             return Json(list.ToList(), JsonRequestBehavior.AllowGet);
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="gz"></param>
+        /// <returns></returns>
         public string UpdateGrafikZaezdov(tbpt_zaezdi gz)
         {
             if (gz != null)
@@ -91,6 +124,12 @@ namespace KasabaKIAT.Controllers
                 return "Invalid gz record";
             }
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="gz"></param>
+        /// <returns></returns>
         public string AddGrafikZaezdov(tbpt_zaezdi gz)
         {
             if (gz != null)
@@ -116,6 +155,12 @@ namespace KasabaKIAT.Controllers
                 return "Invalid book record";
             }
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="bookId"></param>
+        /// <returns></returns>
         public string DeleteGrafikZaezdov(string bookId)
         {
 

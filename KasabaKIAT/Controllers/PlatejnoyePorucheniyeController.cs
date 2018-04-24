@@ -8,20 +8,35 @@ using KasabaKIAT.ViewModel.Buxgalteriya;
 using KasabaKiat.Helpers;
 using KasabaKIAT.BusinessLogic.Buxgalteriya.Platejki;
 using log4net;
+using System.Web.UI;
 
 namespace KasabaKIAT.Controllers
 {
-    //[Authorize(Roles = "ADMIN")]
+    
     [Authorize]
     public class PlatejnoyePorucheniyeController : Controller
     {
-        // GET: PlatejnoyePorucheniye
+        /// <summary>
+        /// 
+        /// </summary>
         KasabaKIATEntities KasabaDB = new KasabaKIATEntities();
+
+        /// <summary>
+        /// 
+        /// </summary>
         ILog log = log4net.LogManager.GetLogger(typeof(AdministirirovaniyeController));
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [OutputCache(Duration = 30000, Location = OutputCacheLocation.ServerAndClient, VaryByCustom = "userId")]
         public ActionResult Index()
         {
             return View();
         }
+
+        [OutputCache(Duration = 30, Location = OutputCacheLocation.ServerAndClient, VaryByCustom = "userId")]
         public JsonResult GetPlatejnoyePorucheniye()
         {
             var list = from pp in KasabaDB.tbbu_platejka
@@ -47,6 +62,12 @@ namespace KasabaKIAT.Controllers
                        };
             return Json(list.ToList(), JsonRequestBehavior.AllowGet);
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="d"></param>
+        /// <returns></returns>
         public string EnterPlatejnoyePorucheniye(PlatejkiViewModel d)
         {
             log.Info("EnterPlatejnoyePorucheniye");

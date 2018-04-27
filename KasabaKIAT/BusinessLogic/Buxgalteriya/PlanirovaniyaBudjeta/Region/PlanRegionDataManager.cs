@@ -35,11 +35,51 @@ namespace KasabaKiat.BusinessLogic.Buxgalteriya.PlanirovaniyaBudjeta.Region
             }
         }
 
-        public static void Modify(PlanRegionViewModel model)
+
+        public static bool FillNotExisting(string soato_code, int year, string department_code, long UserId)
+        {
+            bool isFilled = false;
+
+            var ii = new ItemController();
+            ii.InitializeItems();
+
+            foreach (var model in ii.Items)
+            {
+                using (KasabaKIATEntities db = new KasabaKIATEntities())
+                {
+                    var planOblast = db.tbbu_planbyudjetregion.Where(z => z.SOATO_CODE == soato_code && z.YEAR == year && z.ITEM_CODE == model.ItemCode);
+
+                    if (planOblast.Any()) continue;
+
+                    tbbu_planbyudjetregion reg = new tbbu_planbyudjetregion();
+
+                    reg.DEPARTMENT_BASE = department_code;
+                    reg.USERID = UserId;
+                    reg.YEAR = year;
+                    reg.SOATO_CODE = soato_code;
+                    reg.ITEM_CODE = model.ItemCode;
+                    reg.ITEM_NAME = model.ItemDescription;
+                    reg.GODOVOY = model.ValueYearly;
+                    reg.QUARTER1 = model.Value1Quater;
+                    reg.HALFYEAR = model.Value1Half;
+                    reg.MONTH9 = model.Value9Month;
+
+                    var planOtrasl = db.tbbu_planbyudjetregion.Add(reg);
+
+                    db.SaveChanges();
+
+                    isFilled = true;
+                }
+            }
+
+            return isFilled;
+        }
+
+        public static bool Modify(PlanRegionViewModel model)
         {
             using (KasabaKIATEntities db = new KasabaKIATEntities())
             {
-                var planOblast = db.tbbu_planbyudjetregion.Where(z => z.REC_ID == model.rec_id);
+                var planOblast = db.tbbu_planbyudjetregion.Where(z => z.SOATO_CODE == model.soato_code && z.YEAR == model.year && z.ITEM_CODE == model.item_code);
 
                 if (planOblast.Any())
                 {
@@ -47,21 +87,29 @@ namespace KasabaKiat.BusinessLogic.Buxgalteriya.PlanirovaniyaBudjeta.Region
 
                     if (reg != null)
                     {
-                        reg.DEPARTMENT_BASE = model.department_base;
-                        reg.USERID = model.userid;
-                        reg.YEAR = model.year;
-                        reg.SOATO_CODE = model.soato_code;
-                        reg.ITEM_CODE = model.item_code;
-                        reg.ITEM_NAME = model.item_name;
-                        reg.GODOVOY = model.godovoy;
-                        reg.QUARTER1 = model.quarter1;
-                        reg.HALFYEAR = model.halfyear;
-                        reg.MONTH9 = model.month9;
+                        //reg.DEPARTMENT_BASE = model.department_base;
+                        //reg.USERID = model.userid;
+                        //reg.YEAR = model.year;
+                        //reg.SOATO_CODE = model.soato_code;
+                        //reg.ITEM_CODE = model.item_code;
+                        //reg.ITEM_NAME = model.item_name;
+                        reg.GODOVOY = model.godovoy.HasValue ? model.godovoy: reg.GODOVOY;
+                        reg.QUARTER1 = model.quarter1.HasValue ? model.quarter1 : reg.QUARTER1;
+                        reg.HALFYEAR = model.halfyear.HasValue ? model.halfyear : reg.HALFYEAR;
+                        reg.MONTH9 = model.month9.HasValue ? model.month9: reg.MONTH9;
                     }
+                }
+                else
+                {
+                    return false;
                 }
 
                 db.SaveChanges();
+
+                
             }
+
+            return true;
         }
 
         public static void Remove(PlanRegionViewModel model)

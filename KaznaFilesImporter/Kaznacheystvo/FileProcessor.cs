@@ -103,7 +103,7 @@ namespace KasabaKIAT.BusinessLogic.BankOplati.Kaznacheystvo
 
                 if (substrings[0].Equals("1"))
                 {
-                    if (substrings.Length >= 20)
+                    if (substrings.Length == 21)
                     {
                         pLine = new KaznaPaymentFile();
                         pLine.k_type = substrings[0];
@@ -111,9 +111,9 @@ namespace KasabaKIAT.BusinessLogic.BankOplati.Kaznacheystvo
                         pLine.k_id = substrings[2];
                         pLine.k_bankid = substrings[3];
                         //pLine.k_grpid = substrings[4];
-                        pLine.k_klsdox  = substrings[5-1];
-                        pLine.k_docnumb = substrings[6 - 1];
-                        pLine.k_docdate = substrings[7 - 1];
+                        pLine.k_klsdox  = substrings[5      - 1];
+                        pLine.k_docnumb = substrings[6      - 1];
+                        pLine.k_docdate = substrings[7      - 1];
                         pLine.k_doctype = substrings[8 - 1];
                         pLine.k_sumpay  = substrings[9 - 1];
                         pLine.k_clmfo   = substrings[10 - 1];
@@ -127,6 +127,31 @@ namespace KasabaKIAT.BusinessLogic.BankOplati.Kaznacheystvo
                         pLine.k_purpose = substrings[18 - 1];
                         pLine.k_chapter = substrings[19 - 1];
                         pLine.k_okonh   = substrings[20 - 1];
+                    }
+                    else
+                    {
+                        pLine = new KaznaPaymentFile();
+                        pLine.k_type = substrings[0];
+                        pLine.k_operday = substrings[1];
+                        pLine.k_id = substrings[2];
+                        pLine.k_bankid = substrings[3];
+                        pLine.k_grpid = substrings[4];
+                        pLine.k_klsdox = substrings[5  ];
+                        pLine.k_docnumb = substrings[6 ];
+                        pLine.k_docdate = substrings[7 ];
+                        pLine.k_doctype = substrings[8 ];
+                        pLine.k_sumpay = substrings[9  ];
+                        pLine.k_clmfo = substrings[10  ];
+                        pLine.k_clacc = substrings[11  ];
+                        pLine.k_clinn = substrings[12  ];
+                        pLine.k_clname = substrings[13 ];
+                        pLine.k_comfo = substrings[14  ];
+                        pLine.k_coacc = substrings[15  ];
+                        pLine.k_coinn = substrings[16  ];
+                        pLine.k_coname = substrings[17 ];
+                        pLine.k_purpose = substrings[18];
+                        pLine.k_chapter = substrings[19];
+                        pLine.k_okonh = substrings[20  ];
                     }
                 }
                 else if (substrings[0].Equals("2"))

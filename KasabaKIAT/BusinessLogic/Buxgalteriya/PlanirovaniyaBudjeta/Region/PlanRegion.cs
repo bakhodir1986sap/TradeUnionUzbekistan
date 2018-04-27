@@ -1,4 +1,5 @@
 ﻿using KasabaKiat.BusinessLogic.Buxgalteriya.PlanirovaniyaBudjeta.Region;
+using KasabaKIAT.Models;
 using KasabaKIAT.ViewModel.Buxgalteriya;
 using System;
 using System.Collections.Generic;
@@ -298,6 +299,36 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.PlanirovaniyaBudjeta.Region
             it16.IsModValue9Month = false;
 
             itemsList.Add(it16);
+
+            var it161 = new Item();
+            it161.ItemCode = "161";
+            it161.ItemDescription = "ишончли шифокорни сақлаш";
+            it161.ValueYearly = 0;
+            it161.IsModValueYearly = true;
+            it161.Value1Quater = 0;
+            it161.IsModValue1Quater = false;
+            it161.Value1Half = 0;
+            it161.IsModValue1Half = false;
+            it161.Value9Month = 0;
+            it161.IsModValue9Month = false;
+
+            itemsList.Add(it161);
+
+
+            var it162 = new Item();
+            it162.ItemCode = "162";
+            it162.ItemDescription = "тармоқдаги йўриқчиларни сақлаш";
+            it162.ValueYearly = 0;
+            it162.IsModValueYearly = true;
+            it162.Value1Quater = 0;
+            it162.IsModValue1Quater = false;
+            it162.Value1Half = 0;
+            it162.IsModValue1Half = false;
+            it162.Value9Month = 0;
+            it162.IsModValue9Month = false;
+
+            itemsList.Add(it162);
+
 
             var it17 = new Item();
             it17.ItemCode = "17";
@@ -603,7 +634,7 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.PlanirovaniyaBudjeta.Region
             }
         }
 
-        public void CalcFormulas(List<PlanRegionViewModel> plan_list)
+        public void CalcFormulas(ref List<PlanRegionViewModel> plan_list)
         {
             if (plan_list == null) return;
 
@@ -612,113 +643,151 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.PlanirovaniyaBudjeta.Region
                 switch(plan.item_code)
                 {
                     case "01":
+                        Func01(ref plan_list);
                         break;
 
                     case "02":
+                        Func02(ref plan_list);
                         break;
 
                     case "03":
+                        Func03(ref plan_list);
                         break;
 
                     case "04":
+                        Func04(ref plan_list);
                         break;
 
                     case "05":
+                        Func05(ref plan_list);
                         break;
 
                     case "06":
+                        Func06(ref plan_list);
                         break;
 
                     case "07":
+                        Func07(ref plan_list);
                         break;
 
                     case "08":
+                        Func08(ref plan_list);
                         break;
 
                     case "09":
+                        Func09(ref plan_list);
                         break;
 
                     case "10":
+                        Func10(ref plan_list);
                         break;
 
                     case "11":
+                        Func11(ref plan_list);
                         break;
 
                     case "12":
+                        Func12(ref plan_list);
                         break;
 
                     case "13":
+                        Func13(ref plan_list);
                         break;
 
                     case "14":
+                        Func14(ref plan_list);
                         break;
 
                     case "15":
+                        Func15(ref plan_list);
                         break;
 
                     case "16":
+                        Func16(ref plan_list);
                         break;
 
                     case "17":
+                        Func17(ref plan_list);
                         break;
 
                     case "18":
+                        Func18(ref plan_list);
                         break;
 
                     case "19":
+                        Func19(ref plan_list);
                         break;
 
                     case "20":
+                        Func20(ref plan_list);
                         break;
 
                     case "21":
+                        Func21(ref plan_list);
                         break;
 
                     case "22":
+                        Func22(ref plan_list);
                         break;
 
                     case "23":
+                        Func23(ref plan_list);
                         break;
 
                     case "24":
+                        Func24(ref plan_list);
                         break;
 
                     case "25":
+                        Func25(ref plan_list);
                         break;
 
                     case "26":
+                        Func26(ref plan_list);
                         break;
 
                     case "27":
+                        Func27(ref plan_list);
                         break;
 
                     case "28":
+                        Func28(ref plan_list);
                         break;
 
                     case "29":
+                        Func29(ref plan_list);
                         break;
 
                     case "30":
+                        Func30(ref plan_list);
                         break;
 
                     case "31":
+                        Func31(ref plan_list);
                         break;
 
                     case "32":
+                        Func32(ref plan_list);
                         break;
 
                     case "33":
+                        Func33(ref plan_list);
                         break;
                     case "34":
+                        Func34(ref plan_list);
                         break;
 
+
                     case "35":
+                        Func35(ref plan_list);
                         break;
 
                     case "36":
+                        Func36(ref plan_list);
                         break;
 
                     case "37":
+                        Func37(ref plan_list);
                         break;
                 }
 
@@ -729,6 +798,8 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.PlanirovaniyaBudjeta.Region
 
         public void Func01(ref List<PlanRegionViewModel> plan_lis)
         {
+            if ((plan_lis == null) && (plan_lis.Count == 0)) return;
+
             var plan1 = plan_lis.FirstOrDefault(z => z.item_code == "31");
             var plan = plan_lis.FirstOrDefault(z => z.item_code == "01");
 
@@ -739,10 +810,14 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.PlanirovaniyaBudjeta.Region
                 plan.halfyear = plan1.halfyear; 
                 plan.month9 = plan1.month9; 
             }
+
+            PlanRegionDataManager.Modify(plan);
         }
 
         public void Func02(ref List<PlanRegionViewModel> plan_lis)
         {
+            if ((plan_lis == null) && (plan_lis.Count == 0)) return;
+
             var plan1 = plan_lis.FirstOrDefault(z => z.item_code == "32");
             var plan = plan_lis.FirstOrDefault(z => z.item_code == "02");
 
@@ -753,10 +828,14 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.PlanirovaniyaBudjeta.Region
                 plan.halfyear = plan1.halfyear;
                 plan.month9 = plan1.month9;
             }
+
+            PlanRegionDataManager.Modify(plan);
         }
 
         public void Func03(ref List<PlanRegionViewModel> plan_lis)
         {
+            if ((plan_lis == null) && (plan_lis.Count == 0)) return;
+
             var plan1 = plan_lis.FirstOrDefault(z => z.item_code == "33");
             var plan = plan_lis.FirstOrDefault(z => z.item_code == "03");
 
@@ -767,10 +846,14 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.PlanirovaniyaBudjeta.Region
                 plan.halfyear = plan1.halfyear;
                 plan.month9 = plan1.month9;
             }
+
+            PlanRegionDataManager.Modify(plan);
         }
 
         public void Func04(ref List<PlanRegionViewModel> plan_lis)
         {
+            if ((plan_lis == null) && (plan_lis.Count == 0)) return;
+
             var plan1 = plan_lis.FirstOrDefault(z => z.item_code == "34");
             var plan = plan_lis.FirstOrDefault(z => z.item_code == "04");
 
@@ -781,10 +864,14 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.PlanirovaniyaBudjeta.Region
                 plan.halfyear = plan1.halfyear;
                 plan.month9 = plan1.month9;
             }
+
+            PlanRegionDataManager.Modify(plan);
         }
 
         public void Func05(ref List<PlanRegionViewModel> plan_lis)
         {
+            if ((plan_lis == null) && (plan_lis.Count == 0)) return;
+
             var plan1 = plan_lis.FirstOrDefault(z => z.item_code == "01");
             var plan2 = plan_lis.FirstOrDefault(z => z.item_code == "02");
             var plan3 = plan_lis.FirstOrDefault(z => z.item_code == "03");
@@ -799,20 +886,28 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.PlanirovaniyaBudjeta.Region
                 plan.halfyear = plan1.halfyear + plan2.halfyear + plan3.halfyear + plan4.halfyear;
                 plan.month9 = plan1.month9 + plan2.month9 + plan3.month9 + plan4.month9;
             }
+
+            PlanRegionDataManager.Modify(plan);
         }
 
         public void Func06(ref List<PlanRegionViewModel> plan_lis)
         {
+            if ((plan_lis == null) && (plan_lis.Count == 0)) return;
+
             //Vvodniye danniye
         }
 
         public void Func07(ref List<PlanRegionViewModel> plan_lis)
         {
+            if ((plan_lis == null) && (plan_lis.Count == 0)) return;
+
             //Vvodniye danniye
         }
 
         public void Func08(ref List<PlanRegionViewModel> plan_lis)
         {
+            if ((plan_lis == null) && (plan_lis.Count == 0)) return;
+
             var plan1 = plan_lis.FirstOrDefault(z => z.item_code == "05");
             var plan2 = plan_lis.FirstOrDefault(z => z.item_code == "06");
             var plan3 = plan_lis.FirstOrDefault(z => z.item_code == "07");
@@ -826,10 +921,14 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.PlanirovaniyaBudjeta.Region
                 plan.halfyear = plan1.halfyear + plan2.halfyear + plan3.halfyear ;
                 plan.month9 = plan1.month9 + plan2.month9 + plan3.month9 ;
             }
+
+            PlanRegionDataManager.Modify(plan);
         }
 
         public void Func09(ref List<PlanRegionViewModel> plan_lis)
         {
+            if ((plan_lis == null) && (plan_lis.Count == 0)) return;
+
             var plan1 = plan_lis.FirstOrDefault(z => z.item_code == "01");
             var plan2 = plan_lis.FirstOrDefault(z => z.item_code == "06");
             var plan3 = plan_lis.FirstOrDefault(z => z.item_code == "07");
@@ -843,15 +942,21 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.PlanirovaniyaBudjeta.Region
                 plan.halfyear = plan1.halfyear + plan2.halfyear + plan3.halfyear;
                 plan.month9 = plan1.month9 + plan2.month9 + plan3.month9;
             }
+
+            PlanRegionDataManager.Modify(plan);
         }
 
         public void Func10(ref List<PlanRegionViewModel> plan_lis)
         {
+            if ((plan_lis == null) && (plan_lis.Count == 0)) return;
+
             //Vvod ruchkami
         }
 
         public void Func11(ref List<PlanRegionViewModel> plan_lis)
         {
+            if ((plan_lis == null) && (plan_lis.Count == 0)) return;
+
             var plan1 = plan_lis.FirstOrDefault(z => z.item_code == "10");
 
             var plan = plan_lis.FirstOrDefault(z => z.item_code == "11");
@@ -881,10 +986,14 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.PlanirovaniyaBudjeta.Region
                 }
             }
 
+            PlanRegionDataManager.Modify(plan);
+
         }
 
         public void Func12(ref List<PlanRegionViewModel> plan_lis)
         {
+            if ((plan_lis == null) && (plan_lis.Count == 0)) return;
+
             var plan = plan_lis.FirstOrDefault(z => z.item_code == "11");
 
             if (plan != null)
@@ -892,10 +1001,14 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.PlanirovaniyaBudjeta.Region
                 plan.halfyear = plan.godovoy * 40 / 100;
                 plan.month9 = plan.godovoy;
             }
+
+            PlanRegionDataManager.Modify(plan);
         }
 
         public void Func13(ref List<PlanRegionViewModel> plan_lis)
         {
+            if ((plan_lis == null) && (plan_lis.Count == 0)) return;
+
             var plan1 = plan_lis.FirstOrDefault(z => z.item_code == "12");
 
             var plan = plan_lis.FirstOrDefault(z => z.item_code == "13");
@@ -924,95 +1037,401 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.PlanirovaniyaBudjeta.Region
                     plan.month9 = (plan1.month9 / plan2.month9) * 100;
                 }
             }
+
+            PlanRegionDataManager.Modify(plan);
         }
 
         public void Func14(ref List<PlanRegionViewModel> plan_lis)
         {
+            if ((plan_lis == null) && (plan_lis.Count == 0)) return;
 
+            var plan1 = plan_lis.FirstOrDefault(z => z.item_code == "16");
+            var plan2 = plan_lis.FirstOrDefault(z => z.item_code == "161");
+            var plan3 = plan_lis.FirstOrDefault(z => z.item_code == "162");
+
+            var plan = plan_lis.FirstOrDefault(z => z.item_code == "14");
+
+            if ((plan1 != null) && (plan2 != null) && (plan3 != null))
+            {
+                plan.godovoy = plan1.godovoy + plan2.godovoy + plan3.godovoy;
+                plan.quarter1 = plan1.quarter1 + plan2.quarter1 + plan3.quarter1;
+                plan.halfyear = plan1.halfyear + plan2.halfyear + plan3.halfyear;
+                plan.month9 = plan1.month9 + plan2.month9 + plan3.month9;
+            }
+
+            PlanRegionDataManager.Modify(plan);
         }
 
         public void Func15(ref List<PlanRegionViewModel> plan_lis)
         {
+            if ((plan_lis == null) && (plan_lis.Count == 0)) return;
 
+            var plan1 = plan_lis.FirstOrDefault(z => z.item_code == "14");
+
+            var plan = plan_lis.FirstOrDefault(z => z.item_code == "15");
+
+            var plan2 = plan_lis.FirstOrDefault(z => z.item_code == "08");
+
+            if ((plan1 != null) && (plan != null) && (plan2 != null))
+            {
+                if (plan2.godovoy != 0)
+                {
+                    plan.godovoy = (plan1.godovoy / plan2.godovoy) * 100;
+                }
+
+                if (plan2.quarter1 != 0)
+                {
+                    plan.quarter1 = (plan1.quarter1 / plan2.quarter1) * 100;
+                }
+
+                if (plan2.halfyear != 0)
+                {
+                    plan.halfyear = (plan1.halfyear / plan2.halfyear) * 100;
+                }
+
+                if (plan2.month9 != 0)
+                {
+                    plan.month9 = (plan1.month9 / plan2.month9) * 100;
+                }
+            }
+
+            PlanRegionDataManager.Modify(plan);
         }
 
         public void Func16(ref List<PlanRegionViewModel> plan_lis)
         {
+            if ((plan_lis == null) && (plan_lis.Count == 0)) return;
 
+            var plan = plan_lis.FirstOrDefault(z => z.item_code == "16");
+
+            if (plan != null)
+            {
+                plan.quarter1 = (decimal)(plan.godovoy * 25 / 100);
+                plan.halfyear = (decimal)(plan.godovoy * 50 / 100);
+                plan.month9 = (decimal)(plan.godovoy * 75 / 100);
+            }
+
+            PlanRegionDataManager.Modify(plan);
+        }
+
+        public void Func161(ref List<PlanRegionViewModel> plan_lis)
+        {
+            if ((plan_lis == null) && (plan_lis.Count == 0)) return;
+
+            var plan = plan_lis.FirstOrDefault(z => z.item_code == "161");
+
+            if (plan != null)
+            {
+                plan.quarter1 = (decimal)(plan.godovoy * 25 / 100);
+                plan.halfyear = (decimal)(plan.godovoy * 50 / 100);
+                plan.month9 = (decimal)(plan.godovoy * 75 / 100);
+            }
+
+            PlanRegionDataManager.Modify(plan);
+        }
+
+        public void Func162(ref List<PlanRegionViewModel> plan_lis)
+        {
+            if ((plan_lis == null) && (plan_lis.Count == 0)) return;
+
+            var plan = plan_lis.FirstOrDefault(z => z.item_code == "162");
+
+            if (plan != null)
+            {
+                plan.quarter1 = (decimal)(plan.godovoy * 25 / 100);
+                plan.halfyear = (decimal)(plan.godovoy * 50 / 100);
+                plan.month9 = (decimal)(plan.godovoy * 75 / 100);
+            }
+
+            PlanRegionDataManager.Modify(plan);
         }
 
         public void Func17(ref List<PlanRegionViewModel> plan_lis)
         {
+            if ((plan_lis == null) && (plan_lis.Count == 0)) return;
 
+            var plan = plan_lis.FirstOrDefault(z => z.item_code == "17");
+
+            if (plan != null)
+            {
+                plan.quarter1 = (decimal)(plan.godovoy * 25 / 100);
+                plan.halfyear = (decimal)(plan.godovoy * 50 / 100);
+                plan.month9 = (decimal)(plan.godovoy * 75 / 100);
+            }
+
+            PlanRegionDataManager.Modify(plan);
         }
 
         public void Func18(ref List<PlanRegionViewModel> plan_lis)
         {
+            if ((plan_lis == null) && (plan_lis.Count == 0)) return;
 
+            var plan = plan_lis.FirstOrDefault(z => z.item_code == "18");
+
+            if (plan != null)
+            {
+                plan.quarter1 = (decimal)(plan.godovoy * 25 / 100);
+                plan.halfyear = (decimal)(plan.godovoy * 50 / 100);
+                plan.month9 = (decimal)(plan.godovoy * 75 / 100);
+            }
+
+            PlanRegionDataManager.Modify(plan);
         }
 
         public void Func19(ref List<PlanRegionViewModel> plan_lis)
         {
+            if ((plan_lis == null) && (plan_lis.Count == 0)) return;
 
+            var plan = plan_lis.FirstOrDefault(z => z.item_code == "19");
+
+            if (plan != null)
+            {
+                plan.quarter1 = (decimal)(plan.godovoy * 25 / 100);
+                plan.halfyear = (decimal)(plan.godovoy * 50 / 100);
+                plan.month9 = (decimal)(plan.godovoy * 75 / 100);
+            }
+
+            PlanRegionDataManager.Modify(plan);
         }
 
         public void Func20(ref List<PlanRegionViewModel> plan_lis)
         {
+            if ((plan_lis == null) && (plan_lis.Count == 0)) return;
 
+            var plan = plan_lis.FirstOrDefault(z => z.item_code == "20");
+
+            if (plan != null)
+            {
+                plan.quarter1 = (decimal)(plan.godovoy * 25 / 100);
+                plan.halfyear = (decimal)(plan.godovoy * 50 / 100);
+                plan.month9 = (decimal)(plan.godovoy * 75 / 100);
+            }
+
+            PlanRegionDataManager.Modify(plan);
         }
 
         public void Func21(ref List<PlanRegionViewModel> plan_lis)
         {
+            if ((plan_lis == null) && (plan_lis.Count == 0)) return;
 
+            var plan1 = plan_lis.FirstOrDefault(z => z.item_code == "10");
+            var plan2 = plan_lis.FirstOrDefault(z => z.item_code == "12");
+            var plan3 = plan_lis.FirstOrDefault(z => z.item_code == "14");
+            var plan4 = plan_lis.FirstOrDefault(z => z.item_code == "17");
+            var plan5 = plan_lis.FirstOrDefault(z => z.item_code == "18");
+            var plan6 = plan_lis.FirstOrDefault(z => z.item_code == "19");
+            var plan7 = plan_lis.FirstOrDefault(z => z.item_code == "20");
+
+            var plan = plan_lis.FirstOrDefault(z => z.item_code == "21");
+
+            if ((plan1 != null) && (plan2 != null) && (plan3 != null))
+            {
+                plan.godovoy = plan1.godovoy + plan2.godovoy + plan3.godovoy+ plan4.godovoy + plan5.godovoy + plan6.godovoy + plan7.godovoy;
+                plan.quarter1 = plan1.quarter1 + plan2.quarter1 + plan3.quarter1+ plan4.quarter1 + plan5.quarter1 + plan6.quarter1 + plan7.quarter1;
+                plan.halfyear = plan1.halfyear + plan2.halfyear + plan3.halfyear+ plan4.halfyear + plan5.halfyear + plan6.halfyear + plan7.halfyear;
+                plan.month9 = plan1.month9 + plan2.month9 + plan3.month9+ plan4.month9 + plan5.month9 + plan6.month9+ plan7.month9;
+            }
+
+            PlanRegionDataManager.Modify(plan);
         }
 
         public void Func22(ref List<PlanRegionViewModel> plan_lis)
         {
+            if ((plan_lis == null) && (plan_lis.Count == 0)) return;
 
+            var plan1 = plan_lis.FirstOrDefault(z => z.item_code == "21");
+
+            var plan = plan_lis.FirstOrDefault(z => z.item_code == "22");
+
+            var plan2 = plan_lis.FirstOrDefault(z => z.item_code == "08");
+
+            if ((plan1 != null) && (plan != null) && (plan2 != null))
+            {
+                if (plan2.godovoy != 0)
+                {
+                    plan.godovoy = (plan1.godovoy / plan2.godovoy) * 100;
+                }
+
+                if (plan2.quarter1 != 0)
+                {
+                    plan.quarter1 = (plan1.quarter1 / plan2.quarter1) * 100;
+                }
+
+                if (plan2.halfyear != 0)
+                {
+                    plan.halfyear = (plan1.halfyear / plan2.halfyear) * 100;
+                }
+
+                if (plan2.month9 != 0)
+                {
+                    plan.month9 = (plan1.month9 / plan2.month9) * 100;
+                }
+            }
+
+            PlanRegionDataManager.Modify(plan);
         }
 
         public void Func23(ref List<PlanRegionViewModel> plan_lis)
         {
+            if ((plan_lis == null) && (plan_lis.Count == 0)) return;
 
+            var plan1 = plan_lis.FirstOrDefault(z => z.item_code == "08");
+            var plan = plan_lis.FirstOrDefault(z => z.item_code == "23");
+
+            if ((plan1 != null) && (plan != null))
+            {
+                plan.godovoy = plan1.godovoy * 30/100;
+                plan.quarter1 = plan1.quarter1 * 30 / 100;
+                plan.halfyear = plan1.halfyear * 30 / 100;
+                plan.month9 = plan1.month9 * 30 / 100;
+            }
+
+            PlanRegionDataManager.Modify(plan);
         }
 
         public void Func24(ref List<PlanRegionViewModel> plan_lis)
         {
+            if ((plan_lis == null) && (plan_lis.Count == 0)) return;
 
+            var plan1 = plan_lis.FirstOrDefault(z => z.item_code == "09");
+            var plan = plan_lis.FirstOrDefault(z => z.item_code == "24");
+
+            if ((plan1 != null) && (plan != null))
+            {
+                plan.godovoy = plan1.godovoy * 30 / 100;
+                plan.quarter1 = plan1.quarter1 * 30 / 100;
+                plan.halfyear = plan1.halfyear * 30 / 100;
+                plan.month9 = plan1.month9 * 30 / 100;
+            }
+
+            PlanRegionDataManager.Modify(plan);
         }
 
         public void Func25(ref List<PlanRegionViewModel> plan_lis)
         {
+            if ((plan_lis == null) && (plan_lis.Count == 0)) return;
 
+            var plan1 = plan_lis.FirstOrDefault(z => z.item_code == "02");
+            var plan = plan_lis.FirstOrDefault(z => z.item_code == "25");
+
+            if ((plan1 != null) && (plan != null))
+            {
+                plan.godovoy = plan1.godovoy * 30 / 100;
+                plan.quarter1 = plan1.quarter1 * 30 / 100;
+                plan.halfyear = plan1.halfyear * 30 / 100;
+                plan.month9 = plan1.month9 * 30 / 100;
+            }
+
+            PlanRegionDataManager.Modify(plan);
         }
 
         public void Func26(ref List<PlanRegionViewModel> plan_lis)
         {
+            if ((plan_lis == null) && (plan_lis.Count == 0)) return;
 
+            var plan1 = plan_lis.FirstOrDefault(z => z.item_code == "03");
+            var plan = plan_lis.FirstOrDefault(z => z.item_code == "26");
+
+            if ((plan1 != null) && (plan != null))
+            {
+                plan.godovoy = plan1.godovoy * 30 / 100;
+                plan.quarter1 = plan1.quarter1 * 30 / 100;
+                plan.halfyear = plan1.halfyear * 30 / 100;
+                plan.month9 = plan1.month9 * 30 / 100;
+            }
+
+            PlanRegionDataManager.Modify(plan);
         }
 
         public void Func27(ref List<PlanRegionViewModel> plan_lis)
         {
+            if ((plan_lis == null) && (plan_lis.Count == 0)) return;
 
+            var plan1 = plan_lis.FirstOrDefault(z => z.item_code == "04");
+            var plan = plan_lis.FirstOrDefault(z => z.item_code == "27");
+
+            if ((plan1 != null) && (plan != null))
+            {
+                plan.godovoy = plan1.godovoy * 30 / 100;
+                plan.quarter1 = plan1.quarter1 * 30 / 100;
+                plan.halfyear = plan1.halfyear * 30 / 100;
+                plan.month9 = plan1.month9 * 30 / 100;
+            }
+
+            PlanRegionDataManager.Modify(plan);
         }
 
         public void Func28(ref List<PlanRegionViewModel> plan_lis)
         {
+            if ((plan_lis == null) && (plan_lis.Count == 0)) return;
 
+            //21 24
+            var plan1 = plan_lis.FirstOrDefault(z => z.item_code == "21");
+            var plan2 = plan_lis.FirstOrDefault(z => z.item_code == "24");
+
+            var plan = plan_lis.FirstOrDefault(z => z.item_code == "28");
+
+            if ((plan1 != null) && (plan2 != null))
+            {
+                plan.godovoy = plan1.godovoy + plan2.godovoy ;
+                plan.quarter1 = plan1.quarter1 + plan2.quarter1 ;
+                plan.halfyear = plan1.halfyear + plan2.halfyear ;
+                plan.month9 = plan1.month9 + plan2.month9 ;
+            }
+
+            PlanRegionDataManager.Modify(plan);
         }
 
         public void Func29(ref List<PlanRegionViewModel> plan_lis)
         {
+            if ((plan_lis == null) && (plan_lis.Count == 0)) return;
 
+            var plan1 = plan_lis.FirstOrDefault(z => z.item_code == "02");
+            var plan2 = plan_lis.FirstOrDefault(z => z.item_code == "03");
+            var plan3 = plan_lis.FirstOrDefault(z => z.item_code == "04");
+
+            var plan4 = plan_lis.FirstOrDefault(z => z.item_code == "25");
+            var plan5 = plan_lis.FirstOrDefault(z => z.item_code == "26");
+            var plan6 = plan_lis.FirstOrDefault(z => z.item_code == "27");
+
+
+            var plan = plan_lis.FirstOrDefault(z => z.item_code == "29");
+
+            if ((plan1 != null) && (plan2 != null) && (plan3 != null) && (plan4 != null) && (plan5 != null) && (plan6 != null))
+            {
+                plan.godovoy = plan1.godovoy + plan2.godovoy + plan3.godovoy - plan4.godovoy - plan5.godovoy - plan6.godovoy ;
+                plan.quarter1 = plan1.quarter1 + plan2.quarter1 + plan3.quarter1 - plan4.quarter1 - plan5.quarter1 - plan6.quarter1 ;
+                plan.halfyear = plan1.halfyear + plan2.halfyear + plan3.halfyear - plan4.halfyear - plan5.halfyear - plan6.halfyear;
+                plan.month9 = plan1.month9 + plan2.month9 + plan3.month9 - plan4.month9 - plan5.month9 - plan6.month9 ;
+            }
+
+            PlanRegionDataManager.Modify(plan);
         }
 
         public void Func30(ref List<PlanRegionViewModel> plan_lis)
         {
+            if ((plan_lis == null) && (plan_lis.Count == 0)) return;
 
+            var plan1 = plan_lis.FirstOrDefault(z => z.item_code == "09");
+            var plan2 = plan_lis.FirstOrDefault(z => z.item_code == "29");
+
+            var plan = plan_lis.FirstOrDefault(z => z.item_code == "30");
+
+            if ((plan1 != null) && (plan2 != null))
+            {
+                plan.godovoy = plan1.godovoy - plan2.godovoy;
+                plan.quarter1 = plan1.quarter1 - plan2.quarter1;
+                plan.halfyear = plan1.halfyear - plan2.halfyear;
+                plan.month9 = plan1.month9 - plan2.month9;
+            }
+
+            PlanRegionDataManager.Modify(plan);
         }
 
         public void Func31(ref List<PlanRegionViewModel> plan_lis)
         {
+            if ((plan_lis == null) && (plan_lis.Count == 0)) return;
+
             var plan = plan_lis.FirstOrDefault(z => z.item_code == "31");
 
             if (plan != null)
@@ -1021,10 +1440,14 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.PlanirovaniyaBudjeta.Region
                 plan.halfyear = (decimal)(plan.godovoy * 50 / 100);
                 plan.month9   = (decimal)(plan.godovoy * 75 / 100);
             }
+
+            PlanRegionDataManager.Modify(plan);
         }
 
         public void Func32(ref List<PlanRegionViewModel> plan_lis)
         {
+            if ((plan_lis == null) && (plan_lis.Count == 0)) return;
+
             var plan = plan_lis.FirstOrDefault(z => z.item_code == "32");
 
             if (plan != null)
@@ -1033,10 +1456,14 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.PlanirovaniyaBudjeta.Region
                 plan.halfyear = (decimal)(plan.godovoy * 50 / 100);
                 plan.month9 = (decimal)(plan.godovoy * 75 / 100);
             }
+
+            PlanRegionDataManager.Modify(plan);
         }
 
         public void Func33(ref List<PlanRegionViewModel> plan_lis)
         {
+            if ((plan_lis == null) && (plan_lis.Count == 0)) return;
+
             var plan = plan_lis.FirstOrDefault(z => z.item_code == "33");
 
             if (plan != null)
@@ -1045,10 +1472,14 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.PlanirovaniyaBudjeta.Region
                 plan.halfyear = (decimal)(plan.godovoy * 50 / 100);
                 plan.month9 = (decimal)(plan.godovoy * 75 / 100);
             }
+
+            PlanRegionDataManager.Modify(plan);
         }
 
         public void Func34(ref List<PlanRegionViewModel> plan_lis)
         {
+            if ((plan_lis == null) && (plan_lis.Count == 0)) return;
+
             var plan = plan_lis.FirstOrDefault(z => z.item_code == "34");
 
             if (plan != null)
@@ -1057,10 +1488,14 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.PlanirovaniyaBudjeta.Region
                 plan.halfyear = (decimal)(plan.godovoy * 50 / 100);
                 plan.month9 = (decimal)(plan.godovoy * 75 / 100);
             }
+
+            PlanRegionDataManager.Modify(plan);
         }
 
         public void Func35(ref List<PlanRegionViewModel> plan_lis)
         {
+            if ((plan_lis == null) && (plan_lis.Count == 0)) return;
+
             var plan1 = plan_lis.FirstOrDefault(z => z.item_code == "31");
             var plan2 = plan_lis.FirstOrDefault(z => z.item_code == "32");
             var plan3 = plan_lis.FirstOrDefault(z => z.item_code == "33");
@@ -1075,15 +1510,21 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.PlanirovaniyaBudjeta.Region
                 plan.halfyear = plan1.halfyear + plan2.halfyear + plan3.halfyear + plan4.halfyear;
                 plan.month9 = plan1.month9 + plan2.month9 + plan3.month9 + plan4.month9;
             }
+
+            PlanRegionDataManager.Modify(plan);
         }
 
         public void Func36(ref List<PlanRegionViewModel> plan_lis)
         {
+            if ((plan_lis == null) && (plan_lis.Count == 0)) return;
+
             //Vvodniye denniye
         }
 
         public void Func37(ref List<PlanRegionViewModel> plan_lis)
         {
+            if ((plan_lis == null) && (plan_lis.Count == 0)) return;
+
             var plan = plan_lis.FirstOrDefault(z => z.item_code == "37");
 
             if (plan != null)
@@ -1092,18 +1533,21 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.PlanirovaniyaBudjeta.Region
                 plan.halfyear = (decimal)(plan.godovoy * 40 / 100);
                 plan.month9 = plan.godovoy;
             }
+
+            PlanRegionDataManager.Modify(plan);
         }
-
-
-
 
 
         #endregion
 
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
     public class PlanRegion
     {
+        private ItemController itemCnt;
         /// <summary>
         /// Step 1
         /// </summary>
@@ -1135,14 +1579,19 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.PlanirovaniyaBudjeta.Region
         {
             var checkList = PlanRegionDataManager.Get(soato_code, year);
 
+            if (PlanRegionDataManager.FillNotExisting(soato_code, year, department_code, UserId))
+            {
+                checkList = PlanRegionDataManager.Get(soato_code, year);
+            }
+
+            itemCnt = new ItemController();
+            itemCnt.InitializeItems();
+
             if (!checkList.Any())
             {
-                var itemCont = new ItemController();
-                itemCont.InitializeItems();
-
                 List<PlanRegionViewModel> extra = new List<PlanRegionViewModel>();
 
-                foreach (var item in itemCont.Items)
+                foreach (var item in itemCnt.Items)
                 {
                     var plan = new PlanRegionViewModel();
 
@@ -1158,6 +1607,11 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.PlanirovaniyaBudjeta.Region
                     plan.month9 = item.Value9Month;
                     plan.godovoy = item.ValueYearly;
 
+                    plan.IsModValueYearly = !item.IsModValueYearly;
+                    plan.IsModValue1Quater = !item.IsModValue1Quater;
+                    plan.IsModValue1Half = !item.IsModValue1Half;
+                    plan.IsModValue9Month = !item.IsModValue9Month;
+
                     PlanRegionDataManager.Create(ref plan); 
 
                     extra.Add(plan);
@@ -1165,13 +1619,48 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.PlanirovaniyaBudjeta.Region
 
                 return extra;
             }
+            else
+            {
+                foreach (var item in itemCnt.Items)
+                {
+                    var iitem = checkList.Where(z => z.item_code == item.ItemCode).First();
+
+                    iitem.IsModValueYearly = !item.IsModValueYearly;
+                    iitem.IsModValue1Quater = !item.IsModValue1Quater;
+                    iitem.IsModValue1Half = !item.IsModValue1Half;
+                    iitem.IsModValue9Month = !item.IsModValue9Month;
+                }
+            }
 
             return checkList; 
         }
 
-        public void SaveChanges(List<PlanRegionViewModel> savedList)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="saveItem"></param>
+        public bool SaveChanges(PlanRegionViewModel saveItem)
         {
+            try
+            {
 
+                if (!PlanRegionDataManager.Modify(saveItem)) return false;
+
+                if (itemCnt == null)
+                {
+                    itemCnt = new ItemController();
+                }
+
+                var checkList = PlanRegionDataManager.Get(saveItem.soato_code, saveItem.year.Value);
+
+                itemCnt.CalcFormulas(ref checkList);
+            }
+            catch
+            {
+                return false;
+            }
+
+            return true;
         }
 
     }

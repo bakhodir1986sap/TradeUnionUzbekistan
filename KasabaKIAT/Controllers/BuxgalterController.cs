@@ -1,7 +1,9 @@
 ﻿using KasabaKiat.Helpers;
+using KasabaKIAT.BusinessLogic.Buxgalteriya.PlanirovaniyaBudjeta.Region;
 using KasabaKIAT.BusinessLogic.Buxgalteriya.PrixodChastichka;
 using KasabaKIAT.BusinessLogic.Buxgalteriya.Provodki;
 using KasabaKIAT.Models;
+using KasabaKIAT.Test;
 using KasabaKIAT.ViewModel.Buxgalteriya;
 using log4net;
 using OfficeOpenXml;
@@ -69,6 +71,10 @@ namespace KasabaKIAT.Controllers
         [OutputCache(Duration = 30, Location = OutputCacheLocation.ServerAndClient, VaryByCustom = "userId")]
         public ActionResult OsushestvleniyeProvodki()
         {
+            //var tt = new PlanByudjetaTest();
+
+            //tt.Process();
+
             return View();
         }
 
@@ -113,7 +119,7 @@ namespace KasabaKIAT.Controllers
         /// 
         /// </summary>
         /// <returns></returns>
-        [OutputCache(Duration = 300, Location = OutputCacheLocation.ServerAndClient, VaryByCustom = "userId")]
+        [OutputCache(Duration = 30, Location = OutputCacheLocation.ServerAndClient, VaryByCustom = "userId")]
         public ActionResult PlanByudjetaOblastey()
         {
             return View();
@@ -123,9 +129,16 @@ namespace KasabaKIAT.Controllers
         /// 
         /// </summary>
         /// <returns></returns>
-        [OutputCache(Duration = 300, Location = OutputCacheLocation.ServerAndClient, VaryByCustom = "userId")]
-        public ActionResult PlanByudjetaOblasteyNoviy()
+        [OutputCache(Duration = 30, Location = OutputCacheLocation.ServerAndClient, VaryByCustom = "userId")]
+        public ActionResult PlanByudjetaOblasteyNoviy(string soato_code,int  year)
         {
+            var yeayRegion = new YearAndRegion();
+
+            yeayRegion.Year = year;
+            yeayRegion.SoatoCode = soato_code;
+
+            ViewBag.yeayRegion = yeayRegion;
+
             return View();
         }
 
@@ -133,7 +146,7 @@ namespace KasabaKIAT.Controllers
         /// 
         /// </summary>
         /// <returns></returns>
-        [OutputCache(Duration = 300, Location = OutputCacheLocation.ServerAndClient, VaryByCustom = "userId")]
+        [OutputCache(Duration = 30, Location = OutputCacheLocation.ServerAndClient, VaryByCustom = "userId")]
         public ActionResult PlanByudjetaOblasteyIzmenit()
         {
             return View();
@@ -352,5 +365,101 @@ namespace KasabaKIAT.Controllers
                        };
             return Json(list.ToList(), JsonRequestBehavior.AllowGet);
         }
+
+        private PlanRegion planByudjet = new PlanRegion();
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [OutputCache(Duration = 30, Location = OutputCacheLocation.ServerAndClient, VaryByCustom = "userId")]
+        public JsonResult GetPBRYears()
+        {
+            var list = planByudjet.YearsList();
+
+            return Json(list.ToList(), JsonRequestBehavior.AllowGet);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="year"></param>
+        /// <returns></returns>
+        [OutputCache(Duration = 30, Location = OutputCacheLocation.ServerAndClient, VaryByCustom = "userId")]
+        public JsonResult GetRegionListByYear(int year)
+        {
+            var list = planByudjet.GetRegionListByYear(year);
+
+            return Json(list.ToList(), JsonRequestBehavior.AllowGet);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="soato_code"></param>
+        /// <param name="year"></param>
+        /// <returns></returns>
+        [OutputCache(Duration = 30, Location = OutputCacheLocation.ServerAndClient, VaryByCustom = "userId")]
+        public JsonResult GetRegionPlan(string soato_code, int year)
+        {
+            int UserId = Convert.ToInt32(User.Identity.Name);
+            var uu = UserInfo.GetUserInfo(UserId);
+            var department_code = uu.DepartmentBase;
+
+            var list = planByudjet.GetRegionPlan(soato_code, year, department_code, UserId);
+
+            return Json(list.ToList(), JsonRequestBehavior.AllowGet);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="saveItem"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public JsonResult SaveRegionPlan(PlanRegionViewModel saveItem)
+        {
+            int UserId = Convert.ToInt32(User.Identity.Name);
+            var uu = UserInfo.GetUserInfo(UserId);
+            var department_code = uu.DepartmentBase;
+
+            if (!planByudjet.SaveChanges(saveItem)) return Json("error", JsonRequestBehavior.AllowGet);
+
+            return Json("success", JsonRequestBehavior.AllowGet);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [OutputCache(Duration = 30000, Location = OutputCacheLocation.Client)]
+        public JsonResult SpisokPravsoyuzov()
+        {
+            log.Info("SpisokPravsoyuzov");
+            IList<Models.ViewModel> O = null;
+
+            var UserId = Convert.ToInt32(User.Identity.Name);
+
+            var userInfo = UserInfo.GetUserInfo(UserId);
+
+            try
+            {
+                O = (from o in KasabaDB.tbku_StrokaProfsoyza
+                     where o.MATCH_DEPARTMENTBASE != null 
+                     select new Models.ViewModel
+                     {
+                         Kod = o.MATCH_DEPARTMENTBASE,
+                         Name = o.ProfsoyzNaimenovanie
+                     }).ToList();
+
+                log.Info("Count = " + O.ToList().Count);
+            }
+            catch (Exception ex)
+            {
+                log.Info(ex);
+            }
+
+            return Json(O.ToList(), JsonRequestBehavior.AllowGet); ;
+        }
+
     }
 }

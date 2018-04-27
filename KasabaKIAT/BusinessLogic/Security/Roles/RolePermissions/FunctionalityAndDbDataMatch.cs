@@ -62,6 +62,7 @@ namespace KasabaKIAT.BusinessLogic.Security.Roles.RolePermissions
                         if (rolperm.action.Contains("Asp.RuchniyeProvodki")) { rolFumc.RuchniyeProvodki = true; }
                         if (rolperm.action.Contains("Asp.PlatejniyePorucheniya")) { rolFumc.PlatejniyePorucheniya = true; }
                         if (rolperm.action.Contains("Asp.PlanByudjeta")) { rolFumc.PlanByudjeta = true; }
+                        if (rolperm.action.Contains("Asp.Nakladniye")) { rolFumc.Nakladniye = true; }
                         if (rolperm.action.Contains("Asp.RaznoskaDannixPoOtraslyam")) { rolFumc.RaznoskaDannixPoOtraslyam = true; }
                         if (rolperm.action.Contains("Asp.SvodniyOtchetPoZayavkam")) { rolFumc.SvodniyOtchetPoZayavkam = true; }
                         if (rolperm.action.Contains("Asp.Talabnomalar")) { rolFumc.Talabnomalar = true; }

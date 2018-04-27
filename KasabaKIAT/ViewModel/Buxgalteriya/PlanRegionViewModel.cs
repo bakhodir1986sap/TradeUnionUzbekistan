@@ -15,8 +15,12 @@ namespace KasabaKIAT.ViewModel.Buxgalteriya
       public string     item_code          {get; set;}
       public string     item_name          {get; set;}
       public decimal?   godovoy            {get; set;}
+      public bool       IsModValueYearly   { get; set; }
       public decimal?   quarter1           {get; set;}
+      public bool       IsModValue1Quater  { get; set; }
       public decimal?   halfyear           {get; set;}
+      public bool       IsModValue1Half    { get; set; }
       public decimal?   month9             {get; set;}
+      public bool       IsModValue9Month   { get; set; }
     }
 }

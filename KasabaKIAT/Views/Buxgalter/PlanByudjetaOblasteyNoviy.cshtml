@@ -1,8 +1,17 @@
 ﻿
 @{
-    ViewBag.Title = "бухгалтерия";
+    ViewBag.Title = "Бухгалтерия";
 }
-<section class="content__block container">
+
+<script src="~/Scripts/MyJavaScript/PlanByudjetNew.js"></script>
+<div id="connection" style="visibility:hidden;position:absolute;margin-left:600px;z-index:9999">
+    <img src="~/Content/Login/buffering.gif" />
+</div>
+<section class="content__block container" ng-controller="planByudjetNew">
+
+    <div id="connection" style="visibility:hidden;position:absolute;margin-left:600px;z-index:9999">
+        <img src="~/Content/Login/buffering.gif" />
+    </div>
     <div class="row mb-4 align-items-center">
         <div class="col title__block">
             <h4>Планирование бюджета регионов</h4>
@@ -18,23 +27,20 @@
         <div class="col-lg-7">
             <div class="row">
                 <div class="col-md-4 form-group">
-                    <select class="custom-select form-control">
+                    <select class="custom-select form-control" ng-model="selectedyear">
                         <option>2018</option>
-                        <option>2017</option>
-                        <option>2016</option>
-                        <option>2015</option>
+                        <option>2019</option>
+                        <option>2020</option>
+                        <option>2021</option>
+                        <option>2022</option>
                     </select>
                 </div>
                 <div class="col-md-4 form-group">
-                    <select class="custom-select form-control">
-                        <option>Андижан</option>
-                        <option>Андижан</option>
-                        <option>Андижан</option>
-                        <option>Андижан</option>
+                    <select class="custom-select form-control" ng-model="selectedRegion" ng-options="prav as prav.Name for prav in Pravsoyuz track by prav.Kod">
                     </select>
                 </div>
                 <div class="col-md-4 form-group">
-                    <a href="#" class="btn btn-blue d-block">Показать план</a>
+                    <a href="#" ng-click="GetPlanContent()" class="btn btn-blue d-block">Показать план</a>
                 </div>
             </div>
         </div>
@@ -43,6 +49,7 @@
         <table class="table table__block">
             <thead>
                 <tr>
+                    <th>Тартиб раками</th>
                     <th>Моддалар номи</th>
                     <th>Йиллик</th>
                     <th>1-чорак</th>
@@ -51,47 +58,13 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>Ўз.Р. Бош Прокуратураси хузур.СВОЖ ва ЖДЛКК Департаменти</td>
-                    <td>1 618 354,9</td>
-                    <td>4 404 343,3</td>
-                    <td>8 837 876,3</td>
-                    <td>0,0</td>
-                </tr>
-                <tr>
-                    <td>Жами даромадлар</td>
-                    <td>20 448 354,9</td>
-                    <td>48 504 243,2</td>
-                    <td>88 847 834,3</td>
-                    <td>15 000 398,4</td>
-                </tr>
-                <tr>
-                    <td>КУТБК даромади</td>
-                    <td>10 448 354,9</td>
-                    <td>28 504 243,2</td>
-                    <td>38 847 834,3</td>
-                    <td>33 000 398,4</td>
-                </tr>
-                <tr>
-                    <td>Болаларни оромгохларида согломлаштириш</td>
-                    <td>60 448 354,9</td>
-                    <td>38 504 243,2</td>
-                    <td>338 847 834,3</td>
-                    <td>443 000 398,4</td>
-                </tr>
-                <tr>
-                    <td>Жами даромадлар</td>
-                    <td>20 448 354,9</td>
-                    <td>48 504 243,2</td>
-                    <td>88 847 834,3</td>
-                    <td>15 000 398,4</td>
-                </tr>
-                <tr>
-                    <td>КУТБК даромади</td>
-                    <td>10 448 354,9</td>
-                    <td>28 504 243,2</td>
-                    <td>38 847 834,3</td>
-                    <td>33 000 398,4</td>
+                <tr ng-repeat="row in PlanList">
+                    <td>{{row.item_code}}</td>
+                    <td>{{row.item_name}}</td>
+                    <td>{{row.godovoy}}</td>
+                    <td>{{row.quarter1}}</td>
+                    <td>{{row.halfyear}}</td>
+                    <td>{{row.month9}}</td>
                 </tr>
             </tbody>
         </table>

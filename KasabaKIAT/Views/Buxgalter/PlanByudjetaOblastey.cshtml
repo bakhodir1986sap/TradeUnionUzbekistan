@@ -3,7 +3,15 @@
     ViewBag.Title = "бухгалтерия";
 }
 
-<section class="content__block container">
+<script src="~/Scripts/MyJavaScript/PlanirovaniyeByudjeta.js"></script>
+
+<div id="connection" style="visibility:hidden;position:absolute;margin-left:600px;z-index:9999">
+    <img src="~/Content/Login/buffering.gif" />
+</div>
+<section class="content__block container" ng-controller="planByudjet">
+    <div id="connection" style="visibility:hidden;position:absolute;margin-left:430px;margin-top:100px;z-index:9999">
+        <img src="~/Content/Login/buffering.gif" />
+    </div>
     <div class="row mb-4 align-items-center">
         <div class="col title__block">
             <h4>План бюджета областей</h4>
@@ -25,54 +33,16 @@
                 </div>
             </div>
             <div class="accordion mb-4 box-shadow" id="accordion">
-                <div class="card r-card">
-                    <div class="card-header r-card-header text-right" id="headingOne">
-                        <span class="r-header-t red float-left"><strong>2015</strong></span>
+                <div class="card r-card" ng-repeat="year in Years">
+                    <div class="card-header r-card-header text-right" id="headingOne{{year}}">
+                        <span class="r-header-t red float-left"><strong>{{year}}</strong></span>
                         <span class="r-header-c">1</span>
-                        <span class="r-header-a float-right collapsed" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne"></span>
+                        <span ng-click="GetRegionListByYear(year)" class="r-header-a float-right collapsed" data-toggle="collapse" data-target="#collapse{{year}}" aria-expanded="true" aria-controls="collapseOne"></span>
                     </div>
-                    <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
-                        <div class="card-body r-card-body">
+                    <div id="collapse{{year}}" class="collapse" aria-labelledby="headingOne{{year}}" data-parent="#accordion">
+                        <div class="card-body r-card-body" ng-repeat="region in Regions">
                             <div class="list-group r-list-group">
-                                <a href="#" class="list-group-item list-group-item-action">Андижанская область</a>
-                                <a href="#" class="list-group-item list-group-item-action">Ташкентская область</a>
-                                <a href="#" class="list-group-item list-group-item-action">Бухарская область</a>
-                                <a href="#" class="list-group-item list-group-item-action">Ферганская область</a>
-                                <a href="#" class="list-group-item list-group-item-action">Чимган</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="card r-card">
-                    <div class="card-header r-card-header" id="headingTwo">
-                        <span class="r-header-t"><strong>2016</strong></span>
-                        <span class="r-header-a float-right collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo"></span>
-                    </div>
-                    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
-                        <div class="card-body r-card-body">
-                            <div class="list-group r-list-group">
-                                <a href="#" class="list-group-item list-group-item-action">Андижанская область</a>
-                                <a href="#" class="list-group-item list-group-item-action">Ташкентская область</a>
-                                <a href="#" class="list-group-item list-group-item-action">Бухарская область</a>
-                                <a href="#" class="list-group-item list-group-item-action">Ферганская область</a>
-                                <a href="#" class="list-group-item list-group-item-action">Чимган</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="card r-card">
-                    <div class="card-header r-card-header" id="headingThree">
-                        <span class="r-header-t"><strong>2017</strong></span>
-                        <span class="r-header-a float-right collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree"></span>
-                    </div>
-                    <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
-                        <div class="card-body r-card-body">
-                            <div class="list-group r-list-group">
-                                <a href="#" class="list-group-item list-group-item-action">Андижанская область</a>
-                                <a href="#" class="list-group-item list-group-item-action">Ташкентская область</a>
-                                <a href="#" class="list-group-item list-group-item-action">Бухарская область</a>
-                                <a href="#" class="list-group-item list-group-item-action">Ферганская область</a>
-                                <a href="#" class="list-group-item list-group-item-action">Чимган</a>
+                                <a href="/Buxgalter/PlanByudjetaOblasteyNoviy?soato_code={{region.SoatoCode}}&year={{year}}" class="list-group-item list-group-item-action">{{region.RegionName}}</a>
                             </div>
                         </div>
                     </div>

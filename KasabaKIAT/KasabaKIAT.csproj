@@ -538,6 +538,7 @@
       <DependentUpon>ReportTemplate.aspx</DependentUpon>
     </Compile>
     <Compile Include="Startup.cs" />
+    <Compile Include="Test\PlanByudjetaTest.cs" />
     <Compile Include="ViewModel\Buxgalteriya\BankpaymentsViewModel.cs" />
     <Compile Include="ViewModel\Buxgalteriya\DetailViewModel.cs" />
     <Compile Include="ViewModel\Buxgalteriya\EcpCalcViewModel.cs" />
@@ -1132,6 +1133,9 @@
     <Content Include="Content\themes\alertify.core.css" />
     <Content Include="Content\themes\alertify.default.css" />
     <Content Include="Content\ui-bootstrap-csp.css" />
+    <Content Include="Content\webfonts\fa-brands-400.svg" />
+    <Content Include="Content\webfonts\fa-regular-400.svg" />
+    <Content Include="Content\webfonts\fa-solid-900.svg" />
     <Content Include="favicon.ico" />
     <Content Include="Content\styles\fonts\Bold\OpenSans-Bold.svg" />
     <Content Include="Content\styles\fonts\BoldItalic\OpenSans-BoldItalic.svg" />
@@ -1220,6 +1224,18 @@
     <Content Include="Content\styles\fonts\SemiboldItalic\OpenSans-SemiboldItalic.ttf" />
     <Content Include="Content\styles\fonts\SemiboldItalic\OpenSans-SemiboldItalic.woff" />
     <Content Include="Content\styles\fonts\SemiboldItalic\OpenSans-SemiboldItalic.woff2" />
+    <Content Include="Content\webfonts\fa-brands-400.eot" />
+    <Content Include="Content\webfonts\fa-brands-400.ttf" />
+    <Content Include="Content\webfonts\fa-brands-400.woff" />
+    <Content Include="Content\webfonts\fa-brands-400.woff2" />
+    <Content Include="Content\webfonts\fa-regular-400.eot" />
+    <Content Include="Content\webfonts\fa-regular-400.ttf" />
+    <Content Include="Content\webfonts\fa-regular-400.woff" />
+    <Content Include="Content\webfonts\fa-regular-400.woff2" />
+    <Content Include="Content\webfonts\fa-solid-900.eot" />
+    <Content Include="Content\webfonts\fa-solid-900.ttf" />
+    <Content Include="Content\webfonts\fa-solid-900.woff" />
+    <Content Include="Content\webfonts\fa-solid-900.woff2" />
     <None Include="Properties\PublishProfiles\WebKIAT.pubxml" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -1269,6 +1285,8 @@
     <Content Include="Scripts\MyJavaScript\OsushestvleniyeProvodki.js" />
     <Content Include="Scripts\MyJavaScript\O_SOZController.js" />
     <Content Include="Scripts\MyJavaScript\O_TController.js" />
+    <Content Include="Scripts\MyJavaScript\PlanByudjetNew.js" />
+    <Content Include="Scripts\MyJavaScript\PlanirovaniyeByudjeta.js" />
     <Content Include="Scripts\MyJavaScript\PlatejnoyePorucheniye.js" />
     <Content Include="Scripts\MyJavaScript\Postupleniya.js" />
     <Content Include="Scripts\MyJavaScript\PostupleniyaOblastTumanOtraslGroup.js" />

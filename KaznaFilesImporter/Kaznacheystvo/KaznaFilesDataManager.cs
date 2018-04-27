@@ -3,6 +3,7 @@ using KaznaFilesImporter;
 using KaznaFilesImporter.BankOplati;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Validation;
 using System.Globalization;
 using System.Linq;
 using System.Web;
@@ -32,7 +33,24 @@ namespace KasabaKIAT.BusinessLogic.BankOplati.Kaznacheystvo
 
                 var kk = db.KaznaFiles.Add(kfile);
 
-                db.SaveChanges();
+                try
+                {
+                    db.SaveChanges();
+                }
+                catch (DbEntityValidationException e)
+                {
+                    foreach (var eve in e.EntityValidationErrors)
+                    {
+                        Console.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
+                            eve.Entry.Entity.GetType().Name, eve.Entry.State);
+                        foreach (var ve in eve.ValidationErrors)
+                        {
+                            Console.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
+                                ve.PropertyName, ve.ErrorMessage);
+                        }
+                    }
+                    throw;
+                }
 
                 file.Id = kfile.ID;
             }
@@ -63,7 +81,14 @@ namespace KasabaKIAT.BusinessLogic.BankOplati.Kaznacheystvo
                 {
                     file.ID = 0;
                 }
-                 
+
+                var exists = db.KaznaPaymentFiles.Where(z => z.ID == file.ID);
+
+                if (exists.Any())
+                {
+                    db.KaznaPaymentFiles.Remove(exists.First());
+                }
+
                 try
                 {
                     file.BANKID = Int64.Parse(row.k_bankid);
@@ -73,7 +98,16 @@ namespace KasabaKIAT.BusinessLogic.BankOplati.Kaznacheystvo
                     file.BANKID = 0;
                 }
 
-                 
+
+                try
+                {
+                    file.GRPID = Int64.Parse(row.k_grpid);
+                }
+                catch
+                {
+                    file.GRPID = 0;
+                }
+
                 file.KLSDOX   =   row.k_klsdox  ;    
                 file.DOCNUMB  =   row.k_docnumb ;   
                 
@@ -110,18 +144,27 @@ namespace KasabaKIAT.BusinessLogic.BankOplati.Kaznacheystvo
                 file.OKONH = row.k_okonh;
                 file.FILE_ID = row.file_id;
 
-                try
-                {
-                    file.GRPID = Int64.Parse(row.k_grpid);
-                }
-                catch
-                {
-                    file.GRPID = 0;
-                }
 
                 db.KaznaPaymentFiles.Add(file);
 
-                db.SaveChanges();
+                try
+                {
+                    db.SaveChanges();
+                }
+                catch (DbEntityValidationException e)
+                {
+                    foreach (var eve in e.EntityValidationErrors)
+                    {
+                        Console.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
+                            eve.Entry.Entity.GetType().Name, eve.Entry.State);
+                        foreach (var ve in eve.ValidationErrors)
+                        {
+                            Console.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
+                                ve.PropertyName, ve.ErrorMessage);
+                        }
+                    }
+                    throw;
+                }
 
             }
         }
@@ -208,7 +251,24 @@ namespace KasabaKIAT.BusinessLogic.BankOplati.Kaznacheystvo
 
                 db.KaznaBankFiles.Add(file);
 
-                db.SaveChanges();
+                try
+                {
+                    db.SaveChanges();
+                }
+                catch (DbEntityValidationException e)
+                {
+                    foreach (var eve in e.EntityValidationErrors)
+                    {
+                        Console.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
+                            eve.Entry.Entity.GetType().Name, eve.Entry.State);
+                        foreach (var ve in eve.ValidationErrors)
+                        {
+                            Console.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
+                                ve.PropertyName, ve.ErrorMessage);
+                        }
+                    }
+                    throw;
+                }
 
             }
         }
@@ -237,7 +297,24 @@ namespace KasabaKIAT.BusinessLogic.BankOplati.Kaznacheystvo
 
                 var kk = db.KaznaSverkaFiles.Add(kfile);
 
-                db.SaveChanges();
+                try
+                {
+                    db.SaveChanges();
+                }
+                catch (DbEntityValidationException e)
+                {
+                    foreach (var eve in e.EntityValidationErrors)
+                    {
+                        Console.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
+                            eve.Entry.Entity.GetType().Name, eve.Entry.State);
+                        foreach (var ve in eve.ValidationErrors)
+                        {
+                            Console.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
+                                ve.PropertyName, ve.ErrorMessage);
+                        }
+                    }
+                    throw;
+                }
 
             }
         }

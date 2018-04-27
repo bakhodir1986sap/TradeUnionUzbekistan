@@ -104,6 +104,7 @@ namespace KasabaKIAT.BusinessLogic.Security.Roles.RolePermissions
         private bool _platejniyePorucheniya     ;
         private bool _planByudjeta              ;
         private bool _raznoskaDannixPoOtraslyam ;
+        private bool _nakladniye;
 
         public bool BuxUchetVvodDannix { get { return _buxUchetVvodDannix; } set { _buxUchetVvodDannix = value; if (_buxUchetVvodDannix) { TotalBuxUchet = true; } } }
         public bool PrasmotrDannix { get { return _prasmotrDannix; } set { _prasmotrDannix = value; if (_prasmotrDannix) { TotalBuxUchet = true; } } }
@@ -111,7 +112,7 @@ namespace KasabaKIAT.BusinessLogic.Security.Roles.RolePermissions
         public bool PlatejniyePorucheniya { get { return _platejniyePorucheniya; } set { _platejniyePorucheniya = value; if (_platejniyePorucheniya) { TotalBuxUchet = true; } } }
         public bool PlanByudjeta { get { return _planByudjeta; } set { _planByudjeta = value; if (_planByudjeta) { TotalBuxUchet = true; } } }
         public bool RaznoskaDannixPoOtraslyam { get { return _raznoskaDannixPoOtraslyam; } set { _raznoskaDannixPoOtraslyam = value; if (_raznoskaDannixPoOtraslyam) { TotalBuxUchet = true; } } }
-
+        public bool Nakladniye { get { return _nakladniye; } set { _nakladniye = value; if (_nakladniye) { TotalBuxUchet = true; } } }
         #endregion
 
         #region Reports

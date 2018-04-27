@@ -1,8 +1,16 @@
 ﻿
 @{
-    ViewBag.Title = "PlanByudjetaOblasteyIzmenit";
+    ViewBag.Title = "Бухгалтерия";
 }
-<section class="content__block container">
+
+<script src="~/Scripts/MyJavaScript/PlanByudjetNew.js"></script>
+<div id="connection" style="visibility:hidden;position:absolute;margin-left:600px;z-index:9999">
+    <img src="~/Content/Login/buffering.gif" />
+</div>
+<section class="content__block container" ng-controller="planByudjetNew">
+    <div id="connection" style="visibility:hidden;position:absolute;margin-left:600px;z-index:9999">
+        <img src="~/Content/Login/buffering.gif" />
+    </div>
     <div class="row mb-4 align-items-center">
         <div class="col title__block">
             <h4>Планирование бюджета регионов</h4>
@@ -18,20 +26,19 @@
         <div class="col-lg-7">
             <div class="row">
                 <div class="col-md-4 form-group">
-                    <select class="custom-select form-control">
+                    <select class="custom-select form-control" ng-model="selectedyear">
                         <option>2018</option>
-                        <option>2017</option>
-                        <option>2016</option>
-                        <option>2015</option>
+                        <option>2019</option>
+                        <option>2020</option>
+                        <option>2021</option>
+                        <option>2022</option>
                     </select>
                 </div>
                 <div class="col-md-4 form-group">
-                    <select class="custom-select form-control">
-                        <option>Андижан</option>
-                        <option>Андижан</option>
-                        <option>Андижан</option>
-                        <option>Андижан</option>
-                    </select>
+                    <select class="custom-select form-control" ng-model="selectedRegion" ng-options="prav as prav.Name for prav in Pravsoyuz track by prav.Kod"></select>
+                </div>
+                <div class="col-md-4 form-group">
+                    <a href="#" ng-click="GetPlanContent()" class="btn btn-blue d-block">Показать план</a>
                 </div>
             </div>
         </div>
@@ -40,6 +47,7 @@
         <table class="table table__block">
             <thead>
                 <tr>
+                    <th>Тартиб раками</th>
                     <th>Моддалар номи</th>
                     <th>Йиллик</th>
                     <th>1-чорак</th>
@@ -48,106 +56,31 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>Ўз.Р. Бош Прокуратураси хузур.СВОЖ ва ЖДЛКК Департаменти</td>
+                <tr ng-repeat="row in PlanList">
+                    <td>{{row.item_code}}</td>
+                    <td>{{row.item_name}}</td>
                     <td>
                         <div class="form-group">
-                            <input type="text" class="form-control" placeholder="" />
+                            <input id="Yearly_{{row.item_code}}" type="text" ng-model="row.godovoy" value="{{row.godovoy}}"  class="form-control" placeholder="" ng-readonly="row.IsModValueYearly"/>
                         </div>
                     </td>
                     <td>
                         <div class="form-group">
-                            <input type="text" class="form-control" placeholder="" />
+                            <input id="Quoter_{{row.item_code}}" type="text" ng-model="row.quarter1" value="{{row.quarter1}}" class="form-control" placeholder="" ng-readonly="row.IsModValue1Quater"/>
                         </div>
                     </td>
                     <td>
                         <div class="form-group">
-                            <input type="text" class="form-control" placeholder="" />
+                            <input id="Half_{{row.item_code}}" type="text" ng-model="row.halfyear" value="{{row.halfyear}}" class="form-control" placeholder="" ng-readonly="row.IsModValue1Half"/>
                         </div>
                     </td>
                     <td>
                         <div class="form-group">
-                            <input type="text" class="form-control" placeholder="" />
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Жами даромадлар</td>
-                    <td>
-                        <div class="form-group">
-                            <input type="text" class="form-control" placeholder="" />
-                        </div>
-                    </td>
-                    <td>0</td>
-                    <td>0</td>
-                    <td>0,0</td>
-                </tr>
-                <tr>
-                    <td>КУТБК даромади</td>
-                    <td>
-                        <div class="form-group">
-                            <input type="text" class="form-control" placeholder="" />
+                            <input id="month9_{{row.item_code}}" type="text" ng-model="row.month9" value="{{row.month9}}" class="form-control" placeholder="" ng-readonly="row.IsModValue9Month"/>
                         </div>
                     </td>
                     <td>
-                        <div class="form-group">
-                            <input type="text" class="form-control" placeholder="" />
-                        </div>
-                    </td>
-                    <td>
-                        <div class="form-group">
-                            <input type="text" class="form-control" placeholder="" />
-                        </div>
-                    </td>
-                    <td>
-                        <div class="form-group">
-                            <input type="text" class="form-control" placeholder="" />
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Болаларни оромгохларида согломлаштириш</td>
-                    <td>
-                        <div class="form-group">
-                            <input type="text" class="form-control" placeholder="" />
-                        </div>
-                    </td>
-                    <td>4</td>
-                    <td>5</td>
-                    <td>6</td>
-                </tr>
-                <tr>
-                    <td>Жами даромадлар</td>
-                    <td>
-                        <div class="form-group">
-                            <input type="text" class="form-control" placeholder="" />
-                        </div>
-                    </td>
-                    <td>0</td>
-                    <td>0</td>
-                    <td>0,0</td>
-                </tr>
-                <tr>
-                    <td>КУТБК даромади</td>
-                    <td>
-                        <div class="form-group">
-                            <input type="text" class="form-control" placeholder="" />
-                        </div>
-                    </td>
-                    <td>
-                        <div class="form-group">
-                            <input type="text" class="form-control" placeholder="" />
-                        </div>
-                    </td>
-                    <td>
-                        <div class="form-group">
-                            <input type="text" class="form-control" placeholder="" />
-                        </div>
-                    </td>
-                    <td>
-                        <div class="form-group">
-                            <input type="text" class="form-control" placeholder="" />
-                        </div>
+                        <button class="btn btn-blue d-block" ng-click="update(row)">Изменить</button>
                     </td>
                 </tr>
             </tbody>

@@ -19,6 +19,7 @@ namespace KasabaKIAT.Models
         {
             this.KaznaPaymentFile = new HashSet<KaznaPaymentFile>();
             this.KaznaSverkaFiles = new HashSet<KaznaSverkaFile>();
+            this.KaznaBankFiles = new HashSet<KaznaBankFile>();
         }
     
         public long ID { get; set; }
@@ -29,5 +30,7 @@ namespace KasabaKIAT.Models
         public virtual ICollection<KaznaPaymentFile> KaznaPaymentFile { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<KaznaSverkaFile> KaznaSverkaFiles { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<KaznaBankFile> KaznaBankFiles { get; set; }
     }
 }

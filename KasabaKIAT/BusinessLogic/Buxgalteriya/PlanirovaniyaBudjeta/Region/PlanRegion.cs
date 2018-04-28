@@ -1663,6 +1663,20 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.PlanirovaniyaBudjeta.Region
             return true;
         }
 
+        public bool DeletePlan(string soato_code, int year, string department_code, long UserId)
+        {
+            try
+            {
+                PlanRegionDataManager.Remove(soato_code, year);
+            }
+            catch
+            {
+                return false;
+            }
+
+            return true;
+        }
+
     }
 
     public class YearAndRegion

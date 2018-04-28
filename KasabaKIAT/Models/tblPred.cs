@@ -34,6 +34,7 @@ namespace KasabaKIAT.Models
         public bool Vid_SSL { get; set; }
         public Nullable<long> UserId { get; set; }
         public string Departmentbase { get; set; }
+        public string KaznaAccount { get; set; }
     
         public virtual users users { get; set; }
     }

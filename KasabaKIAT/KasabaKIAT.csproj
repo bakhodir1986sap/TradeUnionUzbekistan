@@ -253,6 +253,15 @@
     <Compile Include="BusinessLogic\Buxgalteriya\Provodki\PrivyazkaProvodokDataManager.cs" />
     <Compile Include="BusinessLogic\Buxgalteriya\Provodki\Provodki.cs" />
     <Compile Include="BusinessLogic\Buxgalteriya\Provodki\ProvodkiDataManager.cs" />
+    <Compile Include="BusinessLogic\ClosePeriod\CloseCommon.cs" />
+    <Compile Include="BusinessLogic\ClosePeriod\CloseDayDataManager.cs" />
+    <Compile Include="BusinessLogic\ClosePeriod\CloseDayViewModel.cs" />
+    <Compile Include="BusinessLogic\ClosePeriod\CloseDay\CloseDay.cs" />
+    <Compile Include="BusinessLogic\ClosePeriod\CloseKvartal\CloseKvartal.cs" />
+    <Compile Include="BusinessLogic\ClosePeriod\CloseMonth\CloseMonth.cs" />
+    <Compile Include="BusinessLogic\ClosePeriod\Holydays\HolidayDataManager.cs" />
+    <Compile Include="BusinessLogic\ClosePeriod\Holydays\HolidayViewModel.cs" />
+    <Compile Include="BusinessLogic\ClosePeriod\Holydays\Holydays.cs" />
     <Compile Include="BusinessLogic\ExportAndImport\Export2Excel.cs" />
     <Compile Include="BusinessLogic\ExportAndImport\Export2PDF.cs" />
     <Compile Include="BusinessLogic\ExportAndImport\ExportBase.cs" />
@@ -369,6 +378,9 @@
     <Compile Include="BusinessLogic\BankOplati\Kaznacheystvo\KaznaFilesDataManager.cs" />
     <Compile Include="Hubs\NotificationHub.cs" />
     <Compile Include="Models\ChatModel.cs" />
+    <Compile Include="Models\KaznaBankFile.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\KaznaSverkaFile.cs">
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
@@ -512,6 +524,9 @@
     <Compile Include="Models\tbbu_provodki.cs">
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\tbcs_sisconf.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\tbgl_balance.cs">
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
@@ -519,6 +534,12 @@
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tbgl_jnlmst.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tblCloseDay.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tblHoliday.cs">
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tblVipl_NumGEn.cs">
@@ -1427,9 +1448,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="BusinessLogic\BankOplati\Firmi\" />
-    <Folder Include="BusinessLogic\ClosePeriod\CloseDay\" />
-    <Folder Include="BusinessLogic\ClosePeriod\CloseKvartal\" />
-    <Folder Include="BusinessLogic\ClosePeriod\CloseMonth\" />
     <Folder Include="BusinessLogic\Reports\Buxgalteriya\NewFolder1\" />
     <Folder Include="BusinessLogic\Reports\Putyovki\NewFolder1\" />
     <Folder Include="BusinessLogic\Security\Roles\Users\" />

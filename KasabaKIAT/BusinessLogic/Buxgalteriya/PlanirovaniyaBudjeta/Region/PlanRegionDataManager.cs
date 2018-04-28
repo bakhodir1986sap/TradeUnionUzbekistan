@@ -112,19 +112,17 @@ namespace KasabaKiat.BusinessLogic.Buxgalteriya.PlanirovaniyaBudjeta.Region
             return true;
         }
 
-        public static void Remove(PlanRegionViewModel model)
+        public static void Remove(string soato_code, int year)
         {
             using (KasabaKIATEntities db = new KasabaKIATEntities())
             {
-                var planOblast = db.tbbu_planbyudjetregion.Where(z => z.REC_ID == model.rec_id);
+                var planOblast = db.tbbu_planbyudjetregion.Where(z => z.SOATO_CODE == soato_code && z.YEAR == year);
 
                 if (planOblast.Any())
                 {
-                    var reg = planOblast.FirstOrDefault();
-
-                    if (reg != null)
+                    foreach(var mm in planOblast)
                     {
-                        db.tbbu_planbyudjetregion.Remove(reg);
+                        db.tbbu_planbyudjetregion.Remove(mm);
                     }
                 }
 
@@ -222,13 +220,13 @@ namespace KasabaKiat.BusinessLogic.Buxgalteriya.PlanirovaniyaBudjeta.Region
                 {
                     var obj = new YearAndRegion();
 
-                    var RegionName = db.sp_soato.Where(s => s.code == region.SoatoCode);
+                    var RegionName = db.tbku_StrokaProfsoyza.Where(s => s.MATCH_DEPARTMENTBASE == region.SoatoCode);
                     
                     if (RegionName.Any())
                     {
                         obj.Year = year;
                         obj.SoatoCode = region.SoatoCode;
-                        obj.RegionName = RegionName.First().name_ru;
+                        obj.RegionName = RegionName.First().ProfsoyzNaimenovanie;
 
                         regionsList.Add(obj);
                     } 

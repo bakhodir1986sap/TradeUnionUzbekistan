@@ -36,6 +36,7 @@ namespace KasabaKIAT.Models
         public string OKONH { get; set; }
         public Nullable<long> FILE_ID { get; set; }
         public Nullable<decimal> OTCHISLEN { get; set; }
+        public Nullable<decimal> GRPID { get; set; }
     
         public virtual KaznaFiles KaznaFiles { get; set; }
     }

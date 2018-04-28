@@ -2,8 +2,8 @@
 using KasabaKIAT.BusinessLogic.Buxgalteriya.PlanirovaniyaBudjeta.Region;
 using KasabaKIAT.BusinessLogic.Buxgalteriya.PrixodChastichka;
 using KasabaKIAT.BusinessLogic.Buxgalteriya.Provodki;
+using KasabaKIAT.BusinessLogic.ClosePeriod.Holydays;
 using KasabaKIAT.Models;
-using KasabaKIAT.Test;
 using KasabaKIAT.ViewModel.Buxgalteriya;
 using log4net;
 using OfficeOpenXml;
@@ -71,9 +71,9 @@ namespace KasabaKIAT.Controllers
         [OutputCache(Duration = 30, Location = OutputCacheLocation.ServerAndClient, VaryByCustom = "userId")]
         public ActionResult OsushestvleniyeProvodki()
         {
-            //var tt = new PlanByudjetaTest();
+            var tt = new HolidaysTest();
 
-            //tt.Process();
+            tt.Process();
 
             return View();
         }
@@ -130,15 +130,8 @@ namespace KasabaKIAT.Controllers
         /// </summary>
         /// <returns></returns>
         [OutputCache(Duration = 30, Location = OutputCacheLocation.ServerAndClient, VaryByCustom = "userId")]
-        public ActionResult PlanByudjetaOblasteyNoviy(string soato_code,int  year)
+        public ActionResult PlanByudjetaOblasteyNoviy()
         {
-            var yeayRegion = new YearAndRegion();
-
-            yeayRegion.Year = year;
-            yeayRegion.SoatoCode = soato_code;
-
-            ViewBag.yeayRegion = yeayRegion;
-
             return View();
         }
 
@@ -398,7 +391,7 @@ namespace KasabaKIAT.Controllers
         /// <param name="soato_code"></param>
         /// <param name="year"></param>
         /// <returns></returns>
-        [OutputCache(Duration = 30, Location = OutputCacheLocation.ServerAndClient, VaryByCustom = "userId")]
+        [OutputCache(Duration = 5, Location = OutputCacheLocation.ServerAndClient, VaryByCustom = "userId")]
         public JsonResult GetRegionPlan(string soato_code, int year)
         {
             int UserId = Convert.ToInt32(User.Identity.Name);
@@ -423,6 +416,18 @@ namespace KasabaKIAT.Controllers
             var department_code = uu.DepartmentBase;
 
             if (!planByudjet.SaveChanges(saveItem)) return Json("error", JsonRequestBehavior.AllowGet);
+
+            return Json("success", JsonRequestBehavior.AllowGet);
+        }
+
+        
+        public JsonResult DeleteRegionPlan(string soato_code, int year)
+        {
+            int UserId = Convert.ToInt32(User.Identity.Name);
+            var uu = UserInfo.GetUserInfo(UserId);
+            var department_code = uu.DepartmentBase;
+
+            if (!planByudjet.DeletePlan(soato_code, year, department_code, UserId)) return Json("error", JsonRequestBehavior.AllowGet);
 
             return Json("success", JsonRequestBehavior.AllowGet);
         }

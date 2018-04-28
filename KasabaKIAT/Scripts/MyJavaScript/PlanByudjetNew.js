@@ -26,6 +26,8 @@
 
 
     $scope.GetPlanContent = function () {
+
+        $scope.PlanList = null;
         document.getElementById('connection').style.visibility = "visible";
         $("#hh").modal({
             backdrop: 'static'
@@ -83,15 +85,29 @@
 
     $scope.update =  function (planRow) {
 
-        $scope.Regions = null;
-
         $http({
             method: 'post',
             url: '/Buxgalter/SaveRegionPlan',
             data: JSON.stringify(planRow),
             contentType: "application/json; charset=utf-8",
         }).then(function (response) {
-            GetPravsoyuzOrg();
+            $scope.GetPlanContent();
+        }, function (error) {
+            alertify.error("ошибка");
+            console.log("error in SaveRegionPlan");
+        });
+    }
+
+
+    $scope.delete = function () {
+
+        $scope.Regions = null;
+
+        $http({
+            method: 'get',
+            url: '/Buxgalter/DeleteRegionPlan?soato_code=' + $scope.selectedRegion.Kod + '&year=' + $scope.selectedyear
+        }).then(function (response) {
+            $scope.GetPlanContent();
         }, function (error) {
             alertify.error("ошибка");
             console.log("error in SaveRegionPlan");

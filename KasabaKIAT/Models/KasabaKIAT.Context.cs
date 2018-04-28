@@ -173,6 +173,7 @@ namespace KasabaKIAT.Models
         public virtual DbSet<tbcs_sisconf> tbcs_sisconf { get; set; }
         public virtual DbSet<tblCloseDay> tblCloseDays { get; set; }
         public virtual DbSet<tblHoliday> tblHolidays { get; set; }
+        public virtual DbSet<tblCloseDayHistory> tblCloseDayHistories { get; set; }
     
         public virtual ObjectResult<Nullable<decimal>> sp_get_BankPaymentCompanyMonthly(string inn, Nullable<int> year, Nullable<int> month)
         {

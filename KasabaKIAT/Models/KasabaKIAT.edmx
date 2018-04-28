@@ -2111,6 +2111,17 @@ warning 6002: The table/view 'KasabaKIAT_N1.dbo.tbbTabel' does not have a primar
           <Property Name="CURDAY" Type="datetime" />
           <Property Name="NEXTDAY" Type="datetime" />
         </EntityType>
+        <EntityType Name="tblCloseDayHistory">
+          <Key>
+            <PropertyRef Name="REC_ID" />
+          </Key>
+          <Property Name="REC_ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DEPARTMENT_CODE" Type="varchar" MaxLength="255" />
+          <Property Name="CLOSED_DATE" Type="date" />
+          <Property Name="TIMESTAMP" Type="datetime" />
+          <Property Name="USER_ID" Type="bigint" />
+          <Property Name="REMARK" Type="nvarchar" MaxLength="4000" />
+        </EntityType>
         <EntityType Name="tblFace_Med">
           <Key>
             <PropertyRef Name="ID" />
@@ -5916,6 +5927,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <EntitySet Name="tbku_ZaezdyClientov" EntityType="Self.tbku_ZaezdyClientov" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblBron" EntityType="Self.tblBron" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblCloseDay" EntityType="Self.tblCloseDay" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblCloseDayHistory" EntityType="Self.tblCloseDayHistory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblFace_Med" EntityType="Self.tblFace_Med" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblFase" EntityType="Self.tblFase" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblHolidays" EntityType="Self.tblHolidays" Schema="dbo" store:Type="Tables" />
@@ -13643,6 +13655,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
             <End Role="KaznaBankFile" EntitySet="KaznaBankFiles" />
           </AssociationSet>
           <EntitySet Name="tblHolidays" EntityType="KasabaKIATModel.tblHoliday" />
+          <EntitySet Name="tblCloseDayHistories" EntityType="KasabaKIATModel.tblCloseDayHistory" />
         </EntityContainer>
         <ComplexType Name="sp_get_BankPaymentCompanyYearlyQ_Result">
           <Property Type="Int32" Name="MONTH_NUM" Nullable="true" />
@@ -14446,6 +14459,17 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <Property Name="SET_DATE" Type="DateTime" Precision="3" />
           <Property Name="DATE_TYPE" Type="Int16" />
           <Property Name="STATUS" Type="Int16" />
+        </EntityType>
+        <EntityType Name="tblCloseDayHistory">
+          <Key>
+            <PropertyRef Name="REC_ID" />
+          </Key>
+          <Property Name="REC_ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DEPARTMENT_CODE" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="CLOSED_DATE" Type="DateTime" Precision="0" />
+          <Property Name="TIMESTAMP" Type="DateTime" Precision="3" />
+          <Property Name="USER_ID" Type="Int64" />
+          <Property Name="REMARK" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -17836,6 +17860,18 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
                 <ScalarProperty Name="STATUS" ColumnName="STATUS" />
                 <ScalarProperty Name="DATE_TYPE" ColumnName="DATE_TYPE" />
                 <ScalarProperty Name="SET_DATE" ColumnName="SET_DATE" />
+                <ScalarProperty Name="REC_ID" ColumnName="REC_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblCloseDayHistories">
+            <EntityTypeMapping TypeName="KasabaKIATModel.tblCloseDayHistory">
+              <MappingFragment StoreEntitySet="tblCloseDayHistory">
+                <ScalarProperty Name="REMARK" ColumnName="REMARK" />
+                <ScalarProperty Name="USER_ID" ColumnName="USER_ID" />
+                <ScalarProperty Name="TIMESTAMP" ColumnName="TIMESTAMP" />
+                <ScalarProperty Name="CLOSED_DATE" ColumnName="CLOSED_DATE" />
+                <ScalarProperty Name="DEPARTMENT_CODE" ColumnName="DEPARTMENT_CODE" />
                 <ScalarProperty Name="REC_ID" ColumnName="REC_ID" />
               </MappingFragment>
             </EntityTypeMapping>

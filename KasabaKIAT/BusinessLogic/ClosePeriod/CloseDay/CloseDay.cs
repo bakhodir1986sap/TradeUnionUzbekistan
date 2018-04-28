@@ -1,16 +1,28 @@
-﻿using KasabaKIAT.BusinessLogic.ClosePeriod.Holydays;
+﻿using KasabaKIAT.BusinessLogic.ClosePeriod.CloseHistory;
+using KasabaKIAT.BusinessLogic.ClosePeriod.Holydays;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 
 namespace KasabaKIAT.BusinessLogic.ClosePeriod.CloseDay
 {
+    public delegate void TimeEvent(CloseDayViewModel model);
     /// <summary>
     /// 
     /// </summary>
     public class CloseDay
     {
+        public event TimeEvent OnDayClosing;
+        public event TimeEvent OnDayClosed;
+
+        public event TimeEvent OnMonthClosing;
+        public event TimeEvent OnMonthClosed;
+
+        public event TimeEvent OnQuoterClosing;
+        public event TimeEvent OnQuoterClosed;
+
+        public event TimeEvent OnYearClosing;
+        public event TimeEvent OnYearClosed;
+
         private string _departmentBase;
 
         /// <summary>
@@ -22,14 +34,30 @@ namespace KasabaKIAT.BusinessLogic.ClosePeriod.CloseDay
             _departmentBase = depBase;
         }
 
+
+        public bool ChangeCurrentDateAll(long userId)
+        {
+            var allList = CloseDayDataManager.GetAll();
+
+            if (allList.Any())
+            {
+                foreach(var depart in allList)
+                {
+                    if (!ChangeCurrentDate(depart.department_code, userId)) return false;
+                }
+            }
+
+            return true;
+        }
+
         /// <summary>
         /// 
         /// </summary>
         /// <param name="departmentCode"></param>
         /// <returns></returns>
-        private bool ChangeCurrentDate(string departmentCode)
+        public bool ChangeCurrentDate(string departmentCode, long userId)
         {
-            var row = GetBusinessDayRow(_departmentBase);
+            var row = GetBusinessDayRow(departmentCode);
 
             if (row == null) return false;
 
@@ -38,7 +66,7 @@ namespace KasabaKIAT.BusinessLogic.ClosePeriod.CloseDay
 
             while(true)
             {
-                var nextCalendarDt = row.nextday.AddDays(counter);
+                var nextCalendarDt = row.nextday.Value.AddDays(counter);
 
                 if (HolidayDataManager.IsWorkDay(nextCalendarDt))
                 {
@@ -61,9 +89,76 @@ namespace KasabaKIAT.BusinessLogic.ClosePeriod.CloseDay
             newBusiness.curday = row.nextday;
             newBusiness.nextday = nextWorkingDay;
 
+            var history = new CloseHistoryViewModel()
+            {
+                department_code = departmentCode,
+                closed_date = row.curday,
+                remark = "CLOSE",
+                user_id = userId                
+            };
+
+            BeforeEOD(newBusiness);
+
+            CloseHistoryDataManager.Create(ref history);
+
             CloseDayDataManager.Modify(newBusiness);
 
+            AfterEOD(newBusiness);
+
             return true;
+        }
+
+        private void BeforeEOD(CloseDayViewModel model)
+        {
+            var prevDate = model.prevdate;
+            var curDate = model.curday;
+
+            var prevKvartal = GetCurQuarter(prevDate.Value);
+            var curKvartal = GetCurQuarter(curDate.Value);
+
+            if (prevDate.Value.Year != curDate.Value.Year)
+            {
+                OnYearClosing?.Invoke(model);
+            }
+            else if (prevKvartal != curKvartal)
+            {
+                OnQuoterClosing?.Invoke(model);
+            }
+            else if (prevDate.Value.Month != curDate.Value.Month)
+            {
+                OnMonthClosing?.Invoke(model);
+            }
+            else
+            {
+                OnDayClosing?.Invoke(model);
+            }
+        }
+
+
+        private void AfterEOD(CloseDayViewModel model)
+        {
+            var prevDate = model.prevdate;
+            var curDate = model.curday;
+
+            var prevKvartal = GetCurQuarter(prevDate.Value);
+            var curKvartal = GetCurQuarter(curDate.Value);
+
+            if (prevDate.Value.Year != curDate.Value.Year)
+            {
+                OnYearClosed?.Invoke(model);
+            }
+            else if (prevKvartal != curKvartal)
+            {
+                OnQuoterClosed?.Invoke(model);
+            }
+            else if (prevDate.Value.Month != curDate.Value.Month)
+            {
+                OnMonthClosed?.Invoke(model);
+            }
+            else
+            {
+                OnDayClosed?.Invoke(model);
+            }
         }
 
         /// <summary>
@@ -327,5 +422,26 @@ namespace KasabaKIAT.BusinessLogic.ClosePeriod.CloseDay
             return res + 1;
         }
 
+    }
+
+    public class CloseDayTest
+    {
+        public void Process()
+        {
+            var closeDay = new CloseDay("");
+            closeDay.OnDayClosing += CloseDay_OnDayClosing;
+
+            if (!closeDay.ChangeCurrentDateAll(1))
+            {
+                throw new ApplicationException("");
+            }
+
+
+        }
+
+        private void CloseDay_OnDayClosing(CloseDayViewModel model)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

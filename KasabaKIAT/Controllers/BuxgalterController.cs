@@ -2,6 +2,7 @@
 using KasabaKIAT.BusinessLogic.Buxgalteriya.PlanirovaniyaBudjeta.Region;
 using KasabaKIAT.BusinessLogic.Buxgalteriya.PrixodChastichka;
 using KasabaKIAT.BusinessLogic.Buxgalteriya.Provodki;
+using KasabaKIAT.BusinessLogic.ClosePeriod.CloseDay;
 using KasabaKIAT.BusinessLogic.ClosePeriod.Holydays;
 using KasabaKIAT.Models;
 using KasabaKIAT.ViewModel.Buxgalteriya;
@@ -71,7 +72,7 @@ namespace KasabaKIAT.Controllers
         [OutputCache(Duration = 30, Location = OutputCacheLocation.ServerAndClient, VaryByCustom = "userId")]
         public ActionResult OsushestvleniyeProvodki()
         {
-            var tt = new HolidaysTest();
+            var tt = new CloseDayTest();
 
             tt.Process();
 

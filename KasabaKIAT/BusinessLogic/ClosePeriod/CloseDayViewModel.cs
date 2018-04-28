@@ -20,16 +20,16 @@ namespace KasabaKIAT.BusinessLogic.ClosePeriod
         /// <summary>
         /// 
         /// </summary>
-        public DateTime prevdate  {get;set;}
+        public DateTime? prevdate  {get;set;}
 
         /// <summary>
         /// 
         /// </summary>
-        public DateTime curday   {get;set;}
+        public DateTime? curday   {get;set;}
 
         /// <summary>
         /// 
         /// </summary>
-        public DateTime nextday   {get;set;}
+        public DateTime? nextday   {get;set;}
     }
 }

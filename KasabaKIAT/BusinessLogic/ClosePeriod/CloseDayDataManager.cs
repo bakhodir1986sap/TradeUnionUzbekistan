@@ -16,9 +16,9 @@ namespace KasabaKIAT.BusinessLogic.ClosePeriod
                 tblCloseDay reg = new tblCloseDay();
 
                 reg.DEPARTMENT_CODE = model.department_code;
-                reg.PREVDATE = model.prevdate.Date;
-                reg.CURDAY = model.curday.Date;
-                reg.NEXTDAY = model.nextday.Date;
+                reg.PREVDATE = model.prevdate.Value.Date;
+                reg.CURDAY = model.curday.Value.Date;
+                reg.NEXTDAY = model.nextday.Value.Date;
 
                 var planOtrasl = db.tblCloseDays.Add(reg);
 
@@ -49,7 +49,7 @@ namespace KasabaKIAT.BusinessLogic.ClosePeriod
         {
             using (KasabaKIATEntities db = new KasabaKIATEntities())
             {
-                var planOblast = db.tblCloseDays.Where(z => z.REC_ID == model.rec_id);
+                var planOblast = db.tblCloseDays.Where(z => z.DEPARTMENT_CODE == model.department_code);
 
                 if (planOblast.Any())
                 {
@@ -57,9 +57,9 @@ namespace KasabaKIAT.BusinessLogic.ClosePeriod
 
                     if (reg != null)
                     {
-                        reg.PREVDATE = model.prevdate.Date;
-                        reg.CURDAY = model.curday.Date;
-                        reg.NEXTDAY = model.nextday.Date;
+                        reg.PREVDATE = model.prevdate.Value.Date;
+                        reg.CURDAY = model.curday.Value.Date;
+                        reg.NEXTDAY = model.nextday.Value.Date;
                     }
                 }
 
@@ -99,9 +99,32 @@ namespace KasabaKIAT.BusinessLogic.ClosePeriod
                             {
                                 rec_id = bank.REC_ID,
                                 department_code = bank.DEPARTMENT_CODE,
-                                prevdate = bank.PREVDATE.Value.Date,
-                                curday = bank.CURDAY.Value.Date,
-                                nextday = bank.NEXTDAY.Value.Date
+                                prevdate = bank.PREVDATE,
+                                curday = bank.CURDAY,
+                                nextday = bank.NEXTDAY
+                            };
+
+                list = query.ToList();
+            }
+
+            return list;
+        }
+
+
+        public static List<CloseDayViewModel> GetAll()
+        {
+            List<CloseDayViewModel> list = null;
+
+            using (KasabaKIATEntities db = new KasabaKIATEntities())
+            {
+                var query = from bank in db.tblCloseDays
+                            select new CloseDayViewModel
+                            {
+                                rec_id = bank.REC_ID,
+                                department_code = bank.DEPARTMENT_CODE,
+                                prevdate = bank.PREVDATE,
+                                curday = bank.CURDAY,
+                                nextday = bank.NEXTDAY
                             };
 
                 list = query.ToList();

@@ -94,10 +94,12 @@ SELECT [MATCH_DEPARTMENTBASE],
 
 ----------------------------------------------------------------------
 
+
+
 USE [KasabaKIAT_N1]
 GO
 
-/****** Object:  Table [dbo].[tblCloseDayHistory]    Script Date: 04/28/2018 12:59:47 ******/
+/****** Object:  Table [dbo].[tblCloseDayHistory]    Script Date: 04/28/2018 21:18:11 ******/
 SET ANSI_NULLS ON
 GO
 
@@ -108,7 +110,7 @@ SET ANSI_PADDING ON
 GO
 
 CREATE TABLE [dbo].[tblCloseDayHistory](
-	[REC_ID] [bigint] NOT NULL,
+	[REC_ID] [bigint] IDENTITY(1,1) NOT NULL,
 	[DEPARTMENT_CODE] [varchar](255) NULL,
 	[CLOSED_DATE] [date] NULL,
 	[TIMESTAMP] [datetime] NULL,
@@ -124,5 +126,4 @@ GO
 
 SET ANSI_PADDING OFF
 GO
-
 

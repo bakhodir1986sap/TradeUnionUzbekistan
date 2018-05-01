@@ -129,7 +129,6 @@
         <EntityTypeShape EntityType="KasabaKIATModel.tbbTabel" Width="1.5" PointX="22.5" PointY="378.375" IsExpanded="true" />
         <EntityTypeShape EntityType="KasabaKIATModel.tblFace_Two" Width="1.5" PointX="33" PointY="239" IsExpanded="true" />
         <EntityTypeShape EntityType="KasabaKIATModel.tblOplata_Ras" Width="1.5" PointX="33" PointY="275.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="KasabaKIATModel.tblPred" Width="1.5" PointX="22.5" PointY="381.125" IsExpanded="true" />
         <EntityTypeShape EntityType="KasabaKIATModel.tblPutevka" Width="1.5" PointX="33.75" PointY="281.875" IsExpanded="true" />
         <EntityTypeShape EntityType="KasabaKIATModel.tblVipl_Put" Width="1.5" PointX="24.75" PointY="272.5" IsExpanded="true" />
         <EntityTypeShape EntityType="KasabaKIATModel.tblVozVrat" Width="1.5" PointX="27.75" PointY="280.25" IsExpanded="true" />
@@ -329,7 +328,6 @@
         <AssociationConnector Association="KasabaKIATModel.FK_tbbTabel_Users" ManuallyRouted="false" />
         <AssociationConnector Association="KasabaKIATModel.FK_tblFace_Two_Users" ManuallyRouted="false" />
         <AssociationConnector Association="KasabaKIATModel.FK_tblOplata_Ras_Users" ManuallyRouted="false" />
-        <AssociationConnector Association="KasabaKIATModel.FK_tblPred_Users" ManuallyRouted="false" />
         <AssociationConnector Association="KasabaKIATModel.FK_tblPutevka_Users" ManuallyRouted="false" />
         <AssociationConnector Association="KasabaKIATModel.FK_tblVipl_Put_Users" ManuallyRouted="false" />
         <AssociationConnector Association="KasabaKIATModel.FK_tblVozVrat_Users" ManuallyRouted="false" />
@@ -366,6 +364,8 @@
         <AssociationConnector Association="KasabaKIATModel.FK_KaznaBankFile_KaznaFiles1" />
         <EntityTypeShape EntityType="KasabaKIATModel.tblHoliday" Width="1.5" PointX="0.75" PointY="22.75" />
         <EntityTypeShape EntityType="KasabaKIATModel.tblCloseDayHistory" Width="1.5" PointX="3.375" PointY="22.75" />
+        <EntityTypeShape EntityType="KasabaKIATModel.tblPred" Width="1.5" PointX="22.5" PointY="288.125" />
+        <AssociationConnector Association="KasabaKIATModel.FK_tblPred_Users" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

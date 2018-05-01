@@ -36,6 +36,6 @@ namespace KasabaKIAT.Models
         public string Departmentbase { get; set; }
         public string KaznaAccount { get; set; }
     
-        public virtual users users { get; set; }
+        public virtual users user { get; set; }
     }
 }

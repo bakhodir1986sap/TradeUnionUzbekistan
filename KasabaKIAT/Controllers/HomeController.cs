@@ -1,5 +1,7 @@
 ﻿using KasabaKiat.Helpers;
+using KasabaKIAT.BusinessLogic.Putyovki.Rekviziti;
 using KasabaKIAT.Models;
+using KasabaKIAT.ViewModel.Putyovki;
 using log4net;
 using System;
 using System.Linq;
@@ -210,6 +212,90 @@ namespace KasabaKIAT.Controllers
         public ActionResult RassmotreniyeZayavok()
         {
             return View();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [OutputCache(Duration = 5, Location = OutputCacheLocation.ServerAndClient, VaryByCustom = "userId")]
+        public ActionResult Rekviziti()
+        {
+            return View();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [OutputCache(Duration = 5, Location = OutputCacheLocation.ServerAndClient, VaryByCustom = "userId")]
+        public JsonResult GetRekvizit()
+        {
+            log.Info("GetSanatory ");
+
+            int UserId = Convert.ToInt32(User.Identity.Name);
+            var uu = UserInfo.GetUserInfo(UserId);
+            //d.department_base = uu.DepartmentBase;
+
+
+            var rekvizit = from rek in KasabaDB.tblPreds
+                           where rek.Departmentbase == uu.DepartmentBase
+                           select new RekvizitiViewModel
+                           {
+                                ID_Name   = rek.ID_Name,
+                                ID_Pred   = rek.ID_Pred,
+                                ID_Pass   = rek.ID_Pass,
+                                Adress    = rek.Adress,
+                                RS        = rek.RS,
+                                Name_bank = rek.Name_bank,
+                                MFO       = rek.MFO,
+                                INN       = rek.INN,
+                                OKONX     = rek.OKONX,
+                                Name_Dir  = rek.Name_Dir,
+                                VIO       = rek.VIO
+                           };
+
+            if(!rekvizit.Any())
+            {
+                return Json( new RekvizitiViewModel()
+                {
+                    Adress ="",
+                    ID_Name = "",
+                    ID_Pass = "",
+                    ID_Pred = "",
+                    ID_Prof = "",
+                    INN = "",
+                    MFO = "",
+                    Name_bank = "", 
+                    Name_Dir = "",
+                    OKONX = "",
+                    PutDay = "",
+                    RS = "",
+                    VIO = false
+                }, JsonRequestBehavior.AllowGet);
+            } 
+
+            return Json(rekvizit.ToList().First(), JsonRequestBehavior.AllowGet);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public JsonResult SaveRekvizit(RekvizitiViewModel model)
+        {
+            var rekvizit = new Rekviziti();
+
+            int UserId = Convert.ToInt32(User.Identity.Name);
+            var uu = UserInfo.GetUserInfo(UserId);
+
+            model.DepartmentBase = uu.DepartmentBase;
+
+            if (!rekvizit.SaveRekvizit(model)) return Json("fail", JsonRequestBehavior.AllowGet);
+
+            return Json("success", JsonRequestBehavior.AllowGet);
         }
 
         /// <summary>

@@ -6,8 +6,15 @@ using System.Web;
 
 namespace KasabaKiat.BusinessLogic.Utils.References
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class Sprav_Otras
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="model"></param>
         public static void Create(ref Sprav_OtrasViewModel model)
         {
             using (KasabaKIATEntities db = new KasabaKIATEntities())
@@ -27,6 +34,10 @@ namespace KasabaKiat.BusinessLogic.Utils.References
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="model"></param>
         public static void Modify(Sprav_OtrasViewModel model)
         {
             using (KasabaKIATEntities db = new KasabaKIATEntities())
@@ -50,6 +61,10 @@ namespace KasabaKiat.BusinessLogic.Utils.References
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="model"></param>
         public static void Remove(Sprav_OtrasViewModel model)
         {
             using (KasabaKIATEntities db = new KasabaKIATEntities())
@@ -70,6 +85,11 @@ namespace KasabaKiat.BusinessLogic.Utils.References
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         public static List<Sprav_OtrasViewModel> Get(Sprav_OtrasViewModel model)
         {
             List<Sprav_OtrasViewModel> list = null;
@@ -83,7 +103,34 @@ namespace KasabaKiat.BusinessLogic.Utils.References
                                    ID_Ot = otras.ID_Ot,
                                    Name_Ot = otras.Name_Ot,
                                    Priz = otras.Priz,
-                                   UserId = otras.UserId
+                                   UserId = otras.UserId,
+                                   DepartmentBase = otras.DepartmentBase
+                               };
+
+                list = queryRes.ToList();
+
+            }
+
+            return list;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="departmentBase"></param>
+        /// <returns></returns>
+        public static List<Sprav_OtrasViewModel> GetByDepartmentBase(string departmentBase)
+        {
+            List<Sprav_OtrasViewModel> list = null;
+
+            using (KasabaKIATEntities db = new KasabaKIATEntities())
+            {
+                var queryRes = from otras in db.tblSprav_Otras
+                               where otras.DepartmentBase == departmentBase
+                               select new Sprav_OtrasViewModel
+                               {
+                                   ID_Ot = otras.ID_Ot,
+                                   Name_Ot = otras.Name_Ot,
                                };
 
                 list = queryRes.ToList();

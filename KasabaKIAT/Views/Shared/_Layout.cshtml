@@ -78,6 +78,7 @@
                                 @if (List.PrixodPutyovok)
                                 {
                                     <a class="dropdown-item load" href="/PrixodPutevok/Index">Приход путевок</a>
+                                    @*<a class="dropdown-item load" href="/PrixodPutevok/PrixodPutyovokRuchnoy">Приход путевок ручной</a>*@
                                 }
                                 @if (List.ProsmotrOstatkaPutyovok)
                                 {
@@ -86,6 +87,7 @@
                                 @if (List.RealizasiyaPutyovok)
                                 {
                                     <a class="dropdown-item load" href="/PrixodPutevok/RealizatsiyaPutevok">Реализация путевок</a>
+                                    @*<a class="dropdown-item load" href="/PrixodPutevok/RasxodPutyovok">Расход Путевок</a>*@
                                 }
                                 @if (List.ProsmotrRealPutyovok)
                                 {
@@ -94,6 +96,55 @@
                                 @if (List.SverkaDannixPoOtdixayushim)
                                 {
                                     <a class="dropdown-item load" href="/PrixodPutevok/SverkaDannix">Сверка данных по отдыхающим</a>
+                                }
+                                @*<a class="dropdown-item load" href="/PrixodPutevok/Organizasii">Организация</a>*@
+                            </div>
+                        </li>
+                    }
+                    @if (List.TotalPutyovki)
+                    {
+                        <li class="nav-item dropdown" id="p">
+                            <a id="tours1" class="nav-link" style="visibility:hidden;position:absolute;">Данные Илхом</a>
+                            <a disabled class="nav-link dropdown-toggle" href="/Home/Putyovki" id="tours" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Данные Илхом</a>
+                            <div class="dropdown-menu rounded-0 box-shadow m-0 border-0" aria-labelledby="tours">
+                                @if (List.PrixodPutyovok)
+                                {
+                                    <a class="dropdown-item load" href="/PrixodPutevok/PrixodPutyovokRuchnoy">Приход путевок ручной</a>
+                                }
+                                @if (List.RealizasiyaPutyovok)
+                                {
+                                    <a class="dropdown-item load" href="/PrixodPutevok/RasxodPutyovok">Расход Путевок</a>
+                                    <a class="dropdown-item load" href="/PrixodPutevok/OplataViplatiZaPutyovki">Оплата и Выплаты за путевки</a>
+                                    <a class="dropdown-item load" href="/PrixodPutevok/AktVozvrataPutyovok">Акт возврата путевок</a>
+                                    <a class="dropdown-item load" href="/PrixodPutevok/ZakritiyaKvartalaPoPutyovkam">Закрытие квартала по путевкам</a>
+                                    <a class="dropdown-item load" href="/PrixodPutevok/DanniyeVladelsaxPutyovok">Данные о владельцах путевок</a>
+                                }
+                                <a class="dropdown-item load" href="/PrixodPutevok/Organizasii">Организация</a>
+                            </div>
+                        </li>
+                    }
+                    @if (List.TotalPutyovki)
+                    {
+                        <li class="nav-item dropdown" id="p">
+                            <a id="tours1" class="nav-link" style="visibility:hidden;position:absolute;">Отчеты Илхом</a>
+                            <a disabled class="nav-link dropdown-toggle" href="/Home/Putyovki" id="tours" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Отчеты Илхом</a>
+                            <div class="dropdown-menu rounded-0 box-shadow m-0 border-0" aria-labelledby="tours">
+                                @if (List.RealizasiyaPutyovok)
+                                {
+                                    <a class="dropdown-item load" href="/Otchot/ZaprosPoPutyovkam">Запрос по Путевкам</a>
+                                    <a class="dropdown-item load" href="/Otchot/OperativkaPoPutyovkam">Оперативка по путевокам</a>
+                                    <a class="dropdown-item load" href="/Otchot/SvodPoPutyovkam">Свод по путевкам</a>
+                                    <a class="dropdown-item load" href="/Otchot/Operativnayakartochka">Оперативная карточка</a>
+                                    <a class="dropdown-item load">----------------------------</a>
+                                    <a class="dropdown-item load" href="/Otchot/BalancePredpriyatiy">Баланс Предприятий</a>
+                                    <a class="dropdown-item load" href="/Otchot/UchetMedicinskoyReg">Учет медицинской регистрации работников</a>
+                                    <a class="dropdown-item load" href="/Otchot/UchetPostupleniya">Учет поступления стоимости путевок</a>
+                                    <a class="dropdown-item load" href="/Otchot/OtchetN13">Отчет № 13</a>
+                                    <a class="dropdown-item load" href="/Otchot/OtchetN14">Отчет № 14</a>
+                                    <a class="dropdown-item load" href="/Otchot/KnigaUchetaVladel">Книга учета владельцев путевок</a>
+                                    <a class="dropdown-item load" href="/Otchot/JurnalniyOrder4">Журнальный ордер № 4</a>
+                                    <a class="dropdown-item load" href="/Otchot/JurnalniyOrder5">Журнальный ордер № 5</a>
+                                    <a class="dropdown-item load" href="/Otchot/JurnalniyOrder6">Журнальный ордер № 6</a>
                                 }
                             </div>
                         </li>
@@ -186,6 +237,7 @@
                         <a disabled class="nav-link dropdown-toggle" href="/Home/izmParol" id="tourss" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">@userName.username</a>
                         <div class="dropdown-menu rounded-0 box-shadow m-0 border-0" aria-labelledby="tourss">
                             <a class="dropdown-item load" href="/Home/izmParol">Изменить Пароль</a>
+                            <a class="dropdown-item load" href="/Home/Rekviziti">Реквизиты</a>
                         </div>
                     </li>
                     <li class="nav-item">

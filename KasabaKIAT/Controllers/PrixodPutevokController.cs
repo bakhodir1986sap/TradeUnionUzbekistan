@@ -1,4 +1,5 @@
 ﻿using KasabaKiat.BusinessLogic;
+using KasabaKiat.BusinessLogic.Utils.References;
 using KasabaKiat.Helpers;
 using KasabaKiat.ViewModel.Putyovki;
 using KasabaKIAT.BusinessLogic.Putyovki.RealizasiyaPutyovok.RealizasitaPoTz;
@@ -934,5 +935,179 @@ namespace KasabaKIAT.Controllers
                 return "ok";
             }
         }
+
+
+        public ActionResult Organizasii()
+        {
+            return View();
+        }
+
+        public JsonResult GetOrganization()
+        {
+            int UserId = Convert.ToInt32(User.Identity.Name);
+            var ustinfo = UserInfo.GetUserInfo(UserId);
+
+
+
+            return Json("", JsonRequestBehavior.AllowGet);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [OutputCache(Duration = 30, Location = OutputCacheLocation.ServerAndClient, VaryByCustom = "userId")]
+        public JsonResult GetOtraslForOrganization()
+        {
+            int UserId = Convert.ToInt32(User.Identity.Name);
+            var ustinfo = UserInfo.GetUserInfo(UserId);
+
+            var otrasList = Sprav_Otras.GetByDepartmentBase(ustinfo.DepartmentBase);
+
+            return Json(otrasList.ToList(), JsonRequestBehavior.AllowGet);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [OutputCache(Duration = 30, Location = OutputCacheLocation.ServerAndClient, VaryByCustom = "userId")]
+        public JsonResult GetRegionForOrganization()
+        {
+            int UserId = Convert.ToInt32(User.Identity.Name);
+            var ustinfo = UserInfo.GetUserInfo(UserId);
+
+            var regionList = Sprav_Reg.GetByDepartmentCode(ustinfo.DepartmentBase);
+
+            return Json(regionList.ToList(), JsonRequestBehavior.AllowGet);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public JsonResult SaveOrganization(Sprav_OrgViewModel model)
+        {
+            try
+            {
+                int UserId = Convert.ToInt32(User.Identity.Name);
+                var ustinfo = UserInfo.GetUserInfo(UserId);
+
+                model.DepartmentBase = ustinfo.DepartmentBase;
+                model.UserId = UserId;
+
+                if (model.ID != 0)
+                {
+                    Sprav_Org.Modify(model);
+                }
+                else
+                {
+                    Sprav_Org.Create(ref model);
+                }
+                
+            }
+            catch(Exception ex)
+            {
+                log.Error(ex.ToString());
+                return Json("fail", JsonRequestBehavior.AllowGet);
+            }
+
+            return Json("success", JsonRequestBehavior.AllowGet);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [OutputCache(Duration = 3, Location = OutputCacheLocation.ServerAndClient, VaryByCustom = "userId")]
+        public JsonResult GetEmptyCarcas(long Id)
+        {
+            var model = new Sprav_OrgViewModel();
+
+            if (Id != 0)
+            {
+                int UserId = Convert.ToInt32(User.Identity.Name);
+                var ustinfo = UserInfo.GetUserInfo(UserId);
+
+                var list = Sprav_Org.GetByDeraprtmentBase(ustinfo.DepartmentBase, Id);
+
+                if (list.Any())
+                {
+                    return Json(list.First(), JsonRequestBehavior.AllowGet);
+                }
+            }
+
+            return Json(model, JsonRequestBehavior.AllowGet);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [OutputCache(Duration = 5, Location = OutputCacheLocation.ServerAndClient, VaryByCustom = "userId")]
+        public JsonResult GetOrganizationList()
+        {
+            int UserId = Convert.ToInt32(User.Identity.Name);
+            var ustinfo = UserInfo.GetUserInfo(UserId);
+
+            var list = Sprav_Org.GetByDeraprtmentBase(ustinfo.DepartmentBase);
+
+            return Json(list.ToList(), JsonRequestBehavior.AllowGet);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="Name"></param>
+        /// <param name="Inn"></param>
+        /// <param name="OtrasId"></param>
+        /// <returns></returns>
+        [OutputCache(Duration = 5, Location = OutputCacheLocation.ServerAndClient, VaryByCustom = "userId")]
+        public JsonResult GetOrganizationFilter(string Name, string Inn, int? OtrasId)
+        {
+            int UserId = Convert.ToInt32(User.Identity.Name);
+            var ustinfo = UserInfo.GetUserInfo(UserId);
+
+            var list = Sprav_Org.GetByDeraprtmentBase(ustinfo.DepartmentBase, Name, Inn, OtrasId);
+
+            return Json(list.ToList(), JsonRequestBehavior.AllowGet);
+        }
+
+
+
+        ///New Functional By Ilxom Programm
+        ///
+        #region 
+
+        public ActionResult PrixodPutyovokRuchnoy()
+        {
+            return View();
+        }
+
+        public ActionResult RasxodPutyovok()
+        {
+            return View();
+        }
+
+        public ActionResult OplataViplatiZaPutyovki()
+        {
+            return View();
+        }
+
+        public ActionResult ZakritiyaKvartalaPoPutyovkam()
+        {
+            return View();
+        }
+
+        public ActionResult DanniyeVladelsaxPutyovok()
+        {
+            return View();
+        }
+        
+
+        #endregion
+
     }
 }

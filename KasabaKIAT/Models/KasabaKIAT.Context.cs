@@ -151,7 +151,6 @@ namespace KasabaKIAT.Models
         public virtual DbSet<tbbTabel> tbbTabel { get; set; }
         public virtual DbSet<tblFace_Two> tblFace_Two { get; set; }
         public virtual DbSet<tblOplata_Ras> tblOplata_Ras { get; set; }
-        public virtual DbSet<tblPred> tblPred { get; set; }
         public virtual DbSet<tblPutevka> tblPutevka { get; set; }
         public virtual DbSet<tblVipl_Put> tblVipl_Put { get; set; }
         public virtual DbSet<tblVozVrat> tblVozVrat { get; set; }
@@ -174,6 +173,7 @@ namespace KasabaKIAT.Models
         public virtual DbSet<tblCloseDay> tblCloseDays { get; set; }
         public virtual DbSet<tblHoliday> tblHolidays { get; set; }
         public virtual DbSet<tblCloseDayHistory> tblCloseDayHistories { get; set; }
+        public virtual DbSet<tblPred> tblPreds { get; set; }
     
         public virtual ObjectResult<Nullable<decimal>> sp_get_BankPaymentCompanyMonthly(string inn, Nullable<int> year, Nullable<int> month)
         {

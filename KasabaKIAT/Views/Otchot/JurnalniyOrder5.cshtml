@@ -1,0 +1,183 @@
+﻿@using KasabaKIAT.BusinessLogic.Security.Roles.RolePermissions;
+@{
+    ViewBag.Title = "Организации";
+    var UserId = Convert.ToInt32(User.Identity.Name);
+    FunctionalityList List = FunctionalityAndDbDataMatch.MatchProcess(UserId);
+}
+<script src="~/Scripts/MyJavaScript/Ilxom/JurnalniyOrder5.js"></script>
+<div id="connection" style="visibility:hidden;position:absolute;margin-left:430px;z-index:9999">
+    <img src="~/Content/Login/buffering.gif" />
+</div>
+@if (List.ProsmotrOstatkaPutyovok)
+{
+    <div ng-controller="JurnalniyOrder5">
+        <section class="content__block container">
+            <div class="row mb-4 align-items-center">
+                <div class="col-sm-6 title__block">
+                    <h4>Справочник Организаций</h4>
+                    <nav aria-label="breadcrumb" class="breadcrumb__block">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item active" aria-current="page">Справочник Организаций</li>
+                        </ol>
+                    </nav>
+                </div>
+                <div class="col-sm-3 text-md-right">
+                    <button ng-click="addOrg()" class="btn btn-red" data-toggle="modal" data-target="#dobavit"><i class="active"></i> Добавить</button>
+                </div>
+                <div class="col-sm-1 text-md-right">
+                    <button class="btn btn-green"><i class="fas fa-file-excel"></i> Экспорт</button>
+                </div>
+            </div>
+            <div>
+                <input type="text" placeholder="Наименование" ng-model="FilterName" />
+                <br /><input type="text" placeholder="ИНН" ng-model="FilterInn" /><br />
+                <select class="custom-select" required name="Otrasl" ng-model="FilterSelectedOtrasl" ng-options="item as item.Name_Ot for item in Otrasl track by item.ID_Ot"></select>
+                <br /><br /><button class="btn btn-green" ng-click="GetOrganizationsFilter()"><i class="btn-green"></i> Поиск</button>
+            </div>
+            <div class="table-responsive box-shadow mb-4" id="export">
+                <table class="table table__block t-hover">
+                    <thead>
+                        <tr>
+                            <th class="dropdown dropdown__table" style="width:150px;text-align:center">
+                                Отрасль
+                            </th>
+                            <th class="dropdown dropdown__table" style="width:200px;text-align:center">
+                                Название организации
+                            </th>
+                            <th class="dropdown dropdown__table" style="width:150px;text-align:center">
+                                ИНН
+                            </th>
+                            <th class="dropdown dropdown__table" style="width:100px;text-align:center">
+                                Расчетный счет
+                            </th>
+                            <th class="dropdown dropdown__table" style="width:150px;text-align:center">
+                                МФО
+                            </th>
+                            <th class="dropdown dropdown__table" style="width:150px;text-align:center">
+                                Банк
+                            </th>
+                            <th class="dropdown dropdown__table" style="width:150px;text-align:center">
+                                ОКОНХ
+                            </th>
+                            <th class="dropdown dropdown__table" style="width:150px;text-align:center">
+                                Адрес
+                            </th>
+                            <th class="dropdown dropdown__table" style="width:150px;text-align:center">
+                                Телефон
+                            </th>
+                            <th class="dropdown dropdown__table" style="width:150px;text-align:center">
+                                Район
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="poin" ng-repeat="org in Organizations" ng-click="editOrg(org)" data-toggle="modal" data-target="#dobavit">
+                            <td style="text-align:center">{{org.OtraslName}}</td>
+                            <td style="text-align:center">{{org.Name_Org}}</td>
+                            <td style="text-align:center">{{org.INN     }}</td>
+                            <td style="text-align:center">{{org.RS      }}</td>
+                            <td style="text-align:center">{{org.MFO     }}</td>
+                            <td style="text-align:center">{{org.Bank    }}</td>
+                            <td style="text-align:center">{{org.OKONX   }}</td>
+                            <td style="text-align:center">{{org.Adress  }}</td>
+                            <td style="text-align:center">{{org.Telefon }}</td>
+                            <td style="text-align:center">{{org.RegionName}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+        <div class="modal__block modal fade" id="dobavit" tabindex="-1" role="dialog" aria-labelledby="dobavitLabel" data-backdrop="static" data-keyboard="false">
+            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-body" style="max-height: calc(100vh - 210px); overflow-y: auto;">
+                        <div class="modal-title">
+                            <h4 class="text-center mt-4 mb-4">{{Action}} организацию</h4>
+                        </div>
+                        <div class="row justify-content-center">
+                            <form class="col-md-8" name="myForm" novalidate>
+                                <input type="hidden" style="position:absolute" ng-model="ID;" />
+                                <div class="form-group row align-items-center">
+                                    <label class="col-md-5 col-form-label py-0">Отрасль:</label>
+                                    <div class="col-md-7">
+                                        <select class="custom-select form-control" required name="Otrasl" ng-model="ModalOtraslSelected" ng-options="item as item.Name_Ot for item in Otrasl track by item.ID_Ot"></select>
+                                        <span class="alert alert-warning" style="padding:0px" ng-show="myForm.Otrasl.$error.required">Выберите поле</span>
+                                    </div>
+                                </div>
+                                <div class="form-group row align-items-center">
+                                    <label class="col-md-5 col-form-label py-0">Название организации:</label>
+                                    <div class="col-md-7">
+                                        <input maxlength="100" type="text" class="form-control" name="Org" ng-model="Organization.Name_Org" required>
+                                        <span class="alert alert-warning" style="padding:0px" ng-show="myForm.Org.$error.required">заполнить поле</span>
+                                    </div>
+                                </div>
+                                <div class="form-group row align-items-center">
+                                    <label class="col-md-5 col-form-label py-0">ИНН:</label>
+                                    <div class="col-md-7">
+                                        <input maxlength="9" type="text" class="form-control" name="INN" ng-model="Organization.INN" required>
+                                        <span class="alert alert-warning" style="padding:0px" ng-show="myForm.INN.$error.required">заполнить поле</span>
+                                    </div>
+                                </div>
+                                <div class="form-group row align-items-center">
+                                    <label class="col-md-5 col-form-label py-0">Расчетный счет:</label>
+                                    <div class="col-md-7">
+                                        <input maxlength="20" type="text" class="form-control" name="RS" ng-model="Organization.RS" required>
+                                        <span class="alert alert-warning" style="padding:0px" ng-show="myForm.RS.$error.required">заполнить поле</span>
+                                    </div>
+                                </div>
+                                <div class="form-group row align-items-center">
+                                    <label class="col-md-5 col-form-label py-0">МФО:</label>
+                                    <div class="col-md-7">
+                                        <input maxlength="5" type="text" class="form-control" name="MFO" ng-model="Organization.MFO" required>
+                                        <span class="alert alert-warning" style="padding:0px" ng-show="myForm.MFO.$error.required">заполнить поле</span>
+                                    </div>
+                                </div>
+                                <div class="form-group row align-items-center">
+                                    <label class="col-md-5 col-form-label py-0">Банк:</label>
+                                    <div class="col-md-7">
+                                        <input maxlength="90" type="text" class="form-control" name="Bank" ng-model="Organization.Bank" required>
+                                        <span class="alert alert-warning" style="padding:0px" ng-show="myForm.Bank.$error.required">заполнить поле</span>
+                                    </div>
+                                </div>
+                                <div class="form-group row align-items-center">
+                                    <label class="col-md-5 col-form-label py-0">ОКОНХ:</label>
+                                    <div class="col-md-7">
+                                        <input maxlength="5" type="text" class="form-control" name="OKONX" ng-model="Organization.OKONX" required>
+                                        <span class="alert alert-warning" style="padding:0px" ng-show="myForm.OKONX.$error.required">заполнить поле</span>
+                                    </div>
+                                </div>
+                                <div class="form-group row align-items-center">
+                                    <label class="col-md-5 col-form-label py-0">Адрес:</label>
+                                    <div class="col-md-7">
+                                        <input maxlength="100" type="text" class="form-control" name="Adress" ng-model="Organization.Adress" required>
+                                        <span class="alert alert-warning" style="padding:0px" ng-show="myForm.Adress.$error.required">заполнить поле</span>
+                                    </div>
+                                </div>
+                                <div class="form-group row align-items-center">
+                                    <label class="col-md-5 col-form-label py-0">Телефон:</label>
+                                    <div class="col-md-7">
+                                        <input maxlength="70" type="text" class="form-control" name="Telefon" ng-model="Organization.Telefon" required>
+                                        <span class="alert alert-warning" style="padding:0px" ng-show="myForm.Telefon.$error.required">заполнить поле</span>
+                                    </div>
+                                </div>
+                                <div class="form-group row align-items-center">
+                                    <label class="col-md-5 col-form-label py-0">Район:</label>
+                                    <div class="col-md-7">
+                                        <select class="custom-select form-control" required name="Region" ng-model="ModalRegionSelected" ng-options="item as item.NameReg for item in Region track by item.ID"></select>
+                                        @*<span class="alert alert-warning" style="padding:0px" ng-show="myForm.Region.$error.required">Выберите поле</span>*@
+                                    </div>
+                                </div>
+                                <div class="mb-4 text-right">
+                                    <button ng-click="SaveOrganization()" data-dismiss="modal" class="btn btn-blue d-block d-md-inline-block mb-2">Сохранить</button>
+                                    @*<button ng-click="deletePZ(ID)" ng-show="showdelete" data-dismiss="modal" class="btn btn-red d-block d-md-inline-block mb-2">Удалить</button>*@
+                                    <button class="btn btn-grey d-block d-md-inline-block mb-2" data-dismiss="modal">Отмена</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+

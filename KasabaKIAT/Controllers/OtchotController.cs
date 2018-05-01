@@ -721,5 +721,26 @@ namespace KasabaKIAT.Controllers
             }
 
         }
+
+
+        #region Ilxom Otchots
+
+        public ActionResult ZaprosPoPutyovkam() { return View(); }
+        public ActionResult OperativkaPoPutyovkam() { return View(); }
+        public ActionResult SvodPoPutyovkam() { return View(); }
+        public ActionResult Operativnayakartochka() { return View(); }
+        public ActionResult BalancePredpriyatiy() { return View(); }
+        public ActionResult UchetMedicinskoyReg() { return View(); }
+        public ActionResult UchetPostupleniya() { return View(); }
+        public ActionResult OtchetN13() { return View(); }
+        public ActionResult OtchetN14() { return View(); }
+        public ActionResult KnigaUchetaVladel() { return View(); }
+
+        public ActionResult JurnalniyOrder4() { return View(); }
+        public ActionResult JurnalniyOrder5() { return View(); }
+        public ActionResult JurnalniyOrder6() { return View(); }
+
+
+        #endregion
     }
 }

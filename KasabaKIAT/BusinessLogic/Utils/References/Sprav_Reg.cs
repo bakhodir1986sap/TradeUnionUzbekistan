@@ -68,6 +68,11 @@ namespace KasabaKiat.BusinessLogic.Utils.References
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         public static List<Sprav_RegViewModel> Get(Sprav_RegViewModel model)
         {
             List<Sprav_RegViewModel> list = null;
@@ -81,6 +86,34 @@ namespace KasabaKiat.BusinessLogic.Utils.References
                                    NameReg  = procent.NameReg,
                                    CodeReg  = procent.CodeReg,
                                    UserId   = procent.UserId 
+                               };
+
+                list = queryRes.ToList();
+
+            }
+
+            return list;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="departmentCode"></param>
+        /// <returns></returns>
+        public static List<Sprav_RegViewModel> GetByDepartmentCode(string departmentCode)
+        {
+            List<Sprav_RegViewModel> list = null;
+
+            var soato = departmentCode.Remove(2,1);
+
+            using (KasabaKIATEntities db = new KasabaKIATEntities())
+            {
+                var queryRes = from procent in db.tblSprav_Reg
+                               where procent.SOATO_CODE.Contains(soato)
+                               select new Sprav_RegViewModel
+                               {
+                                   ID = (long)procent.CodeReg,
+                                   NameReg = procent.NameReg
                                };
 
                 list = queryRes.ToList();

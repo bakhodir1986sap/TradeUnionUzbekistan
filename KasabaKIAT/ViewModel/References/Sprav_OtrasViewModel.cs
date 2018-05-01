@@ -14,5 +14,7 @@ namespace KasabaKiat.BusinessLogic.Utils.References
 
         public int?    Priz     {get; set;}
         public long?   UserId   {get; set;}
+
+        public string DepartmentBase { get; set; }
     }
 }

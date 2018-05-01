@@ -11,7 +11,9 @@ namespace KasabaKiat.BusinessLogic.Utils.References
 
       public int?    ID_Ot          { get; set; }
 
-      public string Name_Org       { get; set; }
+        public string OtraslName { get; set; }
+
+        public string Name_Org       { get; set; }
 
       public string INN            { get; set; }
 
@@ -29,12 +31,16 @@ namespace KasabaKiat.BusinessLogic.Utils.References
 
       public int?    Region         { get; set; }
 
-      public int?    DT_OST         { get; set; }
+        public string  RegionName { get; set; }
+
+        public int?    DT_OST         { get; set; }
 
       public int?    KT_OST         { get; set; }
 
       public string E_Mail         { get; set; }
 
       public long?   UserId         { get; set; }
+
+        public string DepartmentBase { get; set; }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using KasabaKIAT.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Validation;
 using System.Linq;
 using System.Web;
 
@@ -28,12 +29,30 @@ namespace KasabaKiat.BusinessLogic.Utils.References
                 org.KT_OST      = model.KT_OST      ;
                 org.E_Mail      = model.E_Mail      ;
                 org.UserId = model.UserId;
+                org.DepartmentBase = model.DepartmentBase;
 
                 var orgIns = db.tblSprav_Org.Add(org);
 
-                model.ID = orgIns.ID;
+                try
+                {
+                    db.SaveChanges();
 
-                db.SaveChanges();
+                    model.ID = org.ID;
+                }
+                catch (DbEntityValidationException e)
+                {
+                    foreach (var eve in e.EntityValidationErrors)
+                    {
+                        Console.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
+                            eve.Entry.Entity.GetType().Name, eve.Entry.State);
+                        foreach (var ve in eve.ValidationErrors)
+                        {
+                            Console.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
+                                ve.PropertyName, ve.ErrorMessage);
+                        }
+                    }
+                    throw;
+                }
             }
         }
 
@@ -97,8 +116,10 @@ namespace KasabaKiat.BusinessLogic.Utils.References
             using (KasabaKIATEntities db = new KasabaKIATEntities())
             {
                 var queryRes = from org in db.tblSprav_Org
+                               orderby org.Name_Org
                                select new Sprav_OrgViewModel
                                {
+                                   ID = org.ID,
                                    ID_Ot    = org.ID_Ot,
                                    Name_Org = org.Name_Org,
                                    INN      = org.INN,
@@ -123,8 +144,145 @@ namespace KasabaKiat.BusinessLogic.Utils.References
         }
 
 
+        public static List<Sprav_OrgViewModel> GetByDeraprtmentBase(string departmentBase)
+        {
+            List<Sprav_OrgViewModel> list = null;
+
+            using (KasabaKIATEntities db = new KasabaKIATEntities())
+            {
+                var queryRes = from org in db.tblSprav_Org
+                               join otras in db.tblSprav_Otras on org.ID_Ot equals otras.ID_Ot
+                               join region in db.tblSprav_Reg on org.Region equals region.CodeReg
+                               where org.DepartmentBase == departmentBase 
+                               && otras.DepartmentBase == departmentBase
+                               orderby org.Name_Org
+                               select new Sprav_OrgViewModel
+                               {
+                                   ID = org.ID,
+                                   ID_Ot = org.ID_Ot,
+                                   OtraslName = otras.Name_Ot,
+                                   Name_Org = org.Name_Org,
+                                   INN      = org.INN,
+                                   RS       = org.RS,
+                                   MFO      = org.MFO,
+                                   Bank     = org.Bank,
+                                   OKONX    = org.OKONX,
+                                   Adress   = org.Adress,
+                                   Telefon  = org.Telefon,
+                                   Region   = org.Region,
+                                   RegionName = region.NameReg,
+                                   DT_OST = org.DT_OST,
+                                   KT_OST = org.KT_OST,
+                                   E_Mail = org.E_Mail,
+                                   UserId = org.UserId
+                               };
+
+                list = queryRes.ToList();
+
+            }
+
+            return list;
+        }
 
 
 
+        public static List<Sprav_OrgViewModel> GetByDeraprtmentBase(string departmentBase,
+            string Name, string Inn, int? OtrasId)
+        {
+            List<Sprav_OrgViewModel> list = null;
+
+            bool IsNameEmpty = false;
+            bool IsInnEmpty = false;
+
+            if ((string.IsNullOrEmpty(Name)) || (Name.ToLower().Contains("undefined")))
+            {
+                IsNameEmpty = true;
+            }
+
+            if ((string.IsNullOrEmpty(Inn)) || (Inn.ToLower().Contains("undefined")))
+            {
+                IsInnEmpty = true;
+            }
+
+            using (KasabaKIATEntities db = new KasabaKIATEntities())
+            {
+                var queryRes = from org in db.tblSprav_Org
+                               join otras in db.tblSprav_Otras on org.ID_Ot equals otras.ID_Ot
+                               join region in db.tblSprav_Reg on org.Region equals region.CodeReg
+                               where org.DepartmentBase == departmentBase
+                               && otras.DepartmentBase == departmentBase
+                               && (org.Name_Org.Contains((IsNameEmpty ? org.Name_Org: Name))) 
+                               && (org.INN.Contains((IsInnEmpty ? org.INN : Inn)))
+                               && (org.ID_Ot == (OtrasId.HasValue ? OtrasId: org.ID_Ot))
+                               orderby org.Name_Org
+                               select new Sprav_OrgViewModel
+                               {
+                                   ID = org.ID,
+                                   ID_Ot = org.ID_Ot,
+                                   OtraslName = otras.Name_Ot,
+                                   Name_Org = org.Name_Org,
+                                   INN = org.INN,
+                                   RS = org.RS,
+                                   MFO = org.MFO,
+                                   Bank = org.Bank,
+                                   OKONX = org.OKONX,
+                                   Adress = org.Adress,
+                                   Telefon = org.Telefon,
+                                   Region = org.Region,
+                                   RegionName = region.NameReg,
+                                   DT_OST = org.DT_OST,
+                                   KT_OST = org.KT_OST,
+                                   E_Mail = org.E_Mail,
+                                   UserId = org.UserId
+                               };
+
+                list = queryRes.ToList();
+
+            }
+
+            return list;
+        }
+
+
+        public static List<Sprav_OrgViewModel> GetByDeraprtmentBase(string departmentBase, long Id)
+        {
+            List<Sprav_OrgViewModel> list = null;
+
+            using (KasabaKIATEntities db = new KasabaKIATEntities())
+            {
+                var queryRes = from org in db.tblSprav_Org
+                               join otras in db.tblSprav_Otras on org.ID_Ot equals otras.ID_Ot
+                               join region in db.tblSprav_Reg on org.Region equals region.CodeReg
+                               where org.DepartmentBase == departmentBase
+                               && otras.DepartmentBase == departmentBase
+                               && org.ID == Id
+                               orderby org.Name_Org
+                               select new Sprav_OrgViewModel
+                               {
+                                   ID = org.ID,
+                                   ID_Ot = org.ID_Ot,
+                                   OtraslName = otras.Name_Ot,
+                                   Name_Org = org.Name_Org,
+                                   INN = org.INN,
+                                   RS = org.RS,
+                                   MFO = org.MFO,
+                                   Bank = org.Bank,
+                                   OKONX = org.OKONX,
+                                   Adress = org.Adress,
+                                   Telefon = org.Telefon,
+                                   Region = org.Region,
+                                   RegionName = region.NameReg,
+                                   DT_OST = org.DT_OST,
+                                   KT_OST = org.KT_OST,
+                                   E_Mail = org.E_Mail,
+                                   UserId = org.UserId
+                               };
+
+                list = queryRes.ToList();
+
+            }
+
+            return list;
+        }
     }
 }

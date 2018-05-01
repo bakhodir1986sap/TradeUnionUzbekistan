@@ -2257,12 +2257,9 @@ warning 6002: The table/view 'KasabaKIAT_N1.dbo.tblOplata_Ras' does not have a p
           <Property Name="BeginNumber" Type="int" />
           <Property Name="EndNumber" Type="int" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'KasabaKIAT_N1.dbo.tblPred' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="tblPred">
           <Key>
-            <PropertyRef Name="VIO" />
-            <PropertyRef Name="Vid_SSL" />
+            <PropertyRef Name="Departmentbase" />
           </Key>
           <Property Name="ID_Prof" Type="bigint" />
           <Property Name="ID_Name" Type="nvarchar" MaxLength="50" />
@@ -2283,7 +2280,7 @@ warning 6002: The table/view 'KasabaKIAT_N1.dbo.tblPred' does not have a primary
           <Property Name="TipName" Type="nvarchar" MaxLength="50" />
           <Property Name="Vid_SSL" Type="bit" Nullable="false" />
           <Property Name="UserId" Type="bigint" />
-          <Property Name="Departmentbase" Type="nvarchar" MaxLength="255" />
+          <Property Name="Departmentbase" Type="nvarchar" MaxLength="255" Nullable="false" />
           <Property Name="KaznaAccount" Type="varchar" MaxLength="50" />
         </EntityType>
         <!--Errors Found During Generation:
@@ -4129,9 +4126,6 @@ warning 6035: The relationship 'FK_tblPost_t_departmentbase' has columns that ar
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <!--Errors Found During Generation:
-warning 6035: The relationship 'FK_tblPred_t_departmentbase' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
-        <Association Name="FK_tblPred_t_departmentbase" />-->
         <Association Name="FK_tblPred_Users">
           <End Role="users" Type="Self.users" Multiplicity="0..1" />
           <End Role="tblPred" Type="Self.tblPred" Multiplicity="*" />
@@ -5934,6 +5928,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <EntitySet Name="tblOplata" EntityType="Self.tblOplata" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblPos_Put" EntityType="Self.tblPos_Put" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblPost" EntityType="Self.tblPost" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblPred" EntityType="Self.tblPred" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblSprav_Face" EntityType="Self.tblSprav_Face" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblSprav_Kv" EntityType="Self.tblSprav_Kv" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblSprav_MFO" EntityType="Self.tblSprav_MFO" Schema="dbo" store:Type="Tables" />
@@ -6097,31 +6092,6 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
     [tblOplata_Ras].[UserId] AS [UserId], 
     [tblOplata_Ras].[Departmentbase] AS [Departmentbase]
     FROM [dbo].[tblOplata_Ras] AS [tblOplata_Ras]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="tblPred" EntityType="Self.tblPred" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [tblPred].[ID_Prof] AS [ID_Prof], 
-    [tblPred].[ID_Name] AS [ID_Name], 
-    [tblPred].[ID_Pred] AS [ID_Pred], 
-    [tblPred].[ID_Pass] AS [ID_Pass], 
-    [tblPred].[Adress] AS [Adress], 
-    [tblPred].[RS] AS [RS], 
-    [tblPred].[Name_bank] AS [Name_bank], 
-    [tblPred].[MFO] AS [MFO], 
-    [tblPred].[INN] AS [INN], 
-    [tblPred].[OKONX] AS [OKONX], 
-    [tblPred].[Name_Dir] AS [Name_Dir], 
-    [tblPred].[PutDay] AS [PutDay], 
-    [tblPred].[VIO] AS [VIO], 
-    [tblPred].[SeverName] AS [SeverName], 
-    [tblPred].[UserName] AS [UserName], 
-    [tblPred].[PasName] AS [PasName], 
-    [tblPred].[TipName] AS [TipName], 
-    [tblPred].[Vid_SSL] AS [Vid_SSL], 
-    [tblPred].[UserId] AS [UserId], 
-    [tblPred].[Departmentbase] AS [Departmentbase], 
-    [tblPred].[KaznaAccount] AS [KaznaAccount]
-    FROM [dbo].[tblPred] AS [tblPred]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="tblPutevka" EntityType="Self.tblPutevka" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
@@ -9666,7 +9636,6 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <NavigationProperty Name="tbbTabel" Relationship="Self.FK_tbbTabel_Users" FromRole="users" ToRole="tbbTabel" />
           <NavigationProperty Name="tblFace_Two" Relationship="Self.FK_tblFace_Two_Users" FromRole="users" ToRole="tblFace_Two" />
           <NavigationProperty Name="tblOplata_Ras" Relationship="Self.FK_tblOplata_Ras_Users" FromRole="users" ToRole="tblOplata_Ras" />
-          <NavigationProperty Name="tblPred" Relationship="Self.FK_tblPred_Users" FromRole="users" ToRole="tblPred" />
           <NavigationProperty Name="tblPutevka" Relationship="Self.FK_tblPutevka_Users" FromRole="users" ToRole="tblPutevka" />
           <NavigationProperty Name="tblVipl_Put" Relationship="Self.FK_tblVipl_Put_Users" FromRole="users" ToRole="tblVipl_Put" />
           <NavigationProperty Name="tblVozVrat" Relationship="Self.FK_tblVozVrat_Users" FromRole="users" ToRole="tblVozVrat" />
@@ -9677,6 +9646,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <Property Name="NATIVE_ID" Type="Int64" />
           <NavigationProperty Name="tbgl_balance" Relationship="KasabaKIATModel.FK_tbgl_balance_users" FromRole="users" ToRole="tbgl_balance" />
           <NavigationProperty Name="tbgl_jnlmst" Relationship="KasabaKIATModel.tbgl_jnlmst_1" FromRole="users" ToRole="tbgl_jnlmst" />
+          <NavigationProperty Name="tblPreds" Relationship="KasabaKIATModel.FK_tblPred_Users" FromRole="users" ToRole="tblPred" />
         </EntityType>
         <EntityType Name="users_aud">
           <Key>
@@ -9851,34 +9821,6 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <NavigationProperty Name="tblSprav_Pr1" Relationship="Self.FK_tblOplata_Ras_tblSprav_Pr1" FromRole="tblOplata_Ras" ToRole="tblSprav_Pr" />
           <NavigationProperty Name="tblSprav_San" Relationship="Self.FK_tblOplata_Ras_tblSprav_San" FromRole="tblOplata_Ras" ToRole="tblSprav_San" />
           <NavigationProperty Name="users" Relationship="Self.FK_tblOplata_Ras_Users" FromRole="tblOplata_Ras" ToRole="users" />
-        </EntityType>
-        <EntityType Name="tblPred">
-          <Key>
-            <PropertyRef Name="VIO" />
-            <PropertyRef Name="Vid_SSL" />
-          </Key>
-          <Property Name="ID_Prof" Type="Int64" />
-          <Property Name="ID_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="ID_Pred" Type="String" MaxLength="90" FixedLength="false" Unicode="true" />
-          <Property Name="ID_Pass" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
-          <Property Name="Adress" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="RS" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="Name_bank" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="MFO" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
-          <Property Name="INN" Type="String" MaxLength="9" FixedLength="false" Unicode="true" />
-          <Property Name="OKONX" Type="String" MaxLength="6" FixedLength="false" Unicode="true" />
-          <Property Name="Name_Dir" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
-          <Property Name="PutDay" Type="Int32" />
-          <Property Name="VIO" Type="Boolean" Nullable="false" />
-          <Property Name="SeverName" Type="String" MaxLength="60" FixedLength="false" Unicode="true" />
-          <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="PasName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="TipName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Vid_SSL" Type="Boolean" Nullable="false" />
-          <Property Name="UserId" Type="Int64" />
-          <Property Name="Departmentbase" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="users" Relationship="Self.FK_tblPred_Users" FromRole="tblPred" ToRole="users" />
-          <Property Name="KaznaAccount" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="tblPutevka">
           <Key>
@@ -12365,18 +12307,6 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_tblPred_Users">
-          <End Role="users" Type="Self.users" Multiplicity="0..1" />
-          <End Role="tblPred" Type="Self.tblPred" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="users">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="tblPred">
-              <PropertyRef Name="UserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_tblPutevka_Users">
           <End Role="users" Type="Self.users" Multiplicity="0..1" />
           <End Role="tblPutevka" Type="Self.tblPutevka" Multiplicity="*" />
@@ -12590,7 +12520,6 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <EntitySet Name="tbbTabel" EntityType="Self.tbbTabel" />
           <EntitySet Name="tblFace_Two" EntityType="Self.tblFace_Two" />
           <EntitySet Name="tblOplata_Ras" EntityType="Self.tblOplata_Ras" />
-          <EntitySet Name="tblPred" EntityType="Self.tblPred" />
           <EntitySet Name="tblPutevka" EntityType="Self.tblPutevka" />
           <EntitySet Name="tblVipl_Put" EntityType="Self.tblVipl_Put" />
           <EntitySet Name="tblVozVrat" EntityType="Self.tblVozVrat" />
@@ -13375,10 +13304,6 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
             <End Role="users" EntitySet="users" />
             <End Role="tblOplata_Ras" EntitySet="tblOplata_Ras" />
           </AssociationSet>
-          <AssociationSet Name="FK_tblPred_Users" Association="Self.FK_tblPred_Users">
-            <End Role="users" EntitySet="users" />
-            <End Role="tblPred" EntitySet="tblPred" />
-          </AssociationSet>
           <AssociationSet Name="FK_tblPutevka_Users" Association="Self.FK_tblPutevka_Users">
             <End Role="users" EntitySet="users" />
             <End Role="tblPutevka" EntitySet="tblPutevka" />
@@ -13656,6 +13581,11 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           </AssociationSet>
           <EntitySet Name="tblHolidays" EntityType="KasabaKIATModel.tblHoliday" />
           <EntitySet Name="tblCloseDayHistories" EntityType="KasabaKIATModel.tblCloseDayHistory" />
+          <EntitySet Name="tblPreds" EntityType="KasabaKIATModel.tblPred" />
+          <AssociationSet Name="FK_tblPred_Users" Association="KasabaKIATModel.FK_tblPred_Users">
+            <End Role="users" EntitySet="users" />
+            <End Role="tblPred" EntitySet="tblPreds" />
+          </AssociationSet>
         </EntityContainer>
         <ComplexType Name="sp_get_BankPaymentCompanyYearlyQ_Result">
           <Property Type="Int32" Name="MONTH_NUM" Nullable="true" />
@@ -14471,6 +14401,45 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <Property Name="USER_ID" Type="Int64" />
           <Property Name="REMARK" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
         </EntityType>
+        <EntityType Name="tblPred">
+          <Key>
+            <PropertyRef Name="Departmentbase" />
+          </Key>
+          <Property Name="ID_Prof" Type="Int64" />
+          <Property Name="ID_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ID_Pred" Type="String" MaxLength="90" FixedLength="false" Unicode="true" />
+          <Property Name="ID_Pass" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Adress" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="RS" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Name_bank" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MFO" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="INN" Type="String" MaxLength="9" FixedLength="false" Unicode="true" />
+          <Property Name="OKONX" Type="String" MaxLength="6" FixedLength="false" Unicode="true" />
+          <Property Name="Name_Dir" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="PutDay" Type="Int32" />
+          <Property Name="VIO" Type="Boolean" Nullable="false" />
+          <Property Name="SeverName" Type="String" MaxLength="60" FixedLength="false" Unicode="true" />
+          <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PasName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TipName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Vid_SSL" Type="Boolean" Nullable="false" />
+          <Property Name="UserId" Type="Int64" />
+          <Property Name="Departmentbase" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="KaznaAccount" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="user" Relationship="KasabaKIATModel.FK_tblPred_Users" FromRole="tblPred" ToRole="users" />
+        </EntityType>
+        <Association Name="FK_tblPred_Users">
+          <End Type="KasabaKIATModel.users" Role="users" Multiplicity="0..1" />
+          <End Type="KasabaKIATModel.tblPred" Role="tblPred" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tblPred">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -16945,33 +16914,6 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="tblPred">
-            <EntityTypeMapping TypeName="KasabaKIATModel.tblPred">
-              <MappingFragment StoreEntitySet="tblPred">
-                <ScalarProperty Name="KaznaAccount" ColumnName="KaznaAccount" />
-                <ScalarProperty Name="ID_Prof" ColumnName="ID_Prof" />
-                <ScalarProperty Name="ID_Name" ColumnName="ID_Name" />
-                <ScalarProperty Name="ID_Pred" ColumnName="ID_Pred" />
-                <ScalarProperty Name="ID_Pass" ColumnName="ID_Pass" />
-                <ScalarProperty Name="Adress" ColumnName="Adress" />
-                <ScalarProperty Name="RS" ColumnName="RS" />
-                <ScalarProperty Name="Name_bank" ColumnName="Name_bank" />
-                <ScalarProperty Name="MFO" ColumnName="MFO" />
-                <ScalarProperty Name="INN" ColumnName="INN" />
-                <ScalarProperty Name="OKONX" ColumnName="OKONX" />
-                <ScalarProperty Name="Name_Dir" ColumnName="Name_Dir" />
-                <ScalarProperty Name="PutDay" ColumnName="PutDay" />
-                <ScalarProperty Name="VIO" ColumnName="VIO" />
-                <ScalarProperty Name="SeverName" ColumnName="SeverName" />
-                <ScalarProperty Name="UserName" ColumnName="UserName" />
-                <ScalarProperty Name="PasName" ColumnName="PasName" />
-                <ScalarProperty Name="TipName" ColumnName="TipName" />
-                <ScalarProperty Name="Vid_SSL" ColumnName="Vid_SSL" />
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="Departmentbase" ColumnName="Departmentbase" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="tblPutevka">
             <EntityTypeMapping TypeName="KasabaKIATModel.tblPutevka">
               <MappingFragment StoreEntitySet="tblPutevka">
@@ -17873,6 +17815,33 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
                 <ScalarProperty Name="CLOSED_DATE" ColumnName="CLOSED_DATE" />
                 <ScalarProperty Name="DEPARTMENT_CODE" ColumnName="DEPARTMENT_CODE" />
                 <ScalarProperty Name="REC_ID" ColumnName="REC_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblPreds">
+            <EntityTypeMapping TypeName="KasabaKIATModel.tblPred">
+              <MappingFragment StoreEntitySet="tblPred">
+                <ScalarProperty Name="KaznaAccount" ColumnName="KaznaAccount" />
+                <ScalarProperty Name="Departmentbase" ColumnName="Departmentbase" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Vid_SSL" ColumnName="Vid_SSL" />
+                <ScalarProperty Name="TipName" ColumnName="TipName" />
+                <ScalarProperty Name="PasName" ColumnName="PasName" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="SeverName" ColumnName="SeverName" />
+                <ScalarProperty Name="VIO" ColumnName="VIO" />
+                <ScalarProperty Name="PutDay" ColumnName="PutDay" />
+                <ScalarProperty Name="Name_Dir" ColumnName="Name_Dir" />
+                <ScalarProperty Name="OKONX" ColumnName="OKONX" />
+                <ScalarProperty Name="INN" ColumnName="INN" />
+                <ScalarProperty Name="MFO" ColumnName="MFO" />
+                <ScalarProperty Name="Name_bank" ColumnName="Name_bank" />
+                <ScalarProperty Name="RS" ColumnName="RS" />
+                <ScalarProperty Name="Adress" ColumnName="Adress" />
+                <ScalarProperty Name="ID_Pass" ColumnName="ID_Pass" />
+                <ScalarProperty Name="ID_Pred" ColumnName="ID_Pred" />
+                <ScalarProperty Name="ID_Name" ColumnName="ID_Name" />
+                <ScalarProperty Name="ID_Prof" ColumnName="ID_Prof" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

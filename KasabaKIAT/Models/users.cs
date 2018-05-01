@@ -113,7 +113,6 @@ namespace KasabaKIAT.Models
             this.tbbTabel = new HashSet<tbbTabel>();
             this.tblFace_Two = new HashSet<tblFace_Two>();
             this.tblOplata_Ras = new HashSet<tblOplata_Ras>();
-            this.tblPred = new HashSet<tblPred>();
             this.tblPutevka = new HashSet<tblPutevka>();
             this.tblVipl_Put = new HashSet<tblVipl_Put>();
             this.tblVozVrat = new HashSet<tblVozVrat>();
@@ -122,6 +121,7 @@ namespace KasabaKIAT.Models
             this.roles2 = new HashSet<roles>();
             this.tbgl_balance = new HashSet<tbgl_balance>();
             this.tbgl_jnlmst = new HashSet<tbgl_jnlmst>();
+            this.tblPreds = new HashSet<tblPred>();
         }
     
         public long id { get; set; }
@@ -350,8 +350,6 @@ namespace KasabaKIAT.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblOplata_Ras> tblOplata_Ras { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tblPred> tblPred { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblPutevka> tblPutevka { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblVipl_Put> tblVipl_Put { get; set; }
@@ -368,5 +366,7 @@ namespace KasabaKIAT.Models
         public virtual ICollection<tbgl_balance> tbgl_balance { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tbgl_jnlmst> tbgl_jnlmst { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tblPred> tblPreds { get; set; }
     }
 }

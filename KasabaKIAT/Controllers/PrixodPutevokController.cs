@@ -1,7 +1,11 @@
 ﻿using KasabaKiat.BusinessLogic;
+using KasabaKiat.BusinessLogic.Putyovki.PrixodPutyovok;
+using KasabaKiat.BusinessLogic.Putyovki.RealizasiyaPutyovok;
 using KasabaKiat.BusinessLogic.Utils.References;
 using KasabaKiat.Helpers;
+using KasabaKiat.ViewModel;
 using KasabaKiat.ViewModel.Putyovki;
+using KasabaKIAT.BusinessLogic.Putyovki.PrixodPutyovok;
 using KasabaKIAT.BusinessLogic.Putyovki.RealizasiyaPutyovok.RealizasitaPoTz;
 using KasabaKIAT.BusinessLogic.Putyovki.VozvratPutyovki.VozvratPoTz;
 using KasabaKIAT.Models;
@@ -1075,23 +1079,558 @@ namespace KasabaKIAT.Controllers
             return Json(list.ToList(), JsonRequestBehavior.AllowGet);
         }
 
+        #region Ilxom
 
+        #region PrixodPutyovki
 
-        ///New Functional By Ilxom Programm
-        ///
-        #region 
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public ActionResult PrixodPutyovokRuchnoy()
         {
             return View();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="year"></param>
+        /// <param name="kvartal"></param>
+        /// <returns></returns>
+        public JsonResult GetMainList(int year, int kvartal)
+        {
+            int UserId = Convert.ToInt32(User.Identity.Name);
+            var ustinfo = UserInfo.GetUserInfo(UserId);
+
+            var list = PostMainDataManager.Get(new PostupleniyaViewModel()
+            {
+
+                Id_Kv = kvartal,
+                SmFil = year,
+                DepartmentBase = ustinfo.DepartmentBase
+
+            });
+
+            return Json(list.ToList(), JsonRequestBehavior.AllowGet);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="IdPost"></param>
+        /// <returns></returns>
+        public JsonResult GetDetailList(long IdPost)
+        {
+            var list = PostPutDetailDataManager.GetFiltered(new PostPutyovkaViewModel()
+            {
+                IdPost = IdPost
+            });
+
+            return Json(list.ToList(), JsonRequestBehavior.AllowGet);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public JsonResult AddMain(KasabaKiat.ViewModel.PostupleniyaViewModel model)
+        {
+            int UserId = Convert.ToInt32(User.Identity.Name);
+            var ustinfo = UserInfo.GetUserInfo(UserId);
+
+            model.UserId = UserId;
+            model.DepartmentBase = ustinfo.DepartmentBase;
+
+            try
+            {
+                PostMainDataManager.Create(ref model);
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex.ToString());
+            }
+
+            return Json(model, JsonRequestBehavior.AllowGet);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public JsonResult ModifyMain(KasabaKiat.ViewModel.PostupleniyaViewModel model)
+        {
+            int UserId = Convert.ToInt32(User.Identity.Name);
+            var ustinfo = UserInfo.GetUserInfo(UserId);
+
+            model.UserId = UserId;
+            model.DepartmentBase = ustinfo.DepartmentBase;
+
+            try
+            {
+                PostMainDataManager.Modify(model);
+            }
+            catch(Exception ex)
+            {
+                log.Error(ex.ToString());
+            }
+
+            return Json(model, JsonRequestBehavior.AllowGet);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public JsonResult RemoveAllWithLinked(KasabaKiat.ViewModel.PostupleniyaViewModel model)
+        {
+            int UserId = Convert.ToInt32(User.Identity.Name);
+            var ustinfo = UserInfo.GetUserInfo(UserId);
+
+            model.UserId = UserId;
+            model.DepartmentBase = ustinfo.DepartmentBase;
+
+            try
+            {
+                PostMainDataManager.Remove(new KasabaKiat.ViewModel.PostupleniyaViewModel()
+                {
+                    Id = model.Id
+                });
+            }
+            catch(Exception ex)
+            {
+                log.Error(ex.ToString());
+            }
+
+            return Json("Deleted", JsonRequestBehavior.AllowGet);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="year"></param>
+        /// <param name="kvartal"></param>
+        /// <returns></returns>
+        public JsonResult GetTotalResults(int year, int kvartal)
+        {
+            int UserId = Convert.ToInt32(User.Identity.Name);
+            var ustinfo = UserInfo.GetUserInfo(UserId);
+
+            var totalres = PostMainDataManager.GetTotals(year, kvartal, ustinfo.DepartmentBase);
+
+            return Json(totalres, JsonRequestBehavior.AllowGet);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public JsonResult ParsePrixodPutyovka(PrixodDetailViewModel model)
+        {
+            int UserId = Convert.ToInt32(User.Identity.Name);
+            var ustinfo = UserInfo.GetUserInfo(UserId);
+
+            model.UserId = UserId;
+            model.DepartmentBase = ustinfo.DepartmentBase;
+
+            var list = PostPutDetailDataManager.ParsePrixod(model);
+
+            return Json(list, JsonRequestBehavior.AllowGet);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="lModel"></param>
+        /// <returns></returns>
+        public JsonResult AddDetail(List<PostPutyovkaViewModel> lModel)
+        {
+            try
+            {
+                foreach (var mm in lModel)
+                {
+                    PostPutyovkaViewModel mmModel = mm;
+
+                    PostPutDetailDataManager.Create(ref mmModel);
+                }
+            }
+            catch(Exception ex)
+            {
+                log.Error(ex.ToString());
+                return Json(ex.Message, JsonRequestBehavior.AllowGet);
+            }
+
+            return Json("success", JsonRequestBehavior.AllowGet);
+        }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public JsonResult CloseNakladnoy(PostupleniyaViewModel model)
+        {
+            try
+            {
+                PostMainDataManager.CloseNakladnoy(model);
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex.ToString());
+                return Json("fail", JsonRequestBehavior.AllowGet);
+            }
+
+            return Json("success", JsonRequestBehavior.AllowGet);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="IdSan"></param>
+        /// <param name="NumPut"></param>
+        /// <returns></returns>
+        public JsonResult PostavitVBron(int IdSan , string NumPut)
+        {
+            try
+            {
+                var bron = new BronirovaniyaPutyovki();
+
+                bron.PostavitV_Bron(new BronViewModel()
+                {
+                    ID_San = IdSan,
+                    Num_Put = NumPut
+                });
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex.ToString());
+                return Json("fail", JsonRequestBehavior.AllowGet);
+            }
+
+            return Json("success", JsonRequestBehavior.AllowGet);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="IdSan"></param>
+        /// <param name="NumPut"></param>
+        /// <returns></returns>
+        public JsonResult SnyatsBron(int IdSan, string NumPut)
+        {
+            try
+            {
+                var bron = new BronirovaniyaPutyovki();
+
+                bron.SnyatBron(new BronViewModel()
+                {
+                    ID_San = IdSan,
+                    Num_Put = NumPut
+                });
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex.ToString());
+                return Json("fail", JsonRequestBehavior.AllowGet);
+            }
+
+            return Json("success", JsonRequestBehavior.AllowGet);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="year"></param>
+        /// <param name="kvartal"></param>
+        /// <returns></returns>
+        public JsonResult PechatPrixodPutyovok(int year, int kvartal)
+        {
+            int UserId = Convert.ToInt32(User.Identity.Name);
+            var ustinfo = UserInfo.GetUserInfo(UserId);
+
+            //Reporting Service
+
+            return Json("success", JsonRequestBehavior.AllowGet);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="year"></param>
+        /// <param name="kvartal"></param>
+        /// <returns></returns>
+        public JsonResult GetBronList(int year, int kvartal)
+        {
+            int UserId = Convert.ToInt32(User.Identity.Name);
+            var ustinfo = UserInfo.GetUserInfo(UserId);
+
+            var bron = new BronirovaniyaPutyovki();
+
+            var list = bron.GetBronActiveList(ustinfo.DepartmentBase);
+
+            return Json(list, JsonRequestBehavior.AllowGet);
+        }
+
+
+
+        #endregion
+
+        #region RasxodPutyovok
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public ActionResult RasxodPutyovok()
         {
             return View();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="year"></param>
+        /// <param name="kvartal"></param>
+        /// <returns></returns>
+        public JsonResult GetViplMain(int year, int kvartal)
+        {
+            int UserId = Convert.ToInt32(User.Identity.Name);
+            var ustinfo = UserInfo.GetUserInfo(UserId);
+
+            var list = ViplMainDataManager.Get(new RealizasiyaViplMainViewModel()
+            {
+                smfil = year,
+                id_kv = kvartal,
+                departmentbase = ustinfo.DepartmentBase
+            });
+
+            return Json(list, JsonRequestBehavior.AllowGet);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="IdVipl"></param>
+        /// <returns></returns>
+        public JsonResult GetViplDtl(long IdVipl)
+        {
+            var list = Vipl_PutDataManager.Get(IdVipl);
+
+            return Json(list, JsonRequestBehavior.AllowGet);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public JsonResult AddViplMain(RealizasiyaViplMainViewModel model)
+        {
+            int UserId = Convert.ToInt32(User.Identity.Name);
+            var ustinfo = UserInfo.GetUserInfo(UserId);
+
+            model.userid = UserId;
+            model.departmentbase = ustinfo.DepartmentBase;
+
+            try
+            {
+                ViplMainDataManager.Create(ref model);
+            }
+            catch(Exception ex)
+            {
+                log.Error(ex.ToString());
+
+                return Json("fail", JsonRequestBehavior.AllowGet);
+            }
+
+            return Json(model, JsonRequestBehavior.AllowGet);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public JsonResult ModifyViplMain(RealizasiyaViplMainViewModel model)
+        {
+            int UserId = Convert.ToInt32(User.Identity.Name);
+            var ustinfo = UserInfo.GetUserInfo(UserId);
+
+            model.userid = UserId;
+            model.departmentbase = ustinfo.DepartmentBase;
+
+            try
+            {
+                ViplMainDataManager.Modify(model);
+            }
+            catch(Exception ex)
+            {
+                log.Error(ex.ToString());
+
+                return Json("fail", JsonRequestBehavior.AllowGet);
+            }
+
+            return Json(model, JsonRequestBehavior.AllowGet);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public JsonResult RemoveViplMain(RealizasiyaViplMainViewModel model)
+        {
+            int UserId = Convert.ToInt32(User.Identity.Name);
+            var ustinfo = UserInfo.GetUserInfo(UserId);
+
+            model.userid = UserId;
+            model.departmentbase = ustinfo.DepartmentBase;
+
+            try
+            {
+                ViplMainDataManager.RemoveWithChild(model);
+            }
+            catch(Exception ex)
+            {
+                log.Error(ex.ToString());
+
+                return Json("fail", JsonRequestBehavior.AllowGet);
+            }
+
+            return Json("success", JsonRequestBehavior.AllowGet);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public JsonResult GetNewPutyovkaList()
+        {
+            int UserId = Convert.ToInt32(User.Identity.Name);
+            var ustinfo = UserInfo.GetUserInfo(UserId);
+
+            var list = PostPutDetailDataManager.Get(new PostPutyovkaViewModel()
+            {
+                Departmentbase = ustinfo.DepartmentBase
+            });
+
+            return Json(list, JsonRequestBehavior.AllowGet);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="modModel"></param>
+        /// <param name="IdViplMain"></param>
+        /// <returns></returns>
+        public JsonResult AddViplPut(List<PostPutyovkaViewModel> modModel, long? IdViplMain)
+        {
+            int UserId = Convert.ToInt32(User.Identity.Name);
+            var ustinfo = UserInfo.GetUserInfo(UserId);
+
+            try
+            {
+                if (modModel != null)
+                {
+                    foreach (var mm in modModel)
+                    {
+                        if (mm.Checked)
+                        {
+                            var viplPut = new RealizasiyaViplPutViewModel();
+
+                            viplPut.id_vipl = IdViplMain;
+                            viplPut.id_pok = 0; //I do not know for what it is used
+                            viplPut.id_sanat = mm.IdSanat;
+                            viplPut.num_put = mm.Num_Put;
+                            viplPut.num_proc = 100; //May be not 100
+                            viplPut.symma = mm.Symma_Put;
+                            viplPut.id_polvoz = false;
+                            viplPut.data_post = DateTime.Now;
+                            viplPut.userid = UserId;
+                            viplPut.departmentbase = ustinfo.DepartmentBase;
+
+                            //Enter to Rasxod
+                            Vipl_PutDataManager.Create(viplPut);
+
+                            //Change Status of Putyovka in Prixod
+                            PostPutDetailDataManager.Polzov(mm.IdSanat.Value, mm.Num_Put);
+                        }
+                    }
+                }
+            }
+            catch(Exception ex)
+            {
+                log.Error(ex.ToString());
+
+                return Json("fail", JsonRequestBehavior.AllowGet);
+            }
+
+            return Json("success", JsonRequestBehavior.AllowGet);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="year"></param>
+        /// <param name="kvartal"></param>
+        /// <returns></returns>
+        public JsonResult GetViplTotalResults(int year, int kvartal)
+        {
+            int UserId = Convert.ToInt32(User.Identity.Name);
+            var ustinfo = UserInfo.GetUserInfo(UserId);
+
+            var totalres = ViplMainDataManager.GetTotals(year, kvartal, ustinfo.DepartmentBase);
+
+            return Json(totalres, JsonRequestBehavior.AllowGet);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="IdViplMain"></param>
+        /// <returns></returns>
+        public JsonResult GetSchetFaktura(long IdViplMain)
+        {
+            var schetFaktura = ViplMainDataManager.GetSchetFakturaData(IdViplMain);
+
+            return Json(schetFaktura, JsonRequestBehavior.AllowGet);
+        }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public JsonResult CloseViplNakladnoy(RealizasiyaViplMainViewModel model)
+        {
+            try
+            {
+                ViplMainDataManager.CloseNakladnoy(model);
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex.ToString());
+                return Json("fail", JsonRequestBehavior.AllowGet);
+            }
+
+            return Json("success", JsonRequestBehavior.AllowGet);
+        }
+
+        #endregion
+
+
         public ActionResult OplataViplatiZaPutyovki()
+        {
+            return View();
+        }
+
+        public ActionResult AktVozvrataPutyovok()
         {
             return View();
         }

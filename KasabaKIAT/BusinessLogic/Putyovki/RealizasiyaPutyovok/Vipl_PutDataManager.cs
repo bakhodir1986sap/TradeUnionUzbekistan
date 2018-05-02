@@ -9,7 +9,7 @@ namespace KasabaKiat.BusinessLogic.Putyovki.RealizasiyaPutyovok
 {
     public class Vipl_PutDataManager
     {
-        public static void Create(ref RealizasiyaViplPutViewModel model)
+        public static void Create(RealizasiyaViplPutViewModel model)
         {
             using (KasabaKIATEntities db = new KasabaKIATEntities())
             {
@@ -30,9 +30,9 @@ namespace KasabaKiat.BusinessLogic.Putyovki.RealizasiyaPutyovok
 
                 var pst = db.tblVipl_Put.Add(vipl);
 
-                model.id = pst.ID;
-
                 db.SaveChanges();
+
+                model.id = pst.ID;
             }
         }
 
@@ -86,6 +86,28 @@ namespace KasabaKiat.BusinessLogic.Putyovki.RealizasiyaPutyovok
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="model"></param>
+        public static void RemoveAllByMain(RealizasiyaViplPutViewModel model)
+        {
+            using (KasabaKIATEntities db = new KasabaKIATEntities())
+            {
+                var vipl = db.tblVipl_Put.Where(z => z.ID_Vipl == model.id_vipl);
+
+                if (vipl.Any())
+                {
+                    foreach(var vv in vipl)
+                    {
+                        db.tblVipl_Put.Remove(vv);
+                    }
+                }
+
+                db.SaveChanges();
+            }
+        }
+
         public static List<RealizasiyaViplPutViewModel> Get(RealizasiyaViplPutViewModel model)
         {
             List<RealizasiyaViplPutViewModel> list = null;
@@ -107,6 +129,38 @@ namespace KasabaKiat.BusinessLogic.Putyovki.RealizasiyaPutyovok
                                 userid          = viplPut.UserId            ,
                                 zayavkaid       = viplPut.ZayavkaID         ,
                                 departmentbase  = viplPut.DepartmentBase
+                            };
+
+                list = query.ToList();
+            }
+
+            return list;
+        }
+
+
+
+        public static List<RealizasiyaViplPutViewModel> Get(long IdVipl)
+        {
+            List<RealizasiyaViplPutViewModel> list = null;
+
+            using (KasabaKIATEntities db = new KasabaKIATEntities())
+            {
+                var query = from viplPut in db.tblVipl_Put
+                            where viplPut.ID_Vipl == IdVipl
+                            select new RealizasiyaViplPutViewModel
+                            {
+                                id = viplPut.ID,
+                                id_vipl = viplPut.ID_Vipl,
+                                id_pok = viplPut.ID_Pok,
+                                id_sanat = viplPut.ID_Sanat,
+                                num_put = viplPut.Num_Put,
+                                num_proc = viplPut.Num_Proc,
+                                symma = viplPut.Symma,
+                                id_polvoz = viplPut.ID_PolVoz,
+                                data_post = viplPut.Data_Post,
+                                userid = viplPut.UserId,
+                                zayavkaid = viplPut.ZayavkaID,
+                                departmentbase = viplPut.DepartmentBase
                             };
 
                 list = query.ToList();

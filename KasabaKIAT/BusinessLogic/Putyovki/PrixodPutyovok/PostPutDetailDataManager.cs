@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Data.Entity.Validation;
+using KasabaKIAT.BusinessLogic.Putyovki.PrixodPutyovok;
 
 namespace KasabaKiat.BusinessLogic.Putyovki.PrixodPutyovok
 {
@@ -15,6 +16,21 @@ namespace KasabaKiat.BusinessLogic.Putyovki.PrixodPutyovok
         {
             using (KasabaKIATEntities db = new KasabaKIATEntities())
             {
+                var masterId = model.IdPost;
+
+                var vids = db.tblPost.Where(z => z.ID == masterId);
+
+                if (vids.Any())
+                {
+                    var vid = vids.First();
+
+                    //Inpossible change details already closed nakladnoy
+                    if (vid.Vid)
+                    {
+                        throw new ApplicationException("Inpossible change details already closed nakladnoy");
+                    }
+                }
+
                 tblPos_Put post = new tblPos_Put();
 
                 //post.ID     = model.Id                ;
@@ -150,6 +166,27 @@ namespace KasabaKiat.BusinessLogic.Putyovki.PrixodPutyovok
             //Search by ID_Post find all rows and delete each
         }
 
+
+
+        public static void RemoveAllByMain(long IdPost)
+        {
+            using (KasabaKIATEntities db = new KasabaKIATEntities())
+            {
+                var post = db.tblPos_Put.Where(z => z.ID_Post == IdPost);
+
+                if (post.Any())
+                {
+                    foreach(var detail in post)
+                    {
+                        db.tblPos_Put.Remove(detail);
+                    }
+                }
+
+                db.SaveChanges();
+            }
+            //Search by ID_Post find all rows and delete each
+        }
+
         public static List<PostPutyovkaViewModel> Get(PostPutyovkaViewModel model)
         {
             List<PostPutyovkaViewModel> list = null;
@@ -157,6 +194,10 @@ namespace KasabaKiat.BusinessLogic.Putyovki.PrixodPutyovok
             using (KasabaKIATEntities db = new KasabaKIATEntities())
             {
                 var query = from postPut in db.tblPos_Put
+                            join postMain in db.tblPost 
+                            on postPut.ID_Post equals postMain.ID
+                            where postMain.DepartmentBase == model.Departmentbase &&
+                            postPut.ID_PolVoz == false
                             select new PostPutyovkaViewModel
                             {
                                 Id= postPut.ID,
@@ -170,10 +211,76 @@ namespace KasabaKiat.BusinessLogic.Putyovki.PrixodPutyovok
                                ID_PolVoz      = postPut.ID_PolVoz              ,
                                Data_Post      = postPut.Data_Post              ,
                                UserId         = postPut.UserId                 ,
-                               Departmentbase = postPut.Departmentbase         
+                               Departmentbase = postPut.Departmentbase         ,
+                               Checked        = false
                             };
 
                 list = query.ToList();
+            }
+
+            return list;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public static List<PostPutyovkaViewModel> GetFiltered(PostPutyovkaViewModel model)
+        {
+            List<PostPutyovkaViewModel> list = null;
+
+            using (KasabaKIATEntities db = new KasabaKIATEntities())
+            {
+                var query = from postPut in db.tblPos_Put
+                            where postPut.ID_Post == model.IdPost 
+                            && postPut.tblPost.DepartmentBase == model.Departmentbase
+                            select new PostPutyovkaViewModel
+                            {
+                                Id = postPut.ID,
+                                IdPost = postPut.ID_Post,
+                                IdSanat = postPut.ID_Sanat,
+                                SanatName = postPut.tblSprav_San.Name_San,
+                                Num_Put = postPut.Num_Put,
+                                DataSan = postPut.DataSan,
+                                DataSanEnd = postPut.DataSanEnd,
+                                Symma_Put = postPut.Symma_Put,
+                                ID_PolVoz = postPut.ID_PolVoz,
+                                Data_Post = postPut.Data_Post,
+                                UserId = postPut.UserId,
+                                Departmentbase = postPut.Departmentbase
+                            };
+
+                list = query.ToList();
+            }
+
+            return list;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="entModel"></param>
+        /// <returns></returns>
+        public static List<PostPutyovkaViewModel> ParsePrixod(PrixodDetailViewModel entModel)
+        {
+            var list = new List<PostPutyovkaViewModel>();
+
+            for (int i = entModel.beginNumber; i <= entModel.endNumber; i++)
+            {
+                var mm = new PostPutyovkaViewModel();
+
+                mm.DataSan = entModel.SanatDate;
+                mm.Data_Post = DateTime.Now;
+                mm.Departmentbase = entModel.DepartmentBase;
+                mm.UserId = entModel.UserId;
+                mm.IdSanat = entModel.SanatId;
+                mm.ID_PolVoz = false;
+                mm.Num_Put = i.ToString();
+                mm.Symma_Put = entModel.Price;
+                mm.IdPost = entModel.IdPost;
+
+                list.Add(mm);
             }
 
             return list;

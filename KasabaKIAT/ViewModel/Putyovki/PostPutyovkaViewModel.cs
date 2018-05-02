@@ -30,5 +30,7 @@ namespace KasabaKiat.ViewModel.Putyovki
         public long?            UserId          { get; set; }
 
         public string           Departmentbase { get; set; }
+
+        public bool             Checked { get; set; }
     }
 }

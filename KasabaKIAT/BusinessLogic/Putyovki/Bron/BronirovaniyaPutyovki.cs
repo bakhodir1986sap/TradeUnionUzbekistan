@@ -88,9 +88,9 @@ namespace KasabaKiat.BusinessLogic
         /// 
         /// </summary>
         /// <returns></returns>
-        public List<BronViewModel> GetBronActiveList()
+        public List<BronViewModel> GetBronActiveList(string departmentBase)
         {
-            return BronDataManager.GetBronAllActive();
+            return BronDataManager.GetBronAllActive(departmentBase);
         }
 
         /// <summary>

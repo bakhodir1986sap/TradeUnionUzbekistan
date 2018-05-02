@@ -243,7 +243,12 @@ namespace KasabaKiat.BusinessLogic.Utils.References
             return list;
         }
 
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="departmentBase"></param>
+        /// <param name="Id"></param>
+        /// <returns></returns>
         public static List<Sprav_OrgViewModel> GetByDeraprtmentBase(string departmentBase, long Id)
         {
             List<Sprav_OrgViewModel> list = null;

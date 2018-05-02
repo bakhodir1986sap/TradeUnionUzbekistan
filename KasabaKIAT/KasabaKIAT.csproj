@@ -317,6 +317,7 @@
     <Compile Include="BusinessLogic\Putyovki\PrixodPutyovok\PostPutDetailDataManager.cs" />
     <Compile Include="BusinessLogic\Putyovki\PrixodPutyovok\Postupleniya.cs" />
     <Compile Include="BusinessLogic\Putyovki\PrixodPutyovok\PostupleniyaEnterTemp.cs" />
+    <Compile Include="BusinessLogic\Putyovki\PrixodPutyovok\PrixodDetailViewModel.cs" />
     <Compile Include="BusinessLogic\Putyovki\PutyovkiState\PutyovkiStateChangeDataManager.cs" />
     <Compile Include="BusinessLogic\Putyovki\RaznoskaPoPutyovki\FaceDataManager.cs" />
     <Compile Include="BusinessLogic\Putyovki\RaznoskaPoPutyovki\Face_MedDataManager.cs" />
@@ -325,6 +326,7 @@
     <Compile Include="BusinessLogic\Putyovki\RealizasiyaPutyovok\RealizasitaPoTz\RealizasiyaDataManager.cs" />
     <Compile Include="BusinessLogic\Putyovki\RealizasiyaPutyovok\RealizasitaPoTz\RealizasiyaPoTzCl.cs" />
     <Compile Include="BusinessLogic\Putyovki\RealizasiyaPutyovok\Realizasiya.cs" />
+    <Compile Include="BusinessLogic\Putyovki\RealizasiyaPutyovok\SchetFakturaViewModel.cs" />
     <Compile Include="BusinessLogic\Putyovki\RealizasiyaPutyovok\ViplMainDataManager.cs" />
     <Compile Include="BusinessLogic\Putyovki\RealizasiyaPutyovok\ViplNumGen.cs" />
     <Compile Include="BusinessLogic\Putyovki\RealizasiyaPutyovok\ViplNumGenDataManager.cs" />

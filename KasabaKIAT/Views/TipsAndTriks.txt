@@ -3,3 +3,10 @@ data-backdrop="static" data-keyboard="false"
 
 To make Long height modal window scrollable
 div class="modal-body" style="max-height: calc(100vh - 210px); overflow-y: auto;"
+
+--Organizasiya qidirish controliga
+--Modalniy Organizasii oynasi chaqiriladi. Organizasii.js ni ichi chaqirvotgan *.js ni ichiga kiritiladi
+--Organizasii HTMLga xar bir poiskda chiqqan qatorni to'g'risida Vibrat knopkasi bo'ladi
+
+--tblPost tablisasida Vid status polyasi - false provodka berilmagan; true - provodka berilgan.
+--tblPos_Put tablisasida ID_PolVoz status polyasi - Ishlatishga chiqarilganligini bildiradi.

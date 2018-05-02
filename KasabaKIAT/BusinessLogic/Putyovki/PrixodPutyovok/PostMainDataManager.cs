@@ -8,6 +8,15 @@ using System.Data.Entity.Validation;
 
 namespace KasabaKiat.BusinessLogic.Putyovki.PrixodPutyovok
 {
+    public class TotalResults
+    {
+        public int NakladnoyCount { get; set; }
+
+        public int PutyovkaCount { get; set; }
+
+        public decimal? SummaNakladnix { get; set; }
+    }
+
     public class PostMainDataManager
     {
         public static void Create(ref PostupleniyaViewModel model)
@@ -35,6 +44,8 @@ namespace KasabaKiat.BusinessLogic.Putyovki.PrixodPutyovok
                 try
                 {
                     db.SaveChanges();
+
+                    model.Id = post.ID;
                 }
                 catch (DbEntityValidationException e)
                 {
@@ -50,8 +61,6 @@ namespace KasabaKiat.BusinessLogic.Putyovki.PrixodPutyovok
                     }
                     throw;
                 }
-
-                model.Id = post.ID;
             }
         }
 
@@ -87,6 +96,31 @@ namespace KasabaKiat.BusinessLogic.Putyovki.PrixodPutyovok
             }
         }
 
+        public static void CloseNakladnoy(PostupleniyaViewModel model)
+        {
+            using (KasabaKIATEntities db = new KasabaKIATEntities())
+            {
+                var post = db.tblPost.Where(z => z.ID == model.Id);
+
+                if (post.Any())
+                {
+                    var post1 = post.FirstOrDefault();
+
+                    var total = GetTotals(model.SmFil.Value, model.Id_Kv.Value, model.DepartmentBase);
+
+                    if (post1 != null)
+                    {
+                        post1.Num_Kol = total.PutyovkaCount;
+                        post1.Symma = total.SummaNakladnix;
+                        post1.Vid = true;
+                    }
+                }
+
+                db.SaveChanges();
+            }
+        }
+
+
         public static void Remove(PostupleniyaViewModel model)
         {
             using (KasabaKIATEntities db = new KasabaKIATEntities())
@@ -99,6 +133,8 @@ namespace KasabaKiat.BusinessLogic.Putyovki.PrixodPutyovok
 
                     if (reg != null)
                     {
+                        PostPutDetailDataManager.RemoveAllByMain(model.Id);
+
                         db.tblPost.Remove(reg);
                     }
                 }
@@ -116,7 +152,7 @@ namespace KasabaKiat.BusinessLogic.Putyovki.PrixodPutyovok
                 var query = from post in db.tblPost
                             where post.SmFil == model.SmFil &&
                             post.ID_KV == model.Id_Kv &&
-                            post.Vid == false
+                            post.DepartmentBase == model.DepartmentBase
                             select new PostupleniyaViewModel
                             {
                                Id = post.ID,
@@ -139,6 +175,76 @@ namespace KasabaKiat.BusinessLogic.Putyovki.PrixodPutyovok
             }
 
             return list;
+        }
+
+
+        public static TotalResults GetTotals(int year, int kvartal, string departmentBase)
+        {
+            var totals = new TotalResults();
+
+            using (KasabaKIATEntities db = new KasabaKIATEntities())
+            {
+                var query = from post in db.tblPost
+                            join postDtl in db.tblPos_Put on post.ID equals postDtl.ID_Post
+                            where post.ID_KV == kvartal && post.SmFil == year 
+                            && post.DepartmentBase == departmentBase
+                            select postDtl;
+
+                var nakladCount = db.tblPost.Where(z => z.SmFil == year && z.ID_KV == kvartal
+                && z.DepartmentBase == departmentBase).
+                    Count();
+
+                totals.NakladnoyCount = nakladCount;
+
+                var list = query.ToList();
+
+                if (list.Any())
+                {
+                    totals.PutyovkaCount = list.Count();
+                    totals.SummaNakladnix = list.Sum(z=>z.Symma_Put);
+                }
+                else
+                {
+                    totals.PutyovkaCount = 0;
+                    totals.SummaNakladnix = 0;
+                }
+            }
+
+            return totals;
+        }
+
+
+        public static TotalResults GetDetailTotals(long IdPos, string departmentBase)
+        {
+            var totals = new TotalResults();
+
+            using (KasabaKIATEntities db = new KasabaKIATEntities())
+            {
+                var query = from post in db.tblPost
+                            join postDtl in db.tblPos_Put on post.ID equals postDtl.ID_Post
+                            where post.ID == IdPos
+                            && post.DepartmentBase == departmentBase
+                            select postDtl;
+
+                var nakladCount = 1;
+
+                totals.NakladnoyCount = nakladCount;
+
+                var list = query.ToList();
+
+                if (list.Any())
+                {
+                    totals.PutyovkaCount = list.Count();
+                    totals.SummaNakladnix = list.Sum(z => z.Symma_Put);
+                }
+                else
+                {
+                    totals.PutyovkaCount = 0;
+                    totals.SummaNakladnix = 0;
+                }
+            }
+
+            return totals;
         }
     }
 }

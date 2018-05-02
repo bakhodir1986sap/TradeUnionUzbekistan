@@ -1,6 +1,6 @@
 ﻿@using KasabaKIAT.BusinessLogic.Security.Roles.RolePermissions;
 @{
-    ViewBag.Title = "Организации";
+    ViewBag.Title = "Данные о владельцах путевок";
     var UserId = Convert.ToInt32(User.Identity.Name);
     FunctionalityList List = FunctionalityAndDbDataMatch.MatchProcess(UserId);
 }
@@ -14,7 +14,7 @@
         <section class="content__block container">
             <div class="row mb-4 align-items-center">
                 <div class="col-sm-6 title__block">
-                    <h4>Справочник Организаций</h4>
+                    <h4>Данные о владельцах путевок</h4>
                     <nav aria-label="breadcrumb" class="breadcrumb__block">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item active" aria-current="page">Справочник Организаций</li>

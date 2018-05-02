@@ -239,14 +239,17 @@ namespace KasabaKiat.BusinessLogic.Bron
         }
 
 
-        public static List<BronViewModel> GetBronAllActive()
+        public static List<BronViewModel> GetBronAllActive(string departmentBase)
         {
             List<BronViewModel> list = null;
 
             using (KasabaKIATEntities db = new KasabaKIATEntities())
             {
                 var queryRes = from bron in db.tblBron
-                               where bron.Uchet == true
+                               join putDtl in db.tblPos_Put on  new { X1 =bron.ID_San, X2 = bron.Num_Put } 
+                               equals new { X1 =  putDtl.ID_Sanat.Value , X2 = putDtl.Num_Put }
+                               join putMain in db.tblPost on putDtl.ID_Post equals putMain.ID
+                               where bron.Uchet == true && putMain.DepartmentBase == departmentBase
                                select new BronViewModel
                                {
                                    Id = bron.ID,

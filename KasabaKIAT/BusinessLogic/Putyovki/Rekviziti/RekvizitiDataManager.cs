@@ -17,18 +17,18 @@ namespace KasabaKIAT.BusinessLogic.Putyovki.Rekviziti
                 tblPred vipl = new tblPred();
 
                 vipl.ID_Prof = 100;
-                vipl.ID_Name   = model.ID_Name  ;
-                vipl.ID_Pred   = model.ID_Pred  ;
-                vipl.ID_Pass   = model.ID_Pass  ;
-                vipl.Adress    = model.Adress   ;
-                vipl.RS        = model.RS       ;
-                vipl.Name_bank = model.Name_bank;
-                vipl.MFO       = model.MFO      ;
-                vipl.INN       = model.INN      ;
-                vipl.OKONX     = model.OKONX    ;
-                vipl.Name_Dir  = model.Name_Dir ;
-                vipl.VIO        = model.VIO;
-                vipl.Departmentbase = model.DepartmentBase;
+                vipl.ID_Name        = model.ID_Name         ;
+                vipl.ID_Pred        = model.ID_Pred         ;
+                vipl.ID_Pass        = model.ID_Pass         ;
+                vipl.Adress         = model.Adress          ;
+                vipl.RS             = model.RS              ;
+                vipl.Name_bank      = model.Name_bank       ;
+                vipl.MFO            = model.MFO             ;
+                vipl.INN            = model.INN             ;
+                vipl.OKONX          = model.OKONX           ;
+                vipl.Name_Dir       = model.Name_Dir        ;
+                vipl.VIO            = model.VIO             ;
+                vipl.Departmentbase = model.DepartmentBase  ;
 
                 var pst = db.tblPreds.Add(vipl);
 
@@ -102,33 +102,39 @@ namespace KasabaKIAT.BusinessLogic.Putyovki.Rekviziti
         //    }
         //}
 
-        //public static List<RekvizitiViewModel> Get(RekvizitiViewModel model)
-        //{
-        //    List<RekvizitiViewModel> list = null;
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public static List<RekvizitiViewModel> Get(RekvizitiViewModel model)
+        {
+            List<RekvizitiViewModel> list = null;
 
-        //    using (KasabaKIATEntities db = new KasabaKIATEntities())
-        //    {
-        //        var query = from vipl in db.tblPred
-        //                    select new RekvizitiViewModel
-        //                    {
-        //                        id_org = vipl.ID_Org,
-        //                        data_post = vipl.Data_Post,
-        //                        num_doc = vipl.Num_Doc,
-        //                        id_pok = vipl.ID_Pok,
-        //                        num_kol = vipl.Num_Kol,
-        //                        symma = vipl.Symma,
-        //                        name_dov = vipl.Name_Dov,
-        //                        id_kv = vipl.ID_Kv,
-        //                        vid = vipl.Vid,
-        //                        smfil = vipl.SmFil,
-        //                        userid = vipl.UserId,
-        //                        departmentbase = vipl.DepartmentBase
-        //                    };
+            using (KasabaKIATEntities db = new KasabaKIATEntities())
+            {
+                var query = from vipl in db.tblPreds
+                            where vipl.Departmentbase == model.DepartmentBase
+                            select new RekvizitiViewModel
+                            {
+                                ID_Name         = vipl.ID_Name          ,
+                                ID_Pred         = vipl.ID_Pred          ,
+                                ID_Pass         = vipl.ID_Pass          ,
+                                Adress          = vipl.Adress           ,
+                                RS              = vipl.RS               ,
+                                Name_bank       = vipl.Name_bank        ,
+                                MFO             = vipl.MFO              ,
+                                INN             = vipl.INN              ,
+                                OKONX           = vipl.OKONX            ,
+                                Name_Dir        = vipl.Name_Dir         ,
+                                VIO             = vipl.VIO              ,
+                                DepartmentBase  = vipl.Departmentbase
+                            };
 
-        //        list = query.ToList();
-        //    }
+                list = query.ToList();
+            }
 
-        //    return list;
-        //}
+            return list;
+        }
     }
 }

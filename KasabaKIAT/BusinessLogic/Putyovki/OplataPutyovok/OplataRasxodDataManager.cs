@@ -27,9 +27,9 @@ namespace KasabaKiat.BusinessLogic.Putyovki.OplataPutyovok
 
                 var opp = db.tblOplata_Ras.Add(opl);
 
-                model.ID = opp.ID;
-
                 db.SaveChanges();
+
+                model.ID = opp.ID;
             }
         }
 
@@ -87,7 +87,7 @@ namespace KasabaKiat.BusinessLogic.Putyovki.OplataPutyovok
 
             using (KasabaKIATEntities db = new KasabaKIATEntities())
             {
-                var query = from oplata in db.tblOplata
+                var query = from oplata in db.tblOplatas
                             select new OplataRasxodiViewModel
                             {
                                 ID              = model.ID      ,

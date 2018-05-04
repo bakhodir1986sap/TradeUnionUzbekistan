@@ -8,6 +8,7 @@ using KasabaKIAT.BusinessLogic.Putyovki.RealizasiyaPutyovok;
 using KasabaKiat.BusinessLogic.Putyovki.PrixodPutyovok;
 using KasabaKIAT.BusinessLogic.Putyovki.Rekviziti;
 using KasabaKiat.BusinessLogic.Utils.References;
+using KasabaKiat.BusinessLogic.Putyovki.OplataPutyovok;
 
 namespace KasabaKiat.BusinessLogic.Putyovki.RealizasiyaPutyovok
 {
@@ -337,6 +338,10 @@ namespace KasabaKiat.BusinessLogic.Putyovki.RealizasiyaPutyovok
                         post1.Symma = total.SummaNakladnix;
                         post1.Vid = true;
                     }
+
+                    var oplata = new Oplata();
+
+                    oplata.CloseRasxodPutyovok(post1.ID);
                 }
 
                 db.SaveChanges();

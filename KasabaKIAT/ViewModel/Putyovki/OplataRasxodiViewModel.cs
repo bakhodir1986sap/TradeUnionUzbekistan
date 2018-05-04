@@ -22,10 +22,15 @@ namespace KasabaKiat.ViewModel.Putyovki
         /// </summary>
         public int ID_Sanat   { get; set;}
 
-      /// <summary>
-      /// Numer putyovki
-      /// </summary>
-      public string Num_Put    { get; set;}
+        /// <summary>
+        /// 
+        /// </summary>
+        public string SanatName { get; set; }
+
+        /// <summary>
+        /// Numer putyovki
+        /// </summary>
+        public string Num_Put    { get; set;}
 
       /// <summary>
       /// Amount
@@ -36,6 +41,11 @@ namespace KasabaKiat.ViewModel.Putyovki
         /// Reference to tblSprav_Pr
         /// </summary>
         public long ID_Pr      { get; set;}
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public string Name_Proc { get; set; }
 
         /// <summary>
         /// enumaration 0 - Vzaimorascheti, 1 - OplataPutyovok

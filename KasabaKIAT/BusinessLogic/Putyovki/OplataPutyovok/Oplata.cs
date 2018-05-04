@@ -1,4 +1,7 @@
-﻿using KasabaKiat.ViewModel.Putyovki;
+﻿using KasabaKiat.BusinessLogic.Putyovki.PrixodPutyovok;
+using KasabaKiat.BusinessLogic.Putyovki.RealizasiyaPutyovok;
+using KasabaKiat.ViewModel.Putyovki;
+using KasabaKIAT.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,6 +9,29 @@ using System.Web;
 
 namespace KasabaKiat.BusinessLogic.Putyovki.OplataPutyovok
 {
+    public enum OplataRasxPriz
+    {
+        KurortPrixod = 1,
+        OrganizasiyaRasxod = 2,
+        OrganizasiyaOplata = 3,
+        KurortOplata = 4,
+        VozvratPutyovki = 5,
+        VozvratViplata = 6
+    }
+
+    public enum TipOpr
+    {
+        Opredelen,
+        NeOpredelen
+    }
+
+    public enum PrizOpl
+    {
+        Vzaimorascheti,
+        OplataPutyovok
+    }
+
+
     public class Oplata
     {
         /*
@@ -61,5 +87,206 @@ namespace KasabaKiat.BusinessLogic.Putyovki.OplataPutyovok
             return new List<RealizasiyaViplPutViewModel>();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="IdMain"></param>
+        public void ClosePrixodPutyovok(long IdMain)
+        {
+            using (KasabaKIATEntities db = new KasabaKIATEntities())
+            {
+                var post = db.tblPost.Where(z => z.ID == IdMain);
+
+                if (post.Any())
+                {
+                    var post1 = post.FirstOrDefault();
+
+                    var oplata = new OplataViewModel();
+
+                    oplata.Data_Post = post1.Data_Post;
+                    oplata.Departmentbase = post1.DepartmentBase;
+                    oplata.ID_KV = post1.ID_KV;
+                    oplata.ID_Otras = post1.ID_Pos;
+                    oplata.Num_Doc = post1.Num_Doc;
+                    oplata.PrizOpl = (int)PrizOpl.Vzaimorascheti;
+                    oplata.SmFil = post1.SmFil;
+                    oplata.Symma_DT = 0;
+                    oplata.Symma_KT = post1.Symma;
+                    oplata.Tip_Org = (int)TipOpr.Opredelen == 0 ? false : true;
+                    oplata.UserId = post1.UserId;
+
+                    OplataDataManager.Create(ref oplata);
+
+                    var prixodDtl = PostPutDetailDataManager.GetFiltered(new PostPutyovkaViewModel()
+                    {
+                        Departmentbase = post1.DepartmentBase,
+                        IdPost = IdMain
+                    });
+
+                    if (prixodDtl != null)
+                    {
+                        foreach(var pDtl in prixodDtl)
+                        {
+                            var oplatDtl = new OplataRasxodiViewModel();
+                            oplatDtl.Departmentbase = pDtl.Departmentbase;
+                            oplatDtl.ID_Opl = oplata.ID;
+                            oplatDtl.ID_Pr = 1; //45%
+                            oplatDtl.ID_Sanat = pDtl.IdSanat.Value;
+                            oplatDtl.Num_Put = pDtl.Num_Put;
+                            oplatDtl.Priz = (int)OplataRasxPriz.KurortPrixod;
+                            oplatDtl.Symma = pDtl.Symma_Put.Value;
+                            oplatDtl.UserId = pDtl.UserId.Value;
+
+                            OplataRasxodDataManager.Create(ref oplatDtl);
+                        }
+                    }
+                }
+
+                db.SaveChanges();
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="IdMain"></param>
+        public void CloseRasxodPutyovok(long IdMain)
+        {
+            using (KasabaKIATEntities db = new KasabaKIATEntities())
+            {
+                var post = db.tblVipl.Where(z => z.ID == IdMain);
+
+                if (post.Any())
+                {
+                    var post1 = post.FirstOrDefault();
+
+                    var oplata = new OplataViewModel();
+
+                    oplata.Data_Post = post1.Data_Post;
+                    oplata.Departmentbase = post1.DepartmentBase;
+                    oplata.ID_KV = post1.ID_Kv;
+                    oplata.ID_Otras = post1.ID_Org;
+                    oplata.Num_Doc = post1.Num_Doc;
+                    oplata.PrizOpl = (int)PrizOpl.OplataPutyovok;
+                    oplata.SmFil = post1.SmFil;
+                    oplata.Symma_DT = post1.Symma;
+                    oplata.Symma_KT = 0;
+                    oplata.Tip_Org = (int)TipOpr.Opredelen == 0 ? false : true;
+                    oplata.UserId = post1.UserId;
+
+                    OplataDataManager.Create(ref oplata);
+
+                    var prixodDtl = Vipl_PutDataManager.Get(IdMain);
+
+                    if (prixodDtl != null)
+                    {
+                        foreach (var pDtl in prixodDtl)
+                        {
+                            var oplatDtl = new OplataRasxodiViewModel();
+                            oplatDtl.Departmentbase = pDtl.departmentbase;
+                            oplatDtl.ID_Opl = oplata.ID;
+                            oplatDtl.ID_Pr = 1; //45%
+                            oplatDtl.ID_Sanat = pDtl.id_sanat.Value;
+                            oplatDtl.Num_Put = pDtl.num_put;
+                            oplatDtl.Priz = (int)OplataRasxPriz.OrganizasiyaRasxod;
+                            oplatDtl.Symma = pDtl.symma.Value;
+                            oplatDtl.UserId = pDtl.userid.Value;
+
+                            OplataRasxodDataManager.Create(ref oplatDtl);
+                        }
+                    }
+                }
+
+                db.SaveChanges();
+            }
+        }
+
+        public List<OplataRasxodiViewModel> GetRaznoskaList(long IdOrg)
+        {
+            var list = new List<OplataRasxodiViewModel>(); 
+
+            using (KasabaKIATEntities db = new KasabaKIATEntities())
+            {
+                var query = from oplMst in db.tblOplatas
+                            join oplDtl in db.tblOplata_Ras on oplMst.ID equals oplDtl.ID_Opl
+                            join sanat  in db.tblSprav_San  on oplDtl.ID_Sanat equals sanat.ID
+                            join proc   in db.tblSprav_Pr   on oplDtl.ID_Pr equals proc.ID
+                            where (oplMst.ID_Otras == IdOrg && oplDtl.Priz == (int)OplataRasxPriz.OrganizasiyaRasxod &&
+                            oplMst.PrizOpl == (int)PrizOpl.OplataPutyovok)
+                            orderby oplMst.Data_Post
+                            select new
+                            {
+                                IdDtl       = oplDtl.ID,
+                                IdSanat     = sanat.ID,
+                                SanatName   = sanat.Name_San,
+                                Num_Put     = oplDtl.Num_Put,
+                                ProcName    = proc.Name_Proc,
+                                Price       = oplDtl.Symma,
+                                Priznak     = oplDtl.Priz
+                            };
+
+                foreach(var putyovka in query)
+                {
+                    var find = db.tblOplata_Ras.Where(z => z.Priz == (int)OplataRasxPriz.OrganizasiyaOplata
+                                                        && z.ID_Sanat == putyovka.IdSanat
+                                                        && z.Num_Put == putyovka.Num_Put
+                                                        && z.Symma == putyovka.Price);
+
+                    if (find.Any())
+                    {
+                        var oplataCount = find.Count();
+
+                        var find2 = db.tblOplata_Ras.Where(z => z.Priz == (int)OplataRasxPriz.VozvratPutyovki
+                                    && z.ID_Sanat == putyovka.IdSanat
+                                    && z.Num_Put == putyovka.Num_Put
+                                    && z.Symma == putyovka.Price);
+
+                        var vozvratCount = find.Count();
+
+                        if (oplataCount > vozvratCount)
+                        {
+                            //Putyovka fully covred
+                            continue;
+                        }
+                        else
+                        {
+                            //Not Covered putyovka
+                            var obj = new OplataRasxodiViewModel
+                            {
+                                ID = putyovka.IdDtl,
+                                ID_Sanat = putyovka.IdSanat,
+                                SanatName = putyovka.SanatName,
+                                Num_Put = putyovka.Num_Put,
+                                Name_Proc = putyovka.ProcName,
+                                Symma = putyovka.Price.Value,
+                                Priz = putyovka.Priznak
+                            };
+
+                            list.Add(obj);
+                        }
+                    }
+                    else
+                    {
+                        var obj = new OplataRasxodiViewModel
+                        {
+                            ID = putyovka.IdDtl,
+                            ID_Sanat = putyovka.IdSanat,
+                            SanatName = putyovka.SanatName,
+                            Num_Put = putyovka.Num_Put,
+                            Name_Proc = putyovka.ProcName,
+                            Symma = putyovka.Price.Value,
+                            Priz = putyovka.Priznak
+                        };
+
+                        list.Add(obj);
+                    }
+
+
+                }
+
+            }
+
+            return list;
+        }
     }
 }

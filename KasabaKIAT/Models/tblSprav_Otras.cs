@@ -18,7 +18,6 @@ namespace KasabaKIAT.Models
         public tblSprav_Otras()
         {
             this.Balans = new HashSet<Balans>();
-            this.tblOplata = new HashSet<tblOplata>();
             this.tblVozVrat = new HashSet<tblVozVrat>();
         }
     
@@ -32,8 +31,6 @@ namespace KasabaKIAT.Models
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Balans> Balans { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tblOplata> tblOplata { get; set; }
         public virtual users users { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblVozVrat> tblVozVrat { get; set; }

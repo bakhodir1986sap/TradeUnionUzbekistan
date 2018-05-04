@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Data.Entity.Validation;
+using KasabaKiat.BusinessLogic.Putyovki.OplataPutyovok;
 
 namespace KasabaKiat.BusinessLogic.Putyovki.PrixodPutyovok
 {
@@ -113,6 +114,10 @@ namespace KasabaKiat.BusinessLogic.Putyovki.PrixodPutyovok
                         post1.Num_Kol = total.PutyovkaCount;
                         post1.Symma = total.SummaNakladnix;
                         post1.Vid = true;
+
+                        var oplata = new Oplata();
+
+                        oplata.ClosePrixodPutyovok(post1.ID);
                     }
                 }
 

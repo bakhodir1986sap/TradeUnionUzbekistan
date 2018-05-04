@@ -79,7 +79,6 @@ namespace KasabaKIAT.Models
             this.tblBron = new HashSet<tblBron>();
             this.tblFace_Med = new HashSet<tblFace_Med>();
             this.tblFase = new HashSet<tblFase>();
-            this.tblOplata = new HashSet<tblOplata>();
             this.tblPos_Put = new HashSet<tblPos_Put>();
             this.tblPost = new HashSet<tblPost>();
             this.tblSprav_Face = new HashSet<tblSprav_Face>();
@@ -122,6 +121,7 @@ namespace KasabaKIAT.Models
             this.tbgl_balance = new HashSet<tbgl_balance>();
             this.tbgl_jnlmst = new HashSet<tbgl_jnlmst>();
             this.tblPreds = new HashSet<tblPred>();
+            this.tblOplatas = new HashSet<tblOplata>();
         }
     
         public long id { get; set; }
@@ -282,8 +282,6 @@ namespace KasabaKIAT.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblFase> tblFase { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tblOplata> tblOplata { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblPos_Put> tblPos_Put { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblPost> tblPost { get; set; }
@@ -368,5 +366,7 @@ namespace KasabaKIAT.Models
         public virtual ICollection<tbgl_jnlmst> tbgl_jnlmst { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblPred> tblPreds { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tblOplata> tblOplatas { get; set; }
     }
 }

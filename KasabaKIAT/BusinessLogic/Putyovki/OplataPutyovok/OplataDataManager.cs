@@ -9,6 +9,10 @@ namespace KasabaKiat.BusinessLogic.Putyovki.OplataPutyovok
 {
     public class OplataDataManager
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="model"></param>
         public static void Create(ref OplataViewModel model)
         {
             using (KasabaKIATEntities db = new KasabaKIATEntities())
@@ -30,19 +34,23 @@ namespace KasabaKiat.BusinessLogic.Putyovki.OplataPutyovok
                 opl.UserId              = model.UserId          ;
                 opl.Departmentbase      = model.Departmentbase  ;
 
-                var opp = db.tblOplata.Add(opl);
-
-                model.ID = opp.ID;
+                var opp = db.tblOplatas.Add(opl);
 
                 db.SaveChanges();
+
+                model.ID = opl.ID;
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="model"></param>
         public static void Modify(OplataViewModel model)
         {
             using (KasabaKIATEntities db = new KasabaKIATEntities())
             {
-                var opl = db.tblOplata.Where(z => z.ID == model.ID);
+                var opl = db.tblOplatas.Where(z => z.ID == model.ID);
 
                 if (opl.Any())
                 {
@@ -71,11 +79,15 @@ namespace KasabaKiat.BusinessLogic.Putyovki.OplataPutyovok
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="model"></param>
         public static void Remove(OplataViewModel model)
         {
             using (KasabaKIATEntities db = new KasabaKIATEntities())
             {
-                var opl = db.tblOplata.Where(z => z.ID == model.ID);
+                var opl = db.tblOplatas.Where(z => z.ID == model.ID);
 
                 if (opl.Any())
                 {
@@ -83,7 +95,7 @@ namespace KasabaKiat.BusinessLogic.Putyovki.OplataPutyovok
 
                     if (reg != null)
                     {
-                        db.tblOplata.Remove(reg);
+                        db.tblOplatas.Remove(reg);
                     }
                 }
 
@@ -91,13 +103,18 @@ namespace KasabaKiat.BusinessLogic.Putyovki.OplataPutyovok
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         public static List<OplataViewModel> Get(OplataViewModel model)
         {
             List<OplataViewModel> list = null;
 
             using (KasabaKIATEntities db = new KasabaKIATEntities())
             {
-                var query = from oplata in db.tblOplata
+                var query = from oplata in db.tblOplatas
                             select new OplataViewModel
                             {
                                 ID                  = oplata.ID         ,                 

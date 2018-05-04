@@ -1,6 +1,6 @@
 ﻿using KasabaKiat.BusinessLogic;
-using KasabaKiat.BusinessLogic.Putyovki.PrixodPutyovok;
 using KasabaKiat.BusinessLogic.Putyovki.RealizasiyaPutyovok;
+using KasabaKiat.BusinessLogic.Putyovki.PrixodPutyovok;
 using KasabaKiat.BusinessLogic.Utils.References;
 using KasabaKiat.Helpers;
 using KasabaKiat.ViewModel;
@@ -17,6 +17,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.UI;
+using KasabaKiat.BusinessLogic.Putyovki.OplataPutyovok;
 
 namespace KasabaKIAT.Controllers
 {
@@ -1625,10 +1626,59 @@ namespace KasabaKIAT.Controllers
         #endregion
 
 
+        #region  Bank-Oplati i Viplati 
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public ActionResult OplataViplatiZaPutyovki()
         {
             return View();
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public JsonResult AddOplataMain(OplataViewModel model)
+        {
+            try
+            {
+                OplataDataManager.Create(ref model);
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex.ToString());
+                return Json("fail", JsonRequestBehavior.AllowGet);
+            }
+
+            return Json("success", JsonRequestBehavior.AllowGet);
+        }
+
+
+        //Raznoska putyovok
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="IdOrg"></param>
+        /// <returns></returns>
+        public JsonResult GetNotCoveredPutyovka(long IdOrg)
+        {
+            var _opl = new Oplata();
+
+            var list = _opl.GetRaznoskaList(IdOrg);
+
+            return Json(list, JsonRequestBehavior.AllowGet);
+        }
+
+
+
+
+        #endregion
+
+
 
         public ActionResult AktVozvrataPutyovok()
         {

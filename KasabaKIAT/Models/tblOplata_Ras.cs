@@ -24,10 +24,10 @@ namespace KasabaKIAT.Models
         public Nullable<long> UserId { get; set; }
         public string Departmentbase { get; set; }
     
-        public virtual tblOplata tblOplata { get; set; }
         public virtual tblSprav_Pr tblSprav_Pr { get; set; }
         public virtual tblSprav_Pr tblSprav_Pr1 { get; set; }
         public virtual tblSprav_San tblSprav_San { get; set; }
         public virtual users users { get; set; }
+        public virtual tblOplata tblOplata { get; set; }
     }
 }

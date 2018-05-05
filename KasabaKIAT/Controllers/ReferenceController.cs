@@ -74,7 +74,32 @@ namespace KasabaKIAT.Controllers
             return Json(list, JsonRequestBehavior.AllowGet);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public JsonResult GetTipOplati()
+        {
+            var list = tbcs_dictionaryDataManager.Get(new tbcs_dictionaryViewModel() {
+                dictionary_type_id = 8
+            });
+
+            return Json(list, JsonRequestBehavior.AllowGet);
+        }
 
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public JsonResult GetVidOplati()
+        {
+            var list = tbcs_dictionaryDataManager.Get(new tbcs_dictionaryViewModel()
+            {
+                dictionary_type_id = 9
+            });
+
+            return Json(list, JsonRequestBehavior.AllowGet);
+        }
     }
 }

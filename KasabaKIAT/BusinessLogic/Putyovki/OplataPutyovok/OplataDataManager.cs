@@ -58,7 +58,7 @@ namespace KasabaKiat.BusinessLogic.Putyovki.OplataPutyovok
 
                     if (opl1 != null)
                     {
-                        opl1.ID = model.ID;
+                        //opl1.ID = model.ID;
                         opl1.Data_Post = model.Data_Post;
                         opl1.Num_Doc = model.Num_Doc;
                         opl1.ID_Otras = model.ID_Otras;
@@ -131,6 +131,47 @@ namespace KasabaKiat.BusinessLogic.Putyovki.OplataPutyovok
                                 PrizOpl             = oplata.PrizOpl    ,   
                                 UserId              = oplata.UserId     ,   
                                 Departmentbase      = oplata.Departmentbase
+                            };
+
+                list = query.ToList();
+            }
+
+            return list;
+        }
+
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public static List<OplataViewModel> GetFiltered(OplataViewModel model)
+        {
+            List<OplataViewModel> list = null;
+
+            using (KasabaKIATEntities db = new KasabaKIATEntities())
+            {
+                var query = from oplata in db.tblOplatas
+                            where oplata.Departmentbase == model.Departmentbase
+                            && oplata.SmFil == model.SmFil 
+                            && oplata.ID_KV == model.ID_KV
+                            select new OplataViewModel
+                            {
+                                ID = oplata.ID,
+                                Data_Post = oplata.Data_Post,
+                                Num_Doc = oplata.Num_Doc,
+                                ID_Otras = oplata.ID_Otras,
+                                Symma_DT = oplata.Symma_DT,
+                                Symma_KT = oplata.Symma_KT,
+                                Osnov = oplata.Osnov,
+                                ID_KV = oplata.ID_KV,
+                                SmFil = oplata.SmFil,
+                                Name_org = oplata.Name_org,
+                                Tip_Org = oplata.Tip_Org,
+                                PrizOpl = oplata.PrizOpl,
+                                UserId = oplata.UserId,
+                                Departmentbase = oplata.Departmentbase
                             };
 
                 list = query.ToList();

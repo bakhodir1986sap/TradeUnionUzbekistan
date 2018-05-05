@@ -87,7 +87,7 @@ namespace KasabaKiat.BusinessLogic.Putyovki.OplataPutyovok
 
             using (KasabaKIATEntities db = new KasabaKIATEntities())
             {
-                var query = from oplata in db.tblOplatas
+                var query = from oplata in db.tblOplata_Ras
                             select new OplataRasxodiViewModel
                             {
                                 ID              = model.ID      ,
@@ -99,6 +99,39 @@ namespace KasabaKiat.BusinessLogic.Putyovki.OplataPutyovok
                                 Priz            = model.Priz    ,      
                                 UserId          = model.UserId  ,      
                                 Departmentbase  = model.Departmentbase
+                            };
+
+                list = query.ToList();
+            }
+
+            return list;
+        }
+
+        /// <summary>
+        /// Heararical
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public static List<OplataRasxodiViewModel> GetDetail(OplataRasxodiViewModel model)
+        {
+            List<OplataRasxodiViewModel> list = null;
+
+            using (KasabaKIATEntities db = new KasabaKIATEntities())
+            {
+                var query = from oplata in db.tblOplata_Ras
+                            where oplata.Departmentbase == model.Departmentbase
+                            && oplata.ID_Opl == model.ID_Opl
+                            select new OplataRasxodiViewModel
+                            {
+                                ID = model.ID,
+                                ID_Opl = model.ID_Opl,
+                                ID_Sanat = model.ID_Sanat,
+                                Num_Put = model.Num_Put,
+                                Symma = model.Symma,
+                                ID_Pr = model.ID_Pr,
+                                Priz = model.Priz,
+                                UserId = model.UserId,
+                                Departmentbase = model.Departmentbase
                             };
 
                 list = query.ToList();

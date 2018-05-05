@@ -61,5 +61,10 @@ namespace KasabaKiat.ViewModel.Putyovki
       /// Reference to table t_departmentbase
       /// </summary>
       public string Departmentbase { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool PutyovkaChecked { get; set; }
     }
 }

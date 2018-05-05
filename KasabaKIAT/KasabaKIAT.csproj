@@ -357,6 +357,7 @@
     <Compile Include="BusinessLogic\Structure\StructureOfKiat.cs" />
     <Compile Include="BusinessLogic\Utils\References\ReferencesDataManager.cs" />
     <Compile Include="BusinessLogic\Utils\References\RefYars.cs" />
+    <Compile Include="BusinessLogic\Utils\References\SpravCodeDecode.cs" />
     <Compile Include="BusinessLogic\Utils\References\Sprav_Face.cs" />
     <Compile Include="BusinessLogic\Utils\References\Sprav_Kv.cs" />
     <Compile Include="BusinessLogic\Utils\References\Sprav_MFO.cs" />
@@ -367,6 +368,10 @@
     <Compile Include="BusinessLogic\Utils\References\Sprav_Reg.cs" />
     <Compile Include="BusinessLogic\Utils\References\Sprav_San.cs" />
     <Compile Include="BusinessLogic\Utils\References\Sprav_Vil.cs" />
+    <Compile Include="BusinessLogic\Utils\References\tbcs_dictionaryDataManager.cs" />
+    <Compile Include="BusinessLogic\Utils\References\tbcs_dictionaryViewModel.cs" />
+    <Compile Include="BusinessLogic\Utils\References\tbcs_dictTypeDataManager.cs" />
+    <Compile Include="BusinessLogic\Utils\References\tbcs_dictTypeViewModel.cs" />
     <Compile Include="Controllers\AdministirirovaniyeController.cs" />
     <Compile Include="Controllers\BuxgalterController.cs" />
     <Compile Include="Controllers\ChatController.cs" />

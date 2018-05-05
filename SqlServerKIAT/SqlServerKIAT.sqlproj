@@ -60,37 +60,40 @@
     <Folder Include="UsefulSqripts" />
     <Folder Include="QuerySqripts" />
     <Folder Include="Procedures" />
-    <Folder Include="UsefulSqripts\13032018" />
-    <Folder Include="UsefulSqripts\18032018" />
-    <Folder Include="UsefulSqripts\16.04.2018" />
-    <Folder Include="UsefulSqripts\18042018" />
-    <Folder Include="UsefulSqripts\27042018" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="UsefulSqripts\usersDataUpdate.sql" />
-    <None Include="UsefulSqripts\ToOdil.sql" />
-    <None Include="UsefulSqripts\Otrasl.sql" />
-    <None Include="UsefulSqripts\RealizasiyaSqriprs.sql" />
-    <None Include="UsefulSqripts\21022018.sql" />
-    <None Include="UsefulSqripts\22022018.sql" />
-    <None Include="UsefulSqripts\23022018.sql" />
-    <None Include="UsefulSqripts\24022018.sql" />
-    <None Include="UsefulSqripts\25022018.sql" />
-    <None Include="UsefulSqripts\27022018.sql" />
-    <None Include="UsefulSqripts\08032018.sql" />
-    <None Include="UsefulSqripts\12032017.sql" />
-    <None Include="UsefulSqripts\13032018\Script1.sql" />
-    <None Include="UsefulSqripts\18032018\Script1.sql" />
-    <None Include="UsefulSqripts\22032018.sql" />
-    <None Include="UsefulSqripts\23032018.sql" />
-    <None Include="UsefulSqripts\06042018.sql" />
-    <None Include="UsefulSqripts\10042018.sql" />
-    <None Include="UsefulSqripts\20180412.sql" />
-    <None Include="UsefulSqripts\16.04.2018\16.04.2018.sql" />
-    <None Include="UsefulSqripts\18042018\18042018.sql" />
-    <None Include="UsefulSqripts\27042018\27042018.sql" />
+    <Folder Include="UsefulSqripts\TEMP" />
+    <Folder Include="UsefulSqripts\TEMP\13032018" />
+    <Folder Include="UsefulSqripts\TEMP\16.04.2018" />
+    <Folder Include="UsefulSqripts\TEMP\18032018" />
+    <Folder Include="UsefulSqripts\TEMP\18042018" />
+    <Folder Include="UsefulSqripts\TEMP\27042018" />
+    <Folder Include="UsefulSqripts\20180505" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="Procedures\sp_rt_FormaN13_1.sql" />
+    <None Include="UsefulSqripts\TEMP\13032018\Script1.sql" />
+    <None Include="UsefulSqripts\TEMP\16.04.2018\16.04.2018.sql" />
+    <None Include="UsefulSqripts\TEMP\18032018\Script1.sql" />
+    <None Include="UsefulSqripts\TEMP\18042018\18042018.sql" />
+    <None Include="UsefulSqripts\TEMP\27042018\27042018.sql" />
+    <None Include="UsefulSqripts\TEMP\06042018.sql" />
+    <None Include="UsefulSqripts\TEMP\08032018.sql" />
+    <None Include="UsefulSqripts\TEMP\10042018.sql" />
+    <None Include="UsefulSqripts\TEMP\12032017.sql" />
+    <None Include="UsefulSqripts\TEMP\20180412.sql" />
+    <None Include="UsefulSqripts\TEMP\21022018.sql" />
+    <None Include="UsefulSqripts\TEMP\22022018.sql" />
+    <None Include="UsefulSqripts\TEMP\22032018.sql" />
+    <None Include="UsefulSqripts\TEMP\23022018.sql" />
+    <None Include="UsefulSqripts\TEMP\23032018.sql" />
+    <None Include="UsefulSqripts\TEMP\24022018.sql" />
+    <None Include="UsefulSqripts\TEMP\25022018.sql" />
+    <None Include="UsefulSqripts\TEMP\27022018.sql" />
+    <None Include="UsefulSqripts\TEMP\Otrasl.sql" />
+    <None Include="UsefulSqripts\TEMP\RealizasiyaSqriprs.sql" />
+    <None Include="UsefulSqripts\TEMP\ToOdil.sql" />
+    <None Include="UsefulSqripts\TEMP\usersDataUpdate.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="UsefulSqripts\20180505\20180505.sql" />
   </ItemGroup>
 </Project>

@@ -201,6 +201,11 @@ namespace KasabaKiat.BusinessLogic.Putyovki.OplataPutyovok
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="IdOrg"></param>
+        /// <returns></returns>
         public List<OplataRasxodiViewModel> GetRaznoskaList(long IdOrg)
         {
             var list = new List<OplataRasxodiViewModel>(); 
@@ -288,5 +293,114 @@ namespace KasabaKiat.BusinessLogic.Putyovki.OplataPutyovok
 
             return list;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="IdOrg"></param>
+        /// <returns></returns>
+        public decimal GetGeneralRemainingByOrg(long IdOrg)
+        {
+            decimal totalRemain = 0;
+
+            using (KasabaKIATEntities db = new KasabaKIATEntities())
+            {
+                var query = from oplMst in db.tblOplatas
+                            join oplDtl in db.tblOplata_Ras on oplMst.ID equals oplDtl.ID_Opl
+                            join sanat in db.tblSprav_San on oplDtl.ID_Sanat equals sanat.ID
+                            join proc in db.tblSprav_Pr on oplDtl.ID_Pr equals proc.ID
+                            where (oplMst.ID_Otras == IdOrg && oplDtl.Priz == (int)OplataRasxPriz.OrganizasiyaOplata &&
+                            oplMst.PrizOpl == (int)PrizOpl.OplataPutyovok)
+                            orderby oplMst.Data_Post
+                            select new
+                            {
+                                IdDtl = oplDtl.ID,
+                                IdSanat = sanat.ID,
+                                SanatName = sanat.Name_San,
+                                Num_Put = oplDtl.Num_Put,
+                                ProcName = proc.Name_Proc,
+                                Price = oplDtl.Symma,
+                                Priznak = oplDtl.Priz
+                            };
+
+                var detailTotal = query.Sum(p => p.Price);
+
+                if (!detailTotal.HasValue)
+                {
+                    detailTotal = 0;
+                }
+
+                var query1 = from oplMst in db.tblOplatas
+                            where (oplMst.ID_Otras == IdOrg && 
+                            oplMst.PrizOpl == (int)PrizOpl.OplataPutyovok)
+                            orderby oplMst.Data_Post
+                            select new
+                            {
+                                Price = oplMst.Symma_KT
+                            };
+
+                var masterTotal = query1.Sum(p => p.Price);
+
+                if (!masterTotal.HasValue)
+                {
+                    masterTotal = 0;
+                }
+
+                totalRemain = masterTotal.Value - detailTotal.Value;
+            }
+
+            return totalRemain;
+        }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="IdOrg"></param>
+        /// <returns></returns>
+        public decimal GetTotalDebtByOrg(long IdOrg)
+        {
+            decimal totalRemain = 0;
+
+            using (KasabaKIATEntities db = new KasabaKIATEntities())
+            {
+                var query = from oplMst in db.tblOplatas
+                            where (oplMst.ID_Otras == IdOrg &&
+                            oplMst.PrizOpl == (int)PrizOpl.OplataPutyovok)
+                            orderby oplMst.Data_Post
+                            select new
+                            {
+                                Price = oplMst.Symma_DT
+                            };
+
+                var DebitAmount = query.Sum(p => p.Price);
+
+                if (!DebitAmount.HasValue)
+                {
+                    DebitAmount = 0;
+                }
+
+                var query1 = from oplMst in db.tblOplatas
+                             where (oplMst.ID_Otras == IdOrg &&
+                             oplMst.PrizOpl == (int)PrizOpl.OplataPutyovok)
+                             orderby oplMst.Data_Post
+                             select new
+                             {
+                                 Price = oplMst.Symma_KT
+                             };
+
+                var KreditAmount = query1.Sum(p => p.Price);
+
+                if (!KreditAmount.HasValue)
+                {
+                    KreditAmount = 0;
+                }
+
+                totalRemain = KreditAmount.Value - DebitAmount.Value;
+            }
+
+            return totalRemain;
+        }
+
     }
 }

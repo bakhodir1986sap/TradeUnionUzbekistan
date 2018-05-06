@@ -4,11 +4,16 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using KasabaKiat.BusinessLogic.Putyovki.PrixodPutyovok;
 
 namespace KasabaKiat.BusinessLogic.VozvratPutyovki
 {
     public class VozvratDataManager
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="model"></param>
         public static void Create(ref VozvratViewModel model)
         {
             using (KasabaKIATEntities db = new KasabaKIATEntities())
@@ -30,7 +35,7 @@ namespace KasabaKiat.BusinessLogic.VozvratPutyovki
                 vozv.UserId                 = model.userid          ;
                 vozv.DepartmentBase         = model.departmentbase;
 
-                var vozz = db.tblVozVrat.Add(vozv);
+                var vozz = db.tblVozVrats.Add(vozv);
 
                 db.SaveChanges();
 
@@ -38,11 +43,15 @@ namespace KasabaKiat.BusinessLogic.VozvratPutyovki
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="model"></param>
         public static void Modify(VozvratViewModel model)
         {
             using (KasabaKIATEntities db = new KasabaKIATEntities())
             {
-                var vozv = db.tblVozVrat.Where(z => z.ID == model.id);
+                var vozv = db.tblVozVrats.Where(z => z.ID == model.id);
 
                 if (vozv.Any())
                 {
@@ -70,11 +79,15 @@ namespace KasabaKiat.BusinessLogic.VozvratPutyovki
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="model"></param>
         public static void Remove(VozvratViewModel model)
         {
             using (KasabaKIATEntities db = new KasabaKIATEntities())
             {
-                var sanInfo = db.tblVozVrat.Where(z => z.ID == model.id);
+                var sanInfo = db.tblVozVrats.Where(z => z.ID == model.id);
 
                 if (sanInfo.Any())
                 {
@@ -82,7 +95,7 @@ namespace KasabaKiat.BusinessLogic.VozvratPutyovki
 
                     if (reg != null)
                     {
-                        db.tblVozVrat.Remove(reg);
+                        db.tblVozVrats.Remove(reg);
                     }
                 }
 
@@ -90,13 +103,18 @@ namespace KasabaKiat.BusinessLogic.VozvratPutyovki
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         public static List<VozvratViewModel> Get(VozvratViewModel model)
         {
             List<VozvratViewModel> list = null;
 
             using (KasabaKIATEntities db = new KasabaKIATEntities())
             {
-                var query = from vozv in db.tblVozVrat
+                var query = from vozv in db.tblVozVrats
                             select new VozvratViewModel
                             {
                                 id              = vozv.ID           ,
@@ -119,6 +137,119 @@ namespace KasabaKiat.BusinessLogic.VozvratPutyovki
             }
 
             return list;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public static List<VozvratViewModel> GetFilter(VozvratViewModel model)
+        {
+            List<VozvratViewModel> list = null;
+
+            using (KasabaKIATEntities db = new KasabaKIATEntities())
+            {
+                var query = from vozv in db.tblVozVrats
+                            join sanat in db.tblSprav_San on vozv.ID_Sanat equals sanat.ID
+                            where vozv.DepartmentBase == model.departmentbase
+                            && vozv.SmFil == model.smfil 
+                            && vozv.ID_KV == model.id_kv
+                            select new VozvratViewModel
+                            {
+                                id = vozv.ID,
+                                data_post = vozv.Data_Post,
+                                num_doc = vozv.Num_Doc,
+                                id_sanat = vozv.ID_Sanat,
+                                sanatoriyName = sanat.Name_San,
+                                num_put = vozv.Num_Put,
+                                id_ot = vozv.ID_Ot,
+                                dover = vozv.Dover,
+                                id_pol = vozv.ID_Pol,
+                                symmap = vozv.SymmaP,
+                                id_kv = vozv.ID_KV,
+                                smfil = vozv.SmFil,
+                                tip_voz = vozv.Tip_Voz,
+                                userid = vozv.UserId,
+                                departmentbase = vozv.DepartmentBase
+                            };
+
+                list = query.ToList();
+            }
+
+            return list;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="IdVipl"></param>
+        /// <returns></returns>
+        public static List<RealizasiyaViplPutViewModel> GetPutyovkas(long idOrg, string departmentBase)
+        {
+            List<RealizasiyaViplPutViewModel> list = null;
+
+            using (KasabaKIATEntities db = new KasabaKIATEntities())
+            {
+                var query = from viplPut in db.tblVipl_Put
+                            where viplPut.tblVipl.ID_Org == idOrg &&
+                            viplPut.DepartmentBase == departmentBase
+                            select new RealizasiyaViplPutViewModel
+                            {
+                                id = viplPut.ID,
+                                id_vipl = viplPut.ID_Vipl,
+                                id_pok = viplPut.ID_Pok,
+                                id_sanat = viplPut.ID_Sanat,
+                                sanatName = viplPut.tblSprav_San.Name_San,
+                                num_put = viplPut.Num_Put,
+                                num_proc = viplPut.Num_Proc,
+                                symma = viplPut.Symma,
+                                id_polvoz = viplPut.ID_PolVoz,
+                                data_post = viplPut.Data_Post,
+                                userid = viplPut.UserId,
+                                zayavkaid = viplPut.ZayavkaID,
+                                departmentbase = viplPut.DepartmentBase
+                            };
+
+                list = query.ToList();
+            }
+
+            return list;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="year"></param>
+        /// <param name="kvartal"></param>
+        /// <param name="departmentBase"></param>
+        /// <returns></returns>
+        public static TotalResults GetTotals(int year, int kvartal, string departmentBase)
+        {
+            var totals = new TotalResults();
+
+            using (KasabaKIATEntities db = new KasabaKIATEntities())
+            {
+                var query = from vozv in db.tblVozVrats
+                            where vozv.ID_KV == kvartal && vozv.SmFil == year
+                            && vozv.DepartmentBase == departmentBase
+                            select vozv;
+
+                var list = query.ToList();
+
+                if (list.Any())
+                {
+                    totals.PutyovkaCount = list.Count();
+                    totals.SummaNakladnix = list.Sum(z => z.SymmaP);
+                }
+                else
+                {
+                    totals.PutyovkaCount = 0;
+                    totals.SummaNakladnix = 0;
+                }
+            }
+
+            return totals;
         }
     }
 }

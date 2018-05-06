@@ -108,6 +108,35 @@ namespace KasabaKiat.BusinessLogic.Putyovki.RealizasiyaPutyovok
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="model"></param>
+        public static void RemoveByPutyovka(int IdSanat, string Num_Put, string departmentCode)
+        {
+            using (KasabaKIATEntities db = new KasabaKIATEntities())
+            {
+                var vipl = db.tblVipl_Put.Where(z => z.ID_Sanat == IdSanat && z.Num_Put == Num_Put && z.DepartmentBase == departmentCode);
+
+                if (vipl.Any())
+                {
+                    if (vipl.Count() > 1)
+                    {
+                        throw new ApplicationException("More than one row found");
+                    }
+
+                    var reg = vipl.FirstOrDefault();
+
+                    if (reg != null)
+                    {
+                        db.tblVipl_Put.Remove(reg);
+                    }
+                }
+
+                db.SaveChanges();
+            }
+        }
+
         public static List<RealizasiyaViplPutViewModel> Get(RealizasiyaViplPutViewModel model)
         {
             List<RealizasiyaViplPutViewModel> list = null;

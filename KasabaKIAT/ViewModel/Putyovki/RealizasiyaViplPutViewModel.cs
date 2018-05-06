@@ -27,10 +27,15 @@ namespace KasabaKiat.ViewModel.Putyovki
       /// </summary>
       public int? id_sanat           {get; set;}
 
-      /// <summary>
-      /// Nomer putyovki
-      /// </summary>
-      public string num_put            {get; set;}
+        /// <summary>
+        /// 
+        /// </summary>
+      public string sanatName { get; set; }
+
+        /// <summary>
+        /// Nomer putyovki
+        /// </summary>
+        public string num_put            {get; set;}
 
       /// <summary>
       /// Nomer procenta

@@ -27,10 +27,15 @@ namespace KasabaKiat.ViewModel.Putyovki
         /// </summary>
         public int?  id_sanat         {get; set;}
 
-      /// <summary>
-      /// Nomer putyovki
-      /// </summary>
-      public string   num_put          {get; set;}
+        /// <summary>
+        /// 
+        /// </summary>
+        public string sanatoriyName { get; set; }
+
+        /// <summary>
+        /// Nomer putyovki
+        /// </summary>
+        public string   num_put          {get; set;}
 
         /// <summary>
         /// Reference to table tblSprav_Otras

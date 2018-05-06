@@ -9,17 +9,36 @@ using KasabaKiat.BusinessLogic.Putyovki.OplataPutyovok;
 
 namespace KasabaKiat.BusinessLogic.Putyovki.PrixodPutyovok
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class TotalResults
     {
+        /// <summary>
+        /// 
+        /// </summary>
         public int NakladnoyCount { get; set; }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public int PutyovkaCount { get; set; }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public decimal? SummaNakladnix { get; set; }
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
     public class PostMainDataManager
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="model"></param>
         public static void Create(ref PostupleniyaViewModel model)
         {
             using (KasabaKIATEntities db = new KasabaKIATEntities())
@@ -65,6 +84,10 @@ namespace KasabaKiat.BusinessLogic.Putyovki.PrixodPutyovok
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="model"></param>
         public static void Modify(PostupleniyaViewModel model)
         {
             using (KasabaKIATEntities db = new KasabaKIATEntities())
@@ -97,6 +120,10 @@ namespace KasabaKiat.BusinessLogic.Putyovki.PrixodPutyovok
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="model"></param>
         public static void CloseNakladnoy(PostupleniyaViewModel model)
         {
             using (KasabaKIATEntities db = new KasabaKIATEntities())
@@ -125,7 +152,10 @@ namespace KasabaKiat.BusinessLogic.Putyovki.PrixodPutyovok
             }
         }
 
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="model"></param>
         public static void Remove(PostupleniyaViewModel model)
         {
             using (KasabaKIATEntities db = new KasabaKIATEntities())
@@ -148,6 +178,11 @@ namespace KasabaKiat.BusinessLogic.Putyovki.PrixodPutyovok
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         public static List<PostupleniyaViewModel> Get(PostupleniyaViewModel model)
         {
             List<PostupleniyaViewModel> list = null;
@@ -182,7 +217,13 @@ namespace KasabaKiat.BusinessLogic.Putyovki.PrixodPutyovok
             return list;
         }
 
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="year"></param>
+        /// <param name="kvartal"></param>
+        /// <param name="departmentBase"></param>
+        /// <returns></returns>
         public static TotalResults GetTotals(int year, int kvartal, string departmentBase)
         {
             var totals = new TotalResults();
@@ -218,7 +259,12 @@ namespace KasabaKiat.BusinessLogic.Putyovki.PrixodPutyovok
             return totals;
         }
 
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="IdPos"></param>
+        /// <param name="departmentBase"></param>
+        /// <returns></returns>
         public static TotalResults GetDetailTotals(long IdPos, string departmentBase)
         {
             var totals = new TotalResults();

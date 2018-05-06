@@ -18,6 +18,9 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.UI;
 using KasabaKiat.BusinessLogic.Putyovki.OplataPutyovok;
+using KasabaKiat.BusinessLogic.VozvratPutyovki;
+using KasabaKIAT.BusinessLogic.Putyovki.VozvratPutyovki;
+using KasabaKiat.BusinessLogic.Putyovki.VozvratPutyovki;
 
 namespace KasabaKIAT.Controllers
 {
@@ -1989,11 +1992,111 @@ namespace KasabaKIAT.Controllers
 
         #region AktVozvrata
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="year"></param>
+        /// <param name="kvartal"></param>
+        /// <returns></returns>
+        public JsonResult GetVozvratList(int year, int kvartal)
+        {
+            int UserId = Convert.ToInt32(User.Identity.Name);
+            var ustinfo = UserInfo.GetUserInfo(UserId);
+
+            var list = VozvratDataManager.GetFilter(new VozvratViewModel()
+            {
+                departmentbase = ustinfo.DepartmentBase,
+                smfil = year,
+                id_kv = kvartal
+            });
+
+            return Json(list, JsonRequestBehavior.AllowGet);
+        }
 
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public ActionResult AktVozvrataPutyovok()
         {
             return View();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="year"></param>
+        /// <param name="kvartal"></param>
+        /// <returns></returns>
+        public JsonResult ShowTotalForVozvrat(int year, int kvartal)
+        {
+
+            int UserId = Convert.ToInt32(User.Identity.Name);
+            var ustinfo = UserInfo.GetUserInfo(UserId);
+
+            var list = VozvratDataManager.GetTotals(year, kvartal, ustinfo.DepartmentBase);
+
+            return Json(list, JsonRequestBehavior.AllowGet);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="idOrg"></param>
+        /// <returns></returns>
+        public JsonResult GetGivenPutyovkaList(long idOrg)
+        {
+            int UserId = Convert.ToInt32(User.Identity.Name);
+            var ustinfo = UserInfo.GetUserInfo(UserId);
+
+            var list = VozvratDataManager.GetPutyovkas(idOrg, ustinfo.DepartmentBase);
+
+            return Json(list, JsonRequestBehavior.AllowGet);
+
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public JsonResult GetEmptyForAdd()
+        {
+            var model = new VozvratEnter();
+
+            return Json(model, JsonRequestBehavior.AllowGet);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public JsonResult AddVozvtars(VozvratEnter model)
+        {
+            if (model == null ) return Json("fail", JsonRequestBehavior.AllowGet);
+
+            try
+            {
+                var vv = new Vozvrat();
+
+                int UserId = Convert.ToInt32(User.Identity.Name);
+                var ustinfo = UserInfo.GetUserInfo(UserId);
+
+                model.departmentbase = ustinfo.DepartmentBase;
+                model.userid = UserId;
+
+                //All logic realized
+                vv.EnterVozvrat(model);
+
+                return Json("success", JsonRequestBehavior.AllowGet);
+            }
+            catch(Exception ex)
+            {
+                log.Error(ex.ToString());
+            }
+
+            return Json("fail", JsonRequestBehavior.AllowGet);
         }
 
         #endregion

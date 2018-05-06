@@ -130,7 +130,6 @@
         <EntityTypeShape EntityType="KasabaKIATModel.tblOplata_Ras" Width="1.5" PointX="33" PointY="275.75" IsExpanded="true" />
         <EntityTypeShape EntityType="KasabaKIATModel.tblPutevka" Width="1.5" PointX="33.75" PointY="281.875" IsExpanded="true" />
         <EntityTypeShape EntityType="KasabaKIATModel.tblVipl_Put" Width="1.5" PointX="24.75" PointY="272.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="KasabaKIATModel.tblVozVrat" Width="1.5" PointX="27.75" PointY="280.25" IsExpanded="true" />
         <EntityTypeShape EntityType="KasabaKIATModel.Zapros_ZK" Width="1.5" PointX="22.375" PointY="387.125" IsExpanded="true" />
         <AssociationConnector Association="KasabaKIATModel.FK_Balans_tblSprav_Org" ManuallyRouted="false" />
         <AssociationConnector Association="KasabaKIATModel.FK_Balans_tblSprav_Otras" ManuallyRouted="false" />
@@ -276,15 +275,12 @@
         <AssociationConnector Association="KasabaKIATModel.FK_tblSprav_Face_Users" ManuallyRouted="false" />
         <AssociationConnector Association="KasabaKIATModel.FK_tblSprav_Kv_Users" ManuallyRouted="false" />
         <AssociationConnector Association="KasabaKIATModel.FK_tblVipl_tblSprav_Kv" ManuallyRouted="false" />
-        <AssociationConnector Association="KasabaKIATModel.FK_tblVozVrat_tblSprav_Kv" ManuallyRouted="false" />
         <AssociationConnector Association="KasabaKIATModel.FK_tblSprav_MFO_Users" ManuallyRouted="false" />
         <AssociationConnector Association="KasabaKIATModel.FK_tblPutevka_tblSprav_Org" ManuallyRouted="false" />
         <AssociationConnector Association="KasabaKIATModel.FK_tblSprav_Org_Users" ManuallyRouted="false" />
         <AssociationConnector Association="KasabaKIATModel.FK_tblVipl_tblSprav_Org" ManuallyRouted="false" />
-        <AssociationConnector Association="KasabaKIATModel.FK_tblVozVrat_tblSprav_Org" ManuallyRouted="false" />
         <AssociationConnector Association="KasabaKIATModel.FK_tblSprav_Os_Users" ManuallyRouted="false" />
         <AssociationConnector Association="KasabaKIATModel.FK_tblSprav_Otras_Users" ManuallyRouted="false" />
-        <AssociationConnector Association="KasabaKIATModel.FK_tblVozVrat_tblSprav_Otras" ManuallyRouted="false" />
         <AssociationConnector Association="KasabaKIATModel.FK_tblOplata_Ras_tblSprav_Pr" ManuallyRouted="false" />
         <AssociationConnector Association="KasabaKIATModel.FK_tblOplata_Ras_tblSprav_Pr1" ManuallyRouted="false" />
         <AssociationConnector Association="KasabaKIATModel.FK_tblSprav_Pr_Users" ManuallyRouted="false" />
@@ -293,7 +289,6 @@
         <AssociationConnector Association="KasabaKIATModel.FK_tblPutevka_tblSprav_San" ManuallyRouted="false" />
         <AssociationConnector Association="KasabaKIATModel.FK_tblSprav_San_Users" ManuallyRouted="false" />
         <AssociationConnector Association="KasabaKIATModel.FK_tblVipl_Put_tblSprav_San" ManuallyRouted="false" />
-        <AssociationConnector Association="KasabaKIATModel.FK_tblVozVrat_tblSprav_San" ManuallyRouted="false" />
         <AssociationConnector Association="KasabaKIATModel.FK_tblSprav_Vil_Users" ManuallyRouted="false" />
         <AssociationConnector Association="KasabaKIATModel.FK_tblFace_Two_tblVipl" ManuallyRouted="false" />
         <AssociationConnector Association="KasabaKIATModel.FK_tblVipl_Put_tblVipl" ManuallyRouted="false" />
@@ -324,7 +319,6 @@
         <AssociationConnector Association="KasabaKIATModel.FK_tblOplata_Ras_Users" ManuallyRouted="false" />
         <AssociationConnector Association="KasabaKIATModel.FK_tblPutevka_Users" ManuallyRouted="false" />
         <AssociationConnector Association="KasabaKIATModel.FK_tblVipl_Put_Users" ManuallyRouted="false" />
-        <AssociationConnector Association="KasabaKIATModel.FK_tblVozVrat_Users" ManuallyRouted="false" />
         <AssociationConnector Association="KasabaKIATModel.FK_Zapros_ZK_Users" ManuallyRouted="false" />
         <AssociationConnector Association="KasabaKIATModel.users_2" ManuallyRouted="false" />
         <AssociationConnector Association="KasabaKIATModel.agreement_files" ManuallyRouted="false" />
@@ -366,6 +360,11 @@
         <AssociationConnector Association="KasabaKIATModel.FK_tblOplata_tblSprav_Kv" />
         <AssociationConnector Association="KasabaKIATModel.FK_tblOplata_tblSprav_Org" />
         <AssociationConnector Association="KasabaKIATModel.FK_tblOplata_Users" />
+        <EntityTypeShape EntityType="KasabaKIATModel.tblVozVrat" Width="1.5" PointX="27.75" PointY="280.375" />
+        <AssociationConnector Association="KasabaKIATModel.FK_tblVozVrat_tblSprav_Kv" />
+        <AssociationConnector Association="KasabaKIATModel.FK_tblVozVrat_tblSprav_Org1" />
+        <AssociationConnector Association="KasabaKIATModel.FK_tblVozVrat_tblSprav_San" />
+        <AssociationConnector Association="KasabaKIATModel.FK_tblVozVrat_Users" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

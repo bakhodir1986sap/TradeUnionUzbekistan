@@ -71,5 +71,20 @@ namespace KasabaKiat.ViewModel.Putyovki
       /// Department
       /// </summary>
       public string departmentbase     {get; set;}
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool putyovkaChecked { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public string primechaniye { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public string oplata { get; set; }
     }
 }

@@ -4,11 +4,20 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using KasabaKiat.BusinessLogic.Putyovki.OplataPutyovok;
+using KasabaKiat.BusinessLogic.Putyovki.PrixodPutyovok;
 
 namespace KasabaKiat.BusinessLogic.Putyovki.RealizasiyaPutyovok
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class Vipl_PutDataManager
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="model"></param>
         public static void Create(RealizasiyaViplPutViewModel model)
         {
             using (KasabaKIATEntities db = new KasabaKIATEntities())
@@ -36,6 +45,10 @@ namespace KasabaKiat.BusinessLogic.Putyovki.RealizasiyaPutyovok
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="model"></param>
         public static void Modify(RealizasiyaViplPutViewModel model)
         {
             using (KasabaKIATEntities db = new KasabaKIATEntities())
@@ -66,6 +79,60 @@ namespace KasabaKiat.BusinessLogic.Putyovki.RealizasiyaPutyovok
             }
         }
 
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="model"></param>
+        public static void ZakritPutyovki(RealizasiyaViplPutViewModel model)
+        {
+            using (KasabaKIATEntities db = new KasabaKIATEntities())
+            {
+                var vipl = db.tblVipl_Put.Where(z => z.ID == model.id);
+
+                if (vipl.Any())
+                {
+                    var vipl1 = vipl.FirstOrDefault();
+
+                    if (vipl1 != null)
+                    {
+                        vipl1.ID_PolVoz = true;
+                    }
+                }
+
+                db.SaveChanges();
+            }
+        }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="model"></param>
+        public static void ZakritPutyovki2(RealizasiyaViplPutViewModel model)
+        {
+            using (KasabaKIATEntities db = new KasabaKIATEntities())
+            {
+                var vipl = db.tblVipl_Put.Where(z => z.ID_Sanat == model.id_sanat && z.Num_Put == model.num_put && z.DepartmentBase == model.departmentbase);
+
+                if (vipl.Any())
+                {
+                    var vipl1 = vipl.FirstOrDefault();
+
+                    if (vipl1 != null)
+                    {
+                        vipl1.ID_PolVoz = true;
+                    }
+                }
+
+                db.SaveChanges();
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="model"></param>
         public static void Remove(RealizasiyaViplPutViewModel model)
         {
             using (KasabaKIATEntities db = new KasabaKIATEntities())
@@ -137,6 +204,11 @@ namespace KasabaKiat.BusinessLogic.Putyovki.RealizasiyaPutyovok
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         public static List<RealizasiyaViplPutViewModel> Get(RealizasiyaViplPutViewModel model)
         {
             List<RealizasiyaViplPutViewModel> list = null;
@@ -167,7 +239,11 @@ namespace KasabaKiat.BusinessLogic.Putyovki.RealizasiyaPutyovok
         }
 
 
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="IdVipl"></param>
+        /// <returns></returns>
         public static List<RealizasiyaViplPutViewModel> Get(long IdVipl)
         {
             List<RealizasiyaViplPutViewModel> list = null;
@@ -175,7 +251,7 @@ namespace KasabaKiat.BusinessLogic.Putyovki.RealizasiyaPutyovok
             using (KasabaKIATEntities db = new KasabaKIATEntities())
             {
                 var query = from viplPut in db.tblVipl_Put
-                            where viplPut.ID_Vipl == IdVipl
+                            where viplPut.ID_Vipl == IdVipl && viplPut.ID_PolVoz == false
                             select new RealizasiyaViplPutViewModel
                             {
                                 id = viplPut.ID,
@@ -190,6 +266,135 @@ namespace KasabaKiat.BusinessLogic.Putyovki.RealizasiyaPutyovok
                                 userid = viplPut.UserId,
                                 zayavkaid = viplPut.ZayavkaID,
                                 departmentbase = viplPut.DepartmentBase
+                            };
+
+                list = query.ToList();
+            }
+
+            return list;
+        }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="IdVipl"></param>
+        /// <returns></returns>
+        public static List<RealizasiyaViplPutViewModel> GetDetail4DanniyeVlad(
+            DateTime beginDt, 
+            DateTime endDt, 
+            long IdOrg, 
+            string departmentCode)
+        {
+            List<RealizasiyaViplPutViewModel> list = null;
+
+            using (KasabaKIATEntities db = new KasabaKIATEntities())
+            {
+                var query = from viplPut in db.tblVipl_Put
+                            where viplPut.tblVipl.Data_Post.Value.Date >= beginDt.Date 
+                            && viplPut.tblVipl.Data_Post.Value.Date <= endDt.Date
+                            && viplPut.tblVipl.DepartmentBase == departmentCode 
+                            && viplPut.ID_PolVoz == false
+                            && viplPut.tblVipl.ID_Org == IdOrg
+                            select new RealizasiyaViplPutViewModel
+                            {
+                                id = viplPut.ID,
+                                id_vipl = viplPut.ID_Vipl,
+                                id_pok = viplPut.ID_Pok,
+                                id_sanat = viplPut.ID_Sanat,
+                                num_put = viplPut.Num_Put,
+                                num_proc = viplPut.Num_Proc,
+                                symma = viplPut.Symma,
+                                id_polvoz = viplPut.ID_PolVoz,
+                                data_post = viplPut.Data_Post,
+                                userid = viplPut.UserId,
+                                zayavkaid = viplPut.ZayavkaID,
+                                departmentbase = viplPut.DepartmentBase
+                            };
+
+                list = query.ToList();
+
+                foreach(var mmodel in list)
+                {
+                    mmodel.primechaniye = mmodel.id_polvoz ? "Закрыта" : "Открыта";
+
+                    var putyovkaOplata = db.tblOplata_Ras.Where(z => z.ID_Sanat == mmodel.id_sanat
+                    && z.Num_Put == mmodel.num_put && z.Departmentbase == departmentCode
+                    && z.Priz == (int)OplataRasxPriz.OrganizasiyaOplata);
+
+                    if (putyovkaOplata.Any())
+                    {
+                        mmodel.oplata = "Да";
+                    }
+                    else
+                    {
+                        mmodel.oplata = "Нет";
+                    }
+                }
+
+            }
+
+            return list;
+        }
+
+
+        public static TotalResults GetDetail4DanniyeVladTotal(DateTime beginDt,
+            DateTime endDt,
+            long IdOrg,
+            string departmentCode)
+        {
+            var list = GetDetail4DanniyeVlad(beginDt, endDt, IdOrg, departmentCode);
+
+            var total = new TotalResults();
+
+            if (list.Any())
+            {
+                total.NakladnoyCount = 0;
+                total.PutyovkaCount = list.Count();
+                total.SummaNakladnix = list.Sum(p=>p.symma);
+            }
+            else
+            {
+                total.NakladnoyCount = 0;
+                total.PutyovkaCount = 0;
+                total.SummaNakladnix = 0;
+            }
+
+            return total;
+        }
+
+
+        /// <summary>
+        /// For zakritiya kvartala
+        /// </summary>
+        /// <param name="IdVipl"></param>
+        /// <returns></returns>
+        public static List<RealizasiyaViplPutViewModel> GetZakritiya(long IdOrg, string departmentCode)
+        {
+            List<RealizasiyaViplPutViewModel> list = null;
+
+            using (KasabaKIATEntities db = new KasabaKIATEntities())
+            {
+                var query = from viplPut in db.tblVipl_Put
+                            where viplPut.tblVipl.ID_Org == IdOrg
+                            && viplPut.ID_PolVoz == false
+                            && viplPut.DepartmentBase == departmentCode
+                            select new RealizasiyaViplPutViewModel
+                            {
+                                id = viplPut.ID,
+                                id_vipl = viplPut.ID_Vipl,
+                                id_pok = viplPut.ID_Pok,
+                                id_sanat = viplPut.ID_Sanat,
+                                sanatName = viplPut.tblSprav_San.Name_San,
+                                num_put = viplPut.Num_Put,
+                                num_proc = viplPut.Num_Proc,
+                                symma = viplPut.Symma,
+                                id_polvoz = viplPut.ID_PolVoz,
+                                data_post = viplPut.Data_Post,
+                                userid = viplPut.UserId,
+                                zayavkaid = viplPut.ZayavkaID,
+                                departmentbase = viplPut.DepartmentBase,
+                                putyovkaChecked = false
                             };
 
                 list = query.ToList();

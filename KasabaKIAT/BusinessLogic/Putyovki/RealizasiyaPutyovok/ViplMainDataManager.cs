@@ -180,6 +180,45 @@ namespace KasabaKiat.BusinessLogic.Putyovki.RealizasiyaPutyovok
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
+        public static List<RealizasiyaViplMainViewModel> GetForEnterDanniyeVlad(DateTime beginDt, DateTime endDt, long IdOrg, string departmentCode)
+        {
+            List<RealizasiyaViplMainViewModel> list = null;
+
+            using (KasabaKIATEntities db = new KasabaKIATEntities())
+            {
+                var query = from vipl in db.tblVipl
+                            where vipl.Data_Post.Value.Date >= beginDt.Date &&
+                            vipl.Data_Post.Value.Date <= endDt.Date
+                            && vipl.DepartmentBase == departmentCode
+                            && vipl.ID_Org == IdOrg
+                            select new RealizasiyaViplMainViewModel
+                            {
+                                id_org = vipl.ID_Org,
+                                data_post = vipl.Data_Post,
+                                num_doc = vipl.Num_Doc,
+                                id_pok = vipl.ID_Pok,
+                                num_kol = vipl.Num_Kol,
+                                symma = vipl.Symma,
+                                name_dov = vipl.Name_Dov,
+                                id_kv = vipl.ID_Kv,
+                                vid = vipl.Vid,
+                                smfil = vipl.SmFil,
+                                userid = vipl.UserId,
+                                departmentbase = vipl.DepartmentBase
+                            };
+
+                list = query.ToList();
+            }
+
+            return list;
+        }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         public static List<RealizasiyaViplMainViewModel> GetUnique(long Id)
         {
             List<RealizasiyaViplMainViewModel> list = null;

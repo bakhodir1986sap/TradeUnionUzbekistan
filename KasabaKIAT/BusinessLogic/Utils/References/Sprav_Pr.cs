@@ -8,6 +8,10 @@ namespace KasabaKiat.BusinessLogic.Utils.References
 {
     public class Sprav_Pr
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="model"></param>
         public static void Create(ref Sprav_PrViewModel model)
         {
             using (KasabaKIATEntities db = new KasabaKIATEntities())
@@ -26,6 +30,10 @@ namespace KasabaKiat.BusinessLogic.Utils.References
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="model"></param>
         public static void Modify(Sprav_PrViewModel model)
         {
             using (KasabaKIATEntities db = new KasabaKIATEntities())
@@ -48,6 +56,10 @@ namespace KasabaKiat.BusinessLogic.Utils.References
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="model"></param>
         public static void Remove(Sprav_PrViewModel model)
         {
             using (KasabaKIATEntities db = new KasabaKIATEntities())
@@ -68,7 +80,38 @@ namespace KasabaKiat.BusinessLogic.Utils.References
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         public static List<Sprav_PrViewModel> Get(Sprav_PrViewModel model)
+        {
+            List<Sprav_PrViewModel> list = null;
+
+            using (KasabaKIATEntities db = new KasabaKIATEntities())
+            {
+                var queryRes = from procent in db.tblSprav_Pr
+                               select new Sprav_PrViewModel
+                               {
+                                   ID = procent.ID,
+                                   Name_Proc = procent.Name_Proc,
+                                   Num = procent.Num,
+                                   UserId = procent.UserId
+                               };
+
+                list = queryRes.ToList();
+
+            }
+
+            return list;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public static List<Sprav_PrViewModel> Get()
         {
             List<Sprav_PrViewModel> list = null;
 

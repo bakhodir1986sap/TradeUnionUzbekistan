@@ -103,6 +103,32 @@ namespace KasabaKiat.BusinessLogic.Utils.References
             return list;
         }
 
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public static List<Sprav_FaceViewModel> Get()
+        {
+            List<Sprav_FaceViewModel> list = null;
+
+            using (KasabaKIATEntities db = new KasabaKIATEntities())
+            {
+                var queryRes = from face in db.tblSprav_Face
+                               select new Sprav_FaceViewModel
+                               {
+                                   Name_Os = face.Name_Os,
+                                   UserId = face.UserId
+                               };
+
+                list = queryRes.ToList();
+
+            }
+
+            return list;
+        }
+
         /// <summary>
         /// 
         /// </summary>

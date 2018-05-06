@@ -101,5 +101,49 @@ namespace KasabaKIAT.Controllers
 
             return Json(list, JsonRequestBehavior.AllowGet);
         }
+
+        /// <summary>
+        /// Osnovaniye vidachi
+        /// </summary>
+        /// <returns></returns>
+        public JsonResult GetOsnovaniyaVidachi()
+        {
+            var list = Sprav_Face.Get();
+
+            return Json(list, JsonRequestBehavior.AllowGet);
+        }
+
+        /// <summary>
+        /// Tip Vidachi
+        /// </summary>
+        /// <returns></returns>
+        public JsonResult GetTipVidachi()
+        {
+            var list = Sprav_Os.Get();
+
+            return Json(list, JsonRequestBehavior.AllowGet);
+        }
+
+        /// <summary>
+        /// Procentnaya stavka
+        /// </summary>
+        /// <returns></returns>
+        public JsonResult GetProcentZaPutyovki()
+        {
+            var list = Sprav_Pr.Get();
+
+            return Json(list, JsonRequestBehavior.AllowGet);
+        }
+
+        /// <summary>
+        /// Rekomendovanniye sanatorii
+        /// </summary>
+        /// <returns></returns>
+        public JsonResult GetRecommendedSanatory()
+        {
+            var list = Sprav_San.Get();
+
+            return Json(list, JsonRequestBehavior.AllowGet);
+        }
     }
 }

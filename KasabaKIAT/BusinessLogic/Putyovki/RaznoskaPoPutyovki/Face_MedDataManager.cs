@@ -86,13 +86,14 @@ namespace KasabaKiat.BusinessLogic.Putyovki.RaznoskaPoPutyovki
             }
         }
 
-        public static List<Face_MedViewModel> GetBron(Face_MedViewModel model)
+        public static List<Face_MedViewModel> Get(Face_MedViewModel model)
         {
             List<Face_MedViewModel> list = null;
 
             using (KasabaKIATEntities db = new KasabaKIATEntities())
             {
                 var query = from faceMed in db.tblFace_Med
+                            where faceMed.ID_Face == model.id_face
                             select new Face_MedViewModel
                             {
                                 id              = faceMed.ID             ,

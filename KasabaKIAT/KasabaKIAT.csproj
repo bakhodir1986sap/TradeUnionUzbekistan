@@ -321,7 +321,7 @@
     <Compile Include="BusinessLogic\Putyovki\PutyovkiState\PutyovkiStateChangeDataManager.cs" />
     <Compile Include="BusinessLogic\Putyovki\RaznoskaPoPutyovki\FaceDataManager.cs" />
     <Compile Include="BusinessLogic\Putyovki\RaznoskaPoPutyovki\Face_MedDataManager.cs" />
-    <Compile Include="BusinessLogic\Putyovki\RaznoskaPoPutyovki\RaznoskaDataManager.cs" />
+    <Compile Include="BusinessLogic\Putyovki\RaznoskaPoPutyovki\RaznoskaGeneralViewModel.cs" />
     <Compile Include="BusinessLogic\Putyovki\RaznoskaPoPutyovki\RaznoskaPutyovok.cs" />
     <Compile Include="BusinessLogic\Putyovki\RealizasiyaPutyovok\RealizasitaPoTz\RealizasiyaDataManager.cs" />
     <Compile Include="BusinessLogic\Putyovki\RealizasiyaPutyovok\RealizasitaPoTz\RealizasiyaPoTzCl.cs" />
@@ -340,6 +340,8 @@
     <Compile Include="BusinessLogic\Putyovki\VozvratPutyovki\VozvratEnter.cs" />
     <Compile Include="BusinessLogic\Putyovki\VozvratPutyovki\VozvratPoTz\VozvratPoTzDataManager.cs" />
     <Compile Include="BusinessLogic\Putyovki\VozvratPutyovki\VozvratPoTz\VozvratPutyovki.cs" />
+    <Compile Include="BusinessLogic\Putyovki\ZakritiyaKvartala\ZakritiyeKvartalaViewModel.cs" />
+    <Compile Include="BusinessLogic\Putyovki\ZakritiyaKvartala\ZakritKvartal4Putyovka.cs" />
     <Compile Include="BusinessLogic\Putyovki\Zayavki\IRasmotreniyaZayavki.cs" />
     <Compile Include="BusinessLogic\Putyovki\Zayavki\IZayavkamanage.cs" />
     <Compile Include="BusinessLogic\Putyovki\Zayavki\RassmotreniyaFirst.cs" />

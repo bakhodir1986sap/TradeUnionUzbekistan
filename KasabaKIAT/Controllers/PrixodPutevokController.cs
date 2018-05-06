@@ -21,6 +21,9 @@ using KasabaKiat.BusinessLogic.Putyovki.OplataPutyovok;
 using KasabaKiat.BusinessLogic.VozvratPutyovki;
 using KasabaKIAT.BusinessLogic.Putyovki.VozvratPutyovki;
 using KasabaKiat.BusinessLogic.Putyovki.VozvratPutyovki;
+using KasabaKIAT.BusinessLogic.Putyovki.ZakritiyaKvartala;
+using KasabaKIAT.BusinessLogic.Putyovki.RaznoskaPoPutyovki;
+using KasabaKiat.BusinessLogic.Putyovki.RaznoskaPoPutyovki;
 
 namespace KasabaKIAT.Controllers
 {
@@ -2101,16 +2104,197 @@ namespace KasabaKIAT.Controllers
 
         #endregion
 
+        #region Zakritiya Kavartala
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public ActionResult ZakritiyaKvartalaPoPutyovkam()
         {
             return View();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="idOrg"></param>
+        /// <returns></returns>
+        public JsonResult GetZakritiyaPutyovkas(long idOrg)
+        {
+            int UserId = Convert.ToInt32(User.Identity.Name);
+            var ustinfo = UserInfo.GetUserInfo(UserId);
+
+            try
+            {
+                var list = Vipl_PutDataManager.GetZakritiya(idOrg, ustinfo.DepartmentBase);
+
+                return Json(list, JsonRequestBehavior.AllowGet);
+            }
+            catch(Exception ex)
+            {
+                log.Error(ex.ToString());
+            }
+
+            return Json("fail", JsonRequestBehavior.AllowGet);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public JsonResult GetEmptyForAddZakritiye()
+        {
+            var zakr = new ZakritiyeKvartalaViewModel();
+
+            return Json(zakr, JsonRequestBehavior.AllowGet);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public JsonResult ZakritKvartal(ZakritiyeKvartalaViewModel model)
+        {
+            int UserId = Convert.ToInt32(User.Identity.Name);
+            var ustinfo = UserInfo.GetUserInfo(UserId);
+
+            try
+            {
+                //model
+                var zakrit = new ZakritKvartal4Putyovka();
+
+                zakrit.Process(model);
+
+                return Json("success", JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex.ToString());
+            }
+
+            return Json("fail", JsonRequestBehavior.AllowGet);
+        }
+
+        #endregion
+
+        #region Danniye o Vladelsev
+        
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public ActionResult DanniyeVladelsaxPutyovok()
         {
             return View();
         }
-        
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="beginDt"></param>
+        /// <param name="endDt"></param>
+        /// <param name="IdOrg"></param>
+        /// <returns></returns>
+        public JsonResult GetDanniyVladelsaPutyovki(DateTime beginDt, DateTime endDt, long IdOrg)
+        {
+            int UserId = Convert.ToInt32(User.Identity.Name);
+            var ustinfo = UserInfo.GetUserInfo(UserId);
+
+            var list = Vipl_PutDataManager.GetDetail4DanniyeVlad(beginDt, endDt, IdOrg, ustinfo.DepartmentBase);
+
+            return Json(list, JsonRequestBehavior.AllowGet);
+        }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="beginDt"></param>
+        /// <param name="endDt"></param>
+        /// <param name="IdOrg"></param>
+        /// <returns></returns>
+        public JsonResult GetDanniyVladelsaNakladnoy(DateTime beginDt, DateTime endDt, long IdOrg)
+        {
+            int UserId = Convert.ToInt32(User.Identity.Name);
+            var ustinfo = UserInfo.GetUserInfo(UserId);
+
+            var list = ViplMainDataManager.GetForEnterDanniyeVlad(beginDt, endDt, IdOrg, ustinfo.DepartmentBase);
+
+            return Json(list, JsonRequestBehavior.AllowGet);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="beginDt"></param>
+        /// <param name="endDt"></param>
+        /// <param name="IdOrg"></param>
+        /// <returns></returns>
+        public JsonResult GetDanniyTotal(DateTime beginDt, DateTime endDt, long IdOrg)
+        {
+            int UserId = Convert.ToInt32(User.Identity.Name);
+            var ustinfo = UserInfo.GetUserInfo(UserId);
+
+            var total = Vipl_PutDataManager.GetDetail4DanniyeVladTotal(beginDt, endDt, IdOrg, ustinfo.DepartmentBase);
+
+            return Json(total, JsonRequestBehavior.AllowGet);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public JsonResult GetEmptyForm(long IdPut)
+        {
+            var checklist = FaceDataManager.Get(new KasabaKiat.ViewModel.Putyovki.RaznoskaPutyovok.FaceViewModel()
+            {
+                id_put = IdPut
+            });
+
+            if (!checklist.Any())
+            {
+                var model = new RaznoskaGeneralViewModel();
+
+                return Json(model, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                var raznoska = new RaznoskaPutyovok();
+
+                var modelr = raznoska.FillById(IdPut);
+
+                return Json(modelr, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public JsonResult SaveChanges(RaznoskaGeneralViewModel model)
+        {
+            if (model == null) return Json("fail", JsonRequestBehavior.AllowGet);
+
+            int UserId = Convert.ToInt32(User.Identity.Name);
+            var ustinfo = UserInfo.GetUserInfo(UserId);
+
+            try
+            {
+                var raznoska = new RaznoskaPutyovok();
+
+                raznoska.SaveChanges(model);
+            }
+            catch(Exception ex)
+            {
+                log.Error(ex.ToString());
+            }
+
+            return Json("fail", JsonRequestBehavior.AllowGet);
+        }
+
+        #endregion
 
         #endregion
 

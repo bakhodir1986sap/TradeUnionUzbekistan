@@ -84,5 +84,26 @@ namespace KasabaKiat.BusinessLogic.Utils.References
 
             return list;
         }
+
+
+        public static List<Sprav_OsViewModel> Get()
+        {
+            List<Sprav_OsViewModel> list = null;
+
+            using (KasabaKIATEntities db = new KasabaKIATEntities())
+            {
+                var queryRes = from os in db.tblSprav_Os
+                               select new Sprav_OsViewModel
+                               {
+                                   Name_Os = os.Name_Os,
+                                   UserId = os.UserId
+                               };
+
+                list = queryRes.ToList();
+
+            }
+
+            return list;
+        }
     }
 }

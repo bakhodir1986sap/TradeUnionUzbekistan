@@ -103,5 +103,27 @@ namespace KasabaKiat.BusinessLogic.Utils.References
 
             return list;
         }
+
+
+        public static List<Sprav_SanViewModel> Get()
+        {
+            List<Sprav_SanViewModel> list = null;
+
+            using (KasabaKIATEntities db = new KasabaKIATEntities())
+            {
+                var queryRes = from sanatory in db.tblSprav_San
+                               select new Sprav_SanViewModel
+                               {
+                                   Name_San = sanatory.Name_San,
+                                   Num_Kod = sanatory.Num_Kod,
+                                   UserId = sanatory.UserId
+                               };
+
+                list = queryRes.ToList();
+
+            }
+
+            return list;
+        }
     }
 }

@@ -7,8 +7,15 @@ using System.Web;
 
 namespace KasabaKiat.BusinessLogic.Putyovki.RaznoskaPoPutyovki
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class FaceDataManager
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="model"></param>
         public static void Create(ref FaceViewModel model)
         {
             using (KasabaKIATEntities db = new KasabaKIATEntities())
@@ -39,17 +46,21 @@ namespace KasabaKiat.BusinessLogic.Putyovki.RaznoskaPoPutyovki
 
                 var fcc = db.tblFase.Add(fc);
 
-                model.id = fcc.ID;
-
                 db.SaveChanges();
+
+                model.id = fc.ID;
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="model"></param>
         public static void Update(FaceViewModel model)
         {
             using (KasabaKIATEntities db = new KasabaKIATEntities())
             {
-                var fc = db.tblFase.Where(z => z.ID == model.id);
+                var fc = db.tblFase.Where(z => z.ID_Put == model.id_put);
 
                 if (fc.Any())
                 {
@@ -84,6 +95,10 @@ namespace KasabaKiat.BusinessLogic.Putyovki.RaznoskaPoPutyovki
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="model"></param>
         public static void Remove(FaceViewModel model)
         {
             using (KasabaKIATEntities db = new KasabaKIATEntities())
@@ -104,13 +119,19 @@ namespace KasabaKiat.BusinessLogic.Putyovki.RaznoskaPoPutyovki
             }
         }
 
-        public static List<FaceViewModel> GetBron(FaceViewModel model)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public static List<FaceViewModel> Get(FaceViewModel model)
         {
             List<FaceViewModel> list = null;
 
             using (KasabaKIATEntities db = new KasabaKIATEntities())
             {
                 var query = from face in db.tblFase
+                            where face.ID_Put == model.id_put
                             select new FaceViewModel
                             {
                                 id              = face.ID           ,

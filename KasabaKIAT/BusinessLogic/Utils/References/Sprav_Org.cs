@@ -25,8 +25,8 @@ namespace KasabaKiat.BusinessLogic.Utils.References
                 org.Adress      = model.Adress      ;
                 org.Telefon     = model.Telefon     ;
                 org.Region      = model.Region      ;
-                org.DT_OST      = model.DT_OST      ;
-                org.KT_OST      = model.KT_OST      ;
+                org.DT_OST      = 0      ;
+                org.KT_OST      = 0      ;
                 org.E_Mail      = model.E_Mail      ;
                 org.UserId = model.UserId;
                 org.DepartmentBase = model.DepartmentBase;
@@ -78,10 +78,10 @@ namespace KasabaKiat.BusinessLogic.Utils.References
                         org1.Adress = model.Adress;
                         org1.Telefon = model.Telefon;
                         org1.Region = model.Region;
-                        org1.DT_OST = model.DT_OST;
-                        org1.KT_OST = model.KT_OST;
+                        //org1.DT_OST = model.DT_OST;
+                        //org1.KT_OST = model.KT_OST;
                         org1.E_Mail = model.E_Mail;
-                        org1.UserId = model.UserId;
+                        //org1.UserId = model.UserId;
                     }
                 }
 

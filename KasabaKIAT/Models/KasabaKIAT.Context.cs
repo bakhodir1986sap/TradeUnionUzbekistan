@@ -475,19 +475,6 @@ namespace KasabaKIAT.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<long>>("uspLogin", loginParameter, parolParameter);
         }
     
-        public virtual ObjectResult<sp_rt_FormaN13_Result> sp_rt_FormaN13(Nullable<int> aYear, string orgInn)
-        {
-            var aYearParameter = aYear.HasValue ?
-                new ObjectParameter("aYear", aYear) :
-                new ObjectParameter("aYear", typeof(int));
-    
-            var orgInnParameter = orgInn != null ?
-                new ObjectParameter("orgInn", orgInn) :
-                new ObjectParameter("orgInn", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_rt_FormaN13_Result>("sp_rt_FormaN13", aYearParameter, orgInnParameter);
-        }
-    
         public virtual ObjectResult<sp_rt_TalabnomaKorxona_Result> sp_rt_TalabnomaKorxona(Nullable<int> aYear, string orgInn)
         {
             var aYearParameter = aYear.HasValue ?
@@ -800,6 +787,428 @@ namespace KasabaKIAT.Models
                 new ObjectParameter("DEPARTMENT_BASE", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_rt_SvodniyOtchet_Result1>("sp_rt_SvodniyOtchet", beginDateParameter, endDateParameter, vilSoatoParameter, branchCodeParameter, dEPARTMENT_BASEParameter);
+        }
+    
+        public virtual ObjectResult<sp_rt_BalanciPredpriyatiy_Result1> sp_rt_BalanciPredpriyatiy(Nullable<System.DateTime> beginDate, Nullable<System.DateTime> endDate, string departmentBase)
+        {
+            var beginDateParameter = beginDate.HasValue ?
+                new ObjectParameter("beginDate", beginDate) :
+                new ObjectParameter("beginDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("endDate", endDate) :
+                new ObjectParameter("endDate", typeof(System.DateTime));
+    
+            var departmentBaseParameter = departmentBase != null ?
+                new ObjectParameter("DepartmentBase", departmentBase) :
+                new ObjectParameter("DepartmentBase", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_rt_BalanciPredpriyatiy_Result1>("sp_rt_BalanciPredpriyatiy", beginDateParameter, endDateParameter, departmentBaseParameter);
+        }
+    
+        public virtual ObjectResult<sp_rt_FormaN14_Result> sp_rt_FormaN14(Nullable<System.DateTime> beginDate, Nullable<System.DateTime> endDate, string departmentBase)
+        {
+            var beginDateParameter = beginDate.HasValue ?
+                new ObjectParameter("beginDate", beginDate) :
+                new ObjectParameter("beginDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("endDate", endDate) :
+                new ObjectParameter("endDate", typeof(System.DateTime));
+    
+            var departmentBaseParameter = departmentBase != null ?
+                new ObjectParameter("DepartmentBase", departmentBase) :
+                new ObjectParameter("DepartmentBase", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_rt_FormaN14_Result>("sp_rt_FormaN14", beginDateParameter, endDateParameter, departmentBaseParameter);
+        }
+    
+        public virtual ObjectResult<sp_rt_KartochkaOrganizasii_Result1> sp_rt_KartochkaOrganizasii(Nullable<long> orgInn, string departmentBase)
+        {
+            var orgInnParameter = orgInn.HasValue ?
+                new ObjectParameter("OrgInn", orgInn) :
+                new ObjectParameter("OrgInn", typeof(long));
+    
+            var departmentBaseParameter = departmentBase != null ?
+                new ObjectParameter("DepartmentBase", departmentBase) :
+                new ObjectParameter("DepartmentBase", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_rt_KartochkaOrganizasii_Result1>("sp_rt_KartochkaOrganizasii", orgInnParameter, departmentBaseParameter);
+        }
+    
+        public virtual ObjectResult<sp_rt_KartochkaOrganizasiiHistoriDtlPrixod_Result1> sp_rt_KartochkaOrganizasiiHistoriDtlPrixod(Nullable<long> idUnique, string departmentBase)
+        {
+            var idUniqueParameter = idUnique.HasValue ?
+                new ObjectParameter("IdUnique", idUnique) :
+                new ObjectParameter("IdUnique", typeof(long));
+    
+            var departmentBaseParameter = departmentBase != null ?
+                new ObjectParameter("DepartmentBase", departmentBase) :
+                new ObjectParameter("DepartmentBase", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_rt_KartochkaOrganizasiiHistoriDtlPrixod_Result1>("sp_rt_KartochkaOrganizasiiHistoriDtlPrixod", idUniqueParameter, departmentBaseParameter);
+        }
+    
+        public virtual ObjectResult<sp_rt_KartochkaOrganizasiiHistoriDtlRasxod_Result1> sp_rt_KartochkaOrganizasiiHistoriDtlRasxod(Nullable<long> idUnique, string departmentBase)
+        {
+            var idUniqueParameter = idUnique.HasValue ?
+                new ObjectParameter("IdUnique", idUnique) :
+                new ObjectParameter("IdUnique", typeof(long));
+    
+            var departmentBaseParameter = departmentBase != null ?
+                new ObjectParameter("DepartmentBase", departmentBase) :
+                new ObjectParameter("DepartmentBase", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_rt_KartochkaOrganizasiiHistoriDtlRasxod_Result1>("sp_rt_KartochkaOrganizasiiHistoriDtlRasxod", idUniqueParameter, departmentBaseParameter);
+        }
+    
+        public virtual ObjectResult<sp_rt_KartochkaOrganizasiiHistoriDtlVozvrat_Result1> sp_rt_KartochkaOrganizasiiHistoriDtlVozvrat(Nullable<long> idUnique, string departmentBase)
+        {
+            var idUniqueParameter = idUnique.HasValue ?
+                new ObjectParameter("IdUnique", idUnique) :
+                new ObjectParameter("IdUnique", typeof(long));
+    
+            var departmentBaseParameter = departmentBase != null ?
+                new ObjectParameter("DepartmentBase", departmentBase) :
+                new ObjectParameter("DepartmentBase", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_rt_KartochkaOrganizasiiHistoriDtlVozvrat_Result1>("sp_rt_KartochkaOrganizasiiHistoriDtlVozvrat", idUniqueParameter, departmentBaseParameter);
+        }
+    
+        public virtual ObjectResult<sp_rt_KartochkaOrganizasiiHistory_Result1> sp_rt_KartochkaOrganizasiiHistory(Nullable<long> idOrg, Nullable<System.DateTime> beginDate, Nullable<System.DateTime> endDate, string departmentBase)
+        {
+            var idOrgParameter = idOrg.HasValue ?
+                new ObjectParameter("IdOrg", idOrg) :
+                new ObjectParameter("IdOrg", typeof(long));
+    
+            var beginDateParameter = beginDate.HasValue ?
+                new ObjectParameter("beginDate", beginDate) :
+                new ObjectParameter("beginDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("endDate", endDate) :
+                new ObjectParameter("endDate", typeof(System.DateTime));
+    
+            var departmentBaseParameter = departmentBase != null ?
+                new ObjectParameter("DepartmentBase", departmentBase) :
+                new ObjectParameter("DepartmentBase", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_rt_KartochkaOrganizasiiHistory_Result1>("sp_rt_KartochkaOrganizasiiHistory", idOrgParameter, beginDateParameter, endDateParameter, departmentBaseParameter);
+        }
+    
+        public virtual ObjectResult<sp_rt_KartochkaOrganizasiiOplata_Result1> sp_rt_KartochkaOrganizasiiOplata(Nullable<long> idOrg, Nullable<System.DateTime> beginDate, Nullable<System.DateTime> endDate, string departmentBase)
+        {
+            var idOrgParameter = idOrg.HasValue ?
+                new ObjectParameter("IdOrg", idOrg) :
+                new ObjectParameter("IdOrg", typeof(long));
+    
+            var beginDateParameter = beginDate.HasValue ?
+                new ObjectParameter("beginDate", beginDate) :
+                new ObjectParameter("beginDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("endDate", endDate) :
+                new ObjectParameter("endDate", typeof(System.DateTime));
+    
+            var departmentBaseParameter = departmentBase != null ?
+                new ObjectParameter("DepartmentBase", departmentBase) :
+                new ObjectParameter("DepartmentBase", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_rt_KartochkaOrganizasiiOplata_Result1>("sp_rt_KartochkaOrganizasiiOplata", idOrgParameter, beginDateParameter, endDateParameter, departmentBaseParameter);
+        }
+    
+        public virtual ObjectResult<sp_rt_KartochkaOrganizasiiProcentRazbivka_Result1> sp_rt_KartochkaOrganizasiiProcentRazbivka(Nullable<long> idOrg, Nullable<System.DateTime> beginDate, Nullable<System.DateTime> endDate, string departmentBase)
+        {
+            var idOrgParameter = idOrg.HasValue ?
+                new ObjectParameter("IdOrg", idOrg) :
+                new ObjectParameter("IdOrg", typeof(long));
+    
+            var beginDateParameter = beginDate.HasValue ?
+                new ObjectParameter("beginDate", beginDate) :
+                new ObjectParameter("beginDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("endDate", endDate) :
+                new ObjectParameter("endDate", typeof(System.DateTime));
+    
+            var departmentBaseParameter = departmentBase != null ?
+                new ObjectParameter("DepartmentBase", departmentBase) :
+                new ObjectParameter("DepartmentBase", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_rt_KartochkaOrganizasiiProcentRazbivka_Result1>("sp_rt_KartochkaOrganizasiiProcentRazbivka", idOrgParameter, beginDateParameter, endDateParameter, departmentBaseParameter);
+        }
+    
+        public virtual ObjectResult<sp_rt_KartochkaOrganizasiiRasxod_Result1> sp_rt_KartochkaOrganizasiiRasxod(Nullable<long> idOrg, Nullable<System.DateTime> beginDate, Nullable<System.DateTime> endDate, string departmentBase)
+        {
+            var idOrgParameter = idOrg.HasValue ?
+                new ObjectParameter("IdOrg", idOrg) :
+                new ObjectParameter("IdOrg", typeof(long));
+    
+            var beginDateParameter = beginDate.HasValue ?
+                new ObjectParameter("beginDate", beginDate) :
+                new ObjectParameter("beginDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("endDate", endDate) :
+                new ObjectParameter("endDate", typeof(System.DateTime));
+    
+            var departmentBaseParameter = departmentBase != null ?
+                new ObjectParameter("DepartmentBase", departmentBase) :
+                new ObjectParameter("DepartmentBase", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_rt_KartochkaOrganizasiiRasxod_Result1>("sp_rt_KartochkaOrganizasiiRasxod", idOrgParameter, beginDateParameter, endDateParameter, departmentBaseParameter);
+        }
+    
+        public virtual ObjectResult<sp_rt_KartochkaOrganizasiiVozvrat_Result1> sp_rt_KartochkaOrganizasiiVozvrat(Nullable<long> idOrg, Nullable<System.DateTime> beginDate, Nullable<System.DateTime> endDate, string departmentBase)
+        {
+            var idOrgParameter = idOrg.HasValue ?
+                new ObjectParameter("IdOrg", idOrg) :
+                new ObjectParameter("IdOrg", typeof(long));
+    
+            var beginDateParameter = beginDate.HasValue ?
+                new ObjectParameter("beginDate", beginDate) :
+                new ObjectParameter("beginDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("endDate", endDate) :
+                new ObjectParameter("endDate", typeof(System.DateTime));
+    
+            var departmentBaseParameter = departmentBase != null ?
+                new ObjectParameter("DepartmentBase", departmentBase) :
+                new ObjectParameter("DepartmentBase", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_rt_KartochkaOrganizasiiVozvrat_Result1>("sp_rt_KartochkaOrganizasiiVozvrat", idOrgParameter, beginDateParameter, endDateParameter, departmentBaseParameter);
+        }
+    
+        public virtual ObjectResult<sp_rt_OperativkaPutyovki_Result1> sp_rt_OperativkaPutyovki(Nullable<System.DateTime> beginDate, Nullable<System.DateTime> endDate, string departmentBase)
+        {
+            var beginDateParameter = beginDate.HasValue ?
+                new ObjectParameter("beginDate", beginDate) :
+                new ObjectParameter("beginDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("endDate", endDate) :
+                new ObjectParameter("endDate", typeof(System.DateTime));
+    
+            var departmentBaseParameter = departmentBase != null ?
+                new ObjectParameter("DepartmentBase", departmentBase) :
+                new ObjectParameter("DepartmentBase", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_rt_OperativkaPutyovki_Result1>("sp_rt_OperativkaPutyovki", beginDateParameter, endDateParameter, departmentBaseParameter);
+        }
+    
+        public virtual ObjectResult<sp_rt_OperativkaPutyovkiOstatok_Result1> sp_rt_OperativkaPutyovkiOstatok(Nullable<System.DateTime> beginDate, Nullable<System.DateTime> endDate, Nullable<int> sanatID, string departmentBase)
+        {
+            var beginDateParameter = beginDate.HasValue ?
+                new ObjectParameter("beginDate", beginDate) :
+                new ObjectParameter("beginDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("endDate", endDate) :
+                new ObjectParameter("endDate", typeof(System.DateTime));
+    
+            var sanatIDParameter = sanatID.HasValue ?
+                new ObjectParameter("SanatID", sanatID) :
+                new ObjectParameter("SanatID", typeof(int));
+    
+            var departmentBaseParameter = departmentBase != null ?
+                new ObjectParameter("DepartmentBase", departmentBase) :
+                new ObjectParameter("DepartmentBase", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_rt_OperativkaPutyovkiOstatok_Result1>("sp_rt_OperativkaPutyovkiOstatok", beginDateParameter, endDateParameter, sanatIDParameter, departmentBaseParameter);
+        }
+    
+        public virtual ObjectResult<sp_rt_OperativkaPutyovkiPrixod_Result1> sp_rt_OperativkaPutyovkiPrixod(Nullable<System.DateTime> beginDate, Nullable<System.DateTime> endDate, Nullable<int> sanatID, string departmentBase)
+        {
+            var beginDateParameter = beginDate.HasValue ?
+                new ObjectParameter("beginDate", beginDate) :
+                new ObjectParameter("beginDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("endDate", endDate) :
+                new ObjectParameter("endDate", typeof(System.DateTime));
+    
+            var sanatIDParameter = sanatID.HasValue ?
+                new ObjectParameter("SanatID", sanatID) :
+                new ObjectParameter("SanatID", typeof(int));
+    
+            var departmentBaseParameter = departmentBase != null ?
+                new ObjectParameter("DepartmentBase", departmentBase) :
+                new ObjectParameter("DepartmentBase", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_rt_OperativkaPutyovkiPrixod_Result1>("sp_rt_OperativkaPutyovkiPrixod", beginDateParameter, endDateParameter, sanatIDParameter, departmentBaseParameter);
+        }
+    
+        public virtual ObjectResult<sp_rt_OperativkaPutyovkiRasxod_Result1> sp_rt_OperativkaPutyovkiRasxod(Nullable<System.DateTime> beginDate, Nullable<System.DateTime> endDate, Nullable<int> sanatID, string departmentBase)
+        {
+            var beginDateParameter = beginDate.HasValue ?
+                new ObjectParameter("beginDate", beginDate) :
+                new ObjectParameter("beginDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("endDate", endDate) :
+                new ObjectParameter("endDate", typeof(System.DateTime));
+    
+            var sanatIDParameter = sanatID.HasValue ?
+                new ObjectParameter("SanatID", sanatID) :
+                new ObjectParameter("SanatID", typeof(int));
+    
+            var departmentBaseParameter = departmentBase != null ?
+                new ObjectParameter("DepartmentBase", departmentBase) :
+                new ObjectParameter("DepartmentBase", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_rt_OperativkaPutyovkiRasxod_Result1>("sp_rt_OperativkaPutyovkiRasxod", beginDateParameter, endDateParameter, sanatIDParameter, departmentBaseParameter);
+        }
+    
+        public virtual ObjectResult<sp_rt_OperativkaPutyovkiVozvrat_Result1> sp_rt_OperativkaPutyovkiVozvrat(Nullable<System.DateTime> beginDate, Nullable<System.DateTime> endDate, Nullable<int> sanatID, string departmentBase)
+        {
+            var beginDateParameter = beginDate.HasValue ?
+                new ObjectParameter("beginDate", beginDate) :
+                new ObjectParameter("beginDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("endDate", endDate) :
+                new ObjectParameter("endDate", typeof(System.DateTime));
+    
+            var sanatIDParameter = sanatID.HasValue ?
+                new ObjectParameter("SanatID", sanatID) :
+                new ObjectParameter("SanatID", typeof(int));
+    
+            var departmentBaseParameter = departmentBase != null ?
+                new ObjectParameter("DepartmentBase", departmentBase) :
+                new ObjectParameter("DepartmentBase", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_rt_OperativkaPutyovkiVozvrat_Result1>("sp_rt_OperativkaPutyovkiVozvrat", beginDateParameter, endDateParameter, sanatIDParameter, departmentBaseParameter);
+        }
+    
+        public virtual ObjectResult<sp_rt_OtchetMedRegRabotnikov_Result> sp_rt_OtchetMedRegRabotnikov(Nullable<long> idOrg, Nullable<System.DateTime> beginDate, Nullable<System.DateTime> endDate, string departmentBase)
+        {
+            var idOrgParameter = idOrg.HasValue ?
+                new ObjectParameter("IdOrg", idOrg) :
+                new ObjectParameter("IdOrg", typeof(long));
+    
+            var beginDateParameter = beginDate.HasValue ?
+                new ObjectParameter("beginDate", beginDate) :
+                new ObjectParameter("beginDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("endDate", endDate) :
+                new ObjectParameter("endDate", typeof(System.DateTime));
+    
+            var departmentBaseParameter = departmentBase != null ?
+                new ObjectParameter("DepartmentBase", departmentBase) :
+                new ObjectParameter("DepartmentBase", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_rt_OtchetMedRegRabotnikov_Result>("sp_rt_OtchetMedRegRabotnikov", idOrgParameter, beginDateParameter, endDateParameter, departmentBaseParameter);
+        }
+    
+        public virtual ObjectResult<sp_rt_OtchetUchetStoimostiVidachi_Result> sp_rt_OtchetUchetStoimostiVidachi(Nullable<System.DateTime> beginDate, Nullable<System.DateTime> endDate, string departmentBase)
+        {
+            var beginDateParameter = beginDate.HasValue ?
+                new ObjectParameter("beginDate", beginDate) :
+                new ObjectParameter("beginDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("endDate", endDate) :
+                new ObjectParameter("endDate", typeof(System.DateTime));
+    
+            var departmentBaseParameter = departmentBase != null ?
+                new ObjectParameter("DepartmentBase", departmentBase) :
+                new ObjectParameter("DepartmentBase", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_rt_OtchetUchetStoimostiVidachi_Result>("sp_rt_OtchetUchetStoimostiVidachi", beginDateParameter, endDateParameter, departmentBaseParameter);
+        }
+    
+        public virtual ObjectResult<sp_rt_SvodniyPoPutyovkam_Result1> sp_rt_SvodniyPoPutyovkam(Nullable<int> year, Nullable<int> kvartal, Nullable<int> otras, string departmentBase)
+        {
+            var yearParameter = year.HasValue ?
+                new ObjectParameter("Year", year) :
+                new ObjectParameter("Year", typeof(int));
+    
+            var kvartalParameter = kvartal.HasValue ?
+                new ObjectParameter("Kvartal", kvartal) :
+                new ObjectParameter("Kvartal", typeof(int));
+    
+            var otrasParameter = otras.HasValue ?
+                new ObjectParameter("Otras", otras) :
+                new ObjectParameter("Otras", typeof(int));
+    
+            var departmentBaseParameter = departmentBase != null ?
+                new ObjectParameter("DepartmentBase", departmentBase) :
+                new ObjectParameter("DepartmentBase", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_rt_SvodniyPoPutyovkam_Result1>("sp_rt_SvodniyPoPutyovkam", yearParameter, kvartalParameter, otrasParameter, departmentBaseParameter);
+        }
+    
+        public virtual ObjectResult<sp_rt_UchetVladelsevPutyovok_Result> sp_rt_UchetVladelsevPutyovok(Nullable<System.DateTime> beginDate, Nullable<System.DateTime> endDate, string departmentBase)
+        {
+            var beginDateParameter = beginDate.HasValue ?
+                new ObjectParameter("beginDate", beginDate) :
+                new ObjectParameter("beginDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("endDate", endDate) :
+                new ObjectParameter("endDate", typeof(System.DateTime));
+    
+            var departmentBaseParameter = departmentBase != null ?
+                new ObjectParameter("DepartmentBase", departmentBase) :
+                new ObjectParameter("DepartmentBase", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_rt_UchetVladelsevPutyovok_Result>("sp_rt_UchetVladelsevPutyovok", beginDateParameter, endDateParameter, departmentBaseParameter);
+        }
+    
+        public virtual ObjectResult<sp_rt_Zapros_Putyovki_Result1> sp_rt_Zapros_Putyovki(Nullable<System.DateTime> beginDate, Nullable<System.DateTime> endDate, Nullable<long> iD_ORG, Nullable<long> iD_SANAT, string lASTNAME, string nUM_PUT, Nullable<int> pOL, string departmentBase)
+        {
+            var beginDateParameter = beginDate.HasValue ?
+                new ObjectParameter("beginDate", beginDate) :
+                new ObjectParameter("beginDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("endDate", endDate) :
+                new ObjectParameter("endDate", typeof(System.DateTime));
+    
+            var iD_ORGParameter = iD_ORG.HasValue ?
+                new ObjectParameter("ID_ORG", iD_ORG) :
+                new ObjectParameter("ID_ORG", typeof(long));
+    
+            var iD_SANATParameter = iD_SANAT.HasValue ?
+                new ObjectParameter("ID_SANAT", iD_SANAT) :
+                new ObjectParameter("ID_SANAT", typeof(long));
+    
+            var lASTNAMEParameter = lASTNAME != null ?
+                new ObjectParameter("LASTNAME", lASTNAME) :
+                new ObjectParameter("LASTNAME", typeof(string));
+    
+            var nUM_PUTParameter = nUM_PUT != null ?
+                new ObjectParameter("NUM_PUT", nUM_PUT) :
+                new ObjectParameter("NUM_PUT", typeof(string));
+    
+            var pOLParameter = pOL.HasValue ?
+                new ObjectParameter("POL", pOL) :
+                new ObjectParameter("POL", typeof(int));
+    
+            var departmentBaseParameter = departmentBase != null ?
+                new ObjectParameter("DepartmentBase", departmentBase) :
+                new ObjectParameter("DepartmentBase", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_rt_Zapros_Putyovki_Result1>("sp_rt_Zapros_Putyovki", beginDateParameter, endDateParameter, iD_ORGParameter, iD_SANATParameter, lASTNAMEParameter, nUM_PUTParameter, pOLParameter, departmentBaseParameter);
+        }
+    
+        public virtual ObjectResult<sp_rt_FormaN13_Result1> sp_rt_FormaN13(Nullable<int> aYear, string orgInn, string departmentBase)
+        {
+            var aYearParameter = aYear.HasValue ?
+                new ObjectParameter("aYear", aYear) :
+                new ObjectParameter("aYear", typeof(int));
+    
+            var orgInnParameter = orgInn != null ?
+                new ObjectParameter("orgInn", orgInn) :
+                new ObjectParameter("orgInn", typeof(string));
+    
+            var departmentBaseParameter = departmentBase != null ?
+                new ObjectParameter("DepartmentBase", departmentBase) :
+                new ObjectParameter("DepartmentBase", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_rt_FormaN13_Result1>("sp_rt_FormaN13", aYearParameter, orgInnParameter, departmentBaseParameter);
         }
     }
 }

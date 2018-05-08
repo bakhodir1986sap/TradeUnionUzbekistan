@@ -465,10 +465,112 @@
     <Compile Include="Models\sp_pr_GetNewTransactions_Result.cs">
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\sp_rt_BalanciPredpriyatiy_Result.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_rt_BalanciPredpriyatiy_Result1.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\sp_rt_FormaN13_Result.cs">
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\sp_rt_FormaN13_Result1.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_rt_FormaN14_Result.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\sp_rt_GetOrganization_Result.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_rt_KartochkaOrganizasiiHistoriDtlPrixod_Result.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_rt_KartochkaOrganizasiiHistoriDtlPrixod_Result1.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_rt_KartochkaOrganizasiiHistoriDtlRasxod_Result.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_rt_KartochkaOrganizasiiHistoriDtlRasxod_Result1.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_rt_KartochkaOrganizasiiHistoriDtlVozvrat_Result.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_rt_KartochkaOrganizasiiHistoriDtlVozvrat_Result1.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_rt_KartochkaOrganizasiiHistory_Result.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_rt_KartochkaOrganizasiiHistory_Result1.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_rt_KartochkaOrganizasiiOplata_Result.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_rt_KartochkaOrganizasiiOplata_Result1.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_rt_KartochkaOrganizasiiProcentRazbivka_Result.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_rt_KartochkaOrganizasiiProcentRazbivka_Result1.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_rt_KartochkaOrganizasiiRasxod_Result.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_rt_KartochkaOrganizasiiRasxod_Result1.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_rt_KartochkaOrganizasiiVozvrat_Result.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_rt_KartochkaOrganizasiiVozvrat_Result1.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_rt_KartochkaOrganizasii_Result.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_rt_KartochkaOrganizasii_Result1.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_rt_OperativkaPutyovkiOstatok_Result.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_rt_OperativkaPutyovkiOstatok_Result1.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_rt_OperativkaPutyovkiPrixod_Result.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_rt_OperativkaPutyovkiPrixod_Result1.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_rt_OperativkaPutyovkiRasxod_Result.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_rt_OperativkaPutyovkiRasxod_Result1.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_rt_OperativkaPutyovkiVozvrat_Result.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_rt_OperativkaPutyovkiVozvrat_Result1.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_rt_OperativkaPutyovki_Result.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_rt_OperativkaPutyovki_Result1.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_rt_OtchetMedRegRabotnikov_Result.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_rt_OtchetUchetStoimostiVidachi_Result.cs">
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\sp_rt_Postupleniya_Result.cs">
@@ -519,6 +621,12 @@
     <Compile Include="Models\sp_rt_SvodniyOtchet_Result1.cs">
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\sp_rt_SvodniyPoPutyovkam_Result.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_rt_SvodniyPoPutyovkam_Result1.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\sp_rt_TalabnomaKorxona_Result.cs">
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
@@ -526,6 +634,15 @@
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\sp_rt_TalabnomaViloyat_Result.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_rt_UchetVladelsevPutyovok_Result.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_rt_Zapros_Putyovki_Result.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_rt_Zapros_Putyovki_Result1.cs">
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\sp_rt_ZayavkiList_Result.cs">

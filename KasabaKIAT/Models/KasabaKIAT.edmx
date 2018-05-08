@@ -5617,6 +5617,22 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="DamerauLevenschtein" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int">
+          <Parameter Name="SourceString" Type="nvarchar" Mode="In" />
+          <Parameter Name="TargetString" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="LevenschteinDifference" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int">
+          <Parameter Name="FirstString" Type="nvarchar" Mode="In" />
+          <Parameter Name="SecondString" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="LEVENSHTEIN" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int">
+          <Parameter Name="SourceString" Type="nvarchar" Mode="In" />
+          <Parameter Name="TargetString" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="Levenshtein_Distance" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int">
+          <Parameter Name="Source" Type="nvarchar" Mode="In" />
+          <Parameter Name="Target" Type="nvarchar" Mode="In" />
+        </Function>
         <Function Name="sp_get_BankPaymentCompanyMonthly" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="inn" Type="nvarchar" Mode="In" />
           <Parameter Name="year" Type="int" Mode="In" />
@@ -5721,14 +5737,111 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
         </Function>
         <Function Name="sp_im_KaznaNewOrg" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="sp_pr_GetNewTransactions" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="sp_rt_BalanciPredpriyatiy" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="beginDate" Type="datetime" Mode="In" />
+          <Parameter Name="endDate" Type="datetime" Mode="In" />
+          <Parameter Name="DepartmentBase" Type="varchar" Mode="In" />
+        </Function>
         <Function Name="sp_rt_FormaN13" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="aYear" Type="int" Mode="In" />
           <Parameter Name="orgInn" Type="nvarchar" Mode="In" />
+          <Parameter Name="DepartmentBase" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="sp_rt_FormaN14" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="beginDate" Type="datetime" Mode="In" />
+          <Parameter Name="endDate" Type="datetime" Mode="In" />
+          <Parameter Name="DepartmentBase" Type="varchar" Mode="In" />
         </Function>
         <Function Name="sp_rt_GetOrganization" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="DEPARTMENT_BASE" Type="nvarchar" Mode="In" />
           <Parameter Name="INN" Type="nvarchar" Mode="In" />
           <Parameter Name="ORG_NAME" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="sp_rt_KartochkaOrganizasii" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="OrgInn" Type="bigint" Mode="In" />
+          <Parameter Name="DepartmentBase" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="sp_rt_KartochkaOrganizasiiHistoriDtlPrixod" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdUnique" Type="bigint" Mode="In" />
+          <Parameter Name="DepartmentBase" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="sp_rt_KartochkaOrganizasiiHistoriDtlRasxod" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdUnique" Type="bigint" Mode="In" />
+          <Parameter Name="DepartmentBase" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="sp_rt_KartochkaOrganizasiiHistoriDtlVozvrat" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdUnique" Type="bigint" Mode="In" />
+          <Parameter Name="DepartmentBase" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="sp_rt_KartochkaOrganizasiiHistory" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdOrg" Type="bigint" Mode="In" />
+          <Parameter Name="beginDate" Type="datetime" Mode="In" />
+          <Parameter Name="endDate" Type="datetime" Mode="In" />
+          <Parameter Name="DepartmentBase" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="sp_rt_KartochkaOrganizasiiOplata" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdOrg" Type="bigint" Mode="In" />
+          <Parameter Name="beginDate" Type="datetime" Mode="In" />
+          <Parameter Name="endDate" Type="datetime" Mode="In" />
+          <Parameter Name="DepartmentBase" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="sp_rt_KartochkaOrganizasiiProcentRazbivka" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdOrg" Type="bigint" Mode="In" />
+          <Parameter Name="beginDate" Type="datetime" Mode="In" />
+          <Parameter Name="endDate" Type="datetime" Mode="In" />
+          <Parameter Name="DepartmentBase" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="sp_rt_KartochkaOrganizasiiRasxod" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdOrg" Type="bigint" Mode="In" />
+          <Parameter Name="beginDate" Type="datetime" Mode="In" />
+          <Parameter Name="endDate" Type="datetime" Mode="In" />
+          <Parameter Name="DepartmentBase" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="sp_rt_KartochkaOrganizasiiVozvrat" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdOrg" Type="bigint" Mode="In" />
+          <Parameter Name="beginDate" Type="datetime" Mode="In" />
+          <Parameter Name="endDate" Type="datetime" Mode="In" />
+          <Parameter Name="DepartmentBase" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="sp_rt_OperativkaPutyovki" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="beginDate" Type="datetime" Mode="In" />
+          <Parameter Name="endDate" Type="datetime" Mode="In" />
+          <Parameter Name="DepartmentBase" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="sp_rt_OperativkaPutyovkiOstatok" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="beginDate" Type="datetime" Mode="In" />
+          <Parameter Name="endDate" Type="datetime" Mode="In" />
+          <Parameter Name="SanatID" Type="int" Mode="In" />
+          <Parameter Name="DepartmentBase" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="sp_rt_OperativkaPutyovkiPrixod" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="beginDate" Type="datetime" Mode="In" />
+          <Parameter Name="endDate" Type="datetime" Mode="In" />
+          <Parameter Name="SanatID" Type="int" Mode="In" />
+          <Parameter Name="DepartmentBase" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="sp_rt_OperativkaPutyovkiRasxod" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="beginDate" Type="datetime" Mode="In" />
+          <Parameter Name="endDate" Type="datetime" Mode="In" />
+          <Parameter Name="SanatID" Type="int" Mode="In" />
+          <Parameter Name="DepartmentBase" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="sp_rt_OperativkaPutyovkiVozvrat" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="beginDate" Type="datetime" Mode="In" />
+          <Parameter Name="endDate" Type="datetime" Mode="In" />
+          <Parameter Name="SanatID" Type="int" Mode="In" />
+          <Parameter Name="DepartmentBase" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="sp_rt_OtchetMedRegRabotnikov" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdOrg" Type="bigint" Mode="In" />
+          <Parameter Name="beginDate" Type="datetime" Mode="In" />
+          <Parameter Name="endDate" Type="datetime" Mode="In" />
+          <Parameter Name="DepartmentBase" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="sp_rt_OtchetUchetStoimostiVidachi" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="beginDate" Type="datetime" Mode="In" />
+          <Parameter Name="endDate" Type="datetime" Mode="In" />
+          <Parameter Name="DepartmentBase" Type="varchar" Mode="In" />
         </Function>
         <Function Name="sp_rt_Postupleniya" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="INN" Type="nvarchar" Mode="In" />
@@ -5776,6 +5889,12 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <Parameter Name="BranchCode" Type="nvarchar" Mode="In" />
           <Parameter Name="DEPARTMENT_BASE" Type="nvarchar" Mode="In" />
         </Function>
+        <Function Name="sp_rt_SvodniyPoPutyovkam" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Year" Type="int" Mode="In" />
+          <Parameter Name="Kvartal" Type="int" Mode="In" />
+          <Parameter Name="Otras" Type="int" Mode="In" />
+          <Parameter Name="DepartmentBase" Type="varchar" Mode="In" />
+        </Function>
         <Function Name="sp_rt_TalabnomaKorxona" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="aYear" Type="int" Mode="In" />
           <Parameter Name="orgInn" Type="nvarchar" Mode="In" />
@@ -5788,6 +5907,21 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
         <Function Name="sp_rt_TalabnomaViloyat" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="aYear" Type="int" Mode="In" />
           <Parameter Name="VilSoato" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="sp_rt_UchetVladelsevPutyovok" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="beginDate" Type="datetime" Mode="In" />
+          <Parameter Name="endDate" Type="datetime" Mode="In" />
+          <Parameter Name="DepartmentBase" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="sp_rt_Zapros_Putyovki" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="beginDate" Type="datetime" Mode="In" />
+          <Parameter Name="endDate" Type="datetime" Mode="In" />
+          <Parameter Name="ID_ORG" Type="bigint" Mode="In" />
+          <Parameter Name="ID_SANAT" Type="bigint" Mode="In" />
+          <Parameter Name="LASTNAME" Type="nvarchar" Mode="In" />
+          <Parameter Name="NUM_PUT" Type="varchar" Mode="In" />
+          <Parameter Name="POL" Type="int" Mode="In" />
+          <Parameter Name="DepartmentBase" Type="varchar" Mode="In" />
         </Function>
         <Function Name="sp_rt_ZayavkiList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="INN" Type="int" Mode="In" />
@@ -13179,10 +13313,6 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
             <Parameter Name="login" Mode="In" Type="String" />
             <Parameter Name="parol" Mode="In" Type="String" />
           </FunctionImport>
-          <FunctionImport Name="sp_rt_FormaN13" ReturnType="Collection(KasabaKIATModel.sp_rt_FormaN13_Result)">
-            <Parameter Name="aYear" Mode="In" Type="Int32" />
-            <Parameter Name="orgInn" Mode="In" Type="String" />
-          </FunctionImport>
           <FunctionImport Name="sp_rt_TalabnomaKorxona" ReturnType="Collection(KasabaKIATModel.sp_rt_TalabnomaKorxona_Result)">
             <Parameter Name="aYear" Mode="In" Type="Int32" />
             <Parameter Name="orgInn" Mode="In" Type="String" />
@@ -13361,6 +13491,128 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
             <End Role="users" EntitySet="users" />
             <End Role="tblVozVrat" EntitySet="tblVozVrats" />
           </AssociationSet>
+          <FunctionImport Name="sp_rt_BalanciPredpriyatiy" ReturnType="Collection(KasabaKIATModel.sp_rt_BalanciPredpriyatiy_Result1)">
+            <Parameter Name="beginDate" Mode="In" Type="DateTime" />
+            <Parameter Name="endDate" Mode="In" Type="DateTime" />
+            <Parameter Name="DepartmentBase" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_rt_FormaN14" ReturnType="Collection(KasabaKIATModel.sp_rt_FormaN14_Result)">
+            <Parameter Name="beginDate" Mode="In" Type="DateTime" />
+            <Parameter Name="endDate" Mode="In" Type="DateTime" />
+            <Parameter Name="DepartmentBase" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_rt_KartochkaOrganizasii" ReturnType="Collection(KasabaKIATModel.sp_rt_KartochkaOrganizasii_Result1)">
+            <Parameter Name="OrgInn" Mode="In" Type="Int64" />
+            <Parameter Name="DepartmentBase" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_rt_KartochkaOrganizasiiHistoriDtlPrixod" ReturnType="Collection(KasabaKIATModel.sp_rt_KartochkaOrganizasiiHistoriDtlPrixod_Result1)">
+            <Parameter Name="IdUnique" Mode="In" Type="Int64" />
+            <Parameter Name="DepartmentBase" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_rt_KartochkaOrganizasiiHistoriDtlRasxod" ReturnType="Collection(KasabaKIATModel.sp_rt_KartochkaOrganizasiiHistoriDtlRasxod_Result1)">
+            <Parameter Name="IdUnique" Mode="In" Type="Int64" />
+            <Parameter Name="DepartmentBase" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_rt_KartochkaOrganizasiiHistoriDtlVozvrat" ReturnType="Collection(KasabaKIATModel.sp_rt_KartochkaOrganizasiiHistoriDtlVozvrat_Result1)">
+            <Parameter Name="IdUnique" Mode="In" Type="Int64" />
+            <Parameter Name="DepartmentBase" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_rt_KartochkaOrganizasiiHistory" ReturnType="Collection(KasabaKIATModel.sp_rt_KartochkaOrganizasiiHistory_Result1)">
+            <Parameter Name="IdOrg" Mode="In" Type="Int64" />
+            <Parameter Name="beginDate" Mode="In" Type="DateTime" />
+            <Parameter Name="endDate" Mode="In" Type="DateTime" />
+            <Parameter Name="DepartmentBase" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_rt_KartochkaOrganizasiiOplata" ReturnType="Collection(KasabaKIATModel.sp_rt_KartochkaOrganizasiiOplata_Result1)">
+            <Parameter Name="IdOrg" Mode="In" Type="Int64" />
+            <Parameter Name="beginDate" Mode="In" Type="DateTime" />
+            <Parameter Name="endDate" Mode="In" Type="DateTime" />
+            <Parameter Name="DepartmentBase" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_rt_KartochkaOrganizasiiProcentRazbivka" ReturnType="Collection(KasabaKIATModel.sp_rt_KartochkaOrganizasiiProcentRazbivka_Result1)">
+            <Parameter Name="IdOrg" Mode="In" Type="Int64" />
+            <Parameter Name="beginDate" Mode="In" Type="DateTime" />
+            <Parameter Name="endDate" Mode="In" Type="DateTime" />
+            <Parameter Name="DepartmentBase" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_rt_KartochkaOrganizasiiRasxod" ReturnType="Collection(KasabaKIATModel.sp_rt_KartochkaOrganizasiiRasxod_Result1)">
+            <Parameter Name="IdOrg" Mode="In" Type="Int64" />
+            <Parameter Name="beginDate" Mode="In" Type="DateTime" />
+            <Parameter Name="endDate" Mode="In" Type="DateTime" />
+            <Parameter Name="DepartmentBase" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_rt_KartochkaOrganizasiiVozvrat" ReturnType="Collection(KasabaKIATModel.sp_rt_KartochkaOrganizasiiVozvrat_Result1)">
+            <Parameter Name="IdOrg" Mode="In" Type="Int64" />
+            <Parameter Name="beginDate" Mode="In" Type="DateTime" />
+            <Parameter Name="endDate" Mode="In" Type="DateTime" />
+            <Parameter Name="DepartmentBase" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_rt_OperativkaPutyovki" ReturnType="Collection(KasabaKIATModel.sp_rt_OperativkaPutyovki_Result1)">
+            <Parameter Name="beginDate" Mode="In" Type="DateTime" />
+            <Parameter Name="endDate" Mode="In" Type="DateTime" />
+            <Parameter Name="DepartmentBase" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_rt_OperativkaPutyovkiOstatok" ReturnType="Collection(KasabaKIATModel.sp_rt_OperativkaPutyovkiOstatok_Result1)">
+            <Parameter Name="beginDate" Mode="In" Type="DateTime" />
+            <Parameter Name="endDate" Mode="In" Type="DateTime" />
+            <Parameter Name="SanatID" Mode="In" Type="Int32" />
+            <Parameter Name="DepartmentBase" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_rt_OperativkaPutyovkiPrixod" ReturnType="Collection(KasabaKIATModel.sp_rt_OperativkaPutyovkiPrixod_Result1)">
+            <Parameter Name="beginDate" Mode="In" Type="DateTime" />
+            <Parameter Name="endDate" Mode="In" Type="DateTime" />
+            <Parameter Name="SanatID" Mode="In" Type="Int32" />
+            <Parameter Name="DepartmentBase" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_rt_OperativkaPutyovkiRasxod" ReturnType="Collection(KasabaKIATModel.sp_rt_OperativkaPutyovkiRasxod_Result1)">
+            <Parameter Name="beginDate" Mode="In" Type="DateTime" />
+            <Parameter Name="endDate" Mode="In" Type="DateTime" />
+            <Parameter Name="SanatID" Mode="In" Type="Int32" />
+            <Parameter Name="DepartmentBase" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_rt_OperativkaPutyovkiVozvrat" ReturnType="Collection(KasabaKIATModel.sp_rt_OperativkaPutyovkiVozvrat_Result1)">
+            <Parameter Name="beginDate" Mode="In" Type="DateTime" />
+            <Parameter Name="endDate" Mode="In" Type="DateTime" />
+            <Parameter Name="SanatID" Mode="In" Type="Int32" />
+            <Parameter Name="DepartmentBase" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_rt_OtchetMedRegRabotnikov" ReturnType="Collection(KasabaKIATModel.sp_rt_OtchetMedRegRabotnikov_Result)">
+            <Parameter Name="IdOrg" Mode="In" Type="Int64" />
+            <Parameter Name="beginDate" Mode="In" Type="DateTime" />
+            <Parameter Name="endDate" Mode="In" Type="DateTime" />
+            <Parameter Name="DepartmentBase" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_rt_OtchetUchetStoimostiVidachi" ReturnType="Collection(KasabaKIATModel.sp_rt_OtchetUchetStoimostiVidachi_Result)">
+            <Parameter Name="beginDate" Mode="In" Type="DateTime" />
+            <Parameter Name="endDate" Mode="In" Type="DateTime" />
+            <Parameter Name="DepartmentBase" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_rt_SvodniyPoPutyovkam" ReturnType="Collection(KasabaKIATModel.sp_rt_SvodniyPoPutyovkam_Result1)">
+            <Parameter Name="Year" Mode="In" Type="Int32" />
+            <Parameter Name="Kvartal" Mode="In" Type="Int32" />
+            <Parameter Name="Otras" Mode="In" Type="Int32" />
+            <Parameter Name="DepartmentBase" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_rt_UchetVladelsevPutyovok" ReturnType="Collection(KasabaKIATModel.sp_rt_UchetVladelsevPutyovok_Result)">
+            <Parameter Name="beginDate" Mode="In" Type="DateTime" />
+            <Parameter Name="endDate" Mode="In" Type="DateTime" />
+            <Parameter Name="DepartmentBase" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_rt_Zapros_Putyovki" ReturnType="Collection(KasabaKIATModel.sp_rt_Zapros_Putyovki_Result1)">
+            <Parameter Name="beginDate" Mode="In" Type="DateTime" />
+            <Parameter Name="endDate" Mode="In" Type="DateTime" />
+            <Parameter Name="ID_ORG" Mode="In" Type="Int64" />
+            <Parameter Name="ID_SANAT" Mode="In" Type="Int64" />
+            <Parameter Name="LASTNAME" Mode="In" Type="String" />
+            <Parameter Name="NUM_PUT" Mode="In" Type="String" />
+            <Parameter Name="POL" Mode="In" Type="Int32" />
+            <Parameter Name="DepartmentBase" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_rt_FormaN13" ReturnType="Collection(KasabaKIATModel.sp_rt_FormaN13_Result1)">
+            <Parameter Name="aYear" Mode="In" Type="Int32" />
+            <Parameter Name="orgInn" Mode="In" Type="String" />
+            <Parameter Name="DepartmentBase" Mode="In" Type="String" />
+          </FunctionImport>
           </EntityContainer>
         <ComplexType Name="sp_get_BankPaymentCompanyYearlyQ_Result">
           <Property Type="Int32" Name="MONTH_NUM" Nullable="true" />
@@ -14371,6 +14623,430 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <ComplexType Name="sp_rt_KartochkaOrganizasii_Result">
+          <Property Type="String" Name="Name_Org" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="NameReg" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="MFO" Nullable="true" MaxLength="5" />
+          <Property Type="String" Name="Adress" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Telefon" Nullable="true" MaxLength="70" />
+          <Property Type="String" Name="RS" Nullable="true" MaxLength="20" />
+          <Property Type="Int32" Name="DT_OST" Nullable="true" />
+          <Property Type="Int32" Name="KT_OST" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="sp_rt_KartochkaOrganizasiiHistoriDtlPrixod_Result">
+          <Property Type="DateTime" Name="Data_Post" Nullable="true" Precision="23" />
+          <Property Type="String" Name="Name_San" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Num_Put" Nullable="true" MaxLength="10" />
+        </ComplexType>
+        <ComplexType Name="sp_rt_KartochkaOrganizasiiHistoriDtlRasxod_Result">
+          <Property Type="DateTime" Name="Data_Post" Nullable="true" Precision="23" />
+          <Property Type="String" Name="Name_San" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Num_Put" Nullable="true" MaxLength="10" />
+        </ComplexType>
+        <ComplexType Name="sp_rt_KartochkaOrganizasiiHistoriDtlVozvrat_Result">
+          <Property Type="DateTime" Name="Data_Post" Nullable="false" Precision="23" />
+          <Property Type="String" Name="Name_San" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Num_Put" Nullable="true" MaxLength="15" />
+        </ComplexType>
+        <ComplexType Name="sp_rt_KartochkaOrganizasiiHistory_Result">
+          <Property Type="String" Name="TipDokumenta" Nullable="false" MaxLength="9" />
+          <Property Type="DateTime" Name="DataDocumenta" Nullable="true" Precision="23" />
+          <Property Type="String" Name="DocumentNumber" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Doverennost" Nullable="true" MaxLength="500" />
+          <Property Type="Decimal" Name="Summa" Nullable="true" Precision="19" />
+          <Property Type="Int64" Name="UniQueId" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="sp_rt_KartochkaOrganizasiiOplata_Result">
+          <Property Type="Int64" Name="ID_Otras" Nullable="true" />
+          <Property Type="Int32" Name="KolVo" Nullable="true" />
+          <Property Type="Decimal" Name="NaSummu" Nullable="true" Precision="19" />
+        </ComplexType>
+        <ComplexType Name="sp_rt_KartochkaOrganizasiiProcentRazbivka_Result">
+          <Property Type="String" Name="Name_Proc" Nullable="true" MaxLength="5" />
+          <Property Type="Int32" Name="KolVo" Nullable="true" />
+          <Property Type="Decimal" Name="NaSummu" Nullable="true" Precision="19" />
+        </ComplexType>
+        <ComplexType Name="sp_rt_KartochkaOrganizasiiRasxod_Result">
+          <Property Type="Int64" Name="ID_Org" Nullable="true" />
+          <Property Type="Int32" Name="KolVo" Nullable="true" />
+          <Property Type="Decimal" Name="NaSummu" Nullable="true" Precision="19" />
+        </ComplexType>
+        <ComplexType Name="sp_rt_KartochkaOrganizasiiVozvrat_Result">
+          <Property Type="Int64" Name="ID_Ot" Nullable="true" />
+          <Property Type="Int32" Name="KolVo" Nullable="true" />
+          <Property Type="Decimal" Name="NaSummu" Nullable="true" Precision="19" />
+        </ComplexType>
+        <ComplexType Name="sp_rt_OperativkaPutyovki_Result">
+          <Property Type="Int32" Name="SanatID" Nullable="false" />
+          <Property Type="String" Name="SanatoryName" Nullable="true" MaxLength="100" />
+          <Property Type="Int32" Name="OstatokKol" Nullable="true" />
+          <Property Type="Decimal" Name="OstatokSymma" Nullable="true" Precision="19" />
+          <Property Type="Int32" Name="PrixodKol" Nullable="true" />
+          <Property Type="Decimal" Name="PrixodSumma" Nullable="true" Precision="19" />
+          <Property Type="Int32" Name="RasxodKol" Nullable="true" />
+          <Property Type="Decimal" Name="RasxodSumma" Nullable="true" Precision="19" />
+          <Property Type="Int32" Name="VozvratKol" Nullable="true" />
+          <Property Type="Decimal" Name="VozvRatSumma" Nullable="true" Precision="19" />
+          <Property Type="Int32" Name="OstatokKolKones" Nullable="true" />
+          <Property Type="Decimal" Name="OstatokSymmaKones" Nullable="true" Precision="19" />
+        </ComplexType>
+        <ComplexType Name="sp_rt_OperativkaPutyovkiOstatok_Result">
+          <Property Type="DateTime" Name="Data_Post" Nullable="true" Precision="23" />
+          <Property Type="String" Name="Num_Doc" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="Num_Put" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="Name_Org" Nullable="true" MaxLength="100" />
+          <Property Type="Decimal" Name="Symma_Put" Nullable="true" Precision="19" />
+        </ComplexType>
+        <ComplexType Name="sp_rt_OperativkaPutyovkiPrixod_Result">
+          <Property Type="DateTime" Name="Data_Post" Nullable="true" Precision="23" />
+          <Property Type="String" Name="Num_Doc" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="Num_Put" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="Name_Org" Nullable="true" MaxLength="100" />
+          <Property Type="Decimal" Name="Symma_Put" Nullable="true" Precision="19" />
+        </ComplexType>
+        <ComplexType Name="sp_rt_OperativkaPutyovkiRasxod_Result">
+          <Property Type="DateTime" Name="Data_Post" Nullable="true" Precision="23" />
+          <Property Type="String" Name="Num_Doc" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="Num_Put" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="Name_Org" Nullable="true" MaxLength="100" />
+          <Property Type="Decimal" Name="Symma" Nullable="true" Precision="19" />
+        </ComplexType>
+        <ComplexType Name="sp_rt_OperativkaPutyovkiVozvrat_Result">
+          <Property Type="DateTime" Name="Data_Post" Nullable="true" Precision="23" />
+          <Property Type="String" Name="Num_Doc" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="Num_Put" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="Name_Org" Nullable="true" MaxLength="100" />
+          <Property Type="Decimal" Name="SymmaP" Nullable="true" Precision="19" />
+        </ComplexType>
+        <ComplexType Name="sp_rt_SvodniyPoPutyovkam_Result">
+          <Property Type="String" Name="Name_San" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Name_Ot" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="Name_Org" Nullable="true" MaxLength="100" />
+          <Property Type="Decimal" Name="Symma" Nullable="true" Precision="19" />
+          <Property Type="Int16" Name="Priz" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="sp_rt_Zapros_Putyovki_Result">
+          <Property Type="Boolean" Name="StatusPutyovki" Nullable="false" />
+          <Property Type="String" Name="Otpravitel_Postavshik" Nullable="true" MaxLength="100" />
+          <Property Type="DateTime" Name="DataPrixoda" Nullable="true" Precision="23" />
+          <Property Type="String" Name="NomerSchetFakturi" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="PrixodDoverennost" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="PeriodPrixoda" Nullable="true" />
+          <Property Type="String" Name="NazvaniyaSanatoriya" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="N_Putyovki" Nullable="true" MaxLength="10" />
+          <Property Type="DateTime" Name="SrokPutyovki" Nullable="true" Precision="23" />
+          <Property Type="Decimal" Name="Stoimost" Nullable="true" Precision="19" />
+          <Property Type="Boolean" Name="StatusPrioda" Nullable="false" />
+          <Property Type="DateTime" Name="DataVidachi" Nullable="true" Precision="23" />
+          <Property Type="String" Name="NomerNakladnoy" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="PoluchatelPokupatel" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="RasxodDoverennost" Nullable="true" MaxLength="80" />
+          <Property Type="Int32" Name="PeriodVidachi" Nullable="true" />
+          <Property Type="Boolean" Name="StatusVidachi" Nullable="false" />
+          <Property Type="String" Name="FamiliyaVladelsa" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="ImyaVladelsa" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="OtchstvoVladelsa" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="MestoJitelstva" Nullable="true" MaxLength="300" />
+          <Property Type="String" Name="MestoRaboti" Nullable="true" MaxLength="300" />
+          <Property Type="String" Name="Doljnost" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Procent" Nullable="true" MaxLength="5" />
+          <Property Type="String" Name="SeriyaPassporta" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="NomerPassporta" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="KemVidan" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="DataVidachi1" Nullable="true" />
+          <Property Type="String" Name="TipPutyovki" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="OsnovaniyeVidachi" Nullable="true" MaxLength="50" />
+          <Property Type="Boolean" Name="Pol" Nullable="true" />
+          <Property Type="String" Name="MedisinaNomer" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="MedisinaDataVidachi" Nullable="true" />
+          <Property Type="String" Name="MedReqSanatory" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="UplataNomer" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="UplataDataDoc" Nullable="true" />
+          <Property Type="Decimal" Name="UplataSumma" Nullable="true" Precision="19" />
+          <Property Type="String" Name="ObratniyTalon" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="ObratniyTalonData" Nullable="true" />
+          <Property Type="DateTime" Name="DataOplati" Nullable="true" />
+          <Property Type="String" Name="NomerDocumenta" Nullable="true" MaxLength="50" />
+          <Property Type="Decimal" Name="SummaViplati" Nullable="true" Precision="19" />
+          <Property Type="String" Name="OsnovaniyeOplati" Nullable="true" MaxLength="500" />
+          <Property Type="Boolean" Name="TipVozvrata" Nullable="true" />
+          <Property Type="DateTime" Name="DataVozvrata" Nullable="true" Precision="23" />
+          <Property Type="String" Name="NomerDocumentaVozvrat" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="IzyataPutyovka" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="OtdanaPutyovka" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="DovrennostVozvrat" Nullable="true" MaxLength="50" />
+          <Property Type="Decimal" Name="SummaVozvrata" Nullable="true" Precision="19" />
+        </ComplexType>
+        <ComplexType Name="sp_rt_BalanciPredpriyatiy_Result">
+          <Property Type="String" Name="Name_Org" Nullable="true" MaxLength="100" />
+          <Property Type="Decimal" Name="DebitNachalo" Nullable="true" Precision="19" />
+          <Property Type="Decimal" Name="KreditNachalo" Nullable="true" Precision="19" />
+          <Property Type="Decimal" Name="DebitOborot" Nullable="false" Precision="19" />
+          <Property Type="Decimal" Name="KreditOborot" Nullable="false" Precision="19" />
+          <Property Type="Decimal" Name="DebitKones" Nullable="true" Precision="19" />
+          <Property Type="Decimal" Name="KreditKones" Nullable="true" Precision="19" />
+        </ComplexType>
+        <ComplexType Name="sp_rt_BalanciPredpriyatiy_Result1">
+          <Property Type="String" Name="Name_Org" Nullable="true" MaxLength="100" />
+          <Property Type="Decimal" Name="DebitNachalo" Nullable="true" Precision="19" />
+          <Property Type="Decimal" Name="KreditNachalo" Nullable="true" Precision="19" />
+          <Property Type="Decimal" Name="DebitOborot" Nullable="false" Precision="19" />
+          <Property Type="Decimal" Name="KreditOborot" Nullable="false" Precision="19" />
+          <Property Type="Decimal" Name="DebitKones" Nullable="true" Precision="19" />
+          <Property Type="Decimal" Name="KreditKones" Nullable="true" Precision="19" />
+        </ComplexType>
+        <ComplexType Name="sp_rt_FormaN14_Result">
+          <Property Type="Int32" Name="Col_0" Nullable="false" />
+          <Property Type="String" Name="Col_1" Nullable="true" MaxLength="100" />
+          <Property Type="Int32" Name="OstatokKol_2" Nullable="true" />
+          <Property Type="Decimal" Name="OstatokSymma_3" Nullable="true" Precision="19" />
+          <Property Type="Int32" Name="PrixodKol_4" Nullable="true" />
+          <Property Type="Decimal" Name="PrixodSumma_5" Nullable="true" Precision="19" />
+          <Property Type="Int32" Name="Col_6" Nullable="false" />
+          <Property Type="Int32" Name="Col_7" Nullable="false" />
+          <Property Type="Int32" Name="RasxodKol_8" Nullable="true" />
+          <Property Type="Decimal" Name="RasxodSumma_9" Nullable="true" Precision="19" />
+          <Property Type="Int32" Name="RasxodKol_10" Nullable="true" />
+          <Property Type="Decimal" Name="RasxodSumma_11" Nullable="true" Precision="19" />
+          <Property Type="Int32" Name="Col_12" Nullable="false" />
+          <Property Type="Int32" Name="Col_13" Nullable="false" />
+          <Property Type="Int32" Name="Col_14" Nullable="false" />
+          <Property Type="Int32" Name="Col_15" Nullable="false" />
+          <Property Type="Int32" Name="Col_16" Nullable="false" />
+          <Property Type="Int32" Name="Col_17" Nullable="false" />
+          <Property Type="Int32" Name="Col_18" Nullable="false" />
+          <Property Type="Int32" Name="Col_19" Nullable="false" />
+          <Property Type="Int32" Name="RasxodKol_20" Nullable="true" />
+          <Property Type="Decimal" Name="RasxodSumma_21" Nullable="true" Precision="19" />
+          <Property Type="Int32" Name="Col_22" Nullable="false" />
+          <Property Type="Int32" Name="Col_23" Nullable="false" />
+          <Property Type="Int32" Name="Col_24" Nullable="false" />
+          <Property Type="Int32" Name="Col_25" Nullable="false" />
+          <Property Type="Int32" Name="VozvratKol_26" Nullable="true" />
+          <Property Type="Decimal" Name="VozvRatSumma_27" Nullable="true" Precision="19" />
+          <Property Type="Int32" Name="OstatokKolKones_28" Nullable="true" />
+          <Property Type="Decimal" Name="OstatokSymmaKones_29" Nullable="true" Precision="19" />
+        </ComplexType>
+        <ComplexType Name="sp_rt_KartochkaOrganizasii_Result1">
+          <Property Type="String" Name="Name_Org" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="NameReg" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="MFO" Nullable="true" MaxLength="5" />
+          <Property Type="String" Name="Adress" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Telefon" Nullable="true" MaxLength="70" />
+          <Property Type="String" Name="RS" Nullable="true" MaxLength="20" />
+          <Property Type="Int32" Name="DT_OST" Nullable="true" />
+          <Property Type="Int32" Name="KT_OST" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="sp_rt_KartochkaOrganizasiiHistoriDtlPrixod_Result1">
+          <Property Type="DateTime" Name="Data_Post" Nullable="true" Precision="23" />
+          <Property Type="String" Name="Name_San" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Num_Put" Nullable="true" MaxLength="10" />
+        </ComplexType>
+        <ComplexType Name="sp_rt_KartochkaOrganizasiiHistoriDtlRasxod_Result1">
+          <Property Type="DateTime" Name="Data_Post" Nullable="true" Precision="23" />
+          <Property Type="String" Name="Name_San" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Num_Put" Nullable="true" MaxLength="10" />
+        </ComplexType>
+        <ComplexType Name="sp_rt_KartochkaOrganizasiiHistoriDtlVozvrat_Result1">
+          <Property Type="DateTime" Name="Data_Post" Nullable="false" Precision="23" />
+          <Property Type="String" Name="Name_San" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Num_Put" Nullable="true" MaxLength="15" />
+        </ComplexType>
+        <ComplexType Name="sp_rt_KartochkaOrganizasiiHistory_Result1">
+          <Property Type="String" Name="TipDokumenta" Nullable="false" MaxLength="9" />
+          <Property Type="DateTime" Name="DataDocumenta" Nullable="true" Precision="23" />
+          <Property Type="String" Name="DocumentNumber" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Doverennost" Nullable="true" MaxLength="500" />
+          <Property Type="Decimal" Name="Summa" Nullable="true" Precision="19" />
+          <Property Type="Int64" Name="UniQueId" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="sp_rt_KartochkaOrganizasiiOplata_Result1">
+          <Property Type="Int64" Name="ID_Otras" Nullable="true" />
+          <Property Type="Int32" Name="KolVo" Nullable="true" />
+          <Property Type="Decimal" Name="NaSummu" Nullable="true" Precision="19" />
+        </ComplexType>
+        <ComplexType Name="sp_rt_KartochkaOrganizasiiProcentRazbivka_Result1">
+          <Property Type="String" Name="Name_Proc" Nullable="true" MaxLength="5" />
+          <Property Type="Int32" Name="KolVo" Nullable="true" />
+          <Property Type="Decimal" Name="NaSummu" Nullable="true" Precision="19" />
+        </ComplexType>
+        <ComplexType Name="sp_rt_KartochkaOrganizasiiRasxod_Result1">
+          <Property Type="Int64" Name="ID_Org" Nullable="true" />
+          <Property Type="Int32" Name="KolVo" Nullable="true" />
+          <Property Type="Decimal" Name="NaSummu" Nullable="true" Precision="19" />
+        </ComplexType>
+        <ComplexType Name="sp_rt_KartochkaOrganizasiiVozvrat_Result1">
+          <Property Type="Int64" Name="ID_Ot" Nullable="true" />
+          <Property Type="Int32" Name="KolVo" Nullable="true" />
+          <Property Type="Decimal" Name="NaSummu" Nullable="true" Precision="19" />
+        </ComplexType>
+        <ComplexType Name="sp_rt_OperativkaPutyovki_Result1">
+          <Property Type="Int32" Name="SanatID" Nullable="false" />
+          <Property Type="String" Name="SanatoryName" Nullable="true" MaxLength="100" />
+          <Property Type="Int32" Name="OstatokKol" Nullable="true" />
+          <Property Type="Decimal" Name="OstatokSymma" Nullable="true" Precision="19" />
+          <Property Type="Int32" Name="PrixodKol" Nullable="true" />
+          <Property Type="Decimal" Name="PrixodSumma" Nullable="true" Precision="19" />
+          <Property Type="Int32" Name="RasxodKol" Nullable="true" />
+          <Property Type="Decimal" Name="RasxodSumma" Nullable="true" Precision="19" />
+          <Property Type="Int32" Name="VozvratKol" Nullable="true" />
+          <Property Type="Decimal" Name="VozvRatSumma" Nullable="true" Precision="19" />
+          <Property Type="Int32" Name="OstatokKolKones" Nullable="true" />
+          <Property Type="Decimal" Name="OstatokSymmaKones" Nullable="true" Precision="19" />
+        </ComplexType>
+        <ComplexType Name="sp_rt_OperativkaPutyovkiOstatok_Result1">
+          <Property Type="DateTime" Name="Data_Post" Nullable="true" Precision="23" />
+          <Property Type="String" Name="Num_Doc" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="Num_Put" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="Name_Org" Nullable="true" MaxLength="100" />
+          <Property Type="Decimal" Name="Symma_Put" Nullable="true" Precision="19" />
+        </ComplexType>
+        <ComplexType Name="sp_rt_OperativkaPutyovkiPrixod_Result1">
+          <Property Type="DateTime" Name="Data_Post" Nullable="true" Precision="23" />
+          <Property Type="String" Name="Num_Doc" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="Num_Put" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="Name_Org" Nullable="true" MaxLength="100" />
+          <Property Type="Decimal" Name="Symma_Put" Nullable="true" Precision="19" />
+        </ComplexType>
+        <ComplexType Name="sp_rt_OperativkaPutyovkiRasxod_Result1">
+          <Property Type="DateTime" Name="Data_Post" Nullable="true" Precision="23" />
+          <Property Type="String" Name="Num_Doc" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="Num_Put" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="Name_Org" Nullable="true" MaxLength="100" />
+          <Property Type="Decimal" Name="Symma" Nullable="true" Precision="19" />
+        </ComplexType>
+        <ComplexType Name="sp_rt_OperativkaPutyovkiVozvrat_Result1">
+          <Property Type="DateTime" Name="Data_Post" Nullable="true" Precision="23" />
+          <Property Type="String" Name="Num_Doc" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="Num_Put" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="Name_Org" Nullable="true" MaxLength="100" />
+          <Property Type="Decimal" Name="SymmaP" Nullable="true" Precision="19" />
+        </ComplexType>
+        <ComplexType Name="sp_rt_OtchetMedRegRabotnikov_Result">
+          <Property Type="String" Name="FirstName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Name" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="LastName" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Adress" Nullable="true" MaxLength="300" />
+          <Property Type="String" Name="Pas_ser" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Pas_Num" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="Pas_Data" Nullable="true" />
+          <Property Type="String" Name="Pas_KD" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Med_Doc" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="Med_Data" Nullable="true" />
+          <Property Type="String" Name="Name_San" Nullable="true" MaxLength="100" />
+        </ComplexType>
+        <ComplexType Name="sp_rt_OtchetUchetStoimostiVidachi_Result">
+          <Property Type="String" Name="Num_Doc" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="Data_Post" Nullable="true" />
+          <Property Type="Int32" Name="VidanoPutyovokKolVo" Nullable="true" />
+          <Property Type="Decimal" Name="VidanoPutyovokSumma" Nullable="true" Precision="19" />
+          <Property Type="Int32" Name="PrBPKolVo" Nullable="true" />
+          <Property Type="Decimal" Name="PrBPSumma" Nullable="true" Precision="19" />
+          <Property Type="Int32" Name="Pr45KolVo" Nullable="true" />
+          <Property Type="Int32" Name="Pr100KolVo" Nullable="true" />
+          <Property Type="Decimal" Name="Pr100Summa" Nullable="true" Precision="19" />
+          <Property Type="Decimal" Name="DoljnoPostupit" Nullable="true" Precision="19" />
+        </ComplexType>
+        <ComplexType Name="sp_rt_SvodniyPoPutyovkam_Result1">
+          <Property Type="String" Name="Name_San" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Name_Ot" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="Name_Org" Nullable="true" MaxLength="100" />
+          <Property Type="Decimal" Name="Symma" Nullable="true" Precision="19" />
+          <Property Type="Int16" Name="Priz" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="sp_rt_UchetVladelsevPutyovok_Result">
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Name_San" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Num_Put" Nullable="true" MaxLength="10" />
+          <Property Type="Decimal" Name="Symma" Nullable="true" Precision="19" />
+          <Property Type="String" Name="FamiliyaVladelsa" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="ImyaVladelsa" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="OtchstvoVladelsa" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="MestoJitelstva" Nullable="true" MaxLength="300" />
+          <Property Type="String" Name="MestoRaboti" Nullable="true" MaxLength="300" />
+          <Property Type="String" Name="Doljnost" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="SeriyaPassporta" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="NomerPassporta" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="KemVidan" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="DataVidachi" Nullable="true" />
+          <Property Type="Boolean" Name="Pol" Nullable="true" />
+          <Property Type="String" Name="MedisinaNomer" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="MedisinaDataVidachi" Nullable="true" />
+          <Property Type="String" Name="UplataNomer" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="UplataDataDoc" Nullable="true" />
+          <Property Type="Decimal" Name="UplataSumma" Nullable="true" Precision="19" />
+          <Property Type="String" Name="ObratniyTalon" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="ObratniyTalonData" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="sp_rt_Zapros_Putyovki_Result1">
+          <Property Type="Boolean" Name="StatusPutyovki" Nullable="false" />
+          <Property Type="String" Name="Otpravitel_Postavshik" Nullable="true" MaxLength="100" />
+          <Property Type="DateTime" Name="DataPrixoda" Nullable="true" Precision="23" />
+          <Property Type="String" Name="NomerSchetFakturi" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="PrixodDoverennost" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="PeriodPrixoda" Nullable="true" />
+          <Property Type="String" Name="NazvaniyaSanatoriya" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="N_Putyovki" Nullable="true" MaxLength="10" />
+          <Property Type="DateTime" Name="SrokPutyovki" Nullable="true" Precision="23" />
+          <Property Type="Decimal" Name="Stoimost" Nullable="true" Precision="19" />
+          <Property Type="Boolean" Name="StatusPrioda" Nullable="false" />
+          <Property Type="DateTime" Name="DataVidachi" Nullable="true" Precision="23" />
+          <Property Type="String" Name="NomerNakladnoy" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="PoluchatelPokupatel" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="RasxodDoverennost" Nullable="true" MaxLength="80" />
+          <Property Type="Int32" Name="PeriodVidachi" Nullable="true" />
+          <Property Type="Boolean" Name="StatusVidachi" Nullable="false" />
+          <Property Type="String" Name="FamiliyaVladelsa" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="ImyaVladelsa" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="OtchstvoVladelsa" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="MestoJitelstva" Nullable="true" MaxLength="300" />
+          <Property Type="String" Name="MestoRaboti" Nullable="true" MaxLength="300" />
+          <Property Type="String" Name="Doljnost" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Procent" Nullable="true" MaxLength="5" />
+          <Property Type="String" Name="SeriyaPassporta" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="NomerPassporta" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="KemVidan" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="DataVidachi1" Nullable="true" />
+          <Property Type="String" Name="TipPutyovki" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="OsnovaniyeVidachi" Nullable="true" MaxLength="50" />
+          <Property Type="Boolean" Name="Pol" Nullable="true" />
+          <Property Type="String" Name="MedisinaNomer" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="MedisinaDataVidachi" Nullable="true" />
+          <Property Type="String" Name="MedReqSanatory" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="UplataNomer" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="UplataDataDoc" Nullable="true" />
+          <Property Type="Decimal" Name="UplataSumma" Nullable="true" Precision="19" />
+          <Property Type="String" Name="ObratniyTalon" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="ObratniyTalonData" Nullable="true" />
+          <Property Type="DateTime" Name="DataOplati" Nullable="true" />
+          <Property Type="String" Name="NomerDocumenta" Nullable="true" MaxLength="50" />
+          <Property Type="Decimal" Name="SummaViplati" Nullable="true" Precision="19" />
+          <Property Type="String" Name="OsnovaniyeOplati" Nullable="true" MaxLength="500" />
+          <Property Type="Boolean" Name="TipVozvrata" Nullable="true" />
+          <Property Type="DateTime" Name="DataVozvrata" Nullable="true" Precision="23" />
+          <Property Type="String" Name="NomerDocumentaVozvrat" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="IzyataPutyovka" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="OtdanaPutyovka" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="DovrennostVozvrat" Nullable="true" MaxLength="50" />
+          <Property Type="Decimal" Name="SummaVozvrata" Nullable="true" Precision="19" />
+        </ComplexType>
+        <ComplexType Name="sp_rt_FormaN13_Result1">
+          <Property Type="DateTime" Name="Data_Postupleniya" Nullable="true" Precision="23" />
+          <Property Type="String" Name="Nomer_SchetFacturi" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="NameimenovaniyeOrg" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="NomerPutyovki" Nullable="true" MaxLength="10" />
+          <Property Type="DateTime" Name="DataZaezda" Nullable="true" Precision="23" />
+          <Property Type="Decimal" Name="SenaPutyovki" Nullable="true" Precision="19" />
+          <Property Type="DateTime" Name="DataPokupkiPutyovki" Nullable="true" Precision="23" />
+          <Property Type="String" Name="NomerResheniyaOVidache" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="FIO" Nullable="true" MaxLength="152" />
+          <Property Type="String" Name="MestoRaboti" Nullable="true" MaxLength="351" />
+          <Property Type="DateTime" Name="DataPlateja" Nullable="true" />
+          <Property Type="Decimal" Name="SymmaPlateja" Nullable="true" Precision="19" />
+          <Property Type="String" Name="NomerPlatejnogoPorucheniya" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="NomerTalona" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="DataTalona" Nullable="true" />
+        </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -17055,27 +17731,6 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <FunctionImportMapping FunctionImportName="sp_get_BankPaymentSoatoYearQuaterSum" FunctionName="KasabaKIATModel.Store.sp_get_BankPaymentSoatoYearQuaterSum" />
           <FunctionImportMapping FunctionImportName="sp_get_BankPaymentSoatoYearT" FunctionName="KasabaKIATModel.Store.sp_get_BankPaymentSoatoYearT" />
           <FunctionImportMapping FunctionImportName="uspLogin" FunctionName="KasabaKIATModel.Store.uspLogin" />
-          <FunctionImportMapping FunctionImportName="sp_rt_FormaN13" FunctionName="KasabaKIATModel.Store.sp_rt_FormaN13">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="KasabaKIATModel.sp_rt_FormaN13_Result">
-                <ScalarProperty Name="Data_Postupleniya" ColumnName="Data_Postupleniya" />
-                <ScalarProperty Name="Nomer_SchetFacturi" ColumnName="Nomer_SchetFacturi" />
-                <ScalarProperty Name="NameimenovaniyeOrg" ColumnName="NameimenovaniyeOrg" />
-                <ScalarProperty Name="NomerPutyovki" ColumnName="NomerPutyovki" />
-                <ScalarProperty Name="DataZaezda" ColumnName="DataZaezda" />
-                <ScalarProperty Name="SenaPutyovki" ColumnName="SenaPutyovki" />
-                <ScalarProperty Name="DataPokupkiPutyovki" ColumnName="DataPokupkiPutyovki" />
-                <ScalarProperty Name="NomerResheniyaOVidache" ColumnName="NomerResheniyaOVidache" />
-                <ScalarProperty Name="FIO" ColumnName="FIO" />
-                <ScalarProperty Name="MestoRaboti" ColumnName="MestoRaboti" />
-                <ScalarProperty Name="DataPlateja" ColumnName="DataPlateja" />
-                <ScalarProperty Name="SymmaPlateja" ColumnName="SymmaPlateja" />
-                <ScalarProperty Name="NomerPlatejnogoPorucheniya" ColumnName="NomerPlatejnogoPorucheniya" />
-                <ScalarProperty Name="NomerTalona" ColumnName="NomerTalona" />
-                <ScalarProperty Name="DataTalona" ColumnName="DataTalona" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="sp_rt_TalabnomaKorxona" FunctionName="KasabaKIATModel.Store.sp_rt_TalabnomaKorxona">
             <ResultMapping>
               <ComplexTypeMapping TypeName="KasabaKIATModel.sp_rt_TalabnomaKorxona_Result">
@@ -17776,6 +18431,355 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="sp_rt_BalanciPredpriyatiy" FunctionName="KasabaKIATModel.Store.sp_rt_BalanciPredpriyatiy">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="KasabaKIATModel.sp_rt_BalanciPredpriyatiy_Result1">
+                <ScalarProperty Name="Name_Org" ColumnName="Name_Org" />
+                <ScalarProperty Name="DebitNachalo" ColumnName="DebitNachalo" />
+                <ScalarProperty Name="KreditNachalo" ColumnName="KreditNachalo" />
+                <ScalarProperty Name="DebitOborot" ColumnName="DebitOborot" />
+                <ScalarProperty Name="KreditOborot" ColumnName="KreditOborot" />
+                <ScalarProperty Name="DebitKones" ColumnName="DebitKones" />
+                <ScalarProperty Name="KreditKones" ColumnName="KreditKones" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_rt_FormaN14" FunctionName="KasabaKIATModel.Store.sp_rt_FormaN14">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="KasabaKIATModel.sp_rt_FormaN14_Result">
+                <ScalarProperty Name="Col_0" ColumnName="Col_0" />
+                <ScalarProperty Name="Col_1" ColumnName="Col_1" />
+                <ScalarProperty Name="OstatokKol_2" ColumnName="OstatokKol_2" />
+                <ScalarProperty Name="OstatokSymma_3" ColumnName="OstatokSymma_3" />
+                <ScalarProperty Name="PrixodKol_4" ColumnName="PrixodKol_4" />
+                <ScalarProperty Name="PrixodSumma_5" ColumnName="PrixodSumma_5" />
+                <ScalarProperty Name="Col_6" ColumnName="Col_6" />
+                <ScalarProperty Name="Col_7" ColumnName="Col_7" />
+                <ScalarProperty Name="RasxodKol_8" ColumnName="RasxodKol_8" />
+                <ScalarProperty Name="RasxodSumma_9" ColumnName="RasxodSumma_9" />
+                <ScalarProperty Name="RasxodKol_10" ColumnName="RasxodKol_10" />
+                <ScalarProperty Name="RasxodSumma_11" ColumnName="RasxodSumma_11" />
+                <ScalarProperty Name="Col_12" ColumnName="Col_12" />
+                <ScalarProperty Name="Col_13" ColumnName="Col_13" />
+                <ScalarProperty Name="Col_14" ColumnName="Col_14" />
+                <ScalarProperty Name="Col_15" ColumnName="Col_15" />
+                <ScalarProperty Name="Col_16" ColumnName="Col_16" />
+                <ScalarProperty Name="Col_17" ColumnName="Col_17" />
+                <ScalarProperty Name="Col_18" ColumnName="Col_18" />
+                <ScalarProperty Name="Col_19" ColumnName="Col_19" />
+                <ScalarProperty Name="RasxodKol_20" ColumnName="RasxodKol_20" />
+                <ScalarProperty Name="RasxodSumma_21" ColumnName="RasxodSumma_21" />
+                <ScalarProperty Name="Col_22" ColumnName="Col_22" />
+                <ScalarProperty Name="Col_23" ColumnName="Col_23" />
+                <ScalarProperty Name="Col_24" ColumnName="Col_24" />
+                <ScalarProperty Name="Col_25" ColumnName="Col_25" />
+                <ScalarProperty Name="VozvratKol_26" ColumnName="VozvratKol_26" />
+                <ScalarProperty Name="VozvRatSumma_27" ColumnName="VozvRatSumma_27" />
+                <ScalarProperty Name="OstatokKolKones_28" ColumnName="OstatokKolKones_28" />
+                <ScalarProperty Name="OstatokSymmaKones_29" ColumnName="OstatokSymmaKones_29" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_rt_KartochkaOrganizasii" FunctionName="KasabaKIATModel.Store.sp_rt_KartochkaOrganizasii">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="KasabaKIATModel.sp_rt_KartochkaOrganizasii_Result1">
+                <ScalarProperty Name="Name_Org" ColumnName="Name_Org" />
+                <ScalarProperty Name="NameReg" ColumnName="NameReg" />
+                <ScalarProperty Name="MFO" ColumnName="MFO" />
+                <ScalarProperty Name="Adress" ColumnName="Adress" />
+                <ScalarProperty Name="Telefon" ColumnName="Telefon" />
+                <ScalarProperty Name="RS" ColumnName="RS" />
+                <ScalarProperty Name="DT_OST" ColumnName="DT_OST" />
+                <ScalarProperty Name="KT_OST" ColumnName="KT_OST" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_rt_KartochkaOrganizasiiHistoriDtlPrixod" FunctionName="KasabaKIATModel.Store.sp_rt_KartochkaOrganizasiiHistoriDtlPrixod">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="KasabaKIATModel.sp_rt_KartochkaOrganizasiiHistoriDtlPrixod_Result1">
+                <ScalarProperty Name="Data_Post" ColumnName="Data_Post" />
+                <ScalarProperty Name="Name_San" ColumnName="Name_San" />
+                <ScalarProperty Name="Num_Put" ColumnName="Num_Put" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_rt_KartochkaOrganizasiiHistoriDtlRasxod" FunctionName="KasabaKIATModel.Store.sp_rt_KartochkaOrganizasiiHistoriDtlRasxod">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="KasabaKIATModel.sp_rt_KartochkaOrganizasiiHistoriDtlRasxod_Result1">
+                <ScalarProperty Name="Data_Post" ColumnName="Data_Post" />
+                <ScalarProperty Name="Name_San" ColumnName="Name_San" />
+                <ScalarProperty Name="Num_Put" ColumnName="Num_Put" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_rt_KartochkaOrganizasiiHistoriDtlVozvrat" FunctionName="KasabaKIATModel.Store.sp_rt_KartochkaOrganizasiiHistoriDtlVozvrat">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="KasabaKIATModel.sp_rt_KartochkaOrganizasiiHistoriDtlVozvrat_Result1">
+                <ScalarProperty Name="Data_Post" ColumnName="Data_Post" />
+                <ScalarProperty Name="Name_San" ColumnName="Name_San" />
+                <ScalarProperty Name="Num_Put" ColumnName="Num_Put" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_rt_KartochkaOrganizasiiHistory" FunctionName="KasabaKIATModel.Store.sp_rt_KartochkaOrganizasiiHistory">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="KasabaKIATModel.sp_rt_KartochkaOrganizasiiHistory_Result1">
+                <ScalarProperty Name="TipDokumenta" ColumnName="TipDokumenta" />
+                <ScalarProperty Name="DataDocumenta" ColumnName="DataDocumenta" />
+                <ScalarProperty Name="DocumentNumber" ColumnName="DocumentNumber" />
+                <ScalarProperty Name="Doverennost" ColumnName="Doverennost" />
+                <ScalarProperty Name="Summa" ColumnName="Summa" />
+                <ScalarProperty Name="UniQueId" ColumnName="UniQueId" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_rt_KartochkaOrganizasiiOplata" FunctionName="KasabaKIATModel.Store.sp_rt_KartochkaOrganizasiiOplata">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="KasabaKIATModel.sp_rt_KartochkaOrganizasiiOplata_Result1">
+                <ScalarProperty Name="ID_Otras" ColumnName="ID_Otras" />
+                <ScalarProperty Name="KolVo" ColumnName="KolVo" />
+                <ScalarProperty Name="NaSummu" ColumnName="NaSummu" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_rt_KartochkaOrganizasiiProcentRazbivka" FunctionName="KasabaKIATModel.Store.sp_rt_KartochkaOrganizasiiProcentRazbivka">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="KasabaKIATModel.sp_rt_KartochkaOrganizasiiProcentRazbivka_Result1">
+                <ScalarProperty Name="Name_Proc" ColumnName="Name_Proc" />
+                <ScalarProperty Name="KolVo" ColumnName="KolVo" />
+                <ScalarProperty Name="NaSummu" ColumnName="NaSummu" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_rt_KartochkaOrganizasiiRasxod" FunctionName="KasabaKIATModel.Store.sp_rt_KartochkaOrganizasiiRasxod">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="KasabaKIATModel.sp_rt_KartochkaOrganizasiiRasxod_Result1">
+                <ScalarProperty Name="ID_Org" ColumnName="ID_Org" />
+                <ScalarProperty Name="KolVo" ColumnName="KolVo" />
+                <ScalarProperty Name="NaSummu" ColumnName="NaSummu" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_rt_KartochkaOrganizasiiVozvrat" FunctionName="KasabaKIATModel.Store.sp_rt_KartochkaOrganizasiiVozvrat">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="KasabaKIATModel.sp_rt_KartochkaOrganizasiiVozvrat_Result1">
+                <ScalarProperty Name="ID_Ot" ColumnName="ID_Ot" />
+                <ScalarProperty Name="KolVo" ColumnName="KolVo" />
+                <ScalarProperty Name="NaSummu" ColumnName="NaSummu" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_rt_OperativkaPutyovki" FunctionName="KasabaKIATModel.Store.sp_rt_OperativkaPutyovki">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="KasabaKIATModel.sp_rt_OperativkaPutyovki_Result1">
+                <ScalarProperty Name="SanatID" ColumnName="SanatID" />
+                <ScalarProperty Name="SanatoryName" ColumnName="SanatoryName" />
+                <ScalarProperty Name="OstatokKol" ColumnName="OstatokKol" />
+                <ScalarProperty Name="OstatokSymma" ColumnName="OstatokSymma" />
+                <ScalarProperty Name="PrixodKol" ColumnName="PrixodKol" />
+                <ScalarProperty Name="PrixodSumma" ColumnName="PrixodSumma" />
+                <ScalarProperty Name="RasxodKol" ColumnName="RasxodKol" />
+                <ScalarProperty Name="RasxodSumma" ColumnName="RasxodSumma" />
+                <ScalarProperty Name="VozvratKol" ColumnName="VozvratKol" />
+                <ScalarProperty Name="VozvRatSumma" ColumnName="VozvRatSumma" />
+                <ScalarProperty Name="OstatokKolKones" ColumnName="OstatokKolKones" />
+                <ScalarProperty Name="OstatokSymmaKones" ColumnName="OstatokSymmaKones" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_rt_OperativkaPutyovkiOstatok" FunctionName="KasabaKIATModel.Store.sp_rt_OperativkaPutyovkiOstatok">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="KasabaKIATModel.sp_rt_OperativkaPutyovkiOstatok_Result1">
+                <ScalarProperty Name="Data_Post" ColumnName="Data_Post" />
+                <ScalarProperty Name="Num_Doc" ColumnName="Num_Doc" />
+                <ScalarProperty Name="Num_Put" ColumnName="Num_Put" />
+                <ScalarProperty Name="Name_Org" ColumnName="Name_Org" />
+                <ScalarProperty Name="Symma_Put" ColumnName="Symma_Put" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_rt_OperativkaPutyovkiPrixod" FunctionName="KasabaKIATModel.Store.sp_rt_OperativkaPutyovkiPrixod">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="KasabaKIATModel.sp_rt_OperativkaPutyovkiPrixod_Result1">
+                <ScalarProperty Name="Data_Post" ColumnName="Data_Post" />
+                <ScalarProperty Name="Num_Doc" ColumnName="Num_Doc" />
+                <ScalarProperty Name="Num_Put" ColumnName="Num_Put" />
+                <ScalarProperty Name="Name_Org" ColumnName="Name_Org" />
+                <ScalarProperty Name="Symma_Put" ColumnName="Symma_Put" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_rt_OperativkaPutyovkiRasxod" FunctionName="KasabaKIATModel.Store.sp_rt_OperativkaPutyovkiRasxod">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="KasabaKIATModel.sp_rt_OperativkaPutyovkiRasxod_Result1">
+                <ScalarProperty Name="Data_Post" ColumnName="Data_Post" />
+                <ScalarProperty Name="Num_Doc" ColumnName="Num_Doc" />
+                <ScalarProperty Name="Num_Put" ColumnName="Num_Put" />
+                <ScalarProperty Name="Name_Org" ColumnName="Name_Org" />
+                <ScalarProperty Name="Symma" ColumnName="Symma" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_rt_OperativkaPutyovkiVozvrat" FunctionName="KasabaKIATModel.Store.sp_rt_OperativkaPutyovkiVozvrat">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="KasabaKIATModel.sp_rt_OperativkaPutyovkiVozvrat_Result1">
+                <ScalarProperty Name="Data_Post" ColumnName="Data_Post" />
+                <ScalarProperty Name="Num_Doc" ColumnName="Num_Doc" />
+                <ScalarProperty Name="Num_Put" ColumnName="Num_Put" />
+                <ScalarProperty Name="Name_Org" ColumnName="Name_Org" />
+                <ScalarProperty Name="SymmaP" ColumnName="SymmaP" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_rt_OtchetMedRegRabotnikov" FunctionName="KasabaKIATModel.Store.sp_rt_OtchetMedRegRabotnikov">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="KasabaKIATModel.sp_rt_OtchetMedRegRabotnikov_Result">
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="Adress" ColumnName="Adress" />
+                <ScalarProperty Name="Pas_ser" ColumnName="Pas_ser" />
+                <ScalarProperty Name="Pas_Num" ColumnName="Pas_Num" />
+                <ScalarProperty Name="Pas_Data" ColumnName="Pas_Data" />
+                <ScalarProperty Name="Pas_KD" ColumnName="Pas_KD" />
+                <ScalarProperty Name="Med_Doc" ColumnName="Med_Doc" />
+                <ScalarProperty Name="Med_Data" ColumnName="Med_Data" />
+                <ScalarProperty Name="Name_San" ColumnName="Name_San" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_rt_OtchetUchetStoimostiVidachi" FunctionName="KasabaKIATModel.Store.sp_rt_OtchetUchetStoimostiVidachi">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="KasabaKIATModel.sp_rt_OtchetUchetStoimostiVidachi_Result">
+                <ScalarProperty Name="Num_Doc" ColumnName="Num_Doc" />
+                <ScalarProperty Name="Data_Post" ColumnName="Data_Post" />
+                <ScalarProperty Name="VidanoPutyovokKolVo" ColumnName="VidanoPutyovokKolVo" />
+                <ScalarProperty Name="VidanoPutyovokSumma" ColumnName="VidanoPutyovokSumma" />
+                <ScalarProperty Name="PrBPKolVo" ColumnName="PrBPKolVo" />
+                <ScalarProperty Name="PrBPSumma" ColumnName="PrBPSumma" />
+                <ScalarProperty Name="Pr45KolVo" ColumnName="Pr45KolVo" />
+                <ScalarProperty Name="Pr100KolVo" ColumnName="Pr100KolVo" />
+                <ScalarProperty Name="Pr100Summa" ColumnName="Pr100Summa" />
+                <ScalarProperty Name="DoljnoPostupit" ColumnName="DoljnoPostupit" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_rt_SvodniyPoPutyovkam" FunctionName="KasabaKIATModel.Store.sp_rt_SvodniyPoPutyovkam">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="KasabaKIATModel.sp_rt_SvodniyPoPutyovkam_Result1">
+                <ScalarProperty Name="Name_San" ColumnName="Name_San" />
+                <ScalarProperty Name="Name_Ot" ColumnName="Name_Ot" />
+                <ScalarProperty Name="Name_Org" ColumnName="Name_Org" />
+                <ScalarProperty Name="Symma" ColumnName="Symma" />
+                <ScalarProperty Name="Priz" ColumnName="Priz" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_rt_UchetVladelsevPutyovok" FunctionName="KasabaKIATModel.Store.sp_rt_UchetVladelsevPutyovok">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="KasabaKIATModel.sp_rt_UchetVladelsevPutyovok_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name_San" ColumnName="Name_San" />
+                <ScalarProperty Name="Num_Put" ColumnName="Num_Put" />
+                <ScalarProperty Name="Symma" ColumnName="Symma" />
+                <ScalarProperty Name="FamiliyaVladelsa" ColumnName="FamiliyaVladelsa" />
+                <ScalarProperty Name="ImyaVladelsa" ColumnName="ImyaVladelsa" />
+                <ScalarProperty Name="OtchstvoVladelsa" ColumnName="OtchstvoVladelsa" />
+                <ScalarProperty Name="MestoJitelstva" ColumnName="MestoJitelstva" />
+                <ScalarProperty Name="MestoRaboti" ColumnName="MestoRaboti" />
+                <ScalarProperty Name="Doljnost" ColumnName="Doljnost" />
+                <ScalarProperty Name="SeriyaPassporta" ColumnName="SeriyaPassporta" />
+                <ScalarProperty Name="NomerPassporta" ColumnName="NomerPassporta" />
+                <ScalarProperty Name="KemVidan" ColumnName="KemVidan" />
+                <ScalarProperty Name="DataVidachi" ColumnName="DataVidachi" />
+                <ScalarProperty Name="Pol" ColumnName="Pol" />
+                <ScalarProperty Name="MedisinaNomer" ColumnName="MedisinaNomer" />
+                <ScalarProperty Name="MedisinaDataVidachi" ColumnName="MedisinaDataVidachi" />
+                <ScalarProperty Name="UplataNomer" ColumnName="UplataNomer" />
+                <ScalarProperty Name="UplataDataDoc" ColumnName="UplataDataDoc" />
+                <ScalarProperty Name="UplataSumma" ColumnName="UplataSumma" />
+                <ScalarProperty Name="ObratniyTalon" ColumnName="ObratniyTalon" />
+                <ScalarProperty Name="ObratniyTalonData" ColumnName="ObratniyTalonData" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_rt_Zapros_Putyovki" FunctionName="KasabaKIATModel.Store.sp_rt_Zapros_Putyovki">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="KasabaKIATModel.sp_rt_Zapros_Putyovki_Result1">
+                <ScalarProperty Name="StatusPutyovki" ColumnName="StatusPutyovki" />
+                <ScalarProperty Name="Otpravitel_Postavshik" ColumnName="Otpravitel_Postavshik" />
+                <ScalarProperty Name="DataPrixoda" ColumnName="DataPrixoda" />
+                <ScalarProperty Name="NomerSchetFakturi" ColumnName="NomerSchetFakturi" />
+                <ScalarProperty Name="PrixodDoverennost" ColumnName="PrixodDoverennost" />
+                <ScalarProperty Name="PeriodPrixoda" ColumnName="PeriodPrixoda" />
+                <ScalarProperty Name="NazvaniyaSanatoriya" ColumnName="NazvaniyaSanatoriya" />
+                <ScalarProperty Name="N_Putyovki" ColumnName="N_Putyovki" />
+                <ScalarProperty Name="SrokPutyovki" ColumnName="SrokPutyovki" />
+                <ScalarProperty Name="Stoimost" ColumnName="Stoimost" />
+                <ScalarProperty Name="StatusPrioda" ColumnName="StatusPrioda" />
+                <ScalarProperty Name="DataVidachi" ColumnName="DataVidachi" />
+                <ScalarProperty Name="NomerNakladnoy" ColumnName="NomerNakladnoy" />
+                <ScalarProperty Name="PoluchatelPokupatel" ColumnName="PoluchatelPokupatel" />
+                <ScalarProperty Name="RasxodDoverennost" ColumnName="RasxodDoverennost" />
+                <ScalarProperty Name="PeriodVidachi" ColumnName="PeriodVidachi" />
+                <ScalarProperty Name="StatusVidachi" ColumnName="StatusVidachi" />
+                <ScalarProperty Name="FamiliyaVladelsa" ColumnName="FamiliyaVladelsa" />
+                <ScalarProperty Name="ImyaVladelsa" ColumnName="ImyaVladelsa" />
+                <ScalarProperty Name="OtchstvoVladelsa" ColumnName="OtchstvoVladelsa" />
+                <ScalarProperty Name="MestoJitelstva" ColumnName="MestoJitelstva" />
+                <ScalarProperty Name="MestoRaboti" ColumnName="MestoRaboti" />
+                <ScalarProperty Name="Doljnost" ColumnName="Doljnost" />
+                <ScalarProperty Name="Procent" ColumnName="Procent" />
+                <ScalarProperty Name="SeriyaPassporta" ColumnName="SeriyaPassporta" />
+                <ScalarProperty Name="NomerPassporta" ColumnName="NomerPassporta" />
+                <ScalarProperty Name="KemVidan" ColumnName="KemVidan" />
+                <ScalarProperty Name="DataVidachi1" ColumnName="DataVidachi1" />
+                <ScalarProperty Name="TipPutyovki" ColumnName="TipPutyovki" />
+                <ScalarProperty Name="OsnovaniyeVidachi" ColumnName="OsnovaniyeVidachi" />
+                <ScalarProperty Name="Pol" ColumnName="Pol" />
+                <ScalarProperty Name="MedisinaNomer" ColumnName="MedisinaNomer" />
+                <ScalarProperty Name="MedisinaDataVidachi" ColumnName="MedisinaDataVidachi" />
+                <ScalarProperty Name="MedReqSanatory" ColumnName="MedReqSanatory" />
+                <ScalarProperty Name="UplataNomer" ColumnName="UplataNomer" />
+                <ScalarProperty Name="UplataDataDoc" ColumnName="UplataDataDoc" />
+                <ScalarProperty Name="UplataSumma" ColumnName="UplataSumma" />
+                <ScalarProperty Name="ObratniyTalon" ColumnName="ObratniyTalon" />
+                <ScalarProperty Name="ObratniyTalonData" ColumnName="ObratniyTalonData" />
+                <ScalarProperty Name="DataOplati" ColumnName="DataOplati" />
+                <ScalarProperty Name="NomerDocumenta" ColumnName="NomerDocumenta" />
+                <ScalarProperty Name="SummaViplati" ColumnName="SummaViplati" />
+                <ScalarProperty Name="OsnovaniyeOplati" ColumnName="OsnovaniyeOplati" />
+                <ScalarProperty Name="TipVozvrata" ColumnName="TipVozvrata" />
+                <ScalarProperty Name="DataVozvrata" ColumnName="DataVozvrata" />
+                <ScalarProperty Name="NomerDocumentaVozvrat" ColumnName="NomerDocumentaVozvrat" />
+                <ScalarProperty Name="IzyataPutyovka" ColumnName="IzyataPutyovka" />
+                <ScalarProperty Name="OtdanaPutyovka" ColumnName="OtdanaPutyovka" />
+                <ScalarProperty Name="DovrennostVozvrat" ColumnName="DovrennostVozvrat" />
+                <ScalarProperty Name="SummaVozvrata" ColumnName="SummaVozvrata" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_rt_FormaN13" FunctionName="KasabaKIATModel.Store.sp_rt_FormaN13">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="KasabaKIATModel.sp_rt_FormaN13_Result1">
+                <ScalarProperty Name="Data_Postupleniya" ColumnName="Data_Postupleniya" />
+                <ScalarProperty Name="Nomer_SchetFacturi" ColumnName="Nomer_SchetFacturi" />
+                <ScalarProperty Name="NameimenovaniyeOrg" ColumnName="NameimenovaniyeOrg" />
+                <ScalarProperty Name="NomerPutyovki" ColumnName="NomerPutyovki" />
+                <ScalarProperty Name="DataZaezda" ColumnName="DataZaezda" />
+                <ScalarProperty Name="SenaPutyovki" ColumnName="SenaPutyovki" />
+                <ScalarProperty Name="DataPokupkiPutyovki" ColumnName="DataPokupkiPutyovki" />
+                <ScalarProperty Name="NomerResheniyaOVidache" ColumnName="NomerResheniyaOVidache" />
+                <ScalarProperty Name="FIO" ColumnName="FIO" />
+                <ScalarProperty Name="MestoRaboti" ColumnName="MestoRaboti" />
+                <ScalarProperty Name="DataPlateja" ColumnName="DataPlateja" />
+                <ScalarProperty Name="SymmaPlateja" ColumnName="SymmaPlateja" />
+                <ScalarProperty Name="NomerPlatejnogoPorucheniya" ColumnName="NomerPlatejnogoPorucheniya" />
+                <ScalarProperty Name="NomerTalona" ColumnName="NomerTalona" />
+                <ScalarProperty Name="DataTalona" ColumnName="DataTalona" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

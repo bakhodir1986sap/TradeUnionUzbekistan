@@ -79,12 +79,16 @@ namespace KasabaKIAT.Controllers
         /// <returns></returns>
         public JsonResult GetForma13(int yil, string inn)
         {
+            var UserId = Convert.ToInt32(User.Identity.Name);
+
+            var userInfo = UserInfo.GetUserInfo(UserId);
+
             log.Info("GetRaspredeleniyeZaezdov1");
             log.Info("yil = " + yil);
             log.Info("inn = " + inn);
             try
             {
-                var data = KasabaDB.sp_rt_FormaN13(yil, inn);
+                var data = KasabaDB.sp_rt_FormaN13(yil, inn, userInfo.DepartmentBase);
                 var O = from o in data
                         select new
                         {

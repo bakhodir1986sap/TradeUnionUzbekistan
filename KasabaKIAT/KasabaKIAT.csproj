@@ -495,6 +495,12 @@
     <Compile Include="Models\sp_rt_JurnalniyOrder5_Result.cs">
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\sp_rt_JurnalniyOrder6Provodka_Result.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_rt_JurnalniyOrder6_Result.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\sp_rt_KartochkaOrganizasiiHistoriDtlPrixod_Result.cs">
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>

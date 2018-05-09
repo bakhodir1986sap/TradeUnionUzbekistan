@@ -1262,5 +1262,31 @@ namespace KasabaKIAT.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_rt_JurnalniyOrder5Provodka_Result>("sp_rt_JurnalniyOrder5Provodka", yearParameter, kvartalParameter);
         }
+    
+        public virtual ObjectResult<sp_rt_JurnalniyOrder6_Result> sp_rt_JurnalniyOrder6(Nullable<int> year, Nullable<int> kvartal)
+        {
+            var yearParameter = year.HasValue ?
+                new ObjectParameter("Year", year) :
+                new ObjectParameter("Year", typeof(int));
+    
+            var kvartalParameter = kvartal.HasValue ?
+                new ObjectParameter("Kvartal", kvartal) :
+                new ObjectParameter("Kvartal", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_rt_JurnalniyOrder6_Result>("sp_rt_JurnalniyOrder6", yearParameter, kvartalParameter);
+        }
+    
+        public virtual ObjectResult<sp_rt_JurnalniyOrder6Provodka_Result> sp_rt_JurnalniyOrder6Provodka(Nullable<int> year, Nullable<int> kvartal)
+        {
+            var yearParameter = year.HasValue ?
+                new ObjectParameter("Year", year) :
+                new ObjectParameter("Year", typeof(int));
+    
+            var kvartalParameter = kvartal.HasValue ?
+                new ObjectParameter("Kvartal", kvartal) :
+                new ObjectParameter("Kvartal", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_rt_JurnalniyOrder6Provodka_Result>("sp_rt_JurnalniyOrder6Provodka", yearParameter, kvartalParameter);
+        }
     }
 }

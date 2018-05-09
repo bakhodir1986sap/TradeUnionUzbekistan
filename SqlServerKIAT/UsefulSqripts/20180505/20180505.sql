@@ -1440,3 +1440,79 @@ end
 
 ---------------------------------------------------------------------
 
+---------------------------------------------------------------------
+---------------------------------------------------------------------
+----------------------------------------------------------------------
+
+
+
+USE [KasabaKIAT_N1]
+GO
+
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE procedure [dbo].[sp_rt_JurnalniyOrder6]
+@Year int,
+@Kvartal  int 
+
+as 
+begin 
+set nocount on;
+
+select pstMain.Data_Post,
+       pstMain.Num_Doc,
+       Org.ID,
+       Org.INN,
+       Org.Name_Org,
+       '21' DebitSchet ,
+       '4' as CreditSchet,
+       pstMain.Num_Kol as Kolvo,
+       pstMain.Symma   as Summa
+from KasabaKIAT_N1.dbo.tblVipl pstMain
+inner join KasabaKIAT_N1.dbo.tblSprav_Org Org
+on pstMain.ID_Org = Org.ID
+where pstMain.SmFil = @Year
+and pstMain.ID_KV = @Kvartal;
+
+
+end
+
+---------------------------------------------------------------------
+
+
+USE [KasabaKIAT_N1]
+GO
+
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE procedure [dbo].[sp_rt_JurnalniyOrder6Provodka]
+@Year int,
+@Kvartal  int 
+
+as 
+begin 
+set nocount on;
+
+SELECT AA.DebitSchet, AA.CreditSchet , SUM(AA.Summa) Summa
+FROM
+(select pstMain.Data_Post,
+       pstMain.Num_Doc,
+       Org.ID,
+       Org.INN,
+       Org.Name_Org,
+       '21' DebitSchet ,
+       '4' as CreditSchet,
+       pstMain.Num_Kol as Kolvo,
+       pstMain.Symma   as Summa
+from KasabaKIAT_N1.dbo.tblVipl pstMain
+inner join KasabaKIAT_N1.dbo.tblSprav_Org Org
+on pstMain.ID_Org = Org.ID
+where pstMain.SmFil = @Year
+and pstMain.ID_KV = @Kvartal) AA
+GROUP BY AA.DebitSchet, AA.CreditSchet;
+
+end

@@ -483,6 +483,18 @@
     <Compile Include="Models\sp_rt_GetOrganization_Result.cs">
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\sp_rt_JurnalniyOrder4Provodka_Result.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_rt_JurnalniyOrder4_Result.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_rt_JurnalniyOrder5Provodka_Result.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_rt_JurnalniyOrder5_Result.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\sp_rt_KartochkaOrganizasiiHistoriDtlPrixod_Result.cs">
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>

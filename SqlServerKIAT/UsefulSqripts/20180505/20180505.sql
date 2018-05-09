@@ -1284,3 +1284,159 @@ WHERE CAST(viplMain.Data_Post as DATE) BETWEEN CAST(@beginDate as DATE) AND CAST
 AND viplMain.DepartmentBase = @departmentBase;
 
 end
+
+
+------------------------------------------------------------------------------------------------
+-- JO 4
+-------------------------------------------------------------------------------------------------
+
+USE [KasabaKIAT_N1]
+GO
+/****** Object:  StoredProcedure [dbo].[sp_rt_FormaN13]    Script Date: 05/08/2018 22:40:26 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE procedure [dbo].[sp_rt_JurnalniyOrder4]
+@Year int,
+@Kvartal  int 
+
+as 
+begin 
+set nocount on;
+
+select pstMain.Data_Post,
+       pstMain.Num_Doc,
+       Org.ID,
+       Org.INN,
+       Org.Name_Org,
+       '3' as DebitSchet,
+       CASE WHEN Org.ID_Ot = 9999 THEN '7' ELSE '19' END AS CreditSchet,
+       pstMain.Num_Kol as Kolvo,
+       pstMain.Symma   as Summa
+from KasabaKIAT_N1.dbo.tblPost pstMain
+inner join KasabaKIAT_N1.dbo.tblSprav_Org Org
+on pstMain.ID_Pos = Org.ID
+where pstMain.SmFil = @Year
+and pstMain.ID_KV = @Kvartal;
+
+end
+
+
+--*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
+--*--*- 
+--*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
+
+USE [KasabaKIAT_N1]
+GO
+
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE procedure [dbo].[sp_rt_JurnalniyOrder4Provodka]
+@Year int,
+@Kvartal  int 
+
+as 
+begin 
+set nocount on;
+
+SELECT AA.DebitSchet, AA.CreditSchet , SUM(AA.Summa) Summa
+FROM
+(select pstMain.Data_Post,
+       pstMain.Num_Doc,
+       Org.ID,
+       Org.INN,
+       Org.Name_Org,
+       '3' as DebitSchet,
+       CASE WHEN Org.ID_Ot = 9999 THEN '7' ELSE '19' END AS CreditSchet,
+       pstMain.Num_Kol as Kolvo,
+       pstMain.Symma   as Summa
+from KasabaKIAT_N1.dbo.tblPost pstMain
+inner join KasabaKIAT_N1.dbo.tblSprav_Org Org
+on pstMain.ID_Pos = Org.ID
+where pstMain.SmFil = @Year
+and pstMain.ID_KV = @Kvartal) AA
+GROUP BY AA.DebitSchet, AA.CreditSchet;
+
+end
+
+----------------------------------------------------------------------------------
+--
+----------------------------------------------------------------------------------
+
+USE [KasabaKIAT_N1]
+GO
+
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE procedure [dbo].[sp_rt_JurnalniyOrder5]
+@Year int,
+@Kvartal  int 
+
+as 
+begin 
+set nocount on;
+
+select pstMain.Data_Post,
+       pstMain.Num_Doc,
+       Org.ID,
+       Org.INN,
+       Org.Name_Org,
+       CASE WHEN Org.ID_Ot = 9999 THEN '7' ELSE '4' END AS DebitSchet ,
+       '3' as CreditSchet,
+       pstMain.Num_Kol as Kolvo,
+       pstMain.Symma   as Summa
+from KasabaKIAT_N1.dbo.tblVipl pstMain
+inner join KasabaKIAT_N1.dbo.tblSprav_Org Org
+on pstMain.ID_Org = Org.ID
+where pstMain.SmFil = @Year
+and pstMain.ID_KV = @Kvartal;
+
+
+end
+
+---------------------------------------------------------------------
+
+
+USE [KasabaKIAT_N1]
+GO
+
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE procedure [dbo].[sp_rt_JurnalniyOrder5Provodka]
+@Year int,
+@Kvartal  int 
+
+as 
+begin 
+set nocount on;
+
+SELECT AA.DebitSchet, AA.CreditSchet , SUM(AA.Summa) Summa
+FROM
+(select pstMain.Data_Post,
+       pstMain.Num_Doc,
+       Org.ID,
+       Org.INN,
+       Org.Name_Org,
+       CASE WHEN Org.ID_Ot = 9999 THEN '7' ELSE '4' END AS DebitSchet ,
+       '3' as CreditSchet,
+       pstMain.Num_Kol as Kolvo,
+       pstMain.Symma   as Summa
+from KasabaKIAT_N1.dbo.tblVipl pstMain
+inner join KasabaKIAT_N1.dbo.tblSprav_Org Org
+on pstMain.ID_Org = Org.ID
+where pstMain.SmFil = @Year
+and pstMain.ID_KV = @Kvartal) AA
+GROUP BY AA.DebitSchet, AA.CreditSchet;
+
+end
+
+
+---------------------------------------------------------------------
+

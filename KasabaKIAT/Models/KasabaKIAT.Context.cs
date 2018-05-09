@@ -1210,5 +1210,57 @@ namespace KasabaKIAT.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_rt_FormaN13_Result1>("sp_rt_FormaN13", aYearParameter, orgInnParameter, departmentBaseParameter);
         }
+    
+        public virtual ObjectResult<sp_rt_JurnalniyOrder4_Result> sp_rt_JurnalniyOrder4(Nullable<int> year, Nullable<int> kvartal)
+        {
+            var yearParameter = year.HasValue ?
+                new ObjectParameter("Year", year) :
+                new ObjectParameter("Year", typeof(int));
+    
+            var kvartalParameter = kvartal.HasValue ?
+                new ObjectParameter("Kvartal", kvartal) :
+                new ObjectParameter("Kvartal", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_rt_JurnalniyOrder4_Result>("sp_rt_JurnalniyOrder4", yearParameter, kvartalParameter);
+        }
+    
+        public virtual ObjectResult<sp_rt_JurnalniyOrder4Provodka_Result> sp_rt_JurnalniyOrder4Provodka(Nullable<int> year, Nullable<int> kvartal)
+        {
+            var yearParameter = year.HasValue ?
+                new ObjectParameter("Year", year) :
+                new ObjectParameter("Year", typeof(int));
+    
+            var kvartalParameter = kvartal.HasValue ?
+                new ObjectParameter("Kvartal", kvartal) :
+                new ObjectParameter("Kvartal", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_rt_JurnalniyOrder4Provodka_Result>("sp_rt_JurnalniyOrder4Provodka", yearParameter, kvartalParameter);
+        }
+    
+        public virtual ObjectResult<sp_rt_JurnalniyOrder5_Result> sp_rt_JurnalniyOrder5(Nullable<int> year, Nullable<int> kvartal)
+        {
+            var yearParameter = year.HasValue ?
+                new ObjectParameter("Year", year) :
+                new ObjectParameter("Year", typeof(int));
+    
+            var kvartalParameter = kvartal.HasValue ?
+                new ObjectParameter("Kvartal", kvartal) :
+                new ObjectParameter("Kvartal", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_rt_JurnalniyOrder5_Result>("sp_rt_JurnalniyOrder5", yearParameter, kvartalParameter);
+        }
+    
+        public virtual ObjectResult<sp_rt_JurnalniyOrder5Provodka_Result> sp_rt_JurnalniyOrder5Provodka(Nullable<int> year, Nullable<int> kvartal)
+        {
+            var yearParameter = year.HasValue ?
+                new ObjectParameter("Year", year) :
+                new ObjectParameter("Year", typeof(int));
+    
+            var kvartalParameter = kvartal.HasValue ?
+                new ObjectParameter("Kvartal", kvartal) :
+                new ObjectParameter("Kvartal", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_rt_JurnalniyOrder5Provodka_Result>("sp_rt_JurnalniyOrder5Provodka", yearParameter, kvartalParameter);
+        }
     }
 }

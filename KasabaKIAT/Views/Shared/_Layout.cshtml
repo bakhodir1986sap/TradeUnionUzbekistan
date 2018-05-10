@@ -6,7 +6,7 @@
     FunctionalityList List = FunctionalityAndDbDataMatch.MatchProcess(UserId);
 }
 <!DOCTYPE html>
-<html ng-app="mvcCRUDApp" class="no-js" lang="">
+<html ng-app="mvcCRUDApp" class="no-js" lang="ru">
 <head>
     <meta charset="utf-8">
     <meta name="description" content="">
@@ -17,6 +17,7 @@
     <link href="~/Content/styles/all.css" rel="stylesheet" />
     <link href="~/Content/styles/vendor.css" rel="stylesheet" />
     <link href="~/Content/styles/main.css" rel="stylesheet" />
+    <link href="~/Content/styles/override.css" rel="stylesheet" />
     <script src="~/Scripts/vendor/modernizr.js"></script>
     <link href="~/Content/themes/alertify.default.css" rel="stylesheet" />
     <link href="~/Content/themes/alertify.core.css" rel="stylesheet" />
@@ -65,7 +66,7 @@
                             <div class="dropdown-menu rounded-0 box-shadow m-0 border-0" aria-labelledby="tours">
                                 @if (List.GrafikZaezdov)
                                 {
-                                    <a class="dropdown-item load" href="/GrafikZaezdov/index">График заездов</a>
+                                    <☺a class="dropdown-item load" href="/GrafikZaezdov/index">График заездов</☺a>
                                 }
                                 @if (List.GodovoyPlanPutyovok)
                                 {
@@ -101,11 +102,11 @@
                             </div>
                         </li>
                     }
-                    @if (List.TotalPutyovki)
+                    @if ((List.TotalPutyovki) && (userName.role_id != 14))
                     {
                         <li class="nav-item dropdown" id="p">
-                            <a id="tours1" class="nav-link" style="visibility:hidden;position:absolute;">Данные Илхом</a>
-                            <a disabled class="nav-link dropdown-toggle" href="/Home/Putyovki" id="tours" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Данные Илхом</a>
+                            <a id="tours1" class="nav-link" style="visibility:hidden;position:absolute;">Данные new</a>
+                            <a disabled class="nav-link dropdown-toggle" href="/Home/Putyovki" id="tours" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Данные new</a>
                             <div class="dropdown-menu rounded-0 box-shadow m-0 border-0" aria-labelledby="tours">
                                 @if (List.PrixodPutyovok)
                                 {
@@ -123,7 +124,7 @@
                             </div>
                         </li>
                     }
-                    @if (List.TotalPutyovki)
+                    @*@if ((List.TotalPutyovki) && (userName.role_id != 14))
                     {
                         <li class="nav-item dropdown" id="p">
                             <a id="tours1" class="nav-link" style="visibility:hidden;position:absolute;">Отчеты Илхом</a>
@@ -148,7 +149,7 @@
                                 }
                             </div>
                         </li>
-                    }
+                    }*@
                     @if (List.TotalZayavki)
                     {
                         <li class="nav-item dropdown" id="z">

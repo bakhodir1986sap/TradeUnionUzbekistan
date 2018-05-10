@@ -14,5 +14,7 @@ namespace KasabaKIAT.Models
         public int Width { get; set; }
         public int Height { get; set; }
         public string ReportSummary { get; set; }
+        public string DepartmentBase { get; set; }
+        public long RoleId { get; set; }
     }
 }

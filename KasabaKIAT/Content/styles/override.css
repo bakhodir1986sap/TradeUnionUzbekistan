@@ -1,0 +1,81 @@
+.summary-list {
+	list-style: none;
+	line-height: 1.2rem;
+	font-size: 0.9rem;
+}
+
+.summary-list span {
+	padding-left: 20px;
+	font-weight: bold;
+}
+
+.table__small {
+	font-size: 0.8rem;
+
+}
+
+.table__small .r-checkbox {
+	border-bottom: 0;
+	background-color: transparent;
+}
+
+.table-fixed {
+  max-height: 90vh;
+  position: relative;
+}
+
+.h50 {
+	min-height: 48px;
+}
+
+.table-fixed-small {
+	max-height: 40vh;
+}
+
+.fa-sum:before {
+	content: "\03a3";
+	font-family: sans-serif;
+}
+
+.mb-30 {
+	margin-bottom: 30px;
+}
+
+.mb-60 {
+	margin-bottom: 60px;
+}
+
+.mt-20 {
+	margin-top: 20px;
+}
+
+p > strong {
+	padding-left: 0.8em;
+	padding-right: 0.8em;
+}
+
+
+.table__block.table__small td, .table__block.table__small th {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}
+
+.info__cards,
+.info__cards .form-control {
+	font-size: 0.7rem;
+}
+
+.info__cards.row {
+	margin-left: 0;
+	margin-right: 0;
+}
+
+.card:nth-child(odd) {
+	background-color: rgba(0, 0, 0, 0.03);
+}
+
+.bg-grey {
+	background-color: rgba(0, 0, 0, 0.03);
+	border-radius: 1em;
+	padding: 1.5em;
+}

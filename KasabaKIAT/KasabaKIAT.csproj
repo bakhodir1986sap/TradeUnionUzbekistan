@@ -1307,6 +1307,7 @@
     <Content Include="Content\main.css" />
     <Content Include="Content\open-iconic-bootstrap.css" />
     <Content Include="Content\styles\main.css" />
+    <Content Include="Content\styles\override.css" />
     <Content Include="Content\styles\vendor.css" />
     <Content Include="Content\themes\alertify.bootstrap.css" />
     <Content Include="Content\themes\alertify.core.css" />

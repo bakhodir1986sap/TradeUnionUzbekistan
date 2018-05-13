@@ -21,16 +21,16 @@ namespace KasabaKiat.ViewModel.Putyovki
 
         public DateTime?        DataSanEnd      { get; set; }
 
-        public decimal?          Symma_Put       { get; set; }
+        public decimal?         Symma_Put       { get; set; }
 
-        public bool              ID_PolVoz       { get; set; }
+        public bool             ID_PolVoz       { get; set; }
 
         public DateTime?        Data_Post       { get; set; }
 
         public long?            UserId          { get; set; }
 
-        public string           Departmentbase { get; set; }
+        public string           Departmentbase  { get; set; }
 
-        public bool             Checked { get; set; }
+        public bool             Checked         { get; set; }
     }
 }

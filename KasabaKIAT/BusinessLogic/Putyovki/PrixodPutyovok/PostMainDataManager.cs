@@ -190,6 +190,7 @@ namespace KasabaKiat.BusinessLogic.Putyovki.PrixodPutyovok
             using (KasabaKIATEntities db = new KasabaKIATEntities())
             {
                 var query = from post in db.tblPost
+                            join org in db.tblSprav_Org on post.ID_Pos equals org.ID
                             where post.SmFil == model.SmFil &&
                             post.ID_KV == model.Id_Kv &&
                             post.DepartmentBase == model.DepartmentBase
@@ -208,8 +209,9 @@ namespace KasabaKiat.BusinessLogic.Putyovki.PrixodPutyovok
                                UserId        =  post.UserId            ,
                                DepartmentBase=  post.DepartmentBase    ,
                                BeginNumber   =  post.BeginNumber       ,
-                               EndNumber     =  post.EndNumber         
-                          };
+                               EndNumber     =  post.EndNumber         ,
+                               PosName       = org.Name_Org
+                            };
 
                 list = query.ToList();
             }

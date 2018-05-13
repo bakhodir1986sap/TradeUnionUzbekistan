@@ -41,6 +41,8 @@ namespace KasabaKIAT.Models
         public string E_Mail { get; set; }
         public Nullable<long> UserId { get; set; }
         public string DepartmentBase { get; set; }
+        public bool IS_PRAVSOYUZ { get; set; }
+        public Nullable<long> ParentID { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Balans> Balans { get; set; }

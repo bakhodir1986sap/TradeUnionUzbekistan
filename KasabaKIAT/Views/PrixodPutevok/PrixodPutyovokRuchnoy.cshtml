@@ -5,6 +5,11 @@
     FunctionalityList List = FunctionalityAndDbDataMatch.MatchProcess(UserId);
 }
 <script src="~/Scripts/MyJavaScript/Ilxom/PrixodPutyovokRuchnoy.js"></script>
+<style>
+    .selectedTableRow {
+        background-color: #83d4e6;
+    }
+</style>
 <div id="connection" style="visibility:hidden;position:absolute;margin-left:430px;z-index:9999">
     <img src="~/Content/Login/buffering.gif" />
 </div>
@@ -26,9 +31,9 @@
                 <div class="col-sm-6 text-md-right">
                     <h5>Общее количество и сумма</h5>
                     <ol class="summary-list">
-                        <li>Количество накладных <span>2</span></li>
-                        <li>Количество путевок <span>413</span></li>
-                        <li>Сумма накладных <span>251 504 200, 00</span></li>
+                        <li>Количество накладных <span>{{TotalResults.NakladnoyCount}}</span></li>
+                        <li>Количество путевок <span>{{TotalResults.PutyovkaCount}}</span></li>
+                        <li>Сумма накладных <span>{{TotalResults.SummaNakladnix}}</span></li>
                     </ol>
                 </div>
             </div>
@@ -37,19 +42,12 @@
                     <div class="row">
                         <div class="col-md-4 form-group">
                             <label>Год</label>
-                            <select class="custom-select form-control">
-                                @*<option>2016</option>
-                                <option>2017</option>
-                                <option>2018</option>*@
+                            <select class="custom-select form-control" ng-model="SelectedYear" ng-options="item as item.Year for item in Years track by item.Id" ng-change="FiltersChanged()">
                             </select>
                         </div>
                         <div class="col-md-4 form-group">
                             <label>Квартал</label>
-                            <select class="custom-select form-control">
-                                @*<option>2-квартал</option>
-                                <option>Option 1</option>
-                                <option>Option 2</option>
-                                <option>Option 3</option>*@
+                            <select class="custom-select form-control" ng-model="SelectedKvartal" ng-options="item as item.Name_Kv for item in Kvartals track by item.ID" ng-change="FiltersChanged()">
                             </select>
                         </div>
                     </div>
@@ -63,7 +61,7 @@
                             <thead>
                                 <tr>
                                     <th class="dropdown dropdown__table">
-                                        <span class="dropdown-toggle dr-link" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Номер путевок</span>
+                                        <span class="dropdown-toggle dr-link" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Номер п/п</span>
                                         <div class="dropdown-menu dr-menu rounded-0 border-0" aria-labelledby="dropdownMenuButton">
                                             @*<a class="dropdown-item dr-item" href="#">Номер путевок</a>
                                             <a class="dropdown-item dr-item" href="#">Номер путевок</a>
@@ -119,38 +117,28 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr data-toggle="modal" data-target="#redaktirovat">
+                                <tr ng-repeat="naklad in Nakladnoys" ng-click="editSelected(naklad)" ng-class="{selectedTableRow: naklad.Id === idSelectedVote}" data-toggle="modal" data-target="#redaktirovat"   >
                                     <td class="custom-control custom-checkbox r-checkbox">
-                                        <input type="checkbox" class="custom-control-input" id="customCheck010">
-                                        <label class="custom-control-label r-label" for="customCheck010">1</label>
+                                        <input type="checkbox" class="custom-control-input" id="customCheck{{naklad.Id}}">
+                                        <label class="custom-control-label r-label" for="customCheck{{naklad.Id}}">{{naklad.Id}}</label>
                                     </td>
-                                    <td>30.04.2018</td>
-                                    <td>1055</td>
-                                    <td>Курортное управление</td>
-                                    <td>2</td>
-                                    <td>1 040 200</td>
+                                    <td>{{naklad.Data_Post| jsonDate: 'dd.MM.yyyy'}}</td>
+                                    <td>{{naklad.Num_Doc}}</td>
+                                    <td>{{naklad.PosName}}</td>
+                                    <td>{{naklad.Num_Kol}}</td>
+                                    <td>{{naklad.Symma}}</td>
                                 </tr>
-                                @*<tr data-toggle="modal" data-target="#redaktirovat">
-                                    <td class="custom-control custom-checkbox r-checkbox">
-                                        <input type="checkbox" class="custom-control-input" id="customCheck011">
-                                        <label class="custom-control-label r-label" for="customCheck011">3</label>
-                                    </td>
-                                    <td>22.04.2017</td>
-                                    <td>1055</td>
-                                    <td>Курортное управление</td>
-                                    <td>412</td>
-                                    <td>1 040 200</td>
-                                </tr>*@
                             </tbody>
                         </table>
                     </div>
                     <div class="btn-panel mb-20 text-right">
-                        <a href="#" class="btn btn-green d-block d-md-inline-block mb-3 mt-20" data-toggle="modal" data-target="#dobavit"><i class="fa fa-plus"></i>Добавить запись</a>
-                        <a href="#" class="btn btn-grey d-block d-md-inline-block mb-3 mt-20"><i class="fa fa-print"></i>Печать</a>
+                        <a ng-click="AddNakladnoy()" href="#" class="btn btn-green d-block d-md-inline-block mb-3 mt-20" data-toggle="modal" data-target="#dobavit"><i class="fa fa-plus" ></i>Добавить запись</a>
+                        <a href="@Url.Action("ReportTemplate", "Report",
+                        new { ReportName = "Оперативка по путевкам", ReportDescription = "Оперативка по путевкам", Width = 100, Height = 650 })" class="btn btn-grey d-block d-md-inline-block mb-3 mt-20"><i class="fa fa-print"></i>Печать</a>
                     </div>
                 </div>
                 <div class="col-md-8">
-                    <h5 class="mb-30">Данные о путевках по выделенной накладной</h5>
+                    <h5 class="mb-30">Данные о путевках по № {{CurrentNakladnoy.Num_Doc}} {{CurrentNakladnoy.PosName}}</h5>
                     <div class="table-responsive box-shadow table-fixed mb-4">
                         <table class="table table__block t-hover table__small">
                             <thead>
@@ -158,69 +146,48 @@
                                     <th class="dropdown dropdown__table">
                                         <span class="dropdown-toggle dr-link" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">№</span>
                                         <div class="dropdown-menu dr-menu rounded-0 border-0" aria-labelledby="dropdownMenuButton">
-                                            @*<a class="dropdown-item dr-item" href="#">№</a>
-                                            <a class="dropdown-item dr-item" href="#">№</a>
-                                            <a class="dropdown-item dr-item" href="#">№</a>
-                                            <a class="dropdown-item dr-item" href="#">№</a>*@
                                         </div>
                                     </th>
                                     <th class="dropdown dropdown__table">
                                         <span class="dropdown-toggle dr-link" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Санаторий</span>
                                         <div class="dropdown-menu dr-menu rounded-0 border-0" aria-labelledby="dropdownMenuButton">
-                                            @*<a class="dropdown-item dr-item" href="#">Санаторий</a>
-                                            <a class="dropdown-item dr-item" href="#">Санаторий</a>
-                                            <a class="dropdown-item dr-item" href="#">Санаторий</a>
-                                            <a class="dropdown-item dr-item" href="#">Санаторий</a>*@
                                         </div>
                                     </th>
                                     <th class="dropdown dropdown__table">
                                         <span class="dropdown-toggle dr-link" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">№ Путевки</span>
                                         <div class="dropdown-menu dr-menu rounded-0 border-0" aria-labelledby="dropdownMenuButton">
-                                            @*<a class="dropdown-item dr-item" href="#">№ Путевки</a>
-                                            <a class="dropdown-item dr-item" href="#">№ Путевки</a>
-                                            <a class="dropdown-item dr-item" href="#">№ Путевки</a>
-                                            <a class="dropdown-item dr-item" href="#">№ Путевки</a>*@
                                         </div>
                                     </th>
                                     <th class="dropdown dropdown__table">
                                         <span class="dropdown-toggle dr-link" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Срок действия</span>
                                         <div class="dropdown-menu dr-menu rounded-0 border-0" aria-labelledby="dropdownMenuButton">
-                                            @*<a class="dropdown-item dr-item" href="#">Срок действия</a>
-                                            <a class="dropdown-item dr-item" href="#">Срок действия</a>
-                                            <a class="dropdown-item dr-item" href="#">Срок действия</a>
-                                            <a class="dropdown-item dr-item" href="#">Срок действия</a>*@
                                         </div>
                                     </th>
                                     <th class="dropdown dropdown__table">
                                         <span class="dropdown-toggle dr-link" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Стоимость</span>
                                         <div class="dropdown-menu dr-menu rounded-0 border-0" aria-labelledby="dropdownMenuButton">
-                                            @*<a class="dropdown-item dr-item" href="#">Стоимость</a>
-                                            <a class="dropdown-item dr-item" href="#">Стоимость</a>
-                                            <a class="dropdown-item dr-item" href="#">Стоимость</a>
-                                            <a class="dropdown-item dr-item" href="#">Стоимость</a>*@
                                         </div>
                                     </th>
                                     <th class="dropdown dropdown__table">
                                         <span class="dropdown-toggle dr-link" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Статус путевки</span>
                                         <div class="dropdown-menu dr-menu rounded-0 border-0" aria-labelledby="dropdownMenuButton">
-                                            @*<a class="dropdown-item dr-item" href="#">Статус путевки</a>
-                                            <a class="dropdown-item dr-item" href="#">Статус путевки</a>
-                                            <a class="dropdown-item dr-item" href="#">Статус путевки</a>
-                                            <a class="dropdown-item dr-item" href="#">Статус путевки</a>*@
                                         </div>
                                     </th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr data-toggle="modal" data-target="#redaktirovat2">
+                                <tr @*data-toggle="modal" data-target="#redaktirovat2"*@ ng-repeat="dtl in NakladnoyDtls">
                                     <td class="custom-control custom-checkbox r-checkbox">
-                                        <input type="checkbox" class="custom-control-input" id="customCheck1">
-                                        <label class="custom-control-label r-label" for="customCheck1">1</label>
+                                        <input type="checkbox" class="custom-control-input" id="customCheck{{dtl.Id}}" 
+                                                ng-model="selectedObjs" 
+                                                ng-checked="obj.selected" 
+                                                ng-click="toggleObjSelection($event, dtl.Id)">
+                                        <label class="custom-control-label r-label" for="customCheck{{dtl.Id}}">{{dtl.Id}}</label>
                                     </td>
-                                    <td>"Умид Гулшани"</td>
-                                    <td>111338</td>
-                                    <td>01.06.2016</td>
-                                    <td>562 300,00</td>
+                                    <td>{{dtl.SanatName}}</td>
+                                    <td>{{dtl.Num_Put}}</td>
+                                    <td>{{dtl.DataSan | jsonDate: 'dd.MM.yyyy'}}</td>
+                                    <td>{{dtl.Symma_Put}}</td>
                                     <td>Полученная путевка</td>
                                 </tr>
                             </tbody>
@@ -229,12 +196,13 @@
                     <div class="row">
                         <div class="col-md-8">
                             <a href="#" class="btn btn-blue" data-toggle="modal" data-target="#dobavit2"><i class="fa fa-plus"></i>Добавить</a>
-                            <a href="#" class="btn btn-danger"><i class="fa fa-trash-alt"></i>Удалить</a>
+                            <a href="#" class="btn btn-danger"><i class="fa fa-trash-alt" ng-click="RemovePutyovka(dtl)"></i>Удалить</a>
                             <a href="#" class="btn btn-grey"><i class="fa fa-briefcase"></i> Бронь</a>
+                            <a href="#" class="btn btn-red"><i class="fa fa-briefcase"></i> Снять бронь</a>
                         </div>
                         <div class="col-md-4 text-md-right mb-4">
-                            <p class="mb-0">Общее количество <strong>412</strong></p>
-                            <p>Общая сумма <strong>254 103 800</strong></p>
+                            <p class="mb-0">Общее количество <strong>{{PutyovkaDtlSummar.PutyovkaCount}}</strong></p>
+                            <p>Общая сумма <strong>{{PutyovkaDtlSummar.SummaNakladnix}}</strong></p>
                         </div>
                     </div>
                 </div>
@@ -245,52 +213,43 @@
                 <p>&copy;2018</p>
             </div>
         </footer>
-        <div class="modal__block modal fade" id="dobavit" tabindex="-1" role="dialog" aria-labelledby="dobavitLabel">
+        <div class="modal__block modal fade" id="dobavit" tabindex="-1" role="dialog" aria-labelledby="dobavitLabel" data-backdrop="static" data-keyboard="false">
             <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
                 <div class="modal-content">
                     <div class="modal-body">
                         <div class="modal-title">
-                            <h4 class="text-center mt-4 mb-4">Добавить запись</h4>
+                            <h4 class="text-center mt-4 mb-4">{{ActionType}} запись</h4>
                         </div>
                         <div class="row justify-content-center">
                             <div class="col-md-8">
                                 <div class="form-group row align-items-center">
-                                    <label class="col-md-5 col-form-label text-md-right py-0">Номер:</label>
-                                    <div class="col-md-7">
-                                        <input type="text" class="form-control" placeholder="Номер путевки" />
-                                    </div>
-                                </div>
-                                <div class="form-group row align-items-center">
                                     <label class="col-md-5 col-form-label text-md-right py-0">Дата:</label>
                                     <div class="col-md-7">
-                                        <input type="text" class="form-control" placeholder="Дата" />
+                                        <input type="date" class="form-control" placeholder="Дата" ng-model="DataPos"/>
                                     </div>
                                 </div>
                                 <div class="form-group row align-items-center">
                                     <label class="col-md-5 col-form-label text-md-right py-0">Номер документа:</label>
                                     <div class="col-md-7">
-                                        <input type="text" class="form-control" placeholder="Номер документа" />
+                                        <input type="text" class="form-control" placeholder="Номер документа" ng-model="Num_Doc"/>
                                     </div>
                                 </div>
                                 <div class="form-group row align-items-center">
                                     <label class="col-md-5 col-form-label text-md-right py-0">Отправитель:</label>
                                     <div class="col-md-7">
-                                        <select class="custom-select form-control">
-                                            <option>"Кашкадарё сокили" санаторияси КУК</option>
-                                            <option>Option 1</option>
-                                            <option>Option 2</option>
-                                            <option>Option 3</option>
+                                        <select class="custom-select form-control" ng-model="SelectedOrganization" ng-options="item as item.Name_Org for item in OrganizationsL track by item.ID">
                                         </select>
                                     </div>
+                                    <a href="#" class="btn btn-grey d-block d-md-inline-block mb-2" data-toggle="modal" data-target="#organization">Выбрать</a>
                                 </div>
                                 <div class="form-group row align-items-center">
                                     <label class="col-md-5 col-form-label text-md-right py-0">Номер доверенности (и на кого оформлена):</label>
                                     <div class="col-md-7">
-                                        <input type="text" class="form-control" placeholder="Номер доверенности (и на кого оформлена)" />
+                                        <input ng-model="Name_Dov" type="text" class="form-control" placeholder="Номер доверенности (и на кого оформлена)" />
                                     </div>
                                 </div>
                                 <div class="mb-4 text-right">
-                                    <a href="#" class="btn btn-blue d-block d-md-inline-block mb-2"><i class="fas fa-plus"></i> Добавить</a>
+                                    <a href="#" ng-click="AddNakladnoyClicked()" class="btn btn-blue d-block d-md-inline-block mb-2" data-dismiss="modal"><i class="fas fa-plus"></i> Добавить</a>
                                     <a href="#" class="btn btn-grey d-block d-md-inline-block mb-2" data-dismiss="modal">Отмена</a>
                                 </div>
                             </div>
@@ -299,52 +258,43 @@
                 </div>
             </div>
         </div>
-        <div class="modal__block modal fade" id="redaktirovat" tabindex="-1" role="dialog" aria-labelledby="dobavitLabel">
+        <div class="modal__block modal fade" id="redaktirovat" tabindex="-1" role="dialog" aria-labelledby="dobavitLabel" data-backdrop="static" data-keyboard="false">
             <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
                 <div class="modal-content">
                     <div class="modal-body">
                         <div class="modal-title">
-                            <h4 class="text-center mt-4 mb-4">Редактировать запись</h4>
+                            <h4 class="text-center mt-4 mb-4">{{ActionType}} запись</h4>
                         </div>
                         <div class="row justify-content-center">
                             <div class="col-md-8">
                                 <div class="form-group row align-items-center">
-                                    <label class="col-md-5 col-form-label text-md-right py-0">Номер:</label>
-                                    <div class="col-md-7">
-                                        <input type="text" class="form-control" placeholder="Номер путевки" />
-                                    </div>
-                                </div>
-                                <div class="form-group row align-items-center">
                                     <label class="col-md-5 col-form-label text-md-right py-0">Дата:</label>
                                     <div class="col-md-7">
-                                        <input type="text" class="form-control" placeholder="Дата" />
+                                        <input type="date" class="form-control" placeholder="Дата" ng-model="DataPos" />
                                     </div>
                                 </div>
                                 <div class="form-group row align-items-center">
                                     <label class="col-md-5 col-form-label text-md-right py-0">Номер документа:</label>
                                     <div class="col-md-7">
-                                        <input type="text" class="form-control" placeholder="Номер документа" />
+                                        <input type="text" class="form-control" placeholder="Номер документа" ng-model="Num_Doc" />
                                     </div>
                                 </div>
                                 <div class="form-group row align-items-center">
                                     <label class="col-md-5 col-form-label text-md-right py-0">Отправитель:</label>
                                     <div class="col-md-7">
-                                        <select class="custom-select form-control">
-                                            <option>"Кашкадарё сокили" санаторияси КУК</option>
-                                            <option>Option 1</option>
-                                            <option>Option 2</option>
-                                            <option>Option 3</option>
-                                        </select>
+                                        <select class="custom-select form-control" ng-model="SelectedOrganization" ng-options="item as item.Name_Org for item in OrganizationsL track by item.ID"></select>
                                     </div>
+                                    <a href="#" class="btn btn-grey d-block d-md-inline-block mb-2" data-toggle="modal" data-target="#organization">Выбрать</a>
                                 </div>
                                 <div class="form-group row align-items-center">
                                     <label class="col-md-5 col-form-label text-md-right py-0">Номер доверенности (и на кого оформлена):</label>
                                     <div class="col-md-7">
-                                        <input type="text" class="form-control" placeholder="Номер доверенности (и на кого оформлена)" />
+                                        <input ng-model="Name_Dov" type="text" class="form-control" placeholder="Номер доверенности (и на кого оформлена)" />
                                     </div>
                                 </div>
                                 <div class="mb-4 text-right">
-                                    <a href="#" class="btn btn-blue d-block d-md-inline-block mb-2"><i class="fas fa-plus"></i> Добавить</a>
+                                    <a href="#" ng-click="EditNakladnoy()" class="btn btn-green d-block d-md-inline-block mb-2"><i class="fas fa-plus"></i> Изменить</a>
+                                    <a href="#" ng-click="RemoveNakladnoy()" class="btn btn-red d-block d-md-inline-block mb-2"><i class="fas fa-plus"></i> Удалить</a>
                                     <a href="#" class="btn btn-grey d-block d-md-inline-block mb-2" data-dismiss="modal">Отмена</a>
                                 </div>
                             </div>
@@ -648,6 +598,97 @@
             </div>
         </div>
 
+
+        <div class="modal__block modal fade" id="organization" tabindex="-1" role="dialog" aria-labelledby="organizationLabel" data-backdrop="static" data-keyboard="false">
+            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-body" style="max-height: calc(100vh - 210px); overflow-y: auto;">
+                        <div class="row mb-4 align-items-center">
+                            <div class="col-sm-6 title__block">
+                                <h4>Справочник Организаций</h4>
+                                <nav aria-label="breadcrumb" class="breadcrumb__block">
+                                    <ol class="breadcrumb">
+                                        <li class="breadcrumb-item active" aria-current="page">Справочник Организаций</li>
+                                    </ol>
+                                </nav>
+                            </div>
+                        </div>
+                        <div>
+                            <input type="text" placeholder="Наименование" ng-model="FilterName" />
+                            <br /><input type="text" placeholder="ИНН" ng-model="FilterInn" /><br />
+                            <select class="custom-select" required name="Otrasl" ng-model="FilterSelectedOtrasl" ng-options="item as item.Name_Ot for item in Otrasl track by item.ID_Ot"></select>
+                            <br /><br /><button class="btn btn-green" ng-click="GetOrganizationsFilter()"><i class="btn-green"></i> Поиск</button>
+                        </div>
+                        <div class="table-responsive box-shadow mb-4" id="export">
+                            <table class="table table__block t-hover">
+                                <thead>
+                                    <tr>
+                                        <th class="dropdown dropdown__table" style="width:150px;text-align:center">
+                                            Выбор
+                                        </th>
+                                        <th class="dropdown dropdown__table" style="width:150px;text-align:center">
+                                            Отрасль
+                                        </th>
+                                        <th class="dropdown dropdown__table" style="width:200px;text-align:center">
+                                            Название организации
+                                        </th>
+                                        <th class="dropdown dropdown__table" style="width:150px;text-align:center">
+                                            ИНН
+                                        </th>
+                                        <th class="dropdown dropdown__table" style="width:100px;text-align:center">
+                                            Расчетный счет
+                                        </th>
+                                        <th class="dropdown dropdown__table" style="width:150px;text-align:center">
+                                            МФО
+                                        </th>
+                                        <th class="dropdown dropdown__table" style="width:150px;text-align:center">
+                                            Банк
+                                        </th>
+                                        <th class="dropdown dropdown__table" style="width:150px;text-align:center">
+                                            ОКОНХ
+                                        </th>
+                                        <th class="dropdown dropdown__table" style="width:150px;text-align:center">
+                                            Адрес
+                                        </th>
+                                        <th class="dropdown dropdown__table" style="width:150px;text-align:center">
+                                            Телефон
+                                        </th>
+                                        <th class="dropdown dropdown__table" style="width:150px;text-align:center">
+                                            Район
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="poin" ng-repeat="org in Organizations" ng-click="editOrg(org)" >
+                                        <td class="custom-control custom-checkbox r-checkbox">
+                                            <input type="checkbox" class="custom-control-input" id="customCheck{{org.ID}}"
+                                                   ng-model="selectedObjs"
+                                                   ng-checked="obj.selected"
+                                                   ng-click="toggleObjSelectionOrg($event, org.ID, org.Name_Org)">
+                                            <label class="custom-control-label r-label" for="customCheck{{org.ID}}">{{org.ID}}</label>
+                                        </td>
+                                        <td style="text-align:center">{{org.OtraslName}}</td>
+                                        <td style="text-align:center">{{org.Name_Org}}</td>
+                                        <td style="text-align:center">{{org.INN     }}</td>
+                                        <td style="text-align:center">{{org.RS      }}</td>
+                                        <td style="text-align:center">{{org.MFO     }}</td>
+                                        <td style="text-align:center">{{org.Bank    }}</td>
+                                        <td style="text-align:center">{{org.OKONX   }}</td>
+                                        <td style="text-align:center">{{org.Adress  }}</td>
+                                        <td style="text-align:center">{{org.Telefon }}</td>
+                                        <td style="text-align:center">{{org.RegionName}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="mb-4 text-right">
+                            @*<a href="#" ng-click="SelectOrganization()" class="btn btn-blue d-block d-md-inline-block mb-2" data-dismiss="modal"><i class="fas fa-plus"></i> Выбрать</a>*@
+                            <a href="#" class="btn btn-grey d-block d-md-inline-block mb-2" data-dismiss="modal">Отмена</a>
+                        </div>
+                    </div>   
+                </div>
+            </div>
+        </div>
 
     </div>
 }

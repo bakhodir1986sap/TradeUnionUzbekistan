@@ -118,7 +118,7 @@ ALTER procedure [dbo].[sp_rt_Zapros_Putyovki]
 @LASTNAME nvarchar(255),
 @NUM_PUT varchar(10),
 @POL int,
-@DepartmentBase varchar(255)
+@departmentBase varchar(255)
 as 
 begin 
 set nocount on;
@@ -208,11 +208,11 @@ set nocount on;
   AND   face.LastName LIKE '%' + @LASTNAME + '%'
   AND   postDtl.Num_Put LIKE '%' + @NUM_PUT + '%'
   AND   face.Pol = CASE WHEN @POL = -1 THEN face.Pol ELSE @POL END
-  AND   postMain.DepartmentBase = @DepartmentBase
-  AND   ViplMain.DepartmentBase = @DepartmentBase
-  AND   Org1.DepartmentBase = @DepartmentBase
-  AND   Oplata.DepartmentBase = @DepartmentBase
-  AND   vozvrat.DepartmentBase = @DepartmentBase
+  AND   postMain.DepartmentBase = @departmentBase
+  AND   ViplMain.DepartmentBase = @departmentBase
+  AND   Org1.DepartmentBase = @departmentBase
+  AND   Oplata.DepartmentBase = @departmentBase
+  AND   vozvrat.DepartmentBase = @departmentBase
   ;
  
 end
@@ -223,15 +223,16 @@ end
 
 USE [KasabaKIAT_N1]
 GO
-/****** Object:  StoredProcedure [dbo].[sp_rt_ZayavkiList]    Script Date: 05/07/2018 16:23:33 ******/
+/****** Object:  StoredProcedure [dbo].[sp_rt_OperativkaPutyovki]    Script Date: 05/11/2018 09:40:03 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-CREATE procedure [dbo].[sp_rt_OperativkaPutyovki]
+ALTER procedure [dbo].[sp_rt_OperativkaPutyovki]
+@departmentBase varchar(255),
 @beginDate datetime,
-@endDate   datetime,
-@DepartmentBase varchar(255)
+@endDate   datetime
+
 as 
 begin 
 set nocount on;
@@ -251,77 +252,148 @@ select nachaloPrixod.SanatID,
 	   konesPrixod.Kolichestvo - konesRasxod.Kolichestvo as OstatokKolKones,
 	   konesPrixod.Symma - konesRasxod.Symma as  OstatokSymmaKones      
 from 
-(select San.ID as SanatID, San.Name_San as SanatoryName,
+(
+
+   select San.ID as SanatID, San.Name_San as SanatoryName,
+       ISNULL(AA.Kolichestvo , 0) As Kolichestvo , 
+       ISNULL(AA.Symma , 0) As Symma
+	from 
+	KasabaKIAT_N1.dbo.tblSprav_San San 
+	left outer join 
+	(SELECT post.ID_Sanat,
 	   ISNULL(COUNT(post.ID_Sanat), 0) as Kolichestvo,
-	   ISNULL(SUM(post.Symma_Put), 0)  as Symma
-from KasabaKIAT_N1.dbo.tblSprav_San San left outer join
-KasabaKIAT_N1.dbo.tblPos_Put post on San.ID = post.ID_Sanat
-where CAST(post.Data_Post as DATE) <= CAST(@beginDate as DATE)
-AND   post.DepartmentBase = @DepartmentBase
-group by San.ID , San.Name_San) nachaloPrixod
+	   ISNULL(SUM(post.Symma_Put), 0)  as Symma 
+	FROM KasabaKIAT_N1.dbo.tblPos_Put post
+	WHERE 
+	CAST(post.Data_Post as DATE) <= CAST(@beginDate as DATE)
+	AND   post.DepartmentBase = @departmentBase
+	GROUP BY post.ID_Sanat) AA on San.ID = AA.ID_Sanat
+	
+) nachaloPrixod
 inner join 
-(select San.ID as SanatID, San.Name_San as SanatoryName,
-	   ISNULL(COUNT(vipl.ID_Sanat), 0) as Kolichestvo,
-	   ISNULL(SUM(vipl.Symma), 0)  as Symma
-from KasabaKIAT_N1.dbo.tblSprav_San San left outer join
-KasabaKIAT_N1.dbo.tblVipl_Put vipl on San.ID = vipl.ID_Sanat
-where CAST(vipl.Data_Post as DATE) <= CAST(@beginDate as DATE)
-AND   vipl.DepartmentBase = @DepartmentBase
-group by San.ID , San.Name_San) nachaloRasxod 
+(
+
+    select San.ID as SanatID, San.Name_San as SanatoryName,
+       ISNULL(AA.Kolichestvo , 0) As Kolichestvo , 
+       ISNULL(AA.Symma , 0) As Symma
+	from 
+	KasabaKIAT_N1.dbo.tblSprav_San San 
+	left outer join 
+	(SELECT post.ID_Sanat,
+	   ISNULL(COUNT(post.ID_Sanat), 0) as Kolichestvo,
+	   ISNULL(SUM(post.Symma), 0)  as Symma 
+	FROM KasabaKIAT_N1.dbo.tblVipl_Put post
+	WHERE 
+	CAST(post.Data_Post as DATE) <= CAST(@beginDate as DATE)
+	AND   post.DepartmentBase = @departmentBase
+	GROUP BY post.ID_Sanat) AA on San.ID = AA.ID_Sanat
+	
+	
+	) nachaloRasxod 
 on nachaloPrixod.SanatID = nachaloRasxod.SanatID
 inner join 
-(select San.ID as SanatID, San.Name_San as SanatoryName,
-	   COUNT(post.ID_Sanat) as Kolichestvo,
-	   SUM(ISNULL(post.Symma_Put, 0))  as Symma
-from KasabaKIAT_N1.dbo.tblSprav_San San left outer join
-KasabaKIAT_N1.dbo.tblPos_Put post on San.ID = post.ID_Sanat
-where CAST(post.Data_Post as DATE) 
-between CAST(@beginDate as DATE) AND  CAST(@endDate as DATE)
-AND   post.DepartmentBase = @DepartmentBase
-group by San.ID , San.Name_San) prixodPeriod
+(
+
+select San.ID as SanatID, San.Name_San as SanatoryName,
+       ISNULL(AA.Kolichestvo , 0) As Kolichestvo , 
+       ISNULL(AA.Symma , 0) As Symma
+	from 
+	KasabaKIAT_N1.dbo.tblSprav_San San 
+	left outer join 
+	(SELECT post.ID_Sanat,
+	   ISNULL(COUNT(post.ID_Sanat), 0) as Kolichestvo,
+	   ISNULL(SUM(post.Symma_Put), 0)  as Symma 
+	FROM KasabaKIAT_N1.dbo.tblPos_Put post
+	WHERE 
+	CAST(post.Data_Post as DATE) between CAST(@beginDate as DATE) AND  CAST(@endDate as DATE)
+	AND   post.DepartmentBase = @departmentBase
+	GROUP BY post.ID_Sanat) AA on San.ID = AA.ID_Sanat
+
+) prixodPeriod
 on nachaloPrixod.SanatID = prixodPeriod.SanatID 
 inner join 
-(select San.ID as SanatID, San.Name_San as SanatoryName,
-	   COUNT(vipl.ID_Sanat) as Kolichestvo,
-	   SUM(vipl.Symma)  as Symma
-from KasabaKIAT_N1.dbo.tblSprav_San San left outer join
-KasabaKIAT_N1.dbo.tblVipl_Put vipl on San.ID = vipl.ID_Sanat
-where CAST(vipl.Data_Post as DATE) 
-between CAST(@beginDate as DATE) AND  CAST(@endDate as DATE)
-AND   vipl.DepartmentBase = @DepartmentBase
-group by San.ID , San.Name_San) rasxodPeriod
+(
+    select San.ID as SanatID, San.Name_San as SanatoryName,
+       ISNULL(AA.Kolichestvo , 0) As Kolichestvo , 
+       ISNULL(AA.Symma , 0) As Symma
+	from 
+	KasabaKIAT_N1.dbo.tblSprav_San San 
+	left outer join 
+	(SELECT post.ID_Sanat,
+	   ISNULL(COUNT(post.ID_Sanat), 0) as Kolichestvo,
+	   ISNULL(SUM(post.Symma), 0)  as Symma 
+	FROM KasabaKIAT_N1.dbo.tblVipl_Put post
+	WHERE 
+	CAST(post.Data_Post as DATE) between CAST(@beginDate as DATE) AND  CAST(@endDate as DATE)
+	AND   post.DepartmentBase = @departmentBase
+	GROUP BY post.ID_Sanat) AA on San.ID = AA.ID_Sanat
+
+) rasxodPeriod
 on nachaloPrixod.SanatID = rasxodPeriod.SanatID
 inner join 
-(select San.ID as SanatID, San.Name_San as SanatoryName,
-	   COUNT(vozv.ID_Sanat) as Kolichestvo,
-	   SUM(vozv.SymmaP)  as Symma
-from KasabaKIAT_N1.dbo.tblSprav_San San left outer join
-KasabaKIAT_N1.dbo.tblVozVrat vozv on San.ID = vozv.ID_Sanat
-where CAST(vozv.Data_Post as DATE) between CAST(@beginDate as DATE) 
-AND  CAST(@endDate as DATE)
-AND   vozv.DepartmentBase = @DepartmentBase
-group by San.ID , San.Name_San) vozvratPeriod
+(
+
+    select San.ID as SanatID, San.Name_San as SanatoryName,
+       ISNULL(AA.Kolichestvo , 0) As Kolichestvo , 
+       ISNULL(AA.Symma , 0) As Symma
+	from 
+	KasabaKIAT_N1.dbo.tblSprav_San San 
+	left outer join 
+	(SELECT post.ID_Sanat,
+	   ISNULL(COUNT(post.ID_Sanat), 0) as Kolichestvo,
+	   ISNULL(SUM(post.SymmaP), 0)  as Symma 
+	FROM KasabaKIAT_N1.dbo.tblVozVrat post
+	WHERE 
+	CAST(post.Data_Post as DATE)  between CAST(@beginDate as DATE) AND  CAST(@endDate as DATE)
+	AND   post.DepartmentBase = @departmentBase
+	GROUP BY post.ID_Sanat) AA on San.ID = AA.ID_Sanat
+
+
+) vozvratPeriod
 on nachaloPrixod.SanatID = vozvratPeriod.SanatID
 inner join 
-(select San.ID as SanatID, San.Name_San as SanatoryName,
-	   COUNT(post.ID_Sanat) as Kolichestvo,
-	   SUM(post.Symma_Put)  as Symma
-from KasabaKIAT_N1.dbo.tblSprav_San San left outer join
-KasabaKIAT_N1.dbo.tblPos_Put post on San.ID = post.ID_Sanat
-where CAST(post.Data_Post as DATE) <= CAST(@endDate as DATE)
-AND   post.DepartmentBase = @DepartmentBase
-group by San.ID , San.Name_San) konesPrixod
+(
+
+   select San.ID as SanatID, San.Name_San as SanatoryName,
+       ISNULL(AA.Kolichestvo , 0) As Kolichestvo , 
+       ISNULL(AA.Symma , 0) As Symma
+	from 
+	KasabaKIAT_N1.dbo.tblSprav_San San 
+	left outer join 
+	(SELECT post.ID_Sanat,
+	   ISNULL(COUNT(post.ID_Sanat), 0) as Kolichestvo,
+	   ISNULL(SUM(post.Symma_Put), 0)  as Symma 
+	FROM KasabaKIAT_N1.dbo.tblPos_Put post
+	WHERE 
+	CAST(post.Data_Post as DATE) <= CAST(@endDate as DATE)
+	AND   post.DepartmentBase = @departmentBase
+	GROUP BY post.ID_Sanat) AA on San.ID = AA.ID_Sanat
+
+
+) konesPrixod
 on nachaloPrixod.SanatID = konesPrixod.SanatID
 inner join 
-(select San.ID as SanatID, San.Name_San as SanatoryName,
-	   COUNT(vipl.ID_Sanat) as Kolichestvo,
-	   SUM(vipl.Symma)  as Symma
-from KasabaKIAT_N1.dbo.tblSprav_San San left outer join
-KasabaKIAT_N1.dbo.tblVipl_Put vipl on San.ID = vipl.ID_Sanat
-where CAST(vipl.Data_Post as DATE) <= CAST(@endDate as DATE)
-AND   vipl.DepartmentBase = @DepartmentBase
-group by San.ID , San.Name_San) konesRasxod
-on nachaloPrixod.SanatID = konesPrixod.SanatID;  
+(
+
+
+    select San.ID as SanatID, San.Name_San as SanatoryName,
+       ISNULL(AA.Kolichestvo , 0) As Kolichestvo , 
+       ISNULL(AA.Symma , 0) As Symma
+	from 
+	KasabaKIAT_N1.dbo.tblSprav_San San 
+	left outer join 
+	(SELECT post.ID_Sanat,
+	   ISNULL(COUNT(post.ID_Sanat), 0) as Kolichestvo,
+	   ISNULL(SUM(post.Symma), 0)  as Symma 
+	FROM KasabaKIAT_N1.dbo.tblVipl_Put post
+	WHERE 
+	CAST(post.Data_Post as DATE) <= CAST(@endDate as DATE)
+	AND   post.DepartmentBase = @departmentBase
+	GROUP BY post.ID_Sanat) AA on San.ID = AA.ID_Sanat
+
+
+) konesRasxod
+on nachaloPrixod.SanatID = konesRasxod.SanatID; 
   
 end
 
@@ -338,7 +410,7 @@ CREATE procedure [dbo].[sp_rt_OperativkaPutyovkiPrixod]
 @beginDate datetime,
 @endDate   datetime,
 @SanatID   int,
-@DepartmentBase varchar(255)
+@departmentBase varchar(255)
 as 
 begin 
 set nocount on;
@@ -355,7 +427,7 @@ inner join KasabaKIAT_N1.dbo.tblSprav_Org Org on postMain.ID_Pos = Org.ID
 where CAST(post.Data_Post as DATE) 
 between CAST(@beginDate as DATE) AND  CAST(@endDate as DATE)
 AND post.ID_Sanat = @SanatID
-AND postMain.DepartmentBase = @DepartmentBase; 
+AND postMain.DepartmentBase = @departmentBase; 
   
 end
 ----------------------------------------------
@@ -371,7 +443,7 @@ CREATE procedure [dbo].[sp_rt_OperativkaPutyovkiRasxod]
 @beginDate datetime,
 @endDate   datetime,
 @SanatID   int,
-@DepartmentBase varchar(255)
+@departmentBase varchar(255)
 as 
 begin 
 set nocount on;
@@ -388,7 +460,7 @@ inner join KasabaKIAT_N1.dbo.tblSprav_Org Org on postMain.ID_Org = Org.ID
 where CAST(post.Data_Post as DATE) 
 between CAST(@beginDate as DATE) AND  CAST(@endDate as DATE)
 AND post.ID_Sanat = @SanatID
-AND postMain.DepartmentBase = @DepartmentBase; 
+AND postMain.DepartmentBase = @departmentBase; 
   
 end
 
@@ -405,7 +477,7 @@ CREATE procedure [dbo].[sp_rt_OperativkaPutyovkiVozvrat]
 @beginDate datetime,
 @endDate   datetime,
 @SanatID   int,
-@DepartmentBase varchar(255)
+@departmentBase varchar(255)
 as 
 begin 
 set nocount on;
@@ -421,7 +493,7 @@ inner join KasabaKIAT_N1.dbo.tblSprav_Org Org on post.ID_Ot = Org.ID
 where CAST(post.Data_Post as DATE) 
 between CAST(@beginDate as DATE) AND  CAST(@endDate as DATE)
 AND post.ID_Sanat = @SanatID
-AND post.DepartmentBase = @DepartmentBase;
+AND post.DepartmentBase = @departmentBase;
   
 end
 
@@ -438,7 +510,7 @@ CREATE procedure [dbo].[sp_rt_OperativkaPutyovkiOstatok]
 @beginDate datetime,
 @endDate   datetime,
 @SanatID   int,
-@DepartmentBase varchar(255)
+@departmentBase varchar(255)
 as 
 begin 
 set nocount on;
@@ -455,7 +527,7 @@ inner join KasabaKIAT_N1.dbo.tblSprav_Org Org on postMain.ID_Pos = Org.ID
 where CAST(post.Data_Post as DATE) 
 between CAST(@beginDate as DATE) AND  CAST(@endDate as DATE)
 AND post.ID_Sanat = @SanatID
-AND postMain.DepartmentBase = @DepartmentBase
+AND postMain.DepartmentBase = @departmentBase
 AND NOT EXISTS (
 select  1
 from KasabaKIAT_N1.dbo.tblSprav_San San1 inner join
@@ -475,16 +547,16 @@ end
 
 USE [KasabaKIAT_N1]
 GO
-/****** Object:  StoredProcedure [dbo].[sp_rt_SvodniyPoPutyovkam]    Script Date: 05/07/2018 20:53:27 ******/
+/****** Object:  StoredProcedure [dbo].[sp_rt_SvodniyPoPutyovkam]    Script Date: 05/11/2018 11:57:33 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-CREATE procedure [dbo].[sp_rt_SvodniyPoPutyovkam]
+ALTER procedure [dbo].[sp_rt_SvodniyPoPutyovkam]
+@departmentBase varchar(255),
 @Year int,
 @Kvartal   int,
-@Otras   int,
-@DepartmentBase varchar(255)
+@Otras   int
 as 
 begin 
 set nocount on;
@@ -506,7 +578,7 @@ on Ras.ID_Sanat = San.ID
 where OplMain.SmFil = @Year
 AND   OplMain.ID_KV = @Kvartal
 AND   Otras.ID_Ot = @Otras
-AND   OplMain.DepartmentBase = @DepartmentBase;
+AND   OplMain.DepartmentBase = @departmentBase;
   
 end
 
@@ -522,13 +594,14 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 CREATE procedure [dbo].[sp_rt_KartochkaOrganizasii]
-@OrgInn bigint,
-@DepartmentBase varchar(255)
+@OrgInn varchar(9),
+@departmentBase varchar(255)
 as 
 begin 
 set nocount on;
 
-select Org.Name_Org,
+select Org.ID,
+       Org.Name_Org,
 	   Reg.NameReg,
 	   Org.MFO,
 	   Org.Adress,
@@ -540,7 +613,7 @@ from KasabaKIAT_N1.dbo.tblSprav_Org Org
 inner join KasabaKIAT_N1.dbo.tblSprav_Reg Reg
 on Org.Region = Reg.CodeReg
 where  Org.INN LIKE '%' + @OrgInn
-AND Org.DepartmentBase = @DepartmentBase;
+AND Org.DepartmentBase = @departmentBase;
   
 end
 
@@ -559,7 +632,7 @@ CREATE procedure [dbo].[sp_rt_KartochkaOrganizasiiRasxod]
 @IdOrg bigint,
 @beginDate datetime,
 @endDate datetime,
-@DepartmentBase varchar(255)
+@departmentBase varchar(255)
 as 
 begin 
 set nocount on;
@@ -572,7 +645,7 @@ from  KasabaKIAT_N1.dbo.tblVipl vipl
 where CAST(vipl.Data_Post as DATE) BETWEEN 
  CAST(@beginDate as DATE) AND CAST(@endDate as DATE)
 AND  vipl.ID_Org = @IdOrg
-AND  vipl.DepartmentBase = @DepartmentBase
+AND  vipl.DepartmentBase = @departmentBase
 GROUP BY vipl.ID_Org;
 
 end
@@ -590,7 +663,7 @@ CREATE procedure [dbo].[sp_rt_KartochkaOrganizasiiOplata]
 @IdOrg bigint,
 @beginDate datetime,
 @endDate datetime,
-@DepartmentBase varchar(255)
+@departmentBase varchar(255)
 as 
 begin 
 set nocount on;
@@ -603,7 +676,7 @@ where CAST(opl.Data_Post as DATE) BETWEEN
  CAST(@beginDate as DATE) AND CAST(@endDate as DATE)
 AND  opl.ID_Otras = @IdOrg
 AND  opl.PrizOpl = 1
-AND  opl.DepartmentBase = @DepartmentBase
+AND  opl.DepartmentBase = @departmentBase
 GROUP BY opl.ID_Otras;
 
 end
@@ -620,7 +693,7 @@ CREATE procedure [dbo].[sp_rt_KartochkaOrganizasiiVozvrat]
 @IdOrg bigint,
 @beginDate datetime,
 @endDate datetime,
-@DepartmentBase varchar(255)
+@departmentBase varchar(255)
 as 
 begin 
 set nocount on;
@@ -632,7 +705,7 @@ from KasabaKIAT_N1.dbo.tblVozVrat vozv
 where CAST(vozv.Data_Post as DATE) BETWEEN 
  CAST(@beginDate as DATE) AND CAST(@endDate as DATE)
 AND  vozv.ID_Ot = @IdOrg
-AND  vozv.DepartmentBase = @DepartmentBase
+AND  vozv.DepartmentBase = @departmentBase
 GROUP BY vozv.ID_Ot, vozv.Num_Doc , vozv.Data_Post;
 
 end
@@ -650,24 +723,29 @@ CREATE procedure [dbo].[sp_rt_KartochkaOrganizasiiProcentRazbivka]
 @IdOrg bigint,
 @beginDate datetime,
 @endDate datetime,
-@DepartmentBase varchar(255)
+@departmentBase varchar(255)
 as 
 begin 
 set nocount on;
 
-select Pr.Name_Proc , 
-	   COUNT(Pr.ID) as KolVo, 
-	   SUM(vipl.Symma) as NaSummu
+select Pr.Name_Proc,
+        AA.KolVo ,
+        AA.NaSummu
 from KasabaKIAT.dbo.tblSprav_Pr Pr
-left outer join  KasabaKIAT.dbo.tblVipl_Put vipl
-on vipl.Num_Proc = Pr.ID
+left outer join 
+(select vipl.Num_Proc , 
+	   COUNT(vipl.Num_Proc) as KolVo, 
+	   SUM(vipl.Symma) as NaSummu
+from 
+KasabaKIAT.dbo.tblVipl_Put vipl
 inner join KasabaKIAT.dbo.tblVipl ViplMain
 on ViplMain.ID = vipl.ID_Vipl
 where CAST(ViplMain.Data_Post as DATE) BETWEEN 
  CAST(@beginDate as DATE) AND CAST(@endDate as DATE)
 AND  ViplMain.ID_Org = @IdOrg
-AND  ViplMain.DepartmentBase = @DepartmentBase
-GROUP BY Pr.Name_Proc
+AND  ViplMain.DepartmentBase = @departmentBase
+GROUP BY vipl.Num_Proc) AA
+on Pr.ID = AA.Num_Proc ;
 
 end
 -----------------------------------------------------------------
@@ -683,7 +761,7 @@ CREATE procedure [dbo].[sp_rt_KartochkaOrganizasiiHistory]
 @IdOrg bigint,
 @beginDate datetime,
 @endDate datetime,
-@DepartmentBase varchar(255)
+@departmentBase varchar(255)
 as 
 begin 
 set nocount on;
@@ -705,7 +783,7 @@ from KasabaKIAT.dbo.tblPost post
 inner join KasabaKIAT.dbo.tblSprav_Org Org
 on post.ID_Pos = Org.ID
 where post.ID_Pos = @IdOrg
-AND post.DepartmentBase = @DepartmentBase
+AND post.DepartmentBase = @departmentBase
 AND CAST(post.Data_Post as DATE) BETWEEN 
 CAST(@beginDate as DATE) AND CAST(@endDate as DATE)
 
@@ -721,7 +799,7 @@ from KasabaKIAT.dbo.tblVipl post
 inner join KasabaKIAT.dbo.tblSprav_Org Org
 on post.ID_Org = Org.ID
 where post.ID_Org = @IdOrg
-AND post.DepartmentBase = @DepartmentBase
+AND post.DepartmentBase = @departmentBase
 AND CAST(post.Data_Post as DATE) BETWEEN 
 CAST(@beginDate as DATE) AND CAST(@endDate as DATE)
 
@@ -738,7 +816,7 @@ from KasabaKIAT.dbo.tblOplata post
 inner join KasabaKIAT.dbo.tblSprav_Org Org
 on post.ID_Otras = Org.ID
 where post.ID_Otras = @IdOrg
-AND post.DepartmentBase = @DepartmentBase
+AND post.DepartmentBase = @departmentBase
 AND CAST(post.Data_Post as DATE) BETWEEN 
 CAST(@beginDate as DATE) AND CAST(@endDate as DATE)
 AND  post.PrizOpl = 1
@@ -756,7 +834,7 @@ from KasabaKIAT.dbo.tblVozVrat post
 inner join KasabaKIAT.dbo.tblSprav_Org Org
 on post.ID_Ot = Org.ID
 where post.ID_Ot = @IdOrg
-AND post.DepartmentBase = @DepartmentBase
+AND post.DepartmentBase = @departmentBase
 AND CAST(post.Data_Post as DATE) BETWEEN 
 CAST(@beginDate as DATE) AND CAST(@endDate as DATE)) AA
 
@@ -776,7 +854,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 CREATE procedure [dbo].[sp_rt_KartochkaOrganizasiiHistoriDtlPrixod]
 @IdUnique bigint,
-@DepartmentBase varchar(255)
+@departmentBase varchar(255)
 as 
 begin 
 set nocount on;
@@ -788,7 +866,7 @@ from KasabaKIAT.dbo.tblPos_Put put
 inner join KasabaKIAT.dbo.tblSprav_San San
 on put.ID_Sanat = San.ID
 where put.ID_Post = @IdUnique
-AND put.DepartmentBase = @DepartmentBase;
+AND put.DepartmentBase = @departmentBase;
 end
 
 -----------------------------------------------------------
@@ -802,7 +880,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 CREATE procedure [dbo].[sp_rt_KartochkaOrganizasiiHistoriDtlRasxod]
 @IdUnique bigint,
-@DepartmentBase varchar(255)
+@departmentBase varchar(255)
 as 
 begin 
 set nocount on;
@@ -815,7 +893,7 @@ from KasabaKIAT.dbo.tblVipl_Put put
 inner join KasabaKIAT.dbo.tblSprav_San San
 on put.ID_Sanat = San.ID
 where put.ID_Vipl = @IdUnique
-AND put.DepartmentBase = @DepartmentBase;
+AND put.DepartmentBase = @departmentBase;
 end
 
 
@@ -829,7 +907,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 CREATE procedure [dbo].[sp_rt_KartochkaOrganizasiiHistoriDtlVozvrat]
 @IdUnique bigint,
-@DepartmentBase varchar(255)
+@departmentBase varchar(255)
 as 
 begin 
 set nocount on;
@@ -842,7 +920,7 @@ from KasabaKIAT.dbo.tblOplata_Ras put
 inner join KasabaKIAT.dbo.tblSprav_San San
 on put.ID_Sanat = San.ID
 where put.ID_Opl = @IdUnique
-AND put.DepartmentBase = @DepartmentBase;
+AND put.DepartmentBase = @departmentBase;
 
 end
 --Kones Kartochki organizasii
@@ -853,18 +931,19 @@ end
 
 USE [KasabaKIAT_N1]
 GO
-
+/****** Object:  StoredProcedure [dbo].[sp_rt_BalanciPredpriyatiy]    Script Date: 05/12/2018 10:48:52 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-CREATE procedure [dbo].[sp_rt_BalanciPredpriyatiy]
+ALTER procedure [dbo].[sp_rt_BalanciPredpriyatiy]
 @beginDate datetime,
 @endDate datetime,
-@DepartmentBase varchar(255)
+@departmentBase varchar(255)
 as 
 begin 
 set nocount on;
+
 
 select Nachalo.Name_Org ,  
        Nachalo.DebitNachalo,
@@ -874,39 +953,55 @@ select Nachalo.Name_Org ,
        Kones.DebitKones,
        Kones.KreditKones
 from 
-(select Org.ID , Org.Name_Org,
+(
+select Org.ID , Org.Name_Org ,
+       ISNULL(AA.DebitNachalo, 0) as DebitNachalo,
+       ISNULL(AA.KreditNachalo , 0) as KreditNachalo  
+from KasabaKIAT_N1.dbo.tblSprav_Org Org
+left outer join 
+(select Opl.ID_Otras ,
 	   case when ISNULL(SUM(Opl.Symma_DT), 0) > ISNULL(SUM(Opl.Symma_KT), 0) 
 	   then ISNULL(SUM(Opl.Symma_DT), 0) - ISNULL(SUM(Opl.Symma_KT), 0)  else 0 end DebitNachalo,
 	   case when ISNULL(SUM(Opl.Symma_DT), 0) < ISNULL(SUM(Opl.Symma_KT), 0) 
 	   then ISNULL(SUM(Opl.Symma_KT), 0) - ISNULL(SUM(Opl.Symma_DT), 0)   else 0 end KreditNachalo	   
 from KasabaKIAT_N1.dbo.tblOplata Opl
-inner join  KasabaKIAT_N1.dbo.tblSprav_Org Org
-on Opl.ID_Otras = Org.ID
 where CAST(Opl.Data_Post as DATE) <  CAST(@beginDate as DATE)
-AND   Opl.DepartmentBase = @DepartmentBase
-group by Org.ID , Org.Name_Org) Nachalo
+AND   Opl.DepartmentBase = @departmentBase
+group by Opl.ID_Otras) AA on Org.ID = AA.ID_Otras
+) Nachalo
 inner join 
-(select Org.ID , Org.Name_Org,
+(
+select Org.ID , Org.Name_Org ,
+       ISNULL(AA.DebitOborot, 0) as DebitOborot,
+       ISNULL(AA.KreditOborot , 0) as KreditOborot  
+from KasabaKIAT_N1.dbo.tblSprav_Org Org
+left outer join 
+(
+select Opl.ID_Otras ,
 	   ISNULL(SUM(Opl.Symma_DT), 0) as DebitOborot,
 	   ISNULL(SUM(Opl.Symma_KT), 0) as KreditOborot
 from KasabaKIAT_N1.dbo.tblOplata Opl
-inner join  KasabaKIAT_N1.dbo.tblSprav_Org Org
-on Opl.ID_Otras = Org.ID
 where CAST(Opl.Data_Post as DATE) between  CAST(@beginDate as DATE) AND CAST(@endDate as DATE)
-AND   Opl.DepartmentBase = @DepartmentBase
-group by Org.ID , Org.Name_Org) Oborot on Nachalo.ID = Oborot.ID
+AND   Opl.DepartmentBase = @departmentBase
+group by Opl.ID_Otras 
+) AA on Org.ID = AA.ID_Otras
+) Oborot on Nachalo.ID = Oborot.ID
 inner join 
-(select Org.ID , Org.Name_Org,
+(select Org.ID , Org.Name_Org ,
+       ISNULL(AA.DebitKones, 0) as DebitKones,
+       ISNULL(AA.KreditKones , 0) as KreditKones  
+from KasabaKIAT_N1.dbo.tblSprav_Org Org
+left outer join 
+(select Opl.ID_Otras ,
 	   case when ISNULL(SUM(Opl.Symma_DT), 0) > ISNULL(SUM(Opl.Symma_KT), 0) 
 	   then ISNULL(SUM(Opl.Symma_DT), 0) - ISNULL(SUM(Opl.Symma_KT), 0)  else 0 end DebitKones,
 	   case when ISNULL(SUM(Opl.Symma_DT), 0) < ISNULL(SUM(Opl.Symma_KT), 0) 
 	   then ISNULL(SUM(Opl.Symma_KT), 0) - ISNULL(SUM(Opl.Symma_DT), 0)   else 0 end KreditKones	   
 from KasabaKIAT_N1.dbo.tblOplata Opl
-inner join  KasabaKIAT_N1.dbo.tblSprav_Org Org
-on Opl.ID_Otras = Org.ID
 where CAST(Opl.Data_Post as DATE) <=  CAST(@endDate as DATE)
-AND   Opl.DepartmentBase = @DepartmentBase
-group by Org.ID , Org.Name_Org) Kones on Nachalo.ID = Kones.ID;
+AND   Opl.DepartmentBase = @departmentBase
+group by Opl.ID_Otras) AA on Org.ID = AA.ID_Otras
+) Kones on Nachalo.ID = Kones.ID;
 
 end
 
@@ -927,7 +1022,7 @@ CREATE procedure [dbo].[sp_rt_OtchetMedRegRabotnikov]
 @IdOrg     bigint,
 @beginDate datetime,
 @endDate datetime,
-@DepartmentBase varchar(255)
+@departmentBase varchar(255)
 as 
 begin 
 set nocount on;
@@ -954,8 +1049,8 @@ inner join KasabaKIAT_N1.dbo.tblSprav_San Sanat
 on fMed.Med_San = Sanat.ID
 where CAST(ViplMain.Data_Post as DATE) 
 between  CAST(@beginDate as DATE) AND CAST(@endDate as DATE)
-AND ViplMain.ID_Org = @IdOrg
-AND ViplMain.DepartmentBase = @DepartmentBase;
+AND ViplMain.ID_Org = CASE WHEN @IdOrg = 0 THEN ViplMain.ID_Org ELSE @IdOrg END
+AND ViplMain.DepartmentBase = @departmentBase;
 
 end
 
@@ -973,7 +1068,7 @@ GO
 CREATE procedure [dbo].[sp_rt_OtchetUchetStoimostiVidachi]
 @beginDate datetime,
 @endDate datetime,
-@DepartmentBase varchar(255)
+@departmentBase varchar(255)
 as 
 begin 
 set nocount on;
@@ -985,6 +1080,7 @@ SELECT CC.Num_Doc,
        DD.PrBPKolVo,
        DD.PrBPSumma,
        DD.Pr45KolVo,
+	   DD.Pr45Summa,
        DD.Pr100KolVo,
        DD.Pr100Summa,
        DD.DoljnoPostupit
@@ -997,7 +1093,7 @@ from
 KasabaKIAT_N1.dbo.tblOplata OplMain
 inner join KasabaKIAT_N1.dbo.tblOplata_Ras OplDtl
 on OplMain.ID = OplDtl.ID_Opl
-where OplMain.Departmentbase = @DepartmentBase
+where OplMain.Departmentbase = @departmentBase
 AND CAST(OplMain.Data_Post AS DATE) BETWEEN CAST(@beginDate AS DATE) AND CAST(@endDate AS DATE)
 AND OplDtl.Priz = 2
 group by OplMain.Num_Doc ,
@@ -1035,7 +1131,7 @@ from
 from KasabaKIAT_N1.dbo.tblOplata OplMain
 inner join KasabaKIAT_N1.dbo.tblOplata_Ras OplDtl
 on OplMain.ID = OplDtl.ID_Opl
-where OplMain.Departmentbase = @DepartmentBase
+where OplMain.Departmentbase = @departmentBase
 AND OplDtl.Priz = 2
 AND CAST(OplMain.Data_Post AS DATE) BETWEEN CAST(@beginDate AS DATE) AND CAST(@endDate AS DATE)
 group by OplMain.Num_Doc ,
@@ -1062,7 +1158,7 @@ GO
 ALTER procedure [dbo].[sp_rt_FormaN13]
 @aYear int,
 @orgInn  nvarchar(9),
-@DepartmentBase varchar(255)
+@departmentBase varchar(255)
 
 as 
 begin 
@@ -1103,8 +1199,8 @@ LEFT OUTER JOIN [KasabaKIAT_N1].[dbo].[tblFace_Med] fm
 on face.[ID] = fm.ID_Face
 WHERE org.INN LIKE @orgInn + '%'
 AND   YEAR(a.Data_Post) = @aYear
-AND   a.DepartmentBase = @DepartmentBase
-AND   d.DepartmentBase = @DepartmentBase;
+AND   a.DepartmentBase = @departmentBase
+AND   d.DepartmentBase = @departmentBase;
   
 end
 
@@ -1117,19 +1213,19 @@ SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-CREATE procedure [dbo].[sp_rt_FormaN14]
+ALTER procedure [dbo].[sp_rt_FormaN14]
 @beginDate datetime,
 @endDate  datetime,
-@DepartmentBase varchar(255)
+@departmentBase varchar(255)
 
 as 
 begin 
 set nocount on;
 
 select nachaloPrixod.SanatID as Col_0,  
-	   nachaloPrixod.SanatoryName as Col_1,
-	   nachaloPrixod.Kolichestvo - nachaloRasxod.Kolichestvo as OstatokKol_2,
-	   nachaloPrixod.Symma - nachaloRasxod.Symma as OstatokSymma_3,
+	   'Санаторий' as Col_1,
+	   ISNULL(nachaloPrixod.Kolichestvo - nachaloRasxod.Kolichestvo, 0) as OstatokKol_2,
+	   ISNULL(nachaloPrixod.Symma - nachaloRasxod.Symma, 0) as OstatokSymma_3,
 	   prixodPeriod.Kolichestvo as PrixodKol_4,
 	   prixodPeriod.Symma       as PrixodSumma_5,
 	   0 as Col_6,
@@ -1158,35 +1254,35 @@ select nachaloPrixod.SanatID as Col_0,
 	   konesPrixod.Symma - konesRasxod.Symma as  OstatokSymmaKones_29      
 from 
 (select San.ID as SanatID, San.Name_San as SanatoryName,
-	   ISNULL(COUNT(post.ID_Sanat), 0) as Kolichestvo,
-	   ISNULL(SUM(post.Symma_Put), 0)  as Symma
-from KasabaKIAT_N1.dbo.tblSprav_San San left outer join
-KasabaKIAT_N1.dbo.tblPos_Put post on San.ID = post.ID_Sanat
-where CAST(post.Data_Post as DATE) <= CAST(@beginDate as DATE)
-AND   post.DepartmentBase = @DepartmentBase
-group by San.ID , San.Name_San) nachaloPrixod
-inner join 
-(select San.ID as SanatID, San.Name_San as SanatoryName,
-	   ISNULL(COUNT(vipl.ID_Sanat), 0) as Kolichestvo,
-	   ISNULL(SUM(vipl.Symma), 0)  as Symma
-from KasabaKIAT_N1.dbo.tblSprav_San San left outer join
-KasabaKIAT_N1.dbo.tblVipl_Put vipl on San.ID = vipl.ID_Sanat
-where CAST(vipl.Data_Post as DATE) <= CAST(@beginDate as DATE)
-AND   vipl.DepartmentBase = @DepartmentBase
-group by San.ID , San.Name_San) nachaloRasxod 
-on nachaloPrixod.SanatID = nachaloRasxod.SanatID
-inner join 
-(select San.ID as SanatID, San.Name_San as SanatoryName,
 	   COUNT(post.ID_Sanat) as Kolichestvo,
 	   SUM(ISNULL(post.Symma_Put, 0))  as Symma
 from KasabaKIAT_N1.dbo.tblSprav_San San left outer join
 KasabaKIAT_N1.dbo.tblPos_Put post on San.ID = post.ID_Sanat
 where CAST(post.Data_Post as DATE) 
 between CAST(@beginDate as DATE) AND  CAST(@endDate as DATE)
-AND   post.DepartmentBase = @DepartmentBase
+AND   post.DepartmentBase = @departmentBase
 group by San.ID , San.Name_San) prixodPeriod
-on nachaloPrixod.SanatID = prixodPeriod.SanatID 
-inner join 
+left outer join 
+(select San.ID as SanatID, San.Name_San as SanatoryName,
+	   ISNULL(COUNT(post.ID_Sanat), 0) as Kolichestvo,
+	   ISNULL(SUM(post.Symma_Put), 0)  as Symma
+from KasabaKIAT_N1.dbo.tblSprav_San San left outer join
+KasabaKIAT_N1.dbo.tblPos_Put post on San.ID = post.ID_Sanat
+where CAST(post.Data_Post as DATE) <= CAST(@beginDate as DATE)
+AND   post.DepartmentBase = @departmentBase
+group by San.ID , San.Name_San) nachaloPrixod
+on prixodPeriod.SanatID  = nachaloPrixod.SanatID
+left outer join 
+(select San.ID as SanatID, San.Name_San as SanatoryName,
+	   ISNULL(COUNT(vipl.ID_Sanat), 0) as Kolichestvo,
+	   ISNULL(SUM(vipl.Symma), 0)  as Symma
+from KasabaKIAT_N1.dbo.tblSprav_San San left outer join
+KasabaKIAT_N1.dbo.tblVipl_Put vipl on San.ID = vipl.ID_Sanat
+where CAST(vipl.Data_Post as DATE) <= CAST(@beginDate as DATE)
+AND   vipl.DepartmentBase = @departmentBase
+group by San.ID , San.Name_San) nachaloRasxod 
+on prixodPeriod.SanatID = nachaloRasxod.SanatID
+left outer join  
 (select San.ID as SanatID, San.Name_San as SanatoryName,
 	   COUNT(vipl.ID_Sanat) as Kolichestvo,
 	   SUM(vipl.Symma)  as Symma
@@ -1194,10 +1290,10 @@ from KasabaKIAT_N1.dbo.tblSprav_San San left outer join
 KasabaKIAT_N1.dbo.tblVipl_Put vipl on San.ID = vipl.ID_Sanat
 where CAST(vipl.Data_Post as DATE) 
 between CAST(@beginDate as DATE) AND  CAST(@endDate as DATE)
-AND   vipl.DepartmentBase = @DepartmentBase
+AND   vipl.DepartmentBase = @departmentBase
 group by San.ID , San.Name_San) rasxodPeriod
-on nachaloPrixod.SanatID = rasxodPeriod.SanatID
-inner join 
+on prixodPeriod.SanatID = rasxodPeriod.SanatID
+left outer join 
 (select San.ID as SanatID, San.Name_San as SanatoryName,
 	   COUNT(vozv.ID_Sanat) as Kolichestvo,
 	   SUM(vozv.SymmaP)  as Symma
@@ -1205,29 +1301,29 @@ from KasabaKIAT_N1.dbo.tblSprav_San San left outer join
 KasabaKIAT_N1.dbo.tblVozVrat vozv on San.ID = vozv.ID_Sanat
 where CAST(vozv.Data_Post as DATE) between CAST(@beginDate as DATE) 
 AND  CAST(@endDate as DATE)
-AND   vozv.DepartmentBase = @DepartmentBase
+AND   vozv.DepartmentBase = @departmentBase
 group by San.ID , San.Name_San) vozvratPeriod
-on nachaloPrixod.SanatID = vozvratPeriod.SanatID
-inner join 
+on prixodPeriod.SanatID = vozvratPeriod.SanatID
+left outer join 
 (select San.ID as SanatID, San.Name_San as SanatoryName,
 	   COUNT(post.ID_Sanat) as Kolichestvo,
 	   SUM(post.Symma_Put)  as Symma
 from KasabaKIAT_N1.dbo.tblSprav_San San left outer join
 KasabaKIAT_N1.dbo.tblPos_Put post on San.ID = post.ID_Sanat
 where CAST(post.Data_Post as DATE) <= CAST(@endDate as DATE)
-AND   post.DepartmentBase = @DepartmentBase
+AND   post.DepartmentBase = @departmentBase
 group by San.ID , San.Name_San) konesPrixod
-on nachaloPrixod.SanatID = konesPrixod.SanatID
-inner join 
+on prixodPeriod.SanatID = konesPrixod.SanatID
+left outer join 
 (select San.ID as SanatID, San.Name_San as SanatoryName,
 	   COUNT(vipl.ID_Sanat) as Kolichestvo,
 	   SUM(vipl.Symma)  as Symma
 from KasabaKIAT_N1.dbo.tblSprav_San San left outer join
 KasabaKIAT_N1.dbo.tblVipl_Put vipl on San.ID = vipl.ID_Sanat
 where CAST(vipl.Data_Post as DATE) <= CAST(@endDate as DATE)
-AND   vipl.DepartmentBase = @DepartmentBase
+AND   vipl.DepartmentBase = @departmentBase
 group by San.ID , San.Name_San) konesRasxod
-on nachaloPrixod.SanatID = konesPrixod.SanatID; 
+on prixodPeriod.SanatID = konesPrixod.SanatID; 
 
 end
 
@@ -1243,7 +1339,7 @@ GO
 CREATE procedure [dbo].[sp_rt_UchetVladelsevPutyovok]
 @beginDate datetime,
 @endDate  datetime,
-@DepartmentBase varchar(255)
+@departmentBase varchar(255)
 
 as 
 begin 
@@ -1299,7 +1395,8 @@ SET QUOTED_IDENTIFIER ON
 GO
 CREATE procedure [dbo].[sp_rt_JurnalniyOrder4]
 @Year int,
-@Kvartal  int 
+@Kvartal  int ,
+@departmentBase varchar(255)
 
 as 
 begin 
@@ -1318,7 +1415,9 @@ from KasabaKIAT_N1.dbo.tblPost pstMain
 inner join KasabaKIAT_N1.dbo.tblSprav_Org Org
 on pstMain.ID_Pos = Org.ID
 where pstMain.SmFil = @Year
-and pstMain.ID_KV = @Kvartal;
+and pstMain.ID_KV = @Kvartal
+AND pstMain.DepartmentBase = @departmentBase
+;
 
 end
 
@@ -1336,7 +1435,8 @@ SET QUOTED_IDENTIFIER ON
 GO
 CREATE procedure [dbo].[sp_rt_JurnalniyOrder4Provodka]
 @Year int,
-@Kvartal  int 
+@Kvartal  int ,
+@departmentBase varchar(255)
 
 as 
 begin 
@@ -1357,7 +1457,8 @@ from KasabaKIAT_N1.dbo.tblPost pstMain
 inner join KasabaKIAT_N1.dbo.tblSprav_Org Org
 on pstMain.ID_Pos = Org.ID
 where pstMain.SmFil = @Year
-and pstMain.ID_KV = @Kvartal) AA
+and pstMain.ID_KV = @Kvartal
+AND pstMain.DepartmentBase = @departmentBase) AA
 GROUP BY AA.DebitSchet, AA.CreditSchet;
 
 end
@@ -1375,7 +1476,8 @@ SET QUOTED_IDENTIFIER ON
 GO
 CREATE procedure [dbo].[sp_rt_JurnalniyOrder5]
 @Year int,
-@Kvartal  int 
+@Kvartal  int ,
+@departmentBase varchar(255)
 
 as 
 begin 
@@ -1394,7 +1496,8 @@ from KasabaKIAT_N1.dbo.tblVipl pstMain
 inner join KasabaKIAT_N1.dbo.tblSprav_Org Org
 on pstMain.ID_Org = Org.ID
 where pstMain.SmFil = @Year
-and pstMain.ID_KV = @Kvartal;
+and pstMain.ID_KV = @Kvartal
+AND pstMain.DepartmentBase = @departmentBase;
 
 
 end
@@ -1411,7 +1514,8 @@ SET QUOTED_IDENTIFIER ON
 GO
 CREATE procedure [dbo].[sp_rt_JurnalniyOrder5Provodka]
 @Year int,
-@Kvartal  int 
+@Kvartal  int ,
+@departmentBase varchar(255)
 
 as 
 begin 
@@ -1432,8 +1536,10 @@ from KasabaKIAT_N1.dbo.tblVipl pstMain
 inner join KasabaKIAT_N1.dbo.tblSprav_Org Org
 on pstMain.ID_Org = Org.ID
 where pstMain.SmFil = @Year
-and pstMain.ID_KV = @Kvartal) AA
-GROUP BY AA.DebitSchet, AA.CreditSchet;
+and pstMain.ID_KV = @Kvartal
+AND pstMain.DepartmentBase = @departmentBase) AA
+GROUP BY AA.DebitSchet, AA.CreditSchet
+;
 
 end
 
@@ -1455,7 +1561,8 @@ SET QUOTED_IDENTIFIER ON
 GO
 CREATE procedure [dbo].[sp_rt_JurnalniyOrder6]
 @Year int,
-@Kvartal  int 
+@Kvartal  int ,
+@departmentBase varchar(255)
 
 as 
 begin 
@@ -1474,7 +1581,8 @@ from KasabaKIAT_N1.dbo.tblVipl pstMain
 inner join KasabaKIAT_N1.dbo.tblSprav_Org Org
 on pstMain.ID_Org = Org.ID
 where pstMain.SmFil = @Year
-and pstMain.ID_KV = @Kvartal;
+and pstMain.ID_KV = @Kvartal
+AND pstMain.DepartmentBase = @departmentBase;
 
 
 end
@@ -1491,7 +1599,8 @@ SET QUOTED_IDENTIFIER ON
 GO
 CREATE procedure [dbo].[sp_rt_JurnalniyOrder6Provodka]
 @Year int,
-@Kvartal  int 
+@Kvartal  int ,
+@departmentBase varchar(255)
 
 as 
 begin 
@@ -1512,7 +1621,17 @@ from KasabaKIAT_N1.dbo.tblVipl pstMain
 inner join KasabaKIAT_N1.dbo.tblSprav_Org Org
 on pstMain.ID_Org = Org.ID
 where pstMain.SmFil = @Year
-and pstMain.ID_KV = @Kvartal) AA
+and pstMain.ID_KV = @Kvartal
+AND pstMain.DepartmentBase = @departmentBase) AA
 GROUP BY AA.DebitSchet, AA.CreditSchet;
 
 end
+
+
+-----------------------------------------------------------------
+
+  ALTER TABLE [KasabaKIAT_N1].[dbo].[tblSprav_Org]
+  ADD IS_PRAVSOYUZ BIT not null default(0);
+
+  ALTER TABLE [KasabaKIAT_N1].[dbo].[tblSprav_Org]
+  ADD ParentID bigint;

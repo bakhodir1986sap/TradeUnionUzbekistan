@@ -235,6 +235,7 @@ namespace KasabaKiat.BusinessLogic.Putyovki.PrixodPutyovok
                 var query = from postPut in db.tblPos_Put
                             where postPut.ID_Post == model.IdPost 
                             && postPut.tblPost.DepartmentBase == model.Departmentbase
+                            && postPut.ID_PolVoz == false
                             select new PostPutyovkaViewModel
                             {
                                 Id = postPut.ID,

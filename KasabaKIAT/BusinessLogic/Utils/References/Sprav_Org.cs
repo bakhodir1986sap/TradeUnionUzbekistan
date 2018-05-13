@@ -30,6 +30,8 @@ namespace KasabaKiat.BusinessLogic.Utils.References
                 org.E_Mail      = model.E_Mail      ;
                 org.UserId = model.UserId;
                 org.DepartmentBase = model.DepartmentBase;
+                org.IS_PRAVSOYUZ = model.IsPravSoyuz;
+                org.ParentID = model.ParentId;
 
                 var orgIns = db.tblSprav_Org.Add(org);
 
@@ -82,6 +84,8 @@ namespace KasabaKiat.BusinessLogic.Utils.References
                         //org1.KT_OST = model.KT_OST;
                         org1.E_Mail = model.E_Mail;
                         //org1.UserId = model.UserId;
+                        org1.IS_PRAVSOYUZ = model.IsPravSoyuz;
+                        org1.ParentID = model.ParentId;
                     }
                 }
 
@@ -133,8 +137,10 @@ namespace KasabaKiat.BusinessLogic.Utils.References
                                    DT_OST   = org.DT_OST,
                                    KT_OST   = org.KT_OST,
                                    E_Mail   = org.E_Mail,
-                                   UserId   = org.UserId
-                            }  ;
+                                   UserId   = org.UserId,
+                                   IsPravSoyuz = org.IS_PRAVSOYUZ,
+                                   ParentId = org.ParentID
+                               }  ;
 
                 list = queryRes.ToList();
 
@@ -174,7 +180,9 @@ namespace KasabaKiat.BusinessLogic.Utils.References
                                    DT_OST = org.DT_OST,
                                    KT_OST = org.KT_OST,
                                    E_Mail = org.E_Mail,
-                                   UserId = org.UserId
+                                   UserId = org.UserId,
+                                   IsPravSoyuz = org.IS_PRAVSOYUZ,
+                                   ParentId = org.ParentID
                                };
 
                 list = queryRes.ToList();
@@ -233,7 +241,9 @@ namespace KasabaKiat.BusinessLogic.Utils.References
                                    DT_OST = org.DT_OST,
                                    KT_OST = org.KT_OST,
                                    E_Mail = org.E_Mail,
-                                   UserId = org.UserId
+                                   UserId = org.UserId,
+                                   IsPravSoyuz = org.IS_PRAVSOYUZ,
+                                   ParentId = org.ParentID
                                };
 
                 list = queryRes.ToList();
@@ -280,7 +290,9 @@ namespace KasabaKiat.BusinessLogic.Utils.References
                                    DT_OST = org.DT_OST,
                                    KT_OST = org.KT_OST,
                                    E_Mail = org.E_Mail,
-                                   UserId = org.UserId
+                                   UserId = org.UserId,
+                                   IsPravSoyuz = org.IS_PRAVSOYUZ,
+                                   ParentId = org.ParentID
                                };
 
                 list = queryRes.ToList();

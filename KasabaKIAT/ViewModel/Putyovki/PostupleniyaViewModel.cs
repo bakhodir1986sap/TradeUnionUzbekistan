@@ -8,53 +8,37 @@ namespace KasabaKiat.ViewModel
     public class PostupleniyaViewModel
     {
 
-        public long Id { get; set; }
+        public long         Id              { get; set; }
 
-        public int? Id_Kv { get; set; }
+        public int?         Id_Kv           { get; set; }
 
-        public string Kvartal { get; set; }
+        public string       Kvartal         { get; set; }
 
-        public DateTime? Data_Post { get; set; }
+        public DateTime?    Data_Post       { get; set; }
 
-        public string Num_Doc { get; set; }
+        public string       Num_Doc         { get; set; }
 
-        public long? ID_Pos { get; set; }
+        public long?        ID_Pos          { get; set; }
 
-        public int? Num_Kol { get; set; }
+        public string       PosName         { get; set; }
 
-        public decimal? Symma { get; set; }
+        public int?         Num_Kol         { get; set; }
 
-        public string Name_Dov { get; set; }
+        public decimal?     Symma           { get; set; }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        public bool Vid { get; set; }
+        public string       Name_Dov        { get; set; }
 
-        /// <summary>
-        /// Year YYYY
-        /// </summary>
-        public int? SmFil { get; set; } 
+        public bool         Vid             { get; set; }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        public long? UserId { get; set; }
+        public int?         SmFil           { get; set; } 
 
-        /// <summary>
-        /// Which Branch entered
-        /// </summary>
-        public string DepartmentBase { get; set; }
+        public long?        UserId          { get; set; }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        public int? BeginNumber { get; set; }
+        public string       DepartmentBase  { get; set; }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        public int? EndNumber { get; set; }
+        public int?         BeginNumber     { get; set; }
+
+        public int?         EndNumber       { get; set; }
 
     }
 }

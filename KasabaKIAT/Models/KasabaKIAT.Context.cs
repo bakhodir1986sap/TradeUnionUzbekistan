@@ -764,7 +764,7 @@ namespace KasabaKIAT.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_rt_Razbivka_Postup_OtraslGroup_Result1>("sp_rt_Razbivka_Postup_OtraslGroup", sOATOParameter, bEGIN_DATEParameter, eND_DATEParameter, dEPARTMENT_BASEParameter);
         }
     
-        public virtual ObjectResult<sp_rt_SvodniyOtchet_Result1> sp_rt_SvodniyOtchet(Nullable<System.DateTime> beginDate, Nullable<System.DateTime> endDate, string vilSoato, string branchCode, string dEPARTMENT_BASE)
+        public virtual ObjectResult<sp_rt_SvodniyOtchet_Result1> sp_rt_SvodniyOtchet(Nullable<System.DateTime> beginDate, Nullable<System.DateTime> endDate, string vilSoato, string branchCode, string departmentBase)
         {
             var beginDateParameter = beginDate.HasValue ?
                 new ObjectParameter("beginDate", beginDate) :
@@ -782,11 +782,11 @@ namespace KasabaKIAT.Models
                 new ObjectParameter("BranchCode", branchCode) :
                 new ObjectParameter("BranchCode", typeof(string));
     
-            var dEPARTMENT_BASEParameter = dEPARTMENT_BASE != null ?
-                new ObjectParameter("DEPARTMENT_BASE", dEPARTMENT_BASE) :
-                new ObjectParameter("DEPARTMENT_BASE", typeof(string));
+            var departmentBaseParameter = departmentBase != null ?
+                new ObjectParameter("departmentBase", departmentBase) :
+                new ObjectParameter("departmentBase", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_rt_SvodniyOtchet_Result1>("sp_rt_SvodniyOtchet", beginDateParameter, endDateParameter, vilSoatoParameter, branchCodeParameter, dEPARTMENT_BASEParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_rt_SvodniyOtchet_Result1>("sp_rt_SvodniyOtchet", beginDateParameter, endDateParameter, vilSoatoParameter, branchCodeParameter, departmentBaseParameter);
         }
     
         public virtual ObjectResult<sp_rt_BalanciPredpriyatiy_Result1> sp_rt_BalanciPredpriyatiy(Nullable<System.DateTime> beginDate, Nullable<System.DateTime> endDate, string departmentBase)
@@ -800,8 +800,8 @@ namespace KasabaKIAT.Models
                 new ObjectParameter("endDate", typeof(System.DateTime));
     
             var departmentBaseParameter = departmentBase != null ?
-                new ObjectParameter("DepartmentBase", departmentBase) :
-                new ObjectParameter("DepartmentBase", typeof(string));
+                new ObjectParameter("departmentBase", departmentBase) :
+                new ObjectParameter("departmentBase", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_rt_BalanciPredpriyatiy_Result1>("sp_rt_BalanciPredpriyatiy", beginDateParameter, endDateParameter, departmentBaseParameter);
         }
@@ -817,21 +817,21 @@ namespace KasabaKIAT.Models
                 new ObjectParameter("endDate", typeof(System.DateTime));
     
             var departmentBaseParameter = departmentBase != null ?
-                new ObjectParameter("DepartmentBase", departmentBase) :
-                new ObjectParameter("DepartmentBase", typeof(string));
+                new ObjectParameter("departmentBase", departmentBase) :
+                new ObjectParameter("departmentBase", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_rt_FormaN14_Result>("sp_rt_FormaN14", beginDateParameter, endDateParameter, departmentBaseParameter);
         }
     
-        public virtual ObjectResult<sp_rt_KartochkaOrganizasii_Result1> sp_rt_KartochkaOrganizasii(Nullable<long> orgInn, string departmentBase)
+        public virtual ObjectResult<sp_rt_KartochkaOrganizasii_Result1> sp_rt_KartochkaOrganizasii(string orgInn, string departmentBase)
         {
-            var orgInnParameter = orgInn.HasValue ?
+            var orgInnParameter = orgInn != null ?
                 new ObjectParameter("OrgInn", orgInn) :
-                new ObjectParameter("OrgInn", typeof(long));
+                new ObjectParameter("OrgInn", typeof(string));
     
             var departmentBaseParameter = departmentBase != null ?
-                new ObjectParameter("DepartmentBase", departmentBase) :
-                new ObjectParameter("DepartmentBase", typeof(string));
+                new ObjectParameter("departmentBase", departmentBase) :
+                new ObjectParameter("departmentBase", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_rt_KartochkaOrganizasii_Result1>("sp_rt_KartochkaOrganizasii", orgInnParameter, departmentBaseParameter);
         }
@@ -843,8 +843,8 @@ namespace KasabaKIAT.Models
                 new ObjectParameter("IdUnique", typeof(long));
     
             var departmentBaseParameter = departmentBase != null ?
-                new ObjectParameter("DepartmentBase", departmentBase) :
-                new ObjectParameter("DepartmentBase", typeof(string));
+                new ObjectParameter("departmentBase", departmentBase) :
+                new ObjectParameter("departmentBase", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_rt_KartochkaOrganizasiiHistoriDtlPrixod_Result1>("sp_rt_KartochkaOrganizasiiHistoriDtlPrixod", idUniqueParameter, departmentBaseParameter);
         }
@@ -856,8 +856,8 @@ namespace KasabaKIAT.Models
                 new ObjectParameter("IdUnique", typeof(long));
     
             var departmentBaseParameter = departmentBase != null ?
-                new ObjectParameter("DepartmentBase", departmentBase) :
-                new ObjectParameter("DepartmentBase", typeof(string));
+                new ObjectParameter("departmentBase", departmentBase) :
+                new ObjectParameter("departmentBase", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_rt_KartochkaOrganizasiiHistoriDtlRasxod_Result1>("sp_rt_KartochkaOrganizasiiHistoriDtlRasxod", idUniqueParameter, departmentBaseParameter);
         }
@@ -869,8 +869,8 @@ namespace KasabaKIAT.Models
                 new ObjectParameter("IdUnique", typeof(long));
     
             var departmentBaseParameter = departmentBase != null ?
-                new ObjectParameter("DepartmentBase", departmentBase) :
-                new ObjectParameter("DepartmentBase", typeof(string));
+                new ObjectParameter("departmentBase", departmentBase) :
+                new ObjectParameter("departmentBase", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_rt_KartochkaOrganizasiiHistoriDtlVozvrat_Result1>("sp_rt_KartochkaOrganizasiiHistoriDtlVozvrat", idUniqueParameter, departmentBaseParameter);
         }
@@ -890,8 +890,8 @@ namespace KasabaKIAT.Models
                 new ObjectParameter("endDate", typeof(System.DateTime));
     
             var departmentBaseParameter = departmentBase != null ?
-                new ObjectParameter("DepartmentBase", departmentBase) :
-                new ObjectParameter("DepartmentBase", typeof(string));
+                new ObjectParameter("departmentBase", departmentBase) :
+                new ObjectParameter("departmentBase", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_rt_KartochkaOrganizasiiHistory_Result1>("sp_rt_KartochkaOrganizasiiHistory", idOrgParameter, beginDateParameter, endDateParameter, departmentBaseParameter);
         }
@@ -911,8 +911,8 @@ namespace KasabaKIAT.Models
                 new ObjectParameter("endDate", typeof(System.DateTime));
     
             var departmentBaseParameter = departmentBase != null ?
-                new ObjectParameter("DepartmentBase", departmentBase) :
-                new ObjectParameter("DepartmentBase", typeof(string));
+                new ObjectParameter("departmentBase", departmentBase) :
+                new ObjectParameter("departmentBase", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_rt_KartochkaOrganizasiiOplata_Result1>("sp_rt_KartochkaOrganizasiiOplata", idOrgParameter, beginDateParameter, endDateParameter, departmentBaseParameter);
         }
@@ -932,8 +932,8 @@ namespace KasabaKIAT.Models
                 new ObjectParameter("endDate", typeof(System.DateTime));
     
             var departmentBaseParameter = departmentBase != null ?
-                new ObjectParameter("DepartmentBase", departmentBase) :
-                new ObjectParameter("DepartmentBase", typeof(string));
+                new ObjectParameter("departmentBase", departmentBase) :
+                new ObjectParameter("departmentBase", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_rt_KartochkaOrganizasiiProcentRazbivka_Result1>("sp_rt_KartochkaOrganizasiiProcentRazbivka", idOrgParameter, beginDateParameter, endDateParameter, departmentBaseParameter);
         }
@@ -953,8 +953,8 @@ namespace KasabaKIAT.Models
                 new ObjectParameter("endDate", typeof(System.DateTime));
     
             var departmentBaseParameter = departmentBase != null ?
-                new ObjectParameter("DepartmentBase", departmentBase) :
-                new ObjectParameter("DepartmentBase", typeof(string));
+                new ObjectParameter("departmentBase", departmentBase) :
+                new ObjectParameter("departmentBase", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_rt_KartochkaOrganizasiiRasxod_Result1>("sp_rt_KartochkaOrganizasiiRasxod", idOrgParameter, beginDateParameter, endDateParameter, departmentBaseParameter);
         }
@@ -974,14 +974,18 @@ namespace KasabaKIAT.Models
                 new ObjectParameter("endDate", typeof(System.DateTime));
     
             var departmentBaseParameter = departmentBase != null ?
-                new ObjectParameter("DepartmentBase", departmentBase) :
-                new ObjectParameter("DepartmentBase", typeof(string));
+                new ObjectParameter("departmentBase", departmentBase) :
+                new ObjectParameter("departmentBase", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_rt_KartochkaOrganizasiiVozvrat_Result1>("sp_rt_KartochkaOrganizasiiVozvrat", idOrgParameter, beginDateParameter, endDateParameter, departmentBaseParameter);
         }
     
-        public virtual ObjectResult<sp_rt_OperativkaPutyovki_Result1> sp_rt_OperativkaPutyovki(Nullable<System.DateTime> beginDate, Nullable<System.DateTime> endDate, string departmentBase)
+        public virtual ObjectResult<sp_rt_OperativkaPutyovki_Result1> sp_rt_OperativkaPutyovki(string departmentBase, Nullable<System.DateTime> beginDate, Nullable<System.DateTime> endDate)
         {
+            var departmentBaseParameter = departmentBase != null ?
+                new ObjectParameter("departmentBase", departmentBase) :
+                new ObjectParameter("departmentBase", typeof(string));
+    
             var beginDateParameter = beginDate.HasValue ?
                 new ObjectParameter("beginDate", beginDate) :
                 new ObjectParameter("beginDate", typeof(System.DateTime));
@@ -990,11 +994,7 @@ namespace KasabaKIAT.Models
                 new ObjectParameter("endDate", endDate) :
                 new ObjectParameter("endDate", typeof(System.DateTime));
     
-            var departmentBaseParameter = departmentBase != null ?
-                new ObjectParameter("DepartmentBase", departmentBase) :
-                new ObjectParameter("DepartmentBase", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_rt_OperativkaPutyovki_Result1>("sp_rt_OperativkaPutyovki", beginDateParameter, endDateParameter, departmentBaseParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_rt_OperativkaPutyovki_Result1>("sp_rt_OperativkaPutyovki", departmentBaseParameter, beginDateParameter, endDateParameter);
         }
     
         public virtual ObjectResult<sp_rt_OperativkaPutyovkiOstatok_Result1> sp_rt_OperativkaPutyovkiOstatok(Nullable<System.DateTime> beginDate, Nullable<System.DateTime> endDate, Nullable<int> sanatID, string departmentBase)
@@ -1012,8 +1012,8 @@ namespace KasabaKIAT.Models
                 new ObjectParameter("SanatID", typeof(int));
     
             var departmentBaseParameter = departmentBase != null ?
-                new ObjectParameter("DepartmentBase", departmentBase) :
-                new ObjectParameter("DepartmentBase", typeof(string));
+                new ObjectParameter("departmentBase", departmentBase) :
+                new ObjectParameter("departmentBase", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_rt_OperativkaPutyovkiOstatok_Result1>("sp_rt_OperativkaPutyovkiOstatok", beginDateParameter, endDateParameter, sanatIDParameter, departmentBaseParameter);
         }
@@ -1033,8 +1033,8 @@ namespace KasabaKIAT.Models
                 new ObjectParameter("SanatID", typeof(int));
     
             var departmentBaseParameter = departmentBase != null ?
-                new ObjectParameter("DepartmentBase", departmentBase) :
-                new ObjectParameter("DepartmentBase", typeof(string));
+                new ObjectParameter("departmentBase", departmentBase) :
+                new ObjectParameter("departmentBase", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_rt_OperativkaPutyovkiPrixod_Result1>("sp_rt_OperativkaPutyovkiPrixod", beginDateParameter, endDateParameter, sanatIDParameter, departmentBaseParameter);
         }
@@ -1054,8 +1054,8 @@ namespace KasabaKIAT.Models
                 new ObjectParameter("SanatID", typeof(int));
     
             var departmentBaseParameter = departmentBase != null ?
-                new ObjectParameter("DepartmentBase", departmentBase) :
-                new ObjectParameter("DepartmentBase", typeof(string));
+                new ObjectParameter("departmentBase", departmentBase) :
+                new ObjectParameter("departmentBase", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_rt_OperativkaPutyovkiRasxod_Result1>("sp_rt_OperativkaPutyovkiRasxod", beginDateParameter, endDateParameter, sanatIDParameter, departmentBaseParameter);
         }
@@ -1075,8 +1075,8 @@ namespace KasabaKIAT.Models
                 new ObjectParameter("SanatID", typeof(int));
     
             var departmentBaseParameter = departmentBase != null ?
-                new ObjectParameter("DepartmentBase", departmentBase) :
-                new ObjectParameter("DepartmentBase", typeof(string));
+                new ObjectParameter("departmentBase", departmentBase) :
+                new ObjectParameter("departmentBase", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_rt_OperativkaPutyovkiVozvrat_Result1>("sp_rt_OperativkaPutyovkiVozvrat", beginDateParameter, endDateParameter, sanatIDParameter, departmentBaseParameter);
         }
@@ -1113,14 +1113,18 @@ namespace KasabaKIAT.Models
                 new ObjectParameter("endDate", typeof(System.DateTime));
     
             var departmentBaseParameter = departmentBase != null ?
-                new ObjectParameter("DepartmentBase", departmentBase) :
-                new ObjectParameter("DepartmentBase", typeof(string));
+                new ObjectParameter("departmentBase", departmentBase) :
+                new ObjectParameter("departmentBase", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_rt_OtchetUchetStoimostiVidachi_Result>("sp_rt_OtchetUchetStoimostiVidachi", beginDateParameter, endDateParameter, departmentBaseParameter);
         }
     
-        public virtual ObjectResult<sp_rt_SvodniyPoPutyovkam_Result1> sp_rt_SvodniyPoPutyovkam(Nullable<int> year, Nullable<int> kvartal, Nullable<int> otras, string departmentBase)
+        public virtual ObjectResult<sp_rt_SvodniyPoPutyovkam_Result1> sp_rt_SvodniyPoPutyovkam(string departmentBase, Nullable<int> year, Nullable<int> kvartal, Nullable<int> otras)
         {
+            var departmentBaseParameter = departmentBase != null ?
+                new ObjectParameter("departmentBase", departmentBase) :
+                new ObjectParameter("departmentBase", typeof(string));
+    
             var yearParameter = year.HasValue ?
                 new ObjectParameter("Year", year) :
                 new ObjectParameter("Year", typeof(int));
@@ -1133,11 +1137,7 @@ namespace KasabaKIAT.Models
                 new ObjectParameter("Otras", otras) :
                 new ObjectParameter("Otras", typeof(int));
     
-            var departmentBaseParameter = departmentBase != null ?
-                new ObjectParameter("DepartmentBase", departmentBase) :
-                new ObjectParameter("DepartmentBase", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_rt_SvodniyPoPutyovkam_Result1>("sp_rt_SvodniyPoPutyovkam", yearParameter, kvartalParameter, otrasParameter, departmentBaseParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_rt_SvodniyPoPutyovkam_Result1>("sp_rt_SvodniyPoPutyovkam", departmentBaseParameter, yearParameter, kvartalParameter, otrasParameter);
         }
     
         public virtual ObjectResult<sp_rt_UchetVladelsevPutyovok_Result> sp_rt_UchetVladelsevPutyovok(Nullable<System.DateTime> beginDate, Nullable<System.DateTime> endDate, string departmentBase)
@@ -1188,8 +1188,8 @@ namespace KasabaKIAT.Models
                 new ObjectParameter("POL", typeof(int));
     
             var departmentBaseParameter = departmentBase != null ?
-                new ObjectParameter("DepartmentBase", departmentBase) :
-                new ObjectParameter("DepartmentBase", typeof(string));
+                new ObjectParameter("departmentBase", departmentBase) :
+                new ObjectParameter("departmentBase", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_rt_Zapros_Putyovki_Result1>("sp_rt_Zapros_Putyovki", beginDateParameter, endDateParameter, iD_ORGParameter, iD_SANATParameter, lASTNAMEParameter, nUM_PUTParameter, pOLParameter, departmentBaseParameter);
         }
@@ -1211,7 +1211,7 @@ namespace KasabaKIAT.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_rt_FormaN13_Result1>("sp_rt_FormaN13", aYearParameter, orgInnParameter, departmentBaseParameter);
         }
     
-        public virtual ObjectResult<sp_rt_JurnalniyOrder4_Result> sp_rt_JurnalniyOrder4(Nullable<int> year, Nullable<int> kvartal)
+        public virtual ObjectResult<sp_rt_JurnalniyOrder4_Result> sp_rt_JurnalniyOrder4(Nullable<int> year, Nullable<int> kvartal, string departmentBase)
         {
             var yearParameter = year.HasValue ?
                 new ObjectParameter("Year", year) :
@@ -1221,10 +1221,14 @@ namespace KasabaKIAT.Models
                 new ObjectParameter("Kvartal", kvartal) :
                 new ObjectParameter("Kvartal", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_rt_JurnalniyOrder4_Result>("sp_rt_JurnalniyOrder4", yearParameter, kvartalParameter);
+            var departmentBaseParameter = departmentBase != null ?
+                new ObjectParameter("departmentBase", departmentBase) :
+                new ObjectParameter("departmentBase", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_rt_JurnalniyOrder4_Result>("sp_rt_JurnalniyOrder4", yearParameter, kvartalParameter, departmentBaseParameter);
         }
     
-        public virtual ObjectResult<sp_rt_JurnalniyOrder4Provodka_Result> sp_rt_JurnalniyOrder4Provodka(Nullable<int> year, Nullable<int> kvartal)
+        public virtual ObjectResult<sp_rt_JurnalniyOrder4Provodka_Result> sp_rt_JurnalniyOrder4Provodka(Nullable<int> year, Nullable<int> kvartal, string departmentBase)
         {
             var yearParameter = year.HasValue ?
                 new ObjectParameter("Year", year) :
@@ -1234,10 +1238,14 @@ namespace KasabaKIAT.Models
                 new ObjectParameter("Kvartal", kvartal) :
                 new ObjectParameter("Kvartal", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_rt_JurnalniyOrder4Provodka_Result>("sp_rt_JurnalniyOrder4Provodka", yearParameter, kvartalParameter);
+            var departmentBaseParameter = departmentBase != null ?
+                new ObjectParameter("departmentBase", departmentBase) :
+                new ObjectParameter("departmentBase", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_rt_JurnalniyOrder4Provodka_Result>("sp_rt_JurnalniyOrder4Provodka", yearParameter, kvartalParameter, departmentBaseParameter);
         }
     
-        public virtual ObjectResult<sp_rt_JurnalniyOrder5_Result> sp_rt_JurnalniyOrder5(Nullable<int> year, Nullable<int> kvartal)
+        public virtual ObjectResult<sp_rt_JurnalniyOrder5_Result> sp_rt_JurnalniyOrder5(Nullable<int> year, Nullable<int> kvartal, string departmentBase)
         {
             var yearParameter = year.HasValue ?
                 new ObjectParameter("Year", year) :
@@ -1247,10 +1255,14 @@ namespace KasabaKIAT.Models
                 new ObjectParameter("Kvartal", kvartal) :
                 new ObjectParameter("Kvartal", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_rt_JurnalniyOrder5_Result>("sp_rt_JurnalniyOrder5", yearParameter, kvartalParameter);
+            var departmentBaseParameter = departmentBase != null ?
+                new ObjectParameter("departmentBase", departmentBase) :
+                new ObjectParameter("departmentBase", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_rt_JurnalniyOrder5_Result>("sp_rt_JurnalniyOrder5", yearParameter, kvartalParameter, departmentBaseParameter);
         }
     
-        public virtual ObjectResult<sp_rt_JurnalniyOrder5Provodka_Result> sp_rt_JurnalniyOrder5Provodka(Nullable<int> year, Nullable<int> kvartal)
+        public virtual ObjectResult<sp_rt_JurnalniyOrder5Provodka_Result> sp_rt_JurnalniyOrder5Provodka(Nullable<int> year, Nullable<int> kvartal, string departmentBase)
         {
             var yearParameter = year.HasValue ?
                 new ObjectParameter("Year", year) :
@@ -1260,10 +1272,14 @@ namespace KasabaKIAT.Models
                 new ObjectParameter("Kvartal", kvartal) :
                 new ObjectParameter("Kvartal", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_rt_JurnalniyOrder5Provodka_Result>("sp_rt_JurnalniyOrder5Provodka", yearParameter, kvartalParameter);
+            var departmentBaseParameter = departmentBase != null ?
+                new ObjectParameter("departmentBase", departmentBase) :
+                new ObjectParameter("departmentBase", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_rt_JurnalniyOrder5Provodka_Result>("sp_rt_JurnalniyOrder5Provodka", yearParameter, kvartalParameter, departmentBaseParameter);
         }
     
-        public virtual ObjectResult<sp_rt_JurnalniyOrder6_Result> sp_rt_JurnalniyOrder6(Nullable<int> year, Nullable<int> kvartal)
+        public virtual ObjectResult<sp_rt_JurnalniyOrder6_Result> sp_rt_JurnalniyOrder6(Nullable<int> year, Nullable<int> kvartal, string departmentBase)
         {
             var yearParameter = year.HasValue ?
                 new ObjectParameter("Year", year) :
@@ -1273,10 +1289,14 @@ namespace KasabaKIAT.Models
                 new ObjectParameter("Kvartal", kvartal) :
                 new ObjectParameter("Kvartal", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_rt_JurnalniyOrder6_Result>("sp_rt_JurnalniyOrder6", yearParameter, kvartalParameter);
+            var departmentBaseParameter = departmentBase != null ?
+                new ObjectParameter("departmentBase", departmentBase) :
+                new ObjectParameter("departmentBase", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_rt_JurnalniyOrder6_Result>("sp_rt_JurnalniyOrder6", yearParameter, kvartalParameter, departmentBaseParameter);
         }
     
-        public virtual ObjectResult<sp_rt_JurnalniyOrder6Provodka_Result> sp_rt_JurnalniyOrder6Provodka(Nullable<int> year, Nullable<int> kvartal)
+        public virtual ObjectResult<sp_rt_JurnalniyOrder6Provodka_Result> sp_rt_JurnalniyOrder6Provodka(Nullable<int> year, Nullable<int> kvartal, string departmentBase)
         {
             var yearParameter = year.HasValue ?
                 new ObjectParameter("Year", year) :
@@ -1286,7 +1306,11 @@ namespace KasabaKIAT.Models
                 new ObjectParameter("Kvartal", kvartal) :
                 new ObjectParameter("Kvartal", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_rt_JurnalniyOrder6Provodka_Result>("sp_rt_JurnalniyOrder6Provodka", yearParameter, kvartalParameter);
+            var departmentBaseParameter = departmentBase != null ?
+                new ObjectParameter("departmentBase", departmentBase) :
+                new ObjectParameter("departmentBase", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_rt_JurnalniyOrder6Provodka_Result>("sp_rt_JurnalniyOrder6Provodka", yearParameter, kvartalParameter, departmentBaseParameter);
         }
     }
 }

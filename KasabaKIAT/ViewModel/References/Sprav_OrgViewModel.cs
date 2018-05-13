@@ -42,5 +42,9 @@ namespace KasabaKiat.BusinessLogic.Utils.References
       public long?   UserId         { get; set; }
 
         public string DepartmentBase { get; set; }
+
+        public bool IsPravSoyuz { get; set; }
+
+        public long? ParentId { get; set; }
     }
 }

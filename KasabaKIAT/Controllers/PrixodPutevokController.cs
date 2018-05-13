@@ -1129,9 +1129,13 @@ namespace KasabaKIAT.Controllers
         /// <returns></returns>
         public JsonResult GetDetailList(long IdPost)
         {
+            int UserId = Convert.ToInt32(User.Identity.Name);
+            var ustinfo = UserInfo.GetUserInfo(UserId);
+
             var list = PostPutDetailDataManager.GetFiltered(new PostPutyovkaViewModel()
             {
-                IdPost = IdPost
+                IdPost = IdPost,
+                Departmentbase = ustinfo.DepartmentBase
             });
 
             return Json(list.ToList(), JsonRequestBehavior.AllowGet);
@@ -1140,9 +1144,33 @@ namespace KasabaKIAT.Controllers
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="IdPost"></param>
+        /// <returns></returns>
+        public JsonResult GetDetailListRes(long IdPost)
+        {
+            int UserId = Convert.ToInt32(User.Identity.Name);
+            var ustinfo = UserInfo.GetUserInfo(UserId);
+
+            var list = PostPutDetailDataManager.GetFiltered(new PostPutyovkaViewModel()
+            {
+                IdPost = IdPost,
+                Departmentbase = ustinfo.DepartmentBase
+            });
+
+            var res = new TotalResults();
+            res.PutyovkaCount = list.Count();
+            res.SummaNakladnix = list.Sum(z => z.Symma_Put);
+
+            return Json(res, JsonRequestBehavior.AllowGet);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        public JsonResult AddMain(KasabaKiat.ViewModel.PostupleniyaViewModel model)
+        [HttpPost]
+        public JsonResult AddMain(PostupleniyaViewModel model)
         {
             int UserId = Convert.ToInt32(User.Identity.Name);
             var ustinfo = UserInfo.GetUserInfo(UserId);
@@ -1192,7 +1220,7 @@ namespace KasabaKIAT.Controllers
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        public JsonResult RemoveAllWithLinked(KasabaKiat.ViewModel.PostupleniyaViewModel model)
+        public JsonResult RemoveAllWithLinked(PostupleniyaViewModel model)
         {
             int UserId = Convert.ToInt32(User.Identity.Name);
             var ustinfo = UserInfo.GetUserInfo(UserId);
@@ -1202,7 +1230,7 @@ namespace KasabaKIAT.Controllers
 
             try
             {
-                PostMainDataManager.Remove(new KasabaKiat.ViewModel.PostupleniyaViewModel()
+                PostMainDataManager.Remove(new PostupleniyaViewModel()
                 {
                     Id = model.Id
                 });

@@ -2346,6 +2346,8 @@ warning 6002: The table/view 'KasabaKIAT_N1.dbo.tblPutevka' does not have a prim
           <Property Name="E_Mail" Type="nvarchar" MaxLength="90" />
           <Property Name="UserId" Type="bigint" />
           <Property Name="DepartmentBase" Type="nvarchar" MaxLength="255" />
+          <Property Name="IS_PRAVSOYUZ" Type="bit" Nullable="false" />
+          <Property Name="ParentID" Type="bigint" />
         </EntityType>
         <EntityType Name="tblSprav_Os">
           <Key>
@@ -5740,7 +5742,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
         <Function Name="sp_rt_BalanciPredpriyatiy" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="beginDate" Type="datetime" Mode="In" />
           <Parameter Name="endDate" Type="datetime" Mode="In" />
-          <Parameter Name="DepartmentBase" Type="varchar" Mode="In" />
+          <Parameter Name="departmentBase" Type="varchar" Mode="In" />
         </Function>
         <Function Name="sp_rt_FormaN13" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="aYear" Type="int" Mode="In" />
@@ -5750,7 +5752,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
         <Function Name="sp_rt_FormaN14" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="beginDate" Type="datetime" Mode="In" />
           <Parameter Name="endDate" Type="datetime" Mode="In" />
-          <Parameter Name="DepartmentBase" Type="varchar" Mode="In" />
+          <Parameter Name="departmentBase" Type="varchar" Mode="In" />
         </Function>
         <Function Name="sp_rt_GetOrganization" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="DEPARTMENT_BASE" Type="nvarchar" Mode="In" />
@@ -5760,101 +5762,107 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
         <Function Name="sp_rt_JurnalniyOrder4" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Year" Type="int" Mode="In" />
           <Parameter Name="Kvartal" Type="int" Mode="In" />
+          <Parameter Name="departmentBase" Type="varchar" Mode="In" />
         </Function>
         <Function Name="sp_rt_JurnalniyOrder4Provodka" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Year" Type="int" Mode="In" />
           <Parameter Name="Kvartal" Type="int" Mode="In" />
+          <Parameter Name="departmentBase" Type="varchar" Mode="In" />
         </Function>
         <Function Name="sp_rt_JurnalniyOrder5" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Year" Type="int" Mode="In" />
           <Parameter Name="Kvartal" Type="int" Mode="In" />
+          <Parameter Name="departmentBase" Type="varchar" Mode="In" />
         </Function>
         <Function Name="sp_rt_JurnalniyOrder5Provodka" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Year" Type="int" Mode="In" />
           <Parameter Name="Kvartal" Type="int" Mode="In" />
+          <Parameter Name="departmentBase" Type="varchar" Mode="In" />
         </Function>
         <Function Name="sp_rt_JurnalniyOrder6" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Year" Type="int" Mode="In" />
           <Parameter Name="Kvartal" Type="int" Mode="In" />
+          <Parameter Name="departmentBase" Type="varchar" Mode="In" />
         </Function>
         <Function Name="sp_rt_JurnalniyOrder6Provodka" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Year" Type="int" Mode="In" />
           <Parameter Name="Kvartal" Type="int" Mode="In" />
+          <Parameter Name="departmentBase" Type="varchar" Mode="In" />
         </Function>
         <Function Name="sp_rt_KartochkaOrganizasii" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="OrgInn" Type="bigint" Mode="In" />
-          <Parameter Name="DepartmentBase" Type="varchar" Mode="In" />
+          <Parameter Name="OrgInn" Type="varchar" Mode="In" />
+          <Parameter Name="departmentBase" Type="varchar" Mode="In" />
         </Function>
         <Function Name="sp_rt_KartochkaOrganizasiiHistoriDtlPrixod" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="IdUnique" Type="bigint" Mode="In" />
-          <Parameter Name="DepartmentBase" Type="varchar" Mode="In" />
+          <Parameter Name="departmentBase" Type="varchar" Mode="In" />
         </Function>
         <Function Name="sp_rt_KartochkaOrganizasiiHistoriDtlRasxod" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="IdUnique" Type="bigint" Mode="In" />
-          <Parameter Name="DepartmentBase" Type="varchar" Mode="In" />
+          <Parameter Name="departmentBase" Type="varchar" Mode="In" />
         </Function>
         <Function Name="sp_rt_KartochkaOrganizasiiHistoriDtlVozvrat" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="IdUnique" Type="bigint" Mode="In" />
-          <Parameter Name="DepartmentBase" Type="varchar" Mode="In" />
+          <Parameter Name="departmentBase" Type="varchar" Mode="In" />
         </Function>
         <Function Name="sp_rt_KartochkaOrganizasiiHistory" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="IdOrg" Type="bigint" Mode="In" />
           <Parameter Name="beginDate" Type="datetime" Mode="In" />
           <Parameter Name="endDate" Type="datetime" Mode="In" />
-          <Parameter Name="DepartmentBase" Type="varchar" Mode="In" />
+          <Parameter Name="departmentBase" Type="varchar" Mode="In" />
         </Function>
         <Function Name="sp_rt_KartochkaOrganizasiiOplata" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="IdOrg" Type="bigint" Mode="In" />
           <Parameter Name="beginDate" Type="datetime" Mode="In" />
           <Parameter Name="endDate" Type="datetime" Mode="In" />
-          <Parameter Name="DepartmentBase" Type="varchar" Mode="In" />
+          <Parameter Name="departmentBase" Type="varchar" Mode="In" />
         </Function>
         <Function Name="sp_rt_KartochkaOrganizasiiProcentRazbivka" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="IdOrg" Type="bigint" Mode="In" />
           <Parameter Name="beginDate" Type="datetime" Mode="In" />
           <Parameter Name="endDate" Type="datetime" Mode="In" />
-          <Parameter Name="DepartmentBase" Type="varchar" Mode="In" />
+          <Parameter Name="departmentBase" Type="varchar" Mode="In" />
         </Function>
         <Function Name="sp_rt_KartochkaOrganizasiiRasxod" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="IdOrg" Type="bigint" Mode="In" />
           <Parameter Name="beginDate" Type="datetime" Mode="In" />
           <Parameter Name="endDate" Type="datetime" Mode="In" />
-          <Parameter Name="DepartmentBase" Type="varchar" Mode="In" />
+          <Parameter Name="departmentBase" Type="varchar" Mode="In" />
         </Function>
         <Function Name="sp_rt_KartochkaOrganizasiiVozvrat" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="IdOrg" Type="bigint" Mode="In" />
           <Parameter Name="beginDate" Type="datetime" Mode="In" />
           <Parameter Name="endDate" Type="datetime" Mode="In" />
-          <Parameter Name="DepartmentBase" Type="varchar" Mode="In" />
+          <Parameter Name="departmentBase" Type="varchar" Mode="In" />
         </Function>
         <Function Name="sp_rt_OperativkaPutyovki" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="departmentBase" Type="varchar" Mode="In" />
           <Parameter Name="beginDate" Type="datetime" Mode="In" />
           <Parameter Name="endDate" Type="datetime" Mode="In" />
-          <Parameter Name="DepartmentBase" Type="varchar" Mode="In" />
         </Function>
         <Function Name="sp_rt_OperativkaPutyovkiOstatok" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="beginDate" Type="datetime" Mode="In" />
           <Parameter Name="endDate" Type="datetime" Mode="In" />
           <Parameter Name="SanatID" Type="int" Mode="In" />
-          <Parameter Name="DepartmentBase" Type="varchar" Mode="In" />
+          <Parameter Name="departmentBase" Type="varchar" Mode="In" />
         </Function>
         <Function Name="sp_rt_OperativkaPutyovkiPrixod" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="beginDate" Type="datetime" Mode="In" />
           <Parameter Name="endDate" Type="datetime" Mode="In" />
           <Parameter Name="SanatID" Type="int" Mode="In" />
-          <Parameter Name="DepartmentBase" Type="varchar" Mode="In" />
+          <Parameter Name="departmentBase" Type="varchar" Mode="In" />
         </Function>
         <Function Name="sp_rt_OperativkaPutyovkiRasxod" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="beginDate" Type="datetime" Mode="In" />
           <Parameter Name="endDate" Type="datetime" Mode="In" />
           <Parameter Name="SanatID" Type="int" Mode="In" />
-          <Parameter Name="DepartmentBase" Type="varchar" Mode="In" />
+          <Parameter Name="departmentBase" Type="varchar" Mode="In" />
         </Function>
         <Function Name="sp_rt_OperativkaPutyovkiVozvrat" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="beginDate" Type="datetime" Mode="In" />
           <Parameter Name="endDate" Type="datetime" Mode="In" />
           <Parameter Name="SanatID" Type="int" Mode="In" />
-          <Parameter Name="DepartmentBase" Type="varchar" Mode="In" />
+          <Parameter Name="departmentBase" Type="varchar" Mode="In" />
         </Function>
         <Function Name="sp_rt_OtchetMedRegRabotnikov" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="IdOrg" Type="bigint" Mode="In" />
@@ -5865,7 +5873,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
         <Function Name="sp_rt_OtchetUchetStoimostiVidachi" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="beginDate" Type="datetime" Mode="In" />
           <Parameter Name="endDate" Type="datetime" Mode="In" />
-          <Parameter Name="DepartmentBase" Type="varchar" Mode="In" />
+          <Parameter Name="departmentBase" Type="varchar" Mode="In" />
         </Function>
         <Function Name="sp_rt_Postupleniya" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="INN" Type="nvarchar" Mode="In" />
@@ -5911,13 +5919,13 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <Parameter Name="endDate" Type="datetime" Mode="In" />
           <Parameter Name="VilSoato" Type="nvarchar" Mode="In" />
           <Parameter Name="BranchCode" Type="nvarchar" Mode="In" />
-          <Parameter Name="DEPARTMENT_BASE" Type="nvarchar" Mode="In" />
+          <Parameter Name="departmentBase" Type="nvarchar" Mode="In" />
         </Function>
         <Function Name="sp_rt_SvodniyPoPutyovkam" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="departmentBase" Type="varchar" Mode="In" />
           <Parameter Name="Year" Type="int" Mode="In" />
           <Parameter Name="Kvartal" Type="int" Mode="In" />
           <Parameter Name="Otras" Type="int" Mode="In" />
-          <Parameter Name="DepartmentBase" Type="varchar" Mode="In" />
         </Function>
         <Function Name="sp_rt_TalabnomaKorxona" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="aYear" Type="int" Mode="In" />
@@ -5945,7 +5953,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <Parameter Name="LASTNAME" Type="nvarchar" Mode="In" />
           <Parameter Name="NUM_PUT" Type="varchar" Mode="In" />
           <Parameter Name="POL" Type="int" Mode="In" />
-          <Parameter Name="DepartmentBase" Type="varchar" Mode="In" />
+          <Parameter Name="departmentBase" Type="varchar" Mode="In" />
         </Function>
         <Function Name="sp_rt_ZayavkiList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="INN" Type="int" Mode="In" />
@@ -9211,6 +9219,8 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <NavigationProperty Name="tblVipl" Relationship="Self.FK_tblVipl_tblSprav_Org" FromRole="tblSprav_Org" ToRole="tblVipl" />
           <NavigationProperty Name="tblOplatas" Relationship="KasabaKIATModel.FK_tblOplata_tblSprav_Org" FromRole="tblSprav_Org" ToRole="tblOplata" />
           <NavigationProperty Name="tblVozVrats" Relationship="KasabaKIATModel.FK_tblVozVrat_tblSprav_Org1" FromRole="tblSprav_Org" ToRole="tblVozVrat" />
+          <Property Name="IS_PRAVSOYUZ" Type="Boolean" Nullable="false" />
+          <Property Name="ParentID" Type="Int64" />
           </EntityType>
         <EntityType Name="tblSprav_Os">
           <Key>
@@ -13461,7 +13471,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
             <Parameter Name="endDate" Mode="In" Type="DateTime" />
             <Parameter Name="VilSoato" Mode="In" Type="String" />
             <Parameter Name="BranchCode" Mode="In" Type="String" />
-            <Parameter Name="DEPARTMENT_BASE" Mode="In" Type="String" />
+            <Parameter Name="departmentBase" Mode="In" Type="String" />
           </FunctionImport>
           <EntitySet Name="KaznaBankFiles" EntityType="KasabaKIATModel.KaznaBankFile" />
           <EntitySet Name="tbcs_sisconf" EntityType="KasabaKIATModel.tbcs_sisconf" />
@@ -13518,87 +13528,87 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <FunctionImport Name="sp_rt_BalanciPredpriyatiy" ReturnType="Collection(KasabaKIATModel.sp_rt_BalanciPredpriyatiy_Result1)">
             <Parameter Name="beginDate" Mode="In" Type="DateTime" />
             <Parameter Name="endDate" Mode="In" Type="DateTime" />
-            <Parameter Name="DepartmentBase" Mode="In" Type="String" />
+            <Parameter Name="departmentBase" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_rt_FormaN14" ReturnType="Collection(KasabaKIATModel.sp_rt_FormaN14_Result)">
             <Parameter Name="beginDate" Mode="In" Type="DateTime" />
             <Parameter Name="endDate" Mode="In" Type="DateTime" />
-            <Parameter Name="DepartmentBase" Mode="In" Type="String" />
+            <Parameter Name="departmentBase" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_rt_KartochkaOrganizasii" ReturnType="Collection(KasabaKIATModel.sp_rt_KartochkaOrganizasii_Result1)">
-            <Parameter Name="OrgInn" Mode="In" Type="Int64" />
-            <Parameter Name="DepartmentBase" Mode="In" Type="String" />
+            <Parameter Name="OrgInn" Mode="In" Type="String" />
+            <Parameter Name="departmentBase" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_rt_KartochkaOrganizasiiHistoriDtlPrixod" ReturnType="Collection(KasabaKIATModel.sp_rt_KartochkaOrganizasiiHistoriDtlPrixod_Result1)">
             <Parameter Name="IdUnique" Mode="In" Type="Int64" />
-            <Parameter Name="DepartmentBase" Mode="In" Type="String" />
+            <Parameter Name="departmentBase" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_rt_KartochkaOrganizasiiHistoriDtlRasxod" ReturnType="Collection(KasabaKIATModel.sp_rt_KartochkaOrganizasiiHistoriDtlRasxod_Result1)">
             <Parameter Name="IdUnique" Mode="In" Type="Int64" />
-            <Parameter Name="DepartmentBase" Mode="In" Type="String" />
+            <Parameter Name="departmentBase" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_rt_KartochkaOrganizasiiHistoriDtlVozvrat" ReturnType="Collection(KasabaKIATModel.sp_rt_KartochkaOrganizasiiHistoriDtlVozvrat_Result1)">
             <Parameter Name="IdUnique" Mode="In" Type="Int64" />
-            <Parameter Name="DepartmentBase" Mode="In" Type="String" />
+            <Parameter Name="departmentBase" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_rt_KartochkaOrganizasiiHistory" ReturnType="Collection(KasabaKIATModel.sp_rt_KartochkaOrganizasiiHistory_Result1)">
             <Parameter Name="IdOrg" Mode="In" Type="Int64" />
             <Parameter Name="beginDate" Mode="In" Type="DateTime" />
             <Parameter Name="endDate" Mode="In" Type="DateTime" />
-            <Parameter Name="DepartmentBase" Mode="In" Type="String" />
+            <Parameter Name="departmentBase" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_rt_KartochkaOrganizasiiOplata" ReturnType="Collection(KasabaKIATModel.sp_rt_KartochkaOrganizasiiOplata_Result1)">
             <Parameter Name="IdOrg" Mode="In" Type="Int64" />
             <Parameter Name="beginDate" Mode="In" Type="DateTime" />
             <Parameter Name="endDate" Mode="In" Type="DateTime" />
-            <Parameter Name="DepartmentBase" Mode="In" Type="String" />
+            <Parameter Name="departmentBase" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_rt_KartochkaOrganizasiiProcentRazbivka" ReturnType="Collection(KasabaKIATModel.sp_rt_KartochkaOrganizasiiProcentRazbivka_Result1)">
             <Parameter Name="IdOrg" Mode="In" Type="Int64" />
             <Parameter Name="beginDate" Mode="In" Type="DateTime" />
             <Parameter Name="endDate" Mode="In" Type="DateTime" />
-            <Parameter Name="DepartmentBase" Mode="In" Type="String" />
+            <Parameter Name="departmentBase" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_rt_KartochkaOrganizasiiRasxod" ReturnType="Collection(KasabaKIATModel.sp_rt_KartochkaOrganizasiiRasxod_Result1)">
             <Parameter Name="IdOrg" Mode="In" Type="Int64" />
             <Parameter Name="beginDate" Mode="In" Type="DateTime" />
             <Parameter Name="endDate" Mode="In" Type="DateTime" />
-            <Parameter Name="DepartmentBase" Mode="In" Type="String" />
+            <Parameter Name="departmentBase" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_rt_KartochkaOrganizasiiVozvrat" ReturnType="Collection(KasabaKIATModel.sp_rt_KartochkaOrganizasiiVozvrat_Result1)">
             <Parameter Name="IdOrg" Mode="In" Type="Int64" />
             <Parameter Name="beginDate" Mode="In" Type="DateTime" />
             <Parameter Name="endDate" Mode="In" Type="DateTime" />
-            <Parameter Name="DepartmentBase" Mode="In" Type="String" />
+            <Parameter Name="departmentBase" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_rt_OperativkaPutyovki" ReturnType="Collection(KasabaKIATModel.sp_rt_OperativkaPutyovki_Result1)">
+            <Parameter Name="departmentBase" Mode="In" Type="String" />
             <Parameter Name="beginDate" Mode="In" Type="DateTime" />
             <Parameter Name="endDate" Mode="In" Type="DateTime" />
-            <Parameter Name="DepartmentBase" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_rt_OperativkaPutyovkiOstatok" ReturnType="Collection(KasabaKIATModel.sp_rt_OperativkaPutyovkiOstatok_Result1)">
             <Parameter Name="beginDate" Mode="In" Type="DateTime" />
             <Parameter Name="endDate" Mode="In" Type="DateTime" />
             <Parameter Name="SanatID" Mode="In" Type="Int32" />
-            <Parameter Name="DepartmentBase" Mode="In" Type="String" />
+            <Parameter Name="departmentBase" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_rt_OperativkaPutyovkiPrixod" ReturnType="Collection(KasabaKIATModel.sp_rt_OperativkaPutyovkiPrixod_Result1)">
             <Parameter Name="beginDate" Mode="In" Type="DateTime" />
             <Parameter Name="endDate" Mode="In" Type="DateTime" />
             <Parameter Name="SanatID" Mode="In" Type="Int32" />
-            <Parameter Name="DepartmentBase" Mode="In" Type="String" />
+            <Parameter Name="departmentBase" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_rt_OperativkaPutyovkiRasxod" ReturnType="Collection(KasabaKIATModel.sp_rt_OperativkaPutyovkiRasxod_Result1)">
             <Parameter Name="beginDate" Mode="In" Type="DateTime" />
             <Parameter Name="endDate" Mode="In" Type="DateTime" />
             <Parameter Name="SanatID" Mode="In" Type="Int32" />
-            <Parameter Name="DepartmentBase" Mode="In" Type="String" />
+            <Parameter Name="departmentBase" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_rt_OperativkaPutyovkiVozvrat" ReturnType="Collection(KasabaKIATModel.sp_rt_OperativkaPutyovkiVozvrat_Result1)">
             <Parameter Name="beginDate" Mode="In" Type="DateTime" />
             <Parameter Name="endDate" Mode="In" Type="DateTime" />
             <Parameter Name="SanatID" Mode="In" Type="Int32" />
-            <Parameter Name="DepartmentBase" Mode="In" Type="String" />
+            <Parameter Name="departmentBase" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_rt_OtchetMedRegRabotnikov" ReturnType="Collection(KasabaKIATModel.sp_rt_OtchetMedRegRabotnikov_Result)">
             <Parameter Name="IdOrg" Mode="In" Type="Int64" />
@@ -13609,13 +13619,13 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <FunctionImport Name="sp_rt_OtchetUchetStoimostiVidachi" ReturnType="Collection(KasabaKIATModel.sp_rt_OtchetUchetStoimostiVidachi_Result)">
             <Parameter Name="beginDate" Mode="In" Type="DateTime" />
             <Parameter Name="endDate" Mode="In" Type="DateTime" />
-            <Parameter Name="DepartmentBase" Mode="In" Type="String" />
+            <Parameter Name="departmentBase" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_rt_SvodniyPoPutyovkam" ReturnType="Collection(KasabaKIATModel.sp_rt_SvodniyPoPutyovkam_Result1)">
+            <Parameter Name="departmentBase" Mode="In" Type="String" />
             <Parameter Name="Year" Mode="In" Type="Int32" />
             <Parameter Name="Kvartal" Mode="In" Type="Int32" />
             <Parameter Name="Otras" Mode="In" Type="Int32" />
-            <Parameter Name="DepartmentBase" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_rt_UchetVladelsevPutyovok" ReturnType="Collection(KasabaKIATModel.sp_rt_UchetVladelsevPutyovok_Result)">
             <Parameter Name="beginDate" Mode="In" Type="DateTime" />
@@ -13630,7 +13640,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
             <Parameter Name="LASTNAME" Mode="In" Type="String" />
             <Parameter Name="NUM_PUT" Mode="In" Type="String" />
             <Parameter Name="POL" Mode="In" Type="Int32" />
-            <Parameter Name="DepartmentBase" Mode="In" Type="String" />
+            <Parameter Name="departmentBase" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_rt_FormaN13" ReturnType="Collection(KasabaKIATModel.sp_rt_FormaN13_Result1)">
             <Parameter Name="aYear" Mode="In" Type="Int32" />
@@ -13640,26 +13650,32 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <FunctionImport Name="sp_rt_JurnalniyOrder4" ReturnType="Collection(KasabaKIATModel.sp_rt_JurnalniyOrder4_Result)">
             <Parameter Name="Year" Mode="In" Type="Int32" />
             <Parameter Name="Kvartal" Mode="In" Type="Int32" />
+            <Parameter Name="departmentBase" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_rt_JurnalniyOrder4Provodka" ReturnType="Collection(KasabaKIATModel.sp_rt_JurnalniyOrder4Provodka_Result)">
             <Parameter Name="Year" Mode="In" Type="Int32" />
             <Parameter Name="Kvartal" Mode="In" Type="Int32" />
+            <Parameter Name="departmentBase" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_rt_JurnalniyOrder5" ReturnType="Collection(KasabaKIATModel.sp_rt_JurnalniyOrder5_Result)">
             <Parameter Name="Year" Mode="In" Type="Int32" />
             <Parameter Name="Kvartal" Mode="In" Type="Int32" />
+            <Parameter Name="departmentBase" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_rt_JurnalniyOrder5Provodka" ReturnType="Collection(KasabaKIATModel.sp_rt_JurnalniyOrder5Provodka_Result)">
             <Parameter Name="Year" Mode="In" Type="Int32" />
             <Parameter Name="Kvartal" Mode="In" Type="Int32" />
+            <Parameter Name="departmentBase" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_rt_JurnalniyOrder6" ReturnType="Collection(KasabaKIATModel.sp_rt_JurnalniyOrder6_Result)">
             <Parameter Name="Year" Mode="In" Type="Int32" />
             <Parameter Name="Kvartal" Mode="In" Type="Int32" />
+            <Parameter Name="departmentBase" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_rt_JurnalniyOrder6Provodka" ReturnType="Collection(KasabaKIATModel.sp_rt_JurnalniyOrder6Provodka_Result)">
             <Parameter Name="Year" Mode="In" Type="Int32" />
             <Parameter Name="Kvartal" Mode="In" Type="Int32" />
+            <Parameter Name="departmentBase" Mode="In" Type="String" />
           </FunctionImport>
           </EntityContainer>
         <ComplexType Name="sp_get_BankPaymentCompanyYearlyQ_Result">
@@ -17048,6 +17064,8 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <EntitySetMapping Name="tblSprav_Org">
             <EntityTypeMapping TypeName="KasabaKIATModel.tblSprav_Org">
               <MappingFragment StoreEntitySet="tblSprav_Org">
+                <ScalarProperty Name="ParentID" ColumnName="ParentID" />
+                <ScalarProperty Name="IS_PRAVSOYUZ" ColumnName="IS_PRAVSOYUZ" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="ID_Ot" ColumnName="ID_Ot" />
                 <ScalarProperty Name="Name_Org" ColumnName="Name_Org" />

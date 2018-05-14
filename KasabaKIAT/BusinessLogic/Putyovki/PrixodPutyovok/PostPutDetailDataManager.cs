@@ -292,5 +292,40 @@ namespace KasabaKiat.BusinessLogic.Putyovki.PrixodPutyovok
 
             return list;
         }
+
+
+        public static List<PostPutyovkaViewModel> Get2(PostPutyovkaViewModel model)
+        {
+            List<PostPutyovkaViewModel> list = null;
+
+            using (KasabaKIATEntities db = new KasabaKIATEntities())
+            {
+                var query = from postPut in db.tblPos_Put
+                            join postMain in db.tblPost
+                            on postPut.ID_Post equals postMain.ID
+                            where postMain.DepartmentBase == model.Departmentbase &&
+                            postPut.ID == model.Id
+                            select new PostPutyovkaViewModel
+                            {
+                                Id = postPut.ID,
+                                IdPost = postPut.ID_Post,
+                                IdSanat = postPut.ID_Sanat,
+                                SanatName = postPut.tblSprav_San.Name_San,
+                                Num_Put = postPut.Num_Put,
+                                DataSan = postPut.DataSan,
+                                DataSanEnd = postPut.DataSanEnd,
+                                Symma_Put = postPut.Symma_Put,
+                                ID_PolVoz = postPut.ID_PolVoz,
+                                Data_Post = postPut.Data_Post,
+                                UserId = postPut.UserId,
+                                Departmentbase = postPut.Departmentbase,
+                                Checked = false
+                            };
+
+                list = query.ToList();
+            }
+
+            return list;
+        }
     }
 }

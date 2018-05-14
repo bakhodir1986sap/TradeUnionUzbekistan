@@ -495,6 +495,88 @@
     }
 
 
+    $scope.UdalitPutyovku = function () {
+        alertify.error("UdalitPutyovku");
+
+        var postData = { putyovkaL: $scope.SelectedPutyovkas };
+
+        $http({
+            method: "post",
+            url: "/PrixodPutevok/RemovePutyovkaDetail",
+            data: JSON.stringify(postData),
+            dataType: "json"
+        }).then(function (response) {
+
+            for (var i = 0, l = $scope.SelectedPutyovkas.length; i < l; ++i)
+            {
+                var value = $scope.SelectedPutyovkas[i];
+
+                $scope.SelectedPutyovkas.splice($scope.SelectedPutyovkas.indexOf(value), 1);
+            }
+
+            GetDetailList();
+            GetDetailListRes();
+
+        }, function () {
+            alertify.error("ошибка");
+            console.log('Error in SavePutDtl');
+        });
+    }
+
+    $scope.PostavitBron = function () {
+        alertify.error("PostavitBron");
+
+        var postData = { putyovkaL: $scope.SelectedPutyovkas };
+
+        $http({
+            method: "post",
+            url: "/PrixodPutevok/PostavitVBron2",
+            data: JSON.stringify(postData),
+            dataType: "json"
+        }).then(function (response) {
+
+            for (var i = 0, l = $scope.SelectedPutyovkas.length; i < l; ++i) {
+                var value = $scope.SelectedPutyovkas[i];
+
+                $scope.SelectedPutyovkas.splice($scope.SelectedPutyovkas.indexOf(value), 1);
+            }
+
+            GetDetailList();
+            GetDetailListRes();
+
+        }, function () {
+            alertify.error("ошибка");
+            console.log('Error in PostavitBron');
+        });
+    }
+
+    $scope.SnyatBron = function () {
+        alertify.error("SnyatBron");
+
+        var postData = { putyovkaL: $scope.SelectedPutyovkas };
+
+        $http({
+            method: "post",
+            url: "/PrixodPutevok/SnyatsBron2",
+            data: JSON.stringify(postData),
+            dataType: "json"
+        }).then(function (response) {
+
+            for (var i = 0, l = $scope.SelectedPutyovkas.length; i < l; ++i) {
+                var value = $scope.SelectedPutyovkas[i];
+
+                $scope.SelectedPutyovkas.splice($scope.SelectedPutyovkas.indexOf(value), 1);
+            }
+
+            GetDetailList();
+            GetDetailListRes();
+
+        }, function () {
+            alertify.error("ошибка");
+            console.log('Error in SnyatBron');
+        });
+    }
+
     ////////////////////////////////////////////////////////////////
     // Add putyovka Details
     ///////////////////////////////////////////////////////////////
@@ -577,11 +659,12 @@
         }
     }
 
+    //
     $scope.SavePutDtl = function ()
     {
         for (var i = 0, l = $scope.PutyovkaList.length; i < l; ++i)
         {
-
+            //Have some problems in converting and passing data
             var dataPos = ($scope.PutyovkaList[i].Data_Post) ? $filter('date')(parseInt($scope.PutyovkaList[i].Data_Post.substr(6)), 'dd.MM.yyyy') : '';
             var dataPosd = new Date(parseInt(dataPos.substring(6, 10)), parseInt(dataPos.substring(3, 5) - 1), parseInt(dataPos.substring(0, 2)));
 
@@ -611,7 +694,7 @@
         });
     }
 
-
+    //
     $scope.AddPutyovkas = function () {
 
         $scope.ZagatovkaPutyovka = {

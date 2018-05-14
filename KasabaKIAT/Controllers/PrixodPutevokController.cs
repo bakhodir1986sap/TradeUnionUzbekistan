@@ -1243,6 +1243,34 @@ namespace KasabaKIAT.Controllers
             return Json("Deleted", JsonRequestBehavior.AllowGet);
         }
 
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="Id"></param>
+        /// <returns></returns>
+        public JsonResult RemovePutyovkaDetail(List<long> putyovkaL)
+        {
+            if (putyovkaL == null) return Json("fail", JsonRequestBehavior.AllowGet);
+
+            try
+            {
+                foreach(var putyovkaId in putyovkaL)
+                {
+                    PostPutDetailDataManager.Remove(new PostPutyovkaViewModel()
+                    {
+                        Id = putyovkaId
+                    });
+                }
+            }
+            catch(Exception ex)
+            {
+                return Json(ex.Message, JsonRequestBehavior.AllowGet);
+            }
+
+            return Json("success", JsonRequestBehavior.AllowGet);
+        }
+
         /// <summary>
         /// 
         /// </summary>
@@ -1369,12 +1397,47 @@ namespace KasabaKIAT.Controllers
             return Json("success", JsonRequestBehavior.AllowGet);
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="IdSan"></param>
-        /// <param name="NumPut"></param>
-        /// <returns></returns>
+        public JsonResult PostavitVBron2(List<long> putyovkaL)
+        {
+            if (putyovkaL == null) return Json("fail", JsonRequestBehavior.AllowGet);
+
+            int UserId = Convert.ToInt32(User.Identity.Name);
+            var ustinfo = UserInfo.GetUserInfo(UserId);
+
+            foreach (var puId in putyovkaL)
+            {
+                var model = new PostPutyovkaViewModel
+                {
+                    UserId = UserId,
+                    Departmentbase = ustinfo.DepartmentBase,
+                    Id = puId
+                };
+
+                var putyovka = PostPutDetailDataManager.Get2(model);
+
+                if (putyovka.Any())
+                {
+                    var bron = new BronirovaniyaPutyovki();
+                    var putObj = putyovka.First();
+
+                    bron.PostavitV_Bron(new BronViewModel()
+                    {
+                        ID_San = putObj.IdSanat.Value,
+                        Num_Put = putObj.Num_Put
+                    });
+                }
+            }
+
+            return Json("success", JsonRequestBehavior.AllowGet);
+        }
+
+
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="IdSan"></param>
+            /// <param name="NumPut"></param>
+            /// <returns></returns>
         public JsonResult SnyatsBron(int IdSan, string NumPut)
         {
             try
@@ -1391,6 +1454,41 @@ namespace KasabaKIAT.Controllers
             {
                 log.Error(ex.ToString());
                 return Json("fail", JsonRequestBehavior.AllowGet);
+            }
+
+            return Json("success", JsonRequestBehavior.AllowGet);
+        }
+
+
+        public JsonResult SnyatsBron2(List<long> putyovkaL)
+        {
+            if (putyovkaL == null) return Json("fail", JsonRequestBehavior.AllowGet);
+
+            int UserId = Convert.ToInt32(User.Identity.Name);
+            var ustinfo = UserInfo.GetUserInfo(UserId);
+
+            foreach (var puId in putyovkaL)
+            {
+                var model = new PostPutyovkaViewModel
+                {
+                    UserId = UserId,
+                    Departmentbase = ustinfo.DepartmentBase,
+                    Id = puId
+                };
+
+                var putyovka = PostPutDetailDataManager.Get2(model);
+
+                if (putyovka.Any())
+                {
+                    var bron = new BronirovaniyaPutyovki();
+                    var putObj = putyovka.First();
+
+                    bron.SnyatBron(new BronViewModel()
+                    {
+                        ID_San = putObj.IdSanat.Value,
+                        Num_Put = putObj.Num_Put
+                    });
+                }
             }
 
             return Json("success", JsonRequestBehavior.AllowGet);

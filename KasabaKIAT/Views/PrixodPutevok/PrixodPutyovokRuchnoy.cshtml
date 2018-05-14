@@ -179,8 +179,8 @@
                                 <tr @*data-toggle="modal" data-target="#redaktirovat2"*@ ng-repeat="dtl in NakladnoyDtls">
                                     <td class="custom-control custom-checkbox r-checkbox">
                                         <input type="checkbox" class="custom-control-input" id="customCheck{{dtl.Id}}" 
-                                                ng-model="selectedObjs" 
-                                                ng-checked="obj.selected" 
+                                                @*ng-model="selectedObjs" 
+                                                ng-checked="obj.selected"*@ 
                                                 ng-click="toggleObjSelection($event, dtl.Id)">
                                         <label class="custom-control-label r-label" for="customCheck{{dtl.Id}}">{{dtl.Id}}</label>
                                     </td>
@@ -195,10 +195,10 @@
                     </div>
                     <div class="row">
                         <div class="col-md-8">
-                            <a href="#" class="btn btn-blue" data-toggle="modal" data-target="#dobavit2"><i class="fa fa-plus"></i>Добавить</a>
-                            <a href="#" class="btn btn-danger"><i class="fa fa-trash-alt" ng-click="RemovePutyovka(dtl)"></i>Удалить</a>
-                            <a href="#" class="btn btn-grey"><i class="fa fa-briefcase"></i> Бронь</a>
-                            <a href="#" class="btn btn-red"><i class="fa fa-briefcase"></i> Снять бронь</a>
+                            <a href="#" class="btn btn-blue" ng-click="AddPutyovkas()" data-toggle="modal" data-target="#dobavit2"><i class="fa fa-plus"></i>Добавить</a>
+                            <a href="#" class="btn btn-danger" ><i class="fa fa-trash-alt"></i>Удалить</a>
+                            <a href="#" class="btn btn-grey" ng-click="PostavitBron()"><i class="fa fa-briefcase"></i> Бронь</a>
+                            <a href="#" class="btn btn-red"  ng-click="SnyatBron()"><i class="fa fa-briefcase"></i> Снять бронь</a>
                         </div>
                         <div class="col-md-4 text-md-right mb-4">
                             <p class="mb-0">Общее количество <strong>{{PutyovkaDtlSummar.PutyovkaCount}}</strong></p>
@@ -293,6 +293,7 @@
                                     </div>
                                 </div>
                                 <div class="mb-4 text-right">
+                                    <a href="#" ng-click="MakeProvodka()" class="btn btn-grey d-block d-md-inline-block mb-2"><i class="fas fa-plus"></i> Проводка</a>
                                     <a href="#" ng-click="EditNakladnoy()" class="btn btn-green d-block d-md-inline-block mb-2"><i class="fas fa-plus"></i> Изменить</a>
                                     <a href="#" ng-click="RemoveNakladnoy()" class="btn btn-red d-block d-md-inline-block mb-2"><i class="fas fa-plus"></i> Удалить</a>
                                     <a href="#" class="btn btn-grey d-block d-md-inline-block mb-2" data-dismiss="modal">Отмена</a>
@@ -303,6 +304,7 @@
                 </div>
             </div>
         </div>
+
         <div class="modal__block modal fade" id="dobavit2" tabindex="-1" role="dialog" aria-labelledby="dobavitLabel">
             <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
                 <div class="modal-content">
@@ -315,133 +317,89 @@
                                 <div class="form-group row align-items-center">
                                     <label class="col-md-5 col-form-label text-md-right py-0">Название санаториия:</label>
                                     <div class="col-md-7">
-                                        <select class="custom-select form-control">
-                                            <option>Ботаника</option>
-                                            <option>Option 2</option>
-                                            <option>Option 3</option>
+                                        <select class="custom-select form-control" ng-model="SelectedSanatory" ng-options="item as item.Name_San for item in Sanatories track by item.ID">
                                         </select>
                                     </div>
                                 </div>
                                 <div class="form-group row align-items-center">
-                                    <label class="col-md-5 col-form-label text-md-right py-0">Укажите номер:</label>
+                                    <label class="col-md-5 col-form-label text-md-right py-0">Начальный номер:</label>
                                     <div class="col-md-7">
-                                        <input type="text" class="form-control" placeholder="Укажите номер" />
+                                        <input type="text" class="form-control" placeholder="Начальный номер" ng-model="ZagatovkaPutyovka.beginNumber" />
+                                    </div>
+                                </div>
+                                <div class="form-group row align-items-center">
+                                    <label class="col-md-5 col-form-label text-md-right py-0">Конечный номер:</label>
+                                    <div class="col-md-7">
+                                        <input type="text" class="form-control" placeholder="Конечный номер" ng-model="ZagatovkaPutyovka.endNumber"/>
                                     </div>
                                 </div>
                                 <div class="form-group row align-items-center">
                                     <label class="col-md-5 col-form-label text-md-right py-0">Срок действия:</label>
                                     <div class="col-md-7">
-                                        <input type="text" class="form-control" placeholder="Срок действия" />
+                                        <input type="date" class="form-control" placeholder="Срок действия"  ng-model="ZagatovkaPutyovka.SanatDate"/>
                                     </div>
                                 </div>
                                 <div class="form-group row align-items-center">
                                     <label class="col-md-5 col-form-label text-md-right py-0">Стоимость:</label>
                                     <div class="col-md-7">
-                                        <input type="text" class="form-control" />
+                                        <input type="text" class="form-control" ng-model="ZagatovkaPutyovka.Price"/>
                                     </div>
                                 </div>
+                                <div class="mb-4 text-right">
+                                    <a href="#" class="btn btn-blue d-block d-md-inline-block mb-2" ng-click="PrinyatClicked()"><i class="fas fa-plus" ></i> Принять</a>
+                                    @*<a href="#" class="btn btn-grey d-block d-md-inline-block mb-2" data-dismiss="modal">Отмена</a>*@
+                                </div>
                                 <div class="table-responsive box-shadow mb-4">
-                                    <table class="table table__block table-fixed-small t-hover table__small">
+                                    <table class="table table__block t-hover table__small">
                                         <thead>
                                             <tr>
                                                 <th>Выбрать</th>
                                                 <th class="dropdown dropdown__table">
                                                     <span class="dropdown-toggle dr-link" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">№</span>
                                                     <div class="dropdown-menu dr-menu rounded-0 border-0" aria-labelledby="dropdownMenuButton">
-                                                        <a class="dropdown-item dr-item" href="#">№</a>
-                                                        <a class="dropdown-item dr-item" href="#">№</a>
-                                                        <a class="dropdown-item dr-item" href="#">№</a>
-                                                        <a class="dropdown-item dr-item" href="#">№</a>
                                                     </div>
                                                 </th>
                                                 <th class="dropdown dropdown__table">
                                                     <span class="dropdown-toggle dr-link" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Санаторий</span>
                                                     <div class="dropdown-menu dr-menu rounded-0 border-0" aria-labelledby="dropdownMenuButton">
-                                                        <a class="dropdown-item dr-item" href="#">Санаторий</a>
-                                                        <a class="dropdown-item dr-item" href="#">Санаторий</a>
-                                                        <a class="dropdown-item dr-item" href="#">Санаторий</a>
-                                                        <a class="dropdown-item dr-item" href="#">Санаторий</a>
                                                     </div>
                                                 </th>
                                                 <th class="dropdown dropdown__table">
                                                     <span class="dropdown-toggle dr-link" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Номер путевки</span>
                                                     <div class="dropdown-menu dr-menu rounded-0 border-0" aria-labelledby="dropdownMenuButton">
-                                                        <a class="dropdown-item dr-item" href="#">Номер путевки</a>
-                                                        <a class="dropdown-item dr-item" href="#">Номер путевки</a>
-                                                        <a class="dropdown-item dr-item" href="#">Номер путевки</a>
-                                                        <a class="dropdown-item dr-item" href="#">Номер путевки</a>
                                                     </div>
                                                 </th>
                                                 <th class="dropdown dropdown__table">
                                                     <span class="dropdown-toggle dr-link" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Срок действия</span>
                                                     <div class="dropdown-menu dr-menu rounded-0 border-0" aria-labelledby="dropdownMenuButton">
-                                                        <a class="dropdown-item dr-item" href="#">Срок действия</a>
-                                                        <a class="dropdown-item dr-item" href="#">Срок действия</a>
-                                                        <a class="dropdown-item dr-item" href="#">Срок действия</a>
-                                                        <a class="dropdown-item dr-item" href="#">Срок действия</a>
                                                     </div>
                                                 </th>
                                                 <th class="dropdown dropdown__table">
                                                     <span class="dropdown-toggle dr-link" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Стоимость</span>
                                                     <div class="dropdown-menu dr-menu rounded-0 border-0" aria-labelledby="dropdownMenuButton">
-                                                        <a class="dropdown-item dr-item" href="#">Стоимость</a>
-                                                        <a class="dropdown-item dr-item" href="#">Стоимость</a>
-                                                        <a class="dropdown-item dr-item" href="#">Стоимость</a>
-                                                        <a class="dropdown-item dr-item" href="#">Стоимость</a>
                                                     </div>
                                                 </th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
+                                            <tr ng-repeat="putyovka in PutyovkaList">
                                                 <td class="custom-control custom-checkbox r-checkbox">
-                                                    <input type="checkbox" class="custom-control-input" id="customCheck01">
-                                                    <label class="custom-control-label r-label" for="customCheck01"></label>
+                                                    <input type="checkbox" class="custom-control-input" id="customCheck{{putyovka.Id}}"
+                                                           ng-click="toggleObjSelectionPut($event, putyovka.Num_Put, putyovka.IdSanat)"
+                                                           checked>
+                                                    <label class="custom-control-label r-label" for="customCheck{{putyovka.Id}}"></label>
                                                 </td>
-                                                <td>Sample</td>
-                                                <td>Sample</td>
-                                                <td>Sample</td>
-                                                <td>Sample</td>
-                                                <td>Sample</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="custom-control custom-checkbox r-checkbox">
-                                                    <input type="checkbox" class="custom-control-input" id="customCheck02">
-                                                    <label class="custom-control-label r-label" for="customCheck02"></label>
-                                                </td>
-                                                <td>Sample</td>
-                                                <td>Sample</td>
-                                                <td>Sample</td>
-                                                <td>Sample</td>
-                                                <td>Sample</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="custom-control custom-checkbox r-checkbox">
-                                                    <input type="checkbox" class="custom-control-input" id="customCheck03">
-                                                    <label class="custom-control-label r-label" for="customCheck03"></label>
-                                                </td>
-                                                <td>Sample</td>
-                                                <td>Sample</td>
-                                                <td>Sample</td>
-                                                <td>Sample</td>
-                                                <td>Sample</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="custom-control custom-checkbox r-checkbox">
-                                                    <input type="checkbox" class="custom-control-input" id="customCheck04">
-                                                    <label class="custom-control-label r-label" for="customCheck04"></label>
-                                                </td>
-                                                <td>Sample</td>
-                                                <td>Sample</td>
-                                                <td>Sample</td>
-                                                <td>Sample</td>
-                                                <td>Sample</td>
+                                                <td>{{putyovka.Id}}</td>
+                                                <td>{{putyovka.SanatName}}</td>
+                                                <td>{{putyovka.Num_Put}}</td>
+                                                <td>{{putyovka.DataSan | jsonDate: 'dd.MM.yyyy' }}</td>
+                                                <td>{{putyovka.Symma_Put}}</td>
                                             </tr>
                                         </tbody>
                                     </table>
                                 </div>
                                 <div class="mb-4 text-right">
-                                    <a href="#" class="btn btn-blue d-block d-md-inline-block mb-2"><i class="fas fa-plus"></i> Добавить</a>
+                                    <a href="#" class="btn btn-blue d-block d-md-inline-block mb-2" ng-click="SavePutDtl()"><i class="fas fa-algolia"></i> Сохранить</a>
                                     <a href="#" class="btn btn-grey d-block d-md-inline-block mb-2" data-dismiss="modal">Отмена</a>
                                 </div>
                             </div>
@@ -450,6 +408,7 @@
                 </div>
             </div>
         </div>
+
         <div class="modal__block modal fade" id="redaktirovat2" tabindex="-1" role="dialog" aria-labelledby="dobavitLabel">
             <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
                 <div class="modal-content">

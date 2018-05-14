@@ -267,19 +267,25 @@ namespace KasabaKiat.BusinessLogic.Putyovki.PrixodPutyovok
         {
             var list = new List<PostPutyovkaViewModel>();
 
+            int count = 0;
+
             for (int i = entModel.beginNumber; i <= entModel.endNumber; i++)
             {
-                var mm = new PostPutyovkaViewModel();
-
-                mm.DataSan = entModel.SanatDate;
-                mm.Data_Post = DateTime.Now;
-                mm.Departmentbase = entModel.DepartmentBase;
-                mm.UserId = entModel.UserId;
-                mm.IdSanat = entModel.SanatId;
-                mm.ID_PolVoz = false;
-                mm.Num_Put = i.ToString();
-                mm.Symma_Put = entModel.Price;
-                mm.IdPost = entModel.IdPost;
+                count++;
+                var mm = new PostPutyovkaViewModel
+                {
+                    Id = count,
+                    DataSan = entModel.SanatDate,
+                    Data_Post = DateTime.Now,
+                    Departmentbase = entModel.DepartmentBase,
+                    UserId = entModel.UserId,
+                    IdSanat = entModel.SanatId,
+                    SanatName = entModel.SanatName,
+                    ID_PolVoz = false,
+                    Num_Put = i.ToString(),
+                    Symma_Put = entModel.Price,
+                    IdPost = entModel.IdPost
+                };
 
                 list.Add(mm);
             }

@@ -1266,6 +1266,11 @@ namespace KasabaKIAT.Controllers
         /// <returns></returns>
         public JsonResult ParsePrixodPutyovka(PrixodDetailViewModel model)
         {
+            if ((model.IdPost == 0) || (model.IdPost == null))
+            {
+                return Json("Error", JsonRequestBehavior.AllowGet);
+            }
+
             int UserId = Convert.ToInt32(User.Identity.Name);
             var ustinfo = UserInfo.GetUserInfo(UserId);
 
@@ -1277,17 +1282,31 @@ namespace KasabaKIAT.Controllers
             return Json(list, JsonRequestBehavior.AllowGet);
         }
 
+        public class ExceptionList
+        {
+            public string Num_Put_SanId { get; set; }
+        }
+
         /// <summary>
         /// 
         /// </summary>
         /// <param name="lModel"></param>
         /// <returns></returns>
-        public JsonResult AddDetail(List<PostPutyovkaViewModel> lModel)
+        public JsonResult AddDetail(List<PostPutyovkaViewModel> lModel, List<string> expLst)
         {
             try
             {
                 foreach (var mm in lModel)
                 {
+                    var put_san = string.Format("{0}_{1}", mm.Num_Put, mm.IdSanat);
+
+                    var exp = expLst.Where(z => z.Equals(put_san));
+
+                    if (exp.Any())
+                    {
+                        continue;
+                    }
+
                     PostPutyovkaViewModel mmModel = mm;
 
                     PostPutDetailDataManager.Create(ref mmModel);

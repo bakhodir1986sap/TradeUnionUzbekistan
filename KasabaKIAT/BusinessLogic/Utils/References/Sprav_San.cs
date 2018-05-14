@@ -115,8 +115,7 @@ namespace KasabaKiat.BusinessLogic.Utils.References
                                select new Sprav_SanViewModel
                                {
                                    Name_San = sanatory.Name_San,
-                                   Num_Kod = sanatory.Num_Kod,
-                                   UserId = sanatory.UserId
+                                   ID = sanatory.ID
                                };
 
                 list = queryRes.ToList();

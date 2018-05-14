@@ -4,6 +4,7 @@
     GetYearsList();
     GetKvartalList();
     GetOrganizationList();
+    GetSanatories();
     
 
     //Table Row highlight
@@ -97,6 +98,41 @@
         Departmentbase  :'',
         Checked         :''
     };
+
+
+    $scope.ZagatovkaPutyovka = {
+
+        Year: '',        
+        
+        Kvartal: '',       
+        
+        SanatId: '',   
+
+        SanatName:'',
+        
+        beginNumber: '',   
+        
+        endNumber:'',     
+        
+        SanatDate: '',     
+        
+        Price:'',         
+        
+        DepartmentBase:'',
+        
+        UserId:'',        
+        
+        IdPost:''        
+
+    };
+
+    $scope.SelectedSanatory = {
+
+        ID: 0,
+        Name_San: ''
+
+    };
+
 
     //Get Functions
     function GetYearsList() {
@@ -276,8 +312,7 @@
 
         $scope.ActionType = 'Добавить';
     }
-
-    
+        
     //eventsHandlers
     $scope.FiltersChanged = function () {
 
@@ -360,6 +395,38 @@
         });
     }
 
+
+    $scope.MakeProvodka = function () {
+
+        //alertify.error("MakeProvodka");
+
+        $scope.CurrentNakladnoy.Data_Post = $scope.DataPos;
+
+        $scope.CurrentNakladnoy.Num_Doc = $scope.Num_Doc;
+
+        $scope.CurrentNakladnoy.ID_Pos = $scope.SelectedOrganization.ID;
+
+        $scope.CurrentNakladnoy.Name_Dov = $scope.Name_Dov;
+
+        $scope.CurrentNakladnoy.Id_Kv = $scope.SelectedKvartal.ID;
+
+        $scope.CurrentNakladnoy.SmFil = $scope.SelectedYear.Id;
+
+        $http({
+            method: "post",
+            url: "/PrixodPutevok/CloseNakladnoy",
+            data: JSON.stringify($scope.CurrentNakladnoy),
+            dataType: "json"
+        }).then(function (msg) {
+
+            GetNakladnoyList();
+
+        }, function () {
+            alertify.error("ошибка");
+            console.log('Error in MakeProvodka');
+        });
+    }
+
     $scope.RemoveNakladnoy = function () {
 
         $scope.CurrentNakladnoy.Data_Post = $scope.DataPos;
@@ -428,8 +495,147 @@
     }
 
 
+    ////////////////////////////////////////////////////////////////
+    // Add putyovka Details
+    ///////////////////////////////////////////////////////////////
+
+    function GetSanatories() {
+        document.getElementById('connection').style.visibility = "visible";
+        $("#hh").modal({
+            backdrop: 'static'
+        });
+        $http({
+            method: 'get',
+            url: '/Reference/GetSanatories'
+        }).then(function (response) {
+            $scope.Sanatories = response.data;
+            document.getElementById('connection').style.visibility = "hidden";
+            $("#hh").modal('hide');
+        }, function (error) {
+            alertify.error("ошибка");
+            console.log("error in GetSanatories");
+            document.getElementById('connection').style.visibility = "hidden";
+            $("#hh").modal('hide');
+        });
+    }
+
+    $scope.PrinyatClicked = function () {
+
+        $scope.ZagatovkaPutyovka.Kvartal = $scope.SelectedKvartal.ID;
+
+        $scope.ZagatovkaPutyovka.Year = $scope.SelectedYear.Id;
+
+        $scope.ZagatovkaPutyovka.SanatId = $scope.SelectedSanatory.ID;
+
+        $scope.ZagatovkaPutyovka.SanatName = $scope.SelectedSanatory.Name_San;
+
+        $scope.ZagatovkaPutyovka.IdPost = $scope.CurrentNakladnoy.Id;
+
+        $http({
+            method: "post",
+            url: "/PrixodPutevok/ParsePrixodPutyovka",
+            data: JSON.stringify($scope.ZagatovkaPutyovka),
+            dataType: "json"
+        }).then(function (response) {
+
+            $scope.PutyovkaList = response.data;
+
+        }, function () {
+            alertify.error("ошибка");
+            console.log('Error in PrinyatClicked');
+        });
+    }
+
+    $scope.SelectedPutyovka = [];
+
+
+    $scope.toggleObjSelectionPut = function ($event, Num_Put, IdSanat) {
+        $event.stopPropagation();
+        console.log('checkbox putyovka' + IdSanat + '-' +  Num_Put);
+
+        var isDelated = false;
+
+        for (var i = 0, l = $scope.SelectedPutyovka.length; i < l; ++i) {
+            var value = $scope.SelectedPutyovka[i];
+
+            if ((Num_Put + '_' + IdSanat) === value) {
+                $scope.SelectedPutyovka.splice($scope.SelectedPutyovka.indexOf(Num_Put + '_' + IdSanat), 1);
+                isDelated = true;
+                break;
+            }
+        }
+
+        if (!isDelated) {
+            $scope.SelectedPutyovka.push(Num_Put + '_' + IdSanat);
+        }
+
+        console.log('====================================================');
+
+        for (var i = 0, l = $scope.SelectedPutyovka.length; i < l; ++i) {
+            var value = $scope.SelectedPutyovka[i];
+            console.log('putyovka: ' + value);
+        }
+    }
+
+    $scope.SavePutDtl = function ()
+    {
+        for (var i = 0, l = $scope.PutyovkaList.length; i < l; ++i)
+        {
+
+            var dataPos = ($scope.PutyovkaList[i].Data_Post) ? $filter('date')(parseInt($scope.PutyovkaList[i].Data_Post.substr(6)), 'dd.MM.yyyy') : '';
+            var dataPosd = new Date(parseInt(dataPos.substring(6, 10)), parseInt(dataPos.substring(3, 5) - 1), parseInt(dataPos.substring(0, 2)));
+
+            $scope.PutyovkaList[i].Data_Post = dataPosd;
+
+            var dataSan = ($scope.PutyovkaList[i].DataSan) ? $filter('date')(parseInt($scope.PutyovkaList[i].DataSan.substr(6)), 'dd.MM.yyyy') : '';
+            var dataSand = new Date(parseInt(dataSan.substring(6, 10)), parseInt(dataSan.substring(3, 5) - 1), parseInt(dataSan.substring(0, 2)));
+
+            $scope.PutyovkaList[i].DataSan = dataSand;
+        }
+
+
+        var postData = { lModel: $scope.PutyovkaList, expLst: $scope.SelectedPutyovka };
+
+        $http({
+            method: "post",
+            url: "/PrixodPutevok/AddDetail",
+            data: JSON.stringify(postData),
+            dataType: "json"
+        }).then(function (response) {
+
+            //
+
+        }, function () {
+            alertify.error("ошибка");
+            console.log('Error in SavePutDtl');
+        });
+    }
+
+
+    $scope.AddPutyovkas = function () {
+
+        $scope.ZagatovkaPutyovka = {
+            Year: '',
+            Kvartal: '',
+            SanatId: '',
+            SanatName: '',
+            beginNumber: '',
+            endNumber: '',
+            SanatDate: '',
+            Price: '',
+            DepartmentBase: '',
+            UserId: '',
+            IdPost: ''
+        };
+
+        $scope.PutyovkaList = '';
+
+    }
+
+
+
     ///////////////////////////////////////////////////////////////////
-    ///////////////////////////////////////////////////////////////////
+    ////Organization///////////////////////////////////////////////////
     //////////////////////////////////////////////////////////////////
 
     GetOtraslForOrganization();
@@ -498,8 +704,7 @@
             $("#hh").modal('hide');
         });
     }
-
-
+    
     $scope.editOrg = function (org) {
 
         $scope.Organization = '';
@@ -529,7 +734,7 @@
             $("#hh").modal('hide');
         });
     }
-
+    
     function GetEmptyCarcas() {
 
         $scope.Organization = '';
@@ -552,8 +757,7 @@
             $("#hh").modal('hide');
         });
     }
-
-
+    
     function GetOrganizations() {
 
         $scope.Organization = '';
@@ -596,8 +800,7 @@
             $("#hh").modal('hide');
         });
     }
-
-
+    
     function GetRegionForOrganization() {
         document.getElementById('connection').style.visibility = "visible";
         $("#hh").modal({
@@ -646,7 +849,7 @@
     }
 
 
-    $scope.SelectedOrganization = [];
+    $scope.SelectedOrganizationL = [];
 
 
     $scope.toggleObjSelectionOrg = function ($event, Id, Name_Org) {
@@ -655,28 +858,33 @@
 
         var isDelated = false;
 
-        for (var i = 0, l = $scope.SelectedOrganization.length; i < l; ++i) {
-            var value = $scope.SelectedOrganization[i];
+        for (var i = 0, l = $scope.SelectedOrganizationL.length; i < l; ++i) {
+            var value = $scope.SelectedOrganizationL[i];
 
-            if (Id === value) {
-                $scope.SelectedOrganization.splice($scope.SelectedOrganization.indexOf(Id + '_' + Name_Org), 1);
+            if ((Id + '_' + Name_Org) === value) {
+                $scope.SelectedOrganizationL.splice($scope.SelectedOrganizationL.indexOf(Id + '_' + Name_Org), 1);
                 isDelated = true;
                 break;
             }
         }
 
         if (!isDelated) {
-            $scope.SelectedOrganization.push(Id + '_' + Name_Org);
+            $scope.SelectedOrganizationL.push(Id + '_' + Name_Org);
             $scope.SelectedOrganization.ID = Id;
             $scope.SelectedOrganization.Name_Org = Name_Org;
         }
 
         console.log('====================================================');
 
-        for (var i = 0, l = $scope.SelectedOrganization.length; i < l; ++i) {
-            var value = $scope.SelectedOrganization[i];
+        for (var i = 0, l = $scope.SelectedOrganizationL.length; i < l; ++i) {
+            var value = $scope.SelectedOrganizationL[i];
             console.log('orgorg: ' + value);
         }
     }
+
+    //////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////
+
 
 }]);

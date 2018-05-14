@@ -7,24 +7,26 @@ namespace KasabaKIAT.BusinessLogic.Putyovki.PrixodPutyovok
 {
     public class PrixodDetailViewModel
     {
-        public int Year { get; set; }
+        public int      Year            { get; set; }
 
-        public int Kvartal { get; set; }
+        public int      Kvartal         { get; set; }
 
-        public int SanatId { get; set; }
+        public int      SanatId         { get; set; }
 
-        public int beginNumber { get; set; }
+        public string   SanatName       { get; set; }
 
-        public int endNumber { get; set; }
+        public int      beginNumber     { get; set; }
 
-        public DateTime SanatDate { get; set; }
+        public int      endNumber       { get; set; }
 
-        public decimal Price { get; set; }
+        public DateTime SanatDate       { get; set; }
 
-        public string DepartmentBase { get; set; }
+        public decimal  Price           { get; set; }
 
-        public long? UserId { get; set; }
+        public string   DepartmentBase  { get; set; }
 
-        public long? IdPost { get; set; }
+        public long?    UserId          { get; set; }
+
+        public long?    IdPost          { get; set; }
     }
 }

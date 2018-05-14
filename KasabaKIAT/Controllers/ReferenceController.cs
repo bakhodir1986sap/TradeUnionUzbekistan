@@ -145,5 +145,17 @@ namespace KasabaKIAT.Controllers
 
             return Json(list, JsonRequestBehavior.AllowGet);
         }
+
+
+        /// <summary>
+        /// General sanatorii
+        /// </summary>
+        /// <returns></returns>
+        public JsonResult GetSanatories()
+        {
+            var list = Sprav_San.Get();
+
+            return Json(list, JsonRequestBehavior.AllowGet);
+        }
     }
 }

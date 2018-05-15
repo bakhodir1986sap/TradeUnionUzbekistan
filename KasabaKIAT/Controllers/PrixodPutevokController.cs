@@ -2608,10 +2608,51 @@ namespace KasabaKIAT.Controllers
             return Json("fail", JsonRequestBehavior.AllowGet);
         }
 
+
+        public JsonResult ZakritKvartal2(ZakritiyeKvartalaViewModelTemp mainMdl
+            , List<long> lrasxm)
+        {
+            int UserId = Convert.ToInt32(User.Identity.Name);
+            var ustinfo = UserInfo.GetUserInfo(UserId);
+
+            try
+            {
+                //model
+                var model = new ZakritiyeKvartalaViewModel();
+
+                model.year = mainMdl.year;
+                model.id_kv = mainMdl.id_kv;
+                model.IdOrg = mainMdl.IdOrg;
+
+                foreach (var rasxodId in lrasxm)
+                {
+                    var rasxm = Vipl_PutDataManager.Get2(rasxodId);
+
+                    if (!rasxm.Any()) continue;
+
+                    var rmodel = rasxm.First();
+
+                    model.putyovkaList.Add(rmodel);
+                }
+
+                var zakrit = new ZakritKvartal4Putyovka();
+
+                zakrit.Process(model);
+
+                return Json("success", JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex.ToString());
+            }
+
+            return Json("fail", JsonRequestBehavior.AllowGet);
+        }
+
         #endregion
 
         #region Danniye o Vladelsev
-        
+
         /// <summary>
         /// 
         /// </summary>

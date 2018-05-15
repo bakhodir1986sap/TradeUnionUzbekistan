@@ -111,31 +111,113 @@
     //// Spesific Business Logic
     /////////////////////////////////////////////////////////////////////////////////////////
 
+    $scope.CurrentRealizasiyaPutyovka = {
+
+        id: '',
+        id_vipl: '',
+        id_pok: '',
+        id_sanat: '',
+        sanatName: '',
+        num_put: '',
+        num_proc: '',
+        symma: '',
+        id_polvoz: '',
+        data_post: '',
+        userid: '',
+        zayavkaid: '',
+        departmentbase: '',
+        putyovkaChecked: '',
+        primechaniye: '',
+        oplata: ''
+    };
+
+    $scope.ZakritiyeKvartalaViewModelTemp = {
+
+        year  :'',
+        id_kv :'',
+        IdOrg :''
+    };
+
+    function GetZakritiyaPutyovkas() {
+        document.getElementById('connection').style.visibility = "visible";
+        $("#hh").modal({
+            backdrop: 'static'
+        });
+        $http({
+            method: 'get',
+            url: '/PrixodPutevok/GetZakritiyaPutyovkas?idOrg=' + $scope.SelectedOrganization.ID
+        }).then(function (response) {
+
+            $scope.Putyovkas = response.data;
+
+            document.getElementById('connection').style.visibility = "hidden";
+            $("#hh").modal('hide');
+        }, function (error) {
+            alertify.error("ошибка");
+            console.log("error in GetZakritiyaPutyovkas");
+            document.getElementById('connection').style.visibility = "hidden";
+            $("#hh").modal('hide');
+        });
+    }
+
+    $scope.SelectedPutyovkas = [];
+
+    //Rasxod List
+    $scope.toggleObjSelection = function ($event, dtl) {
+        $event.stopPropagation();
+        console.log('checkbox clicked' + dtl);
+
+        var isDelated = false;
+
+        for (var i = 0, l = $scope.SelectedPutyovkas.length; i < l; ++i) {
+            var value = $scope.SelectedPutyovkas[i];
+
+            if (dtl === value) {
+                $scope.SelectedPutyovkas.splice($scope.SelectedPutyovkas.indexOf(value), 1);
+                isDelated = true;
+                break;
+            }
+        }
+
+        if (!isDelated) {
+            $scope.SelectedPutyovkas.push(dtl);
+        }
+
+        console.log('====================================================');
+
+        for (var i = 0, l = $scope.SelectedPutyovkas.length; i < l; ++i) {
+            var value = $scope.SelectedPutyovkas[i];
+            console.log('tutuud: ' + value);
+        }
+    }
+
+    
+    $scope.SaveVozvratEnter = function () {
+
+        $scope.ZakritiyeKvartalaViewModelTemp.IdOrg = $scope.SelectedOrganization.ID;
+        $scope.ZakritiyeKvartalaViewModelTemp.id_kv = $scope.SelectedKvartal.ID;
+        $scope.ZakritiyeKvartalaViewModelTemp.year = $scope.SelectedYear.Id;
 
 
+        var postData = {
+            mainMdl: $scope.ZakritiyeKvartalaViewModelTemp,
+            lrasxm: $scope.SelectedPutyovka
+        };
 
+        $http({
+            method: "post",
+            url: "/PrixodPutevok/ZakritKvartal2",
+            data: JSON.stringify(postData),
+            dataType: "json"
+        }).then(function (response) {
 
+            //
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        }, function () {
+            alertify.error("ошибка");
+            console.log('Error in SavePutDtl');
+        });
+    }
 
     ///////////////////////////////////////////////////////////////////
     ////Organization///////////////////////////////////////////////////

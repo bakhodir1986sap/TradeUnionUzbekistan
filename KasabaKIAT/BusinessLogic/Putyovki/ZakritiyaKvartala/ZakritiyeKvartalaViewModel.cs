@@ -6,6 +6,15 @@ using System.Web;
 
 namespace KasabaKIAT.BusinessLogic.Putyovki.ZakritiyaKvartala
 {
+    public class ZakritiyeKvartalaViewModelTemp
+    {
+        public int      year    { set; get; }
+
+        public int      id_kv   { set; get; }
+
+        public long     IdOrg   { set; get; }
+    }
+
     public class ZakritiyeKvartalaViewModel
     {
         public int year { set; get; }

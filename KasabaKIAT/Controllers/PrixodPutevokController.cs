@@ -1432,12 +1432,12 @@ namespace KasabaKIAT.Controllers
         }
 
 
-            /// <summary>
-            /// 
-            /// </summary>
-            /// <param name="IdSan"></param>
-            /// <param name="NumPut"></param>
-            /// <returns></returns>
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="IdSan"></param>
+        /// <param name="NumPut"></param>
+        /// <returns></returns>
         public JsonResult SnyatsBron(int IdSan, string NumPut)
         {
             try
@@ -1728,6 +1728,67 @@ namespace KasabaKIAT.Controllers
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="modModel"></param>
+        /// <param name="IdViplMain"></param>
+        /// <returns></returns>
+        public JsonResult AddViplPut2(List<long> modModel, long IdViplMain)
+        {
+            int UserId = Convert.ToInt32(User.Identity.Name);
+            var ustinfo = UserInfo.GetUserInfo(UserId);
+
+            try
+            {
+                if (modModel != null)
+                {
+                    foreach (var putId in modModel)
+                    {
+                        var prixodPut = PostPutDetailDataManager.Get2(new PostPutyovkaViewModel() {
+
+                            Id = putId,
+                            Departmentbase = ustinfo.DepartmentBase
+                        });
+
+                        if (!prixodPut.Any()) continue;
+
+                        var mm = prixodPut.First();
+
+                        if (mm.Checked)
+                        {
+                            var viplPut = new RealizasiyaViplPutViewModel();
+
+                            viplPut.id_vipl = IdViplMain;
+                            viplPut.id_pok = 0; //I do not know for what it is used
+                            viplPut.id_sanat = mm.IdSanat;
+                            viplPut.num_put = mm.Num_Put;
+                            viplPut.num_proc = 100; //May be not 100
+                            viplPut.symma = mm.Symma_Put;
+                            viplPut.id_polvoz = false;
+                            viplPut.data_post = DateTime.Now;
+                            viplPut.userid = UserId;
+                            viplPut.departmentbase = ustinfo.DepartmentBase;
+
+                            //Enter to Rasxod
+                            Vipl_PutDataManager.Create(viplPut);
+
+                            //Change Status of Putyovka in Prixod
+                            PostPutDetailDataManager.Polzov(mm.IdSanat.Value, mm.Num_Put);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex.ToString());
+
+                return Json("fail", JsonRequestBehavior.AllowGet);
+            }
+
+            return Json("success", JsonRequestBehavior.AllowGet);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
         /// <param name="year"></param>
         /// <param name="kvartal"></param>
         /// <returns></returns>
@@ -1739,6 +1800,25 @@ namespace KasabaKIAT.Controllers
             var totalres = ViplMainDataManager.GetTotals(year, kvartal, ustinfo.DepartmentBase);
 
             return Json(totalres, JsonRequestBehavior.AllowGet);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="IdVipl"></param>
+        /// <returns></returns>
+        public JsonResult GetViplDetailListRes(long IdVipl)
+        {
+            int UserId = Convert.ToInt32(User.Identity.Name);
+            var ustinfo = UserInfo.GetUserInfo(UserId);
+
+            var list = Vipl_PutDataManager.Get(IdVipl);
+
+            var res = new TotalResults();
+            res.PutyovkaCount = list.Count();
+            res.SummaNakladnix = list.Sum(z => z.symma);
+
+            return Json(res, JsonRequestBehavior.AllowGet);
         }
 
         /// <summary>
@@ -1769,6 +1849,34 @@ namespace KasabaKIAT.Controllers
             {
                 log.Error(ex.ToString());
                 return Json("fail", JsonRequestBehavior.AllowGet);
+            }
+
+            return Json("success", JsonRequestBehavior.AllowGet);
+        }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="Id"></param>
+        /// <returns></returns>
+        public JsonResult RemoveViplPutyovkaDetail(List<long> putyovkaL)
+        {
+            if (putyovkaL == null) return Json("fail", JsonRequestBehavior.AllowGet);
+
+            try
+            {
+                foreach (var putyovkaId in putyovkaL)
+                {
+                    Vipl_PutDataManager.Remove(new RealizasiyaViplPutViewModel()
+                    {
+                        id = putyovkaId
+                    });
+                }
+            }
+            catch (Exception ex)
+            {
+                return Json(ex.Message, JsonRequestBehavior.AllowGet);
             }
 
             return Json("success", JsonRequestBehavior.AllowGet);

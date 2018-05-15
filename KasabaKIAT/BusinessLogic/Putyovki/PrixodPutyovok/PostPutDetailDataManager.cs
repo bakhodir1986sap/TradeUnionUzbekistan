@@ -258,6 +258,7 @@ namespace KasabaKiat.BusinessLogic.Putyovki.PrixodPutyovok
             return list;
         }
 
+
         /// <summary>
         /// 
         /// </summary>

@@ -10,81 +10,81 @@ namespace KasabaKiat.ViewModel.Putyovki
       /// <summary>
       /// Unique identifier
       /// </summary>
-      public long id                 {get; set;}
+      public long                                           id                              {get; set;}
 
       /// <summary>
       /// Reference to master table
       /// </summary>
-      public long? id_vipl            {get; set;}
+      public long?                                          id_vipl                         {get; set;}
 
       /// <summary>
       /// Nomer po poryadku
       /// </summary>
-      public long? id_pok             {get; set;}
+      public long?                                          id_pok                          {get; set;}
 
       /// <summary>
       /// Reference to Sanatory 
       /// </summary>
-      public int? id_sanat           {get; set;}
+      public int?                                           id_sanat                        {get; set;}
 
         /// <summary>
         /// 
         /// </summary>
-      public string sanatName { get; set; }
+      public string                                         sanatName                       { get; set; }
 
         /// <summary>
         /// Nomer putyovki
         /// </summary>
-        public string num_put            {get; set;}
+        public string                                       num_put                         {get; set;}
 
       /// <summary>
       /// Nomer procenta
       /// </summary>
-      public int? num_proc           {get; set;}
+      public int?                                           num_proc                        {get; set;}
 
       /// <summary>
       /// summa 
       /// </summary>
-      public decimal? symma              {get; set;}
+      public decimal?                                       symma                           {get; set;}
 
       /// <summary>
       /// Polzovanniy
       /// </summary>
-      public bool id_polvoz          {get; set;}
+      public bool                                           id_polvoz                       {get; set;}
 
       /// <summary>
       /// Data postuplaniya
       /// </summary>
-      public DateTime? data_post          {get; set;}
+      public DateTime?                                      data_post                       {get; set;}
 
       /// <summary>
       /// User Id
       /// </summary>
-      public long? userid             {get; set;}
+      public long?                                          userid                          {get; set;}
 
       /// <summary>
       /// reference to tbpt_zayavka
       /// </summary>
-      public long? zayavkaid          {get; set;}
+      public long?                                          zayavkaid                       {get; set;}
 
       /// <summary>
       /// Department
       /// </summary>
-      public string departmentbase     {get; set;}
+      public string                                         departmentbase                  {get; set;}
 
         /// <summary>
         /// 
         /// </summary>
-        public bool putyovkaChecked { get; set; }
+        public bool                                         putyovkaChecked                 { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public string primechaniye { get; set; }
+        public string                                       primechaniye                    { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public string oplata { get; set; }
+        public string                                       oplata                              { get; set; }
     }
 }

@@ -1961,8 +1961,6 @@ namespace KasabaKIAT.Controllers
             return Json("success", JsonRequestBehavior.AllowGet);
         }
 
-
-
         /// <summary>
         /// 
         /// </summary>
@@ -1991,6 +1989,87 @@ namespace KasabaKIAT.Controllers
             return Json("success", JsonRequestBehavior.AllowGet);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public JsonResult AddOplataMainOplataKurortniy(OplataViewModel model)
+        {
+            try
+            {
+                int UserId = Convert.ToInt32(User.Identity.Name);
+                var ustinfo = UserInfo.GetUserInfo(UserId);
+
+                model.PrizOpl = (int)OplataRasxPriz.KurortOplata;
+                model.Departmentbase = ustinfo.DepartmentBase;
+                model.UserId = UserId;
+                model.Symma_KT = 0;
+
+                OplataDataManager.Create(ref model);
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex.ToString());
+                return Json("fail", JsonRequestBehavior.AllowGet);
+            }
+
+            return Json("success", JsonRequestBehavior.AllowGet);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public JsonResult AddOplataMainOplataVozvrat(OplataViewModel model)
+        {
+            try
+            {
+                int UserId = Convert.ToInt32(User.Identity.Name);
+                var ustinfo = UserInfo.GetUserInfo(UserId);
+
+                model.PrizOpl = (int)OplataRasxPriz.VozvratViplata;
+                model.Departmentbase = ustinfo.DepartmentBase;
+                model.UserId = UserId;
+                model.Symma_KT = 0;
+
+                OplataDataManager.Create(ref model);
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex.ToString());
+                return Json("fail", JsonRequestBehavior.AllowGet);
+            }
+
+            return Json("success", JsonRequestBehavior.AllowGet);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public JsonResult ModifyOplataMainOplata(OplataViewModel model)
+        {
+            try
+            {
+                int UserId = Convert.ToInt32(User.Identity.Name);
+                var ustinfo = UserInfo.GetUserInfo(UserId);
+
+                model.Departmentbase = ustinfo.DepartmentBase;
+                model.UserId = UserId;
+
+                OplataDataManager.Modify(model);
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex.ToString());
+                return Json("fail", JsonRequestBehavior.AllowGet);
+            }
+
+            return Json("success", JsonRequestBehavior.AllowGet);
+        }
 
         /// <summary>
         /// 
@@ -2021,13 +2100,12 @@ namespace KasabaKIAT.Controllers
         }
 
 
-
         /// <summary>
         /// 
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        public JsonResult AddOplataMainOplataKurortniy(OplataViewModel model)
+        public JsonResult ModifyOplataMainOplataKurortniy(OplataViewModel model)
         {
             try
             {
@@ -2039,7 +2117,7 @@ namespace KasabaKIAT.Controllers
                 model.UserId = UserId;
                 model.Symma_KT = 0;
 
-                OplataDataManager.Create(ref model);
+                OplataDataManager.Modify(model);
             }
             catch (Exception ex)
             {
@@ -2049,36 +2127,6 @@ namespace KasabaKIAT.Controllers
 
             return Json("success", JsonRequestBehavior.AllowGet);
         }
-
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="model"></param>
-        /// <returns></returns>
-        public JsonResult AddOplataMainOplataVozvrat(OplataViewModel model)
-        {
-            try
-            {
-                int UserId = Convert.ToInt32(User.Identity.Name);
-                var ustinfo = UserInfo.GetUserInfo(UserId);
-
-                model.PrizOpl = (int)OplataRasxPriz.VozvratViplata;
-                model.Departmentbase = ustinfo.DepartmentBase;
-                model.UserId = UserId;
-                model.Symma_KT = 0;
-
-                OplataDataManager.Create(ref model);
-            }
-            catch (Exception ex)
-            {
-                log.Error(ex.ToString());
-                return Json("fail", JsonRequestBehavior.AllowGet);
-            }
-
-            return Json("success", JsonRequestBehavior.AllowGet);
-        }
-
 
         /// <summary>
         /// 
@@ -2242,6 +2290,78 @@ namespace KasabaKIAT.Controllers
             }
 
             return Json("fail", JsonRequestBehavior.AllowGet);
+        }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="lmodel"></param>
+        /// <param name="IdOpl"></param>
+        /// <param name="IdPr"></param>
+        /// <returns></returns>
+        public JsonResult AddOplataPutyovok2(List<long> lmodel, long IdOpl, long IdPr)
+        {
+            if (lmodel == null) return Json("fail", JsonRequestBehavior.AllowGet);
+
+            int UserId = Convert.ToInt32(User.Identity.Name);
+            var ustinfo = UserInfo.GetUserInfo(UserId);
+
+            try
+            {
+                foreach (var rasxodId in lmodel)
+                {
+                    var rasxm = Vipl_PutDataManager.Get2(rasxodId);
+
+                    if (!rasxm.Any()) continue;
+
+                    var model = rasxm.First();
+
+                    var mmodel = new OplataRasxodiViewModel
+                    {
+                        ID_Opl = IdOpl,
+                        ID_Pr = IdPr,
+                        ID_Sanat = model.id_sanat.Value,
+                        Num_Put = model.num_put,
+                        Symma = model.symma.Value,
+                        Departmentbase = ustinfo.DepartmentBase,
+                        UserId = UserId
+                    };
+
+                    OplataRasxodDataManager.Create(ref mmodel);
+                }
+
+                return Json("success", JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex.ToString());
+            }
+
+            return Json("fail", JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult RemoveOplataRasxod(List<long> lmodel)
+        {
+            if (lmodel == null) return Json("fail", JsonRequestBehavior.AllowGet);
+
+            try
+            {
+                foreach (var opsPutId in lmodel)
+                {
+                    OplataRasxodDataManager.Remove(new OplataRasxodiViewModel()
+                    {
+                        ID = opsPutId
+                    });
+                }
+            }
+            catch(Exception ex)
+            {
+                log.Error(ex.ToString());
+                return Json("fail", JsonRequestBehavior.AllowGet);
+            }
+
+            return Json("success", JsonRequestBehavior.AllowGet);
         }
 
         #endregion

@@ -258,6 +258,40 @@ namespace KasabaKiat.BusinessLogic.Putyovki.RealizasiyaPutyovok
                                 id_vipl = viplPut.ID_Vipl,
                                 id_pok = viplPut.ID_Pok,
                                 id_sanat = viplPut.ID_Sanat,
+                                sanatName = viplPut.tblSprav_San.Name_San,
+                                num_put = viplPut.Num_Put,
+                                num_proc = viplPut.Num_Proc,
+                                symma = viplPut.Symma,
+                                id_polvoz = viplPut.ID_PolVoz,
+                                data_post = viplPut.Data_Post,
+                                userid = viplPut.UserId,
+                                zayavkaid = viplPut.ZayavkaID,
+                                departmentbase = viplPut.DepartmentBase
+                            };
+
+                list = query.ToList();
+            }
+
+            return list;
+        }
+
+
+
+        public static List<RealizasiyaViplPutViewModel> Get2(long IdViplPut)
+        {
+            List<RealizasiyaViplPutViewModel> list = null;
+
+            using (KasabaKIATEntities db = new KasabaKIATEntities())
+            {
+                var query = from viplPut in db.tblVipl_Put
+                            where viplPut.ID == IdViplPut && viplPut.ID_PolVoz == false
+                            select new RealizasiyaViplPutViewModel
+                            {
+                                id = viplPut.ID,
+                                id_vipl = viplPut.ID_Vipl,
+                                id_pok = viplPut.ID_Pok,
+                                id_sanat = viplPut.ID_Sanat,
+                                sanatName = viplPut.tblSprav_San.Name_San,
                                 num_put = viplPut.Num_Put,
                                 num_proc = viplPut.Num_Proc,
                                 symma = viplPut.Symma,

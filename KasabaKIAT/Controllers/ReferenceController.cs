@@ -80,9 +80,7 @@ namespace KasabaKIAT.Controllers
         /// <returns></returns>
         public JsonResult GetTipOplati()
         {
-            var list = tbcs_dictionaryDataManager.Get(new tbcs_dictionaryViewModel() {
-                dictionary_type_id = 8
-            });
+            var list = tbcs_dictionaryDataManager.Get("TipOplati");
 
             return Json(list, JsonRequestBehavior.AllowGet);
         }
@@ -94,10 +92,7 @@ namespace KasabaKIAT.Controllers
         /// <returns></returns>
         public JsonResult GetVidOplati()
         {
-            var list = tbcs_dictionaryDataManager.Get(new tbcs_dictionaryViewModel()
-            {
-                dictionary_type_id = 9
-            });
+            var list = tbcs_dictionaryDataManager.Get("VidOplati");
 
             return Json(list, JsonRequestBehavior.AllowGet);
         }

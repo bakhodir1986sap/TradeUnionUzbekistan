@@ -76,23 +76,25 @@ namespace KasabaKIAT.BusinessLogic.Utils.References
             }
         }
 
-        public static List<tbcs_dictionaryViewModel> Get(tbcs_dictionaryViewModel model)
+        public static List<tbcs_dictionaryViewModel> Get(string dictTypeName)
         {
             List<tbcs_dictionaryViewModel> list = null;
 
             using (KasabaKIATEntities db = new KasabaKIATEntities())
             {
                 var queryRes = from os in db.tbcs_dictionary
-                               where os.DICTIONARY_TYPE_ID == model.dictionary_type_id
+                               join dictType in db.tbcs_dictionarytype on os.DICTIONARY_TYPE_ID equals dictType.REC_ID
+                               where dictType.CODE == dictTypeName
                                select new tbcs_dictionaryViewModel
                                {
+                                   //rec_id               = os.REC_ID,
                                    code                 = os.CODE,
-                                   name_ru              = os.NAME_RU  ,         
-                                   name_uz              = os.NAME_UZ  ,         
-                                   name_lt              = os.NAME_LT  ,         
-                                   dictionary_type_id   = os.DICTIONARY_TYPE_ID,
-                                   status               = os.STATUS            ,
-                                   user_id              = os.USER_ID           
+                                   name_ru              = os.NAME_RU         
+                                   //name_uz              = os.NAME_UZ  ,         
+                                   //name_lt              = os.NAME_LT  ,         
+                                   //dictionary_type_id   = os.DICTIONARY_TYPE_ID,
+                                   //status               = os.STATUS            ,
+                                   //user_id              = os.USER_ID           
 
                                };
 

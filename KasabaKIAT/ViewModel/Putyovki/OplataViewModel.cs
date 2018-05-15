@@ -27,10 +27,12 @@ namespace KasabaKiat.ViewModel.Putyovki
         /// </summary>
         public long? ID_Otras   {get; set;}
 
-      /// <summary>
-      /// Debit Summa
-      /// </summary>
-      public decimal? Symma_DT   {get; set;}
+        public string OrgName { get; set; }
+
+        /// <summary>
+        /// Debit Summa
+        /// </summary>
+        public decimal? Symma_DT   {get; set;}
 
       /// <summary>
       /// Kredit Summa

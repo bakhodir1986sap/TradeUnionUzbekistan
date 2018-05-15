@@ -175,6 +175,20 @@ namespace KasabaKiat.BusinessLogic.Putyovki.OplataPutyovok
                             };
 
                 list = query.ToList();
+
+                foreach(var mm in list)
+                {
+                    if (mm.ID_Otras != null)
+                    {
+                        var org = db.tblSprav_Org.Where(z => z.ID == mm.ID_Otras).FirstOrDefault();
+
+                        if (org != null)
+                        {
+                            mm.OrgName = org.Name_Org;
+                        }
+                        
+                    }
+                }
             }
 
             return list;

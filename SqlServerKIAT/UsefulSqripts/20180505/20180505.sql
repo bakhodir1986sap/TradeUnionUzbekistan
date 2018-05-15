@@ -21,11 +21,11 @@ INSERT INTO [KasabaKIAT_N1].[dbo].[tbcs_dictionary]
            ,[STATUS]
            ,[USER_ID])
      VALUES
-           ('01'
+           ('1'
            ,'Взаиморасчеты'
            ,'Взаиморасчеты'
            ,'Взаиморасчеты'
-           ,7
+           ,12
            ,1
            ,1);
 GO
@@ -40,11 +40,30 @@ INSERT INTO [KasabaKIAT_N1].[dbo].[tbcs_dictionary]
            ,[STATUS]
            ,[USER_ID])
      VALUES
-           ('02'
+           ('2'
            ,'Оплата Путевок'
            ,'Оплата Путевок'
            ,'Оплата Путевок'
-           ,7
+           ,12
+           ,1
+           ,1);
+GO
+
+
+INSERT INTO [KasabaKIAT_N1].[dbo].[tbcs_dictionary]
+           ([CODE]
+           ,[NAME_RU]
+           ,[NAME_UZ]
+           ,[NAME_LT]
+           ,[DICTIONARY_TYPE_ID]
+           ,[STATUS]
+           ,[USER_ID])
+     VALUES
+           ('3'
+           ,'Оплата Возрата'
+           ,'Оплата Возрата'
+           ,'Оплата Возрата'
+           ,12
            ,1
            ,1);
 GO
@@ -72,11 +91,11 @@ INSERT INTO [KasabaKIAT_N1].[dbo].[tbcs_dictionary]
            ,[STATUS]
            ,[USER_ID])
      VALUES
-           ('01'
+           ('1'
            ,'Определен'
            ,'Определен'
            ,'Определен'
-           ,8
+           ,13
            ,1
            ,1);
 GO
@@ -91,11 +110,11 @@ INSERT INTO [KasabaKIAT_N1].[dbo].[tbcs_dictionary]
            ,[STATUS]
            ,[USER_ID])
      VALUES
-           ('02'
+           ('0'
            ,'Не определен'
            ,'Не определен'
            ,'Не определен'
-           ,8
+           ,13
            ,1
            ,1);
 GO           

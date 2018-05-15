@@ -17,10 +17,12 @@ namespace KasabaKiat.ViewModel.Putyovki
       /// </summary>
       public long?                      id_org                  {get; set;}
 
-      /// <summary>
-      /// Data postupleniya
-      /// </summary>
-      public DateTime?                  data_post               {get; set;}
+      public string                     organizationName { get; set; }
+
+        /// <summary>
+        /// Data postupleniya
+        /// </summary>
+        public DateTime?                  data_post               {get; set;}
 
       /// <summary>
       /// Nomer documenta

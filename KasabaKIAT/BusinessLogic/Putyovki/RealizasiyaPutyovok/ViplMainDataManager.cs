@@ -149,12 +149,14 @@ namespace KasabaKiat.BusinessLogic.Putyovki.RealizasiyaPutyovok
             using (KasabaKIATEntities db = new KasabaKIATEntities())
             {
                 var query = from vipl in db.tblVipl
+                            join org in db.tblSprav_Org on vipl.ID_Org equals org.ID
                             where vipl.SmFil == model.smfil 
                             && vipl.ID_Kv == model.id_kv
                             && vipl.DepartmentBase == model.departmentbase
                             select new RealizasiyaViplMainViewModel
                             {
                                 id_org          = vipl.ID_Org           ,
+                                organizationName = org.Name_Org,
                                 data_post       = vipl.Data_Post        ,
                                 num_doc         = vipl.Num_Doc          ,
                                 id_pok          = vipl.ID_Pok           ,

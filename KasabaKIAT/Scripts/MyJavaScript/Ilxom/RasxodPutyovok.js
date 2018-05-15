@@ -117,6 +117,7 @@
 
         id: '',
         id_org: '',
+        organizationName:'',
         data_post: '',
         num_doc: '',
         id_pok: '',
@@ -170,9 +171,26 @@
     $scope.idSelectedVote = null;
     $scope.editSelected = function (idSelectedVote) {
 
-
+        $scope.idSelectedVote = idSelectedVote.Id;
+        $scope.CurrentNakladnoy = idSelectedVote;
 
         $scope.ActionType = 'Редактировать';
+
+        //Data Pos
+        var dataPos = (idSelectedVote.data_post) ? $filter('date')(parseInt(idSelectedVote.data_post.substr(6)), 'dd.MM.yyyy') : '';
+        $scope.DataPos = new Date(dataPos.substring(6, 10), dataPos.substring(3, 5) - 1, dataPos.substring(0, 2));
+
+        //Number Putyovka
+        $scope.Num_Doc = $scope.CurrentNakladnoy.num_doc;
+
+        //Organization
+        $scope.SelectedOrganization.ID = $scope.CurrentNakladnoy.id_org;
+        $scope.SelectedOrganization.Name_Org = $scope.CurrentNakladnoy.organizationName;
+
+        //Doverennost
+        $scope.Name_Dov = $scope.CurrentNakladnoy.name_dov;
+
+        $scope.NakladnoyDtls = '';
 
         GetDetailList();
         GetDetailListRes();
@@ -561,9 +579,6 @@
             console.log('Error in SavePutDtl');
         });
     }
-
-
-
 
     ///////////////////////////////////////////////////////////////////
     ////Organization///////////////////////////////////////////////////

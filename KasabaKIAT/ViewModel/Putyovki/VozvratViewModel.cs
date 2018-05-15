@@ -10,76 +10,83 @@ namespace KasabaKiat.ViewModel.Putyovki
       /// <summary>
       /// Unique identifier
       /// </summary>
-      public long   id               {get; set;}
+      public long                           id                          {get; set;}
 
       /// <summary>
       /// Data vozvrata
       /// </summary>
-      public DateTime?  data_post        {get; set;}
+      public DateTime?                      data_post                   {get; set;}
 
       /// <summary>
       /// Nomer nakladnoy
       /// </summary>
-      public string   num_doc          {get; set;}
+      public string                         num_doc                     {get; set;}
 
         /// <summary>
-        /// Reference to table tblSprav_San
+        /// Reference to table 
+        /// tblSprav_San
         /// </summary>
-        public int?  id_sanat         {get; set;}
+        public int?                         id_sanat                    {get; set;}
 
         /// <summary>
         /// 
         /// </summary>
-        public string sanatoriyName { get; set; }
+        public string                       sanatoriyName               { get; set; }
 
         /// <summary>
         /// Nomer putyovki
         /// </summary>
-        public string   num_put          {get; set;}
+        public string                       num_put                     {get; set;}
 
         /// <summary>
-        /// Reference to table tblSprav_Otras
+        /// Reference to table 
+        /// tblSprav_Otras
         /// </summary>
-        public long?   id_ot            {get; set;}
+        public long?                        id_ot                       {get; set;}
 
       /// <summary>
       /// Doverennost
       /// </summary>
-      public string  dover            {get; set;}
+      public string                         dover                       {get; set;}
 
         /// <summary>
-        /// Id poluchatelya reference to table tblSprav_Org
+        /// Id poluchatelya reference 
+        /// to table tblSprav_Org
         /// </summary>
-        public long?  id_pol           {get; set;}
+        public long?                        id_pol                      {get; set;}
 
       /// <summary>
       ///  Summa vozvrata
       /// </summary>
-      public decimal?  symmap           {get; set;}
+      public decimal?                       symmap                      {get; set;}
 
         /// <summary>
-        /// Reference to table tblSprav_Kv
+        /// Reference to table 
+        /// tblSprav_Kv
         /// </summary>
-        public int?  id_kv            {get; set;}
+        public int?                         id_kv                       {get; set;}
 
       /// <summary>
       /// Year YYYY
       /// </summary>
-      public int?  smfil            {get; set;}
+      public int?                           smfil                       {get; set;}
 
       /// <summary>
-      /// Tip vozvrata enumaration { 0 - Vidanniye putyovki, 1 - Spisanniye putyovki }
+      /// Tip vozvrata enumaration 
+      /// { 0 - Vidanniye putyovki, 
+      /// 1 - Spisanniye putyovki }
       /// </summary>
-      public bool  tip_voz          {get; set;}
+      public bool                           tip_voz                     {get; set;}
 
       /// <summary>
       /// Reference to table users
       /// </summary>
-      public long?  userid           {get; set;}
+      public long?                          userid                      {get; set;}
 
       /// <summary>
-      /// Reference to table t_departmentbase
+      /// Reference to table 
+      /// t_departmentbase
       /// </summary>
-      public string  departmentbase   {get; set;}
+      public string                         departmentbase              {get; set;}
     }
 }

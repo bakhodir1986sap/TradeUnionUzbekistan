@@ -2341,6 +2341,11 @@ namespace KasabaKIAT.Controllers
             return Json("fail", JsonRequestBehavior.AllowGet);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="lmodel"></param>
+        /// <returns></returns>
         public JsonResult RemoveOplataRasxod(List<long> lmodel)
         {
             if (lmodel == null) return Json("fail", JsonRequestBehavior.AllowGet);
@@ -2468,6 +2473,59 @@ namespace KasabaKIAT.Controllers
                 return Json("success", JsonRequestBehavior.AllowGet);
             }
             catch(Exception ex)
+            {
+                log.Error(ex.ToString());
+            }
+
+            return Json("fail", JsonRequestBehavior.AllowGet);
+        }
+
+
+        public JsonResult AddVozvtars2(VozvratEnterTemp mainMdl , List<long> lrasxm)
+        {
+            if (mainMdl == null) return Json("fail", JsonRequestBehavior.AllowGet);
+
+            if (lrasxm == null) return Json("fail", JsonRequestBehavior.AllowGet);
+
+            try
+            {
+                var model = new VozvratEnter
+                {
+                    data_post = mainMdl.data_post,
+                    num_doc = mainMdl.num_doc,
+                    id_ot = mainMdl.id_ot,
+                    dover = mainMdl.dover,
+                    symmap = mainMdl.symmap,
+                    id_kv = mainMdl.id_kv,
+                    smfil = mainMdl.smfil,
+                    tip_voz = mainMdl.tip_voz
+                };
+
+                foreach (var rasxodId in lrasxm)
+                {
+                    var rasxm = Vipl_PutDataManager.Get2(rasxodId);
+
+                    if (!rasxm.Any()) continue;
+
+                    var rmodel = rasxm.First();
+
+                    model.detailPutyovka.Add(rmodel);
+                }
+
+                 var vv = new Vozvrat();
+
+                int UserId = Convert.ToInt32(User.Identity.Name);
+                var ustinfo = UserInfo.GetUserInfo(UserId);
+
+                model.departmentbase = ustinfo.DepartmentBase;
+                model.userid = UserId;
+
+                //All logic realized
+                vv.EnterVozvrat(model);
+
+                return Json("success", JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
             {
                 log.Error(ex.ToString());
             }

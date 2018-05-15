@@ -95,8 +95,8 @@ namespace KasabaKiat.BusinessLogic.Utils.References
                 var queryRes = from os in db.tblSprav_Os
                                select new Sprav_OsViewModel
                                {
-                                   Name_Os = os.Name_Os,
-                                   UserId = os.UserId
+                                   ID = os.ID,
+                                   Name_Os = os.Name_Os
                                };
 
                 list = queryRes.ToList();

@@ -120,10 +120,10 @@ namespace KasabaKiat.BusinessLogic.Utils.References
                 var queryRes = from procent in db.tblSprav_Pr
                                select new Sprav_PrViewModel
                                {
-                                   ID = procent.ID,
-                                   Name_Proc = procent.Name_Proc,
-                                   Num = procent.Num,
-                                   UserId = procent.UserId
+                                   ID           = procent.ID,
+                                   Name_Proc    = procent.Name_Proc
+                                   //,Num = procent.Num,
+                                   //UserId = procent.UserId
                                };
 
                 list = queryRes.ToList();

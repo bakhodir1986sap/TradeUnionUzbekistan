@@ -24,6 +24,7 @@ using KasabaKiat.BusinessLogic.Putyovki.VozvratPutyovki;
 using KasabaKIAT.BusinessLogic.Putyovki.ZakritiyaKvartala;
 using KasabaKIAT.BusinessLogic.Putyovki.RaznoskaPoPutyovki;
 using KasabaKiat.BusinessLogic.Putyovki.RaznoskaPoPutyovki;
+using KasabaKiat.ViewModel.Putyovki.RaznoskaPutyovok;
 
 namespace KasabaKIAT.Controllers
 {
@@ -2398,6 +2399,34 @@ namespace KasabaKIAT.Controllers
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="year"></param>
+        /// <param name="kvartal"></param>
+        /// <returns></returns>
+        public JsonResult GetVozvratRes(int year, int kvartal)
+        {
+            int UserId = Convert.ToInt32(User.Identity.Name);
+            var ustinfo = UserInfo.GetUserInfo(UserId);
+
+            var list = VozvratDataManager.GetFilter(new VozvratViewModel()
+            {
+                departmentbase = ustinfo.DepartmentBase,
+                smfil = year,
+                id_kv = kvartal
+            });
+
+            var total = new TotalResults()
+            {
+                PutyovkaCount = list.Count,
+                SummaNakladnix = list.Sum(z => z.symmap)
+            };
+
+            return Json(total, JsonRequestBehavior.AllowGet);
+        }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
         /// <returns></returns>
         public ActionResult AktVozvrataPutyovok()
         {
@@ -2570,6 +2599,32 @@ namespace KasabaKIAT.Controllers
             return Json("fail", JsonRequestBehavior.AllowGet);
         }
 
+
+        public JsonResult GetZakritiyaPutyovkasRes(long idOrg)
+        {
+            int UserId = Convert.ToInt32(User.Identity.Name);
+            var ustinfo = UserInfo.GetUserInfo(UserId);
+
+            try
+            {
+                var list = Vipl_PutDataManager.GetZakritiya(idOrg, ustinfo.DepartmentBase);
+
+                var total = new TotalResults()
+                {
+                    PutyovkaCount = list.Count,
+                    SummaNakladnix = list.Sum(z => z.symma)
+                };
+
+                return Json(total, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex.ToString());
+            }
+
+            return Json("fail", JsonRequestBehavior.AllowGet);
+        }
+
         /// <summary>
         /// 
         /// </summary>
@@ -2677,7 +2732,7 @@ namespace KasabaKIAT.Controllers
             var list = Vipl_PutDataManager.GetDetail4DanniyeVlad(beginDt, endDt, IdOrg, ustinfo.DepartmentBase);
 
             return Json(list, JsonRequestBehavior.AllowGet);
-        }
+        }  
 
 
         /// <summary>
@@ -2720,7 +2775,7 @@ namespace KasabaKIAT.Controllers
         /// <returns></returns>
         public JsonResult GetEmptyForm(long IdPut)
         {
-            var checklist = FaceDataManager.Get(new KasabaKiat.ViewModel.Putyovki.RaznoskaPutyovok.FaceViewModel()
+            var checklist = FaceDataManager.Get(new FaceViewModel()
             {
                 id_put = IdPut
             });
@@ -2759,6 +2814,42 @@ namespace KasabaKIAT.Controllers
                 raznoska.SaveChanges(model);
             }
             catch(Exception ex)
+            {
+                log.Error(ex.ToString());
+            }
+
+            return Json("fail", JsonRequestBehavior.AllowGet);
+        }
+
+
+        public JsonResult SaveChanges2(long IdViplPut , FaceViewModel faceModel, Face_MedViewModel fmModel)
+        {
+            if (faceModel == null) return Json("fail", JsonRequestBehavior.AllowGet);
+
+            if (fmModel == null) return Json("fail", JsonRequestBehavior.AllowGet);
+
+            int UserId = Convert.ToInt32(User.Identity.Name);
+            var ustinfo = UserInfo.GetUserInfo(UserId);
+
+            var model = new RaznoskaGeneralViewModel();
+
+            faceModel.userid = UserId;
+            faceModel.departmentbase = ustinfo.DepartmentBase;
+            fmModel.userid = UserId;
+            fmModel.departmentbase  = ustinfo.DepartmentBase;
+
+            model.viplPutId = IdViplPut;
+            model.DepartmentBase = ustinfo.DepartmentBase;
+            model.faceMain = faceModel;
+            model.faceMedDtl = fmModel;
+
+            try
+            {
+                var raznoska = new RaznoskaPutyovok();
+
+                raznoska.SaveChanges(model);
+            }
+            catch (Exception ex)
             {
                 log.Error(ex.ToString());
             }

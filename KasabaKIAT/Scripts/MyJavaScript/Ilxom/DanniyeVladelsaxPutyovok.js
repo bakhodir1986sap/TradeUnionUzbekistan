@@ -8,7 +8,12 @@
     GetYearsList();
     GetKvartalList();
     GetOrganizationList();
+    GetPol();
+    GetOsnovaniyaVidachi();
+    GetTipVidachi();
+    GetProcentZaPutyovki();
     GetSanatories();
+
 
     //Models
     $scope.SelectedYear = {
@@ -26,6 +31,51 @@
         ID: -1,
         Name_Org: ''
 
+    };
+
+    $scope.SelectedPol = {
+        Code: '',
+        Decode:''
+    };
+
+    $scope.SelectedOsnovaniyaVidachi = {
+        ID      :'',    
+        Name_Os :''
+    };
+
+    $scope.SelectedTipVidachi = {
+        ID: '',
+        Name_Os: ''
+    };
+
+    $scope.SelectedProcentZaPutyovki = {
+        ID          :'', 
+        Name_Proc   :''
+    };
+
+    $scope.SelectedRecommendedSanatory = {
+        ID          :'',
+        Name_San    :''
+    };
+
+    $scope.CurrentRealizasiyaPutyovka = {
+
+        id: '',
+        id_vipl: '',
+        id_pok: '',
+        id_sanat: '',
+        sanatName: '',
+        num_put: '',
+        num_proc: '',
+        symma: '',
+        id_polvoz: '',
+        data_post: '',
+        userid: '',
+        zayavkaid: '',
+        departmentbase: '',
+        putyovkaChecked: '',
+        primechaniye: '',
+        oplata: ''
     };
 
     function GetYearsList() {
@@ -88,6 +138,86 @@
         });
     }
 
+    function GetPol() {
+        document.getElementById('connection').style.visibility = "visible";
+        $("#hh").modal({
+            backdrop: 'static'
+        });
+        $http({
+            method: 'get',
+            url: '/Reference/GetPol'
+        }).then(function (response) {
+            $scope.Sanatories = response.data;
+            document.getElementById('connection').style.visibility = "hidden";
+            $("#hh").modal('hide');
+        }, function (error) {
+            alertify.error("ошибка");
+            console.log("error in GetPol");
+            document.getElementById('connection').style.visibility = "hidden";
+            $("#hh").modal('hide');
+        });
+    }
+
+    function GetOsnovaniyaVidachi() {
+        document.getElementById('connection').style.visibility = "visible";
+        $("#hh").modal({
+            backdrop: 'static'
+        });
+        $http({
+            method: 'get',
+            url: '/Reference/GetOsnovaniyaVidachi'
+        }).then(function (response) {
+            $scope.Sanatories = response.data;
+            document.getElementById('connection').style.visibility = "hidden";
+            $("#hh").modal('hide');
+        }, function (error) {
+            alertify.error("ошибка");
+            console.log("error in GetOsnovaniyaVidachi");
+            document.getElementById('connection').style.visibility = "hidden";
+            $("#hh").modal('hide');
+        });
+    }
+
+    function GetTipVidachi() {
+        document.getElementById('connection').style.visibility = "visible";
+        $("#hh").modal({
+            backdrop: 'static'
+        });
+        $http({
+            method: 'get',
+            url: '/Reference/GetTipVidachi'
+        }).then(function (response) {
+            $scope.Sanatories = response.data;
+            document.getElementById('connection').style.visibility = "hidden";
+            $("#hh").modal('hide');
+        }, function (error) {
+            alertify.error("ошибка");
+            console.log("error in GetTipVidachi");
+            document.getElementById('connection').style.visibility = "hidden";
+            $("#hh").modal('hide');
+        });
+    }
+
+    function GetProcentZaPutyovki() {
+        document.getElementById('connection').style.visibility = "visible";
+        $("#hh").modal({
+            backdrop: 'static'
+        });
+        $http({
+            method: 'get',
+            url: '/Reference/GetProcentZaPutyovki'
+        }).then(function (response) {
+            $scope.Sanatories = response.data;
+            document.getElementById('connection').style.visibility = "hidden";
+            $("#hh").modal('hide');
+        }, function (error) {
+            alertify.error("ошибка");
+            console.log("error in GetProcentZaPutyovki");
+            document.getElementById('connection').style.visibility = "hidden";
+            $("#hh").modal('hide');
+        });
+    }
+
     function GetSanatories() {
         document.getElementById('connection').style.visibility = "visible";
         $("#hh").modal({
@@ -95,7 +225,7 @@
         });
         $http({
             method: 'get',
-            url: '/Reference/GetSanatories'
+            url: '/Reference/GetRecommendedSanatory'
         }).then(function (response) {
             $scope.Sanatories = response.data;
             document.getElementById('connection').style.visibility = "hidden";
@@ -112,31 +242,182 @@
     //// Spesific Business Logic
     /////////////////////////////////////////////////////////////////////////////////////////
 
+    $scope.SelectedBeginDate = '';
+    $scope.SelectedEndDate = '';
 
+    function GetDanniyVladelsaNakladnoy() {
+        document.getElementById('connection').style.visibility = "visible";
+        $("#hh").modal({
+            backdrop: 'static'
+        });
+        $http({
+            method: 'get',
+            url: '/PrixodPutevok/GetDanniyVladelsaNakladnoy?beginDt=' + $scope.SelectedBeginDate + '&endDt=' + $scope.SelectedEndDate + '&IdOrg=' + $scope.SelectedOrganization.ID
+        }).then(function (response) {
 
+            $scope.Nakladnoys = response.data;
 
+            document.getElementById('connection').style.visibility = "hidden";
+            $("#hh").modal('hide');
+        }, function (error) {
+            alertify.error("ошибка");
+            console.log("error in GetDanniyVladelsaNakladnoy");
+            document.getElementById('connection').style.visibility = "hidden";
+            $("#hh").modal('hide');
+        });
+    }
+    
+    function GetDanniyVladelsaPutyovki() {
+        document.getElementById('connection').style.visibility = "visible";
+        $("#hh").modal({
+            backdrop: 'static'
+        });
+        $http({
+            method: 'get',
+            url: '/PrixodPutevok/GetDanniyVladelsaPutyovki?beginDt=' + $scope.SelectedBeginDate + '&endDt=' + $scope.SelectedEndDate + '&IdOrg=' + $scope.SelectedOrganization.ID
+        }).then(function (response) {
 
+            $scope.Putyovkas = response.data;
 
+            document.getElementById('connection').style.visibility = "hidden";
+            $("#hh").modal('hide');
+        }, function (error) {
+            alertify.error("ошибка");
+            console.log("error in GetDanniyVladelsaPutyovki");
+            document.getElementById('connection').style.visibility = "hidden";
+            $("#hh").modal('hide');
+        });
+    }
+    
+    function GetDanniyTotal() {
+        document.getElementById('connection').style.visibility = "visible";
+        $("#hh").modal({
+            backdrop: 'static'
+        });
+        $http({
+            method: 'get',
+            url: '/PrixodPutevok/GetDanniyTotal?beginDt=' + $scope.SelectedBeginDate + '&endDt=' + $scope.SelectedEndDate + '&IdOrg=' + $scope.SelectedOrganization.ID
+        }).then(function (response) {
 
+            $scope.TotalRes = response.data;
 
+            document.getElementById('connection').style.visibility = "hidden";
+            $("#hh").modal('hide');
+        }, function (error) {
+            alertify.error("ошибка");
+            console.log("error in GetDanniyTotal");
+            document.getElementById('connection').style.visibility = "hidden";
+            $("#hh").modal('hide');
+        });
+    }
+    
+    function GetFaceData(IdPut) {
+        document.getElementById('connection').style.visibility = "visible";
+        $("#hh").modal({
+            backdrop: 'static'
+        });
+        $http({
+            method: 'get',
+            url: '/PrixodPutevok/GetEmptyForm?IdPut=' + IdPut
+        }).then(function (response) {
 
+            $scope.RaznoskaPutyovok = response.data;
 
+            document.getElementById('connection').style.visibility = "hidden";
+            $("#hh").modal('hide');
+        }, function (error) {
+            alertify.error("ошибка");
+            console.log("error in GetDanniyTotal");
+            document.getElementById('connection').style.visibility = "hidden";
+            $("#hh").modal('hide');
+        });
+    }
 
+    $scope.CurrentFace = {
 
+        id              :'',     
+        id_put          :'',
+        id_sanat        :'',
+        num_put         :'',
+        lastname        :'',
+        name            :'',
+        firstname       :'',
+        adress          :'',
+        rabota          :'',
+        dolj            :'',
+        stav_vid        :'',
+        stav_vidNm      :'',
+        pas_ser         :'',
+        pas_num         :'',
+        pas_kd          :'',
+        pas_data        :'',
+        gost_pr         :'',
+        gost_prNm       :'',
+        id_osnov        :'',
+        id_osnovNm      :'',
+        data_post       :'',
+        pol             :'',
+        userid          :'',
+        departmentbase  :''
+    };
 
+    $scope.CurrentFaceMed = {
 
+        id                  :'',       
+        id_face             :'',
+        med_doc             :'',
+        med_data            :'',
+        med_san             :'',
+        opl_doc             :'',
+        opl_data            :'',
+        opl_symma           :'',
+        tal_doc             :'',
+        tal_data            :'',
+        userid              :'',
+        departmentbase      :''
+    };
 
+    $scope.RowClicked = function (puyovka)
+    {
+        $scope.CurrentRealizasiyaPutyovka = puyovka;
 
+        GetFaceData(puyovka.id);
+    }
 
+    $scope.SaveFaceData = function () {
 
+        $scope.CurrentFace.id_put = $scope.CurrentRealizasiyaPutyovka.id;
+        $scope.CurrentFace.id_sanat = $scope.CurrentRealizasiyaPutyovka.id_sanat;
+        $scope.CurrentFace.num_put = $scope.CurrentRealizasiyaPutyovka.num_put;
+        $scope.CurrentFace.stav_vid = $scope.SelectedTipVidachi.ID;
+        $scope.CurrentFace.gost_pr = $scope.SelectedProcentZaPutyovki.ID;
+        $scope.CurrentFace.id_osnov = $scope.SelectedOsnovaniyaVidachi.ID
+        $scope.CurrentFace.pol = $scope.SelectedPol.Code;
 
+        $scope.CurrentFaceMed.med_san = $scope.SelectedRecommendedSanatory.ID;
 
+        //long IdViplPut , FaceViewModel faceModel, Face_MedViewModel fmModel
 
+        var postData = {
+            IdViplPut: $scope.CurrentRealizasiyaPutyovka.id
+            , faceModel: $scope.CurrentFace
+            , fmModel: $scope.CurrentFaceMed
+        };
 
+        $http({
+            method: "post",
+            url: "/PrixodPutevok/SaveChanges2",
+            data: JSON.stringify(postData),
+            dataType: "json"
+        }).then(function (response) {
 
+            //
 
-
-
+        }, function () {
+            alertify.error("ошибка");
+            console.log('Error in SavePutDtl');
+        });
+    }
 
     ///////////////////////////////////////////////////////////////////
     ////Organization///////////////////////////////////////////////////

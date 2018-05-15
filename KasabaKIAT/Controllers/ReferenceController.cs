@@ -97,6 +97,29 @@ namespace KasabaKIAT.Controllers
             return Json(list, JsonRequestBehavior.AllowGet);
         }
 
+        public JsonResult GetPol()
+        {
+            var list = new List<SpravCodeDecode>();
+
+            var obj1 = new SpravCodeDecode
+            {
+                Code = 0,
+                Decode = "Женщины"
+            };
+
+            list.Add(obj1);
+
+            var obj2 = new SpravCodeDecode
+            {
+                Code = 0,
+                Decode = "Мужчины"
+            };
+
+            list.Add(obj2);
+
+            return Json(list, JsonRequestBehavior.AllowGet);
+        }
+
         /// <summary>
         /// Osnovaniye vidachi
         /// </summary>

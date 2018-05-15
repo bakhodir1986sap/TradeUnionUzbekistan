@@ -118,8 +118,8 @@ namespace KasabaKiat.BusinessLogic.Utils.References
                 var queryRes = from face in db.tblSprav_Face
                                select new Sprav_FaceViewModel
                                {
-                                   Name_Os = face.Name_Os,
-                                   UserId = face.UserId
+                                   ID       = face.ID,
+                                   Name_Os  = face.Name_Os
                                };
 
                 list = queryRes.ToList();

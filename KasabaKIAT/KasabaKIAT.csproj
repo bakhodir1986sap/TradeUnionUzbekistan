@@ -1421,6 +1421,39 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <Content Include="Reports\13\KartochkaHistory.rdl" />
+    <Content Include="Reports\13\KartochkaOplVozvPrin.rdl" />
+    <Content Include="Reports\13\SubOstatkiPutyovok.rdl" />
+    <Content Include="Reports\13\SubPrixodPutyovok.rdl" />
+    <Content Include="Reports\13\SubPutyovkiRasxod.rdl" />
+    <Content Include="Reports\13\SubPutyovkiVozvrat.rdl" />
+    <Content Include="Reports\13\Баланс Предприятий.rdl" />
+    <Content Include="Reports\13\Журнальный ордер № 4.rdl" />
+    <Content Include="Reports\13\Журнальный ордер № 5.rdl" />
+    <Content Include="Reports\13\Журнальный ордер № 6.rdl" />
+    <Content Include="Reports\13\Запрос по Путевкам.rdl" />
+    <Content Include="Reports\13\Книга учета владельцев путевок.rdl" />
+    <Content Include="Reports\13\Оперативка по путевкам.rdl" />
+    <Content Include="Reports\13\Оперативная карточка.rdl" />
+    <Content Include="Reports\13\Отчет № 13.rdl" />
+    <Content Include="Reports\13\Отчет № 14.rdl" />
+    <Content Include="Reports\13\Свод по Путевкам.rdl" />
+    <Content Include="Reports\13\Учет медицинской регистрации работников.rdl" />
+    <Content Include="Reports\13\Учет поступления стоимости путевок.rdl" />
+    <Content Include="Reports\14\Активность пользователя.rdl" />
+    <Content Include="Reports\14\Бронь по путевкам.rdl" />
+    <Content Include="Reports\14\Годовой план по отраслям.rdl" />
+    <Content Include="Reports\14\График Заездов Санаториев.rdl" />
+    <Content Include="Reports\14\Количество Заявок в разрезе Санаторий.rdl" />
+    <Content Include="Reports\14\Количество Заявок.rdl" />
+    <Content Include="Reports\14\Область - Район - Отрасль.rdl" />
+    <Content Include="Reports\14\Остатки путевок за период.rdl" />
+    <Content Include="Reports\14\Поиск по номеру путевки.rdl" />
+    <Content Include="Reports\14\Пользователи.rdl" />
+    <Content Include="Reports\14\Приход путевок за период по Санаториям.rdl" />
+    <Content Include="Reports\14\Приход путевок за период.rdl" />
+    <Content Include="Reports\14\Проводки.rdl" />
+    <Content Include="Reports\14\Реализация путевок.rdl" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\chat.js" />
     <Content Include="Scripts\dist\jquery.table2excel.js" />
@@ -1653,6 +1686,8 @@
     <Folder Include="BusinessLogic\Reports\Buxgalteriya\NewFolder1\" />
     <Folder Include="BusinessLogic\Reports\Putyovki\NewFolder1\" />
     <Folder Include="BusinessLogic\Security\Roles\Users\" />
+    <Folder Include="Reports\6\" />
+    <Folder Include="Reports\8\" />
     <Folder Include="Views\Reference\" />
   </ItemGroup>
   <ItemGroup>

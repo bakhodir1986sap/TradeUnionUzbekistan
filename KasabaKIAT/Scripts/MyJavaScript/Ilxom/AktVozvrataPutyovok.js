@@ -187,6 +187,28 @@
         });
     }
 
+    function GetVozvratRes() {
+        document.getElementById('connection').style.visibility = "visible";
+        $("#hh").modal({
+            backdrop: 'static'
+        });
+        $http({
+            method: 'get',
+            url: '/PrixodPutevok/GetVozvratRes?year=' + $scope.SelectedYear.Id + '&kvartal=' + $scope.SelectedKvartal.ID
+        }).then(function (response) {
+
+            $scope.VozvratDtlSummar = response.data;
+
+            document.getElementById('connection').style.visibility = "hidden";
+            $("#hh").modal('hide');
+        }, function (error) {
+            alertify.error("ошибка");
+            console.log("error in GetVozvratRes");
+            document.getElementById('connection').style.visibility = "hidden";
+            $("#hh").modal('hide');
+        });
+    }
+    
     function GetTotalResults() {
         document.getElementById('connection').style.visibility = "visible";
         $("#hh").modal({

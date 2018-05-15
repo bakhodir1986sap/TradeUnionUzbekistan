@@ -114,8 +114,8 @@ namespace KasabaKiat.BusinessLogic.Utils.References
                 var queryRes = from sanatory in db.tblSprav_San
                                select new Sprav_SanViewModel
                                {
-                                   Name_San = sanatory.Name_San,
-                                   ID = sanatory.ID
+                                   ID       = sanatory.ID,
+                                   Name_San = sanatory.Name_San
                                };
 
                 list = queryRes.ToList();

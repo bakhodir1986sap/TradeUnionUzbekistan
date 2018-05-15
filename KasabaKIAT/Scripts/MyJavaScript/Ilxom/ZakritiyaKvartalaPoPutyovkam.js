@@ -160,6 +160,29 @@
         });
     }
 
+
+    function GetZakritiyaPutyovkasRes() {
+        document.getElementById('connection').style.visibility = "visible";
+        $("#hh").modal({
+            backdrop: 'static'
+        });
+        $http({
+            method: 'get',
+            url: '/PrixodPutevok/GetZakritiyaPutyovkasRes?idOrg=' + $scope.SelectedOrganization.ID
+        }).then(function (response) {
+
+            $scope.ZakritiyeRes = response.data;
+
+            document.getElementById('connection').style.visibility = "hidden";
+            $("#hh").modal('hide');
+        }, function (error) {
+            alertify.error("ошибка");
+            console.log("error in GetZakritiyaPutyovkasRes");
+            document.getElementById('connection').style.visibility = "hidden";
+            $("#hh").modal('hide');
+        });
+    }
+
     $scope.SelectedPutyovkas = [];
 
     //Rasxod List

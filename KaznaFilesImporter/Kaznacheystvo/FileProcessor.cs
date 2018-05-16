@@ -43,25 +43,56 @@ namespace KasabaKIAT.BusinessLogic.BankOplati.Kaznacheystvo
 
                             Encoding en = Encoding.GetEncoding(1251, new EncoderReplacementFallback(" "), new DecoderReplacementFallback(" "));
 
-                            string[] readText = File.ReadAllLines(file.FullName, en);
-
-                            Console.WriteLine("Rows count: " + readText.Count());
-                            _logService.Info("Rows count: " + readText.Count());
-
-                            paymentFile.ClearPayment();
-
-                            foreach (string s in readText)
+                            using (FileStream fs = File.Open(file.FullName, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+                            using (BufferedStream bs = new BufferedStream(fs))
+                            using (StreamReader sr = new StreamReader(bs,en))
                             {
-                                var kazRow = ParseLine(s);
-                                paymentFile.AddPaymentRow(kazRow);
+                                string line;
+                                while ((line = sr.ReadLine()) != null)
+                                {
+                                    try
+                                    {
+                                        paymentFile.ClearPayment();
+
+                                        var kazRow = ParseLine(line);
+
+                                        paymentFile.AddPaymentRow(kazRow);
+
+                                        var fileData = FileData;
+
+                                        if (fileData != null)
+                                        {
+                                            fileData.SaveData();
+                                        }
+                                    }
+                                    catch(Exception ex)
+                                    {
+                                        Console.WriteLine(ex.Message);
+                                    }
+                                }
                             }
 
-                            var fileData = FileData;
 
-                            if (fileData != null)
-                            {
-                                fileData.SaveData();
-                            }
+
+                            //string[] readText = File.ReadAllLines(file.FullName, en);
+
+                            //Console.WriteLine("Rows count: " + readText.Count());
+                            //_logService.Info("Rows count: " + readText.Count());
+
+                            //paymentFile.ClearPayment();
+
+                            //foreach (string s in readText)
+                            //{
+                            //    var kazRow = ParseLine(s);
+                            //    paymentFile.AddPaymentRow(kazRow);
+                            //}
+
+                            //var fileData = FileData;
+
+                            //if (fileData != null)
+                            //{
+                            //    fileData.SaveData();
+                            //}
                         }
 
                         var arxiveFileName = Path.Combine(arxivePath, Path.GetFileName(file.FullName));

@@ -572,12 +572,29 @@
             dataType: "json"
         }).then(function (response) {
 
-            //
+            for (var i = 0, l = $scope.SelectedPutyovkas.length; i < l; ++i) {
+                var value = $scope.SelectedPutyovkas[i];
+
+                $scope.SelectedPutyovkas.splice($scope.SelectedPutyovkas.indexOf(value), 1);
+            }
+
+            GetDetailList();
+            GetDetailListRes();
 
         }, function () {
             alertify.error("ошибка");
             console.log('Error in SavePutDtl');
         });
+    }
+
+    $scope.AddPutyovkas = function () {
+
+        for (var i = 0, l = $scope.SelectedPutyovka.length; i < l; ++i) {
+            var value = $scope.SelectedPutyovka[i];
+
+            $scope.SelectedPutyovkas.splice($scope.SelectedPutyovka.indexOf(value), 1);
+        }
+
     }
 
     ///////////////////////////////////////////////////////////////////

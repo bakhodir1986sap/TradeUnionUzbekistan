@@ -160,19 +160,20 @@ namespace KasabaKiat.BusinessLogic.Putyovki.OplataPutyovok
                 {
                     var post1 = post.FirstOrDefault();
 
-                    var oplata = new OplataViewModel();
-
-                    oplata.Data_Post = post1.Data_Post;
-                    oplata.Departmentbase = post1.DepartmentBase;
-                    oplata.ID_KV = post1.ID_Kv;
-                    oplata.ID_Otras = post1.ID_Org;
-                    oplata.Num_Doc = post1.Num_Doc;
-                    oplata.PrizOpl = (int)PrizOpl.OplataPutyovok;
-                    oplata.SmFil = post1.SmFil;
-                    oplata.Symma_DT = post1.Symma;
-                    oplata.Symma_KT = 0;
-                    oplata.Tip_Org = (int)TipOpr.Opredelen == 0 ? false : true;
-                    oplata.UserId = post1.UserId;
+                    var oplata = new OplataViewModel
+                    {
+                        Data_Post = post1.Data_Post,
+                        Departmentbase = post1.DepartmentBase,
+                        ID_KV = post1.ID_Kv,
+                        ID_Otras = post1.ID_Org,
+                        Num_Doc = post1.Num_Doc,
+                        PrizOpl = (int)PrizOpl.OplataPutyovok,
+                        SmFil = post1.SmFil,
+                        Symma_DT = post1.Symma,
+                        Symma_KT = 0,
+                        Tip_Org = (int)TipOpr.Opredelen == 0 ? false : true,
+                        UserId = post1.UserId
+                    };
 
                     OplataDataManager.Create(ref oplata);
 
@@ -182,15 +183,17 @@ namespace KasabaKiat.BusinessLogic.Putyovki.OplataPutyovok
                     {
                         foreach (var pDtl in prixodDtl)
                         {
-                            var oplatDtl = new OplataRasxodiViewModel();
-                            oplatDtl.Departmentbase = pDtl.departmentbase;
-                            oplatDtl.ID_Opl = oplata.ID;
-                            oplatDtl.ID_Pr = 1; //45%
-                            oplatDtl.ID_Sanat = pDtl.id_sanat.Value;
-                            oplatDtl.Num_Put = pDtl.num_put;
-                            oplatDtl.Priz = (int)OplataRasxPriz.OrganizasiyaRasxod;
-                            oplatDtl.Symma = pDtl.symma.Value;
-                            oplatDtl.UserId = pDtl.userid.Value;
+                            var oplatDtl = new OplataRasxodiViewModel
+                            {
+                                Departmentbase = pDtl.departmentbase,
+                                ID_Opl = oplata.ID,
+                                ID_Pr = 1, //45%
+                                ID_Sanat = pDtl.id_sanat.Value,
+                                Num_Put = pDtl.num_put,
+                                Priz = (int)OplataRasxPriz.OrganizasiyaRasxod,
+                                Symma = pDtl.symma.Value,
+                                UserId = pDtl.userid.Value
+                            };
 
                             OplataRasxodDataManager.Create(ref oplatDtl);
                         }

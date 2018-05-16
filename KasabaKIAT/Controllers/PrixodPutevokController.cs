@@ -1927,6 +1927,36 @@ namespace KasabaKIAT.Controllers
             return Json(list, JsonRequestBehavior.AllowGet);
         }
 
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="year"></param>
+        /// <param name="kvartal"></param>
+        /// <returns></returns>
+        public JsonResult GetOplataMainRes(int year, int kvartal)
+        {
+            int UserId = Convert.ToInt32(User.Identity.Name);
+            var ustinfo = UserInfo.GetUserInfo(UserId);
+
+            var list = OplataDataManager.GetFiltered(new OplataViewModel()
+            {
+                SmFil = year,
+                ID_KV = kvartal,
+                Departmentbase = ustinfo.DepartmentBase
+            });
+
+            var totres = new TotalOplataResults()
+            {
+                SummaDebit = list.Sum(z=>z.Symma_DT),
+                SummaCredit = list.Sum(z=>z.Symma_KT),
+                Saldo = list.Sum(z => z.Symma_DT) - list.Sum(z => z.Symma_KT)
+            };
+
+            return Json(totres, JsonRequestBehavior.AllowGet);
+        }
+
         /// <summary>
         /// 
         /// </summary>
@@ -1944,6 +1974,32 @@ namespace KasabaKIAT.Controllers
             });
 
             return Json(list, JsonRequestBehavior.AllowGet);
+        }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="IdMain"></param>
+        /// <returns></returns>
+        public JsonResult GetOplataDetailRes(long IdMain)
+        {
+            int UserId = Convert.ToInt32(User.Identity.Name);
+            var ustinfo = UserInfo.GetUserInfo(UserId);
+
+            var list = OplataRasxodDataManager.GetDetail(new OplataRasxodiViewModel()
+            {
+                Departmentbase = ustinfo.DepartmentBase,
+                ID_Opl = IdMain
+            });
+
+            var total = new TotalOplataDtlResults()
+            {
+                RaznostSummi = list.Sum(z => z.Symma ) * 45 / 100,
+                Summa = list.Sum(z => z.Symma)
+            };
+
+            return Json(total, JsonRequestBehavior.AllowGet);
         }
 
         /// <summary>

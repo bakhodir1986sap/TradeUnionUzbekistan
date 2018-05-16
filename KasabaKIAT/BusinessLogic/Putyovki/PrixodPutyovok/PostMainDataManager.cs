@@ -33,6 +33,43 @@ namespace KasabaKiat.BusinessLogic.Putyovki.PrixodPutyovok
     /// <summary>
     /// 
     /// </summary>
+    public class TotalOplataResults
+    {
+        /// <summary>
+        /// 
+        /// </summary>
+        public decimal? SummaDebit { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public decimal? SummaCredit { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public decimal? Saldo { get; set; }
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    public class TotalOplataDtlResults
+    {
+        /// <summary>
+        /// 
+        /// </summary>
+        public decimal? RaznostSummi { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public decimal? Summa { get; set; }
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
     public class PostMainDataManager
     {
         /// <summary>
@@ -138,9 +175,13 @@ namespace KasabaKiat.BusinessLogic.Putyovki.PrixodPutyovok
 
                     if (post1 != null)
                     {
+                        if (post1.Vid) return;
+
                         post1.Num_Kol = total.PutyovkaCount;
                         post1.Symma = total.SummaNakladnix;
                         post1.Vid = true;
+
+                        db.SaveChanges();
 
                         var oplata = new Oplata();
 
@@ -148,7 +189,7 @@ namespace KasabaKiat.BusinessLogic.Putyovki.PrixodPutyovok
                     }
                 }
 
-                db.SaveChanges();
+                
             }
         }
 

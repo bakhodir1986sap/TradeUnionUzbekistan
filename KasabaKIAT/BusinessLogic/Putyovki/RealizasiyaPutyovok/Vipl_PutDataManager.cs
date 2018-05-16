@@ -327,8 +327,8 @@ namespace KasabaKiat.BusinessLogic.Putyovki.RealizasiyaPutyovok
             using (KasabaKIATEntities db = new KasabaKIATEntities())
             {
                 var query = from viplPut in db.tblVipl_Put
-                            where viplPut.tblVipl.Data_Post.Value.Date >= beginDt.Date 
-                            && viplPut.tblVipl.Data_Post.Value.Date <= endDt.Date
+                            where viplPut.tblVipl.Data_Post >= beginDt
+                            && viplPut.tblVipl.Data_Post <= endDt
                             && viplPut.tblVipl.DepartmentBase == departmentCode 
                             && viplPut.ID_PolVoz == false
                             && viplPut.tblVipl.ID_Org == IdOrg

@@ -146,8 +146,7 @@
             $("#hh").modal('hide');
         });
     }
-
-
+    
     function GetVidOplatiList() {
         document.getElementById('connection').style.visibility = "visible";
         $("#hh").modal({
@@ -253,6 +252,28 @@
         });
     }
 
+    function GetOplataMainRes() {
+        document.getElementById('connection').style.visibility = "visible";
+        $("#hh").modal({
+            backdrop: 'static'
+        });
+        $http({
+            method: 'get',
+            url: '/PrixodPutevok/GetOplataMainRes?year=' + $scope.SelectedYear.Id + '&kvartal=' + $scope.SelectedKvartal.ID
+        }).then(function (response) {
+
+            $scope.TotalOplataResults = response.data;
+
+            document.getElementById('connection').style.visibility = "hidden";
+            $("#hh").modal('hide');
+        }, function (error) {
+            alertify.error("ошибка");
+            console.log("error in GetOplataMainRes");
+            document.getElementById('connection').style.visibility = "hidden";
+            $("#hh").modal('hide');
+        });
+    }
+
     function GetDetailList() {
         document.getElementById('connection').style.visibility = "visible";
         $("#hh").modal({
@@ -275,10 +296,33 @@
         });
     }
 
+
+    function GetOplataDetailRes() {
+        document.getElementById('connection').style.visibility = "visible";
+        $("#hh").modal({
+            backdrop: 'static'
+        });
+        $http({
+            method: 'get',
+            url: '/PrixodPutevok/GetOplataDetailRes?IdMain=' + $scope.CurrentOplataMain.ID
+        }).then(function (response) {
+
+            $scope.PutyovkaDtlsRes = response.data;
+
+            document.getElementById('connection').style.visibility = "hidden";
+            $("#hh").modal('hide');
+        }, function (error) {
+            alertify.error("ошибка");
+            console.log("error in GetOplataDetailRes");
+            document.getElementById('connection').style.visibility = "hidden";
+            $("#hh").modal('hide');
+        });
+    }
+
     $scope.idSelectedVote = null;
     $scope.editSelected = function (idSelectedVote) {
 
-        $scope.idSelectedVote = idSelectedVote.Id;
+        //$scope.idSelectedVote = idSelectedVote.Id;
         $scope.CurrentOplataMain = idSelectedVote;
 
         $scope.ActionType = 'Редактировать';
@@ -299,7 +343,7 @@
         $scope.PutyovkaDtls = '';
 
         GetDetailList();
-        //GetDetailListRes();
+        GetOplataDetailRes();
     }
 
     GetData();
@@ -308,6 +352,7 @@
 
         if (($scope.SelectedYear.Id > -1) && ($scope.SelectedKvartal.ID > 0)) {
             GetOplataList();
+            GetOplataMainRes();
         }
     }
 
@@ -315,6 +360,7 @@
 
         if (($scope.SelectedYear.Id > -1) && ($scope.SelectedKvartal.ID > 0)) {
             GetOplataList();
+            GetOplataMainRes();
         }
     }
 

@@ -586,6 +586,7 @@
 
             $scope.SelectedPutyovkaCount = 0;
             GetDetailList();
+            GetTotalResults();
             GetDetailListRes();
 
         }, function () {

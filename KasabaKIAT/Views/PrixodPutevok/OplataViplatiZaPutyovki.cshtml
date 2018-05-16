@@ -18,8 +18,7 @@
             <h4>Оплата и выплаты за путевки</h4>
             <nav aria-label="breadcrumb" class="breadcrumb__block">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="/">Главная</a></li>
-                    <li class="breadcrumb-item"><a href="#">Заявки</a></li>
+                    <li class="breadcrumb-item load"><a href="/Home/Putyovki">Путевки</a></li>
                     <li class="breadcrumb-item active" aria-current="page">Оплата и выплаты за путевки</li>
                 </ol>
             </nav>
@@ -36,35 +35,22 @@
     <div class="row mb-2 align-items-center">
         <div class="col-md-2 form-group">
             <label>Год</label>
-            <select class="custom-select form-control">
-                <option>2016</option>
-                <option>2017</option>
-                <option>2018</option>
+            <select class="custom-select form-control" ng-model="SelectedYear" ng-options="item as item.Year for item in Years track by item.Id" ng-change="FiltersChanged()">
             </select>
         </div>
         <div class="col-md-2 form-group">
             <label>Квартал</label>
-            <select class="custom-select form-control">
-                <option>2-квартал</option>
-                <option>Option 1</option>
-                <option>Option 2</option>
-                <option>Option 3</option>
+            <select class="custom-select form-control" ng-model="SelectedKvartal" ng-options="item as item.Name_Kv for item in Kvartals track by item.ID" ng-change="FiltersChanged()">
             </select>
         </div>
         <div class="col-md-2 form-group">
             <label>Тип оплаты</label>
-            <select class="custom-select form-control">
-                <option>Option 1</option>
-                <option>Option 2</option>
-                <option>Option 3</option>
+            <select class="custom-select form-control" ng-model="SelectedTipOplati" ng-options="item as item.name_ru for item in TipOplaties track by item.code">
             </select>
         </div>
         <div class="col-md-2 form-group">
             <label>Вид оплаты</label>
-            <select class="custom-select form-control">
-                <option>Option 1</option>
-                <option>Option 2</option>
-                <option>Option 3</option>
+            <select class="custom-select form-control" ng-model="SelectedVidOplati" ng-options="item as item.name_ru for item in VidOplaties track by item.code">
             </select>
         </div>
     </div>
@@ -78,95 +64,46 @@
                             <th class="dropdown dropdown__table">
                                 <span class="dropdown-toggle dr-link" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Номер</span>
                                 <div class="dropdown-menu dr-menu rounded-0 border-0" aria-labelledby="dropdownMenuButton">
-                                    <a class="dropdown-item dr-item" href="#">Номер </a>
-                                    <a class="dropdown-item dr-item" href="#">Номер </a>
-                                    <a class="dropdown-item dr-item" href="#">Номер </a>
-                                    <a class="dropdown-item dr-item" href="#">Номер </a>
                                 </div>
                             </th>
                             <th class="dropdown dropdown__table">
                                 <span class="dropdown-toggle dr-link" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Дата</span>
                                 <div class="dropdown-menu dr-menu rounded-0 border-0" aria-labelledby="dropdownMenuButton">
-                                    <a class="dropdown-item dr-item" href="#">Дата</a>
-                                    <a class="dropdown-item dr-item" href="#">Дата</a>
-                                    <a class="dropdown-item dr-item" href="#">Дата</a>
-                                    <a class="dropdown-item dr-item" href="#">Дата</a>
                                 </div>
                             </th>
                             <th class="dropdown dropdown__table">
                                 <span class="dropdown-toggle dr-link" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">№ документа</span>
                                 <div class="dropdown-menu dr-menu rounded-0 border-0" aria-labelledby="dropdownMenuButton">
-                                    <a class="dropdown-item dr-item" href="#">№ документа</a>
-                                    <a class="dropdown-item dr-item" href="#">№ документа</a>
-                                    <a class="dropdown-item dr-item" href="#">№ документа</a>
-                                    <a class="dropdown-item dr-item" href="#">№ документа</a>
                                 </div>
                             </th>
                             <th class="dropdown dropdown__table">
                                 <span class="dropdown-toggle dr-link" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Отрасль</span>
                                 <div class="dropdown-menu dr-menu rounded-0 border-0" aria-labelledby="dropdownMenuButton">
-                                    <a class="dropdown-item dr-item" href="#">Отрасль</a>
-                                    <a class="dropdown-item dr-item" href="#">Отрасль</a>
-                                    <a class="dropdown-item dr-item" href="#">Отрасль</a>
-                                    <a class="dropdown-item dr-item" href="#">Отрасль</a>
                                 </div>
                             </th>
                             <th class="dropdown dropdown__table">
                                 <span class="dropdown-toggle dr-link" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Сумма (Дт)</span>
                                 <div class="dropdown-menu dr-menu rounded-0 border-0" aria-labelledby="dropdownMenuButton">
-                                    <a class="dropdown-item dr-item" href="#">Сумма (Дт)</a>
-                                    <a class="dropdown-item dr-item" href="#">Сумма (Дт)</a>
-                                    <a class="dropdown-item dr-item" href="#">Сумма (Дт)</a>
-                                    <a class="dropdown-item dr-item" href="#">Сумма (Дт)</a>
                                 </div>
                             </th>
                             <th class="dropdown dropdown__table">
                                 <span class="dropdown-toggle dr-link" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Сумма (Кт)</span>
                                 <div class="dropdown-menu dr-menu rounded-0 border-0" aria-labelledby="dropdownMenuButton">
-                                    <a class="dropdown-item dr-item" href="#">Сумма (Кт)</a>
-                                    <a class="dropdown-item dr-item" href="#">Сумма (Кт)</a>
-                                    <a class="dropdown-item dr-item" href="#">Сумма (Кт)</a>
-                                    <a class="dropdown-item dr-item" href="#">Сумма (Кт)</a>
                                 </div>
                             </th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr data-toggle="modal" data-target="#redaktirovat">
-
+                        <tr ng-repeat="oplat in OplataMains" ng-click="editSelected(oplat)" ng-class="{selectedTableRow: oplat.ID === idSelectedVote.ID}" data-toggle="modal" data-target="#redaktirovat">
                             <td class="custom-control custom-checkbox r-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="customCheck1">
-                                <label class="custom-control-label r-label" for="customCheck1">1</label>
+                                <input type="checkbox" class="custom-control-input" id="customMain{{oplat.ID}}">
+                                <label class="custom-control-label r-label" for="customMain{{oplat.ID}}">{{oplat.ID}}</label>
                             </td>
-                            <td>30.04.2018</td>
-                            <td>1055</td>
-                            <td>[20329432] Миришкор туман шафохотона</td>
-                            <td>0,00</td>
-                            <td>600 000,00</td>
-                        </tr>
-                        <tr data-toggle="modal" data-target="#redaktirovat">
-
-                            <td class="custom-control custom-checkbox r-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="customCheck2">
-                                <label class="custom-control-label r-label" for="customCheck2">1</label>
-                            </td>
-                            <td>22.04.2017</td>
-                            <td>1055</td>
-                            <td>[20329432] Миришкор туман шафохотона</td>
-                            <td>7 891 100,00</td>
-                            <td>00,00</td>
-                        </tr>
-                        <tr data-toggle="modal" data-target="#redaktirovat">
-
-                            <td class="custom-control custom-checkbox r-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="customCheck3">
-                                <label class="custom-control-label r-label" for="customCheck3">1</label>
-                            </td>
-                            <td>30.04.2018</td>
-                            <td>1055</td>
-                            <td>[20329432] Миришкор туман шафохотона</td>
-                            <td>1 953 100,00</td>
-                            <td>00,00</td>
+                            <td>{{oplat.Data_Post | jsonDate: 'dd.MM.yyyy'}}</td>
+                            <td>{{oplat.Num_Doc}}</td>
+                            <td>{{oplat.OrgName}}</td>
+                            <td>{{oplat.Symma_DT}}</td>
+                            <td>{{oplat.Symma_KT}}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -182,18 +119,18 @@
             </div>
         </div>
         <div class="col-md-3 text-right">
-            <p>Сумма(Дт) <strong class="btn-danger">9 126 156</strong></p>
+            <p>Сумма(Дт) <strong class="btn-danger">{{TotalOplataResults.SummaDebit}}</strong></p>
         </div>
         <div class="col-md-3 text-right">
-            <p>Сумма(Кт) <strong class="btn-green">9 126 156</strong></p>
+            <p>Сумма(Кт) <strong class="btn-green">{{TotalOplataResults.SummaCredit}}</strong></p>
         </div>
         <div class="col-md-3 text-right">
-            <p>Сальдо(Дт) <strong>9 126 156</strong></p>
+            <p>Сальдо <strong>{{TotalOplataResults.Saldo}}</strong></p>
         </div>
     </div>
     <div class="row">
         <div class="col-md-12">
-            <h6 class="mb-30">Расшифровка по № 164, [203294237] Миришкор мутам шифохона КУК </h6>
+            <h6 class="mb-30">Расшифровка по № {{CurrentOplataMain.Num_Doc}} {{CurrentOplataMain.OrgName}}</h6>
             <div class="table-responsive box-shadow mb-4">
                 <table class="table table__block t-hover table__small table-fixed-small">
                     <thead>
@@ -201,83 +138,37 @@
                             <th class="dropdown dropdown__table">
                                 <span class="dropdown-toggle dr-link" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Номер</span>
                                 <div class="dropdown-menu dr-menu rounded-0 border-0" aria-labelledby="dropdownMenuButton">
-                                    <a class="dropdown-item dr-item" href="#">Номер </a>
-                                    <a class="dropdown-item dr-item" href="#">Номер </a>
-                                    <a class="dropdown-item dr-item" href="#">Номер </a>
-                                    <a class="dropdown-item dr-item" href="#">Номер </a>
                                 </div>
                             </th>
                             <th class="dropdown dropdown__table">
                                 <span class="dropdown-toggle dr-link" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Санаторий</span>
                                 <div class="dropdown-menu dr-menu rounded-0 border-0" aria-labelledby="dropdownMenuButton">
-                                    <a class="dropdown-item dr-item" href="#">Санаторий</a>
-                                    <a class="dropdown-item dr-item" href="#">Санаторий</a>
-                                    <a class="dropdown-item dr-item" href="#">Санаторий</a>
-                                    <a class="dropdown-item dr-item" href="#">Санаторий</a>
                                 </div>
                             </th>
                             <th class="dropdown dropdown__table">
                                 <span class="dropdown-toggle dr-link" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">№ путевки</span>
                                 <div class="dropdown-menu dr-menu rounded-0 border-0" aria-labelledby="dropdownMenuButton">
-                                    <a class="dropdown-item dr-item" href="#">№ путевки</a>
-                                    <a class="dropdown-item dr-item" href="#">№ путевки</a>
-                                    <a class="dropdown-item dr-item" href="#">№ путевки</a>
-                                    <a class="dropdown-item dr-item" href="#">№ путевки</a>
                                 </div>
                             </th>
                             <th class="dropdown dropdown__table">
                                 <span class="dropdown-toggle dr-link" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Процент</span>
                                 <div class="dropdown-menu dr-menu rounded-0 border-0" aria-labelledby="dropdownMenuButton">
-                                    <a class="dropdown-item dr-item" href="#">Процент</a>
-                                    <a class="dropdown-item dr-item" href="#">Процент</a>
-                                    <a class="dropdown-item dr-item" href="#">Процент</a>
-                                    <a class="dropdown-item dr-item" href="#">Процент</a>
                                 </div>
                             </th>
                             <th class="dropdown dropdown__table">
                                 <span class="dropdown-toggle dr-link" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Сумма</span>
                                 <div class="dropdown-menu dr-menu rounded-0 border-0" aria-labelledby="dropdownMenuButton">
-                                    <a class="dropdown-item dr-item" href="#">Сумма</a>
-                                    <a class="dropdown-item dr-item" href="#">Сумма</a>
-                                    <a class="dropdown-item dr-item" href="#">Сумма</a>
-                                    <a class="dropdown-item dr-item" href="#">Сумма</a>
                                 </div>
                             </th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-
-                            <td class="custom-control custom-checkbox r-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="customCheck01">
-                                <label class="custom-control-label r-label" for="customCheck01">1</label>
-                            </td>
-                            <td>Кашкадаре сохили</td>
-                            <td>1055</td>
-                            <td>100%</td>
-                            <td>600 000,00</td>
-                        </tr>
-                        <tr>
-
-                            <td class="custom-control custom-checkbox r-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="customCheck02">
-                                <label class="custom-control-label r-label" for="customCheck02">1</label>
-                            </td>
-                            <td>Кашкадаре сохили</td>
-                            <td>1055</td>
-                            <td>100%</td>
-                            <td>600 000,00</td>
-                        </tr>
-                        <tr>
-
-                            <td class="custom-control custom-checkbox r-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="customCheck03">
-                                <label class="custom-control-label r-label" for="customCheck03">1</label>
-                            </td>
-                            <td>Кашкадаре сохили</td>
-                            <td>1055</td>
-                            <td>100%</td>
-                            <td>600 000,00</td>
+                        <tr ng-repeat="dtl in PutyovkaDtls">
+                            <td>{{dtl.ID}}</td>
+                            <td>{{dtl.SanatName}}</td>
+                            <td>{{dtl.Num_Put}}</td>
+                            <td>{{dtl.Name_Proc}}</td>
+                            <td>{{dtl.Symma}}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -287,8 +178,8 @@
     </div>
     <div class="row align-items-center text-right">
         <div class="col-md-12">
-            <p>Разность суммы <strong>0</strong></p>
-            <p>Сумма <strong>7 845 126,04</strong></p>
+            <p>Разность суммы <strong>{{PutyovkaDtlsRes.RaznostSummi}}</strong></p>
+            <p>Сумма <strong>{{PutyovkaDtlsRes.Summa}}</strong></p>
         </div>
     </div>
 </section>
@@ -616,7 +507,96 @@
         </div>
     </div>
 
-
+        <div class="modal__block modal fade" id="organization" tabindex="-1" role="dialog" aria-labelledby="organizationLabel" data-backdrop="static" data-keyboard="false">
+            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-body" style="max-height: calc(100vh - 210px); overflow-y: auto;">
+                        <div class="row mb-4 align-items-center">
+                            <div class="col-sm-6 title__block">
+                                <h4>Справочник Организаций</h4>
+                                <nav aria-label="breadcrumb" class="breadcrumb__block">
+                                    <ol class="breadcrumb">
+                                        <li class="breadcrumb-item active" aria-current="page">Справочник Организаций</li>
+                                    </ol>
+                                </nav>
+                            </div>
+                        </div>
+                        <div>
+                            <input type="text" placeholder="Наименование" ng-model="FilterName" />
+                            <br /><input type="text" placeholder="ИНН" ng-model="FilterInn" /><br />
+                            <select class="custom-select" required name="Otrasl" ng-model="FilterSelectedOtrasl" ng-options="item as item.Name_Ot for item in Otrasl track by item.ID_Ot"></select>
+                            <br /><br /><button class="btn btn-green" ng-click="GetOrganizationsFilter()"><i class="btn-green"></i> Поиск</button>
+                        </div>
+                        <div class="table-responsive box-shadow mb-4" id="export">
+                            <table class="table table__block t-hover">
+                                <thead>
+                                    <tr>
+                                        <th class="dropdown dropdown__table" style="width:150px;text-align:center">
+                                            Выбор
+                                        </th>
+                                        <th class="dropdown dropdown__table" style="width:150px;text-align:center">
+                                            Отрасль
+                                        </th>
+                                        <th class="dropdown dropdown__table" style="width:200px;text-align:center">
+                                            Название организации
+                                        </th>
+                                        <th class="dropdown dropdown__table" style="width:150px;text-align:center">
+                                            ИНН
+                                        </th>
+                                        <th class="dropdown dropdown__table" style="width:100px;text-align:center">
+                                            Расчетный счет
+                                        </th>
+                                        <th class="dropdown dropdown__table" style="width:150px;text-align:center">
+                                            МФО
+                                        </th>
+                                        <th class="dropdown dropdown__table" style="width:150px;text-align:center">
+                                            Банк
+                                        </th>
+                                        <th class="dropdown dropdown__table" style="width:150px;text-align:center">
+                                            ОКОНХ
+                                        </th>
+                                        <th class="dropdown dropdown__table" style="width:150px;text-align:center">
+                                            Адрес
+                                        </th>
+                                        <th class="dropdown dropdown__table" style="width:150px;text-align:center">
+                                            Телефон
+                                        </th>
+                                        <th class="dropdown dropdown__table" style="width:150px;text-align:center">
+                                            Район
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="poin" ng-repeat="org in Organizations" ng-click="editOrg(org)">
+                                        <td class="custom-control custom-checkbox r-checkbox">
+                                            <input type="checkbox" class="custom-control-input" id="customCheck{{org.ID}}"
+                                                   ng-model="selectedObjs"
+                                                   ng-checked="obj.selected"
+                                                   ng-click="toggleObjSelectionOrg($event, org.ID, org.Name_Org)">
+                                            <label class="custom-control-label r-label" for="customCheck{{org.ID}}">{{org.ID}}</label>
+                                        </td>
+                                        <td style="text-align:center">{{org.OtraslName}}</td>
+                                        <td style="text-align:center">{{org.Name_Org}}</td>
+                                        <td style="text-align:center">{{org.INN     }}</td>
+                                        <td style="text-align:center">{{org.RS      }}</td>
+                                        <td style="text-align:center">{{org.MFO     }}</td>
+                                        <td style="text-align:center">{{org.Bank    }}</td>
+                                        <td style="text-align:center">{{org.OKONX   }}</td>
+                                        <td style="text-align:center">{{org.Adress  }}</td>
+                                        <td style="text-align:center">{{org.Telefon }}</td>
+                                        <td style="text-align:center">{{org.RegionName}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="mb-4 text-right">
+                            @*<a href="#" ng-click="SelectOrganization()" class="btn btn-blue d-block d-md-inline-block mb-2" data-dismiss="modal"><i class="fas fa-plus"></i> Выбрать</a>*@
+                            <a href="#" class="btn btn-grey d-block d-md-inline-block mb-2" data-dismiss="modal">Отмена</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 }
 

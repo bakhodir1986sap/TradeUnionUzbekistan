@@ -357,6 +357,8 @@
         }).then(function (msg) {
 
             GetNakladnoyList();
+            GetTotalResults();
+            GetDetailListRes();
 
         }, function () {
             alertify.error("ошибка");

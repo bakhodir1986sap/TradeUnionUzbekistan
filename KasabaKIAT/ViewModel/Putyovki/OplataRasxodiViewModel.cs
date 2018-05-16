@@ -15,12 +15,12 @@ namespace KasabaKiat.ViewModel.Putyovki
        /// <summary>
        /// Reference to master table tblOplata
        /// </summary>
-       public long ID_Opl     { get; set;}
+       public long? ID_Opl     { get; set;}
 
         /// <summary>
         /// Reference to table tblSprav_San
         /// </summary>
-        public int ID_Sanat   { get; set;}
+        public int? ID_Sanat   { get; set;}
 
         /// <summary>
         /// 
@@ -35,12 +35,12 @@ namespace KasabaKiat.ViewModel.Putyovki
       /// <summary>
       /// Amount
       /// </summary>
-      public decimal Symma      { get; set;}
+      public decimal? Symma      { get; set;}
 
         /// <summary>
         /// Reference to tblSprav_Pr
         /// </summary>
-        public long ID_Pr      { get; set;}
+        public long? ID_Pr      { get; set;}
 
         /// <summary>
         /// 
@@ -55,7 +55,7 @@ namespace KasabaKiat.ViewModel.Putyovki
       /// <summary>
       /// Reference to table users
       /// </summary>
-      public long UserId     { get; set;}
+      public long? UserId     { get; set;}
 
       /// <summary>
       /// Reference to table t_departmentbase
@@ -66,5 +66,7 @@ namespace KasabaKiat.ViewModel.Putyovki
         /// 
         /// </summary>
         public bool PutyovkaChecked { get; set; }
+
+
     }
 }

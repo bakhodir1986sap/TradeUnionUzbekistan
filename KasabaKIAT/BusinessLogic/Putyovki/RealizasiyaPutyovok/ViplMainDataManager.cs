@@ -190,8 +190,8 @@ namespace KasabaKiat.BusinessLogic.Putyovki.RealizasiyaPutyovok
             using (KasabaKIATEntities db = new KasabaKIATEntities())
             {
                 var query = from vipl in db.tblVipl
-                            where vipl.Data_Post.Value.Date >= beginDt.Date &&
-                            vipl.Data_Post.Value.Date <= endDt.Date
+                            where vipl.Data_Post >= beginDt &&
+                            vipl.Data_Post <= endDt
                             && vipl.DepartmentBase == departmentCode
                             && vipl.ID_Org == IdOrg
                             select new RealizasiyaViplMainViewModel
@@ -376,17 +376,19 @@ namespace KasabaKiat.BusinessLogic.Putyovki.RealizasiyaPutyovok
 
                     if (post1 != null)
                     {
+                        if (post1.Vid) return;
+
                         post1.Num_Kol = total.PutyovkaCount;
                         post1.Symma = total.SummaNakladnix;
                         post1.Vid = true;
+
+                        db.SaveChanges();
                     }
 
                     var oplata = new Oplata();
 
                     oplata.CloseRasxodPutyovok(post1.ID);
                 }
-
-                db.SaveChanges();
             }
         }
     }

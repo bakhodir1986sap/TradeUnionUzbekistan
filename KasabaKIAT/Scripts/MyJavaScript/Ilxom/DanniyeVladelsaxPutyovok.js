@@ -242,24 +242,52 @@
     //// Spesific Business Logic
     /////////////////////////////////////////////////////////////////////////////////////////
 
-    $scope.SelectedBeginDate = '';
-    $scope.SelectedEndDate = '';
+    $scope.SelectedBeginDate = new Date(2018, 4, 16);
+    $scope.SelectedEndDate = new Date(2018, 4, 16);
 
     function GetDanniyVladelsaNakladnoy() {
+        //document.getElementById('connection').style.visibility = "visible";
+        //$("#hh").modal({
+        //    backdrop: 'static'
+        //});
+        //$http({
+        //    method: 'post',
+        //    url: '/PrixodPutevok/GetDanniyVladelsaNakladnoy?beginDt=' + $scope.SelectedBeginDate + '&endDt=' + $scope.SelectedEndDate + '&IdOrg=' + $scope.SelectedOrganization.ID
+        //}).then(function (response) {
+
+        //    $scope.Nakladnoys = response.data;
+
+        //    document.getElementById('connection').style.visibility = "hidden";
+        //    $("#hh").modal('hide');
+        //}, function (error) {
+        //    alertify.error("ошибка");
+        //    console.log("error in GetDanniyVladelsaNakladnoy");
+        //    document.getElementById('connection').style.visibility = "hidden";
+        //    $("#hh").modal('hide');
+        //    });
         document.getElementById('connection').style.visibility = "visible";
         $("#hh").modal({
             backdrop: 'static'
         });
+        var postData = {
+            beginDt: $scope.SelectedBeginDate
+            , endDt: $scope.SelectedEndDate
+            , IdOrg: $scope.SelectedOrganization.ID
+        };
+
         $http({
-            method: 'get',
-            url: '/PrixodPutevok/GetDanniyVladelsaNakladnoy?beginDt=' + $scope.SelectedBeginDate + '&endDt=' + $scope.SelectedEndDate + '&IdOrg=' + $scope.SelectedOrganization.ID
+            method: "post",
+            url: "/PrixodPutevok/GetDanniyVladelsaNakladnoy",
+            data: JSON.stringify(postData),
+            dataType: "json"
         }).then(function (response) {
 
             $scope.Nakladnoys = response.data;
 
             document.getElementById('connection').style.visibility = "hidden";
             $("#hh").modal('hide');
-        }, function (error) {
+
+        }, function () {
             alertify.error("ошибка");
             console.log("error in GetDanniyVladelsaNakladnoy");
             document.getElementById('connection').style.visibility = "hidden";
@@ -268,44 +296,102 @@
     }
     
     function GetDanniyVladelsaPutyovki() {
+        //document.getElementById('connection').style.visibility = "visible";
+        //$("#hh").modal({
+        //    backdrop: 'static'
+        //});
+        //$http({
+        //    method: 'get',
+        //    url: '/PrixodPutevok/GetDanniyVladelsaPutyovki?beginDt=' + $scope.SelectedBeginDate + '&endDt=' + $scope.SelectedEndDate + '&IdOrg=' + $scope.SelectedOrganization.ID
+        //}).then(function (response) {
+
+        //    $scope.Putyovkas = response.data;
+
+        //    document.getElementById('connection').style.visibility = "hidden";
+        //    $("#hh").modal('hide');
+        //}, function (error) {
+        //    alertify.error("ошибка");
+        //    console.log("error in GetDanniyVladelsaPutyovki");
+        //    document.getElementById('connection').style.visibility = "hidden";
+        //    $("#hh").modal('hide');
+        //});
+
         document.getElementById('connection').style.visibility = "visible";
         $("#hh").modal({
             backdrop: 'static'
         });
+        var postData = {
+            beginDt: $scope.SelectedBeginDate
+            , endDt: $scope.SelectedEndDate
+            , IdOrg: $scope.SelectedOrganization.ID
+        };
+
         $http({
-            method: 'get',
-            url: '/PrixodPutevok/GetDanniyVladelsaPutyovki?beginDt=' + $scope.SelectedBeginDate + '&endDt=' + $scope.SelectedEndDate + '&IdOrg=' + $scope.SelectedOrganization.ID
+            method: "post",
+            url: "/PrixodPutevok/GetDanniyVladelsaPutyovki",
+            data: JSON.stringify(postData),
+            dataType: "json"
         }).then(function (response) {
 
             $scope.Putyovkas = response.data;
 
             document.getElementById('connection').style.visibility = "hidden";
             $("#hh").modal('hide');
-        }, function (error) {
+
+        }, function () {
             alertify.error("ошибка");
-            console.log("error in GetDanniyVladelsaPutyovki");
+            console.log("error in GetDanniyVladelsaNakladnoy");
             document.getElementById('connection').style.visibility = "hidden";
             $("#hh").modal('hide');
         });
     }
     
     function GetDanniyTotal() {
+        //document.getElementById('connection').style.visibility = "visible";
+        //$("#hh").modal({
+        //    backdrop: 'static'
+        //});
+        //$http({
+        //    method: 'get',
+        //    url: '/PrixodPutevok/GetDanniyTotal?beginDt=' + $scope.SelectedBeginDate + '&endDt=' + $scope.SelectedEndDate + '&IdOrg=' + $scope.SelectedOrganization.ID
+        //}).then(function (response) {
+
+        //    $scope.TotalRes = response.data;
+
+        //    document.getElementById('connection').style.visibility = "hidden";
+        //    $("#hh").modal('hide');
+        //}, function (error) {
+        //    alertify.error("ошибка");
+        //    console.log("error in GetDanniyTotal");
+        //    document.getElementById('connection').style.visibility = "hidden";
+        //    $("#hh").modal('hide');
+        //});
+
         document.getElementById('connection').style.visibility = "visible";
         $("#hh").modal({
             backdrop: 'static'
         });
+        var postData = {
+            beginDt: $scope.SelectedBeginDate
+            , endDt: $scope.SelectedEndDate
+            , IdOrg: $scope.SelectedOrganization.ID
+        };
+
         $http({
-            method: 'get',
-            url: '/PrixodPutevok/GetDanniyTotal?beginDt=' + $scope.SelectedBeginDate + '&endDt=' + $scope.SelectedEndDate + '&IdOrg=' + $scope.SelectedOrganization.ID
+            method: "post",
+            url: "/PrixodPutevok/GetDanniyTotal",
+            data: JSON.stringify(postData),
+            dataType: "json"
         }).then(function (response) {
 
             $scope.TotalRes = response.data;
 
             document.getElementById('connection').style.visibility = "hidden";
             $("#hh").modal('hide');
-        }, function (error) {
+
+        }, function () {
             alertify.error("ошибка");
-            console.log("error in GetDanniyTotal");
+            console.log("error in GetDanniyVladelsaNakladnoy");
             document.getElementById('connection').style.visibility = "hidden";
             $("#hh").modal('hide');
         });
@@ -331,6 +417,17 @@
             document.getElementById('connection').style.visibility = "hidden";
             $("#hh").modal('hide');
         });
+    }
+
+    $scope.ShowClicked = function ()
+    {
+        $scope.Nakladnoys = '';
+        $scope.Putyovkas = '';
+        $scope.TotalRes = '';
+
+        GetDanniyVladelsaNakladnoy();
+        GetDanniyVladelsaPutyovki();
+        GetDanniyTotal();
     }
 
     $scope.CurrentFace = {

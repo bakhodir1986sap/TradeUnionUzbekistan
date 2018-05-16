@@ -284,7 +284,7 @@
         });
         $http({
             method: 'get',
-            url: '/PrixodPutevok/GetViplDetailListRes?IdVipl=' + $scope.CurrentNakladnoy.Id
+            url: '/PrixodPutevok/GetViplDetailListRes?IdVipl=' + $scope.CurrentNakladnoy.id
         }).then(function (response) {
 
             $scope.PutyovkaDtlSummar = response.data;
@@ -441,6 +441,7 @@
             dataType: "json"
         }).then(function (msg) {
 
+            $scope.NakladnoyDtls = '';
             GetNakladnoyList();
 
         }, function () {
@@ -511,6 +512,7 @@
     ///  Add Detail
     ////////////////////////////////////////////////////////////
     $scope.SelectedPutyovka = [];
+    $scope.SelectedPutyovkaCount = 0;
 
     //For Prixod Putyovka
     $scope.toggleObjSelectionPut = function ($event, prixodPutId) {
@@ -533,6 +535,7 @@
             $scope.SelectedPutyovka.push(prixodPutId);
         }
 
+        $scope.SelectedPutyovkaCount = $scope.SelectedPutyovka.length;
         console.log('====================================================');
 
         for (var i = 0, l = $scope.SelectedPutyovka.length; i < l; ++i) {
@@ -550,7 +553,10 @@
             method: 'get',
             url: '/PrixodPutevok/GetNewPutyovkaList'
         }).then(function (response) {
+
             $scope.PrixodPutyovkas = response.data;
+            $scope.PrixodPutyovkasCount = $scope.PrixodPutyovkas.length;
+
             document.getElementById('connection').style.visibility = "hidden";
             $("#hh").modal('hide');
         }, function (error) {
@@ -578,6 +584,7 @@
                 $scope.SelectedPutyovkas.splice($scope.SelectedPutyovkas.indexOf(value), 1);
             }
 
+            $scope.SelectedPutyovkaCount = 0;
             GetDetailList();
             GetDetailListRes();
 
@@ -587,13 +594,17 @@
         });
     }
 
-    $scope.AddPutyovkas = function () {
+    $scope.AddPutyovkas = function ()
+    {
 
-        for (var i = 0, l = $scope.SelectedPutyovka.length; i < l; ++i) {
+        for (var i = 0, l = $scope.SelectedPutyovka.length; i < l; ++i)
+        {
             var value = $scope.SelectedPutyovka[i];
 
             $scope.SelectedPutyovkas.splice($scope.SelectedPutyovka.indexOf(value), 1);
         }
+
+        GetNewPutyovkaList();
 
     }
 

@@ -155,6 +155,7 @@ namespace KasabaKiat.BusinessLogic.Putyovki.RealizasiyaPutyovok
                             && vipl.DepartmentBase == model.departmentbase
                             select new RealizasiyaViplMainViewModel
                             {
+                                id              = vipl.ID,
                                 id_org          = vipl.ID_Org           ,
                                 organizationName = org.Name_Org,
                                 data_post       = vipl.Data_Post        ,

@@ -167,6 +167,8 @@ namespace KasabaKiat.BusinessLogic.Putyovki.RealizasiyaPutyovok
                 {
                     foreach(var vv in vipl)
                     {
+                        PostPutDetailDataManager.OtmenPolzov(vv.ID_Sanat.Value, vv.Num_Put);
+
                         db.tblVipl_Put.Remove(vv);
                     }
                 }

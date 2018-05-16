@@ -1654,3 +1654,6 @@ end
 
   ALTER TABLE [KasabaKIAT_N1].[dbo].[tblSprav_Org]
   ADD ParentID bigint;
+
+  ALTER TABLE [KasabaKIAT_N1].[dbo].[tblVipl_Put]
+  ADD PRIMARY KEY (ID);

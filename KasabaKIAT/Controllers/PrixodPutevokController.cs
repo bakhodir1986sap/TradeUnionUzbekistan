@@ -1753,8 +1753,8 @@ namespace KasabaKIAT.Controllers
 
                         var mm = prixodPut.First();
 
-                        if (mm.Checked)
-                        {
+                        //if (mm.Checked)
+                        //
                             var viplPut = new RealizasiyaViplPutViewModel();
 
                             viplPut.id_vipl = IdViplMain;
@@ -1773,7 +1773,7 @@ namespace KasabaKIAT.Controllers
 
                             //Change Status of Putyovka in Prixod
                             PostPutDetailDataManager.Polzov(mm.IdSanat.Value, mm.Num_Put);
-                        }
+                        //}
                     }
                 }
             }
@@ -1869,10 +1869,20 @@ namespace KasabaKIAT.Controllers
             {
                 foreach (var putyovkaId in putyovkaL)
                 {
+                    var rasxm = Vipl_PutDataManager.Get2(putyovkaId);
+
+                    if (!rasxm.Any()) continue;
+
+                    var rmodel = rasxm.First();
+
+
                     Vipl_PutDataManager.Remove(new RealizasiyaViplPutViewModel()
                     {
                         id = putyovkaId
                     });
+
+                    //Otmen Polzov
+                    PostPutDetailDataManager.OtmenPolzov(rmodel.id_sanat.Value, rmodel.num_put);
                 }
             }
             catch (Exception ex)

@@ -113,7 +113,6 @@ namespace KasabaKIAT.Models
             this.tblFace_Two = new HashSet<tblFace_Two>();
             this.tblOplata_Ras = new HashSet<tblOplata_Ras>();
             this.tblPutevka = new HashSet<tblPutevka>();
-            this.tblVipl_Put = new HashSet<tblVipl_Put>();
             this.Zapros_ZK = new HashSet<Zapros_ZK>();
             this.users1 = new HashSet<users>();
             this.roles2 = new HashSet<roles>();
@@ -122,6 +121,7 @@ namespace KasabaKIAT.Models
             this.tblPreds = new HashSet<tblPred>();
             this.tblOplatas = new HashSet<tblOplata>();
             this.tblVozVrats = new HashSet<tblVozVrat>();
+            this.tblVipl_Put = new HashSet<tblVipl_Put>();
         }
     
         public long id { get; set; }
@@ -350,8 +350,6 @@ namespace KasabaKIAT.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblPutevka> tblPutevka { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tblVipl_Put> tblVipl_Put { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Zapros_ZK> Zapros_ZK { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<users> users1 { get; set; }
@@ -368,5 +366,7 @@ namespace KasabaKIAT.Models
         public virtual ICollection<tblOplata> tblOplatas { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblVozVrat> tblVozVrats { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tblVipl_Put> tblVipl_Put { get; set; }
     }
 }

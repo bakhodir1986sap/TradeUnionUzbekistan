@@ -708,6 +708,9 @@
     <Compile Include="Models\tblVipl_NumGEn.cs">
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\tblVipl_Put.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\tblVozVrat.cs">
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
@@ -1028,9 +1031,6 @@
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tblVipl.cs">
-      <DependentUpon>KasabaKIAT.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\tblVipl_Put.cs">
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tbpt_avarageprice.cs">

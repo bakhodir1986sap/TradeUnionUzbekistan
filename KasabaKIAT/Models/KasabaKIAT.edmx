@@ -2438,12 +2438,9 @@ warning 6002: The table/view 'KasabaKIAT_N1.dbo.tblPutevka' does not have a prim
           <Property Name="USER_ID" Type="bigint" />
           <Property Name="YEAR" Type="int" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'KasabaKIAT_N1.dbo.tblVipl_Put' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="tblVipl_Put">
           <Key>
             <PropertyRef Name="ID" />
-            <PropertyRef Name="ID_PolVoz" />
           </Key>
           <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ID_Vipl" Type="bigint" />
@@ -6091,6 +6088,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <EntitySet Name="tblSprav_Vil" EntityType="Self.tblSprav_Vil" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblVipl" EntityType="Self.tblVipl" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblVipl_NumGEn" EntityType="Self.tblVipl_NumGEn" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblVipl_Put" EntityType="Self.tblVipl_Put" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblVozVrat" EntityType="Self.tblVozVrat" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbpt_avarageprice" EntityType="Self.tbpt_avarageprice" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbpt_bronputyovka" EntityType="Self.tbpt_bronputyovka" Schema="dbo" store:Type="Tables" />
@@ -6244,22 +6242,6 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
     [tblPutevka].[ID] AS [ID], 
     [tblPutevka].[Departmentbase] AS [Departmentbase]
     FROM [dbo].[tblPutevka] AS [tblPutevka]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="tblVipl_Put" EntityType="Self.tblVipl_Put" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [tblVipl_Put].[ID] AS [ID], 
-    [tblVipl_Put].[ID_Vipl] AS [ID_Vipl], 
-    [tblVipl_Put].[ID_Pok] AS [ID_Pok], 
-    [tblVipl_Put].[ID_Sanat] AS [ID_Sanat], 
-    [tblVipl_Put].[Num_Put] AS [Num_Put], 
-    [tblVipl_Put].[Num_Proc] AS [Num_Proc], 
-    [tblVipl_Put].[Symma] AS [Symma], 
-    [tblVipl_Put].[ID_PolVoz] AS [ID_PolVoz], 
-    [tblVipl_Put].[Data_Post] AS [Data_Post], 
-    [tblVipl_Put].[UserId] AS [UserId], 
-    [tblVipl_Put].[ZayavkaID] AS [ZayavkaID], 
-    [tblVipl_Put].[DepartmentBase] AS [DepartmentBase]
-    FROM [dbo].[tblVipl_Put] AS [tblVipl_Put]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="Zapros_ZK" EntityType="Self.Zapros_ZK" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
@@ -9289,9 +9271,9 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <NavigationProperty Name="tblOplata_Ras" Relationship="Self.FK_tblOplata_Ras_tblSprav_San" FromRole="tblSprav_San" ToRole="tblOplata_Ras" />
           <NavigationProperty Name="tblPutevka" Relationship="Self.FK_tblPutevka_tblSprav_San" FromRole="tblSprav_San" ToRole="tblPutevka" />
           <NavigationProperty Name="users" Relationship="Self.FK_tblSprav_San_Users" FromRole="tblSprav_San" ToRole="users" />
-          <NavigationProperty Name="tblVipl_Put" Relationship="Self.FK_tblVipl_Put_tblSprav_San" FromRole="tblSprav_San" ToRole="tblVipl_Put" />
           <Property Name="KurortSanID" Type="Int32" />
           <NavigationProperty Name="tblVozVrats" Relationship="KasabaKIATModel.FK_tblVozVrat_tblSprav_San" FromRole="tblSprav_San" ToRole="tblVozVrat" />
+          <NavigationProperty Name="tblVipl_Put" Relationship="KasabaKIATModel.FK_tblVipl_Put_tblSprav_San" FromRole="tblSprav_San" ToRole="tblVipl_Put" />
         </EntityType>
         <EntityType Name="tblSprav_Vil">
           <Key>
@@ -9324,8 +9306,8 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <NavigationProperty Name="tblSprav_Kv" Relationship="Self.FK_tblVipl_tblSprav_Kv" FromRole="tblVipl" ToRole="tblSprav_Kv" />
           <NavigationProperty Name="tblSprav_Org" Relationship="Self.FK_tblVipl_tblSprav_Org" FromRole="tblVipl" ToRole="tblSprav_Org" />
           <NavigationProperty Name="tblFace_Two" Relationship="Self.FK_tblFace_Two_tblVipl" FromRole="tblVipl" ToRole="tblFace_Two" />
-          <NavigationProperty Name="tblVipl_Put" Relationship="Self.FK_tblVipl_Put_tblVipl" FromRole="tblVipl" ToRole="tblVipl_Put" />
           <NavigationProperty Name="users" Relationship="Self.FK_tblVipl_Users" FromRole="tblVipl" ToRole="users" />
+          <NavigationProperty Name="tblVipl_Put" Relationship="KasabaKIATModel.FK_tblVipl_Put_tblVipl" FromRole="tblVipl" ToRole="tblVipl_Put" />
         </EntityType>
         <EntityType Name="tbpt_avarageprice">
           <Key>
@@ -9566,9 +9548,9 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <NavigationProperty Name="t_camp" Relationship="Self.tbpt_zayavki_1" FromRole="tbpt_zayavki" ToRole="t_camp" />
           <NavigationProperty Name="t_sanatorium" Relationship="Self.tbpt_zayavki_2" FromRole="tbpt_zayavki" ToRole="t_sanatorium" />
           <NavigationProperty Name="tbpt_putyovkarealizasiya" Relationship="Self.tbpt_putyovkarealizasiya_1" FromRole="tbpt_zayavki" ToRole="tbpt_putyovkarealizasiya" />
-          <NavigationProperty Name="tblVipl_Put" Relationship="Self.FK_tblVipl_Put_tbpt_zayavki" FromRole="tbpt_zayavki" ToRole="tblVipl_Put" />
           <NavigationProperty Name="users" Relationship="Self.tbpt_zayavki_3" FromRole="tbpt_zayavki" ToRole="users" />
           <Property Name="SOTR_INN" Type="String" MaxLength="9" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="tblVipl_Put" Relationship="KasabaKIATModel.FK_tblVipl_Put_tbpt_zayavki" FromRole="tbpt_zayavki" ToRole="tblVipl_Put" />
         </EntityType>
         <EntityType Name="useractions">
           <Key>
@@ -9728,7 +9710,6 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <NavigationProperty Name="tblFace_Two" Relationship="Self.FK_tblFace_Two_Users" FromRole="users" ToRole="tblFace_Two" />
           <NavigationProperty Name="tblOplata_Ras" Relationship="Self.FK_tblOplata_Ras_Users" FromRole="users" ToRole="tblOplata_Ras" />
           <NavigationProperty Name="tblPutevka" Relationship="Self.FK_tblPutevka_Users" FromRole="users" ToRole="tblPutevka" />
-          <NavigationProperty Name="tblVipl_Put" Relationship="Self.FK_tblVipl_Put_Users" FromRole="users" ToRole="tblVipl_Put" />
           <NavigationProperty Name="Zapros_ZK" Relationship="Self.FK_Zapros_ZK_Users" FromRole="users" ToRole="Zapros_ZK" />
           <NavigationProperty Name="users1" Relationship="Self.users_2" FromRole="users" ToRole="users1" />
           <NavigationProperty Name="users2" Relationship="Self.users_2" FromRole="users1" ToRole="users" />
@@ -9739,6 +9720,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <NavigationProperty Name="tblPreds" Relationship="KasabaKIATModel.FK_tblPred_Users" FromRole="users" ToRole="tblPred" />
           <NavigationProperty Name="tblOplatas" Relationship="KasabaKIATModel.FK_tblOplata_Users" FromRole="users" ToRole="tblOplata" />
           <NavigationProperty Name="tblVozVrats" Relationship="KasabaKIATModel.FK_tblVozVrat_Users" FromRole="users" ToRole="tblVozVrat" />
+          <NavigationProperty Name="tblVipl_Put" Relationship="KasabaKIATModel.FK_tblVipl_Put_Users" FromRole="users" ToRole="tblVipl_Put" />
         </EntityType>
         <EntityType Name="users_aud">
           <Key>
@@ -9931,28 +9913,6 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <NavigationProperty Name="tblSprav_Org" Relationship="Self.FK_tblPutevka_tblSprav_Org" FromRole="tblPutevka" ToRole="tblSprav_Org" />
           <NavigationProperty Name="tblSprav_San" Relationship="Self.FK_tblPutevka_tblSprav_San" FromRole="tblPutevka" ToRole="tblSprav_San" />
           <NavigationProperty Name="users" Relationship="Self.FK_tblPutevka_Users" FromRole="tblPutevka" ToRole="users" />
-        </EntityType>
-        <EntityType Name="tblVipl_Put">
-          <Key>
-            <PropertyRef Name="ID" />
-            <PropertyRef Name="ID_PolVoz" />
-          </Key>
-          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ID_Vipl" Type="Int64" />
-          <Property Name="ID_Pok" Type="Int64" />
-          <Property Name="ID_Sanat" Type="Int32" />
-          <Property Name="Num_Put" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
-          <Property Name="Num_Proc" Type="Int32" />
-          <Property Name="Symma" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="ID_PolVoz" Type="Boolean" Nullable="false" />
-          <Property Name="Data_Post" Type="DateTime" Precision="3" />
-          <Property Name="UserId" Type="Int64" />
-          <Property Name="ZayavkaID" Type="Int64" />
-          <Property Name="DepartmentBase" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="tblSprav_San" Relationship="Self.FK_tblVipl_Put_tblSprav_San" FromRole="tblVipl_Put" ToRole="tblSprav_San" />
-          <NavigationProperty Name="tblVipl" Relationship="Self.FK_tblVipl_Put_tblVipl" FromRole="tblVipl_Put" ToRole="tblVipl" />
-          <NavigationProperty Name="tbpt_zayavki" Relationship="Self.FK_tblVipl_Put_tbpt_zayavki" FromRole="tblVipl_Put" ToRole="tbpt_zayavki" />
-          <NavigationProperty Name="users" Relationship="Self.FK_tblVipl_Put_Users" FromRole="tblVipl_Put" ToRole="users" />
         </EntityType>
         <EntityType Name="Zapros_ZK">
           <Key>
@@ -11912,18 +11872,6 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_tblVipl_Put_tblSprav_San">
-          <End Role="tblSprav_San" Type="Self.tblSprav_San" Multiplicity="0..1" />
-          <End Role="tblVipl_Put" Type="Self.tblVipl_Put" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblSprav_San">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="tblVipl_Put">
-              <PropertyRef Name="ID_Sanat" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_tblSprav_Vil_Users">
           <End Role="users" Type="Self.users" Multiplicity="0..1" />
           <End Role="tblSprav_Vil" Type="Self.tblSprav_Vil" Multiplicity="*" />
@@ -11944,18 +11892,6 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
               <PropertyRef Name="ID" />
             </Principal>
             <Dependent Role="tblFace_Two">
-              <PropertyRef Name="ID_Vipl" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_tblVipl_Put_tblVipl">
-          <End Role="tblVipl" Type="Self.tblVipl" Multiplicity="0..1" />
-          <End Role="tblVipl_Put" Type="Self.tblVipl_Put" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblVipl">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="tblVipl_Put">
               <PropertyRef Name="ID_Vipl" />
             </Dependent>
           </ReferentialConstraint>
@@ -12122,18 +12058,6 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_tblVipl_Put_tbpt_zayavki">
-          <End Role="tbpt_zayavki" Type="Self.tbpt_zayavki" Multiplicity="0..1" />
-          <End Role="tblVipl_Put" Type="Self.tblVipl_Put" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tbpt_zayavki">
-              <PropertyRef Name="REC_ID" />
-            </Principal>
-            <Dependent Role="tblVipl_Put">
-              <PropertyRef Name="ZayavkaID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="tbpt_zayavki_3">
           <End Role="users" Type="Self.users" Multiplicity="0..1" />
           <End Role="tbpt_zayavki" Type="Self.tbpt_zayavki" Multiplicity="*" />
@@ -12274,18 +12198,6 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
               <PropertyRef Name="id" />
             </Principal>
             <Dependent Role="tblPutevka">
-              <PropertyRef Name="UserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_tblVipl_Put_Users">
-          <End Role="users" Type="Self.users" Multiplicity="0..1" />
-          <End Role="tblVipl_Put" Type="Self.tblVipl_Put" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="users">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="tblVipl_Put">
               <PropertyRef Name="UserId" />
             </Dependent>
           </ReferentialConstraint>
@@ -12467,7 +12379,6 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <EntitySet Name="tblFace_Two" EntityType="Self.tblFace_Two" />
           <EntitySet Name="tblOplata_Ras" EntityType="Self.tblOplata_Ras" />
           <EntitySet Name="tblPutevka" EntityType="Self.tblPutevka" />
-          <EntitySet Name="tblVipl_Put" EntityType="Self.tblVipl_Put" />
           <EntitySet Name="Zapros_ZK" EntityType="Self.Zapros_ZK" />
           <AssociationSet Name="FK_Balans_tblSprav_Org" Association="Self.FK_Balans_tblSprav_Org">
             <End Role="tblSprav_Org" EntitySet="tblSprav_Org" />
@@ -13097,10 +13008,6 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
             <End Role="users" EntitySet="users" />
             <End Role="tblSprav_San" EntitySet="tblSprav_San" />
           </AssociationSet>
-          <AssociationSet Name="FK_tblVipl_Put_tblSprav_San" Association="Self.FK_tblVipl_Put_tblSprav_San">
-            <End Role="tblSprav_San" EntitySet="tblSprav_San" />
-            <End Role="tblVipl_Put" EntitySet="tblVipl_Put" />
-          </AssociationSet>
           <AssociationSet Name="FK_tblSprav_Vil_Users" Association="Self.FK_tblSprav_Vil_Users">
             <End Role="users" EntitySet="users" />
             <End Role="tblSprav_Vil" EntitySet="tblSprav_Vil" />
@@ -13108,10 +13015,6 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <AssociationSet Name="FK_tblFace_Two_tblVipl" Association="Self.FK_tblFace_Two_tblVipl">
             <End Role="tblVipl" EntitySet="tblVipl" />
             <End Role="tblFace_Two" EntitySet="tblFace_Two" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tblVipl_Put_tblVipl" Association="Self.FK_tblVipl_Put_tblVipl">
-            <End Role="tblVipl" EntitySet="tblVipl" />
-            <End Role="tblVipl_Put" EntitySet="tblVipl_Put" />
           </AssociationSet>
           <AssociationSet Name="FK_tblVipl_Users" Association="Self.FK_tblVipl_Users">
             <End Role="users" EntitySet="users" />
@@ -13165,10 +13068,6 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
             <End Role="users" EntitySet="users" />
             <End Role="tbpt_zaezdi" EntitySet="tbpt_zaezdi" />
           </AssociationSet>
-          <AssociationSet Name="FK_tblVipl_Put_tbpt_zayavki" Association="Self.FK_tblVipl_Put_tbpt_zayavki">
-            <End Role="tbpt_zayavki" EntitySet="tbpt_zayavki" />
-            <End Role="tblVipl_Put" EntitySet="tblVipl_Put" />
-          </AssociationSet>
           <AssociationSet Name="tbpt_zayavki_3" Association="Self.tbpt_zayavki_3">
             <End Role="users" EntitySet="users" />
             <End Role="tbpt_zayavki" EntitySet="tbpt_zayavki" />
@@ -13216,10 +13115,6 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <AssociationSet Name="FK_tblPutevka_Users" Association="Self.FK_tblPutevka_Users">
             <End Role="users" EntitySet="users" />
             <End Role="tblPutevka" EntitySet="tblPutevka" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tblVipl_Put_Users" Association="Self.FK_tblVipl_Put_Users">
-            <End Role="users" EntitySet="users" />
-            <End Role="tblVipl_Put" EntitySet="tblVipl_Put" />
           </AssociationSet>
           <AssociationSet Name="FK_Zapros_ZK_Users" Association="Self.FK_Zapros_ZK_Users">
             <End Role="users" EntitySet="users" />
@@ -13677,6 +13572,23 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
             <Parameter Name="Kvartal" Mode="In" Type="Int32" />
             <Parameter Name="departmentBase" Mode="In" Type="String" />
           </FunctionImport>
+          <EntitySet Name="tblVipl_Put" EntityType="KasabaKIATModel.tblVipl_Put" />
+          <AssociationSet Name="FK_tblVipl_Put_tblSprav_San" Association="KasabaKIATModel.FK_tblVipl_Put_tblSprav_San">
+            <End Role="tblSprav_San" EntitySet="tblSprav_San" />
+            <End Role="tblVipl_Put" EntitySet="tblVipl_Put" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblVipl_Put_tblVipl" Association="KasabaKIATModel.FK_tblVipl_Put_tblVipl">
+            <End Role="tblVipl" EntitySet="tblVipl" />
+            <End Role="tblVipl_Put" EntitySet="tblVipl_Put" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblVipl_Put_tbpt_zayavki" Association="KasabaKIATModel.FK_tblVipl_Put_tbpt_zayavki">
+            <End Role="tbpt_zayavki" EntitySet="tbpt_zayavki" />
+            <End Role="tblVipl_Put" EntitySet="tblVipl_Put" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblVipl_Put_Users" Association="KasabaKIATModel.FK_tblVipl_Put_Users">
+            <End Role="users" EntitySet="users" />
+            <End Role="tblVipl_Put" EntitySet="tblVipl_Put" />
+          </AssociationSet>
           </EntityContainer>
         <ComplexType Name="sp_get_BankPaymentCompanyYearlyQ_Result">
           <Property Type="Int32" Name="MONTH_NUM" Nullable="true" />
@@ -15159,6 +15071,75 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <Property Type="String" Name="CreditSchet" Nullable="false" MaxLength="1" />
           <Property Type="Decimal" Name="Summa" Nullable="true" Precision="19" />
         </ComplexType>
+        <EntityType Name="tblVipl_Put">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_Vipl" Type="Int64" />
+          <Property Name="ID_Pok" Type="Int64" />
+          <Property Name="ID_Sanat" Type="Int32" />
+          <Property Name="Num_Put" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Num_Proc" Type="Int32" />
+          <Property Name="Symma" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="ID_PolVoz" Type="Boolean" Nullable="false" />
+          <Property Name="Data_Post" Type="DateTime" Precision="3" />
+          <Property Name="UserId" Type="Int64" />
+          <Property Name="ZayavkaID" Type="Int64" />
+          <Property Name="DepartmentBase" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="tblSprav_San" Relationship="KasabaKIATModel.FK_tblVipl_Put_tblSprav_San" FromRole="tblVipl_Put" ToRole="tblSprav_San" />
+          <NavigationProperty Name="tblVipl" Relationship="KasabaKIATModel.FK_tblVipl_Put_tblVipl" FromRole="tblVipl_Put" ToRole="tblVipl" />
+          <NavigationProperty Name="tbpt_zayavki" Relationship="KasabaKIATModel.FK_tblVipl_Put_tbpt_zayavki" FromRole="tblVipl_Put" ToRole="tbpt_zayavki" />
+          <NavigationProperty Name="user" Relationship="KasabaKIATModel.FK_tblVipl_Put_Users" FromRole="tblVipl_Put" ToRole="users" />
+        </EntityType>
+        <Association Name="FK_tblVipl_Put_tblSprav_San">
+          <End Type="KasabaKIATModel.tblSprav_San" Role="tblSprav_San" Multiplicity="0..1" />
+          <End Type="KasabaKIATModel.tblVipl_Put" Role="tblVipl_Put" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblSprav_San">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tblVipl_Put">
+              <PropertyRef Name="ID_Sanat" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblVipl_Put_tblVipl">
+          <End Type="KasabaKIATModel.tblVipl" Role="tblVipl" Multiplicity="0..1" />
+          <End Type="KasabaKIATModel.tblVipl_Put" Role="tblVipl_Put" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblVipl">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tblVipl_Put">
+              <PropertyRef Name="ID_Vipl" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblVipl_Put_tbpt_zayavki">
+          <End Type="KasabaKIATModel.tbpt_zayavki" Role="tbpt_zayavki" Multiplicity="0..1" />
+          <End Type="KasabaKIATModel.tblVipl_Put" Role="tblVipl_Put" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbpt_zayavki">
+              <PropertyRef Name="REC_ID" />
+            </Principal>
+            <Dependent Role="tblVipl_Put">
+              <PropertyRef Name="ZayavkaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblVipl_Put_Users">
+          <End Type="KasabaKIATModel.users" Role="users" Multiplicity="0..1" />
+          <End Type="KasabaKIATModel.tblVipl_Put" Role="tblVipl_Put" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tblVipl_Put">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -17631,24 +17612,6 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="tblVipl_Put">
-            <EntityTypeMapping TypeName="KasabaKIATModel.tblVipl_Put">
-              <MappingFragment StoreEntitySet="tblVipl_Put">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="ID_Vipl" ColumnName="ID_Vipl" />
-                <ScalarProperty Name="ID_Pok" ColumnName="ID_Pok" />
-                <ScalarProperty Name="ID_Sanat" ColumnName="ID_Sanat" />
-                <ScalarProperty Name="Num_Put" ColumnName="Num_Put" />
-                <ScalarProperty Name="Num_Proc" ColumnName="Num_Proc" />
-                <ScalarProperty Name="Symma" ColumnName="Symma" />
-                <ScalarProperty Name="ID_PolVoz" ColumnName="ID_PolVoz" />
-                <ScalarProperty Name="Data_Post" ColumnName="Data_Post" />
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="ZayavkaID" ColumnName="ZayavkaID" />
-                <ScalarProperty Name="DepartmentBase" ColumnName="DepartmentBase" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Zapros_ZK">
             <EntityTypeMapping TypeName="KasabaKIATModel.Zapros_ZK">
               <MappingFragment StoreEntitySet="Zapros_ZK">
@@ -18966,6 +18929,24 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <EntitySetMapping Name="tblVipl_Put">
+            <EntityTypeMapping TypeName="KasabaKIATModel.tblVipl_Put">
+              <MappingFragment StoreEntitySet="tblVipl_Put">
+                <ScalarProperty Name="DepartmentBase" ColumnName="DepartmentBase" />
+                <ScalarProperty Name="ZayavkaID" ColumnName="ZayavkaID" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Data_Post" ColumnName="Data_Post" />
+                <ScalarProperty Name="ID_PolVoz" ColumnName="ID_PolVoz" />
+                <ScalarProperty Name="Symma" ColumnName="Symma" />
+                <ScalarProperty Name="Num_Proc" ColumnName="Num_Proc" />
+                <ScalarProperty Name="Num_Put" ColumnName="Num_Put" />
+                <ScalarProperty Name="ID_Sanat" ColumnName="ID_Sanat" />
+                <ScalarProperty Name="ID_Pok" ColumnName="ID_Pok" />
+                <ScalarProperty Name="ID_Vipl" ColumnName="ID_Vipl" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

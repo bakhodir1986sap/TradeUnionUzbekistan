@@ -25,8 +25,8 @@ namespace KasabaKIAT.Models
             this.tblPos_Put = new HashSet<tblPos_Put>();
             this.tblOplata_Ras = new HashSet<tblOplata_Ras>();
             this.tblPutevka = new HashSet<tblPutevka>();
-            this.tblVipl_Put = new HashSet<tblVipl_Put>();
             this.tblVozVrats = new HashSet<tblVozVrat>();
+            this.tblVipl_Put = new HashSet<tblVipl_Put>();
         }
     
         public int ID { get; set; }
@@ -53,8 +53,8 @@ namespace KasabaKIAT.Models
         public virtual ICollection<tblPutevka> tblPutevka { get; set; }
         public virtual users users { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tblVipl_Put> tblVipl_Put { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblVozVrat> tblVozVrats { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tblVipl_Put> tblVipl_Put { get; set; }
     }
 }

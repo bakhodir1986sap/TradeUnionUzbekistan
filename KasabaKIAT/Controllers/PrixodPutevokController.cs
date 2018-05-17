@@ -1329,11 +1329,14 @@ namespace KasabaKIAT.Controllers
                 {
                     var put_san = string.Format("{0}_{1}", mm.Num_Put, mm.IdSanat);
 
-                    var exp = expLst.Where(z => z.Equals(put_san));
-
-                    if (exp.Any())
+                    if (expLst != null)
                     {
-                        continue;
+                        var exp = expLst.Where(z => z.Equals(put_san));
+
+                        if (exp.Any())
+                        {
+                            continue;
+                        }
                     }
 
                     PostPutyovkaViewModel mmModel = mm;
@@ -1662,14 +1665,15 @@ namespace KasabaKIAT.Controllers
         /// 
         /// </summary>
         /// <returns></returns>
-        public JsonResult GetNewPutyovkaList()
+        public JsonResult GetNewPutyovkaList(string NumPut)
         {
             int UserId = Convert.ToInt32(User.Identity.Name);
             var ustinfo = UserInfo.GetUserInfo(UserId);
 
             var list = PostPutDetailDataManager.Get(new PostPutyovkaViewModel()
             {
-                Departmentbase = ustinfo.DepartmentBase
+                Departmentbase = ustinfo.DepartmentBase,
+                Num_Put = NumPut
             });
 
             return Json(list, JsonRequestBehavior.AllowGet);

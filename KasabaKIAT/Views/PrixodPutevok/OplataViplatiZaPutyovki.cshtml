@@ -192,18 +192,20 @@
 <div class="modal__block modal fade" id="dobavit" tabindex="-1" role="dialog" aria-labelledby="dobavitLabel">
     <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
         <div class="modal-content">
-            <div class="modal-body">
+            <div class="modal-body" style="max-height: calc(100vh - 210px); overflow-y: auto;">
                 <div class="modal-title">
                     <h4 class="text-center mt-4 mb-4">Добавление данных об оплате</h4>
                 </div>
                 <div class="form-group row justify-content-end">
                     <div class="col-md-7">
                         <div class="custom-control custom-radio custom-control-inline">
-                            <input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1" class="custom-control-input" checked="" />
+                            <input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1" class="custom-control-input" 
+                                   ng-model="CurrentOplataMain.Tip_Org" ng-value="1"/>
                             <label for="inlineRadio1" class="custom-control-label">Определен</label>
                         </div>
                         <div class="custom-control custom-radio custom-control-inline">
-                            <input type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2" class="custom-control-input" />
+                            <input type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2" class="custom-control-input" 
+                                   ng-model="CurrentOplataMain.Tip_Org" ng-value="0"/>
                             <label for="inlineRadio2" class="custom-control-label">Не определен</label>
                         </div>
                     </div>
@@ -213,59 +215,58 @@
                         <div class="form-group row align-items-center">
                             <label class="col-md-5 col-form-label text-md-right py-0">Дата поступления:</label>
                             <div class="col-md-7">
-                                <input type="text" class="form-control" placeholder="Дата поступления" />
+                                <input type="date" class="form-control" placeholder="Дата поступления" 
+                                       ng-model="CurrentOplataMain.Data_Post"/>
                             </div>
                         </div>
                         <div class="form-group row align-items-center">
                             <label class="col-md-5 col-form-label text-md-right py-0">Номер документа:</label>
                             <div class="col-md-7">
-                                <input type="text" class="form-control" placeholder="Номер документа" />
+                                <input type="text" class="form-control" placeholder="Номер документа" 
+                                       ng-model="CurrentOplataMain.Num_Doc"/>
                             </div>
                         </div>
                         <div class="form-group row align-items-center">
                             <label class="col-md-5 col-form-label text-md-right py-0">ИНН:</label>
                             <div class="col-md-7">
-                                <select class="custom-select form-control">
-                                    <option>Option 1</option>
-                                    <option>Option 2</option>
-                                    <option>Option 3</option>
+                                <select class="custom-select form-control" ng-model="SelectedOrganization" ng-options="item as item.Name_Org for item in OrganizationsL track by item.ID">
                                 </select>
+                                <a href="#" class="btn btn-blue d-block d-md-inline-block mb-2" data-toggle="modal" data-target="#organization"><i class="fas fa-search"></i> Выбрать</a>
                             </div>
                         </div>
                         <div class="form-group row align-items-center">
                             <label class="col-md-5 col-form-label text-md-right py-0">Определенная организация:</label>
                             <div class="col-md-7">
-                                <textarea class="form-control" placeholder="Определенная организация" ></textarea>
+                                <textarea class="form-control" placeholder="Определенная организация" ng-model="CurrentOplataMain.Name_org"></textarea>
                             </div>
                         </div>
                         <div class="form-group row align-items-center">
                             <label class="col-md-5 col-form-label text-md-right py-0">Не определенная организация:</label>
                             <div class="col-md-7">
-                                <textarea class="form-control" placeholder="Не определенная организация" ></textarea>
+                                <textarea class="form-control" placeholder="Не определенная организация" ng-model="CurrentOplataMain.Name_org"></textarea>
                             </div>
                         </div>
                         <div class="form-group row align-items-center">
                             <label class="col-md-5 col-form-label text-md-right py-0">Основания оплаты:</label>
                             <div class="col-md-7">
-                                <textarea class="form-control" placeholder="Основания оплаты" ></textarea>
+                                <textarea class="form-control" placeholder="Основания оплаты" ng-model="CurrentOplataMain.Osnov"></textarea>
                             </div>
                         </div>
 
                         <div class="form-group row align-items-center">
                             <label class="col-md-5 col-form-label text-md-right py-0">Сумма (Кт):</label>
                             <div class="col-md-7">
-                                <input type="text" class="form-control" placeholder="0,00" />
+                                <input type="number" class="form-control" placeholder="0,00" ng-model="CurrentOplataMain.Symma_DT"/>
                             </div>
                         </div>
                         <div class="form-group row align-items-center">
                             <label class="col-md-5 col-form-label text-md-right py-0">Сумма (Дт):</label>
                             <div class="col-md-7">
-                                <input type="text" class="form-control" placeholder="0,00" />
+                                <input type="number" class="form-control" placeholder="0,00" ng-model="CurrentOplataMain.Symma_KT"/>
                             </div>
                         </div>
-
                         <div class="mb-4 text-right">
-                            <a href="#" class="btn btn-blue d-block d-md-inline-block mb-2"><i class="fas fa-plus"></i> Добавить</a>
+                            <a href="#" class="btn btn-blue d-block d-md-inline-block mb-2" data-dismiss="modal"><i class="fas fa-plus"></i> Добавить</a>
                             <a href="#" class="btn btn-grey d-block d-md-inline-block mb-2" data-dismiss="modal">Отмена</a>
                         </div>
                     </div>
@@ -424,18 +425,20 @@
     <div class="modal__block modal fade" id="redaktirovat" tabindex="-1" role="dialog" aria-labelledby="dobavitLabel">
         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
             <div class="modal-content">
-                <div class="modal-body">
+                <div class="modal-body" style="max-height: calc(100vh - 210px); overflow-y: auto;">
                     <div class="modal-title">
-                        <h4 class="text-center mt-4 mb-4">Редактирование данных об оплате</h4>
+                        <h4 class="text-center mt-4 mb-4">Добавление данных об оплате</h4>
                     </div>
                     <div class="form-group row justify-content-end">
                         <div class="col-md-7">
                             <div class="custom-control custom-radio custom-control-inline">
-                                <input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1" class="custom-control-input" checked="" />
+                                <input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1" class="custom-control-input" checked
+                                       ng-model="CurrentOplataMain.Tip_Org" ng-value="1" />
                                 <label for="inlineRadio1" class="custom-control-label">Определен</label>
                             </div>
                             <div class="custom-control custom-radio custom-control-inline">
-                                <input type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2" class="custom-control-input" />
+                                <input type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2" class="custom-control-input"
+                                       ng-model="CurrentOplataMain.Tip_Org" ng-value="0" />
                                 <label for="inlineRadio2" class="custom-control-label">Не определен</label>
                             </div>
                         </div>
@@ -445,59 +448,57 @@
                             <div class="form-group row align-items-center">
                                 <label class="col-md-5 col-form-label text-md-right py-0">Дата поступления:</label>
                                 <div class="col-md-7">
-                                    <input type="text" class="form-control" placeholder="Дата поступления" />
+                                    <input type="date" class="form-control" placeholder="Дата поступления"
+                                           ng-model="CurrentOplataMain.Data_Post" />
                                 </div>
                             </div>
                             <div class="form-group row align-items-center">
                                 <label class="col-md-5 col-form-label text-md-right py-0">Номер документа:</label>
                                 <div class="col-md-7">
-                                    <input type="text" class="form-control" placeholder="Номер документа" />
+                                    <input type="text" class="form-control" placeholder="Номер документа"
+                                           ng-model="CurrentOplataMain.Num_Doc" />
                                 </div>
                             </div>
                             <div class="form-group row align-items-center">
                                 <label class="col-md-5 col-form-label text-md-right py-0">ИНН:</label>
                                 <div class="col-md-7">
-                                    <select class="custom-select form-control">
-                                        <option>Option 1</option>
-                                        <option>Option 2</option>
-                                        <option>Option 3</option>
-                                    </select>
+                                    <select class="custom-select form-control" ng-model="SelectedOrganization" ng-options="item as item.Name_Org for item in OrganizationsL track by item.ID"></select>
+                                    <a href="#" class="btn btn-blue d-block d-md-inline-block mb-2" data-toggle="modal" data-target="#organization"><i class="fas fa-search"></i> Выбрать</a>
                                 </div>
                             </div>
                             <div class="form-group row align-items-center">
                                 <label class="col-md-5 col-form-label text-md-right py-0">Определенная организация:</label>
                                 <div class="col-md-7">
-                                    <textarea class="form-control" placeholder="Определенная организация" ></textarea>
+                                    <textarea class="form-control" placeholder="Определенная организация" ng-model="CurrentOplataMain.Name_org"></textarea>
                                 </div>
                             </div>
                             <div class="form-group row align-items-center">
                                 <label class="col-md-5 col-form-label text-md-right py-0">Не определенная организация:</label>
                                 <div class="col-md-7">
-                                    <textarea class="form-control" placeholder="Не определенная организация" ></textarea>
+                                    <textarea class="form-control" placeholder="Не определенная организация" ng-model="CurrentOplataMain.Name_org"></textarea>
                                 </div>
                             </div>
                             <div class="form-group row align-items-center">
                                 <label class="col-md-5 col-form-label text-md-right py-0">Основания оплаты:</label>
                                 <div class="col-md-7">
-                                    <textarea class="form-control" placeholder="Основания оплаты" ></textarea>
+                                    <textarea class="form-control" placeholder="Основания оплаты" ng-model="CurrentOplataMain.Osnov"></textarea>
                                 </div>
                             </div>
 
                             <div class="form-group row align-items-center">
                                 <label class="col-md-5 col-form-label text-md-right py-0">Сумма (Кт):</label>
                                 <div class="col-md-7">
-                                    <input type="text" class="form-control" placeholder="0,00" />
+                                    <input type="number" class="form-control" placeholder="0,00" ng-model="CurrentOplataMain.Symma_DT" />
                                 </div>
                             </div>
                             <div class="form-group row align-items-center">
                                 <label class="col-md-5 col-form-label text-md-right py-0">Сумма (Дт):</label>
                                 <div class="col-md-7">
-                                    <input type="text" class="form-control" placeholder="0,00" />
+                                    <input type="number" class="form-control" placeholder="0,00" ng-model="CurrentOplataMain.Symma_KT" />
                                 </div>
                             </div>
-
                             <div class="mb-4 text-right">
-                                <a href="#" class="btn btn-blue d-block d-md-inline-block mb-2"><i class="fas fa-plus"></i> Добавить</a>
+                                <a href="#" class="btn btn-blue d-block d-md-inline-block mb-2" data-dismiss="modal"><i class="fas fa-plus"></i> Добавить</a>
                                 <a href="#" class="btn btn-grey d-block d-md-inline-block mb-2" data-dismiss="modal">Отмена</a>
                             </div>
                         </div>

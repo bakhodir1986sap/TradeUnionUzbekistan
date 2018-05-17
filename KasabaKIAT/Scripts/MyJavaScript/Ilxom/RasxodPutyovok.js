@@ -348,9 +348,12 @@
             url: "/PrixodPutevok/AddViplMain",
             data: JSON.stringify($scope.CurrentNakladnoy),
             dataType: "json"
-        }).then(function (msg) {
+        }).then(function (response) {
 
+            $scope.CurrentNakladnoy = response.data;
             GetNakladnoyList();
+            GetTotalResults();
+            GetDetailListRes();
 
         }, function () {
             alertify.error("ошибка");
@@ -544,6 +547,8 @@
         }
     }
 
+    $scope.SearchNumPut = '';
+
     function GetNewPutyovkaList() {
         document.getElementById('connection').style.visibility = "visible";
         $("#hh").modal({
@@ -551,7 +556,7 @@
         });
         $http({
             method: 'get',
-            url: '/PrixodPutevok/GetNewPutyovkaList'
+            url: '/PrixodPutevok/GetNewPutyovkaList?NumPut=' + $scope.SearchNumPut
         }).then(function (response) {
 
             $scope.PrixodPutyovkas = response.data;
@@ -565,6 +570,13 @@
             document.getElementById('connection').style.visibility = "hidden";
             $("#hh").modal('hide');
         });
+    }
+
+
+    $scope.SearchPutyovkas = function ()
+    {
+        $scope.SelectedPutyovkaCount = 0;
+        GetNewPutyovkaList();
     }
 
     $scope.SavePutDtl = function () {
@@ -597,7 +609,6 @@
 
     $scope.AddPutyovkas = function ()
     {
-
         for (var i = 0, l = $scope.SelectedPutyovka.length; i < l; ++i)
         {
             var value = $scope.SelectedPutyovka[i];
@@ -606,7 +617,6 @@
         }
 
         GetNewPutyovkaList();
-
     }
 
     ///////////////////////////////////////////////////////////////////

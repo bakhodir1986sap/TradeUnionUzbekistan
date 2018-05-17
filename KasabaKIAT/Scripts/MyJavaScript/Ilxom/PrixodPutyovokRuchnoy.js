@@ -16,7 +16,7 @@
         $scope.ActionType = 'Редактировать';
 
         //Data Pos
-        var dataPos = (idSelectedVote.Data_Post) ? $filter('date')(parseInt(idSelectedVote.Data_Post.substr(6)), 'dd.MM.yyyy') : '';
+        var dataPos = (idSelectedVote.Data_Post) ? $filter('date')(parseInt(idSelectedVote.Data_Post.substring(6)), 'dd.MM.yyyy') : '';
         $scope.DataPos = new Date(dataPos.substring(6, 10), dataPos.substring(3, 5) - 1, dataPos.substring(0, 2));
 
         //Number Putyovka
@@ -498,7 +498,7 @@
 
 
     $scope.UdalitPutyovku = function () {
-        alertify.error("UdalitPutyovku");
+        //alertify.error("UdalitPutyovku");
 
         var postData = { putyovkaL: $scope.SelectedPutyovkas };
 
@@ -667,17 +667,16 @@
         for (var i = 0, l = $scope.PutyovkaList.length; i < l; ++i)
         {
             //Have some problems in converting and passing data
-            var dataPos = ($scope.PutyovkaList[i].Data_Post) ? $filter('date')(parseInt($scope.PutyovkaList[i].Data_Post.substr(6)), 'dd.MM.yyyy') : '';
+            var dataPos = ($scope.PutyovkaList[i].Data_Post) ? $filter('date')(parseInt($scope.PutyovkaList[i].Data_Post.substring(6)), 'dd.MM.yyyy') : '';
             var dataPosd = new Date(parseInt(dataPos.substring(6, 10)), parseInt(dataPos.substring(3, 5) - 1), parseInt(dataPos.substring(0, 2)));
 
             $scope.PutyovkaList[i].Data_Post = dataPosd;
 
-            var dataSan = ($scope.PutyovkaList[i].DataSan) ? $filter('date')(parseInt($scope.PutyovkaList[i].DataSan.substr(6)), 'dd.MM.yyyy') : '';
+            var dataSan = ($scope.PutyovkaList[i].DataSan) ? $filter('date')(parseInt($scope.PutyovkaList[i].DataSan.substring(6)), 'dd.MM.yyyy') : '';
             var dataSand = new Date(parseInt(dataSan.substring(6, 10)), parseInt(dataSan.substring(3, 5) - 1), parseInt(dataSan.substring(0, 2)));
 
             $scope.PutyovkaList[i].DataSan = dataSand;
         }
-
 
         var postData = { lModel: $scope.PutyovkaList, expLst: $scope.SelectedPutyovka };
 
@@ -688,7 +687,8 @@
             dataType: "json"
         }).then(function (response) {
 
-            //
+            GetDetailList();
+            GetDetailListRes();
 
         }, function () {
             alertify.error("ошибка");

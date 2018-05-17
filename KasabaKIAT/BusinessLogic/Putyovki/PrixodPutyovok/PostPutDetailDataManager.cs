@@ -197,7 +197,8 @@ namespace KasabaKiat.BusinessLogic.Putyovki.PrixodPutyovok
                             join postMain in db.tblPost 
                             on postPut.ID_Post equals postMain.ID
                             where postMain.DepartmentBase == model.Departmentbase &&
-                            postPut.ID_PolVoz == false
+                            postPut.ID_PolVoz == false &&
+                            postPut.Num_Put == (string.IsNullOrEmpty(model.Num_Put) ? postPut.Num_Put : model.Num_Put)
                             select new PostPutyovkaViewModel
                             {
                                 Id= postPut.ID,

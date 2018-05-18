@@ -73,5 +73,45 @@ namespace KasabaKiat.ViewModel.Putyovki
       /// Department
       /// </summary>
       public string                     departmentbase          {get; set;}
+
+      public int NaklDay
+      {
+            get
+            {
+                if (data_post.HasValue)
+                {
+                    return data_post.Value.Day;
+                }
+
+                return 0;
+            }
+      }
+
+        public int NaklMonth
+        {
+            get
+            {
+                if (data_post.HasValue)
+                {
+                    return data_post.Value.Month;
+                }
+
+                return 0;
+            }
+        }
+
+
+        public int NaklYear
+        {
+            get
+            {
+                if (data_post.HasValue)
+                {
+                    return data_post.Value.Year;
+                }
+
+                return 0;
+            }
+        }
     }
 }

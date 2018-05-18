@@ -32,7 +32,7 @@ namespace KaznaFilesImporter
 
                 obj.CalcProcess();
 
-                Thread.Sleep(100000);
+                Thread.Sleep(1);
             }
         }
     }

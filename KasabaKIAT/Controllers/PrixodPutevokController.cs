@@ -1158,9 +1158,11 @@ namespace KasabaKIAT.Controllers
                 Departmentbase = ustinfo.DepartmentBase
             });
 
-            var res = new TotalResults();
-            res.PutyovkaCount = list.Count();
-            res.SummaNakladnix = list.Sum(z => z.Symma_Put);
+            var res = new TotalResults
+            {
+                PutyovkaCount = list.Count(),
+                SummaNakladnix = list.Sum(z => z.Symma_Put)
+            };
 
             return Json(res, JsonRequestBehavior.AllowGet);
         }
@@ -1231,17 +1233,19 @@ namespace KasabaKIAT.Controllers
 
             try
             {
-                PostMainDataManager.Remove(new PostupleniyaViewModel()
+                var  res = PostMainDataManager.Remove(new PostupleniyaViewModel()
                 {
                     Id = model.Id
                 });
+
+                if (!res) return Json("Нельзя удалить закрытую накладную", JsonRequestBehavior.AllowGet);
             }
             catch(Exception ex)
             {
                 log.Error(ex.ToString());
             }
 
-            return Json("Deleted", JsonRequestBehavior.AllowGet);
+            return Json("Накладная удачно удалена", JsonRequestBehavior.AllowGet);
         }
 
 
@@ -1401,6 +1405,11 @@ namespace KasabaKIAT.Controllers
             return Json("success", JsonRequestBehavior.AllowGet);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="putyovkaL"></param>
+        /// <returns></returns>
         public JsonResult PostavitVBron2(List<long> putyovkaL)
         {
             if (putyovkaL == null) return Json("fail", JsonRequestBehavior.AllowGet);
@@ -1423,6 +1432,8 @@ namespace KasabaKIAT.Controllers
                 {
                     var bron = new BronirovaniyaPutyovki();
                     var putObj = putyovka.First();
+
+                    if (putObj.ID_PolVoz) continue;
 
                     bron.PostavitV_Bron(new BronViewModel()
                     {
@@ -1463,7 +1474,11 @@ namespace KasabaKIAT.Controllers
             return Json("success", JsonRequestBehavior.AllowGet);
         }
 
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="putyovkaL"></param>
+        /// <returns></returns>
         public JsonResult SnyatsBron2(List<long> putyovkaL)
         {
             if (putyovkaL == null) return Json("fail", JsonRequestBehavior.AllowGet);
@@ -1486,6 +1501,8 @@ namespace KasabaKIAT.Controllers
                 {
                     var bron = new BronirovaniyaPutyovki();
                     var putObj = putyovka.First();
+
+                    if (putObj.ID_PolVoz) continue;
 
                     bron.SnyatBron(new BronViewModel()
                     {

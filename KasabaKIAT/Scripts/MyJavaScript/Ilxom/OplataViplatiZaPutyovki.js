@@ -512,8 +512,9 @@
             url: "/PrixodPutevok/" + addType,
             data: JSON.stringify($scope.CurrentOplataMain),
             dataType: "json"
-        }).then(function (msg) {
+        }).then(function (response) {
 
+            $scope.CurrentOplataMain = response.data;
             GetNakladnoyList();
 
         }, function () {

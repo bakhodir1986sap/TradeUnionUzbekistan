@@ -96,7 +96,8 @@
         Data_Post       :'',
         UserId          :'',
         Departmentbase  :'',
-        Checked         :''
+        Checked:        '',
+        StatusPutyovki  :''
     };
 
 
@@ -354,8 +355,9 @@
             url: "/PrixodPutevok/AddMain",
             data: JSON.stringify($scope.CurrentNakladnoy),
             dataType: "json"
-        }).then(function (msg) {
+        }).then(function (response) {
 
+            $scope.CurrentNakladnoy = response.data;
             GetNakladnoyList();
             GetTotalResults();
             GetDetailListRes();
@@ -450,6 +452,8 @@
             dataType: "json"
         }).then(function (msg) {
 
+            alertify.success(msg.data);
+
             GetNakladnoyList();
 
         }, function () {
@@ -495,8 +499,7 @@
             console.log('tutuud: ' + value);
         }
     }
-
-
+    
     $scope.UdalitPutyovku = function () {
         //alertify.error("UdalitPutyovku");
 
@@ -508,6 +511,8 @@
             data: JSON.stringify(postData),
             dataType: "json"
         }).then(function (response) {
+
+            $scope.SelectedPutyovkas = [];
 
             for (var i = 0, l = $scope.SelectedPutyovkas.length; i < l; ++i)
             {
@@ -526,7 +531,7 @@
     }
 
     $scope.PostavitBron = function () {
-        alertify.error("PostavitBron");
+        //alertify.error("PostavitBron");
 
         var postData = { putyovkaL: $scope.SelectedPutyovkas };
 
@@ -536,6 +541,8 @@
             data: JSON.stringify(postData),
             dataType: "json"
         }).then(function (response) {
+
+            $scope.SelectedPutyovkas = [];
 
             for (var i = 0, l = $scope.SelectedPutyovkas.length; i < l; ++i) {
                 var value = $scope.SelectedPutyovkas[i];
@@ -553,7 +560,7 @@
     }
 
     $scope.SnyatBron = function () {
-        alertify.error("SnyatBron");
+        //alertify.error("SnyatBron");
 
         var postData = { putyovkaL: $scope.SelectedPutyovkas };
 
@@ -563,6 +570,8 @@
             data: JSON.stringify(postData),
             dataType: "json"
         }).then(function (response) {
+
+            $scope.SelectedPutyovkas = [];
 
             for (var i = 0, l = $scope.SelectedPutyovkas.length; i < l; ++i) {
                 var value = $scope.SelectedPutyovkas[i];

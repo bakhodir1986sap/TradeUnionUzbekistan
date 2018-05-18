@@ -294,6 +294,43 @@ namespace KasabaKiat.BusinessLogic.Putyovki.RealizasiyaPutyovok
             return totals;
         }
 
+
+        public static TotalResults GetTotalsZakritiye(int year, int kvartal, string departmentBase, long IdVipl)
+        {
+            var totals = new TotalResults();
+
+            using (KasabaKIATEntities db = new KasabaKIATEntities())
+            {
+                var query = from vipl in db.tblVipl
+                            join viplDtl in db.tblVipl_Put on vipl.ID equals viplDtl.ID_Vipl
+                            where vipl.ID_Kv == kvartal && vipl.SmFil == year
+                            && vipl.DepartmentBase == departmentBase
+                            && vipl.ID == IdVipl
+                            select viplDtl;
+
+                var nakladCount = db.tblVipl.Where(z => z.SmFil == year && z.ID_Kv == kvartal
+                && z.DepartmentBase == departmentBase).
+                    Count();
+
+                totals.NakladnoyCount = nakladCount;
+
+                var list = query.ToList();
+
+                if (list.Any())
+                {
+                    totals.PutyovkaCount = list.Count();
+                    totals.SummaNakladnix = list.Sum(z => z.Symma);
+                }
+                else
+                {
+                    totals.PutyovkaCount = 0;
+                    totals.SummaNakladnix = 0;
+                }
+            }
+
+            return totals;
+        }
+
         /// <summary>
         /// 
         /// </summary>
@@ -372,7 +409,7 @@ namespace KasabaKiat.BusinessLogic.Putyovki.RealizasiyaPutyovok
                 {
                     var post1 = post.FirstOrDefault();
 
-                    var total = GetTotals(model.smfil.Value, model.id_kv.Value, model.departmentbase);
+                    var total = GetTotalsZakritiye(model.smfil.Value, model.id_kv.Value, model.departmentbase, model.id);
 
                     if (post1 != null)
                     {

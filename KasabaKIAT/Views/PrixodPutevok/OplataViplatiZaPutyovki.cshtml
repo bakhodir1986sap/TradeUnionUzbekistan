@@ -94,9 +94,9 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr ng-repeat="oplat in OplataMains" ng-click="editSelected(oplat)" ng-class="{selectedTableRow: oplat.ID === idSelectedVote.ID}" data-toggle="modal" data-target="#redaktirovat">
-                            <td class="custom-control custom-checkbox r-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="customMain{{oplat.ID}}">
+                        <tr ng-repeat="oplat in OplataMains" ng-click="editSelected(oplat)" ng-class="{selectedTableRow: oplat.ID === idSelectedVote.ID}" >
+                            <td class="custom-control custom-radio r-radio">
+                                <input type="radio" class="custom-control-input" id="customMain{{oplat.ID}}" data-toggle="modal" data-target="#redaktirovat">
                                 <label class="custom-control-label r-label" for="customMain{{oplat.ID}}">{{oplat.ID}}</label>
                             </td>
                             <td>{{oplat.Data_Post | jsonDate: 'dd.MM.yyyy'}}</td>

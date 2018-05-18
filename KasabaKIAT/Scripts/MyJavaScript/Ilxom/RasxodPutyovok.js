@@ -194,6 +194,7 @@
 
         GetDetailList();
         GetDetailListRes();
+        GetSchetFaktura();
     }
 
     function GetNakladnoyList() {
@@ -268,6 +269,29 @@
         });
     }
 
+
+    function GetSchetFaktura() {
+        document.getElementById('connection').style.visibility = "visible";
+        $("#hh").modal({
+            backdrop: 'static'
+        });
+        $http({
+            method: 'get',
+            url: '/PrixodPutevok/GetSchetFaktura?IdViplMain=' + $scope.CurrentNakladnoy.id
+        }).then(function (response) {
+
+            $scope.SchetFaktura = response.data;
+
+            document.getElementById('connection').style.visibility = "hidden";
+            $("#hh").modal('hide');
+        }, function (error) {
+            alertify.error("ошибка");
+            console.log("error in GetSchetFaktura");
+            document.getElementById('connection').style.visibility = "hidden";
+            $("#hh").modal('hide');
+        });
+    }
+
     $scope.FiltersChanged = function () {
 
         if (($scope.SelectedYear.Id > -1) && ($scope.SelectedKvartal.ID > 0)) {
@@ -316,6 +340,8 @@
             userid: '',
             departmentbase: ''
         };
+
+        $scope.SelectedPutyovka = [];
 
         $scope.SelectedOrganization.ID = -1;
         $scope.SelectedOrganization.Name_Org = '';
@@ -485,7 +511,7 @@
     }
 
     $scope.UdalitPutyovku = function () {
-        alertify.error("UdalitPutyovku");
+        //alertify.error("UdalitPutyovku");
 
         var postData = { putyovkaL: $scope.SelectedPutyovkas };
 
@@ -495,6 +521,8 @@
             data: JSON.stringify(postData),
             dataType: "json"
         }).then(function (response) {
+
+            $scope.SelectedPutyovkas = [];
 
             for (var i = 0, l = $scope.SelectedPutyovkas.length; i < l; ++i) {
                 var value = $scope.SelectedPutyovkas[i];
@@ -511,6 +539,52 @@
         });
     }
 
+    $scope.SchetFakturaPrint = function () {
+
+        GetSchetFaktura();
+
+        document.getElementById('connection').style.visibility = "visible";
+        document.getElementById('schetfaktura').style.visibility = "visible";
+        $("#hh").modal({
+            backdrop: 'static'
+        });
+
+        var doc = new jsPDF();
+        var width = doc.internal.pageSize.width;
+        var height = doc.internal.pageSize.height;
+        var utf_8_string_to_render = 'any_value_you_want';
+        Promise.all(
+            [
+                new Promise(function (resolve) {
+                    var schetfaktura = document.createElement("div");
+                    schetfaktura.id = "schetfaktura";
+                    schetfaktura.style = "color:black;margin:0px;font-size:20px;";
+                    //black
+                    phrase = utf_8_string_to_render;
+                    //schetfaktura.innerHTML = phrase;
+                    //need to render element, otherwise it won't be displayed
+                    document.body.appendChild(schetfaktura);
+
+                    html2canvas($("#schetfaktura"), {
+                        onrendered: function (canvas) {
+
+                            // $("#schetfaktura").remove();
+                            //width = canvas.width;
+                            //height =canvas.height;
+                            resolve(canvas.toDataURL('image/png'));
+                        },
+                    });
+                })
+            ]).then(function (ru_text) {
+                doc.addImage(ru_text[0], 'JPEG', 10, 10, (width - 20), (height - 20));
+                //doc.text(0, 10, 'Non-utf-8-string');
+
+                doc.save('СчетФактура.pdf');
+                document.getElementById('connection').style.visibility = "hidden";
+                document.getElementById('schetfaktura').style.visibility = "visible";
+                $("#hh").modal('hide');
+            });
+    }
     ////////////////////////////////////////////////////////////
     ///  Add Detail
     ////////////////////////////////////////////////////////////
@@ -609,6 +683,8 @@
 
     $scope.AddPutyovkas = function ()
     {
+        $scope.SelectedPutyovka = [];
+
         for (var i = 0, l = $scope.SelectedPutyovka.length; i < l; ++i)
         {
             var value = $scope.SelectedPutyovka[i];

@@ -117,9 +117,9 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr ng-repeat="naklad in Nakladnoys" ng-click="editSelected(naklad)" ng-class="{selectedTableRow: naklad.Id === idSelectedVote}" data-toggle="modal" data-target="#redaktirovat"   >
-                                    <td class="custom-control custom-checkbox r-checkbox">
-                                        <input type="checkbox" class="custom-control-input" id="customCheck{{naklad.Id}}">
+                                <tr ng-repeat="naklad in Nakladnoys" ng-click="editSelected(naklad)" ng-class="{selectedTableRow: naklad.Id === idSelectedVote.Id}"    >
+                                    <td class="custom-control custom-radio r-radio">
+                                        <input type="radio" class="custom-control-input" id="customCheck{{naklad.Id}}" data-toggle="modal" data-target="#redaktirovat">
                                         <label class="custom-control-label r-label" for="customCheck{{naklad.Id}}">{{naklad.Id}}</label>
                                     </td>
                                     <td>{{naklad.Data_Post| jsonDate: 'dd.MM.yyyy'}}</td>
@@ -188,7 +188,7 @@
                                     <td>{{dtl.Num_Put}}</td>
                                     <td>{{dtl.DataSan | jsonDate: 'dd.MM.yyyy'}}</td>
                                     <td>{{dtl.Symma_Put}}</td>
-                                    <td>Полученная путевка</td>
+                                    <td>{{dtl.StatusPutyovki}}</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -293,9 +293,9 @@
                                     </div>
                                 </div>
                                 <div class="mb-4 text-right">
-                                    <a href="#" ng-click="MakeProvodka()" class="btn btn-grey d-block d-md-inline-block mb-2"><i class="fas fa-plus"></i> Проводка</a>
-                                    <a href="#" ng-click="EditNakladnoy()" class="btn btn-green d-block d-md-inline-block mb-2"><i class="fas fa-plus"></i> Изменить</a>
-                                    <a href="#" ng-click="RemoveNakladnoy()" class="btn btn-red d-block d-md-inline-block mb-2"><i class="fas fa-plus"></i> Удалить</a>
+                                    <a href="#" ng-click="MakeProvodka()" class="btn btn-grey d-block d-md-inline-block mb-2" data-dismiss="modal"><i class="fas fa-plus"></i> Проводка</a>
+                                    <a href="#" ng-click="EditNakladnoy()" class="btn btn-green d-block d-md-inline-block mb-2" data-dismiss="modal"><i class="fas fa-plus"></i> Изменить</a>
+                                    <a href="#" ng-click="RemoveNakladnoy()" class="btn btn-red d-block d-md-inline-block mb-2" data-dismiss="modal"><i class="fas fa-plus"></i> Удалить</a>
                                     <a href="#" class="btn btn-grey d-block d-md-inline-block mb-2" data-dismiss="modal">Отмена</a>
                                 </div>
                             </div>
@@ -623,7 +623,7 @@
                                             <input type="checkbox" class="custom-control-input" id="customCheck{{org.ID}}"
                                                    ng-model="selectedObjs"
                                                    ng-checked="obj.selected"
-                                                   ng-click="toggleObjSelectionOrg($event, org.ID, org.Name_Org)">
+                                                   ng-click="toggleObjSelectionOrg($event, org.ID, org.Name_Org)" data-dismiss="modal">
                                             <label class="custom-control-label r-label" for="customCheck{{org.ID}}">{{org.ID}}</label>
                                         </td>
                                         <td style="text-align:center">{{org.OtraslName}}</td>

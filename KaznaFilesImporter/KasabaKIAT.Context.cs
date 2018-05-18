@@ -20,6 +20,7 @@ namespace KaznaFilesImporter
         public KasabaKIATEntities()
             : base("name=KasabaKIATEntities")
         {
+            ((IObjectContextAdapter)this).ObjectContext.CommandTimeout = 180;
         }
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

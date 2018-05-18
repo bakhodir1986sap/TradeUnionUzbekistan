@@ -33,7 +33,7 @@
             data: JSON.stringify($scope.Rekvizits),
             contentType: "application/json; charset=utf-8",
         }).then(function (response) {
-            $scope.GetPlanContent();
+            
             alertify.error("Успешное сохранение");
             document.getElementById('connection').style.visibility = "hidden";
             $("#hh").modal('hide');

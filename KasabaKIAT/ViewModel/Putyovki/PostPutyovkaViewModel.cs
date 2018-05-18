@@ -32,5 +32,7 @@ namespace KasabaKiat.ViewModel.Putyovki
         public string           Departmentbase  { get; set; }
 
         public bool             Checked         { get; set; }
+
+        public string           StatusPutyovki  { get; set; }
     }
 }

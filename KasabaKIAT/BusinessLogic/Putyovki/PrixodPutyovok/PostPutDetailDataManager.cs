@@ -216,7 +216,24 @@ namespace KasabaKiat.BusinessLogic.Putyovki.PrixodPutyovok
                                Checked        = false
                             };
 
-                list = query.ToList();
+                //list = query.ToList();
+
+                foreach(var putyovka in query)
+                {
+                    if (list == null)
+                    {
+                        list = new List<PostPutyovkaViewModel>();
+                    }
+
+                    var IsBronExists = db.tblBron.Where(z => z.Num_Put == putyovka.Num_Put
+                        && z.ID_San == putyovka.IdSanat
+                        && z.Uchet == true);
+
+                    if (!IsBronExists.Any())
+                    {
+                        list.Add(putyovka);
+                    }
+                }
             }
 
             return list;
@@ -236,7 +253,7 @@ namespace KasabaKiat.BusinessLogic.Putyovki.PrixodPutyovok
                 var query = from postPut in db.tblPos_Put
                             where postPut.ID_Post == model.IdPost 
                             && postPut.tblPost.DepartmentBase == model.Departmentbase
-                            && postPut.ID_PolVoz == false
+                            //&& postPut.ID_PolVoz == false
                             select new PostPutyovkaViewModel
                             {
                                 Id = postPut.ID,
@@ -254,6 +271,36 @@ namespace KasabaKiat.BusinessLogic.Putyovki.PrixodPutyovok
                             };
 
                 list = query.ToList();
+
+                foreach(var putyovka in list)
+                {
+                    var IsBronExists = db.tblBron.Where(z => z.Num_Put == putyovka.Num_Put 
+                    && z.ID_San == putyovka.IdSanat
+                    && z.Uchet == true);
+
+                    if (IsBronExists.Any())
+                    {
+                        if (putyovka.ID_PolVoz)
+                        {
+                            putyovka.StatusPutyovki = "Реализованная путевка";
+                        }
+                        else
+                        {
+                            putyovka.StatusPutyovki = "Забронированная путевка";
+                        }
+                    }
+                    else
+                    {
+                        if (putyovka.ID_PolVoz)
+                        {
+                            putyovka.StatusPutyovki = "Реализованная путевка";
+                        }
+                        else
+                        {
+                            putyovka.StatusPutyovki = "Свободная путевка";
+                        }
+                    }
+                }
             }
 
             return list;

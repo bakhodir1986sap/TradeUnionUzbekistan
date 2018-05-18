@@ -171,7 +171,7 @@ namespace KasabaKiat.BusinessLogic.Putyovki.PrixodPutyovok
                 {
                     var post1 = post.FirstOrDefault();
 
-                    var total = GetTotals(model.SmFil.Value, model.Id_Kv.Value, model.DepartmentBase);
+                    var total = GetTotalsCloseNaklPrixod(model.SmFil.Value, model.Id_Kv.Value, model.DepartmentBase, model.Id);
 
                     if (post1 != null)
                     {
@@ -197,7 +197,7 @@ namespace KasabaKiat.BusinessLogic.Putyovki.PrixodPutyovok
         /// 
         /// </summary>
         /// <param name="model"></param>
-        public static void Remove(PostupleniyaViewModel model)
+        public static bool Remove(PostupleniyaViewModel model)
         {
             using (KasabaKIATEntities db = new KasabaKIATEntities())
             {
@@ -206,6 +206,8 @@ namespace KasabaKiat.BusinessLogic.Putyovki.PrixodPutyovok
                 if (post.Any())
                 {
                     var reg = post.FirstOrDefault();
+
+                    if (reg.Vid) return false;
 
                     if (reg != null)
                     {
@@ -217,6 +219,8 @@ namespace KasabaKiat.BusinessLogic.Putyovki.PrixodPutyovok
 
                 db.SaveChanges();
             }
+
+            return true;
         }
 
         /// <summary>
@@ -291,6 +295,43 @@ namespace KasabaKiat.BusinessLogic.Putyovki.PrixodPutyovok
                 {
                     totals.PutyovkaCount = list.Count();
                     totals.SummaNakladnix = list.Sum(z=>z.Symma_Put);
+                }
+                else
+                {
+                    totals.PutyovkaCount = 0;
+                    totals.SummaNakladnix = 0;
+                }
+            }
+
+            return totals;
+        }
+
+
+        public static TotalResults GetTotalsCloseNaklPrixod(int year, int kvartal, string departmentBase , long IdPos)
+        {
+            var totals = new TotalResults();
+
+            using (KasabaKIATEntities db = new KasabaKIATEntities())
+            {
+                var query = from post in db.tblPost
+                            join postDtl in db.tblPos_Put on post.ID equals postDtl.ID_Post
+                            where post.ID_KV == kvartal && post.SmFil == year
+                            && post.DepartmentBase == departmentBase
+                            && post.ID == IdPos
+                            select postDtl;
+
+                var nakladCount = db.tblPost.Where(z => z.SmFil == year && z.ID_KV == kvartal
+                && z.DepartmentBase == departmentBase).
+                    Count();
+
+                totals.NakladnoyCount = 0;
+
+                var list = query.ToList();
+
+                if (list.Any())
+                {
+                    totals.PutyovkaCount = list.Count();
+                    totals.SummaNakladnix = list.Sum(z => z.Symma_Put);
                 }
                 else
                 {

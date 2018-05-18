@@ -26,8 +26,8 @@
         <div class="col-sm-6 text-md-right">
             <h5>Общее количество и сумма</h5>
             <ol class="summary-list">
-                <li>Количество <span>73</span></li>
-                <li>Сумма <span>46 504 200, 00</span></li>
+                <li>Количество <span>{{TotalRes.PutyovkaCount}}</span></li>
+                <li>Сумма <span>{{TotalRes.SummaNakladnix}}</span></li>
             </ol>
         </div>
     </div>
@@ -81,7 +81,7 @@
                         </tr>
                     </thead>
                         <tbody>
-                            <tr ng-repeat="dtl in Nakladnoys">
+                            <tr ng-repeat="dtl in Nakladnoys" ng-click="RowClicked(dtl)">
                                 <td>{{dtl.data_post | jsonDate: 'dd.MM.yyyy'}}</td>
                                 <td>{{dtl.num_doc}}</td>
                                 <td>{{dtl.num_kol}}</td>
@@ -158,72 +158,64 @@
                         <div class="form-group row align-items-center">
                             <label class="col-md-5 col-form-label text-md-right py-0">Фамилия:</label>
                             <div class="col-md-7">
-                                <input type="text" class="form-control" placeholder="Фамилия" />
+                                <input type="text" class="form-control" placeholder="Фамилия" ng-model="CurrentFace.lastname"/>
                             </div>
                         </div>
                         <div class="form-group row align-items-center">
                             <label class="col-md-5 col-form-label text-md-right py-0">Имя:</label>
                             <div class="col-md-7">
-                                <input type="text" class="form-control" placeholder="Имя" />
+                                <input type="text" class="form-control" placeholder="Имя" ng-model="CurrentFace.name"/>
                             </div>
                         </div>
                         <div class="form-group row align-items-center">
                             <label class="col-md-5 col-form-label text-md-right py-0">Отчество:</label>
                             <div class="col-md-7">
-                                <input type="text" class="form-control" placeholder="Отчество" />
+                                <input type="text" class="form-control" placeholder="Отчество" ng-model="CurrentFace.firstname"/>
                             </div>
                         </div>
                         <div class="form-group row align-items-center">
                             <label class="col-md-5 col-form-label text-md-right py-0">Пол:</label>
                             <div class="col-md-7">
-                                <select class="custom-select form-control">
-                                    <option>Женский</option>
-                                    <option>Мужской</option>
+                                <select class="custom-select form-control" ng-model="SelectedPol" ng-options="item as item.Decode for item in Pols track by item.Code">
                                 </select>
                             </div>
                         </div>
                         <div class="form-group row align-items-center">
                             <label class="col-md-5 col-form-label text-md-right py-0">Место жительства:</label>
                             <div class="col-md-7">
-                                <textarea class="form-control" placeholder="Место жительства" ></textarea>
+                                <textarea class="form-control" placeholder="Место жительства" ng-model="CurrentFace.adress"></textarea>
                             </div>
                         </div>
                         <div class="form-group row align-items-center">
                             <label class="col-md-5 col-form-label text-md-right py-0">Место работы:</label>
                             <div class="col-md-7">
-                                <textarea class="form-control" placeholder="Место работы" ></textarea>
+                                <textarea class="form-control" placeholder="Место работы" ng-model="CurrentFace.rabota"></textarea>
                             </div>
                         </div>
                         <div class="form-group row align-items-center">
                             <label class="col-md-5 col-form-label text-md-right py-0">Должность:</label>
                             <div class="col-md-7">
-                                <input type="text" class="form-control" placeholder="умид цехи фаррош" />
+                                <input type="text" class="form-control" placeholder="Должность" ng-model="CurrentFace.dolj"/>
                             </div>
                         </div>
                         <div class="form-group row align-items-center">
                             <label class="col-md-5 col-form-label text-md-right py-0">Основания выдачи:</label>
                             <div class="col-md-7">
-                                <select class="custom-select form-control">
-                                    <option>Заявление</option>
-                                    <option>Другое</option>
+                                <select class="custom-select form-control" ng-model="SelectedOsnovaniyaVidachi" ng-options="item as item.Name_Os for item in Osnovaniyas track by item.ID">
                                 </select>
                             </div>
                         </div>
                         <div class="form-group row align-items-center">
                             <label class="col-md-5 col-form-label text-md-right py-0">Тип выдачи:</label>
                             <div class="col-md-7">
-                                <select class="custom-select form-control">
-                                    <option>Обыкновенная</option>
-                                    <option>Необыкновенная</option>
+                                <select class="custom-select form-control" ng-model="SelectedTipVidachi" ng-options="item as item.Name_Os for item in TipVidachies track by item.ID">
                                 </select>
                             </div>
                         </div>
                         <div class="form-group row align-items-center">
                             <label class="col-md-5 col-form-label text-md-right py-0">Ставка:</label>
                             <div class="col-md-7">
-                                <select class="custom-select form-control">
-                                    <option>45%</option>
-                                    <option>200%</option>
+                                <select class="custom-select form-control" ng-model="SelectedProcentZaPutyovki" ng-options="item as item.Name_Proc for item in Procents track by item.ID">
                                 </select>
                             </div>
                         </div>
@@ -233,25 +225,25 @@
                         <div class="form-group row align-items-center">
                             <label class="col-md-5 col-form-label text-md-right py-0">Серия:</label>
                             <div class="col-md-7">
-                                <input type="text" class="form-control" placeholder="Серия" />
+                                <input type="text" class="form-control" placeholder="Серия" ng-model="CurrentFace.pas_ser"/>
                             </div>
                         </div>
                         <div class="form-group row align-items-center">
                             <label class="col-md-5 col-form-label text-md-right py-0">Номер:</label>
                             <div class="col-md-7">
-                                <input type="text" class="form-control" placeholder="Номер" />
+                                <input type="text" class="form-control" placeholder="Номер" ng-model="CurrentFace.pas_num"/>
                             </div>
                         </div>
                         <div class="form-group row align-items-center">
                             <label class="col-md-5 col-form-label text-md-right py-0">Кем выдан:</label>
                             <div class="col-md-7">
-                                <textarea class="form-control" placeholder="Кем выдан" ></textarea>
+                                <textarea class="form-control" placeholder="Кем выдан" ng-model="CurrentFace.pas_kd"></textarea>
                             </div>
                         </div>
                         <div class="form-group row align-items-center">
                             <label class="col-md-5 col-form-label text-md-right py-0">Дата выдачи:</label>
                             <div class="col-md-7">
-                                <input type="text" class="form-control" />
+                                <input type="date" class="form-control" ng-model="CurrentFace.pas_data"/>
                             </div>
                         </div>
                     </div>
@@ -260,21 +252,19 @@
                         <div class="form-group row align-items-center">
                             <label class="col-md-5 col-form-label text-md-right py-0">№ Документа:</label>
                             <div class="col-md-7">
-                                <input type="text" class="form-control" />
+                                <input type="text" class="form-control" ng-model="CurrentFaceMed.med_doc"/>
                             </div>
                         </div>
                         <div class="form-group row align-items-center">
                             <label class="col-md-5 col-form-label text-md-right py-0">Дата выдачи:</label>
                             <div class="col-md-7">
-                                <input type="text" class="form-control" />
+                                <input type="text" class="form-control" ng-model="CurrentFaceMed.med_data"/>
                             </div>
                         </div>
                         <div class="form-group row align-items-center">
                             <label class="col-md-5 col-form-label text-md-right py-0">Рекумендуемый санаторий:</label>
                             <div class="col-md-7">
-                                <select class="custom-select form-control">
-                                    <option>8 Марта</option>
-                                    <option>200%</option>
+                                <select class="custom-select form-control" ng-model="SelectedRecommendedSanatory" ng-options="item as item.Name_San for item in Sanatories track by item.ID">
                                 </select>
                             </div>
                         </div>
@@ -282,37 +272,37 @@
                         <div class="form-group row align-items-center">
                             <label class="col-md-5 col-form-label text-md-right py-0">№ Документа:</label>
                             <div class="col-md-7">
-                                <input type="text" class="form-control" />
+                                <input type="text" class="form-control" ng-model="CurrentFaceMed.opl_doc"/>
                             </div>
                         </div>
                         <div class="form-group row align-items-center">
                             <label class="col-md-5 col-form-label text-md-right py-0">Дата оплаты:</label>
                             <div class="col-md-7">
-                                <input type="text" class="form-control" />
+                                <input type="date" class="form-control" ng-model="CurrentFaceMed.opl_data"/>
                             </div>
                         </div>
                         <div class="form-group row align-items-center">
                             <label class="col-md-5 col-form-label text-md-right py-0">Сумма оплаты:</label>
                             <div class="col-md-7">
-                                <input type="text" class="form-control" placeholder="0" />
+                                <input type="number" class="form-control" placeholder="0" ng-model="CurrentFaceMed.opl_symma"/>
                             </div>
                         </div>
                         <h6 class="text-center mt-20">Информация о талоне возврата</h6>
                         <div class="form-group row align-items-center">
                             <label class="col-md-5 col-form-label text-md-right py-0">№ Документа:</label>
                             <div class="col-md-7">
-                                <input type="text" class="form-control" />
+                                <input type="text" class="form-control" ng-model="CurrentFaceMed.tal_doc"/>
                             </div>
                         </div>
                         <div class="form-group row align-items-center">
                             <label class="col-md-5 col-form-label text-md-right py-0">Дата приезда:</label>
                             <div class="col-md-7">
-                                <input type="text" class="form-control" />
+                                <input type="date" class="form-control" ng-model="CurrentFaceMed.tal_data"/>
                             </div>
                         </div>
                     </div>
                 </div>
-                <a href="#" class="btn btn-blue mt-20">Сохранить</a>
+                <a href="#" class="btn btn-blue mt-20" ng-click="SaveFaceData()">Сохранить</a>
             </div>
         </div>
         </section>

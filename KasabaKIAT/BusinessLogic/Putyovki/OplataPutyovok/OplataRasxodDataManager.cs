@@ -88,17 +88,18 @@ namespace KasabaKiat.BusinessLogic.Putyovki.OplataPutyovok
             using (KasabaKIATEntities db = new KasabaKIATEntities())
             {
                 var query = from oplata in db.tblOplata_Ras
+                            where oplata.ID == model.ID
                             select new OplataRasxodiViewModel
                             {
-                                ID              = model.ID      ,
-                                ID_Opl          = model.ID_Opl  ,      
-                                ID_Sanat        = model.ID_Sanat,      
-                                Num_Put         = model.Num_Put ,      
-                                Symma           = model.Symma   ,      
-                                ID_Pr           = model.ID_Pr   ,      
-                                Priz            = model.Priz    ,      
-                                UserId          = model.UserId  ,      
-                                Departmentbase  = model.Departmentbase
+                                ID              = oplata.ID      ,
+                                ID_Opl          = oplata.ID_Opl  ,      
+                                ID_Sanat        = oplata.ID_Sanat,      
+                                Num_Put         = oplata.Num_Put ,      
+                                Symma           = oplata.Symma   ,      
+                                ID_Pr           = oplata.ID_Pr   ,      
+                                Priz            = oplata.Priz    ,      
+                                UserId          = oplata.UserId  ,      
+                                Departmentbase  = oplata.Departmentbase
                             };
 
                 list = query.ToList();

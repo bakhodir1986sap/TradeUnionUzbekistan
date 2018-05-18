@@ -15,7 +15,7 @@ namespace KasabaKiat.BusinessLogic.Putyovki.RaznoskaPoPutyovki
             {
                 tblFace_Med fm = new tblFace_Med();
 
-              //fm.ID                 = model.id            ;
+                fm.ID                 = db.tblFace_Med.Max(z => z.ID) + 1; ;
                 fm.ID_Face            = model.id_face       ;  
                 fm.Med_Doc            = model.med_doc       ;  
                 fm.Med_Data           = model.med_data      ;  

@@ -31,18 +31,18 @@
     };
 
     $scope.SelectedTipOplati = {
-        code: -1,
+        code: 1,
         name_ru:''
     };
 
     $scope.SelectedVidOplati = {
-        code: -1,
+        code: 1,
         name_ru: ''
     };
 
     $scope.SelectedProcent = {
-        ID: 0,
-        Name_Proc:''
+        ID: 1,
+        Name_Proc:'45%'
     };
 
     function GetYearsList() {
@@ -246,7 +246,7 @@
             $("#hh").modal('hide');
         }, function (error) {
             alertify.error("ошибка");
-            console.log("error in GetNakladnoyList");
+            console.log("error in GetOplataList");
             document.getElementById('connection').style.visibility = "hidden";
             $("#hh").modal('hide');
         });
@@ -295,8 +295,7 @@
             $("#hh").modal('hide');
         });
     }
-
-
+    
     function GetOplataDetailRes() {
         document.getElementById('connection').style.visibility = "visible";
         $("#hh").modal({
@@ -342,6 +341,15 @@
 
         $scope.PutyovkaDtls = '';
 
+        var tipOpl = $scope.CurrentOplataMain.PrizOpl;
+        if (tipOpl == 3) {
+            $scope.showSummButton = true;
+        }
+        else
+        {
+            $scope.showSummButton = false;
+        }
+
         GetDetailList();
         GetOplataDetailRes();
     }
@@ -365,6 +373,14 @@
     }
 
     //Organization Based Datas
+    $scope.SummaOpen = function () {
+
+        $scope.SelectedPutyovkas = [];
+        GetNotCoveredPutyovka();
+        GetGeneralRemainingByOrg();
+        GetTotalDebtByOrg();
+    }
+
     function GetNotCoveredPutyovka() {
         document.getElementById('connection').style.visibility = "visible";
         $("#hh").modal({
@@ -376,6 +392,7 @@
         }).then(function (response) {
 
             $scope.NotCoveredPutyovkas = response.data;
+            $scope.NotCoveredPutyovkasCount = $scope.NotCoveredPutyovkas.length;
 
             document.getElementById('connection').style.visibility = "hidden";
             $("#hh").modal('hide');
@@ -386,7 +403,7 @@
             $("#hh").modal('hide');
         });
     }
-    
+        
     function GetGeneralRemainingByOrg() {
         document.getElementById('connection').style.visibility = "visible";
         $("#hh").modal({
@@ -481,29 +498,27 @@
         $scope.CurrentOplataMain.Name_org = $scope.Name_org;
 
         $scope.CurrentOplataMain.Osnov = $scope.Osnov;
-        $scope.CurrentOplataMainTip_Org = $scope.SelectedVidOplati.code;
-        $scope.CurrentOplataMainPrizOpl = $scope.SelectedTipOplati.code;
+        //$scope.CurrentOplataMain.Tip_Org = $scope.SelectedVidOplati.code;
+        //$scope.CurrentOplataMain.PrizOpl = $scope.SelectedTipOplati.code;
 
         $scope.CurrentOplataMain.ID_KV = $scope.SelectedKvartal.ID;
 
         $scope.CurrentOplataMain.SmFil = $scope.SelectedYear.Id;
 
         var addType = '';
+        var tipOpl = $scope.SelectedTipOplati.code;
 
-        if ($scope.SelectedTipOplati.code === 1)
-        {
+
+        if (tipOpl == 1) {
             addType = 'AddOplataMainOplataKurortniy';
         }
-        else if ($scope.SelectedTipOplati.code === 2)
-        {
+        else if (tipOpl == 2) {
             addType = 'AddOplataMainOplataPutyovok';
         }
-        else if ($scope.SelectedTipOplati.code === 3)
-        {
+        else if (tipOpl == 3) {
             addType = 'AddOplataMainOplataVozvrat';
         }
-        else
-        {
+        else {
             addType = 'AddOplataMain';
         }
 
@@ -515,7 +530,7 @@
         }).then(function (response) {
 
             $scope.CurrentOplataMain = response.data;
-            GetNakladnoyList();
+            GetData();
 
         }, function () {
             alertify.error("ошибка");
@@ -539,26 +554,28 @@
         $scope.CurrentOplataMain.Name_org = $scope.Name_org;
 
         $scope.CurrentOplataMain.Osnov = $scope.Osnov;
-        $scope.CurrentOplataMainTip_Org = $scope.SelectedVidOplati.code;
-        $scope.CurrentOplataMainPrizOpl = $scope.SelectedTipOplati.code;
+        //$scope.CurrentOplataMain.Tip_Org = $scope.SelectedVidOplati.code;
+        //$scope.CurrentOplataMain.PrizOpl = $scope.SelectedTipOplati.code;
 
         $scope.CurrentOplataMain.ID_KV = $scope.SelectedKvartal.ID;
 
         $scope.CurrentOplataMain.SmFil = $scope.SelectedYear.Id;
 
         var addType = '';
+        var tipOpl = $scope.SelectedTipOplati.code;
 
-        if ($scope.SelectedTipOplati.code === 1) {
-            addType = 'ModifyOplataMainOplataKurortniy';
+
+        if (tipOpl == 1) {
+            addType = 'AddOplataMainOplataKurortniy';
         }
-        else if ($scope.SelectedTipOplati.code === 2) {
-            addType = 'ModifyOplataMainOplataPutyovok';
+        else if (tipOpl == 2) {
+            addType = 'AddOplataMainOplataPutyovok';
         }
-        else if ($scope.SelectedTipOplati.code === 3) {
-            addType = 'ModifyOplataMainOplataVozvrat';
+        else if (tipOpl == 3) {
+            addType = 'AddOplataMainOplataVozvrat';
         }
         else {
-            addType = 'ModifyOplataMainOplata';
+            addType = 'AddOplataMain';
         }
 
         $http({
@@ -568,7 +585,7 @@
             dataType: "json"
         }).then(function (msg) {
 
-            GetNakladnoyList();
+            GetData();
 
         }, function () {
             alertify.error("ошибка");

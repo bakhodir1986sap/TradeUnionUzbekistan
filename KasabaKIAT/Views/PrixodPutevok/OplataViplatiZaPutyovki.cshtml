@@ -26,10 +26,10 @@
     </div>
     <div class="row mb-30">
         <div class="col-md-12 text-right">
-            <a href="#" class="btn btn-blue d-block d-md-inline-block mb-2" data-toggle="modal" data-target="#dobavit"><i class="fas fa-plus"></i> Добавить</a>
+            <a href="#" ng-click="AddOplataMain()" class="btn btn-blue d-block d-md-inline-block mb-2" data-toggle="modal" data-target="#dobavit"><i class="fas fa-plus"></i> Добавить</a>
             <a href="#" class="btn btn-danger d-block d-md-inline-block mb-2"><i class="fas fa-trash-alt"></i> Удалить </a>
             <a href="#" class="btn btn-grey d-block d-md-inline-block mb-2" data-toggle="modal"><i class="fa fa-print"></i> Печать </a>
-            <a href="#" class="btn btn-green d-block d-md-inline-block mb-2" data-toggle="modal" data-target="#sum"><i class="fas fa-sum"></i> Сумма </a>
+            <a href="#" ng-show="showSummButton" ng-click="SummaOpen()" class="btn btn-green d-block d-md-inline-block mb-2" data-toggle="modal" data-target="#sum"><i class="fas fa-sum"></i> Сумма </a>
         </div>
     </div>
     <div class="row mb-2 align-items-center">
@@ -216,14 +216,14 @@
                             <label class="col-md-5 col-form-label text-md-right py-0">Дата поступления:</label>
                             <div class="col-md-7">
                                 <input type="date" class="form-control" placeholder="Дата поступления" 
-                                       ng-model="CurrentOplataMain.Data_Post"/>
+                                       ng-model="DataPos"/>
                             </div>
                         </div>
                         <div class="form-group row align-items-center">
                             <label class="col-md-5 col-form-label text-md-right py-0">Номер документа:</label>
                             <div class="col-md-7">
                                 <input type="text" class="form-control" placeholder="Номер документа" 
-                                       ng-model="CurrentOplataMain.Num_Doc"/>
+                                       ng-model="Num_Doc"/>
                             </div>
                         </div>
                         <div class="form-group row align-items-center">
@@ -234,39 +234,39 @@
                                 <a href="#" class="btn btn-blue d-block d-md-inline-block mb-2" data-toggle="modal" data-target="#organization"><i class="fas fa-search"></i> Выбрать</a>
                             </div>
                         </div>
-                        <div class="form-group row align-items-center">
+                        @*<div class="form-group row align-items-center">
                             <label class="col-md-5 col-form-label text-md-right py-0">Определенная организация:</label>
                             <div class="col-md-7">
-                                <textarea class="form-control" placeholder="Определенная организация" ng-model="CurrentOplataMain.Name_org"></textarea>
+                                <textarea class="form-control" placeholder="Определенная организация" ng-model="Name_org"></textarea>
                             </div>
-                        </div>
+                        </div>*@
                         <div class="form-group row align-items-center">
                             <label class="col-md-5 col-form-label text-md-right py-0">Не определенная организация:</label>
                             <div class="col-md-7">
-                                <textarea class="form-control" placeholder="Не определенная организация" ng-model="CurrentOplataMain.Name_org"></textarea>
+                                <textarea class="form-control" placeholder="Не определенная организация" ng-model="Name_org"></textarea>
                             </div>
                         </div>
                         <div class="form-group row align-items-center">
                             <label class="col-md-5 col-form-label text-md-right py-0">Основания оплаты:</label>
                             <div class="col-md-7">
-                                <textarea class="form-control" placeholder="Основания оплаты" ng-model="CurrentOplataMain.Osnov"></textarea>
+                                <textarea class="form-control" placeholder="Основания оплаты" ng-model="Osnov"></textarea>
                             </div>
                         </div>
 
                         <div class="form-group row align-items-center">
                             <label class="col-md-5 col-form-label text-md-right py-0">Сумма (Кт):</label>
                             <div class="col-md-7">
-                                <input type="number" class="form-control" placeholder="0,00" ng-model="CurrentOplataMain.Symma_DT"/>
+                                <input type="number" class="form-control" placeholder="0,00" ng-model="Symma_KT"/>
                             </div>
                         </div>
                         <div class="form-group row align-items-center">
                             <label class="col-md-5 col-form-label text-md-right py-0">Сумма (Дт):</label>
                             <div class="col-md-7">
-                                <input type="number" class="form-control" placeholder="0,00" ng-model="CurrentOplataMain.Symma_KT"/>
+                                <input type="number" class="form-control" placeholder="0,00" ng-model="Symma_DT"/>
                             </div>
                         </div>
                         <div class="mb-4 text-right">
-                            <a href="#" class="btn btn-blue d-block d-md-inline-block mb-2" data-dismiss="modal"><i class="fas fa-plus"></i> Добавить</a>
+                            <a href="#" ng-click="AddOplataMainClicked()" class="btn btn-blue d-block d-md-inline-block mb-2" data-dismiss="modal"><i class="fas fa-plus"></i> Добавить</a>
                             <a href="#" class="btn btn-grey d-block d-md-inline-block mb-2" data-dismiss="modal">Отмена</a>
                         </div>
                     </div>
@@ -279,27 +279,23 @@
     <div class="modal__block modal fade" id="sum" tabindex="-1" role="dialog" aria-labelledby="sum" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
             <div class="modal-content">
-                <div class="modal-body">
+                <div class="modal-body" style="max-height: calc(100vh - 210px); overflow-y: auto;">
                     <div class="modal-title">
-                        <h4 class="text-center mt-4 mb-4">Сумма</h4>
+                        <h4 class="text-center mt-4 mb-4">Разноска путевок {{CurrentOplataMain.OrgName}}</h4>
                     </div>
                     <div class="row justify-content-center">
                         <div class="col-md-8">
                             <div class="form-group row align-items-center">
                                 <label class="col-md-5 col-form-label text-md-right py-0">Процент:</label>
                                 <div class="col-md-7">
-                                    <select class="custom-select form-control">
-                                        <option>45%</option>
-                                        <option>Option 1</option>
-                                        <option>Option 2</option>
-                                        <option>Option 3</option>
+                                    <select class="custom-select form-control" ng-model="SelectedTipOplati" ng-options="item as item.Name_Proc for item in ProcentZaPutyovki track by item.ID">
                                     </select>
                                 </div>
                             </div>
                             <div class="form-group row align-items-center">
                                 <label class="col-md-5 col-form-label text-md-right py-0">Сумма:</label>
                                 <div class="col-md-7">
-                                    <input type="text" class="form-control" placeholder="Сумма" />
+                                    <input type="text" readonly class="form-control" placeholder="Сумма" ng-model="DebtByOrg">
                                 </div>
                             </div>
                             <div class="table-responsive box-shadow mb-4">
@@ -310,109 +306,56 @@
                                             <th class="dropdown dropdown__table">
                                                 <span class="dropdown-toggle dr-link" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">№</span>
                                                 <div class="dropdown-menu dr-menu rounded-0 border-0" aria-labelledby="dropdownMenuButton">
-                                                    <a class="dropdown-item dr-item" href="#">№</a>
-                                                    <a class="dropdown-item dr-item" href="#">№</a>
-                                                    <a class="dropdown-item dr-item" href="#">№</a>
-                                                    <a class="dropdown-item dr-item" href="#">№</a>
                                                 </div>
                                             </th>
                                             <th class="dropdown dropdown__table">
                                                 <span class="dropdown-toggle dr-link" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Санаторий</span>
                                                 <div class="dropdown-menu dr-menu rounded-0 border-0" aria-labelledby="dropdownMenuButton">
-                                                    <a class="dropdown-item dr-item" href="#">Санаторий</a>
-                                                    <a class="dropdown-item dr-item" href="#">Санаторий</a>
-                                                    <a class="dropdown-item dr-item" href="#">Санаторий</a>
-                                                    <a class="dropdown-item dr-item" href="#">Санаторий</a>
                                                 </div>
                                             </th>
                                             <th class="dropdown dropdown__table">
                                                 <span class="dropdown-toggle dr-link" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Номер путевки</span>
                                                 <div class="dropdown-menu dr-menu rounded-0 border-0" aria-labelledby="dropdownMenuButton">
-                                                    <a class="dropdown-item dr-item" href="#">Номер путевки</a>
-                                                    <a class="dropdown-item dr-item" href="#">Номер путевки</a>
-                                                    <a class="dropdown-item dr-item" href="#">Номер путевки</a>
-                                                    <a class="dropdown-item dr-item" href="#">Номер путевки</a>
                                                 </div>
                                             </th>
                                             <th class="dropdown dropdown__table">
                                                 <span class="dropdown-toggle dr-link" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Процент</span>
                                                 <div class="dropdown-menu dr-menu rounded-0 border-0" aria-labelledby="dropdownMenuButton">
-                                                    <a class="dropdown-item dr-item" href="#">Процент</a>
-                                                    <a class="dropdown-item dr-item" href="#">Процент</a>
-                                                    <a class="dropdown-item dr-item" href="#">Процент</a>
-                                                    <a class="dropdown-item dr-item" href="#">Процент</a>
                                                 </div>
                                             </th>
                                             <th class="dropdown dropdown__table">
                                                 <span class="dropdown-toggle dr-link" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Оплата</span>
                                                 <div class="dropdown-menu dr-menu rounded-0 border-0" aria-labelledby="dropdownMenuButton">
-                                                    <a class="dropdown-item dr-item" href="#">Оплата</a>
-                                                    <a class="dropdown-item dr-item" href="#">Оплата</a>
-                                                    <a class="dropdown-item dr-item" href="#">Оплата</a>
-                                                    <a class="dropdown-item dr-item" href="#">Оплата</a>
                                                 </div>
                                             </th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
+                                        <tr ng-repeat="putyovka in NotCoveredPutyovkas">
                                             <td class="custom-control custom-checkbox r-checkbox">
-                                                <input type="checkbox" class="custom-control-input" id="customCheck01">
-                                                <label class="custom-control-label r-label" for="customCheck01"></label>
+                                                <input type="checkbox" ng-click="toggleObjSelectionPut($event, putyovka.ID)" class="custom-control-input" id="customCheck{{putyovka.ID}}">
+                                                <label class="custom-control-label r-label" for="customCheck{{putyovka.ID}}"></label>
                                             </td>
-                                            <td>Sample</td>
-                                            <td>Sample</td>
-                                            <td>Sample</td>
-                                            <td>Sample</td>
-                                            <td>Sample</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="custom-control custom-checkbox r-checkbox">
-                                                <input type="checkbox" class="custom-control-input" id="customCheck02">
-                                                <label class="custom-control-label r-label" for="customCheck02"></label>
-                                            </td>
-                                            <td>Sample</td>
-                                            <td>Sample</td>
-                                            <td>Sample</td>
-                                            <td>Sample</td>
-                                            <td>Sample</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="custom-control custom-checkbox r-checkbox">
-                                                <input type="checkbox" class="custom-control-input" id="customCheck03">
-                                                <label class="custom-control-label r-label" for="customCheck03"></label>
-                                            </td>
-                                            <td>Sample</td>
-                                            <td>Sample</td>
-                                            <td>Sample</td>
-                                            <td>Sample</td>
-                                            <td>Sample</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="custom-control custom-checkbox r-checkbox">
-                                                <input type="checkbox" class="custom-control-input" id="customCheck04">
-                                                <label class="custom-control-label r-label" for="customCheck04"></label>
-                                            </td>
-                                            <td>Sample</td>
-                                            <td>Sample</td>
-                                            <td>Sample</td>
-                                            <td>Sample</td>
-                                            <td>Sample</td>
+                                            <td>{{putyovka.ID}}</td>
+                                            <td>{{putyovka.SanatName}}</td>
+                                            <td>{{putyovka.Num_Put}}</td>
+                                            <td>{{putyovka.Name_Proc}}</td>
+                                            <td>{{putyovka.Symma}}</td>
                                         </tr>
                                     </tbody>
                                 </table>
                             </div>
                             <div class="row align-items-center">
                                 <div class="col-md-6">
-                                    <p>Выбранные номер <strong>1264</strong></p>
+                                    <p>Количество путевок <strong>{{NotCoveredPutyovkasCount}}</strong></p>
                                 </div>
                                 <div class="col-md-6">
-                                    <p>Общий остаток <strong>600 000,00</strong></p>
+                                    <p>Общий остаток <strong>{{GeneralRemainingByOrg}}</strong></p>
                                 </div>
                             </div>
                             <div class="mb-4 text-right">
-                                <a href="#" class="btn btn-blue d-block d-md-inline-block mb-2">Сохранить</a>
-                                <a href="#" class="btn btn-red d-block d-md-inline-block mb-2">Удалить</a>
+                                <a href="#" ng-click="SavePutDtl()" class="btn btn-blue d-block d-md-inline-block mb-2">Сохранить</a>
+                                @*<a href="#" class="btn btn-red d-block d-md-inline-block mb-2">Удалить</a>*@
                                 <a href="#" class="btn btn-grey d-block d-md-inline-block mb-2" data-dismiss="modal">Отмена</a>
                             </div>
                         </div>
@@ -427,7 +370,7 @@
             <div class="modal-content">
                 <div class="modal-body" style="max-height: calc(100vh - 210px); overflow-y: auto;">
                     <div class="modal-title">
-                        <h4 class="text-center mt-4 mb-4">Добавление данных об оплате</h4>
+                        <h4 class="text-center mt-4 mb-4">Изменение данных об оплате</h4>
                     </div>
                     <div class="form-group row justify-content-end">
                         <div class="col-md-7">
@@ -449,14 +392,14 @@
                                 <label class="col-md-5 col-form-label text-md-right py-0">Дата поступления:</label>
                                 <div class="col-md-7">
                                     <input type="date" class="form-control" placeholder="Дата поступления"
-                                           ng-model="CurrentOplataMain.Data_Post" />
+                                           ng-model="DataPos" />
                                 </div>
                             </div>
                             <div class="form-group row align-items-center">
                                 <label class="col-md-5 col-form-label text-md-right py-0">Номер документа:</label>
                                 <div class="col-md-7">
                                     <input type="text" class="form-control" placeholder="Номер документа"
-                                           ng-model="CurrentOplataMain.Num_Doc" />
+                                           ng-model="Num_Doc" />
                                 </div>
                             </div>
                             <div class="form-group row align-items-center">
@@ -466,39 +409,39 @@
                                     <a href="#" class="btn btn-blue d-block d-md-inline-block mb-2" data-toggle="modal" data-target="#organization"><i class="fas fa-search"></i> Выбрать</a>
                                 </div>
                             </div>
-                            <div class="form-group row align-items-center">
+                            @*<div class="form-group row align-items-center">
                                 <label class="col-md-5 col-form-label text-md-right py-0">Определенная организация:</label>
                                 <div class="col-md-7">
-                                    <textarea class="form-control" placeholder="Определенная организация" ng-model="CurrentOplataMain.Name_org"></textarea>
+                                    <textarea class="form-control" placeholder="Определенная организация" ng-model="Name_org"></textarea>
                                 </div>
-                            </div>
+                            </div>*@
                             <div class="form-group row align-items-center">
                                 <label class="col-md-5 col-form-label text-md-right py-0">Не определенная организация:</label>
                                 <div class="col-md-7">
-                                    <textarea class="form-control" placeholder="Не определенная организация" ng-model="CurrentOplataMain.Name_org"></textarea>
+                                    <textarea class="form-control" placeholder="Не определенная организация" ng-model="Name_org"></textarea>
                                 </div>
                             </div>
                             <div class="form-group row align-items-center">
                                 <label class="col-md-5 col-form-label text-md-right py-0">Основания оплаты:</label>
                                 <div class="col-md-7">
-                                    <textarea class="form-control" placeholder="Основания оплаты" ng-model="CurrentOplataMain.Osnov"></textarea>
+                                    <textarea class="form-control" placeholder="Основания оплаты" ng-model="Osnov"></textarea>
                                 </div>
                             </div>
 
                             <div class="form-group row align-items-center">
                                 <label class="col-md-5 col-form-label text-md-right py-0">Сумма (Кт):</label>
                                 <div class="col-md-7">
-                                    <input type="number" class="form-control" placeholder="0,00" ng-model="CurrentOplataMain.Symma_DT" />
+                                    <input type="number" class="form-control" placeholder="0,00" ng-model="Symma_KT" />
                                 </div>
                             </div>
                             <div class="form-group row align-items-center">
                                 <label class="col-md-5 col-form-label text-md-right py-0">Сумма (Дт):</label>
                                 <div class="col-md-7">
-                                    <input type="number" class="form-control" placeholder="0,00" ng-model="CurrentOplataMain.Symma_KT" />
+                                    <input type="number" class="form-control" placeholder="0,00" ng-model="Symma_DT" />
                                 </div>
                             </div>
                             <div class="mb-4 text-right">
-                                <a href="#" class="btn btn-blue d-block d-md-inline-block mb-2" data-dismiss="modal"><i class="fas fa-plus"></i> Добавить</a>
+                                <a href="#" ng-click="ModifyOplataMainClicked()" class="btn btn-red d-block d-md-inline-block mb-2" data-dismiss="modal"><i class="fas fa-pencil"></i> Изменить</a>
                                 <a href="#" class="btn btn-grey d-block d-md-inline-block mb-2" data-dismiss="modal">Отмена</a>
                             </div>
                         </div>

@@ -22,7 +22,7 @@ namespace KasabaKiat.BusinessLogic.Putyovki.RaznoskaPoPutyovki
             {
                 tblFase fc = new tblFase();
 
-                //fc.ID                 = model.id              ;
+                fc.ID                 = db.tblFase.Max(z=>z.ID) + 1;
                 fc.ID_Put               = model.id_put          ;
                 fc.ID_Sanat             = model.id_sanat        ;
                 fc.Num_Put              = model.num_put         ;

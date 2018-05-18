@@ -2399,7 +2399,10 @@ namespace KasabaKIAT.Controllers
             {
                 foreach (var rasxodId in lmodel)
                 {
-                    var rasxm = Vipl_PutDataManager.Get2(rasxodId);
+                    var rasxm = OplataRasxodDataManager.Get(new OplataRasxodiViewModel() {
+                        ID = rasxodId
+
+                    });
 
                     if (!rasxm.Any()) continue;
 
@@ -2409,9 +2412,9 @@ namespace KasabaKIAT.Controllers
                     {
                         ID_Opl = IdOpl,
                         ID_Pr = IdPr,
-                        ID_Sanat = model.id_sanat.Value,
-                        Num_Put = model.num_put,
-                        Symma = model.symma.Value,
+                        ID_Sanat = model.ID_Sanat.Value,
+                        Num_Put = model.Num_Put,
+                        Symma = model.Symma.Value,
                         Departmentbase = ustinfo.DepartmentBase,
                         UserId = UserId
                     };

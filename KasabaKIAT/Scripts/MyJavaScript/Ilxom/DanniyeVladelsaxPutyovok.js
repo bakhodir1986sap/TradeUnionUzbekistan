@@ -147,7 +147,7 @@
             method: 'get',
             url: '/Reference/GetPol'
         }).then(function (response) {
-            $scope.Sanatories = response.data;
+            $scope.Pols = response.data;
             document.getElementById('connection').style.visibility = "hidden";
             $("#hh").modal('hide');
         }, function (error) {
@@ -167,7 +167,7 @@
             method: 'get',
             url: '/Reference/GetOsnovaniyaVidachi'
         }).then(function (response) {
-            $scope.Sanatories = response.data;
+            $scope.Osnovaniyas = response.data;
             document.getElementById('connection').style.visibility = "hidden";
             $("#hh").modal('hide');
         }, function (error) {
@@ -187,7 +187,7 @@
             method: 'get',
             url: '/Reference/GetTipVidachi'
         }).then(function (response) {
-            $scope.Sanatories = response.data;
+            $scope.TipVidachies = response.data;
             document.getElementById('connection').style.visibility = "hidden";
             $("#hh").modal('hide');
         }, function (error) {
@@ -207,7 +207,7 @@
             method: 'get',
             url: '/Reference/GetProcentZaPutyovki'
         }).then(function (response) {
-            $scope.Sanatories = response.data;
+            $scope.Procents = response.data;
             document.getElementById('connection').style.visibility = "hidden";
             $("#hh").modal('hide');
         }, function (error) {
@@ -246,25 +246,6 @@
     $scope.SelectedEndDate = new Date(2018, 4, 16);
 
     function GetDanniyVladelsaNakladnoy() {
-        //document.getElementById('connection').style.visibility = "visible";
-        //$("#hh").modal({
-        //    backdrop: 'static'
-        //});
-        //$http({
-        //    method: 'post',
-        //    url: '/PrixodPutevok/GetDanniyVladelsaNakladnoy?beginDt=' + $scope.SelectedBeginDate + '&endDt=' + $scope.SelectedEndDate + '&IdOrg=' + $scope.SelectedOrganization.ID
-        //}).then(function (response) {
-
-        //    $scope.Nakladnoys = response.data;
-
-        //    document.getElementById('connection').style.visibility = "hidden";
-        //    $("#hh").modal('hide');
-        //}, function (error) {
-        //    alertify.error("ошибка");
-        //    console.log("error in GetDanniyVladelsaNakladnoy");
-        //    document.getElementById('connection').style.visibility = "hidden";
-        //    $("#hh").modal('hide');
-        //    });
         document.getElementById('connection').style.visibility = "visible";
         $("#hh").modal({
             backdrop: 'static'
@@ -296,25 +277,6 @@
     }
     
     function GetDanniyVladelsaPutyovki() {
-        //document.getElementById('connection').style.visibility = "visible";
-        //$("#hh").modal({
-        //    backdrop: 'static'
-        //});
-        //$http({
-        //    method: 'get',
-        //    url: '/PrixodPutevok/GetDanniyVladelsaPutyovki?beginDt=' + $scope.SelectedBeginDate + '&endDt=' + $scope.SelectedEndDate + '&IdOrg=' + $scope.SelectedOrganization.ID
-        //}).then(function (response) {
-
-        //    $scope.Putyovkas = response.data;
-
-        //    document.getElementById('connection').style.visibility = "hidden";
-        //    $("#hh").modal('hide');
-        //}, function (error) {
-        //    alertify.error("ошибка");
-        //    console.log("error in GetDanniyVladelsaPutyovki");
-        //    document.getElementById('connection').style.visibility = "hidden";
-        //    $("#hh").modal('hide');
-        //});
 
         document.getElementById('connection').style.visibility = "visible";
         $("#hh").modal({
@@ -347,26 +309,6 @@
     }
     
     function GetDanniyTotal() {
-        //document.getElementById('connection').style.visibility = "visible";
-        //$("#hh").modal({
-        //    backdrop: 'static'
-        //});
-        //$http({
-        //    method: 'get',
-        //    url: '/PrixodPutevok/GetDanniyTotal?beginDt=' + $scope.SelectedBeginDate + '&endDt=' + $scope.SelectedEndDate + '&IdOrg=' + $scope.SelectedOrganization.ID
-        //}).then(function (response) {
-
-        //    $scope.TotalRes = response.data;
-
-        //    document.getElementById('connection').style.visibility = "hidden";
-        //    $("#hh").modal('hide');
-        //}, function (error) {
-        //    alertify.error("ошибка");
-        //    console.log("error in GetDanniyTotal");
-        //    document.getElementById('connection').style.visibility = "hidden";
-        //    $("#hh").modal('hide');
-        //});
-
         document.getElementById('connection').style.visibility = "visible";
         $("#hh").modal({
             backdrop: 'static'
@@ -408,6 +350,8 @@
         }).then(function (response) {
 
             $scope.RaznoskaPutyovok = response.data;
+            $scope.CurrentFace = $scope.RaznoskaPutyovok.faceMain;
+            $scope.CurrentFaceMed = $scope.RaznoskaPutyovok.faceMedDtl;
 
             document.getElementById('connection').style.visibility = "hidden";
             $("#hh").modal('hide');

@@ -1,0 +1,118 @@
+﻿@model IEnumerable<KasabaKIAT.Models.t_sanatorium>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.version)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.address)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.code)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.s_comment)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.s_create)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.s_status)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.sanatorium_name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.site)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.telephone)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.sp_employees.address)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.sp_sanatorium_profil.s_comment)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.sp_sanatorium_type.s_comment)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.sp_soato.code)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.users.email)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.version)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.address)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.code)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.s_comment)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.s_create)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.s_status)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.email)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.sanatorium_name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.site)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.telephone)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.sp_employees.address)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.sp_sanatorium_profil.s_comment)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.sp_sanatorium_type.s_comment)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.sp_soato.code)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.users.email)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.id })
+        </td>
+    </tr>
+}
+
+</table>

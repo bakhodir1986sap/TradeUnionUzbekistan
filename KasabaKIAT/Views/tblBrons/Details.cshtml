@@ -1,0 +1,83 @@
+﻿@model KasabaKIAT.Models.tblBron
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>tblBron</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Num_Put)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Num_Put)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Prem)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Prem)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Uchet)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Uchet)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ExpireDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ExpireDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DepartmentBase)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DepartmentBase)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TIME_STAMP)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TIME_STAMP)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.tblSprav_San.Name_San)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tblSprav_San.Name_San)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.users.email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.users.email)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

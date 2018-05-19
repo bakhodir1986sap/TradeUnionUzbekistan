@@ -21,3 +21,79 @@ public KasabaKIATEntities()
 {
     ((IObjectContextAdapter)this).ObjectContext.CommandTimeout = 180;
 }
+
+
+INSERT INTO [KasabaKIAT_N1].[dbo].[tblFase]
+           ([ID]
+           ,[ID_Put]
+           ,[ID_Sanat]
+           ,[Num_Put]
+           ,[LastName]
+           ,[Name]
+           ,[FirstName]
+           ,[Adress]
+           ,[Rabota]
+           ,[Dolj]
+           ,[Stav_Vid]
+           ,[Pas_ser]
+           ,[Pas_Num]
+           ,[Pas_KD]
+           ,[Pas_Data]
+           ,[Gost_Pr]
+           ,[ID_Osnov]
+           ,[Data_Post]
+           ,[Pol]
+           ,[UserId]
+           ,[Departmentbase])
+     VALUES
+           (1
+           ,5
+           ,2
+           ,''
+           ,''
+           ,''
+           ,null
+           ,null
+           ,null
+           ,null
+           ,null
+           ,null
+           ,null
+           ,null
+           ,null
+           ,null
+           ,null
+           ,null
+           ,null
+           ,1
+           ,'17206')
+GO
+
+INSERT INTO [KasabaKIAT_N1].[dbo].[tblFace_Med]
+           ([ID]
+           ,[ID_Face]
+           ,[Med_Doc]
+           ,[Med_Data]
+           ,[Med_San]
+           ,[Opl_Doc]
+           ,[Opl_Data]
+           ,[Opl_Symma]
+           ,[Tal_Doc]
+           ,[Tal_Data]
+           ,[UserId]
+           ,[Departmentbase])
+     VALUES
+           (0
+           ,1
+           ,null
+           ,null
+           ,null
+           ,null
+           ,null
+           ,null
+           ,null
+           ,null
+           ,1
+           ,'17206')
+GO
+

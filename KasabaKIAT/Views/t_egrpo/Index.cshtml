@@ -1,0 +1,232 @@
+﻿@model IEnumerable<KasabaKIAT.Models.t_egrpo>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.version)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.address)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.close_date)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.close_number)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.count_workers)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.s_comment)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.s_create)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.s_status)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.fin_xoz_work)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.name_full)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.inn)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.liquidation)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.osn_worktype)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.phones)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.recreate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.reg_date)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.reg_number)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.reg_org)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.reorganization)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.restored)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.name_short)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.street)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.update_doc)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.update_email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.mail_index)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.okonx_id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.opf_id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.fs_id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.soato_id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.soogu_id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.okpo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NATIVE_ID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.users.email)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.version)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.address)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.close_date)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.close_number)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.count_workers)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.s_comment)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.s_create)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.s_status)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.email)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.fin_xoz_work)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.name_full)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.inn)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.liquidation)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.osn_worktype)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.phones)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.recreate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.reg_date)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.reg_number)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.reg_org)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.reorganization)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.restored)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.name_short)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.street)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.update_doc)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.update_email)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.mail_index)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.okonx_id)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.opf_id)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.fs_id)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.soato_id)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.soogu_id)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.okpo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NATIVE_ID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.users.email)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.id })
+        </td>
+    </tr>
+}
+
+</table>

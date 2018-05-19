@@ -1,0 +1,52 @@
+﻿@model IEnumerable<KasabaKIAT.Models.tblSprav_Vil>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.FullName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ID_Code)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SOATO_CODE)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.users.email)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.FullName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ID_Code)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SOATO_CODE)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.users.email)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+        </td>
+    </tr>
+}
+
+</table>

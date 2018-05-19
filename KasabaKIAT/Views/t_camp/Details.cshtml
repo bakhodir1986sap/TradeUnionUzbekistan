@@ -1,0 +1,211 @@
+﻿@model KasabaKIAT.Models.t_camp
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>t_camp</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.version)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.version)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.camps_address)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.camps_address)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.camps_type1)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.camps_type1)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.camps_type2)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.camps_type2)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.camps_organization_address)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.camps_organization_address)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.camps_organization_cheef)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.camps_organization_cheef)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.camps_organization_cheef_tel)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.camps_organization_cheef_tel)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.camps_organization_name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.camps_organization_name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.camps_union)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.camps_union)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.camps_union_tel)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.camps_union_tel)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.camps_cheef)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.camps_cheef)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.camps_cheef_tel)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.camps_cheef_tel)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.code)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.code)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.s_comment)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.s_comment)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.s_create)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.s_create)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.s_status)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.s_status)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.camps_email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.camps_email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.camps_name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.camps_name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.camps_site)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.camps_site)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.camps_tel)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.camps_tel)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NATIVE_ID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NATIVE_ID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.sp_soato.code)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.sp_soato.code)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.sp_soato1.code)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.sp_soato1.code)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.users.email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.users.email)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

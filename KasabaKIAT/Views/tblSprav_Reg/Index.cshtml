@@ -1,0 +1,64 @@
+﻿@model IEnumerable<KasabaKIAT.Models.tblSprav_Reg>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.NameReg)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CodeReg)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DepartmentBase)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.VilId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SOATO_CODE)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.users.email)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.NameReg)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CodeReg)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DepartmentBase)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.VilId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SOATO_CODE)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.users.email)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+        </td>
+    </tr>
+}
+
+</table>

@@ -1,0 +1,115 @@
+﻿@model KasabaKIAT.Models.sp_opf
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>sp_opf</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.version)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.version)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.code)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.code)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.s_comment)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.s_comment)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.s_create)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.s_create)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.s_status)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.s_status)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.name_ru)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.name_ru)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.name_uz)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.name_uz)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.name_uzl)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.name_uzl)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.keys)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.keys)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NATIVE_ID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NATIVE_ID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.sp_opf2.code)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.sp_opf2.code)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.users.email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.users.email)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

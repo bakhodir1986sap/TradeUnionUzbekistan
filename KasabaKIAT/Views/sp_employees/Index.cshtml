@@ -1,0 +1,160 @@
+﻿@model IEnumerable<KasabaKIAT.Models.sp_employees>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.version)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.address)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.code)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.s_comment)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.s_create)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.s_status)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.middlename)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.passport)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.phone)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.surname)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.dep_id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.birthday)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.full_name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NATIVE_ID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.sp_degree.s_comment)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.sp_nation.s_comment)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.sp_position.s_comment)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.sp_section.s_comment)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.t_departmentbase.dtype)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.users.email)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.version)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.address)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.code)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.s_comment)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.s_create)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.s_status)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.email)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.middlename)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.passport)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.phone)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.surname)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.dep_id)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.birthday)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.full_name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NATIVE_ID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.sp_degree.s_comment)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.sp_nation.s_comment)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.sp_position.s_comment)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.sp_section.s_comment)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.t_departmentbase.dtype)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.users.email)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.id })
+        </td>
+    </tr>
+}
+
+</table>

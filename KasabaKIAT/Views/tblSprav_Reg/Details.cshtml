@@ -1,0 +1,67 @@
+﻿@model KasabaKIAT.Models.tblSprav_Reg
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>tblSprav_Reg</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.NameReg)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NameReg)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CodeReg)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CodeReg)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DepartmentBase)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DepartmentBase)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.VilId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.VilId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SOATO_CODE)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SOATO_CODE)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.users.email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.users.email)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

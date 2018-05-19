@@ -1,0 +1,76 @@
+﻿@model IEnumerable<KasabaKIAT.Models.tblBron>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Num_Put)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Prem)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Uchet)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ExpireDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DepartmentBase)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TIME_STAMP)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.tblSprav_San.Name_San)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.users.email)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Num_Put)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Prem)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Uchet)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ExpireDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DepartmentBase)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TIME_STAMP)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.tblSprav_San.Name_San)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.users.email)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+        </td>
+    </tr>
+}
+
+</table>

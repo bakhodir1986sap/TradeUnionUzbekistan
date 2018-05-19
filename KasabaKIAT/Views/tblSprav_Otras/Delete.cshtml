@@ -1,0 +1,73 @@
+﻿@model KasabaKIAT.Models.tblSprav_Otras
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>tblSprav_Otras</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ID_Ot)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ID_Ot)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Name_Ot)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name_Ot)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Priz)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Priz)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DepartmentBase)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DepartmentBase)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BRANCH_CODE)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BRANCH_CODE)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.users.email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.users.email)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

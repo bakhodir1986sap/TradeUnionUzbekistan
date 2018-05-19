@@ -1,0 +1,73 @@
+﻿@model KasabaKIAT.Models.tblSprav_MFO
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>tblSprav_MFO</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Code_MFO)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Code_MFO)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Name_MFO)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name_MFO)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Adres_MFO)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Adres_MFO)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Data_Act)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Data_Act)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Data_Cls)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Data_Cls)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.users.email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.users.email)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

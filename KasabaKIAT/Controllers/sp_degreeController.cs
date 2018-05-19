@@ -17,7 +17,7 @@ namespace KasabaKIAT.Controllers
         // GET: sp_degree
         public ActionResult Index()
         {
-            var sp_degree = db.sp_degree.Include(s => s.users);
+            var sp_degree = db.sp_degree.Include(s => s.users).Take(50);
             return View(sp_degree.ToList());
         }
 

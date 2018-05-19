@@ -17,7 +17,7 @@ namespace KasabaKIAT.Controllers
         // GET: sp_employees
         public ActionResult Index()
         {
-            var sp_employees = db.sp_employees.Include(s => s.sp_degree).Include(s => s.sp_nation).Include(s => s.sp_position).Include(s => s.sp_section).Include(s => s.t_departmentbase).Include(s => s.users);
+            var sp_employees = db.sp_employees.Include(s => s.sp_degree).Include(s => s.sp_nation).Include(s => s.sp_position).Include(s => s.sp_section).Include(s => s.t_departmentbase).Include(s => s.users).Take(50);
             return View(sp_employees.ToList());
         }
 

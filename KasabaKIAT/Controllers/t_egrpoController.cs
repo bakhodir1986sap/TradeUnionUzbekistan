@@ -17,7 +17,7 @@ namespace KasabaKIAT.Controllers
         // GET: t_egrpo
         public ActionResult Index()
         {
-            var t_egrpo = db.t_egrpo.Include(t => t.users);
+            var t_egrpo = db.t_egrpo.Include(t => t.users).Take(50);
             return View(t_egrpo.ToList());
         }
 

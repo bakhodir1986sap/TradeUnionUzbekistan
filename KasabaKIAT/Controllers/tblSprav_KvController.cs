@@ -17,7 +17,7 @@ namespace KasabaKIAT.Controllers
         // GET: tblSprav_Kv
         public ActionResult Index()
         {
-            var tblSprav_Kv = db.tblSprav_Kv.Include(t => t.users);
+            var tblSprav_Kv = db.tblSprav_Kv.Include(t => t.users).Take(50);
             return View(tblSprav_Kv.ToList());
         }
 

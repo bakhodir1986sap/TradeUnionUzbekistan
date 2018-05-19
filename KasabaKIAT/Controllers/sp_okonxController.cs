@@ -17,7 +17,7 @@ namespace KasabaKIAT.Controllers
         // GET: sp_okonx
         public ActionResult Index()
         {
-            var sp_okonx = db.sp_okonx.Include(s => s.users).Include(s => s.sp_okonx2);
+            var sp_okonx = db.sp_okonx.Include(s => s.users).Include(s => s.sp_okonx2).Take(50);
             return View(sp_okonx.ToList());
         }
 

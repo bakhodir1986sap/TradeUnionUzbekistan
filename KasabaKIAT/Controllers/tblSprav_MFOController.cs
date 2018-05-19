@@ -17,7 +17,7 @@ namespace KasabaKIAT.Controllers
         // GET: tblSprav_MFO
         public ActionResult Index()
         {
-            var tblSprav_MFO = db.tblSprav_MFO.Include(t => t.users);
+            var tblSprav_MFO = db.tblSprav_MFO.Include(t => t.users).Take(50);
             return View(tblSprav_MFO.ToList());
         }
 

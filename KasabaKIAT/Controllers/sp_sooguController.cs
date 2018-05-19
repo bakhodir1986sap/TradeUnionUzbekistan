@@ -17,7 +17,7 @@ namespace KasabaKIAT.Controllers
         // GET: sp_soogu
         public ActionResult Index()
         {
-            var sp_soogu = db.sp_soogu.Include(s => s.users);
+            var sp_soogu = db.sp_soogu.Include(s => s.users).Take(50);
             return View(sp_soogu.ToList());
         }
 

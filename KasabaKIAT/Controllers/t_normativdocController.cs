@@ -17,7 +17,7 @@ namespace KasabaKIAT.Controllers
         // GET: t_normativdoc
         public ActionResult Index()
         {
-            var t_normativdoc = db.t_normativdoc.Include(t => t.sp_doctype).Include(t => t.users);
+            var t_normativdoc = db.t_normativdoc.Include(t => t.sp_doctype).Include(t => t.users).Take(50);
             return View(t_normativdoc.ToList());
         }
 

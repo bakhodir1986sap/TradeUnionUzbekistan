@@ -17,7 +17,7 @@ namespace KasabaKIAT.Controllers
         // GET: sp_soato
         public ActionResult Index()
         {
-            var sp_soato = db.sp_soato.Include(s => s.users);
+            var sp_soato = db.sp_soato.Include(s => s.users).Take(50);
             return View(sp_soato.ToList());
         }
 

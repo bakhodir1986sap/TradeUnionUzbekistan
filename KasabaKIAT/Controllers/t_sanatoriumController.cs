@@ -17,7 +17,7 @@ namespace KasabaKIAT.Controllers
         // GET: t_sanatorium
         public ActionResult Index()
         {
-            var t_sanatorium = db.t_sanatorium.Include(t => t.sp_employees).Include(t => t.sp_sanatorium_profil).Include(t => t.sp_sanatorium_type).Include(t => t.sp_soato).Include(t => t.users);
+            var t_sanatorium = db.t_sanatorium.Include(t => t.sp_employees).Include(t => t.sp_sanatorium_profil).Include(t => t.sp_sanatorium_type).Include(t => t.sp_soato).Include(t => t.users).Take(50);
             return View(t_sanatorium.ToList());
         }
 

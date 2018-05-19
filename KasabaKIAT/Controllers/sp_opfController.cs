@@ -17,7 +17,7 @@ namespace KasabaKIAT.Controllers
         // GET: sp_opf
         public ActionResult Index()
         {
-            var sp_opf = db.sp_opf.Include(s => s.sp_opf2).Include(s => s.users);
+            var sp_opf = db.sp_opf.Include(s => s.sp_opf2).Include(s => s.users).Take(50);
             return View(sp_opf.ToList());
         }
 

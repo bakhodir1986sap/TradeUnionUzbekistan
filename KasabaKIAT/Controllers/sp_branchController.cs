@@ -17,7 +17,7 @@ namespace KasabaKIAT.Controllers
         // GET: sp_branch
         public ActionResult Index()
         {
-            var sp_branch = db.sp_branch.Include(s => s.users);
+            var sp_branch = db.sp_branch.Include(s => s.users).Take(50); 
             return View(sp_branch.ToList());
         }
 

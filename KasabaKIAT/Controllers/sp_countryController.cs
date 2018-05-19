@@ -17,7 +17,7 @@ namespace KasabaKIAT.Controllers
         // GET: sp_country
         public ActionResult Index()
         {
-            var sp_country = db.sp_country.Include(s => s.users);
+            var sp_country = db.sp_country.Include(s => s.users).Take(50);
             return View(sp_country.ToList());
         }
 

@@ -17,7 +17,7 @@ namespace KasabaKIAT.Controllers
         // GET: t_camp
         public ActionResult Index()
         {
-            var t_camp = db.t_camp.Include(t => t.sp_soato).Include(t => t.sp_soato1).Include(t => t.users);
+            var t_camp = db.t_camp.Include(t => t.sp_soato).Include(t => t.sp_soato1).Include(t => t.users).Take(50);
             return View(t_camp.ToList());
         }
 

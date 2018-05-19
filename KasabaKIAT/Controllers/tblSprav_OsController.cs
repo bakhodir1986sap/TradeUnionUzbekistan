@@ -17,7 +17,7 @@ namespace KasabaKIAT.Controllers
         // GET: tblSprav_Os
         public ActionResult Index()
         {
-            var tblSprav_Os = db.tblSprav_Os.Include(t => t.users);
+            var tblSprav_Os = db.tblSprav_Os.Include(t => t.users).Take(50);
             return View(tblSprav_Os.ToList());
         }
 

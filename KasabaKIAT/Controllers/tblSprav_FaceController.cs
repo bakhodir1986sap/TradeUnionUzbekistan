@@ -17,7 +17,7 @@ namespace KasabaKIAT.Controllers
         // GET: tblSprav_Face
         public ActionResult Index()
         {
-            var tblSprav_Face = db.tblSprav_Face.Include(t => t.users);
+            var tblSprav_Face = db.tblSprav_Face.Include(t => t.users).Take(50);
             return View(tblSprav_Face.ToList());
         }
 

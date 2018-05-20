@@ -184,7 +184,7 @@ namespace KasabaKIAT.BusinessLogic.Security.Roles.RolePermissions
         public bool SozdaniyaRoley { get { return _sozdaniyaRoley; } set { _sozdaniyaRoley = value; if (_sozdaniyaRoley) { TotalAdmin = true; } } }//Создание ролей
         public bool SozdaniyaProvodok { get { return _sozdaniyaProvodok; } set { _sozdaniyaProvodok = value; if (_sozdaniyaProvodok) { TotalAdmin = true; } } }//Создание проводок
         public bool PrivyazkaProvodokkJO { get { return _privyazkaProvodokkJO; } set { _privyazkaProvodokkJO = value; if (_privyazkaProvodokkJO) { TotalAdmin = true; } } }//Привязка проводок к ЖО
-        public bool UpravleniyaSpravochnikami { get { return _upravleniyaSpravochnikami; } set { _upravleniyaSpravochnikami = value; if (_upravleniyaSpravochnikami) { TotalAdmin = true; } } }//Управление справочниками
+        public bool UpravleniyaSpravochnikami { get { return _upravleniyaSpravochnikami; } set { _upravleniyaSpravochnikami = value; } }//Управление справочниками
 
         private DateTime _lastUpdateTime;
 

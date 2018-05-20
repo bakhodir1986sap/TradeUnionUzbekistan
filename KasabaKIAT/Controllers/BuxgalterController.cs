@@ -437,7 +437,7 @@ namespace KasabaKIAT.Controllers
         /// 
         /// </summary>
         /// <returns></returns>
-        [OutputCache(Duration = 30000, Location = OutputCacheLocation.Client)]
+        [OutputCache(Duration = 30000, Location = OutputCacheLocation.Client, VaryByCustom = "userId")]
         public JsonResult SpisokPravsoyuzov()
         {
             log.Info("SpisokPravsoyuzov");

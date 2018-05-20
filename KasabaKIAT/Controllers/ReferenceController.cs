@@ -22,7 +22,7 @@ namespace KasabaKIAT.Controllers
         /// 
         /// </summary>
         /// <returns></returns>
-        [OutputCache(Duration = 3000, Location = OutputCacheLocation.ServerAndClient)]
+        [OutputCache(Duration = 3000, Location = OutputCacheLocation.ServerAndClient, VaryByCustom = "userId")]
         public JsonResult GetYears()
         {
             var obj = new RefYars();
@@ -36,7 +36,7 @@ namespace KasabaKIAT.Controllers
         /// 
         /// </summary>
         /// <returns></returns>
-        [OutputCache(Duration = 3000, Location = OutputCacheLocation.ServerAndClient)]
+        [OutputCache(Duration = 3000, Location = OutputCacheLocation.ServerAndClient, VaryByCustom = "userId")]
         public JsonResult GetKvartals()
         {
             var list = Sprav_Kv.Get(new Sprav_KvViewModel() { });

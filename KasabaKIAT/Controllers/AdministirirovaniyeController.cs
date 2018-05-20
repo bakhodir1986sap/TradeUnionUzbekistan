@@ -309,7 +309,7 @@ namespace KasabaKIAT.Controllers
         /// Refererence of Trade Union List
         /// </summary>
         /// <returns>HTML</returns>
-        [OutputCache(Duration = 30000, Location = OutputCacheLocation.Client)]
+        [OutputCache(Duration = 30000, Location = OutputCacheLocation.Client, VaryByCustom = "userId")]
         public ActionResult SpisokPravsoyuzov()
         {
             log.Info("SpisokPravsoyuzov");
@@ -343,7 +343,7 @@ namespace KasabaKIAT.Controllers
         /// Schet Faktura's List of Pravsoyus Organizations
         /// </summary>
         /// <returns>HTML</returns>
-        [OutputCache(Duration = 30000, Location = OutputCacheLocation.Client)]
+        [OutputCache(Duration = 30000, Location = OutputCacheLocation.Client, VaryByCustom = "userId")]
         public ActionResult SchetFaktura()
         {
             return View();
@@ -353,7 +353,7 @@ namespace KasabaKIAT.Controllers
         /// Enterence divition Grafik
         /// </summary>
         /// <returns>HTML</returns>
-        [OutputCache(Duration = 30000, Location = OutputCacheLocation.Client)]
+        [OutputCache(Duration = 30000, Location = OutputCacheLocation.Client, VaryByCustom = "userId")]
         public ActionResult RaspredeleniyeZaezdov()
         {
             return View();
@@ -366,7 +366,7 @@ namespace KasabaKIAT.Controllers
         /// <param name="yil">Year</param>
         /// <param name="kod">Sanatory Code</param>
         /// <returns></returns>
-        [OutputCache(Duration = 300, Location = OutputCacheLocation.Client, VaryByParam = "yil;kod")]
+        [OutputCache(Duration = 300, Location = OutputCacheLocation.Client, VaryByParam = "yil;kod", VaryByCustom = "userId")]
         public JsonResult GetRaspredeleniyeZaezdov1(int yil,string kod)
         {
 
@@ -411,7 +411,7 @@ namespace KasabaKIAT.Controllers
         /// <param name="yil">Year</param>
         /// <param name="kod">Sanatory Code</param>
         /// <returns></returns>
-        [OutputCache(Duration = 300, Location = OutputCacheLocation.Client, VaryByParam = "yil;kod")]
+        [OutputCache(Duration = 300, Location = OutputCacheLocation.Client, VaryByParam = "yil;kod", VaryByCustom = "userId")]
         public JsonResult GetRaspredeleniyeZaezdov2(int yil, string kod)
         {
             log.Info("GetRaspredeleniyeZaezdov2");
@@ -456,7 +456,7 @@ namespace KasabaKIAT.Controllers
         /// </summary>
         /// <param name="yil">Year</param>
         /// <returns></returns>
-        [OutputCache(Duration = 300, Location = OutputCacheLocation.Client, VaryByParam = "yil")]
+        [OutputCache(Duration = 300, Location = OutputCacheLocation.Client, VaryByParam = "yil", VaryByCustom = "userId")]
         public JsonResult GetSanatory(int yil)
         {
             log.Info("GetSanatory");
@@ -490,7 +490,7 @@ namespace KasabaKIAT.Controllers
         /// <param name="yil">Year</param>
         /// <param name="kod">Sanatory Kod</param>
         /// <returns>JSON</returns>
-        [OutputCache(Duration = 300, Location = OutputCacheLocation.Client, VaryByParam = "yil;kod")]
+        [OutputCache(Duration = 300, Location = OutputCacheLocation.Client, VaryByParam = "yil;kod", VaryByCustom = "userId")]
         public JsonResult GetKod(int yil,string kod)
         {
 
@@ -724,7 +724,7 @@ namespace KasabaKIAT.Controllers
         /// </summary>
         /// <param name="yil">Year</param>
         /// <returns></returns>
-        [OutputCache(Duration = 300, Location = OutputCacheLocation.Client, VaryByParam = "yil")]
+        [OutputCache(Duration = 300, Location = OutputCacheLocation.Client, VaryByParam = "yil", VaryByCustom = "userId")]
         public JsonResult GetGrafikSanatoryZaezdov(int yil)
         {
 
@@ -820,7 +820,7 @@ namespace KasabaKIAT.Controllers
         /// <param name="E">End Date</param>
         /// <param name="p">PravSoyuz Kod</param>
         /// <returns>JSON</returns>
-        [OutputCache(Duration = 300, Location = OutputCacheLocation.Client, VaryByParam = "B;E;p")]
+        [OutputCache(Duration = 300, Location = OutputCacheLocation.Client, VaryByParam = "B;E;p", VaryByCustom = "userId")]
         public JsonResult GetSchetFaktura(DateTime B,DateTime E,string p)
         {
             log.Info("GetSchetFaktura");
@@ -869,7 +869,7 @@ namespace KasabaKIAT.Controllers
         /// </summary>
         /// <param name="id">Main SchetFaktura Dokument Id</param>
         /// <returns>JSON</returns>
-        [OutputCache(Duration = 300, Location = OutputCacheLocation.Client, VaryByParam = "id")]
+        [OutputCache(Duration = 300, Location = OutputCacheLocation.Client, VaryByParam = "id", VaryByCustom = "userId")]
         public JsonResult GetStrokaSchetFakturi(int id)
         {
             log.Info("GetStrokaSchetFakturi");

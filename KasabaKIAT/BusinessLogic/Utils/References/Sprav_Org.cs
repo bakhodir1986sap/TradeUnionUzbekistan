@@ -297,6 +297,20 @@ namespace KasabaKiat.BusinessLogic.Utils.References
 
                 list = queryRes.ToList();
 
+                foreach(var org in list)
+                {
+                    if (org.ParentId.HasValue)
+                    {
+                        var orgName = db.tblSprav_Org.Where(z => z.ID == org.ParentId);
+
+                        if (orgName.Any())
+                        {
+                            org.ParentName = orgName.First().Name_Org;
+                        }
+                        
+                    }
+                }
+
             }
 
             return list;

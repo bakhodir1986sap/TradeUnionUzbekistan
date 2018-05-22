@@ -25,6 +25,8 @@ using KasabaKIAT.BusinessLogic.Putyovki.ZakritiyaKvartala;
 using KasabaKIAT.BusinessLogic.Putyovki.RaznoskaPoPutyovki;
 using KasabaKiat.BusinessLogic.Putyovki.RaznoskaPoPutyovki;
 using KasabaKiat.ViewModel.Putyovki.RaznoskaPutyovok;
+using KasabaKIAT.BusinessLogic.Putyovki.SverkaDannix.Ruchnoy;
+using OfficeOpenXml;
 
 namespace KasabaKIAT.Controllers
 {
@@ -1933,7 +1935,7 @@ namespace KasabaKIAT.Controllers
         /// <param name="year"></param>
         /// <param name="kvartal"></param>
         /// <returns></returns>
-        public JsonResult GetOplataMain(int year, int kvartal)
+        public JsonResult GetOplataMain(int year, int kvartal, int tipOrg, int Priz)
         {
             int UserId = Convert.ToInt32(User.Identity.Name);
             var ustinfo = UserInfo.GetUserInfo(UserId);
@@ -1942,13 +1944,13 @@ namespace KasabaKIAT.Controllers
             {
                 SmFil = year,
                 ID_KV = kvartal,
-                Departmentbase = ustinfo.DepartmentBase
+                Departmentbase = ustinfo.DepartmentBase,
+                Tip_Org = tipOrg == 1 ? true: false,
+                PrizOpl = Priz
             });
 
             return Json(list, JsonRequestBehavior.AllowGet);
         }
-
-
 
         /// <summary>
         /// 
@@ -1956,7 +1958,7 @@ namespace KasabaKIAT.Controllers
         /// <param name="year"></param>
         /// <param name="kvartal"></param>
         /// <returns></returns>
-        public JsonResult GetOplataMainRes(int year, int kvartal)
+        public JsonResult GetOplataMainRes(int year, int kvartal, int tipOrg, int Priz)
         {
             int UserId = Convert.ToInt32(User.Identity.Name);
             var ustinfo = UserInfo.GetUserInfo(UserId);
@@ -1965,7 +1967,9 @@ namespace KasabaKIAT.Controllers
             {
                 SmFil = year,
                 ID_KV = kvartal,
-                Departmentbase = ustinfo.DepartmentBase
+                Departmentbase = ustinfo.DepartmentBase,
+                Tip_Org = tipOrg == 1 ? true : false,
+                PrizOpl = Priz
             });
 
             var totres = new TotalOplataResults()
@@ -2318,6 +2322,29 @@ namespace KasabaKIAT.Controllers
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="IdOpl"></param>
+        /// <returns></returns>
+        public JsonResult GetOplataSaldo(long IdOpl)
+        {
+            var _opl = new Oplata();
+
+            try
+            {
+                var remain = _opl.GetOplataSaldo(IdOpl);
+
+                return Json(remain, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex.ToString());
+            }
+
+            return Json("fail", JsonRequestBehavior.AllowGet);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
         public JsonResult AddOplataDetail(OplataRasxodiViewModel model)
@@ -2416,7 +2443,8 @@ namespace KasabaKIAT.Controllers
                         Num_Put = model.Num_Put,
                         Symma = model.Symma.Value,
                         Departmentbase = ustinfo.DepartmentBase,
-                        UserId = UserId
+                        UserId = UserId,
+                        Priz = (int)OplataRasxPriz.OrganizasiyaOplata
                     };
 
                     OplataRasxodDataManager.Create(ref mmodel);
@@ -2452,6 +2480,25 @@ namespace KasabaKIAT.Controllers
                 }
             }
             catch(Exception ex)
+            {
+                log.Error(ex.ToString());
+                return Json("fail", JsonRequestBehavior.AllowGet);
+            }
+
+            return Json("success", JsonRequestBehavior.AllowGet);
+        }
+
+
+        public JsonResult RemoveOplataMain(OplataViewModel model)
+        {
+            try
+            {
+                    OplataDataManager.Remove(new OplataViewModel()
+                    {
+                        ID = model.ID
+                    });
+            }
+            catch (Exception ex)
             {
                 log.Error(ex.ToString());
                 return Json("fail", JsonRequestBehavior.AllowGet);
@@ -2948,6 +2995,70 @@ namespace KasabaKIAT.Controllers
         }
 
         #endregion
+
+        #endregion
+
+        #region SverkaDannixPoOtixayushim
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="formCollection"></param>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public JsonResult ReadFileSverki(FormCollection formCollection , SanatDataCompareViewModel model)
+        {
+            log.Info("ReadFileSverki");
+            try
+            {
+                if (Request != null)
+                {
+                    HttpPostedFileBase file = Request.Files["UploadedFile"];
+                    if ((file != null) && (file.ContentLength > 0) && !string.IsNullOrEmpty(file.FileName))
+                    {
+                        string fileName = file.FileName;
+                        string fileContentType = file.ContentType;
+                        byte[] fileBytes = new byte[file.ContentLength];
+                        var data = file.InputStream.Read(fileBytes, 0, Convert.ToInt32(file.ContentLength));
+                        var sverList = new List<SanatDataCompareViewModel>();
+                        using (var package = new ExcelPackage(file.InputStream))
+                        {
+                            var currentSheet = package.Workbook.Worksheets;
+                            var workSheet = currentSheet.First();
+                            var noOfCol = workSheet.Dimension.End.Column;
+                            var noOfRow = workSheet.Dimension.End.Row;
+
+                            for (int rowIterator = 2; rowIterator <= noOfRow; rowIterator++)
+                            {
+                                var sver = new SanatDataCompareViewModel();
+
+                                sver.year = model.year;
+                                sver.owner_tp = model.owner_tp;
+                                sver.sanat_id = model.sanat_id;
+                                sver.owner_code = sver.owner_code;
+                                sver.num_put = workSheet.Cells[rowIterator, 1].Value.ToString();
+                                sver.date_san = workSheet.Cells[rowIterator, 2].Value.ToString();
+                                sver.price = workSheet.Cells[rowIterator, 3].Value.ToString();
+                                sver.fio_otdix = workSheet.Cells[rowIterator, 4].Value.ToString();
+                                sver.adress = workSheet.Cells[rowIterator, 5].Value.ToString();
+                                sver.work_place = workSheet.Cells[rowIterator, 6].Value.ToString();
+                                sver.otrasl = workSheet.Cells[rowIterator, 7].Value.ToString();
+
+                                sverList.Add(sver);
+                                log.Info("Count = " + sverList.ToList().Count);
+                                SanatDataCompareDataManager.Create(ref sver);
+                            }
+                        }
+                    }
+                }
+                return Json("success", JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                log.Info(ex);
+                return Json("error", JsonRequestBehavior.AllowGet);
+            }
+        }
 
         #endregion
 

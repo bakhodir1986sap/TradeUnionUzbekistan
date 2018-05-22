@@ -95,6 +95,11 @@ namespace KasabaKiat.BusinessLogic.Putyovki.OplataPutyovok
 
                     if (reg != null)
                     {
+                        OplataRasxodDataManager.RemoveByMaster(new OplataRasxodiViewModel()
+                        {
+                            ID_Opl = model.ID
+                        });
+
                         db.tblOplatas.Remove(reg);
                     }
                 }
@@ -156,6 +161,24 @@ namespace KasabaKiat.BusinessLogic.Putyovki.OplataPutyovok
                             where oplata.Departmentbase == model.Departmentbase
                             && oplata.SmFil == model.SmFil 
                             && oplata.ID_KV == model.ID_KV
+                            && oplata.Tip_Org == model.Tip_Org
+                            && 
+                            (
+                                ((model.PrizOpl == (int)OplataRasxPriz.OrganizasiyaOplata) 
+                                && (oplata.PrizOpl == (int)OplataRasxPriz.OrganizasiyaOplata ||
+                                    oplata.PrizOpl == (int)OplataRasxPriz.OrganizasiyaRasxod)
+                                )
+                                ||
+                                ((model.PrizOpl == (int)OplataRasxPriz.KurortOplata)
+                                && (oplata.PrizOpl == (int)OplataRasxPriz.KurortOplata ||
+                                    oplata.PrizOpl == (int)OplataRasxPriz.KurortPrixod)
+                                )
+                                ||
+                                ((model.PrizOpl == (int)OplataRasxPriz.VozvratViplata)
+                                && (oplata.PrizOpl == (int)OplataRasxPriz.VozvratViplata ||
+                                    oplata.PrizOpl == (int)OplataRasxPriz.VozvratPutyovki)
+                                )
+                            )
                             select new OplataViewModel
                             {
                                 ID = oplata.ID,

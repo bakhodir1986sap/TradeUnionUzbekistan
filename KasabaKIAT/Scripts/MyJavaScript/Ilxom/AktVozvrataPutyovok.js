@@ -121,7 +121,8 @@
         id_sanat            :'',
         sanatoriyName       :'',
         num_put             :'',
-        id_ot               :'',
+        id_ot:              '',
+        orgName:            '',
         dover               :'',
         id_pol              :'',
         symmap              :'',
@@ -234,8 +235,9 @@
     function GetData() {
 
         if (($scope.SelectedYear.Id > -1) && ($scope.SelectedKvartal.ID > 0)) {
-            GetTotalResults();
             GetAktVozvList();
+            GetTotalResults();
+           
         }
     }
 
@@ -271,6 +273,7 @@
     }
 
     $scope.SelectedPutyovka = [];
+    $scope.SelectedPutyovkaCount = 0;
 
     //For Prixod Putyovka
     $scope.toggleObjSelectionPut = function ($event, rasxodPutId) {
@@ -299,9 +302,11 @@
             var value = $scope.SelectedPutyovka[i];
             console.log('putyovka: ' + value);
         }
+
+        $scope.SelectedPutyovkaCount = $scope.SelectedPutyovka.length;
     }
 
-    $scope.AddNakladnoy = function () {
+    $scope.AppVozvrat = function () {
 
         $scope.AkvVozvMain = {
             data_post: '',
@@ -318,7 +323,15 @@
 
         $scope.SelectedOrganization.ID = -1;
         $scope.SelectedOrganization.Name_Org = '';
+
+        $scope.PutyovkaList = '';
     }
+
+    $scope.OrganizationChanged = function () {
+
+        GetGivenPutyovkaList();
+    }
+
 
     $scope.SaveVozvratEnter = function () {
 
@@ -336,7 +349,7 @@
             dataType: "json"
         }).then(function (response) {
 
-            //
+            GetData();
 
         }, function () {
             alertify.error("ошибка");
@@ -582,6 +595,8 @@
             $scope.SelectedOrganizationL.push(Id + '_' + Name_Org);
             $scope.SelectedOrganization.ID = Id;
             $scope.SelectedOrganization.Name_Org = Name_Org;
+            GetGivenPutyovkaList();
+
         }
 
         console.log('====================================================');

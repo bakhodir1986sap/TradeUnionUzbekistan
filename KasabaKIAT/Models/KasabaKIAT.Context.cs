@@ -20,7 +20,6 @@ namespace KasabaKIAT.Models
         public KasabaKIATEntities()
             : base("name=KasabaKIATEntities")
         {
-            ((IObjectContextAdapter)this).ObjectContext.CommandTimeout = 180;
         }
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -175,6 +174,7 @@ namespace KasabaKIAT.Models
         public virtual DbSet<tblOplata> tblOplatas { get; set; }
         public virtual DbSet<tblVozVrat> tblVozVrats { get; set; }
         public virtual DbSet<tblVipl_Put> tblVipl_Put { get; set; }
+        public virtual DbSet<tblSanatDataCompare> tblSanatDataCompares { get; set; }
     
         public virtual ObjectResult<Nullable<decimal>> sp_get_BankPaymentCompanyMonthly(string inn, Nullable<int> year, Nullable<int> month)
         {

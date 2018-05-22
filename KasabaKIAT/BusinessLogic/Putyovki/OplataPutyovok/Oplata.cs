@@ -108,11 +108,11 @@ namespace KasabaKiat.BusinessLogic.Putyovki.OplataPutyovok
                     oplata.ID_KV = post1.ID_KV;
                     oplata.ID_Otras = post1.ID_Pos;
                     oplata.Num_Doc = post1.Num_Doc;
-                    oplata.PrizOpl = (int)PrizOpl.Vzaimorascheti;
+                    oplata.PrizOpl = (int)OplataRasxPriz.KurortPrixod;
                     oplata.SmFil = post1.SmFil;
                     oplata.Symma_DT = 0;
                     oplata.Symma_KT = post1.Symma;
-                    oplata.Tip_Org = (int)TipOpr.Opredelen == 0 ? false : true;
+                    oplata.Tip_Org = true;
                     oplata.UserId = post1.UserId;
 
                     OplataDataManager.Create(ref oplata);
@@ -127,15 +127,17 @@ namespace KasabaKiat.BusinessLogic.Putyovki.OplataPutyovok
                     {
                         foreach(var pDtl in prixodDtl)
                         {
-                            var oplatDtl = new OplataRasxodiViewModel();
-                            oplatDtl.Departmentbase = pDtl.Departmentbase;
-                            oplatDtl.ID_Opl = oplata.ID;
-                            oplatDtl.ID_Pr = 1; //45%
-                            oplatDtl.ID_Sanat = pDtl.IdSanat.Value;
-                            oplatDtl.Num_Put = pDtl.Num_Put;
-                            oplatDtl.Priz = (int)OplataRasxPriz.KurortPrixod;
-                            oplatDtl.Symma = pDtl.Symma_Put.Value;
-                            oplatDtl.UserId = pDtl.UserId.Value;
+                            var oplatDtl = new OplataRasxodiViewModel
+                            {
+                                Departmentbase = pDtl.Departmentbase,
+                                ID_Opl = oplata.ID,
+                                ID_Pr = 1, //45%
+                                ID_Sanat = pDtl.IdSanat.Value,
+                                Num_Put = pDtl.Num_Put,
+                                Priz = (int)OplataRasxPriz.KurortPrixod,
+                                Symma = pDtl.Symma_Put.Value,
+                                UserId = pDtl.UserId.Value
+                            };
 
                             OplataRasxodDataManager.Create(ref oplatDtl);
                         }
@@ -167,11 +169,11 @@ namespace KasabaKiat.BusinessLogic.Putyovki.OplataPutyovok
                         ID_KV = post1.ID_Kv,
                         ID_Otras = post1.ID_Org,
                         Num_Doc = post1.Num_Doc,
-                        PrizOpl = (int)PrizOpl.OplataPutyovok,
+                        PrizOpl = (int)OplataRasxPriz.OrganizasiyaRasxod,
                         SmFil = post1.SmFil,
                         Symma_DT = post1.Symma,
                         Symma_KT = 0,
-                        Tip_Org = (int)TipOpr.Opredelen == 0 ? false : true,
+                        Tip_Org = true,
                         UserId = post1.UserId
                     };
 
@@ -220,7 +222,7 @@ namespace KasabaKiat.BusinessLogic.Putyovki.OplataPutyovok
                             join sanat  in db.tblSprav_San  on oplDtl.ID_Sanat equals sanat.ID
                             join proc   in db.tblSprav_Pr   on oplDtl.ID_Pr equals proc.ID
                             where (oplMst.ID_Otras == IdOrg && oplDtl.Priz == (int)OplataRasxPriz.OrganizasiyaRasxod &&
-                            oplMst.PrizOpl == (int)PrizOpl.OplataPutyovok)
+                            oplMst.PrizOpl == (int)OplataRasxPriz.OrganizasiyaRasxod)
                             orderby oplMst.Data_Post
                             select new
                             {
@@ -249,7 +251,7 @@ namespace KasabaKiat.BusinessLogic.Putyovki.OplataPutyovok
                                     && z.Num_Put == putyovka.Num_Put
                                     && z.Symma == putyovka.Price);
 
-                        var vozvratCount = find.Count();
+                        var vozvratCount = find2.Count();
 
                         if (oplataCount > vozvratCount)
                         {
@@ -288,8 +290,6 @@ namespace KasabaKiat.BusinessLogic.Putyovki.OplataPutyovok
 
                         list.Add(obj);
                     }
-
-
                 }
 
             }
@@ -313,7 +313,7 @@ namespace KasabaKiat.BusinessLogic.Putyovki.OplataPutyovok
                             join sanat in db.tblSprav_San on oplDtl.ID_Sanat equals sanat.ID
                             join proc in db.tblSprav_Pr on oplDtl.ID_Pr equals proc.ID
                             where (oplMst.ID_Otras == IdOrg && oplDtl.Priz == (int)OplataRasxPriz.OrganizasiyaOplata &&
-                            oplMst.PrizOpl == (int)PrizOpl.OplataPutyovok)
+                            oplMst.PrizOpl == (int)OplataRasxPriz.OrganizasiyaOplata)
                             orderby oplMst.Data_Post
                             select new
                             {
@@ -335,11 +335,11 @@ namespace KasabaKiat.BusinessLogic.Putyovki.OplataPutyovok
 
                 var query1 = from oplMst in db.tblOplatas
                             where (oplMst.ID_Otras == IdOrg && 
-                            oplMst.PrizOpl == (int)PrizOpl.OplataPutyovok)
+                            oplMst.PrizOpl == (int)OplataRasxPriz.OrganizasiyaRasxod)
                             orderby oplMst.Data_Post
                             select new
                             {
-                                Price = oplMst.Symma_KT
+                                Price = oplMst.Symma_DT
                             };
 
                 var masterTotal = query1.Sum(p => p.Price);
@@ -369,7 +369,7 @@ namespace KasabaKiat.BusinessLogic.Putyovki.OplataPutyovok
             {
                 var query = from oplMst in db.tblOplatas
                             where (oplMst.ID_Otras == IdOrg &&
-                            oplMst.PrizOpl == (int)PrizOpl.OplataPutyovok)
+                            oplMst.PrizOpl == (int)OplataRasxPriz.OrganizasiyaRasxod)
                             orderby oplMst.Data_Post
                             select new
                             {
@@ -385,7 +385,7 @@ namespace KasabaKiat.BusinessLogic.Putyovki.OplataPutyovok
 
                 var query1 = from oplMst in db.tblOplatas
                              where (oplMst.ID_Otras == IdOrg &&
-                             oplMst.PrizOpl == (int)PrizOpl.OplataPutyovok)
+                             oplMst.PrizOpl == (int)OplataRasxPriz.OrganizasiyaOplata)
                              orderby oplMst.Data_Post
                              select new
                              {
@@ -400,6 +400,42 @@ namespace KasabaKiat.BusinessLogic.Putyovki.OplataPutyovok
                 }
 
                 totalRemain = KreditAmount.Value - DebitAmount.Value;
+            }
+
+            return totalRemain;
+        }
+
+
+
+        public decimal GetOplataSaldo(long IdOpl)
+        {
+            decimal totalRemain = 0;
+
+            using (KasabaKIATEntities db = new KasabaKIATEntities())
+            {
+                var query = from oplMst in db.tblOplatas
+                            where (oplMst.ID == IdOpl &&
+                            oplMst.PrizOpl == (int)OplataRasxPriz.OrganizasiyaOplata)
+                            select new
+                            {
+                                Price = oplMst.Symma_KT
+                            };
+
+                var OplataAmount = query.Sum(p => p.Price);
+
+                if (!OplataAmount.HasValue)
+                {
+                    OplataAmount = 0;
+                }
+
+                var PutyovkaOplAmt = db.tblOplata_Ras.Where(z => z.ID_Opl == IdOpl).Sum(z => z.Symma);
+
+                if (!PutyovkaOplAmt.HasValue)
+                {
+                    PutyovkaOplAmt = 0;
+                }
+
+                totalRemain = OplataAmount.Value - PutyovkaOplAmt.Value;
             }
 
             return totalRemain;

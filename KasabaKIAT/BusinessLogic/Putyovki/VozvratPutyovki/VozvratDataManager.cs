@@ -152,26 +152,28 @@ namespace KasabaKiat.BusinessLogic.VozvratPutyovki
             {
                 var query = from vozv in db.tblVozVrats
                             join sanat in db.tblSprav_San on vozv.ID_Sanat equals sanat.ID
+                            join org in db.tblSprav_Org on vozv.ID_Ot equals org.ID
                             where vozv.DepartmentBase == model.departmentbase
                             && vozv.SmFil == model.smfil 
                             && vozv.ID_KV == model.id_kv
                             select new VozvratViewModel
                             {
-                                id = vozv.ID,
-                                data_post = vozv.Data_Post,
-                                num_doc = vozv.Num_Doc,
-                                id_sanat = vozv.ID_Sanat,
-                                sanatoriyName = sanat.Name_San,
-                                num_put = vozv.Num_Put,
-                                id_ot = vozv.ID_Ot,
-                                dover = vozv.Dover,
-                                id_pol = vozv.ID_Pol,
-                                symmap = vozv.SymmaP,
-                                id_kv = vozv.ID_KV,
-                                smfil = vozv.SmFil,
-                                tip_voz = vozv.Tip_Voz,
-                                userid = vozv.UserId,
-                                departmentbase = vozv.DepartmentBase
+                                id                                          = vozv.ID,
+                                data_post                                   = vozv.Data_Post,
+                                num_doc                                     = vozv.Num_Doc,
+                                id_sanat                                    = vozv.ID_Sanat,
+                                sanatoriyName                               = sanat.Name_San,
+                                num_put                                     = vozv.Num_Put,
+                                id_ot                                       = vozv.ID_Ot,
+                                orgName                                     = org.Name_Org,
+                                dover                                       = vozv.Dover,
+                                id_pol                                      = vozv.ID_Pol,
+                                symmap                                      = vozv.SymmaP,
+                                id_kv                                       = vozv.ID_KV,
+                                smfil                                       = vozv.SmFil,
+                                tip_voz                                     = vozv.Tip_Voz,
+                                userid                                      = vozv.UserId,
+                                departmentbase                              = vozv.DepartmentBase
                             };
 
                 list = query.ToList();

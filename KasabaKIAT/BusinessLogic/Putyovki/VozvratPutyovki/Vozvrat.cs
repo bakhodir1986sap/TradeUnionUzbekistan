@@ -49,7 +49,7 @@ namespace KasabaKiat.BusinessLogic.Putyovki.VozvratPutyovki
                 ID_KV = model.id_kv,
                 ID_Otras = model.id_ot,
                 Num_Doc = model.num_doc,
-                PrizOpl = (int)PrizOpl.Vzaimorascheti,
+                PrizOpl = (int)OplataRasxPriz.VozvratPutyovki,
                 SmFil = model.smfil,
                 Symma_DT = 0,
                 Symma_KT = model.detailPutyovka.Sum(p => p.symma),

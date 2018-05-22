@@ -31,7 +31,7 @@
     };
 
     $scope.SelectedTipOplati = {
-        code: 1,
+        code: 3,
         name_ru:''
     };
 
@@ -237,7 +237,7 @@
         });
         $http({
             method: 'get',
-            url: '/PrixodPutevok/GetOplataMain?year=' + $scope.SelectedYear.Id + '&kvartal=' + $scope.SelectedKvartal.ID
+            url: '/PrixodPutevok/GetOplataMain?year=' + $scope.SelectedYear.Id + '&kvartal=' + $scope.SelectedKvartal.ID + '&tipOrg=' + $scope.SelectedVidOplati.code + '&Priz=' + $scope.SelectedTipOplati.code
         }).then(function (response) {
 
             $scope.OplataMains = response.data;
@@ -259,7 +259,7 @@
         });
         $http({
             method: 'get',
-            url: '/PrixodPutevok/GetOplataMainRes?year=' + $scope.SelectedYear.Id + '&kvartal=' + $scope.SelectedKvartal.ID
+            url: '/PrixodPutevok/GetOplataMainRes?year='+  $scope.SelectedYear.Id + '&kvartal=' + $scope.SelectedKvartal.ID + '&tipOrg=' + $scope.SelectedVidOplati.code + '&Priz=' + $scope.SelectedTipOplati.code
         }).then(function (response) {
 
             $scope.TotalOplataResults = response.data;
@@ -339,6 +339,7 @@
         $scope.Name_org = $scope.CurrentOplataMain.Name_org;
         $scope.Osnov = $scope.CurrentOplataMain.Osnov;
 
+        $scope.SelectedPutyovkaRaznisa = $scope.CurrentOplataMain.Symma_KT;
         $scope.PutyovkaDtls = '';
 
         var tipOpl = $scope.CurrentOplataMain.PrizOpl;
@@ -369,6 +370,8 @@
         if (($scope.SelectedYear.Id > -1) && ($scope.SelectedKvartal.ID > 0)) {
             GetOplataList();
             GetOplataMainRes();
+            $scope.PutyovkaDtls = '';
+            $scope.PutyovkaDtlsRes = '';
         }
     }
 
@@ -376,9 +379,15 @@
     $scope.SummaOpen = function () {
 
         $scope.SelectedPutyovkas = [];
+        $scope.SelectedPutyovka = [];
+        $scope.SelectedPutyovkaP = [];
+        $scope.SelectedPutyovkaLength = 0;
+        $scope.SelectedPutyovkaSumma = 0;
+        $scope.IsMinusBalance = true;
         GetNotCoveredPutyovka();
         GetGeneralRemainingByOrg();
         GetTotalDebtByOrg();
+        GetOplataSaldo();
     }
 
     function GetNotCoveredPutyovka() {
@@ -415,6 +424,7 @@
         }).then(function (response) {
 
             $scope.GeneralRemainingByOrg = response.data;
+            
 
             document.getElementById('connection').style.visibility = "hidden";
             $("#hh").modal('hide');
@@ -437,6 +447,29 @@
         }).then(function (response) {
 
             $scope.DebtByOrg = response.data;
+
+            document.getElementById('connection').style.visibility = "hidden";
+            $("#hh").modal('hide');
+        }, function (error) {
+            alertify.error("ошибка");
+            console.log("error in GetTotalDebtByOrg");
+            document.getElementById('connection').style.visibility = "hidden";
+            $("#hh").modal('hide');
+        });
+    }
+
+
+    function GetOplataSaldo() {
+        document.getElementById('connection').style.visibility = "visible";
+        $("#hh").modal({
+            backdrop: 'static'
+        });
+        $http({
+            method: 'get',
+            url: '/PrixodPutevok/GetOplataSaldo?IdOpl=' + $scope.CurrentOplataMain.ID
+        }).then(function (response) {
+
+            $scope.OplataSaldo = response.data;
 
             document.getElementById('connection').style.visibility = "hidden";
             $("#hh").modal('hide');
@@ -498,8 +531,8 @@
         $scope.CurrentOplataMain.Name_org = $scope.Name_org;
 
         $scope.CurrentOplataMain.Osnov = $scope.Osnov;
-        //$scope.CurrentOplataMain.Tip_Org = $scope.SelectedVidOplati.code;
-        //$scope.CurrentOplataMain.PrizOpl = $scope.SelectedTipOplati.code;
+        $scope.CurrentOplataMain.Tip_Org = $scope.SelectedVidOplati.code;
+        $scope.CurrentOplataMain.PrizOpl = $scope.SelectedTipOplati.code;
 
         $scope.CurrentOplataMain.ID_KV = $scope.SelectedKvartal.ID;
 
@@ -509,13 +542,13 @@
         var tipOpl = $scope.SelectedTipOplati.code;
 
 
-        if (tipOpl == 1) {
+        if (tipOpl == 4) {
             addType = 'AddOplataMainOplataKurortniy';
         }
-        else if (tipOpl == 2) {
+        else if (tipOpl == 3) {
             addType = 'AddOplataMainOplataPutyovok';
         }
-        else if (tipOpl == 3) {
+        else if (tipOpl == 6) {
             addType = 'AddOplataMainOplataVozvrat';
         }
         else {
@@ -554,8 +587,8 @@
         $scope.CurrentOplataMain.Name_org = $scope.Name_org;
 
         $scope.CurrentOplataMain.Osnov = $scope.Osnov;
-        //$scope.CurrentOplataMain.Tip_Org = $scope.SelectedVidOplati.code;
-        //$scope.CurrentOplataMain.PrizOpl = $scope.SelectedTipOplati.code;
+        $scope.CurrentOplataMain.Tip_Org = $scope.SelectedVidOplati.code;
+        $scope.CurrentOplataMain.PrizOpl = $scope.SelectedTipOplati.code;
 
         $scope.CurrentOplataMain.ID_KV = $scope.SelectedKvartal.ID;
 
@@ -565,13 +598,13 @@
         var tipOpl = $scope.SelectedTipOplati.code;
 
 
-        if (tipOpl == 1) {
+        if (tipOpl == 4) {
             addType = 'AddOplataMainOplataKurortniy';
         }
-        else if (tipOpl == 2) {
+        else if (tipOpl == 3) {
             addType = 'AddOplataMainOplataPutyovok';
         }
-        else if (tipOpl == 3) {
+        else if (tipOpl == 6) {
             addType = 'AddOplataMainOplataVozvrat';
         }
         else {
@@ -581,6 +614,24 @@
         $http({
             method: "post",
             url: "/PrixodPutevok/" + addType,
+            data: JSON.stringify($scope.CurrentOplataMain),
+            dataType: "json"
+        }).then(function (msg) {
+
+            GetData();
+
+        }, function () {
+            alertify.error("ошибка");
+            console.log('Error in AddOplataMainClicked');
+        });
+    }
+
+
+    $scope.RemoveClicked = function () {
+
+        $http({
+            method: "post",
+            url: "/PrixodPutevok/RemoveOplataMain",
             data: JSON.stringify($scope.CurrentOplataMain),
             dataType: "json"
         }).then(function (msg) {
@@ -654,40 +705,68 @@
     ///  Add Detail
     ////////////////////////////////////////////////////////////
     $scope.SelectedPutyovka = [];
-
+    $scope.SelectedPutyovkaLength = 0;
+    $scope.SelectedPutyovkaSumma = 0;
+    $scope.IsMinusBalance = true;
+        
     //For Prixod Putyovka
-    $scope.toggleObjSelectionPut = function ($event, rasxodPutId) {
+    $scope.toggleObjSelectionPut = function ($event, rasxodPut) {
         $event.stopPropagation();
-        console.log('checkbox putyovka' + rasxodPutId);
+        console.log('checkbox putyovka' + rasxodPut.ID);
 
         var isDelated = false;
 
         for (var i = 0, l = $scope.SelectedPutyovka.length; i < l; ++i) {
             var value = $scope.SelectedPutyovka[i];
 
-            if (rasxodPutId === value) {
-                $scope.SelectedPutyovka.splice($scope.SelectedPutyovka.indexOf(rasxodPutId), 1);
+            if (rasxodPut.ID === value.ID) {
+                $scope.SelectedPutyovka.splice($scope.SelectedPutyovka.indexOf(rasxodPut), 1);
                 isDelated = true;
                 break;
             }
         }
 
         if (!isDelated) {
-            $scope.SelectedPutyovka.push(rasxodPutId);
+            $scope.SelectedPutyovka.push(rasxodPut);
         }
 
         console.log('====================================================');
+        var summa = 0;
 
         for (var i = 0, l = $scope.SelectedPutyovka.length; i < l; ++i) {
             var value = $scope.SelectedPutyovka[i];
-            console.log('putyovka: ' + value);
+
+            summa = summa + value.Symma;
+
+            console.log('putyovka: ' + value.ID);
         }
+
+        $scope.SelectedPutyovkaLength = $scope.SelectedPutyovka.length;
+        $scope.SelectedPutyovkaSumma = summa;
+        $scope.SelectedPutyovkaRaznisa = $scope.OplataSaldo - summa;
+
+        if ($scope.SelectedPutyovkaRaznisa < 0)
+        {
+            $scope.IsMinusBalance = false;
+        }
+        else
+        {
+            $scope.IsMinusBalance = true;
+        }
+
     }
+
+    $scope.SelectedPutyovkaP = [];
 
     $scope.SavePutDtl = function () {
 
+        for (var i = 0, l = $scope.SelectedPutyovka.length; i < l; ++i) {
+            var value = $scope.SelectedPutyovka[i];
+            $scope.SelectedPutyovkaP.push(value.ID);
+        }
+
         var postData = {
-            lmodel: $scope.SelectedPutyovka,
+            lmodel: $scope.SelectedPutyovkaP,
             IdOpl: $scope.CurrentOplataMain.ID,
             IdPr: $scope.SelectedProcent.ID
         };

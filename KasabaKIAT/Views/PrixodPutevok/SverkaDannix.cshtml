@@ -19,6 +19,12 @@
                 </nav>
             </div>
         </div>
+        <div class="col-md-5 text-md-right">
+            <div class="form-inline">
+                <input type="file" id="input08" name="UploadedFile" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" onchange="angular.element(this).scope().UploadFiles(this.files)" />
+            </div>
+            <input type="button" value="Просмотреть" class="btn btn-primary" style="margin-top:-65px" ng-disabled="!SelectedFileForUpload" ng-click="ParseExcel() " />
+        </div>
         <div class="table-responsive box-shadow mb-5">
             <table class="table table__block va-top t-scroll">
                 <thead>
@@ -26,55 +32,55 @@
                         <th class="dropdown dropdown__table">
                             <span class="dropdown-toggle dr-link" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">№ путевки</span>
                             <div class="dropdown-menu dr-menu rounded-0 border-0" aria-labelledby="dropdownMenuButton">
+                                @*<a class="dropdown-item dr-item" href="#">№ путевки</a>
                                 <a class="dropdown-item dr-item" href="#">№ путевки</a>
                                 <a class="dropdown-item dr-item" href="#">№ путевки</a>
-                                <a class="dropdown-item dr-item" href="#">№ путевки</a>
-                                <a class="dropdown-item dr-item" href="#">№ путевки</a>
+                                <a class="dropdown-item dr-item" href="#">№ путевки</a>*@
                             </div>
                         </th>
                         <th class="dropdown dropdown__table">
                             <span class="dropdown-toggle dr-link" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Санаторий</span>
                             <div class="dropdown-menu dr-menu rounded-0 border-0" aria-labelledby="dropdownMenuButton">
+                                @*<a class="dropdown-item dr-item" href="#">Санаторий</a>
                                 <a class="dropdown-item dr-item" href="#">Санаторий</a>
                                 <a class="dropdown-item dr-item" href="#">Санаторий</a>
-                                <a class="dropdown-item dr-item" href="#">Санаторий</a>
-                                <a class="dropdown-item dr-item" href="#">Санаторий</a>
+                                <a class="dropdown-item dr-item" href="#">Санаторий</a>*@
                             </div>
                         </th>
                         <th class="dropdown dropdown__table">
                             <span class="dropdown-toggle dr-link" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Дата заезда</span>
                             <div class="dropdown-menu dr-menu rounded-0 border-0" aria-labelledby="dropdownMenuButton">
+                                @*<a class="dropdown-item dr-item" href="#">Дата заезда</a>
                                 <a class="dropdown-item dr-item" href="#">Дата заезда</a>
                                 <a class="dropdown-item dr-item" href="#">Дата заезда</a>
-                                <a class="dropdown-item dr-item" href="#">Дата заезда</a>
-                                <a class="dropdown-item dr-item" href="#">Дата заезда</a>
+                                <a class="dropdown-item dr-item" href="#">Дата заезда</a>*@
                             </div>
                         </th>
                         <th class="dropdown dropdown__table">
                             <span class="dropdown-toggle dr-link" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Информация об отдыхающем</span>
                             <div class="dropdown-menu dr-menu rounded-0 border-0" aria-labelledby="dropdownMenuButton">
+                                @*<a class="dropdown-item dr-item" href="#">Информация об отдыхающем</a>
                                 <a class="dropdown-item dr-item" href="#">Информация об отдыхающем</a>
                                 <a class="dropdown-item dr-item" href="#">Информация об отдыхающем</a>
-                                <a class="dropdown-item dr-item" href="#">Информация об отдыхающем</a>
-                                <a class="dropdown-item dr-item" href="#">Информация об отдыхающем</a>
+                                <a class="dropdown-item dr-item" href="#">Информация об отдыхающем</a>*@
                             </div>
                         </th>
                         <th class="dropdown dropdown__table">
                             <span class="dropdown-toggle dr-link" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Стоимость</span>
                             <div class="dropdown-menu dr-menu rounded-0 border-0" aria-labelledby="dropdownMenuButton">
+                                @*<a class="dropdown-item dr-item" href="#">Стоимость</a>
                                 <a class="dropdown-item dr-item" href="#">Стоимость</a>
                                 <a class="dropdown-item dr-item" href="#">Стоимость</a>
-                                <a class="dropdown-item dr-item" href="#">Стоимость</a>
-                                <a class="dropdown-item dr-item" href="#">Стоимость</a>
+                                <a class="dropdown-item dr-item" href="#">Стоимость</a>*@
                             </div>
                         </th>
                         <th class="dropdown dropdown__table">
                             <span class="dropdown-toggle dr-link" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Оплачено</span>
                             <div class="dropdown-menu dr-menu rounded-0 border-0" aria-labelledby="dropdownMenuButton">
+                                @*<a class="dropdown-item dr-item" href="#">Оплачено</a>
                                 <a class="dropdown-item dr-item" href="#">Оплачено</a>
                                 <a class="dropdown-item dr-item" href="#">Оплачено</a>
-                                <a class="dropdown-item dr-item" href="#">Оплачено</a>
-                                <a class="dropdown-item dr-item" href="#">Оплачено</a>
+                                <a class="dropdown-item dr-item" href="#">Оплачено</a>*@
                             </div>
                         </th>
                     </tr>

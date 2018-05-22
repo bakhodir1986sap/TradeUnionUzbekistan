@@ -81,6 +81,28 @@ namespace KasabaKiat.BusinessLogic.Putyovki.OplataPutyovok
             }
         }
 
+
+        public static void RemoveByMaster(OplataRasxodiViewModel model)
+        {
+            using (KasabaKIATEntities db = new KasabaKIATEntities())
+            {
+                var opls = db.tblOplata_Ras.Where(z => z.ID_Opl == model.ID_Opl);
+
+                if (opls.Any())
+                {
+                    foreach(var opl in opls)
+                    {
+                        if (opl != null)
+                        {
+                            db.tblOplata_Ras.Remove(opl);
+                        }
+                    }
+                }
+
+                db.SaveChanges();
+            }
+        }
+
         public static List<OplataRasxodiViewModel> Get(OplataRasxodiViewModel model)
         {
             List<OplataRasxodiViewModel> list = null;

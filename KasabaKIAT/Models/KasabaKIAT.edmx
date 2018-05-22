@@ -2298,6 +2298,23 @@ warning 6002: The table/view 'KasabaKIAT_N1.dbo.tblPutevka' does not have a prim
           <Property Name="ID" Type="bigint" Nullable="false" />
           <Property Name="Departmentbase" Type="nvarchar" MaxLength="255" />
         </EntityType>
+        <EntityType Name="tblSanatDataCompare">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="YEAR" Type="int" />
+          <Property Name="OWNER_TP" Type="int" />
+          <Property Name="SANAT_ID" Type="int" />
+          <Property Name="NUM_PUT" Type="nvarchar" MaxLength="50" />
+          <Property Name="DATE_SAN" Type="nvarchar" MaxLength="100" />
+          <Property Name="PRICE" Type="nvarchar" MaxLength="100" />
+          <Property Name="FIO_OTDIX" Type="nvarchar" MaxLength="200" />
+          <Property Name="ADRESS" Type="nvarchar" MaxLength="500" />
+          <Property Name="WORK_PLACE" Type="nvarchar" MaxLength="500" />
+          <Property Name="OTRASL" Type="nvarchar" MaxLength="500" />
+          <Property Name="OWNER_CODE" Type="varchar" MaxLength="255" />
+        </EntityType>
         <EntityType Name="tblSprav_Face">
           <Key>
             <PropertyRef Name="ID" />
@@ -6076,6 +6093,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <EntitySet Name="tblPos_Put" EntityType="Self.tblPos_Put" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblPost" EntityType="Self.tblPost" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblPred" EntityType="Self.tblPred" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblSanatDataCompare" EntityType="Self.tblSanatDataCompare" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblSprav_Face" EntityType="Self.tblSprav_Face" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblSprav_Kv" EntityType="Self.tblSprav_Kv" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblSprav_MFO" EntityType="Self.tblSprav_MFO" Schema="dbo" store:Type="Tables" />
@@ -13589,6 +13607,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
             <End Role="users" EntitySet="users" />
             <End Role="tblVipl_Put" EntitySet="tblVipl_Put" />
           </AssociationSet>
+          <EntitySet Name="tblSanatDataCompares" EntityType="KasabaKIATModel.tblSanatDataCompare" />
           </EntityContainer>
         <ComplexType Name="sp_get_BankPaymentCompanyYearlyQ_Result">
           <Property Type="Int32" Name="MONTH_NUM" Nullable="true" />
@@ -15140,6 +15159,23 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="tblSanatDataCompare">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="YEAR" Type="Int32" />
+          <Property Name="OWNER_TP" Type="Int32" />
+          <Property Name="SANAT_ID" Type="Int32" />
+          <Property Name="NUM_PUT" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DATE_SAN" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="PRICE" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="FIO_OTDIX" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="ADRESS" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="WORK_PLACE" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="OTRASL" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="OWNER_CODE" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -18943,6 +18979,24 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
                 <ScalarProperty Name="ID_Sanat" ColumnName="ID_Sanat" />
                 <ScalarProperty Name="ID_Pok" ColumnName="ID_Pok" />
                 <ScalarProperty Name="ID_Vipl" ColumnName="ID_Vipl" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblSanatDataCompares">
+            <EntityTypeMapping TypeName="KasabaKIATModel.tblSanatDataCompare">
+              <MappingFragment StoreEntitySet="tblSanatDataCompare">
+                <ScalarProperty Name="OWNER_CODE" ColumnName="OWNER_CODE" />
+                <ScalarProperty Name="OTRASL" ColumnName="OTRASL" />
+                <ScalarProperty Name="WORK_PLACE" ColumnName="WORK_PLACE" />
+                <ScalarProperty Name="ADRESS" ColumnName="ADRESS" />
+                <ScalarProperty Name="FIO_OTDIX" ColumnName="FIO_OTDIX" />
+                <ScalarProperty Name="PRICE" ColumnName="PRICE" />
+                <ScalarProperty Name="DATE_SAN" ColumnName="DATE_SAN" />
+                <ScalarProperty Name="NUM_PUT" ColumnName="NUM_PUT" />
+                <ScalarProperty Name="SANAT_ID" ColumnName="SANAT_ID" />
+                <ScalarProperty Name="OWNER_TP" ColumnName="OWNER_TP" />
+                <ScalarProperty Name="YEAR" ColumnName="YEAR" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>

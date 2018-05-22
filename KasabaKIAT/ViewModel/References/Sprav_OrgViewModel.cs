@@ -46,5 +46,7 @@ namespace KasabaKiat.BusinessLogic.Utils.References
         public bool IsPravSoyuz { get; set; }
 
         public long? ParentId { get; set; }
+
+        public string  ParentName { get; set; }
     }
 }

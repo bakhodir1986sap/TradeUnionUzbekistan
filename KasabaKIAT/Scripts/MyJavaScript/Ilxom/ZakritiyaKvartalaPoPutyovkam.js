@@ -160,6 +160,11 @@
         });
     }
 
+    $scope.OrgChanged = function ()
+    {
+        GetZakritiyaPutyovkas();
+        GetZakritiyaPutyovkasRes();
+    }
 
     function GetZakritiyaPutyovkasRes() {
         document.getElementById('connection').style.visibility = "visible";
@@ -215,7 +220,7 @@
     }
 
     
-    $scope.SaveVozvratEnter = function () {
+    $scope.SaveZakritieEnter = function () {
 
         $scope.ZakritiyeKvartalaViewModelTemp.IdOrg = $scope.SelectedOrganization.ID;
         $scope.ZakritiyeKvartalaViewModelTemp.id_kv = $scope.SelectedKvartal.ID;
@@ -224,7 +229,7 @@
 
         var postData = {
             mainMdl: $scope.ZakritiyeKvartalaViewModelTemp,
-            lrasxm: $scope.SelectedPutyovka
+            lrasxm: $scope.SelectedPutyovkas
         };
 
         $http({
@@ -480,6 +485,8 @@
             $scope.SelectedOrganizationL.push(Id + '_' + Name_Org);
             $scope.SelectedOrganization.ID = Id;
             $scope.SelectedOrganization.Name_Org = Name_Org;
+            GetZakritiyaPutyovkas();
+            GetZakritiyaPutyovkasRes();
         }
 
         console.log('====================================================');

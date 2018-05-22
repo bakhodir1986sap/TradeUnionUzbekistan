@@ -44,10 +44,12 @@ namespace KasabaKiat.ViewModel.Putyovki
         /// </summary>
         public long?                        id_ot                       {get; set;}
 
-      /// <summary>
-      /// Doverennost
-      /// </summary>
-      public string                         dover                       {get; set;}
+        public string                       orgName                     { get; set; }
+
+        /// <summary>
+        /// Doverennost
+        /// </summary>
+        public string                         dover                       {get; set;}
 
         /// <summary>
         /// Id poluchatelya reference 

@@ -23,6 +23,33 @@
         ID: ''
     };
 
+    $scope.SelectedOrganization = {
+
+        ID: -1,
+        Name_Org: ''
+
+    };
+
+    function GetOrganizationList() {
+        document.getElementById('connection').style.visibility = "visible";
+        $("#hh").modal({
+            backdrop: 'static'
+        });
+        $http({
+            method: 'get',
+            url: '/PrixodPutevok/GetOrganizationList'
+        }).then(function (response) {
+            $scope.OrganizationsL = response.data;
+            document.getElementById('connection').style.visibility = "hidden";
+            $("#hh").modal('hide');
+        }, function (error) {
+            alertify.error("ошибка");
+            console.log("error in GetOrganizationList");
+            document.getElementById('connection').style.visibility = "hidden";
+            $("#hh").modal('hide');
+        });
+    }
+
     function GetOtraslForOrganization() {
         document.getElementById('connection').style.visibility = "visible";
         $("#hh").modal({
@@ -88,6 +115,9 @@
             $scope.ModalRegionSelected.ID = org.Region;
             $scope.ModalRegionSelected.NameReg = org.RegionName;
 
+            $scope.SelectedOrganization.ID = org.ParentId;
+            $scope.SelectedOrganization.Name_Org = org.ParentName;
+
             document.getElementById('connection').style.visibility = "hidden";
             $("#hh").modal('hide');
         }, function (error) {
@@ -120,7 +150,6 @@
             $("#hh").modal('hide');
         });
     }
-
 
     function GetOrganizations() {
 
@@ -194,6 +223,7 @@
 
         $scope.Organization.ID_Ot = $scope.ModalOtraslSelected.ID_Ot;
         $scope.Organization.Region = $scope.ModalRegionSelected.ID;
+        $scope.Organization.ParentId = $scope.SelectedOrganization.ID;
 
         $http({
             method: 'post',
@@ -202,7 +232,7 @@
             contentType: "application/json; charset=utf-8",
         }).then(function (response) {
             GetOrganizations();
-            alertify.info("Успешное сохранение");
+            alertify.success("Успешное сохранение");
             document.getElementById('connection').style.visibility = "hidden";
             $("#hh").modal('hide');
         }, function (error) {

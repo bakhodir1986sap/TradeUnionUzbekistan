@@ -134,7 +134,6 @@
 
     };
 
-
     //Get Functions
     function GetYearsList() {
         document.getElementById('connection').style.visibility = "visible";

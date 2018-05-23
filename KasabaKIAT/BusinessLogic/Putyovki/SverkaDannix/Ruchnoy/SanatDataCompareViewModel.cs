@@ -11,6 +11,7 @@ namespace KasabaKIAT.BusinessLogic.Putyovki.SverkaDannix.Ruchnoy
       public int?   year        {get; set;}
       public int?   owner_tp    {get; set;}
       public int?   sanat_id    {get; set;}
+      public string sanatName   {get; set;}
       public string num_put     {get; set;}
       public string date_san    {get; set;}
       public string price       {get; set;}
@@ -18,6 +19,6 @@ namespace KasabaKIAT.BusinessLogic.Putyovki.SverkaDannix.Ruchnoy
       public string adress      {get; set;}
       public string work_place  {get; set;}
       public string otrasl      {get; set;}
-      public string owner_code { get; set; }
+      public string owner_code  {get; set;}
     }
 }

@@ -17,5 +17,8 @@
     <Setting Name="KaznaDirectory" Type="System.String" Scope="Application">
       <Value Profile="(Default)">C:\RADSOFT\Projects\PravSouz\KaznaFilesDir\IN</Value>
     </Setting>
+    <Setting Name="TemplateDir" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">D:\RAD SOFT\Projects\PravSouz\Documentation\Erkin</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

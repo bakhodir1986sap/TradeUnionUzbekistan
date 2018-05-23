@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.26730.12
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KasabaKIAT", "KasabaKIAT\KasabaKIAT.csproj", "{6B3871A6-4419-4BEA-B258-51C2B80FF5B1}"
 EndProject
@@ -22,6 +22,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FederasiyaSverka", "FederasiyaSverka\FederasiyaSverka.csproj", "{5A165C6A-0371-4E59-9905-C27D35CDCFA1}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PushNotifyApp", "PushNotifyApp\PushNotifyApp.csproj", "{7F80EE88-760E-4A17-9490-088A8C5523D8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NastyaAppCopyFile", "NastyaAppCopyFile\NastyaAppCopyFile.csproj", "{F7718960-035B-439E-92A9-1E0759F072B3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -93,8 +95,17 @@ Global
 		{7F80EE88-760E-4A17-9490-088A8C5523D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7F80EE88-760E-4A17-9490-088A8C5523D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7F80EE88-760E-4A17-9490-088A8C5523D8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F7718960-035B-439E-92A9-1E0759F072B3}.1|Any CPU.ActiveCfg = Release|Any CPU
+		{F7718960-035B-439E-92A9-1E0759F072B3}.1|Any CPU.Build.0 = Release|Any CPU
+		{F7718960-035B-439E-92A9-1E0759F072B3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F7718960-035B-439E-92A9-1E0759F072B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F7718960-035B-439E-92A9-1E0759F072B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F7718960-035B-439E-92A9-1E0759F072B3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {3AF54A09-DCD1-4EF7-8AA5-835D32883626}
 	EndGlobalSection
 EndGlobal

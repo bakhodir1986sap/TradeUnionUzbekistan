@@ -1,6 +1,7 @@
 ﻿using KasabaKiat.BusinessLogic.Utils.References;
 using KasabaKiat.Helpers;
 using KasabaKIAT.BusinessLogic.Utils.References;
+using KasabaKIAT.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -120,6 +121,30 @@ namespace KasabaKIAT.Controllers
             return Json(list, JsonRequestBehavior.AllowGet);
         }
 
+
+        public JsonResult GetLoadSide()
+        {
+            var list = new List<SpravCodeDecode>();
+
+            var obj1 = new SpravCodeDecode
+            {
+                Code = 0,
+                Decode = "Санаторий"
+            };
+
+            list.Add(obj1);
+
+            var obj2 = new SpravCodeDecode
+            {
+                Code = 0,
+                Decode = "Правсоюзы"
+            };
+
+            list.Add(obj2);
+
+            return Json(list, JsonRequestBehavior.AllowGet);
+        }
+
         /// <summary>
         /// Osnovaniye vidachi
         /// </summary>
@@ -175,5 +200,16 @@ namespace KasabaKIAT.Controllers
 
             return Json(list, JsonRequestBehavior.AllowGet);
         }
+
+        public JsonResult GetPravsoyuzList()
+        {
+            using (KasabaKIATEntities db = new KasabaKIATEntities())
+            {
+                var list = db.tbku_StrokaProfsoyza.Where(z=>z.MATCH_DEPARTMENTBASE != null).ToList();
+
+                return Json(list, JsonRequestBehavior.AllowGet);
+            }
+        }
+
     }
 }

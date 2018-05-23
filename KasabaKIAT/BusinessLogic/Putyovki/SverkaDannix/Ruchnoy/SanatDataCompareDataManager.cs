@@ -109,12 +109,15 @@ namespace KasabaKIAT.BusinessLogic.Putyovki.SverkaDannix.Ruchnoy
             using (KasabaKIATEntities db = new KasabaKIATEntities())
             {
                 var query = from sanInfo in db.tblSanatDataCompares
+                            join sanat in db.tblSprav_San on sanInfo.SANAT_ID equals sanat.ID
+                            where sanInfo.YEAR == model.year
                             select new SanatDataCompareViewModel
                             {
                                 id          = sanInfo.ID        ,
                                 year        = sanInfo.YEAR      ,
                                 owner_tp    = sanInfo.OWNER_TP  ,
                                 sanat_id    = sanInfo.SANAT_ID  ,
+                                sanatName   = sanat.Name_San,
                                 num_put     = sanInfo.NUM_PUT   ,
                                 date_san    = sanInfo.DATE_SAN  ,
                                 price       = sanInfo.PRICE     ,

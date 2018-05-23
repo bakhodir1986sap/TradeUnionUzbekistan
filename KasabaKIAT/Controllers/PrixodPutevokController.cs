@@ -27,6 +27,7 @@ using KasabaKiat.BusinessLogic.Putyovki.RaznoskaPoPutyovki;
 using KasabaKiat.ViewModel.Putyovki.RaznoskaPutyovok;
 using KasabaKIAT.BusinessLogic.Putyovki.SverkaDannix.Ruchnoy;
 using OfficeOpenXml;
+using System.IO;
 
 namespace KasabaKIAT.Controllers
 {
@@ -3006,13 +3007,38 @@ namespace KasabaKIAT.Controllers
         /// <param name="model"></param>
         /// <returns></returns>
         [HttpPost]
-        public JsonResult ReadFileSverki(FormCollection formCollection , SanatDataCompareViewModel model)
+        public JsonResult ReadFileSverki(FormCollection formCollection) 
         {
             log.Info("ReadFileSverki");
             try
             {
                 if (Request != null)
                 {
+                    int year = 0;
+                    int owner_tp = 0;
+                    int sanat_id = 0;
+                    string owner_code = "";
+
+                    foreach (var key in formCollection.AllKeys)
+                    {
+                        if (key.Equals("SelectedYear"))
+                        {
+                            year = int.Parse(formCollection[key]);
+                        }
+                        if (key.Equals("SelectedSide"))
+                        {
+                            owner_tp = int.Parse(formCollection[key]);
+                        }
+                        if (key.Equals("SelectedSanatory"))
+                        {
+                            sanat_id = int.Parse(formCollection[key]);
+                        }
+                        if (key.Equals("SelectedPravsoyuz"))
+                        {
+                            owner_code = formCollection[key];
+                        }
+                    }
+
                     HttpPostedFileBase file = Request.Files["UploadedFile"];
                     if ((file != null) && (file.ContentLength > 0) && !string.IsNullOrEmpty(file.FileName))
                     {
@@ -3032,10 +3058,10 @@ namespace KasabaKIAT.Controllers
                             {
                                 var sver = new SanatDataCompareViewModel();
 
-                                sver.year = model.year;
-                                sver.owner_tp = model.owner_tp;
-                                sver.sanat_id = model.sanat_id;
-                                sver.owner_code = sver.owner_code;
+                                sver.year = year;
+                                sver.owner_tp = owner_tp;
+                                sver.sanat_id = sanat_id;
+                                sver.owner_code = owner_code;
                                 sver.num_put = workSheet.Cells[rowIterator, 1].Value.ToString();
                                 sver.date_san = workSheet.Cells[rowIterator, 2].Value.ToString();
                                 sver.price = workSheet.Cells[rowIterator, 3].Value.ToString();
@@ -3058,6 +3084,73 @@ namespace KasabaKIAT.Controllers
                 log.Info(ex);
                 return Json("error", JsonRequestBehavior.AllowGet);
             }
+        }
+
+
+        public JsonResult GetLoadedRows(int year)
+        {
+            var list = SanatDataCompareDataManager.Get(new SanatDataCompareViewModel() {
+                year = year
+            }).Take(100);
+
+            return Json(list, JsonRequestBehavior.AllowGet);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public FileResult DownloadTemplate()
+        {
+            var ArxiveDirectory = Properties.Settings.Default.TemplateDir;
+
+            var targetFile = Path.Combine(ArxiveDirectory, "shbln01.xls");
+
+            byte[] fileBytes = System.IO.File.ReadAllBytes(targetFile);
+            string fileName = "template.xls";
+            return File(fileBytes, "application/vnd.ms-excel", fileName);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="year"></param>
+        /// <returns></returns>
+        public JsonResult GetDifferByYearFiles(int year)
+        {
+            var sverObj = new SverManager();
+
+            var list = sverObj.MatchingEngineFiles(year);
+
+            return Json(list, JsonRequestBehavior.AllowGet);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="year"></param>
+        /// <returns></returns>
+        public JsonResult GetDifferByYearExternal_Vvod(int year)
+        {
+            var sverObj = new SverManager();
+
+            var list = sverObj.MatchingEngineExternal_Vvod(year);
+
+            return Json(list, JsonRequestBehavior.AllowGet);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="year"></param>
+        /// <returns></returns>
+        public JsonResult GetDifferByYearMix(int year)
+        {
+            var sverObj = new SverManager();
+
+            var list = sverObj.MatchingEngineMix(year);
+
+            return Json(list, JsonRequestBehavior.AllowGet);
         }
 
         #endregion

@@ -4,6 +4,7 @@
     GetRegionForOrganization();
     GetEmptyCarcas();
     GetOrganizations();
+    GetPravLevel();
 
     $scope.FilterSelectedOtrasl = {
         Name_Ot: '',
@@ -27,6 +28,13 @@
 
         ID: -1,
         Name_Org: ''
+
+    };
+
+    $scope.SelectedProgLevel = {
+
+        Code: 5,
+        Decode: 'ППО'
 
     };
 
@@ -65,6 +73,27 @@
         }, function (error) {
             alertify.error("ошибка");
             console.log("error in GetRekvizits");
+            document.getElementById('connection').style.visibility = "hidden";
+            $("#hh").modal('hide');
+        });
+    }
+
+
+    function GetPravLevel() {
+        document.getElementById('connection').style.visibility = "visible";
+        $("#hh").modal({
+            backdrop: 'static'
+        });
+        $http({
+            method: 'get',
+            url: '/Reference/GetPravLevel'
+        }).then(function (response) {
+            $scope.ProfLevels = response.data;
+            document.getElementById('connection').style.visibility = "hidden";
+            $("#hh").modal('hide');
+        }, function (error) {
+            alertify.error("ошибка");
+            console.log("error in GetPravLevel");
             document.getElementById('connection').style.visibility = "hidden";
             $("#hh").modal('hide');
         });
@@ -224,6 +253,8 @@
         $scope.Organization.ID_Ot = $scope.ModalOtraslSelected.ID_Ot;
         $scope.Organization.Region = $scope.ModalRegionSelected.ID;
         $scope.Organization.ParentId = $scope.SelectedOrganization.ID;
+        $scope.Organization.PravSoyuzLevel = $scope.SelectedProgLevel.Code;
+        
 
         $http({
             method: 'post',

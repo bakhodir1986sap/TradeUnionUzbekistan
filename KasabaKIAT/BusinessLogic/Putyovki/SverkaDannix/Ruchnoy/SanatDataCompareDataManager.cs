@@ -73,6 +73,55 @@ namespace KasabaKIAT.BusinessLogic.Putyovki.SverkaDannix.Ruchnoy
             }
         }
 
+        public static void SaveData(SanatDataCompareViewModel model)
+        {
+            using (KasabaKIATEntities db = new KasabaKIATEntities())
+            {
+                var sanInfo = db.tblSanatDataCompares.Where(z => z.SANAT_ID == model.sanat_id
+                && z.NUM_PUT == model.num_put);
+
+                if (sanInfo.Any())
+                {
+                    var sanInfo1 = sanInfo.FirstOrDefault();
+
+                    if (sanInfo1 != null)
+                    {
+                        sanInfo1.YEAR = model.year;
+                        sanInfo1.OWNER_TP = model.owner_tp;
+                        sanInfo1.SANAT_ID = model.sanat_id;
+                        sanInfo1.NUM_PUT = model.num_put;
+                        sanInfo1.DATE_SAN = model.date_san;
+                        sanInfo1.PRICE = model.price;
+                        sanInfo1.FIO_OTDIX = model.fio_otdix;
+                        sanInfo1.ADRESS = model.adress;
+                        sanInfo1.WORK_PLACE = model.work_place;
+                        sanInfo1.OTRASL = model.otrasl;
+                        sanInfo1.OWNER_CODE = model.owner_code;
+                    }
+                }else
+                {
+                    var sanInfo2 = new tblSanatDataCompare
+                    {
+                        YEAR = model.year,
+                        OWNER_TP = model.owner_tp,
+                        SANAT_ID = model.sanat_id,
+                        NUM_PUT = model.num_put,
+                        DATE_SAN = model.date_san,
+                        PRICE = model.price,
+                        FIO_OTDIX = model.fio_otdix,
+                        ADRESS = model.adress,
+                        WORK_PLACE = model.work_place,
+                        OTRASL = model.otrasl,
+                        OWNER_CODE = model.owner_code
+                    };
+
+                    var sanIi = db.tblSanatDataCompares.Add(sanInfo2);
+                }
+
+                db.SaveChanges();
+            }
+        }
+
         /// <summary>
         /// 
         /// </summary>

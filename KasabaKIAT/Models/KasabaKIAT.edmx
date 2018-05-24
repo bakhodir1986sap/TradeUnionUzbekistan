@@ -2365,6 +2365,10 @@ warning 6002: The table/view 'KasabaKIAT_N1.dbo.tblPutevka' does not have a prim
           <Property Name="DepartmentBase" Type="nvarchar" MaxLength="255" />
           <Property Name="IS_PRAVSOYUZ" Type="bit" Nullable="false" />
           <Property Name="ParentID" Type="bigint" />
+          <Property Name="PRAVORGLEVEL" Type="int" />
+          <Property Name="DIRECTOR" Type="nvarchar" MaxLength="200" />
+          <Property Name="BUXGALTER" Type="nvarchar" MaxLength="200" />
+          <Property Name="DOVERENNOE_LISO" Type="nvarchar" MaxLength="200" />
         </EntityType>
         <EntityType Name="tblSprav_Os">
           <Key>
@@ -9221,6 +9225,10 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <NavigationProperty Name="tblVozVrats" Relationship="KasabaKIATModel.FK_tblVozVrat_tblSprav_Org1" FromRole="tblSprav_Org" ToRole="tblVozVrat" />
           <Property Name="IS_PRAVSOYUZ" Type="Boolean" Nullable="false" />
           <Property Name="ParentID" Type="Int64" />
+          <Property Name="PRAVORGLEVEL" Type="Int32" />
+          <Property Name="DIRECTOR" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="BUXGALTER" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="DOVERENNOE_LISO" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           </EntityType>
         <EntityType Name="tblSprav_Os">
           <Key>
@@ -17081,6 +17089,10 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <EntitySetMapping Name="tblSprav_Org">
             <EntityTypeMapping TypeName="KasabaKIATModel.tblSprav_Org">
               <MappingFragment StoreEntitySet="tblSprav_Org">
+                <ScalarProperty Name="DOVERENNOE_LISO" ColumnName="DOVERENNOE_LISO" />
+                <ScalarProperty Name="BUXGALTER" ColumnName="BUXGALTER" />
+                <ScalarProperty Name="DIRECTOR" ColumnName="DIRECTOR" />
+                <ScalarProperty Name="PRAVORGLEVEL" ColumnName="PRAVORGLEVEL" />
                 <ScalarProperty Name="ParentID" ColumnName="ParentID" />
                 <ScalarProperty Name="IS_PRAVSOYUZ" ColumnName="IS_PRAVSOYUZ" />
                 <ScalarProperty Name="ID" ColumnName="ID" />

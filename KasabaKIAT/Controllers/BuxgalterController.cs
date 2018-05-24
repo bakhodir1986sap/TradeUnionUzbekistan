@@ -72,10 +72,6 @@ namespace KasabaKIAT.Controllers
         [OutputCache(Duration = 30, Location = OutputCacheLocation.ServerAndClient, VaryByCustom = "userId")]
         public ActionResult OsushestvleniyeProvodki()
         {
-            var tt = new CloseDayTest();
-
-            tt.Process();
-
             return View();
         }
 

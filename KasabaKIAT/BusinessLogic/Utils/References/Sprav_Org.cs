@@ -32,6 +32,10 @@ namespace KasabaKiat.BusinessLogic.Utils.References
                 org.DepartmentBase = model.DepartmentBase;
                 org.IS_PRAVSOYUZ = model.IsPravSoyuz;
                 org.ParentID = model.ParentId;
+                org.PRAVORGLEVEL = model.PravSoyuzLevel;
+                org.DIRECTOR = model.Director;
+                org.BUXGALTER = model.Buxgalter;
+                org.DOVERENNOE_LISO = model.Doverennoe_liso;
 
                 var orgIns = db.tblSprav_Org.Add(org);
 
@@ -86,6 +90,10 @@ namespace KasabaKiat.BusinessLogic.Utils.References
                         //org1.UserId = model.UserId;
                         org1.IS_PRAVSOYUZ = model.IsPravSoyuz;
                         org1.ParentID = model.ParentId;
+                        org1.PRAVORGLEVEL = model.PravSoyuzLevel;
+                        org1.DIRECTOR = model.Director;
+                        org1.BUXGALTER = model.Buxgalter;
+                        org1.DOVERENNOE_LISO = model.Doverennoe_liso;
                     }
                 }
 
@@ -139,7 +147,11 @@ namespace KasabaKiat.BusinessLogic.Utils.References
                                    E_Mail   = org.E_Mail,
                                    UserId   = org.UserId,
                                    IsPravSoyuz = org.IS_PRAVSOYUZ,
-                                   ParentId = org.ParentID
+                                   ParentId = org.ParentID,
+                                   PravSoyuzLevel = org.PRAVORGLEVEL,
+                                   Director = org.DIRECTOR,
+                                   Buxgalter = org.BUXGALTER,
+                                   Doverennoe_liso = org.DOVERENNOE_LISO
                                }  ;
 
                 list = queryRes.ToList();
@@ -182,7 +194,11 @@ namespace KasabaKiat.BusinessLogic.Utils.References
                                    E_Mail = org.E_Mail,
                                    UserId = org.UserId,
                                    IsPravSoyuz = org.IS_PRAVSOYUZ,
-                                   ParentId = org.ParentID
+                                   ParentId = org.ParentID,
+                                   PravSoyuzLevel = org.PRAVORGLEVEL,
+                                   Director = org.DIRECTOR,
+                                   Buxgalter = org.BUXGALTER,
+                                   Doverennoe_liso = org.DOVERENNOE_LISO
                                };
 
                 list = queryRes.ToList();
@@ -243,7 +259,11 @@ namespace KasabaKiat.BusinessLogic.Utils.References
                                    E_Mail = org.E_Mail,
                                    UserId = org.UserId,
                                    IsPravSoyuz = org.IS_PRAVSOYUZ,
-                                   ParentId = org.ParentID
+                                   ParentId = org.ParentID,
+                                   PravSoyuzLevel = org.PRAVORGLEVEL,
+                                   Director = org.DIRECTOR,
+                                   Buxgalter = org.BUXGALTER,
+                                   Doverennoe_liso = org.DOVERENNOE_LISO
                                };
 
                 list = queryRes.ToList();
@@ -292,7 +312,11 @@ namespace KasabaKiat.BusinessLogic.Utils.References
                                    E_Mail = org.E_Mail,
                                    UserId = org.UserId,
                                    IsPravSoyuz = org.IS_PRAVSOYUZ,
-                                   ParentId = org.ParentID
+                                   ParentId = org.ParentID,
+                                   PravSoyuzLevel = org.PRAVORGLEVEL,
+                                   Director = org.DIRECTOR,
+                                   Buxgalter = org.BUXGALTER,
+                                   Doverennoe_liso = org.DOVERENNOE_LISO
                                };
 
                 list = queryRes.ToList();

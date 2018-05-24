@@ -48,5 +48,13 @@ namespace KasabaKiat.BusinessLogic.Utils.References
         public long? ParentId { get; set; }
 
         public string  ParentName { get; set; }
+
+        public int? PravSoyuzLevel { get; set; }
+
+        public string Director { get; set; }
+
+        public string Buxgalter { get; set; }
+
+        public string Doverennoe_liso { get; set; }
     }
 }

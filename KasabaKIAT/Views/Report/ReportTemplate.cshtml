@@ -1,7 +1,22 @@
 ﻿@model KasabaKIAT.Models.ReportInfo
-
-<H1>
+<div id="connection" style="visibility:hidden;position:absolute;margin-left:600px;margin-top:200px;z-index:9999">
+    <img src="~/Content/Login/buffering.gif" />
+</div>
+<br /><br />
+<div class="row mb-4 align-items-center">
+    <div class="col title__block">
+        <h4>&nbsp&nbsp @Model.ReportDescription</h4><br />
+        <nav aria-label="breadcrumb" class="breadcrumb__block">
+            <ol class="breadcrumb">
+                @*<li class="breadcrumb-item load"><a href="/Home/Otchot">Отчеты</a></li>*@
+                <li class="breadcrumb-item load"><a href="/Otchot/index">&nbsp&nbsp&nbsp&nbsp&nbsp&nbspОтчеты</a></li>
+                <li class="breadcrumb-item active" aria-current="page">@Model.ReportDescription</li>
+            </ol>
+        </nav>
+    </div>
+</div>
+@*<H4>
     @Model.ReportDescription
-</H1>
+</H4>*@
 
 <iframe id="frmReport" src="@Model.ReportURL" frameborder="0" style="@String.Format("width:{0}%; height: {1}px;", Model.Width, Model.Height)" scrolling="no"></iframe>

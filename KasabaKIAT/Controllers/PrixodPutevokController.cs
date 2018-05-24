@@ -3062,17 +3062,26 @@ namespace KasabaKIAT.Controllers
                                 sver.owner_tp = owner_tp;
                                 sver.sanat_id = sanat_id;
                                 sver.owner_code = owner_code;
-                                sver.num_put = workSheet.Cells[rowIterator, 1].Value.ToString();
-                                sver.date_san = workSheet.Cells[rowIterator, 2].Value.ToString();
-                                sver.price = workSheet.Cells[rowIterator, 3].Value.ToString();
-                                sver.fio_otdix = workSheet.Cells[rowIterator, 4].Value.ToString();
-                                sver.adress = workSheet.Cells[rowIterator, 5].Value.ToString();
-                                sver.work_place = workSheet.Cells[rowIterator, 6].Value.ToString();
-                                sver.otrasl = workSheet.Cells[rowIterator, 7].Value.ToString();
+
+                                try
+                                {
+                                    sver.num_put = workSheet.Cells[rowIterator, 1].Value.ToString();
+                                    sver.date_san = workSheet.Cells[rowIterator, 2].Value.ToString();
+                                    sver.price = workSheet.Cells[rowIterator, 3].Value.ToString();
+                                    sver.fio_otdix = workSheet.Cells[rowIterator, 4].Value.ToString();
+                                    sver.adress = workSheet.Cells[rowIterator, 5].Value.ToString();
+                                    sver.work_place = workSheet.Cells[rowIterator, 6].Value.ToString();
+                                    sver.otrasl = workSheet.Cells[rowIterator, 7].Value.ToString();
+                                }
+                                catch(NullReferenceException ex)
+                                {
+                                    log.Info(ex.ToString());
+                                    continue;
+                                }
 
                                 sverList.Add(sver);
                                 log.Info("Count = " + sverList.ToList().Count);
-                                SanatDataCompareDataManager.Create(ref sver);
+                                SanatDataCompareDataManager.SaveData(sver);
                             }
                         }
                     }
@@ -3104,10 +3113,10 @@ namespace KasabaKIAT.Controllers
         {
             var ArxiveDirectory = Properties.Settings.Default.TemplateDir;
 
-            var targetFile = Path.Combine(ArxiveDirectory, "shbln01.xls");
+            var targetFile = Path.Combine(ArxiveDirectory, "shbln01.xlsx");
 
             byte[] fileBytes = System.IO.File.ReadAllBytes(targetFile);
-            string fileName = "template.xls";
+            string fileName = "template.xlsx";
             return File(fileBytes, "application/vnd.ms-excel", fileName);
         }
 

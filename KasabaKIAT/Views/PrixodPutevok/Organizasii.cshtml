@@ -8,7 +8,7 @@
 <div id="connection" style="visibility:hidden;position:absolute;margin-left:430px;z-index:9999">
     <img src="~/Content/Login/buffering.gif" />
 </div>
-@if (List.ProsmotrOstatkaPutyovok)
+@if (List.UpravleniyaSpravochnikami)
 {
     <div ng-controller="Organizasii">
         <section class="content__block container-fluid">
@@ -57,7 +57,7 @@
                                 Банк
                             </th>
                             <th class="dropdown dropdown__table" style="width:150px;text-align:center">
-                                ОКОНХ
+                                ОКЭД
                             </th>
                             <th class="dropdown dropdown__table" style="width:150px;text-align:center">
                                 Адрес
@@ -140,7 +140,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group row align-items-center">
-                                    <label class="col-md-5 col-form-label py-0">ОКОНХ:</label>
+                                    <label class="col-md-5 col-form-label py-0">ОКЭД:</label>
                                     <div class="col-md-7">
                                         <input maxlength="5" type="text" class="form-control" name="OKONX" ng-model="Organization.OKONX" required>
                                         <span class="alert alert-warning" style="padding:0px" ng-show="myForm.OKONX.$error.required">заполнить поле</span>
@@ -180,6 +180,34 @@
                                     <div class="col-md-7">
                                         <select class="custom-select form-control" required name="parentOrg" ng-model="SelectedOrganization" ng-options="item as item.Name_Org for item in Organizations track by item.ID"></select>
                                         @*<span class="alert alert-warning" style="padding:0px" ng-show="myForm.Otrasl.$error.required">Выберите поле</span>*@
+                                    </div>
+                                </div>
+                                <div class="form-group row align-items-center">
+                                    <label class="col-md-5 col-form-label py-0">Уровень проф. Орг:</label>
+                                    <div class="col-md-7">
+                                        <select class="custom-select form-control" required name="PravSoyuzLevel" ng-model="SelectedProgLevel" ng-options="item as item.Decode for item in ProfLevels track by item.Code"></select>
+                                        @*<span class="alert alert-warning" style="padding:0px" ng-show="myForm.Otrasl.$error.required">Выберите поле</span>*@
+                                    </div>
+                                </div>
+                                <div class="form-group row align-items-center">
+                                    <label class="col-md-5 col-form-label py-0">Директор:</label>
+                                    <div class="col-md-7">
+                                        <input maxlength="70" type="text" class="form-control" name="Director" ng-model="Organization.Director" required>
+                                        <span class="alert alert-warning" style="padding:0px" ng-show="myForm.Director.$error.required">заполнить поле</span>
+                                    </div>
+                                </div>
+                                <div class="form-group row align-items-center">
+                                    <label class="col-md-5 col-form-label py-0">Бухгалтер:</label>
+                                    <div class="col-md-7">
+                                        <input maxlength="70" type="text" class="form-control" name="Buxgalter" ng-model="Organization.Buxgalter" required>
+                                        <span class="alert alert-warning" style="padding:0px" ng-show="myForm.Buxgalter.$error.required">заполнить поле</span>
+                                    </div>
+                                </div>
+                                <div class="form-group row align-items-center">
+                                    <label class="col-md-5 col-form-label py-0">Доверенное Лицо:</label>
+                                    <div class="col-md-7">
+                                        <input maxlength="70" type="text" class="form-control" name="Doverennoe_liso" ng-model="Organization.Doverennoe_liso" required>
+                                        <span class="alert alert-warning" style="padding:0px" ng-show="myForm.Doverennoe_liso.$error.required">заполнить поле</span>
                                     </div>
                                 </div>
                                 <div class="mb-4 text-right">

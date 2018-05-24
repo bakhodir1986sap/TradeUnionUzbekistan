@@ -49,6 +49,7 @@ namespace KasabaKIAT.Controllers
         /// 
         /// </summary>
         /// <returns></returns>
+        [OutputCache(Duration = 3000, Location = OutputCacheLocation.ServerAndClient, VaryByCustom = "userId")]
         public JsonResult GetOrganization()
         {
             int UserId = Convert.ToInt32(User.Identity.Name);
@@ -64,7 +65,8 @@ namespace KasabaKIAT.Controllers
         /// </summary>
         /// <param name="Name"></param>
         /// <param name="Inn"></param>
-        /// <returns></returns>
+        /// <returns></returns>.
+        [OutputCache(Duration = 3000, Location = OutputCacheLocation.ServerAndClient, VaryByCustom = "userId")]
         public JsonResult GetOrganization(string Name, string Inn)
         {
             int UserId = Convert.ToInt32(User.Identity.Name);
@@ -79,6 +81,7 @@ namespace KasabaKIAT.Controllers
         /// 
         /// </summary>
         /// <returns></returns>
+        [OutputCache(Duration = 3000, Location = OutputCacheLocation.ServerAndClient, VaryByCustom = "userId")]
         public JsonResult GetTipOplati()
         {
             var list = tbcs_dictionaryDataManager.Get("TipOplati");
@@ -91,6 +94,7 @@ namespace KasabaKIAT.Controllers
         /// 
         /// </summary>
         /// <returns></returns>
+        [OutputCache(Duration = 3000, Location = OutputCacheLocation.ServerAndClient, VaryByCustom = "userId")]
         public JsonResult GetVidOplati()
         {
             var list = tbcs_dictionaryDataManager.Get("VidOplati");
@@ -98,6 +102,11 @@ namespace KasabaKIAT.Controllers
             return Json(list, JsonRequestBehavior.AllowGet);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [OutputCache(Duration = 3000, Location = OutputCacheLocation.ServerAndClient, VaryByCustom = "userId")]
         public JsonResult GetPol()
         {
             var list = new List<SpravCodeDecode>();
@@ -121,7 +130,11 @@ namespace KasabaKIAT.Controllers
             return Json(list, JsonRequestBehavior.AllowGet);
         }
 
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [OutputCache(Duration = 3000, Location = OutputCacheLocation.ServerAndClient, VaryByCustom = "userId")]
         public JsonResult GetLoadSide()
         {
             var list = new List<SpravCodeDecode>();
@@ -136,7 +149,7 @@ namespace KasabaKIAT.Controllers
 
             var obj2 = new SpravCodeDecode
             {
-                Code = 0,
+                Code = 1,
                 Decode = "Правсоюзы"
             };
 
@@ -149,6 +162,7 @@ namespace KasabaKIAT.Controllers
         /// Osnovaniye vidachi
         /// </summary>
         /// <returns></returns>
+        [OutputCache(Duration = 3000, Location = OutputCacheLocation.ServerAndClient, VaryByCustom = "userId")]
         public JsonResult GetOsnovaniyaVidachi()
         {
             var list = Sprav_Face.Get();
@@ -160,6 +174,7 @@ namespace KasabaKIAT.Controllers
         /// Tip Vidachi
         /// </summary>
         /// <returns></returns>
+        [OutputCache(Duration = 3000, Location = OutputCacheLocation.ServerAndClient, VaryByCustom = "userId")]
         public JsonResult GetTipVidachi()
         {
             var list = Sprav_Os.Get();
@@ -171,6 +186,7 @@ namespace KasabaKIAT.Controllers
         /// Procentnaya stavka
         /// </summary>
         /// <returns></returns>
+        [OutputCache(Duration = 3000, Location = OutputCacheLocation.ServerAndClient, VaryByCustom = "userId")]
         public JsonResult GetProcentZaPutyovki()
         {
             var list = Sprav_Pr.Get();
@@ -182,6 +198,7 @@ namespace KasabaKIAT.Controllers
         /// Rekomendovanniye sanatorii
         /// </summary>
         /// <returns></returns>
+        [OutputCache(Duration = 3000, Location = OutputCacheLocation.ServerAndClient, VaryByCustom = "userId")]
         public JsonResult GetRecommendedSanatory()
         {
             var list = Sprav_San.Get();
@@ -194,6 +211,7 @@ namespace KasabaKIAT.Controllers
         /// General sanatorii
         /// </summary>
         /// <returns></returns>
+        [OutputCache(Duration = 3000, Location = OutputCacheLocation.ServerAndClient, VaryByCustom = "userId")]
         public JsonResult GetSanatories()
         {
             var list = Sprav_San.Get();
@@ -201,6 +219,11 @@ namespace KasabaKIAT.Controllers
             return Json(list, JsonRequestBehavior.AllowGet);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [OutputCache(Duration = 3000, Location = OutputCacheLocation.ServerAndClient, VaryByCustom = "userId")]
         public JsonResult GetPravsoyuzList()
         {
             using (KasabaKIATEntities db = new KasabaKIATEntities())
@@ -209,6 +232,50 @@ namespace KasabaKIAT.Controllers
 
                 return Json(list, JsonRequestBehavior.AllowGet);
             }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [OutputCache(Duration = 3000, Location = OutputCacheLocation.ServerAndClient, VaryByCustom = "userId")]
+        public JsonResult GetPravLevel()
+        {
+            var list = new List<SpravCodeDecode>();
+
+            var obj1 = new SpravCodeDecode
+            {
+                Code = 0,
+                Decode = "Федерация"
+            };
+
+            list.Add(obj1);
+
+            var obj2 = new SpravCodeDecode
+            {
+                Code = 1,
+                Decode = "Область"
+            };
+
+            list.Add(obj2);
+
+            var obj3 = new SpravCodeDecode
+            {
+                Code = 3,
+                Decode = "Район-Отрасль"
+            };
+
+            list.Add(obj3);
+
+            var obj5 = new SpravCodeDecode
+            {
+                Code = 4,
+                Decode = "ППО"
+            };
+
+            list.Add(obj5);
+
+            return Json(list, JsonRequestBehavior.AllowGet);
         }
 
     }

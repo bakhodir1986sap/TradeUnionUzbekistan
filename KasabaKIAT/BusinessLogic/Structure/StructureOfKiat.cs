@@ -8,10 +8,11 @@ namespace KasabaKIAT.BusinessLogic.Structure
 {
     public enum KIAT_STRUCT
     {
-        UnKnown,
         Federation, //Department
         Oblsovprof, //Department
-        TumanBranch //Department
+        TumanBranch,
+        PPO,
+        UnKnown,
     }
 
     public enum KIAT_OBJECT_TYPE
@@ -24,10 +25,11 @@ namespace KasabaKIAT.BusinessLogic.Structure
         ,Camp      
         ,Sanatorium      
         ,GroupDepartment //GRUPPA
-
     }
 
-
+    /// <summary>
+    /// 
+    /// </summary>
     public class StructureOfKiat
     {
         public string federation  = "17";
@@ -152,6 +154,24 @@ namespace KasabaKIAT.BusinessLogic.Structure
                     }
                 }
             }
+            else if (departmentbaseCode.StartsWith("173") && departmentbaseCode.Length == 14)
+            {
+                var tumanCode = string.Format("{0}{1}", "17", departmentbaseCode.Substring(5, 5));
+
+                using (KasabaKIATEntities db = new KasabaKIATEntities())
+                {
+                    var branchcd = departmentbaseCode.Substring(3, 2);
+
+                    var kod = db.sp_branch.Where(z => z.code == branchcd).FirstOrDefault();
+
+                    var kod2 = db.tbsp_soato_new.Where(z => z.KODI == tumanCode).FirstOrDefault();
+
+                    if ((kod != null) && (kod2 != null))
+                    {
+                        return KIAT_STRUCT.PPO;
+                    }
+                }
+            }
 
             return KIAT_STRUCT.UnKnown;
         }
@@ -216,6 +236,12 @@ namespace KasabaKIAT.BusinessLogic.Structure
             return data_depCode.StartsWith(departmentbaseCode) || data_depCode.Equals(departmentbaseCode);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="departmentbaseCode"></param>
+        /// <param name="data_depCode"></param>
+        /// <returns></returns>
         public bool IsParent(string departmentbaseCode, string data_depCode)
         {
             using (KasabaKIATEntities db = new KasabaKIATEntities())
@@ -231,6 +257,11 @@ namespace KasabaKIAT.BusinessLogic.Structure
             return false;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="departmentbaseCode"></param>
+        /// <returns></returns>
         public string GetBrachCode(string departmentbaseCode)
         {
             if (!string.IsNullOrEmpty(departmentbaseCode))
@@ -242,6 +273,11 @@ namespace KasabaKIAT.BusinessLogic.Structure
             return string.Empty;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="departmentbaseCode"></param>
+        /// <returns></returns>
         public string GetTumanCode(string departmentbaseCode)
         {
             if (!string.IsNullOrEmpty(departmentbaseCode))
@@ -252,14 +288,32 @@ namespace KasabaKIAT.BusinessLogic.Structure
 
                     return tumanCode;
                 }
+                else if (departmentbaseCode.StartsWith("173") && departmentbaseCode.Length == 14)
+                {
+                    var tumanCode = string.Format("{0}{1}", "17", departmentbaseCode.Substring(5, 5));
+
+                    return tumanCode;
+                }
             }
 
             return string.Empty;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="departmentbaseCode"></param>
+        /// <returns></returns>
         public string GetOrderNumber(string departmentbaseCode)
         {
-            return "";
+            if (departmentbaseCode.StartsWith("173") && departmentbaseCode.Length == 14)
+            {
+                var orderNumber = string.Format("{0}{1}", "17", departmentbaseCode.Substring(10, 4));
+
+                return orderNumber;
+            }
+
+            return "0000";
         }
 
         /// <summary>

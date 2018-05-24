@@ -22,34 +22,34 @@
                 </nav>
             </div>
         </div>
-        @Html.ActionLink("Загрузить Шаблон", "DownloadTemplate", "PrixodPutevok")<br /><br />
-        <div class="col-md-5 text-md-right">
-            <div class="form-inline">
-                <input type="file" id="input08" name="UploadedFile" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" onchange="angular.element(this).scope().UploadFiles(this.files)" />
-            </div>
-            <input type="button" value="Просмотреть" class="btn btn-primary" style="margin-top:-65px" ng-disabled="!SelectedFileForUpload" ng-click="SaveDATA() " />
-        </div>
         <div class="row mb-4">
             <div class="col-lg-7">
                 <div class="row">
                     <div class="col-md-3 form-group">
                         <label>Год</label>
-                        <select class="custom-select form-control" ng-model="SelectedYear" ng-options="item as item.Year for item in Years track by item.Id" ></select>
+                        <select class="custom-select form-control" ng-model="SelectedYear" ng-options="item as item.Year for item in Years track by item.Id"></select>
                     </div>
                     <div class="col-md-3 form-group">
                         <label>Сторона загрузки</label>
-                        <select class="custom-select form-control" ng-model="SelectedSide" ng-options="item as item.Decode for item in Sides track by item.Code" ></select>
+                        <select class="custom-select form-control" ng-model="SelectedSide" ng-options="item as item.Decode for item in Sides track by item.Code"></select>
                     </div>
                     <div class="col-md-3 form-group">
                         <label>Санаторий</label>
-                        <select class="custom-select form-control" ng-model="SelectedSanatory" ng-options="item as item.Name_San for item in Sanatories track by item.ID" ></select>
+                        <select class="custom-select form-control" ng-model="SelectedSanatory" ng-options="item as item.Name_San for item in Sanatories track by item.ID"></select>
                     </div>
                     <div class="col-md-3 form-group">
                         <label>Правсоюз</label>
-                        <select class="custom-select form-control" ng-model="SelectedPravsoyuz" ng-options="item as item.ProfsoyzNaimenovanie for item in Pravs track by item.MATCH_DEPARTMENTBASE" ></select>
+                        <select class="custom-select form-control" ng-model="SelectedPravsoyuz" ng-options="item as item.ProfsoyzNaimenovanie for item in Pravs track by item.MATCH_DEPARTMENTBASE"></select>
                     </div>
                 </div>
             </div>
+        </div>
+        @Html.ActionLink("Загрузить Шаблон", "DownloadTemplate", "PrixodPutevok")<br /><br />
+        <div class="col-md-5 text-md-right">
+            <div class="form-inline">
+                <input type="file" id="input08" name="UploadedFile" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" onchange="angular.element(this).scope().UploadFiles(this.files)" />
+            </div>
+            <input type="button" value="Загрузить" class="btn btn-primary" style="margin-top:-65px" ng-disabled="!SelectedFileForUpload" ng-click="SaveDATA() " />
         </div>
         <div class="table-responsive box-shadow mb-5">
             <table class="table table__block va-top t-scroll">

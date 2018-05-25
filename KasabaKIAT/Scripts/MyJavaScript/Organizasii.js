@@ -26,7 +26,7 @@
 
     $scope.SelectedOrganization = {
 
-        ID: -1,
+        ID: '',
         Name_Org: ''
 
     };
@@ -147,6 +147,9 @@
             $scope.SelectedOrganization.ID = org.ParentId;
             $scope.SelectedOrganization.Name_Org = org.ParentName;
 
+            $scope.SelectedProgLevel.Code = org.PravSoyuzLevel;
+            //$scope.SelectedProgLevel.Decode = org.ParentName;
+
             document.getElementById('connection').style.visibility = "hidden";
             $("#hh").modal('hide');
         }, function (error) {
@@ -178,6 +181,12 @@
             document.getElementById('connection').style.visibility = "hidden";
             $("#hh").modal('hide');
         });
+    }
+
+    $scope.ClearSelectedValue = function ()
+    {
+        $scope.SelectedOrganization.ID = '';
+        $scope.SelectedOrganization.Name_Org = '';
     }
 
     function GetOrganizations() {

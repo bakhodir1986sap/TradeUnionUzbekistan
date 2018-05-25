@@ -178,8 +178,8 @@
                                 <div class="form-group row align-items-center">
                                     <label class="col-md-5 col-form-label py-0">Родитель Организация:</label>
                                     <div class="col-md-7">
-                                        <select class="custom-select form-control" required name="parentOrg" ng-model="SelectedOrganization" ng-options="item as item.Name_Org for item in Organizations track by item.ID"></select>
-                                        @*<span class="alert alert-warning" style="padding:0px" ng-show="myForm.Otrasl.$error.required">Выберите поле</span>*@
+                                        <select class="custom-select form-control" required name="parentOrg" ng-model="SelectedOrganization" ng-options="item as item.Name_Org for item in Organizations track by item.ID" ng-dblclick="ClearSelectedValue()"></select>
+                                        <span class="alert alert-info" style="padding:0px">Пустое означает родитель Облсовпроф </span>
                                     </div>
                                 </div>
                                 <div class="form-group row align-items-center">
@@ -208,6 +208,13 @@
                                     <div class="col-md-7">
                                         <input maxlength="70" type="text" class="form-control" name="Doverennoe_liso" ng-model="Organization.Doverennoe_liso" required>
                                         <span class="alert alert-warning" style="padding:0px" ng-show="myForm.Doverennoe_liso.$error.required">заполнить поле</span>
+                                    </div>
+                                </div>
+                                <div class="form-group row align-items-center">
+                                    <label class="col-md-5 col-form-label py-0">ИНН Действущей Организации:</label>
+                                    <div class="col-md-7">
+                                        <input maxlength="70" type="text" class="form-control" name="orig_inn" ng-model="Organization.orig_inn" required>
+                                        <span class="alert alert-warning" style="padding:0px" ng-show="myForm.orig_inn.$error.required">заполнить поле</span>
                                     </div>
                                 </div>
                                 <div class="mb-4 text-right">

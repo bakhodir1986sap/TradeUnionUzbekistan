@@ -1,4 +1,5 @@
-﻿using KasabaKIAT.Models;
+﻿using KasabaKIAT.BusinessLogic.Structure;
+using KasabaKIAT.Models;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity.Validation;
@@ -7,8 +8,15 @@ using System.Web;
 
 namespace KasabaKiat.BusinessLogic.Utils.References
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class Sprav_Org
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="model"></param>
         public static void Create(ref Sprav_OrgViewModel model)
         {
             using (KasabaKIATEntities db = new KasabaKIATEntities())
@@ -36,6 +44,40 @@ namespace KasabaKiat.BusinessLogic.Utils.References
                 org.DIRECTOR = model.Director;
                 org.BUXGALTER = model.Buxgalter;
                 org.DOVERENNOE_LISO = model.Doverennoe_liso;
+                org.ORIG_INN = model.orig_inn;
+                org.OWNER_CODE = GenerateDepartmentCode(model.ID_Ot.Value
+                                                        , model.Region.Value,
+                                                        model.PravSoyuzLevel.Value,
+                                                        0);
+
+                if (!string.IsNullOrEmpty(org.OWNER_CODE))
+                {
+                    var isDepExists = db.t_departmentbase.Where(r => r.code == org.OWNER_CODE);
+
+                    if (!isDepExists.Any())
+                    {
+                        if ((int)KIAT_STRUCT.TumanBranch == model.PravSoyuzLevel)
+                        {
+                            //skip
+                        }
+                        else if ((int)KIAT_STRUCT.PPO == model.PravSoyuzLevel)
+                        {
+                            t_departmentbase dd = new t_departmentbase
+                            {
+                                inn = model.INN,
+                                le_inn = model.orig_inn,
+                                parent_code = model.DepartmentBase,
+                                code = org.OWNER_CODE,
+                                name_ru = model.Name_Org,
+                                name_uz = model.Name_Org,
+                                dtype = "Bkut",
+                                version = 0
+                            };
+
+                            db.t_departmentbase.Add(dd);
+                        }
+                    }
+                }
 
                 var orgIns = db.tblSprav_Org.Add(org);
 
@@ -62,6 +104,68 @@ namespace KasabaKiat.BusinessLogic.Utils.References
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="otrasl"></param>
+        /// <param name="region"></param>
+        /// <param name="pravsoyuzLevel"></param>
+        /// <param name="Id"></param>
+        /// <returns></returns>
+        private static string GenerateDepartmentCode(int otrasl = 0, int region = 0 , int pravsoyuzLevel = 0, long Id = 0)
+        {
+            using (KasabaKIATEntities db = new KasabaKIATEntities())
+            {
+                var structureKiat = new StructureOfKiat();
+
+                if (Id == 0)
+                {
+                    Id = db.tblSprav_Org.Max(z => z.ID) + 1;
+                }
+
+                var branches = db.tblSprav_Otras.Where(z => z.ID_Ot == otrasl);
+
+                if (branches.Any())
+                {
+                    var branch = branches.First().BRANCH_CODE;
+
+                    KIAT_STRUCT str = KIAT_STRUCT.PPO;
+
+                    if (pravsoyuzLevel == (int)KIAT_STRUCT.TumanBranch)
+                    {
+                        str = KIAT_STRUCT.TumanBranch;
+                    }
+                    else if (pravsoyuzLevel == (int)KIAT_STRUCT.PPO)
+                    {
+                        str = KIAT_STRUCT.TumanBranch;
+                    }
+
+                    var regions = db.tblSprav_Reg.Where(z => z.CodeReg == region);
+
+                    string soatoCode = string.Empty;
+
+                    if (regions.Any())
+                    {
+                        soatoCode = regions.First().SOATO_CODE;
+                    }
+                    else
+                    {
+                        throw new ApplicationException("Region is invalid");
+                    }
+
+                    return structureKiat.GenerateDepartmentCode(str, branch, soatoCode, Id);
+                }
+                else
+                {
+                    throw new ApplicationException("Otrasl info not found");
+                }
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="model"></param>
         public static void Modify(Sprav_OrgViewModel model)
         {
             using (KasabaKIATEntities db = new KasabaKIATEntities())
@@ -94,6 +198,41 @@ namespace KasabaKiat.BusinessLogic.Utils.References
                         org1.DIRECTOR = model.Director;
                         org1.BUXGALTER = model.Buxgalter;
                         org1.DOVERENNOE_LISO = model.Doverennoe_liso;
+                        org1.ORIG_INN = model.orig_inn;
+                        org1.OWNER_CODE = GenerateDepartmentCode(model.ID_Ot.Value
+                                        , model.Region.Value,
+                                        model.PravSoyuzLevel.Value,
+                                        model.ID);
+
+
+                        if (!string.IsNullOrEmpty(org1.OWNER_CODE))
+                        {
+                            var isDepExists = db.t_departmentbase.Where(r => r.code == org1.OWNER_CODE);
+
+                            if (!isDepExists.Any())
+                            {
+                                if ((int)KIAT_STRUCT.TumanBranch == model.PravSoyuzLevel)
+                                {
+                                    //skip
+                                }
+                                else if ((int)KIAT_STRUCT.PPO == model.PravSoyuzLevel)
+                                {
+                                    t_departmentbase dd = new t_departmentbase
+                                    {
+                                        inn = model.INN,
+                                        le_inn = model.orig_inn,
+                                        parent_code = model.DepartmentBase,
+                                        code = org1.OWNER_CODE,
+                                        name_ru = model.Name_Org,
+                                        name_uz = model.Name_Org,
+                                        dtype = "Bkut",
+                                        version = 0
+                                    };
+
+                                    db.t_departmentbase.Add(dd);
+                                }
+                            }
+                        }
                     }
                 }
 
@@ -101,6 +240,10 @@ namespace KasabaKiat.BusinessLogic.Utils.References
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="model"></param>
         public static void Remove(Sprav_OrgViewModel model)
         {
             using (KasabaKIATEntities db = new KasabaKIATEntities())
@@ -121,6 +264,11 @@ namespace KasabaKiat.BusinessLogic.Utils.References
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         public static List<Sprav_OrgViewModel> Get(Sprav_OrgViewModel model)
         {
             List<Sprav_OrgViewModel> list = null;
@@ -151,7 +299,9 @@ namespace KasabaKiat.BusinessLogic.Utils.References
                                    PravSoyuzLevel = org.PRAVORGLEVEL,
                                    Director = org.DIRECTOR,
                                    Buxgalter = org.BUXGALTER,
-                                   Doverennoe_liso = org.DOVERENNOE_LISO
+                                   Doverennoe_liso = org.DOVERENNOE_LISO,
+                                   orig_inn = org.ORIG_INN,
+                                   owner_code = org.OWNER_CODE
                                }  ;
 
                 list = queryRes.ToList();
@@ -161,7 +311,11 @@ namespace KasabaKiat.BusinessLogic.Utils.References
             return list;
         }
 
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="departmentBase"></param>
+        /// <returns></returns>
         public static List<Sprav_OrgViewModel> GetByDeraprtmentBase(string departmentBase)
         {
             List<Sprav_OrgViewModel> list = null;
@@ -198,7 +352,9 @@ namespace KasabaKiat.BusinessLogic.Utils.References
                                    PravSoyuzLevel = org.PRAVORGLEVEL,
                                    Director = org.DIRECTOR,
                                    Buxgalter = org.BUXGALTER,
-                                   Doverennoe_liso = org.DOVERENNOE_LISO
+                                   Doverennoe_liso = org.DOVERENNOE_LISO,
+                                   orig_inn = org.ORIG_INN,
+                                   owner_code = org.OWNER_CODE
                                };
 
                 list = queryRes.ToList();
@@ -209,7 +365,14 @@ namespace KasabaKiat.BusinessLogic.Utils.References
         }
 
 
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="departmentBase"></param>
+        /// <param name="Name"></param>
+        /// <param name="Inn"></param>
+        /// <param name="OtrasId"></param>
+        /// <returns></returns>
         public static List<Sprav_OrgViewModel> GetByDeraprtmentBase(string departmentBase,
             string Name, string Inn, int? OtrasId)
         {
@@ -263,7 +426,9 @@ namespace KasabaKiat.BusinessLogic.Utils.References
                                    PravSoyuzLevel = org.PRAVORGLEVEL,
                                    Director = org.DIRECTOR,
                                    Buxgalter = org.BUXGALTER,
-                                   Doverennoe_liso = org.DOVERENNOE_LISO
+                                   Doverennoe_liso = org.DOVERENNOE_LISO,
+                                   orig_inn = org.ORIG_INN,
+                                   owner_code = org.OWNER_CODE
                                };
 
                 list = queryRes.ToList();
@@ -316,7 +481,9 @@ namespace KasabaKiat.BusinessLogic.Utils.References
                                    PravSoyuzLevel = org.PRAVORGLEVEL,
                                    Director = org.DIRECTOR,
                                    Buxgalter = org.BUXGALTER,
-                                   Doverennoe_liso = org.DOVERENNOE_LISO
+                                   Doverennoe_liso = org.DOVERENNOE_LISO,
+                                   orig_inn = org.ORIG_INN,
+                                   owner_code = org.OWNER_CODE
                                };
 
                 list = queryRes.ToList();

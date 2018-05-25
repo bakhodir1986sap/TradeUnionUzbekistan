@@ -17,7 +17,7 @@ namespace KasabaKIAT.BusinessLogic.Structure
 
     public enum KIAT_OBJECT_TYPE
     {
-        UnKnown
+         UnKnown
         ,Bkut
         ,Department
         ,Bkuq      //Qo'mita
@@ -33,6 +33,8 @@ namespace KasabaKIAT.BusinessLogic.Structure
     public class StructureOfKiat
     {
         public string federation  = "17";
+
+        public string federationOrgs = "171";
 
         public string regionalOrg = "172";
 
@@ -314,6 +316,165 @@ namespace KasabaKIAT.BusinessLogic.Structure
             }
 
             return "0000";
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="str"></param>
+        /// <returns></returns>
+        private string GetAsos(KIAT_STRUCT str)
+        {
+            string asos = string.Empty;
+
+            if (KIAT_STRUCT.Federation == str)
+            {
+                asos = federationOrgs;
+            }
+            else if (KIAT_STRUCT.Oblsovprof == str)
+            {
+                asos = regionalOrg;
+            }
+            else if (KIAT_STRUCT.TumanBranch == str)
+            {
+                asos = branchOrg;
+            }
+            else if (KIAT_STRUCT.PPO == str)
+            {
+                asos = branchOrg;
+            }
+
+            return asos;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="str"></param>
+        /// <param name="branchCode"></param>
+        /// <param name="tumanCode"></param>
+        /// <returns></returns>
+        private string TransformPoluFabrikat(KIAT_STRUCT str, string branchCode = "", string tumanCode = "")
+        {
+            var asos = GetAsos(str);
+
+            if (KIAT_STRUCT.Federation == str)
+            {
+                //
+            }
+            else if (KIAT_STRUCT.Oblsovprof == str)
+            {
+                //
+            }
+            else if (KIAT_STRUCT.TumanBranch == str)
+            {
+                if (!string.IsNullOrEmpty(branchCode) && !string.IsNullOrEmpty(tumanCode))
+                {
+                    if ((tumanCode.Length == 7) && (branchCode.Length == 2))
+                    {
+                        var tumanCode1 = tumanCode.Substring(2);
+
+                        asos = string.Format("{0}{1}{2}", asos, branchCode, tumanCode1);
+                    }
+                    else
+                    {
+                        throw new ApplicationException("branchCode & tumanCode have invalid length");
+                    }
+                }
+                else
+                {
+                    throw new ApplicationException("branchCode & tumanCode is empty");
+                }
+            }
+            else if (KIAT_STRUCT.PPO == str)
+            {
+                if (!string.IsNullOrEmpty(branchCode) && !string.IsNullOrEmpty(tumanCode))
+                {
+                    if ((tumanCode.Length == 7) && (branchCode.Length == 2))
+                    {
+                        var tumanCode1 = tumanCode.Substring(2);
+
+                        asos = string.Format("{0}{1}{2}", asos, branchCode, tumanCode1);
+                    }
+                    else
+                    {
+                        throw new ApplicationException("branchCode & tumanCode have invalid length");
+                    }
+                }
+                else
+                {
+                    throw new ApplicationException("branchCode & tumanCode is empty");
+                }
+            }
+
+            return asos;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="str"></param>
+        /// <param name="branchCode"></param>
+        /// <param name="tumanCode"></param>
+        /// <param name="ID"></param>
+        /// <returns></returns>
+        private string GetNextOrder(KIAT_STRUCT str, string branchCode = "", string tumanCode = "", long ID = 0)
+        {
+            var uzak = TransformPoluFabrikat(str, branchCode, tumanCode);
+
+            if (KIAT_STRUCT.TumanBranch == str)
+            {
+                return uzak;
+            }
+            else if (KIAT_STRUCT.PPO == str)
+            {
+                return string.Format("{0}{1}{2}", uzak, "3", ID.ToString().PadLeft(3, '0'));
+            }
+
+            return null;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="str"></param>
+        /// <param name="branchCode"></param>
+        /// <param name="tumanCode"></param>
+        /// <param name="ID"></param>
+        /// <returns></returns>
+        public string GenerateDepartmentCode(KIAT_STRUCT str, string branchCode = "", string tumanCode = "", long ID = 0)
+        {
+            var departmentCode = GetNextOrder(str, branchCode, tumanCode, ID);
+
+            //using (KasabaKIATEntities db = new KasabaKIATEntities())
+            //{
+            //    var isDepExists = db.t_departmentbase.Where(r => r.code == departmentCode);
+
+            //    if (KIAT_STRUCT.TumanBranch == str)
+            //    {
+            //        //skip
+            //    }
+            //    else if (KIAT_STRUCT.PPO == str)
+            //    {
+            //        //t_departmentbase dd = new t_departmentbase();
+
+            //        //dd.le_inn = inn;
+            //        //dd.parent_code = departmentBase;
+            //        //dd.code = string.Format("{0}{1}", departmentBase, inn);
+            //        //dd.name_ru = fermer.name_full;
+            //        //dd.name_uz = fermer.name_short;
+            //        //dd.soato_code = fermer.soato_id;
+            //        //dd.okonx = fermer.okonx_id;
+            //        //dd.dtype = "Bkut";
+            //        //dd.version = 0;
+
+            //        //db.t_departmentbase.Add(dd);
+
+            //        db.SaveChanges();
+            //    }
+            //}
+            
+            return departmentCode;
         }
 
         /// <summary>

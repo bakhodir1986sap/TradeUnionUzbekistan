@@ -47,6 +47,8 @@ namespace KasabaKIAT.Models
         public string DIRECTOR { get; set; }
         public string BUXGALTER { get; set; }
         public string DOVERENNOE_LISO { get; set; }
+        public string ORIG_INN { get; set; }
+        public string OWNER_CODE { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Balans> Balans { get; set; }

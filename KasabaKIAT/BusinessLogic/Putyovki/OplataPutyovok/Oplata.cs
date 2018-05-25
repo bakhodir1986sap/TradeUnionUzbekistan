@@ -200,6 +200,9 @@ namespace KasabaKiat.BusinessLogic.Putyovki.OplataPutyovok
                             OplataRasxodDataManager.Create(ref oplatDtl);
                         }
                     }
+
+                    //If Organization IsPravsoyuz Flag and Not PPO Rasxod should go as Prixod
+
                 }
 
                 db.SaveChanges();

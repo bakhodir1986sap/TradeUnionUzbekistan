@@ -2369,6 +2369,8 @@ warning 6002: The table/view 'KasabaKIAT_N1.dbo.tblPutevka' does not have a prim
           <Property Name="DIRECTOR" Type="nvarchar" MaxLength="200" />
           <Property Name="BUXGALTER" Type="nvarchar" MaxLength="200" />
           <Property Name="DOVERENNOE_LISO" Type="nvarchar" MaxLength="200" />
+          <Property Name="ORIG_INN" Type="varchar" MaxLength="20" />
+          <Property Name="OWNER_CODE" Type="varchar" MaxLength="255" />
         </EntityType>
         <EntityType Name="tblSprav_Os">
           <Key>
@@ -9229,6 +9231,8 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <Property Name="DIRECTOR" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="BUXGALTER" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="DOVERENNOE_LISO" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="ORIG_INN" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="OWNER_CODE" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           </EntityType>
         <EntityType Name="tblSprav_Os">
           <Key>
@@ -17089,6 +17093,8 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <EntitySetMapping Name="tblSprav_Org">
             <EntityTypeMapping TypeName="KasabaKIATModel.tblSprav_Org">
               <MappingFragment StoreEntitySet="tblSprav_Org">
+                <ScalarProperty Name="OWNER_CODE" ColumnName="OWNER_CODE" />
+                <ScalarProperty Name="ORIG_INN" ColumnName="ORIG_INN" />
                 <ScalarProperty Name="DOVERENNOE_LISO" ColumnName="DOVERENNOE_LISO" />
                 <ScalarProperty Name="BUXGALTER" ColumnName="BUXGALTER" />
                 <ScalarProperty Name="DIRECTOR" ColumnName="DIRECTOR" />

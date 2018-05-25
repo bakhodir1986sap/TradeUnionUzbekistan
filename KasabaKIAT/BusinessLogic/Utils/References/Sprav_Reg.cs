@@ -118,6 +118,11 @@ namespace KasabaKiat.BusinessLogic.Utils.References
 
                 list = queryRes.ToList();
 
+                list.Insert( 0,new Sprav_RegViewModel()
+                {
+                    ID = -1,
+                    NameReg = "Пустой"
+                });
             }
 
             return list;

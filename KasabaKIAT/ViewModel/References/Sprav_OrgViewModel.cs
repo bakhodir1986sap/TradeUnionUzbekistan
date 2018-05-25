@@ -56,5 +56,9 @@ namespace KasabaKiat.BusinessLogic.Utils.References
         public string Buxgalter { get; set; }
 
         public string Doverennoe_liso { get; set; }
+
+        public string orig_inn { get; set; }
+
+        public string owner_code { get; set; }
     }
 }

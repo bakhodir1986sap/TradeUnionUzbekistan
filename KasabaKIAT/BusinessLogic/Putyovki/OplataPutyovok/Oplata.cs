@@ -1,5 +1,6 @@
 ﻿using KasabaKiat.BusinessLogic.Putyovki.PrixodPutyovok;
 using KasabaKiat.BusinessLogic.Putyovki.RealizasiyaPutyovok;
+using KasabaKiat.ViewModel;
 using KasabaKiat.ViewModel.Putyovki;
 using KasabaKIAT.Models;
 using System;
@@ -202,6 +203,64 @@ namespace KasabaKiat.BusinessLogic.Putyovki.OplataPutyovok
                     }
 
                     //If Organization IsPravsoyuz Flag and Not PPO Rasxod should go as Prixod
+
+                    var orgInfo = db.tblSprav_Org.Where(z => z.IS_PRAVSOYUZ == true 
+                                                            && z.PRAVORGLEVEL < 3
+                                                            && z.ID == post1.ID_Org);
+                    
+                    if (orgInfo.Any())
+                    {
+                        var departmentCode = orgInfo.First().OWNER_CODE;
+
+                        if (!string.IsNullOrEmpty(departmentCode))
+                        {
+                            var prixodMain = new PostupleniyaViewModel
+                            {
+                                Id_Kv = post1.ID_Kv,
+                                Data_Post = DateTime.Now,
+                                Num_Doc = post1.Num_Doc,
+                                ID_Pos = post1.ID_Org,
+                                Num_Kol =null,
+                                Symma = null,
+                                Name_Dov = post1.Name_Dov,
+                                Vid = false,
+                                SmFil = post1.SmFil,
+                                UserId = post1.UserId,
+                                DepartmentBase = departmentCode
+                            };
+
+                            PostMainDataManager.Create(ref prixodMain);
+
+                            var prixodDtl2 = Vipl_PutDataManager.Get(IdMain);
+
+                            if (prixodDtl2 != null)
+                            {
+                                foreach (var pDtl in prixodDtl2)
+                                {
+                                    //Prixod Dtl
+                                    var prixodDetail1 = new PostPutyovkaViewModel
+                                    {
+                                        IdPost = prixodMain.Id,
+                                        IdSanat = pDtl.id_sanat,
+                                        Num_Put = pDtl.num_put,
+                                        Symma_Put = pDtl.symma,
+                                        ID_PolVoz = false,
+                                        Data_Post = pDtl.data_post,
+                                        UserId = pDtl.userid,
+                                        Departmentbase = departmentCode
+                                    };
+
+                                    PostPutDetailDataManager.Create(ref prixodDetail1);
+                                }
+                            }
+
+
+                        }
+                        else
+                        {
+                            throw new ApplicationException("Owner code in organization list is invalid");
+                        }
+                    }
 
                 }
 

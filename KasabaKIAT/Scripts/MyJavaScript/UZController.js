@@ -121,7 +121,7 @@
         var GP={
             email: $scope.L,
             password: $scope.P,
-            user_name: $scope.N,
+            user_name: $scope.L,
             bkut_id: $scope.Or.id,
             role_id:$scope.Roles.id,
             REGION_ID: $scope.Region.id,

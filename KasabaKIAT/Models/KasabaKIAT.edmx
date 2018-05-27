@@ -5978,6 +5978,19 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
         <Function Name="sp_rt_ZayavkiList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="INN" Type="int" Mode="In" />
         </Function>
+        <Function Name="userAdd" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="login" Type="nvarchar" Mode="In" />
+          <Parameter Name="parol" Type="nvarchar" Mode="In" />
+          <Parameter Name="bkit_id" Type="bigint" Mode="In" />
+          <Parameter Name="role_id" Type="bigint" Mode="In" />
+        </Function>
+        <Function Name="userUpdate" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="userId" Type="bigint" Mode="In" />
+          <Parameter Name="login" Type="nvarchar" Mode="In" />
+          <Parameter Name="parol" Type="nvarchar" Mode="In" />
+          <Parameter Name="bkit_id" Type="bigint" Mode="In" />
+          <Parameter Name="role_id" Type="bigint" Mode="In" />
+        </Function>
         <Function Name="uspLogin" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="login" Type="nvarchar" Mode="In" />
           <Parameter Name="parol" Type="nvarchar" Mode="In" />
@@ -13620,6 +13633,19 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
             <End Role="tblVipl_Put" EntitySet="tblVipl_Put" />
           </AssociationSet>
           <EntitySet Name="tblSanatDataCompares" EntityType="KasabaKIATModel.tblSanatDataCompare" />
+          <FunctionImport Name="userAdd">
+            <Parameter Name="login" Mode="In" Type="String" />
+            <Parameter Name="parol" Mode="In" Type="String" />
+            <Parameter Name="bkit_id" Mode="In" Type="Int64" />
+            <Parameter Name="role_id" Mode="In" Type="Int64" />
+          </FunctionImport>
+          <FunctionImport Name="userUpdate">
+            <Parameter Name="userId" Mode="In" Type="Int64" />
+            <Parameter Name="login" Mode="In" Type="String" />
+            <Parameter Name="parol" Mode="In" Type="String" />
+            <Parameter Name="bkit_id" Mode="In" Type="Int64" />
+            <Parameter Name="role_id" Mode="In" Type="Int64" />
+          </FunctionImport>
           </EntityContainer>
         <ComplexType Name="sp_get_BankPaymentCompanyYearlyQ_Result">
           <Property Type="Int32" Name="MONTH_NUM" Nullable="true" />
@@ -19019,6 +19045,8 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="userAdd" FunctionName="KasabaKIATModel.Store.userAdd" />
+          <FunctionImportMapping FunctionImportName="userUpdate" FunctionName="KasabaKIATModel.Store.userUpdate" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

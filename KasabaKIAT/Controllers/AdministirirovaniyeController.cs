@@ -12,6 +12,7 @@ using KasabaKIAT.BusinessLogic.Putyovki.PrixodPutyovok;
 using KasabaKiat.Helpers;
 using KasabaKIAT.BusinessLogic.Security.Roles.RolePermissions;
 using KasabaKIAT.BusinessLogic.Security.Roles.Roles;
+using KasabaKiat.ViewModel;
 
 namespace KasabaKIAT.Controllers
 {
@@ -1673,35 +1674,100 @@ namespace KasabaKIAT.Controllers
         #endregion
 
         #region User Management
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         [OutputCache(Duration = 300, Location = OutputCacheLocation.ServerAndClient, VaryByCustom = "userId")]
         public JsonResult GetUZ()
         {
             log.Info("GetUZ");
 
+            List<UserViewModel> list = new List<UserViewModel>();
+
             try
             {
-                var U = from u in KasabaDB.users
-                        join d in KasabaDB.t_departmentbase on u.bkut_id equals d.id
+                var Users = from u in KasabaDB.users
+                        //join d in KasabaDB.t_departmentbase on u.bkut_id equals d.NATIVE_ID
                         join r in KasabaDB.roles on u.role_id equals r.id
-                        join rg in KasabaDB.sp_soato on u.REGION_ID equals rg.code
-                        join ot in KasabaDB.sp_branch on u.BRANCH_ID equals ot.id
+                        //join rg in KasabaDB.sp_soato on u.REGION_ID equals rg.code
+                        //join ot in KasabaDB.sp_branch on u.BRANCH_ID equals ot.id
+                        where u.s_status == "ACTIVE"
                         select new
                         {
                             ID = u.id,
-                            O_id = d.id,
-                            O = d.name_uz,
+                            //O_id = d.id,
+                            //O = d.name_uz,
                             Rl_id = r.id,
                             Rl = r.name,
                             L = u.email,
-                            Rg_id = rg.code,
-                            Rg = rg.name_uz,
-                            Ot_id = ot.id,
-                            Ot = ot.name_uz,
+                            //Rg_id = rg.code,
+                            //Rg = rg.name_uz,
+                            //Ot_id = ot.id,
+                            //Ot = ot.name_uz,
                             N = u.user_name,
                             D = u.created,
-                            P = u.password
+                            P = u.password,
+                            bkut_id = u.bkut_id,
+                            dep_id = u.dep_id,
+                            bkuq_id = u.bkuq_id
                         };
-                return Json(U.ToList(), JsonRequestBehavior.AllowGet);
+
+                foreach(var user in Users)
+                {
+                    var uu = new UserViewModel
+                    {
+                        ID = user.ID,
+                        Rl_id = user.Rl_id,
+                        Rl = user.Rl,
+                        L = user.L,
+                        N = user.N,
+                        D = user.D,
+                        P = user.P
+                    };
+
+                    long departmentId = 0;
+
+                    if (user.bkut_id.HasValue)
+                    {
+                        departmentId = user.bkut_id.Value;
+                    }
+                    else if (user.dep_id.HasValue)
+                    {
+                        departmentId = user.dep_id.Value;
+                    }
+                    else if (user.bkuq_id.HasValue)
+                    {
+                        departmentId = user.bkuq_id.Value;
+                    }
+
+                    var departments = KasabaDB.t_departmentbase.Where(z => z.id == departmentId);
+
+                    if (departments.Any())
+                    {
+                        var dept = departments.First();
+
+                        uu.O_id = dept.id;
+
+                        if (!string.IsNullOrEmpty(dept.name_ru))
+                        {
+                            uu.O = dept.name_ru;
+                        }
+                        else if (!string.IsNullOrEmpty(dept.bkut_name))
+                        {
+                            uu.O = dept.bkut_name;
+                        }
+                        else if (!string.IsNullOrEmpty(dept.dep_name))
+                        {
+                            uu.O = dept.dep_name;
+                        }
+                    }
+
+                    list.Add(uu);
+                }
+
+
+                return Json(list, JsonRequestBehavior.AllowGet);
             }
             catch(Exception ex)
             {
@@ -1710,6 +1776,12 @@ namespace KasabaKIAT.Controllers
 
             return null;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="pz"></param>
+        /// <returns></returns>
         public string AddUZ(users pz)
         {
             log.Info("AddUZ");
@@ -1720,38 +1792,43 @@ namespace KasabaKIAT.Controllers
                 {
                     using (KasabaKIATEntities contextObj = new KasabaKIATEntities())
                     {
-                        users z = new users();
-                        z.version = 0;
-                        z.account_expired = false;
-                        z.account_locked = false;
-                        z.changed = DateTime.Now;
-                        z.created = DateTime.Now;
-                        z.email = pz.email;
-                        z.last_logged = DateTime.Now;
-                        z.last_logged_id = HttpContext.Server.ToString();
-                        z.state = "ACTIVE";
-                        z.password = MD5.MD5Hash(pz.password);
-                        z.salt = "";
-                        z.language = "UZ";
-                        z.is_super_admin = false;
-                        z.user_name = pz.user_name;
-                        z.s_comment = "";
-                        z.s_create = DateTime.Now;
-                        z.s_status = "ACTIVE";
-                        z.s_user_id = 12;
-                        z.usertype = "BKUT";
-                        z.bkut_id = pz.bkut_id;
-                        z.role_id = pz.role_id;
-                        z.REGION_ID = pz.REGION_ID;
-                        z.BRANCH_ID = pz.BRANCH_ID;
-                        contextObj.users.Add(z);
+                        //users z = new users();
+                        //z.version = 0;
+                        //z.account_expired = false;
+                        //z.account_locked = false;
+                        //z.changed = DateTime.Now;
+                        //z.created = DateTime.Now;
+                        //z.email = pz.email;
+                        //z.last_logged = DateTime.Now;
+                        //z.last_logged_id = HttpContext.Server.ToString();
+                        //z.state = "ACTIVE";
+                        //z.password = MD5.MD5Hash(pz.password);
+                        //z.salt = "";
+                        //z.language = "RU";
+                        //z.is_super_admin = false;
+                        //z.user_name = pz.user_name;
+                        //z.s_comment = "";
+                        //z.s_create = DateTime.Now;
+                        //z.s_status = "ACTIVE";
+                        //z.s_user_id = 12;
+                        //z.usertype = "BKUT";
+                        //z.bkut_id = pz.bkut_id;
+                        //z.role_id = pz.role_id;
+                        //z.REGION_ID = pz.REGION_ID;
+                        //z.BRANCH_ID = pz.BRANCH_ID;
+
+                        //contextObj.users.Add(z);
+
+                        contextObj.userAdd(pz.email, pz.password, pz.bkut_id, pz.role_id);
+
                         contextObj.SaveChanges();
-                        return "tbcs_dictionary record added successfully";
+
+                        return "User record added successfully";
                     }
                 }
                 else
                 {
-                    return "Invalid tbcs_dictionary record";
+                    return "Invalid User record";
                 }
             }
             catch(Exception ex)
@@ -1762,6 +1839,12 @@ namespace KasabaKIAT.Controllers
             return null;
  
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="pz"></param>
+        /// <returns></returns>
         public string UpdateUZ(users pz)
         {
             log.Info("UpdateUZ");
@@ -1772,38 +1855,42 @@ namespace KasabaKIAT.Controllers
                 {
                     using (KasabaKIATEntities contextObj = new KasabaKIATEntities())
                     {
-                        int bookId = Convert.ToInt32(pz.id);
-                        users z = contextObj.users.Where(b => b.id == bookId).FirstOrDefault();
-                        z.version = 0;
-                        z.account_expired = false;
-                        z.account_locked = false;
-                        z.changed = DateTime.Now;
-                        z.created = DateTime.Now;
-                        z.email = pz.email;
-                        z.last_logged = DateTime.Now;
-                        z.last_logged_id = HttpContext.Server.ToString();
-                        z.state = "ACTIVE";
-                        z.password = MD5.MD5Hash(pz.password);
-                        z.salt = "";
-                        z.language = "UZ";
-                        z.is_super_admin = false;
-                        z.user_name = pz.user_name;
-                        z.s_comment = "";
-                        z.s_create = DateTime.Now;
-                        z.s_status = "ACTIVE";
-                        z.s_user_id = 12;
-                        z.usertype = "BKUT";
-                        z.bkut_id = pz.bkut_id;
-                        z.role_id = pz.role_id;
-                        z.REGION_ID = pz.REGION_ID;
-                        z.BRANCH_ID = pz.BRANCH_ID;
+                        //int bookId = Convert.ToInt32(pz.id);
+                        //users z = contextObj.users.Where(b => b.id == bookId).FirstOrDefault();
+                        //z.version = 0;
+                        //z.account_expired = false;
+                        //z.account_locked = false;
+                        //z.changed = DateTime.Now;
+                        //z.created = DateTime.Now;
+                        //z.email = pz.email;
+                        //z.last_logged = DateTime.Now;
+                        //z.last_logged_id = HttpContext.Server.ToString();
+                        //z.state = "ACTIVE";
+                        //z.password = MD5.MD5Hash(pz.password);
+                        //z.salt = "";
+                        //z.language = "UZ";
+                        //z.is_super_admin = false;
+                        //z.user_name = pz.user_name;
+                        //z.s_comment = "";
+                        //z.s_create = DateTime.Now;
+                        //z.s_status = "ACTIVE";
+                        //z.s_user_id = 12;
+                        //z.usertype = "BKUT";
+                        //z.bkut_id = pz.bkut_id;
+                        //z.role_id = pz.role_id;
+                        //z.REGION_ID = pz.REGION_ID;
+                        //z.BRANCH_ID = pz.BRANCH_ID;
+
+                        int userId = Convert.ToInt32(pz.id);
+                        contextObj.userUpdate(userId, pz.email, pz.password, pz.bkut_id, pz.role_id);
+
                         contextObj.SaveChanges();
-                        return "tbcs_dictionary record updated successfully";
+                        return "User record updated successfully";
                     }
                 }
                 else
                 {
-                    return "Invalid tbcs_dictionary record";
+                    return "User tbcs_dictionary record";
                 }
             }
             catch(Exception ex)
@@ -1813,6 +1900,12 @@ namespace KasabaKIAT.Controllers
 
             return null;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public string DeleteUZ(string id)
         {
             log.Info("DeleteUZ");
@@ -1823,12 +1916,15 @@ namespace KasabaKIAT.Controllers
                 {
                     try
                     {
-                        int _bookId = Int32.Parse(id);
+                        int UserId = Int32.Parse(id);
                         using (KasabaKIATEntities contextObj = new KasabaKIATEntities())
                         {
-                            var _book = contextObj.users.Find(_bookId);
-                            contextObj.users.Remove(_book);
+                            var user = contextObj.users.Find(UserId);
+
+                            user.s_status = "INACTIVE";
+
                             contextObj.SaveChanges();
+
                             return "sucessfully";
                         }
                     }
@@ -1850,17 +1946,22 @@ namespace KasabaKIAT.Controllers
             return null;
         }
         
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         [OutputCache(Duration = 300, Location = OutputCacheLocation.ServerAndClient, VaryByCustom = "userId")]
         public JsonResult GelOrganizatsiya()
         {
-
-            var O = from o in KasabaDB.t_departmentbase
-                    where o.name_uz!=null
+            var O = from department in KasabaDB.t_departmentbase
+                    join org in KasabaDB.tblSprav_Org on department.code equals org.OWNER_CODE
+                    where department.name_uz!=null
                     select new
                     {
-                        id = o.id,
-                        value = o.name_uz
+                        id = department.id,
+                        value = department.name_ru
                     };
+
             return Json(O.ToList(), JsonRequestBehavior.AllowGet);
         }
 

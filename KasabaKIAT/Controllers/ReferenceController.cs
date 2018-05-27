@@ -261,7 +261,7 @@ namespace KasabaKIAT.Controllers
 
             var obj3 = new SpravCodeDecode
             {
-                Code = 3,
+                Code = 2,
                 Decode = "Район-Отрасль"
             };
 
@@ -269,7 +269,7 @@ namespace KasabaKIAT.Controllers
 
             var obj5 = new SpravCodeDecode
             {
-                Code = 4,
+                Code = 3,
                 Decode = "ППО"
             };
 

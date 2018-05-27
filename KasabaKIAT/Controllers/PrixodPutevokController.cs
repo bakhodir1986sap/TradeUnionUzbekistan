@@ -28,6 +28,7 @@ using KasabaKiat.ViewModel.Putyovki.RaznoskaPutyovok;
 using KasabaKIAT.BusinessLogic.Putyovki.SverkaDannix.Ruchnoy;
 using OfficeOpenXml;
 using System.IO;
+using KasabaKIAT.BusinessLogic.Structure;
 
 namespace KasabaKIAT.Controllers
 {
@@ -1917,6 +1918,18 @@ namespace KasabaKIAT.Controllers
             return Json("success", JsonRequestBehavior.AllowGet);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="IdViplMain"></param>
+        /// <returns></returns>
+        public JsonResult GetOrgPaymentsLastYear(long IdViplMain)
+        {
+            var paymentsAmount = ViplMainDataManager.GetOrgPaymentsLastYear(IdViplMain);
+
+            return Json(paymentsAmount, JsonRequestBehavior.AllowGet);
+        }
+
         #endregion
 
         #region  Bank-Oplati i Viplati 
@@ -3160,6 +3173,28 @@ namespace KasabaKIAT.Controllers
             var list = sverObj.MatchingEngineMix(year);
 
             return Json(list, JsonRequestBehavior.AllowGet);
+        }
+
+        #endregion
+
+        #region ZayavkiNew
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public JsonResult GetUpperOrganization()
+        {
+            int UserId = Convert.ToInt32(User.Identity.Name);
+            var ustinfo = UserInfo.GetUserInfo(UserId);
+
+            var kiat = new StructureOfKiat();
+
+            var deptCode = kiat.GetParentOrganizationCode(ustinfo.DepartmentBase);
+
+            var Name = kiat.GetParentOrganizationName(deptCode);
+
+            return Json(Name, JsonRequestBehavior.AllowGet);
         }
 
         #endregion

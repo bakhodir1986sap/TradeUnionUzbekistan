@@ -428,5 +428,63 @@ namespace KasabaKiat.BusinessLogic.Putyovki.RealizasiyaPutyovok
                 }
             }
         }
+
+
+        public static decimal GetOrgPaymentsLastYear(long IdVipl)
+        {
+            using (KasabaKIATEntities db = new KasabaKIATEntities())
+            {
+                decimal totalPayment = 0;
+
+                var vipl = db.tblVipl.Where(z => z.ID == IdVipl);
+
+                if (vipl.Any())
+                {
+                    var viplMain = vipl.First();
+
+                    var orgId = viplMain.ID_Org;
+
+                    var orgs = db.tblSprav_Org.Where(z => z.ID == orgId);
+
+                    if (orgs.Any())
+                    {
+                        var organization = orgs.First();
+
+                        var orig_inn = organization.ORIG_INN;
+
+                        if (!string.IsNullOrEmpty(orig_inn))
+                        {
+                            var today = DateTime.Now.Date;
+
+                            var yearAgo = today.AddDays(-365);
+
+                            var payments = from ecp in db.tbbu_ecp_calc
+                                           join payment in db.KaznaPaymentFile on ecp.PAYMENT_ID equals (long)payment.ID
+                                           where ecp.INN == orig_inn && payment.OPERDAY >= yearAgo && payment.OPERDAY <= today
+                                           select ecp.OBLSOVPROF_AMT;
+
+                            if (payments.Any())
+                            {
+                                totalPayment = payments.Sum(z=>z.Value);
+                            }
+                            else
+                            {
+                                totalPayment = 0;
+                            }
+                        }
+                        else
+                        {
+                            throw new ApplicationException("Original Inn is not valid");
+                        }
+                    }
+                    else
+                    {
+                        throw new ApplicationException("Organization Id is not valid");
+                    }
+                }
+
+                return totalPayment;
+            }
+        }
     }
 }

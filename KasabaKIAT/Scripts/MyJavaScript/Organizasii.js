@@ -271,8 +271,17 @@
             data: JSON.stringify($scope.Organization),
             contentType: "application/json; charset=utf-8",
         }).then(function (response) {
-            GetOrganizations();
-            alertify.success("Успешное сохранение");
+
+            if (response.data == 'success')
+            {
+                GetOrganizations();
+                alertify.success("Успешное сохранение");
+            }
+            else
+            {
+                alertify.success("Сохранение завершилась с ошибкой");
+            }
+
             document.getElementById('connection').style.visibility = "hidden";
             $("#hh").modal('hide');
         }, function (error) {

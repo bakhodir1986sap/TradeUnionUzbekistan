@@ -32,16 +32,34 @@ namespace KasabaKIAT.BusinessLogic.Structure
     /// </summary>
     public class StructureOfKiat
     {
+        /// <summary>
+        /// 
+        /// </summary>
         public string federation  = "17";
 
+        /// <summary>
+        /// 
+        /// </summary>
         public string federationOrgs = "171";
 
+        /// <summary>
+        /// 
+        /// </summary>
         public string regionalOrg = "172";
 
+        /// <summary>
+        /// 
+        /// </summary>
         public string branchOrg   = "173";
 
+        /// <summary>
+        /// 
+        /// </summary>
         public string Sanatorium  = "174";
 
+        /// <summary>
+        /// 
+        /// </summary>
         public string Camp        = "175";
 
         //Oblsovprof begins with 172XX - XX region code f.e. 17203 - Andijan OblSovprof TABLE in DB - tbku_StrokaProfsoyza
@@ -50,6 +68,16 @@ namespace KasabaKIAT.BusinessLogic.Structure
 
         //BKUT 173XXYYYYYZZZZ - XX branch code TABLE in DB sp_branch,  YYYYY - tuman code from SOATO Reference leave 17 from begin.  ZZZZ - order number for example - 173Д1032030024 
 
+        //Federasiya 17 u LIKE bilan hammani department codelari bo'yicha qidirishi mumkin
+        //Oblsovprof poiskni Organization dagi tashkilotlarni department codi bo'yicha qidiradi == bilan
+        //Tuman - rayon o'zidan tagidagi tashkilotralni xam kiritsin  dagi tashkilotlarni department codi bo'yicha qidiradi == bilan
+        //PPO - zanjirni oxirgi bo'limi
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="departmentbaseCode"></param>
+        /// <returns></returns>
         public bool IsRegionOblsovprof(string departmentbaseCode)
         {
             if (!string.IsNullOrEmpty(departmentbaseCode))
@@ -72,6 +100,11 @@ namespace KasabaKIAT.BusinessLogic.Structure
             return false;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="departmentbaseCode"></param>
+        /// <returns></returns>
         public bool IsTumanBranch(string departmentbaseCode)
         {
             if (!string.IsNullOrEmpty(departmentbaseCode))
@@ -97,11 +130,33 @@ namespace KasabaKIAT.BusinessLogic.Structure
             return false;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="departmentbaseCode"></param>
+        /// <returns></returns>
         public bool IsFederation(string departmentbaseCode)
         {
+            if (string.IsNullOrEmpty(departmentbaseCode))
+            {
+                return false;
+            }
+            else
+            {
+                if (departmentbaseCode.Equals("17"))
+                {
+                    return true;
+                }                
+            }
+
             return false;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="departmentbaseCode"></param>
+        /// <returns></returns>
         public bool IsPervichka(string departmentbaseCode)
         {
             return false;
@@ -428,7 +483,9 @@ namespace KasabaKIAT.BusinessLogic.Structure
             }
             else if (KIAT_STRUCT.PPO == str)
             {
-                return string.Format("{0}{1}{2}", uzak, "3", ID.ToString().PadLeft(3, '0'));
+                var IdLast = 3000 + ID;
+
+                return string.Format("{0}{1}", uzak, IdLast.ToString());
             }
 
             return null;
@@ -446,34 +503,6 @@ namespace KasabaKIAT.BusinessLogic.Structure
         {
             var departmentCode = GetNextOrder(str, branchCode, tumanCode, ID);
 
-            //using (KasabaKIATEntities db = new KasabaKIATEntities())
-            //{
-            //    var isDepExists = db.t_departmentbase.Where(r => r.code == departmentCode);
-
-            //    if (KIAT_STRUCT.TumanBranch == str)
-            //    {
-            //        //skip
-            //    }
-            //    else if (KIAT_STRUCT.PPO == str)
-            //    {
-            //        //t_departmentbase dd = new t_departmentbase();
-
-            //        //dd.le_inn = inn;
-            //        //dd.parent_code = departmentBase;
-            //        //dd.code = string.Format("{0}{1}", departmentBase, inn);
-            //        //dd.name_ru = fermer.name_full;
-            //        //dd.name_uz = fermer.name_short;
-            //        //dd.soato_code = fermer.soato_id;
-            //        //dd.okonx = fermer.okonx_id;
-            //        //dd.dtype = "Bkut";
-            //        //dd.version = 0;
-
-            //        //db.t_departmentbase.Add(dd);
-
-            //        db.SaveChanges();
-            //    }
-            //}
-            
             return departmentCode;
         }
 
@@ -513,5 +542,77 @@ namespace KasabaKIAT.BusinessLogic.Structure
         {
             return "";
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="departmentCode"></param>
+        /// <returns></returns>
+        public string GetParentOrganizationCode(string departmentCode)
+        {
+            if (string.IsNullOrEmpty(departmentCode))
+            {
+                return null;
+            }
+
+            using (KasabaKIATEntities db = new KasabaKIATEntities())
+            {
+                var org = db.tblSprav_Org.Where(z => z.OWNER_CODE == departmentCode);
+
+                if (!org.Any()) return null;
+
+                var organization = org.First();
+
+                if (organization.ParentID == null || organization.ParentID == -1)
+                {
+                    return organization.DepartmentBase;
+                }
+                else
+                {
+                    var parOrg = db.tblSprav_Org.Where(z => z.ID == organization.ParentID);
+
+                    if (!parOrg.Any()) return organization.DepartmentBase;
+
+                    return parOrg.First().OWNER_CODE;
+                }
+
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="departmentCode"></param>
+        /// <returns></returns>
+        public string GetParentOrganizationName(string departmentCode)
+        {
+            var departmentcd = GetParentOrganizationCode(departmentCode);
+
+            using (KasabaKIATEntities db = new KasabaKIATEntities())
+            {
+                var depts = db.t_departmentbase.Where(z => z.code == departmentcd);
+
+                if (depts.Any())
+                {
+                    var deppp = depts.First();
+
+                    if (!string.IsNullOrEmpty(deppp.name_ru))
+                    {
+                        return deppp.name_ru;
+                    }
+                    else if (!string.IsNullOrEmpty(deppp.dep_name))
+                    {
+                        return deppp.dep_name;
+                    }
+                    else if (!string.IsNullOrEmpty(deppp.bkut_name))
+                    {
+                        return deppp.bkut_name;
+                    }
+                }
+            }
+
+            return string.Empty;
+        }
+
     }
 }

@@ -37,6 +37,9 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.Provodki.AutomaticTransactions.K
 
                         foreach (var payment in procList)
                         {
+                            Console.WriteLine(payment.ID);
+                            Console.WriteLine(payment.PURPOSE);
+
                             //Clear Model
                             innFromDtl = string.Empty;
                             model.federation_amt = 0;
@@ -52,8 +55,15 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.Provodki.AutomaticTransactions.K
 
                             //Inn Parsing
                             #region Inn Parsing
+                            string bankAccountBalance = string.Empty;
 
-                            var bankAccountBalance = payment.CLACC.Substring(0, 5);
+                            if (!string.IsNullOrEmpty(payment.CLACC))
+                            {
+                                if (payment.CLACC.Length >= 5)
+                                {
+                                    bankAccountBalance = payment.CLACC.Substring(0, 5);
+                                }
+                            }
 
                             if (bankAccountBalance.Equals("20208") ||
                                 bankAccountBalance.Equals("14301") ||
@@ -274,7 +284,17 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.Provodki.AutomaticTransactions.K
 
                             //Define region 1 stage in detail we mostly have Kaznacheystvo Account which contains soato
 
-                            var str = payment.PURPOSE.Substring(6, 25).Substring(10, 5);
+                            string str = string.Empty;
+
+                            if (!string.IsNullOrEmpty(payment.PURPOSE))
+                            {
+                                if (payment.PURPOSE.Length >= 31)
+                                {
+                                    str = payment.PURPOSE.Substring(6, 25).Substring(10, 5);
+                                }
+                            }
+
+                            //var str = payment.PURPOSE.Substring(6, 25).Substring(10, 5);
 
                             var prepsoato = string.Format("{0}{1}", "17", str);
 
@@ -285,7 +305,11 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.Provodki.AutomaticTransactions.K
                                 var soato = soatoExists.First().KODI;
                                 var soato_nm = soatoExists.First().NAME_RU;
                                 model.remark += string.Format("SOATO:{0};SOATO_NAME:{1};", soato, soato_nm);
-                                model.obl_department_base = string.Format("{0}{1}{2}", prepsoato.Substring(0, 2), "2", prepsoato.Substring(2, 2));
+
+                                if (prepsoato.Length >= 4)
+                                {
+                                    model.obl_department_base = string.Format("{0}{1}{2}", prepsoato.Substring(0, 2), "2", prepsoato.Substring(2, 2));
+                                }
                                 model.soato = soato;
                                 model.soato_name = soato_nm;
                             }
@@ -298,7 +322,18 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.Provodki.AutomaticTransactions.K
 
                                 if (Inns.Any())
                                 {
-                                    var str2 = payment.PURPOSE.Substring(6, 27).Substring(9, 5);
+
+                                    string str2 = string.Empty;
+
+                                    if (!string.IsNullOrEmpty(payment.PURPOSE))
+                                    {
+                                        if (payment.PURPOSE.Length >= 33)
+                                        {
+                                            str = str2 = payment.PURPOSE.Substring(6, 27).Substring(9, 5);
+                                        }
+                                    }
+
+                                    //var str2 = payment.PURPOSE.Substring(6, 27).Substring(9, 5);
 
                                     var prepsoato2 = string.Format("{0}{1}", "17", str2);
 
@@ -312,7 +347,13 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.Provodki.AutomaticTransactions.K
                                         var soato = soatoExists2.First().KODI;
                                         var soato_nm = soatoExists2.First().NAME_RU;
                                         model.remark += string.Format("SOATO:{0};SOATO_NAME:{1};", soato, soato_nm);
-                                        model.obl_department_base = string.Format("{0}{1}{2}", prepsoato.Substring(0, 2), "2", prepsoato.Substring(2, 2));
+
+                                        if (prepsoato.Length >= 4)
+                                        {
+                                            model.obl_department_base = string.Format("{0}{1}{2}", prepsoato.Substring(0, 2), "2", prepsoato.Substring(2, 2));
+                                        }
+
+                                        //model.obl_department_base = string.Format("{0}{1}{2}", prepsoato.Substring(0, 2), "2", prepsoato.Substring(2, 2));
                                         model.soato = soato;
                                         model.soato_name = soato_nm;
                                     }
@@ -323,7 +364,17 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.Provodki.AutomaticTransactions.K
                             {
                                 var egrpo = db.t_egrpo.Where(z => z.inn == payment.CLINN);
 
-                                var nibddNumber1 = payment.CLACC.Substring(9, 8);
+                                string nibddNumber1 = string.Empty;
+
+                                if (!string.IsNullOrEmpty(payment.CLACC))
+                                {
+                                    if (payment.CLACC.Length >= 17)
+                                    {
+                                        nibddNumber1 = payment.CLACC.Substring(9, 8);
+                                    }
+                                }
+
+                                //var nibddNumber1 = payment.CLACC.Substring(9, 8);
 
                                 var fermer1 = db.tbbFermers.Where(z => z.INN == nibddNumber1);
 
@@ -351,7 +402,18 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.Provodki.AutomaticTransactions.K
                                 {
                                     if (!string.IsNullOrEmpty(payment.CLACC))
                                     {
-                                        var nibddNumber = payment.CLACC.Substring(9, 8);
+
+                                        string nibddNumber = string.Empty;
+
+                                        if (!string.IsNullOrEmpty(payment.CLACC))
+                                        {
+                                            if (payment.CLACC.Length >= 17)
+                                            {
+                                                nibddNumber = payment.CLACC.Substring(9, 8);
+                                            }
+                                        }
+
+                                        //var nibddNumber = payment.CLACC.Substring(9, 8);
 
                                         var fermer = db.tbbFermers.Where(z => z.INN == nibddNumber);
 
@@ -368,7 +430,18 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.Provodki.AutomaticTransactions.K
                             {
                                 var egrpo = db.t_egrpo.Where(z => z.inn == innFromDtl);
 
-                                var nibddNumber1 = payment.CLACC.Substring(9, 8);
+                                string nibddNumber1 = string.Empty;
+
+                                if (!string.IsNullOrEmpty(payment.CLACC))
+                                {
+                                    if (payment.CLACC.Length >= 17)
+                                    {
+                                        nibddNumber1 = payment.CLACC.Substring(9, 8);
+                                    }
+                                }
+
+
+                                //var nibddNumber1 = payment.CLACC.Substring(9, 8);
 
                                 var fermer1 = db.tbbFermers.Where(z => z.INN == nibddNumber1);
 
@@ -396,7 +469,17 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.Provodki.AutomaticTransactions.K
                                 {
                                     if (!string.IsNullOrEmpty(payment.CLACC))
                                     {
-                                        var nibddNumber = payment.CLACC.Substring(9, 8);
+                                        string nibddNumber = string.Empty;
+
+                                        if (!string.IsNullOrEmpty(payment.CLACC))
+                                        {
+                                            if (payment.CLACC.Length >= 17)
+                                            {
+                                                nibddNumber = payment.CLACC.Substring(9, 8);
+                                            }
+                                        }
+
+                                        //var nibddNumber = payment.CLACC.Substring(9, 8);
 
                                         var fermer = db.tbbFermers.Where(z => z.INN == nibddNumber);
 

@@ -137,7 +137,7 @@ namespace KasabaKiat.BusinessLogic.Utils.References
                     }
                     else if (pravsoyuzLevel == (int)KIAT_STRUCT.PPO)
                     {
-                        str = KIAT_STRUCT.TumanBranch;
+                        str = KIAT_STRUCT.PPO;
                     }
 
                     var regions = db.tblSprav_Reg.Where(z => z.CodeReg == region);

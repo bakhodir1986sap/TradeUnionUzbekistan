@@ -1,10 +1,14 @@
 ﻿using KasabaKiat.Helpers;
 using KasabaKIAT.BusinessLogic.Putyovki.Rekviziti;
+using KasabaKIAT.BusinessLogic.Putyovki.Zayavki;
+using KasabaKIAT.BusinessLogic.Structure;
 using KasabaKIAT.Models;
 using KasabaKIAT.ViewModel.Putyovki;
 using log4net;
 using System;
+using System.IO;
 using System.Linq;
+using System.Web;
 using System.Web.Mvc;
 using System.Web.UI;
 
@@ -968,7 +972,7 @@ namespace KasabaKIAT.Controllers
         /// </summary>
         /// <param name="sc_id"></param>
         /// <returns></returns>
-        [OutputCache(Duration = 60, Location = OutputCacheLocation.ServerAndClient, VaryByParam = "sc_id", VaryByCustom = "userId")]
+        [OutputCache(Duration = 5, Location = OutputCacheLocation.ServerAndClient, VaryByParam = "sc_id", VaryByCustom = "userId")]
         public JsonResult GetAllPZ_S(int sc_id)
         {
             log.Info("GetAllPZ_S");
@@ -994,7 +998,7 @@ namespace KasabaKIAT.Controllers
                                 FN = e.FULL_NAME,
                                 S = e.STATUS,
                                 INN = c.inn,
-                                O = c.name_uz,
+                                O = c.name_uz + c.bkut_name + c.dep_name,
                                 Q = e.QUANTITY,
                                 TS = e.TIMESTAMP,
                                 MOE = e.MEDICAL_ORDER_EXISTS,
@@ -1008,7 +1012,6 @@ namespace KasabaKIAT.Controllers
             }
 
             return null;
-
         }
 
         /// <summary>
@@ -1016,7 +1019,7 @@ namespace KasabaKIAT.Controllers
         /// </summary>
         /// <param name="sc_id"></param>
         /// <returns></returns>
-        [OutputCache(Duration = 60, Location = OutputCacheLocation.ServerAndClient, VaryByParam = "sc_id", VaryByCustom = "userId")]
+        [OutputCache(Duration = 5, Location = OutputCacheLocation.ServerAndClient, VaryByParam = "sc_id", VaryByCustom = "userId")]
         public JsonResult GetAllPZ_C(int sc_id)
         {
 
@@ -1065,7 +1068,7 @@ namespace KasabaKIAT.Controllers
         /// <param name="inn"></param>
         /// <param name="zb"></param>
         /// <returns></returns>
-        [OutputCache(Duration = 60, Location = OutputCacheLocation.ServerAndClient, VaryByParam = "inn;zb", VaryByCustom = "userId")]
+        [OutputCache(Duration = 5, Location = OutputCacheLocation.ServerAndClient, VaryByParam = "inn;zb", VaryByCustom = "userId")]
         public JsonResult GetAllPodachaZayavok_S_LoadINN(string inn, int zb)
         {
             log.Info("GetAllPodachaZayavok_S_LoadINN");
@@ -1491,6 +1494,9 @@ namespace KasabaKIAT.Controllers
         {
             log.Info("AddPodachaZayavok ");
 
+            int UserId = Convert.ToInt32(User.Identity.Name);
+            var ustinfo = UserInfo.GetUserInfo(UserId);
+            
             try
             {
                 if (pz != null)
@@ -1505,7 +1511,7 @@ namespace KasabaKIAT.Controllers
                         z.GROUP_ID = x;
                         z.MEDICAL_ORDER = pz.MEDICAL_ORDER;
                         z.FULL_NAME = pz.FULL_NAME;
-                        z.DEPARTMENT_CODE = LOAD_DEPARTMENT_CODE(pz.DEPARTMENT_CODE);
+                        z.DEPARTMENT_CODE = ustinfo.DepartmentBase;//LOAD_DEPARTMENT_CODE(pz.DEPARTMENT_CODE);
                         z.POSITION = pz.POSITION;
                         z.QUANTITY = pz.QUANTITY;
                         z.SANATORY_ID = pz.SANATORY_ID;
@@ -1718,6 +1724,9 @@ namespace KasabaKIAT.Controllers
         /// <returns></returns>
         public string UpdatePodachaZayavok(tbpt_zayavki pz)
         {
+            int UserId = Convert.ToInt32(User.Identity.Name);
+            var ustinfo = UserInfo.GetUserInfo(UserId);
+
             log.Info("UpdatePodachaZayavok");
             log.Info("pz = " + pz.FULL_NAME);
 
@@ -1737,7 +1746,7 @@ namespace KasabaKIAT.Controllers
                         _gz.CAMP_ID = pz.CAMP_ID;
                         _gz.SANATORY_ID = pz.SANATORY_ID;
                         _gz.FULL_NAME = pz.FULL_NAME;
-                        _gz.DEPARTMENT_CODE = LOAD_DEPARTMENT_CODE(pz.DEPARTMENT_CODE);
+                        _gz.DEPARTMENT_CODE = ustinfo.DepartmentBase;//LOAD_DEPARTMENT_CODE(pz.DEPARTMENT_CODE);
                         _gz.MEDICAL_ORDER_EXISTS = pz.MEDICAL_ORDER_EXISTS;
                         _gz.MEDICAL_ORDER = pz.MEDICAL_ORDER;
                         _gz.TIMESTAMP = DateTime.Now;
@@ -1850,5 +1859,147 @@ namespace KasabaKIAT.Controllers
         {
             return View();
         }
+
+
+        #region ZayavkiNew
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public JsonResult GetUpperOrganization()
+        {
+            int UserId = Convert.ToInt32(User.Identity.Name);
+            var ustinfo = UserInfo.GetUserInfo(UserId);
+
+            var kiat = new StructureOfKiat();
+
+            var deptCode = kiat.GetParentOrganizationCode(ustinfo.DepartmentBase);
+
+            var Name = kiat.GetParentOrganizationName(deptCode);
+
+            return Json(Name, JsonRequestBehavior.AllowGet);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="formCollection"></param>
+        /// <returns></returns>
+        public JsonResult UploadZayavkaFiles(FormCollection formCollection)
+        {
+            log.Info("ReadFileZayavki");
+            try
+            {
+                if (Request != null)
+                {
+                    long ZayavkaId = 0;
+
+                    foreach (var key in formCollection.AllKeys)
+                    {
+                        if (key.Equals("ZayavkaID"))
+                        {
+                            ZayavkaId = int.Parse(formCollection[key]);
+                        }
+                    }
+
+                    foreach (var fileNames in Request.Files)
+                    {
+                        string ffname = fileNames.ToString();
+
+                        var dbFile = KasabaDB.tblFiles.Where(z => z.EXTERNAL_ID == ZayavkaId && z.OPNAME == ffname);
+
+                        if (dbFile.Any()) continue;
+
+                        HttpPostedFileBase file = Request.Files[fileNames.ToString()];
+
+                        if ((file != null) && (file.ContentLength > 0) && !string.IsNullOrEmpty(file.FileName))
+                        {
+                            string fileName = file.FileName;
+                            string fileContentType = file.ContentType;
+                            byte[] fileBytes = new byte[file.ContentLength];
+                            var data = file.InputStream.Read(fileBytes, 0, Convert.ToInt32(file.ContentLength));
+
+                            tblFile ffile = new tblFile
+                            {
+                                OP_TYPE = 1, //Zayavki
+                                OPNAME = fileNames.ToString(),
+                                NAME = fileName,
+                                CONTENTTYPE = fileContentType,
+                                DATA = fileBytes,
+                                EXTERNAL_ID = ZayavkaId
+                            };
+
+                            KasabaDB.tblFiles.Add(ffile);
+                        }
+                    }
+
+                    KasabaDB.SaveChanges();
+                }
+                return Json("success", JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                log.Info(ex);
+                return Json("error", JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="zayavkaId"></param>
+        /// <param name="OpName"></param>
+        /// <returns></returns>
+        public FileResult DownloadZayavkaFile(string zayavkaId, string OpName)
+        {
+            long CurrentFileID = Convert.ToInt64(zayavkaId);
+
+            var CurrentFile = (from fls in KasabaDB.tblFiles
+                                      where fls.EXTERNAL_ID == CurrentFileID && fls.OPNAME == OpName
+                                      select fls).FirstOrDefault();
+
+            return File(CurrentFile.DATA, CurrentFile.CONTENTTYPE, CurrentFile.NAME);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="zayavkaId"></param>
+        /// <returns></returns>
+        public JsonResult GetFileInfoZayavka(string zayavkaId)
+        {
+            long CurrentFileID = Convert.ToInt64(zayavkaId);
+
+            var ZayavkaFiles = from fls in KasabaDB.tblFiles
+                               where fls.EXTERNAL_ID == CurrentFileID
+                               select fls;
+
+            var loadedFileInfo = new LoadedFilesZayavka();
+
+            foreach (var file in ZayavkaFiles)
+            {
+                if (file.OPNAME.Equals("Passport"))
+                {
+                    loadedFileInfo.Passport = file.NAME;
+                }
+                if (file.OPNAME.Equals("LabourBook"))
+                {
+                    loadedFileInfo.LabourBook = file.NAME;
+                }
+                if (file.OPNAME.Equals("VocationOrder"))
+                {
+                    loadedFileInfo.VocationOrder = file.NAME;
+                }
+                if (file.OPNAME.Equals("PPO_Protokol"))
+                {
+                    loadedFileInfo.PPO_Protokol = file.NAME;
+                }
+            }
+
+            return Json(loadedFileInfo, JsonRequestBehavior.AllowGet);
+        }
+
+        #endregion
     }
 }

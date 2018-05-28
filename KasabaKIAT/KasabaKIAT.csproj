@@ -349,6 +349,7 @@
     <Compile Include="BusinessLogic\Putyovki\ZakritiyaKvartala\ZakritKvartal4Putyovka.cs" />
     <Compile Include="BusinessLogic\Putyovki\Zayavki\IRasmotreniyaZayavki.cs" />
     <Compile Include="BusinessLogic\Putyovki\Zayavki\IZayavkamanage.cs" />
+    <Compile Include="BusinessLogic\Putyovki\Zayavki\LoadedFiles.cs" />
     <Compile Include="BusinessLogic\Putyovki\Zayavki\RassmotreniyaFirst.cs" />
     <Compile Include="BusinessLogic\Putyovki\Zayavki\RassmotreniyaZayavkiDataManager.cs" />
     <Compile Include="BusinessLogic\Putyovki\Zayavki\ZayavkiDataManager.cs" />
@@ -728,6 +729,9 @@
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tblCloseDayHistory.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tblFile.cs">
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tblHoliday.cs">

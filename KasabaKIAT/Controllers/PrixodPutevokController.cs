@@ -3179,23 +3179,7 @@ namespace KasabaKIAT.Controllers
 
         #region ZayavkiNew
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        public JsonResult GetUpperOrganization()
-        {
-            int UserId = Convert.ToInt32(User.Identity.Name);
-            var ustinfo = UserInfo.GetUserInfo(UserId);
 
-            var kiat = new StructureOfKiat();
-
-            var deptCode = kiat.GetParentOrganizationCode(ustinfo.DepartmentBase);
-
-            var Name = kiat.GetParentOrganizationName(deptCode);
-
-            return Json(Name, JsonRequestBehavior.AllowGet);
-        }
 
         #endregion
 

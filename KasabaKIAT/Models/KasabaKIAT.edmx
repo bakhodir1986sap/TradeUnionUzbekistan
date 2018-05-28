@@ -2178,6 +2178,18 @@ warning 6002: The table/view 'KasabaKIAT_N1.dbo.tblFace_Two' does not have a pri
           <Property Name="UserId" Type="bigint" />
           <Property Name="Departmentbase" Type="nvarchar" MaxLength="255" />
         </EntityType>
+        <EntityType Name="tblFile">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EXTERNAL_ID" Type="bigint" />
+          <Property Name="OP_TYPE" Type="int" />
+          <Property Name="NAME" Type="nvarchar" MaxLength="100" />
+          <Property Name="CONTENTTYPE" Type="nvarchar" MaxLength="200" />
+          <Property Name="DATA" Type="varbinary(max)" />
+          <Property Name="OPNAME" Type="nvarchar" MaxLength="500" />
+        </EntityType>
         <EntityType Name="tblHolidays">
           <Key>
             <PropertyRef Name="REC_ID" />
@@ -6106,6 +6118,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <EntitySet Name="tblCloseDayHistory" EntityType="Self.tblCloseDayHistory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblFace_Med" EntityType="Self.tblFace_Med" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblFase" EntityType="Self.tblFase" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblFile" EntityType="Self.tblFile" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblHolidays" EntityType="Self.tblHolidays" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblOplata" EntityType="Self.tblOplata" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblOplata_Ras" EntityType="Self.tblOplata_Ras" Schema="dbo" store:Type="Tables" />
@@ -13646,6 +13659,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
             <Parameter Name="bkit_id" Mode="In" Type="Int64" />
             <Parameter Name="role_id" Mode="In" Type="Int64" />
           </FunctionImport>
+          <EntitySet Name="tblFiles" EntityType="KasabaKIATModel.tblFile" />
           </EntityContainer>
         <ComplexType Name="sp_get_BankPaymentCompanyYearlyQ_Result">
           <Property Type="Int32" Name="MONTH_NUM" Nullable="true" />
@@ -15213,6 +15227,18 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <Property Name="WORK_PLACE" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="OTRASL" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="OWNER_CODE" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="tblFile">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EXTERNAL_ID" Type="Int64" />
+          <Property Name="OP_TYPE" Type="Int32" />
+          <Property Name="NAME" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="CONTENTTYPE" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="DATA" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="OPNAME" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
         </EntityType>
         </Schema>
     </edmx:ConceptualModels>
@@ -19047,6 +19073,19 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="userAdd" FunctionName="KasabaKIATModel.Store.userAdd" />
           <FunctionImportMapping FunctionImportName="userUpdate" FunctionName="KasabaKIATModel.Store.userUpdate" />
+          <EntitySetMapping Name="tblFiles">
+            <EntityTypeMapping TypeName="KasabaKIATModel.tblFile">
+              <MappingFragment StoreEntitySet="tblFile">
+                <ScalarProperty Name="OPNAME" ColumnName="OPNAME" />
+                <ScalarProperty Name="DATA" ColumnName="DATA" />
+                <ScalarProperty Name="CONTENTTYPE" ColumnName="CONTENTTYPE" />
+                <ScalarProperty Name="NAME" ColumnName="NAME" />
+                <ScalarProperty Name="OP_TYPE" ColumnName="OP_TYPE" />
+                <ScalarProperty Name="EXTERNAL_ID" ColumnName="EXTERNAL_ID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

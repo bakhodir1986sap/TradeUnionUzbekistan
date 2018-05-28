@@ -163,7 +163,7 @@ namespace KasabaKiat.Helpers
                             }
 
                             var departments = from dep in db.t_departmentbase
-                                              where (dep.id == departmentcode || dep.NATIVE_ID == departmentcode)
+                                              where (dep.id == departmentcode)
                                               select dep;
 
                             if (departments.Any())
@@ -173,6 +173,22 @@ namespace KasabaKiat.Helpers
                                 if (depbase != null)
                                 {
                                     model.DepartmentBase = depbase.code;
+                                }
+                            }
+                            else
+                            {
+                                var departments2 = from dep in db.t_departmentbase
+                                                  where (dep.NATIVE_ID == departmentcode)
+                                                  select dep;
+
+                                if (departments2.Any())
+                                {
+                                    var depbase2 = departments2.FirstOrDefault();
+
+                                    if (depbase2 != null)
+                                    {
+                                        model.DepartmentBase = depbase2.code;
+                                    }
                                 }
                             }
                         }

@@ -87,7 +87,7 @@ WHERE [user_name] in
 ,'olmaliq.komb@kasaba.uz'
 ,'azamat_tashvil@kasaba.uz');
 
-
+--------------------------------------------------
 USE [KasabaKIAT_N1]
 GO
 /****** Object:  StoredProcedure [dbo].[uspLogin]    Script Date: 05/26/2018 21:13:10 ******/
@@ -211,3 +211,39 @@ set nocount on;
   WHERE id = @userId;
  
 end
+
+
+----------------------------------------------------------
+
+USE [KasabaKIAT_N1]
+GO
+
+/****** Object:  Table [dbo].[tblFile]    Script Date: 05/27/2018 14:49:37 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+SET ANSI_PADDING ON
+GO
+
+CREATE TABLE [dbo].[tblFile](
+	[ID] [bigint] NOT NULL IDENTITY(1,1),
+	[EXTERNAL_ID] [bigint] NULL,
+	[OP_TYPE] [int] NULL,
+	[NAME] [nvarchar](100) NULL,
+	[CONTENTTYPE] [nvarchar](200) NULL,
+	[DATA] [varbinary](max) NULL,
+	[OPNAME] [nvarchar](500) NULL,
+ CONSTRAINT [PK_tblFile] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+
+SET ANSI_PADDING OFF
+GO
+

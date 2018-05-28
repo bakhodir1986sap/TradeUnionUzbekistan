@@ -98,6 +98,8 @@
                     <button ng-show="PZdiv" ng-click="exportData()" class="btn btn-green d-block d-md-inline-block mb-3 mb-md-0"><i class="fas fa-file-excel"></i> Экспорт</button>
                 </div>
             </div>
+            <span>Вышестоящая организация:</span>
+            <span ng-bind="UpperOrganization"></span><br />
             <form class="form-group  justify-content-end" name="myForm" novalidate>
                 <div class="col-md-7">
                     <div class="custom-control custom-radio custom-control-inline">
@@ -147,7 +149,6 @@
                     <a href="#" ng-click="OTPpz()" class="btn btn-blue d-block d-md-inline-block mb-2">Отправить</a>
                 </div>
             </div>
-
         </section>
         <div class="modal__block modal fade" id="dobavit" tabindex="-1" role="dialog" aria-labelledby="dobavitLabel" data-backdrop="static" data-keyboard="false">
             <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
@@ -178,7 +179,7 @@
                                         <input type="date" class="form-control" ng-model="ZE" />
                                     </div>
                                 </div>
-                                <div class="form-group row align-items-center">
+                                @*<div class="form-group row align-items-center">
                                     <label class="col-md-5 col-form-label py-0">Инн:</label>
                                     <div class="col-md-7">
                                         <input type="text" required class="form-control" name="INN" ng-minlength="9" ng-maxlength="9" ng-model="INN" ng-change="LoadINN()" />
@@ -192,7 +193,7 @@
                                     <div class="col-md-7">
                                         <label name="O" ng-model="O">{{O}}</label>
                                     </div>
-                                </div>
+                                </div>*@
                                 <div class="form-group row align-items-center">
                                     <label class="col-md-5 col-form-label py-0">ФИО:</label>
                                     <div class="col-md-7">
@@ -227,8 +228,9 @@
                                     </div>
                                 </div>
                                 <div class="mb-4 text-right">
-                                    <button ng-disabled="myForm.INN.$error.required||myForm.FN.$error.required||myForm.P.$error.required||(!myForm.INN.$error.required&&!myForm.INN.$valid)||O=='No Data Found'||MOE&&myForm.MO.$error.required" ng-click="AddUpdatePZ()" data-dismiss="modal" class="btn btn-blue d-block d-md-inline-block mb-2">Сохранить</button>
+                                    <button ng-disabled="myForm.FN.$error.required||myForm.P.$error.required||MOE&&myForm.MO.$error.required" ng-click="AddUpdatePZ()" data-dismiss="modal" class="btn btn-blue d-block d-md-inline-block mb-2">Сохранить</button>
                                     <button ng-click="deletePZ(ID)" ng-show="showdelete" data-dismiss="modal" class="btn btn-red d-block d-md-inline-block mb-2">Удалить</button>
+                                    <a ng-show="showdelete" ng-click="GetFileInfoZayavka()" href="#" data-toggle="modal" data-target="#dobavitFile" class="btn btn-blue d-block d-md-inline-block mb-2">Прикрепить</a>
                                     <button class="btn btn-grey d-block d-md-inline-block mb-2" data-dismiss="modal">Отмена</button>
                                 </div>
                             </form>
@@ -296,6 +298,62 @@
                                 <button ng-show="showdata" ng-click="Tanlash()" data-dismiss="modal">Выбрать</button>
                             </div>
                         </section>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal__block modal fade" id="dobavitFile" tabindex="-1" role="dialog" aria-labelledby="dobavitFileLabel" data-backdrop="static" data-keyboard="false">
+            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <div class="modal-title">
+                            <h4 class="text-center mt-4 mb-4">Прикрепить файлы</h4>
+                        </div>
+                        <div class="row justify-content-center">
+                            <form class="col-md-8" name="myForm" novalidate>
+                                <input type="hidden" style="position:absolute" ng-model="ID;" />
+
+                                <div class="form-group row align-items-center">
+                                    <label class="col-md-5 col-form-label py-0">Копия паспорта:</label>
+                                    <div class="col-md-7">
+                                        <input type="file" ng-model="fPassport" name="Passport" class="form-control" onchange="angular.element(this).scope().UploadFilesPassport(this.files)">
+                                        @*<a data-ng-href="@Url.Action("DownloadZayavkaFile", "Home")?zayavkaId={{ID}}&OpName={{Passport}}" target="_self">{{FilesOpdatas.Passport}}  </a>*@
+                                        @*@Html.ActionLink("{{FilesOpdatas.Passport}}", "DownloadZayavkaFile", "Home", new { zayavkaId = "{{ID}}", OpName = "Passport" }, null)*@
+                                        <a href="#" ng-click="DownloadFile(Passport, FilesOpdatas.Passport)"><span ng-bind="FilesOpdatas.Passport" ></span></a>
+                                        @*<span class="alert alert-warning" style="padding:0px" ng-show="myForm.Passport.$error.required" >выберите файл</span>*@
+                                    </div>
+                                </div>
+                                <div class="form-group row align-items-center">
+                                    <label class="col-md-5 col-form-label py-0">Копия трудовой книжки:</label>
+                                    <div class="col-md-7">
+                                        <input type="file" ng-model="fLabourBook" name="LabourBook" class="form-control" onchange="angular.element(this).scope().UploadFilesLabourBook(this.files)">
+                                        <a href="#" ng-click="DownloadFile(LabourBook, FilesOpdatas.LabourBook)"><span ng-bind="FilesOpdatas.LabourBook"></span></a>
+                                        @*<span class="alert alert-warning" style="padding:0px" ng-show="myForm.LabourBook.$error.required">выберите файл</span>*@
+                                    </div>
+                                </div>
+                                <div class="form-group row align-items-center">
+                                    <label class="col-md-5 col-form-label py-0">Приказ на отпуск :</label>
+                                    <div class="col-md-7">
+                                        <input type="file" ng-model="fVocationOrder" name="VocationOrder" class="form-control" onchange="angular.element(this).scope().UploadFilesVocationOrder(this.files)">
+                                        <a href="#" ng-click="DownloadFile(VocationOrder, FilesOpdatas.VocationOrder)"><span ng-bind="FilesOpdatas.VocationOrder"></span></a>
+                                        @*<span class="alert alert-warning" style="padding:0px" ng-show="myForm.VocationOrder.$error.required">выберите файл</span>*@
+                                    </div>
+                                </div>
+                                <div class="form-group row align-items-center">
+                                    <label class="col-md-5 col-form-label py-0">Протокол профсоюзного комитета :</label>
+                                    <div class="col-md-7">
+                                        <input type="file" ng-model="fPPO_Protokol" name="PPO_Protokol" class="form-control" onchange="angular.element(this).scope().UploadFilesPPO_Protokol(this.files)">
+                                        <a href="#" ng-click="DownloadFile(PPO_Protokol, FilesOpdatas.PPO_Protokol)"><span ng-bind="FilesOpdatas.PPO_Protokol"></span></a>
+                                        @*<span class="alert alert-warning" style="padding:0px" ng-show="myForm.PPO_Protokol.$error.required">выберите файл</span>*@
+                                    </div>
+                                </div>
+
+                                <div class="mb-4 text-right">
+                                    <button ng-click="SaveFilesDATA()" data-dismiss="modal" class="btn btn-blue d-block d-md-inline-block mb-2">Сохранить</button>
+                                    <button class="btn btn-grey d-block d-md-inline-block mb-2" data-dismiss="modal">Отмена</button>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>

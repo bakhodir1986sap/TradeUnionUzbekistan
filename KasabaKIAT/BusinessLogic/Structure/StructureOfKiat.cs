@@ -586,11 +586,20 @@ namespace KasabaKIAT.BusinessLogic.Structure
         /// <returns></returns>
         public string GetParentOrganizationName(string departmentCode)
         {
-            var departmentcd = GetParentOrganizationCode(departmentCode);
+            //var departmentcd = GetParentOrganizationCode(departmentCode);
 
             using (KasabaKIATEntities db = new KasabaKIATEntities())
             {
-                var depts = db.t_departmentbase.Where(z => z.code == departmentcd);
+                var org = db.tblSprav_Org.Where(z => z.OWNER_CODE == departmentCode);
+
+                if (org.Any())
+                {
+                    var orgs = org.First();
+
+                    return orgs.Name_Org;
+                }
+
+                var depts = db.t_departmentbase.Where(z => z.code == departmentCode);
 
                 if (depts.Any())
                 {

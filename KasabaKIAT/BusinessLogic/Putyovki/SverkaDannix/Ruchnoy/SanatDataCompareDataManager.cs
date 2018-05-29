@@ -78,7 +78,7 @@ namespace KasabaKIAT.BusinessLogic.Putyovki.SverkaDannix.Ruchnoy
             using (KasabaKIATEntities db = new KasabaKIATEntities())
             {
                 var sanInfo = db.tblSanatDataCompares.Where(z => z.SANAT_ID == model.sanat_id
-                && z.NUM_PUT == model.num_put);
+                && z.NUM_PUT == model.num_put && z.OWNER_TP == model.owner_tp);
 
                 if (sanInfo.Any())
                 {

@@ -104,7 +104,15 @@ namespace KasabaKiat.BusinessLogic.Utils.References
         {
             List<Sprav_RegViewModel> list = null;
 
-            var soato = departmentCode.Remove(2,1);
+            string soato = string.Empty;
+
+            if (!string.IsNullOrEmpty(departmentCode))
+            {
+                if (departmentCode.Length >= 3)
+                {
+                    soato = departmentCode.Remove(2, 1);
+                }
+            }
 
             using (KasabaKIATEntities db = new KasabaKIATEntities())
             {
@@ -116,7 +124,14 @@ namespace KasabaKiat.BusinessLogic.Utils.References
                                    NameReg = procent.NameReg
                                };
 
-                list = queryRes.ToList();
+                if (queryRes != null)
+                {
+                    list = queryRes.ToList();
+                }
+                else
+                {
+                    list = new List<Sprav_RegViewModel>();
+                }
 
                 list.Insert( 0,new Sprav_RegViewModel()
                 {

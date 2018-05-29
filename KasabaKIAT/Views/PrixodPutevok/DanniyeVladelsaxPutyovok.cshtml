@@ -139,7 +139,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr ng-repeat="putyovka in Putyovkas" ng-click="RowClicked(putyovka)">
+                            <tr ng-repeat="putyovka in Putyovkas" ng-click="RowClicked(putyovka)" ng-style="putyovka.isFaceExists==true &&{'background-color':'#8a8a8a','color':'white'}">
                                 <td>{{putyovka.id}}</td>
                                 <td>{{putyovka.sanatName}}</td>
                                 <td>{{putyovka.data_post | jsonDate: 'dd.MM.yyyy'}}</td>
@@ -246,6 +246,18 @@
                                 <input type="date" class="form-control" ng-model="CurrentFace.pas_data"/>
                             </div>
                         </div>
+                        <div class="form-group row align-items-center">
+                            <label class="col-md-5 col-form-label text-md-right py-0">ИНН:</label>
+                            <div class="col-md-7">
+                                <input type="text" maxlength="9" class="form-control" placeholder="ИНН" ng-model="CurrentFace.inn" />
+                            </div>
+                        </div>
+                        <div class="form-group row align-items-center">
+                            <label class="col-md-5 col-form-label text-md-right py-0">ПНФЛ:</label>
+                            <div class="col-md-7">
+                                <input type="text" maxlength="20" class="form-control" placeholder="ПНФЛ" ng-model="CurrentFace.pnfl" />
+                            </div>
+                        </div>
                     </div>
                     <div class="col-md-4 card">
                         <h6 class="text-center mt-20">Медицинское заключение</h6>
@@ -258,7 +270,7 @@
                         <div class="form-group row align-items-center">
                             <label class="col-md-5 col-form-label text-md-right py-0">Дата выдачи:</label>
                             <div class="col-md-7">
-                                <input type="text" class="form-control" ng-model="CurrentFaceMed.med_data"/>
+                                <input type="date" class="form-control" ng-model="CurrentFaceMed.med_data"/>
                             </div>
                         </div>
                         <div class="form-group row align-items-center">
@@ -268,7 +280,7 @@
                                 </select>
                             </div>
                         </div>
-                        <h6 class="text-center mt-20">Уплата за путевки</h6>
+                        <h6 class="text-center mt-20">Оплата за путевки</h6>
                         <div class="form-group row align-items-center">
                             <label class="col-md-5 col-form-label text-md-right py-0">№ Документа:</label>
                             <div class="col-md-7">

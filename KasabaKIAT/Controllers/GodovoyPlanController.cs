@@ -30,7 +30,7 @@ namespace KasabaKIAT.Controllers
         /// 
         /// </summary>
         /// <returns></returns>
-        [OutputCache(Duration = 3000, Location = OutputCacheLocation.ServerAndClient, VaryByCustom = "userId")]
+        [OutputCache(Duration = 5, Location = OutputCacheLocation.Client, VaryByCustom = "userId")]
         public ActionResult Index()
         {
             int UserId = Convert.ToInt32(User.Identity.Name);
@@ -58,7 +58,7 @@ namespace KasabaKIAT.Controllers
         /// 
         /// </summary>
         /// <returns></returns>
-        [OutputCache(Duration = 3000, Location = OutputCacheLocation.ServerAndClient, VaryByCustom = "userId")]
+        [OutputCache(Duration = 5, Location = OutputCacheLocation.Client, VaryByCustom = "userId")]
         public JsonResult GetSanatory()
         {
             var S = (from s in KasabaDB.tblSprav_San
@@ -74,7 +74,7 @@ namespace KasabaKIAT.Controllers
         /// 
         /// </summary>
         /// <returns></returns>
-        [OutputCache(Duration = 3000, Location = OutputCacheLocation.ServerAndClient, VaryByCustom = "userId")]
+        [OutputCache(Duration = 5, Location = OutputCacheLocation.Client, VaryByCustom = "userId")]
         public JsonResult GetKvartal()
         {
             var S = (from s in KasabaDB.tblSprav_Kv
@@ -90,7 +90,7 @@ namespace KasabaKIAT.Controllers
         /// 
         /// </summary>
         /// <returns></returns>
-        [OutputCache(Duration = 3000, Location = OutputCacheLocation.ServerAndClient, VaryByCustom = "userId")]
+        [OutputCache(Duration = 5, Location = OutputCacheLocation.Client, VaryByCustom = "userId")]
         public JsonResult GetCamp()
         {
             var C = (from s in KasabaDB.t_camp
@@ -106,7 +106,7 @@ namespace KasabaKIAT.Controllers
         /// 
         /// </summary>
         /// <returns></returns>
-        [OutputCache(Duration = 3000, Location = OutputCacheLocation.ServerAndClient, VaryByCustom = "userId")]
+        [OutputCache(Duration = 5, Location = OutputCacheLocation.Client, VaryByCustom = "userId")]
         public JsonResult GetRegion()
         {
             int UserId = Convert.ToInt32(User.Identity.Name);
@@ -144,7 +144,7 @@ namespace KasabaKIAT.Controllers
         /// <param name="R"></param>
         /// <param name="SC"></param>
         /// <returns></returns>
-        [OutputCache(Duration = 60, Location = OutputCacheLocation.ServerAndClient, VaryByParam = "R;SC", VaryByCustom = "userId")]
+        [OutputCache(Duration = 5, Location = OutputCacheLocation.Client, VaryByParam = "R;SC", VaryByCustom = "userId")]
         public JsonResult GetGodovoyPlan_S(int R,int SC)
         {
             int UserId = Convert.ToInt32(User.Identity.Name);
@@ -217,7 +217,7 @@ namespace KasabaKIAT.Controllers
         /// <param name="R"></param>
         /// <param name="SC"></param>
         /// <returns></returns>
-        [OutputCache(Duration = 60, Location = OutputCacheLocation.ServerAndClient, VaryByParam = "R;SC", VaryByCustom = "userId")]
+        [OutputCache(Duration = 5, Location = OutputCacheLocation.Client, VaryByParam = "R;SC", VaryByCustom = "userId")]
         public JsonResult GetGodovoyPlan_C(int R, int SC)
         {
             int UserId = Convert.ToInt32(User.Identity.Name);

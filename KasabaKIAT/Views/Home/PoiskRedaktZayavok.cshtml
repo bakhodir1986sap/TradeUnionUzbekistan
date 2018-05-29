@@ -114,6 +114,7 @@
                     <thead>
                         <tr>
                             <th>
+                                <span>Время подачи</span>
                                 <input type="date" required class="form-control" ng-model="searchD0" ng-change="searchD0_CH()" />
                             </th>
 
@@ -136,9 +137,10 @@
                             </th>
 
                             <th>
+                                <span>Дата отдыха с</span>
                                 <input type="date" required class="form-control" ng-model="searchD1" ng-change="searchD1_CH()" />
                             </th>
-                            @*<th></th>*@
+                            <th>Статус</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -151,6 +153,7 @@
                             <td>{{prz.P}}</td>
                             @*<td>{{prz.Q}}</td>*@
                             <td>{{prz.ZB | jsonDate: 'dd.MM.yyyy'}}</td>
+                            <td>{{prz.S}}</td>
                             @*<td>{{prz.ZE | jsonDate: 'dd.MM.yyyy'}}</td>*@
                             @*<td>
                                     <button type="button" ng-click="editPRZ(prz)" class="btn btn-info modal4" data-toggle="modal" data-target="#myModal"><i class="fa fa-exchange"></i> изменить</button>
@@ -238,7 +241,10 @@
                                     </div>
                                 </div>
                                 <div class="mb-4 text-right">
-                                    <button ng-click="UpdatePRZ()" ng-disabled="myForm.INN.$error.required||myForm.FN.$error.required||myForm.P.$error.required||myForm.Q.$error.required||myForm.SC.$error.required||(!myForm.INN.$error.required&&!myForm.INN.$valid)||O=='No Data Found'||MOE&&myForm.MO.$error.required" data-dismiss="modal" class="btn btn-blue d-block d-md-inline-block mb-2">Сохранить</button>
+                                    <a ng-show="!IsOwn" ng-click="UpdateState(4)" href="#" class="btn btn-green d-block d-md-inline-block mb-2" data-dismiss="modal">Принять</a>
+                                    <a ng-show="!IsOwn" ng-click="UpdateState(3)" href="#" class="btn btn-red d-block d-md-inline-block mb-2" data-dismiss="modal">Отклонить</a>
+                                    <button ng-show="IsOwn" ng-click="UpdatePRZ()" ng-disabled="myForm.INN.$error.required||myForm.FN.$error.required||myForm.P.$error.required||myForm.Q.$error.required||myForm.SC.$error.required||(!myForm.INN.$error.required&&!myForm.INN.$valid)||O=='No Data Found'||MOE&&myForm.MO.$error.required" data-dismiss="modal" class="btn btn-blue d-block d-md-inline-block mb-2">Сохранить</button>
+                                    <a ng-click="GetFileInfoZayavka()" href="#" data-toggle="modal" data-target="#dobavitFile" class="btn btn-blue d-block d-md-inline-block mb-2">Прикрепленные</a>
                                     <button class="btn btn-grey d-block d-md-inline-block mb-2" data-dismiss="modal">Отмена</button>
                                 </div>
                             </form>
@@ -310,6 +316,64 @@
                 </div>
             </div>
         </div>
+
+        <div class="modal__block modal fade" id="dobavitFile" tabindex="-1" role="dialog" aria-labelledby="dobavitFileLabel" data-backdrop="static" data-keyboard="false">
+            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <div class="modal-title">
+                            <h4 class="text-center mt-4 mb-4">Прикрепить файлы</h4>
+                        </div>
+                        <div class="row justify-content-center">
+                            <form class="col-md-8" name="myForm" novalidate>
+                                <input type="hidden" style="position:absolute" ng-model="ID;" />
+
+                                <div class="form-group row align-items-center">
+                                    <label class="col-md-5 col-form-label py-0">Копия паспорта:</label>
+                                    <div class="col-md-7">
+                                        <input type="file" ng-model="fPassport" name="Passport" class="form-control" onchange="angular.element(this).scope().UploadFilesPassport(this.files)">
+                                        @*<a data-ng-href="@Url.Action("DownloadZayavkaFile", "Home")?zayavkaId={{ID}}&OpName={{Passport}}" target="_self">{{FilesOpdatas.Passport}}  </a>*@
+                                        @*@Html.ActionLink("{{FilesOpdatas.Passport}}", "DownloadZayavkaFile", "Home", new { zayavkaId = "{{ID}}", OpName = "Passport" }, null)*@
+                                        <a href="#" ng-click="DownloadFile(Passport, FilesOpdatas.Passport)"><span ng-bind="FilesOpdatas.Passport"></span></a>
+                                        @*<span class="alert alert-warning" style="padding:0px" ng-show="myForm.Passport.$error.required" >выберите файл</span>*@
+                                    </div>
+                                </div>
+                                <div class="form-group row align-items-center">
+                                    <label class="col-md-5 col-form-label py-0">Копия трудовой книжки:</label>
+                                    <div class="col-md-7">
+                                        <input type="file" ng-model="fLabourBook" name="LabourBook" class="form-control" onchange="angular.element(this).scope().UploadFilesLabourBook(this.files)">
+                                        <a href="#" ng-click="DownloadFile(LabourBook, FilesOpdatas.LabourBook)"><span ng-bind="FilesOpdatas.LabourBook"></span></a>
+                                        @*<span class="alert alert-warning" style="padding:0px" ng-show="myForm.LabourBook.$error.required">выберите файл</span>*@
+                                    </div>
+                                </div>
+                                <div class="form-group row align-items-center">
+                                    <label class="col-md-5 col-form-label py-0">Приказ на отпуск :</label>
+                                    <div class="col-md-7">
+                                        <input type="file" ng-model="fVocationOrder" name="VocationOrder" class="form-control" onchange="angular.element(this).scope().UploadFilesVocationOrder(this.files)">
+                                        <a href="#" ng-click="DownloadFile(VocationOrder, FilesOpdatas.VocationOrder)"><span ng-bind="FilesOpdatas.VocationOrder"></span></a>
+                                        @*<span class="alert alert-warning" style="padding:0px" ng-show="myForm.VocationOrder.$error.required">выберите файл</span>*@
+                                    </div>
+                                </div>
+                                <div class="form-group row align-items-center">
+                                    <label class="col-md-5 col-form-label py-0">Протокол профсоюзного комитета :</label>
+                                    <div class="col-md-7">
+                                        <input type="file" ng-model="fPPO_Protokol" name="PPO_Protokol" class="form-control" onchange="angular.element(this).scope().UploadFilesPPO_Protokol(this.files)">
+                                        <a href="#" ng-click="DownloadFile(PPO_Protokol, FilesOpdatas.PPO_Protokol)"><span ng-bind="FilesOpdatas.PPO_Protokol"></span></a>
+                                        @*<span class="alert alert-warning" style="padding:0px" ng-show="myForm.PPO_Protokol.$error.required">выберите файл</span>*@
+                                    </div>
+                                </div>
+
+                                <div class="mb-4 text-right">
+                                    <button ng-show="IsOwn" ng-click="SaveFilesDATA()" data-dismiss="modal" class="btn btn-blue d-block d-md-inline-block mb-2">Сохранить</button>
+                                    <button class="btn btn-grey d-block d-md-inline-block mb-2" data-dismiss="modal">Отмена</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <!-- Modal -->
         @*<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                 <div class="modal-dialog" role="document">

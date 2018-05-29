@@ -9,13 +9,24 @@ namespace KasabaKiat.BusinessLogic.Putyovki.RaznoskaPoPutyovki
 {
     public class Face_MedDataManager
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="model"></param>
         public static void Create(ref Face_MedViewModel model)
         {
             using (KasabaKIATEntities db = new KasabaKIATEntities())
             {
                 tblFace_Med fm = new tblFace_Med();
 
-                fm.ID                 = db.tblFace_Med.Max(z => z.ID) + 1; ;
+                long IdValue = 0;
+
+                if (db.tblFace_Med.Count() != 0)
+                {
+                    IdValue = db.tblFace_Med.Max(z => z.ID);
+                }
+
+                fm.ID = IdValue + 1;
                 fm.ID_Face            = model.id_face       ;  
                 fm.Med_Doc            = model.med_doc       ;  
                 fm.Med_Data           = model.med_data      ;  
@@ -36,6 +47,10 @@ namespace KasabaKiat.BusinessLogic.Putyovki.RaznoskaPoPutyovki
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="model"></param>
         public static void Update(Face_MedViewModel model)
         {
             using (KasabaKIATEntities db = new KasabaKIATEntities())
@@ -61,11 +76,41 @@ namespace KasabaKiat.BusinessLogic.Putyovki.RaznoskaPoPutyovki
                         fm1.Departmentbase = model.departmentbase;
                     }
                 }
+                else
+                {
+                    tblFace_Med fm2 = new tblFace_Med();
+
+                    long IdValue = 0;
+
+                    if (db.tblFace_Med.Count() != 0)
+                    {
+                        IdValue = db.tblFace_Med.Max(z => z.ID);
+                    }
+
+                    fm2.ID = IdValue + 1;
+                    fm2.ID_Face = model.id_face;
+                    fm2.Med_Doc = model.med_doc;
+                    fm2.Med_Data = model.med_data;
+                    fm2.Med_San = model.med_san;
+                    fm2.Opl_Doc = model.opl_doc;
+                    fm2.Opl_Data = model.opl_data;
+                    fm2.Opl_Symma = model.opl_symma;
+                    fm2.Tal_Doc = model.tal_doc;
+                    fm2.Tal_Data = model.tal_data;
+                    fm2.UserId = model.userid;
+                    fm2.Departmentbase = model.departmentbase;
+
+                    var fmm = db.tblFace_Med.Add(fm2);
+                }
 
                 db.SaveChanges();
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="model"></param>
         public static void Remove(Face_MedViewModel model)
         {
             using (KasabaKIATEntities db = new KasabaKIATEntities())
@@ -86,6 +131,11 @@ namespace KasabaKiat.BusinessLogic.Putyovki.RaznoskaPoPutyovki
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         public static List<Face_MedViewModel> Get(Face_MedViewModel model)
         {
             List<Face_MedViewModel> list = null;

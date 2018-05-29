@@ -35,7 +35,7 @@ namespace KasabaKIAT.Controllers
         /// 
         /// </summary>
         /// <returns></returns>
-        [OutputCache(Duration = 30000, Location = OutputCacheLocation.ServerAndClient, VaryByCustom = "userId")]
+        [OutputCache(Duration = 5, Location = OutputCacheLocation.Client, VaryByCustom = "userId")]
         public ActionResult Index()
         {
             return View();
@@ -45,7 +45,7 @@ namespace KasabaKIAT.Controllers
         /// 
         /// </summary>
         /// <returns></returns>
-        [OutputCache(Duration = 30, Location = OutputCacheLocation.ServerAndClient, VaryByCustom = "userId")]
+        [OutputCache(Duration = 5, Location = OutputCacheLocation.Client, VaryByCustom = "userId")]
         public ActionResult SvodniyOtchot()
         {
             return View();
@@ -55,7 +55,7 @@ namespace KasabaKIAT.Controllers
         /// 
         /// </summary>
         /// <returns></returns>
-        [OutputCache(Duration = 30, Location = OutputCacheLocation.ServerAndClient, VaryByCustom = "userId")]
+        [OutputCache(Duration = 5, Location = OutputCacheLocation.Client, VaryByCustom = "userId")]
         public ActionResult Talabnomlar()
         {
             return View();
@@ -65,7 +65,7 @@ namespace KasabaKIAT.Controllers
         /// 
         /// </summary>
         /// <returns></returns>
-        [OutputCache(Duration = 30, Location = OutputCacheLocation.ServerAndClient, VaryByCustom = "userId")]
+        [OutputCache(Duration = 5, Location = OutputCacheLocation.Client, VaryByCustom = "userId")]
         public ActionResult Forma13()
         {
             return View();
@@ -120,7 +120,7 @@ namespace KasabaKIAT.Controllers
             return null;
         }
 
-        [OutputCache(Duration = 30, Location = OutputCacheLocation.ServerAndClient, VaryByCustom = "userId")]
+        [OutputCache(Duration = 5, Location = OutputCacheLocation.Client, VaryByCustom = "userId")]
         public ActionResult Forma14()
         {
             return View();
@@ -130,7 +130,7 @@ namespace KasabaKIAT.Controllers
         /// 
         /// </summary>
         /// <returns></returns>
-        [OutputCache(Duration = 30, Location = OutputCacheLocation.ServerAndClient, VaryByCustom = "userId")]
+        [OutputCache(Duration = 5, Location = OutputCacheLocation.Client, VaryByCustom = "userId")]
         public ActionResult TablitsaOtdixayushix()
         {
             return View();
@@ -140,7 +140,7 @@ namespace KasabaKIAT.Controllers
         /// 
         /// </summary>
         /// <returns></returns>
-        [OutputCache(Duration = 30, Location = OutputCacheLocation.ServerAndClient, VaryByCustom = "userId")]
+        [OutputCache(Duration = 5, Location = OutputCacheLocation.Client, VaryByCustom = "userId")]
         public ActionResult JurnalniyOrder()
         {
             return View();
@@ -150,7 +150,7 @@ namespace KasabaKIAT.Controllers
         /// 
         /// </summary>
         /// <returns></returns>
-        [OutputCache(Duration = 30, Location = OutputCacheLocation.ServerAndClient, VaryByCustom = "userId")]
+        [OutputCache(Duration = 5, Location = OutputCacheLocation.Client, VaryByCustom = "userId")]
         public ActionResult FinalniyOtchot()
         {
             return View();
@@ -160,7 +160,7 @@ namespace KasabaKIAT.Controllers
         /// 
         /// </summary>
         /// <returns></returns>
-        [OutputCache(Duration = 30, Location = OutputCacheLocation.ServerAndClient, VaryByCustom = "userId")]
+        [OutputCache(Duration = 5, Location = OutputCacheLocation.Client, VaryByCustom = "userId")]
         public ActionResult GlavnayaKniga()
         {
             return View();
@@ -174,7 +174,7 @@ namespace KasabaKIAT.Controllers
         /// <param name="Soato"></param>
         /// <param name="Branch"></param>
         /// <returns></returns>
-        [OutputCache(Duration = 300, Location = OutputCacheLocation.ServerAndClient, VaryByParam = "Begindt;Enddt;Soato;Branch", VaryByCustom = "userId")]
+        [OutputCache(Duration = 5, Location = OutputCacheLocation.Client, VaryByParam = "Begindt;Enddt;Soato;Branch", VaryByCustom = "userId")]
         public JsonResult GetSvodniyOtchot(DateTime? Begindt,DateTime? Enddt,string Soato,string Branch)
         {
             var UserId = Convert.ToInt32(User.Identity.Name);
@@ -202,7 +202,7 @@ namespace KasabaKIAT.Controllers
         /// <param name="yil"></param>
         /// <param name="inn"></param>
         /// <returns></returns>
-        [OutputCache(Duration = 300, Location = OutputCacheLocation.ServerAndClient, VaryByParam = "yil;inn", VaryByCustom = "userId")]
+        [OutputCache(Duration = 5, Location = OutputCacheLocation.Client, VaryByParam = "yil;inn", VaryByCustom = "userId")]
         public JsonResult GetTalabnomlar_Korxona(int yil,string inn)
         {
             var data = KasabaDB.sp_rt_TalabnomaKorxona(yil,inn);
@@ -225,7 +225,7 @@ namespace KasabaKIAT.Controllers
         /// <param name="soato"></param>
         /// <param name="branch"></param>
         /// <returns></returns>
-        [OutputCache(Duration = 300, Location = OutputCacheLocation.ServerAndClient, VaryByParam = "yil;soato;branch", VaryByCustom = "userId")]
+        [OutputCache(Duration = 5, Location = OutputCacheLocation.Client, VaryByParam = "yil;soato;branch", VaryByCustom = "userId")]
         public JsonResult GetTalabnomlar_Tarmoq(int yil, string soato,string branch)
         {
             var data1 = KasabaDB.sp_rt_TalabnomaTarmoq(yil, soato, branch);
@@ -247,7 +247,7 @@ namespace KasabaKIAT.Controllers
         /// <param name="yil"></param>
         /// <param name="soato"></param>
         /// <returns></returns>
-        [OutputCache(Duration = 300, Location = OutputCacheLocation.ServerAndClient, VaryByParam = "yil;soato", VaryByCustom = "userId")]
+        [OutputCache(Duration = 5, Location = OutputCacheLocation.Client, VaryByParam = "yil;soato", VaryByCustom = "userId")]
         public JsonResult GetTalabnomlar_Viloyat(int yil, string soato)
         {
             var data3 = KasabaDB.sp_rt_TalabnomaViloyat(yil, soato);
@@ -267,7 +267,7 @@ namespace KasabaKIAT.Controllers
         /// 
         /// </summary>
         /// <returns></returns>
-        [OutputCache(Duration = 300, Location = OutputCacheLocation.ServerAndClient, VaryByCustom = "userId")]
+        [OutputCache(Duration = 5, Location = OutputCacheLocation.Client, VaryByCustom = "userId")]
         public ActionResult Postupleniya()
         {
             return View();
@@ -278,7 +278,7 @@ namespace KasabaKIAT.Controllers
         /// </summary>
         /// <param name="inn"></param>
         /// <returns></returns>
-        [OutputCache(Duration = 300, Location = OutputCacheLocation.ServerAndClient, VaryByParam = "inn", VaryByCustom = "userId")]
+        [OutputCache(Duration = 5, Location = OutputCacheLocation.Client, VaryByParam = "inn", VaryByCustom = "userId")]
         public JsonResult GetPostupleniya(string inn)
         {
             var UserId = Convert.ToInt32(User.Identity.Name);
@@ -332,7 +332,7 @@ namespace KasabaKIAT.Controllers
         /// 
         /// </summary>
         /// <returns></returns>
-        [OutputCache(Duration = 300, Location = OutputCacheLocation.ServerAndClient, VaryByCustom = "userId")]
+        [OutputCache(Duration = 5, Location = OutputCacheLocation.Client, VaryByCustom = "userId")]
         public ActionResult RazbivkaPostupleniya()
         {
             return View();
@@ -346,7 +346,7 @@ namespace KasabaKIAT.Controllers
         /// <param name="bg"></param>
         /// <param name="end"></param>
         /// <returns></returns>
-        [OutputCache(Duration = 300, Location = OutputCacheLocation.ServerAndClient, VaryByParam = "s;b;bg;end", VaryByCustom = "userId")]
+        [OutputCache(Duration = 5, Location = OutputCacheLocation.Client, VaryByParam = "s;b;bg;end", VaryByCustom = "userId")]
         public JsonResult GetRazbivkaPostupleniya(string s,string b,DateTime? bg,DateTime? end)
         {
             var UserId = Convert.ToInt32(User.Identity.Name);
@@ -409,7 +409,7 @@ namespace KasabaKIAT.Controllers
         /// 
         /// </summary>
         /// <returns></returns>
-        [OutputCache(Duration = 300, Location = OutputCacheLocation.ServerAndClient, VaryByCustom = "userId")]
+        [OutputCache(Duration = 5, Location = OutputCacheLocation.Client, VaryByCustom = "userId")]
         public ActionResult PostupleniyaOblastyam()
         {
             return View();
@@ -421,7 +421,7 @@ namespace KasabaKIAT.Controllers
         /// <param name="bg"></param>
         /// <param name="end"></param>
         /// <returns></returns>
-        [OutputCache(Duration = 300, Location = OutputCacheLocation.ServerAndClient, VaryByParam = "bg;end", VaryByCustom = "userId")]
+        [OutputCache(Duration = 5, Location = OutputCacheLocation.Client, VaryByParam = "bg;end", VaryByCustom = "userId")]
         public JsonResult GetPostupleniyaOblastyam(DateTime? bg, DateTime? end)
         {
             var UserId = Convert.ToInt32(User.Identity.Name);
@@ -458,7 +458,7 @@ namespace KasabaKIAT.Controllers
         /// 
         /// </summary>
         /// <returns></returns>
-        [OutputCache(Duration = 300, Location = OutputCacheLocation.ServerAndClient, VaryByCustom = "userId")]
+        [OutputCache(Duration = 5, Location = OutputCacheLocation.Client, VaryByCustom = "userId")]
         public ActionResult PostupleniyaTuman()
         {
             return View();
@@ -470,7 +470,7 @@ namespace KasabaKIAT.Controllers
         /// <param name="bg"></param>
         /// <param name="end"></param>
         /// <returns></returns>
-        [OutputCache(Duration = 300, Location = OutputCacheLocation.ServerAndClient, VaryByParam = "bg;end", VaryByCustom = "userId")]
+        [OutputCache(Duration = 5, Location = OutputCacheLocation.Client, VaryByParam = "bg;end", VaryByCustom = "userId")]
         public JsonResult GetPostupleniyaTuman(DateTime? bg, DateTime? end)
         {
             var UserId = Convert.ToInt32(User.Identity.Name);
@@ -507,7 +507,7 @@ namespace KasabaKIAT.Controllers
         /// 
         /// </summary>
         /// <returns></returns>
-        [OutputCache(Duration = 300, Location = OutputCacheLocation.ServerAndClient, VaryByCustom = "userId")]
+        [OutputCache(Duration = 5, Location = OutputCacheLocation.Client, VaryByCustom = "userId")]
         public ActionResult PostupleniyaOblastTumanOtraslGroup()
         {
             return View();
@@ -520,7 +520,7 @@ namespace KasabaKIAT.Controllers
         /// <param name="bg"></param>
         /// <param name="end"></param>
         /// <returns></returns>
-        [OutputCache(Duration = 300, Location = OutputCacheLocation.ServerAndClient, VaryByParam = "s;bg;end", VaryByCustom = "userId")]
+        [OutputCache(Duration = 5, Location = OutputCacheLocation.Client, VaryByParam = "s;bg;end", VaryByCustom = "userId")]
         public JsonResult GetPostupleniyaOblastTumanOtraslGroup(string s, DateTime? bg, DateTime? end)
         {
             var UserId = Convert.ToInt32(User.Identity.Name);
@@ -559,7 +559,7 @@ namespace KasabaKIAT.Controllers
         /// 
         /// </summary>
         /// <returns></returns>
-        [OutputCache(Duration = 300, Location = OutputCacheLocation.ServerAndClient, VaryByCustom = "userId")]
+        [OutputCache(Duration = 5, Location = OutputCacheLocation.Client, VaryByCustom = "userId")]
         public ActionResult PostupleniyaOtrasli()
         {
             return View();
@@ -572,7 +572,7 @@ namespace KasabaKIAT.Controllers
         /// <param name="bg"></param>
         /// <param name="end"></param>
         /// <returns></returns>
-        [OutputCache(Duration = 300, Location = OutputCacheLocation.ServerAndClient, VaryByParam = "s;bg;end", VaryByCustom = "userId")]
+        [OutputCache(Duration = 5, Location = OutputCacheLocation.Client, VaryByParam = "s;bg;end", VaryByCustom = "userId")]
         public JsonResult GetPostupleniyaOtrasli(string s, DateTime? bg, DateTime? end)
         {
             var UserId = Convert.ToInt32(User.Identity.Name);
@@ -611,7 +611,7 @@ namespace KasabaKIAT.Controllers
         /// 
         /// </summary>
         /// <returns></returns>
-        [OutputCache(Duration = 300, Location = OutputCacheLocation.ServerAndClient, VaryByCustom = "userId")]
+        [OutputCache(Duration = 5, Location = OutputCacheLocation.Client, VaryByCustom = "userId")]
         public ActionResult PostupleniyaOkonxu()
         {
             return View();
@@ -624,7 +624,7 @@ namespace KasabaKIAT.Controllers
         /// <param name="bg"></param>
         /// <param name="end"></param>
         /// <returns></returns>
-        [OutputCache(Duration = 300, Location = OutputCacheLocation.ServerAndClient, VaryByParam = "s;bg;end", VaryByCustom = "userId")]
+        [OutputCache(Duration = 5, Location = OutputCacheLocation.Client, VaryByParam = "s;bg;end", VaryByCustom = "userId")]
         public JsonResult GetPostupleniyaOkonxu(string s, DateTime? bg, DateTime? end)
         {
             var UserId = Convert.ToInt32(User.Identity.Name);
@@ -663,7 +663,7 @@ namespace KasabaKIAT.Controllers
         /// 
         /// </summary>
         /// <returns></returns>
-        [OutputCache(Duration = 3000, Location = OutputCacheLocation.ServerAndClient, VaryByCustom = "userId")]
+        [OutputCache(Duration = 5, Location = OutputCacheLocation.Client, VaryByCustom = "userId")]
         public JsonResult GetOtrasl()
         {
             var O = from o in KasabaDB.sp_branch
@@ -682,7 +682,7 @@ namespace KasabaKIAT.Controllers
         /// 
         /// </summary>
         /// <returns></returns>
-        [OutputCache(Duration = 3000, Location = OutputCacheLocation.ServerAndClient, VaryByCustom = "userId")]
+        [OutputCache(Duration = 5, Location = OutputCacheLocation.Client, VaryByCustom = "userId")]
         public JsonResult GetRegion()
         {
             var UserId = Convert.ToInt32(User.Identity.Name);

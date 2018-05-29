@@ -126,5 +126,10 @@ namespace KasabaKiat.ViewModel.Putyovki.RaznoskaPutyovok
       /// Reference to table t_departmentbase
       /// </summary>
       public string departmentbase     {get; set;}
+
+       
+      public string inn { get; set; }
+
+      public string pnfl { get; set; }
     }
 }

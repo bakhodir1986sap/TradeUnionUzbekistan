@@ -48,5 +48,22 @@ namespace KasabaKiat.ViewModel
         public long userid { get; set; }
     }
 
-
+    public class ZayavkiModel
+    {
+        public long         ID       {get; set;}
+        public DateTime?    ZB       {get; set;}
+        public DateTime?    ZE       {get; set;}
+        public string       SC       {get; set;}
+        public long?         SC_id    {get; set;}
+        public string       P        {get; set;}
+        public string       FN       {get; set;}
+        public string       S        {get; set;}
+        public string       INN      {get; set;}
+        public string       O        {get; set;}
+        public int?         Q        {get; set;}
+        public DateTime?    TS       {get; set;}
+        public bool?        MOE      {get; set;}
+        public string       MO       {get; set;}
+        public bool?        isOwn    { get; set; }
+    }
 }

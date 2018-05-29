@@ -30,13 +30,13 @@ namespace KasabaKIAT.Controllers
         /// 
         /// </summary>
         /// <returns></returns>
-        [OutputCache(Duration = 30000, Location = OutputCacheLocation.ServerAndClient, VaryByCustom = "userId")]
+        [OutputCache(Duration = 5, Location = OutputCacheLocation.Client, VaryByCustom = "userId")]
         public ActionResult Index()
         {
             return View();
         }
 
-        [OutputCache(Duration = 30, Location = OutputCacheLocation.ServerAndClient, VaryByCustom = "userId")]
+        [OutputCache(Duration = 5, Location = OutputCacheLocation.Client, VaryByCustom = "userId")]
         public JsonResult GetPlatejnoyePorucheniye()
         {
             var list = from pp in KasabaDB.tbbu_platejka

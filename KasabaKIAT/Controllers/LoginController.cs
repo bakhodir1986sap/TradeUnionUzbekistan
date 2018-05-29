@@ -23,7 +23,7 @@ namespace KasabaKIAT.Controllers
         
         public static string message = "";
 
-        [OutputCache(Duration = 30000, Location = OutputCacheLocation.ServerAndClient, VaryByCustom = "userId")]
+        [OutputCache(Duration = 5, Location = OutputCacheLocation.Client, VaryByCustom = "userId")]
         public ActionResult Login()
         {
             return View();

@@ -23,7 +23,7 @@ namespace KasabaKIAT.Controllers
         /// 
         /// </summary>
         /// <returns></returns>
-        [OutputCache(Duration = 3000, Location = OutputCacheLocation.ServerAndClient, VaryByCustom = "userId")]
+        [OutputCache(Duration = 5, Location = OutputCacheLocation.Client, VaryByCustom = "userId")]
         public ActionResult Index()
         {
             int UserId = Convert.ToInt32(User.Identity.Name);
@@ -43,7 +43,7 @@ namespace KasabaKIAT.Controllers
         /// <param name="id"></param>
         /// <param name="pt"></param>
         /// <returns></returns>
-        [OutputCache(Duration = 120, Location = OutputCacheLocation.ServerAndClient, VaryByParam = "id;pt", VaryByCustom = "userId")]
+        [OutputCache(Duration = 5, Location = OutputCacheLocation.Client, VaryByParam = "id;pt", VaryByCustom = "userId")]
         public JsonResult GetAllGrafikZaezdov_S(int id,int pt)
         {
 
@@ -72,7 +72,7 @@ namespace KasabaKIAT.Controllers
         /// <param name="id"></param>
         /// <param name="pt"></param>
         /// <returns></returns>
-        [OutputCache(Duration = 120, Location = OutputCacheLocation.ServerAndClient, VaryByParam = "id;pt", VaryByCustom = "userId")]
+        [OutputCache(Duration = 5, Location = OutputCacheLocation.Client, VaryByParam = "id;pt", VaryByCustom = "userId")]
         public JsonResult GetAllGrafikZaezdov_C(int id,int pt)
         {
             var list = (from e in KasabaDB.tbpt_zaezdi

@@ -58,7 +58,19 @@ namespace KasabaKiat.BusinessLogic.Utils.References
                     {
                         if ((int)KIAT_STRUCT.TumanBranch == model.PravSoyuzLevel)
                         {
-                            //skip
+                            t_departmentbase dd = new t_departmentbase
+                            {
+                                inn = model.INN,
+                                le_inn = model.orig_inn,
+                                parent_code = model.DepartmentBase,
+                                code = org.OWNER_CODE,
+                                name_ru = model.Name_Org,
+                                name_uz = model.Name_Org,
+                                dtype = "Department",
+                                version = 0
+                            };
+
+                            db.t_departmentbase.Add(dd);
                         }
                         else if ((int)KIAT_STRUCT.PPO == model.PravSoyuzLevel)
                         {
@@ -116,6 +128,12 @@ namespace KasabaKiat.BusinessLogic.Utils.References
         {
             using (KasabaKIATEntities db = new KasabaKIATEntities())
             {
+                if (region == -1)
+                {
+                    //Pustoy
+                    return null;
+                }
+
                 var structureKiat = new StructureOfKiat();
 
                 if (Id == 0)
@@ -213,7 +231,19 @@ namespace KasabaKiat.BusinessLogic.Utils.References
                             {
                                 if ((int)KIAT_STRUCT.TumanBranch == model.PravSoyuzLevel)
                                 {
-                                    //skip
+                                    t_departmentbase dd = new t_departmentbase
+                                    {
+                                        inn = model.INN,
+                                        le_inn = model.orig_inn,
+                                        parent_code = model.DepartmentBase,
+                                        code = org1.OWNER_CODE,
+                                        name_ru = model.Name_Org,
+                                        name_uz = model.Name_Org,
+                                        dtype = "Department",
+                                        version = 0
+                                    };
+
+                                    db.t_departmentbase.Add(dd);
                                 }
                                 else if ((int)KIAT_STRUCT.PPO == model.PravSoyuzLevel)
                                 {

@@ -53,6 +53,6 @@
         var blob = new Blob([document.getElementById('export').innerHTML], {
             type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=utf-8"
         });
-        saveAs(blob, "Список правсоюзов.xls");
+        saveAs(blob, "Список Профсоюзов.xls");
     };
 }]);

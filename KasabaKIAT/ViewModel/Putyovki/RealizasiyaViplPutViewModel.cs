@@ -86,5 +86,10 @@ namespace KasabaKiat.ViewModel.Putyovki
         /// 
         /// </summary>
         public string                                       oplata                              { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool                                         isFaceExists                    { get; set; }
     }
 }

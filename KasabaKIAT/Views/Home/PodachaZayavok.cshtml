@@ -114,7 +114,7 @@
             </form>
             <div ng-show="OTPdiv" class="text__block py-5 my-5">
                 <p><strong>Спасибо! Заявка успешно отправлена..</strong></p>
-                <p style="width:500px">Тут будет текст который будет говорить о том, что заявка успешно добавлена...можно поставить ссылки на <a href="/Home/PoiskRedaktZayavok">Поиск и редактирование заявок</a></p>
+                <p style="width:500px">Заявка успешно добавлена в очередь <a href="/Home/PoiskRedaktZayavok">Поиск и редактирование заявок</a></p>
             </div>
             <div ng-show="PZdiv" class="table-responsive box-shadow mb-4" id="export">
                 <table class="table table__block t-hover">
@@ -194,6 +194,20 @@
                                         <label name="O" ng-model="O">{{O}}</label>
                                     </div>
                                 </div>*@
+                                <div class="form-group row align-items-center">
+                                    <label class="col-md-5 col-form-label py-0">ИНН Отдыхающего:</label>
+                                    <div class="col-md-7">
+                                        <input type="text" class="form-control" maxlength="9" name="InnFiz" ng-model="InnFiz" required>
+                                        <span class="alert alert-warning" style="padding:0px" ng-show="myForm.InnFiz.$error.required">заполнить поле</span>
+                                    </div>
+                                </div>
+                                <div class="form-group row align-items-center">
+                                    <label class="col-md-5 col-form-label py-0">ПНФЛ Отдыхающего:</label>
+                                    <div class="col-md-7">
+                                        <input type="text" class="form-control" maxlength="14" name="pnfl" ng-model="pnfl" required>
+                                        <span class="alert alert-warning" style="padding:0px" ng-show="myForm.pnfl.$error.required">заполнить поле</span>
+                                    </div>
+                                </div>
                                 <div class="form-group row align-items-center">
                                     <label class="col-md-5 col-form-label py-0">ФИО:</label>
                                     <div class="col-md-7">

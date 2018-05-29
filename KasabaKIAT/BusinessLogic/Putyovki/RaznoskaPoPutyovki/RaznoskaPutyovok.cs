@@ -48,6 +48,7 @@ namespace KasabaKiat.BusinessLogic.Putyovki.RaznoskaPoPutyovki
             else
             {
                 FaceDataManager.Update(faceMain);
+                faceMedDtl.id_face = faceMain.id;
                 Face_MedDataManager.Update(faceMedDtl);
             }
         }

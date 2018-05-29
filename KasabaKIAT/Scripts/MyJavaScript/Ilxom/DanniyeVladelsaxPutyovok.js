@@ -242,8 +242,8 @@
     //// Spesific Business Logic
     /////////////////////////////////////////////////////////////////////////////////////////
 
-    $scope.SelectedBeginDate = new Date(2018, 4, 16);
-    $scope.SelectedEndDate = new Date(2018, 4, 16);
+    $scope.SelectedBeginDate = new Date();
+    $scope.SelectedEndDate = new Date();
 
     function GetDanniyVladelsaNakladnoy() {
         document.getElementById('connection').style.visibility = "visible";
@@ -353,6 +353,37 @@
             $scope.CurrentFace = $scope.RaznoskaPutyovok.faceMain;
             $scope.CurrentFaceMed = $scope.RaznoskaPutyovok.faceMedDtl;
 
+            //$scope.CurrentRealizasiyaPutyovka.id = $scope.CurrentFace.id_put;
+            //$scope.CurrentRealizasiyaPutyovka.id_sanat =$scope.CurrentFace.id_sanat;
+            //$scope.CurrentRealizasiyaPutyovka.num_put = $scope.CurrentFace.num_put;
+            $scope.SelectedTipVidachi.ID = $scope.CurrentFace.stav_vid;
+            $scope.SelectedProcentZaPutyovki.ID = $scope.CurrentFace.gost_pr;
+            $scope.SelectedOsnovaniyaVidachi.ID = $scope.CurrentFace.id_osnov;
+
+            var data1 = ($scope.CurrentFace.pas_data) ? $filter('date')(parseInt($scope.CurrentFace.pas_data.substring(6)), 'dd.MM.yyyy') : '';
+            $scope.CurrentFace.pas_data = new Date(data1.substring(6, 10), data1.substring(3, 5) - 1, data1.substring(0, 2));
+
+            var data2 = ($scope.CurrentFaceMed.med_data) ? $filter('date')(parseInt($scope.CurrentFaceMed.med_data.substring(6)), 'dd.MM.yyyy') : '';
+            $scope.CurrentFaceMed.med_data = new Date(data2.substring(6, 10), data2.substring(3, 5) - 1, data2.substring(0, 2));
+
+            var data3 = ($scope.CurrentFaceMed.opl_data) ? $filter('date')(parseInt($scope.CurrentFaceMed.opl_data.substring(6)), 'dd.MM.yyyy') : '';
+            $scope.CurrentFaceMed.opl_data = new Date(data3.substring(6, 10), data3.substring(3, 5) - 1, data3.substring(0, 2));
+
+            var data4 = ($scope.CurrentFaceMed.tal_data) ? $filter('date')(parseInt($scope.CurrentFaceMed.tal_data.substring(6)), 'dd.MM.yyyy') : '';
+            $scope.CurrentFaceMed.tal_data = new Date(data4.substring(6, 10), data4.substring(3, 5) - 1, data4.substring(0, 2));
+
+
+            if ($scope.CurrentFace.pol)
+            {
+                $scope.SelectedPol.Code = 1;
+            }
+            else
+            {
+                $scope.SelectedPol.Code = 0;
+            }
+
+            $scope.SelectedRecommendedSanatory.ID = $scope.CurrentFaceMed.med_san;
+
             document.getElementById('connection').style.visibility = "hidden";
             $("#hh").modal('hide');
         }, function (error) {
@@ -399,7 +430,9 @@
         data_post       :'',
         pol             :'',
         userid          :'',
-        departmentbase  :''
+        departmentbase  :'',
+        inn             :'',
+        pnfl            :''
     };
 
     $scope.CurrentFaceMed = {

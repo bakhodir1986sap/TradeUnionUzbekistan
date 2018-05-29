@@ -2177,6 +2177,8 @@ warning 6002: The table/view 'KasabaKIAT_N1.dbo.tblFace_Two' does not have a pri
           <Property Name="Pol" Type="bit" />
           <Property Name="UserId" Type="bigint" />
           <Property Name="Departmentbase" Type="nvarchar" MaxLength="255" />
+          <Property Name="INN" Type="varchar" MaxLength="10" />
+          <Property Name="PNFL" Type="varchar" MaxLength="20" />
         </EntityType>
         <EntityType Name="tblFile">
           <Key>
@@ -2732,6 +2734,7 @@ warning 6002: The table/view 'KasabaKIAT_N1.dbo.tblPutevka' does not have a prim
           <Property Name="MEDICAL_ORDER_EXISTS" Type="bit" />
           <Property Name="ORDER_QUANTITY" Type="int" />
           <Property Name="SOTR_INN" Type="nvarchar" MaxLength="9" />
+          <Property Name="PNFL" Type="varchar" MaxLength="20" />
         </EntityType>
         <EntityType Name="tbsp_soato_new">
           <Key>
@@ -9145,6 +9148,8 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <NavigationProperty Name="tblSprav_Pr" Relationship="Self.FK_tblFase_tblSprav_Pr" FromRole="tblFase" ToRole="tblSprav_Pr" />
           <NavigationProperty Name="tblSprav_San" Relationship="Self.FK_tblFase_tblSprav_San" FromRole="tblFase" ToRole="tblSprav_San" />
           <NavigationProperty Name="users" Relationship="Self.FK_tblFase_Users" FromRole="tblFase" ToRole="users" />
+          <Property Name="INN" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="PNFL" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="tblPos_Put">
           <Key>
@@ -9607,6 +9612,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <NavigationProperty Name="users" Relationship="Self.tbpt_zayavki_3" FromRole="tbpt_zayavki" ToRole="users" />
           <Property Name="SOTR_INN" Type="String" MaxLength="9" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="tblVipl_Put" Relationship="KasabaKIATModel.FK_tblVipl_Put_tbpt_zayavki" FromRole="tbpt_zayavki" ToRole="tblVipl_Put" />
+          <Property Name="PNFL" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="useractions">
           <Key>
@@ -17050,6 +17056,8 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <EntitySetMapping Name="tblFase">
             <EntityTypeMapping TypeName="KasabaKIATModel.tblFase">
               <MappingFragment StoreEntitySet="tblFase">
+                <ScalarProperty Name="PNFL" ColumnName="PNFL" />
+                <ScalarProperty Name="INN" ColumnName="INN" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="ID_Put" ColumnName="ID_Put" />
                 <ScalarProperty Name="ID_Sanat" ColumnName="ID_Sanat" />
@@ -17459,6 +17467,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <EntitySetMapping Name="tbpt_zayavki">
             <EntityTypeMapping TypeName="KasabaKIATModel.tbpt_zayavki">
               <MappingFragment StoreEntitySet="tbpt_zayavki">
+                <ScalarProperty Name="PNFL" ColumnName="PNFL" />
                 <ScalarProperty Name="SOTR_INN" ColumnName="SOTR_INN" />
                 <ScalarProperty Name="REC_ID" ColumnName="REC_ID" />
                 <ScalarProperty Name="GROUP_ID" ColumnName="GROUP_ID" />

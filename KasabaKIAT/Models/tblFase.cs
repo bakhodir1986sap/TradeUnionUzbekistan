@@ -42,6 +42,8 @@ namespace KasabaKIAT.Models
         public Nullable<bool> Pol { get; set; }
         public Nullable<long> UserId { get; set; }
         public string Departmentbase { get; set; }
+        public string INN { get; set; }
+        public string PNFL { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblFace_Med> tblFace_Med { get; set; }

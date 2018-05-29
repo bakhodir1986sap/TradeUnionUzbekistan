@@ -366,6 +366,17 @@ namespace KasabaKiat.BusinessLogic.Putyovki.RealizasiyaPutyovok
                     {
                         mmodel.oplata = "Нет";
                     }
+
+                    var faceCount = db.tblFase.Where(z => z.ID_Put == mmodel.id).Count();
+
+                    if (faceCount > 0)
+                    {
+                        mmodel.isFaceExists = true;
+                    }
+                    else
+                    {
+                        mmodel.isFaceExists = false;
+                    }
                 }
 
             }

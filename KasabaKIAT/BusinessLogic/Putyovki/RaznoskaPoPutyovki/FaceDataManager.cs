@@ -22,7 +22,14 @@ namespace KasabaKiat.BusinessLogic.Putyovki.RaznoskaPoPutyovki
             {
                 tblFase fc = new tblFase();
 
-                fc.ID                 = db.tblFase.Max(z=>z.ID) + 1;
+                long IdValue = 0;
+
+                if (db.tblFase.Count() != 0)
+                {
+                    IdValue = db.tblFase.Max(z => z.ID);
+                }
+
+                fc.ID = IdValue + 1;
                 fc.ID_Put               = model.id_put          ;
                 fc.ID_Sanat             = model.id_sanat        ;
                 fc.Num_Put              = model.num_put         ;
@@ -39,10 +46,12 @@ namespace KasabaKiat.BusinessLogic.Putyovki.RaznoskaPoPutyovki
                 fc.Pas_Data             = model.pas_data        ;
                 fc.Gost_Pr              = model.gost_pr         ;
                 fc.ID_Osnov             = model.id_osnov        ;
-                fc.Data_Post            = model.data_post       ;
+                fc.Data_Post            = DateTime.Now       ;
                 fc.Pol                  = model.pol             ;
                 fc.UserId               = model.userid          ;
-                fc.Departmentbase       = model.departmentbase;
+                fc.Departmentbase       = model.departmentbase  ;
+                fc.INN                  = model.inn             ;
+                fc.PNFL                 = model.pnfl            ;
 
                 var fcc = db.tblFase.Add(fc);
 
@@ -84,10 +93,12 @@ namespace KasabaKiat.BusinessLogic.Putyovki.RaznoskaPoPutyovki
                         fc1.Pas_Data = model.pas_data;
                         fc1.Gost_Pr = model.gost_pr;
                         fc1.ID_Osnov = model.id_osnov;
-                        fc1.Data_Post = model.data_post;
+                        //fc1.Data_Post = model.data_post;
                         fc1.Pol = model.pol;
                         fc1.UserId = model.userid;
                         fc1.Departmentbase = model.departmentbase;
+                        fc1.INN = model.inn;
+                        fc1.PNFL = model.pnfl;
                     }
                 }
 
@@ -154,7 +165,9 @@ namespace KasabaKiat.BusinessLogic.Putyovki.RaznoskaPoPutyovki
                                 data_post       = face.Data_Post    ,  
                                 pol             = face.Pol          ,  
                                 userid          = face.UserId       ,  
-                                departmentbase  = face.Departmentbase 
+                                departmentbase  = face.Departmentbase ,
+                                inn             = face.INN,
+                                pnfl            = face.PNFL
                             };
 
                 list = query.ToList();

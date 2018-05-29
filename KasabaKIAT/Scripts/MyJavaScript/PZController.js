@@ -144,6 +144,20 @@
         });
     }
 
+    $scope.GetFileInfoZayavka = function () {
+        $http({
+            method: 'get',
+            url: '/Home/GetFileInfoZayavka?zayavkaId=' + $scope.ID
+        }).then(function (c) {
+            $scope.FilesOpdatas = c.data;
+        }, function () {
+            alertify.error("ошибка");
+            console.log('Error in GetFileInfoZayavka');
+            document.getElementById('connection').style.visibility = "hidden";
+            $("#hh").modal('hide');
+        });
+    }
+
     function AllSanatory() {
         $scope.myVal = "Санаторий";
         $http({
@@ -174,20 +188,7 @@
         });
     }
 
-    $scope.GetFileInfoZayavka = function ()
-    {
-        $http({
-            method: 'get',
-            url: '/Home/GetFileInfoZayavka?zayavkaId=' + $scope.ID
-        }).then(function (c) {
-            $scope.FilesOpdatas = c.data;
-        }, function () {
-            alertify.error("ошибка");
-            console.log('Error in GetFileInfoZayavka');
-            document.getElementById('connection').style.visibility = "hidden";
-            $("#hh").modal('hide');
-        });
-    }
+
 
     function GetUpperOrganization() {
         $http({
@@ -220,6 +221,8 @@
        // $scope.MO2 = pz.MO2;
         $scope.SC.id = pz.SC_id;
         $scope.SC.value = pz.SC;
+        $scope.InnFiz = pz.InnFiz;
+        $scope.pnfl = pz.pnfl;
         $scope.Action = "Изменить";
     }
 
@@ -342,7 +345,9 @@
                 POSITION: $scope.P,
                 QUANTITY: $scope.Q,
                 SANATORY_ID: $scope.SC.id,
-                MEDICAL_ORDER_EXISTS:$scope.MOE
+                MEDICAL_ORDER_EXISTS: $scope.MOE,
+                SOTR_INN: $scope.InnFiz,
+                PNFL : $scope.pnfl
             };
         } else {
             if ($scope.ss == "option2s") {
@@ -355,7 +360,9 @@
                     POSITION: $scope.P,
                     QUANTITY: $scope.Q,
                     CAMP_ID: $scope.SC.id,
-                    MEDICAL_ORDER_EXISTS: $scope.MOE
+                    MEDICAL_ORDER_EXISTS: $scope.MOE,
+                    SOTR_INN: $scope.InnFiz,
+                    PNFL: $scope.pnfl
                 };
             }
         }
@@ -387,6 +394,16 @@
                 data: JSON.stringify(PZ),
                 dataType: "json"
             }).then(function (msg) {
+
+                if (msg === "0")
+                {
+                    alertify.success("Удачное сохранение");
+                }
+                else
+                {
+                    alertify.success(msg);
+                }
+
                 if ($scope.ss === "option1s") {
                     GetPZ_S($scope.SCFilter.id);
                 } else {
@@ -485,6 +502,8 @@
         $scope.INN = "";
         $scope.FN = "";
         $scope.MO = "";
+        $scope.InnFiz = "";
+        $scope.pnfl = "";
     }
 
     $scope.Cancel = function () {

@@ -28,8 +28,6 @@ using KasabaKiat.BusinessLogic.Putyovki.RaznoskaPoPutyovki;
 using KasabaKiat.ViewModel.Putyovki.RaznoskaPutyovok;
 using KasabaKIAT.BusinessLogic.Putyovki.SverkaDannix.Ruchnoy;
 using OfficeOpenXml;
-using System.IO;
-using KasabaKIAT.BusinessLogic.Structure;
 
 namespace KasabaKIAT.Controllers
 {
@@ -3145,11 +3143,11 @@ namespace KasabaKIAT.Controllers
         /// </summary>
         /// <param name="year"></param>
         /// <returns></returns>
-        public JsonResult GetDifferByYearFiles(int year)
+        public JsonResult GetDifferByYearFiles(int year, int IdSan, string Obl)
         {
             var sverObj = new SverManager();
 
-            var list = sverObj.MatchingEngineFiles(year);
+            var list = sverObj.MatchingEngineFiles(year, IdSan, Obl);
 
             return Json(list, JsonRequestBehavior.AllowGet);
         }

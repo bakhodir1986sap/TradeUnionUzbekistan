@@ -1480,6 +1480,15 @@ namespace KasabaKIAT.Controllers
             return null;
         }
 
+        private class PrivyazkaProvodokL
+        {
+            public int ID            {get; set;}
+            public string D          {get; set;}
+            public string SB         {get; set;}
+            public string SE         {get; set;}
+            public bool PrivExists   {get; set;}
+        }
+
         [OutputCache(Duration = 5, Location = OutputCacheLocation.Client, VaryByParam = "o_id;r_id", VaryByCustom = "userId")]
         public JsonResult GetPP(int o_id,string r_id)
         {
@@ -1487,18 +1496,36 @@ namespace KasabaKIAT.Controllers
             log.Info("o_id = " + o_id);
             log.Info("r_id = " + r_id);
 
+            var list = new List<PrivyazkaProvodokL>();
+
             try
             {
-                var camp = from dict in KasabaDB.provodok
-                           select new
+                var query = from dict in KasabaDB.provodok
+                           select new PrivyazkaProvodokL
                            {
-                               ID = dict.id,
-                               D = dict.description,
-                               SB = dict.score_begin,
-                               SE = dict.score_end
+                               ID           = dict.id,
+                               D            = dict.description,
+                               SB           = dict.score_begin,
+                               SE           = dict.score_end,
+                               PrivExists   = false
                            };
 
-                return Json(camp, JsonRequestBehavior.AllowGet);
+                foreach(var provodka in query)
+                {
+                    var privyazka = KasabaDB.p_provodok.Where(z => z.order == o_id 
+                    && z.REGION_ID == r_id 
+                    && z.score_begin == provodka.SB
+                    && z.score_end == provodka.SE);
+
+                    if (privyazka.Any())
+                    {
+                        provodka.PrivExists = true;
+                    }
+
+                    list.Add(provodka);
+                }
+
+                return Json(list, JsonRequestBehavior.AllowGet);
             }
             catch(Exception ex)
             {

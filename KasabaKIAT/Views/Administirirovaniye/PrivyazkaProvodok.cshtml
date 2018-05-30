@@ -46,8 +46,8 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr ng-repeat="item in PP ">
-                            <td style="width:200px;text-align:center"><input type="checkbox" ng-click="editPP(item)"/></td>
+                        <tr ng-repeat="item in PP " ng-style="item.PrivExists==true &&{'background-color':'#8a8a8a','color':'white'}">
+                            <td style="width:200px;text-align:center"><input type="checkbox" ng-model="item.PrivExists" ng-click="editPP(item)"/></td>
                             <td style="width:200px;text-align:center">{{item.SB}}</td>
                             <td style="width:200px;text-align:center">{{item.SE}}</td>
                             <td style="width:200px;text-align:center">{{item.D}}</td>
@@ -55,7 +55,7 @@
                     </tbody>
                 </table>
             </div>
-            <a href="#" ng-click="AddPPDiv()" class="btn btn-blue d-block d-md-inline-block mb-3 mb-md-0"><i class="fas fa-plus"></i> Применить</a>
+            <a href="#" ng-click="AddUpdatePP()" class="btn btn-blue d-block d-md-inline-block mb-3 mb-md-0"><i class="fas fa-plus"></i> Применить</a>
         </section>
 
         <div class="modal__block modal fade" id="dobavit" tabindex="-1" role="dialog" aria-labelledby="dobavitLabel">

@@ -401,7 +401,7 @@
                 }
                 else
                 {
-                    alertify.success(msg);
+                    alertify.error(msg.data);
                 }
 
                 if ($scope.ss === "option1s") {

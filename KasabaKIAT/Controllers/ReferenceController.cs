@@ -278,5 +278,104 @@ namespace KasabaKIAT.Controllers
             return Json(list, JsonRequestBehavior.AllowGet);
         }
 
+        private class Organization
+        {
+            public string Inn { get; set; }
+
+            public string Name_Full { get; set; }
+
+            public string Okonx { get; set; }
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="inn"></param>
+        /// <returns></returns>
+        [OutputCache(Duration = 5, Location = OutputCacheLocation.Client, VaryByParam = "inn", VaryByCustom = "userId")]
+        public JsonResult GetOrgDataByInn(string inn)
+        {
+            if (string.IsNullOrEmpty(inn))
+            {
+                return Json("", JsonRequestBehavior.AllowGet);
+            }
+
+            using (KasabaKIATEntities db = new KasabaKIATEntities())
+            {
+                var orgs = db.t_egrpo.Where(e => e.inn == inn);
+
+                if (orgs.Any())
+                {
+                    var org = orgs.First();
+
+                    var orgn = new Organization
+                    {
+                        Inn = inn,
+                        Name_Full = org.name_full,
+                        Okonx = org.okonx_id
+                    };
+
+                    return Json(orgn, JsonRequestBehavior.AllowGet);
+                }
+            }
+
+            return Json("", JsonRequestBehavior.AllowGet);
+        }
+
+        private class BankData
+        {
+            public string BankCode { get; set; }
+
+            public string BankName { get; set; }
+
+
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="mfo"></param>
+        /// <returns></returns>
+        public JsonResult GetBankNameByMFO(string mfo)
+        {
+            if (string.IsNullOrEmpty(mfo))
+            {
+                return Json("", JsonRequestBehavior.AllowGet);
+            }
+
+            using (KasabaKIATEntities db = new KasabaKIATEntities())
+            {
+                var orgs = db.tblSprav_MFO.Where(e => e.Code_MFO == mfo);
+
+                if (orgs.Any())
+                {
+                    var org = orgs.First();
+
+                    var bankName = string.Empty;
+
+                    if (!string.IsNullOrEmpty(org.Name_MFO))
+                    {
+                        if (org.Name_MFO.Length > 20)
+                        {
+                            bankName = org.Name_MFO.Substring(0, 20);
+                        }
+                        else
+                        {
+                            bankName = org.Name_MFO;
+                        }
+                    }
+
+                    var bank = new BankData
+                    {
+                        BankCode = org.Code_MFO,
+                        BankName = org.Name_MFO
+                    };
+
+                    return Json(bank, JsonRequestBehavior.AllowGet);
+                }
+            }
+
+            return Json("", JsonRequestBehavior.AllowGet);
+        }
+
     }
 }

@@ -1,14 +1,22 @@
 ﻿@model IEnumerable<KasabaKIAT.Models.sp_departmenttype>
 
 @{
-    ViewBag.Title = "Справочники Типов отделов";
+    ViewBag.Title = "Справочник Типов отделов";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Справочники Типов отделов</h2>
+<div class="col-sm-6 title__block">
+    <h4>Справочник Типов отделов</h4>
+    <nav aria-label="breadcrumb" class="breadcrumb__block">
+        <ol class="breadcrumb" style="width:1000px">
+            <li class="breadcrumb-item load"><a href="/Administirirovaniye/Spravichniki">Справочник</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Справочник Типов отделов</li>
+        </ol>
+    </nav>
+</div>
 
 <p>
-    @Html.ActionLink("Создать новый", "Create")
+    <button style="margin:10px" class="btn btn-green">@Html.ActionLink("Добавить", "Create")</button>
 </p>
 <table class="table">
     <tr>

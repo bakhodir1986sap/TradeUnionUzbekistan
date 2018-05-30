@@ -32,22 +32,27 @@ namespace KasabaKIAT.BusinessLogic.Putyovki.SverkaDannix.Ruchnoy
         //potom dnniye oblastey. 
         //Algaritm matchinga takoy probigaemsya po dannim Kurortnogo
         //ishem po year, SanatId, NumPut
-        public List<ResultSverka> MatchingEngineFiles(int year)
+        public List<ResultSverka> MatchingEngineFiles(int year , int IdSan, string Obl)
         {
             List<ResultSverka> list = new List<ResultSverka>(); 
 
             using (KasabaKIATEntities db = new KasabaKIATEntities())
             {
-                var kurortList = db.tblSanatDataCompares.Where(z => z.YEAR == year 
-                && z.OWNER_TP == (int)OwnerType.Kurortniy);
+                var kurortList = db.tblSanatDataCompares.
+                    Where(z => z.YEAR == year
+                       && z.OWNER_TP == (int)OwnerType.Oblastnoy 
+                       && z.SANAT_ID == IdSan 
+                       && z.OWNER_CODE == Obl);
 
                 if (kurortList.Any())
                 {
-                    foreach(var putyovk in kurortList)
+                    foreach (var putyovk in kurortList)
                     {
                         var oblastList = db.tblSanatDataCompares.Where(
                            z => z.YEAR == year
-                        && z.OWNER_TP == (int)OwnerType.Oblastnoy
+                        && z.OWNER_TP == (int)OwnerType.Kurortniy
+                        && z.SANAT_ID == IdSan 
+                        && z.OWNER_CODE == Obl
                         && z.SANAT_ID == putyovk.SANAT_ID
                         && z.NUM_PUT == putyovk.NUM_PUT);
 
@@ -55,7 +60,7 @@ namespace KasabaKIAT.BusinessLogic.Putyovki.SverkaDannix.Ruchnoy
                         {
                             var oblPut = oblastList.First();
 
-                            if (!CompareNames(putyovk.FIO_OTDIX , oblPut.FIO_OTDIX))
+                            if (!CompareNames(putyovk.FIO_OTDIX, oblPut.FIO_OTDIX))
                             {
                                 var resSverka = new ResultSverka();
                                 resSverka.year = year;
@@ -69,10 +74,10 @@ namespace KasabaKIAT.BusinessLogic.Putyovki.SverkaDannix.Ruchnoy
                                 }
 
                                 resSverka.NumPut = putyovk.NUM_PUT;
-                                resSverka.KurortFio = putyovk.FIO_OTDIX;
-                                resSverka.KurortAdress = putyovk.ADRESS;
-                                resSverka.OblastFio = oblPut.FIO_OTDIX;
-                                resSverka.OblastAdress = oblPut.ADRESS;
+                                resSverka.KurortFio = oblPut.FIO_OTDIX;
+                                resSverka.KurortAdress = oblPut.ADRESS ;
+                                resSverka.OblastFio = putyovk.FIO_OTDIX ;
+                                resSverka.OblastAdress = putyovk.ADRESS;
 
                                 list.Add(resSverka);
                             }
@@ -91,8 +96,8 @@ namespace KasabaKIAT.BusinessLogic.Putyovki.SverkaDannix.Ruchnoy
                             }
 
                             resSverka.NumPut = putyovk.NUM_PUT;
-                            resSverka.KurortFio = putyovk.FIO_OTDIX;
-                            resSverka.KurortAdress = putyovk.ADRESS;
+                            resSverka.OblastFio = putyovk.FIO_OTDIX;
+                            resSverka.OblastAdress = putyovk.ADRESS;
 
 
                             list.Add(resSverka);

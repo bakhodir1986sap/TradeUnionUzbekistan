@@ -219,7 +219,7 @@
         });
         $http({
             method: 'get',
-            url: '/PrixodPutevok/GetDifferByYearFiles?year=' + $scope.SelectedYear.Id
+            url: '/PrixodPutevok/GetDifferByYearFiles?year=' + $scope.SelectedYear.Id + '&IdSan=' + $scope.SelectedSanatory.ID + '&Obl=' + $scope.SelectedPravsoyuz.MATCH_DEPARTMENTBASE
         }).then(function (response) {
             $scope.DifferByYearFiles = response.data;
             document.getElementById('connection').style.visibility = "hidden";
@@ -272,4 +272,11 @@
             $("#hh").modal('hide');
         });
     }
+
+    $scope.exportData = function () {
+        var blob = new Blob([document.getElementById('export').innerHTML], {
+            type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=utf-8"
+        });
+        saveAs(blob, "Поступление Группированно По Областям.xls");
+    };
 }]);

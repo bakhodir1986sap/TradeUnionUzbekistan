@@ -3,7 +3,7 @@
     ViewBag.Title = "Путевки";
     ViewBag.n = Session["role"];
     var  UserId = Convert.ToInt32(User.Identity.Name);
-    FunctionalityList List = FunctionalityAndDbDataMatch.MatchProcess(UserId);
+    FunctionalityList List = FunctionalityAndDbDataMatch.MatchProcess(UserId, true);
 }
 
 
@@ -72,7 +72,7 @@
                 </a>
             </div>
         }
-        @if (List.RassmotreniyaZayavok)
+        @*@if (List.RassmotreniyaZayavok)
             {
             <div class="col-6 col-sm-3">
                 <a href="/Home/RassmotreniyeZayavok" class="d-block text-center item load" data-mh="main-item">
@@ -80,7 +80,7 @@
                     <span class="d-block">Рассмотрение заявок</span>
                 </a>
             </div>
-        }
+        }*@
     </div>
 
 </section>

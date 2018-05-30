@@ -10,15 +10,18 @@ namespace KasabaKIAT.BusinessLogic.Security.Roles.RolePermissions
 {
     public class FunctionalityAndDbDataMatch
     {
-        public static FunctionalityList MatchProcess(UserViewModel user)
+        public static FunctionalityList MatchProcess(UserViewModel user , bool flg = false)
         {
-            if (UserPermissions.pernit != null)
+            if (!flg)
             {
-                var ppermits = UserPermissions.pernit.FirstOrDefault(x => x.UserId == user.userid);
-
-                if ((ppermits != null) && (ppermits.LastUpdateTime.AddHours(1) > DateTime.Now))
+                if (UserPermissions.pernit != null)
                 {
-                    return ppermits;
+                    var ppermits = UserPermissions.pernit.FirstOrDefault(x => x.UserId == user.userid);
+
+                    if ((ppermits != null) && (ppermits.LastUpdateTime.AddHours(1) > DateTime.Now))
+                    {
+                        return ppermits;
+                    }
                 }
             }
 
@@ -121,18 +124,18 @@ namespace KasabaKIAT.BusinessLogic.Security.Roles.RolePermissions
             return rolFumc;
         }
 
-        public static FunctionalityList MatchProcess(long userId)
+        public static FunctionalityList MatchProcess(long userId , bool flg = false)
         {
             var userinf = UserInfo.GetUserInfo(userId);
 
-            return MatchProcess(userinf);
+            return MatchProcess(userinf, flg);
         }
 
-        public static FunctionalityList MatchProcess(string userName)
+        public static FunctionalityList MatchProcess(string userName, bool flg = false)
         {
             var userinf = UserInfo.GetUserInfo(userName);
 
-            return MatchProcess(userinf);
+            return MatchProcess(userinf, flg);
         }
     }
 }

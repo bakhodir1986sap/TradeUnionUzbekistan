@@ -99,6 +99,66 @@
         });
     }
 
+
+    $scope.GetOrgDataByInn = function (keyEvent, inn) {
+
+        //if (keyEvent.which === 9)
+        //{
+            //document.getElementById('connection').style.visibility = "visible";
+            //$("#hh").modal({
+            //    backdrop: 'static'
+            //});
+            $http({
+                method: 'get',
+                url: '/Reference/GetOrgDataByInn?inn=' + inn
+            }).then(function (response) {
+
+                $scope.Organization.Name_Org = response.data.Name_Full;
+                $scope.Organization.OKONX = response.data.Okonx;
+
+                //document.getElementById('connection').style.visibility = "hidden";
+                //$("#hh").modal('hide');
+            }, function (error) {
+                //alertify.error("ошибка");
+                console.log("error in GetOrgDataByInn");
+                //document.getElementById('connection').style.visibility = "hidden";
+                //$("#hh").modal('hide');
+            });
+        //}
+    }
+
+
+    $scope.GetBankNameByMFO = function (keyEvent, mfo) {
+
+        //if (keyEvent.which === 9)
+        //{
+             //document.getElementById('connection').style.visibility = "visible";
+             //$("#hh").modal({
+             //    backdrop: 'static'
+             //});
+
+            $http({
+                method: 'get',
+                url: '/Reference/GetBankNameByMFO?mfo=' + mfo
+            }).then(function (response) {
+
+                $scope.Organization.Bank = response.data.BankName;
+
+
+                //document.getElementById('connection').style.visibility = "hidden";
+                //$("#hh").modal('hide');
+            }, function (error) {
+                //alertify.error("ошибка");
+                console.log("error in GetBankNameByMFO");
+                //document.getElementById('connection').style.visibility = "hidden";
+                //$("#hh").modal('hide');
+            });
+        //}
+    }
+
+
+
+
     $scope.addOrg = function () {
 
         $scope.Organization = '';

@@ -25,5 +25,10 @@ namespace KaznaFilesImporter
         public string INN { get; set; }
         public string SOATO { get; set; }
         public string SOATO_NAME { get; set; }
+        public Nullable<System.DateTime> OPERDATE { get; set; }
+        public string OKONX_ID { get; set; }
+        public string OKONX_NAME { get; set; }
+        public string BRANCH_CODE { get; set; }
+        public string BRANCH_NAME { get; set; }
     }
 }

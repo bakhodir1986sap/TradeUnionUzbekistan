@@ -18,5 +18,11 @@ namespace KasabaKIAT.ViewModel.Buxgalteriya
         public string inn { get; set; }
         public string soato { get; set; }
         public string soato_name { get; set; }
+
+        public DateTime? operdate     { get; set; }
+        public string    okonx_id     { get; set; }
+        public string    okonx_name   { get; set; }
+        public string    branch_code  { get; set; }
+        public string    branch_name  { get; set; }
     }
 }

@@ -32,6 +32,8 @@ namespace KaznaFilesImporter
 
                 obj.CalcProcess();
 
+                obj.ModifyEcpObl();
+
                 Thread.Sleep(1);
             }
         }

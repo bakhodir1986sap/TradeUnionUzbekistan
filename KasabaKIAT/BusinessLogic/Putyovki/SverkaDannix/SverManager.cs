@@ -38,7 +38,20 @@ namespace KasabaKIAT.BusinessLogic.Putyovki.SverkaDannix.Ruchnoy
 
             using (KasabaKIATEntities db = new KasabaKIATEntities())
             {
-                var kurortList = db.tblSanatDataCompares.
+                string sanatName = string.Empty;
+
+                var sanats = db.tblSprav_San.Where(s => s.ID == IdSan);
+
+                if (sanats.Any())
+                {
+                    sanatName = sanats.First().Name_San;
+                }
+
+                var total = db.tblSanatDataCompares.Where(z => z.YEAR == year && z.SANAT_ID == IdSan).ToList();
+
+                if (!total.Any()) return list;
+
+                var kurortList = total.
                     Where(z => z.YEAR == year
                        && z.OWNER_TP == (int)OwnerType.Oblastnoy 
                        && z.SANAT_ID == IdSan 
@@ -48,12 +61,11 @@ namespace KasabaKIAT.BusinessLogic.Putyovki.SverkaDannix.Ruchnoy
                 {
                     foreach (var putyovk in kurortList)
                     {
-                        var oblastList = db.tblSanatDataCompares.Where(
+                        var oblastList = total.Where(
                            z => z.YEAR == year
                         && z.OWNER_TP == (int)OwnerType.Kurortniy
                         && z.SANAT_ID == IdSan 
-                        && z.OWNER_CODE == Obl
-                        && z.SANAT_ID == putyovk.SANAT_ID
+                        //&& z.OWNER_CODE == Obl
                         && z.NUM_PUT == putyovk.NUM_PUT);
 
                         if (oblastList.Any())
@@ -65,14 +77,7 @@ namespace KasabaKIAT.BusinessLogic.Putyovki.SverkaDannix.Ruchnoy
                                 var resSverka = new ResultSverka();
                                 resSverka.year = year;
                                 resSverka.SanatId = putyovk.SANAT_ID;
-
-                                var sanats = db.tblSprav_San.Where(s => s.ID == putyovk.SANAT_ID);
-
-                                if (sanats.Any())
-                                {
-                                    resSverka.SanatName = sanats.First().Name_San;
-                                }
-
+                                resSverka.SanatName = sanatName;
                                 resSverka.NumPut = putyovk.NUM_PUT;
                                 resSverka.KurortFio = oblPut.FIO_OTDIX;
                                 resSverka.KurortAdress = oblPut.ADRESS ;
@@ -87,14 +92,7 @@ namespace KasabaKIAT.BusinessLogic.Putyovki.SverkaDannix.Ruchnoy
                             var resSverka = new ResultSverka();
                             resSverka.year = year;
                             resSverka.SanatId = putyovk.SANAT_ID;
-
-                            var sanats = db.tblSprav_San.Where(s => s.ID == putyovk.SANAT_ID);
-
-                            if (sanats.Any())
-                            {
-                                resSverka.SanatName = sanats.First().Name_San;
-                            }
-
+                            resSverka.SanatName = sanatName;
                             resSverka.NumPut = putyovk.NUM_PUT;
                             resSverka.OblastFio = putyovk.FIO_OTDIX;
                             resSverka.OblastAdress = putyovk.ADRESS;

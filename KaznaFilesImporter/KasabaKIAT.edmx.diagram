@@ -18,6 +18,10 @@
         <EntityTypeShape EntityType="KasabaKIATModel.tbsp_soato_new" Width="1.5" PointX="2.75" PointY="9.75" />
         <EntityTypeShape EntityType="KasabaKIATModel.KaznaBankFile" Width="1.5" PointX="3" PointY="0.75" />
         <AssociationConnector Association="KasabaKIATModel.FK_KaznaBankFile_KaznaFiles1" />
+        <EntityTypeShape EntityType="KasabaKIATModel.tblPred" Width="1.5" PointX="7.375" PointY="9.75" />
+        <EntityTypeShape EntityType="KasabaKIATModel.sp_branch" Width="1.5" PointX="11.375" PointY="6.75" />
+        <EntityTypeShape EntityType="KasabaKIATModel.sp_okonx" Width="1.5" PointX="9.375" PointY="9.75" />
+        <AssociationConnector Association="KasabaKIATModel.sp_okonx2" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

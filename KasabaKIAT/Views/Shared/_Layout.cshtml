@@ -219,6 +219,9 @@
                     }
                 </ul>
                 <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link fa fa-home" id="home" href="/Home/Putyovki"></a>
+                    </li>
                     <li class="nav-item dropdown" id="p">
                         <a disabled class="nav-link dropdown-toggle" href="/Home/izmParol" id="tourss" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">@userName.username</a>
                         <div class="dropdown-menu rounded-0 box-shadow m-0 border-0" aria-labelledby="tourss">
@@ -230,7 +233,8 @@
                         <a class="nav-link" id="chat" href="/Chat/Index">Чат</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" id="spravka" href="#">?</a>
+                        @Html.ActionLink("?", "DownloadTemplateManual", "PrixodPutevok", new object { },
+                        new { @class = "nav-link" })      
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" id="ch" href="#">Выход</a>

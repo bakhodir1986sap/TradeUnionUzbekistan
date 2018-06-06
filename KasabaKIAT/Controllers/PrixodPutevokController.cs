@@ -3138,6 +3138,20 @@ namespace KasabaKIAT.Controllers
             return File(fileBytes, "application/vnd.ms-excel", fileName);
         }
 
+
+        public FileResult DownloadTemplateManual()
+        {
+            var ArxiveDirectory = Properties.Settings.Default.TemplateDir;
+
+            var targetFile = Path.Combine(ArxiveDirectory, "Manual", "Manual.chm");
+
+            if (!System.IO.File.Exists(targetFile)) return null;
+
+            byte[] fileBytes = System.IO.File.ReadAllBytes(targetFile);
+            string fileName = "Руководство.chm";
+            return File(fileBytes, "pplication/vnd.ms-htmlhelp", fileName);
+        }
+
         /// <summary>
         /// 
         /// </summary>

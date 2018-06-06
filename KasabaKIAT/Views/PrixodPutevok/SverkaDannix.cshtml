@@ -5,6 +5,11 @@
     FunctionalityList List = FunctionalityAndDbDataMatch.MatchProcess(UserId);
 }
 <script src="~/Scripts/MyJavaScript/SverkaDannix.js"></script>
+<style>
+    .highlightedText {
+        background: #ff0000;
+    }
+</style>
 <div id="connection" style="visibility:hidden;position:absolute;margin-left:430px;z-index:9999">
     <img src="~/Content/Login/buffering.gif" />
 </div>
@@ -38,8 +43,8 @@
                         <select class="custom-select form-control" ng-model="SelectedSanatory" ng-options="item as item.Name_San for item in Sanatories track by item.ID"></select>
                     </div>
                     <div class="col-md-3 form-group">
-                        <label>Профсоюз</label>
-                        <select class="custom-select form-control" ng-model="SelectedPravsoyuz" ng-options="item as item.ProfsoyzNaimenovanie for item in Pravs track by item.MATCH_DEPARTMENTBASE"></select>
+                        <label ng-show="SelectedSide.Code">Профсоюз</label>
+                        <select class="custom-select form-control" ng-show="SelectedSide.Code" ng-model="SelectedPravsoyuz" ng-options="item as item.ProfsoyzNaimenovanie for item in Pravs track by item.MATCH_DEPARTMENTBASE"></select>
                     </div>
                 </div>
             </div>
@@ -51,8 +56,59 @@
             </div>
             <input type="button" value="Загрузить" class="btn btn-primary" style="margin-top:-65px" ng-disabled="!SelectedFileForUpload" ng-click="SaveDATA() " />
         </div>
+        <div class="row mb-5">
+            <div class="col-lg-9">
+                <div class="row">
+                    <div class="col-md-4 form-group">
+                        <select class="custom-select form-control" ng-model="SelectedYear2" ng-options="item as item.Year for item in Years track by item.Id">
+                        </select>
+                    </div>
+                    @*<div class="col-md-4 form-group">
+                        <select class="custom-select form-control" ng-model="SelectedSanatory2" ng-options="item as item.Name_San for item in Sanatories track by item.ID">
+                        </select>
+                    </div>*@
+                    <div class="col-md-4 form-group">
+                        <a href="#" ng-click="GetDifferByYearFiles()" class="btn btn-blue d-block">Показать несоответствия</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mb-4">
+            <div class="col-lg-6">
+                <div class="table-responsive box-shadow mb-4" id="export">
+                    <table class="table table__block table-fixed">
+                        <thead>
+                            <tr>
+                                <th>Санаторий</th>
+                                <th>Номера путевок</th>
+                                <th>Санаторий ФИО</th>
+                                <th>Санаторий Адрес</th>
+                                <th>Профсоюз ФИО</th>
+                                <th>Профсоюз Адрес</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td colspan="3">
+                                    <a href="#" class="btn btn-grey d-block d-md-inline-block mb-2" ng-click="exportData()">Экспорт</a>
+                                    @*<a href="#" class="btn btn-grey d-block d-md-inline-block mb-2">Печать</a>*@
+                                </td>
+                            </tr>
+                            <tr ng-repeat="item2 in DifferByYearFiles">
+                                <td>{{item2.SanatName}}</td>
+                                <td>{{item2.NumPut}}</td>
+                                <td>{{item2.KurortFio}}</td>
+                                <td>{{item2.KurortAdress}}</td>
+                                <td ng-bind-html="highlight(item2.OblastFio , item2.KurortFio )">{{item2.OblastFio}}</td>
+                                <td>{{item2.OblastAdress}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
         <div class="table-responsive box-shadow mb-5">
-            <table class="table table__block va-top t-scroll">
+            <table class="table table__block va-top t-scroll table__small table-fixed">
                 <thead>
                     <tr>
                         <th class="dropdown dropdown__table">
@@ -104,57 +160,6 @@
                     </tr>
                 </tbody>
             </table>
-        </div>
-        <div class="row mb-5">
-            <div class="col-lg-9">
-                <div class="row">
-                    <div class="col-md-4 form-group">
-                        <select class="custom-select form-control" ng-model="SelectedYear2" ng-options="item as item.Year for item in Years track by item.Id">
-                        </select>
-                    </div>
-                    @*<div class="col-md-4 form-group">
-                        <select class="custom-select form-control" ng-model="SelectedSanatory2" ng-options="item as item.Name_San for item in Sanatories track by item.ID">
-                        </select>
-                    </div>*@
-                    <div class="col-md-4 form-group">
-                        <a href="#" ng-click="GetDifferByYearFiles()" class="btn btn-blue d-block">Показать несоответствия</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row mb-4">
-            <div class="col-lg-6">
-                <div class="table-responsive box-shadow mb-4" id="export">
-                    <table class="table table__block">
-                        <thead>
-                            <tr>
-                                <th>Санаторий</th>
-                                <th>Номера путевок</th>
-                                <th>Санаторий ФИО</th>
-                                <th>Санаторий Адрес</th>
-                                <th>Профсоюз ФИО</th>
-                                <th>Профсоюз Адрес</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr ng-repeat="item2 in DifferByYearFiles">
-                                <td>{{item2.SanatName}}</td>
-                                <td>{{item2.NumPut}}</td>
-                                <td>{{item2.KurortFio}}</td>
-                                <td>{{item2.KurortAdress}}</td>
-                                <td>{{item2.OblastFio}}</td>
-                                <td>{{item2.OblastAdress}}</td>
-                            </tr>
-                            <tr>
-                                <td colspan="3">
-                                    <a href="#" class="btn btn-grey d-block d-md-inline-block mb-2" ng-click="exportData()">Экспорт</a>
-                                    @*<a href="#" class="btn btn-grey d-block d-md-inline-block mb-2">Печать</a>*@
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
         </div>
     </section>
 }

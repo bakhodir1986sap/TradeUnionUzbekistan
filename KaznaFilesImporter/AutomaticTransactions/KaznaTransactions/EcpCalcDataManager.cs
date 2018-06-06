@@ -10,10 +10,8 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.Provodki.AutomaticTransactions.K
 {
     public class EcpCalcDataManager
     {
-        public static void Create(ref EcpCalcViewModel model)
+        public static void Create(ref EcpCalcViewModel model, KasabaKIATEntities db)
         {
-            using (KasabaKIATEntities db = new KasabaKIATEntities())
-            {
                 tbbu_ecp_calc reg = new tbbu_ecp_calc();
 
                 //reg.ID                    = model.id                      ;
@@ -27,11 +25,17 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.Provodki.AutomaticTransactions.K
                 reg.INN                     = model.inn                     ;
                 reg.SOATO                   = model.soato                   ;
                 reg.SOATO_NAME              = model.soato_name              ;
+                reg.OPERDATE = model.operdate;
+                reg.OKONX_ID = model.okonx_id;
+                reg.OKONX_NAME = model.okonx_name;
+                reg.BRANCH_CODE = model.branch_code;
+                reg.BRANCH_NAME = model.branch_name;
 
                 var planOtrasl = db.tbbu_ecp_calc.Add(reg);
 
                 try
                 {
+                    Console.WriteLine("SaveChanges");
                     db.SaveChanges();
 
                     model.id = reg.ID;
@@ -50,7 +54,10 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.Provodki.AutomaticTransactions.K
                     }
                     throw;
                 }
-            }
+                catch(Exception ex)
+                {
+                    Console.WriteLine(ex.ToString());
+                }
         }
 
         public static void Modify(EcpCalcViewModel model)

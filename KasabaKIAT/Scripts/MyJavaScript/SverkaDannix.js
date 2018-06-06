@@ -1,4 +1,4 @@
-﻿app.controller("SverkaDannix", ["$scope", "$http", "$filter", "DataService", "CalcService", function ($scope, $http, $filter, DataService, CalcService) {
+﻿app.controller("SverkaDannix", ["$scope", "$http", "$filter", "$sce", "DataService", "CalcService", function ($scope, $http, $filter, $sce ,DataService, CalcService) {
     //LoadDATA();
 
 
@@ -33,6 +33,10 @@
 
 
     $scope.SaveDATA = function () {
+        document.getElementById('connection').style.visibility = "visible";
+        $("#hh").modal({
+            backdrop: 'static'
+        });
         var SaveData = new FormData();
         var Savefile = $scope.SelectedFileForUpload;
         SaveData.append('UploadedFile', Savefile);
@@ -68,10 +72,16 @@
             else {
                 console.log(d.data);
             }
+
+            document.getElementById('connection').style.visibility = "hidden";
+            $("#hh").modal('hide');
         }, function (err) {
             alertify.error("ошибка : " + err.data);
             console.log(err.data);
             console.log("error in parse excel");
+
+            document.getElementById('connection').style.visibility = "hidden";
+            $("#hh").modal('hide');
         });
     }
 
@@ -134,6 +144,29 @@
 
         MATCH_DEPARTMENTBASE: '',
         ProfsoyzNaimenovanie: ''
+    };
+
+    $scope.highlight = function (newElem ,  oldElem) {
+        //haystack, needle
+        //if (!needle) {
+        //    return $sce.trustAsHtml(haystack);
+        //}
+        //return $sce.trustAsHtml(haystack.replace(new RegExp(needle, "gi"), function (match) {
+        //    return '<span class="highlightedText">' + match + '</span>';
+        //}));
+
+        var newText = newElem;
+        var oldText = oldElem;
+
+        var text = "";
+        newText.split("").forEach(function (value, index) {
+            if (value != oldText.charAt(index))
+                text += '<span class="highlightedText">' + value + '</span>';
+            else
+                text += value;
+        });
+
+        return $sce.trustAsHtml(text);
     };
 
     $scope.DownloadTemplate =  function() {

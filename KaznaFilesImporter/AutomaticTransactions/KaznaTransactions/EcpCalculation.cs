@@ -11,6 +11,9 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.Provodki.AutomaticTransactions.K
 {
     public class EcpCalculation
     {
+        /// <summary>
+        /// 
+        /// </summary>
         public void CalcProcess()
         {
             var _logService = new FileLogService(typeof(Program));
@@ -35,10 +38,10 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.Provodki.AutomaticTransactions.K
 
                         string innFromDtl = string.Empty;
 
-                        foreach (var payment in procList)
+                        foreach (var payment in procList.ToList())
                         {
-                            Console.WriteLine(payment.ID);
-                            Console.WriteLine(payment.PURPOSE);
+                            Console.WriteLine(DateTime.Now.ToLongTimeString() +  payment.ID);
+                            Console.WriteLine(DateTime.Now.ToLongTimeString() + payment.PURPOSE);
 
                             //Clear Model
                             innFromDtl = string.Empty;
@@ -50,8 +53,18 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.Provodki.AutomaticTransactions.K
                             model.profsouz_amt = 0;
                             model.provodka_id = 0;
                             model.remark = string.Empty;
+                            model.inn = string.Empty;
+                            model.soato = string.Empty;
+                            model.soato_name = string.Empty;
+                            model.operdate = null;
+                            model.okonx_id = string.Empty;
+                            model.okonx_name = string.Empty;
+                            model.branch_code = string.Empty;
+                            model.branch_name = string.Empty;
 
+                            //Filling
                             model.payment_id = (long)payment.ID;
+                            model.operdate = payment.OPERDAY;
 
                             //Inn Parsing
                             #region Inn Parsing
@@ -88,7 +101,7 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.Provodki.AutomaticTransactions.K
 
                                 var posOfInn = payment.PURPOSE.ToUpper().IndexOf("ИНН");
 
-                                foreach (var srt in Inns)
+                                foreach (var srt in Inns.ToList())
                                 {
                                     if (!(srt.StartsWith("2") || (srt.StartsWith("3"))))
                                         continue;
@@ -112,7 +125,7 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.Provodki.AutomaticTransactions.K
 
                                 var posOfInn = payment.PURPOSE.ToUpper().IndexOf("INN");
 
-                                foreach (var srt in Inns)
+                                foreach (var srt in Inns.ToList())
                                 {
                                     if (!(srt.StartsWith("2") || (srt.StartsWith("3"))))
                                         continue;
@@ -136,7 +149,7 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.Provodki.AutomaticTransactions.K
 
                                 var posOfInn = payment.PURPOSE.ToUpper().IndexOf("СТИР");
 
-                                foreach (var srt in Inns)
+                                foreach (var srt in Inns.ToList())
                                 {
                                     if (!(srt.StartsWith("2") || (srt.StartsWith("3"))))
                                         continue;
@@ -160,7 +173,7 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.Provodki.AutomaticTransactions.K
 
                                 var posOfInn = payment.PURPOSE.ToUpper().IndexOf("STIR");
 
-                                foreach (var srt in Inns)
+                                foreach (var srt in Inns.ToList())
                                 {
                                     if (!(srt.StartsWith("2") || (srt.StartsWith("3"))))
                                         continue;
@@ -213,37 +226,9 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.Provodki.AutomaticTransactions.K
                                 blackListInn.Add(payment.CLINN);
                             }
 
-                            //if (payment.CLINN.Contains("000000000"))
-                            //{
-                            //    string[] numbers = Regex.Split(payment.PURPOSE, @"\D+");
-
-                            //    //First 9 digit number As INN
-                            //    var Inn = numbers.FirstOrDefault(x => x.Length == 9);
-
-                            //    if (Inn != null)
-                            //    {
-                            //        payment.CLINN = Inn;
-                            //    }
-                            //}
-                            //else if (payment.CLINN.Equals(payment.COINN))
-                            //{
-                            //    string[] numbers = Regex.Split(payment.PURPOSE, @"\D+");
-
-                            //    //First 9 digit number As INN
-                            //    var Inn = numbers.FirstOrDefault(x => x.Length == 9);
-
-                            //    if (Inn != null)
-                            //    {
-                            //        payment.CLINN = Inn;
-                            //    }
-                            //}
-                            //else
-                            //{
-
-                            //}
-
                             #endregion
 
+                            Console.WriteLine("Formula Calculation");
                             //Formula Calculation
                             #region Formula Calculation
 
@@ -284,223 +269,311 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.Provodki.AutomaticTransactions.K
 
                             //Define region 1 stage in detail we mostly have Kaznacheystvo Account which contains soato
 
-                            string str = string.Empty;
+                            #region Oblast and Tuman Difinition
+                            Console.WriteLine(DateTime.Now.ToLongTimeString() + " Oblast and Tuman Difinition");
+                            var ppp = db.tblPreds.Where(p => p.Departmentbase == "17");
 
-                            if (!string.IsNullOrEmpty(payment.PURPOSE))
+                            string federationAccount = string.Empty;
+
+                            if (ppp.Any())
                             {
-                                if (payment.PURPOSE.Length >= 31)
-                                {
-                                    str = payment.PURPOSE.Substring(6, 25).Substring(10, 5);
-                                }
+                                federationAccount = ppp.First().KaznaAccount;
                             }
 
-                            //var str = payment.PURPOSE.Substring(6, 25).Substring(10, 5);
-
-                            var prepsoato = string.Format("{0}{1}", "17", str);
-
-                            var soatoExists = db.tbsp_soato_new.Where(x => x.KODI == prepsoato);
-
-                            if (soatoExists.Any())
+                            var bankDatas = db.KaznaBankFiles.Where(k => k.GRPID == payment.GRPID);
+                            Console.WriteLine(DateTime.Now.ToLongTimeString() +  " Oblast and Tuman Difinition2222");
+                            if (bankDatas.Any())
                             {
-                                var soato = soatoExists.First().KODI;
-                                var soato_nm = soatoExists.First().NAME_RU;
-                                model.remark += string.Format("SOATO:{0};SOATO_NAME:{1};", soato, soato_nm);
+                                var KKK = bankDatas.Where(ll => ll.COACC != federationAccount);
 
-                                if (prepsoato.Length >= 4)
+                                if (!KKK.Any()) continue;
+
+                                var bank = KKK.First();
+
+                                var preds = db.tblPreds.Where(p => p.KaznaAccount == bank.COACC);
+
+                                if (preds.Any())
                                 {
-                                    model.obl_department_base = string.Format("{0}{1}{2}", prepsoato.Substring(0, 2), "2", prepsoato.Substring(2, 2));
-                                }
-                                model.soato = soato;
-                                model.soato_name = soato_nm;
-                            }
-                            else
-                            {
-                                string[] numbers = Regex.Split(payment.PURPOSE, @"\D+");
-
-                                //First 9 digit number As INN
-                                var Inns = numbers.Where(x => x.Length == 27);
-
-                                if (Inns.Any())
-                                {
-
-                                    string str2 = string.Empty;
-
-                                    if (!string.IsNullOrEmpty(payment.PURPOSE))
-                                    {
-                                        if (payment.PURPOSE.Length >= 33)
-                                        {
-                                            str = str2 = payment.PURPOSE.Substring(6, 27).Substring(9, 5);
-                                        }
-                                    }
-
-                                    //var str2 = payment.PURPOSE.Substring(6, 27).Substring(9, 5);
-
-                                    var prepsoato2 = string.Format("{0}{1}", "17", str2);
-
-                                    var soatoExists2 = db.tbsp_soato_new.Where(x => x.KODI == prepsoato2);
-
-                                    if (soatoExists2.Any())
-                                    {
-                                        //model.remark += string.Format("SOATO:{0};SOATO_NAME:{1};", soatoExists2.First().KODI, soatoExists2.First().NAME_RU);
-                                        //model.obl_department_base = string.Format("{0}{1}{2}", prepsoato2.Substring(0, 2), "2", prepsoato2.Substring(2, 2));
-
-                                        var soato = soatoExists2.First().KODI;
-                                        var soato_nm = soatoExists2.First().NAME_RU;
-                                        model.remark += string.Format("SOATO:{0};SOATO_NAME:{1};", soato, soato_nm);
-
-                                        if (prepsoato.Length >= 4)
-                                        {
-                                            model.obl_department_base = string.Format("{0}{1}{2}", prepsoato.Substring(0, 2), "2", prepsoato.Substring(2, 2));
-                                        }
-
-                                        //model.obl_department_base = string.Format("{0}{1}{2}", prepsoato.Substring(0, 2), "2", prepsoato.Substring(2, 2));
-                                        model.soato = soato;
-                                        model.soato_name = soato_nm;
-                                    }
+                                    model.obl_department_base = preds.First().Departmentbase;
                                 }
                             }
+                            Console.WriteLine(DateTime.Now.ToLongTimeString() +  " Oblast and Tuman Difinition333333");
+                            var egrpos = db.t_egrpo.Where(e => e.inn == innFromDtl);
 
-                            if (payment.CLINN.Equals(innFromDtl))
+                            if (egrpos.Any())
                             {
-                                var egrpo = db.t_egrpo.Where(z => z.inn == payment.CLINN);
+                                var org = egrpos.First();
 
-                                string nibddNumber1 = string.Empty;
+                                model.soato = org.soato_id;
 
-                                if (!string.IsNullOrEmpty(payment.CLACC))
+                                if (!string.IsNullOrEmpty(model.soato))
                                 {
-                                    if (payment.CLACC.Length >= 17)
+                                    var lll = db.tbsp_soato_new.Where(s => s.KODI == model.soato).FirstOrDefault();
+
+                                    if (lll != null)
                                     {
-                                        nibddNumber1 = payment.CLACC.Substring(9, 8);
+                                        model.soato_name = lll.NAME_RU;
+                                    }
+                                    else
+                                    {
+                                        model.soato_name = string.Empty;
                                     }
                                 }
-
-                                //var nibddNumber1 = payment.CLACC.Substring(9, 8);
-
-                                var fermer1 = db.tbbFermers.Where(z => z.INN == nibddNumber1);
-
-                                if (fermer1.Any())
+                                Console.WriteLine(DateTime.Now.ToLongTimeString() + " Oblast and Tuman Difinition4444444");
+                                if (!string.IsNullOrEmpty(org.okonx_id))
                                 {
-                                    model.remark += string.Format("{0}-{1}", fermer1.First().ID, "TASHKENT");
-                                }
+                                    model.okonx_id = org.okonx_id;
 
+                                    var okonx = db.sp_okonx.Where(o => o.code == org.okonx_id).First();
 
-                                if (egrpo.Any())
-                                {
-                                    var egrpo1 = egrpo.First();
-
-                                    if (!string.IsNullOrEmpty(egrpo1.soato_id))
+                                    model.okonx_name = okonx.name_ru;
+                                    Console.WriteLine(DateTime.Now.ToLongTimeString() +  " Oblast and Tuman Difinition5555555");
+                                    if (!string.IsNullOrEmpty(okonx.branch_code))
                                     {
-                                        if (egrpo1.soato_id.Length >= 4)
-                                        {
-
-                                            var soatoTmp = string.Format("{0}{1}{2}", egrpo1.soato_id.Substring(0, 2), "2", egrpo1.soato_id.Substring(2, 2));
-                                            model.obl_department_base = soatoTmp;
-                                        }
-                                    }
-                                }
-                                else
-                                {
-                                    if (!string.IsNullOrEmpty(payment.CLACC))
-                                    {
-
-                                        string nibddNumber = string.Empty;
-
-                                        if (!string.IsNullOrEmpty(payment.CLACC))
-                                        {
-                                            if (payment.CLACC.Length >= 17)
-                                            {
-                                                nibddNumber = payment.CLACC.Substring(9, 8);
-                                            }
-                                        }
-
-                                        //var nibddNumber = payment.CLACC.Substring(9, 8);
-
-                                        var fermer = db.tbbFermers.Where(z => z.INN == nibddNumber);
-
-                                        //This is Tashkent
-                                        if (fermer.Any())
-                                        {
-                                            model.obl_department_base = "17226";
-                                            //
-                                        }
+                                        model.branch_code = okonx.branch_code;
+                                        Console.WriteLine(DateTime.Now.ToLongTimeString() + " Oblast and Tuman Difinition66666666");
+                                        model.branch_name = db.sp_branch.Where(b => b.code == okonx.branch_code).First().name_ru;
                                     }
                                 }
                             }
                             else
                             {
-                                var egrpo = db.t_egrpo.Where(z => z.inn == innFromDtl);
+                                //add to egrpo
+                                var ee = new t_egrpo();
+                                Console.WriteLine(DateTime.Now.ToLongTimeString() + " Oblast and Tuman Difinition777777777");
+                                ee.version = 0;
+                                ee.inn = innFromDtl;
+                                ee.name_full = payment.CLNAME;
 
-                                string nibddNumber1 = string.Empty;
+                                db.t_egrpo.Add(ee);
 
-                                if (!string.IsNullOrEmpty(payment.CLACC))
-                                {
-                                    if (payment.CLACC.Length >= 17)
-                                    {
-                                        nibddNumber1 = payment.CLACC.Substring(9, 8);
-                                    }
-                                }
-
-
-                                //var nibddNumber1 = payment.CLACC.Substring(9, 8);
-
-                                var fermer1 = db.tbbFermers.Where(z => z.INN == nibddNumber1);
-
-                                if (fermer1.Any())
-                                {
-                                    model.remark += string.Format("{0}-{1}", fermer1.First().ID, "TASHKENT");
-                                }
-
-
-                                if (egrpo.Any())
-                                {
-                                    var egrpo1 = egrpo.First();
-
-                                    if (!string.IsNullOrEmpty(egrpo1.soato_id))
-                                    {
-                                        if (egrpo1.soato_id.Length >= 4)
-                                        {
-
-                                            var soatoTmp = string.Format("{0}{1}{2}", egrpo1.soato_id.Substring(0, 2), "2", egrpo1.soato_id.Substring(2, 2));
-                                            model.obl_department_base = soatoTmp;
-                                        }
-                                    }
-                                }
-                                else
-                                {
-                                    if (!string.IsNullOrEmpty(payment.CLACC))
-                                    {
-                                        string nibddNumber = string.Empty;
-
-                                        if (!string.IsNullOrEmpty(payment.CLACC))
-                                        {
-                                            if (payment.CLACC.Length >= 17)
-                                            {
-                                                nibddNumber = payment.CLACC.Substring(9, 8);
-                                            }
-                                        }
-
-                                        //var nibddNumber = payment.CLACC.Substring(9, 8);
-
-                                        var fermer = db.tbbFermers.Where(z => z.INN == nibddNumber);
-
-                                        //This is Tashkent
-                                        if (fermer.Any())
-                                        {
-                                            model.obl_department_base = "17226";
-                                            //
-                                        }
-                                    }
-                                }
+                                //db.SaveChanges();
                             }
-
 
                             #endregion
 
-                            EcpCalcDataManager.Create(ref model);
+
+                            #region OLD_Code
+                            //string str = string.Empty;
+
+                            //if (!string.IsNullOrEmpty(payment.PURPOSE))
+                            //{
+                            //    if (payment.PURPOSE.Length >= 31)
+                            //    {
+                            //        str = payment.PURPOSE.Substring(6, 25).Substring(10, 5);
+                            //    }
+                            //}
+
+                            ////var str = payment.PURPOSE.Substring(6, 25).Substring(10, 5);
+
+                            //var prepsoato = string.Format("{0}{1}", "17", str);
+
+                            //var soatoExists = db.tbsp_soato_new.Where(x => x.KODI == prepsoato);
+
+                            //if (soatoExists.Any())
+                            //{
+                            //    var soato = soatoExists.First().KODI;
+                            //    var soato_nm = soatoExists.First().NAME_RU;
+                            //    model.remark += string.Format("SOATO:{0};SOATO_NAME:{1};", soato, soato_nm);
+
+                            //    if (prepsoato.Length >= 4)
+                            //    {
+                            //        model.obl_department_base = string.Format("{0}{1}{2}", prepsoato.Substring(0, 2), "2", prepsoato.Substring(2, 2));
+                            //    }
+                            //    model.soato = soato;
+                            //    model.soato_name = soato_nm;
+                            //}
+                            //else
+                            //{
+                            //    string[] numbers = Regex.Split(payment.PURPOSE, @"\D+");
+
+                            //    //First 9 digit number As INN
+                            //    var Inns = numbers.Where(x => x.Length == 27);
+
+                            //    if (Inns.Any())
+                            //    {
+
+                            //        string str2 = string.Empty;
+
+                            //        if (!string.IsNullOrEmpty(payment.PURPOSE))
+                            //        {
+                            //            if (payment.PURPOSE.Length >= 33)
+                            //            {
+                            //                str = str2 = payment.PURPOSE.Substring(6, 27).Substring(9, 5);
+                            //            }
+                            //        }
+
+                            //        //var str2 = payment.PURPOSE.Substring(6, 27).Substring(9, 5);
+
+                            //        var prepsoato2 = string.Format("{0}{1}", "17", str2);
+
+                            //        var soatoExists2 = db.tbsp_soato_new.Where(x => x.KODI == prepsoato2);
+
+                            //        if (soatoExists2.Any())
+                            //        {
+                            //            //model.remark += string.Format("SOATO:{0};SOATO_NAME:{1};", soatoExists2.First().KODI, soatoExists2.First().NAME_RU);
+                            //            //model.obl_department_base = string.Format("{0}{1}{2}", prepsoato2.Substring(0, 2), "2", prepsoato2.Substring(2, 2));
+
+                            //            var soato = soatoExists2.First().KODI;
+                            //            var soato_nm = soatoExists2.First().NAME_RU;
+                            //            model.remark += string.Format("SOATO:{0};SOATO_NAME:{1};", soato, soato_nm);
+
+                            //            if (prepsoato.Length >= 4)
+                            //            {
+                            //                model.obl_department_base = string.Format("{0}{1}{2}", prepsoato.Substring(0, 2), "2", prepsoato.Substring(2, 2));
+                            //            }
+
+                            //            //model.obl_department_base = string.Format("{0}{1}{2}", prepsoato.Substring(0, 2), "2", prepsoato.Substring(2, 2));
+                            //            model.soato = soato;
+                            //            model.soato_name = soato_nm;
+                            //        }
+                            //    }
+                            //}
+
+                            //if (payment.CLINN.Equals(innFromDtl))
+                            //{
+                            //    var egrpo = db.t_egrpo.Where(z => z.inn == payment.CLINN);
+
+                            //    string nibddNumber1 = string.Empty;
+
+                            //    if (!string.IsNullOrEmpty(payment.CLACC))
+                            //    {
+                            //        if (payment.CLACC.Length >= 17)
+                            //        {
+                            //            nibddNumber1 = payment.CLACC.Substring(9, 8);
+                            //        }
+                            //    }
+
+                            //    //var nibddNumber1 = payment.CLACC.Substring(9, 8);
+
+                            //    var fermer1 = db.tbbFermers.Where(z => z.INN == nibddNumber1);
+
+                            //    if (fermer1.Any())
+                            //    {
+                            //        model.remark += string.Format("{0}-{1}", fermer1.First().ID, "TASHKENT");
+                            //    }
+
+
+                            //    if (egrpo.Any())
+                            //    {
+                            //        var egrpo1 = egrpo.First();
+
+                            //        if (!string.IsNullOrEmpty(egrpo1.soato_id))
+                            //        {
+                            //            if (egrpo1.soato_id.Length >= 4)
+                            //            {
+
+                            //                var soatoTmp = string.Format("{0}{1}{2}", egrpo1.soato_id.Substring(0, 2), "2", egrpo1.soato_id.Substring(2, 2));
+                            //                model.obl_department_base = soatoTmp;
+                            //            }
+                            //        }
+                            //    }
+                            //    else
+                            //    {
+                            //        if (!string.IsNullOrEmpty(payment.CLACC))
+                            //        {
+
+                            //            string nibddNumber = string.Empty;
+
+                            //            if (!string.IsNullOrEmpty(payment.CLACC))
+                            //            {
+                            //                if (payment.CLACC.Length >= 17)
+                            //                {
+                            //                    nibddNumber = payment.CLACC.Substring(9, 8);
+                            //                }
+                            //            }
+
+                            //            //var nibddNumber = payment.CLACC.Substring(9, 8);
+
+                            //            var fermer = db.tbbFermers.Where(z => z.INN == nibddNumber);
+
+                            //            //This is Tashkent
+                            //            if (fermer.Any())
+                            //            {
+                            //                model.obl_department_base = "17226";
+                            //                //
+                            //            }
+                            //        }
+                            //    }
+                            //}
+                            //else
+                            //{
+                            //    var egrpo = db.t_egrpo.Where(z => z.inn == innFromDtl);
+
+                            //    string nibddNumber1 = string.Empty;
+
+                            //    if (!string.IsNullOrEmpty(payment.CLACC))
+                            //    {
+                            //        if (payment.CLACC.Length >= 17)
+                            //        {
+                            //            nibddNumber1 = payment.CLACC.Substring(9, 8);
+                            //        }
+                            //    }
+
+
+                            //    //var nibddNumber1 = payment.CLACC.Substring(9, 8);
+
+                            //    var fermer1 = db.tbbFermers.Where(z => z.INN == nibddNumber1);
+
+                            //    if (fermer1.Any())
+                            //    {
+                            //        model.remark += string.Format("{0}-{1}", fermer1.First().ID, "TASHKENT");
+                            //    }
+
+
+                            //    if (egrpo.Any())
+                            //    {
+                            //        var egrpo1 = egrpo.First();
+
+                            //        if (!string.IsNullOrEmpty(egrpo1.soato_id))
+                            //        {
+                            //            if (egrpo1.soato_id.Length >= 4)
+                            //            {
+
+                            //                var soatoTmp = string.Format("{0}{1}{2}", egrpo1.soato_id.Substring(0, 2), "2", egrpo1.soato_id.Substring(2, 2));
+                            //                model.obl_department_base = soatoTmp;
+                            //            }
+                            //        }
+                            //    }
+                            //    else
+                            //    {
+                            //        if (!string.IsNullOrEmpty(payment.CLACC))
+                            //        {
+                            //            string nibddNumber = string.Empty;
+
+                            //            if (!string.IsNullOrEmpty(payment.CLACC))
+                            //            {
+                            //                if (payment.CLACC.Length >= 17)
+                            //                {
+                            //                    nibddNumber = payment.CLACC.Substring(9, 8);
+                            //                }
+                            //            }
+
+                            //            //var nibddNumber = payment.CLACC.Substring(9, 8);
+
+                            //            var fermer = db.tbbFermers.Where(z => z.INN == nibddNumber);
+
+                            //            //This is Tashkent
+                            //            if (fermer.Any())
+                            //            {
+                            //                model.obl_department_base = "17226";
+                            //                //
+                            //            }
+                            //        }
+                            //    }
+                            //}
+                            #endregion
+
+                            #endregion
+                            Console.WriteLine(DateTime.Now.ToLongTimeString() + " Oblast and Tuman Difinition88888888");
+                            EcpCalcDataManager.Create(ref model, db);
 
                         }
                     }
 
+                    return;
+
+                    #region Provodki
                     var provodki = new Provodki();
 
                     var trans = new ProvodkiViewModel();
@@ -636,6 +709,8 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.Provodki.AutomaticTransactions.K
                         }
                     }
 
+                    #endregion
+
                 }
             }
             catch(Exception ex)
@@ -644,5 +719,60 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.Provodki.AutomaticTransactions.K
                 Console.WriteLine(ex.ToString());
             }
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public void ModifyEcpObl()
+        {
+            using (KasabaKIATEntities db = new KasabaKIATEntities())
+            {
+                var resList = db.sp_pr_GetNewECPMOIFY();
+
+                foreach(var ecp in resList.ToList())
+                {
+                    var payment = db.KaznaPaymentFiles.Where(p => p.ID == ecp.PAYMENT_ID).First();
+
+                    var ppp = db.tblPreds.Where(p => p.Departmentbase == "17");
+
+                    string federationAccount = string.Empty;
+
+                    if (ppp.Any())
+                    {
+                        federationAccount = ppp.First().KaznaAccount;
+                    }
+
+                    var bankDatas = db.KaznaBankFiles.Where(k => k.GRPID == payment.GRPID);
+
+                    if (bankDatas.Any())
+                    {
+                        var KKK = bankDatas.Where(ll => ll.COACC != federationAccount);
+
+                        if (!KKK.Any()) continue;
+
+                        var bank = KKK.First();
+
+                        var preds = db.tblPreds.Where(p => p.KaznaAccount == bank.COACC);
+
+                        if (preds.Any())
+                        {
+                            var ecpMM = db.tbbu_ecp_calc.Where(e => e.ID == ecp.ID);
+
+                            if (ecpMM.Any())
+                            {
+                                var ecpMM1 = ecpMM.First();
+
+                                ecpMM1.OBL_DEPARTMENT_BASE = preds.First().Departmentbase;
+                            }
+                        }
+
+
+                    }
+                }
+
+                db.SaveChanges();
+            }
+        }
+
     }
 }

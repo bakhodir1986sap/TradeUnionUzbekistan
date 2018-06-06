@@ -111,18 +111,18 @@
             <table class="table table__block t-hover">
                 <thead>
                     <tr>
-                        <th>Тип строки</th>
+                        @*<th>Тип строки</th>*@
                         <th>Банковский опердень</th>
-                        <th>
+                        @*<th>
                             Уникальный <br />
                             ID поступления в <br />
                             казначействе
-                        </th>
-                        <th>Уникальный ID банка</th>
-                        <th>
+                        </th>*@
+                        @*<th>Уникальный ID банка</th>*@
+                        @*<th>
                             Казначейский лицевой <br />
                             счет дохода
-                        </th>
+                        </th>*@
                         <th>Номер документа</th>
                         <th>Дата документа</th>
                         <th>Тип документа</th>
@@ -154,19 +154,19 @@
                             плательщика
                         </th>
                         <th>ОКОНХ плательщика</th>
-                        <th>Файл ИД</th>
+                        @*<th>Файл ИД</th>
                         <th>Отчислен</th>
                         <th>Имя файла</th>
-                        <th>Дата создания файла</th>
+                        <th>Дата создания файла</th>*@
                     </tr>
                 </thead>
                 <tbody>
                     <tr class="poin" ng-repeat="item in DATA">
-                        <td style="text-align:center">{{item.d1}}</td>
+                        @*<td style="text-align:center">{{item.d1}}</td>*@
                         <td style="text-align:center">{{item.d2 | jsonDate: 'dd.MM.yyyy'}}</td>
-                        <td style="text-align:center">{{item.d3}}</td>
+                        @*<td style="text-align:center">{{item.d3}}</td>
                         <td style="text-align:center">{{item.d4}}</td>
-                        <td style="text-align:center">{{item.d5}}</td>
+                        <td style="text-align:center">{{item.d5}}</td>*@
                         <td style="text-align:center">{{item.d6}}</td>
                         <td style="text-align:center">{{item.d7 | jsonDate: 'dd.MM.yyyy'}}</td>
                         <td style="text-align:center">{{item.d8}}</td>
@@ -182,10 +182,10 @@
                         <td style="text-align:center">{{item.d18}}</td>
                         <td style="text-align:center">{{item.d19}}</td>
                         <td style="text-align:center">{{item.d20}}</td>
-                        <td style="text-align:center">{{item.d21}}</td>
+                        @*<td style="text-align:center">{{item.d21}}</td>
                         <td style="text-align:center">{{item.d22}}</td>
                         <td style="text-align:center">{{item.d23}}</td>
-                        <td style="text-align:center">{{item.d24 | jsonDate: 'dd.MM.yyyy'}}</td>
+                        <td style="text-align:center">{{item.d24 | jsonDate: 'dd.MM.yyyy'}}</td>*@
                     </tr>
                 </tbody>
             </table>

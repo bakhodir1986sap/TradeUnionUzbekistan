@@ -46,6 +46,10 @@ namespace KasabaKiat.ViewModel
         public string Kuk_qarori { get; set; }
 
         public long userid { get; set; }
+
+        public string inn { get; set; }
+
+        public string pnfl { get; set; }
     }
 
     public class ZayavkiModel

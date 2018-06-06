@@ -87,22 +87,25 @@
                     <h4>Подача заявок</h4>
                     <nav aria-label="breadcrumb" class="breadcrumb__block">
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item load"><a href="/Home/Zayavok">Заяки</a></li>
+                            <li class="breadcrumb-item load"><a href="/Home/Zayavok">Заявки</a></li>
                             <li class="breadcrumb-item active" aria-current="page">Подача заявок</li>
                         </ol>
                     </nav>
                 </div>
+                
                 <div class="col-sm-6 text-md-right">
                     <button ng-click="AddPZDiv()" class="btn btn-blue d-block d-md-inline-block mb-3 mb-md-0" data-toggle="modal" data-target="#dobavit"><i class="fas fa-plus"></i> Добавить</button>
-                    <button class="btn btn-green d-block d-md-inline-block mb-3 mb-md-0"><i class="fas fa-file-excel"></i> Загрузить</button>
+                    @*<button class="btn btn-green d-block d-md-inline-block mb-3 mb-md-0"><i class="fas fa-file-excel"></i> Загрузить</button>*@
                     <button ng-show="PZdiv" ng-click="exportData()" class="btn btn-green d-block d-md-inline-block mb-3 mb-md-0"><i class="fas fa-file-excel"></i> Экспорт</button>
+                    <input width="50" type="file" ng-model="fZayavkiLoad" name="ZayavkiLoad" onchange="angular.element(this).scope().UploadFilesZayavkiLoad(this.files)">
+                    @Html.ActionLink("Загрузить Шаблон", "DownloadZayavkaTempl", "Home")<br /><br />
                 </div>
             </div>
-            <span>Вышестоящая организация:</span>
-            <span ng-bind="UpperOrganization"></span><br />
+            <span style="margin: 2px">Вышестоящая организация:</span>
+            <b><span style="margin: 2px" ng-bind="UpperOrganization"></span></b><br />
             <form class="form-group  justify-content-end" name="myForm" novalidate>
                 <div class="col-md-7">
-                    <div class="custom-control custom-radio custom-control-inline">
+                    <div class="custom-control custom-radio custom-control-inline" hidden>
                         <input type="radio" ng-model="ss" required ng-change="LoadSC()" name="inlineRadioOptionss" id="inlineRadios1" value="option1s" class="custom-control-input" checked="" />
                         <label for="inlineRadios1" class="custom-control-label">Санаторий</label>
                     </div>
@@ -170,7 +173,7 @@
                                 <div class="form-group row align-items-center">
                                     <label class="col-md-5 col-form-label py-0">Начало заезда:</label>
                                     <div class="col-md-7">
-                                        <input type="date" class="custom-select  form-control" ng-model="ZB" />
+                                        <input type="date" class="form-control" ng-model="ZB" />
                                     </div>
                                 </div>
                                 <div class="form-group row align-items-center">

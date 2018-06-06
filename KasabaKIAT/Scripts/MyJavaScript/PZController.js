@@ -71,6 +71,63 @@
         })
     }
 
+
+    $scope.SelectedFileZayavkiLoad = null;
+
+    $scope.UploadFilesZayavkiLoad = function (files) {
+        $scope.$apply(function () {
+            $scope.MessageZayavkiLoad = '';
+            $scope.SelectedFileZayavkiLoad = files[0];
+            $scope.SaveFilesZayavkaTempl();
+        })
+    }
+
+
+    $scope.SaveFilesZayavkaTempl = function () {
+
+        document.getElementById('connection').style.visibility = "visible";
+        $("#hh").modal({
+            backdrop: 'static'
+        });
+
+        var SaveData = new FormData();
+        var SaveZayavki = $scope.SelectedFileZayavkiLoad;
+        SaveData.append('ZayavkiLoad', SaveZayavki);
+
+        alertify.success("Операция выполняется");
+        $http({
+            method: "post",
+            withCredentials: true,
+            url: '/Home/ReadFileZayavki',
+            data: SaveData,
+            headers: {
+                'Content-Type': undefined
+            },
+            transformRequest: angular.identity
+        }).then(function (d) {
+            $scope.showdata = false;
+            if (d.data == "error") {
+                alertify.error("ошибка");
+            } else if (d.data == "success") {
+                alertify.success("Файл удачно загружен");
+                GetPZ_S($scope.SCFilter.id);
+            }
+            else {
+                console.log(d.data);
+            }
+
+            document.getElementById('connection').style.visibility = "hidden";
+            $("#hh").modal('hide');
+        }, function (err) {
+            alertify.error("ошибка : " + err.data);
+            console.log(err.data);
+            console.log("error in load file");
+
+            document.getElementById('connection').style.visibility = "hidden";
+            $("#hh").modal('hide');
+        });
+    }
+
     $scope.SelectedFileVocationOrder = null;
 
     $scope.UploadFilesVocationOrder = function (files) {

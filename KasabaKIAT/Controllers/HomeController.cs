@@ -1,4 +1,5 @@
-﻿using KasabaKiat.Helpers;
+﻿using KasabaKiat.BusinessLogic.Zayavki;
+using KasabaKiat.Helpers;
 using KasabaKiat.ViewModel;
 using KasabaKIAT.BusinessLogic.Putyovki.Rekviziti;
 using KasabaKIAT.BusinessLogic.Putyovki.Zayavki;
@@ -6,6 +7,7 @@ using KasabaKIAT.BusinessLogic.Structure;
 using KasabaKIAT.Models;
 using KasabaKIAT.ViewModel.Putyovki;
 using log4net;
+using OfficeOpenXml;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity.Validation;
@@ -2024,7 +2026,10 @@ namespace KasabaKIAT.Controllers
                 {
                     int UserId = Convert.ToInt32(User.Identity.Name);
                     //int bookId = Convert.ToInt32(pz.REC_ID);
-                    var bb = from a in KasabaDB.tbpt_zayavki where a.USER_ID == UserId select a;
+                    var bb = from a in KasabaDB.tbpt_zayavki
+                             where a.USER_ID == UserId && a.STATUS == "0"
+                             select a;
+
                     foreach (var v in bb)
                     {
                         tbpt_zayavki _gz = contextObj.tbpt_zayavki.Where(b => b.REC_ID == v.REC_ID).FirstOrDefault();
@@ -2040,6 +2045,173 @@ namespace KasabaKIAT.Controllers
             }
 
             return "";
+        }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public FileResult DownloadZayavkaTempl()
+        {
+            var ArxiveDirectory = Properties.Settings.Default.TemplateDir;
+
+            var targetFile = Path.Combine(ArxiveDirectory, "zayavki.xlsx");
+
+            if (!System.IO.File.Exists(targetFile)) return null;
+
+            byte[] fileBytes = System.IO.File.ReadAllBytes(targetFile);
+            string fileName = "zayavki.xlsx";
+            return File(fileBytes, "application/vnd.ms-excel", fileName);
+        }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="formCollection"></param>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public JsonResult ReadFileZayavki(FormCollection formCollection)
+        {
+            int UserId = Convert.ToInt32(User.Identity.Name);
+            var ustinfo = UserInfo.GetUserInfo(UserId);
+
+            log.Info("ReadFileZayavki");
+            try
+            {
+                if (Request != null)
+                {
+                    HttpPostedFileBase file = Request.Files["ZayavkiLoad"];
+                    if ((file != null) && (file.ContentLength > 0) && !string.IsNullOrEmpty(file.FileName))
+                    {
+                        string fileName = file.FileName;
+                        string fileContentType = file.ContentType;
+                        byte[] fileBytes = new byte[file.ContentLength];
+                        var data = file.InputStream.Read(fileBytes, 0, Convert.ToInt32(file.ContentLength));
+                        using (var package = new ExcelPackage(file.InputStream))
+                        {
+                            var currentSheet = package.Workbook.Worksheets;
+                            var workSheet = currentSheet.First();
+                            var noOfCol = workSheet.Dimension.End.Column;
+                            var noOfRow = workSheet.Dimension.End.Row;
+
+                            for (int rowIterator = 2; rowIterator <= noOfRow; rowIterator++)
+                            {
+                                var zayavka = new ZayavkiViewModel();
+
+                                zayavka.userid = UserId;
+                                zayavka.departmentCode = ustinfo.DepartmentBase;
+
+                                try
+                                {
+                                    var sanatName = workSheet.Cells[rowIterator, 1].Value.ToString();
+
+                                    var sanats = KasabaDB.tblSprav_San.Where(ss => ss.Name_San == sanatName);
+
+                                    if (sanats.Any())
+                                    {
+                                        zayavka.SanatoryId = sanats.First().ID;
+                                    }
+                                    else
+                                    {
+                                        zayavka.SanatoryId = 2;
+                                    }
+
+                                    string str = workSheet.Cells[rowIterator, 2].Value.ToString();
+                                    string[] format = { "dd.MM.yyyy" };
+                                    DateTime date;
+
+                                    if (!string.IsNullOrEmpty(str))
+                                    {
+                                        if (str.Length >= 10)
+                                        {
+                                            if (DateTime.TryParseExact(str.Substring(0, 10),
+                                                                   format,
+                                                                   System.Globalization.CultureInfo.InvariantCulture,
+                                                                   System.Globalization.DateTimeStyles.None,
+                                                                   out date))
+                                            {
+                                                zayavka.ZaezdBegin = date;
+                                            }
+                                            else
+                                            {
+                                                zayavka.ZaezdBegin = DateTime.Now;
+                                            }
+                                        }
+                                        else
+                                        {
+                                            zayavka.ZaezdBegin = DateTime.Now;
+                                        }
+                                    }
+                                    else
+                                    {
+                                        zayavka.ZaezdBegin = DateTime.Now;
+                                    }
+
+
+                                    string str2 = workSheet.Cells[rowIterator, 3].Value.ToString();
+                                    string[] format2 = { "dd.MM.yyyy" };
+                                    DateTime date2;
+
+                                    if (!string.IsNullOrEmpty(str2))
+                                    {
+                                        if (str.Length >= 10)
+                                        {
+                                            if (DateTime.TryParseExact(str2.Substring(0, 10),
+                                                                   format2,
+                                                                   System.Globalization.CultureInfo.InvariantCulture,
+                                                                   System.Globalization.DateTimeStyles.None,
+                                                                   out date2))
+                                            {
+                                                zayavka.ZaezdEnd = date2;
+                                            }
+                                            else
+                                            {
+                                                zayavka.ZaezdEnd = DateTime.Now;
+                                            }
+                                        }
+                                        else
+                                        {
+                                            zayavka.ZaezdEnd = DateTime.Now;
+                                        }
+                                    }
+                                    else
+                                    {
+                                        zayavka.ZaezdEnd = DateTime.Now;
+                                    }
+
+                                    zayavka.inn = workSheet.Cells[rowIterator, 4].Value.ToString();
+                                    zayavka.pnfl = workSheet.Cells[rowIterator, 5].Value.ToString();
+                                    zayavka.FullName = workSheet.Cells[rowIterator, 6].Value.ToString();
+                                    zayavka.Position = workSheet.Cells[rowIterator, 7].Value.ToString();
+                                    zayavka.MedicalOrderExists = true;
+                                    zayavka.MedicalOrder = workSheet.Cells[rowIterator, 8].Value.ToString();
+                                }
+                                catch (NullReferenceException ex)
+                                {
+                                    log.Info(ex.ToString());
+                                    continue;
+                                }
+                                catch(Exception ex)
+                                {
+                                    log.Info(ex.ToString());
+                                    continue;
+                                }
+
+                                ZayavkiDataManager.EnterZayavka(ref zayavka);
+                            }
+                        }
+                    }
+                }
+                return Json("success", JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                log.Info(ex);
+                return Json("error", JsonRequestBehavior.AllowGet);
+            }
         }
 
         /// <summary>

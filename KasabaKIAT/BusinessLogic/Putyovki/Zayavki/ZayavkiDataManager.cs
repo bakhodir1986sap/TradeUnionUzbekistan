@@ -42,12 +42,14 @@ namespace KasabaKiat.BusinessLogic.Zayavki
                 zayavka.KUK_QARORI              = string.Empty;
                 zayavka.MEDICAL_ORDER_EXISTS = model.MedicalOrderExists;
                 zayavka.ORDER_QUANTITY = 0;
+                zayavka.SOTR_INN = model.inn;
+                zayavka.PNFL = model.pnfl;
 
                 var inserted = db.tbpt_zayavki.Add(zayavka);
 
-                model.rec_id = inserted.REC_ID;
-
                 db.SaveChanges();
+
+                model.rec_id = inserted.REC_ID;
             }
         }
 

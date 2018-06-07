@@ -69,5 +69,9 @@ namespace KasabaKiat.ViewModel
         public bool?        MOE      {get; set;}
         public string       MO       {get; set;}
         public bool?        isOwn    { get; set; }
+        public bool?        isInitial { get; set; }
+        public string sotrinn { get; set; }
+
+        public string pnfl { get; set; }
     }
 }

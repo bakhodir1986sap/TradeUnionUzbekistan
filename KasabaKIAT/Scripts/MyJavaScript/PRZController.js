@@ -333,7 +333,10 @@
         $scope.SC.id = prz.SC_id;
         $scope.SC.value = prz.SC;
         $scope.IsOwn = prz.isOwn;
-
+        $scope.Status = prz.S;
+        $scope.InnFiz = prz.sotrinn;
+        $scope.pnfl = prz.pnfl;
+        $scope.isInitial = prz.isInitial;
         $scope.Action = "Изменить";
     }
     $scope.UpdatePRZ = function () {
@@ -379,7 +382,7 @@
             }).then(function (msg) {
                 if ($scope.s === "option1") {
                     getSs();
-                    Load_PRZ_S($scope.SCf.id);
+                    Load_PRZ_S(-1);
                 }
                 else {
                     if ($scope.s === "option2") {

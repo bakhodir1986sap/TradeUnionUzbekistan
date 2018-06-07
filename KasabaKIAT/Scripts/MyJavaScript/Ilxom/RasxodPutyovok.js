@@ -195,6 +195,7 @@
         GetDetailList();
         GetDetailListRes();
         GetSchetFaktura();
+        GetOrgPaymentsLastYear();
     }
 
     function GetNakladnoyList() {
@@ -242,6 +243,27 @@
         }, function (error) {
             alertify.error("ошибка");
             console.log("error in GetTotalResults");
+            document.getElementById('connection').style.visibility = "hidden";
+            $("#hh").modal('hide');
+        });
+    }
+
+
+    function GetOrgPaymentsLastYear() {
+        document.getElementById('connection').style.visibility = "visible";
+        $("#hh").modal({
+            backdrop: 'static'
+        });
+        $http({
+            method: 'get',
+            url: '/PrixodPutevok/GetOrgPaymentsLastYear?IdViplMain=' + $scope.CurrentNakladnoy.id
+        }).then(function (response) {
+            $scope.PaymentAmount = response.data;
+            document.getElementById('connection').style.visibility = "hidden";
+            $("#hh").modal('hide');
+        }, function (error) {
+            alertify.error("ошибка");
+            console.log("error in GetOrgPaymentsLastYear");
             document.getElementById('connection').style.visibility = "hidden";
             $("#hh").modal('hide');
         });

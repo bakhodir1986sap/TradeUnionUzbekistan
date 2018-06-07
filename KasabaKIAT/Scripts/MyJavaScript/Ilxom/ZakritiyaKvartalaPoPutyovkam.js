@@ -487,6 +487,7 @@
             $scope.SelectedOrganization.Name_Org = Name_Org;
             GetZakritiyaPutyovkas();
             GetZakritiyaPutyovkasRes();
+            $scope.OrgChanged();
         }
 
         console.log('====================================================');

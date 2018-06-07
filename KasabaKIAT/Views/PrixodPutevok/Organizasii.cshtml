@@ -45,7 +45,7 @@
                                 Название организации
                             </th>
                             <th class="dropdown dropdown__table" style="width:150px;text-align:center">
-                                ИНН
+                                ИНН Профкома
                             </th>
                             <th class="dropdown dropdown__table" style="width:100px;text-align:center">
                                 Расчетный счет
@@ -112,7 +112,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group row align-items-center">
-                                    <label class="col-md-5 col-form-label py-0">ИНН:</label>
+                                    <label class="col-md-5 col-form-label py-0">ИНН Профкома:</label>
                                     <div class="col-md-7">
                                         <input maxlength="9" type="text" class="form-control" name="INN" ng-model="Organization.INN" ng-blur="GetOrgDataByInn($event, Organization.INN)" required>
                                         <span class="alert alert-warning" style="padding:0px" ng-show="myForm.INN.$error.required">заполнить поле</span>
@@ -190,7 +190,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group row align-items-center">
-                                    <label class="col-md-5 col-form-label py-0">Директор:</label>
+                                    <label class="col-md-5 col-form-label py-0">Председатель Профсоюза:</label>
                                     <div class="col-md-7">
                                         <input maxlength="70" type="text" class="form-control" name="Director" ng-model="Organization.Director" required>
                                         <span class="alert alert-warning" style="padding:0px" ng-show="myForm.Director.$error.required">заполнить поле</span>

@@ -596,7 +596,7 @@
             $scope.SelectedOrganization.ID = Id;
             $scope.SelectedOrganization.Name_Org = Name_Org;
             GetGivenPutyovkaList();
-
+            $scope.OrganizationChanged();
         }
 
         console.log('====================================================');

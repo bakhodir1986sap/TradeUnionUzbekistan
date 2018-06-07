@@ -31,6 +31,7 @@
                 <li>Количество накладных <span>{{TotalResults.NakladnoyCount}}</span></li>
                 <li>Количество путевок <span>{{TotalResults.PutyovkaCount}}</span></li>
                 <li>Сумма накладных <span>{{TotalResults.SummaNakladnix}}</span></li>
+                <li>Поступления от Орг.: <span>{{PaymentAmount}}</span></li>
             </ol>
         </div>
     </div>
@@ -215,6 +216,7 @@
                                     <div class="col-md-7">
                                         <select class="custom-select form-control" ng-model="SelectedOrganization" ng-options="item as item.Name_Org for item in OrganizationsL track by item.ID">
                                         </select>
+                                        <span>{{SelectedOrganization.Name_Org}}</span>
                                     </div>
                                     <a href="#" class="btn btn-grey d-block d-md-inline-block mb-2" data-toggle="modal" data-target="#organization">Выбрать</a>
                                 </div>
@@ -261,6 +263,7 @@
                                     <div class="col-md-7">
                                         <select class="custom-select form-control" ng-model="SelectedOrganization" ng-options="item as item.Name_Org for item in OrganizationsL track by item.ID">
                                         </select>
+                                        <b><span>{{SelectedOrganization.Name_Org}}</span></b>
                                     </div>
                                     <a href="#" class="btn btn-grey d-block d-md-inline-block mb-2" data-toggle="modal" data-target="#organization">Выбрать</a>
                                 </div>

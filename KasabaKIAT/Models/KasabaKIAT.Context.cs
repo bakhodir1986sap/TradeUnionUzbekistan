@@ -20,7 +20,7 @@ namespace KasabaKIAT.Models
         public KasabaKIATEntities()
             : base("name=KasabaKIATEntities")
         {
-            ((IObjectContextAdapter)this).ObjectContext.CommandTimeout = 180;
+            ((IObjectContextAdapter)this).ObjectContext.CommandTimeout = 300;
         }
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

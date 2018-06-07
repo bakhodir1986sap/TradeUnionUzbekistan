@@ -1069,7 +1069,7 @@ namespace KasabaKIAT.Controllers
 
             var list = Sprav_Org.GetByDeraprtmentBase(ustinfo.DepartmentBase);
 
-            return Json(list.ToList(), JsonRequestBehavior.AllowGet);
+            return Json(list.ToList().Take(30), JsonRequestBehavior.AllowGet);
         }
 
         /// <summary>
@@ -1087,7 +1087,7 @@ namespace KasabaKIAT.Controllers
 
             var list = Sprav_Org.GetByDeraprtmentBase(ustinfo.DepartmentBase, Name, Inn, OtrasId);
 
-            return Json(list.ToList(), JsonRequestBehavior.AllowGet);
+            return Json(list.ToList().Take(30), JsonRequestBehavior.AllowGet);
         }
 
         #region Ilxom

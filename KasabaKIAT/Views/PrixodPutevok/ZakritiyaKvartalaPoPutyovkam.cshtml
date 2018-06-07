@@ -39,6 +39,7 @@
                     <label>ИНН Организации</label>
                     <select class="custom-select form-control" ng-model="SelectedOrganization" ng-options="item as item.Name_Org for item in OrganizationsL track by item.ID" ng-change="OrgChanged()">
                     </select>
+                    <b><span>{{SelectedOrganization.Name_Org}}</span></b>
                     <a href="#" class="btn btn-grey d-block d-md-inline-block mb-2" data-toggle="modal" data-target="#organization">Выбрать</a>
                 </div>
                 <div class="col-md-3 text-right">

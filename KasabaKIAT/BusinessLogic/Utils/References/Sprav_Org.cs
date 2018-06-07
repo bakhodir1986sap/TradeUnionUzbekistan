@@ -353,16 +353,16 @@ namespace KasabaKiat.BusinessLogic.Utils.References
             using (KasabaKIATEntities db = new KasabaKIATEntities())
             {
                 var queryRes = from org in db.tblSprav_Org
-                               join otras in db.tblSprav_Otras on org.ID_Ot equals otras.ID_Ot
+                               //join otras in db.tblSprav_Otras on org.ID_Ot equals otras.ID_Ot
                                join region in db.tblSprav_Reg on org.Region equals region.CodeReg
                                where org.DepartmentBase == departmentBase 
-                               && otras.DepartmentBase == departmentBase
+                               //&& otras.DepartmentBase == departmentBase
                                orderby org.Name_Org
                                select new Sprav_OrgViewModel
                                {
                                    ID = org.ID,
                                    ID_Ot = org.ID_Ot,
-                                   OtraslName = otras.Name_Ot,
+                                   OtraslName = "",//otras.Name_Ot,
                                    Name_Org = org.Name_Org,
                                    INN      = org.INN,
                                    RS       = org.RS,
@@ -389,6 +389,17 @@ namespace KasabaKiat.BusinessLogic.Utils.References
 
                 list = queryRes.ToList();
 
+                var otrasList = db.tblSprav_Otras.Where(s => s.DepartmentBase == departmentBase).ToList();
+
+                foreach(var org in list)
+                {
+                    var isOtrasExists = otrasList.Where(d => d.ID_Ot == org.ID_Ot);
+
+                    if (isOtrasExists.Any())
+                    {
+                        org.OtraslName = isOtrasExists.First().Name_Ot;
+                    }
+                }
             }
 
             return list;
@@ -424,10 +435,10 @@ namespace KasabaKiat.BusinessLogic.Utils.References
             using (KasabaKIATEntities db = new KasabaKIATEntities())
             {
                 var queryRes = from org in db.tblSprav_Org
-                               join otras in db.tblSprav_Otras on org.ID_Ot equals otras.ID_Ot
+                               //join otras in db.tblSprav_Otras on org.ID_Ot equals otras.ID_Ot
                                join region in db.tblSprav_Reg on org.Region equals region.CodeReg
                                where org.DepartmentBase == departmentBase
-                               && otras.DepartmentBase == departmentBase
+                               //&& otras.DepartmentBase == departmentBase
                                && (org.Name_Org.Contains((IsNameEmpty ? org.Name_Org: Name))) 
                                && (org.INN.Contains((IsInnEmpty ? org.INN : Inn)))
                                && (org.ID_Ot == (OtrasId.HasValue ? OtrasId: org.ID_Ot))
@@ -436,7 +447,7 @@ namespace KasabaKiat.BusinessLogic.Utils.References
                                {
                                    ID = org.ID,
                                    ID_Ot = org.ID_Ot,
-                                   OtraslName = otras.Name_Ot,
+                                   OtraslName = "",//otras.Name_Ot,
                                    Name_Org = org.Name_Org,
                                    INN = org.INN,
                                    RS = org.RS,
@@ -462,6 +473,18 @@ namespace KasabaKiat.BusinessLogic.Utils.References
                                };
 
                 list = queryRes.ToList();
+
+                var otrasList = db.tblSprav_Otras.Where(s => s.DepartmentBase == departmentBase).ToList();
+
+                foreach (var org in list)
+                {
+                    var isOtrasExists = otrasList.Where(d => d.ID_Ot == org.ID_Ot);
+
+                    if (isOtrasExists.Any())
+                    {
+                        org.OtraslName = isOtrasExists.First().Name_Ot;
+                    }
+                }
 
             }
 
@@ -481,17 +504,17 @@ namespace KasabaKiat.BusinessLogic.Utils.References
             using (KasabaKIATEntities db = new KasabaKIATEntities())
             {
                 var queryRes = from org in db.tblSprav_Org
-                               join otras in db.tblSprav_Otras on org.ID_Ot equals otras.ID_Ot
+                               //join otras in db.tblSprav_Otras on org.ID_Ot equals otras.ID_Ot
                                join region in db.tblSprav_Reg on org.Region equals region.CodeReg
                                where org.DepartmentBase == departmentBase
-                               && otras.DepartmentBase == departmentBase
+                               //&& otras.DepartmentBase == departmentBase
                                && org.ID == Id
                                orderby org.Name_Org
                                select new Sprav_OrgViewModel
                                {
                                    ID = org.ID,
                                    ID_Ot = org.ID_Ot,
-                                   OtraslName = otras.Name_Ot,
+                                   OtraslName = "",//otras.Name_Ot,
                                    Name_Org = org.Name_Org,
                                    INN = org.INN,
                                    RS = org.RS,
@@ -518,8 +541,17 @@ namespace KasabaKiat.BusinessLogic.Utils.References
 
                 list = queryRes.ToList();
 
-                foreach(var org in list)
+                var otrasList = db.tblSprav_Otras.Where(s => s.DepartmentBase == departmentBase).ToList();
+
+                foreach (var org in list)
                 {
+                    var isOtrasExists = otrasList.Where(d => d.ID_Ot == org.ID_Ot);
+
+                    if (isOtrasExists.Any())
+                    {
+                        org.OtraslName = isOtrasExists.First().Name_Ot;
+                    }
+
                     if (org.ParentId.HasValue)
                     {
                         var orgName = db.tblSprav_Org.Where(z => z.ID == org.ParentId);

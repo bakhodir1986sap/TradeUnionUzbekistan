@@ -530,7 +530,7 @@ namespace KasabaKIAT.Controllers
 
             try
             {
-                var zayavkiOtp = KasabaDB.tbpt_zayavki.Where(z => z.STATUS != "0");
+                var zayavkiOtp = KasabaDB.tbpt_zayavki.Where(z => z.STATUS != "0").ToList();
 
                 if (zayavkiOtp.Any())
                 {
@@ -559,18 +559,22 @@ namespace KasabaKIAT.Controllers
                             if (zayavka.STATUS.Equals("1"))
                             {
                                 zayavki1.S = "Отправленные";
+                                zayavki1.isInitial = true;
                             }
                             else if (zayavka.STATUS.Equals("3"))
                             {
                                 zayavki1.S = "Откланен";
+                                zayavki1.isInitial = false;
                             }
                             else if (zayavka.STATUS.Equals("4"))
                             {
                                 zayavki1.S = "Утвержден";
+                                zayavki1.isInitial = false;
                             }
                             else if (zayavka.STATUS.Equals("5"))
                             {
                                 zayavki1.S = "Выдана путевка";
+                                zayavki1.isInitial = false;
                             }
 
                             var orgs = KasabaDB.tblSprav_Org.Where(z => z.OWNER_CODE == zayavka.DEPARTMENT_CODE);
@@ -605,6 +609,8 @@ namespace KasabaKIAT.Controllers
                             zayavki1.MOE = zayavka.MEDICAL_ORDER_EXISTS;
                             zayavki1.MO = zayavka.MEDICAL_ORDER;
                             zayavki1.isOwn = true;
+                            zayavki1.sotrinn = zayavka.SOTR_INN;
+                            zayavki1.pnfl = zayavka.PNFL;
 
                             list.Add(zayavki1);
                         }
@@ -626,18 +632,22 @@ namespace KasabaKIAT.Controllers
                             if (zayavka.STATUS.Equals("1"))
                             {
                                 zayavki1.S = "Отправленные";
+                                zayavki1.isInitial = true;
                             }
                             else if (zayavka.STATUS.Equals("3"))
                             {
                                 zayavki1.S = "Откланен";
+                                zayavki1.isInitial = false;
                             }
                             else if (zayavka.STATUS.Equals("4"))
                             {
                                 zayavki1.S = "Утвержден";
+                                zayavki1.isInitial = false;
                             }
                             else if (zayavka.STATUS.Equals("5"))
                             {
                                 zayavki1.S = "Выдана путевка";
+                                zayavki1.isInitial = false;
                             }
 
                             var orgs = KasabaDB.tblSprav_Org.Where(z => z.OWNER_CODE == zayavka.DEPARTMENT_CODE);
@@ -672,6 +682,8 @@ namespace KasabaKIAT.Controllers
                             zayavki1.MOE = zayavka.MEDICAL_ORDER_EXISTS;
                             zayavki1.MO = zayavka.MEDICAL_ORDER;
                             zayavki1.isOwn = false;
+                            zayavki1.sotrinn = zayavka.SOTR_INN;
+                            zayavki1.pnfl = zayavka.PNFL;
 
                             list.Add(zayavki1);
                         }

@@ -239,6 +239,7 @@
                                     <div class="col-md-7">
                                         <select class="custom-select form-control" ng-model="SelectedOrganization" ng-options="item as item.Name_Org for item in OrganizationsL track by item.ID">
                                         </select>
+                                        <b><span>{{SelectedOrganization.Name_Org}}</span></b>
                                     </div>
                                     <a href="#" class="btn btn-grey d-block d-md-inline-block mb-2" data-toggle="modal" data-target="#organization">Выбрать</a>
                                 </div>
@@ -283,6 +284,7 @@
                                     <label class="col-md-5 col-form-label text-md-right py-0">Отправитель:</label>
                                     <div class="col-md-7">
                                         <select class="custom-select form-control" ng-model="SelectedOrganization" ng-options="item as item.Name_Org for item in OrganizationsL track by item.ID"></select>
+                                        <b><span>{{SelectedOrganization.Name_Org}}</span></b>
                                     </div>
                                     <a href="#" class="btn btn-grey d-block d-md-inline-block mb-2" data-toggle="modal" data-target="#organization">Выбрать</a>
                                 </div>

@@ -1750,6 +1750,11 @@ warning 6002: The table/view 'KasabaKIAT_N1.dbo.tbbTabel' does not have a primar
           <Property Name="INN" Type="varchar" MaxLength="20" />
           <Property Name="SOATO" Type="varchar" MaxLength="20" />
           <Property Name="SOATO_NAME" Type="nvarchar" MaxLength="500" />
+          <Property Name="OPERDATE" Type="datetime" />
+          <Property Name="OKONX_ID" Type="varchar" MaxLength="255" />
+          <Property Name="OKONX_NAME" Type="nvarchar" MaxLength="500" />
+          <Property Name="BRANCH_CODE" Type="nvarchar" MaxLength="2" />
+          <Property Name="BRANCH_NAME" Type="nvarchar" MaxLength="200" />
         </EntityType>
         <EntityType Name="tbbu_planbyudjetregion">
           <Key>
@@ -14235,6 +14240,11 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <Property Name="INN" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="SOATO" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="SOATO_NAME" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="OPERDATE" Type="DateTime" Precision="3" />
+          <Property Name="OKONX_ID" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="OKONX_NAME" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="BRANCH_CODE" Type="String" MaxLength="2" FixedLength="false" Unicode="true" />
+          <Property Name="BRANCH_NAME" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
         </EntityType>
         <Association Name="FK_PrivyazkaProvodok_provodok">
           <End Type="KasabaKIATModel.provodok" Role="provodok" Multiplicity="0..1" />
@@ -18303,6 +18313,11 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <EntitySetMapping Name="tbbu_ecp_calc">
             <EntityTypeMapping TypeName="KasabaKIATModel.tbbu_ecp_calc">
               <MappingFragment StoreEntitySet="tbbu_ecp_calc">
+                <ScalarProperty Name="BRANCH_NAME" ColumnName="BRANCH_NAME" />
+                <ScalarProperty Name="BRANCH_CODE" ColumnName="BRANCH_CODE" />
+                <ScalarProperty Name="OKONX_NAME" ColumnName="OKONX_NAME" />
+                <ScalarProperty Name="OKONX_ID" ColumnName="OKONX_ID" />
+                <ScalarProperty Name="OPERDATE" ColumnName="OPERDATE" />
                 <ScalarProperty Name="SOATO_NAME" ColumnName="SOATO_NAME" />
                 <ScalarProperty Name="SOATO" ColumnName="SOATO" />
                 <ScalarProperty Name="INN" ColumnName="INN" />

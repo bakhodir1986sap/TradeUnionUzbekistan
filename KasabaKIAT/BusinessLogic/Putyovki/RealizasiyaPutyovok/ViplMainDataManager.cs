@@ -429,7 +429,11 @@ namespace KasabaKiat.BusinessLogic.Putyovki.RealizasiyaPutyovok
             }
         }
 
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="IdVipl"></param>
+        /// <returns></returns>
         public static decimal GetOrgPaymentsLastYear(long IdVipl)
         {
             using (KasabaKIATEntities db = new KasabaKIATEntities())
@@ -459,8 +463,9 @@ namespace KasabaKiat.BusinessLogic.Putyovki.RealizasiyaPutyovok
                             var yearAgo = today.AddDays(-365);
 
                             var payments = from ecp in db.tbbu_ecp_calc
-                                           join payment in db.KaznaPaymentFile on ecp.PAYMENT_ID equals (long)payment.ID
-                                           where ecp.INN == orig_inn && payment.OPERDAY >= yearAgo && payment.OPERDAY <= today
+                                           where ecp.INN == orig_inn 
+                                           && ecp.OPERDATE >= yearAgo 
+                                           && ecp.OPERDATE <= today
                                            select ecp.OBLSOVPROF_AMT;
 
                             if (payments.Any())

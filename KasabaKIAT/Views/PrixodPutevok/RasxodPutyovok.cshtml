@@ -30,8 +30,8 @@
             <ol class="summary-list">
                 <li>Количество накладных <span>{{TotalResults.NakladnoyCount}}</span></li>
                 <li>Количество путевок <span>{{TotalResults.PutyovkaCount}}</span></li>
-                <li>Сумма накладных <span>{{TotalResults.SummaNakladnix}}</span></li>
-                <li>Поступления от Орг.: <span>{{PaymentAmount}}</span></li>
+                <li>Сумма накладных <span>{{TotalResults.SummaNakladnix| currency:' '}}</span></li>
+                <li>Поступления от Орг.: <span>{{PaymentAmount| currency:' '}}</span></li>
             </ol>
         </div>
     </div>
@@ -101,7 +101,7 @@
                             <td>{{naklad.num_doc}}</td>
                             <td>{{naklad.organizationName}}</td>
                             <td>{{naklad.num_kol}}</td>
-                            <td>{{naklad.symma}}</td>
+                            <td>{{naklad.symma| currency:' '}}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -163,7 +163,7 @@
                             <td>{{dtl.sanatName}}</td>
                             <td>{{dtl.num_put}}</td>
                             <td>{{dtl.data_post | jsonDate: 'dd.MM.yyyy'}}</td>
-                            <td>{{dtl.symma}}</td>
+                            <td>{{dtl.symma| currency:' '}}</td>
                             <td>Реализованная путевка</td>
                         </tr>
                     </tbody>
@@ -178,7 +178,7 @@
                 </div>
                 <div class="col-md-4 text-md-right mb-4">
                     <p class="mb-0">Общее количество <strong>{{PutyovkaDtlSummar.PutyovkaCount}}</strong></p>
-                    <p>Общяя сумма <strong>{{PutyovkaDtlSummar.SummaNakladnix}}</strong></p>
+                    <p>Общяя сумма <strong>{{PutyovkaDtlSummar.SummaNakladnix| currency:' '}}</strong></p>
                 </div>
             </div>
         </div>
@@ -354,7 +354,7 @@
                                                 <td>{{putyovka.SanatName}}</td>
                                                 <td>{{putyovka.Num_Put}}</td>
                                                 <td>{{putyovka.DataSan | jsonDate: 'dd.MM.yyyy'}}</td>
-                                                <td>{{putyovka.Symma_Put}}</td>
+                                                <td>{{putyovka.Symma_Put| currency:' '}}</td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -580,11 +580,11 @@
                     <td colspan="4" class="border border-dark text-center">{{item.data_post | jsonDate: 'dd.MM.yyyy'}}</td>
                     <td colspan="2" class="border border-dark text-center">шт</td>
                     <td colspan="2" class="border border-dark text-center">1</td>
-                    <td colspan="4" class="border border-dark text-right">{{item.symma}}</td>
-                    <td colspan="5" class="border border-dark text-right">{{item.symma}}</td>
+                    <td colspan="4" class="border border-dark text-right">{{item.symma| currency:' '}}</td>
+                    <td colspan="5" class="border border-dark text-right">{{item.symma| currency:' '}}</td>
                     <td colspan="4" class="border border-dark text-center">без акцизного налога</td>
                     <td colspan="4" class="border border-dark text-center">без НДС</td>
-                    <td colspan="4" class="border border-dark text-center">{{item.symma}}</td>
+                    <td colspan="4" class="border border-dark text-center">{{item.symma| currency:' '}}</td>
                 </tr>
                 <tr>
                     <td colspan="2" class="border border-dark text-center"></td>
@@ -593,11 +593,11 @@
                     <td colspan="4" class="border border-dark text-center"></td>
                     <td colspan="2" class="border border-dark text-center"></td>
                     <td colspan="2" class="border border-dark text-center" sdval="2"><strong>{{SchetFaktura.nakladnaya.num_kol}}</strong></td>
-                    <td colspan="4" class="border border-dark text-center"><strong>{{SchetFaktura.nakladnaya.symma}}</strong></td>
-                    <td colspan="5" class="border border-dark text-center"><strong>{{SchetFaktura.nakladnaya.symma}}</strong></td>
+                    <td colspan="4" class="border border-dark text-center"><strong>{{SchetFaktura.nakladnaya.symma| currency:' '}}</strong></td>
+                    <td colspan="5" class="border border-dark text-center"><strong>{{SchetFaktura.nakladnaya.symma| currency:' '}}</strong></td>
                     <td colspan="4" class="border border-dark text-center"></td>
                     <td colspan="4" class="border border-dark text-center"></td>
-                    <td colspan="4" class="border border-dark text-center"><strong>{{SchetFaktura.nakladnaya.symma}}</strong></td>
+                    <td colspan="4" class="border border-dark text-center"><strong>{{SchetFaktura.nakladnaya.symma| currency:' '}}</strong></td>
                 </tr>
                 <tr>
                     <td colspan="8" class="border-top border-dark text-center"><strong>Всего к оплате:</strong></td>

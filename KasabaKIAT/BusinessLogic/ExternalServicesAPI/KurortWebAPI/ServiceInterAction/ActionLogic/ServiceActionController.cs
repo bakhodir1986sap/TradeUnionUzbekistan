@@ -1,8 +1,10 @@
-﻿using KurortUrvServiceTest.ServiceInterAction.DataManagers;
+﻿using KasabaKIAT.Models;
+using KurortUrvServiceTest.ServiceInterAction.DataManagers;
 using KurortUrvServiceTest.ServiceInterAction.ServiceCalls;
 using KurortUrvServiceTest.ServiceInterAction.ViewModel;
 using KurortUrvServiceTest.ServiceInterAction.Xml;
 using System;
+using System.Linq;
 using System.Collections.Generic;
 
 namespace KurortUrvServiceTest.ServiceInterAction.ActionLogic
@@ -199,21 +201,43 @@ namespace KurortUrvServiceTest.ServiceInterAction.ActionLogic
             //Update Error Codes
             JournalDataManager.Modify(journal);
 
-            //Save sant data
-            foreach(var rasp in raspredeleniye.StrokiRaspredelenyaZaezdov)
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="year"></param>
+        public void SendRaspredeleniya(int year)
+        {
+            using (KasabaKIATEntities db = new KasabaKIATEntities())
             {
-                var model = new SpisokRaspredeleniyaViewModel();
+                var list = db.tbku_SpisokRaspredeleniya.Where(z => z.GodZaezdov == year);
 
-                model.GodZaezdov = int.Parse(raspredeleniye.GodZaezdov);
-                model.SanatoryKod = rasp.SanatoryKod;
-                model.ProfsoyzKod = rasp.ProfsoyzKod;
-                model.SanatoryRazmeshenieKod = rasp.SanatoryRazmeshenieKod;
-                model.Putevok1kv = int.Parse(rasp.Putevok1kv);
-                model.Putevok2kv = int.Parse(rasp.Putevok2kv);
-                model.Putevok3kv = int.Parse(rasp.Putevok3kv);
-                model.Putevok4kv = int.Parse(rasp.Putevok4kv);
+                if (list.Any())
+                {
+                    var plan = new TypeRaspredelenieZaezdov();
 
-                SpisokRaspredeleniyaDataManager.Add(model);
+                    plan.GodZaezdov = year.ToString();
+                    plan.StrokiRaspredelenyaZaezdov = new List<StrokiRaspredelenyaZaezdov>();
+
+                    foreach (var row in list)
+                    {
+                        var rasp = new StrokiRaspredelenyaZaezdov
+                        {
+                            SanatoryKod = row.SanatoryKod,
+                            ProfsoyzKod = row.ProfsoyzKod,
+                            SanatoryRazmeshenieKod = row.SanatoryRazmeshenieKod,
+                            Putevok1kv = row.Putevok1kv.ToString(),
+                            Putevok2kv = row.Putevok2kv.ToString(),
+                            Putevok3kv = row.Putevok3kv.ToString(),
+                            Putevok4kv = row.Putevok4kv.ToString()
+                        };
+
+                        plan.StrokiRaspredelenyaZaezdov.Add(rasp);
+                    }
+
+                    SetZagruzkaRaspredeleniyaZaezdov(plan);
+                }
             }
         }
 

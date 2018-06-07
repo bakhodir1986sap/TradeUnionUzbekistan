@@ -33,7 +33,7 @@
                     <ol class="summary-list">
                         <li>Количество накладных <span>{{TotalResults.NakladnoyCount}}</span></li>
                         <li>Количество путевок <span>{{TotalResults.PutyovkaCount}}</span></li>
-                        <li>Сумма накладных <span>{{TotalResults.SummaNakladnix}}</span></li>
+                        <li>Сумма накладных <span>{{TotalResults.SummaNakladnix| currency:' '}}</span></li>
                     </ol>
                 </div>
             </div>
@@ -126,7 +126,7 @@
                                     <td>{{naklad.Num_Doc}}</td>
                                     <td>{{naklad.PosName}}</td>
                                     <td>{{naklad.Num_Kol}}</td>
-                                    <td>{{naklad.Symma}}</td>
+                                    <td>{{naklad.Symma| currency:' '}}</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -187,7 +187,7 @@
                                     <td>{{dtl.SanatName}}</td>
                                     <td>{{dtl.Num_Put}}</td>
                                     <td>{{dtl.DataSan | jsonDate: 'dd.MM.yyyy'}}</td>
-                                    <td>{{dtl.Symma_Put}}</td>
+                                    <td>{{dtl.Symma_Put| currency:' '}}</td>
                                     <td>{{dtl.StatusPutyovki}}</td>
                                 </tr>
                             </tbody>
@@ -202,7 +202,7 @@
                         </div>
                         <div class="col-md-4 text-md-right mb-4">
                             <p class="mb-0">Общее количество <strong>{{PutyovkaDtlSummar.PutyovkaCount}}</strong></p>
-                            <p>Общая сумма <strong>{{PutyovkaDtlSummar.SummaNakladnix}}</strong></p>
+                            <p>Общая сумма <strong>{{PutyovkaDtlSummar.SummaNakladnix| currency:' '}}</strong></p>
                         </div>
                     </div>
                 </div>

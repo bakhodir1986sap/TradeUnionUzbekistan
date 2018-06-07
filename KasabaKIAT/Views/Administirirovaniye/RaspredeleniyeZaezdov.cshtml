@@ -18,9 +18,10 @@
                 <h4>Годовой план</h4>
                 <nav aria-label="breadcrumb" class="breadcrumb__block">
                     <ol class="breadcrumb">
+                        <li class="breadcrumb-item load"><a href="/Home/Putyovki">Путевки</a></li>
                         @*<li class="breadcrumb-item load"><a href="/Home/Admin">Администрирование</a></li>*@
-                        <li class="breadcrumb-item load"><a href="/Administirirovaniye/index">Администрирование</a></li>
-                        <li class="breadcrumb-item load"><a href="/Administirirovaniye/SpravichnikiKurortnovoUpravleniya">Справочник с курортного управления</a></li>
+                        @*<li class="breadcrumb-item load"><a href="/Administirirovaniye/index">Администрирование</a></li>
+                        <li class="breadcrumb-item load"><a href="/Administirirovaniye/SpravichnikiKurortnovoUpravleniya">Справочник с курортного управления</a></li>*@
                         <li class="breadcrumb-item active" aria-current="page">Годовой план</li>
                     </ol>
                 </nav>
@@ -30,19 +31,23 @@
             <div class="custom-control-inline" style="margin-left:20px">
                 <div>
                     <p>Период:</p>
-                    <select ng-change="Load()" ng-model="ZB" name="ZB" class="custom-select form-control" required>
-                        @for (int i = DateTime.Now.Year; i > 1991; i--)
-                        {
-                            <option>@(i)</option>
-                        }
+                    <select  ng-model="SelectedYear" name="ZB" ng-options="d as d.Year for d in Years track by d.Id" class="custom-select form-control"  ng-change="Load()" required>
                     </select>
                     <span class="alert alert-warning" style="padding:0px" ng-show="myForm1.ZB.$error.required">Выберите поле</span>
                 </div>
             </div>
             <div style="margin-left:100px">
                 <p>Санаторий:</p>
-                <select style="width:200px" ng-change="LoadDATA()" ng-model="SP" name="SP" required ng-options="d as d.d2 for d in R track by d.d1" class="custom-select form-control"></select>
+                <select style="width:200px"  ng-model="SP" name="SP" required ng-options="d as d.d2 for d in R track by d.d1" class="custom-select form-control" ng-change="LoadDATA()"></select>
                 <span class="alert alert-warning" style="padding:0px" ng-show="myForm1.SP.$error.required">Выберите поле</span>
+            </div>
+            <div style="margin-left:100px">
+                <p>Список Профсоюзов:</p>
+                <select style="width:200px" ng-model="SP33" name="SP33" required ng-options="d as d.d2 for d in Rr track by d.d1" class="custom-select" ng-change="GetProvData()"></select>
+                <span class="alert alert-warning" style="padding:0px" ng-show="myForm.SP3.$error.required">Выберите поле</span>
+            </div>
+            <div style="margin-left:100px">
+                <p>Доход по региону: <strong>{{TotalRes.Postupleniya| currency:' '}}</strong> | Использованно путевок на сумму: <strong>{{TotalRes.ZaplanirovannaNaSummu| currency:' '}}</strong></p>
             </div>
             @*<div style="margin-left:100px">
                     <button ng-click="LoadDATA()" ng-disabled="myForm1.SP.$error.required||myForm1.ZB.$error.required" class="btn btn-blue d-block d-md-inline-block mb-2" style="margin-top:45px"> Получить</button>
@@ -109,6 +114,7 @@
                         </div>
                         <div style="margin-left:710px;">
                             <button ng-click="AddDiv()" class="btn btn-blue d-block d-md-inline-block mb-3 mb-md-0" data-toggle="modal" data-target="#dobavit"><i class="fas fa-plus"></i> Добавить</button>
+                            <button ng-click="SendData2Kurort()" class="btn btn-red d-block d-md-inline-block mb-3 mb-md-0" ><i class="fas fa-save"></i> Отправить</button>
                             <button class="btn btn-green d-block d-md-inline-block mb-3 mb-md-0" ng-click="exportData2()">
                                 <i class="fas fa-file-excel"></i>  ЭКСПОРТ
                             </button>
@@ -119,8 +125,8 @@
                     <table class="table table__block t-hover">
                         <thead>
                             <tr>
-                                <th class="dropdown dropdown__table">Код</th>
-                                <th class="dropdown dropdown__table">Код</th>
+                                <th class="dropdown dropdown__table">Облсофпроф</th>
+                                <th class="dropdown dropdown__table">Тип размещения</th>
                                 <th class="dropdown dropdown__table">1 кв</th>
                                 <th class="dropdown dropdown__table">2 кв</th>
                                 <th class="dropdown dropdown__table">3 кв</th>
@@ -154,11 +160,7 @@
                                 <div class="form-group row align-items-center">
                                     <label class="col-md-5 col-form-label text-right py-0">Год:</label>
                                     <div class="col-md-7">
-                                        <select ng-model="ZB2" name="ZB2" class="custom-select form-control" required>
-                                            @for (int i = DateTime.Now.Year; i > 1991; i--)
-                                            {
-                                                <option>@(i)</option>
-                                            }
+                                        <select ng-model="SelectedYear" name="ZB2" ng-options="d as d.Year for d in Years track by d.Id" class="custom-select form-control" required>
                                         </select>
                                         <span class="alert alert-warning" style="padding:0px" ng-show="myForm.ZB2.$error.required">Выберите поле</span>
                                     </div>

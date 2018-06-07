@@ -367,7 +367,7 @@ namespace KasabaKIAT.Controllers
         /// <param name="yil">Year</param>
         /// <param name="kod">Sanatory Code</param>
         /// <returns></returns>
-        [OutputCache(Duration = 5, Location = OutputCacheLocation.Client, VaryByParam = "yil;kod", VaryByCustom = "userId")]
+        [OutputCache(Duration = 3, Location = OutputCacheLocation.Client, VaryByParam = "yil;kod", VaryByCustom = "userId")]
         public JsonResult GetRaspredeleniyeZaezdov1(int yil,string kod)
         {
 
@@ -378,7 +378,8 @@ namespace KasabaKIAT.Controllers
             try
             {
                 var O = from o in KasabaDB.tbku_GrafikZaezdovSanatoriev
-                        where o.GodZaezdov == yil && o.SanatoryKod == kod
+                        where o.GodZaezdov == yil 
+                        && o.SanatoryKod == kod
                         select new
                         {
                             d1 = o.SanatoryNaimenovanie,
@@ -412,7 +413,7 @@ namespace KasabaKIAT.Controllers
         /// <param name="yil">Year</param>
         /// <param name="kod">Sanatory Code</param>
         /// <returns></returns>
-        [OutputCache(Duration = 5, Location = OutputCacheLocation.Client, VaryByParam = "yil;kod", VaryByCustom = "userId")]
+        [OutputCache(Duration = 3, Location = OutputCacheLocation.Client, VaryByParam = "yil;kod", VaryByCustom = "userId")]
         public JsonResult GetRaspredeleniyeZaezdov2(int yil, string kod)
         {
             log.Info("GetRaspredeleniyeZaezdov2");
@@ -430,7 +431,9 @@ namespace KasabaKIAT.Controllers
                             ID = o.ID,
                             d1 = o.GodZaezdov,
                             d2 = o.SanatoryKod,
+                            ProfKode = pravsoyuz.ProfsoyzKod,
                             d3 = pravsoyuz.ProfsoyzNaimenovanie,
+                            RazmKod = KasabaDB.tbku_GrafikZaezdovSanatoriev.Where(z => z.SanatoryRazmeshenieKod == o.SanatoryRazmeshenieKod).FirstOrDefault().SanatoryRazmeshenieKod,
                             d4 = KasabaDB.tbku_GrafikZaezdovSanatoriev.Where(z=>z.SanatoryRazmeshenieKod == o.SanatoryRazmeshenieKod).FirstOrDefault().SanatoryRazmeshenieNaimenovanie,//zaezd.SanatoryRazmeshenieNaimenovanie,
                             d5 = o.Putevok1kv,
                             d6 = o.Putevok2kv,
@@ -562,6 +565,76 @@ namespace KasabaKIAT.Controllers
             return null;
 
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="year"></param>
+        public void SendData2Kurort(int year)
+        {
+            var service = new ServiceActionController();
+
+            service.SendRaspredeleniya(year);
+        }
+
+        private class TotalRes
+        {
+            public decimal Postupleniya { get; set; }
+
+            public decimal ZaplanirovannaNaSummu { get; set; }
+
+
+        }
+
+        public JsonResult GetProvData(int year, string profCode)
+        {
+            //Get total for this year by profCode => tbku_strokaProfsoyuz
+
+            //Get Avarage price for this year
+            var tot = new TotalRes();
+
+            var profs = KasabaDB.tbku_StrokaProfsoyza.Where(z => z.ProfsoyzKod == profCode);
+
+            if (!profs.Any()) return Json("invalid ProfCode", JsonRequestBehavior.AllowGet);
+
+            var depCode = profs.First().MATCH_DEPARTMENTBASE;
+
+            var ecps = KasabaDB.tbbu_ecp_calc.Where(e => e.OBL_DEPARTMENT_BASE == depCode && e.OPERDATE.Value.Year == year);
+
+            if (ecps.Any())
+            {
+                tot.Postupleniya = ecps.Sum(z => z.OBLSOVPROF_AMT.Value);
+            }
+            else
+            {
+                tot.Postupleniya = 0;
+            }
+
+            var plans = KasabaDB.tbku_SpisokRaspredeleniya.Where(p => p.GodZaezdov == year && p.ProfsoyzKod == profCode);
+
+
+            var avarages = KasabaDB.tbpt_avarageprice.Where(y => y.SET_DATE.Value.Year == year);
+
+            decimal avatagePutPrice = 0;
+
+            if (avarages.Any())
+            {
+                avatagePutPrice = avarages.First().AMOUNT.Value;
+            }
+
+            if (plans.Any())
+            {
+                tot.ZaplanirovannaNaSummu = (plans.Sum(s => s.Putevok1kv.Value) + plans.Sum(s => s.Putevok2kv.Value)
+                    + plans.Sum(s => s.Putevok3kv.Value) + plans.Sum(s => s.Putevok4kv.Value)) * avatagePutPrice;
+            }
+            else
+            {
+                tot.ZaplanirovannaNaSummu = 0;
+            }
+            
+            return Json(tot, JsonRequestBehavior.AllowGet);
+        }
+
 
         /// <summary>
         /// Modify Divition

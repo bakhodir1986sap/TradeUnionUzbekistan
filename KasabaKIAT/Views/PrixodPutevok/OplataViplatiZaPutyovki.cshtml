@@ -102,8 +102,8 @@
                             <td>{{oplat.Data_Post | jsonDate: 'dd.MM.yyyy'}}</td>
                             <td>{{oplat.Num_Doc}}</td>
                             <td>{{oplat.OrgName}}</td>
-                            <td>{{oplat.Symma_DT}}</td>
-                            <td>{{oplat.Symma_KT}}</td>
+                            <td>{{oplat.Symma_DT| currency:' '}}</td>
+                            <td>{{oplat.Symma_KT| currency:' '}}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -119,13 +119,13 @@
             </div>
         </div>
         <div class="col-md-3 text-right">
-            <p>Сумма(Дт) <strong class="btn-danger">{{TotalOplataResults.SummaDebit}}</strong></p>
+            <p>Сумма(Дт) <strong class="btn-danger">{{TotalOplataResults.SummaDebit| currency:' '}}</strong></p>
         </div>
         <div class="col-md-3 text-right">
-            <p>Сумма(Кт) <strong class="btn-green">{{TotalOplataResults.SummaCredit}}</strong></p>
+            <p>Сумма(Кт) <strong class="btn-green">{{TotalOplataResults.SummaCredit| currency:' '}}</strong></p>
         </div>
         <div class="col-md-3 text-right">
-            <p>Сальдо <strong>{{TotalOplataResults.Saldo}}</strong></p>
+            <p>Сальдо <strong>{{TotalOplataResults.Saldo| currency:' '}}</strong></p>
         </div>
     </div>
     <div class="row">
@@ -168,7 +168,7 @@
                             <td>{{dtl.SanatName}}</td>
                             <td>{{dtl.Num_Put}}</td>
                             <td>{{dtl.Name_Proc}}</td>
-                            <td>{{dtl.Symma}}</td>
+                            <td>{{dtl.Symma| currency:' '}}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -178,8 +178,8 @@
     </div>
     <div class="row align-items-center text-right">
         <div class="col-md-12">
-            <p>Разность суммы <strong>{{PutyovkaDtlsRes.RaznostSummi}}</strong></p>
-            <p>Сумма <strong>{{PutyovkaDtlsRes.Summa}}</strong></p>
+            <p>Разность суммы <strong>{{PutyovkaDtlsRes.RaznostSummi| currency:' '}}</strong></p>
+            <p>Сумма <strong>{{PutyovkaDtlsRes.Summa| currency:' '}}</strong></p>
         </div>
     </div>
 </section>
@@ -353,7 +353,7 @@
                                             <td>{{putyovka.SanatName}}</td>
                                             <td>{{putyovka.Num_Put}}</td>
                                             <td>{{putyovka.Name_Proc}}</td>
-                                            <td>{{putyovka.Symma}}</td>
+                                            <td>{{putyovka.Symma| currency:' '}}</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -366,10 +366,10 @@
                                     <p>Выделенные путевки Кол-во <strong>{{SelectedPutyovkaLength}}</strong></p>
                                 </div>
                                 <div class="col-md-6">
-                                    <p>Выделенные путевки Сумма <strong>{{SelectedPutyovkaSumma}}</strong></p>
+                                    <p>Выделенные путевки Сумма <strong>{{SelectedPutyovkaSumma| currency:' '}}</strong></p>
                                 </div>
                                 <div class="col-md-6">
-                                    <p>Разница: <strong>{{SelectedPutyovkaRaznisa}}</strong></p>
+                                    <p>Разница: <strong>{{SelectedPutyovkaRaznisa| currency:' '}}</strong></p>
                                 </div>
                                 <div class="col-md-6">
                                     <p>Не разнесенный остаток <strong>{{GeneralRemainingByOrg}}</strong></p>

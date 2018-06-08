@@ -1818,6 +1818,8 @@ warning 6002: The table/view 'KasabaKIAT_N1.dbo.tbbTabel' does not have a primar
           <Property Name="POLUCHRSCH" Type="nvarchar" MaxLength="30" />
           <Property Name="SUMMA" Type="money" />
           <Property Name="COMMENT" Type="nvarchar" MaxLength="1000" />
+          <Property Name="TRREF" Type="varchar" MaxLength="10" />
+          <Property Name="TRREFNO" Type="varchar" MaxLength="20" />
         </EntityType>
         <EntityType Name="tbbViplata">
           <Key>
@@ -2224,6 +2226,7 @@ warning 6002: The table/view 'KasabaKIAT_N1.dbo.tblFace_Two' does not have a pri
           <Property Name="PrizOpl" Type="int" />
           <Property Name="UserId" Type="bigint" />
           <Property Name="Departmentbase" Type="nvarchar" MaxLength="255" />
+          <Property Name="PROVODKA_ID" Type="bigint" />
         </EntityType>
         <EntityType Name="tblOplata_Ras">
           <Key>
@@ -2273,6 +2276,7 @@ warning 6002: The table/view 'KasabaKIAT_N1.dbo.tblFace_Two' does not have a pri
           <Property Name="DepartmentBase" Type="nvarchar" MaxLength="255" />
           <Property Name="BeginNumber" Type="int" />
           <Property Name="EndNumber" Type="int" />
+          <Property Name="PROVODKA_ID" Type="bigint" />
         </EntityType>
         <EntityType Name="tblPred">
           <Key>
@@ -2469,6 +2473,7 @@ warning 6002: The table/view 'KasabaKIAT_N1.dbo.tblPutevka' does not have a prim
           <Property Name="SmFil" Type="int" />
           <Property Name="UserId" Type="bigint" />
           <Property Name="DepartmentBase" Type="nvarchar" MaxLength="255" />
+          <Property Name="PROVODKA_ID" Type="bigint" />
         </EntityType>
         <EntityType Name="tblVipl_NumGEn">
           <Key>
@@ -2515,6 +2520,10 @@ warning 6002: The table/view 'KasabaKIAT_N1.dbo.tblPutevka' does not have a prim
           <Property Name="Tip_Voz" Type="bit" Nullable="false" />
           <Property Name="UserId" Type="bigint" />
           <Property Name="DepartmentBase" Type="nvarchar" MaxLength="255" />
+          <Property Name="PRIXOD_ID" Type="bigint" />
+          <Property Name="RASXOD_ID" Type="bigint" />
+          <Property Name="PRIXOD_PROVODKA_ID" Type="bigint" />
+          <Property Name="RASXOD_PROVODKA_ID" Type="bigint" />
         </EntityType>
         <EntityType Name="tbpt_avarageprice">
           <Key>
@@ -9197,6 +9206,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <NavigationProperty Name="tblSprav_Kv" Relationship="Self.FK_tblPost_tblSprav_Kv" FromRole="tblPost" ToRole="tblSprav_Kv" />
           <NavigationProperty Name="tblSprav_Org" Relationship="Self.FK_tblPost_tblSprav_Org" FromRole="tblPost" ToRole="tblSprav_Org" />
           <NavigationProperty Name="users" Relationship="Self.FK_tblPost_Users" FromRole="tblPost" ToRole="users" />
+          <Property Name="PROVODKA_ID" Type="Int64" />
         </EntityType>
         <EntityType Name="tblSprav_Face">
           <Key>
@@ -9374,6 +9384,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <NavigationProperty Name="tblFace_Two" Relationship="Self.FK_tblFace_Two_tblVipl" FromRole="tblVipl" ToRole="tblFace_Two" />
           <NavigationProperty Name="users" Relationship="Self.FK_tblVipl_Users" FromRole="tblVipl" ToRole="users" />
           <NavigationProperty Name="tblVipl_Put" Relationship="KasabaKIATModel.FK_tblVipl_Put_tblVipl" FromRole="tblVipl" ToRole="tblVipl_Put" />
+          <Property Name="PROVODKA_ID" Type="Int64" />
         </EntityType>
         <EntityType Name="tbpt_avarageprice">
           <Key>
@@ -13994,6 +14005,8 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <Property Name="POLUCHRSCH" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
           <Property Name="SUMMA" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="COMMENT" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="TRREF" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="TRREFNO" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="tbbu_planbyudjetregion">
           <Key>
@@ -14554,6 +14567,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <NavigationProperty Name="tblSprav_Kv" Relationship="KasabaKIATModel.FK_tblOplata_tblSprav_Kv" FromRole="tblOplata" ToRole="tblSprav_Kv" />
           <NavigationProperty Name="tblSprav_Org" Relationship="KasabaKIATModel.FK_tblOplata_tblSprav_Org" FromRole="tblOplata" ToRole="tblSprav_Org" />
           <NavigationProperty Name="user" Relationship="KasabaKIATModel.FK_tblOplata_Users" FromRole="tblOplata" ToRole="users" />
+          <Property Name="PROVODKA_ID" Type="Int64" />
         </EntityType>
         <Association Name="FK_tblOplata_Ras_tblOplata">
           <End Type="KasabaKIATModel.tblOplata" Role="tblOplata" Multiplicity="0..1" />
@@ -14637,6 +14651,10 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <NavigationProperty Name="tblSprav_Org" Relationship="KasabaKIATModel.FK_tblVozVrat_tblSprav_Org1" FromRole="tblVozVrat" ToRole="tblSprav_Org" />
           <NavigationProperty Name="tblSprav_San" Relationship="KasabaKIATModel.FK_tblVozVrat_tblSprav_San" FromRole="tblVozVrat" ToRole="tblSprav_San" />
           <NavigationProperty Name="user" Relationship="KasabaKIATModel.FK_tblVozVrat_Users" FromRole="tblVozVrat" ToRole="users" />
+          <Property Name="PRIXOD_ID" Type="Int64" />
+          <Property Name="RASXOD_ID" Type="Int64" />
+          <Property Name="PRIXOD_PROVODKA_ID" Type="Int64" />
+          <Property Name="RASXOD_PROVODKA_ID" Type="Int64" />
         </EntityType>
         <Association Name="FK_tblVozVrat_tblSprav_Kv">
           <End Type="KasabaKIATModel.tblSprav_Kv" Role="tblSprav_Kv" Multiplicity="0..1" />
@@ -17112,6 +17130,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <EntitySetMapping Name="tblPost">
             <EntityTypeMapping TypeName="KasabaKIATModel.tblPost">
               <MappingFragment StoreEntitySet="tblPost">
+                <ScalarProperty Name="PROVODKA_ID" ColumnName="PROVODKA_ID" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="ID_KV" ColumnName="ID_KV" />
                 <ScalarProperty Name="Data_Post" ColumnName="Data_Post" />
@@ -17260,6 +17279,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <EntitySetMapping Name="tblVipl">
             <EntityTypeMapping TypeName="KasabaKIATModel.tblVipl">
               <MappingFragment StoreEntitySet="tblVipl">
+                <ScalarProperty Name="PROVODKA_ID" ColumnName="PROVODKA_ID" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="ID_Org" ColumnName="ID_Org" />
                 <ScalarProperty Name="Data_Post" ColumnName="Data_Post" />
@@ -18166,6 +18186,8 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <EntitySetMapping Name="tbbu_provodki">
             <EntityTypeMapping TypeName="KasabaKIATModel.tbbu_provodki">
               <MappingFragment StoreEntitySet="tbbu_provodki">
+                <ScalarProperty Name="TRREFNO" ColumnName="TRREFNO" />
+                <ScalarProperty Name="TRREF" ColumnName="TRREF" />
                 <ScalarProperty Name="COMMENT" ColumnName="COMMENT" />
                 <ScalarProperty Name="SUMMA" ColumnName="SUMMA" />
                 <ScalarProperty Name="POLUCHRSCH" ColumnName="POLUCHRSCH" />
@@ -18601,6 +18623,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <EntitySetMapping Name="tblOplatas">
             <EntityTypeMapping TypeName="KasabaKIATModel.tblOplata">
               <MappingFragment StoreEntitySet="tblOplata">
+                <ScalarProperty Name="PROVODKA_ID" ColumnName="PROVODKA_ID" />
                 <ScalarProperty Name="Departmentbase" ColumnName="Departmentbase" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="PrizOpl" ColumnName="PrizOpl" />
@@ -18621,6 +18644,10 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <EntitySetMapping Name="tblVozVrats">
             <EntityTypeMapping TypeName="KasabaKIATModel.tblVozVrat">
               <MappingFragment StoreEntitySet="tblVozVrat">
+                <ScalarProperty Name="RASXOD_PROVODKA_ID" ColumnName="RASXOD_PROVODKA_ID" />
+                <ScalarProperty Name="PRIXOD_PROVODKA_ID" ColumnName="PRIXOD_PROVODKA_ID" />
+                <ScalarProperty Name="RASXOD_ID" ColumnName="RASXOD_ID" />
+                <ScalarProperty Name="PRIXOD_ID" ColumnName="PRIXOD_ID" />
                 <ScalarProperty Name="DepartmentBase" ColumnName="DepartmentBase" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="Tip_Voz" ColumnName="Tip_Voz" />

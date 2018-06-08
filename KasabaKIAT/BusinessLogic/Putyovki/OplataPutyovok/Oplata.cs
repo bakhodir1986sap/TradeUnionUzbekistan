@@ -6,7 +6,10 @@ using KasabaKIAT.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
+using System.Data.Entity;
+
 
 namespace KasabaKiat.BusinessLogic.Putyovki.OplataPutyovok
 {
@@ -92,7 +95,7 @@ namespace KasabaKiat.BusinessLogic.Putyovki.OplataPutyovok
         /// 
         /// </summary>
         /// <param name="IdMain"></param>
-        public void ClosePrixodPutyovok(long IdMain)
+        public async Task ClosePrixodPutyovok(long IdMain)
         {
             using (KasabaKIATEntities db = new KasabaKIATEntities())
             {
@@ -116,9 +119,11 @@ namespace KasabaKiat.BusinessLogic.Putyovki.OplataPutyovok
                     oplata.Tip_Org = true;
                     oplata.UserId = post1.UserId;
 
-                    OplataDataManager.Create(ref oplata);
+                    tblOplata opp = null;
 
-                    var prixodDtl = PostPutDetailDataManager.GetFiltered(new PostPutyovkaViewModel()
+                    OplataDataManager.Create(ref oplata, db, out opp);
+
+                    var prixodDtl = await PostPutDetailDataManager.GetFiltered(new PostPutyovkaViewModel()
                     {
                         Departmentbase = post1.DepartmentBase,
                         IdPost = IdMain
@@ -140,12 +145,12 @@ namespace KasabaKiat.BusinessLogic.Putyovki.OplataPutyovok
                                 UserId = pDtl.UserId.Value
                             };
 
-                            OplataRasxodDataManager.Create(ref oplatDtl);
+                            OplataRasxodDataManager.Create(ref oplatDtl, db, opp);
                         }
                     }
                 }
 
-                db.SaveChanges();
+                await db.SaveChangesAsync();
             }
         }
 
@@ -153,7 +158,7 @@ namespace KasabaKiat.BusinessLogic.Putyovki.OplataPutyovok
         /// 
         /// </summary>
         /// <param name="IdMain"></param>
-        public void CloseRasxodPutyovok(long IdMain)
+        public async Task CloseRasxodPutyovok(long IdMain)
         {
             using (KasabaKIATEntities db = new KasabaKIATEntities())
             {
@@ -178,9 +183,11 @@ namespace KasabaKiat.BusinessLogic.Putyovki.OplataPutyovok
                         UserId = post1.UserId
                     };
 
-                    OplataDataManager.Create(ref oplata);
+                    tblOplata opp = null;
 
-                    var prixodDtl = Vipl_PutDataManager.Get(IdMain);
+                    OplataDataManager.Create(ref oplata, db, out opp);
+
+                    var prixodDtl = await Vipl_PutDataManager.Get(IdMain);
 
                     if (prixodDtl != null)
                     {
@@ -198,7 +205,7 @@ namespace KasabaKiat.BusinessLogic.Putyovki.OplataPutyovok
                                 UserId = pDtl.userid.Value
                             };
 
-                            OplataRasxodDataManager.Create(ref oplatDtl);
+                            OplataRasxodDataManager.Create(ref oplatDtl,db, opp);
                         }
                     }
 
@@ -229,9 +236,11 @@ namespace KasabaKiat.BusinessLogic.Putyovki.OplataPutyovok
                                 DepartmentBase = departmentCode
                             };
 
-                            PostMainDataManager.Create(ref prixodMain);
+                            tblPost pp = null;
 
-                            var prixodDtl2 = Vipl_PutDataManager.Get(IdMain);
+                            PostMainDataManager.Create(ref prixodMain,db, out pp);
+
+                            var prixodDtl2 = await Vipl_PutDataManager.Get(IdMain);
 
                             if (prixodDtl2 != null)
                             {
@@ -250,7 +259,7 @@ namespace KasabaKiat.BusinessLogic.Putyovki.OplataPutyovok
                                         Departmentbase = departmentCode
                                     };
 
-                                    PostPutDetailDataManager.Create(ref prixodDetail1);
+                                    PostPutDetailDataManager.Create(ref prixodDetail1,db, pp);
                                 }
                             }
 
@@ -264,7 +273,7 @@ namespace KasabaKiat.BusinessLogic.Putyovki.OplataPutyovok
 
                 }
 
-                db.SaveChanges();
+                await db.SaveChangesAsync();
             }
         }
 
@@ -273,13 +282,13 @@ namespace KasabaKiat.BusinessLogic.Putyovki.OplataPutyovok
         /// </summary>
         /// <param name="IdOrg"></param>
         /// <returns></returns>
-        public List<OplataRasxodiViewModel> GetRaznoskaList(long IdOrg)
+        public async Task<List<OplataRasxodiViewModel>> GetRaznoskaList(long IdOrg)
         {
             var list = new List<OplataRasxodiViewModel>(); 
 
             using (KasabaKIATEntities db = new KasabaKIATEntities())
             {
-                var query = from oplMst in db.tblOplatas
+                var query = await (from oplMst in db.tblOplatas
                             join oplDtl in db.tblOplata_Ras on oplMst.ID equals oplDtl.ID_Opl
                             join sanat  in db.tblSprav_San  on oplDtl.ID_Sanat equals sanat.ID
                             join proc   in db.tblSprav_Pr   on oplDtl.ID_Pr equals proc.ID
@@ -295,23 +304,23 @@ namespace KasabaKiat.BusinessLogic.Putyovki.OplataPutyovok
                                 ProcName    = proc.Name_Proc,
                                 Price       = oplDtl.Symma,
                                 Priznak     = oplDtl.Priz
-                            };
+                            }).ToArrayAsync();
 
                 foreach(var putyovka in query)
                 {
-                    var find = db.tblOplata_Ras.Where(z => z.Priz == (int)OplataRasxPriz.OrganizasiyaOplata
+                    var find = await (db.tblOplata_Ras.Where(z => z.Priz == (int)OplataRasxPriz.OrganizasiyaOplata
                                                         && z.ID_Sanat == putyovka.IdSanat
                                                         && z.Num_Put == putyovka.Num_Put
-                                                        && z.Symma == putyovka.Price);
+                                                        && z.Symma == putyovka.Price)).ToArrayAsync();
 
                     if (find.Any())
                     {
                         var oplataCount = find.Count();
 
-                        var find2 = db.tblOplata_Ras.Where(z => z.Priz == (int)OplataRasxPriz.VozvratPutyovki
+                        var find2 = await  (db.tblOplata_Ras.Where(z => z.Priz == (int)OplataRasxPriz.VozvratPutyovki
                                     && z.ID_Sanat == putyovka.IdSanat
                                     && z.Num_Put == putyovka.Num_Put
-                                    && z.Symma == putyovka.Price);
+                                    && z.Symma == putyovka.Price)).ToArrayAsync();
 
                         var vozvratCount = find2.Count();
 
@@ -364,13 +373,13 @@ namespace KasabaKiat.BusinessLogic.Putyovki.OplataPutyovok
         /// </summary>
         /// <param name="IdOrg"></param>
         /// <returns></returns>
-        public decimal GetGeneralRemainingByOrg(long IdOrg)
+        public async Task<decimal> GetGeneralRemainingByOrg(long IdOrg)
         {
             decimal totalRemain = 0;
 
             using (KasabaKIATEntities db = new KasabaKIATEntities())
             {
-                var query = from oplMst in db.tblOplatas
+                var query = await (from oplMst in db.tblOplatas
                             join oplDtl in db.tblOplata_Ras on oplMst.ID equals oplDtl.ID_Opl
                             join sanat in db.tblSprav_San on oplDtl.ID_Sanat equals sanat.ID
                             join proc in db.tblSprav_Pr on oplDtl.ID_Pr equals proc.ID
@@ -386,7 +395,7 @@ namespace KasabaKiat.BusinessLogic.Putyovki.OplataPutyovok
                                 ProcName = proc.Name_Proc,
                                 Price = oplDtl.Symma,
                                 Priznak = oplDtl.Priz
-                            };
+                            }).ToArrayAsync();
 
                 var detailTotal = query.Sum(p => p.Price);
 
@@ -395,14 +404,14 @@ namespace KasabaKiat.BusinessLogic.Putyovki.OplataPutyovok
                     detailTotal = 0;
                 }
 
-                var query1 = from oplMst in db.tblOplatas
+                var query1 = await (from oplMst in db.tblOplatas
                             where (oplMst.ID_Otras == IdOrg && 
                             oplMst.PrizOpl == (int)OplataRasxPriz.OrganizasiyaRasxod)
                             orderby oplMst.Data_Post
                             select new
                             {
                                 Price = oplMst.Symma_DT
-                            };
+                            }).ToArrayAsync();
 
                 var masterTotal = query1.Sum(p => p.Price);
 
@@ -423,20 +432,20 @@ namespace KasabaKiat.BusinessLogic.Putyovki.OplataPutyovok
         /// </summary>
         /// <param name="IdOrg"></param>
         /// <returns></returns>
-        public decimal GetTotalDebtByOrg(long IdOrg)
+        public async Task<decimal> GetTotalDebtByOrg(long IdOrg)
         {
             decimal totalRemain = 0;
 
             using (KasabaKIATEntities db = new KasabaKIATEntities())
             {
-                var query = from oplMst in db.tblOplatas
+                var query = await (from oplMst in db.tblOplatas
                             where (oplMst.ID_Otras == IdOrg &&
                             oplMst.PrizOpl == (int)OplataRasxPriz.OrganizasiyaRasxod)
                             orderby oplMst.Data_Post
                             select new
                             {
                                 Price = oplMst.Symma_DT
-                            };
+                            }).ToArrayAsync();
 
                 var DebitAmount = query.Sum(p => p.Price);
 
@@ -445,14 +454,14 @@ namespace KasabaKiat.BusinessLogic.Putyovki.OplataPutyovok
                     DebitAmount = 0;
                 }
 
-                var query1 = from oplMst in db.tblOplatas
+                var query1 = await (from oplMst in db.tblOplatas
                              where (oplMst.ID_Otras == IdOrg &&
                              oplMst.PrizOpl == (int)OplataRasxPriz.OrganizasiyaOplata)
                              orderby oplMst.Data_Post
                              select new
                              {
                                  Price = oplMst.Symma_KT
-                             };
+                             }).ToArrayAsync();
 
                 var KreditAmount = query1.Sum(p => p.Price);
 
@@ -468,20 +477,24 @@ namespace KasabaKiat.BusinessLogic.Putyovki.OplataPutyovok
         }
 
 
-
-        public decimal GetOplataSaldo(long IdOpl)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="IdOpl"></param>
+        /// <returns></returns>
+        public async Task<decimal> GetOplataSaldo(long IdOpl)
         {
             decimal totalRemain = 0;
 
             using (KasabaKIATEntities db = new KasabaKIATEntities())
             {
-                var query = from oplMst in db.tblOplatas
+                var query = await (from oplMst in db.tblOplatas
                             where (oplMst.ID == IdOpl &&
                             oplMst.PrizOpl == (int)OplataRasxPriz.OrganizasiyaOplata)
                             select new
                             {
                                 Price = oplMst.Symma_KT
-                            };
+                            }).ToArrayAsync();
 
                 var OplataAmount = query.Sum(p => p.Price);
 

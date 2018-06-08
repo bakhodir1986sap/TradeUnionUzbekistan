@@ -32,5 +32,7 @@ namespace KasabaKIAT.Models
         public string POLUCHRSCH { get; set; }
         public Nullable<decimal> SUMMA { get; set; }
         public string COMMENT { get; set; }
+        public string TRREF { get; set; }
+        public string TRREFNO { get; set; }
     }
 }

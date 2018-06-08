@@ -2,13 +2,14 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 
 namespace KasabaKIAT.BusinessLogic.Putyovki.ZakritiyaKvartala
 {
     public class ZakritKvartal4Putyovka
     {
-        public void Process(ZakritiyeKvartalaViewModel model)
+        public async Task Process(ZakritiyeKvartalaViewModel model)
         {
             if (model == null)
             {
@@ -24,7 +25,7 @@ namespace KasabaKIAT.BusinessLogic.Putyovki.ZakritiyaKvartala
 
             foreach(var mmzakr in model.putyovkaList)
             {
-                Vipl_PutDataManager.ZakritPutyovki(new KasabaKiat.ViewModel.Putyovki.RealizasiyaViplPutViewModel()
+                await Vipl_PutDataManager.ZakritPutyovki(new KasabaKiat.ViewModel.Putyovki.RealizasiyaViplPutViewModel()
                 {
                     id = mmzakr.id
                 });

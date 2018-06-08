@@ -1,4 +1,5 @@
-﻿using System;
+﻿using KasabaKiat.BusinessLogic.Utils;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -87,16 +88,18 @@ namespace KasabaKiat.ViewModel.Putyovki
             }
       }
 
-        public int NaklMonth
+        private string[] month = new[] { "", "января", "февраля", "марта", "апреля", "мая", "июня", "июля", "августа", "сентября", "октября", "ноября", "декабря" };
+
+    public string NaklMonth
         {
             get
             {
                 if (data_post.HasValue)
                 {
-                    return data_post.Value.Month;
+                    return month[data_post.Value.Month];
                 }
 
-                return 0;
+                return "";
             }
         }
 
@@ -111,6 +114,19 @@ namespace KasabaKiat.ViewModel.Putyovki
                 }
 
                 return 0;
+            }
+        }
+
+        public string SummaPropisyu
+        {
+            get
+            {
+                if (symma.HasValue)
+                {
+                    return RuDateAndMoneyConverter.CurrencyToTxt((double)symma.Value, true);
+                }
+
+                return "";
             }
         }
     }

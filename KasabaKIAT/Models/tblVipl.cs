@@ -34,6 +34,7 @@ namespace KasabaKIAT.Models
         public Nullable<int> SmFil { get; set; }
         public Nullable<long> UserId { get; set; }
         public string DepartmentBase { get; set; }
+        public Nullable<long> PROVODKA_ID { get; set; }
     
         public virtual tblSprav_Kv tblSprav_Kv { get; set; }
         public virtual tblSprav_Org tblSprav_Org { get; set; }

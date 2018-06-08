@@ -4,6 +4,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Data.Entity;
+using System.Threading.Tasks;
+
 
 namespace KasabaKiat.BusinessLogic.Putyovki.OplataPutyovok
 {
@@ -13,10 +16,8 @@ namespace KasabaKiat.BusinessLogic.Putyovki.OplataPutyovok
         /// 
         /// </summary>
         /// <param name="model"></param>
-        public static void Create(ref OplataViewModel model)
+        public static void Create(ref OplataViewModel model, KasabaKIATEntities db, out tblOplata oplMain)
         {
-            using (KasabaKIATEntities db = new KasabaKIATEntities())
-            {
                 tblOplata opl = new tblOplata();
 
                 //opl.ID                = model.ID              ;
@@ -34,19 +35,14 @@ namespace KasabaKiat.BusinessLogic.Putyovki.OplataPutyovok
                 opl.UserId              = model.UserId          ;
                 opl.Departmentbase      = model.Departmentbase  ;
 
-                var opp = db.tblOplatas.Add(opl);
-
-                db.SaveChanges();
-
-                model.ID = opl.ID;
-            }
+                oplMain = db.tblOplatas.Add(opl);
         }
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="model"></param>
-        public static void Modify(OplataViewModel model)
+        public static async Task Modify(OplataViewModel model)
         {
             using (KasabaKIATEntities db = new KasabaKIATEntities())
             {
@@ -75,7 +71,7 @@ namespace KasabaKiat.BusinessLogic.Putyovki.OplataPutyovok
                     }
                 }
 
-                db.SaveChanges();
+                await db.SaveChangesAsync();
             }
         }
 
@@ -83,7 +79,7 @@ namespace KasabaKiat.BusinessLogic.Putyovki.OplataPutyovok
         /// 
         /// </summary>
         /// <param name="model"></param>
-        public static void Remove(OplataViewModel model)
+        public static async Task Remove(OplataViewModel model)
         {
             using (KasabaKIATEntities db = new KasabaKIATEntities())
             {
@@ -104,7 +100,7 @@ namespace KasabaKiat.BusinessLogic.Putyovki.OplataPutyovok
                     }
                 }
 
-                db.SaveChanges();
+                await db.SaveChangesAsync();
             }
         }
 
@@ -113,13 +109,13 @@ namespace KasabaKiat.BusinessLogic.Putyovki.OplataPutyovok
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        public static List<OplataViewModel> Get(OplataViewModel model)
+        public static async Task<List<OplataViewModel>> Get(OplataViewModel model)
         {
             List<OplataViewModel> list = null;
 
             using (KasabaKIATEntities db = new KasabaKIATEntities())
             {
-                var query = from oplata in db.tblOplatas
+                var query = await (from oplata in db.tblOplatas
                             select new OplataViewModel
                             {
                                 ID                  = oplata.ID         ,                 
@@ -136,9 +132,9 @@ namespace KasabaKiat.BusinessLogic.Putyovki.OplataPutyovok
                                 PrizOpl             = oplata.PrizOpl    ,   
                                 UserId              = oplata.UserId     ,   
                                 Departmentbase      = oplata.Departmentbase
-                            };
+                            }).ToListAsync();
 
-                list = query.ToList();
+                list = query;
             }
 
             return list;
@@ -151,13 +147,13 @@ namespace KasabaKiat.BusinessLogic.Putyovki.OplataPutyovok
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        public static List<OplataViewModel> GetFiltered(OplataViewModel model)
+        public static async Task<List<OplataViewModel>> GetFiltered(OplataViewModel model)
         {
             List<OplataViewModel> list = null;
 
             using (KasabaKIATEntities db = new KasabaKIATEntities())
             {
-                var query = from oplata in db.tblOplatas
+                var query = await (from oplata in db.tblOplatas
                             where oplata.Departmentbase == model.Departmentbase
                             && oplata.SmFil == model.SmFil 
                             && oplata.ID_KV == model.ID_KV
@@ -195,9 +191,9 @@ namespace KasabaKiat.BusinessLogic.Putyovki.OplataPutyovok
                                 PrizOpl = oplata.PrizOpl,
                                 UserId = oplata.UserId,
                                 Departmentbase = oplata.Departmentbase
-                            };
+                            }).ToListAsync();
 
-                list = query.ToList();
+                list = query;
 
                 foreach(var mm in list)
                 {

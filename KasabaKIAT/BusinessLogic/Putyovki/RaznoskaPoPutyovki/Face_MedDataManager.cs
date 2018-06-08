@@ -13,10 +13,8 @@ namespace KasabaKiat.BusinessLogic.Putyovki.RaznoskaPoPutyovki
         /// 
         /// </summary>
         /// <param name="model"></param>
-        public static void Create(ref Face_MedViewModel model)
+        public static void Create(ref Face_MedViewModel model, KasabaKIATEntities db, tblFase faceMain)
         {
-            using (KasabaKIATEntities db = new KasabaKIATEntities())
-            {
                 tblFace_Med fm = new tblFace_Med();
 
                 long IdValue = 0;
@@ -27,6 +25,7 @@ namespace KasabaKiat.BusinessLogic.Putyovki.RaznoskaPoPutyovki
                 }
 
                 fm.ID = IdValue + 1;
+                fm.tblFase = faceMain;
                 fm.ID_Face            = model.id_face       ;  
                 fm.Med_Doc            = model.med_doc       ;  
                 fm.Med_Data           = model.med_data      ;  
@@ -40,21 +39,14 @@ namespace KasabaKiat.BusinessLogic.Putyovki.RaznoskaPoPutyovki
                 fm.Departmentbase     = model.departmentbase;
 
                 var fmm = db.tblFace_Med.Add(fm);
-
-                model.id = fmm.ID;
-
-                db.SaveChanges();
-            }
         }
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="model"></param>
-        public static void Update(Face_MedViewModel model)
+        public static void Update(Face_MedViewModel model, KasabaKIATEntities db)
         {
-            using (KasabaKIATEntities db = new KasabaKIATEntities())
-            {
                 var fm = db.tblFace_Med.Where(z => z.ID == model.id);
 
                 if (fm.Any())
@@ -102,9 +94,6 @@ namespace KasabaKiat.BusinessLogic.Putyovki.RaznoskaPoPutyovki
 
                     var fmm = db.tblFace_Med.Add(fm2);
                 }
-
-                db.SaveChanges();
-            }
         }
 
         /// <summary>

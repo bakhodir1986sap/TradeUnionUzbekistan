@@ -155,7 +155,7 @@ namespace KasabaKIAT.BusinessLogic.Putyovki.RealizasiyaPutyovok.RealizasitaPoTz
 
                         procPut.Add(chk.NumPut);
                         RealizasiyaDataManager.Create(ref real);
-                        PostPutDetailDataManager.Polzov((int)real.sanatorium_id, real.serail_number);
+                        PostPutDetailDataManager.Polzov((int)real.sanatorium_id, real.serail_number, db);
                         list.Add(real);
                     }
                    

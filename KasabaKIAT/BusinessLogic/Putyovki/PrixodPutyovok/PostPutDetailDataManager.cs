@@ -7,15 +7,21 @@ using System.Linq;
 using System.Web;
 using System.Data.Entity.Validation;
 using KasabaKIAT.BusinessLogic.Putyovki.PrixodPutyovok;
+using System.Data.Entity;
+using System.Threading.Tasks;
 
 namespace KasabaKiat.BusinessLogic.Putyovki.PrixodPutyovok
 {
     public class PostPutDetailDataManager
     {
-        public static void Create(ref PostPutyovkaViewModel model)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="model"></param>
+        /// <param name="db"></param>
+        /// <param name="postMain"></param>
+        public static void Create(ref PostPutyovkaViewModel model, KasabaKIATEntities db , tblPost postMain)
         {
-            using (KasabaKIATEntities db = new KasabaKIATEntities())
-            {
                 var masterId = model.IdPost;
 
                 var vids = db.tblPost.Where(z => z.ID == masterId);
@@ -33,10 +39,9 @@ namespace KasabaKiat.BusinessLogic.Putyovki.PrixodPutyovok
 
                 tblPos_Put post = new tblPos_Put();
 
-                //post.ID     = model.Id                ;
+                post.tblPost = postMain;
                 post.ID_Post     = model.IdPost            ;
                 post.ID_Sanat     = model.IdSanat           ;
-                //post.tblSprav_San.Name_San     = model.SanatName         ;
                 post.Num_Put     = model.Num_Put           ;
                 post.DataSan     = model.DataSan           ;
                 post.DataSanEnd     = model.DataSanEnd        ;
@@ -48,30 +53,15 @@ namespace KasabaKiat.BusinessLogic.Putyovki.PrixodPutyovok
 
                 var pst = db.tblPos_Put.Add(post);
 
-                try
-                {
-                    db.SaveChanges();
-                }
-                catch (DbEntityValidationException e)
-                {
-                    foreach (var eve in e.EntityValidationErrors)
-                    {
-                        Console.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
-                            eve.Entry.Entity.GetType().Name, eve.Entry.State);
-                        foreach (var ve in eve.ValidationErrors)
-                        {
-                            Console.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
-                                ve.PropertyName, ve.ErrorMessage);
-                        }
-                    }
-                    throw;
-                }
-
-                model.Id = post.ID;
-            }
+                model.Id = pst.ID;
         }
 
-        public static void Modify(PostPutyovkaViewModel model)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public static async Task Modify(PostPutyovkaViewModel model)
         {
             using (KasabaKIATEntities db = new KasabaKIATEntities())
             {
@@ -98,15 +88,19 @@ namespace KasabaKiat.BusinessLogic.Putyovki.PrixodPutyovok
                     }
                 }
 
-                db.SaveChanges();
+                await db.SaveChangesAsync();
             }
 
         }
 
-        public static void Polzov(int SanId, string NumPut)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="SanId"></param>
+        /// <param name="NumPut"></param>
+        /// <param name="db"></param>
+        public static void Polzov(int SanId, string NumPut, KasabaKIATEntities db)
         {
-            using (KasabaKIATEntities db = new KasabaKIATEntities())
-            {
                 var post = db.tblPos_Put.Where(z => z.ID_Sanat == SanId && z.Num_Put == NumPut);
 
                 if (post.Any())
@@ -119,15 +113,16 @@ namespace KasabaKiat.BusinessLogic.Putyovki.PrixodPutyovok
                     }
                 }
 
-                db.SaveChanges();
-            }
-
         }
 
-        public static void OtmenPolzov(int SanId, string NumPut)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="SanId"></param>
+        /// <param name="NumPut"></param>
+        /// <param name="db"></param>
+        public static void OtmenPolzov(int SanId, string NumPut, KasabaKIATEntities db)
         {
-            using (KasabaKIATEntities db = new KasabaKIATEntities())
-            {
                 var post = db.tblPos_Put.Where(z => z.ID_Sanat == SanId && z.Num_Put == NumPut);
 
                 if (post.Any())
@@ -140,12 +135,13 @@ namespace KasabaKiat.BusinessLogic.Putyovki.PrixodPutyovok
                     }
                 }
 
-                db.SaveChanges();
-            }
-
         }
 
-        public static void Remove(PostPutyovkaViewModel model)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="model"></param>
+        public static async Task Remove(PostPutyovkaViewModel model)
         {
             using (KasabaKIATEntities db = new KasabaKIATEntities())
             {
@@ -161,7 +157,7 @@ namespace KasabaKiat.BusinessLogic.Putyovki.PrixodPutyovok
                     }
                 }
 
-                db.SaveChanges();
+                await db.SaveChangesAsync();
             }
             //Search by ID_Post find all rows and delete each
         }
@@ -187,13 +183,13 @@ namespace KasabaKiat.BusinessLogic.Putyovki.PrixodPutyovok
             //Search by ID_Post find all rows and delete each
         }
 
-        public static List<PostPutyovkaViewModel> Get(PostPutyovkaViewModel model)
+        public static async Task<List<PostPutyovkaViewModel>> Get(PostPutyovkaViewModel model)
         {
             List<PostPutyovkaViewModel> list = null;
 
             using (KasabaKIATEntities db = new KasabaKIATEntities())
             {
-                var query = from postPut in db.tblPos_Put
+                var query = await (from postPut in db.tblPos_Put
                             join postMain in db.tblPost 
                             on postPut.ID_Post equals postMain.ID
                             where postMain.DepartmentBase == model.Departmentbase &&
@@ -214,7 +210,7 @@ namespace KasabaKiat.BusinessLogic.Putyovki.PrixodPutyovok
                                UserId         = postPut.UserId                 ,
                                Departmentbase = postPut.Departmentbase         ,
                                Checked        = false
-                            };
+                            }).ToListAsync();
 
                 //list = query.ToList();
 
@@ -244,13 +240,13 @@ namespace KasabaKiat.BusinessLogic.Putyovki.PrixodPutyovok
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        public static List<PostPutyovkaViewModel> GetFiltered(PostPutyovkaViewModel model)
+        public static async Task<List<PostPutyovkaViewModel>> GetFiltered(PostPutyovkaViewModel model)
         {
             List<PostPutyovkaViewModel> list = null;
 
             using (KasabaKIATEntities db = new KasabaKIATEntities())
             {
-                var query = from postPut in db.tblPos_Put
+                var query = await (from postPut in db.tblPos_Put
                             where postPut.ID_Post == model.IdPost 
                             && postPut.tblPost.DepartmentBase == model.Departmentbase
                             //&& postPut.ID_PolVoz == false
@@ -268,7 +264,7 @@ namespace KasabaKiat.BusinessLogic.Putyovki.PrixodPutyovok
                                 Data_Post = postPut.Data_Post,
                                 UserId = postPut.UserId,
                                 Departmentbase = postPut.Departmentbase
-                            };
+                            }).ToListAsync();
 
                 list = query.ToList();
 
@@ -343,13 +339,13 @@ namespace KasabaKiat.BusinessLogic.Putyovki.PrixodPutyovok
         }
 
 
-        public static List<PostPutyovkaViewModel> Get2(PostPutyovkaViewModel model)
+        public static async Task<List<PostPutyovkaViewModel>> Get2(PostPutyovkaViewModel model)
         {
             List<PostPutyovkaViewModel> list = null;
 
             using (KasabaKIATEntities db = new KasabaKIATEntities())
             {
-                var query = from postPut in db.tblPos_Put
+                var query = await (from postPut in db.tblPos_Put
                             join postMain in db.tblPost
                             on postPut.ID_Post equals postMain.ID
                             where postMain.DepartmentBase == model.Departmentbase &&
@@ -369,7 +365,7 @@ namespace KasabaKiat.BusinessLogic.Putyovki.PrixodPutyovok
                                 UserId = postPut.UserId,
                                 Departmentbase = postPut.Departmentbase,
                                 Checked = false
-                            };
+                            }).ToListAsync();
 
                 list = query.ToList();
             }

@@ -28,6 +28,7 @@ using KasabaKiat.BusinessLogic.Putyovki.RaznoskaPoPutyovki;
 using KasabaKiat.ViewModel.Putyovki.RaznoskaPutyovok;
 using KasabaKIAT.BusinessLogic.Putyovki.SverkaDannix.Ruchnoy;
 using OfficeOpenXml;
+using System.Threading.Tasks;
 
 namespace KasabaKIAT.Controllers
 {
@@ -1109,12 +1110,12 @@ namespace KasabaKIAT.Controllers
         /// <param name="year"></param>
         /// <param name="kvartal"></param>
         /// <returns></returns>
-        public JsonResult GetMainList(int year, int kvartal)
+        public async Task<JsonResult> GetMainList(int year, int kvartal)
         {
             int UserId = Convert.ToInt32(User.Identity.Name);
             var ustinfo = UserInfo.GetUserInfo(UserId);
 
-            var list = PostMainDataManager.Get(new PostupleniyaViewModel()
+            var list = await PostMainDataManager.Get(new PostupleniyaViewModel()
             {
 
                 Id_Kv = kvartal,
@@ -1131,12 +1132,12 @@ namespace KasabaKIAT.Controllers
         /// </summary>
         /// <param name="IdPost"></param>
         /// <returns></returns>
-        public JsonResult GetDetailList(long IdPost)
+        public async Task<JsonResult> GetDetailList(long IdPost)
         {
             int UserId = Convert.ToInt32(User.Identity.Name);
             var ustinfo = UserInfo.GetUserInfo(UserId);
 
-            var list = PostPutDetailDataManager.GetFiltered(new PostPutyovkaViewModel()
+            var list = await PostPutDetailDataManager.GetFiltered(new PostPutyovkaViewModel()
             {
                 IdPost = IdPost,
                 Departmentbase = ustinfo.DepartmentBase
@@ -1150,12 +1151,12 @@ namespace KasabaKIAT.Controllers
         /// </summary>
         /// <param name="IdPost"></param>
         /// <returns></returns>
-        public JsonResult GetDetailListRes(long IdPost)
+        public async Task<JsonResult> GetDetailListRes(long IdPost)
         {
             int UserId = Convert.ToInt32(User.Identity.Name);
             var ustinfo = UserInfo.GetUserInfo(UserId);
 
-            var list = PostPutDetailDataManager.GetFiltered(new PostPutyovkaViewModel()
+            var list = await PostPutDetailDataManager.GetFiltered(new PostPutyovkaViewModel()
             {
                 IdPost = IdPost,
                 Departmentbase = ustinfo.DepartmentBase
@@ -1176,7 +1177,7 @@ namespace KasabaKIAT.Controllers
         /// <param name="model"></param>
         /// <returns></returns>
         [HttpPost]
-        public JsonResult AddMain(PostupleniyaViewModel model)
+        public async Task<JsonResult> AddMain(PostupleniyaViewModel model)
         {
             int UserId = Convert.ToInt32(User.Identity.Name);
             var ustinfo = UserInfo.GetUserInfo(UserId);
@@ -1186,7 +1187,11 @@ namespace KasabaKIAT.Controllers
 
             try
             {
-                PostMainDataManager.Create(ref model);
+                tblPost pp = null;
+
+                PostMainDataManager.Create(ref model, KasabaDB, out pp);
+
+                await KasabaDB.SaveChangesAsync();
             }
             catch (Exception ex)
             {
@@ -1201,7 +1206,7 @@ namespace KasabaKIAT.Controllers
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        public JsonResult ModifyMain(KasabaKiat.ViewModel.PostupleniyaViewModel model)
+        public async Task<JsonResult> ModifyMain(PostupleniyaViewModel model)
         {
             int UserId = Convert.ToInt32(User.Identity.Name);
             var ustinfo = UserInfo.GetUserInfo(UserId);
@@ -1211,7 +1216,7 @@ namespace KasabaKIAT.Controllers
 
             try
             {
-                PostMainDataManager.Modify(model);
+                await PostMainDataManager.Modify(model);
             }
             catch(Exception ex)
             {
@@ -1226,7 +1231,7 @@ namespace KasabaKIAT.Controllers
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        public JsonResult RemoveAllWithLinked(PostupleniyaViewModel model)
+        public async Task<JsonResult> RemoveAllWithLinked(PostupleniyaViewModel model)
         {
             int UserId = Convert.ToInt32(User.Identity.Name);
             var ustinfo = UserInfo.GetUserInfo(UserId);
@@ -1236,7 +1241,7 @@ namespace KasabaKIAT.Controllers
 
             try
             {
-                var  res = PostMainDataManager.Remove(new PostupleniyaViewModel()
+                var  res = await PostMainDataManager.Remove(new PostupleniyaViewModel()
                 {
                     Id = model.Id
                 });
@@ -1257,7 +1262,7 @@ namespace KasabaKIAT.Controllers
         /// </summary>
         /// <param name="Id"></param>
         /// <returns></returns>
-        public JsonResult RemovePutyovkaDetail(List<long> putyovkaL)
+        public async Task<JsonResult> RemovePutyovkaDetail(List<long> putyovkaL)
         {
             if (putyovkaL == null) return Json("fail", JsonRequestBehavior.AllowGet);
 
@@ -1265,7 +1270,7 @@ namespace KasabaKIAT.Controllers
             {
                 foreach(var putyovkaId in putyovkaL)
                 {
-                    PostPutDetailDataManager.Remove(new PostPutyovkaViewModel()
+                    await PostPutDetailDataManager.Remove(new PostPutyovkaViewModel()
                     {
                         Id = putyovkaId
                     });
@@ -1285,12 +1290,12 @@ namespace KasabaKIAT.Controllers
         /// <param name="year"></param>
         /// <param name="kvartal"></param>
         /// <returns></returns>
-        public JsonResult GetTotalResults(int year, int kvartal)
+        public async Task<JsonResult> GetTotalResults(int year, int kvartal)
         {
             int UserId = Convert.ToInt32(User.Identity.Name);
             var ustinfo = UserInfo.GetUserInfo(UserId);
 
-            var totalres = PostMainDataManager.GetTotals(year, kvartal, ustinfo.DepartmentBase);
+            var totalres = await PostMainDataManager.GetTotals(year, kvartal, ustinfo.DepartmentBase);
 
             return Json(totalres, JsonRequestBehavior.AllowGet);
         }
@@ -1328,7 +1333,7 @@ namespace KasabaKIAT.Controllers
         /// </summary>
         /// <param name="lModel"></param>
         /// <returns></returns>
-        public JsonResult AddDetail(List<PostPutyovkaViewModel> lModel, List<string> expLst)
+        public async Task<JsonResult> AddDetail(List<PostPutyovkaViewModel> lModel, List<string> expLst)
         {
             try
             {
@@ -1348,7 +1353,11 @@ namespace KasabaKIAT.Controllers
 
                     PostPutyovkaViewModel mmModel = mm;
 
-                    PostPutDetailDataManager.Create(ref mmModel);
+                    var pp = KasabaDB.tblPost.Where(z => z.ID == mmModel.IdPost).First();
+
+                    PostPutDetailDataManager.Create(ref mmModel,KasabaDB, pp);
+
+                    await KasabaDB.SaveChangesAsync();
                 }
             }
             catch(Exception ex)
@@ -1366,11 +1375,11 @@ namespace KasabaKIAT.Controllers
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        public JsonResult CloseNakladnoy(PostupleniyaViewModel model)
+        public async Task<JsonResult>  CloseNakladnoy(PostupleniyaViewModel model)
         {
             try
             {
-                PostMainDataManager.CloseNakladnoy(model);
+                await PostMainDataManager.CloseNakladnoy(model);
             }
             catch (Exception ex)
             {
@@ -1413,7 +1422,7 @@ namespace KasabaKIAT.Controllers
         /// </summary>
         /// <param name="putyovkaL"></param>
         /// <returns></returns>
-        public JsonResult PostavitVBron2(List<long> putyovkaL)
+        public async Task<JsonResult> PostavitVBron2(List<long> putyovkaL)
         {
             if (putyovkaL == null) return Json("fail", JsonRequestBehavior.AllowGet);
 
@@ -1429,7 +1438,7 @@ namespace KasabaKIAT.Controllers
                     Id = puId
                 };
 
-                var putyovka = PostPutDetailDataManager.Get2(model);
+                var putyovka = await PostPutDetailDataManager.Get2(model);
 
                 if (putyovka.Any())
                 {
@@ -1482,7 +1491,7 @@ namespace KasabaKIAT.Controllers
         /// </summary>
         /// <param name="putyovkaL"></param>
         /// <returns></returns>
-        public JsonResult SnyatsBron2(List<long> putyovkaL)
+        public async Task<JsonResult> SnyatsBron2(List<long> putyovkaL)
         {
             if (putyovkaL == null) return Json("fail", JsonRequestBehavior.AllowGet);
 
@@ -1498,7 +1507,7 @@ namespace KasabaKIAT.Controllers
                     Id = puId
                 };
 
-                var putyovka = PostPutDetailDataManager.Get2(model);
+                var putyovka = await PostPutDetailDataManager.Get2(model);
 
                 if (putyovka.Any())
                 {
@@ -1573,12 +1582,12 @@ namespace KasabaKIAT.Controllers
         /// <param name="year"></param>
         /// <param name="kvartal"></param>
         /// <returns></returns>
-        public JsonResult GetViplMain(int year, int kvartal)
+        public async Task<JsonResult> GetViplMain(int year, int kvartal)
         {
             int UserId = Convert.ToInt32(User.Identity.Name);
             var ustinfo = UserInfo.GetUserInfo(UserId);
 
-            var list = ViplMainDataManager.Get(new RealizasiyaViplMainViewModel()
+            var list = await ViplMainDataManager.Get(new RealizasiyaViplMainViewModel()
             {
                 smfil = year,
                 id_kv = kvartal,
@@ -1593,9 +1602,9 @@ namespace KasabaKIAT.Controllers
         /// </summary>
         /// <param name="IdVipl"></param>
         /// <returns></returns>
-        public JsonResult GetViplDtl(long IdVipl)
+        public async Task<JsonResult> GetViplDtl(long IdVipl)
         {
-            var list = Vipl_PutDataManager.Get(IdVipl);
+            var list = await Vipl_PutDataManager.Get(IdVipl);
 
             return Json(list, JsonRequestBehavior.AllowGet);
         }
@@ -1605,7 +1614,7 @@ namespace KasabaKIAT.Controllers
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        public JsonResult AddViplMain(RealizasiyaViplMainViewModel model)
+        public async Task<JsonResult> AddViplMain(RealizasiyaViplMainViewModel model)
         {
             int UserId = Convert.ToInt32(User.Identity.Name);
             var ustinfo = UserInfo.GetUserInfo(UserId);
@@ -1615,7 +1624,11 @@ namespace KasabaKIAT.Controllers
 
             try
             {
-                ViplMainDataManager.Create(ref model);
+                tblVipl pp = null;
+
+                ViplMainDataManager.Create(ref model, KasabaDB , out pp);
+
+                await KasabaDB.SaveChangesAsync();
             }
             catch(Exception ex)
             {
@@ -1632,7 +1645,7 @@ namespace KasabaKIAT.Controllers
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        public JsonResult ModifyViplMain(RealizasiyaViplMainViewModel model)
+        public async Task<JsonResult> ModifyViplMain(RealizasiyaViplMainViewModel model)
         {
             int UserId = Convert.ToInt32(User.Identity.Name);
             var ustinfo = UserInfo.GetUserInfo(UserId);
@@ -1642,7 +1655,7 @@ namespace KasabaKIAT.Controllers
 
             try
             {
-                ViplMainDataManager.Modify(model);
+                await ViplMainDataManager.Modify(model);
             }
             catch(Exception ex)
             {
@@ -1659,7 +1672,7 @@ namespace KasabaKIAT.Controllers
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        public JsonResult RemoveViplMain(RealizasiyaViplMainViewModel model)
+        public async Task<JsonResult> RemoveViplMain(RealizasiyaViplMainViewModel model)
         {
             int UserId = Convert.ToInt32(User.Identity.Name);
             var ustinfo = UserInfo.GetUserInfo(UserId);
@@ -1669,7 +1682,7 @@ namespace KasabaKIAT.Controllers
 
             try
             {
-                ViplMainDataManager.RemoveWithChild(model);
+                await ViplMainDataManager.RemoveWithChild(model);
             }
             catch(Exception ex)
             {
@@ -1685,12 +1698,12 @@ namespace KasabaKIAT.Controllers
         /// 
         /// </summary>
         /// <returns></returns>
-        public JsonResult GetNewPutyovkaList(string NumPut)
+        public async Task<JsonResult> GetNewPutyovkaList(string NumPut)
         {
             int UserId = Convert.ToInt32(User.Identity.Name);
             var ustinfo = UserInfo.GetUserInfo(UserId);
 
-            var list = PostPutDetailDataManager.Get(new PostPutyovkaViewModel()
+            var list = await PostPutDetailDataManager.Get(new PostPutyovkaViewModel()
             {
                 Departmentbase = ustinfo.DepartmentBase,
                 Num_Put = NumPut
@@ -1705,7 +1718,7 @@ namespace KasabaKIAT.Controllers
         /// <param name="modModel"></param>
         /// <param name="IdViplMain"></param>
         /// <returns></returns>
-        public JsonResult AddViplPut(List<PostPutyovkaViewModel> modModel, long? IdViplMain)
+        public async Task<JsonResult> AddViplPut(List<PostPutyovkaViewModel> modModel, long? IdViplMain)
         {
             int UserId = Convert.ToInt32(User.Identity.Name);
             var ustinfo = UserInfo.GetUserInfo(UserId);
@@ -1732,10 +1745,12 @@ namespace KasabaKIAT.Controllers
                             viplPut.departmentbase = ustinfo.DepartmentBase;
 
                             //Enter to Rasxod
-                            Vipl_PutDataManager.Create(viplPut);
+                            Vipl_PutDataManager.Create(viplPut, KasabaDB);
 
                             //Change Status of Putyovka in Prixod
-                            PostPutDetailDataManager.Polzov(mm.IdSanat.Value, mm.Num_Put);
+                            PostPutDetailDataManager.Polzov(mm.IdSanat.Value, mm.Num_Put, KasabaDB);
+
+                            await KasabaDB.SaveChangesAsync();
                         }
                     }
                 }
@@ -1756,7 +1771,7 @@ namespace KasabaKIAT.Controllers
         /// <param name="modModel"></param>
         /// <param name="IdViplMain"></param>
         /// <returns></returns>
-        public JsonResult AddViplPut2(List<long> modModel, long IdViplMain)
+        public async Task<JsonResult> AddViplPut2(List<long> modModel, long IdViplMain)
         {
             int UserId = Convert.ToInt32(User.Identity.Name);
             var ustinfo = UserInfo.GetUserInfo(UserId);
@@ -1767,7 +1782,7 @@ namespace KasabaKIAT.Controllers
                 {
                     foreach (var putId in modModel)
                     {
-                        var prixodPut = PostPutDetailDataManager.Get2(new PostPutyovkaViewModel() {
+                        var prixodPut = await PostPutDetailDataManager.Get2(new PostPutyovkaViewModel() {
 
                             Id = putId,
                             Departmentbase = ustinfo.DepartmentBase
@@ -1793,10 +1808,12 @@ namespace KasabaKIAT.Controllers
                             viplPut.departmentbase = ustinfo.DepartmentBase;
 
                             //Enter to Rasxod
-                            Vipl_PutDataManager.Create(viplPut);
+                            Vipl_PutDataManager.Create(viplPut, KasabaDB);
 
                             //Change Status of Putyovka in Prixod
-                            PostPutDetailDataManager.Polzov(mm.IdSanat.Value, mm.Num_Put);
+                            PostPutDetailDataManager.Polzov(mm.IdSanat.Value, mm.Num_Put, KasabaDB);
+
+                            await KasabaDB.SaveChangesAsync();
                         //}
                     }
                 }
@@ -1817,12 +1834,12 @@ namespace KasabaKIAT.Controllers
         /// <param name="year"></param>
         /// <param name="kvartal"></param>
         /// <returns></returns>
-        public JsonResult GetViplTotalResults(int year, int kvartal)
+        public async Task<JsonResult> GetViplTotalResults(int year, int kvartal)
         {
             int UserId = Convert.ToInt32(User.Identity.Name);
             var ustinfo = UserInfo.GetUserInfo(UserId);
 
-            var totalres = ViplMainDataManager.GetTotals(year, kvartal, ustinfo.DepartmentBase);
+            var totalres = await ViplMainDataManager.GetTotals(year, kvartal, ustinfo.DepartmentBase);
 
             return Json(totalres, JsonRequestBehavior.AllowGet);
         }
@@ -1832,12 +1849,12 @@ namespace KasabaKIAT.Controllers
         /// </summary>
         /// <param name="IdVipl"></param>
         /// <returns></returns>
-        public JsonResult GetViplDetailListRes(long IdVipl)
+        public async Task<JsonResult> GetViplDetailListRes(long IdVipl)
         {
             int UserId = Convert.ToInt32(User.Identity.Name);
             var ustinfo = UserInfo.GetUserInfo(UserId);
 
-            var list = Vipl_PutDataManager.Get(IdVipl);
+            var list = await Vipl_PutDataManager.Get(IdVipl);
 
             var res = new TotalResults();
             res.PutyovkaCount = list.Count();
@@ -1851,9 +1868,9 @@ namespace KasabaKIAT.Controllers
         /// </summary>
         /// <param name="IdViplMain"></param>
         /// <returns></returns>
-        public JsonResult GetSchetFaktura(long IdViplMain)
+        public async Task<JsonResult> GetSchetFaktura(long IdViplMain)
         {
-            var schetFaktura = ViplMainDataManager.GetSchetFakturaData(IdViplMain);
+            var schetFaktura = await ViplMainDataManager.GetSchetFakturaData(IdViplMain);
 
             return Json(schetFaktura, JsonRequestBehavior.AllowGet);
         }
@@ -1864,11 +1881,11 @@ namespace KasabaKIAT.Controllers
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        public JsonResult CloseViplNakladnoy(RealizasiyaViplMainViewModel model)
+        public async Task<JsonResult> CloseViplNakladnoy(RealizasiyaViplMainViewModel model)
         {
             try
             {
-                ViplMainDataManager.CloseNakladnoy(model);
+                await ViplMainDataManager.CloseNakladnoy(model);
             }
             catch (Exception ex)
             {
@@ -1885,7 +1902,7 @@ namespace KasabaKIAT.Controllers
         /// </summary>
         /// <param name="Id"></param>
         /// <returns></returns>
-        public JsonResult RemoveViplPutyovkaDetail(List<long> putyovkaL)
+        public async Task<JsonResult> RemoveViplPutyovkaDetail(List<long> putyovkaL)
         {
             if (putyovkaL == null) return Json("fail", JsonRequestBehavior.AllowGet);
 
@@ -1893,7 +1910,7 @@ namespace KasabaKIAT.Controllers
             {
                 foreach (var putyovkaId in putyovkaL)
                 {
-                    var rasxm = Vipl_PutDataManager.Get2(putyovkaId);
+                    var rasxm = await Vipl_PutDataManager.Get2(putyovkaId);
 
                     if (!rasxm.Any()) continue;
 
@@ -1903,10 +1920,12 @@ namespace KasabaKIAT.Controllers
                     Vipl_PutDataManager.Remove(new RealizasiyaViplPutViewModel()
                     {
                         id = putyovkaId
-                    });
+                    }, KasabaDB);
 
                     //Otmen Polzov
-                    PostPutDetailDataManager.OtmenPolzov(rmodel.id_sanat.Value, rmodel.num_put);
+                    PostPutDetailDataManager.OtmenPolzov(rmodel.id_sanat.Value, rmodel.num_put, KasabaDB);
+
+                    await KasabaDB.SaveChangesAsync();
                 }
             }
             catch (Exception ex)
@@ -1922,9 +1941,9 @@ namespace KasabaKIAT.Controllers
         /// </summary>
         /// <param name="IdViplMain"></param>
         /// <returns></returns>
-        public JsonResult GetOrgPaymentsLastYear(long IdViplMain)
+        public async Task<JsonResult> GetOrgPaymentsLastYear(long IdViplMain)
         {
-            var paymentsAmount = ViplMainDataManager.GetOrgPaymentsLastYear(IdViplMain);
+            var paymentsAmount = await ViplMainDataManager.GetOrgPaymentsLastYear(IdViplMain);
 
             return Json(paymentsAmount, JsonRequestBehavior.AllowGet);
         }
@@ -1948,12 +1967,12 @@ namespace KasabaKIAT.Controllers
         /// <param name="year"></param>
         /// <param name="kvartal"></param>
         /// <returns></returns>
-        public JsonResult GetOplataMain(int year, int kvartal, int tipOrg, int Priz)
+        public async Task<JsonResult> GetOplataMain(int year, int kvartal, int tipOrg, int Priz)
         {
             int UserId = Convert.ToInt32(User.Identity.Name);
             var ustinfo = UserInfo.GetUserInfo(UserId);
 
-            var list =OplataDataManager.GetFiltered(new OplataViewModel()
+            var list =await OplataDataManager.GetFiltered(new OplataViewModel()
             {
                 SmFil = year,
                 ID_KV = kvartal,
@@ -1971,12 +1990,12 @@ namespace KasabaKIAT.Controllers
         /// <param name="year"></param>
         /// <param name="kvartal"></param>
         /// <returns></returns>
-        public JsonResult GetOplataMainRes(int year, int kvartal, int tipOrg, int Priz)
+        public async Task<JsonResult> GetOplataMainRes(int year, int kvartal, int tipOrg, int Priz)
         {
             int UserId = Convert.ToInt32(User.Identity.Name);
             var ustinfo = UserInfo.GetUserInfo(UserId);
 
-            var list = OplataDataManager.GetFiltered(new OplataViewModel()
+            var list = await OplataDataManager.GetFiltered(new OplataViewModel()
             {
                 SmFil = year,
                 ID_KV = kvartal,
@@ -2000,12 +2019,12 @@ namespace KasabaKIAT.Controllers
         /// </summary>
         /// <param name="IdMain"></param>
         /// <returns></returns>
-        public JsonResult GetOplataDetail(long IdMain)
+        public async Task<JsonResult> GetOplataDetail(long IdMain)
         {
             int UserId = Convert.ToInt32(User.Identity.Name);
             var ustinfo = UserInfo.GetUserInfo(UserId);
 
-            var list = OplataRasxodDataManager.GetDetail(new OplataRasxodiViewModel()
+            var list = await OplataRasxodDataManager.GetDetail(new OplataRasxodiViewModel()
             {
                 Departmentbase = ustinfo.DepartmentBase,
                 ID_Opl = IdMain
@@ -2020,12 +2039,12 @@ namespace KasabaKIAT.Controllers
         /// </summary>
         /// <param name="IdMain"></param>
         /// <returns></returns>
-        public JsonResult GetOplataDetailRes(long IdMain)
+        public async Task<JsonResult> GetOplataDetailRes(long IdMain)
         {
             int UserId = Convert.ToInt32(User.Identity.Name);
             var ustinfo = UserInfo.GetUserInfo(UserId);
 
-            var list = OplataRasxodDataManager.GetDetail(new OplataRasxodiViewModel()
+            var list = await OplataRasxodDataManager.GetDetail(new OplataRasxodiViewModel()
             {
                 Departmentbase = ustinfo.DepartmentBase,
                 ID_Opl = IdMain
@@ -2045,7 +2064,7 @@ namespace KasabaKIAT.Controllers
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        public JsonResult AddOplataMain(OplataViewModel model)
+        public async Task<JsonResult> AddOplataMain(OplataViewModel model)
         {
             try
             {
@@ -2055,7 +2074,11 @@ namespace KasabaKIAT.Controllers
                 model.Departmentbase = ustinfo.DepartmentBase;
                 model.UserId = UserId;
 
-                OplataDataManager.Create(ref model);
+                tblOplata oplMain = null;
+
+                OplataDataManager.Create(ref model,KasabaDB, out oplMain);
+
+                await KasabaDB.SaveChangesAsync();
             }
             catch (Exception ex)
             {
@@ -2071,7 +2094,7 @@ namespace KasabaKIAT.Controllers
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        public JsonResult AddOplataMainOplataPutyovok(OplataViewModel model)
+        public async Task<JsonResult> AddOplataMainOplataPutyovok(OplataViewModel model)
         {
             try
             {
@@ -2083,7 +2106,11 @@ namespace KasabaKIAT.Controllers
                 model.UserId = UserId;
                 model.Symma_DT = 0;
 
-                OplataDataManager.Create(ref model);
+                tblOplata oplMain = null;
+
+                OplataDataManager.Create(ref model,KasabaDB, out oplMain);
+
+                await KasabaDB.SaveChangesAsync();
             }
             catch (Exception ex)
             {
@@ -2099,7 +2126,7 @@ namespace KasabaKIAT.Controllers
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        public JsonResult AddOplataMainOplataKurortniy(OplataViewModel model)
+        public async Task<JsonResult> AddOplataMainOplataKurortniy(OplataViewModel model)
         {
             try
             {
@@ -2111,7 +2138,11 @@ namespace KasabaKIAT.Controllers
                 model.UserId = UserId;
                 model.Symma_KT = 0;
 
-                OplataDataManager.Create(ref model);
+                tblOplata oplMain = null;
+
+                OplataDataManager.Create(ref model,KasabaDB, out oplMain);
+
+                await KasabaDB.SaveChangesAsync();
             }
             catch (Exception ex)
             {
@@ -2127,7 +2158,7 @@ namespace KasabaKIAT.Controllers
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        public JsonResult AddOplataMainOplataVozvrat(OplataViewModel model)
+        public async Task<JsonResult> AddOplataMainOplataVozvrat(OplataViewModel model)
         {
             try
             {
@@ -2139,7 +2170,11 @@ namespace KasabaKIAT.Controllers
                 model.UserId = UserId;
                 model.Symma_KT = 0;
 
-                OplataDataManager.Create(ref model);
+                tblOplata oplMain = null;
+
+                OplataDataManager.Create(ref model,KasabaDB, out oplMain);
+
+                await KasabaDB.SaveChangesAsync();
             }
             catch (Exception ex)
             {
@@ -2155,7 +2190,7 @@ namespace KasabaKIAT.Controllers
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        public JsonResult ModifyOplataMainOplata(OplataViewModel model)
+        public async Task<JsonResult> ModifyOplataMainOplata(OplataViewModel model)
         {
             try
             {
@@ -2165,7 +2200,7 @@ namespace KasabaKIAT.Controllers
                 model.Departmentbase = ustinfo.DepartmentBase;
                 model.UserId = UserId;
 
-                OplataDataManager.Modify(model);
+                await OplataDataManager.Modify(model);
             }
             catch (Exception ex)
             {
@@ -2181,7 +2216,7 @@ namespace KasabaKIAT.Controllers
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        public JsonResult ModifyOplataMainOplataPutyovok(OplataViewModel model)
+        public async Task<JsonResult> ModifyOplataMainOplataPutyovok(OplataViewModel model)
         {
             try
             {
@@ -2193,7 +2228,7 @@ namespace KasabaKIAT.Controllers
                 model.UserId = UserId;
                 model.Symma_DT = 0;
 
-                OplataDataManager.Modify(model);
+                await OplataDataManager.Modify(model);
             }
             catch (Exception ex)
             {
@@ -2210,7 +2245,7 @@ namespace KasabaKIAT.Controllers
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        public JsonResult ModifyOplataMainOplataKurortniy(OplataViewModel model)
+        public async Task<JsonResult> ModifyOplataMainOplataKurortniy(OplataViewModel model)
         {
             try
             {
@@ -2222,7 +2257,7 @@ namespace KasabaKIAT.Controllers
                 model.UserId = UserId;
                 model.Symma_KT = 0;
 
-                OplataDataManager.Modify(model);
+                await OplataDataManager.Modify(model);
             }
             catch (Exception ex)
             {
@@ -2238,7 +2273,7 @@ namespace KasabaKIAT.Controllers
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        public JsonResult ModifyOplataMainOplataVozvrat(OplataViewModel model)
+        public async Task<JsonResult> ModifyOplataMainOplataVozvrat(OplataViewModel model)
         {
             try
             {
@@ -2250,7 +2285,7 @@ namespace KasabaKIAT.Controllers
                 model.UserId = UserId;
                 model.Symma_KT = 0;
 
-                OplataDataManager.Modify(model);
+                await OplataDataManager.Modify(model);
             }
             catch (Exception ex)
             {
@@ -2268,13 +2303,13 @@ namespace KasabaKIAT.Controllers
         /// </summary>
         /// <param name="IdOrg"></param>
         /// <returns></returns>
-        public JsonResult GetNotCoveredPutyovka(long IdOrg)
+        public async Task<JsonResult> GetNotCoveredPutyovka(long IdOrg)
         {
             var _opl = new Oplata();
 
             try
             {
-                var list = _opl.GetRaznoskaList(IdOrg);
+                var list = await _opl.GetRaznoskaList(IdOrg);
 
                 return Json(list, JsonRequestBehavior.AllowGet);
             }
@@ -2291,13 +2326,13 @@ namespace KasabaKIAT.Controllers
         /// </summary>
         /// <param name="IdOrg"></param>
         /// <returns></returns>
-        public JsonResult GetGeneralRemainingByOrg(long IdOrg)
+        public async Task<JsonResult> GetGeneralRemainingByOrg(long IdOrg)
         {
             var _opl = new Oplata();
 
             try
             {
-                var remain = _opl.GetGeneralRemainingByOrg(IdOrg);
+                var remain = await _opl.GetGeneralRemainingByOrg(IdOrg);
 
                 return Json(remain, JsonRequestBehavior.AllowGet);
             }
@@ -2314,13 +2349,13 @@ namespace KasabaKIAT.Controllers
         /// </summary>
         /// <param name="IdOrg"></param>
         /// <returns></returns>
-        public JsonResult GetTotalDebtByOrg(long IdOrg)
+        public async Task<JsonResult> GetTotalDebtByOrg(long IdOrg)
         {
             var _opl = new Oplata();
 
             try
             {
-                var remain = _opl.GetTotalDebtByOrg(IdOrg);
+                var remain = await _opl.GetTotalDebtByOrg(IdOrg);
 
                 return Json(remain, JsonRequestBehavior.AllowGet);
             }
@@ -2337,13 +2372,13 @@ namespace KasabaKIAT.Controllers
         /// </summary>
         /// <param name="IdOpl"></param>
         /// <returns></returns>
-        public JsonResult GetOplataSaldo(long IdOpl)
+        public async Task<JsonResult> GetOplataSaldo(long IdOpl)
         {
             var _opl = new Oplata();
 
             try
             {
-                var remain = _opl.GetOplataSaldo(IdOpl);
+                var remain = await _opl.GetOplataSaldo(IdOpl);
 
                 return Json(remain, JsonRequestBehavior.AllowGet);
             }
@@ -2360,7 +2395,7 @@ namespace KasabaKIAT.Controllers
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        public JsonResult AddOplataDetail(OplataRasxodiViewModel model)
+        public async Task<JsonResult> AddOplataDetail(OplataRasxodiViewModel model)
         {
             if (model == null)
             {
@@ -2374,7 +2409,10 @@ namespace KasabaKIAT.Controllers
 
             try
             {
-                OplataRasxodDataManager.Create(ref model);
+                tblOplata opMain = KasabaDB.tblOplatas.Where(z=>z.ID == model.ID_Opl).First();
+                OplataRasxodDataManager.Create(ref model,KasabaDB, opMain);
+
+                await KasabaDB.SaveChangesAsync();
 
                 return Json("success", JsonRequestBehavior.AllowGet);
             }
@@ -2391,7 +2429,7 @@ namespace KasabaKIAT.Controllers
         /// </summary>
         /// <param name="lmodel"></param>
         /// <returns></returns>
-        public JsonResult AddOplataPutyovok(List<OplataRasxodiViewModel> lmodel)
+        public async  Task<JsonResult> AddOplataPutyovok(List<OplataRasxodiViewModel> lmodel)
         {
             if (lmodel == null) return Json("fail", JsonRequestBehavior.AllowGet);
 
@@ -2406,7 +2444,11 @@ namespace KasabaKIAT.Controllers
 
                     if (model.PutyovkaChecked)
                     {
-                        OplataRasxodDataManager.Create(ref mmodel);
+                        tblOplata opMain = KasabaDB.tblOplatas.Where(z => z.ID == model.ID_Opl).First();
+
+                        OplataRasxodDataManager.Create(ref mmodel, KasabaDB, opMain);
+
+                        await KasabaDB.SaveChangesAsync();
                     }
                 }
 
@@ -2428,7 +2470,7 @@ namespace KasabaKIAT.Controllers
         /// <param name="IdOpl"></param>
         /// <param name="IdPr"></param>
         /// <returns></returns>
-        public JsonResult AddOplataPutyovok2(List<long> lmodel, long IdOpl, long IdPr)
+        public async Task<JsonResult> AddOplataPutyovok2(List<long> lmodel, long IdOpl, long IdPr)
         {
             if (lmodel == null) return Json("fail", JsonRequestBehavior.AllowGet);
 
@@ -2460,7 +2502,11 @@ namespace KasabaKIAT.Controllers
                         Priz = (int)OplataRasxPriz.OrganizasiyaOplata
                     };
 
-                    OplataRasxodDataManager.Create(ref mmodel);
+                    tblOplata opMain = KasabaDB.tblOplatas.Where(z => z.ID == mmodel.ID_Opl).First();
+
+                    OplataRasxodDataManager.Create(ref mmodel, KasabaDB, opMain);
+
+                    await KasabaDB.SaveChangesAsync();
                 }
 
                 return Json("success", JsonRequestBehavior.AllowGet);
@@ -2478,7 +2524,7 @@ namespace KasabaKIAT.Controllers
         /// </summary>
         /// <param name="lmodel"></param>
         /// <returns></returns>
-        public JsonResult RemoveOplataRasxod(List<long> lmodel)
+        public async Task<JsonResult> RemoveOplataRasxod(List<long> lmodel)
         {
             if (lmodel == null) return Json("fail", JsonRequestBehavior.AllowGet);
 
@@ -2486,7 +2532,7 @@ namespace KasabaKIAT.Controllers
             {
                 foreach (var opsPutId in lmodel)
                 {
-                    OplataRasxodDataManager.Remove(new OplataRasxodiViewModel()
+                    await OplataRasxodDataManager.Remove(new OplataRasxodiViewModel()
                     {
                         ID = opsPutId
                     });
@@ -2501,12 +2547,16 @@ namespace KasabaKIAT.Controllers
             return Json("success", JsonRequestBehavior.AllowGet);
         }
 
-
-        public JsonResult RemoveOplataMain(OplataViewModel model)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public async Task<JsonResult> RemoveOplataMain(OplataViewModel model)
         {
             try
             {
-                    OplataDataManager.Remove(new OplataViewModel()
+                    await OplataDataManager.Remove(new OplataViewModel()
                     {
                         ID = model.ID
                     });
@@ -2530,12 +2580,12 @@ namespace KasabaKIAT.Controllers
         /// <param name="year"></param>
         /// <param name="kvartal"></param>
         /// <returns></returns>
-        public JsonResult GetVozvratList(int year, int kvartal)
+        public async Task<JsonResult> GetVozvratList(int year, int kvartal)
         {
             int UserId = Convert.ToInt32(User.Identity.Name);
             var ustinfo = UserInfo.GetUserInfo(UserId);
 
-            var list = VozvratDataManager.GetFilter(new VozvratViewModel()
+            var list = await VozvratDataManager.GetFilter(new VozvratViewModel()
             {
                 departmentbase = ustinfo.DepartmentBase,
                 smfil = year,
@@ -2552,12 +2602,12 @@ namespace KasabaKIAT.Controllers
         /// <param name="year"></param>
         /// <param name="kvartal"></param>
         /// <returns></returns>
-        public JsonResult GetVozvratRes(int year, int kvartal)
+        public async Task<JsonResult> GetVozvratRes(int year, int kvartal)
         {
             int UserId = Convert.ToInt32(User.Identity.Name);
             var ustinfo = UserInfo.GetUserInfo(UserId);
 
-            var list = VozvratDataManager.GetFilter(new VozvratViewModel()
+            var list = await VozvratDataManager.GetFilter(new VozvratViewModel()
             {
                 departmentbase = ustinfo.DepartmentBase,
                 smfil = year,
@@ -2589,13 +2639,13 @@ namespace KasabaKIAT.Controllers
         /// <param name="year"></param>
         /// <param name="kvartal"></param>
         /// <returns></returns>
-        public JsonResult ShowTotalForVozvrat(int year, int kvartal)
+        public async Task<JsonResult> ShowTotalForVozvrat(int year, int kvartal)
         {
 
             int UserId = Convert.ToInt32(User.Identity.Name);
             var ustinfo = UserInfo.GetUserInfo(UserId);
 
-            var list = VozvratDataManager.GetTotals(year, kvartal, ustinfo.DepartmentBase);
+            var list = await VozvratDataManager.GetTotals(year, kvartal, ustinfo.DepartmentBase);
 
             return Json(list, JsonRequestBehavior.AllowGet);
         }
@@ -2605,12 +2655,12 @@ namespace KasabaKIAT.Controllers
         /// </summary>
         /// <param name="idOrg"></param>
         /// <returns></returns>
-        public JsonResult GetGivenPutyovkaList(long idOrg)
+        public async Task<JsonResult> GetGivenPutyovkaList(long idOrg)
         {
             int UserId = Convert.ToInt32(User.Identity.Name);
             var ustinfo = UserInfo.GetUserInfo(UserId);
 
-            var list = VozvratDataManager.GetPutyovkas(idOrg, ustinfo.DepartmentBase);
+            var list = await VozvratDataManager.GetPutyovkas(idOrg, ustinfo.DepartmentBase);
 
             return Json(list, JsonRequestBehavior.AllowGet);
 
@@ -2632,7 +2682,7 @@ namespace KasabaKIAT.Controllers
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        public JsonResult AddVozvtars(VozvratEnter model)
+        public async Task<JsonResult> AddVozvtars(VozvratEnter model)
         {
             if (model == null ) return Json("fail", JsonRequestBehavior.AllowGet);
 
@@ -2647,7 +2697,7 @@ namespace KasabaKIAT.Controllers
                 model.userid = UserId;
 
                 //All logic realized
-                vv.EnterVozvrat(model);
+                await vv.EnterVozvrat(model);
 
                 return Json("success", JsonRequestBehavior.AllowGet);
             }
@@ -2659,8 +2709,13 @@ namespace KasabaKIAT.Controllers
             return Json("fail", JsonRequestBehavior.AllowGet);
         }
 
-
-        public JsonResult AddVozvtars2(VozvratEnterTemp mainMdl , List<long> lrasxm)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="mainMdl"></param>
+        /// <param name="lrasxm"></param>
+        /// <returns></returns>
+        public async Task<JsonResult> AddVozvtars2(VozvratEnterTemp mainMdl , List<long> lrasxm)
         {
             if (mainMdl == null) return Json("fail", JsonRequestBehavior.AllowGet);
 
@@ -2682,7 +2737,7 @@ namespace KasabaKIAT.Controllers
 
                 foreach (var rasxodId in lrasxm)
                 {
-                    var rasxm = Vipl_PutDataManager.Get2(rasxodId);
+                    var rasxm = await Vipl_PutDataManager.Get2(rasxodId);
 
                     if (!rasxm.Any()) continue;
 
@@ -2700,7 +2755,7 @@ namespace KasabaKIAT.Controllers
                 model.userid = UserId;
 
                 //All logic realized
-                vv.EnterVozvrat(model);
+                await vv.EnterVozvrat(model);
 
                 return Json("success", JsonRequestBehavior.AllowGet);
             }
@@ -2730,14 +2785,14 @@ namespace KasabaKIAT.Controllers
         /// </summary>
         /// <param name="idOrg"></param>
         /// <returns></returns>
-        public JsonResult GetZakritiyaPutyovkas(long idOrg)
+        public async Task<JsonResult> GetZakritiyaPutyovkas(long idOrg)
         {
             int UserId = Convert.ToInt32(User.Identity.Name);
             var ustinfo = UserInfo.GetUserInfo(UserId);
 
             try
             {
-                var list = Vipl_PutDataManager.GetZakritiya(idOrg, ustinfo.DepartmentBase);
+                var list = await Vipl_PutDataManager.GetZakritiya(idOrg, ustinfo.DepartmentBase);
 
                 return Json(list, JsonRequestBehavior.AllowGet);
             }
@@ -2749,15 +2804,19 @@ namespace KasabaKIAT.Controllers
             return Json("fail", JsonRequestBehavior.AllowGet);
         }
 
-
-        public JsonResult GetZakritiyaPutyovkasRes(long idOrg)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="idOrg"></param>
+        /// <returns></returns>
+        public async Task<JsonResult> GetZakritiyaPutyovkasRes(long idOrg)
         {
             int UserId = Convert.ToInt32(User.Identity.Name);
             var ustinfo = UserInfo.GetUserInfo(UserId);
 
             try
             {
-                var list = Vipl_PutDataManager.GetZakritiya(idOrg, ustinfo.DepartmentBase);
+                var list = await Vipl_PutDataManager.GetZakritiya(idOrg, ustinfo.DepartmentBase);
 
                 var total = new TotalResults()
                 {
@@ -2791,7 +2850,7 @@ namespace KasabaKIAT.Controllers
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        public JsonResult ZakritKvartal(ZakritiyeKvartalaViewModel model)
+        public async Task<JsonResult> ZakritKvartal(ZakritiyeKvartalaViewModel model)
         {
             int UserId = Convert.ToInt32(User.Identity.Name);
             var ustinfo = UserInfo.GetUserInfo(UserId);
@@ -2801,7 +2860,7 @@ namespace KasabaKIAT.Controllers
                 //model
                 var zakrit = new ZakritKvartal4Putyovka();
 
-                zakrit.Process(model);
+                await zakrit.Process(model);
 
                 return Json("success", JsonRequestBehavior.AllowGet);
             }
@@ -2813,8 +2872,13 @@ namespace KasabaKIAT.Controllers
             return Json("fail", JsonRequestBehavior.AllowGet);
         }
 
-
-        public JsonResult ZakritKvartal2(ZakritiyeKvartalaViewModelTemp mainMdl
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="mainMdl"></param>
+        /// <param name="lrasxm"></param>
+        /// <returns></returns>
+        public async Task<JsonResult> ZakritKvartal2(ZakritiyeKvartalaViewModelTemp mainMdl
             , List<long> lrasxm)
         {
             int UserId = Convert.ToInt32(User.Identity.Name);
@@ -2831,7 +2895,7 @@ namespace KasabaKIAT.Controllers
 
                 foreach (var rasxodId in lrasxm)
                 {
-                    var rasxm = Vipl_PutDataManager.Get2(rasxodId);
+                    var rasxm = await Vipl_PutDataManager.Get2(rasxodId);
 
                     if (!rasxm.Any()) continue;
 
@@ -2842,7 +2906,7 @@ namespace KasabaKIAT.Controllers
 
                 var zakrit = new ZakritKvartal4Putyovka();
 
-                zakrit.Process(model);
+                await zakrit.Process(model);
 
                 return Json("success", JsonRequestBehavior.AllowGet);
             }
@@ -2874,12 +2938,12 @@ namespace KasabaKIAT.Controllers
         /// <param name="endDt"></param>
         /// <param name="IdOrg"></param>
         /// <returns></returns>
-        public JsonResult GetDanniyVladelsaPutyovki(DateTime beginDt, DateTime endDt, long IdOrg)
+        public async Task<JsonResult> GetDanniyVladelsaPutyovki(DateTime beginDt, DateTime endDt, long IdOrg)
         {
             int UserId = Convert.ToInt32(User.Identity.Name);
             var ustinfo = UserInfo.GetUserInfo(UserId);
 
-            var list = Vipl_PutDataManager.GetDetail4DanniyeVlad(beginDt, endDt, IdOrg, ustinfo.DepartmentBase);
+            var list = await Vipl_PutDataManager.GetDetail4DanniyeVlad(beginDt, endDt, IdOrg, ustinfo.DepartmentBase);
 
             return Json(list, JsonRequestBehavior.AllowGet);
         }  
@@ -2892,12 +2956,12 @@ namespace KasabaKIAT.Controllers
         /// <param name="endDt"></param>
         /// <param name="IdOrg"></param>
         /// <returns></returns>
-        public JsonResult GetDanniyVladelsaNakladnoy(DateTime beginDt, DateTime endDt, long IdOrg)
+        public async Task<JsonResult> GetDanniyVladelsaNakladnoy(DateTime beginDt, DateTime endDt, long IdOrg)
         {
             int UserId = Convert.ToInt32(User.Identity.Name);
             var ustinfo = UserInfo.GetUserInfo(UserId);
 
-            var list = ViplMainDataManager.GetForEnterDanniyeVlad(beginDt, endDt, IdOrg, ustinfo.DepartmentBase);
+            var list = await ViplMainDataManager.GetForEnterDanniyeVlad(beginDt, endDt, IdOrg, ustinfo.DepartmentBase);
 
             return Json(list, JsonRequestBehavior.AllowGet);
         }
@@ -2909,12 +2973,12 @@ namespace KasabaKIAT.Controllers
         /// <param name="endDt"></param>
         /// <param name="IdOrg"></param>
         /// <returns></returns>
-        public JsonResult GetDanniyTotal(DateTime beginDt, DateTime endDt, long IdOrg)
+        public async Task<JsonResult> GetDanniyTotal(DateTime beginDt, DateTime endDt, long IdOrg)
         {
             int UserId = Convert.ToInt32(User.Identity.Name);
             var ustinfo = UserInfo.GetUserInfo(UserId);
 
-            var total = Vipl_PutDataManager.GetDetail4DanniyeVladTotal(beginDt, endDt, IdOrg, ustinfo.DepartmentBase);
+            var total =await Vipl_PutDataManager.GetDetail4DanniyeVladTotal(beginDt, endDt, IdOrg, ustinfo.DepartmentBase);
 
             return Json(total, JsonRequestBehavior.AllowGet);
         }
@@ -2950,7 +3014,7 @@ namespace KasabaKIAT.Controllers
         /// 
         /// </summary>
         /// <returns></returns>
-        public JsonResult SaveChanges(RaznoskaGeneralViewModel model)
+        public async Task<JsonResult> SaveChanges(RaznoskaGeneralViewModel model)
         {
             if (model == null) return Json("fail", JsonRequestBehavior.AllowGet);
 
@@ -2961,7 +3025,7 @@ namespace KasabaKIAT.Controllers
             {
                 var raznoska = new RaznoskaPutyovok();
 
-                raznoska.SaveChanges(model);
+                await raznoska.SaveChanges(model);
             }
             catch(Exception ex)
             {
@@ -2971,8 +3035,14 @@ namespace KasabaKIAT.Controllers
             return Json("fail", JsonRequestBehavior.AllowGet);
         }
 
-
-        public JsonResult SaveChanges2(long IdViplPut , FaceViewModel faceModel, Face_MedViewModel fmModel)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="IdViplPut"></param>
+        /// <param name="faceModel"></param>
+        /// <param name="fmModel"></param>
+        /// <returns></returns>
+        public async Task<JsonResult> SaveChanges2(long IdViplPut , FaceViewModel faceModel, Face_MedViewModel fmModel)
         {
             if (faceModel == null) return Json("fail", JsonRequestBehavior.AllowGet);
 
@@ -2997,7 +3067,7 @@ namespace KasabaKIAT.Controllers
             {
                 var raznoska = new RaznoskaPutyovok();
 
-                raznoska.SaveChanges(model);
+                await raznoska.SaveChanges(model);
             }
             catch (Exception ex)
             {
@@ -3019,7 +3089,7 @@ namespace KasabaKIAT.Controllers
         /// <param name="model"></param>
         /// <returns></returns>
         [HttpPost]
-        public JsonResult ReadFileSverki(FormCollection formCollection) 
+        public async Task<JsonResult> ReadFileSverki(FormCollection formCollection) 
         {
             log.Info("ReadFileSverki");
             try
@@ -3093,7 +3163,7 @@ namespace KasabaKIAT.Controllers
 
                                 sverList.Add(sver);
                                 log.Info("Count = " + sverList.ToList().Count);
-                                SanatDataCompareDataManager.SaveData(sver);
+                                await SanatDataCompareDataManager.SaveData(sver);
                             }
                         }
                     }

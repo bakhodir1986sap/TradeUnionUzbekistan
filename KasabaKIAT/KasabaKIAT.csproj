@@ -315,8 +315,6 @@
     <Compile Include="BusinessLogic\Putyovki\PrixodPutyovok\Oprixodovaniye.cs" />
     <Compile Include="BusinessLogic\Putyovki\PrixodPutyovok\PostMainDataManager.cs" />
     <Compile Include="BusinessLogic\Putyovki\PrixodPutyovok\PostPutDetailDataManager.cs" />
-    <Compile Include="BusinessLogic\Putyovki\PrixodPutyovok\Postupleniya.cs" />
-    <Compile Include="BusinessLogic\Putyovki\PrixodPutyovok\PostupleniyaEnterTemp.cs" />
     <Compile Include="BusinessLogic\Putyovki\PrixodPutyovok\PrixodDetailViewModel.cs" />
     <Compile Include="BusinessLogic\Putyovki\PutyovkiState\PutyovkiStateChangeDataManager.cs" />
     <Compile Include="BusinessLogic\Putyovki\RaznoskaPoPutyovki\FaceDataManager.cs" />
@@ -364,6 +362,7 @@
     <Compile Include="BusinessLogic\Security\Roles\Roles\Roles.cs" />
     <Compile Include="BusinessLogic\Security\Roles\UserRoles\UserRoles.cs" />
     <Compile Include="BusinessLogic\Structure\StructureOfKiat.cs" />
+    <Compile Include="BusinessLogic\Utils\amountInWords.cs" />
     <Compile Include="BusinessLogic\Utils\References\ReferencesDataManager.cs" />
     <Compile Include="BusinessLogic\Utils\References\RefYars.cs" />
     <Compile Include="BusinessLogic\Utils\References\SpravCodeDecode.cs" />

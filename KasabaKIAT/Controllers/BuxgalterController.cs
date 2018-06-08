@@ -11,6 +11,7 @@ using OfficeOpenXml;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -367,6 +368,24 @@ namespace KasabaKIAT.Controllers
             var list = planByudjet.YearsList();
 
             return Json(list.ToList(), JsonRequestBehavior.AllowGet);
+        }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public FileResult DownloadTemplate()
+        {
+            var ArxiveDirectory = Properties.Settings.Default.TemplateDir;
+
+            var targetFile = Path.Combine(ArxiveDirectory, "ZagruzkaVvodDannix.xlsx");
+
+            if (!System.IO.File.Exists(targetFile)) return null;
+
+            byte[] fileBytes = System.IO.File.ReadAllBytes(targetFile);
+            string fileName = "ZagruzkaVvodDannix.xlsx";
+            return File(fileBytes, "application/vnd.ms-excel", fileName);
         }
 
         /// <summary>

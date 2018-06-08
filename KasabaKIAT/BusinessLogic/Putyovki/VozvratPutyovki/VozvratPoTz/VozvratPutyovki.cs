@@ -31,7 +31,7 @@ namespace KasabaKIAT.BusinessLogic.Putyovki.VozvratPutyovki.VozvratPoTz
 
                     RealizasiyaDataManager.VozvratReal(new RealizasiyaByTzViewModel() { rec_id = real.REC_ID });
 
-                    PostPutDetailDataManager.OtmenPolzov((int)real.SANATORIUM_ID.Value, real.SERAIL_NUMBER);
+                    PostPutDetailDataManager.OtmenPolzov((int)real.SANATORIUM_ID.Value, real.SERAIL_NUMBER, db);
                 }
                 else
                 {

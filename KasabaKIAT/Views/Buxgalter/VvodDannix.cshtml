@@ -33,8 +33,10 @@
                     </div>
                 </div>
             </div>
+            
             <div class="col-md-5 text-md-right">
                 <div class="form-inline">
+                    @Html.ActionLink("Загрузить Шаблон", "DownloadTemplate", "Buxgalter")<br /><br />
                     <input type="file" id="input08"  name="UploadedFile" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" onchange="angular.element(this).scope().UploadFiles(this.files)" />&nbsp
                 </div> 
                 <input type="button" value="Просмотреть" class="btn btn-primary" style="margin-top:-65px" ng-disabled="!SelectedFileForUpload" ng-click="ParseExcel() " />
@@ -44,8 +46,8 @@
             </div>
         </div>
         <div class="table__title mb-5" ng-show="showdata">
-            <h5>Справка о дебетовых оборотах по счету 20212000800136154002 за период c 03.01.2017 по 28.02.2017</h5>
-            <p>Общая сумма: <strong>20 349 000</strong></p>
+            <h5>Справка о дебетовых оборотах по счету _________________________</h5>
+            <p>Общая сумма: <strong>___________</strong></p>
         </div>
         <div class="table-responsive box-shadow mb-5" ng-show="showdata">
             <table class="table table__block va-top t-scroll">
@@ -64,62 +66,9 @@
                         <td>{{item.d1}}</td>
                         <td>{{item.d2}}<br /> ИНН: {{item.d3}} <br /> МФО: {{item.d4}}<br /> Рас. счет: {{item.d5}}</td>
                         <td>{{item.d6 | jsonDate: 'dd.MM.yyyy'}}</td>
-                        <td>00667Комиссия за <br /> операционное <br /> обслуживание счета <br />{{item.d12}} с  01.01.17 по 03.01.17</td>
+                        <td>{{item.d12}}</td>
                         <td>{{item.d8}}</td>
                         <td>{{item.d9}}</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-
-        <div class="table__title mb-5" ng-show="showdata2">
-            <h5>Справка о дебетовых оборотах по счету 20212000800136154002 за период c 03.01.2017 по 28.02.2017</h5>
-            <p>Общая сумма: <strong>20 349 000</strong></p>
-        </div>
-        <div class="table-responsive box-shadow mb-5" ng-show="showdata2">
-            <table class="table table__block va-top">
-                <thead>
-                    <tr>
-                        <th>№ док.</th>
-                        <th>Информация плательщика</th>
-                        <th>Дата п-жа</th>
-                        <th>Название </th>
-                        <th>Сумма п-жа</th>
-                        <th>Инофрмация получателя</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>OK9</td>
-                        <td>TOSHKENT SHAHAR KASABA UYUSH<br />MALARI  TASHKILOTLARI BIRLASHMASI<br />NING KENGA соцстрах)<br /> ИНН: 201273304 <br /> МФО: 00425<br /> Рас. счет: 20212000800136154002</td>
-                        <td>03.01.2017</td>
-                        <td>00667Комиссия за <br /> операционное <br /> обслуживание счета <br />20212000500136154006 с  01.01.17 по 03.01.17</td>
-                        <td>1 200 000</td>
-                        <td>ЗавХоз</td>
-                    </tr>
-                    <tr>
-                        <td>ОК31</td>
-                        <td>TOSHKENT SHAHAR KASABA UYUSH<br />MALARI  TASHKILOTLARI BIRLASHMASI<br />NING KENGA соцстрах)<br /> МФО: 06726<br /> Рас. счет: 24686000800148158606</td>
-                        <td>12.06.2017</td>
-                        <td>00667Комиссия за <br /> операционное <br /> обслуживание счета <br />20212000500136154006 с  01.01.17 по 03.01.17</td>
-                        <td>1 000 000</td>
-                        <td>Директор</td>
-                    </tr>
-                    <tr>
-                        <td>ОК18</td>
-                        <td>TOSHKENT SHAHAR KASABA UYUSH<br />MALARI  TASHKILOTLARI BIRLASHMASI<br />NING KENGA соцстрах)<br /> МФО: 01142<br /> Рас. счет: 24686000843767346734</td>
-                        <td>06.03.2017</td>
-                        <td>00668 Оплата <br /> процентов за ОПК.</td>
-                        <td>3 953 987</td>
-                        <td>Директор</td>
-                    </tr>
-                    <tr>
-                        <td>ОК9</td>
-                        <td>TOSHKENT SHAHAR KASABA UYUSH<br />MALARI  TASHKILOTLARI BIRLASHMASI<br />NING KENGA соцстрах)<br /> ИНН: 201273304 <br /> МФО: 00425 <br /> Рас. счет: 20212000800136154002</td>
-                        <td>03.01.2017</td>
-                        <td>00667Комиссия за <br /> операционное <br /> обслуживание счета <br />20212000500136154006 с  01.01.17 по 03.01.17</td>
-                        <td>1 200 000</td>
-                        <td>ЗавХоз</td>
                     </tr>
                 </tbody>
             </table>

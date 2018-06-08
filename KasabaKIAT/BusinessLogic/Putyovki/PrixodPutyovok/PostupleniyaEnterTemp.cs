@@ -29,7 +29,9 @@ namespace KasabaKiat.BusinessLogic.Putyovki.PrixodPutyovok
                 mainViewModel.Num_Kol = countOfPutyovka;
                 mainViewModel.Symma = mm.Price * countOfPutyovka;
 
-                PostMainDataManager.Create(ref mainViewModel);
+                
+
+                //PostMainDataManager.Create(ref mainViewModel, null, out null);
 
                 for (int i = mm.BeginNumber; i <= mm.EndNumber; i++)
                 {
@@ -45,7 +47,7 @@ namespace KasabaKiat.BusinessLogic.Putyovki.PrixodPutyovok
                     detailModel.Departmentbase = model.DepartmentBase;
                     detailModel.IdPost = mainViewModel.Id; //Master Detail Connection
 
-                    PostPutDetailDataManager.Create(ref detailModel);
+                    //PostPutDetailDataManager.Create(ref detailModel, null);
                 }
             }
             else
@@ -87,7 +89,7 @@ namespace KasabaKiat.BusinessLogic.Putyovki.PrixodPutyovok
                     detailModel.ID_PolVoz = false;
                     detailModel.IdPost = mainViewModel.Id; //Master Detail Connection
 
-                    PostPutDetailDataManager.Modify(detailModel);
+                    await PostPutDetailDataManager.Modify(detailModel);
                 }
             }
             else

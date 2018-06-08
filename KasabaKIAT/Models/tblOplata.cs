@@ -34,6 +34,7 @@ namespace KasabaKIAT.Models
         public Nullable<int> PrizOpl { get; set; }
         public Nullable<long> UserId { get; set; }
         public string Departmentbase { get; set; }
+        public Nullable<long> PROVODKA_ID { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblOplata_Ras> tblOplata_Ras { get; set; }

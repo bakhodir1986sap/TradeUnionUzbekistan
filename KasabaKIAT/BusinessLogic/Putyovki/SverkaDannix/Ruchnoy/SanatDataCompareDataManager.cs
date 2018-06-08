@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 
 namespace KasabaKIAT.BusinessLogic.Putyovki.SverkaDannix.Ruchnoy
@@ -73,7 +74,7 @@ namespace KasabaKIAT.BusinessLogic.Putyovki.SverkaDannix.Ruchnoy
             }
         }
 
-        public static void SaveData(SanatDataCompareViewModel model)
+        public static async Task SaveData(SanatDataCompareViewModel model)
         {
             using (KasabaKIATEntities db = new KasabaKIATEntities())
             {
@@ -118,7 +119,7 @@ namespace KasabaKIAT.BusinessLogic.Putyovki.SverkaDannix.Ruchnoy
                     var sanIi = db.tblSanatDataCompares.Add(sanInfo2);
                 }
 
-                db.SaveChanges();
+                await db.SaveChangesAsync();
             }
         }
 

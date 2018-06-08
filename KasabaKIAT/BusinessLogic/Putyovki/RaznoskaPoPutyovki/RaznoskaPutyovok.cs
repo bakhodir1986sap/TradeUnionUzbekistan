@@ -1,15 +1,21 @@
 ﻿using KasabaKiat.ViewModel.Putyovki.RaznoskaPutyovok;
 using KasabaKIAT.BusinessLogic.Putyovki.RaznoskaPoPutyovki;
+using KasabaKIAT.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 
 namespace KasabaKiat.BusinessLogic.Putyovki.RaznoskaPoPutyovki
 {
     public class RaznoskaPutyovok
     {
-        public void SaveChanges(RaznoskaGeneralViewModel model)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="model"></param>
+        public async Task SaveChanges(RaznoskaGeneralViewModel model)
         {
             if (model == null)
             {
@@ -39,17 +45,23 @@ namespace KasabaKiat.BusinessLogic.Putyovki.RaznoskaPoPutyovki
 
             var listMain = FaceDataManager.Get(faceMain);
 
-            if (!listMain.Any())
+            using (KasabaKIATEntities db = new KasabaKIATEntities())
             {
-                FaceDataManager.Create(ref faceMain);
-                faceMedDtl.id_face = faceMain.id;
-                Face_MedDataManager.Create(ref faceMedDtl);
-            }
-            else
-            {
-                FaceDataManager.Update(faceMain);
-                faceMedDtl.id_face = faceMain.id;
-                Face_MedDataManager.Update(faceMedDtl);
+                if (!listMain.Any())
+                {
+                    tblFase face = null;
+                    FaceDataManager.Create(ref faceMain, db, out face);
+                    faceMedDtl.id_face = faceMain.id;
+                    Face_MedDataManager.Create(ref faceMedDtl, db, face);
+                }
+                else
+                {
+                    FaceDataManager.Update(faceMain, db);
+                    faceMedDtl.id_face = faceMain.id;
+                    Face_MedDataManager.Update(faceMedDtl, db);
+                }
+
+                await db.SaveChangesAsync();
             }
         }
 

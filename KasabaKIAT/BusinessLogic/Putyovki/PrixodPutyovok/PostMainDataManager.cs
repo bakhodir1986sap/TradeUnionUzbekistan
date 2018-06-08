@@ -6,6 +6,8 @@ using System.Linq;
 using System.Web;
 using System.Data.Entity.Validation;
 using KasabaKiat.BusinessLogic.Putyovki.OplataPutyovok;
+using System.Data.Entity;
+using System.Threading.Tasks;
 
 namespace KasabaKiat.BusinessLogic.Putyovki.PrixodPutyovok
 {
@@ -76,10 +78,8 @@ namespace KasabaKiat.BusinessLogic.Putyovki.PrixodPutyovok
         /// 
         /// </summary>
         /// <param name="model"></param>
-        public static void Create(ref PostupleniyaViewModel model)
+        public static void Create(ref PostupleniyaViewModel model , KasabaKIATEntities db, out tblPost postMain)
         {
-            using (KasabaKIATEntities db = new KasabaKIATEntities())
-            {
                 tblPost post = new tblPost();
 
                 post.ID_KV = model.Id_Kv;
@@ -96,36 +96,14 @@ namespace KasabaKiat.BusinessLogic.Putyovki.PrixodPutyovok
                 post.BeginNumber = model.BeginNumber;
                 post.EndNumber = model.EndNumber;
 
-                var pst = db.tblPost.Add(post);
-
-                try
-                {
-                    db.SaveChanges();
-
-                    model.Id = post.ID;
-                }
-                catch (DbEntityValidationException e)
-                {
-                    foreach (var eve in e.EntityValidationErrors)
-                    {
-                        Console.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
-                            eve.Entry.Entity.GetType().Name, eve.Entry.State);
-                        foreach (var ve in eve.ValidationErrors)
-                        {
-                            Console.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
-                                ve.PropertyName, ve.ErrorMessage);
-                        }
-                    }
-                    throw;
-                }
-            }
+                postMain = db.tblPost.Add(post);
         }
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="model"></param>
-        public static void Modify(PostupleniyaViewModel model)
+        public static async Task Modify(PostupleniyaViewModel model)
         {
             using (KasabaKIATEntities db = new KasabaKIATEntities())
             {
@@ -153,7 +131,7 @@ namespace KasabaKiat.BusinessLogic.Putyovki.PrixodPutyovok
                     }
                 }
 
-                db.SaveChanges();
+                await db.SaveChangesAsync();
             }
         }
 
@@ -161,7 +139,7 @@ namespace KasabaKiat.BusinessLogic.Putyovki.PrixodPutyovok
         /// 
         /// </summary>
         /// <param name="model"></param>
-        public static void CloseNakladnoy(PostupleniyaViewModel model)
+        public static async Task CloseNakladnoy(PostupleniyaViewModel model)
         {
             using (KasabaKIATEntities db = new KasabaKIATEntities())
             {
@@ -171,7 +149,7 @@ namespace KasabaKiat.BusinessLogic.Putyovki.PrixodPutyovok
                 {
                     var post1 = post.FirstOrDefault();
 
-                    var total = GetTotalsCloseNaklPrixod(model.SmFil.Value, model.Id_Kv.Value, model.DepartmentBase, model.Id);
+                    var total = await GetTotalsCloseNaklPrixod(model.SmFil.Value, model.Id_Kv.Value, model.DepartmentBase, model.Id);
 
                     if (post1 != null)
                     {
@@ -181,11 +159,11 @@ namespace KasabaKiat.BusinessLogic.Putyovki.PrixodPutyovok
                         post1.Symma = total.SummaNakladnix;
                         post1.Vid = true;
 
-                        db.SaveChanges();
+                        await db.SaveChangesAsync();
 
                         var oplata = new Oplata();
 
-                        oplata.ClosePrixodPutyovok(post1.ID);
+                        await oplata.ClosePrixodPutyovok(post1.ID);
                     }
                 }
 
@@ -197,7 +175,7 @@ namespace KasabaKiat.BusinessLogic.Putyovki.PrixodPutyovok
         /// 
         /// </summary>
         /// <param name="model"></param>
-        public static bool Remove(PostupleniyaViewModel model)
+        public static async Task<bool> Remove(PostupleniyaViewModel model)
         {
             using (KasabaKIATEntities db = new KasabaKIATEntities())
             {
@@ -217,7 +195,7 @@ namespace KasabaKiat.BusinessLogic.Putyovki.PrixodPutyovok
                     }
                 }
 
-                db.SaveChanges();
+                await db.SaveChangesAsync();
             }
 
             return true;
@@ -228,13 +206,13 @@ namespace KasabaKiat.BusinessLogic.Putyovki.PrixodPutyovok
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        public static List<PostupleniyaViewModel> Get(PostupleniyaViewModel model)
+        public static async Task<List<PostupleniyaViewModel>> Get(PostupleniyaViewModel model)
         {
             List<PostupleniyaViewModel> list = null;
 
             using (KasabaKIATEntities db = new KasabaKIATEntities())
             {
-                var query = from post in db.tblPost
+                var query = await (from post in db.tblPost
                             join org in db.tblSprav_Org on post.ID_Pos equals org.ID
                             where post.SmFil == model.SmFil &&
                             post.ID_KV == model.Id_Kv &&
@@ -256,9 +234,9 @@ namespace KasabaKiat.BusinessLogic.Putyovki.PrixodPutyovok
                                BeginNumber   =  post.BeginNumber       ,
                                EndNumber     =  post.EndNumber         ,
                                PosName       = org.Name_Org
-                            };
+                            }).ToListAsync();
 
-                list = query.ToList();
+                list = query;
             }
 
             return list;
@@ -271,17 +249,17 @@ namespace KasabaKiat.BusinessLogic.Putyovki.PrixodPutyovok
         /// <param name="kvartal"></param>
         /// <param name="departmentBase"></param>
         /// <returns></returns>
-        public static TotalResults GetTotals(int year, int kvartal, string departmentBase)
+        public static async Task<TotalResults> GetTotals(int year, int kvartal, string departmentBase)
         {
             var totals = new TotalResults();
 
             using (KasabaKIATEntities db = new KasabaKIATEntities())
             {
-                var query = from post in db.tblPost
+                var query = await (from post in db.tblPost
                             join postDtl in db.tblPos_Put on post.ID equals postDtl.ID_Post
                             where post.ID_KV == kvartal && post.SmFil == year 
                             && post.DepartmentBase == departmentBase
-                            select postDtl;
+                            select postDtl).ToListAsync();
 
                 var nakladCount = db.tblPost.Where(z => z.SmFil == year && z.ID_KV == kvartal
                 && z.DepartmentBase == departmentBase).
@@ -307,18 +285,18 @@ namespace KasabaKiat.BusinessLogic.Putyovki.PrixodPutyovok
         }
 
 
-        public static TotalResults GetTotalsCloseNaklPrixod(int year, int kvartal, string departmentBase , long IdPos)
+        public static async Task<TotalResults> GetTotalsCloseNaklPrixod(int year, int kvartal, string departmentBase , long IdPos)
         {
             var totals = new TotalResults();
 
             using (KasabaKIATEntities db = new KasabaKIATEntities())
             {
-                var query = from post in db.tblPost
+                var query = await (from post in db.tblPost
                             join postDtl in db.tblPos_Put on post.ID equals postDtl.ID_Post
                             where post.ID_KV == kvartal && post.SmFil == year
                             && post.DepartmentBase == departmentBase
                             && post.ID == IdPos
-                            select postDtl;
+                            select postDtl).ToListAsync();
 
                 var nakladCount = db.tblPost.Where(z => z.SmFil == year && z.ID_KV == kvartal
                 && z.DepartmentBase == departmentBase).
@@ -349,17 +327,17 @@ namespace KasabaKiat.BusinessLogic.Putyovki.PrixodPutyovok
         /// <param name="IdPos"></param>
         /// <param name="departmentBase"></param>
         /// <returns></returns>
-        public static TotalResults GetDetailTotals(long IdPos, string departmentBase)
+        public static async Task<TotalResults> GetDetailTotals(long IdPos, string departmentBase)
         {
             var totals = new TotalResults();
 
             using (KasabaKIATEntities db = new KasabaKIATEntities())
             {
-                var query = from post in db.tblPost
+                var query = await (from post in db.tblPost
                             join postDtl in db.tblPos_Put on post.ID equals postDtl.ID_Post
                             where post.ID == IdPos
                             && post.DepartmentBase == departmentBase
-                            select postDtl;
+                            select postDtl).ToListAsync();
 
                 var nakladCount = 1;
 

@@ -35,7 +35,7 @@ namespace KasabaKIAT.BusinessLogic.Putyovki.PrixodPutyovok
 
                 if (query.Any())
                 {
-                    foreach(var docSchetfak in query)
+                    foreach(var docSchetfak in query.ToList())
                     {
 
                         var doc_Date = docSchetfak.DocData.HasValue ? docSchetfak.DocData.Value.Date : 
@@ -111,7 +111,9 @@ namespace KasabaKIAT.BusinessLogic.Putyovki.PrixodPutyovok
                                 prixMain.DepartmentBase = departmentBase;
                             }
 
-                            PostMainDataManager.Create(ref prixMain);
+                            tblPost pp = null;
+
+                            PostMainDataManager.Create(ref prixMain, db, out pp);
 
                             //Details Insert
 
@@ -192,12 +194,14 @@ namespace KasabaKIAT.BusinessLogic.Putyovki.PrixodPutyovok
                                                 postPut.Departmentbase = departmentBase;
                                             }
 
-                                            PostPutDetailDataManager.Create(ref postPut);
+                                            PostPutDetailDataManager.Create(ref postPut, db, pp);
                                         }
                                     }
                                 }
                             }
                         }
+
+                        db.SaveChanges();
                     }
                 }
             }

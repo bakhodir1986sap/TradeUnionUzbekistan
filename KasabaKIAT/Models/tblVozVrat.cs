@@ -28,6 +28,10 @@ namespace KasabaKIAT.Models
         public bool Tip_Voz { get; set; }
         public Nullable<long> UserId { get; set; }
         public string DepartmentBase { get; set; }
+        public Nullable<long> PRIXOD_ID { get; set; }
+        public Nullable<long> RASXOD_ID { get; set; }
+        public Nullable<long> PRIXOD_PROVODKA_ID { get; set; }
+        public Nullable<long> RASXOD_PROVODKA_ID { get; set; }
     
         public virtual tblSprav_Kv tblSprav_Kv { get; set; }
         public virtual tblSprav_Org tblSprav_Org { get; set; }

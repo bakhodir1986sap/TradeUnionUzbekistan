@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using KasabaKiat.BusinessLogic.Putyovki.PrixodPutyovok;
+using System.Threading.Tasks;
+using System.Data.Entity;
 
 namespace KasabaKiat.BusinessLogic.VozvratPutyovki
 {
@@ -14,13 +16,10 @@ namespace KasabaKiat.BusinessLogic.VozvratPutyovki
         /// 
         /// </summary>
         /// <param name="model"></param>
-        public static void Create(ref VozvratViewModel model)
+        public static void Create(ref VozvratViewModel model, KasabaKIATEntities db)
         {
-            using (KasabaKIATEntities db = new KasabaKIATEntities())
-            {
                 tblVozVrat vozv = new tblVozVrat();
 
-              //vozv.ID                     = model.id              ;
                 vozv.Data_Post              = model.data_post       ;
                 vozv.Num_Doc                = model.num_doc         ;
                 vozv.ID_Sanat               = model.id_sanat        ;
@@ -36,18 +35,13 @@ namespace KasabaKiat.BusinessLogic.VozvratPutyovki
                 vozv.DepartmentBase         = model.departmentbase;
 
                 var vozz = db.tblVozVrats.Add(vozv);
-
-                db.SaveChanges();
-
-                model.id = vozz.ID;
-            }
         }
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="model"></param>
-        public static void Modify(VozvratViewModel model)
+        public static async Task Modify(VozvratViewModel model)
         {
             using (KasabaKIATEntities db = new KasabaKIATEntities())
             {
@@ -75,7 +69,7 @@ namespace KasabaKiat.BusinessLogic.VozvratPutyovki
                     }
                 }
 
-                db.SaveChanges();
+                await db.SaveChangesAsync();
             }
         }
 
@@ -83,7 +77,7 @@ namespace KasabaKiat.BusinessLogic.VozvratPutyovki
         /// 
         /// </summary>
         /// <param name="model"></param>
-        public static void Remove(VozvratViewModel model)
+        public static async Task Remove(VozvratViewModel model)
         {
             using (KasabaKIATEntities db = new KasabaKIATEntities())
             {
@@ -99,7 +93,7 @@ namespace KasabaKiat.BusinessLogic.VozvratPutyovki
                     }
                 }
 
-                db.SaveChanges();
+                await db.SaveChangesAsync();
             }
         }
 
@@ -108,13 +102,13 @@ namespace KasabaKiat.BusinessLogic.VozvratPutyovki
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        public static List<VozvratViewModel> Get(VozvratViewModel model)
+        public static async Task<List<VozvratViewModel>> Get(VozvratViewModel model)
         {
             List<VozvratViewModel> list = null;
 
             using (KasabaKIATEntities db = new KasabaKIATEntities())
             {
-                var query = from vozv in db.tblVozVrats
+                var query = await (from vozv in db.tblVozVrats
                             select new VozvratViewModel
                             {
                                 id              = vozv.ID           ,
@@ -131,9 +125,9 @@ namespace KasabaKiat.BusinessLogic.VozvratPutyovki
                                 tip_voz         = vozv.Tip_Voz      , 
                                 userid          = vozv.UserId       , 
                                 departmentbase  = vozv.DepartmentBase
-                            };
+                            }).ToListAsync();
 
-                list = query.ToList();
+                list = query;
             }
 
             return list;
@@ -144,13 +138,13 @@ namespace KasabaKiat.BusinessLogic.VozvratPutyovki
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        public static List<VozvratViewModel> GetFilter(VozvratViewModel model)
+        public static async Task<List<VozvratViewModel>> GetFilter(VozvratViewModel model)
         {
             List<VozvratViewModel> list = null;
 
             using (KasabaKIATEntities db = new KasabaKIATEntities())
             {
-                var query = from vozv in db.tblVozVrats
+                var query = await (from vozv in db.tblVozVrats
                             join sanat in db.tblSprav_San on vozv.ID_Sanat equals sanat.ID
                             join org in db.tblSprav_Org on vozv.ID_Ot equals org.ID
                             where vozv.DepartmentBase == model.departmentbase
@@ -174,9 +168,9 @@ namespace KasabaKiat.BusinessLogic.VozvratPutyovki
                                 tip_voz                                     = vozv.Tip_Voz,
                                 userid                                      = vozv.UserId,
                                 departmentbase                              = vozv.DepartmentBase
-                            };
+                            }).ToListAsync();
 
-                list = query.ToList();
+                list = query;
             }
 
             return list;
@@ -187,13 +181,13 @@ namespace KasabaKiat.BusinessLogic.VozvratPutyovki
         /// </summary>
         /// <param name="IdVipl"></param>
         /// <returns></returns>
-        public static List<RealizasiyaViplPutViewModel> GetPutyovkas(long idOrg, string departmentBase)
+        public static async Task<List<RealizasiyaViplPutViewModel>> GetPutyovkas(long idOrg, string departmentBase)
         {
             List<RealizasiyaViplPutViewModel> list = null;
 
             using (KasabaKIATEntities db = new KasabaKIATEntities())
             {
-                var query = from viplPut in db.tblVipl_Put
+                var query = await (from viplPut in db.tblVipl_Put
                             where viplPut.tblVipl.ID_Org == idOrg &&
                             viplPut.DepartmentBase == departmentBase
                             select new RealizasiyaViplPutViewModel
@@ -211,9 +205,9 @@ namespace KasabaKiat.BusinessLogic.VozvratPutyovki
                                 userid = viplPut.UserId,
                                 zayavkaid = viplPut.ZayavkaID,
                                 departmentbase = viplPut.DepartmentBase
-                            };
+                            }).ToListAsync();
 
-                list = query.ToList();
+                list = query;
             }
 
             return list;
@@ -226,16 +220,16 @@ namespace KasabaKiat.BusinessLogic.VozvratPutyovki
         /// <param name="kvartal"></param>
         /// <param name="departmentBase"></param>
         /// <returns></returns>
-        public static TotalResults GetTotals(int year, int kvartal, string departmentBase)
+        public static async Task<TotalResults> GetTotals(int year, int kvartal, string departmentBase)
         {
             var totals = new TotalResults();
 
             using (KasabaKIATEntities db = new KasabaKIATEntities())
             {
-                var query = from vozv in db.tblVozVrats
+                var query = await (from vozv in db.tblVozVrats
                             where vozv.ID_KV == kvartal && vozv.SmFil == year
                             && vozv.DepartmentBase == departmentBase
-                            select vozv;
+                            select vozv).ToListAsync();
 
                 var list = query.ToList();
 

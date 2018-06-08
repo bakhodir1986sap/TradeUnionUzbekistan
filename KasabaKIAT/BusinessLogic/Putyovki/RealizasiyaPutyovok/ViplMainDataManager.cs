@@ -9,6 +9,8 @@ using KasabaKiat.BusinessLogic.Putyovki.PrixodPutyovok;
 using KasabaKIAT.BusinessLogic.Putyovki.Rekviziti;
 using KasabaKiat.BusinessLogic.Utils.References;
 using KasabaKiat.BusinessLogic.Putyovki.OplataPutyovok;
+using System.Threading.Tasks;
+using System.Data.Entity;
 
 namespace KasabaKiat.BusinessLogic.Putyovki.RealizasiyaPutyovok
 {
@@ -18,15 +20,12 @@ namespace KasabaKiat.BusinessLogic.Putyovki.RealizasiyaPutyovok
         /// 
         /// </summary>
         /// <param name="model"></param>
-        public static void Create(ref RealizasiyaViplMainViewModel model)
+        public static void Create(ref RealizasiyaViplMainViewModel model, KasabaKIATEntities db, out tblVipl viplMain)
         {
             var numGen = new ViplNumGen();
 
-            using (KasabaKIATEntities db = new KasabaKIATEntities())
-            {
                 tblVipl vipl = new tblVipl();
 
-                //vipl.ID                 = model.id                  ;
                 vipl.ID_Org             = model.id_org              ;
                 vipl.Data_Post          = model.data_post           ;
                 vipl.Num_Doc = numGen.GetNextNumDoc(model.departmentbase, model.smfil).ToString().PadLeft(6, '0');
@@ -41,19 +40,14 @@ namespace KasabaKiat.BusinessLogic.Putyovki.RealizasiyaPutyovok
                 vipl.UserId             = model.userid              ;
                 vipl.DepartmentBase     = model.departmentbase;
 
-                var pst = db.tblVipl.Add(vipl);
-
-                db.SaveChanges();
-
-                model.id = vipl.ID;
-            }
+                viplMain = db.tblVipl.Add(vipl);
         }
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="model"></param>
-        public static void Modify(RealizasiyaViplMainViewModel model)
+        public static async Task Modify(RealizasiyaViplMainViewModel model)
         {
             using (KasabaKIATEntities db = new KasabaKIATEntities())
             {
@@ -80,7 +74,7 @@ namespace KasabaKiat.BusinessLogic.Putyovki.RealizasiyaPutyovok
                     }
                 }
 
-                db.SaveChanges();
+                await db.SaveChangesAsync();
             }
         }
 
@@ -88,7 +82,7 @@ namespace KasabaKiat.BusinessLogic.Putyovki.RealizasiyaPutyovok
         /// 
         /// </summary>
         /// <param name="model"></param>
-        public static void Remove(RealizasiyaViplMainViewModel model)
+        public static async Task Remove(RealizasiyaViplMainViewModel model)
         {
             using (KasabaKIATEntities db = new KasabaKIATEntities())
             {
@@ -104,7 +98,7 @@ namespace KasabaKiat.BusinessLogic.Putyovki.RealizasiyaPutyovok
                     }
                 }
 
-                db.SaveChanges();
+                await db.SaveChangesAsync();
             }
         }
 
@@ -112,7 +106,7 @@ namespace KasabaKiat.BusinessLogic.Putyovki.RealizasiyaPutyovok
         /// 
         /// </summary>
         /// <param name="model"></param>
-        public static void RemoveWithChild(RealizasiyaViplMainViewModel model)
+        public static async Task RemoveWithChild(RealizasiyaViplMainViewModel model)
         {
             using (KasabaKIATEntities db = new KasabaKIATEntities())
             {
@@ -123,7 +117,7 @@ namespace KasabaKiat.BusinessLogic.Putyovki.RealizasiyaPutyovok
                     Vipl_PutDataManager.RemoveAllByMain(new RealizasiyaViplPutViewModel()
                     {
                         id_vipl = model.id
-                    });
+                    } , db);
 
                     var reg = vipl.FirstOrDefault();
 
@@ -133,7 +127,7 @@ namespace KasabaKiat.BusinessLogic.Putyovki.RealizasiyaPutyovok
                     }
                 }
 
-                db.SaveChanges();
+                await db.SaveChangesAsync();
             }
         }
 
@@ -142,13 +136,13 @@ namespace KasabaKiat.BusinessLogic.Putyovki.RealizasiyaPutyovok
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        public static List<RealizasiyaViplMainViewModel> Get(RealizasiyaViplMainViewModel model)
+        public static async Task<List<RealizasiyaViplMainViewModel>> Get(RealizasiyaViplMainViewModel model)
         {
             List<RealizasiyaViplMainViewModel> list = null;
 
             using (KasabaKIATEntities db = new KasabaKIATEntities())
             {
-                var query = from vipl in db.tblVipl
+                var query = await (from vipl in db.tblVipl
                             join org in db.tblSprav_Org on vipl.ID_Org equals org.ID
                             where vipl.SmFil == model.smfil 
                             && vipl.ID_Kv == model.id_kv
@@ -169,9 +163,9 @@ namespace KasabaKiat.BusinessLogic.Putyovki.RealizasiyaPutyovok
                                 smfil           = vipl.SmFil            ,
                                 userid          = vipl.UserId           ,
                                 departmentbase  = vipl.DepartmentBase
-                            };
+                            }).ToListAsync();
 
-                list = query.ToList();
+                list = query;
             }
 
             return list;
@@ -183,13 +177,13 @@ namespace KasabaKiat.BusinessLogic.Putyovki.RealizasiyaPutyovok
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        public static List<RealizasiyaViplMainViewModel> GetForEnterDanniyeVlad(DateTime beginDt, DateTime endDt, long IdOrg, string departmentCode)
+        public static async Task<List<RealizasiyaViplMainViewModel>> GetForEnterDanniyeVlad(DateTime beginDt, DateTime endDt, long IdOrg, string departmentCode)
         {
             List<RealizasiyaViplMainViewModel> list = null;
 
             using (KasabaKIATEntities db = new KasabaKIATEntities())
             {
-                var query = from vipl in db.tblVipl
+                var query = await (from vipl in db.tblVipl
                             where vipl.Data_Post >= beginDt &&
                             vipl.Data_Post <= endDt
                             && vipl.DepartmentBase == departmentCode
@@ -208,9 +202,9 @@ namespace KasabaKiat.BusinessLogic.Putyovki.RealizasiyaPutyovok
                                 smfil = vipl.SmFil,
                                 userid = vipl.UserId,
                                 departmentbase = vipl.DepartmentBase
-                            };
+                            }).ToListAsync();
 
-                list = query.ToList();
+                list = query;
             }
 
             return list;
@@ -222,13 +216,13 @@ namespace KasabaKiat.BusinessLogic.Putyovki.RealizasiyaPutyovok
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        public static List<RealizasiyaViplMainViewModel> GetUnique(long Id)
+        public static async Task<List<RealizasiyaViplMainViewModel>> GetUnique(long Id)
         {
             List<RealizasiyaViplMainViewModel> list = null;
 
             using (KasabaKIATEntities db = new KasabaKIATEntities())
             {
-                var query = from vipl in db.tblVipl
+                var query = await (from vipl in db.tblVipl
                             where vipl.ID == Id
                             select new RealizasiyaViplMainViewModel
                             {
@@ -244,9 +238,9 @@ namespace KasabaKiat.BusinessLogic.Putyovki.RealizasiyaPutyovok
                                 smfil = vipl.SmFil,
                                 userid = vipl.UserId,
                                 departmentbase = vipl.DepartmentBase
-                            };
+                            }).ToListAsync();
 
-                list = query.ToList();
+                list = query;
             }
 
             return list;
@@ -259,17 +253,17 @@ namespace KasabaKiat.BusinessLogic.Putyovki.RealizasiyaPutyovok
         /// <param name="kvartal"></param>
         /// <param name="departmentBase"></param>
         /// <returns></returns>
-        public static TotalResults GetTotals(int year, int kvartal, string departmentBase)
+        public static async Task<TotalResults> GetTotals(int year, int kvartal, string departmentBase)
         {
             var totals = new TotalResults();
 
             using (KasabaKIATEntities db = new KasabaKIATEntities())
             {
-                var query = from vipl in db.tblVipl
+                var query = await (from vipl in db.tblVipl
                             join viplDtl in db.tblVipl_Put on vipl.ID equals viplDtl.ID_Vipl
                             where vipl.ID_Kv == kvartal && vipl.SmFil == year
                             && vipl.DepartmentBase == departmentBase
-                            select viplDtl;
+                            select viplDtl).ToListAsync();
 
                 var nakladCount = db.tblVipl.Where(z => z.SmFil == year && z.ID_Kv == kvartal
                 && z.DepartmentBase == departmentBase).
@@ -277,7 +271,7 @@ namespace KasabaKiat.BusinessLogic.Putyovki.RealizasiyaPutyovok
 
                 totals.NakladnoyCount = nakladCount;
 
-                var list = query.ToList();
+                var list = query;
 
                 if (list.Any())
                 {
@@ -295,18 +289,18 @@ namespace KasabaKiat.BusinessLogic.Putyovki.RealizasiyaPutyovok
         }
 
 
-        public static TotalResults GetTotalsZakritiye(int year, int kvartal, string departmentBase, long IdVipl)
+        public static async Task<TotalResults> GetTotalsZakritiye(int year, int kvartal, string departmentBase, long IdVipl)
         {
             var totals = new TotalResults();
 
             using (KasabaKIATEntities db = new KasabaKIATEntities())
             {
-                var query = from vipl in db.tblVipl
+                var query = await (from vipl in db.tblVipl
                             join viplDtl in db.tblVipl_Put on vipl.ID equals viplDtl.ID_Vipl
                             where vipl.ID_Kv == kvartal && vipl.SmFil == year
                             && vipl.DepartmentBase == departmentBase
                             && vipl.ID == IdVipl
-                            select viplDtl;
+                            select viplDtl).ToListAsync();
 
                 var nakladCount = db.tblVipl.Where(z => z.SmFil == year && z.ID_Kv == kvartal
                 && z.DepartmentBase == departmentBase).
@@ -337,17 +331,17 @@ namespace KasabaKiat.BusinessLogic.Putyovki.RealizasiyaPutyovok
         /// <param name="IdPos"></param>
         /// <param name="departmentBase"></param>
         /// <returns></returns>
-        public static TotalResults GetDetailTotals(long IdPos, string departmentBase)
+        public static async Task<TotalResults> GetDetailTotals(long IdPos, string departmentBase)
         {
             var totals = new TotalResults();
 
             using (KasabaKIATEntities db = new KasabaKIATEntities())
             {
-                var query = from vipl in db.tblVipl
+                var query = await (from vipl in db.tblVipl
                             join viplDtl in db.tblVipl_Put on vipl.ID equals viplDtl.ID_Vipl
                             where vipl.ID == IdPos
                             && vipl.DepartmentBase == departmentBase
-                            select viplDtl;
+                            select viplDtl).ToListAsync();
 
                 totals.NakladnoyCount = 1;
 
@@ -373,17 +367,19 @@ namespace KasabaKiat.BusinessLogic.Putyovki.RealizasiyaPutyovok
         /// </summary>
         /// <param name="IdVipl"></param>
         /// <returns></returns>
-        public static SchetFakturaViewModel GetSchetFakturaData(long IdVipl)
+        public static async Task<SchetFakturaViewModel> GetSchetFakturaData(long IdVipl)
         {
             var schetFaktura = new SchetFakturaViewModel();
 
-            var naklad = GetUnique(IdVipl).FirstOrDefault();
+            var naklad1 = await GetUnique(IdVipl);
+
+            var naklad = naklad1.FirstOrDefault();
 
             if (naklad == null) return null;
 
             schetFaktura.nakladnaya = naklad;
 
-            schetFaktura.nakladDtl = Vipl_PutDataManager.Get(IdVipl);
+            schetFaktura.nakladDtl = await Vipl_PutDataManager.Get(IdVipl);
 
             schetFaktura.rekvizit = RekvizitiDataManager.Get(new KasabaKIAT.ViewModel.Putyovki.RekvizitiViewModel()
             {
@@ -399,7 +395,7 @@ namespace KasabaKiat.BusinessLogic.Putyovki.RealizasiyaPutyovok
         /// 
         /// </summary>
         /// <param name="model"></param>
-        public static void CloseNakladnoy(RealizasiyaViplMainViewModel model)
+        public static async Task CloseNakladnoy(RealizasiyaViplMainViewModel model)
         {
             using (KasabaKIATEntities db = new KasabaKIATEntities())
             {
@@ -409,7 +405,7 @@ namespace KasabaKiat.BusinessLogic.Putyovki.RealizasiyaPutyovok
                 {
                     var post1 = post.FirstOrDefault();
 
-                    var total = GetTotalsZakritiye(model.smfil.Value, model.id_kv.Value, model.departmentbase, model.id);
+                    var total = await GetTotalsZakritiye(model.smfil.Value, model.id_kv.Value, model.departmentbase, model.id);
 
                     if (post1 != null)
                     {
@@ -419,12 +415,12 @@ namespace KasabaKiat.BusinessLogic.Putyovki.RealizasiyaPutyovok
                         post1.Symma = total.SummaNakladnix;
                         post1.Vid = true;
 
-                        db.SaveChanges();
+                        await db.SaveChangesAsync();
                     }
 
                     var oplata = new Oplata();
 
-                    oplata.CloseRasxodPutyovok(post1.ID);
+                    await oplata.CloseRasxodPutyovok(post1.ID);
                 }
             }
         }
@@ -434,7 +430,7 @@ namespace KasabaKiat.BusinessLogic.Putyovki.RealizasiyaPutyovok
         /// </summary>
         /// <param name="IdVipl"></param>
         /// <returns></returns>
-        public static decimal GetOrgPaymentsLastYear(long IdVipl)
+        public static async Task<decimal> GetOrgPaymentsLastYear(long IdVipl)
         {
             using (KasabaKIATEntities db = new KasabaKIATEntities())
             {
@@ -462,11 +458,11 @@ namespace KasabaKiat.BusinessLogic.Putyovki.RealizasiyaPutyovok
 
                             var yearAgo = today.AddDays(-365);
 
-                            var payments = from ecp in db.tbbu_ecp_calc
+                            var payments = await (from ecp in db.tbbu_ecp_calc
                                            where ecp.INN == orig_inn 
                                            && ecp.OPERDATE >= yearAgo 
                                            && ecp.OPERDATE <= today
-                                           select ecp.OBLSOVPROF_AMT;
+                                           select ecp.OBLSOVPROF_AMT).ToListAsync();
 
                             if (payments.Any())
                             {

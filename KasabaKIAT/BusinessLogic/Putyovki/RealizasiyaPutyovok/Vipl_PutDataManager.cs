@@ -168,7 +168,7 @@ namespace KasabaKiat.BusinessLogic.Putyovki.RealizasiyaPutyovok
         /// 
         /// </summary>
         /// <param name="model"></param>
-        public static void RemoveByPutyovka(int IdSanat, string Num_Put, string departmentCode, KasabaKIATEntities db)
+        public static void RemoveByPutyovka(int IdSanat, string Num_Put, string departmentCode, KasabaKIATEntities db, tblVozVrat vozv)
         {
                 var vipl = db.tblVipl_Put.Where(z => z.ID_Sanat == IdSanat && z.Num_Put == Num_Put && z.DepartmentBase == departmentCode);
 
@@ -180,7 +180,9 @@ namespace KasabaKiat.BusinessLogic.Putyovki.RealizasiyaPutyovok
                     }
 
                     var reg = vipl.FirstOrDefault();
-
+                    
+                    vozv.tblVipl = reg.tblVipl;
+                    
                     if (reg != null)
                     {
                         db.tblVipl_Put.Remove(reg);
@@ -200,6 +202,7 @@ namespace KasabaKiat.BusinessLogic.Putyovki.RealizasiyaPutyovok
             using (KasabaKIATEntities db = new KasabaKIATEntities())
             {
                 var query = from viplPut in db.tblVipl_Put
+                            orderby viplPut.Num_Put
                             select new RealizasiyaViplPutViewModel
                             {
                                 id              = viplPut.ID                ,
@@ -236,6 +239,7 @@ namespace KasabaKiat.BusinessLogic.Putyovki.RealizasiyaPutyovok
             {
                 var query = await (from viplPut in db.tblVipl_Put
                             where viplPut.ID_Vipl == IdVipl && viplPut.ID_PolVoz == false
+                            orderby viplPut.Num_Put
                             select new RealizasiyaViplPutViewModel
                             {
                                 id = viplPut.ID,
@@ -254,6 +258,16 @@ namespace KasabaKiat.BusinessLogic.Putyovki.RealizasiyaPutyovok
                             }).ToListAsync();
 
                 list = query;
+
+                foreach(var put in list)
+                {
+                    var postPut = db.tblPos_Put.Where(p => p.Num_Put == put.num_put && p.ID_Sanat == put.id_sanat);
+
+                    if (postPut.Any())
+                    {
+                        put.data_post = postPut.First().DataSan;
+                    }
+                }
             }
 
             return list;
@@ -269,6 +283,7 @@ namespace KasabaKiat.BusinessLogic.Putyovki.RealizasiyaPutyovok
             {
                 var query = await (from viplPut in db.tblVipl_Put
                             where viplPut.ID == IdViplPut && viplPut.ID_PolVoz == false
+                            orderby viplPut.Num_Put
                             select new RealizasiyaViplPutViewModel
                             {
                                 id = viplPut.ID,
@@ -314,6 +329,7 @@ namespace KasabaKiat.BusinessLogic.Putyovki.RealizasiyaPutyovok
                             && viplPut.tblVipl.DepartmentBase == departmentCode 
                             && viplPut.ID_PolVoz == false
                             && viplPut.tblVipl.ID_Org == IdOrg
+                            orderby viplPut.Num_Put
                             select new RealizasiyaViplPutViewModel
                             {
                                 id = viplPut.ID,
@@ -408,6 +424,7 @@ namespace KasabaKiat.BusinessLogic.Putyovki.RealizasiyaPutyovok
                             where viplPut.tblVipl.ID_Org == IdOrg
                             && viplPut.ID_PolVoz == false
                             && viplPut.DepartmentBase == departmentCode
+                            orderby viplPut.Num_Put
                             select new RealizasiyaViplPutViewModel
                             {
                                 id = viplPut.ID,

@@ -13,6 +13,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.UI;
@@ -81,7 +82,7 @@ namespace KasabaKIAT.Controllers
         /// </summary>
         /// <param name="d"></param>
         /// <returns></returns>
-        public string EnterOsushestvleniyeProvodki(ProvodkiViewModel d)
+        public async Task<string> EnterOsushestvleniyeProvodki(ProvodkiViewModel d)
         {
             int UserId = Convert.ToInt32(User.Identity.Name);
             var uu = UserInfo.GetUserInfo(UserId);
@@ -89,7 +90,11 @@ namespace KasabaKIAT.Controllers
             d.department_base = uu.DepartmentBase;
             d.user_id = UserId;
             d.trdt = DateTime.Now;
-            pr.Enter(d);
+            tbbu_provodki provod = null;
+            pr.Enter(d, KasabaDB , out provod);
+
+            await KasabaDB.SaveChangesAsync();
+
             return "yes";
         }
 

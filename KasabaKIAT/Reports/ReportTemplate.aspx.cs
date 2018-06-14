@@ -1,6 +1,8 @@
 ﻿using Microsoft.Reporting.WebForms;
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Web.UI.WebControls;
 
 namespace KasabaKIAT.Reports
@@ -35,6 +37,32 @@ namespace KasabaKIAT.Reports
 
                 }
             }
+        }
+
+        protected override void OnPreRender( EventArgs e)
+        {
+            base.OnPreRender(e);
+            DatePickers.Value = string.Join(",", PerformQuery());
+        }
+
+        private IEnumerable GetDateParameters()
+        {
+            // I'm assuming report view control id as reportViewer
+            foreach (ReportParameterInfo info in rvSiteMapping.ServerReport.GetParameters())
+            {
+                if (info.DataType == ParameterDataType.DateTime)
+                {
+                    yield return string.Format("[{0}]", info.Prompt);
+                }
+            }
+        }
+
+
+        public string[] PerformQuery()
+        {
+            IEnumerable query = GetDateParameters();
+            string[] array = query.Cast<string>().ToArray();
+            return array;
         }
     }
 }

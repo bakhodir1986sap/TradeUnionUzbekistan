@@ -217,6 +217,7 @@ namespace KasabaKiat.BusinessLogic.Putyovki.PrixodPutyovok
                             where post.SmFil == model.SmFil &&
                             post.ID_KV == model.Id_Kv &&
                             post.DepartmentBase == model.DepartmentBase
+                            orderby post.Num_Doc
                             select new PostupleniyaViewModel
                             {
                                Id = post.ID,

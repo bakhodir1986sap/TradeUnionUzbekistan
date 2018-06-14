@@ -9,7 +9,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Data.Entity;
-
+using KasabaKIAT.ViewModel.Buxgalteriya;
+using KasabaKIAT.BusinessLogic.Buxgalteriya.Provodki;
 
 namespace KasabaKiat.BusinessLogic.Putyovki.OplataPutyovok
 {
@@ -148,6 +149,25 @@ namespace KasabaKiat.BusinessLogic.Putyovki.OplataPutyovok
                             OplataRasxodDataManager.Create(ref oplatDtl, db, opp);
                         }
                     }
+
+                    var trans = new ProvodkiViewModel
+                    {
+                        comment = "Приход путевок ",
+                        department_base = post1.DepartmentBase,
+                        inoutflg = false,
+                        platelrsch = "03",
+                        poluchrsch = "07",
+                        summa = post1.Symma,
+                        user_id = post1.UserId,
+                        trdt = DateTime.Now,
+                        trref = "PPR",
+                        trrefno = string.Format("{0}|{1}", post1.Num_Doc, post1.Data_Post.Value.ToShortDateString())
+                    };
+
+                    tbbu_provodki provodka = null;
+                    ProvodkiDataManager.Create(ref trans, db, out provodka);
+
+                    post1.tbbu_provodki = provodka;
                 }
 
                 await db.SaveChangesAsync();
@@ -270,6 +290,25 @@ namespace KasabaKiat.BusinessLogic.Putyovki.OplataPutyovok
                             throw new ApplicationException("Owner code in organization list is invalid");
                         }
                     }
+
+                    var trans = new ProvodkiViewModel
+                    {
+                        comment = "Расход путевок ",
+                        department_base = post1.DepartmentBase,
+                        inoutflg = false,
+                        platelrsch = "04",
+                        poluchrsch = "03",
+                        summa = post1.Symma,
+                        user_id = post1.UserId,
+                        trdt = DateTime.Now,
+                        trref = "RSP",
+                        trrefno = string.Format("{0}|{1}", post1.Num_Doc, post1.Data_Post.Value.ToShortDateString())
+                    };
+
+                    tbbu_provodki provodka = null;
+                    ProvodkiDataManager.Create(ref trans, db, out provodka);
+
+                    post1.tbbu_provodki = provodka;
 
                 }
 

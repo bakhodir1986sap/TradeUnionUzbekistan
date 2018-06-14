@@ -569,6 +569,8 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.Provodki.AutomaticTransactions.K
                             EcpCalcDataManager.Create(ref model, db);
 
                         }
+
+                        db.SaveChanges();
                     }
 
                     return;

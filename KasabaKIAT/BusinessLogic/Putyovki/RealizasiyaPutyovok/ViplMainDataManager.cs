@@ -147,6 +147,7 @@ namespace KasabaKiat.BusinessLogic.Putyovki.RealizasiyaPutyovok
                             where vipl.SmFil == model.smfil 
                             && vipl.ID_Kv == model.id_kv
                             && vipl.DepartmentBase == model.departmentbase
+                            orderby vipl.Num_Doc
                             select new RealizasiyaViplMainViewModel
                             {
                                 id              = vipl.ID,
@@ -188,6 +189,7 @@ namespace KasabaKiat.BusinessLogic.Putyovki.RealizasiyaPutyovok
                             vipl.Data_Post <= endDt
                             && vipl.DepartmentBase == departmentCode
                             && vipl.ID_Org == IdOrg
+                            orderby vipl.Num_Doc
                             select new RealizasiyaViplMainViewModel
                             {
                                 id_org = vipl.ID_Org,
@@ -436,52 +438,59 @@ namespace KasabaKiat.BusinessLogic.Putyovki.RealizasiyaPutyovok
             {
                 decimal totalPayment = 0;
 
-                var vipl = db.tblVipl.Where(z => z.ID == IdVipl);
-
-                if (vipl.Any())
+                try
                 {
-                    var viplMain = vipl.First();
+                    var vipl = db.tblVipl.Where(z => z.ID == IdVipl);
 
-                    var orgId = viplMain.ID_Org;
-
-                    var orgs = db.tblSprav_Org.Where(z => z.ID == orgId);
-
-                    if (orgs.Any())
+                    if (vipl.Any())
                     {
-                        var organization = orgs.First();
+                        var viplMain = vipl.First();
 
-                        var orig_inn = organization.ORIG_INN;
+                        var orgId = viplMain.ID_Org;
 
-                        if (!string.IsNullOrEmpty(orig_inn))
+                        var orgs = db.tblSprav_Org.Where(z => z.ID == orgId);
+
+                        if (orgs.Any())
                         {
-                            var today = DateTime.Now.Date;
+                            var organization = orgs.First();
 
-                            var yearAgo = today.AddDays(-365);
+                            var orig_inn = organization.ORIG_INN;
 
-                            var payments = await (from ecp in db.tbbu_ecp_calc
-                                           where ecp.INN == orig_inn 
-                                           && ecp.OPERDATE >= yearAgo 
-                                           && ecp.OPERDATE <= today
-                                           select ecp.OBLSOVPROF_AMT).ToListAsync();
-
-                            if (payments.Any())
+                            if (!string.IsNullOrEmpty(orig_inn))
                             {
-                                totalPayment = payments.Sum(z=>z.Value);
+                                var today = DateTime.Now.Date;
+
+                                var yearAgo = today.AddDays(-365);
+
+                                var payments = await (from ecp in db.tbbu_ecp_calc
+                                                      where ecp.INN == orig_inn
+                                                      && ecp.OPERDATE >= yearAgo
+                                                      && ecp.OPERDATE <= today
+                                                      select ecp.OBLSOVPROF_AMT).ToListAsync();
+
+                                if (payments.Any())
+                                {
+                                    totalPayment = payments.Sum(z => z.Value);
+                                }
+                                else
+                                {
+                                    totalPayment = 0;
+                                }
                             }
                             else
                             {
-                                totalPayment = 0;
+                                throw new ApplicationException("Original Inn is not valid");
                             }
                         }
                         else
                         {
-                            throw new ApplicationException("Original Inn is not valid");
+                            throw new ApplicationException("Organization Id is not valid");
                         }
                     }
-                    else
-                    {
-                        throw new ApplicationException("Organization Id is not valid");
-                    }
+                }
+                catch
+                {
+                    totalPayment = 0;
                 }
 
                 return totalPayment;

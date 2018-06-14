@@ -175,6 +175,7 @@ namespace KasabaKiat.BusinessLogic.Putyovki.OplataPutyovok
                                     oplata.PrizOpl == (int)OplataRasxPriz.VozvratPutyovki)
                                 )
                             )
+                            orderby oplata.Data_Post, oplata.Num_Doc
                             select new OplataViewModel
                             {
                                 ID = oplata.ID,

@@ -29,6 +29,8 @@ using KasabaKiat.ViewModel.Putyovki.RaznoskaPutyovok;
 using KasabaKIAT.BusinessLogic.Putyovki.SverkaDannix.Ruchnoy;
 using OfficeOpenXml;
 using System.Threading.Tasks;
+using KasabaKIAT.BusinessLogic.Buxgalteriya.Provodki;
+using KasabaKIAT.ViewModel.Buxgalteriya;
 
 namespace KasabaKIAT.Controllers
 {
@@ -2078,6 +2080,25 @@ namespace KasabaKIAT.Controllers
 
                 OplataDataManager.Create(ref model,KasabaDB, out oplMain);
 
+                var trans = new ProvodkiViewModel
+                {
+                    comment = "Оплата и Выплата Общий ",
+                    department_base = oplMain.Departmentbase,
+                    inoutflg = false,
+                    platelrsch = "21",
+                    poluchrsch = "04",
+                    summa = oplMain.Symma_KT,
+                    user_id = oplMain.UserId,
+                    trdt = DateTime.Now,
+                    trref = "OOV",
+                    trrefno = string.Format("{0}|{1}", oplMain.Num_Doc, oplMain.Data_Post.Value.ToShortDateString())
+                };
+
+                tbbu_provodki provodka = null;
+                ProvodkiDataManager.Create(ref trans, KasabaDB, out provodka);
+
+                oplMain.tbbu_provodki = provodka;
+
                 await KasabaDB.SaveChangesAsync();
             }
             catch (Exception ex)
@@ -2109,6 +2130,25 @@ namespace KasabaKIAT.Controllers
                 tblOplata oplMain = null;
 
                 OplataDataManager.Create(ref model,KasabaDB, out oplMain);
+
+                var trans = new ProvodkiViewModel
+                {
+                    comment = "Оплата путевок ",
+                    department_base = oplMain.Departmentbase,
+                    inoutflg = false,
+                    platelrsch = "21",
+                    poluchrsch = "04",
+                    summa = oplMain.Symma_KT,
+                    user_id = oplMain.UserId,
+                    trdt = DateTime.Now,
+                    trref = "OPV",
+                    trrefno = string.Format("{0}|{1}", oplMain.Num_Doc, oplMain.Data_Post.Value.ToShortDateString())
+                };
+
+                tbbu_provodki provodka = null;
+                ProvodkiDataManager.Create(ref trans, KasabaDB, out provodka);
+
+                oplMain.tbbu_provodki = provodka;
 
                 await KasabaDB.SaveChangesAsync();
             }
@@ -2142,6 +2182,25 @@ namespace KasabaKIAT.Controllers
 
                 OplataDataManager.Create(ref model,KasabaDB, out oplMain);
 
+                var trans = new ProvodkiViewModel
+                {
+                    comment = "Оплата курортному ",
+                    department_base = oplMain.Departmentbase,
+                    inoutflg = false,
+                    platelrsch = "21",
+                    poluchrsch = "04",
+                    summa = oplMain.Symma_DT,
+                    user_id = oplMain.UserId,
+                    trdt = DateTime.Now,
+                    trref = "OKV",
+                    trrefno = string.Format("{0}|{1}", oplMain.Num_Doc, oplMain.Data_Post.Value.ToShortDateString())
+                };
+
+                tbbu_provodki provodka = null;
+                ProvodkiDataManager.Create(ref trans, KasabaDB, out provodka);
+
+                oplMain.tbbu_provodki = provodka;
+
                 await KasabaDB.SaveChangesAsync();
             }
             catch (Exception ex)
@@ -2173,6 +2232,23 @@ namespace KasabaKIAT.Controllers
                 tblOplata oplMain = null;
 
                 OplataDataManager.Create(ref model,KasabaDB, out oplMain);
+
+                var trans = new ProvodkiViewModel
+                {
+                    comment = "Возврат путевок ",
+                    department_base = oplMain.Departmentbase,
+                    inoutflg = false,
+                    platelrsch = "03",
+                    poluchrsch = "04",
+                    summa = oplMain.Symma_KT,
+                    user_id = oplMain.UserId,
+                    trdt = DateTime.Now,
+                    trref = "OVV",
+                    trrefno = string.Format("{0}|{1}", oplMain.Num_Doc, oplMain.Data_Post.Value.ToShortDateString())
+                };
+
+                tbbu_provodki provodka = null;
+                ProvodkiDataManager.Create(ref trans, KasabaDB, out provodka);
 
                 await KasabaDB.SaveChangesAsync();
             }

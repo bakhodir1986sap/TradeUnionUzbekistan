@@ -10,13 +10,10 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.Provodki
 {
     public class ProvodkiDataManager
     {
-        public static void Create(ref ProvodkiViewModel model)
+        public static void Create(ref ProvodkiViewModel model, KasabaKIATEntities db, out tbbu_provodki provod )
         {
-            using (KasabaKIATEntities db = new KasabaKIATEntities())
-            {
                 tbbu_provodki reg = new tbbu_provodki();
 
-                //reg.REC_ID          = model.rec_id          ;
                 reg.DEPARTMENT_BASE = model.department_base ;
                 reg.USER_ID         = model.user_id         ;
                 reg.INOUTFLG        = model.inoutflg        ;//0 - vnut 1 vnesh
@@ -34,33 +31,10 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.Provodki
                 reg.POLUCHRSCH      = model.poluchrsch      ;
                 reg.SUMMA           = model.summa           ;
                 reg.COMMENT         = model.comment         ;
+                reg.TRREF = model.trref;
+                reg.TRREFNO = model.trrefno;
 
-                var planOtrasl = db.tbbu_provodki.Add(reg);
-
-                if (planOtrasl != null)
-                {
-                    model.rec_id = planOtrasl.REC_ID;
-                }
-
-                try
-                {
-                    db.SaveChanges();
-                } 
-                catch (DbEntityValidationException e)
-                {
-                    foreach (var eve in e.EntityValidationErrors)
-                    {
-                        Console.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
-                            eve.Entry.Entity.GetType().Name, eve.Entry.State);
-                        foreach (var ve in eve.ValidationErrors)
-                        {
-                            Console.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
-                                ve.PropertyName, ve.ErrorMessage);
-                        }
-                    }
-                    throw;
-                }
-            }
+                provod = db.tbbu_provodki.Add(reg);
         }
 
         public static void Modify(ProvodkiViewModel model)

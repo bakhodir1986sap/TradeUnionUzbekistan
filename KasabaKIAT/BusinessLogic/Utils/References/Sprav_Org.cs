@@ -354,7 +354,7 @@ namespace KasabaKiat.BusinessLogic.Utils.References
             {
                 var queryRes = from org in db.tblSprav_Org
                                //join otras in db.tblSprav_Otras on org.ID_Ot equals otras.ID_Ot
-                               join region in db.tblSprav_Reg on org.Region equals region.CodeReg
+                               //join region in db.tblSprav_Reg on org.Region equals region.CodeReg
                                where org.DepartmentBase == departmentBase 
                                //&& otras.DepartmentBase == departmentBase
                                orderby org.Name_Org
@@ -372,7 +372,7 @@ namespace KasabaKiat.BusinessLogic.Utils.References
                                    Adress   = org.Adress,
                                    Telefon  = org.Telefon,
                                    Region   = org.Region,
-                                   RegionName = region.NameReg,
+                                   RegionName = "",
                                    DT_OST = org.DT_OST,
                                    KT_OST = org.KT_OST,
                                    E_Mail = org.E_Mail,
@@ -391,13 +391,22 @@ namespace KasabaKiat.BusinessLogic.Utils.References
 
                 var otrasList = db.tblSprav_Otras.Where(s => s.DepartmentBase == departmentBase).ToList();
 
-                foreach(var org in list)
+                var regionList = db.tblSprav_Reg.ToList();
+
+                foreach (var org in list)
                 {
                     var isOtrasExists = otrasList.Where(d => d.ID_Ot == org.ID_Ot);
 
                     if (isOtrasExists.Any())
                     {
                         org.OtraslName = isOtrasExists.First().Name_Ot;
+                    }
+
+                    var isRegionExists = regionList.Where(r => r.CodeReg == org.Region);
+
+                    if (isRegionExists.Any())
+                    {
+                        org.RegionName = isRegionExists.First().NameReg;
                     }
                 }
             }
@@ -436,7 +445,7 @@ namespace KasabaKiat.BusinessLogic.Utils.References
             {
                 var queryRes = from org in db.tblSprav_Org
                                //join otras in db.tblSprav_Otras on org.ID_Ot equals otras.ID_Ot
-                               join region in db.tblSprav_Reg on org.Region equals region.CodeReg
+                               //join region in db.tblSprav_Reg on org.Region equals region.CodeReg
                                where org.DepartmentBase == departmentBase
                                //&& otras.DepartmentBase == departmentBase
                                && (org.Name_Org.Contains((IsNameEmpty ? org.Name_Org: Name))) 
@@ -457,7 +466,7 @@ namespace KasabaKiat.BusinessLogic.Utils.References
                                    Adress = org.Adress,
                                    Telefon = org.Telefon,
                                    Region = org.Region,
-                                   RegionName = region.NameReg,
+                                   RegionName = "",//region.NameReg,
                                    DT_OST = org.DT_OST,
                                    KT_OST = org.KT_OST,
                                    E_Mail = org.E_Mail,
@@ -476,6 +485,8 @@ namespace KasabaKiat.BusinessLogic.Utils.References
 
                 var otrasList = db.tblSprav_Otras.Where(s => s.DepartmentBase == departmentBase).ToList();
 
+                var regionList = db.tblSprav_Reg.ToList();
+
                 foreach (var org in list)
                 {
                     var isOtrasExists = otrasList.Where(d => d.ID_Ot == org.ID_Ot);
@@ -483,6 +494,13 @@ namespace KasabaKiat.BusinessLogic.Utils.References
                     if (isOtrasExists.Any())
                     {
                         org.OtraslName = isOtrasExists.First().Name_Ot;
+                    }
+
+                    var isRegionExists = regionList.Where(r => r.CodeReg == org.Region);
+
+                    if (isRegionExists.Any())
+                    {
+                        org.RegionName = isRegionExists.First().NameReg;
                     }
                 }
 
@@ -505,7 +523,7 @@ namespace KasabaKiat.BusinessLogic.Utils.References
             {
                 var queryRes = from org in db.tblSprav_Org
                                //join otras in db.tblSprav_Otras on org.ID_Ot equals otras.ID_Ot
-                               join region in db.tblSprav_Reg on org.Region equals region.CodeReg
+                               //join region in db.tblSprav_Reg on org.Region equals region.CodeReg
                                where org.DepartmentBase == departmentBase
                                //&& otras.DepartmentBase == departmentBase
                                && org.ID == Id
@@ -524,7 +542,7 @@ namespace KasabaKiat.BusinessLogic.Utils.References
                                    Adress = org.Adress,
                                    Telefon = org.Telefon,
                                    Region = org.Region,
-                                   RegionName = region.NameReg,
+                                   RegionName = "",
                                    DT_OST = org.DT_OST,
                                    KT_OST = org.KT_OST,
                                    E_Mail = org.E_Mail,
@@ -542,6 +560,8 @@ namespace KasabaKiat.BusinessLogic.Utils.References
                 list = queryRes.ToList();
 
                 var otrasList = db.tblSprav_Otras.Where(s => s.DepartmentBase == departmentBase).ToList();
+
+                var regionList = db.tblSprav_Reg.ToList();
 
                 foreach (var org in list)
                 {
@@ -561,6 +581,13 @@ namespace KasabaKiat.BusinessLogic.Utils.References
                             org.ParentName = orgName.First().Name_Org;
                         }
                         
+                    }
+
+                    var isRegionExists = regionList.Where(r => r.CodeReg == org.Region);
+
+                    if (isRegionExists.Any())
+                    {
+                        org.RegionName = isRegionExists.First().NameReg;
                     }
                 }
 

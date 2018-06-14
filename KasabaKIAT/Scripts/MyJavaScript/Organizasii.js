@@ -100,6 +100,8 @@
     }
 
 
+
+
     $scope.GetOrgDataByInn = function (keyEvent, inn) {
 
         //if (keyEvent.which === 9)
@@ -113,8 +115,13 @@
                 url: '/Reference/GetOrgDataByInn?inn=' + inn
             }).then(function (response) {
 
-                $scope.Organization.Name_Org = response.data.Name_Full;
-                $scope.Organization.OKONX = response.data.Okonx;
+                if ($scope.Organization.Name_Org == '') {
+                    $scope.Organization.Name_Org = response.data.Name_Full;
+                }
+
+                if ($scope.Organization.OKONX == '') {
+                    $scope.Organization.OKONX = response.data.Okonx;
+                }
 
                 //document.getElementById('connection').style.visibility = "hidden";
                 //$("#hh").modal('hide');
@@ -334,7 +341,7 @@
 
             if (response.data == 'success')
             {
-                GetOrganizations();
+                $scope.GetOrganizationsFilter();
                 alertify.success("Успешное сохранение");
             }
             else
@@ -352,4 +359,11 @@
         });
     }
 
+
+    $scope.exportData = function () {
+        var blob = new Blob([document.getElementById('export').innerHTML], {
+            type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=utf-8"
+        });
+        saveAs(blob, "Организации.xls");
+    };
 }]);

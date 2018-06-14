@@ -367,6 +367,13 @@
         <AssociationConnector Association="KasabaKIATModel.FK_tblVipl_Put_Users" />
         <EntityTypeShape EntityType="KasabaKIATModel.tblSanatDataCompare" Width="1.5" PointX="22.375" PointY="15.75" />
         <EntityTypeShape EntityType="KasabaKIATModel.tblFile" Width="1.5" PointX="22.375" PointY="20.75" />
+        <AssociationConnector Association="KasabaKIATModel.FK_tblOplata_tbbu_provodki" />
+        <AssociationConnector Association="KasabaKIATModel.FK_tblPost_tbbu_provodki" />
+        <AssociationConnector Association="KasabaKIATModel.FK_tblVipl_tbbu_provodki" />
+        <AssociationConnector Association="KasabaKIATModel.FK_tblVozVrat_tbbu_provodki" />
+        <AssociationConnector Association="KasabaKIATModel.FK_tblVozVrat_tbbu_provodki1" />
+        <AssociationConnector Association="KasabaKIATModel.FK_tblVozVrat_tblPost" />
+        <AssociationConnector Association="KasabaKIATModel.FK_tblVozVrat_tblVipl" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

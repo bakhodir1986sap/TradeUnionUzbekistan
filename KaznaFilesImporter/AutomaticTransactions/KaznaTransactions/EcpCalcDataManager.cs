@@ -35,10 +35,10 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.Provodki.AutomaticTransactions.K
 
                 try
                 {
-                    Console.WriteLine("SaveChanges");
-                    db.SaveChanges();
+                    //Console.WriteLine("SaveChanges");
+                    //db.SaveChanges();
 
-                    model.id = reg.ID;
+                    //model.id = reg.ID;
                 }
                 catch (DbEntityValidationException e)
                 {

@@ -40,24 +40,109 @@ GO
   ALTER TABLE [KasabaKIAT_N1].[dbo].[tblPost]
   ADD PROVODKA_ID bigint NULL;
 
+--------------------------------------------------------------------
+
+USE [KasabaKIAT_N1]
+GO
+
+ALTER TABLE [dbo].[tblPost]  WITH CHECK ADD  CONSTRAINT [FK_tblPost_tbbu_provodki] FOREIGN KEY([PROVODKA_ID])
+REFERENCES [dbo].[tbbu_provodki] ([REC_ID])
+GO
+
+ALTER TABLE [dbo].[tblPost] CHECK CONSTRAINT [FK_tblPost_tbbu_provodki]
+GO
+
+---------------------------------------------------------------------------
+
   ALTER TABLE [KasabaKIAT_N1].[dbo].[tblVipl]
   ADD PROVODKA_ID bigint NULL;
+
+
+USE [KasabaKIAT_N1]
+GO
+
+ALTER TABLE [dbo].[tblVipl]  WITH CHECK ADD  CONSTRAINT [FK_tblVipl_tbbu_provodki] FOREIGN KEY([PROVODKA_ID])
+REFERENCES [dbo].[tbbu_provodki] ([REC_ID])
+GO
+
+ALTER TABLE [dbo].[tblVipl] CHECK CONSTRAINT [FK_tblVipl_tbbu_provodki]
+GO
   
   -------------------------------------------------
   ALTER TABLE [KasabaKIAT_N1].dbo.tblVozVrat
   ADD PRIXOD_ID bigint;
+
+	USE [KasabaKIAT_N1]
+	GO
+
+	ALTER TABLE [dbo].[tblVozVrat]  WITH CHECK ADD  CONSTRAINT [FK_tblVozVrat_tblPost] FOREIGN KEY([PRIXOD_ID])
+	REFERENCES [dbo].[tblPost] ([ID])
+	GO
+
+	ALTER TABLE [dbo].[tblVozVrat] CHECK CONSTRAINT [FK_tblVozVrat_tblPost]
+	GO
+
+
   
   ALTER TABLE [KasabaKIAT_N1].dbo.tblVozVrat
   ADD RASXOD_ID bigint;
+
+
+	USE [KasabaKIAT_N1]
+	GO
+
+	ALTER TABLE [dbo].[tblVozVrat]  WITH CHECK ADD  CONSTRAINT [FK_tblVozVrat_tblVipl] FOREIGN KEY([RASXOD_ID])
+	REFERENCES [dbo].[tblVipl] ([ID])
+	GO
+
+	ALTER TABLE [dbo].[tblVozVrat] CHECK CONSTRAINT [FK_tblVozVrat_tblVipl]
+	GO
+
+
   
   ALTER TABLE [KasabaKIAT_N1].dbo.tblVozVrat
   ADD PRIXOD_PROVODKA_ID bigint;
+
+	USE [KasabaKIAT_N1]
+	GO
+
+	ALTER TABLE [dbo].[tblVozVrat]  WITH CHECK ADD  CONSTRAINT [FK_tblVozVrat_tbbu_provodki] FOREIGN KEY([PRIXOD_PROVODKA_ID])
+	REFERENCES [dbo].[tbbu_provodki] ([REC_ID])
+	GO
+
+	ALTER TABLE [dbo].[tblVozVrat] CHECK CONSTRAINT [FK_tblVozVrat_tbbu_provodki]
+	GO
+	
+
   
   ALTER TABLE [KasabaKIAT_N1].dbo.tblVozVrat
   ADD RASXOD_PROVODKA_ID bigint;
+
+	USE [KasabaKIAT_N1]
+	GO
+
+	ALTER TABLE [dbo].[tblVozVrat]  WITH CHECK ADD  CONSTRAINT [FK_tblVozVrat_tbbu_provodki1] FOREIGN KEY([RASXOD_PROVODKA_ID])
+	REFERENCES [dbo].[tbbu_provodki] ([REC_ID])
+	GO
+
+	ALTER TABLE [dbo].[tblVozVrat] CHECK CONSTRAINT [FK_tblVozVrat_tbbu_provodki1]
+	GO
+
+
   
   --------------------------------------------------
 
   ALTER TABLE [KasabaKIAT_N1].dbo.tblOplata
   ADD PROVODKA_ID bigint NULL;
   
+
+  USE [KasabaKIAT_N1]
+GO
+
+ALTER TABLE [dbo].[tblOplata]  WITH CHECK ADD  CONSTRAINT [FK_tblOplata_tbbu_provodki] FOREIGN KEY([PROVODKA_ID])
+REFERENCES [dbo].[tbbu_provodki] ([REC_ID])
+GO
+
+ALTER TABLE [dbo].[tblOplata] CHECK CONSTRAINT [FK_tblOplata_tbbu_provodki]
+GO
+

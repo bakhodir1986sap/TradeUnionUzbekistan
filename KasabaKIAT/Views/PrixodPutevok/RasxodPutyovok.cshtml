@@ -55,7 +55,7 @@
     <div class="row">
         <div class="col-md-4">
             <h5 class="h50">Данные о накладных</h5>
-            <div class="table-responsive box-shadow mb-4 mt-20">
+            <div class="table-responsive box-shadow table-fixed mb-4 mt-20">
                 <table class="table table__block t-hover table__small table-fixed">
                     <thead>
                         <tr>
@@ -116,7 +116,7 @@
 
         <div class="col-md-8">
 
-            <h5>Данные о путевках по № {{CurrentNakladnoy.num_doc}} {{CurrentNakladnoy.organizationName}}</h5>
+            <h5 style="height:50px">Данные о путевках по № {{CurrentNakladnoy.num_doc}} {{CurrentNakladnoy.organizationName}}</h5>
             <div class="table-responsive box-shadow table-fixed mb-4 mt-20">
                 <table class="table table__block table__small">
                     <thead>
@@ -430,7 +430,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr class="poin" ng-repeat="org in Organizations" ng-click="editOrg(org)" >
+                                    <tr class="poin" ng-repeat="org in Organizations">
                                         <td class="custom-control custom-checkbox r-checkbox">
                                             <input type="checkbox" class="custom-control-input" id="customCheck{{org.ID}}"
                                                    ng-model="selectedObjs"

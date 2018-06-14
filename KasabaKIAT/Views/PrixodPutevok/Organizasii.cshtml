@@ -14,7 +14,7 @@
         <section class="content__block container-fluid">
             <div class="row mb-4 align-items-center">
                 <div class="col-sm-6 title__block">
-                    <h4>Справочник Организаций</h4>
+                    <h4>База данных организаций</h4>
                     <nav aria-label="breadcrumb" class="breadcrumb__block">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item active" aria-current="page">Справочник Организаций</li>
@@ -25,68 +25,81 @@
                     <button ng-click="addOrg()" class="btn btn-red" data-toggle="modal" data-target="#dobavit"><i class="active"></i> Добавить</button>
                 </div>
                 <div class="col-sm-1 text-md-right">
-                    <button  class="btn btn-green"><i class="fas fa-file-excel"></i> Экспорт</button>
+                    <button  class="btn btn-green" ng-click="exportData()"><i class="fas fa-file-excel" ></i> Экспорт</button>
                 </div>
             </div>
-            <div>
-                <input type="text" placeholder="Наименование" ng-model="FilterName"/>
-                <br /><input type="text" placeholder="ИНН"  ng-model="FilterInn"/><br />
-                <select class="custom-select" required name="Otrasl" ng-model="FilterSelectedOtrasl" ng-options="item as item.Name_Ot for item in Otrasl track by item.ID_Ot"></select>
-                <br /><br /><button class="btn btn-green" ng-click="GetOrganizationsFilter()"><i class="btn-green"></i> Поиск</button>
+            <div class="row mb-4">
+                <div class="col-lg-7">
+                    <div class="row">
+                        <div class="col-md-3 form-group">
+                            <label>Наименование</label>
+                            <input class="form-control" type="text" placeholder="Наименование" ng-model="FilterName" />
+                        </div>
+                        <div class="col-md-3 form-group">
+                            <label>ИНН</label>
+                            <input class="form-control" type="text" placeholder="ИНН" ng-model="FilterInn" /><br />
+                        </div>
+                        <div class="col-md-3 form-group">
+                            <label>Отрасль</label>
+                            <select class="custom-select" required name="Otrasl" ng-model="FilterSelectedOtrasl" ng-options="item as item.Name_Ot for item in Otrasl track by item.ID_Ot"></select>
+                        </div>
+                    </div>
+                    <button class="btn btn-green" ng-click="GetOrganizationsFilter()"><i class="btn-green"></i> Поиск</button>
+                </div>
             </div>
-            <div class="table-responsive box-shadow mb-4" id="export">
-                <table class="table table__block t-hover">
-                    <thead>
-                        <tr>
-                            <th class="dropdown dropdown__table" style="width:150px;text-align:center">
-                                Отрасль
-                            </th>
-                            <th class="dropdown dropdown__table" style="width:200px;text-align:center">
-                                Название организации
-                            </th>
-                            <th class="dropdown dropdown__table" style="width:150px;text-align:center">
-                                ИНН Профкома
-                            </th>
-                            <th class="dropdown dropdown__table" style="width:100px;text-align:center">
-                                Расчетный счет
-                            </th>
-                            <th class="dropdown dropdown__table" style="width:150px;text-align:center">
-                                МФО
-                            </th>
-                            <th class="dropdown dropdown__table" style="width:150px;text-align:center">
-                                Банк
-                            </th>
-                            <th class="dropdown dropdown__table" style="width:150px;text-align:center">
-                                ОКЭД
-                            </th>
-                            <th class="dropdown dropdown__table" style="width:150px;text-align:center">
-                                Адрес
-                            </th>
-                            <th class="dropdown dropdown__table" style="width:150px;text-align:center">
-                                Телефон
-                            </th>
-                            <th class="dropdown dropdown__table" style="width:150px;text-align:center">
-                                Район
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr class="poin" ng-repeat="org in Organizations" ng-click="editOrg(org)" data-toggle="modal" data-target="#dobavit">
-                            <td style="text-align:center">{{org.OtraslName}}</td>
-                            <td style="text-align:center">{{org.Name_Org}}</td>
-                            <td style="text-align:center">{{org.INN     }}</td>
-                            <td style="text-align:center">{{org.RS      }}</td>
-                            <td style="text-align:center">{{org.MFO     }}</td>
-                            <td style="text-align:center">{{org.Bank    }}</td>
-                            <td style="text-align:center">{{org.OKONX   }}</td>
-                            <td style="text-align:center">{{org.Adress  }}</td>
-                            <td style="text-align:center">{{org.Telefon }}</td>
-                            <td style="text-align:center">{{org.RegionName}}</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </section>
+                <div class="table-responsive box-shadow mb-4" id="export">
+                    <table class="table table__block t-hover">
+                        <thead>
+                            <tr>
+                                <th class="dropdown dropdown__table" style="width:150px;text-align:center">
+                                    Отрасль
+                                </th>
+                                <th class="dropdown dropdown__table" style="width:200px;text-align:center">
+                                    Название организации
+                                </th>
+                                <th class="dropdown dropdown__table" style="width:150px;text-align:center">
+                                    ИНН Профкома
+                                </th>
+                                <th class="dropdown dropdown__table" style="width:100px;text-align:center">
+                                    Расчетный счет
+                                </th>
+                                <th class="dropdown dropdown__table" style="width:150px;text-align:center">
+                                    МФО
+                                </th>
+                                <th class="dropdown dropdown__table" style="width:150px;text-align:center">
+                                    Банк
+                                </th>
+                                <th class="dropdown dropdown__table" style="width:150px;text-align:center">
+                                    ОКЭД
+                                </th>
+                                <th class="dropdown dropdown__table" style="width:150px;text-align:center">
+                                    Адрес
+                                </th>
+                                <th class="dropdown dropdown__table" style="width:150px;text-align:center">
+                                    Телефон
+                                </th>
+                                <th class="dropdown dropdown__table" style="width:150px;text-align:center">
+                                    Район
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="poin" ng-repeat="org in Organizations" ng-click="editOrg(org)" data-toggle="modal" data-target="#dobavit">
+                                <td style="text-align:center">{{org.OtraslName}}</td>
+                                <td style="text-align:center">{{org.Name_Org}}</td>
+                                <td style="text-align:center">{{org.INN     }}</td>
+                                <td style="text-align:center">{{org.RS      }}</td>
+                                <td style="text-align:center">{{org.MFO     }}</td>
+                                <td style="text-align:center">{{org.Bank    }}</td>
+                                <td style="text-align:center">{{org.OKONX   }}</td>
+                                <td style="text-align:center">{{org.Adress  }}</td>
+                                <td style="text-align:center">{{org.Telefon }}</td>
+                                <td style="text-align:center">{{org.RegionName}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+</section>
         <div class="modal__block modal fade" id="dobavit" tabindex="-1" role="dialog" aria-labelledby="dobavitLabel" data-backdrop="static" data-keyboard="false">
             <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
                 <div class="modal-content">
@@ -105,17 +118,17 @@
                                     </div>
                                 </div>
                                 <div class="form-group row align-items-center">
-                                    <label class="col-md-5 col-form-label py-0">Название организации:</label>
-                                    <div class="col-md-7">
-                                        <input maxlength="100" type="text" class="form-control" name="Org" ng-model="Organization.Name_Org" required>
-                                        <span class="alert alert-warning" style="padding:0px" ng-show="myForm.Org.$error.required">заполнить поле</span>
-                                    </div>
-                                </div>
-                                <div class="form-group row align-items-center">
                                     <label class="col-md-5 col-form-label py-0">ИНН Профкома:</label>
                                     <div class="col-md-7">
                                         <input maxlength="9" type="text" class="form-control" name="INN" ng-model="Organization.INN" ng-blur="GetOrgDataByInn($event, Organization.INN)" required>
                                         <span class="alert alert-warning" style="padding:0px" ng-show="myForm.INN.$error.required">заполнить поле</span>
+                                    </div>
+                                </div>
+                                <div class="form-group row align-items-center">
+                                    <label class="col-md-5 col-form-label py-0">Название организации:</label>
+                                    <div class="col-md-7">
+                                        <input maxlength="100" type="text" class="form-control" name="Org" ng-model="Organization.Name_Org" required>
+                                        <span class="alert alert-warning" style="padding:0px" ng-show="myForm.Org.$error.required">заполнить поле</span>
                                     </div>
                                 </div>
                                 <div class="form-group row align-items-center">

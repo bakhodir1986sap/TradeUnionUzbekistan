@@ -149,6 +149,7 @@ namespace KasabaKiat.BusinessLogic.Putyovki.OplataPutyovok
                 var query = await (from oplata in db.tblOplata_Ras
                             where oplata.Departmentbase == model.Departmentbase
                             && oplata.ID_Opl == model.ID_Opl
+                            orderby oplata.Num_Put
                             select new OplataRasxodiViewModel
                             {
                                 ID = oplata.ID,

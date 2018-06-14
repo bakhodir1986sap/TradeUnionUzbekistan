@@ -4046,6 +4046,18 @@ warning 6035: The relationship 'FK_tblOplata_Ras_t_departmentbase' has columns t
         <!--Errors Found During Generation:
 warning 6035: The relationship 'FK_tblOplata_t_departmentbase' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
         <Association Name="FK_tblOplata_t_departmentbase" />-->
+        <Association Name="FK_tblOplata_tbbu_provodki">
+          <End Role="tbbu_provodki" Type="Self.tbbu_provodki" Multiplicity="0..1" />
+          <End Role="tblOplata" Type="Self.tblOplata" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbbu_provodki">
+              <PropertyRef Name="REC_ID" />
+            </Principal>
+            <Dependent Role="tblOplata">
+              <PropertyRef Name="PROVODKA_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_tblOplata_tblOplata">
           <End Role="tblOplata" Type="Self.tblOplata" Multiplicity="1" />
           <End Role="tblOplata1" Type="Self.tblOplata" Multiplicity="0..1" />
@@ -4136,6 +4148,18 @@ warning 6035: The relationship 'FK_tblPos_Put_t_departmentbase' has columns that
         <!--Errors Found During Generation:
 warning 6035: The relationship 'FK_tblPost_t_departmentbase' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
         <Association Name="FK_tblPost_t_departmentbase" />-->
+        <Association Name="FK_tblPost_tbbu_provodki">
+          <End Role="tbbu_provodki" Type="Self.tbbu_provodki" Multiplicity="0..1" />
+          <End Role="tblPost" Type="Self.tblPost" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbbu_provodki">
+              <PropertyRef Name="REC_ID" />
+            </Principal>
+            <Dependent Role="tblPost">
+              <PropertyRef Name="PROVODKA_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_tblPost_tblSprav_Kv">
           <End Role="tblSprav_Kv" Type="Self.tblSprav_Kv" Multiplicity="0..1" />
           <End Role="tblPost" Type="Self.tblPost" Multiplicity="*" />
@@ -4415,6 +4439,18 @@ warning 6035: The relationship 'FK_tblVipl_Put_t_departmentbase' has columns tha
         <!--Errors Found During Generation:
 warning 6035: The relationship 'FK_tblVipl_t_departmentbase' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
         <Association Name="FK_tblVipl_t_departmentbase" />-->
+        <Association Name="FK_tblVipl_tbbu_provodki">
+          <End Role="tbbu_provodki" Type="Self.tbbu_provodki" Multiplicity="0..1" />
+          <End Role="tblVipl" Type="Self.tblVipl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbbu_provodki">
+              <PropertyRef Name="REC_ID" />
+            </Principal>
+            <Dependent Role="tblVipl">
+              <PropertyRef Name="PROVODKA_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_tblVipl_tblSprav_Kv">
           <End Role="tblSprav_Kv" Type="Self.tblSprav_Kv" Multiplicity="0..1" />
           <End Role="tblVipl" Type="Self.tblVipl" Multiplicity="*" />
@@ -4454,6 +4490,42 @@ warning 6035: The relationship 'FK_tblVipl_t_departmentbase' has columns that ar
         <!--Errors Found During Generation:
 warning 6035: The relationship 'FK_tblVozVrat_t_departmentbase' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
         <Association Name="FK_tblVozVrat_t_departmentbase" />-->
+        <Association Name="FK_tblVozVrat_tbbu_provodki">
+          <End Role="tbbu_provodki" Type="Self.tbbu_provodki" Multiplicity="0..1" />
+          <End Role="tblVozVrat" Type="Self.tblVozVrat" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbbu_provodki">
+              <PropertyRef Name="REC_ID" />
+            </Principal>
+            <Dependent Role="tblVozVrat">
+              <PropertyRef Name="PRIXOD_PROVODKA_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblVozVrat_tbbu_provodki1">
+          <End Role="tbbu_provodki" Type="Self.tbbu_provodki" Multiplicity="0..1" />
+          <End Role="tblVozVrat" Type="Self.tblVozVrat" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbbu_provodki">
+              <PropertyRef Name="REC_ID" />
+            </Principal>
+            <Dependent Role="tblVozVrat">
+              <PropertyRef Name="RASXOD_PROVODKA_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblVozVrat_tblPost">
+          <End Role="tblPost" Type="Self.tblPost" Multiplicity="0..1" />
+          <End Role="tblVozVrat" Type="Self.tblVozVrat" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblPost">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tblVozVrat">
+              <PropertyRef Name="PRIXOD_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_tblVozVrat_tblSprav_Kv">
           <End Role="tblSprav_Kv" Type="Self.tblSprav_Kv" Multiplicity="0..1" />
           <End Role="tblVozVrat" Type="Self.tblVozVrat" Multiplicity="*" />
@@ -4487,6 +4559,18 @@ warning 6035: The relationship 'FK_tblVozVrat_t_departmentbase' has columns that
             </Principal>
             <Dependent Role="tblVozVrat">
               <PropertyRef Name="ID_Sanat" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblVozVrat_tblVipl">
+          <End Role="tblVipl" Type="Self.tblVipl" Multiplicity="0..1" />
+          <End Role="tblVozVrat" Type="Self.tblVozVrat" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblVipl">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tblVozVrat">
+              <PropertyRef Name="RASXOD_ID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -6725,6 +6809,10 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
             <End Role="users" EntitySet="users" />
             <End Role="tblOplata_Ras" EntitySet="tblOplata_Ras" />
           </AssociationSet>
+          <AssociationSet Name="FK_tblOplata_tbbu_provodki" Association="Self.FK_tblOplata_tbbu_provodki">
+            <End Role="tbbu_provodki" EntitySet="tbbu_provodki" />
+            <End Role="tblOplata" EntitySet="tblOplata" />
+          </AssociationSet>
           <AssociationSet Name="FK_tblOplata_tblOplata" Association="Self.FK_tblOplata_tblOplata">
             <End Role="tblOplata" EntitySet="tblOplata" />
             <End Role="tblOplata1" EntitySet="tblOplata" />
@@ -6752,6 +6840,10 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <AssociationSet Name="FK_tblPos_Put_Users" Association="Self.FK_tblPos_Put_Users">
             <End Role="users" EntitySet="users" />
             <End Role="tblPos_Put" EntitySet="tblPos_Put" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblPost_tbbu_provodki" Association="Self.FK_tblPost_tbbu_provodki">
+            <End Role="tbbu_provodki" EntitySet="tbbu_provodki" />
+            <End Role="tblPost" EntitySet="tblPost" />
           </AssociationSet>
           <AssociationSet Name="FK_tblPost_tblSprav_Kv" Association="Self.FK_tblPost_tblSprav_Kv">
             <End Role="tblSprav_Kv" EntitySet="tblSprav_Kv" />
@@ -6837,6 +6929,10 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
             <End Role="users" EntitySet="users" />
             <End Role="tblVipl_Put" EntitySet="tblVipl_Put" />
           </AssociationSet>
+          <AssociationSet Name="FK_tblVipl_tbbu_provodki" Association="Self.FK_tblVipl_tbbu_provodki">
+            <End Role="tbbu_provodki" EntitySet="tbbu_provodki" />
+            <End Role="tblVipl" EntitySet="tblVipl" />
+          </AssociationSet>
           <AssociationSet Name="FK_tblVipl_tblSprav_Kv" Association="Self.FK_tblVipl_tblSprav_Kv">
             <End Role="tblSprav_Kv" EntitySet="tblSprav_Kv" />
             <End Role="tblVipl" EntitySet="tblVipl" />
@@ -6849,6 +6945,18 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
             <End Role="users" EntitySet="users" />
             <End Role="tblVipl" EntitySet="tblVipl" />
           </AssociationSet>
+          <AssociationSet Name="FK_tblVozVrat_tbbu_provodki" Association="Self.FK_tblVozVrat_tbbu_provodki">
+            <End Role="tbbu_provodki" EntitySet="tbbu_provodki" />
+            <End Role="tblVozVrat" EntitySet="tblVozVrat" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblVozVrat_tbbu_provodki1" Association="Self.FK_tblVozVrat_tbbu_provodki1">
+            <End Role="tbbu_provodki" EntitySet="tbbu_provodki" />
+            <End Role="tblVozVrat" EntitySet="tblVozVrat" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblVozVrat_tblPost" Association="Self.FK_tblVozVrat_tblPost">
+            <End Role="tblPost" EntitySet="tblPost" />
+            <End Role="tblVozVrat" EntitySet="tblVozVrat" />
+          </AssociationSet>
           <AssociationSet Name="FK_tblVozVrat_tblSprav_Kv" Association="Self.FK_tblVozVrat_tblSprav_Kv">
             <End Role="tblSprav_Kv" EntitySet="tblSprav_Kv" />
             <End Role="tblVozVrat" EntitySet="tblVozVrat" />
@@ -6859,6 +6967,10 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           </AssociationSet>
           <AssociationSet Name="FK_tblVozVrat_tblSprav_San" Association="Self.FK_tblVozVrat_tblSprav_San">
             <End Role="tblSprav_San" EntitySet="tblSprav_San" />
+            <End Role="tblVozVrat" EntitySet="tblVozVrat" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblVozVrat_tblVipl" Association="Self.FK_tblVozVrat_tblVipl">
+            <End Role="tblVipl" EntitySet="tblVipl" />
             <End Role="tblVozVrat" EntitySet="tblVozVrat" />
           </AssociationSet>
           <AssociationSet Name="FK_tblVozVrat_Users" Association="Self.FK_tblVozVrat_Users">
@@ -9207,6 +9319,8 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <NavigationProperty Name="tblSprav_Org" Relationship="Self.FK_tblPost_tblSprav_Org" FromRole="tblPost" ToRole="tblSprav_Org" />
           <NavigationProperty Name="users" Relationship="Self.FK_tblPost_Users" FromRole="tblPost" ToRole="users" />
           <Property Name="PROVODKA_ID" Type="Int64" />
+          <NavigationProperty Name="tbbu_provodki" Relationship="KasabaKIATModel.FK_tblPost_tbbu_provodki" FromRole="tblPost" ToRole="tbbu_provodki" />
+          <NavigationProperty Name="tblVozVrats" Relationship="KasabaKIATModel.FK_tblVozVrat_tblPost" FromRole="tblPost" ToRole="tblVozVrat" />
         </EntityType>
         <EntityType Name="tblSprav_Face">
           <Key>
@@ -9385,6 +9499,8 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <NavigationProperty Name="users" Relationship="Self.FK_tblVipl_Users" FromRole="tblVipl" ToRole="users" />
           <NavigationProperty Name="tblVipl_Put" Relationship="KasabaKIATModel.FK_tblVipl_Put_tblVipl" FromRole="tblVipl" ToRole="tblVipl_Put" />
           <Property Name="PROVODKA_ID" Type="Int64" />
+          <NavigationProperty Name="tbbu_provodki" Relationship="KasabaKIATModel.FK_tblVipl_tbbu_provodki" FromRole="tblVipl" ToRole="tbbu_provodki" />
+          <NavigationProperty Name="tblVozVrats" Relationship="KasabaKIATModel.FK_tblVozVrat_tblVipl" FromRole="tblVipl" ToRole="tblVozVrat" />
         </EntityType>
         <EntityType Name="tbpt_avarageprice">
           <Key>
@@ -13682,6 +13798,34 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
             <Parameter Name="role_id" Mode="In" Type="Int64" />
           </FunctionImport>
           <EntitySet Name="tblFiles" EntityType="KasabaKIATModel.tblFile" />
+          <AssociationSet Name="FK_tblOplata_tbbu_provodki" Association="KasabaKIATModel.FK_tblOplata_tbbu_provodki">
+            <End Role="tbbu_provodki" EntitySet="tbbu_provodki" />
+            <End Role="tblOplata" EntitySet="tblOplatas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblPost_tbbu_provodki" Association="KasabaKIATModel.FK_tblPost_tbbu_provodki">
+            <End Role="tbbu_provodki" EntitySet="tbbu_provodki" />
+            <End Role="tblPost" EntitySet="tblPost" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblVipl_tbbu_provodki" Association="KasabaKIATModel.FK_tblVipl_tbbu_provodki">
+            <End Role="tbbu_provodki" EntitySet="tbbu_provodki" />
+            <End Role="tblVipl" EntitySet="tblVipl" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblVozVrat_tbbu_provodki" Association="KasabaKIATModel.FK_tblVozVrat_tbbu_provodki">
+            <End Role="tbbu_provodki" EntitySet="tbbu_provodki" />
+            <End Role="tblVozVrat" EntitySet="tblVozVrats" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblVozVrat_tbbu_provodki1" Association="KasabaKIATModel.FK_tblVozVrat_tbbu_provodki1">
+            <End Role="tbbu_provodki" EntitySet="tbbu_provodki" />
+            <End Role="tblVozVrat" EntitySet="tblVozVrats" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblVozVrat_tblPost" Association="KasabaKIATModel.FK_tblVozVrat_tblPost">
+            <End Role="tblPost" EntitySet="tblPost" />
+            <End Role="tblVozVrat" EntitySet="tblVozVrats" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblVozVrat_tblVipl" Association="KasabaKIATModel.FK_tblVozVrat_tblVipl">
+            <End Role="tblVipl" EntitySet="tblVipl" />
+            <End Role="tblVozVrat" EntitySet="tblVozVrats" />
+          </AssociationSet>
           </EntityContainer>
         <ComplexType Name="sp_get_BankPaymentCompanyYearlyQ_Result">
           <Property Type="Int32" Name="MONTH_NUM" Nullable="true" />
@@ -14007,6 +14151,11 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <Property Name="COMMENT" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
           <Property Name="TRREF" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="TRREFNO" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tblOplatas" Relationship="KasabaKIATModel.FK_tblOplata_tbbu_provodki" FromRole="tbbu_provodki" ToRole="tblOplata" />
+          <NavigationProperty Name="tblPosts" Relationship="KasabaKIATModel.FK_tblPost_tbbu_provodki" FromRole="tbbu_provodki" ToRole="tblPost" />
+          <NavigationProperty Name="tblVipls" Relationship="KasabaKIATModel.FK_tblVipl_tbbu_provodki" FromRole="tbbu_provodki" ToRole="tblVipl" />
+          <NavigationProperty Name="tblVozVrats" Relationship="KasabaKIATModel.FK_tblVozVrat_tbbu_provodki" FromRole="tbbu_provodki" ToRole="tblVozVrat" />
+          <NavigationProperty Name="tblVozVrats1" Relationship="KasabaKIATModel.FK_tblVozVrat_tbbu_provodki1" FromRole="tbbu_provodki" ToRole="tblVozVrat" />
         </EntityType>
         <EntityType Name="tbbu_planbyudjetregion">
           <Key>
@@ -14568,6 +14717,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <NavigationProperty Name="tblSprav_Org" Relationship="KasabaKIATModel.FK_tblOplata_tblSprav_Org" FromRole="tblOplata" ToRole="tblSprav_Org" />
           <NavigationProperty Name="user" Relationship="KasabaKIATModel.FK_tblOplata_Users" FromRole="tblOplata" ToRole="users" />
           <Property Name="PROVODKA_ID" Type="Int64" />
+          <NavigationProperty Name="tbbu_provodki" Relationship="KasabaKIATModel.FK_tblOplata_tbbu_provodki" FromRole="tblOplata" ToRole="tbbu_provodki" />
         </EntityType>
         <Association Name="FK_tblOplata_Ras_tblOplata">
           <End Type="KasabaKIATModel.tblOplata" Role="tblOplata" Multiplicity="0..1" />
@@ -14655,6 +14805,10 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <Property Name="RASXOD_ID" Type="Int64" />
           <Property Name="PRIXOD_PROVODKA_ID" Type="Int64" />
           <Property Name="RASXOD_PROVODKA_ID" Type="Int64" />
+          <NavigationProperty Name="tbbu_provodki" Relationship="KasabaKIATModel.FK_tblVozVrat_tbbu_provodki" FromRole="tblVozVrat" ToRole="tbbu_provodki" />
+          <NavigationProperty Name="tbbu_provodki1" Relationship="KasabaKIATModel.FK_tblVozVrat_tbbu_provodki1" FromRole="tblVozVrat" ToRole="tbbu_provodki" />
+          <NavigationProperty Name="tblPost" Relationship="KasabaKIATModel.FK_tblVozVrat_tblPost" FromRole="tblVozVrat" ToRole="tblPost" />
+          <NavigationProperty Name="tblVipl" Relationship="KasabaKIATModel.FK_tblVozVrat_tblVipl" FromRole="tblVozVrat" ToRole="tblVipl" />
         </EntityType>
         <Association Name="FK_tblVozVrat_tblSprav_Kv">
           <End Type="KasabaKIATModel.tblSprav_Kv" Role="tblSprav_Kv" Multiplicity="0..1" />
@@ -15274,6 +15428,90 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <Property Name="DATA" Type="Binary" MaxLength="Max" FixedLength="false" />
           <Property Name="OPNAME" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
         </EntityType>
+        <Association Name="FK_tblOplata_tbbu_provodki">
+          <End Type="KasabaKIATModel.tbbu_provodki" Role="tbbu_provodki" Multiplicity="0..1" />
+          <End Type="KasabaKIATModel.tblOplata" Role="tblOplata" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbbu_provodki">
+              <PropertyRef Name="REC_ID" />
+            </Principal>
+            <Dependent Role="tblOplata">
+              <PropertyRef Name="PROVODKA_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblPost_tbbu_provodki">
+          <End Type="KasabaKIATModel.tbbu_provodki" Role="tbbu_provodki" Multiplicity="0..1" />
+          <End Type="KasabaKIATModel.tblPost" Role="tblPost" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbbu_provodki">
+              <PropertyRef Name="REC_ID" />
+            </Principal>
+            <Dependent Role="tblPost">
+              <PropertyRef Name="PROVODKA_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblVipl_tbbu_provodki">
+          <End Type="KasabaKIATModel.tbbu_provodki" Role="tbbu_provodki" Multiplicity="0..1" />
+          <End Type="KasabaKIATModel.tblVipl" Role="tblVipl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbbu_provodki">
+              <PropertyRef Name="REC_ID" />
+            </Principal>
+            <Dependent Role="tblVipl">
+              <PropertyRef Name="PROVODKA_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblVozVrat_tbbu_provodki">
+          <End Type="KasabaKIATModel.tbbu_provodki" Role="tbbu_provodki" Multiplicity="0..1" />
+          <End Type="KasabaKIATModel.tblVozVrat" Role="tblVozVrat" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbbu_provodki">
+              <PropertyRef Name="REC_ID" />
+            </Principal>
+            <Dependent Role="tblVozVrat">
+              <PropertyRef Name="PRIXOD_PROVODKA_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblVozVrat_tbbu_provodki1">
+          <End Type="KasabaKIATModel.tbbu_provodki" Role="tbbu_provodki" Multiplicity="0..1" />
+          <End Type="KasabaKIATModel.tblVozVrat" Role="tblVozVrat" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbbu_provodki">
+              <PropertyRef Name="REC_ID" />
+            </Principal>
+            <Dependent Role="tblVozVrat">
+              <PropertyRef Name="RASXOD_PROVODKA_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblVozVrat_tblPost">
+          <End Type="KasabaKIATModel.tblPost" Role="tblPost" Multiplicity="0..1" />
+          <End Type="KasabaKIATModel.tblVozVrat" Role="tblVozVrat" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblPost">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tblVozVrat">
+              <PropertyRef Name="PRIXOD_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblVozVrat_tblVipl">
+          <End Type="KasabaKIATModel.tblVipl" Role="tblVipl" Multiplicity="0..1" />
+          <End Type="KasabaKIATModel.tblVozVrat" Role="tblVozVrat" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblVipl">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tblVozVrat">
+              <PropertyRef Name="RASXOD_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->

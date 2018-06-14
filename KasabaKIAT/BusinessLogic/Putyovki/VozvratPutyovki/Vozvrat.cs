@@ -4,8 +4,10 @@ using KasabaKiat.BusinessLogic.Putyovki.RealizasiyaPutyovok;
 using KasabaKiat.BusinessLogic.VozvratPutyovki;
 using KasabaKiat.ViewModel;
 using KasabaKiat.ViewModel.Putyovki;
+using KasabaKIAT.BusinessLogic.Buxgalteriya.Provodki;
 using KasabaKIAT.BusinessLogic.Putyovki.VozvratPutyovki;
 using KasabaKIAT.Models;
+using KasabaKIAT.ViewModel.Buxgalteriya;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -85,7 +87,11 @@ namespace KasabaKiat.BusinessLogic.Putyovki.VozvratPutyovki
                         userid = model.userid
                     };
 
-                    VozvratDataManager.Create(ref mmodel, db);
+                    tblVozVrat vv = null;
+
+                    VozvratDataManager.Create(ref mmodel, db, out vv);
+
+                    vv.tblPost = pp;
 
                     //Prixod Dtl
                     var prixodDetail = new PostPutyovkaViewModel
@@ -101,6 +107,26 @@ namespace KasabaKiat.BusinessLogic.Putyovki.VozvratPutyovki
                     };
 
                     PostPutDetailDataManager.Create(ref prixodDetail, db, pp);
+
+                    var trans = new ProvodkiViewModel
+                    {
+                        comment = "Возврат в Облсовпроф",
+                        department_base = mm.departmentbase,
+                        inoutflg = false,
+                        platelrsch = "03",
+                        poluchrsch = "04",
+                        summa = mm.symma,
+                        user_id = mm.userid,
+                        trdt = DateTime.Now,
+                        trref = "VPP",
+                        trrefno = string.Format("{0}|{1}", pp.Num_Doc, pp.Data_Post.Value.ToShortDateString())
+                    };
+
+                    tbbu_provodki provodka = null;
+                    ProvodkiDataManager.Create(ref trans, db, out provodka);
+
+                    vv.tbbu_provodki = provodka;
+                    pp.tbbu_provodki = provodka;
 
                     //Oplata Dtl
                     var oplatDtl = new OplataRasxodiViewModel
@@ -118,7 +144,7 @@ namespace KasabaKiat.BusinessLogic.Putyovki.VozvratPutyovki
                     OplataRasxodDataManager.Create(ref oplatDtl,db, opp);
 
                     //Remove or change status in Viplata
-                    Vipl_PutDataManager.RemoveByPutyovka(mm.id_sanat.Value, mm.num_put, mm.departmentbase, db);
+                    Vipl_PutDataManager.RemoveByPutyovka(mm.id_sanat.Value, mm.num_put, mm.departmentbase, db, vv);
 
                 }
 

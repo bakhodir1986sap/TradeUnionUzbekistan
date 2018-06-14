@@ -16,7 +16,7 @@ namespace KasabaKiat.BusinessLogic.VozvratPutyovki
         /// 
         /// </summary>
         /// <param name="model"></param>
-        public static void Create(ref VozvratViewModel model, KasabaKIATEntities db)
+        public static void Create(ref VozvratViewModel model, KasabaKIATEntities db, out tblVozVrat avozv)
         {
                 tblVozVrat vozv = new tblVozVrat();
 
@@ -34,7 +34,7 @@ namespace KasabaKiat.BusinessLogic.VozvratPutyovki
                 vozv.UserId                 = model.userid          ;
                 vozv.DepartmentBase         = model.departmentbase;
 
-                var vozz = db.tblVozVrats.Add(vozv);
+                avozv = db.tblVozVrats.Add(vozv);
         }
 
         /// <summary>
@@ -150,6 +150,7 @@ namespace KasabaKiat.BusinessLogic.VozvratPutyovki
                             where vozv.DepartmentBase == model.departmentbase
                             && vozv.SmFil == model.smfil 
                             && vozv.ID_KV == model.id_kv
+                            orderby vozv.Data_Post, vozv.Num_Doc
                             select new VozvratViewModel
                             {
                                 id                                          = vozv.ID,

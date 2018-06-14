@@ -19,6 +19,7 @@ namespace KasabaKIAT.Models
         {
             this.tblFace_Two = new HashSet<tblFace_Two>();
             this.tblVipl_Put = new HashSet<tblVipl_Put>();
+            this.tblVozVrats = new HashSet<tblVozVrat>();
         }
     
         public long ID { get; set; }
@@ -43,5 +44,8 @@ namespace KasabaKIAT.Models
         public virtual users users { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblVipl_Put> tblVipl_Put { get; set; }
+        public virtual tbbu_provodki tbbu_provodki { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tblVozVrat> tblVozVrats { get; set; }
     }
 }

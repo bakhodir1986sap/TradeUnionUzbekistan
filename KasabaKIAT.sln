@@ -25,6 +25,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PushNotifyApp", "PushNotify
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NastyaAppCopyFile", "NastyaAppCopyFile\NastyaAppCopyFile.csproj", "{F7718960-035B-439E-92A9-1E0759F072B3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Migration", "Migration\Migration.csproj", "{A7601E3F-5817-40A5-9DFC-B1A049DCE5C7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		1|Any CPU = 1|Any CPU
@@ -101,6 +103,12 @@ Global
 		{F7718960-035B-439E-92A9-1E0759F072B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F7718960-035B-439E-92A9-1E0759F072B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F7718960-035B-439E-92A9-1E0759F072B3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A7601E3F-5817-40A5-9DFC-B1A049DCE5C7}.1|Any CPU.ActiveCfg = Release|Any CPU
+		{A7601E3F-5817-40A5-9DFC-B1A049DCE5C7}.1|Any CPU.Build.0 = Release|Any CPU
+		{A7601E3F-5817-40A5-9DFC-B1A049DCE5C7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A7601E3F-5817-40A5-9DFC-B1A049DCE5C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A7601E3F-5817-40A5-9DFC-B1A049DCE5C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A7601E3F-5817-40A5-9DFC-B1A049DCE5C7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

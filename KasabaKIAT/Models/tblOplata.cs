@@ -43,5 +43,6 @@ namespace KasabaKIAT.Models
         public virtual tblSprav_Kv tblSprav_Kv { get; set; }
         public virtual tblSprav_Org tblSprav_Org { get; set; }
         public virtual users user { get; set; }
+        public virtual tbbu_provodki tbbu_provodki { get; set; }
     }
 }

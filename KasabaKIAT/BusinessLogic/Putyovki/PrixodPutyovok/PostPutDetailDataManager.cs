@@ -195,6 +195,7 @@ namespace KasabaKiat.BusinessLogic.Putyovki.PrixodPutyovok
                             where postMain.DepartmentBase == model.Departmentbase &&
                             postPut.ID_PolVoz == false &&
                             postPut.Num_Put == (string.IsNullOrEmpty(model.Num_Put) ? postPut.Num_Put : model.Num_Put)
+                            orderby postPut.Num_Put
                             select new PostPutyovkaViewModel
                             {
                                 Id= postPut.ID,
@@ -250,6 +251,7 @@ namespace KasabaKiat.BusinessLogic.Putyovki.PrixodPutyovok
                             where postPut.ID_Post == model.IdPost 
                             && postPut.tblPost.DepartmentBase == model.Departmentbase
                             //&& postPut.ID_PolVoz == false
+                            orderby postPut.Num_Put
                             select new PostPutyovkaViewModel
                             {
                                 Id = postPut.ID,

@@ -14,6 +14,16 @@ namespace KasabaKIAT.Models
     
     public partial class tbbu_provodki
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public tbbu_provodki()
+        {
+            this.tblOplatas = new HashSet<tblOplata>();
+            this.tblPosts = new HashSet<tblPost>();
+            this.tblVipls = new HashSet<tblVipl>();
+            this.tblVozVrats = new HashSet<tblVozVrat>();
+            this.tblVozVrats1 = new HashSet<tblVozVrat>();
+        }
+    
         public long REC_ID { get; set; }
         public string DEPARTMENT_BASE { get; set; }
         public Nullable<long> USER_ID { get; set; }
@@ -34,5 +44,16 @@ namespace KasabaKIAT.Models
         public string COMMENT { get; set; }
         public string TRREF { get; set; }
         public string TRREFNO { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tblOplata> tblOplatas { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tblPost> tblPosts { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tblVipl> tblVipls { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tblVozVrat> tblVozVrats { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tblVozVrat> tblVozVrats1 { get; set; }
     }
 }

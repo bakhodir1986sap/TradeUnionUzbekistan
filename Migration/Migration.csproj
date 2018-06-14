@@ -1,0 +1,204 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{A7601E3F-5817-40A5-9DFC-B1A049DCE5C7}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>Migration</RootNamespace>
+    <AssemblyName>Migration</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServerCompact, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.SqlServerCompact.6.2.0\lib\net45\EntityFramework.SqlServerCompact.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.SqlServerCe, Version=4.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.SqlServer.Compact.4.0.8876.1\lib\net40\System.Data.SqlServerCe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="MigModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MigModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MigModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MigModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MigModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MigModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="tbbu_ecp_calc.cs">
+      <DependentUpon>MigModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbbu_provodki.cs">
+      <DependentUpon>MigModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbku_StrokaProfsoyza.cs">
+      <DependentUpon>MigModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblFace_Med.cs">
+      <DependentUpon>MigModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblFase.cs">
+      <DependentUpon>MigModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblOplata.cs">
+      <DependentUpon>MigModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblOplata_Ras.cs">
+      <DependentUpon>MigModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblPost.cs">
+      <DependentUpon>MigModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblPos_Put.cs">
+      <DependentUpon>MigModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblPred.cs">
+      <DependentUpon>MigModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblSprav_Face.cs">
+      <DependentUpon>MigModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblSprav_Kv.cs">
+      <DependentUpon>MigModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblSprav_MFO.cs">
+      <DependentUpon>MigModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblSprav_Org.cs">
+      <DependentUpon>MigModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblSprav_Os.cs">
+      <DependentUpon>MigModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblSprav_Otras.cs">
+      <DependentUpon>MigModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblSprav_Pr.cs">
+      <DependentUpon>MigModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblSprav_Reg.cs">
+      <DependentUpon>MigModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblSprav_San.cs">
+      <DependentUpon>MigModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblSprav_Vil.cs">
+      <DependentUpon>MigModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblVipl.cs">
+      <DependentUpon>MigModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblVipl_NumGEn.cs">
+      <DependentUpon>MigModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblVipl_Put.cs">
+      <DependentUpon>MigModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbl_mig_danniyeVlad.cs">
+      <DependentUpon>MigModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbl_mig_ecp.cs">
+      <DependentUpon>MigModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbl_mig_oplata.cs">
+      <DependentUpon>MigModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbl_mig_rasxodi.cs">
+      <DependentUpon>MigModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbsp_soato_new.cs">
+      <DependentUpon>MigModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="t_egrpo.cs">
+      <DependentUpon>MigModel.tt</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <EntityDeploy Include="MigModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>MigModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="MigModel.edmx.diagram">
+      <DependentUpon>MigModel.edmx</DependentUpon>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Model\" />
+    <Folder Include="Viloyats\TashVil\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="MigModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>MigModel.edmx</DependentUpon>
+      <LastGenOutput>MigModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="MigModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>MigModel.edmx</DependentUpon>
+      <LastGenOutput>MigModel.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>
+    if not exist "$(TargetDir)x86" md "$(TargetDir)x86"
+    xcopy /s /y "$(SolutionDir)packages\Microsoft.SqlServer.Compact.4.0.8876.1\NativeBinaries\x86\*.*" "$(TargetDir)x86"
+    if not exist "$(TargetDir)amd64" md "$(TargetDir)amd64"
+    xcopy /s /y "$(SolutionDir)packages\Microsoft.SqlServer.Compact.4.0.8876.1\NativeBinaries\amd64\*.*" "$(TargetDir)amd64"</PostBuildEvent>
+  </PropertyGroup>
+</Project>

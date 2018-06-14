@@ -1,0 +1,2463 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="KasabaKIAT_N1Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="t_egrpo">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" Nullable="false" />
+          <Property Name="address" Type="nvarchar" MaxLength="1024" />
+          <Property Name="close_date" Type="datetime" />
+          <Property Name="close_number" Type="nvarchar" MaxLength="20" />
+          <Property Name="count_workers" Type="int" />
+          <Property Name="s_comment" Type="nvarchar" MaxLength="500" />
+          <Property Name="s_create" Type="datetime" />
+          <Property Name="s_status" Type="nvarchar" MaxLength="255" />
+          <Property Name="email" Type="nvarchar" MaxLength="64" />
+          <Property Name="fin_xoz_work" Type="bit" />
+          <Property Name="name_full" Type="nvarchar" MaxLength="1024" />
+          <Property Name="inn" Type="nvarchar" MaxLength="9" />
+          <Property Name="liquidation" Type="bit" />
+          <Property Name="osn_worktype" Type="nvarchar" MaxLength="500" />
+          <Property Name="phones" Type="nvarchar" MaxLength="500" />
+          <Property Name="recreate" Type="bit" />
+          <Property Name="reg_date" Type="datetime" />
+          <Property Name="reg_number" Type="nvarchar" MaxLength="20" />
+          <Property Name="reg_org" Type="nvarchar" MaxLength="1024" />
+          <Property Name="reorganization" Type="bit" />
+          <Property Name="restored" Type="bit" />
+          <Property Name="name_short" Type="nvarchar" MaxLength="512" />
+          <Property Name="street" Type="nvarchar" MaxLength="1024" />
+          <Property Name="update_doc" Type="bit" />
+          <Property Name="update_email" Type="bit" />
+          <Property Name="mail_index" Type="nvarchar" MaxLength="7" />
+          <Property Name="s_user_id" Type="bigint" />
+          <Property Name="okonx_id" Type="nvarchar" MaxLength="10" />
+          <Property Name="opf_id" Type="nvarchar" MaxLength="10" />
+          <Property Name="fs_id" Type="nvarchar" MaxLength="10" />
+          <Property Name="soato_id" Type="nvarchar" MaxLength="10" />
+          <Property Name="soogu_id" Type="nvarchar" MaxLength="255" />
+          <Property Name="okpo" Type="nvarchar" MaxLength="20" />
+          <Property Name="BANK_ACCOUNT" Type="nvarchar" MaxLength="20" />
+          <Property Name="NATIVE_ID" Type="bigint" />
+        </EntityType>
+        <EntityType Name="tbbu_ecp_calc">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PAYMENT_ID" Type="bigint" />
+          <Property Name="PROFSOUZ_AMT" Type="money" />
+          <Property Name="FEDERATION_AMT" Type="money" />
+          <Property Name="OBLSOVPROF_AMT" Type="money" />
+          <Property Name="OBL_DEPARTMENT_BASE" Type="nvarchar" MaxLength="255" />
+          <Property Name="PROVODKA_ID" Type="bigint" />
+          <Property Name="REMARK" Type="nvarchar" MaxLength="100" />
+          <Property Name="INN" Type="varchar" MaxLength="20" />
+          <Property Name="SOATO" Type="varchar" MaxLength="20" />
+          <Property Name="SOATO_NAME" Type="nvarchar" MaxLength="500" />
+          <Property Name="OPERDATE" Type="datetime" />
+          <Property Name="OKONX_ID" Type="varchar" MaxLength="255" />
+          <Property Name="OKONX_NAME" Type="nvarchar" MaxLength="500" />
+          <Property Name="BRANCH_CODE" Type="nvarchar" MaxLength="2" />
+          <Property Name="BRANCH_NAME" Type="nvarchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="tbbu_provodki">
+          <Key>
+            <PropertyRef Name="REC_ID" />
+          </Key>
+          <Property Name="REC_ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DEPARTMENT_BASE" Type="nvarchar" MaxLength="255" />
+          <Property Name="USER_ID" Type="bigint" />
+          <Property Name="INOUTFLG" Type="bit" />
+          <Property Name="TRDT" Type="datetime" />
+          <Property Name="NUMBER" Type="nvarchar" MaxLength="50" />
+          <Property Name="TIPSCHETA" Type="bit" />
+          <Property Name="TIPOBOROTA" Type="bit" />
+          <Property Name="PLATELNAME" Type="nvarchar" MaxLength="500" />
+          <Property Name="PLATELINN" Type="nvarchar" MaxLength="9" />
+          <Property Name="PLATELMFO" Type="nvarchar" MaxLength="5" />
+          <Property Name="POLUCHNAME" Type="nvarchar" MaxLength="500" />
+          <Property Name="POLUCHINN" Type="nvarchar" MaxLength="9" />
+          <Property Name="POLUCHMFO" Type="nvarchar" MaxLength="5" />
+          <Property Name="PLATELRSCH" Type="nvarchar" MaxLength="30" />
+          <Property Name="POLUCHRSCH" Type="nvarchar" MaxLength="30" />
+          <Property Name="SUMMA" Type="money" />
+          <Property Name="COMMENT" Type="nvarchar" MaxLength="1000" />
+          <Property Name="TRREF" Type="varchar" MaxLength="10" />
+          <Property Name="TRREFNO" Type="varchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="tbku_StrokaProfsoyza">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProfsoyzKod" Type="nvarchar" MaxLength="10" />
+          <Property Name="ProfsoyzNaimenovanie" Type="nvarchar" MaxLength="200" />
+          <Property Name="CreateDT" Type="datetime" />
+          <Property Name="MATCH_DEPARTMENTBASE" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="tbl_mig_danniyeVlad">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="POLYA01" Type="nvarchar" MaxLength="500" />
+          <Property Name="POLYA011" Type="nvarchar" MaxLength="500" />
+          <Property Name="POLYA012" Type="nvarchar" MaxLength="500" />
+          <Property Name="POLYA013" Type="nvarchar" MaxLength="500" />
+          <Property Name="POLYA014" Type="nvarchar" MaxLength="500" />
+          <Property Name="POLYA015" Type="nvarchar" MaxLength="500" />
+          <Property Name="POLYA016" Type="nvarchar" MaxLength="500" />
+          <Property Name="POLYA017" Type="nvarchar" MaxLength="500" />
+          <Property Name="POLYA018" Type="nvarchar" MaxLength="500" />
+          <Property Name="POLYA019" Type="nvarchar" MaxLength="500" />
+          <Property Name="POLYA0191" Type="nvarchar" MaxLength="500" />
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'KasabaKIAT_N1.dbo.tbl_mig_ecp' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="tbl_mig_ecp">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="POLYA01" Type="nvarchar" MaxLength="500" />
+          <Property Name="POLYA02" Type="nvarchar" MaxLength="500" />
+          <Property Name="POLYA03" Type="nvarchar" MaxLength="500" />
+          <Property Name="POLYA04" Type="nvarchar" MaxLength="500" />
+          <Property Name="POLYA05" Type="nvarchar" MaxLength="500" />
+          <Property Name="POLYA06" Type="nvarchar" MaxLength="500" />
+          <Property Name="POLYA07" Type="nvarchar" MaxLength="500" />
+          <Property Name="POLYA08" Type="nvarchar" MaxLength="500" />
+          <Property Name="POLYA09" Type="nvarchar" MaxLength="500" />
+          <Property Name="POLYA10" Type="nvarchar" MaxLength="500" />
+          <Property Name="POLYA11" Type="nvarchar" MaxLength="500" />
+          <Property Name="POLYA12" Type="nvarchar" MaxLength="500" />
+          <Property Name="POLYA13" Type="nvarchar" MaxLength="500" />
+          <Property Name="POLYA14" Type="nvarchar" MaxLength="500" />
+          <Property Name="POLYA15" Type="nvarchar" MaxLength="500" />
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbl_mig_oplata">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="POLYA01" Type="nvarchar" MaxLength="500" />
+          <Property Name="POLYA011" Type="nvarchar" MaxLength="500" />
+          <Property Name="POLYA012" Type="nvarchar" MaxLength="500" />
+          <Property Name="POLYA013" Type="nvarchar" MaxLength="500" />
+          <Property Name="POLYA014" Type="nvarchar" MaxLength="500" />
+          <Property Name="POLYA015" Type="nvarchar" MaxLength="500" />
+          <Property Name="POLYA016" Type="nvarchar" MaxLength="500" />
+          <Property Name="POLYA017" Type="nvarchar" MaxLength="500" />
+          <Property Name="POLYA018" Type="nvarchar" MaxLength="500" />
+          <Property Name="POLYA019" Type="nvarchar" MaxLength="500" />
+          <Property Name="POLYA0110" Type="nvarchar" MaxLength="500" />
+          <Property Name="POLYA0111" Type="nvarchar" MaxLength="500" />
+          <Property Name="POLYA0112" Type="nvarchar" MaxLength="500" />
+          <Property Name="POLYA0113" Type="nvarchar" MaxLength="500" />
+          <Property Name="POLYA0114" Type="nvarchar" MaxLength="500" />
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbl_mig_rasxodi">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="POLYA01" Type="nvarchar" MaxLength="50" />
+          <Property Name="POLYA02" Type="nvarchar" MaxLength="50" />
+          <Property Name="POLYA03" Type="nvarchar" MaxLength="50" />
+          <Property Name="POLYA04" Type="nvarchar" MaxLength="50" />
+          <Property Name="POLYA05" Type="nvarchar" MaxLength="100" />
+          <Property Name="POLYA06" Type="nvarchar" MaxLength="100" />
+          <Property Name="POLYA07" Type="nvarchar" MaxLength="100" />
+          <Property Name="POLYA08" Type="nvarchar" MaxLength="100" />
+          <Property Name="POLYA09" Type="nvarchar" MaxLength="100" />
+          <Property Name="POLYA10" Type="nvarchar" MaxLength="100" />
+          <Property Name="POLYA11" Type="nvarchar" MaxLength="100" />
+          <Property Name="POLYA12" Type="nvarchar" MaxLength="100" />
+          <Property Name="POLYA13" Type="nvarchar" MaxLength="100" />
+          <Property Name="POLYA14" Type="nvarchar" MaxLength="100" />
+          <Property Name="POLYA15" Type="nvarchar" MaxLength="100" />
+          <Property Name="POLYA16" Type="nvarchar" MaxLength="100" />
+          <Property Name="POLYA17" Type="nvarchar" MaxLength="100" />
+          <Property Name="POLYA18" Type="nvarchar" MaxLength="100" />
+          <Property Name="POLYA19" Type="nvarchar" MaxLength="100" />
+          <Property Name="POLYA20" Type="nvarchar" MaxLength="100" />
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblFace_Med">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" Nullable="false" />
+          <Property Name="ID_Face" Type="bigint" />
+          <Property Name="Med_Doc" Type="nvarchar" MaxLength="50" />
+          <Property Name="Med_Data" Type="date" />
+          <Property Name="Med_San" Type="int" />
+          <Property Name="Opl_Doc" Type="nvarchar" MaxLength="50" />
+          <Property Name="Opl_Data" Type="date" />
+          <Property Name="Opl_Symma" Type="money" />
+          <Property Name="Tal_Doc" Type="nvarchar" MaxLength="50" />
+          <Property Name="Tal_Data" Type="date" />
+          <Property Name="UserId" Type="bigint" />
+          <Property Name="Departmentbase" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="tblFase">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" Nullable="false" />
+          <Property Name="ID_Put" Type="bigint" />
+          <Property Name="ID_Sanat" Type="int" />
+          <Property Name="Num_Put" Type="nvarchar" MaxLength="15" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Adress" Type="nvarchar" MaxLength="300" />
+          <Property Name="Rabota" Type="nvarchar" MaxLength="300" />
+          <Property Name="Dolj" Type="nvarchar" MaxLength="50" />
+          <Property Name="Stav_Vid" Type="bigint" />
+          <Property Name="Pas_ser" Type="nvarchar" MaxLength="50" />
+          <Property Name="Pas_Num" Type="nvarchar" MaxLength="50" />
+          <Property Name="Pas_KD" Type="nvarchar" MaxLength="50" />
+          <Property Name="Pas_Data" Type="date" />
+          <Property Name="Gost_Pr" Type="bigint" />
+          <Property Name="ID_Osnov" Type="bigint" />
+          <Property Name="Data_Post" Type="date" />
+          <Property Name="Pol" Type="bit" />
+          <Property Name="UserId" Type="bigint" />
+          <Property Name="Departmentbase" Type="nvarchar" MaxLength="255" />
+          <Property Name="INN" Type="varchar" MaxLength="10" />
+          <Property Name="PNFL" Type="varchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="tblOplata">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Data_Post" Type="date" />
+          <Property Name="Num_Doc" Type="nvarchar" MaxLength="50" />
+          <Property Name="ID_Otras" Type="bigint" />
+          <Property Name="Symma_DT" Type="money" />
+          <Property Name="Symma_KT" Type="money" />
+          <Property Name="Osnov" Type="nvarchar" MaxLength="500" />
+          <Property Name="ID_KV" Type="int" />
+          <Property Name="SmFil" Type="int" />
+          <Property Name="Name_org" Type="nvarchar" MaxLength="100" />
+          <Property Name="Tip_Org" Type="bit" />
+          <Property Name="PrizOpl" Type="int" />
+          <Property Name="UserId" Type="bigint" />
+          <Property Name="Departmentbase" Type="nvarchar" MaxLength="255" />
+          <Property Name="PROVODKA_ID" Type="bigint" />
+        </EntityType>
+        <EntityType Name="tblOplata_Ras">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_Opl" Type="bigint" />
+          <Property Name="ID_Sanat" Type="int" />
+          <Property Name="Num_Put" Type="nvarchar" MaxLength="15" />
+          <Property Name="Symma" Type="money" />
+          <Property Name="ID_Pr" Type="bigint" />
+          <Property Name="Priz" Type="smallint" />
+          <Property Name="UserId" Type="bigint" />
+          <Property Name="Departmentbase" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="tblPos_Put">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_Post" Type="bigint" />
+          <Property Name="ID_Sanat" Type="int" />
+          <Property Name="Num_Put" Type="nvarchar" MaxLength="10" />
+          <Property Name="DataSan" Type="datetime" />
+          <Property Name="Symma_Put" Type="money" />
+          <Property Name="ID_PolVoz" Type="bit" Nullable="false" />
+          <Property Name="Data_Post" Type="datetime" />
+          <Property Name="UserId" Type="bigint" />
+          <Property Name="Departmentbase" Type="nvarchar" MaxLength="255" />
+          <Property Name="DataSanEnd" Type="datetime" />
+        </EntityType>
+        <EntityType Name="tblPost">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_KV" Type="int" />
+          <Property Name="Data_Post" Type="datetime" />
+          <Property Name="Num_Doc" Type="nvarchar" MaxLength="10" />
+          <Property Name="ID_Pos" Type="bigint" />
+          <Property Name="Num_Kol" Type="int" />
+          <Property Name="Symma" Type="money" />
+          <Property Name="Name_Dov" Type="nvarchar" MaxLength="50" />
+          <Property Name="Vid" Type="bit" Nullable="false" />
+          <Property Name="SmFil" Type="int" />
+          <Property Name="UserId" Type="bigint" />
+          <Property Name="DepartmentBase" Type="nvarchar" MaxLength="255" />
+          <Property Name="BeginNumber" Type="int" />
+          <Property Name="EndNumber" Type="int" />
+          <Property Name="PROVODKA_ID" Type="bigint" />
+        </EntityType>
+        <EntityType Name="tblPred">
+          <Key>
+            <PropertyRef Name="Departmentbase" />
+          </Key>
+          <Property Name="ID_Prof" Type="bigint" />
+          <Property Name="ID_Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="ID_Pred" Type="nvarchar" MaxLength="90" />
+          <Property Name="ID_Pass" Type="nvarchar" MaxLength="10" />
+          <Property Name="Adress" Type="nvarchar" MaxLength="50" />
+          <Property Name="RS" Type="nvarchar" MaxLength="20" />
+          <Property Name="Name_bank" Type="nvarchar" MaxLength="50" />
+          <Property Name="MFO" Type="nvarchar" MaxLength="5" />
+          <Property Name="INN" Type="nvarchar" MaxLength="9" />
+          <Property Name="OKONX" Type="nvarchar" MaxLength="6" />
+          <Property Name="Name_Dir" Type="nvarchar" MaxLength="25" />
+          <Property Name="PutDay" Type="int" />
+          <Property Name="VIO" Type="bit" Nullable="false" />
+          <Property Name="SeverName" Type="nvarchar" MaxLength="60" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="50" />
+          <Property Name="PasName" Type="nvarchar" MaxLength="50" />
+          <Property Name="TipName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Vid_SSL" Type="bit" Nullable="false" />
+          <Property Name="UserId" Type="bigint" />
+          <Property Name="Departmentbase" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="KaznaAccount" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="tblSprav_Face">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name_Os" Type="nvarchar" MaxLength="50" />
+          <Property Name="UserId" Type="bigint" />
+        </EntityType>
+        <EntityType Name="tblSprav_Kv">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="Name_Kv" Type="nvarchar" MaxLength="10" />
+          <Property Name="UserId" Type="bigint" />
+        </EntityType>
+        <EntityType Name="tblSprav_MFO">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Code_MFO" Type="nvarchar" MaxLength="5" />
+          <Property Name="Name_MFO" Type="nvarchar" MaxLength="100" />
+          <Property Name="Adres_MFO" Type="nvarchar" MaxLength="100" />
+          <Property Name="Data_Act" Type="nvarchar" MaxLength="10" />
+          <Property Name="Data_Cls" Type="nvarchar" MaxLength="10" />
+          <Property Name="UserId" Type="bigint" />
+        </EntityType>
+        <EntityType Name="tblSprav_Org">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_Ot" Type="int" />
+          <Property Name="Name_Org" Type="nvarchar" MaxLength="100" />
+          <Property Name="INN" Type="nvarchar" MaxLength="9" />
+          <Property Name="RS" Type="nvarchar" MaxLength="20" />
+          <Property Name="MFO" Type="nvarchar" MaxLength="5" />
+          <Property Name="Bank" Type="nvarchar" MaxLength="90" />
+          <Property Name="OKONX" Type="nvarchar" MaxLength="5" />
+          <Property Name="Adress" Type="nvarchar" MaxLength="100" />
+          <Property Name="Telefon" Type="nvarchar" MaxLength="70" />
+          <Property Name="Region" Type="int" />
+          <Property Name="DT_OST" Type="int" />
+          <Property Name="KT_OST" Type="int" />
+          <Property Name="E_Mail" Type="nvarchar" MaxLength="90" />
+          <Property Name="UserId" Type="bigint" />
+          <Property Name="DepartmentBase" Type="nvarchar" MaxLength="255" />
+          <Property Name="IS_PRAVSOYUZ" Type="bit" Nullable="false" />
+          <Property Name="ParentID" Type="bigint" />
+          <Property Name="PRAVORGLEVEL" Type="int" />
+          <Property Name="DIRECTOR" Type="nvarchar" MaxLength="200" />
+          <Property Name="BUXGALTER" Type="nvarchar" MaxLength="200" />
+          <Property Name="DOVERENNOE_LISO" Type="nvarchar" MaxLength="200" />
+          <Property Name="ORIG_INN" Type="varchar" MaxLength="20" />
+          <Property Name="OWNER_CODE" Type="varchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="tblSprav_Os">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name_Os" Type="nvarchar" MaxLength="50" />
+          <Property Name="UserId" Type="bigint" />
+        </EntityType>
+        <EntityType Name="tblSprav_Otras">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID_Ot" Type="int" />
+          <Property Name="Name_Ot" Type="nvarchar" MaxLength="200" />
+          <Property Name="Priz" Type="int" />
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="bigint" />
+          <Property Name="DepartmentBase" Type="nvarchar" MaxLength="255" />
+          <Property Name="BRANCH_CODE" Type="nvarchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="tblSprav_Pr">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name_Proc" Type="nvarchar" MaxLength="5" />
+          <Property Name="Num" Type="int" />
+          <Property Name="UserId" Type="bigint" />
+        </EntityType>
+        <EntityType Name="tblSprav_Reg">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NameReg" Type="nvarchar" MaxLength="50" />
+          <Property Name="CodeReg" Type="int" />
+          <Property Name="UserId" Type="bigint" />
+          <Property Name="DepartmentBase" Type="nvarchar" MaxLength="255" />
+          <Property Name="VilId" Type="bigint" />
+          <Property Name="SOATO_CODE" Type="nvarchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="tblSprav_San">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="Name_San" Type="nvarchar" MaxLength="100" />
+          <Property Name="Num_Kod" Type="nvarchar" MaxLength="4" />
+          <Property Name="UserId" Type="bigint" />
+          <Property Name="KurortSanID" Type="int" />
+        </EntityType>
+        <EntityType Name="tblSprav_Vil">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FullName" Type="nvarchar" MaxLength="70" />
+          <Property Name="ID_Code" Type="int" />
+          <Property Name="UserId" Type="bigint" />
+          <Property Name="SOATO_CODE" Type="nvarchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="tblVipl">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_Org" Type="bigint" />
+          <Property Name="Data_Post" Type="datetime" />
+          <Property Name="Num_Doc" Type="nvarchar" MaxLength="10" />
+          <Property Name="ID_Pok" Type="bigint" />
+          <Property Name="Num_Kol" Type="int" />
+          <Property Name="Symma" Type="money" />
+          <Property Name="Name_Dov" Type="nvarchar" MaxLength="80" />
+          <Property Name="ID_Kv" Type="int" />
+          <Property Name="Vid" Type="bit" Nullable="false" />
+          <Property Name="SmFil" Type="int" />
+          <Property Name="UserId" Type="bigint" />
+          <Property Name="DepartmentBase" Type="nvarchar" MaxLength="255" />
+          <Property Name="PROVODKA_ID" Type="bigint" />
+        </EntityType>
+        <EntityType Name="tblVipl_NumGEn">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DEPARTMENT_BASE" Type="nvarchar" MaxLength="255" />
+          <Property Name="NUMDOC_GEN" Type="int" />
+          <Property Name="USER_ID" Type="bigint" />
+          <Property Name="YEAR" Type="int" />
+        </EntityType>
+        <EntityType Name="tblVipl_Put">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_Vipl" Type="bigint" />
+          <Property Name="ID_Pok" Type="bigint" />
+          <Property Name="ID_Sanat" Type="int" />
+          <Property Name="Num_Put" Type="nvarchar" MaxLength="10" />
+          <Property Name="Num_Proc" Type="int" />
+          <Property Name="Symma" Type="money" />
+          <Property Name="ID_PolVoz" Type="bit" Nullable="false" />
+          <Property Name="Data_Post" Type="datetime" />
+          <Property Name="UserId" Type="bigint" />
+          <Property Name="ZayavkaID" Type="bigint" />
+          <Property Name="DepartmentBase" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="tbsp_soato_new">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="KODI" Type="nvarchar" MaxLength="15" />
+          <Property Name="NAME_LN" Type="nvarchar" MaxLength="1000" />
+          <Property Name="CENTRE_NAME_LN" Type="nvarchar" MaxLength="1000" />
+          <Property Name="NAME_RU" Type="nvarchar" MaxLength="1000" />
+          <Property Name="CENTRE_NAME_RU" Type="nvarchar" MaxLength="1000" />
+        </EntityType>
+        <Association Name="FK_tblFace_Med_tblFase">
+          <End Role="tblFase" Type="Self.tblFase" Multiplicity="0..1" />
+          <End Role="tblFace_Med" Type="Self.tblFace_Med" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblFase">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tblFace_Med">
+              <PropertyRef Name="ID_Face" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblFace_Med_tblSprav_San">
+          <End Role="tblSprav_San" Type="Self.tblSprav_San" Multiplicity="0..1" />
+          <End Role="tblFace_Med" Type="Self.tblFace_Med" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblSprav_San">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tblFace_Med">
+              <PropertyRef Name="Med_San" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblFase_tblSprav_Face">
+          <End Role="tblSprav_Face" Type="Self.tblSprav_Face" Multiplicity="0..1" />
+          <End Role="tblFase" Type="Self.tblFase" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblSprav_Face">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tblFase">
+              <PropertyRef Name="ID_Osnov" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblFase_tblSprav_Os">
+          <End Role="tblSprav_Os" Type="Self.tblSprav_Os" Multiplicity="0..1" />
+          <End Role="tblFase" Type="Self.tblFase" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblSprav_Os">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tblFase">
+              <PropertyRef Name="Stav_Vid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblFase_tblSprav_Pr">
+          <End Role="tblSprav_Pr" Type="Self.tblSprav_Pr" Multiplicity="0..1" />
+          <End Role="tblFase" Type="Self.tblFase" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblSprav_Pr">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tblFase">
+              <PropertyRef Name="Gost_Pr" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblFase_tblSprav_San">
+          <End Role="tblSprav_San" Type="Self.tblSprav_San" Multiplicity="0..1" />
+          <End Role="tblFase" Type="Self.tblFase" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblSprav_San">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tblFase">
+              <PropertyRef Name="ID_Sanat" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblOplata_Ras_tblOplata">
+          <End Role="tblOplata" Type="Self.tblOplata" Multiplicity="0..1" />
+          <End Role="tblOplata_Ras" Type="Self.tblOplata_Ras" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblOplata">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tblOplata_Ras">
+              <PropertyRef Name="ID_Opl" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblOplata_Ras_tblSprav_Pr">
+          <End Role="tblSprav_Pr" Type="Self.tblSprav_Pr" Multiplicity="0..1" />
+          <End Role="tblOplata_Ras" Type="Self.tblOplata_Ras" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblSprav_Pr">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tblOplata_Ras">
+              <PropertyRef Name="ID_Pr" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblOplata_Ras_tblSprav_Pr1">
+          <End Role="tblSprav_Pr" Type="Self.tblSprav_Pr" Multiplicity="0..1" />
+          <End Role="tblOplata_Ras" Type="Self.tblOplata_Ras" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblSprav_Pr">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tblOplata_Ras">
+              <PropertyRef Name="ID_Pr" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblOplata_Ras_tblSprav_San">
+          <End Role="tblSprav_San" Type="Self.tblSprav_San" Multiplicity="0..1" />
+          <End Role="tblOplata_Ras" Type="Self.tblOplata_Ras" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblSprav_San">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tblOplata_Ras">
+              <PropertyRef Name="ID_Sanat" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblOplata_tbbu_provodki">
+          <End Role="tbbu_provodki" Type="Self.tbbu_provodki" Multiplicity="0..1" />
+          <End Role="tblOplata" Type="Self.tblOplata" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbbu_provodki">
+              <PropertyRef Name="REC_ID" />
+            </Principal>
+            <Dependent Role="tblOplata">
+              <PropertyRef Name="PROVODKA_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblOplata_tblOplata">
+          <End Role="tblOplata" Type="Self.tblOplata" Multiplicity="1" />
+          <End Role="tblOplata1" Type="Self.tblOplata" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="tblOplata">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tblOplata1">
+              <PropertyRef Name="ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblOplata_tblSprav_Kv">
+          <End Role="tblSprav_Kv" Type="Self.tblSprav_Kv" Multiplicity="0..1" />
+          <End Role="tblOplata" Type="Self.tblOplata" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblSprav_Kv">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tblOplata">
+              <PropertyRef Name="ID_KV" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblOplata_tblSprav_Org">
+          <End Role="tblSprav_Org" Type="Self.tblSprav_Org" Multiplicity="0..1" />
+          <End Role="tblOplata" Type="Self.tblOplata" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblSprav_Org">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tblOplata">
+              <PropertyRef Name="ID_Otras" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblPos_Put_tblPost">
+          <End Role="tblPost" Type="Self.tblPost" Multiplicity="0..1" />
+          <End Role="tblPos_Put" Type="Self.tblPos_Put" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblPost">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tblPos_Put">
+              <PropertyRef Name="ID_Post" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblPos_Put_tblSprav_San">
+          <End Role="tblSprav_San" Type="Self.tblSprav_San" Multiplicity="0..1" />
+          <End Role="tblPos_Put" Type="Self.tblPos_Put" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblSprav_San">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tblPos_Put">
+              <PropertyRef Name="ID_Sanat" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblPost_tbbu_provodki">
+          <End Role="tbbu_provodki" Type="Self.tbbu_provodki" Multiplicity="0..1" />
+          <End Role="tblPost" Type="Self.tblPost" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbbu_provodki">
+              <PropertyRef Name="REC_ID" />
+            </Principal>
+            <Dependent Role="tblPost">
+              <PropertyRef Name="PROVODKA_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblPost_tblSprav_Kv">
+          <End Role="tblSprav_Kv" Type="Self.tblSprav_Kv" Multiplicity="0..1" />
+          <End Role="tblPost" Type="Self.tblPost" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblSprav_Kv">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tblPost">
+              <PropertyRef Name="ID_KV" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblPost_tblSprav_Org">
+          <End Role="tblSprav_Org" Type="Self.tblSprav_Org" Multiplicity="0..1" />
+          <End Role="tblPost" Type="Self.tblPost" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblSprav_Org">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tblPost">
+              <PropertyRef Name="ID_Pos" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblVipl_Put_tblSprav_San">
+          <End Role="tblSprav_San" Type="Self.tblSprav_San" Multiplicity="0..1" />
+          <End Role="tblVipl_Put" Type="Self.tblVipl_Put" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblSprav_San">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tblVipl_Put">
+              <PropertyRef Name="ID_Sanat" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblVipl_Put_tblVipl">
+          <End Role="tblVipl" Type="Self.tblVipl" Multiplicity="0..1" />
+          <End Role="tblVipl_Put" Type="Self.tblVipl_Put" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblVipl">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tblVipl_Put">
+              <PropertyRef Name="ID_Vipl" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblVipl_tbbu_provodki">
+          <End Role="tbbu_provodki" Type="Self.tbbu_provodki" Multiplicity="0..1" />
+          <End Role="tblVipl" Type="Self.tblVipl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbbu_provodki">
+              <PropertyRef Name="REC_ID" />
+            </Principal>
+            <Dependent Role="tblVipl">
+              <PropertyRef Name="PROVODKA_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblVipl_tblSprav_Kv">
+          <End Role="tblSprav_Kv" Type="Self.tblSprav_Kv" Multiplicity="0..1" />
+          <End Role="tblVipl" Type="Self.tblVipl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblSprav_Kv">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tblVipl">
+              <PropertyRef Name="ID_Kv" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblVipl_tblSprav_Org">
+          <End Role="tblSprav_Org" Type="Self.tblSprav_Org" Multiplicity="0..1" />
+          <End Role="tblVipl" Type="Self.tblVipl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblSprav_Org">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tblVipl">
+              <PropertyRef Name="ID_Org" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="KasabaKIAT_N1ModelStoreContainer">
+          <EntitySet Name="t_egrpo" EntityType="Self.t_egrpo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbbu_ecp_calc" EntityType="Self.tbbu_ecp_calc" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbbu_provodki" EntityType="Self.tbbu_provodki" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbku_StrokaProfsoyza" EntityType="Self.tbku_StrokaProfsoyza" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_mig_danniyeVlad" EntityType="Self.tbl_mig_danniyeVlad" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_mig_oplata" EntityType="Self.tbl_mig_oplata" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_mig_rasxodi" EntityType="Self.tbl_mig_rasxodi" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblFace_Med" EntityType="Self.tblFace_Med" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblFase" EntityType="Self.tblFase" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblOplata" EntityType="Self.tblOplata" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblOplata_Ras" EntityType="Self.tblOplata_Ras" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblPos_Put" EntityType="Self.tblPos_Put" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblPost" EntityType="Self.tblPost" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblPred" EntityType="Self.tblPred" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblSprav_Face" EntityType="Self.tblSprav_Face" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblSprav_Kv" EntityType="Self.tblSprav_Kv" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblSprav_MFO" EntityType="Self.tblSprav_MFO" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblSprav_Org" EntityType="Self.tblSprav_Org" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblSprav_Os" EntityType="Self.tblSprav_Os" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblSprav_Otras" EntityType="Self.tblSprav_Otras" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblSprav_Pr" EntityType="Self.tblSprav_Pr" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblSprav_Reg" EntityType="Self.tblSprav_Reg" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblSprav_San" EntityType="Self.tblSprav_San" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblSprav_Vil" EntityType="Self.tblSprav_Vil" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblVipl" EntityType="Self.tblVipl" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblVipl_NumGEn" EntityType="Self.tblVipl_NumGEn" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblVipl_Put" EntityType="Self.tblVipl_Put" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbsp_soato_new" EntityType="Self.tbsp_soato_new" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_mig_ecp" EntityType="Self.tbl_mig_ecp" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [tbl_mig_ecp].[POLYA01] AS [POLYA01], 
+    [tbl_mig_ecp].[POLYA02] AS [POLYA02], 
+    [tbl_mig_ecp].[POLYA03] AS [POLYA03], 
+    [tbl_mig_ecp].[POLYA04] AS [POLYA04], 
+    [tbl_mig_ecp].[POLYA05] AS [POLYA05], 
+    [tbl_mig_ecp].[POLYA06] AS [POLYA06], 
+    [tbl_mig_ecp].[POLYA07] AS [POLYA07], 
+    [tbl_mig_ecp].[POLYA08] AS [POLYA08], 
+    [tbl_mig_ecp].[POLYA09] AS [POLYA09], 
+    [tbl_mig_ecp].[POLYA10] AS [POLYA10], 
+    [tbl_mig_ecp].[POLYA11] AS [POLYA11], 
+    [tbl_mig_ecp].[POLYA12] AS [POLYA12], 
+    [tbl_mig_ecp].[POLYA13] AS [POLYA13], 
+    [tbl_mig_ecp].[POLYA14] AS [POLYA14], 
+    [tbl_mig_ecp].[POLYA15] AS [POLYA15], 
+    [tbl_mig_ecp].[ID] AS [ID]
+    FROM [dbo].[tbl_mig_ecp] AS [tbl_mig_ecp]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_tblFace_Med_tblFase" Association="Self.FK_tblFace_Med_tblFase">
+            <End Role="tblFase" EntitySet="tblFase" />
+            <End Role="tblFace_Med" EntitySet="tblFace_Med" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblFace_Med_tblSprav_San" Association="Self.FK_tblFace_Med_tblSprav_San">
+            <End Role="tblSprav_San" EntitySet="tblSprav_San" />
+            <End Role="tblFace_Med" EntitySet="tblFace_Med" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblFase_tblSprav_Face" Association="Self.FK_tblFase_tblSprav_Face">
+            <End Role="tblSprav_Face" EntitySet="tblSprav_Face" />
+            <End Role="tblFase" EntitySet="tblFase" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblFase_tblSprav_Os" Association="Self.FK_tblFase_tblSprav_Os">
+            <End Role="tblSprav_Os" EntitySet="tblSprav_Os" />
+            <End Role="tblFase" EntitySet="tblFase" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblFase_tblSprav_Pr" Association="Self.FK_tblFase_tblSprav_Pr">
+            <End Role="tblSprav_Pr" EntitySet="tblSprav_Pr" />
+            <End Role="tblFase" EntitySet="tblFase" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblFase_tblSprav_San" Association="Self.FK_tblFase_tblSprav_San">
+            <End Role="tblSprav_San" EntitySet="tblSprav_San" />
+            <End Role="tblFase" EntitySet="tblFase" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblOplata_Ras_tblOplata" Association="Self.FK_tblOplata_Ras_tblOplata">
+            <End Role="tblOplata" EntitySet="tblOplata" />
+            <End Role="tblOplata_Ras" EntitySet="tblOplata_Ras" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblOplata_Ras_tblSprav_Pr" Association="Self.FK_tblOplata_Ras_tblSprav_Pr">
+            <End Role="tblSprav_Pr" EntitySet="tblSprav_Pr" />
+            <End Role="tblOplata_Ras" EntitySet="tblOplata_Ras" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblOplata_Ras_tblSprav_Pr1" Association="Self.FK_tblOplata_Ras_tblSprav_Pr1">
+            <End Role="tblSprav_Pr" EntitySet="tblSprav_Pr" />
+            <End Role="tblOplata_Ras" EntitySet="tblOplata_Ras" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblOplata_Ras_tblSprav_San" Association="Self.FK_tblOplata_Ras_tblSprav_San">
+            <End Role="tblSprav_San" EntitySet="tblSprav_San" />
+            <End Role="tblOplata_Ras" EntitySet="tblOplata_Ras" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblOplata_tbbu_provodki" Association="Self.FK_tblOplata_tbbu_provodki">
+            <End Role="tbbu_provodki" EntitySet="tbbu_provodki" />
+            <End Role="tblOplata" EntitySet="tblOplata" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblOplata_tblOplata" Association="Self.FK_tblOplata_tblOplata">
+            <End Role="tblOplata" EntitySet="tblOplata" />
+            <End Role="tblOplata1" EntitySet="tblOplata" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblOplata_tblSprav_Kv" Association="Self.FK_tblOplata_tblSprav_Kv">
+            <End Role="tblSprav_Kv" EntitySet="tblSprav_Kv" />
+            <End Role="tblOplata" EntitySet="tblOplata" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblOplata_tblSprav_Org" Association="Self.FK_tblOplata_tblSprav_Org">
+            <End Role="tblSprav_Org" EntitySet="tblSprav_Org" />
+            <End Role="tblOplata" EntitySet="tblOplata" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblPos_Put_tblPost" Association="Self.FK_tblPos_Put_tblPost">
+            <End Role="tblPost" EntitySet="tblPost" />
+            <End Role="tblPos_Put" EntitySet="tblPos_Put" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblPos_Put_tblSprav_San" Association="Self.FK_tblPos_Put_tblSprav_San">
+            <End Role="tblSprav_San" EntitySet="tblSprav_San" />
+            <End Role="tblPos_Put" EntitySet="tblPos_Put" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblPost_tbbu_provodki" Association="Self.FK_tblPost_tbbu_provodki">
+            <End Role="tbbu_provodki" EntitySet="tbbu_provodki" />
+            <End Role="tblPost" EntitySet="tblPost" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblPost_tblSprav_Kv" Association="Self.FK_tblPost_tblSprav_Kv">
+            <End Role="tblSprav_Kv" EntitySet="tblSprav_Kv" />
+            <End Role="tblPost" EntitySet="tblPost" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblPost_tblSprav_Org" Association="Self.FK_tblPost_tblSprav_Org">
+            <End Role="tblSprav_Org" EntitySet="tblSprav_Org" />
+            <End Role="tblPost" EntitySet="tblPost" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblVipl_Put_tblSprav_San" Association="Self.FK_tblVipl_Put_tblSprav_San">
+            <End Role="tblSprav_San" EntitySet="tblSprav_San" />
+            <End Role="tblVipl_Put" EntitySet="tblVipl_Put" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblVipl_Put_tblVipl" Association="Self.FK_tblVipl_Put_tblVipl">
+            <End Role="tblVipl" EntitySet="tblVipl" />
+            <End Role="tblVipl_Put" EntitySet="tblVipl_Put" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblVipl_tbbu_provodki" Association="Self.FK_tblVipl_tbbu_provodki">
+            <End Role="tbbu_provodki" EntitySet="tbbu_provodki" />
+            <End Role="tblVipl" EntitySet="tblVipl" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblVipl_tblSprav_Kv" Association="Self.FK_tblVipl_tblSprav_Kv">
+            <End Role="tblSprav_Kv" EntitySet="tblSprav_Kv" />
+            <End Role="tblVipl" EntitySet="tblVipl" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblVipl_tblSprav_Org" Association="Self.FK_tblVipl_tblSprav_Org">
+            <End Role="tblSprav_Org" EntitySet="tblSprav_Org" />
+            <End Role="tblVipl" EntitySet="tblVipl" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="KasabaKIAT_N1Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="t_egrpo">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" Nullable="false" />
+          <Property Name="address" Type="String" MaxLength="1024" FixedLength="false" Unicode="true" />
+          <Property Name="close_date" Type="DateTime" Precision="3" />
+          <Property Name="close_number" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="count_workers" Type="Int32" />
+          <Property Name="s_comment" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="s_create" Type="DateTime" Precision="3" />
+          <Property Name="s_status" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="email" Type="String" MaxLength="64" FixedLength="false" Unicode="true" />
+          <Property Name="fin_xoz_work" Type="Boolean" />
+          <Property Name="name_full" Type="String" MaxLength="1024" FixedLength="false" Unicode="true" />
+          <Property Name="inn" Type="String" MaxLength="9" FixedLength="false" Unicode="true" />
+          <Property Name="liquidation" Type="Boolean" />
+          <Property Name="osn_worktype" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="phones" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="recreate" Type="Boolean" />
+          <Property Name="reg_date" Type="DateTime" Precision="3" />
+          <Property Name="reg_number" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="reg_org" Type="String" MaxLength="1024" FixedLength="false" Unicode="true" />
+          <Property Name="reorganization" Type="Boolean" />
+          <Property Name="restored" Type="Boolean" />
+          <Property Name="name_short" Type="String" MaxLength="512" FixedLength="false" Unicode="true" />
+          <Property Name="street" Type="String" MaxLength="1024" FixedLength="false" Unicode="true" />
+          <Property Name="update_doc" Type="Boolean" />
+          <Property Name="update_email" Type="Boolean" />
+          <Property Name="mail_index" Type="String" MaxLength="7" FixedLength="false" Unicode="true" />
+          <Property Name="s_user_id" Type="Int64" />
+          <Property Name="okonx_id" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="opf_id" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="fs_id" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="soato_id" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="soogu_id" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="okpo" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="BANK_ACCOUNT" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="NATIVE_ID" Type="Int64" />
+        </EntityType>
+        <EntityType Name="tbbu_ecp_calc">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PAYMENT_ID" Type="Int64" />
+          <Property Name="PROFSOUZ_AMT" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="FEDERATION_AMT" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="OBLSOVPROF_AMT" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="OBL_DEPARTMENT_BASE" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="PROVODKA_ID" Type="Int64" />
+          <Property Name="REMARK" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="INN" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="SOATO" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="SOATO_NAME" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="OPERDATE" Type="DateTime" Precision="3" />
+          <Property Name="OKONX_ID" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="OKONX_NAME" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="BRANCH_CODE" Type="String" MaxLength="2" FixedLength="false" Unicode="true" />
+          <Property Name="BRANCH_NAME" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="tbbu_provodki">
+          <Key>
+            <PropertyRef Name="REC_ID" />
+          </Key>
+          <Property Name="REC_ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DEPARTMENT_BASE" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="USER_ID" Type="Int64" />
+          <Property Name="INOUTFLG" Type="Boolean" />
+          <Property Name="TRDT" Type="DateTime" Precision="3" />
+          <Property Name="NUMBER" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TIPSCHETA" Type="Boolean" />
+          <Property Name="TIPOBOROTA" Type="Boolean" />
+          <Property Name="PLATELNAME" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="PLATELINN" Type="String" MaxLength="9" FixedLength="false" Unicode="true" />
+          <Property Name="PLATELMFO" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="POLUCHNAME" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="POLUCHINN" Type="String" MaxLength="9" FixedLength="false" Unicode="true" />
+          <Property Name="POLUCHMFO" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="PLATELRSCH" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="POLUCHRSCH" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="SUMMA" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="COMMENT" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="TRREF" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="TRREFNO" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tblOplata" Relationship="Self.FK_tblOplata_tbbu_provodki" FromRole="tbbu_provodki" ToRole="tblOplata" />
+          <NavigationProperty Name="tblPost" Relationship="Self.FK_tblPost_tbbu_provodki" FromRole="tbbu_provodki" ToRole="tblPost" />
+          <NavigationProperty Name="tblVipl" Relationship="Self.FK_tblVipl_tbbu_provodki" FromRole="tbbu_provodki" ToRole="tblVipl" />
+        </EntityType>
+        <EntityType Name="tbku_StrokaProfsoyza">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProfsoyzKod" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="ProfsoyzNaimenovanie" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="CreateDT" Type="DateTime" Precision="3" />
+          <Property Name="MATCH_DEPARTMENTBASE" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="tblFace_Med">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" />
+          <Property Name="ID_Face" Type="Int64" />
+          <Property Name="Med_Doc" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Med_Data" Type="DateTime" Precision="0" />
+          <Property Name="Med_San" Type="Int32" />
+          <Property Name="Opl_Doc" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Opl_Data" Type="DateTime" Precision="0" />
+          <Property Name="Opl_Symma" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Tal_Doc" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Tal_Data" Type="DateTime" Precision="0" />
+          <Property Name="UserId" Type="Int64" />
+          <Property Name="Departmentbase" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="tblFase" Relationship="Self.FK_tblFace_Med_tblFase" FromRole="tblFace_Med" ToRole="tblFase" />
+          <NavigationProperty Name="tblSprav_San" Relationship="Self.FK_tblFace_Med_tblSprav_San" FromRole="tblFace_Med" ToRole="tblSprav_San" />
+        </EntityType>
+        <EntityType Name="tblFase">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" />
+          <Property Name="ID_Put" Type="Int64" />
+          <Property Name="ID_Sanat" Type="Int32" />
+          <Property Name="Num_Put" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Adress" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="Rabota" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="Dolj" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Stav_Vid" Type="Int64" />
+          <Property Name="Pas_ser" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Pas_Num" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Pas_KD" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Pas_Data" Type="DateTime" Precision="0" />
+          <Property Name="Gost_Pr" Type="Int64" />
+          <Property Name="ID_Osnov" Type="Int64" />
+          <Property Name="Data_Post" Type="DateTime" Precision="0" />
+          <Property Name="Pol" Type="Boolean" />
+          <Property Name="UserId" Type="Int64" />
+          <Property Name="Departmentbase" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="INN" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="PNFL" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tblFace_Med" Relationship="Self.FK_tblFace_Med_tblFase" FromRole="tblFase" ToRole="tblFace_Med" />
+          <NavigationProperty Name="tblSprav_Face" Relationship="Self.FK_tblFase_tblSprav_Face" FromRole="tblFase" ToRole="tblSprav_Face" />
+          <NavigationProperty Name="tblSprav_Os" Relationship="Self.FK_tblFase_tblSprav_Os" FromRole="tblFase" ToRole="tblSprav_Os" />
+          <NavigationProperty Name="tblSprav_Pr" Relationship="Self.FK_tblFase_tblSprav_Pr" FromRole="tblFase" ToRole="tblSprav_Pr" />
+          <NavigationProperty Name="tblSprav_San" Relationship="Self.FK_tblFase_tblSprav_San" FromRole="tblFase" ToRole="tblSprav_San" />
+        </EntityType>
+        <EntityType Name="tblOplata">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Data_Post" Type="DateTime" Precision="0" />
+          <Property Name="Num_Doc" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ID_Otras" Type="Int64" />
+          <Property Name="Symma_DT" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Symma_KT" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Osnov" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="ID_KV" Type="Int32" />
+          <Property Name="SmFil" Type="Int32" />
+          <Property Name="Name_org" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Tip_Org" Type="Boolean" />
+          <Property Name="PrizOpl" Type="Int32" />
+          <Property Name="UserId" Type="Int64" />
+          <Property Name="Departmentbase" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="PROVODKA_ID" Type="Int64" />
+          <NavigationProperty Name="tbbu_provodki" Relationship="Self.FK_tblOplata_tbbu_provodki" FromRole="tblOplata" ToRole="tbbu_provodki" />
+          <NavigationProperty Name="tblOplata_Ras" Relationship="Self.FK_tblOplata_Ras_tblOplata" FromRole="tblOplata" ToRole="tblOplata_Ras" />
+          <NavigationProperty Name="tblOplata1" Relationship="Self.FK_tblOplata_tblOplata" FromRole="tblOplata" ToRole="tblOplata1" />
+          <NavigationProperty Name="tblOplata2" Relationship="Self.FK_tblOplata_tblOplata" FromRole="tblOplata1" ToRole="tblOplata" />
+          <NavigationProperty Name="tblSprav_Kv" Relationship="Self.FK_tblOplata_tblSprav_Kv" FromRole="tblOplata" ToRole="tblSprav_Kv" />
+          <NavigationProperty Name="tblSprav_Org" Relationship="Self.FK_tblOplata_tblSprav_Org" FromRole="tblOplata" ToRole="tblSprav_Org" />
+        </EntityType>
+        <EntityType Name="tblOplata_Ras">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_Opl" Type="Int64" />
+          <Property Name="ID_Sanat" Type="Int32" />
+          <Property Name="Num_Put" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="Symma" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="ID_Pr" Type="Int64" />
+          <Property Name="Priz" Type="Int16" />
+          <Property Name="UserId" Type="Int64" />
+          <Property Name="Departmentbase" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="tblOplata" Relationship="Self.FK_tblOplata_Ras_tblOplata" FromRole="tblOplata_Ras" ToRole="tblOplata" />
+          <NavigationProperty Name="tblSprav_Pr" Relationship="Self.FK_tblOplata_Ras_tblSprav_Pr" FromRole="tblOplata_Ras" ToRole="tblSprav_Pr" />
+          <NavigationProperty Name="tblSprav_Pr1" Relationship="Self.FK_tblOplata_Ras_tblSprav_Pr1" FromRole="tblOplata_Ras" ToRole="tblSprav_Pr" />
+          <NavigationProperty Name="tblSprav_San" Relationship="Self.FK_tblOplata_Ras_tblSprav_San" FromRole="tblOplata_Ras" ToRole="tblSprav_San" />
+        </EntityType>
+        <EntityType Name="tblPos_Put">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_Post" Type="Int64" />
+          <Property Name="ID_Sanat" Type="Int32" />
+          <Property Name="Num_Put" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="DataSan" Type="DateTime" Precision="3" />
+          <Property Name="Symma_Put" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="ID_PolVoz" Type="Boolean" Nullable="false" />
+          <Property Name="Data_Post" Type="DateTime" Precision="3" />
+          <Property Name="UserId" Type="Int64" />
+          <Property Name="Departmentbase" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="DataSanEnd" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="tblPost" Relationship="Self.FK_tblPos_Put_tblPost" FromRole="tblPos_Put" ToRole="tblPost" />
+          <NavigationProperty Name="tblSprav_San" Relationship="Self.FK_tblPos_Put_tblSprav_San" FromRole="tblPos_Put" ToRole="tblSprav_San" />
+        </EntityType>
+        <EntityType Name="tblPost">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_KV" Type="Int32" />
+          <Property Name="Data_Post" Type="DateTime" Precision="3" />
+          <Property Name="Num_Doc" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="ID_Pos" Type="Int64" />
+          <Property Name="Num_Kol" Type="Int32" />
+          <Property Name="Symma" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Name_Dov" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Vid" Type="Boolean" Nullable="false" />
+          <Property Name="SmFil" Type="Int32" />
+          <Property Name="UserId" Type="Int64" />
+          <Property Name="DepartmentBase" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="BeginNumber" Type="Int32" />
+          <Property Name="EndNumber" Type="Int32" />
+          <Property Name="PROVODKA_ID" Type="Int64" />
+          <NavigationProperty Name="tbbu_provodki" Relationship="Self.FK_tblPost_tbbu_provodki" FromRole="tblPost" ToRole="tbbu_provodki" />
+          <NavigationProperty Name="tblPos_Put" Relationship="Self.FK_tblPos_Put_tblPost" FromRole="tblPost" ToRole="tblPos_Put" />
+          <NavigationProperty Name="tblSprav_Kv" Relationship="Self.FK_tblPost_tblSprav_Kv" FromRole="tblPost" ToRole="tblSprav_Kv" />
+          <NavigationProperty Name="tblSprav_Org" Relationship="Self.FK_tblPost_tblSprav_Org" FromRole="tblPost" ToRole="tblSprav_Org" />
+        </EntityType>
+        <EntityType Name="tblPred">
+          <Key>
+            <PropertyRef Name="Departmentbase" />
+          </Key>
+          <Property Name="ID_Prof" Type="Int64" />
+          <Property Name="ID_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ID_Pred" Type="String" MaxLength="90" FixedLength="false" Unicode="true" />
+          <Property Name="ID_Pass" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Adress" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="RS" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Name_bank" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MFO" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="INN" Type="String" MaxLength="9" FixedLength="false" Unicode="true" />
+          <Property Name="OKONX" Type="String" MaxLength="6" FixedLength="false" Unicode="true" />
+          <Property Name="Name_Dir" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="PutDay" Type="Int32" />
+          <Property Name="VIO" Type="Boolean" Nullable="false" />
+          <Property Name="SeverName" Type="String" MaxLength="60" FixedLength="false" Unicode="true" />
+          <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PasName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TipName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Vid_SSL" Type="Boolean" Nullable="false" />
+          <Property Name="UserId" Type="Int64" />
+          <Property Name="Departmentbase" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="KaznaAccount" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="tblSprav_Face">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name_Os" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UserId" Type="Int64" />
+          <NavigationProperty Name="tblFase" Relationship="Self.FK_tblFase_tblSprav_Face" FromRole="tblSprav_Face" ToRole="tblFase" />
+        </EntityType>
+        <EntityType Name="tblSprav_Kv">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Name_Kv" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="UserId" Type="Int64" />
+          <NavigationProperty Name="tblOplata" Relationship="Self.FK_tblOplata_tblSprav_Kv" FromRole="tblSprav_Kv" ToRole="tblOplata" />
+          <NavigationProperty Name="tblPost" Relationship="Self.FK_tblPost_tblSprav_Kv" FromRole="tblSprav_Kv" ToRole="tblPost" />
+          <NavigationProperty Name="tblVipl" Relationship="Self.FK_tblVipl_tblSprav_Kv" FromRole="tblSprav_Kv" ToRole="tblVipl" />
+        </EntityType>
+        <EntityType Name="tblSprav_MFO">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Code_MFO" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="Name_MFO" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Adres_MFO" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Data_Act" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Data_Cls" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="UserId" Type="Int64" />
+        </EntityType>
+        <EntityType Name="tblSprav_Org">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_Ot" Type="Int32" />
+          <Property Name="Name_Org" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="INN" Type="String" MaxLength="9" FixedLength="false" Unicode="true" />
+          <Property Name="RS" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="MFO" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="Bank" Type="String" MaxLength="90" FixedLength="false" Unicode="true" />
+          <Property Name="OKONX" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="Adress" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Telefon" Type="String" MaxLength="70" FixedLength="false" Unicode="true" />
+          <Property Name="Region" Type="Int32" />
+          <Property Name="DT_OST" Type="Int32" />
+          <Property Name="KT_OST" Type="Int32" />
+          <Property Name="E_Mail" Type="String" MaxLength="90" FixedLength="false" Unicode="true" />
+          <Property Name="UserId" Type="Int64" />
+          <Property Name="DepartmentBase" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="IS_PRAVSOYUZ" Type="Boolean" Nullable="false" />
+          <Property Name="ParentID" Type="Int64" />
+          <Property Name="PRAVORGLEVEL" Type="Int32" />
+          <Property Name="DIRECTOR" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="BUXGALTER" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="DOVERENNOE_LISO" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="ORIG_INN" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="OWNER_CODE" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tblOplata" Relationship="Self.FK_tblOplata_tblSprav_Org" FromRole="tblSprav_Org" ToRole="tblOplata" />
+          <NavigationProperty Name="tblPost" Relationship="Self.FK_tblPost_tblSprav_Org" FromRole="tblSprav_Org" ToRole="tblPost" />
+          <NavigationProperty Name="tblVipl" Relationship="Self.FK_tblVipl_tblSprav_Org" FromRole="tblSprav_Org" ToRole="tblVipl" />
+        </EntityType>
+        <EntityType Name="tblSprav_Os">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name_Os" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UserId" Type="Int64" />
+          <NavigationProperty Name="tblFase" Relationship="Self.FK_tblFase_tblSprav_Os" FromRole="tblSprav_Os" ToRole="tblFase" />
+        </EntityType>
+        <EntityType Name="tblSprav_Otras">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID_Ot" Type="Int32" />
+          <Property Name="Name_Ot" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Priz" Type="Int32" />
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="Int64" />
+          <Property Name="DepartmentBase" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="BRANCH_CODE" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="tblSprav_Pr">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name_Proc" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="Num" Type="Int32" />
+          <Property Name="UserId" Type="Int64" />
+          <NavigationProperty Name="tblFase" Relationship="Self.FK_tblFase_tblSprav_Pr" FromRole="tblSprav_Pr" ToRole="tblFase" />
+          <NavigationProperty Name="tblOplata_Ras" Relationship="Self.FK_tblOplata_Ras_tblSprav_Pr" FromRole="tblSprav_Pr" ToRole="tblOplata_Ras" />
+          <NavigationProperty Name="tblOplata_Ras1" Relationship="Self.FK_tblOplata_Ras_tblSprav_Pr1" FromRole="tblSprav_Pr" ToRole="tblOplata_Ras" />
+        </EntityType>
+        <EntityType Name="tblSprav_Reg">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NameReg" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CodeReg" Type="Int32" />
+          <Property Name="UserId" Type="Int64" />
+          <Property Name="DepartmentBase" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="VilId" Type="Int64" />
+          <Property Name="SOATO_CODE" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="tblSprav_San">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Name_San" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Num_Kod" Type="String" MaxLength="4" FixedLength="false" Unicode="true" />
+          <Property Name="UserId" Type="Int64" />
+          <Property Name="KurortSanID" Type="Int32" />
+          <NavigationProperty Name="tblFace_Med" Relationship="Self.FK_tblFace_Med_tblSprav_San" FromRole="tblSprav_San" ToRole="tblFace_Med" />
+          <NavigationProperty Name="tblFase" Relationship="Self.FK_tblFase_tblSprav_San" FromRole="tblSprav_San" ToRole="tblFase" />
+          <NavigationProperty Name="tblOplata_Ras" Relationship="Self.FK_tblOplata_Ras_tblSprav_San" FromRole="tblSprav_San" ToRole="tblOplata_Ras" />
+          <NavigationProperty Name="tblPos_Put" Relationship="Self.FK_tblPos_Put_tblSprav_San" FromRole="tblSprav_San" ToRole="tblPos_Put" />
+          <NavigationProperty Name="tblVipl_Put" Relationship="Self.FK_tblVipl_Put_tblSprav_San" FromRole="tblSprav_San" ToRole="tblVipl_Put" />
+        </EntityType>
+        <EntityType Name="tblSprav_Vil">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FullName" Type="String" MaxLength="70" FixedLength="false" Unicode="true" />
+          <Property Name="ID_Code" Type="Int32" />
+          <Property Name="UserId" Type="Int64" />
+          <Property Name="SOATO_CODE" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="tblVipl">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_Org" Type="Int64" />
+          <Property Name="Data_Post" Type="DateTime" Precision="3" />
+          <Property Name="Num_Doc" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="ID_Pok" Type="Int64" />
+          <Property Name="Num_Kol" Type="Int32" />
+          <Property Name="Symma" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Name_Dov" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+          <Property Name="ID_Kv" Type="Int32" />
+          <Property Name="Vid" Type="Boolean" Nullable="false" />
+          <Property Name="SmFil" Type="Int32" />
+          <Property Name="UserId" Type="Int64" />
+          <Property Name="DepartmentBase" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="PROVODKA_ID" Type="Int64" />
+          <NavigationProperty Name="tbbu_provodki" Relationship="Self.FK_tblVipl_tbbu_provodki" FromRole="tblVipl" ToRole="tbbu_provodki" />
+          <NavigationProperty Name="tblSprav_Kv" Relationship="Self.FK_tblVipl_tblSprav_Kv" FromRole="tblVipl" ToRole="tblSprav_Kv" />
+          <NavigationProperty Name="tblSprav_Org" Relationship="Self.FK_tblVipl_tblSprav_Org" FromRole="tblVipl" ToRole="tblSprav_Org" />
+          <NavigationProperty Name="tblVipl_Put" Relationship="Self.FK_tblVipl_Put_tblVipl" FromRole="tblVipl" ToRole="tblVipl_Put" />
+        </EntityType>
+        <EntityType Name="tblVipl_NumGEn">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DEPARTMENT_BASE" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="NUMDOC_GEN" Type="Int32" />
+          <Property Name="USER_ID" Type="Int64" />
+          <Property Name="YEAR" Type="Int32" />
+        </EntityType>
+        <EntityType Name="tblVipl_Put">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_Vipl" Type="Int64" />
+          <Property Name="ID_Pok" Type="Int64" />
+          <Property Name="ID_Sanat" Type="Int32" />
+          <Property Name="Num_Put" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Num_Proc" Type="Int32" />
+          <Property Name="Symma" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="ID_PolVoz" Type="Boolean" Nullable="false" />
+          <Property Name="Data_Post" Type="DateTime" Precision="3" />
+          <Property Name="UserId" Type="Int64" />
+          <Property Name="ZayavkaID" Type="Int64" />
+          <Property Name="DepartmentBase" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="tblSprav_San" Relationship="Self.FK_tblVipl_Put_tblSprav_San" FromRole="tblVipl_Put" ToRole="tblSprav_San" />
+          <NavigationProperty Name="tblVipl" Relationship="Self.FK_tblVipl_Put_tblVipl" FromRole="tblVipl_Put" ToRole="tblVipl" />
+        </EntityType>
+        <EntityType Name="tbsp_soato_new">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="KODI" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="NAME_LN" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="CENTRE_NAME_LN" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="NAME_RU" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="CENTRE_NAME_RU" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <Association Name="FK_tblOplata_tbbu_provodki">
+          <End Role="tbbu_provodki" Type="Self.tbbu_provodki" Multiplicity="0..1" />
+          <End Role="tblOplata" Type="Self.tblOplata" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbbu_provodki">
+              <PropertyRef Name="REC_ID" />
+            </Principal>
+            <Dependent Role="tblOplata">
+              <PropertyRef Name="PROVODKA_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblPost_tbbu_provodki">
+          <End Role="tbbu_provodki" Type="Self.tbbu_provodki" Multiplicity="0..1" />
+          <End Role="tblPost" Type="Self.tblPost" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbbu_provodki">
+              <PropertyRef Name="REC_ID" />
+            </Principal>
+            <Dependent Role="tblPost">
+              <PropertyRef Name="PROVODKA_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblVipl_tbbu_provodki">
+          <End Role="tbbu_provodki" Type="Self.tbbu_provodki" Multiplicity="0..1" />
+          <End Role="tblVipl" Type="Self.tblVipl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbbu_provodki">
+              <PropertyRef Name="REC_ID" />
+            </Principal>
+            <Dependent Role="tblVipl">
+              <PropertyRef Name="PROVODKA_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblFace_Med_tblFase">
+          <End Role="tblFase" Type="Self.tblFase" Multiplicity="0..1" />
+          <End Role="tblFace_Med" Type="Self.tblFace_Med" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblFase">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tblFace_Med">
+              <PropertyRef Name="ID_Face" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblFace_Med_tblSprav_San">
+          <End Role="tblSprav_San" Type="Self.tblSprav_San" Multiplicity="0..1" />
+          <End Role="tblFace_Med" Type="Self.tblFace_Med" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblSprav_San">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tblFace_Med">
+              <PropertyRef Name="Med_San" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblFase_tblSprav_Face">
+          <End Role="tblSprav_Face" Type="Self.tblSprav_Face" Multiplicity="0..1" />
+          <End Role="tblFase" Type="Self.tblFase" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblSprav_Face">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tblFase">
+              <PropertyRef Name="ID_Osnov" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblFase_tblSprav_Os">
+          <End Role="tblSprav_Os" Type="Self.tblSprav_Os" Multiplicity="0..1" />
+          <End Role="tblFase" Type="Self.tblFase" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblSprav_Os">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tblFase">
+              <PropertyRef Name="Stav_Vid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblFase_tblSprav_Pr">
+          <End Role="tblSprav_Pr" Type="Self.tblSprav_Pr" Multiplicity="0..1" />
+          <End Role="tblFase" Type="Self.tblFase" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblSprav_Pr">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tblFase">
+              <PropertyRef Name="Gost_Pr" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblFase_tblSprav_San">
+          <End Role="tblSprav_San" Type="Self.tblSprav_San" Multiplicity="0..1" />
+          <End Role="tblFase" Type="Self.tblFase" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblSprav_San">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tblFase">
+              <PropertyRef Name="ID_Sanat" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblOplata_Ras_tblOplata">
+          <End Role="tblOplata" Type="Self.tblOplata" Multiplicity="0..1" />
+          <End Role="tblOplata_Ras" Type="Self.tblOplata_Ras" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblOplata">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tblOplata_Ras">
+              <PropertyRef Name="ID_Opl" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblOplata_tblOplata">
+          <End Role="tblOplata" Type="Self.tblOplata" Multiplicity="1" />
+          <End Role="tblOplata1" Type="Self.tblOplata" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="tblOplata">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tblOplata1">
+              <PropertyRef Name="ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblOplata_tblSprav_Kv">
+          <End Role="tblSprav_Kv" Type="Self.tblSprav_Kv" Multiplicity="0..1" />
+          <End Role="tblOplata" Type="Self.tblOplata" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblSprav_Kv">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tblOplata">
+              <PropertyRef Name="ID_KV" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblOplata_tblSprav_Org">
+          <End Role="tblSprav_Org" Type="Self.tblSprav_Org" Multiplicity="0..1" />
+          <End Role="tblOplata" Type="Self.tblOplata" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblSprav_Org">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tblOplata">
+              <PropertyRef Name="ID_Otras" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblOplata_Ras_tblSprav_Pr">
+          <End Role="tblSprav_Pr" Type="Self.tblSprav_Pr" Multiplicity="0..1" />
+          <End Role="tblOplata_Ras" Type="Self.tblOplata_Ras" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblSprav_Pr">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tblOplata_Ras">
+              <PropertyRef Name="ID_Pr" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblOplata_Ras_tblSprav_Pr1">
+          <End Role="tblSprav_Pr" Type="Self.tblSprav_Pr" Multiplicity="0..1" />
+          <End Role="tblOplata_Ras" Type="Self.tblOplata_Ras" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblSprav_Pr">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tblOplata_Ras">
+              <PropertyRef Name="ID_Pr" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblOplata_Ras_tblSprav_San">
+          <End Role="tblSprav_San" Type="Self.tblSprav_San" Multiplicity="0..1" />
+          <End Role="tblOplata_Ras" Type="Self.tblOplata_Ras" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblSprav_San">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tblOplata_Ras">
+              <PropertyRef Name="ID_Sanat" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblPos_Put_tblPost">
+          <End Role="tblPost" Type="Self.tblPost" Multiplicity="0..1" />
+          <End Role="tblPos_Put" Type="Self.tblPos_Put" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblPost">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tblPos_Put">
+              <PropertyRef Name="ID_Post" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblPos_Put_tblSprav_San">
+          <End Role="tblSprav_San" Type="Self.tblSprav_San" Multiplicity="0..1" />
+          <End Role="tblPos_Put" Type="Self.tblPos_Put" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblSprav_San">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tblPos_Put">
+              <PropertyRef Name="ID_Sanat" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblPost_tblSprav_Kv">
+          <End Role="tblSprav_Kv" Type="Self.tblSprav_Kv" Multiplicity="0..1" />
+          <End Role="tblPost" Type="Self.tblPost" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblSprav_Kv">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tblPost">
+              <PropertyRef Name="ID_KV" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblPost_tblSprav_Org">
+          <End Role="tblSprav_Org" Type="Self.tblSprav_Org" Multiplicity="0..1" />
+          <End Role="tblPost" Type="Self.tblPost" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblSprav_Org">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tblPost">
+              <PropertyRef Name="ID_Pos" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblVipl_tblSprav_Kv">
+          <End Role="tblSprav_Kv" Type="Self.tblSprav_Kv" Multiplicity="0..1" />
+          <End Role="tblVipl" Type="Self.tblVipl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblSprav_Kv">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tblVipl">
+              <PropertyRef Name="ID_Kv" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblVipl_tblSprav_Org">
+          <End Role="tblSprav_Org" Type="Self.tblSprav_Org" Multiplicity="0..1" />
+          <End Role="tblVipl" Type="Self.tblVipl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblSprav_Org">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tblVipl">
+              <PropertyRef Name="ID_Org" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblVipl_Put_tblSprav_San">
+          <End Role="tblSprav_San" Type="Self.tblSprav_San" Multiplicity="0..1" />
+          <End Role="tblVipl_Put" Type="Self.tblVipl_Put" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblSprav_San">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tblVipl_Put">
+              <PropertyRef Name="ID_Sanat" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblVipl_Put_tblVipl">
+          <End Role="tblVipl" Type="Self.tblVipl" Multiplicity="0..1" />
+          <End Role="tblVipl_Put" Type="Self.tblVipl_Put" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblVipl">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tblVipl_Put">
+              <PropertyRef Name="ID_Vipl" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="KasabaKIAT_N1Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="t_egrpo" EntityType="Self.t_egrpo" />
+          <EntitySet Name="tbbu_ecp_calc" EntityType="Self.tbbu_ecp_calc" />
+          <EntitySet Name="tbbu_provodki" EntityType="Self.tbbu_provodki" />
+          <EntitySet Name="tbku_StrokaProfsoyza" EntityType="Self.tbku_StrokaProfsoyza" />
+          <EntitySet Name="tblFace_Med" EntityType="Self.tblFace_Med" />
+          <EntitySet Name="tblFase" EntityType="Self.tblFase" />
+          <EntitySet Name="tblOplata" EntityType="Self.tblOplata" />
+          <EntitySet Name="tblOplata_Ras" EntityType="Self.tblOplata_Ras" />
+          <EntitySet Name="tblPos_Put" EntityType="Self.tblPos_Put" />
+          <EntitySet Name="tblPost" EntityType="Self.tblPost" />
+          <EntitySet Name="tblPred" EntityType="Self.tblPred" />
+          <EntitySet Name="tblSprav_Face" EntityType="Self.tblSprav_Face" />
+          <EntitySet Name="tblSprav_Kv" EntityType="Self.tblSprav_Kv" />
+          <EntitySet Name="tblSprav_MFO" EntityType="Self.tblSprav_MFO" />
+          <EntitySet Name="tblSprav_Org" EntityType="Self.tblSprav_Org" />
+          <EntitySet Name="tblSprav_Os" EntityType="Self.tblSprav_Os" />
+          <EntitySet Name="tblSprav_Otras" EntityType="Self.tblSprav_Otras" />
+          <EntitySet Name="tblSprav_Pr" EntityType="Self.tblSprav_Pr" />
+          <EntitySet Name="tblSprav_Reg" EntityType="Self.tblSprav_Reg" />
+          <EntitySet Name="tblSprav_San" EntityType="Self.tblSprav_San" />
+          <EntitySet Name="tblSprav_Vil" EntityType="Self.tblSprav_Vil" />
+          <EntitySet Name="tblVipl" EntityType="Self.tblVipl" />
+          <EntitySet Name="tblVipl_NumGEn" EntityType="Self.tblVipl_NumGEn" />
+          <EntitySet Name="tblVipl_Put" EntityType="Self.tblVipl_Put" />
+          <EntitySet Name="tbsp_soato_new" EntityType="Self.tbsp_soato_new" />
+          <AssociationSet Name="FK_tblOplata_tbbu_provodki" Association="Self.FK_tblOplata_tbbu_provodki">
+            <End Role="tbbu_provodki" EntitySet="tbbu_provodki" />
+            <End Role="tblOplata" EntitySet="tblOplata" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblPost_tbbu_provodki" Association="Self.FK_tblPost_tbbu_provodki">
+            <End Role="tbbu_provodki" EntitySet="tbbu_provodki" />
+            <End Role="tblPost" EntitySet="tblPost" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblVipl_tbbu_provodki" Association="Self.FK_tblVipl_tbbu_provodki">
+            <End Role="tbbu_provodki" EntitySet="tbbu_provodki" />
+            <End Role="tblVipl" EntitySet="tblVipl" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblFace_Med_tblFase" Association="Self.FK_tblFace_Med_tblFase">
+            <End Role="tblFase" EntitySet="tblFase" />
+            <End Role="tblFace_Med" EntitySet="tblFace_Med" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblFace_Med_tblSprav_San" Association="Self.FK_tblFace_Med_tblSprav_San">
+            <End Role="tblSprav_San" EntitySet="tblSprav_San" />
+            <End Role="tblFace_Med" EntitySet="tblFace_Med" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblFase_tblSprav_Face" Association="Self.FK_tblFase_tblSprav_Face">
+            <End Role="tblSprav_Face" EntitySet="tblSprav_Face" />
+            <End Role="tblFase" EntitySet="tblFase" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblFase_tblSprav_Os" Association="Self.FK_tblFase_tblSprav_Os">
+            <End Role="tblSprav_Os" EntitySet="tblSprav_Os" />
+            <End Role="tblFase" EntitySet="tblFase" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblFase_tblSprav_Pr" Association="Self.FK_tblFase_tblSprav_Pr">
+            <End Role="tblSprav_Pr" EntitySet="tblSprav_Pr" />
+            <End Role="tblFase" EntitySet="tblFase" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblFase_tblSprav_San" Association="Self.FK_tblFase_tblSprav_San">
+            <End Role="tblSprav_San" EntitySet="tblSprav_San" />
+            <End Role="tblFase" EntitySet="tblFase" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblOplata_Ras_tblOplata" Association="Self.FK_tblOplata_Ras_tblOplata">
+            <End Role="tblOplata" EntitySet="tblOplata" />
+            <End Role="tblOplata_Ras" EntitySet="tblOplata_Ras" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblOplata_tblOplata" Association="Self.FK_tblOplata_tblOplata">
+            <End Role="tblOplata" EntitySet="tblOplata" />
+            <End Role="tblOplata1" EntitySet="tblOplata" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblOplata_tblSprav_Kv" Association="Self.FK_tblOplata_tblSprav_Kv">
+            <End Role="tblSprav_Kv" EntitySet="tblSprav_Kv" />
+            <End Role="tblOplata" EntitySet="tblOplata" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblOplata_tblSprav_Org" Association="Self.FK_tblOplata_tblSprav_Org">
+            <End Role="tblSprav_Org" EntitySet="tblSprav_Org" />
+            <End Role="tblOplata" EntitySet="tblOplata" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblOplata_Ras_tblSprav_Pr" Association="Self.FK_tblOplata_Ras_tblSprav_Pr">
+            <End Role="tblSprav_Pr" EntitySet="tblSprav_Pr" />
+            <End Role="tblOplata_Ras" EntitySet="tblOplata_Ras" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblOplata_Ras_tblSprav_Pr1" Association="Self.FK_tblOplata_Ras_tblSprav_Pr1">
+            <End Role="tblSprav_Pr" EntitySet="tblSprav_Pr" />
+            <End Role="tblOplata_Ras" EntitySet="tblOplata_Ras" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblOplata_Ras_tblSprav_San" Association="Self.FK_tblOplata_Ras_tblSprav_San">
+            <End Role="tblSprav_San" EntitySet="tblSprav_San" />
+            <End Role="tblOplata_Ras" EntitySet="tblOplata_Ras" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblPos_Put_tblPost" Association="Self.FK_tblPos_Put_tblPost">
+            <End Role="tblPost" EntitySet="tblPost" />
+            <End Role="tblPos_Put" EntitySet="tblPos_Put" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblPos_Put_tblSprav_San" Association="Self.FK_tblPos_Put_tblSprav_San">
+            <End Role="tblSprav_San" EntitySet="tblSprav_San" />
+            <End Role="tblPos_Put" EntitySet="tblPos_Put" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblPost_tblSprav_Kv" Association="Self.FK_tblPost_tblSprav_Kv">
+            <End Role="tblSprav_Kv" EntitySet="tblSprav_Kv" />
+            <End Role="tblPost" EntitySet="tblPost" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblPost_tblSprav_Org" Association="Self.FK_tblPost_tblSprav_Org">
+            <End Role="tblSprav_Org" EntitySet="tblSprav_Org" />
+            <End Role="tblPost" EntitySet="tblPost" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblVipl_tblSprav_Kv" Association="Self.FK_tblVipl_tblSprav_Kv">
+            <End Role="tblSprav_Kv" EntitySet="tblSprav_Kv" />
+            <End Role="tblVipl" EntitySet="tblVipl" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblVipl_tblSprav_Org" Association="Self.FK_tblVipl_tblSprav_Org">
+            <End Role="tblSprav_Org" EntitySet="tblSprav_Org" />
+            <End Role="tblVipl" EntitySet="tblVipl" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblVipl_Put_tblSprav_San" Association="Self.FK_tblVipl_Put_tblSprav_San">
+            <End Role="tblSprav_San" EntitySet="tblSprav_San" />
+            <End Role="tblVipl_Put" EntitySet="tblVipl_Put" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblVipl_Put_tblVipl" Association="Self.FK_tblVipl_Put_tblVipl">
+            <End Role="tblVipl" EntitySet="tblVipl" />
+            <End Role="tblVipl_Put" EntitySet="tblVipl_Put" />
+          </AssociationSet>
+          <EntitySet Name="tbl_mig_danniyeVlad" EntityType="KasabaKIAT_N1Model.tbl_mig_danniyeVlad" />
+          <EntitySet Name="tbl_mig_oplata" EntityType="KasabaKIAT_N1Model.tbl_mig_oplata" />
+          <EntitySet Name="tbl_mig_rasxodi" EntityType="KasabaKIAT_N1Model.tbl_mig_rasxodi" />
+          <EntitySet Name="tbl_mig_ecp" EntityType="KasabaKIAT_N1Model.tbl_mig_ecp" />
+        </EntityContainer>
+        <EntityType Name="tbl_mig_danniyeVlad">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="POLYA01" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="POLYA011" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="POLYA012" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="POLYA013" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="POLYA014" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="POLYA015" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="POLYA016" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="POLYA017" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="POLYA018" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="POLYA019" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="POLYA0191" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="tbl_mig_oplata">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="POLYA01" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="POLYA011" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="POLYA012" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="POLYA013" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="POLYA014" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="POLYA015" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="POLYA016" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="POLYA017" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="POLYA018" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="POLYA019" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="POLYA0110" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="POLYA0111" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="POLYA0112" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="POLYA0113" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="POLYA0114" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="tbl_mig_rasxodi">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="POLYA01" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="POLYA02" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="POLYA03" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="POLYA04" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="POLYA05" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="POLYA06" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="POLYA07" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="POLYA08" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="POLYA09" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="POLYA10" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="POLYA11" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="POLYA12" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="POLYA13" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="POLYA14" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="POLYA15" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="POLYA16" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="POLYA17" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="POLYA18" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="POLYA19" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="POLYA20" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="tbl_mig_ecp">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="POLYA01" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="POLYA02" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="POLYA03" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="POLYA04" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="POLYA05" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="POLYA06" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="POLYA07" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="POLYA08" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="POLYA09" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="POLYA10" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="POLYA11" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="POLYA12" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="POLYA13" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="POLYA14" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="POLYA15" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="KasabaKIAT_N1ModelStoreContainer" CdmEntityContainer="KasabaKIAT_N1Entities">
+          <EntitySetMapping Name="t_egrpo">
+            <EntityTypeMapping TypeName="KasabaKIAT_N1Model.t_egrpo">
+              <MappingFragment StoreEntitySet="t_egrpo">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="close_date" ColumnName="close_date" />
+                <ScalarProperty Name="close_number" ColumnName="close_number" />
+                <ScalarProperty Name="count_workers" ColumnName="count_workers" />
+                <ScalarProperty Name="s_comment" ColumnName="s_comment" />
+                <ScalarProperty Name="s_create" ColumnName="s_create" />
+                <ScalarProperty Name="s_status" ColumnName="s_status" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="fin_xoz_work" ColumnName="fin_xoz_work" />
+                <ScalarProperty Name="name_full" ColumnName="name_full" />
+                <ScalarProperty Name="inn" ColumnName="inn" />
+                <ScalarProperty Name="liquidation" ColumnName="liquidation" />
+                <ScalarProperty Name="osn_worktype" ColumnName="osn_worktype" />
+                <ScalarProperty Name="phones" ColumnName="phones" />
+                <ScalarProperty Name="recreate" ColumnName="recreate" />
+                <ScalarProperty Name="reg_date" ColumnName="reg_date" />
+                <ScalarProperty Name="reg_number" ColumnName="reg_number" />
+                <ScalarProperty Name="reg_org" ColumnName="reg_org" />
+                <ScalarProperty Name="reorganization" ColumnName="reorganization" />
+                <ScalarProperty Name="restored" ColumnName="restored" />
+                <ScalarProperty Name="name_short" ColumnName="name_short" />
+                <ScalarProperty Name="street" ColumnName="street" />
+                <ScalarProperty Name="update_doc" ColumnName="update_doc" />
+                <ScalarProperty Name="update_email" ColumnName="update_email" />
+                <ScalarProperty Name="mail_index" ColumnName="mail_index" />
+                <ScalarProperty Name="s_user_id" ColumnName="s_user_id" />
+                <ScalarProperty Name="okonx_id" ColumnName="okonx_id" />
+                <ScalarProperty Name="opf_id" ColumnName="opf_id" />
+                <ScalarProperty Name="fs_id" ColumnName="fs_id" />
+                <ScalarProperty Name="soato_id" ColumnName="soato_id" />
+                <ScalarProperty Name="soogu_id" ColumnName="soogu_id" />
+                <ScalarProperty Name="okpo" ColumnName="okpo" />
+                <ScalarProperty Name="BANK_ACCOUNT" ColumnName="BANK_ACCOUNT" />
+                <ScalarProperty Name="NATIVE_ID" ColumnName="NATIVE_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbbu_ecp_calc">
+            <EntityTypeMapping TypeName="KasabaKIAT_N1Model.tbbu_ecp_calc">
+              <MappingFragment StoreEntitySet="tbbu_ecp_calc">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="PAYMENT_ID" ColumnName="PAYMENT_ID" />
+                <ScalarProperty Name="PROFSOUZ_AMT" ColumnName="PROFSOUZ_AMT" />
+                <ScalarProperty Name="FEDERATION_AMT" ColumnName="FEDERATION_AMT" />
+                <ScalarProperty Name="OBLSOVPROF_AMT" ColumnName="OBLSOVPROF_AMT" />
+                <ScalarProperty Name="OBL_DEPARTMENT_BASE" ColumnName="OBL_DEPARTMENT_BASE" />
+                <ScalarProperty Name="PROVODKA_ID" ColumnName="PROVODKA_ID" />
+                <ScalarProperty Name="REMARK" ColumnName="REMARK" />
+                <ScalarProperty Name="INN" ColumnName="INN" />
+                <ScalarProperty Name="SOATO" ColumnName="SOATO" />
+                <ScalarProperty Name="SOATO_NAME" ColumnName="SOATO_NAME" />
+                <ScalarProperty Name="OPERDATE" ColumnName="OPERDATE" />
+                <ScalarProperty Name="OKONX_ID" ColumnName="OKONX_ID" />
+                <ScalarProperty Name="OKONX_NAME" ColumnName="OKONX_NAME" />
+                <ScalarProperty Name="BRANCH_CODE" ColumnName="BRANCH_CODE" />
+                <ScalarProperty Name="BRANCH_NAME" ColumnName="BRANCH_NAME" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbbu_provodki">
+            <EntityTypeMapping TypeName="KasabaKIAT_N1Model.tbbu_provodki">
+              <MappingFragment StoreEntitySet="tbbu_provodki">
+                <ScalarProperty Name="REC_ID" ColumnName="REC_ID" />
+                <ScalarProperty Name="DEPARTMENT_BASE" ColumnName="DEPARTMENT_BASE" />
+                <ScalarProperty Name="USER_ID" ColumnName="USER_ID" />
+                <ScalarProperty Name="INOUTFLG" ColumnName="INOUTFLG" />
+                <ScalarProperty Name="TRDT" ColumnName="TRDT" />
+                <ScalarProperty Name="NUMBER" ColumnName="NUMBER" />
+                <ScalarProperty Name="TIPSCHETA" ColumnName="TIPSCHETA" />
+                <ScalarProperty Name="TIPOBOROTA" ColumnName="TIPOBOROTA" />
+                <ScalarProperty Name="PLATELNAME" ColumnName="PLATELNAME" />
+                <ScalarProperty Name="PLATELINN" ColumnName="PLATELINN" />
+                <ScalarProperty Name="PLATELMFO" ColumnName="PLATELMFO" />
+                <ScalarProperty Name="POLUCHNAME" ColumnName="POLUCHNAME" />
+                <ScalarProperty Name="POLUCHINN" ColumnName="POLUCHINN" />
+                <ScalarProperty Name="POLUCHMFO" ColumnName="POLUCHMFO" />
+                <ScalarProperty Name="PLATELRSCH" ColumnName="PLATELRSCH" />
+                <ScalarProperty Name="POLUCHRSCH" ColumnName="POLUCHRSCH" />
+                <ScalarProperty Name="SUMMA" ColumnName="SUMMA" />
+                <ScalarProperty Name="COMMENT" ColumnName="COMMENT" />
+                <ScalarProperty Name="TRREF" ColumnName="TRREF" />
+                <ScalarProperty Name="TRREFNO" ColumnName="TRREFNO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbku_StrokaProfsoyza">
+            <EntityTypeMapping TypeName="KasabaKIAT_N1Model.tbku_StrokaProfsoyza">
+              <MappingFragment StoreEntitySet="tbku_StrokaProfsoyza">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="ProfsoyzKod" ColumnName="ProfsoyzKod" />
+                <ScalarProperty Name="ProfsoyzNaimenovanie" ColumnName="ProfsoyzNaimenovanie" />
+                <ScalarProperty Name="CreateDT" ColumnName="CreateDT" />
+                <ScalarProperty Name="MATCH_DEPARTMENTBASE" ColumnName="MATCH_DEPARTMENTBASE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblFace_Med">
+            <EntityTypeMapping TypeName="KasabaKIAT_N1Model.tblFace_Med">
+              <MappingFragment StoreEntitySet="tblFace_Med">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="ID_Face" ColumnName="ID_Face" />
+                <ScalarProperty Name="Med_Doc" ColumnName="Med_Doc" />
+                <ScalarProperty Name="Med_Data" ColumnName="Med_Data" />
+                <ScalarProperty Name="Med_San" ColumnName="Med_San" />
+                <ScalarProperty Name="Opl_Doc" ColumnName="Opl_Doc" />
+                <ScalarProperty Name="Opl_Data" ColumnName="Opl_Data" />
+                <ScalarProperty Name="Opl_Symma" ColumnName="Opl_Symma" />
+                <ScalarProperty Name="Tal_Doc" ColumnName="Tal_Doc" />
+                <ScalarProperty Name="Tal_Data" ColumnName="Tal_Data" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Departmentbase" ColumnName="Departmentbase" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblFase">
+            <EntityTypeMapping TypeName="KasabaKIAT_N1Model.tblFase">
+              <MappingFragment StoreEntitySet="tblFase">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="ID_Put" ColumnName="ID_Put" />
+                <ScalarProperty Name="ID_Sanat" ColumnName="ID_Sanat" />
+                <ScalarProperty Name="Num_Put" ColumnName="Num_Put" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="Adress" ColumnName="Adress" />
+                <ScalarProperty Name="Rabota" ColumnName="Rabota" />
+                <ScalarProperty Name="Dolj" ColumnName="Dolj" />
+                <ScalarProperty Name="Stav_Vid" ColumnName="Stav_Vid" />
+                <ScalarProperty Name="Pas_ser" ColumnName="Pas_ser" />
+                <ScalarProperty Name="Pas_Num" ColumnName="Pas_Num" />
+                <ScalarProperty Name="Pas_KD" ColumnName="Pas_KD" />
+                <ScalarProperty Name="Pas_Data" ColumnName="Pas_Data" />
+                <ScalarProperty Name="Gost_Pr" ColumnName="Gost_Pr" />
+                <ScalarProperty Name="ID_Osnov" ColumnName="ID_Osnov" />
+                <ScalarProperty Name="Data_Post" ColumnName="Data_Post" />
+                <ScalarProperty Name="Pol" ColumnName="Pol" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Departmentbase" ColumnName="Departmentbase" />
+                <ScalarProperty Name="INN" ColumnName="INN" />
+                <ScalarProperty Name="PNFL" ColumnName="PNFL" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblOplata">
+            <EntityTypeMapping TypeName="KasabaKIAT_N1Model.tblOplata">
+              <MappingFragment StoreEntitySet="tblOplata">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Data_Post" ColumnName="Data_Post" />
+                <ScalarProperty Name="Num_Doc" ColumnName="Num_Doc" />
+                <ScalarProperty Name="ID_Otras" ColumnName="ID_Otras" />
+                <ScalarProperty Name="Symma_DT" ColumnName="Symma_DT" />
+                <ScalarProperty Name="Symma_KT" ColumnName="Symma_KT" />
+                <ScalarProperty Name="Osnov" ColumnName="Osnov" />
+                <ScalarProperty Name="ID_KV" ColumnName="ID_KV" />
+                <ScalarProperty Name="SmFil" ColumnName="SmFil" />
+                <ScalarProperty Name="Name_org" ColumnName="Name_org" />
+                <ScalarProperty Name="Tip_Org" ColumnName="Tip_Org" />
+                <ScalarProperty Name="PrizOpl" ColumnName="PrizOpl" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Departmentbase" ColumnName="Departmentbase" />
+                <ScalarProperty Name="PROVODKA_ID" ColumnName="PROVODKA_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblOplata_Ras">
+            <EntityTypeMapping TypeName="KasabaKIAT_N1Model.tblOplata_Ras">
+              <MappingFragment StoreEntitySet="tblOplata_Ras">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="ID_Opl" ColumnName="ID_Opl" />
+                <ScalarProperty Name="ID_Sanat" ColumnName="ID_Sanat" />
+                <ScalarProperty Name="Num_Put" ColumnName="Num_Put" />
+                <ScalarProperty Name="Symma" ColumnName="Symma" />
+                <ScalarProperty Name="ID_Pr" ColumnName="ID_Pr" />
+                <ScalarProperty Name="Priz" ColumnName="Priz" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Departmentbase" ColumnName="Departmentbase" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblPos_Put">
+            <EntityTypeMapping TypeName="KasabaKIAT_N1Model.tblPos_Put">
+              <MappingFragment StoreEntitySet="tblPos_Put">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="ID_Post" ColumnName="ID_Post" />
+                <ScalarProperty Name="ID_Sanat" ColumnName="ID_Sanat" />
+                <ScalarProperty Name="Num_Put" ColumnName="Num_Put" />
+                <ScalarProperty Name="DataSan" ColumnName="DataSan" />
+                <ScalarProperty Name="Symma_Put" ColumnName="Symma_Put" />
+                <ScalarProperty Name="ID_PolVoz" ColumnName="ID_PolVoz" />
+                <ScalarProperty Name="Data_Post" ColumnName="Data_Post" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Departmentbase" ColumnName="Departmentbase" />
+                <ScalarProperty Name="DataSanEnd" ColumnName="DataSanEnd" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblPost">
+            <EntityTypeMapping TypeName="KasabaKIAT_N1Model.tblPost">
+              <MappingFragment StoreEntitySet="tblPost">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="ID_KV" ColumnName="ID_KV" />
+                <ScalarProperty Name="Data_Post" ColumnName="Data_Post" />
+                <ScalarProperty Name="Num_Doc" ColumnName="Num_Doc" />
+                <ScalarProperty Name="ID_Pos" ColumnName="ID_Pos" />
+                <ScalarProperty Name="Num_Kol" ColumnName="Num_Kol" />
+                <ScalarProperty Name="Symma" ColumnName="Symma" />
+                <ScalarProperty Name="Name_Dov" ColumnName="Name_Dov" />
+                <ScalarProperty Name="Vid" ColumnName="Vid" />
+                <ScalarProperty Name="SmFil" ColumnName="SmFil" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="DepartmentBase" ColumnName="DepartmentBase" />
+                <ScalarProperty Name="BeginNumber" ColumnName="BeginNumber" />
+                <ScalarProperty Name="EndNumber" ColumnName="EndNumber" />
+                <ScalarProperty Name="PROVODKA_ID" ColumnName="PROVODKA_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblPred">
+            <EntityTypeMapping TypeName="KasabaKIAT_N1Model.tblPred">
+              <MappingFragment StoreEntitySet="tblPred">
+                <ScalarProperty Name="ID_Prof" ColumnName="ID_Prof" />
+                <ScalarProperty Name="ID_Name" ColumnName="ID_Name" />
+                <ScalarProperty Name="ID_Pred" ColumnName="ID_Pred" />
+                <ScalarProperty Name="ID_Pass" ColumnName="ID_Pass" />
+                <ScalarProperty Name="Adress" ColumnName="Adress" />
+                <ScalarProperty Name="RS" ColumnName="RS" />
+                <ScalarProperty Name="Name_bank" ColumnName="Name_bank" />
+                <ScalarProperty Name="MFO" ColumnName="MFO" />
+                <ScalarProperty Name="INN" ColumnName="INN" />
+                <ScalarProperty Name="OKONX" ColumnName="OKONX" />
+                <ScalarProperty Name="Name_Dir" ColumnName="Name_Dir" />
+                <ScalarProperty Name="PutDay" ColumnName="PutDay" />
+                <ScalarProperty Name="VIO" ColumnName="VIO" />
+                <ScalarProperty Name="SeverName" ColumnName="SeverName" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="PasName" ColumnName="PasName" />
+                <ScalarProperty Name="TipName" ColumnName="TipName" />
+                <ScalarProperty Name="Vid_SSL" ColumnName="Vid_SSL" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Departmentbase" ColumnName="Departmentbase" />
+                <ScalarProperty Name="KaznaAccount" ColumnName="KaznaAccount" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblSprav_Face">
+            <EntityTypeMapping TypeName="KasabaKIAT_N1Model.tblSprav_Face">
+              <MappingFragment StoreEntitySet="tblSprav_Face">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name_Os" ColumnName="Name_Os" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblSprav_Kv">
+            <EntityTypeMapping TypeName="KasabaKIAT_N1Model.tblSprav_Kv">
+              <MappingFragment StoreEntitySet="tblSprav_Kv">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name_Kv" ColumnName="Name_Kv" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblSprav_MFO">
+            <EntityTypeMapping TypeName="KasabaKIAT_N1Model.tblSprav_MFO">
+              <MappingFragment StoreEntitySet="tblSprav_MFO">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Code_MFO" ColumnName="Code_MFO" />
+                <ScalarProperty Name="Name_MFO" ColumnName="Name_MFO" />
+                <ScalarProperty Name="Adres_MFO" ColumnName="Adres_MFO" />
+                <ScalarProperty Name="Data_Act" ColumnName="Data_Act" />
+                <ScalarProperty Name="Data_Cls" ColumnName="Data_Cls" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblSprav_Org">
+            <EntityTypeMapping TypeName="KasabaKIAT_N1Model.tblSprav_Org">
+              <MappingFragment StoreEntitySet="tblSprav_Org">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="ID_Ot" ColumnName="ID_Ot" />
+                <ScalarProperty Name="Name_Org" ColumnName="Name_Org" />
+                <ScalarProperty Name="INN" ColumnName="INN" />
+                <ScalarProperty Name="RS" ColumnName="RS" />
+                <ScalarProperty Name="MFO" ColumnName="MFO" />
+                <ScalarProperty Name="Bank" ColumnName="Bank" />
+                <ScalarProperty Name="OKONX" ColumnName="OKONX" />
+                <ScalarProperty Name="Adress" ColumnName="Adress" />
+                <ScalarProperty Name="Telefon" ColumnName="Telefon" />
+                <ScalarProperty Name="Region" ColumnName="Region" />
+                <ScalarProperty Name="DT_OST" ColumnName="DT_OST" />
+                <ScalarProperty Name="KT_OST" ColumnName="KT_OST" />
+                <ScalarProperty Name="E_Mail" ColumnName="E_Mail" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="DepartmentBase" ColumnName="DepartmentBase" />
+                <ScalarProperty Name="IS_PRAVSOYUZ" ColumnName="IS_PRAVSOYUZ" />
+                <ScalarProperty Name="ParentID" ColumnName="ParentID" />
+                <ScalarProperty Name="PRAVORGLEVEL" ColumnName="PRAVORGLEVEL" />
+                <ScalarProperty Name="DIRECTOR" ColumnName="DIRECTOR" />
+                <ScalarProperty Name="BUXGALTER" ColumnName="BUXGALTER" />
+                <ScalarProperty Name="DOVERENNOE_LISO" ColumnName="DOVERENNOE_LISO" />
+                <ScalarProperty Name="ORIG_INN" ColumnName="ORIG_INN" />
+                <ScalarProperty Name="OWNER_CODE" ColumnName="OWNER_CODE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblSprav_Os">
+            <EntityTypeMapping TypeName="KasabaKIAT_N1Model.tblSprav_Os">
+              <MappingFragment StoreEntitySet="tblSprav_Os">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name_Os" ColumnName="Name_Os" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblSprav_Otras">
+            <EntityTypeMapping TypeName="KasabaKIAT_N1Model.tblSprav_Otras">
+              <MappingFragment StoreEntitySet="tblSprav_Otras">
+                <ScalarProperty Name="ID_Ot" ColumnName="ID_Ot" />
+                <ScalarProperty Name="Name_Ot" ColumnName="Name_Ot" />
+                <ScalarProperty Name="Priz" ColumnName="Priz" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="DepartmentBase" ColumnName="DepartmentBase" />
+                <ScalarProperty Name="BRANCH_CODE" ColumnName="BRANCH_CODE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblSprav_Pr">
+            <EntityTypeMapping TypeName="KasabaKIAT_N1Model.tblSprav_Pr">
+              <MappingFragment StoreEntitySet="tblSprav_Pr">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name_Proc" ColumnName="Name_Proc" />
+                <ScalarProperty Name="Num" ColumnName="Num" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblSprav_Reg">
+            <EntityTypeMapping TypeName="KasabaKIAT_N1Model.tblSprav_Reg">
+              <MappingFragment StoreEntitySet="tblSprav_Reg">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="NameReg" ColumnName="NameReg" />
+                <ScalarProperty Name="CodeReg" ColumnName="CodeReg" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="DepartmentBase" ColumnName="DepartmentBase" />
+                <ScalarProperty Name="VilId" ColumnName="VilId" />
+                <ScalarProperty Name="SOATO_CODE" ColumnName="SOATO_CODE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblSprav_San">
+            <EntityTypeMapping TypeName="KasabaKIAT_N1Model.tblSprav_San">
+              <MappingFragment StoreEntitySet="tblSprav_San">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name_San" ColumnName="Name_San" />
+                <ScalarProperty Name="Num_Kod" ColumnName="Num_Kod" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="KurortSanID" ColumnName="KurortSanID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblSprav_Vil">
+            <EntityTypeMapping TypeName="KasabaKIAT_N1Model.tblSprav_Vil">
+              <MappingFragment StoreEntitySet="tblSprav_Vil">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="ID_Code" ColumnName="ID_Code" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="SOATO_CODE" ColumnName="SOATO_CODE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblVipl">
+            <EntityTypeMapping TypeName="KasabaKIAT_N1Model.tblVipl">
+              <MappingFragment StoreEntitySet="tblVipl">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="ID_Org" ColumnName="ID_Org" />
+                <ScalarProperty Name="Data_Post" ColumnName="Data_Post" />
+                <ScalarProperty Name="Num_Doc" ColumnName="Num_Doc" />
+                <ScalarProperty Name="ID_Pok" ColumnName="ID_Pok" />
+                <ScalarProperty Name="Num_Kol" ColumnName="Num_Kol" />
+                <ScalarProperty Name="Symma" ColumnName="Symma" />
+                <ScalarProperty Name="Name_Dov" ColumnName="Name_Dov" />
+                <ScalarProperty Name="ID_Kv" ColumnName="ID_Kv" />
+                <ScalarProperty Name="Vid" ColumnName="Vid" />
+                <ScalarProperty Name="SmFil" ColumnName="SmFil" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="DepartmentBase" ColumnName="DepartmentBase" />
+                <ScalarProperty Name="PROVODKA_ID" ColumnName="PROVODKA_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblVipl_NumGEn">
+            <EntityTypeMapping TypeName="KasabaKIAT_N1Model.tblVipl_NumGEn">
+              <MappingFragment StoreEntitySet="tblVipl_NumGEn">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="DEPARTMENT_BASE" ColumnName="DEPARTMENT_BASE" />
+                <ScalarProperty Name="NUMDOC_GEN" ColumnName="NUMDOC_GEN" />
+                <ScalarProperty Name="USER_ID" ColumnName="USER_ID" />
+                <ScalarProperty Name="YEAR" ColumnName="YEAR" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblVipl_Put">
+            <EntityTypeMapping TypeName="KasabaKIAT_N1Model.tblVipl_Put">
+              <MappingFragment StoreEntitySet="tblVipl_Put">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="ID_Vipl" ColumnName="ID_Vipl" />
+                <ScalarProperty Name="ID_Pok" ColumnName="ID_Pok" />
+                <ScalarProperty Name="ID_Sanat" ColumnName="ID_Sanat" />
+                <ScalarProperty Name="Num_Put" ColumnName="Num_Put" />
+                <ScalarProperty Name="Num_Proc" ColumnName="Num_Proc" />
+                <ScalarProperty Name="Symma" ColumnName="Symma" />
+                <ScalarProperty Name="ID_PolVoz" ColumnName="ID_PolVoz" />
+                <ScalarProperty Name="Data_Post" ColumnName="Data_Post" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="ZayavkaID" ColumnName="ZayavkaID" />
+                <ScalarProperty Name="DepartmentBase" ColumnName="DepartmentBase" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbsp_soato_new">
+            <EntityTypeMapping TypeName="KasabaKIAT_N1Model.tbsp_soato_new">
+              <MappingFragment StoreEntitySet="tbsp_soato_new">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="KODI" ColumnName="KODI" />
+                <ScalarProperty Name="NAME_LN" ColumnName="NAME_LN" />
+                <ScalarProperty Name="CENTRE_NAME_LN" ColumnName="CENTRE_NAME_LN" />
+                <ScalarProperty Name="NAME_RU" ColumnName="NAME_RU" />
+                <ScalarProperty Name="CENTRE_NAME_RU" ColumnName="CENTRE_NAME_RU" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_mig_danniyeVlad">
+            <EntityTypeMapping TypeName="KasabaKIAT_N1Model.tbl_mig_danniyeVlad">
+              <MappingFragment StoreEntitySet="tbl_mig_danniyeVlad">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="POLYA0191" ColumnName="POLYA0191" />
+                <ScalarProperty Name="POLYA019" ColumnName="POLYA019" />
+                <ScalarProperty Name="POLYA018" ColumnName="POLYA018" />
+                <ScalarProperty Name="POLYA017" ColumnName="POLYA017" />
+                <ScalarProperty Name="POLYA016" ColumnName="POLYA016" />
+                <ScalarProperty Name="POLYA015" ColumnName="POLYA015" />
+                <ScalarProperty Name="POLYA014" ColumnName="POLYA014" />
+                <ScalarProperty Name="POLYA013" ColumnName="POLYA013" />
+                <ScalarProperty Name="POLYA012" ColumnName="POLYA012" />
+                <ScalarProperty Name="POLYA011" ColumnName="POLYA011" />
+                <ScalarProperty Name="POLYA01" ColumnName="POLYA01" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_mig_oplata">
+            <EntityTypeMapping TypeName="KasabaKIAT_N1Model.tbl_mig_oplata">
+              <MappingFragment StoreEntitySet="tbl_mig_oplata">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="POLYA0114" ColumnName="POLYA0114" />
+                <ScalarProperty Name="POLYA0113" ColumnName="POLYA0113" />
+                <ScalarProperty Name="POLYA0112" ColumnName="POLYA0112" />
+                <ScalarProperty Name="POLYA0111" ColumnName="POLYA0111" />
+                <ScalarProperty Name="POLYA0110" ColumnName="POLYA0110" />
+                <ScalarProperty Name="POLYA019" ColumnName="POLYA019" />
+                <ScalarProperty Name="POLYA018" ColumnName="POLYA018" />
+                <ScalarProperty Name="POLYA017" ColumnName="POLYA017" />
+                <ScalarProperty Name="POLYA016" ColumnName="POLYA016" />
+                <ScalarProperty Name="POLYA015" ColumnName="POLYA015" />
+                <ScalarProperty Name="POLYA014" ColumnName="POLYA014" />
+                <ScalarProperty Name="POLYA013" ColumnName="POLYA013" />
+                <ScalarProperty Name="POLYA012" ColumnName="POLYA012" />
+                <ScalarProperty Name="POLYA011" ColumnName="POLYA011" />
+                <ScalarProperty Name="POLYA01" ColumnName="POLYA01" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_mig_rasxodi">
+            <EntityTypeMapping TypeName="KasabaKIAT_N1Model.tbl_mig_rasxodi">
+              <MappingFragment StoreEntitySet="tbl_mig_rasxodi">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="POLYA20" ColumnName="POLYA20" />
+                <ScalarProperty Name="POLYA19" ColumnName="POLYA19" />
+                <ScalarProperty Name="POLYA18" ColumnName="POLYA18" />
+                <ScalarProperty Name="POLYA17" ColumnName="POLYA17" />
+                <ScalarProperty Name="POLYA16" ColumnName="POLYA16" />
+                <ScalarProperty Name="POLYA15" ColumnName="POLYA15" />
+                <ScalarProperty Name="POLYA14" ColumnName="POLYA14" />
+                <ScalarProperty Name="POLYA13" ColumnName="POLYA13" />
+                <ScalarProperty Name="POLYA12" ColumnName="POLYA12" />
+                <ScalarProperty Name="POLYA11" ColumnName="POLYA11" />
+                <ScalarProperty Name="POLYA10" ColumnName="POLYA10" />
+                <ScalarProperty Name="POLYA09" ColumnName="POLYA09" />
+                <ScalarProperty Name="POLYA08" ColumnName="POLYA08" />
+                <ScalarProperty Name="POLYA07" ColumnName="POLYA07" />
+                <ScalarProperty Name="POLYA06" ColumnName="POLYA06" />
+                <ScalarProperty Name="POLYA05" ColumnName="POLYA05" />
+                <ScalarProperty Name="POLYA04" ColumnName="POLYA04" />
+                <ScalarProperty Name="POLYA03" ColumnName="POLYA03" />
+                <ScalarProperty Name="POLYA02" ColumnName="POLYA02" />
+                <ScalarProperty Name="POLYA01" ColumnName="POLYA01" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_mig_ecp">
+            <EntityTypeMapping TypeName="KasabaKIAT_N1Model.tbl_mig_ecp">
+              <MappingFragment StoreEntitySet="tbl_mig_ecp">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="POLYA15" ColumnName="POLYA15" />
+                <ScalarProperty Name="POLYA14" ColumnName="POLYA14" />
+                <ScalarProperty Name="POLYA13" ColumnName="POLYA13" />
+                <ScalarProperty Name="POLYA12" ColumnName="POLYA12" />
+                <ScalarProperty Name="POLYA11" ColumnName="POLYA11" />
+                <ScalarProperty Name="POLYA10" ColumnName="POLYA10" />
+                <ScalarProperty Name="POLYA09" ColumnName="POLYA09" />
+                <ScalarProperty Name="POLYA08" ColumnName="POLYA08" />
+                <ScalarProperty Name="POLYA07" ColumnName="POLYA07" />
+                <ScalarProperty Name="POLYA06" ColumnName="POLYA06" />
+                <ScalarProperty Name="POLYA05" ColumnName="POLYA05" />
+                <ScalarProperty Name="POLYA04" ColumnName="POLYA04" />
+                <ScalarProperty Name="POLYA03" ColumnName="POLYA03" />
+                <ScalarProperty Name="POLYA02" ColumnName="POLYA02" />
+                <ScalarProperty Name="POLYA01" ColumnName="POLYA01" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

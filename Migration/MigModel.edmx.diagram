@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="25c3f37b2a3d4af199c51d886292bd0d" Name="Diagram1">
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.t_egrpo" Width="1.5" PointX="13.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.tbbu_ecp_calc" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.tbbu_provodki" Width="1.5" PointX="0.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.tbku_StrokaProfsoyza" Width="1.5" PointX="9.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.tblFace_Med" Width="1.5" PointX="8.25" PointY="12.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.tblFase" Width="1.5" PointX="11.25" PointY="12.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.tblOplata" Width="1.5" PointX="3" PointY="6.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.tblOplata_Ras" Width="1.5" PointX="8.25" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.tblPos_Put" Width="1.5" PointX="11.25" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.tblPost" Width="1.5" PointX="6" PointY="7.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.tblPred" Width="1.5" PointX="13.75" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.tblSprav_Face" Width="1.5" PointX="9" PointY="17.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.tblSprav_Kv" Width="1.5" PointX="0.75" PointY="3.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.tblSprav_MFO" Width="1.5" PointX="9.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.tblSprav_Org" Width="1.5" PointX="0.75" PointY="13.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.tblSprav_Os" Width="1.5" PointX="9" PointY="19.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.tblSprav_Otras" Width="1.5" PointX="15.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.tblSprav_Pr" Width="1.5" PointX="6" PointY="13.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.tblSprav_Reg" Width="1.5" PointX="15.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.tblSprav_San" Width="1.5" PointX="3" PointY="13" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.tblSprav_Vil" Width="1.5" PointX="15.75" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.tblVipl" Width="1.5" PointX="3" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.tblVipl_NumGEn" Width="1.5" PointX="15.75" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.tblVipl_Put" Width="1.5" PointX="5.25" PointY="1.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.tbsp_soato_new" Width="1.5" PointX="13.75" PointY="15.75" IsExpanded="true" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.FK_tblOplata_tbbu_provodki" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.FK_tblPost_tbbu_provodki" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.FK_tblVipl_tbbu_provodki" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.FK_tblFace_Med_tblFase" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.FK_tblFace_Med_tblSprav_San" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.FK_tblFase_tblSprav_Face" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.FK_tblFase_tblSprav_Os" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.FK_tblFase_tblSprav_Pr" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.FK_tblFase_tblSprav_San" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.FK_tblOplata_Ras_tblOplata" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.FK_tblOplata_tblOplata" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.FK_tblOplata_tblSprav_Kv" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.FK_tblOplata_tblSprav_Org" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.FK_tblOplata_Ras_tblSprav_Pr" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.FK_tblOplata_Ras_tblSprav_Pr1" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.FK_tblOplata_Ras_tblSprav_San" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.FK_tblPos_Put_tblPost" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.FK_tblPos_Put_tblSprav_San" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.FK_tblPost_tblSprav_Kv" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.FK_tblPost_tblSprav_Org" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.FK_tblVipl_tblSprav_Kv" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.FK_tblVipl_tblSprav_Org" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.FK_tblVipl_Put_tblSprav_San" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.FK_tblVipl_Put_tblVipl" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.tbl_mig_danniyeVlad" Width="1.5" PointX="3.375" PointY="16.75" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.tbl_mig_oplata" Width="1.5" PointX="5.375" PointY="16.75" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.tbl_mig_rasxodi" Width="1.5" PointX="16.375" PointY="14.75" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.tbl_mig_ecp" Width="1.5" PointX="18.375" PointY="0.75" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

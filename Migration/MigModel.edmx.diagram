@@ -40,7 +40,6 @@
         <AssociationConnector Association="KasabaKIAT_N1Model.FK_tblFase_tblSprav_Pr" ManuallyRouted="false" />
         <AssociationConnector Association="KasabaKIAT_N1Model.FK_tblFase_tblSprav_San" ManuallyRouted="false" />
         <AssociationConnector Association="KasabaKIAT_N1Model.FK_tblOplata_Ras_tblOplata" ManuallyRouted="false" />
-        <AssociationConnector Association="KasabaKIAT_N1Model.FK_tblOplata_tblOplata" ManuallyRouted="false" />
         <AssociationConnector Association="KasabaKIAT_N1Model.FK_tblOplata_tblSprav_Kv" ManuallyRouted="false" />
         <AssociationConnector Association="KasabaKIAT_N1Model.FK_tblOplata_tblSprav_Org" ManuallyRouted="false" />
         <AssociationConnector Association="KasabaKIAT_N1Model.FK_tblOplata_Ras_tblSprav_Pr" ManuallyRouted="false" />
@@ -58,6 +57,16 @@
         <EntityTypeShape EntityType="KasabaKIAT_N1Model.tbl_mig_oplata" Width="1.5" PointX="5.375" PointY="16.75" />
         <EntityTypeShape EntityType="KasabaKIAT_N1Model.tbl_mig_rasxodi" Width="1.5" PointX="16.375" PointY="14.75" />
         <EntityTypeShape EntityType="KasabaKIAT_N1Model.tbl_mig_ecp" Width="1.5" PointX="18.375" PointY="0.75" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.tblBron" Width="1.5" PointX="5.25" PointY="21.75" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.tblVozVrat" Width="1.5" PointX="18.25" PointY="7.5" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.FK_tblVozVrat_tbbu_provodki" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.FK_tblVozVrat_tbbu_provodki1" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.FK_tblBron_tblSprav_San" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.FK_tblVozVrat_tblPost" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.FK_tblVozVrat_tblSprav_Kv" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.FK_tblVozVrat_tblSprav_Org1" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.FK_tblVozVrat_tblSprav_San" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.FK_tblVozVrat_tblVipl" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

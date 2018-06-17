@@ -54,5 +54,7 @@ namespace Migration
         public virtual DbSet<tbl_mig_oplata> tbl_mig_oplata { get; set; }
         public virtual DbSet<tbl_mig_rasxodi> tbl_mig_rasxodi { get; set; }
         public virtual DbSet<tbl_mig_ecp> tbl_mig_ecp { get; set; }
+        public virtual DbSet<tblBron> tblBron { get; set; }
+        public virtual DbSet<tblVozVrat> tblVozVrat { get; set; }
     }
 }

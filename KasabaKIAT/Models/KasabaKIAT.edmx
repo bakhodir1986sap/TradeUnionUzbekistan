@@ -13581,10 +13581,6 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
             <End Role="tblOplata" EntitySet="tblOplatas" />
             <End Role="tblOplata_Ras" EntitySet="tblOplata_Ras" />
           </AssociationSet>
-          <AssociationSet Name="FK_tblOplata_tblOplata" Association="KasabaKIATModel.FK_tblOplata_tblOplata">
-            <End Role="tblOplata" EntitySet="tblOplatas" />
-            <End Role="tblOplata1" EntitySet="tblOplatas" />
-          </AssociationSet>
           <AssociationSet Name="FK_tblOplata_tblSprav_Kv" Association="KasabaKIATModel.FK_tblOplata_tblSprav_Kv">
             <End Role="tblSprav_Kv" EntitySet="tblSprav_Kv" />
             <End Role="tblOplata" EntitySet="tblOplatas" />
@@ -14711,8 +14707,6 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <Property Name="UserId" Type="Int64" />
           <Property Name="Departmentbase" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="tblOplata_Ras" Relationship="KasabaKIATModel.FK_tblOplata_Ras_tblOplata" FromRole="tblOplata" ToRole="tblOplata_Ras" />
-          <NavigationProperty Name="tblOplata1" Relationship="KasabaKIATModel.FK_tblOplata_tblOplata" FromRole="tblOplata" ToRole="tblOplata1" />
-          <NavigationProperty Name="tblOplata2" Relationship="KasabaKIATModel.FK_tblOplata_tblOplata" FromRole="tblOplata1" ToRole="tblOplata" />
           <NavigationProperty Name="tblSprav_Kv" Relationship="KasabaKIATModel.FK_tblOplata_tblSprav_Kv" FromRole="tblOplata" ToRole="tblSprav_Kv" />
           <NavigationProperty Name="tblSprav_Org" Relationship="KasabaKIATModel.FK_tblOplata_tblSprav_Org" FromRole="tblOplata" ToRole="tblSprav_Org" />
           <NavigationProperty Name="user" Relationship="KasabaKIATModel.FK_tblOplata_Users" FromRole="tblOplata" ToRole="users" />
@@ -14728,18 +14722,6 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
             </Principal>
             <Dependent Role="tblOplata_Ras">
               <PropertyRef Name="ID_Opl" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_tblOplata_tblOplata">
-          <End Type="KasabaKIATModel.tblOplata" Role="tblOplata" Multiplicity="1" />
-          <End Type="KasabaKIATModel.tblOplata" Role="tblOplata1" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="tblOplata">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="tblOplata1">
-              <PropertyRef Name="ID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>

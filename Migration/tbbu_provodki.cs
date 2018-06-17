@@ -20,6 +20,8 @@ namespace Migration
             this.tblOplata = new HashSet<tblOplata>();
             this.tblPost = new HashSet<tblPost>();
             this.tblVipl = new HashSet<tblVipl>();
+            this.tblVozVrat = new HashSet<tblVozVrat>();
+            this.tblVozVrat1 = new HashSet<tblVozVrat>();
         }
     
         public long REC_ID { get; set; }
@@ -49,5 +51,9 @@ namespace Migration
         public virtual ICollection<tblPost> tblPost { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblVipl> tblVipl { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tblVozVrat> tblVozVrat { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tblVozVrat> tblVozVrat1 { get; set; }
     }
 }

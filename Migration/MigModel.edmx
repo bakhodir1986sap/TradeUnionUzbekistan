@@ -189,6 +189,20 @@ warning 6002: The table/view 'KasabaKIAT_N1.dbo.tbl_mig_ecp' does not have a pri
           <Property Name="POLYA20" Type="nvarchar" MaxLength="100" />
           <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
+        <EntityType Name="tblBron">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_San" Type="int" Nullable="false" />
+          <Property Name="Num_Put" Type="nvarchar" MaxLength="15" />
+          <Property Name="Prem" Type="nvarchar" MaxLength="200" />
+          <Property Name="Uchet" Type="bit" />
+          <Property Name="ExpireDate" Type="date" />
+          <Property Name="UserId" Type="bigint" />
+          <Property Name="DepartmentBase" Type="nvarchar" MaxLength="255" />
+          <Property Name="TIME_STAMP" Type="datetime" />
+        </EntityType>
         <EntityType Name="tblFace_Med">
           <Key>
             <PropertyRef Name="ID" />
@@ -494,6 +508,29 @@ warning 6002: The table/view 'KasabaKIAT_N1.dbo.tbl_mig_ecp' does not have a pri
           <Property Name="ZayavkaID" Type="bigint" />
           <Property Name="DepartmentBase" Type="nvarchar" MaxLength="255" />
         </EntityType>
+        <EntityType Name="tblVozVrat">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Data_Post" Type="datetime" />
+          <Property Name="Num_Doc" Type="nvarchar" MaxLength="10" />
+          <Property Name="ID_Sanat" Type="int" />
+          <Property Name="Num_Put" Type="nvarchar" MaxLength="10" />
+          <Property Name="ID_Ot" Type="bigint" />
+          <Property Name="Dover" Type="nvarchar" MaxLength="50" />
+          <Property Name="ID_Pol" Type="bigint" />
+          <Property Name="SymmaP" Type="money" />
+          <Property Name="ID_KV" Type="int" />
+          <Property Name="SmFil" Type="int" />
+          <Property Name="Tip_Voz" Type="bit" Nullable="false" />
+          <Property Name="UserId" Type="bigint" />
+          <Property Name="DepartmentBase" Type="nvarchar" MaxLength="255" />
+          <Property Name="PRIXOD_ID" Type="bigint" />
+          <Property Name="RASXOD_ID" Type="bigint" />
+          <Property Name="PRIXOD_PROVODKA_ID" Type="bigint" />
+          <Property Name="RASXOD_PROVODKA_ID" Type="bigint" />
+        </EntityType>
         <EntityType Name="tbsp_soato_new">
           <Key>
             <PropertyRef Name="ID" />
@@ -505,6 +542,18 @@ warning 6002: The table/view 'KasabaKIAT_N1.dbo.tbl_mig_ecp' does not have a pri
           <Property Name="NAME_RU" Type="nvarchar" MaxLength="1000" />
           <Property Name="CENTRE_NAME_RU" Type="nvarchar" MaxLength="1000" />
         </EntityType>
+        <Association Name="FK_tblBron_tblSprav_San">
+          <End Role="tblSprav_San" Type="Self.tblSprav_San" Multiplicity="1" />
+          <End Role="tblBron" Type="Self.tblBron" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblSprav_San">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tblBron">
+              <PropertyRef Name="ID_San" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_tblFace_Med_tblFase">
           <End Role="tblFase" Type="Self.tblFase" Multiplicity="0..1" />
           <End Role="tblFace_Med" Type="Self.tblFace_Med" Multiplicity="*" />
@@ -793,6 +842,90 @@ warning 6002: The table/view 'KasabaKIAT_N1.dbo.tbl_mig_ecp' does not have a pri
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_tblVozVrat_tbbu_provodki">
+          <End Role="tbbu_provodki" Type="Self.tbbu_provodki" Multiplicity="0..1" />
+          <End Role="tblVozVrat" Type="Self.tblVozVrat" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbbu_provodki">
+              <PropertyRef Name="REC_ID" />
+            </Principal>
+            <Dependent Role="tblVozVrat">
+              <PropertyRef Name="PRIXOD_PROVODKA_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblVozVrat_tbbu_provodki1">
+          <End Role="tbbu_provodki" Type="Self.tbbu_provodki" Multiplicity="0..1" />
+          <End Role="tblVozVrat" Type="Self.tblVozVrat" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbbu_provodki">
+              <PropertyRef Name="REC_ID" />
+            </Principal>
+            <Dependent Role="tblVozVrat">
+              <PropertyRef Name="RASXOD_PROVODKA_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblVozVrat_tblPost">
+          <End Role="tblPost" Type="Self.tblPost" Multiplicity="0..1" />
+          <End Role="tblVozVrat" Type="Self.tblVozVrat" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblPost">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tblVozVrat">
+              <PropertyRef Name="PRIXOD_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblVozVrat_tblSprav_Kv">
+          <End Role="tblSprav_Kv" Type="Self.tblSprav_Kv" Multiplicity="0..1" />
+          <End Role="tblVozVrat" Type="Self.tblVozVrat" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblSprav_Kv">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tblVozVrat">
+              <PropertyRef Name="ID_KV" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblVozVrat_tblSprav_Org1">
+          <End Role="tblSprav_Org" Type="Self.tblSprav_Org" Multiplicity="0..1" />
+          <End Role="tblVozVrat" Type="Self.tblVozVrat" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblSprav_Org">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tblVozVrat">
+              <PropertyRef Name="ID_Ot" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblVozVrat_tblSprav_San">
+          <End Role="tblSprav_San" Type="Self.tblSprav_San" Multiplicity="0..1" />
+          <End Role="tblVozVrat" Type="Self.tblVozVrat" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblSprav_San">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tblVozVrat">
+              <PropertyRef Name="ID_Sanat" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblVozVrat_tblVipl">
+          <End Role="tblVipl" Type="Self.tblVipl" Multiplicity="0..1" />
+          <End Role="tblVozVrat" Type="Self.tblVozVrat" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblVipl">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tblVozVrat">
+              <PropertyRef Name="RASXOD_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="KasabaKIAT_N1ModelStoreContainer">
           <EntitySet Name="t_egrpo" EntityType="Self.t_egrpo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbbu_ecp_calc" EntityType="Self.tbbu_ecp_calc" Schema="dbo" store:Type="Tables" />
@@ -801,6 +934,7 @@ warning 6002: The table/view 'KasabaKIAT_N1.dbo.tbl_mig_ecp' does not have a pri
           <EntitySet Name="tbl_mig_danniyeVlad" EntityType="Self.tbl_mig_danniyeVlad" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_mig_oplata" EntityType="Self.tbl_mig_oplata" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_mig_rasxodi" EntityType="Self.tbl_mig_rasxodi" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblBron" EntityType="Self.tblBron" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblFace_Med" EntityType="Self.tblFace_Med" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblFase" EntityType="Self.tblFase" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblOplata" EntityType="Self.tblOplata" Schema="dbo" store:Type="Tables" />
@@ -821,6 +955,7 @@ warning 6002: The table/view 'KasabaKIAT_N1.dbo.tbl_mig_ecp' does not have a pri
           <EntitySet Name="tblVipl" EntityType="Self.tblVipl" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblVipl_NumGEn" EntityType="Self.tblVipl_NumGEn" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblVipl_Put" EntityType="Self.tblVipl_Put" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblVozVrat" EntityType="Self.tblVozVrat" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbsp_soato_new" EntityType="Self.tbsp_soato_new" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_mig_ecp" EntityType="Self.tbl_mig_ecp" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
@@ -842,6 +977,10 @@ warning 6002: The table/view 'KasabaKIAT_N1.dbo.tbl_mig_ecp' does not have a pri
     [tbl_mig_ecp].[ID] AS [ID]
     FROM [dbo].[tbl_mig_ecp] AS [tbl_mig_ecp]</DefiningQuery>
           </EntitySet>
+          <AssociationSet Name="FK_tblBron_tblSprav_San" Association="Self.FK_tblBron_tblSprav_San">
+            <End Role="tblSprav_San" EntitySet="tblSprav_San" />
+            <End Role="tblBron" EntitySet="tblBron" />
+          </AssociationSet>
           <AssociationSet Name="FK_tblFace_Med_tblFase" Association="Self.FK_tblFace_Med_tblFase">
             <End Role="tblFase" EntitySet="tblFase" />
             <End Role="tblFace_Med" EntitySet="tblFace_Med" />
@@ -938,6 +1077,34 @@ warning 6002: The table/view 'KasabaKIAT_N1.dbo.tbl_mig_ecp' does not have a pri
             <End Role="tblSprav_Org" EntitySet="tblSprav_Org" />
             <End Role="tblVipl" EntitySet="tblVipl" />
           </AssociationSet>
+          <AssociationSet Name="FK_tblVozVrat_tbbu_provodki" Association="Self.FK_tblVozVrat_tbbu_provodki">
+            <End Role="tbbu_provodki" EntitySet="tbbu_provodki" />
+            <End Role="tblVozVrat" EntitySet="tblVozVrat" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblVozVrat_tbbu_provodki1" Association="Self.FK_tblVozVrat_tbbu_provodki1">
+            <End Role="tbbu_provodki" EntitySet="tbbu_provodki" />
+            <End Role="tblVozVrat" EntitySet="tblVozVrat" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblVozVrat_tblPost" Association="Self.FK_tblVozVrat_tblPost">
+            <End Role="tblPost" EntitySet="tblPost" />
+            <End Role="tblVozVrat" EntitySet="tblVozVrat" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblVozVrat_tblSprav_Kv" Association="Self.FK_tblVozVrat_tblSprav_Kv">
+            <End Role="tblSprav_Kv" EntitySet="tblSprav_Kv" />
+            <End Role="tblVozVrat" EntitySet="tblVozVrat" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblVozVrat_tblSprav_Org1" Association="Self.FK_tblVozVrat_tblSprav_Org1">
+            <End Role="tblSprav_Org" EntitySet="tblSprav_Org" />
+            <End Role="tblVozVrat" EntitySet="tblVozVrat" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblVozVrat_tblSprav_San" Association="Self.FK_tblVozVrat_tblSprav_San">
+            <End Role="tblSprav_San" EntitySet="tblSprav_San" />
+            <End Role="tblVozVrat" EntitySet="tblVozVrat" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblVozVrat_tblVipl" Association="Self.FK_tblVozVrat_tblVipl">
+            <End Role="tblVipl" EntitySet="tblVipl" />
+            <End Role="tblVozVrat" EntitySet="tblVozVrat" />
+          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -1032,6 +1199,8 @@ warning 6002: The table/view 'KasabaKIAT_N1.dbo.tbl_mig_ecp' does not have a pri
           <NavigationProperty Name="tblOplata" Relationship="Self.FK_tblOplata_tbbu_provodki" FromRole="tbbu_provodki" ToRole="tblOplata" />
           <NavigationProperty Name="tblPost" Relationship="Self.FK_tblPost_tbbu_provodki" FromRole="tbbu_provodki" ToRole="tblPost" />
           <NavigationProperty Name="tblVipl" Relationship="Self.FK_tblVipl_tbbu_provodki" FromRole="tbbu_provodki" ToRole="tblVipl" />
+          <NavigationProperty Name="tblVozVrat" Relationship="KasabaKIAT_N1Model.FK_tblVozVrat_tbbu_provodki" FromRole="tbbu_provodki" ToRole="tblVozVrat" />
+          <NavigationProperty Name="tblVozVrat1" Relationship="KasabaKIAT_N1Model.FK_tblVozVrat_tbbu_provodki1" FromRole="tbbu_provodki" ToRole="tblVozVrat" />
         </EntityType>
         <EntityType Name="tbku_StrokaProfsoyza">
           <Key>
@@ -1116,8 +1285,6 @@ warning 6002: The table/view 'KasabaKIAT_N1.dbo.tbl_mig_ecp' does not have a pri
           <Property Name="PROVODKA_ID" Type="Int64" />
           <NavigationProperty Name="tbbu_provodki" Relationship="Self.FK_tblOplata_tbbu_provodki" FromRole="tblOplata" ToRole="tbbu_provodki" />
           <NavigationProperty Name="tblOplata_Ras" Relationship="Self.FK_tblOplata_Ras_tblOplata" FromRole="tblOplata" ToRole="tblOplata_Ras" />
-          <NavigationProperty Name="tblOplata1" Relationship="Self.FK_tblOplata_tblOplata" FromRole="tblOplata" ToRole="tblOplata1" />
-          <NavigationProperty Name="tblOplata2" Relationship="Self.FK_tblOplata_tblOplata" FromRole="tblOplata1" ToRole="tblOplata" />
           <NavigationProperty Name="tblSprav_Kv" Relationship="Self.FK_tblOplata_tblSprav_Kv" FromRole="tblOplata" ToRole="tblSprav_Kv" />
           <NavigationProperty Name="tblSprav_Org" Relationship="Self.FK_tblOplata_tblSprav_Org" FromRole="tblOplata" ToRole="tblSprav_Org" />
         </EntityType>
@@ -1180,6 +1347,7 @@ warning 6002: The table/view 'KasabaKIAT_N1.dbo.tbl_mig_ecp' does not have a pri
           <NavigationProperty Name="tblPos_Put" Relationship="Self.FK_tblPos_Put_tblPost" FromRole="tblPost" ToRole="tblPos_Put" />
           <NavigationProperty Name="tblSprav_Kv" Relationship="Self.FK_tblPost_tblSprav_Kv" FromRole="tblPost" ToRole="tblSprav_Kv" />
           <NavigationProperty Name="tblSprav_Org" Relationship="Self.FK_tblPost_tblSprav_Org" FromRole="tblPost" ToRole="tblSprav_Org" />
+          <NavigationProperty Name="tblVozVrat" Relationship="KasabaKIAT_N1Model.FK_tblVozVrat_tblPost" FromRole="tblPost" ToRole="tblVozVrat" />
         </EntityType>
         <EntityType Name="tblPred">
           <Key>
@@ -1226,6 +1394,7 @@ warning 6002: The table/view 'KasabaKIAT_N1.dbo.tbl_mig_ecp' does not have a pri
           <NavigationProperty Name="tblOplata" Relationship="Self.FK_tblOplata_tblSprav_Kv" FromRole="tblSprav_Kv" ToRole="tblOplata" />
           <NavigationProperty Name="tblPost" Relationship="Self.FK_tblPost_tblSprav_Kv" FromRole="tblSprav_Kv" ToRole="tblPost" />
           <NavigationProperty Name="tblVipl" Relationship="Self.FK_tblVipl_tblSprav_Kv" FromRole="tblSprav_Kv" ToRole="tblVipl" />
+          <NavigationProperty Name="tblVozVrat" Relationship="KasabaKIAT_N1Model.FK_tblVozVrat_tblSprav_Kv" FromRole="tblSprav_Kv" ToRole="tblVozVrat" />
         </EntityType>
         <EntityType Name="tblSprav_MFO">
           <Key>
@@ -1270,6 +1439,7 @@ warning 6002: The table/view 'KasabaKIAT_N1.dbo.tbl_mig_ecp' does not have a pri
           <NavigationProperty Name="tblOplata" Relationship="Self.FK_tblOplata_tblSprav_Org" FromRole="tblSprav_Org" ToRole="tblOplata" />
           <NavigationProperty Name="tblPost" Relationship="Self.FK_tblPost_tblSprav_Org" FromRole="tblSprav_Org" ToRole="tblPost" />
           <NavigationProperty Name="tblVipl" Relationship="Self.FK_tblVipl_tblSprav_Org" FromRole="tblSprav_Org" ToRole="tblVipl" />
+          <NavigationProperty Name="tblVozVrat" Relationship="KasabaKIAT_N1Model.FK_tblVozVrat_tblSprav_Org1" FromRole="tblSprav_Org" ToRole="tblVozVrat" />
         </EntityType>
         <EntityType Name="tblSprav_Os">
           <Key>
@@ -1330,6 +1500,8 @@ warning 6002: The table/view 'KasabaKIAT_N1.dbo.tbl_mig_ecp' does not have a pri
           <NavigationProperty Name="tblOplata_Ras" Relationship="Self.FK_tblOplata_Ras_tblSprav_San" FromRole="tblSprav_San" ToRole="tblOplata_Ras" />
           <NavigationProperty Name="tblPos_Put" Relationship="Self.FK_tblPos_Put_tblSprav_San" FromRole="tblSprav_San" ToRole="tblPos_Put" />
           <NavigationProperty Name="tblVipl_Put" Relationship="Self.FK_tblVipl_Put_tblSprav_San" FromRole="tblSprav_San" ToRole="tblVipl_Put" />
+          <NavigationProperty Name="tblBron" Relationship="KasabaKIAT_N1Model.FK_tblBron_tblSprav_San" FromRole="tblSprav_San" ToRole="tblBron" />
+          <NavigationProperty Name="tblVozVrat" Relationship="KasabaKIAT_N1Model.FK_tblVozVrat_tblSprav_San" FromRole="tblSprav_San" ToRole="tblVozVrat" />
         </EntityType>
         <EntityType Name="tblSprav_Vil">
           <Key>
@@ -1363,6 +1535,7 @@ warning 6002: The table/view 'KasabaKIAT_N1.dbo.tbl_mig_ecp' does not have a pri
           <NavigationProperty Name="tblSprav_Kv" Relationship="Self.FK_tblVipl_tblSprav_Kv" FromRole="tblVipl" ToRole="tblSprav_Kv" />
           <NavigationProperty Name="tblSprav_Org" Relationship="Self.FK_tblVipl_tblSprav_Org" FromRole="tblVipl" ToRole="tblSprav_Org" />
           <NavigationProperty Name="tblVipl_Put" Relationship="Self.FK_tblVipl_Put_tblVipl" FromRole="tblVipl" ToRole="tblVipl_Put" />
+          <NavigationProperty Name="tblVozVrat" Relationship="KasabaKIAT_N1Model.FK_tblVozVrat_tblVipl" FromRole="tblVipl" ToRole="tblVozVrat" />
         </EntityType>
         <EntityType Name="tblVipl_NumGEn">
           <Key>
@@ -1521,18 +1694,6 @@ warning 6002: The table/view 'KasabaKIAT_N1.dbo.tbl_mig_ecp' does not have a pri
             </Principal>
             <Dependent Role="tblOplata_Ras">
               <PropertyRef Name="ID_Opl" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_tblOplata_tblOplata">
-          <End Role="tblOplata" Type="Self.tblOplata" Multiplicity="1" />
-          <End Role="tblOplata1" Type="Self.tblOplata" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="tblOplata">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="tblOplata1">
-              <PropertyRef Name="ID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1758,10 +1919,6 @@ warning 6002: The table/view 'KasabaKIAT_N1.dbo.tbl_mig_ecp' does not have a pri
             <End Role="tblOplata" EntitySet="tblOplata" />
             <End Role="tblOplata_Ras" EntitySet="tblOplata_Ras" />
           </AssociationSet>
-          <AssociationSet Name="FK_tblOplata_tblOplata" Association="Self.FK_tblOplata_tblOplata">
-            <End Role="tblOplata" EntitySet="tblOplata" />
-            <End Role="tblOplata1" EntitySet="tblOplata" />
-          </AssociationSet>
           <AssociationSet Name="FK_tblOplata_tblSprav_Kv" Association="Self.FK_tblOplata_tblSprav_Kv">
             <End Role="tblSprav_Kv" EntitySet="tblSprav_Kv" />
             <End Role="tblOplata" EntitySet="tblOplata" />
@@ -1818,6 +1975,40 @@ warning 6002: The table/view 'KasabaKIAT_N1.dbo.tbl_mig_ecp' does not have a pri
           <EntitySet Name="tbl_mig_oplata" EntityType="KasabaKIAT_N1Model.tbl_mig_oplata" />
           <EntitySet Name="tbl_mig_rasxodi" EntityType="KasabaKIAT_N1Model.tbl_mig_rasxodi" />
           <EntitySet Name="tbl_mig_ecp" EntityType="KasabaKIAT_N1Model.tbl_mig_ecp" />
+          <EntitySet Name="tblBron" EntityType="KasabaKIAT_N1Model.tblBron" />
+          <EntitySet Name="tblVozVrat" EntityType="KasabaKIAT_N1Model.tblVozVrat" />
+          <AssociationSet Name="FK_tblVozVrat_tbbu_provodki" Association="KasabaKIAT_N1Model.FK_tblVozVrat_tbbu_provodki">
+            <End Role="tbbu_provodki" EntitySet="tbbu_provodki" />
+            <End Role="tblVozVrat" EntitySet="tblVozVrat" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblVozVrat_tbbu_provodki1" Association="KasabaKIAT_N1Model.FK_tblVozVrat_tbbu_provodki1">
+            <End Role="tbbu_provodki" EntitySet="tbbu_provodki" />
+            <End Role="tblVozVrat" EntitySet="tblVozVrat" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblBron_tblSprav_San" Association="KasabaKIAT_N1Model.FK_tblBron_tblSprav_San">
+            <End Role="tblSprav_San" EntitySet="tblSprav_San" />
+            <End Role="tblBron" EntitySet="tblBron" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblVozVrat_tblPost" Association="KasabaKIAT_N1Model.FK_tblVozVrat_tblPost">
+            <End Role="tblPost" EntitySet="tblPost" />
+            <End Role="tblVozVrat" EntitySet="tblVozVrat" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblVozVrat_tblSprav_Kv" Association="KasabaKIAT_N1Model.FK_tblVozVrat_tblSprav_Kv">
+            <End Role="tblSprav_Kv" EntitySet="tblSprav_Kv" />
+            <End Role="tblVozVrat" EntitySet="tblVozVrat" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblVozVrat_tblSprav_Org1" Association="KasabaKIAT_N1Model.FK_tblVozVrat_tblSprav_Org1">
+            <End Role="tblSprav_Org" EntitySet="tblSprav_Org" />
+            <End Role="tblVozVrat" EntitySet="tblVozVrat" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblVozVrat_tblSprav_San" Association="KasabaKIAT_N1Model.FK_tblVozVrat_tblSprav_San">
+            <End Role="tblSprav_San" EntitySet="tblSprav_San" />
+            <End Role="tblVozVrat" EntitySet="tblVozVrat" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblVozVrat_tblVipl" Association="KasabaKIAT_N1Model.FK_tblVozVrat_tblVipl">
+            <End Role="tblVipl" EntitySet="tblVipl" />
+            <End Role="tblVozVrat" EntitySet="tblVozVrat" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="tbl_mig_danniyeVlad">
           <Key>
@@ -1904,6 +2095,147 @@ warning 6002: The table/view 'KasabaKIAT_N1.dbo.tbl_mig_ecp' does not have a pri
           <Property Name="POLYA15" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
         </EntityType>
+        <EntityType Name="tblBron">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_San" Type="Int32" Nullable="false" />
+          <Property Name="Num_Put" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="Prem" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Uchet" Type="Boolean" />
+          <Property Name="ExpireDate" Type="DateTime" Precision="0" />
+          <Property Name="UserId" Type="Int64" />
+          <Property Name="DepartmentBase" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="TIME_STAMP" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="tblSprav_San" Relationship="KasabaKIAT_N1Model.FK_tblBron_tblSprav_San" FromRole="tblBron" ToRole="tblSprav_San" />
+        </EntityType>
+        <EntityType Name="tblVozVrat">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Data_Post" Type="DateTime" Precision="3" />
+          <Property Name="Num_Doc" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="ID_Sanat" Type="Int32" />
+          <Property Name="Num_Put" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="ID_Ot" Type="Int64" />
+          <Property Name="Dover" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ID_Pol" Type="Int64" />
+          <Property Name="SymmaP" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="ID_KV" Type="Int32" />
+          <Property Name="SmFil" Type="Int32" />
+          <Property Name="Tip_Voz" Type="Boolean" Nullable="false" />
+          <Property Name="UserId" Type="Int64" />
+          <Property Name="DepartmentBase" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="PRIXOD_ID" Type="Int64" />
+          <Property Name="RASXOD_ID" Type="Int64" />
+          <Property Name="PRIXOD_PROVODKA_ID" Type="Int64" />
+          <Property Name="RASXOD_PROVODKA_ID" Type="Int64" />
+          <NavigationProperty Name="tbbu_provodki" Relationship="KasabaKIAT_N1Model.FK_tblVozVrat_tbbu_provodki" FromRole="tblVozVrat" ToRole="tbbu_provodki" />
+          <NavigationProperty Name="tbbu_provodki1" Relationship="KasabaKIAT_N1Model.FK_tblVozVrat_tbbu_provodki1" FromRole="tblVozVrat" ToRole="tbbu_provodki" />
+          <NavigationProperty Name="tblPost" Relationship="KasabaKIAT_N1Model.FK_tblVozVrat_tblPost" FromRole="tblVozVrat" ToRole="tblPost" />
+          <NavigationProperty Name="tblSprav_Kv" Relationship="KasabaKIAT_N1Model.FK_tblVozVrat_tblSprav_Kv" FromRole="tblVozVrat" ToRole="tblSprav_Kv" />
+          <NavigationProperty Name="tblSprav_Org" Relationship="KasabaKIAT_N1Model.FK_tblVozVrat_tblSprav_Org1" FromRole="tblVozVrat" ToRole="tblSprav_Org" />
+          <NavigationProperty Name="tblSprav_San" Relationship="KasabaKIAT_N1Model.FK_tblVozVrat_tblSprav_San" FromRole="tblVozVrat" ToRole="tblSprav_San" />
+          <NavigationProperty Name="tblVipl" Relationship="KasabaKIAT_N1Model.FK_tblVozVrat_tblVipl" FromRole="tblVozVrat" ToRole="tblVipl" />
+        </EntityType>
+        <Association Name="FK_tblVozVrat_tbbu_provodki">
+          <End Type="KasabaKIAT_N1Model.tbbu_provodki" Role="tbbu_provodki" Multiplicity="0..1" />
+          <End Type="KasabaKIAT_N1Model.tblVozVrat" Role="tblVozVrat" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbbu_provodki">
+              <PropertyRef Name="REC_ID" />
+            </Principal>
+            <Dependent Role="tblVozVrat">
+              <PropertyRef Name="PRIXOD_PROVODKA_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblVozVrat_tbbu_provodki1">
+          <End Type="KasabaKIAT_N1Model.tbbu_provodki" Role="tbbu_provodki" Multiplicity="0..1" />
+          <End Type="KasabaKIAT_N1Model.tblVozVrat" Role="tblVozVrat" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbbu_provodki">
+              <PropertyRef Name="REC_ID" />
+            </Principal>
+            <Dependent Role="tblVozVrat">
+              <PropertyRef Name="RASXOD_PROVODKA_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblBron_tblSprav_San">
+          <End Type="KasabaKIAT_N1Model.tblSprav_San" Role="tblSprav_San" Multiplicity="1" />
+          <End Type="KasabaKIAT_N1Model.tblBron" Role="tblBron" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblSprav_San">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tblBron">
+              <PropertyRef Name="ID_San" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblVozVrat_tblPost">
+          <End Type="KasabaKIAT_N1Model.tblPost" Role="tblPost" Multiplicity="0..1" />
+          <End Type="KasabaKIAT_N1Model.tblVozVrat" Role="tblVozVrat" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblPost">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tblVozVrat">
+              <PropertyRef Name="PRIXOD_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblVozVrat_tblSprav_Kv">
+          <End Type="KasabaKIAT_N1Model.tblSprav_Kv" Role="tblSprav_Kv" Multiplicity="0..1" />
+          <End Type="KasabaKIAT_N1Model.tblVozVrat" Role="tblVozVrat" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblSprav_Kv">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tblVozVrat">
+              <PropertyRef Name="ID_KV" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblVozVrat_tblSprav_Org1">
+          <End Type="KasabaKIAT_N1Model.tblSprav_Org" Role="tblSprav_Org" Multiplicity="0..1" />
+          <End Type="KasabaKIAT_N1Model.tblVozVrat" Role="tblVozVrat" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblSprav_Org">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tblVozVrat">
+              <PropertyRef Name="ID_Ot" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblVozVrat_tblSprav_San">
+          <End Type="KasabaKIAT_N1Model.tblSprav_San" Role="tblSprav_San" Multiplicity="0..1" />
+          <End Type="KasabaKIAT_N1Model.tblVozVrat" Role="tblVozVrat" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblSprav_San">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tblVozVrat">
+              <PropertyRef Name="ID_Sanat" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblVozVrat_tblVipl">
+          <End Type="KasabaKIAT_N1Model.tblVipl" Role="tblVipl" Multiplicity="0..1" />
+          <End Type="KasabaKIAT_N1Model.tblVozVrat" Role="tblVozVrat" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblVipl">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tblVozVrat">
+              <PropertyRef Name="RASXOD_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2434,6 +2766,45 @@ warning 6002: The table/view 'KasabaKIAT_N1.dbo.tbl_mig_ecp' does not have a pri
                 <ScalarProperty Name="POLYA03" ColumnName="POLYA03" />
                 <ScalarProperty Name="POLYA02" ColumnName="POLYA02" />
                 <ScalarProperty Name="POLYA01" ColumnName="POLYA01" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblBron">
+            <EntityTypeMapping TypeName="KasabaKIAT_N1Model.tblBron">
+              <MappingFragment StoreEntitySet="tblBron">
+                <ScalarProperty Name="TIME_STAMP" ColumnName="TIME_STAMP" />
+                <ScalarProperty Name="DepartmentBase" ColumnName="DepartmentBase" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="ExpireDate" ColumnName="ExpireDate" />
+                <ScalarProperty Name="Uchet" ColumnName="Uchet" />
+                <ScalarProperty Name="Prem" ColumnName="Prem" />
+                <ScalarProperty Name="Num_Put" ColumnName="Num_Put" />
+                <ScalarProperty Name="ID_San" ColumnName="ID_San" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblVozVrat">
+            <EntityTypeMapping TypeName="KasabaKIAT_N1Model.tblVozVrat">
+              <MappingFragment StoreEntitySet="tblVozVrat">
+                <ScalarProperty Name="RASXOD_PROVODKA_ID" ColumnName="RASXOD_PROVODKA_ID" />
+                <ScalarProperty Name="PRIXOD_PROVODKA_ID" ColumnName="PRIXOD_PROVODKA_ID" />
+                <ScalarProperty Name="RASXOD_ID" ColumnName="RASXOD_ID" />
+                <ScalarProperty Name="PRIXOD_ID" ColumnName="PRIXOD_ID" />
+                <ScalarProperty Name="DepartmentBase" ColumnName="DepartmentBase" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Tip_Voz" ColumnName="Tip_Voz" />
+                <ScalarProperty Name="SmFil" ColumnName="SmFil" />
+                <ScalarProperty Name="ID_KV" ColumnName="ID_KV" />
+                <ScalarProperty Name="SymmaP" ColumnName="SymmaP" />
+                <ScalarProperty Name="ID_Pol" ColumnName="ID_Pol" />
+                <ScalarProperty Name="Dover" ColumnName="Dover" />
+                <ScalarProperty Name="ID_Ot" ColumnName="ID_Ot" />
+                <ScalarProperty Name="Num_Put" ColumnName="Num_Put" />
+                <ScalarProperty Name="ID_Sanat" ColumnName="ID_Sanat" />
+                <ScalarProperty Name="Num_Doc" ColumnName="Num_Doc" />
+                <ScalarProperty Name="Data_Post" ColumnName="Data_Post" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

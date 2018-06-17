@@ -143,7 +143,7 @@ namespace KasabaKiat.BusinessLogic.Putyovki.RealizasiyaPutyovok
             using (KasabaKIATEntities db = new KasabaKIATEntities())
             {
                 var query = await (from vipl in db.tblVipl
-                            join org in db.tblSprav_Org on vipl.ID_Org equals org.ID
+                            //join org in db.tblSprav_Org on vipl.ID_Org equals org.ID
                             where vipl.SmFil == model.smfil 
                             && vipl.ID_Kv == model.id_kv
                             && vipl.DepartmentBase == model.departmentbase
@@ -152,7 +152,7 @@ namespace KasabaKiat.BusinessLogic.Putyovki.RealizasiyaPutyovok
                             {
                                 id              = vipl.ID,
                                 id_org          = vipl.ID_Org           ,
-                                organizationName = org.Name_Org,
+                                organizationName = "",//org.Name_Org,
                                 data_post       = vipl.Data_Post        ,
                                 num_doc         = vipl.Num_Doc          ,
                                 id_pok          = vipl.ID_Pok           ,
@@ -167,6 +167,16 @@ namespace KasabaKiat.BusinessLogic.Putyovki.RealizasiyaPutyovok
                             }).ToListAsync();
 
                 list = query;
+
+                foreach(var q in list)
+                {
+                    var orgs = db.tblSprav_Org.Where(z => z.ID == q.id_org);
+
+                    if (orgs.Any())
+                    {
+                        q.organizationName = orgs.First().Name_Org;
+                    }
+                }
             }
 
             return list;
@@ -388,7 +398,8 @@ namespace KasabaKiat.BusinessLogic.Putyovki.RealizasiyaPutyovok
                 DepartmentBase = naklad.departmentbase
             }).First();
 
-            schetFaktura.clientData = Sprav_Org.GetByDeraprtmentBase(naklad.departmentbase, naklad.id_org.Value).First();
+            if (naklad.id_org.HasValue)
+                schetFaktura.clientData = Sprav_Org.GetByDeraprtmentBase(naklad.departmentbase, naklad.id_org.Value).FirstOrDefault();
 
             return schetFaktura;
         }

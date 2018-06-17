@@ -351,7 +351,6 @@
         <AssociationConnector Association="KasabaKIATModel.FK_tblPred_Users" />
         <EntityTypeShape EntityType="KasabaKIATModel.tblOplata" Width="1.5" PointX="30.75" PointY="260" />
         <AssociationConnector Association="KasabaKIATModel.FK_tblOplata_Ras_tblOplata" />
-        <AssociationConnector Association="KasabaKIATModel.FK_tblOplata_tblOplata" />
         <AssociationConnector Association="KasabaKIATModel.FK_tblOplata_tblSprav_Kv" />
         <AssociationConnector Association="KasabaKIATModel.FK_tblOplata_tblSprav_Org" />
         <AssociationConnector Association="KasabaKIATModel.FK_tblOplata_Users" />

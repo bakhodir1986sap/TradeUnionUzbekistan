@@ -18,6 +18,7 @@ namespace Migration
         public tblPost()
         {
             this.tblPos_Put = new HashSet<tblPos_Put>();
+            this.tblVozVrat = new HashSet<tblVozVrat>();
         }
     
         public long ID { get; set; }
@@ -41,5 +42,7 @@ namespace Migration
         public virtual ICollection<tblPos_Put> tblPos_Put { get; set; }
         public virtual tblSprav_Kv tblSprav_Kv { get; set; }
         public virtual tblSprav_Org tblSprav_Org { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tblVozVrat> tblVozVrat { get; set; }
     }
 }

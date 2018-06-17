@@ -39,8 +39,6 @@ namespace Migration
         public virtual tbbu_provodki tbbu_provodki { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblOplata_Ras> tblOplata_Ras { get; set; }
-        public virtual tblOplata tblOplata1 { get; set; }
-        public virtual tblOplata tblOplata2 { get; set; }
         public virtual tblSprav_Kv tblSprav_Kv { get; set; }
         public virtual tblSprav_Org tblSprav_Org { get; set; }
     }

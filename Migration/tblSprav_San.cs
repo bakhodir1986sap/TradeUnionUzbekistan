@@ -22,6 +22,8 @@ namespace Migration
             this.tblOplata_Ras = new HashSet<tblOplata_Ras>();
             this.tblPos_Put = new HashSet<tblPos_Put>();
             this.tblVipl_Put = new HashSet<tblVipl_Put>();
+            this.tblBron = new HashSet<tblBron>();
+            this.tblVozVrat = new HashSet<tblVozVrat>();
         }
     
         public int ID { get; set; }
@@ -40,5 +42,9 @@ namespace Migration
         public virtual ICollection<tblPos_Put> tblPos_Put { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblVipl_Put> tblVipl_Put { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tblBron> tblBron { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tblVozVrat> tblVozVrat { get; set; }
     }
 }

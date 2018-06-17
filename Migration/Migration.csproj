@@ -84,6 +84,9 @@
     <Compile Include="tbku_StrokaProfsoyza.cs">
       <DependentUpon>MigModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="tblBron.cs">
+      <DependentUpon>MigModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="tblFace_Med.cs">
       <DependentUpon>MigModel.tt</DependentUpon>
     </Compile>
@@ -144,6 +147,9 @@
     <Compile Include="tblVipl_Put.cs">
       <DependentUpon>MigModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="tblVozVrat.cs">
+      <DependentUpon>MigModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="tbl_mig_danniyeVlad.cs">
       <DependentUpon>MigModel.tt</DependentUpon>
     </Compile>
@@ -162,6 +168,30 @@
     <Compile Include="t_egrpo.cs">
       <DependentUpon>MigModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Viloyats\Common\FaceDataManager.cs" />
+    <Compile Include="Viloyats\Common\FaceViewModel.cs" />
+    <Compile Include="Viloyats\Common\Mapping\Sanatory\SanatoryMapper.cs" />
+    <Compile Include="Viloyats\Common\Oplata.cs" />
+    <Compile Include="Viloyats\Common\OplataDataManager.cs" />
+    <Compile Include="Viloyats\Common\OplataRasxodDataManager.cs" />
+    <Compile Include="Viloyats\Common\OplataRasxodiViewModel.cs" />
+    <Compile Include="Viloyats\Common\OplataViewModel.cs" />
+    <Compile Include="Viloyats\Common\PostMainDataManager.cs" />
+    <Compile Include="Viloyats\Common\PostPutDetailDataManager.cs" />
+    <Compile Include="Viloyats\Common\PostPutyovkaViewModel.cs" />
+    <Compile Include="Viloyats\Common\PostupleniyaViewModel.cs" />
+    <Compile Include="Viloyats\Common\ProvodkiDataManager.cs" />
+    <Compile Include="Viloyats\Common\ProvodkiViewModel.cs" />
+    <Compile Include="Viloyats\Common\RealizasiyaViplMainViewModel.cs" />
+    <Compile Include="Viloyats\Common\RealizasiyaViplPutViewModel.cs" />
+    <Compile Include="Viloyats\Common\ViplMainDataManager.cs" />
+    <Compile Include="Viloyats\Common\ViplNumGen.cs" />
+    <Compile Include="Viloyats\Common\ViplNumGenDataManager.cs" />
+    <Compile Include="Viloyats\Common\ViplNumGenViewModel.cs" />
+    <Compile Include="Viloyats\Common\Vipl_PutDataManager.cs" />
+    <Compile Include="Viloyats\TashVil\Chastichka\Oplata.cs" />
+    <Compile Include="Viloyats\TashVil\DanniyeVladelsev\DanniyaVlad.cs" />
+    <Compile Include="Viloyats\TashVil\Rasxodi\MigRasxodi.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -176,7 +206,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Model\" />
-    <Folder Include="Viloyats\TashVil\" />
+    <Folder Include="Viloyats\TashVil\Esp\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="MigModel.Context.tt">

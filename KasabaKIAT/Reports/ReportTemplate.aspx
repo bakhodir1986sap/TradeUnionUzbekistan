@@ -7,26 +7,31 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head id="Head1" runat="server">
     <title></title>
-    <%--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js">--%>
+    <script src="/Scripts/jquery-1.10.2.min.js" ></script>
+    <script src="/Scripts/jquery-ui-1.8.17.custom.min.js"></script>
+
     <script>
         $(document).ready(function(){
 
- if ($.browser.webkit)
- {
-    $($(":hidden[id*='DatePickers']").val().split(",")).each(function(i, item){
-         var h = $("table[id*='ParametersGrid'] span").filter(function(i) {
-             var v = "[" + $(this).text() + "]";
-             return (v != null && v.indexOf(item) >= 0);
-          }).parent("td").next("td").find("input").datepicker({
-           showOn: "button"
-           ,buttonImage: '/Reserved.ReportViewerWebControl.axd?OpType=Resource&Name=Microsoft.Reporting.WebForms.calendar.gif'
-           ,buttonImageOnly: true
-           ,dateFormat: 'dd/mm/yy'
-           ,changeMonth: true
-           ,changeYear: true
-           });
-     });
-  }
+        var parameterRow = $("#ParametersRowrvSiteMapping");
+        var innerTable = $(parameterRow).find("table").find("table");
+        var span = innerTable.find("span:contains('Дата начало')");
+            if (span) {
+                var innerRow = $(span).parent().parent().parent();
+                var innerCell = innerRow.find("td").eq(1);
+                var textFrom = innerCell.find("input[type=text]");
+
+                textFrom.attr('type', 'date');
+            }
+
+        var span2 = innerTable.find("span:contains('Дата конца')");
+            if (span2) {
+                var innerRow2 = $(span2).parent().parent().parent();
+                var innerCell2 = innerRow2.find("td").eq(4);
+                var textFrom2 = innerCell2.find("input[type=text]");
+
+                textFrom2.attr('type', 'date');
+            }
 
 });
     </script>

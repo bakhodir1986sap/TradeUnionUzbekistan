@@ -21,7 +21,7 @@
     <div class="row mb-4">
         <div class="col-md-6">
             <div class="list-group r-list-group mb-4 box-shadow">
-                @*@if (List.SvodniyOtchetPoZayavkam)
+                @if (List.SvodniyOtchetPoZayavkam)
                 {
                     <a href="/Otchot/SvodniyOtchot" class="list-group-item list-group-item-action load">Сводный отчет по заявкам</a>
                 }
@@ -29,37 +29,37 @@
                 {
                     <a href="/Otchot/Talabnomlar" class="list-group-item list-group-item-action load">Талабномалар</a>
                 }
-                @if (List.FormaN13)
-                {
-                    <a href="/Otchot/Forma13" class="list-group-item list-group-item-action load">Форма №13 по получению путевок</a>
-                }
-                @if (List.FormaN14)
-                {
-                    <a href="/Otchot/Forma14" class="list-group-item list-group-item-action load">Форма №14</a>
+                @*@if (List.FormaN13)
+        {
+            <a href="/Otchot/Forma13" class="list-group-item list-group-item-action load">Форма №13 по получению путевок</a>
+        }
+        @if (List.FormaN14)
+        {
+            <a href="/Otchot/Forma14" class="list-group-item list-group-item-action load">Форма №14</a>
 
-                }
-                @if (List.TablisaPoUchetuOtdixayushix)
-                {
-                    <a href="/Otchot/TablitsaOtdixayushix" class="list-group-item list-group-item-action load">Таблица по учету отдыхающих</a>
+        }
+        @if (List.TablisaPoUchetuOtdixayushix)
+        {
+            <a href="/Otchot/TablitsaOtdixayushix" class="list-group-item list-group-item-action load">Таблица по учету отдыхающих</a>
 
-                }
-                @if (List.JurnalniyOrder1)
-                {
-                    <a href="/Otchot/JurnalniyOrder" class="list-group-item list-group-item-action load">Журнальный ордер</a>
+        }
+        @if (List.JurnalniyOrder1)
+        {
+            <a href="/Otchot/JurnalniyOrder" class="list-group-item list-group-item-action load">Журнальный ордер</a>
 
-                }
-                @if (List.FinansoviyKvartalniy)
-                {
-                    <a href="/Otchot/FinalniyOtchot" class="list-group-item list-group-item-action load">Финансовый отчет</a>
+        }
+        @if (List.FinansoviyKvartalniy)
+        {
+            <a href="/Otchot/FinalniyOtchot" class="list-group-item list-group-item-action load">Финансовый отчет</a>
 
-                }
-                @if (List.GlavnayaKniga)
-                {
-                    <a href="/Otchot/GlavnayaKniga" class="list-group-item list-group-item-action load">Главная книга</a>
-                }*@
+        }
+        @if (List.GlavnayaKniga)
+        {
+            <a href="/Otchot/GlavnayaKniga" class="list-group-item list-group-item-action load">Главная книга</a>
+        }*@
 
                 @if (ustinfo.role_id == 14)
-                 {
+                {
                     <a href="/Otchot/Postupleniya" class="list-group-item list-group-item-action load">Поступления</a>
                     <a href="/Otchot/RazbivkaPostupleniya" class="list-group-item list-group-item-action load">Разбивка поступления</a>
                     <a href="/Otchot/PostupleniyaOblastyam" class="list-group-item list-group-item-action load">Поступление По Областям</a>
@@ -69,78 +69,78 @@
                     <a href="/Otchot/PostupleniyaOblastTumanOtraslGroup" class="list-group-item list-group-item-action load">Разбивка по Районам и отраслям</a>
                     <a id="ReportUrl_Performance" class="list-group-item list-group-item-action load" href="@Url.Action("ReportTemplate", "Report",
                     new { ReportName = "Активность пользователя", ReportDescription = "Активность пользователя", Width = 100, Height = 650 })">Активность пользователя</a>
-                                    <a id="ReportUrl_Performance" class="list-group-item list-group-item-action load" href="@Url.Action("ReportTemplate", "Report",
+                    <a id="ReportUrl_Performance" class="list-group-item list-group-item-action load" href="@Url.Action("ReportTemplate", "Report",
                     new { ReportName = "Бронь по путевкам", ReportDescription = "Бронь по путевкам", Width = 100, Height = 650 })">Бронь по путевкам</a>
-                                    <a id="ReportUrl_Performance" class="list-group-item list-group-item-action load" href="@Url.Action("ReportTemplate", "Report",
+                    <a id="ReportUrl_Performance" class="list-group-item list-group-item-action load" href="@Url.Action("ReportTemplate", "Report",
                     new { ReportName = "Годовой план по отраслям", ReportDescription = "Годовой план по отраслям", Width = 100, Height = 650 })">Годовой план по отраслям</a>
-                                    <a id="ReportUrl_Performance" class="list-group-item list-group-item-action load" href="@Url.Action("ReportTemplate", "Report",
+                    <a id="ReportUrl_Performance" class="list-group-item list-group-item-action load" href="@Url.Action("ReportTemplate", "Report",
                     new { ReportName = "График Заездов Санаториев", ReportDescription = "График Заездов Санаториев", Width = 100, Height = 650 })">График Заездов Санаториев</a>
-                                    <a id="ReportUrl_Performance" class="list-group-item list-group-item-action load" href="@Url.Action("ReportTemplate", "Report",
+                    <a id="ReportUrl_Performance" class="list-group-item list-group-item-action load" href="@Url.Action("ReportTemplate", "Report",
                     new { ReportName = "Количество Заявок", ReportDescription = "Количество Заявок", Width = 100, Height = 650 })">Количество Заявок</a>
-                                    <a id="ReportUrl_Performance" class="list-group-item list-group-item-action load" href="@Url.Action("ReportTemplate", "Report",
+                    <a id="ReportUrl_Performance" class="list-group-item list-group-item-action load" href="@Url.Action("ReportTemplate", "Report",
                     new { ReportName = "Количество Заявок в разрезе Санаторий", ReportDescription = "Количество Заявок в разрезе Санаторий", Width = 100, Height = 650 })">Количество Заявок в разрезе Санаторий</a>
-                                    <a id="ReportUrl_Performance" class="list-group-item list-group-item-action load" href="@Url.Action("ReportTemplate", "Report",
+                    <a id="ReportUrl_Performance" class="list-group-item list-group-item-action load" href="@Url.Action("ReportTemplate", "Report",
                     new { ReportName = "Область - Район - Отрасль", ReportDescription = "Область - Район - Отрасль", Width = 100, Height = 650 })">Область - Район - Отрасль</a>
-                                    <a id="ReportUrl_Performance" class="list-group-item list-group-item-action load" href="@Url.Action("ReportTemplate", "Report",
+                    <a id="ReportUrl_Performance" class="list-group-item list-group-item-action load" href="@Url.Action("ReportTemplate", "Report",
                     new { ReportName = "Остатки путевок за период", ReportDescription = "Остатки путевок за период", Width = 100, Height = 650 })">Остатки путевок за период</a>
-                                    <a id="ReportUrl_Performance" class="list-group-item list-group-item-action load" href="@Url.Action("ReportTemplate", "Report",
+                    <a id="ReportUrl_Performance" class="list-group-item list-group-item-action load" href="@Url.Action("ReportTemplate", "Report",
                     new { ReportName = "Поиск по номеру путевки", ReportDescription = "Поиск по номеру путевки", Width = 100, Height = 650 })">Поиск по номеру путевки</a>
-                                    <a id="ReportUrl_Performance" class="list-group-item list-group-item-action load" href="@Url.Action("ReportTemplate", "Report",
+                    <a id="ReportUrl_Performance" class="list-group-item list-group-item-action load" href="@Url.Action("ReportTemplate", "Report",
                     new { ReportName = "Пользователи", ReportDescription = "Пользователи", Width = 100, Height = 650 })">Пользователи</a>
-                                    <a id="ReportUrl_Performance" class="list-group-item list-group-item-action load" href="@Url.Action("ReportTemplate", "Report",
+                    <a id="ReportUrl_Performance" class="list-group-item list-group-item-action load" href="@Url.Action("ReportTemplate", "Report",
                     new { ReportName = "Приход путевок за период", ReportDescription = "Приход путевок за период", Width = 100, Height = 650 })">Приход путевок за период</a>
-                                    <a id="ReportUrl_Performance" class="list-group-item list-group-item-action load" href="@Url.Action("ReportTemplate", "Report",
+                    <a id="ReportUrl_Performance" class="list-group-item list-group-item-action load" href="@Url.Action("ReportTemplate", "Report",
                     new { ReportName = "Приход путевок за период по Санаториям", ReportDescription = "Приход путевок за период по Санаториям", Width = 100, Height = 650 })">Приход путевок за период по Санаториям</a>
-                                    <a id="ReportUrl_Performance" class="list-group-item list-group-item-action load" href="@Url.Action("ReportTemplate", "Report",
+                    <a id="ReportUrl_Performance" class="list-group-item list-group-item-action load" href="@Url.Action("ReportTemplate", "Report",
                     new { ReportName = "Проводки", ReportDescription = "Проводки", Width = 100, Height = 650 })">Проводки</a>
-                                    <a id="ReportUrl_Performance" class="list-group-item list-group-item-action load" href="@Url.Action("ReportTemplate", "Report",
+                    <a id="ReportUrl_Performance" class="list-group-item list-group-item-action load" href="@Url.Action("ReportTemplate", "Report",
                     new { ReportName = "Реализация путевок", ReportDescription = "Реализация путевок", Width = 100, Height = 650 })">Реализация путевок</a>
-                 }
+                }
 
-                    
-                 @if (ustinfo.role_id == 13)
-                 {
-                        <a href="/Otchot/Postupleniya" class="list-group-item list-group-item-action load">Поступления</a>
-                        <a href="/Otchot/RazbivkaPostupleniya" class="list-group-item list-group-item-action load">Разбивка поступления</a>
-                        <a href="/Otchot/PostupleniyaOblastyam" class="list-group-item list-group-item-action load">Поступление По Областям</a>
-                        <a href="/Otchot/PostupleniyaOtrasli" class="list-group-item list-group-item-action load">Поступление По Отрасли</a>
-                        <a href="/Otchot/PostupleniyaOkonxu" class="list-group-item list-group-item-action load">Поступление По Оконху</a>
-                        <a href="/Otchot/PostupleniyaTuman" class="list-group-item list-group-item-action load">Разбивка по Областям и Районам</a>
-                        <a href="/Otchot/PostupleniyaOblastTumanOtraslGroup" class="list-group-item list-group-item-action load">Разбивка по Районам и отраслям</a>
-                        <a id="ReportUrl_Performance" class="list-group-item list-group-item-action load" href="@Url.Action("ReportTemplate", "Report",
-                        new { ReportName = "Запрос по Путевкам", ReportDescription = "Запрос по Путевкам", Width = 100, Height = 650 })">Запрос по Путевкам</a>
-                        <a id="ReportUrl_Performance" class="list-group-item list-group-item-action load" href="@Url.Action("ReportTemplate", "Report",
+
+                @if (ustinfo.role_id == 13)
+                {
+                    <a href="/Otchot/Postupleniya" class="list-group-item list-group-item-action load">Поступления</a>
+                    <a href="/Otchot/RazbivkaPostupleniya" class="list-group-item list-group-item-action load">Разбивка поступления</a>
+                    <a href="/Otchot/PostupleniyaOblastyam" class="list-group-item list-group-item-action load">Поступление По Областям</a>
+                    <a href="/Otchot/PostupleniyaOtrasli" class="list-group-item list-group-item-action load">Поступление По Отрасли</a>
+                    <a href="/Otchot/PostupleniyaOkonxu" class="list-group-item list-group-item-action load">Поступление По Оконху</a>
+                    <a href="/Otchot/PostupleniyaTuman" class="list-group-item list-group-item-action load">Разбивка по Областям и Районам</a>
+                    <a href="/Otchot/PostupleniyaOblastTumanOtraslGroup" class="list-group-item list-group-item-action load">Разбивка по Районам и отраслям</a>
+                    @*<a id="ReportUrl_Performance" class="list-group-item list-group-item-action load" href="@Url.Action("ReportTemplate", "Report",
+            new { ReportName = "Запрос по Путевкам", ReportDescription = "Запрос по Путевкам", Width = 100, Height = 650 })">Запрос по Путевкам</a>*@
+                    <a id="ReportUrl_Performance" class="list-group-item list-group-item-action load" href="@Url.Action("ReportTemplate", "Report",
                         new { ReportName = "Оперативка по путевкам", ReportDescription = "Оперативка по путевкам", Width = 100, Height = 650 })">Оперативка по путевкам</a>
-                        <a id="ReportUrl_Performance" class="list-group-item list-group-item-action load" href="@Url.Action("ReportTemplate", "Report",
+                    <a id="ReportUrl_Performance" class="list-group-item list-group-item-action load" href="@Url.Action("ReportTemplate", "Report",
                         new { ReportName = "Свод по путевкам", ReportDescription = "Свод по путевкам", Width = 100, Height = 650 })">Свод по путевкам</a>
-                        <a id="ReportUrl_Performance" class="list-group-item list-group-item-action load" href="@Url.Action("ReportTemplate", "Report",
-                        new { ReportName = "Оперативная карточка", ReportDescription = "Оперативная карточка", Width = 100, Height = 650 })">Оперативная карточка</a>
-                        <a id="ReportUrl_Performance" class="list-group-item list-group-item-action load" href="@Url.Action("ReportTemplate", "Report",
+                    @*<a id="ReportUrl_Performance" class="list-group-item list-group-item-action load" href="@Url.Action("ReportTemplate", "Report",
+            new { ReportName = "Оперативная карточка", ReportDescription = "Оперативная карточка", Width = 100, Height = 650 })">Оперативная карточка</a>*@
+                    <a id="ReportUrl_Performance" class="list-group-item list-group-item-action load" href="@Url.Action("ReportTemplate", "Report",
                         new { ReportName = "Баланс Предприятий", ReportDescription = "Баланс Предприятий", Width = 100, Height = 650 })">Баланс Предприятий</a>
-                        <a id="ReportUrl_Performance" class="list-group-item list-group-item-action load" href="@Url.Action("ReportTemplate", "Report",
-                        new { ReportName = "Учет медицинской регистрации работников", ReportDescription = "Учет медицинской регистрации работников", Width = 100, Height = 650 })">Учет медицинской регистрации работников</a>
+                    @*<a id="ReportUrl_Performance" class="list-group-item list-group-item-action load" href="@Url.Action("ReportTemplate", "Report",
+            new { ReportName = "Учет медицинской регистрации работников", ReportDescription = "Учет медицинской регистрации работников", Width = 100, Height = 650 })">Учет медицинской регистрации работников</a>*@
 
-                        <a id="ReportUrl_Performance" class="list-group-item list-group-item-action load" href="@Url.Action("ReportTemplate", "Report",
+                    <a id="ReportUrl_Performance" class="list-group-item list-group-item-action load" href="@Url.Action("ReportTemplate", "Report",
                         new { ReportName = "Учет поступления стоимости путевок", ReportDescription = "Учет поступления стоимости путевок", Width = 100, Height = 650 })">Учет поступления стоимости путевок</a>
 
-                        <a id="ReportUrl_Performance" class="list-group-item list-group-item-action load" href="@Url.Action("ReportTemplate", "Report",
+                    <a id="ReportUrl_Performance" class="list-group-item list-group-item-action load" href="@Url.Action("ReportTemplate", "Report",
                         new { ReportName = "Отчет № 13", ReportDescription = "Отчет № 13", Width = 100, Height = 650 })">Отчет № 13</a>
 
-                        <a id="ReportUrl_Performance" class="list-group-item list-group-item-action load" href="@Url.Action("ReportTemplate", "Report",
+                    <a id="ReportUrl_Performance" class="list-group-item list-group-item-action load" href="@Url.Action("ReportTemplate", "Report",
                         new { ReportName = "Отчет № 14", ReportDescription = "Отчет № 14", Width = 100, Height = 650 })">Отчет № 14</a>
 
-                        <a id="ReportUrl_Performance" class="list-group-item list-group-item-action load" href="@Url.Action("ReportTemplate", "Report",
+                    <a id="ReportUrl_Performance" class="list-group-item list-group-item-action load" href="@Url.Action("ReportTemplate", "Report",
                         new { ReportName = "Книга учета владельцев путевок", ReportDescription = "Книга учета владельцев путевок", Width = 100, Height = 650 })">Книга учета владельцев путевок</a>
 
-                        <a id="ReportUrl_Performance" class="list-group-item list-group-item-action load" href="@Url.Action("ReportTemplate", "Report",
+                    <a id="ReportUrl_Performance" class="list-group-item list-group-item-action load" href="@Url.Action("ReportTemplate", "Report",
                         new { ReportName = "Журнальный ордер № 4", ReportDescription = "Журнальный ордер № 4", Width = 100, Height = 650 })">Журнальный ордер № 4</a>
 
-                        <a id="ReportUrl_Performance" class="list-group-item list-group-item-action load" href="@Url.Action("ReportTemplate", "Report",
+                    <a id="ReportUrl_Performance" class="list-group-item list-group-item-action load" href="@Url.Action("ReportTemplate", "Report",
                         new { ReportName = "Журнальный ордер № 5", ReportDescription = "Журнальный ордер № 5", Width = 100, Height = 650 })">Журнальный ордер № 5</a>
 
-                        <a id="ReportUrl_Performance" class="list-group-item list-group-item-action load" href="@Url.Action("ReportTemplate", "Report",
+                    <a id="ReportUrl_Performance" class="list-group-item list-group-item-action load" href="@Url.Action("ReportTemplate", "Report",
                         new { ReportName = "Журнальный ордер № 6", ReportDescription = "Журнальный ордер № 6", Width = 100, Height = 650 })">Журнальный ордер № 6</a>
-                 }
+                }
 
             </div>
             @*<div class="mb-4">

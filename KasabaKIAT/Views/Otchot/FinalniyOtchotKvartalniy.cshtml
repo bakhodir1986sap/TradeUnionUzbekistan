@@ -1,0 +1,26 @@
+﻿@using KasabaKIAT.BusinessLogic.Security.Roles.RolePermissions;
+@{
+    var UserId = Convert.ToInt32(User.Identity.Name);
+    FunctionalityList List = FunctionalityAndDbDataMatch.MatchProcess(UserId);
+}
+@{
+    ViewBag.Title = "Отчеты";
+}
+@if (List.FinansoviyGodovoy)
+{
+    <section class="content__block container-fluid">
+        <div class="row mb-4 align-items-center">
+            <div class="col title__block">
+                <h4>Финансовый отчет</h4>
+                <nav aria-label="breadcrumb" class="breadcrumb__block">
+                    <ol class="breadcrumb">
+                        @*<li class="breadcrumb-item load"><a href="/Home/Otchot">Отчеты</a></li>*@
+                        <li class="breadcrumb-item load"><a href="/Otchot/index">Отчеты</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Финансовый отчет</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </section>
+}
+

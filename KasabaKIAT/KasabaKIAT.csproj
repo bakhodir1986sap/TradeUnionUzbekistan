@@ -1802,6 +1802,7 @@
     <Content Include="Views\t_sanatorium\Details.cshtml" />
     <Content Include="Views\t_sanatorium\Edit.cshtml" />
     <Content Include="Views\t_sanatorium\Index.cshtml" />
+    <Content Include="Views\Otchot\FinalniyOtchotKvartalniy.cshtml" />
     <None Include="Web References\KurortUrlService\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
@@ -1819,7 +1820,7 @@
     <Content Include="Views\Otchot\Forma14.cshtml" />
     <Content Include="Views\Otchot\TablitsaOtdixayushix.cshtml" />
     <Content Include="Views\Otchot\JurnalniyOrder.cshtml" />
-    <Content Include="Views\Otchot\FinalniyOtchot.cshtml" />
+    <Content Include="Views\Otchot\FinalniyOtchotGodovoy.cshtml" />
     <Content Include="Views\Otchot\GlavnayaKniga.cshtml" />
     <Content Include="Views\Administirirovaniye\SpravichnikiKurortnovoUpravleniya.cshtml" />
     <Content Include="Views\Administirirovaniye\SpisokPravsoyuzov.cshtml" />

@@ -573,14 +573,14 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.Provodki.AutomaticTransactions.K
                         db.SaveChanges();
                     }
 
-                    return;
+                    //return;
 
                     #region Provodki
                     var provodki = new Provodki();
 
                     var trans = new ProvodkiViewModel();
 
-                    var NotProcList = db.tbbu_ecp_calc.Where(z => z.PROVODKA_ID == 0 && z.OBL_DEPARTMENT_BASE != null);
+                    var NotProcList = db.tbbu_ecp_calc.Where(z => z.PROVODKA_ID == 0 && z.OBL_DEPARTMENT_BASE != null).Take(1000);
 
                     if (NotProcList.Any())
                     {

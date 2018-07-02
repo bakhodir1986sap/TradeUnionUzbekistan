@@ -234,6 +234,7 @@
     <Compile Include="BusinessLogic\Buxgalteriya\Balance\ProvodkaParams.cs" />
     <Compile Include="BusinessLogic\Buxgalteriya\Balance\Transactions\JournalDetailDataManager.cs" />
     <Compile Include="BusinessLogic\Buxgalteriya\Balance\Transactions\JournalMasterDataManager.cs" />
+    <Compile Include="BusinessLogic\Buxgalteriya\GlavnayaKniga\GK_Structure.cs" />
     <Compile Include="BusinessLogic\Buxgalteriya\OperationSettings\OperationSettings.cs" />
     <Compile Include="BusinessLogic\Buxgalteriya\OperationSettings\OperationSettingsDataManager.cs" />
     <Compile Include="BusinessLogic\Buxgalteriya\PlanirovaniyaBudjeta\Calculations.cs" />
@@ -1869,6 +1870,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="BusinessLogic\BankOplati\Firmi\" />
+    <Folder Include="BusinessLogic\Buxgalteriya\FinansoviyOtchet\" />
     <Folder Include="BusinessLogic\Reports\Buxgalteriya\NewFolder1\" />
     <Folder Include="BusinessLogic\Reports\Putyovki\NewFolder1\" />
     <Folder Include="BusinessLogic\Security\Roles\Users\" />

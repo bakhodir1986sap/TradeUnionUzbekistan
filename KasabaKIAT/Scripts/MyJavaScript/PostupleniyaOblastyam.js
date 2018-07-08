@@ -1,8 +1,10 @@
-﻿app.controller("PostupleniyaOblastyam", ["$scope", "$http", "$filter", "DataService", "CalcService", function ($scope, $http, $filter, DataService, CalcService) {
+﻿app.controller("PostupleniyaOblastyam", ["$scope", "$http", "$filter", "$locale", "DataService", "CalcService", function ($scope, $http, $filter, $locale ,DataService, CalcService) {
     $scope.showdata = false;
     $scope.ZB = new Date
     $scope.ZE = new Date();
     $scope.LoadDATA = function () {
+        $locale.NUMBER_FORMATS.GROUP_SEP = " ";
+        $locale.NUMBER_FORMATS.DECIMAL_SEP = ",";
         LoadDATA($scope.ZB, $scope.ZE);
     }
     function LoadDATA(bg, end) {

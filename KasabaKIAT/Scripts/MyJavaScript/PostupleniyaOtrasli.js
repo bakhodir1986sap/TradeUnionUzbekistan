@@ -1,4 +1,4 @@
-﻿app.controller("PostupleniyaOtrasli", ["$scope", "$http", "$filter", "DataService", "CalcService", function ($scope, $http, $filter, DataService, CalcService) {
+﻿app.controller("PostupleniyaOtrasli", ["$scope", "$http", "$filter", "$locale", "DataService", "CalcService", function ($scope, $http, $filter, $locale,DataService, CalcService) {
     AllRegion();
     $scope.showdata = false;
     $scope.ZB = new Date
@@ -7,6 +7,10 @@
         LoadDATA($scope.Region.id, $scope.ZB, $scope.ZE);
     }
     function LoadDATA(s, bg, end) {
+
+        $locale.NUMBER_FORMATS.GROUP_SEP = " ";
+        $locale.NUMBER_FORMATS.DECIMAL_SEP = ",";
+
         document.getElementById('connection').style.visibility = "visible";
         $("#hh").modal({
             backdrop: 'static',

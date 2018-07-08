@@ -626,10 +626,16 @@
     <Compile Include="Models\sp_rt_OtchetUchetStoimostiVidachi_Result.cs">
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\sp_rt_PostupleniyaN_Result.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\sp_rt_Postupleniya_Result.cs">
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\sp_rt_Postupleniya_Result1.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_rt_Razbivka_PostupN_Result.cs">
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\sp_rt_Razbivka_Postup_OblastGroup_Result.cs">
@@ -1804,6 +1810,8 @@
     <Content Include="Views\t_sanatorium\Edit.cshtml" />
     <Content Include="Views\t_sanatorium\Index.cshtml" />
     <Content Include="Views\Otchot\FinalniyOtchotKvartalniy.cshtml" />
+    <Content Include="Views\Otchot\PostupleniyaN.cshtml" />
+    <Content Include="Views\Otchot\RazbivkaPostupleniyaN.cshtml" />
     <None Include="Web References\KurortUrlService\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>

@@ -1,0 +1,94 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="KasabaKIAT_N1Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="sp_nation">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="s_comment" Type="nvarchar" MaxLength="500" />
+          <Property Name="s_create" Type="datetime" />
+          <Property Name="s_status" Type="nvarchar" MaxLength="255" />
+          <Property Name="name_ru" Type="nvarchar" MaxLength="1024" />
+          <Property Name="name_uz" Type="nvarchar" MaxLength="1024" />
+          <Property Name="name_uzl" Type="nvarchar" MaxLength="1024" />
+          <Property Name="s_user_id" Type="bigint" />
+          <Property Name="NATIVE_ID" Type="bigint" />
+        </EntityType>
+        <EntityContainer Name="KasabaKIAT_N1ModelStoreContainer">
+          <EntitySet Name="sp_nation" EntityType="Self.sp_nation" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="KasabaKIAT_N1Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="sp_nation">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="s_comment" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="s_create" Type="DateTime" Precision="3" />
+          <Property Name="s_status" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="name_ru" Type="String" MaxLength="1024" FixedLength="false" Unicode="true" />
+          <Property Name="name_uz" Type="String" MaxLength="1024" FixedLength="false" Unicode="true" />
+          <Property Name="name_uzl" Type="String" MaxLength="1024" FixedLength="false" Unicode="true" />
+          <Property Name="s_user_id" Type="Int64" />
+          <Property Name="NATIVE_ID" Type="Int64" />
+        </EntityType>
+        <EntityContainer Name="KasabaKIAT_N1Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="sp_nation" EntityType="Self.sp_nation" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="KasabaKIAT_N1ModelStoreContainer" CdmEntityContainer="KasabaKIAT_N1Entities">
+          <EntitySetMapping Name="sp_nation">
+            <EntityTypeMapping TypeName="KasabaKIAT_N1Model.sp_nation">
+              <MappingFragment StoreEntitySet="sp_nation">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="s_comment" ColumnName="s_comment" />
+                <ScalarProperty Name="s_create" ColumnName="s_create" />
+                <ScalarProperty Name="s_status" ColumnName="s_status" />
+                <ScalarProperty Name="name_ru" ColumnName="name_ru" />
+                <ScalarProperty Name="name_uz" ColumnName="name_uz" />
+                <ScalarProperty Name="name_uzl" ColumnName="name_uzl" />
+                <ScalarProperty Name="s_user_id" ColumnName="s_user_id" />
+                <ScalarProperty Name="NATIVE_ID" ColumnName="NATIVE_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

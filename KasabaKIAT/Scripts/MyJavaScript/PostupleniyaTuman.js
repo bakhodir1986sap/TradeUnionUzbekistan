@@ -1,4 +1,4 @@
-﻿app.controller("PostupleniyaTuman", ["$scope", "$http", "$filter", "DataService", "CalcService", function ($scope, $http, $filter, DataService, CalcService) {
+﻿app.controller("PostupleniyaTuman", ["$scope", "$http", "$filter", "$locale", "DataService", "CalcService", function ($scope, $http, $filter, $locale, DataService, CalcService) {
     $scope.showdata = false;
     $scope.ZB = new Date
     $scope.ZE = new Date();
@@ -6,6 +6,10 @@
         LoadDATA($scope.ZB, $scope.ZE);
     }
     function LoadDATA(bg, end) {
+
+        $locale.NUMBER_FORMATS.GROUP_SEP = " ";
+        $locale.NUMBER_FORMATS.DECIMAL_SEP = ",";
+
         document.getElementById('connection').style.visibility = "visible";
         $("#hh").modal({
             backdrop: 'static',

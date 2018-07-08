@@ -20,6 +20,7 @@ namespace KasabaKIAT.Models
         public KasabaKIATEntities()
             : base("name=KasabaKIATEntities")
         {
+            ((IObjectContextAdapter)this).ObjectContext.CommandTimeout = 300;
         }
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -1359,6 +1360,36 @@ namespace KasabaKIAT.Models
                 new ObjectParameter("role_id", typeof(long));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("userUpdate", userIdParameter, loginParameter, parolParameter, bkit_idParameter, role_idParameter);
+        }
+    
+        public virtual ObjectResult<sp_rt_PostupleniyaN_Result> sp_rt_PostupleniyaN(string iNN, string dEPARTMENT_BASE)
+        {
+            var iNNParameter = iNN != null ?
+                new ObjectParameter("INN", iNN) :
+                new ObjectParameter("INN", typeof(string));
+    
+            var dEPARTMENT_BASEParameter = dEPARTMENT_BASE != null ?
+                new ObjectParameter("DEPARTMENT_BASE", dEPARTMENT_BASE) :
+                new ObjectParameter("DEPARTMENT_BASE", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_rt_PostupleniyaN_Result>("sp_rt_PostupleniyaN", iNNParameter, dEPARTMENT_BASEParameter);
+        }
+    
+        public virtual ObjectResult<sp_rt_Razbivka_PostupN_Result> sp_rt_Razbivka_PostupN(string pAY_TYPE, string dEPARTMENT_BASE, Nullable<System.DateTime> bEGIN_DATE)
+        {
+            var pAY_TYPEParameter = pAY_TYPE != null ?
+                new ObjectParameter("PAY_TYPE", pAY_TYPE) :
+                new ObjectParameter("PAY_TYPE", typeof(string));
+    
+            var dEPARTMENT_BASEParameter = dEPARTMENT_BASE != null ?
+                new ObjectParameter("DEPARTMENT_BASE", dEPARTMENT_BASE) :
+                new ObjectParameter("DEPARTMENT_BASE", typeof(string));
+    
+            var bEGIN_DATEParameter = bEGIN_DATE.HasValue ?
+                new ObjectParameter("BEGIN_DATE", bEGIN_DATE) :
+                new ObjectParameter("BEGIN_DATE", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_rt_Razbivka_PostupN_Result>("sp_rt_Razbivka_PostupN", pAY_TYPEParameter, dEPARTMENT_BASEParameter, bEGIN_DATEParameter);
         }
     }
 }

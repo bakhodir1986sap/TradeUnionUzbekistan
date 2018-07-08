@@ -1,10 +1,18 @@
-﻿app.controller("Postupleniya", ["$scope", "$http", "$filter", "DataService", "CalcService", function ($scope, $http, $filter, DataService, CalcService) {
+﻿app.controller("Postupleniya", ["$scope", "$http", "$filter", "$locale", "DataService", "CalcService", function ($scope, $http, $filter, $locale,DataService, CalcService) {
     $scope.showdata = false;
     $scope.showdata2 = false;
     $scope.LoadINN = function () {
         LoadDATA($scope.INN);
     }
+
+    $scope.LoadINN_N = function () {
+        LoadDATAN($scope.INN);
+    }
+
     function LoadDATA(inn) {
+        $locale.NUMBER_FORMATS.GROUP_SEP = " ";
+        $locale.NUMBER_FORMATS.DECIMAL_SEP = ",";
+
         document.getElementById('connection').style.visibility = "visible";
         $("#hh").modal({
             backdrop: 'static',
@@ -30,6 +38,39 @@
             $("#hh").modal('hide');
         });
     }
+
+    function LoadDATAN(inn) {
+
+        $locale.NUMBER_FORMATS.GROUP_SEP = " ";
+        $locale.NUMBER_FORMATS.DECIMAL_SEP = ",";
+
+        document.getElementById('connection').style.visibility = "visible";
+        $("#hh").modal({
+            backdrop: 'static',
+            backdrop: 'static'
+        });
+        $http({
+            method: 'POST',
+            url: "/Otchot/GetPostupleniyaN?inn=" + inn,
+        }).then(function (d) {
+            if (d.data.length != 0) {
+                $scope.showdata = true;
+            } else {
+                $scope.showdata = false;
+            }
+            $scope.DATA = d.data;
+            console.log(d.data);
+            document.getElementById('connection').style.visibility = "hidden";
+            $("#hh").modal('hide');
+        }, function (error) {
+            alertify.error("ошибка");
+            console.log("error in GetPostupleniyaN -> ", error);
+            document.getElementById('connection').style.visibility = "hidden";
+            $("#hh").modal('hide');
+        });
+    }
+
+
     $scope.exportData = function () {
         var blob = new Blob([document.getElementById('export').innerHTML], {
             type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=utf-8"

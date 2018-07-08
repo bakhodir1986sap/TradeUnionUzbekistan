@@ -58,6 +58,9 @@ p > strong {
 .table__block.table__small td, .table__block.table__small th {
     padding-top: 1rem;
     padding-bottom: 1rem;
+    padding: 5px !important;
+font-size: 14px !important;
+vertical-align: middle;
 }
 
 .info__cards,

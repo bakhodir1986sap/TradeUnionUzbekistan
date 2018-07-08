@@ -359,7 +359,7 @@
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="USER_ID" Type="bigint" />
           <Property Name="DEPARTMENT_BASE" Type="nvarchar" MaxLength="255" />
-          <Property Name="description" Type="nvarchar" MaxLength="50" />
+          <Property Name="description" Type="nvarchar" MaxLength="500" />
           <Property Name="score_begin" Type="nvarchar" MaxLength="50" />
           <Property Name="score_end" Type="nvarchar" MaxLength="50" />
         </EntityType>
@@ -3148,18 +3148,6 @@ warning 6002: The table/view 'KasabaKIAT_N1.dbo.Zapros_ZK' does not have a prima
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_KaznaBankFile_KaznaFiles1">
-          <End Role="KaznaFiles" Type="Self.KaznaFiles" Multiplicity="0..1" />
-          <End Role="KaznaBankFile" Type="Self.KaznaBankFile" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="KaznaFiles">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="KaznaBankFile">
-              <PropertyRef Name="FILE_ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_KaznaPaymentFile_KaznaFiles">
           <End Role="KaznaFiles" Type="Self.KaznaFiles" Multiplicity="0..1" />
           <End Role="KaznaPaymentFile" Type="Self.KaznaPaymentFile" Multiplicity="*" />
@@ -4055,18 +4043,6 @@ warning 6035: The relationship 'FK_tblOplata_t_departmentbase' has columns that 
             </Principal>
             <Dependent Role="tblOplata">
               <PropertyRef Name="PROVODKA_ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_tblOplata_tblOplata">
-          <End Role="tblOplata" Type="Self.tblOplata" Multiplicity="1" />
-          <End Role="tblOplata1" Type="Self.tblOplata" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="tblOplata">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="tblOplata1">
-              <PropertyRef Name="ID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -6012,6 +5988,10 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <Parameter Name="INN" Type="nvarchar" Mode="In" />
           <Parameter Name="DEPARTMENT_BASE" Type="nvarchar" Mode="In" />
         </Function>
+        <Function Name="sp_rt_PostupleniyaN" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="INN" Type="nvarchar" Mode="In" />
+          <Parameter Name="DEPARTMENT_BASE" Type="nvarchar" Mode="In" />
+        </Function>
         <Function Name="sp_rt_Razbivka_Postup" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="SOATO" Type="nvarchar" Mode="In" />
           <Parameter Name="BRANCH" Type="nvarchar" Mode="In" />
@@ -6046,6 +6026,11 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <Parameter Name="BEGIN_DATE" Type="datetime" Mode="In" />
           <Parameter Name="END_DATE" Type="datetime" Mode="In" />
           <Parameter Name="DEPARTMENT_BASE" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="sp_rt_Razbivka_PostupN" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="PAY_TYPE" Type="varchar" Mode="In" />
+          <Parameter Name="DEPARTMENT_BASE" Type="nvarchar" Mode="In" />
+          <Parameter Name="BEGIN_DATE" Type="datetime" Mode="In" />
         </Function>
         <Function Name="sp_rt_SvodniyOtchet" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="beginDate" Type="datetime" Mode="In" />
@@ -6525,10 +6510,6 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
             <End Role="KaznaFiles" EntitySet="KaznaFiles" />
             <End Role="KaznaPaymentFile" EntitySet="KaznaPaymentFile" />
           </AssociationSet>
-          <AssociationSet Name="FK_KaznaBankFile_KaznaFiles1" Association="Self.FK_KaznaBankFile_KaznaFiles1">
-            <End Role="KaznaFiles" EntitySet="KaznaFiles" />
-            <End Role="KaznaBankFile" EntitySet="KaznaBankFile" />
-          </AssociationSet>
           <AssociationSet Name="FK_KaznaPaymentFile_KaznaFiles" Association="Self.FK_KaznaPaymentFile_KaznaFiles">
             <End Role="KaznaFiles" EntitySet="KaznaFiles" />
             <End Role="KaznaPaymentFile" EntitySet="KaznaPaymentFile" />
@@ -6812,10 +6793,6 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <AssociationSet Name="FK_tblOplata_tbbu_provodki" Association="Self.FK_tblOplata_tbbu_provodki">
             <End Role="tbbu_provodki" EntitySet="tbbu_provodki" />
             <End Role="tblOplata" EntitySet="tblOplata" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tblOplata_tblOplata" Association="Self.FK_tblOplata_tblOplata">
-            <End Role="tblOplata" EntitySet="tblOplata" />
-            <End Role="tblOplata1" EntitySet="tblOplata" />
           </AssociationSet>
           <AssociationSet Name="FK_tblOplata_tblSprav_Kv" Association="Self.FK_tblOplata_tblSprav_Kv">
             <End Role="tblSprav_Kv" EntitySet="tblSprav_Kv" />
@@ -7602,7 +7579,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="USER_ID" Type="Int64" />
           <Property Name="DEPARTMENT_BASE" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="description" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="score_begin" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="score_end" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="users" Relationship="Self.FK_provodok_users_id" FromRole="provodok" ToRole="users" />
@@ -13822,6 +13799,15 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
             <End Role="tblVipl" EntitySet="tblVipl" />
             <End Role="tblVozVrat" EntitySet="tblVozVrats" />
           </AssociationSet>
+          <FunctionImport Name="sp_rt_PostupleniyaN" ReturnType="Collection(KasabaKIATModel.sp_rt_PostupleniyaN_Result)">
+            <Parameter Name="INN" Mode="In" Type="String" />
+            <Parameter Name="DEPARTMENT_BASE" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_rt_Razbivka_PostupN" ReturnType="Collection(KasabaKIATModel.sp_rt_Razbivka_PostupN_Result)">
+            <Parameter Name="PAY_TYPE" Mode="In" Type="String" />
+            <Parameter Name="DEPARTMENT_BASE" Mode="In" Type="String" />
+            <Parameter Name="BEGIN_DATE" Mode="In" Type="DateTime" />
+          </FunctionImport>
           </EntityContainer>
         <ComplexType Name="sp_get_BankPaymentCompanyYearlyQ_Result">
           <Property Type="Int32" Name="MONTH_NUM" Nullable="true" />
@@ -15494,6 +15480,31 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <ComplexType Name="sp_rt_PostupleniyaN_Result">
+          <Property Type="String" Name="OPERDAY" Nullable="true" MaxLength="4000" />
+          <Property Type="String" Name="INN" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="CLNAME" Nullable="true" MaxLength="160" />
+          <Property Type="Decimal" Name="POSTUPLENIYA" Nullable="true" Precision="38" Scale="6" />
+          <Property Type="Decimal" Name="Obshiy01" Nullable="true" Precision="19" />
+          <Property Type="Decimal" Name="FEDERATION_AMT" Nullable="true" Precision="19" />
+          <Property Type="Decimal" Name="OBLSOVPROF_AMT" Nullable="true" Precision="19" />
+          <Property Type="String" Name="PURPOSE" Nullable="true" MaxLength="500" />
+        </ComplexType>
+        <ComplexType Name="sp_rt_Razbivka_PostupN_Result">
+          <Property Type="String" Name="TUMAN_SHAXAR" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="OPERDAY" Nullable="true" MaxLength="4000" />
+          <Property Type="String" Name="CLACC" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="INN" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="CLMFO" Nullable="true" MaxLength="5" />
+          <Property Type="String" Name="CLNAME" Nullable="true" MaxLength="160" />
+          <Property Type="Decimal" Name="POSTUPLENIYA" Nullable="true" Precision="26" Scale="6" />
+          <Property Type="Decimal" Name="Obshiy01" Nullable="true" Precision="19" />
+          <Property Type="Decimal" Name="FEDERATION_AMT" Nullable="true" Precision="19" />
+          <Property Type="Decimal" Name="OBLSOVPROF_AMT" Nullable="true" Precision="19" />
+          <Property Type="String" Name="PURPOSE" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="OKONX_NAME" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="BRANCH_NAME" Nullable="true" MaxLength="200" />
+        </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -19357,6 +19368,39 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="sp_rt_PostupleniyaN" FunctionName="KasabaKIATModel.Store.sp_rt_PostupleniyaN">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="KasabaKIATModel.sp_rt_PostupleniyaN_Result">
+                <ScalarProperty Name="OPERDAY" ColumnName="OPERDAY" />
+                <ScalarProperty Name="INN" ColumnName="INN" />
+                <ScalarProperty Name="CLNAME" ColumnName="CLNAME" />
+                <ScalarProperty Name="POSTUPLENIYA" ColumnName="POSTUPLENIYA" />
+                <ScalarProperty Name="Obshiy01" ColumnName="Obshiy01" />
+                <ScalarProperty Name="FEDERATION_AMT" ColumnName="FEDERATION_AMT" />
+                <ScalarProperty Name="OBLSOVPROF_AMT" ColumnName="OBLSOVPROF_AMT" />
+                <ScalarProperty Name="PURPOSE" ColumnName="PURPOSE" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_rt_Razbivka_PostupN" FunctionName="KasabaKIATModel.Store.sp_rt_Razbivka_PostupN">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="KasabaKIATModel.sp_rt_Razbivka_PostupN_Result">
+                <ScalarProperty Name="TUMAN_SHAXAR" ColumnName="TUMAN_SHAXAR" />
+                <ScalarProperty Name="OPERDAY" ColumnName="OPERDAY" />
+                <ScalarProperty Name="CLACC" ColumnName="CLACC" />
+                <ScalarProperty Name="INN" ColumnName="INN" />
+                <ScalarProperty Name="CLMFO" ColumnName="CLMFO" />
+                <ScalarProperty Name="CLNAME" ColumnName="CLNAME" />
+                <ScalarProperty Name="POSTUPLENIYA" ColumnName="POSTUPLENIYA" />
+                <ScalarProperty Name="Obshiy01" ColumnName="Obshiy01" />
+                <ScalarProperty Name="FEDERATION_AMT" ColumnName="FEDERATION_AMT" />
+                <ScalarProperty Name="OBLSOVPROF_AMT" ColumnName="OBLSOVPROF_AMT" />
+                <ScalarProperty Name="PURPOSE" ColumnName="PURPOSE" />
+                <ScalarProperty Name="OKONX_NAME" ColumnName="OKONX_NAME" />
+                <ScalarProperty Name="BRANCH_NAME" ColumnName="BRANCH_NAME" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

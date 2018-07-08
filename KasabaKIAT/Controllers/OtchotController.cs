@@ -120,6 +120,10 @@ namespace KasabaKIAT.Controllers
             return null;
         }
 
+
+
+
+
         [OutputCache(Duration = 5, Location = OutputCacheLocation.Client, VaryByCustom = "userId")]
         public ActionResult Forma14()
         {
@@ -328,6 +332,50 @@ namespace KasabaKIAT.Controllers
             return null;
         }
 
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [OutputCache(Duration = 5, Location = OutputCacheLocation.Client, VaryByCustom = "userId")]
+        public ActionResult PostupleniyaN()
+        {
+            return View();
+        }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="inn"></param>
+        /// <returns></returns>
+        [OutputCache(Duration = 5, Location = OutputCacheLocation.Client, VaryByParam = "inn", VaryByCustom = "userId")]
+        public JsonResult GetPostupleniyaN(string inn)
+        {
+            var UserId = Convert.ToInt32(User.Identity.Name);
+            var userInfo = UserInfo.GetUserInfo(UserId);
+
+            log.Info("GetPostupleniyaN");
+            log.Info("inn = " + inn);
+
+            var data = KasabaDB.sp_rt_PostupleniyaN(inn, userInfo.DepartmentBase);
+
+            var OutData = from outData in data
+                    select new
+                    {
+                        operday = outData.OPERDAY,
+                        inn = outData.INN,
+                        clname = outData.CLNAME,
+                        postupleniya = outData.POSTUPLENIYA,
+                        obshiy01 = outData.Obshiy01,
+                        federation_amt = outData.FEDERATION_AMT,
+                        oblsovprof_amt = outData.OBLSOVPROF_AMT,
+                        purpose = outData.PURPOSE
+                    };
+
+            return Json(OutData.ToList(), JsonRequestBehavior.AllowGet);
+        }
+
         /// <summary>
         /// 
         /// </summary>
@@ -336,6 +384,55 @@ namespace KasabaKIAT.Controllers
         public ActionResult RazbivkaPostupleniya()
         {
             return View();
+        }
+
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [OutputCache(Duration = 5, Location = OutputCacheLocation.Client, VaryByCustom = "userId")]
+        public ActionResult RazbivkaPostupleniyaN()
+        {
+            return View();
+        }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="payType"></param>
+        /// <param name="bg"></param>
+        /// <param name="end"></param>
+        /// <returns></returns>
+        [OutputCache(Duration = 5, Location = OutputCacheLocation.Client, VaryByParam = "payType;bg", VaryByCustom = "userId")]
+        public JsonResult GetRazbivkaPostupleniyaN(string payType, DateTime? bg)
+        {
+            var UserId = Convert.ToInt32(User.Identity.Name);
+            var userInfo = UserInfo.GetUserInfo(UserId);
+
+            var data = KasabaDB.sp_rt_Razbivka_PostupN(payType, userInfo.DepartmentBase, bg);
+
+            var OutData = from outData in data
+                          select new
+                          {
+                              tuman_shaxar      = outData.TUMAN_SHAXAR      ,
+                              operday           = outData.OPERDAY           ,
+                              clacc             = outData.CLACC             ,
+                              inn               = outData.INN               ,
+                              clmfo             = outData.CLMFO             ,
+                              clname            = outData.CLNAME            ,
+                              postupleniya      = outData.POSTUPLENIYA      ,
+                              obshiy01          = outData.Obshiy01          ,
+                              federation_amt    = outData.FEDERATION_AMT    ,
+                              oblsovprof_amt    = outData.OBLSOVPROF_AMT    ,
+                              purpose           = outData.PURPOSE           ,
+                              okonx_name        = outData.OKONX_NAME        ,
+                              branch_name       = outData.BRANCH_NAME   
+                          };
+
+            return Json(OutData.ToList(), JsonRequestBehavior.AllowGet);
         }
 
         /// <summary>
@@ -415,6 +512,14 @@ namespace KasabaKIAT.Controllers
             return View();
         }
 
+        class OblPostupleniya
+        {
+            public string d1  {get; set;}
+            public int? d2  {get; set;}
+            public decimal? d3  {get; set;}
+            public decimal? d4 { get; set;}
+        }
+
         /// <summary>
         /// 
         /// </summary>
@@ -431,16 +536,17 @@ namespace KasabaKIAT.Controllers
             log.Info("GetPostupleniyaOblastyam");
             log.Info("BEGIN_DATE = " + bg);
             log.Info("END_DATE = " + end);
+
             try
             {
                 var data = KasabaDB.sp_rt_Razbivka_Postup_OblastGroup(bg.Value.Date, end.Value.Date, userInfo.DepartmentBase);
                 var O = from o in data
-                        select new
+                        select new OblPostupleniya
                         {
-                            d1 = o.OblastName,
-                            d2 = o.Kolichestvo,
-                            d3 = o.TOTALSUM,
-                            d4 = o.OBLASTSUM,
+                            d1 = o.OblastName   ,
+                            d2 = o.Kolichestvo  ,
+                            d3 = o.TOTALSUM     ,
+                            d4 = o.OBLASTSUM    ,
                         };
 
                 var resultList = O.ToList();

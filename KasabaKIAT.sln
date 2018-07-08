@@ -27,6 +27,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NastyaAppCopyFile", "Nastya
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Migration", "Migration\Migration.csproj", "{A7601E3F-5817-40A5-9DFC-B1A049DCE5C7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KasabaKIATTests", "KasabaKIATTests\KasabaKIATTests.csproj", "{CFD922EA-26A9-497A-A5F4-AE5A88D900FF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KIAT_TestProject", "KIAT_TestProject\KIAT_TestProject.csproj", "{6F771DD3-EC76-4372-912D-13DEE115BA4B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		1|Any CPU = 1|Any CPU
@@ -109,6 +113,18 @@ Global
 		{A7601E3F-5817-40A5-9DFC-B1A049DCE5C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A7601E3F-5817-40A5-9DFC-B1A049DCE5C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A7601E3F-5817-40A5-9DFC-B1A049DCE5C7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CFD922EA-26A9-497A-A5F4-AE5A88D900FF}.1|Any CPU.ActiveCfg = Release|Any CPU
+		{CFD922EA-26A9-497A-A5F4-AE5A88D900FF}.1|Any CPU.Build.0 = Release|Any CPU
+		{CFD922EA-26A9-497A-A5F4-AE5A88D900FF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CFD922EA-26A9-497A-A5F4-AE5A88D900FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CFD922EA-26A9-497A-A5F4-AE5A88D900FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CFD922EA-26A9-497A-A5F4-AE5A88D900FF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6F771DD3-EC76-4372-912D-13DEE115BA4B}.1|Any CPU.ActiveCfg = Release|Any CPU
+		{6F771DD3-EC76-4372-912D-13DEE115BA4B}.1|Any CPU.Build.0 = Release|Any CPU
+		{6F771DD3-EC76-4372-912D-13DEE115BA4B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6F771DD3-EC76-4372-912D-13DEE115BA4B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6F771DD3-EC76-4372-912D-13DEE115BA4B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6F771DD3-EC76-4372-912D-13DEE115BA4B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

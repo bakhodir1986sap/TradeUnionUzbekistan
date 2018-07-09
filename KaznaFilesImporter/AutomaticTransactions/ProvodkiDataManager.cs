@@ -34,6 +34,8 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.Provodki
                 reg.POLUCHRSCH      = model.poluchrsch      ;
                 reg.SUMMA           = model.summa           ;
                 reg.COMMENT         = model.comment         ;
+                reg.TRREF           = model.trref           ;
+                reg.TRREFNO         = model.trrefno         ;
 
                 var planOtrasl = db.tbbu_provodki.Add(reg);
 

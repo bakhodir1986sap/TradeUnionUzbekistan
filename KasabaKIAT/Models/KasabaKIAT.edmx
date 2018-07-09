@@ -176,9 +176,12 @@
           <Property Name="DAROMAT_YIG_NOMI" Type="nvarchar" MaxLength="1000" />
           <Property Name="BYUDJET_TURI" Type="nvarchar" MaxLength="1000" />
         </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'KasabaKIAT_N1.dbo.KaznaBankFile' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="KaznaBankFile">
           <Key>
             <PropertyRef Name="ID" />
+            
           </Key>
           <Property Name="K_TYPE" Type="char" MaxLength="1" />
           <Property Name="OPERDAY" Type="datetime" />
@@ -199,6 +202,7 @@
           <Property Name="CONAME" Type="nvarchar" MaxLength="160" />
           <Property Name="PURPOSE" Type="nvarchar" MaxLength="500" />
           <Property Name="FILE_ID" Type="bigint" />
+          <Property Name="PROVODKA_ID" Type="bigint" />
         </EntityType>
         <EntityType Name="KaznaFiles">
           <Key>
@@ -208,6 +212,8 @@
           <Property Name="FileName" Type="nvarchar" MaxLength="50" />
           <Property Name="CreateDate" Type="datetime" />
         </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'KasabaKIAT_N1.dbo.KaznaPaymentFile' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="KaznaPaymentFile">
           <Key>
             <PropertyRef Name="ID" />
@@ -2394,6 +2400,7 @@ warning 6002: The table/view 'KasabaKIAT_N1.dbo.tblPutevka' does not have a prim
           <Property Name="DOVERENNOE_LISO" Type="nvarchar" MaxLength="200" />
           <Property Name="ORIG_INN" Type="varchar" MaxLength="20" />
           <Property Name="OWNER_CODE" Type="varchar" MaxLength="255" />
+          <Property Name="TIMESTAMP_CH" Type="datetime" />
         </EntityType>
         <EntityType Name="tblSprav_Os">
           <Key>
@@ -6112,9 +6119,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <EntitySet Name="gagreement_files" EntityType="Self.gagreement_files" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Kartoch" EntityType="Self.Kartoch" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Kazna_Account" EntityType="Self.Kazna_Account" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="KaznaBankFile" EntityType="Self.KaznaBankFile" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="KaznaFiles" EntityType="Self.KaznaFiles" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="KaznaPaymentFile" EntityType="Self.KaznaPaymentFile" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="KaznaSverkaFile" EntityType="Self.KaznaSverkaFile" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="occupationalsafety" EntityType="Self.occupationalsafety" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ot_oplata" EntityType="Self.ot_oplata" Schema="dbo" store:Type="Tables" />
@@ -6244,6 +6249,57 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <EntitySet Name="useractivity" EntityType="Self.useractivity" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="users" EntityType="Self.users" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="users_aud" EntityType="Self.users_aud" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="KaznaBankFile" EntityType="Self.KaznaBankFile" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [KaznaBankFile].[K_TYPE] AS [K_TYPE], 
+    [KaznaBankFile].[OPERDAY] AS [OPERDAY], 
+    [KaznaBankFile].[ID] AS [ID], 
+    [KaznaBankFile].[GRPID] AS [GRPID], 
+    [KaznaBankFile].[KLSDOX] AS [KLSDOX], 
+    [KaznaBankFile].[DOCNUMB] AS [DOCNUMB], 
+    [KaznaBankFile].[DOCDATE] AS [DOCDATE], 
+    [KaznaBankFile].[DOCTYPE] AS [DOCTYPE], 
+    [KaznaBankFile].[SUMPAY] AS [SUMPAY], 
+    [KaznaBankFile].[CLMFO] AS [CLMFO], 
+    [KaznaBankFile].[CLACC] AS [CLACC], 
+    [KaznaBankFile].[CLINN] AS [CLINN], 
+    [KaznaBankFile].[CLNAME] AS [CLNAME], 
+    [KaznaBankFile].[COMFO] AS [COMFO], 
+    [KaznaBankFile].[COACC] AS [COACC], 
+    [KaznaBankFile].[COINN] AS [COINN], 
+    [KaznaBankFile].[CONAME] AS [CONAME], 
+    [KaznaBankFile].[PURPOSE] AS [PURPOSE], 
+    [KaznaBankFile].[FILE_ID] AS [FILE_ID], 
+    [KaznaBankFile].[PROVODKA_ID] AS [PROVODKA_ID]
+    FROM [dbo].[KaznaBankFile] AS [KaznaBankFile]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="KaznaPaymentFile" EntityType="Self.KaznaPaymentFile" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [KaznaPaymentFile].[K_TYPE] AS [K_TYPE], 
+    [KaznaPaymentFile].[OPERDAY] AS [OPERDAY], 
+    [KaznaPaymentFile].[ID] AS [ID], 
+    [KaznaPaymentFile].[BANKID] AS [BANKID], 
+    [KaznaPaymentFile].[KLSDOX] AS [KLSDOX], 
+    [KaznaPaymentFile].[DOCNUMB] AS [DOCNUMB], 
+    [KaznaPaymentFile].[DOCDATE] AS [DOCDATE], 
+    [KaznaPaymentFile].[DOCTYPE] AS [DOCTYPE], 
+    [KaznaPaymentFile].[SUMPAY] AS [SUMPAY], 
+    [KaznaPaymentFile].[CLMFO] AS [CLMFO], 
+    [KaznaPaymentFile].[CLACC] AS [CLACC], 
+    [KaznaPaymentFile].[CLINN] AS [CLINN], 
+    [KaznaPaymentFile].[CLNAME] AS [CLNAME], 
+    [KaznaPaymentFile].[COMFO] AS [COMFO], 
+    [KaznaPaymentFile].[COACC] AS [COACC], 
+    [KaznaPaymentFile].[COINN] AS [COINN], 
+    [KaznaPaymentFile].[CONAME] AS [CONAME], 
+    [KaznaPaymentFile].[PURPOSE] AS [PURPOSE], 
+    [KaznaPaymentFile].[CHAPTER] AS [CHAPTER], 
+    [KaznaPaymentFile].[OKONH] AS [OKONH], 
+    [KaznaPaymentFile].[FILE_ID] AS [FILE_ID], 
+    [KaznaPaymentFile].[OTCHISLEN] AS [OTCHISLEN], 
+    [KaznaPaymentFile].[GRPID] AS [GRPID]
+    FROM [dbo].[KaznaPaymentFile] AS [KaznaPaymentFile]</DefiningQuery>
+          </EntitySet>
           <EntitySet Name="t_departmentbase_aud" EntityType="Self.t_departmentbase_aud" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [t_departmentbase_aud].[dtype] AS [dtype], 
@@ -9370,6 +9426,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <Property Name="DOVERENNOE_LISO" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="ORIG_INN" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="OWNER_CODE" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="TIMESTAMP_CH" Type="DateTime" Precision="3" />
           </EntityType>
         <EntityType Name="tblSprav_Os">
           <Key>
@@ -14583,6 +14640,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <Property Name="PURPOSE" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="FILE_ID" Type="Int64" />
           <NavigationProperty Name="KaznaFile" Relationship="KasabaKIATModel.FK_KaznaBankFile_KaznaFiles1" FromRole="KaznaBankFile" ToRole="KaznaFiles" />
+          <Property Name="PROVODKA_ID" Type="Int64" />
         </EntityType>
         <EntityType Name="tbcs_sisconf">
           <Key>
@@ -17413,6 +17471,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <EntitySetMapping Name="tblSprav_Org">
             <EntityTypeMapping TypeName="KasabaKIATModel.tblSprav_Org">
               <MappingFragment StoreEntitySet="tblSprav_Org">
+                <ScalarProperty Name="TIMESTAMP_CH" ColumnName="TIMESTAMP_CH" />
                 <ScalarProperty Name="OWNER_CODE" ColumnName="OWNER_CODE" />
                 <ScalarProperty Name="ORIG_INN" ColumnName="ORIG_INN" />
                 <ScalarProperty Name="DOVERENNOE_LISO" ColumnName="DOVERENNOE_LISO" />
@@ -18759,6 +18818,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <EntitySetMapping Name="KaznaBankFiles">
             <EntityTypeMapping TypeName="KasabaKIATModel.KaznaBankFile">
               <MappingFragment StoreEntitySet="KaznaBankFile">
+                <ScalarProperty Name="PROVODKA_ID" ColumnName="PROVODKA_ID" />
                 <ScalarProperty Name="FILE_ID" ColumnName="FILE_ID" />
                 <ScalarProperty Name="PURPOSE" ColumnName="PURPOSE" />
                 <ScalarProperty Name="CONAME" ColumnName="CONAME" />

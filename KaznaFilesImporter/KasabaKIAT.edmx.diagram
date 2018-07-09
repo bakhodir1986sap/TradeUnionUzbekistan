@@ -4,10 +4,8 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="b676a45fd43b4be29fd428cd2cb333d1" Name="Diagram1">
+      <Diagram DiagramId="b676a45fd43b4be29fd428cd2cb333d1" Name="Diagram1" ZoomLevel="93">
         <EntityTypeShape EntityType="KasabaKIATModel.KaznaFile" Width="1.5" PointX="0.75" PointY="2.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="KasabaKIATModel.KaznaPaymentFile" Width="1.5" PointX="5.25" PointY="1.375" IsExpanded="true" />
-        <AssociationConnector Association="KasabaKIATModel.FK_KaznaPaymentFile_KaznaFiles" ManuallyRouted="false" />
         <EntityTypeShape EntityType="KasabaKIATModel.KaznaSverkaFile" Width="1.5" PointX="3" PointY="6" />
         <AssociationConnector Association="KasabaKIATModel.FK_KaznaSverkaFile_KaznaFiles" />
         <EntityTypeShape EntityType="KasabaKIATModel.t_egrpo" Width="1.5" PointX="7.625" PointY="0.5" />
@@ -16,13 +14,18 @@
         <EntityTypeShape EntityType="KasabaKIATModel.tbbu_provodki" Width="1.5" PointX="9.625" PointY="1.5" />
         <EntityTypeShape EntityType="KasabaKIATModel.Kazna_Account" Width="1.5" PointX="0.75" PointY="9.75" />
         <EntityTypeShape EntityType="KasabaKIATModel.tbsp_soato_new" Width="1.5" PointX="2.75" PointY="9.75" />
-        <EntityTypeShape EntityType="KasabaKIATModel.KaznaBankFile" Width="1.5" PointX="3" PointY="0.75" />
-        <AssociationConnector Association="KasabaKIATModel.FK_KaznaBankFile_KaznaFiles1" />
-        <EntityTypeShape EntityType="KasabaKIATModel.tblPred" Width="1.5" PointX="7.375" PointY="9.75" />
+        <EntityTypeShape EntityType="KasabaKIATModel.tblPred" Width="1.5" PointX="8" PointY="9.75" />
         <EntityTypeShape EntityType="KasabaKIATModel.sp_branch" Width="1.5" PointX="11.375" PointY="6.75" />
-        <EntityTypeShape EntityType="KasabaKIATModel.sp_okonx" Width="1.5" PointX="9.375" PointY="9.75" />
+        <EntityTypeShape EntityType="KasabaKIATModel.sp_okonx" Width="1.5" PointX="9.75" PointY="9.75" />
         <AssociationConnector Association="KasabaKIATModel.sp_okonx2" />
-      </Diagram>
+        <EntityTypeShape EntityType="KasabaKIATModel.KaznaPaymentFile" Width="1.875" PointX="4.625" PointY="0.5" />
+        <AssociationConnector Association="KasabaKIATModel.FK_KaznaBankFile_KaznaFiles" />
+        <AssociationConnector Association="KasabaKIATModel.FK_KaznaPaymentFile_KaznaFiles" />
+        <EntityTypeShape EntityType="KasabaKIATModel.KaznaBankFile" Width="1.75" PointX="5.375" PointY="10.125" />
+        <EntityTypeShape EntityType="KasabaKIATModel.TimeSheduler" Width="1.5" PointX="2.625" PointY="0.875" />
+        <EntityTypeShape EntityType="KasabaKIATModel.tblSprav_Org" Width="1.5" PointX="12.375" PointY="10.75" />
+        <EntityTypeShape EntityType="KasabaKIATModel.tblSprav_Otras" Width="1.5" PointX="12.375" PointY="0.75" />
+        </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>

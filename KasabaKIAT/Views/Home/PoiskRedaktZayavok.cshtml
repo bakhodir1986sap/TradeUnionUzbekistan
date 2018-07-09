@@ -113,30 +113,30 @@
                 <table class="table table__block t-hover">
                     <thead>
                         <tr>
-                            <th>
+                            <th style="vertical-align:bottom">
                                 <span>Время подачи</span>
                                 <input type="date" required class="form-control" ng-model="searchD0" ng-change="searchD0_CH()" />
                             </th>
 
-                            <th style="width:200px">
+                            <th style="width:200px;vertical-align:bottom">
                                 <select class="form-control" ng-model="SCf" ng-options="sc as sc.value for sc in CS track by sc.id" ng-change="LoadSC()"></select>
                             </th>
 
-                            <th style="width:200px">
+                            <th style="width:200px;vertical-align:bottom">
                                 <input type="text" class="form-control" ng-model="searchO" placeholder="Организация" />
                             </th>
 
-                            <th>
+                            <th style="vertical-align:bottom">
                                 <input type="text" class="form-control" ng-model="searchFN" placeholder="ФИО" />
                             </th>
 
-                            <th>
+                            <th style="vertical-align:bottom">
                                 <input type="text" ng-model="position" class="form-control" placeholder="Должность" />
                                 @*<select ng-model="Pf" ng-options="p as p.value for p in Ps track by p.id" ng-change="LoadP()"  class="form-control">
                                     </select>*@
                             </th>
 
-                            <th>
+                            <th style="vertical-align:bottom">
                                 <span>Дата отдыха с</span>
                                 <input type="date" required class="form-control" ng-model="searchD1" ng-change="searchD1_CH()" />
                             </th>

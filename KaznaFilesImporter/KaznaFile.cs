@@ -17,9 +17,9 @@ namespace KaznaFilesImporter
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public KaznaFile()
         {
-            this.KaznaPaymentFiles = new HashSet<KaznaPaymentFile>();
             this.KaznaSverkaFiles = new HashSet<KaznaSverkaFile>();
-            this.KaznaBankFiles = new HashSet<KaznaBankFile>();
+            this.KaznaPaymentFiles = new HashSet<KaznaPaymentFile>();
+            this.KaznaPaymentFiles1 = new HashSet<KaznaPaymentFile>();
         }
     
         public long ID { get; set; }
@@ -27,10 +27,10 @@ namespace KaznaFilesImporter
         public Nullable<System.DateTime> CreateDate { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<KaznaPaymentFile> KaznaPaymentFiles { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<KaznaSverkaFile> KaznaSverkaFiles { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<KaznaBankFile> KaznaBankFiles { get; set; }
+        public virtual ICollection<KaznaPaymentFile> KaznaPaymentFiles { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<KaznaPaymentFile> KaznaPaymentFiles1 { get; set; }
     }
 }

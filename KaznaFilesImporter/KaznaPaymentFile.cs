@@ -39,5 +39,6 @@ namespace KaznaFilesImporter
         public Nullable<decimal> GRPID { get; set; }
     
         public virtual KaznaFile KaznaFile { get; set; }
+        public virtual KaznaFile KaznaFile1 { get; set; }
     }
 }

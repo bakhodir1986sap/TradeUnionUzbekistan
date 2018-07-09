@@ -49,6 +49,7 @@ namespace KasabaKiat.BusinessLogic.Utils.References
                                                         , model.Region.Value,
                                                         model.PravSoyuzLevel.Value,
                                                         0);
+                org.TIMESTAMP_CH = DateTime.Now;
 
                 if (!string.IsNullOrEmpty(org.OWNER_CODE))
                 {
@@ -221,7 +222,7 @@ namespace KasabaKiat.BusinessLogic.Utils.References
                                         , model.Region.Value,
                                         model.PravSoyuzLevel.Value,
                                         model.ID);
-
+                        org1.TIMESTAMP_CH = DateTime.Now;
 
                         if (!string.IsNullOrEmpty(org1.OWNER_CODE))
                         {

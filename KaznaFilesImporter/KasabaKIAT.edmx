@@ -43,6 +43,7 @@
           <Property Name="CONAME" Type="nvarchar" MaxLength="160" />
           <Property Name="PURPOSE" Type="nvarchar" MaxLength="500" />
           <Property Name="FILE_ID" Type="bigint" />
+          <Property Name="PROVODKA_ID" Type="bigint" />
         </EntityType>
         <EntityType Name="KaznaFiles">
           <Key>
@@ -228,6 +229,8 @@ warning 6002: The table/view 'KasabaKIAT_N1.dbo.tbbFermer' does not have a prima
           <Property Name="POLUCHRSCH" Type="nvarchar" MaxLength="30" />
           <Property Name="SUMMA" Type="money" />
           <Property Name="COMMENT" Type="nvarchar" MaxLength="1000" />
+          <Property Name="TRREF" Type="varchar" MaxLength="10" />
+          <Property Name="TRREFNO" Type="varchar" MaxLength="20" />
         </EntityType>
         <EntityType Name="tblPred">
           <Key>
@@ -255,6 +258,48 @@ warning 6002: The table/view 'KasabaKIAT_N1.dbo.tbbFermer' does not have a prima
           <Property Name="Departmentbase" Type="nvarchar" MaxLength="255" Nullable="false" />
           <Property Name="KaznaAccount" Type="varchar" MaxLength="50" />
         </EntityType>
+        <EntityType Name="tblSprav_Org">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_Ot" Type="int" />
+          <Property Name="Name_Org" Type="nvarchar" MaxLength="100" />
+          <Property Name="INN" Type="nvarchar" MaxLength="9" />
+          <Property Name="RS" Type="nvarchar" MaxLength="20" />
+          <Property Name="MFO" Type="nvarchar" MaxLength="5" />
+          <Property Name="Bank" Type="nvarchar" MaxLength="90" />
+          <Property Name="OKONX" Type="nvarchar" MaxLength="5" />
+          <Property Name="Adress" Type="nvarchar" MaxLength="100" />
+          <Property Name="Telefon" Type="nvarchar" MaxLength="70" />
+          <Property Name="Region" Type="int" />
+          <Property Name="DT_OST" Type="int" />
+          <Property Name="KT_OST" Type="int" />
+          <Property Name="E_Mail" Type="nvarchar" MaxLength="90" />
+          <Property Name="UserId" Type="bigint" />
+          <Property Name="DepartmentBase" Type="nvarchar" MaxLength="255" />
+          <Property Name="IS_PRAVSOYUZ" Type="bit" Nullable="false" />
+          <Property Name="ParentID" Type="bigint" />
+          <Property Name="PRAVORGLEVEL" Type="int" />
+          <Property Name="DIRECTOR" Type="nvarchar" MaxLength="200" />
+          <Property Name="BUXGALTER" Type="nvarchar" MaxLength="200" />
+          <Property Name="DOVERENNOE_LISO" Type="nvarchar" MaxLength="200" />
+          <Property Name="ORIG_INN" Type="varchar" MaxLength="20" />
+          <Property Name="OWNER_CODE" Type="varchar" MaxLength="255" />
+          <Property Name="TIMESTAMP_CH" Type="datetime" />
+        </EntityType>
+        <EntityType Name="tblSprav_Otras">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID_Ot" Type="int" />
+          <Property Name="Name_Ot" Type="nvarchar" MaxLength="200" />
+          <Property Name="Priz" Type="int" />
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="bigint" />
+          <Property Name="DepartmentBase" Type="nvarchar" MaxLength="255" />
+          <Property Name="BRANCH_CODE" Type="nvarchar" MaxLength="10" />
+        </EntityType>
         <EntityType Name="tbsp_soato_new">
           <Key>
             <PropertyRef Name="ID" />
@@ -266,6 +311,13 @@ warning 6002: The table/view 'KasabaKIAT_N1.dbo.tbbFermer' does not have a prima
           <Property Name="NAME_RU" Type="nvarchar" MaxLength="1000" />
           <Property Name="CENTRE_NAME_RU" Type="nvarchar" MaxLength="1000" />
         </EntityType>
+        <EntityType Name="TimeShedulers">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="bigint" Nullable="false" />
+          <Property Name="LastChanged" Type="datetime" Nullable="false" />
+        </EntityType>
         <Association Name="FK_KaznaBankFile_KaznaFiles">
           <End Role="KaznaFiles" Type="Self.KaznaFiles" Multiplicity="0..1" />
           <End Role="KaznaPaymentFile" Type="Self.KaznaPaymentFile" Multiplicity="*" />
@@ -274,18 +326,6 @@ warning 6002: The table/view 'KasabaKIAT_N1.dbo.tbbFermer' does not have a prima
               <PropertyRef Name="ID" />
             </Principal>
             <Dependent Role="KaznaPaymentFile">
-              <PropertyRef Name="FILE_ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_KaznaBankFile_KaznaFiles1">
-          <End Role="KaznaFiles" Type="Self.KaznaFiles" Multiplicity="0..1" />
-          <End Role="KaznaBankFile" Type="Self.KaznaBankFile" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="KaznaFiles">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="KaznaBankFile">
               <PropertyRef Name="FILE_ID" />
             </Dependent>
           </ReferentialConstraint>
@@ -314,6 +354,9 @@ warning 6002: The table/view 'KasabaKIAT_N1.dbo.tbbFermer' does not have a prima
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <!--Errors Found During Generation:
+warning 6035: The relationship 'FK_tblSprav_Otras_sp_branch' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
+        <Association Name="FK_tblSprav_Otras_sp_branch" />-->
         <Association Name="sp_okonx2">
           <End Role="sp_okonx" Type="Self.sp_okonx" Multiplicity="0..1" />
           <End Role="sp_okonx1" Type="Self.sp_okonx" Multiplicity="*" />
@@ -333,6 +376,7 @@ warning 6035: The relationship 'sp_okonx3' has columns that are not part of the 
 warning 6035: The relationship 't_egrpo_4' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
         <Association Name="t_egrpo_4" />-->
         <Function Name="sp_im_KaznaNewOrg" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="sp_pr_GetNewBankProvodki" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="sp_pr_GetNewECPMOIFY" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="sp_pr_GetNewTransactions" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <EntityContainer Name="KasabaKIATModelStoreContainer">
@@ -347,7 +391,10 @@ warning 6035: The relationship 't_egrpo_4' has columns that are not part of the 
           <EntitySet Name="tbbu_ecp_calc" EntityType="Self.tbbu_ecp_calc" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbbu_provodki" EntityType="Self.tbbu_provodki" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblPred" EntityType="Self.tblPred" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblSprav_Org" EntityType="Self.tblSprav_Org" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblSprav_Otras" EntityType="Self.tblSprav_Otras" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbsp_soato_new" EntityType="Self.tbsp_soato_new" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TimeShedulers" EntityType="Self.TimeShedulers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbbFermer" EntityType="Self.tbbFermer" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [tbbFermer].[ActivPol] AS [ActivPol], 
@@ -364,10 +411,6 @@ warning 6035: The relationship 't_egrpo_4' has columns that are not part of the 
           <AssociationSet Name="FK_KaznaBankFile_KaznaFiles" Association="Self.FK_KaznaBankFile_KaznaFiles">
             <End Role="KaznaFiles" EntitySet="KaznaFiles" />
             <End Role="KaznaPaymentFile" EntitySet="KaznaPaymentFile" />
-          </AssociationSet>
-          <AssociationSet Name="FK_KaznaBankFile_KaznaFiles1" Association="Self.FK_KaznaBankFile_KaznaFiles1">
-            <End Role="KaznaFiles" EntitySet="KaznaFiles" />
-            <End Role="KaznaBankFile" EntitySet="KaznaBankFile" />
           </AssociationSet>
           <AssociationSet Name="FK_KaznaPaymentFile_KaznaFiles" Association="Self.FK_KaznaPaymentFile_KaznaFiles">
             <End Role="KaznaFiles" EntitySet="KaznaFiles" />
@@ -393,58 +436,12 @@ warning 6035: The relationship 't_egrpo_4' has columns that are not part of the 
           <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="FileName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="CreateDate" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="KaznaPaymentFiles" Relationship="Self.FK_KaznaPaymentFile_KaznaFiles" FromRole="KaznaFiles" ToRole="KaznaPaymentFile" />
           <NavigationProperty Name="KaznaSverkaFiles" Relationship="KasabaKIATModel.FK_KaznaSverkaFile_KaznaFiles" FromRole="KaznaFile" ToRole="KaznaSverkaFile" />
-          <NavigationProperty Name="KaznaBankFiles" Relationship="KasabaKIATModel.FK_KaznaBankFile_KaznaFiles1" FromRole="KaznaFile" ToRole="KaznaBankFile" />
-        </EntityType>
-        <EntityType Name="KaznaPaymentFile">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="K_TYPE" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
-          <Property Name="OPERDAY" Type="DateTime" Precision="3" />
-          <Property Name="ID" Type="Decimal" Precision="12" Scale="0" Nullable="false" />
-          <Property Name="BANKID" Type="Decimal" Precision="17" Scale="0" />
-          <Property Name="KLSDOX" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
-          <Property Name="DOCNUMB" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
-          <Property Name="DOCDATE" Type="DateTime" Precision="3" />
-          <Property Name="DOCTYPE" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
-          <Property Name="SUMPAY" Type="Decimal" Precision="20" Scale="0" />
-          <Property Name="CLMFO" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
-          <Property Name="CLACC" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="CLINN" Type="String" MaxLength="9" FixedLength="false" Unicode="true" />
-          <Property Name="CLNAME" Type="String" MaxLength="160" FixedLength="false" Unicode="true" />
-          <Property Name="COMFO" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
-          <Property Name="COACC" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="COINN" Type="String" MaxLength="9" FixedLength="false" Unicode="true" />
-          <Property Name="CONAME" Type="String" MaxLength="160" FixedLength="false" Unicode="true" />
-          <Property Name="PURPOSE" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="CHAPTER" Type="String" MaxLength="3" FixedLength="false" Unicode="true" />
-          <Property Name="OKONH" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
-          <Property Name="FILE_ID" Type="Int64" />
-          <Property Name="OTCHISLEN" Type="Decimal" Precision="19" Scale="4" />
-          <NavigationProperty Name="KaznaFile" Relationship="Self.FK_KaznaPaymentFile_KaznaFiles" FromRole="KaznaPaymentFile" ToRole="KaznaFiles" />
-          <Property Name="GRPID" Type="Decimal" Precision="12" Scale="0" />
-        </EntityType>
-        <Association Name="FK_KaznaPaymentFile_KaznaFiles">
-          <End Role="KaznaFiles" Type="Self.KaznaFile" Multiplicity="0..1" />
-          <End Role="KaznaPaymentFile" Type="Self.KaznaPaymentFile" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="KaznaFiles">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="KaznaPaymentFile">
-              <PropertyRef Name="FILE_ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
+          <NavigationProperty Name="KaznaPaymentFiles" Relationship="KasabaKIATModel.FK_KaznaBankFile_KaznaFiles" FromRole="KaznaFile" ToRole="KaznaPaymentFile" />
+          <NavigationProperty Name="KaznaPaymentFiles1" Relationship="KasabaKIATModel.FK_KaznaPaymentFile_KaznaFiles" FromRole="KaznaFile" ToRole="KaznaPaymentFile" />
+          </EntityType>
         <EntityContainer Name="KasabaKIATEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="KaznaFiles" EntityType="Self.KaznaFile" />
-          <EntitySet Name="KaznaPaymentFiles" EntityType="Self.KaznaPaymentFile" />
-          <AssociationSet Name="FK_KaznaPaymentFile_KaznaFiles" Association="Self.FK_KaznaPaymentFile_KaznaFiles">
-            <End Role="KaznaFiles" EntitySet="KaznaFiles" />
-            <End Role="KaznaPaymentFile" EntitySet="KaznaPaymentFiles" />
-          </AssociationSet>
           <EntitySet Name="KaznaSverkaFiles" EntityType="KasabaKIATModel.KaznaSverkaFile" />
           <AssociationSet Name="FK_KaznaSverkaFile_KaznaFiles" Association="KasabaKIATModel.FK_KaznaSverkaFile_KaznaFiles">
             <End Role="KaznaFile" EntitySet="KaznaFiles" />
@@ -457,11 +454,6 @@ warning 6035: The relationship 't_egrpo_4' has columns that are not part of the 
           <EntitySet Name="tbbu_provodki" EntityType="KasabaKIATModel.tbbu_provodki" />
           <EntitySet Name="Kazna_Account" EntityType="KasabaKIATModel.Kazna_Account" />
           <EntitySet Name="tbsp_soato_new" EntityType="KasabaKIATModel.tbsp_soato_new" />
-          <EntitySet Name="KaznaBankFiles" EntityType="KasabaKIATModel.KaznaBankFile" />
-          <AssociationSet Name="FK_KaznaBankFile_KaznaFiles1" Association="KasabaKIATModel.FK_KaznaBankFile_KaznaFiles1">
-            <End Role="KaznaFile" EntitySet="KaznaFiles" />
-            <End Role="KaznaBankFile" EntitySet="KaznaBankFiles" />
-          </AssociationSet>
           <EntitySet Name="tblPreds" EntityType="KasabaKIATModel.tblPred" />
           <FunctionImport Name="sp_pr_GetNewECPMOIFY" ReturnType="Collection(KasabaKIATModel.sp_pr_GetNewECPMOIFY_Result)" />
           <FunctionImport Name="sp_pr_GetNewTransactions" ReturnType="Collection(KasabaKIATModel.sp_pr_GetNewTransactions_Result4)" />
@@ -471,7 +463,21 @@ warning 6035: The relationship 't_egrpo_4' has columns that are not part of the 
             <End Role="sp_okonx" EntitySet="sp_okonx" />
             <End Role="sp_okonx1" EntitySet="sp_okonx" />
           </AssociationSet>
-        </EntityContainer>
+          <FunctionImport Name="sp_pr_GetNewBankProvodki" ReturnType="Collection(KasabaKIATModel.sp_pr_GetNewBankProvodki_Result)" />
+          <EntitySet Name="KaznaPaymentFiles" EntityType="KasabaKIATModel.KaznaPaymentFile" />
+          <AssociationSet Name="FK_KaznaBankFile_KaznaFiles" Association="KasabaKIATModel.FK_KaznaBankFile_KaznaFiles">
+            <End Role="KaznaFile" EntitySet="KaznaFiles" />
+            <End Role="KaznaPaymentFile" EntitySet="KaznaPaymentFiles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_KaznaPaymentFile_KaznaFiles" Association="KasabaKIATModel.FK_KaznaPaymentFile_KaznaFiles">
+            <End Role="KaznaFile" EntitySet="KaznaFiles" />
+            <End Role="KaznaPaymentFile" EntitySet="KaznaPaymentFiles" />
+          </AssociationSet>
+          <EntitySet Name="KaznaBankFiles" EntityType="KasabaKIATModel.KaznaBankFile" />
+          <EntitySet Name="TimeShedulers" EntityType="KasabaKIATModel.TimeSheduler" />
+          <EntitySet Name="tblSprav_Org" EntityType="KasabaKIATModel.tblSprav_Org" />
+          <EntitySet Name="tblSprav_Otras" EntityType="KasabaKIATModel.tblSprav_Otras" />
+          </EntityContainer>
         <EntityType Name="KaznaSverkaFile">
           <Key>
             <PropertyRef Name="REC_ID" />
@@ -611,6 +617,8 @@ warning 6035: The relationship 't_egrpo_4' has columns that are not part of the 
           <Property Name="POLUCHRSCH" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
           <Property Name="SUMMA" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="COMMENT" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="TRREF" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="TRREFNO" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="Kazna_Account">
           <Key>
@@ -638,43 +646,6 @@ warning 6035: The relationship 't_egrpo_4' has columns that are not part of the 
           <Property Name="NAME_RU" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
           <Property Name="CENTRE_NAME_RU" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
         </EntityType>
-        <EntityType Name="KaznaBankFile">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="K_TYPE" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
-          <Property Name="OPERDAY" Type="DateTime" Precision="3" />
-          <Property Name="ID" Type="Decimal" Nullable="false" Precision="12" Scale="0" />
-          <Property Name="GRPID" Type="Decimal" Nullable="false" Precision="12" Scale="0" />
-          <Property Name="KLSDOX" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
-          <Property Name="DOCNUMB" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
-          <Property Name="DOCDATE" Type="DateTime" Precision="3" />
-          <Property Name="DOCTYPE" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
-          <Property Name="SUMPAY" Type="Decimal" Precision="20" Scale="0" />
-          <Property Name="CLMFO" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
-          <Property Name="CLACC" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="CLINN" Type="String" MaxLength="9" FixedLength="false" Unicode="true" />
-          <Property Name="CLNAME" Type="String" MaxLength="160" FixedLength="false" Unicode="true" />
-          <Property Name="COMFO" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
-          <Property Name="COACC" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="COINN" Type="String" MaxLength="9" FixedLength="false" Unicode="true" />
-          <Property Name="CONAME" Type="String" MaxLength="160" FixedLength="false" Unicode="true" />
-          <Property Name="PURPOSE" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="FILE_ID" Type="Int64" />
-          <NavigationProperty Name="KaznaFile" Relationship="KasabaKIATModel.FK_KaznaBankFile_KaznaFiles1" FromRole="KaznaBankFile" ToRole="KaznaFile" />
-        </EntityType>
-        <Association Name="FK_KaznaBankFile_KaznaFiles1">
-          <End Type="KasabaKIATModel.KaznaFile" Role="KaznaFile" Multiplicity="0..1" />
-          <End Type="KasabaKIATModel.KaznaBankFile" Role="KaznaBankFile" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="KaznaFile">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="KaznaBankFile">
-              <PropertyRef Name="FILE_ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <ComplexType Name="sp_pr_GetNewTransactions_Result2">
           <Property Type="Decimal" Name="ID" Nullable="false" Precision="12" Scale="0" />
           <Property Type="Decimal" Name="SUMPAY" Nullable="true" Precision="20" Scale="0" />
@@ -798,7 +769,144 @@ warning 6035: The relationship 't_egrpo_4' has columns that are not part of the 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
+        <ComplexType Name="sp_pr_GetNewBankProvodki_Result">
+          <Property Type="DateTime" Name="OPERDAY" Nullable="true" Precision="23" />
+          <Property Type="Decimal" Name="ID" Nullable="false" Precision="12" Scale="0" />
+          <Property Type="Decimal" Name="GRPID" Nullable="false" Precision="12" Scale="0" />
+          <Property Type="String" Name="KLSDOX" Nullable="true" MaxLength="25" />
+          <Property Type="Decimal" Name="SUMPAY" Nullable="true" Precision="26" Scale="6" />
+          <Property Type="String" Name="COINN" Nullable="true" MaxLength="9" />
+          <Property Type="String" Name="Departmentbase" Nullable="true" MaxLength="255" />
+        </ComplexType>
+        <EntityType Name="KaznaPaymentFile">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="K_TYPE" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="OPERDAY" Type="DateTime" Precision="3" />
+          <Property Name="ID" Type="Decimal" Nullable="false" Precision="12" Scale="0" />
+          <Property Name="BANKID" Type="Decimal" Precision="17" Scale="0" />
+          <Property Name="KLSDOX" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="DOCNUMB" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="DOCDATE" Type="DateTime" Precision="3" />
+          <Property Name="DOCTYPE" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="SUMPAY" Type="Decimal" Precision="20" Scale="0" />
+          <Property Name="CLMFO" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="CLACC" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="CLINN" Type="String" MaxLength="9" FixedLength="false" Unicode="true" />
+          <Property Name="CLNAME" Type="String" MaxLength="160" FixedLength="false" Unicode="true" />
+          <Property Name="COMFO" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="COACC" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="COINN" Type="String" MaxLength="9" FixedLength="false" Unicode="true" />
+          <Property Name="CONAME" Type="String" MaxLength="160" FixedLength="false" Unicode="true" />
+          <Property Name="PURPOSE" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="CHAPTER" Type="String" MaxLength="3" FixedLength="false" Unicode="true" />
+          <Property Name="OKONH" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="FILE_ID" Type="Int64" />
+          <Property Name="OTCHISLEN" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="GRPID" Type="Decimal" Precision="12" Scale="0" />
+          <NavigationProperty Name="KaznaFile" Relationship="KasabaKIATModel.FK_KaznaBankFile_KaznaFiles" FromRole="KaznaPaymentFile" ToRole="KaznaFile" />
+          <NavigationProperty Name="KaznaFile1" Relationship="KasabaKIATModel.FK_KaznaPaymentFile_KaznaFiles" FromRole="KaznaPaymentFile" ToRole="KaznaFile" />
+        </EntityType>
+        <Association Name="FK_KaznaBankFile_KaznaFiles">
+          <End Type="KasabaKIATModel.KaznaFile" Role="KaznaFile" Multiplicity="0..1" />
+          <End Type="KasabaKIATModel.KaznaPaymentFile" Role="KaznaPaymentFile" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KaznaFile">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="KaznaPaymentFile">
+              <PropertyRef Name="FILE_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_KaznaPaymentFile_KaznaFiles">
+          <End Type="KasabaKIATModel.KaznaFile" Role="KaznaFile" Multiplicity="0..1" />
+          <End Type="KasabaKIATModel.KaznaPaymentFile" Role="KaznaPaymentFile" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KaznaFile">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="KaznaPaymentFile">
+              <PropertyRef Name="FILE_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="KaznaBankFile">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="K_TYPE" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="OPERDAY" Type="DateTime" Precision="3" />
+          <Property Name="ID" Type="Decimal" Nullable="false" Precision="12" Scale="0" />
+          <Property Name="GRPID" Type="Decimal" Nullable="false" Precision="12" Scale="0" />
+          <Property Name="KLSDOX" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="DOCNUMB" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="DOCDATE" Type="DateTime" Precision="3" />
+          <Property Name="DOCTYPE" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="SUMPAY" Type="Decimal" Precision="20" Scale="0" />
+          <Property Name="CLMFO" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="CLACC" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="CLINN" Type="String" MaxLength="9" FixedLength="false" Unicode="true" />
+          <Property Name="CLNAME" Type="String" MaxLength="160" FixedLength="false" Unicode="true" />
+          <Property Name="COMFO" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="COACC" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="COINN" Type="String" MaxLength="9" FixedLength="false" Unicode="true" />
+          <Property Name="CONAME" Type="String" MaxLength="160" FixedLength="false" Unicode="true" />
+          <Property Name="PURPOSE" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="FILE_ID" Type="Int64" />
+          <Property Name="PROVODKA_ID" Type="Int64" />
+        </EntityType>
+        <EntityType Name="TimeSheduler">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" />
+          <Property Name="LastChanged" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityType Name="tblSprav_Org">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_Ot" Type="Int32" />
+          <Property Name="Name_Org" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="INN" Type="String" MaxLength="9" FixedLength="false" Unicode="true" />
+          <Property Name="RS" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="MFO" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="Bank" Type="String" MaxLength="90" FixedLength="false" Unicode="true" />
+          <Property Name="OKONX" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="Adress" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Telefon" Type="String" MaxLength="70" FixedLength="false" Unicode="true" />
+          <Property Name="Region" Type="Int32" />
+          <Property Name="DT_OST" Type="Int32" />
+          <Property Name="KT_OST" Type="Int32" />
+          <Property Name="E_Mail" Type="String" MaxLength="90" FixedLength="false" Unicode="true" />
+          <Property Name="UserId" Type="Int64" />
+          <Property Name="DepartmentBase" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="IS_PRAVSOYUZ" Type="Boolean" Nullable="false" />
+          <Property Name="ParentID" Type="Int64" />
+          <Property Name="PRAVORGLEVEL" Type="Int32" />
+          <Property Name="DIRECTOR" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="BUXGALTER" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="DOVERENNOE_LISO" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="ORIG_INN" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="OWNER_CODE" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="TIMESTAMP_CH" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="tblSprav_Otras">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID_Ot" Type="Int32" />
+          <Property Name="Name_Ot" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Priz" Type="Int32" />
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="Int64" />
+          <Property Name="DepartmentBase" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="BRANCH_CODE" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+        </EntityType>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -810,35 +918,6 @@ warning 6035: The relationship 't_egrpo_4' has columns that are not part of the 
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="FileName" ColumnName="FileName" />
                 <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="KaznaPaymentFiles">
-            <EntityTypeMapping TypeName="KasabaKIATModel.KaznaPaymentFile">
-              <MappingFragment StoreEntitySet="KaznaPaymentFile">
-                <ScalarProperty Name="GRPID" ColumnName="GRPID" />
-                <ScalarProperty Name="K_TYPE" ColumnName="K_TYPE" />
-                <ScalarProperty Name="OPERDAY" ColumnName="OPERDAY" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="BANKID" ColumnName="BANKID" />
-                <ScalarProperty Name="KLSDOX" ColumnName="KLSDOX" />
-                <ScalarProperty Name="DOCNUMB" ColumnName="DOCNUMB" />
-                <ScalarProperty Name="DOCDATE" ColumnName="DOCDATE" />
-                <ScalarProperty Name="DOCTYPE" ColumnName="DOCTYPE" />
-                <ScalarProperty Name="SUMPAY" ColumnName="SUMPAY" />
-                <ScalarProperty Name="CLMFO" ColumnName="CLMFO" />
-                <ScalarProperty Name="CLACC" ColumnName="CLACC" />
-                <ScalarProperty Name="CLINN" ColumnName="CLINN" />
-                <ScalarProperty Name="CLNAME" ColumnName="CLNAME" />
-                <ScalarProperty Name="COMFO" ColumnName="COMFO" />
-                <ScalarProperty Name="COACC" ColumnName="COACC" />
-                <ScalarProperty Name="COINN" ColumnName="COINN" />
-                <ScalarProperty Name="CONAME" ColumnName="CONAME" />
-                <ScalarProperty Name="PURPOSE" ColumnName="PURPOSE" />
-                <ScalarProperty Name="CHAPTER" ColumnName="CHAPTER" />
-                <ScalarProperty Name="OKONH" ColumnName="OKONH" />
-                <ScalarProperty Name="FILE_ID" ColumnName="FILE_ID" />
-                <ScalarProperty Name="OTCHISLEN" ColumnName="OTCHISLEN" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -937,6 +1016,8 @@ warning 6035: The relationship 't_egrpo_4' has columns that are not part of the 
           <EntitySetMapping Name="tbbu_provodki">
             <EntityTypeMapping TypeName="KasabaKIATModel.tbbu_provodki">
               <MappingFragment StoreEntitySet="tbbu_provodki">
+                <ScalarProperty Name="TRREFNO" ColumnName="TRREFNO" />
+                <ScalarProperty Name="TRREF" ColumnName="TRREF" />
                 <ScalarProperty Name="COMMENT" ColumnName="COMMENT" />
                 <ScalarProperty Name="SUMMA" ColumnName="SUMMA" />
                 <ScalarProperty Name="POLUCHRSCH" ColumnName="POLUCHRSCH" />
@@ -983,31 +1064,6 @@ warning 6035: The relationship 't_egrpo_4' has columns that are not part of the 
                 <ScalarProperty Name="NAME_LN" ColumnName="NAME_LN" />
                 <ScalarProperty Name="KODI" ColumnName="KODI" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="KaznaBankFiles">
-            <EntityTypeMapping TypeName="KasabaKIATModel.KaznaBankFile">
-              <MappingFragment StoreEntitySet="KaznaBankFile">
-                <ScalarProperty Name="FILE_ID" ColumnName="FILE_ID" />
-                <ScalarProperty Name="PURPOSE" ColumnName="PURPOSE" />
-                <ScalarProperty Name="CONAME" ColumnName="CONAME" />
-                <ScalarProperty Name="COINN" ColumnName="COINN" />
-                <ScalarProperty Name="COACC" ColumnName="COACC" />
-                <ScalarProperty Name="COMFO" ColumnName="COMFO" />
-                <ScalarProperty Name="CLNAME" ColumnName="CLNAME" />
-                <ScalarProperty Name="CLINN" ColumnName="CLINN" />
-                <ScalarProperty Name="CLACC" ColumnName="CLACC" />
-                <ScalarProperty Name="CLMFO" ColumnName="CLMFO" />
-                <ScalarProperty Name="SUMPAY" ColumnName="SUMPAY" />
-                <ScalarProperty Name="DOCTYPE" ColumnName="DOCTYPE" />
-                <ScalarProperty Name="DOCDATE" ColumnName="DOCDATE" />
-                <ScalarProperty Name="DOCNUMB" ColumnName="DOCNUMB" />
-                <ScalarProperty Name="KLSDOX" ColumnName="KLSDOX" />
-                <ScalarProperty Name="GRPID" ColumnName="GRPID" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="OPERDAY" ColumnName="OPERDAY" />
-                <ScalarProperty Name="K_TYPE" ColumnName="K_TYPE" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1109,6 +1165,126 @@ warning 6035: The relationship 't_egrpo_4' has columns that are not part of the 
                 <ScalarProperty Name="code" ColumnName="code" />
                 <ScalarProperty Name="version" ColumnName="version" />
                 <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="sp_pr_GetNewBankProvodki" FunctionName="KasabaKIATModel.Store.sp_pr_GetNewBankProvodki">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="KasabaKIATModel.sp_pr_GetNewBankProvodki_Result">
+                <ScalarProperty Name="OPERDAY" ColumnName="OPERDAY" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="GRPID" ColumnName="GRPID" />
+                <ScalarProperty Name="KLSDOX" ColumnName="KLSDOX" />
+                <ScalarProperty Name="SUMPAY" ColumnName="SUMPAY" />
+                <ScalarProperty Name="COINN" ColumnName="COINN" />
+                <ScalarProperty Name="Departmentbase" ColumnName="Departmentbase" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="KaznaPaymentFiles">
+            <EntityTypeMapping TypeName="KasabaKIATModel.KaznaPaymentFile">
+              <MappingFragment StoreEntitySet="KaznaPaymentFile">
+                <ScalarProperty Name="GRPID" ColumnName="GRPID" />
+                <ScalarProperty Name="OTCHISLEN" ColumnName="OTCHISLEN" />
+                <ScalarProperty Name="FILE_ID" ColumnName="FILE_ID" />
+                <ScalarProperty Name="OKONH" ColumnName="OKONH" />
+                <ScalarProperty Name="CHAPTER" ColumnName="CHAPTER" />
+                <ScalarProperty Name="PURPOSE" ColumnName="PURPOSE" />
+                <ScalarProperty Name="CONAME" ColumnName="CONAME" />
+                <ScalarProperty Name="COINN" ColumnName="COINN" />
+                <ScalarProperty Name="COACC" ColumnName="COACC" />
+                <ScalarProperty Name="COMFO" ColumnName="COMFO" />
+                <ScalarProperty Name="CLNAME" ColumnName="CLNAME" />
+                <ScalarProperty Name="CLINN" ColumnName="CLINN" />
+                <ScalarProperty Name="CLACC" ColumnName="CLACC" />
+                <ScalarProperty Name="CLMFO" ColumnName="CLMFO" />
+                <ScalarProperty Name="SUMPAY" ColumnName="SUMPAY" />
+                <ScalarProperty Name="DOCTYPE" ColumnName="DOCTYPE" />
+                <ScalarProperty Name="DOCDATE" ColumnName="DOCDATE" />
+                <ScalarProperty Name="DOCNUMB" ColumnName="DOCNUMB" />
+                <ScalarProperty Name="KLSDOX" ColumnName="KLSDOX" />
+                <ScalarProperty Name="BANKID" ColumnName="BANKID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="OPERDAY" ColumnName="OPERDAY" />
+                <ScalarProperty Name="K_TYPE" ColumnName="K_TYPE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="KaznaBankFiles">
+            <EntityTypeMapping TypeName="KasabaKIATModel.KaznaBankFile">
+              <MappingFragment StoreEntitySet="KaznaBankFile">
+                <ScalarProperty Name="PROVODKA_ID" ColumnName="PROVODKA_ID" />
+                <ScalarProperty Name="FILE_ID" ColumnName="FILE_ID" />
+                <ScalarProperty Name="PURPOSE" ColumnName="PURPOSE" />
+                <ScalarProperty Name="CONAME" ColumnName="CONAME" />
+                <ScalarProperty Name="COINN" ColumnName="COINN" />
+                <ScalarProperty Name="COACC" ColumnName="COACC" />
+                <ScalarProperty Name="COMFO" ColumnName="COMFO" />
+                <ScalarProperty Name="CLNAME" ColumnName="CLNAME" />
+                <ScalarProperty Name="CLINN" ColumnName="CLINN" />
+                <ScalarProperty Name="CLACC" ColumnName="CLACC" />
+                <ScalarProperty Name="CLMFO" ColumnName="CLMFO" />
+                <ScalarProperty Name="SUMPAY" ColumnName="SUMPAY" />
+                <ScalarProperty Name="DOCTYPE" ColumnName="DOCTYPE" />
+                <ScalarProperty Name="DOCDATE" ColumnName="DOCDATE" />
+                <ScalarProperty Name="DOCNUMB" ColumnName="DOCNUMB" />
+                <ScalarProperty Name="KLSDOX" ColumnName="KLSDOX" />
+                <ScalarProperty Name="GRPID" ColumnName="GRPID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="OPERDAY" ColumnName="OPERDAY" />
+                <ScalarProperty Name="K_TYPE" ColumnName="K_TYPE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TimeShedulers">
+            <EntityTypeMapping TypeName="KasabaKIATModel.TimeSheduler">
+              <MappingFragment StoreEntitySet="TimeShedulers">
+                <ScalarProperty Name="LastChanged" ColumnName="LastChanged" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblSprav_Org">
+            <EntityTypeMapping TypeName="KasabaKIATModel.tblSprav_Org">
+              <MappingFragment StoreEntitySet="tblSprav_Org">
+                <ScalarProperty Name="TIMESTAMP_CH" ColumnName="TIMESTAMP_CH" />
+                <ScalarProperty Name="OWNER_CODE" ColumnName="OWNER_CODE" />
+                <ScalarProperty Name="ORIG_INN" ColumnName="ORIG_INN" />
+                <ScalarProperty Name="DOVERENNOE_LISO" ColumnName="DOVERENNOE_LISO" />
+                <ScalarProperty Name="BUXGALTER" ColumnName="BUXGALTER" />
+                <ScalarProperty Name="DIRECTOR" ColumnName="DIRECTOR" />
+                <ScalarProperty Name="PRAVORGLEVEL" ColumnName="PRAVORGLEVEL" />
+                <ScalarProperty Name="ParentID" ColumnName="ParentID" />
+                <ScalarProperty Name="IS_PRAVSOYUZ" ColumnName="IS_PRAVSOYUZ" />
+                <ScalarProperty Name="DepartmentBase" ColumnName="DepartmentBase" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="E_Mail" ColumnName="E_Mail" />
+                <ScalarProperty Name="KT_OST" ColumnName="KT_OST" />
+                <ScalarProperty Name="DT_OST" ColumnName="DT_OST" />
+                <ScalarProperty Name="Region" ColumnName="Region" />
+                <ScalarProperty Name="Telefon" ColumnName="Telefon" />
+                <ScalarProperty Name="Adress" ColumnName="Adress" />
+                <ScalarProperty Name="OKONX" ColumnName="OKONX" />
+                <ScalarProperty Name="Bank" ColumnName="Bank" />
+                <ScalarProperty Name="MFO" ColumnName="MFO" />
+                <ScalarProperty Name="RS" ColumnName="RS" />
+                <ScalarProperty Name="INN" ColumnName="INN" />
+                <ScalarProperty Name="Name_Org" ColumnName="Name_Org" />
+                <ScalarProperty Name="ID_Ot" ColumnName="ID_Ot" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblSprav_Otras">
+            <EntityTypeMapping TypeName="KasabaKIATModel.tblSprav_Otras">
+              <MappingFragment StoreEntitySet="tblSprav_Otras">
+                <ScalarProperty Name="BRANCH_CODE" ColumnName="BRANCH_CODE" />
+                <ScalarProperty Name="DepartmentBase" ColumnName="DepartmentBase" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Priz" ColumnName="Priz" />
+                <ScalarProperty Name="Name_Ot" ColumnName="Name_Ot" />
+                <ScalarProperty Name="ID_Ot" ColumnName="ID_Ot" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

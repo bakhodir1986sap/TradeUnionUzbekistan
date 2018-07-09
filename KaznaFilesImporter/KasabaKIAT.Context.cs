@@ -20,7 +20,6 @@ namespace KaznaFilesImporter
         public KasabaKIATEntities()
             : base("name=KasabaKIATEntities")
         {
-            ((IObjectContextAdapter)this).ObjectContext.CommandTimeout = 300;
         }
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -29,7 +28,6 @@ namespace KaznaFilesImporter
         }
     
         public virtual DbSet<KaznaFile> KaznaFiles { get; set; }
-        public virtual DbSet<KaznaPaymentFile> KaznaPaymentFiles { get; set; }
         public virtual DbSet<KaznaSverkaFile> KaznaSverkaFiles { get; set; }
         public virtual DbSet<t_egrpo> t_egrpo { get; set; }
         public virtual DbSet<tbbu_ecp_calc> tbbu_ecp_calc { get; set; }
@@ -37,10 +35,14 @@ namespace KaznaFilesImporter
         public virtual DbSet<tbbu_provodki> tbbu_provodki { get; set; }
         public virtual DbSet<Kazna_Account> Kazna_Account { get; set; }
         public virtual DbSet<tbsp_soato_new> tbsp_soato_new { get; set; }
-        public virtual DbSet<KaznaBankFile> KaznaBankFiles { get; set; }
         public virtual DbSet<tblPred> tblPreds { get; set; }
         public virtual DbSet<sp_branch> sp_branch { get; set; }
         public virtual DbSet<sp_okonx> sp_okonx { get; set; }
+        public virtual DbSet<KaznaPaymentFile> KaznaPaymentFiles { get; set; }
+        public virtual DbSet<KaznaBankFile> KaznaBankFiles { get; set; }
+        public virtual DbSet<TimeSheduler> TimeShedulers { get; set; }
+        public virtual DbSet<tblSprav_Org> tblSprav_Org { get; set; }
+        public virtual DbSet<tblSprav_Otras> tblSprav_Otras { get; set; }
     
         public virtual int sp_im_KaznaNewOrg()
         {
@@ -55,6 +57,11 @@ namespace KaznaFilesImporter
         public virtual ObjectResult<sp_pr_GetNewTransactions_Result4> sp_pr_GetNewTransactions()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_pr_GetNewTransactions_Result4>("sp_pr_GetNewTransactions");
+        }
+    
+        public virtual ObjectResult<sp_pr_GetNewBankProvodki_Result> sp_pr_GetNewBankProvodki()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_pr_GetNewBankProvodki_Result>("sp_pr_GetNewBankProvodki");
         }
     }
 }

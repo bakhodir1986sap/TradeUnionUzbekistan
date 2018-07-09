@@ -25,5 +25,7 @@ namespace KasabaKIAT.ViewModel.Buxgalteriya
       public string     poluchrsch         { get; set;}
       public decimal?   summa              { get; set;}
       public string     comment            { get; set;}
+      public string     trref { get; set; }
+      public string     trrefno { get; set; }
     }
 }

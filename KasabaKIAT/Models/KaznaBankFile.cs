@@ -33,6 +33,7 @@ namespace KasabaKIAT.Models
         public string CONAME { get; set; }
         public string PURPOSE { get; set; }
         public Nullable<long> FILE_ID { get; set; }
+        public Nullable<long> PROVODKA_ID { get; set; }
     
         public virtual KaznaFiles KaznaFile { get; set; }
     }

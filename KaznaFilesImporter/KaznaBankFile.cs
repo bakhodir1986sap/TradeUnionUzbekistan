@@ -33,7 +33,6 @@ namespace KaznaFilesImporter
         public string CONAME { get; set; }
         public string PURPOSE { get; set; }
         public Nullable<long> FILE_ID { get; set; }
-    
-        public virtual KaznaFile KaznaFile { get; set; }
+        public Nullable<long> PROVODKA_ID { get; set; }
     }
 }

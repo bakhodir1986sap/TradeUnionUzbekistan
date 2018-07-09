@@ -202,28 +202,39 @@
                                 <div class="form-group row align-items-center">
                                     <label class="col-md-5 col-form-label text-md-right py-0">Дата:</label>
                                     <div class="col-md-7">
-                                        <input type="date" class="form-control" placeholder="Дата" ng-model="DataPos"/>
+                                        <input type="date" class="form-control" placeholder="Дата" ng-model="DataPos" />
                                     </div>
                                 </div>
                                 <div class="form-group row align-items-center">
                                     <label class="col-md-5 col-form-label text-md-right py-0">Номер документа:</label>
                                     <div class="col-md-7">
-                                        <input type="text" class="form-control" placeholder="Номер документа" ng-model="Num_Doc"/>
+                                        <input type="text" class="form-control" placeholder="Номер документа" ng-model="Num_Doc" />
                                     </div>
                                 </div>
                                 <div class="form-group row align-items-center">
                                     <label class="col-md-5 col-form-label text-md-right py-0">Покупатель:</label>
                                     <div class="col-md-7">
-                                        <select class="custom-select form-control" ng-model="SelectedOrganization" ng-options="item as item.Name_Org for item in OrganizationsL track by item.ID">
-                                        </select>
+                                        <select class="custom-select form-control" ng-model="SelectedOrganization" ng-options="item as item.Name_Org for item in OrganizationsL track by item.ID"></select>
                                         <span>{{SelectedOrganization.Name_Org}}</span>
                                     </div>
                                     <a href="#" class="btn btn-grey d-block d-md-inline-block mb-2" data-toggle="modal" data-target="#organization">Выбрать</a>
                                 </div>
                                 <div class="form-group row align-items-center">
-                                    <label class="col-md-5 col-form-label text-md-right py-0">Номер доверенности (и на кого оформлена дд/мм/гггг):</label>
+                                    <label class="col-md-5 col-form-label text-md-right py-0">Номер доверенности:</label>
                                     <div class="col-md-7">
-                                        <input ng-model="Name_Dov" type="text" class="form-control" placeholder="Номер доверенности (и на кого оформлена)" />
+                                        <input ng-model="Num_Dov" type="text" class="form-control" placeholder="Номер доверенности" />
+                                    </div>
+                                </div>
+                                <div class="form-group row align-items-center">
+                                    <label class="col-md-5 col-form-label text-md-right py-0">Дата доверенности:</label>
+                                    <div class="col-md-7">
+                                        <input type="date" class="form-control" placeholder="Дата" ng-model="Date_Dov" />
+                                    </div>
+                                </div>
+                                <div class="form-group row align-items-center">
+                                    <label class="col-md-5 col-form-label text-md-right py-0">На кого оформлена:</label>
+                                    <div class="col-md-7">
+                                        <input ng-model="Name_Dov" type="text" class="form-control" placeholder="на кого оформлена" />
                                     </div>
                                 </div>
                                 <div class="mb-4 text-right">
@@ -261,22 +272,33 @@
                                 <div class="form-group row align-items-center">
                                     <label class="col-md-5 col-form-label text-md-right py-0">Покупатель:</label>
                                     <div class="col-md-7">
-                                        <select class="custom-select form-control" ng-model="SelectedOrganization" ng-options="item as item.Name_Org for item in OrganizationsL track by item.ID">
-                                        </select>
+                                        <select class="custom-select form-control" ng-model="SelectedOrganization" ng-options="item as item.Name_Org for item in OrganizationsL track by item.ID"></select>
                                         <b><span>{{SelectedOrganization.Name_Org}}</span></b>
                                     </div>
                                     <a href="#" class="btn btn-grey d-block d-md-inline-block mb-2" data-toggle="modal" data-target="#organization">Выбрать</a>
                                 </div>
                                 <div class="form-group row align-items-center">
-                                    <label class="col-md-5 col-form-label text-md-right py-0">Номер доверенности (и на кого оформлена дд/мм/гггг):</label>
+                                    <label class="col-md-5 col-form-label text-md-right py-0">Номер доверенности:</label>
                                     <div class="col-md-7">
-                                        <input ng-model="Name_Dov" type="text" class="form-control" placeholder="Номер доверенности (и на кого оформлена)" />
+                                        <input ng-model="Num_Dov" type="text" class="form-control" placeholder="Номер доверенности" />
+                                    </div>
+                                </div>
+                                <div class="form-group row align-items-center">
+                                    <label class="col-md-5 col-form-label text-md-right py-0">Дата доверенности:</label>
+                                    <div class="col-md-7">
+                                        <input type="date" class="form-control" placeholder="Дата" ng-model="Date_Dov" />
+                                    </div>
+                                </div>
+                                <div class="form-group row align-items-center">
+                                    <label class="col-md-5 col-form-label text-md-right py-0">На кого оформлена:</label>
+                                    <div class="col-md-7">
+                                        <input ng-model="Name_Dov" type="text" class="form-control" placeholder="на кого оформлена" />
                                     </div>
                                 </div>
                                 <div class="mb-4 text-right">
-                                    <a href="#" ng-click="MakeProvodka()" class="btn btn-grey d-block d-md-inline-block mb-2"  data-dismiss="modal"><i class="fas fa-plus"></i> Проводка</a>
-                                    <a href="#" ng-click="EditNakladnoy()" class="btn btn-green d-block d-md-inline-block mb-2"  data-dismiss="modal"><i class="fas fa-plus"></i> Изменить</a>
-                                    <a href="#" ng-click="RemoveNakladnoy()" class="btn btn-red d-block d-md-inline-block mb-2"  data-dismiss="modal"><i class="fas fa-plus"></i> Удалить</a>
+                                    <a href="#" ng-click="MakeProvodka()" class="btn btn-grey d-block d-md-inline-block mb-2" data-dismiss="modal"><i class="fas fa-plus"></i> Проводка</a>
+                                    <a href="#" ng-click="EditNakladnoy()" class="btn btn-green d-block d-md-inline-block mb-2" data-dismiss="modal"><i class="fas fa-plus"></i> Изменить</a>
+                                    <a href="#" ng-click="RemoveNakladnoy()" class="btn btn-red d-block d-md-inline-block mb-2" data-dismiss="modal"><i class="fas fa-plus"></i> Удалить</a>
                                     <a href="#" class="btn btn-grey d-block d-md-inline-block mb-2" data-dismiss="modal">Отмена</a>
                                 </div>
                             </div>

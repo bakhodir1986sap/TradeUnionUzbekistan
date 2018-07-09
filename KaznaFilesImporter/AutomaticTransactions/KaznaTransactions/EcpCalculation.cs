@@ -284,16 +284,21 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.Provodki.AutomaticTransactions.K
                             Console.WriteLine(DateTime.Now.ToLongTimeString() +  " Oblast and Tuman Difinition2222");
                             if (bankDatas.Any())
                             {
+                                //Har bitta GRPID buyicha 2 ta qator topiladi 70% ga 30%
                                 var KKK = bankDatas.Where(ll => ll.COACC != federationAccount);
 
+                                //Federasiya bumagani topilmasa kerak emas
                                 if (!KKK.Any()) continue;
 
+                                //Federasiya bumaganini ixtiyoriy birinchisi
                                 var bank = KKK.First();
 
+                                //
                                 var preds = db.tblPreds.Where(p => p.KaznaAccount == bank.COACC);
 
                                 if (preds.Any())
                                 {
+                                    //Shunaqa yo'l bilan departmentBase aniqlanadi
                                     model.obl_department_base = preds.First().Departmentbase;
                                 }
                             }
@@ -348,6 +353,48 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.Provodki.AutomaticTransactions.K
                                 db.t_egrpo.Add(ee);
 
                                 //db.SaveChanges();
+                            }
+
+                            //Search in tblSprav_Org
+                            var orgsList = db.tblSprav_Org.Where(z => z.INN == innFromDtl);
+
+                            if (orgsList.Any())
+                            {
+                                var org1 = orgsList.First();
+
+                                if (org1.ID_Ot.HasValue)
+                                {
+                                    var currentOtrasl = db.tblSprav_Otras.Where(z => z.ID_Ot == org1.ID_Ot);
+
+                                    if (currentOtrasl.Any())
+                                    {
+                                        var branchCode = currentOtrasl.First().BRANCH_CODE;
+
+                                        var branchNameRow = db.sp_branch.Where(z => z.code == branchCode);
+
+                                        if (branchNameRow.Any())
+                                        {
+                                            var branchName = branchNameRow.First().name_ru;
+
+                                            model.branch_code = branchCode;
+                                            Console.WriteLine(DateTime.Now.ToLongTimeString() + " Oblast and Tuman Difinition888888");
+                                            model.branch_name = branchName;
+                                        }
+                                    }
+                                }
+
+                            }
+                            else
+                            {
+                                var orrg = new tblSprav_Org();
+                                orrg.INN = innFromDtl;
+                                orrg.Name_Org = payment.CLNAME;
+                                orrg.DepartmentBase = model.obl_department_base;
+                                orrg.ORIG_INN = innFromDtl;
+                                orrg.OKONX = model.okonx_id;
+
+
+                                db.tblSprav_Org.Add(orrg);
                             }
 
                             #endregion
@@ -580,12 +627,17 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.Provodki.AutomaticTransactions.K
 
                     var trans = new ProvodkiViewModel();
 
-                    var NotProcList = db.tbbu_ecp_calc.Where(z => z.PROVODKA_ID == 0 && z.OBL_DEPARTMENT_BASE != null).Take(1000);
+                    var NotProcList1 = db.sp_pr_GetNewBankProvodki();
+
+                    var NotProcList = NotProcList1.ToList();
 
                     if (NotProcList.Any())
                     {
                         foreach (var pp in NotProcList)
                         {
+                            Console.WriteLine(pp.OPERDAY);
+                            Console.WriteLine(pp.COINN);
+                            Console.WriteLine("========================================");
 
                             trans.comment = string.Empty;
                             trans.department_base = string.Empty;
@@ -605,109 +657,86 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.Provodki.AutomaticTransactions.K
                             trans.tipscheta = false;
                             trans.trdt = DateTime.MinValue;
                             trans.user_id = 0;
+                            trans.trref = "ECP";
+                            trans.trrefno = pp.ID.ToString();
 
                             //Obshaya provodka
-                            trans.comment = "Postupleniya po ECP vsego";
-                            trans.department_base = pp.OBL_DEPARTMENT_BASE;
+                            trans.comment = "Postupleniya po ECP";
+                            trans.department_base = pp.Departmentbase;
                             trans.inoutflg = false;
-                            trans.platelrsch = "004";
-                            trans.poluchrsch = "18";
-                            trans.summa = pp.PROFSOUZ_AMT;
-                            trans.user_id = 1;
-                            trans.trdt = DateTime.Now;
-
-                            ProvodkiDataManager.Create(ref trans);
-
-                            pp.PROVODKA_ID = trans.rec_id;
-
-                            var ppmodel = new EcpCalcViewModel();
-                            ppmodel.id = pp.ID;
-                            ppmodel.provodka_id = pp.PROVODKA_ID;
-
-                            EcpCalcDataManager.Modify(ppmodel);
-
-                            //----------------------------------
-
-                            trans.comment = string.Empty;
-                            trans.department_base = string.Empty;
-                            trans.inoutflg = false;
-                            trans.number = string.Empty;
-                            trans.platelinn = string.Empty;
-                            trans.platelmfo = string.Empty;
-                            trans.platelname = string.Empty;
-                            trans.platelrsch = string.Empty;
-                            trans.poluchinn = string.Empty;
-                            trans.poluchmfo = string.Empty;
-                            trans.poluchname = string.Empty;
-                            trans.poluchrsch = string.Empty;
-                            trans.rec_id = 0;
-                            trans.summa = 0;
-                            trans.tipoborota = false;
-                            trans.tipscheta = false;
-                            trans.trdt = DateTime.MinValue;
-                            trans.user_id = 0;
-
-                            //Obshaya provodka
-                            trans.comment = "Postupleniya po ECP federasiya";
-                            trans.department_base = pp.OBL_DEPARTMENT_BASE;
-                            trans.inoutflg = false;
-                            trans.platelrsch = "22";
+                            trans.platelrsch = pp.Departmentbase == "17" ? "22" : "20";
                             trans.poluchrsch = "004";
-                            trans.summa = pp.FEDERATION_AMT;
+                            trans.summa = pp.SUMPAY;
+
                             trans.user_id = 1;
                             trans.trdt = DateTime.Now;
 
                             ProvodkiDataManager.Create(ref trans);
 
-                            pp.PROVODKA_ID = trans.rec_id;
+                            EcpCalcDataManager.ModifyBank(pp.ID , trans.rec_id);
 
-                            var ppmodel2 = new EcpCalcViewModel();
-                            ppmodel2.id = pp.ID;
-                            ppmodel2.provodka_id = pp.PROVODKA_ID;
+                        }
+                    }
 
-                            EcpCalcDataManager.Modify(ppmodel2);
+                    #endregion
 
-                            //----------------------------------
 
-                            trans.comment = string.Empty;
-                            trans.department_base = string.Empty;
-                            trans.inoutflg = false;
-                            trans.number = string.Empty;
-                            trans.platelinn = string.Empty;
-                            trans.platelmfo = string.Empty;
-                            trans.platelname = string.Empty;
-                            trans.platelrsch = string.Empty;
-                            trans.poluchinn = string.Empty;
-                            trans.poluchmfo = string.Empty;
-                            trans.poluchname = string.Empty;
-                            trans.poluchrsch = string.Empty;
-                            trans.rec_id = 0;
-                            trans.summa = 0;
-                            trans.tipoborota = false;
-                            trans.tipscheta = false;
-                            trans.trdt = DateTime.MinValue;
-                            trans.user_id = 0;
+                    #region Otrasl_Past change
 
-                            //Obshaya provodka
-                            trans.comment = "Postupleniya po ECP oblsovprof";
-                            trans.department_base = pp.OBL_DEPARTMENT_BASE;
-                            trans.inoutflg = false;
-                            trans.platelrsch = "20";
-                            trans.poluchrsch = "004";
-                            trans.summa = pp.OBLSOVPROF_AMT;
-                            trans.user_id = 1;
-                            trans.trdt = DateTime.Now;
+                    Console.WriteLine("Otrasl Late Update");
 
-                            ProvodkiDataManager.Create(ref trans);
+                    var lastTimeRow = db.TimeShedulers.Where(z => z.id == 1).FirstOrDefault();
 
-                            pp.PROVODKA_ID = trans.rec_id;
+                    if (lastTimeRow != null)
+                    {
+                        var lastTime = lastTimeRow.LastChanged;
 
-                            var ppmodel3 = new EcpCalcViewModel();
-                            ppmodel3.id = pp.ID;
-                            ppmodel3.provodka_id = pp.PROVODKA_ID;
+                        Console.WriteLine("lastTime: " + lastTime);
 
-                            EcpCalcDataManager.Modify(ppmodel3);
+                        var newOrgChangedList = db.tblSprav_Org.Where(z => z.TIMESTAMP_CH >= lastTime);
 
+                        if (newOrgChangedList.Any())
+                        {
+                            foreach(var org in newOrgChangedList)
+                            {
+                                if (org.ID_Ot.HasValue)
+                                {
+                                    var currentOtrasl = db.tblSprav_Otras.Where(z => z.ID_Ot == org.ID_Ot);
+
+                                    if (currentOtrasl.Any())
+                                    {
+                                        var branchCode = currentOtrasl.First().BRANCH_CODE;
+
+                                        Console.WriteLine("branchCode: " + branchCode);
+
+                                        var branchNameRow = db.sp_branch.Where(z => z.code == branchCode);
+
+                                        if (branchNameRow.Any())
+                                        {
+                                            var branchName = branchNameRow.First().name_ru;
+
+                                            Console.WriteLine("branchName: " + branchName);
+
+                                            var ecpChangeList = db.tbbu_ecp_calc.Where(z => z.INN == org.INN);
+
+                                            if (ecpChangeList.Any())
+                                            {
+                                                foreach(var ecp in ecpChangeList)
+                                                {
+                                                    ecp.BRANCH_CODE = branchCode;
+                                                    ecp.BRANCH_NAME = branchName;
+                                                }
+
+                                                
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+
+                            lastTimeRow.LastChanged = DateTime.Now;
+
+                            db.SaveChanges();
                         }
                     }
 

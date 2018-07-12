@@ -96,7 +96,7 @@
                     <tbody>
                         <tr ng-repeat="oplat in OplataMains" ng-click="editSelected(oplat)" ng-class="{selectedTableRow: oplat.ID === idSelectedVote.ID}" >
                             <td class="custom-control custom-radio r-radio">
-                                <input type="radio" class="custom-control-input" id="customMain{{oplat.ID}}" data-toggle="modal" data-target="#redaktirovat">
+                                <input type="radio" class="custom-control-input" id="customMain{{oplat.ID}}" data-toggle="modal" name="selectiondot" data-target="#redaktirovat">
                                 <label class="custom-control-label r-label" for="customMain{{oplat.ID}}">{{oplat.ID}}</label>
                             </td>
                             <td>{{oplat.Data_Post | jsonDate: 'dd.MM.yyyy'}}</td>
@@ -243,6 +243,11 @@
                             <div class="col-md-7">
                                 <select class="custom-select form-control" ng-model="SelectedOrganization" ng-options="item as item.Name_Org for item in OrganizationsL track by item.ID">
                                 </select>
+                                
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 text-right">
                                 <b><span>{{SelectedOrganization.Name_Org}}</span></b>
                                 <a href="#" class="btn btn-blue d-block d-md-inline-block mb-2" data-toggle="modal" data-target="#organization"><i class="fas fa-search"></i> Выбрать</a>
                             </div>
@@ -440,6 +445,11 @@
                                 <label class="col-md-5 col-form-label text-md-right py-0">ИНН:</label>
                                 <div class="col-md-7">
                                     <select class="custom-select form-control" ng-model="SelectedOrganization" ng-options="item as item.Name_Org for item in OrganizationsL track by item.ID"></select>
+                                    
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12 text-right">
                                     <b><span>{{SelectedOrganization.Name_Org}}</span></b>
                                     <a href="#" class="btn btn-blue d-block d-md-inline-block mb-2" data-toggle="modal" data-target="#organization"><i class="fas fa-search"></i> Выбрать</a>
                                 </div>
@@ -487,7 +497,7 @@
     </div>
 
         <div class="modal__block modal fade" id="organization" tabindex="-1" role="dialog" aria-labelledby="organizationLabel" data-backdrop="static" data-keyboard="false">
-            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-dialog modal-dialog-centered modal-lg" role="document" style="max-width:80%">
                 <div class="modal-content">
                     <div class="modal-body" style="max-height: calc(100vh - 210px); overflow-y: auto;">
                         <div class="row mb-4 align-items-center">

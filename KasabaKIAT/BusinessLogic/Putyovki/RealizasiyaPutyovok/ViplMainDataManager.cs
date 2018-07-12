@@ -32,7 +32,7 @@ namespace KasabaKiat.BusinessLogic.Putyovki.RealizasiyaPutyovok
                 vipl.ID_Pok             = model.id_pok              ;
                 vipl.Num_Kol            = model.num_kol             ;
                 vipl.Symma              = model.symma               ;
-                vipl.Name_Dov           = model.name_dov            ;
+                vipl.Name_Dov           = model.concat_dov;
                 vipl.ID_Kv              = model.id_kv               ;
                 vipl.Vid                = false           ;
                 vipl.SmFil              = model.smfil               ;
@@ -65,7 +65,7 @@ namespace KasabaKiat.BusinessLogic.Putyovki.RealizasiyaPutyovok
                         vipl1.ID_Pok = model.id_pok;
                         vipl1.Num_Kol = model.num_kol;
                         vipl1.Symma = model.symma;
-                        vipl1.Name_Dov = model.name_dov;
+                        vipl1.Name_Dov = model.concat_dov;
                         vipl1.ID_Kv = model.id_kv;
                         vipl1.Vid = model.vid;
                         vipl1.SmFil = model.smfil;
@@ -158,7 +158,7 @@ namespace KasabaKiat.BusinessLogic.Putyovki.RealizasiyaPutyovok
                                 id_pok          = vipl.ID_Pok           ,
                                 num_kol         = vipl.Num_Kol          ,
                                 symma           = vipl.Symma            ,
-                                name_dov        = vipl.Name_Dov         ,
+                                concat_dov        = vipl.Name_Dov         ,
                                 id_kv           = vipl.ID_Kv            ,
                                 vid             = vipl.Vid              ,
                                 smfil           = vipl.SmFil            ,
@@ -208,7 +208,7 @@ namespace KasabaKiat.BusinessLogic.Putyovki.RealizasiyaPutyovok
                                 id_pok = vipl.ID_Pok,
                                 num_kol = vipl.Num_Kol,
                                 symma = vipl.Symma,
-                                name_dov = vipl.Name_Dov,
+                                concat_dov = vipl.Name_Dov,
                                 id_kv = vipl.ID_Kv,
                                 vid = vipl.Vid,
                                 smfil = vipl.SmFil,
@@ -244,7 +244,7 @@ namespace KasabaKiat.BusinessLogic.Putyovki.RealizasiyaPutyovok
                                 id_pok = vipl.ID_Pok,
                                 num_kol = vipl.Num_Kol,
                                 symma = vipl.Symma,
-                                name_dov = vipl.Name_Dov,
+                                concat_dov = vipl.Name_Dov,
                                 id_kv = vipl.ID_Kv,
                                 vid = vipl.Vid,
                                 smfil = vipl.SmFil,

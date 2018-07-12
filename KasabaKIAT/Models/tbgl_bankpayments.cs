@@ -31,5 +31,8 @@ namespace KasabaKIAT.Models
         public Nullable<long> PARENT_ID { get; set; }
         public string DEPARTMENT_BASE { get; set; }
         public Nullable<long> USER_ID { get; set; }
+        public Nullable<long> PROVODKA_ID { get; set; }
+    
+        public virtual tbbu_provodki tbbu_provodki { get; set; }
     }
 }

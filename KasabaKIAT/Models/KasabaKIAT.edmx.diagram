@@ -373,6 +373,7 @@
         <AssociationConnector Association="KasabaKIATModel.FK_tblVozVrat_tbbu_provodki1" />
         <AssociationConnector Association="KasabaKIATModel.FK_tblVozVrat_tblPost" />
         <AssociationConnector Association="KasabaKIATModel.FK_tblVozVrat_tblVipl" />
+        <AssociationConnector Association="KasabaKIATModel.FK_tbgl_bankpayments_tbbu_provodki" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

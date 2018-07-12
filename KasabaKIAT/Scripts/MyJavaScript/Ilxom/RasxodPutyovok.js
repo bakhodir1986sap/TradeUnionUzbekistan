@@ -124,6 +124,8 @@
         num_kol: '',
         symma: '',
         name_dov: '',
+        num_dov: '',
+        date_dov: '',
         id_kv: '',
         vid: '',
         smfil: '',
@@ -189,6 +191,8 @@
 
         //Doverennost
         $scope.Name_Dov = $scope.CurrentNakladnoy.name_dov;
+        $scope.Num_Dov  = $scope.CurrentNakladnoy.num_dov;
+        $scope.Date_Dov = $scope.CurrentNakladnoy.date_dov;
 
         $scope.NakladnoyDtls = '';
 
@@ -371,6 +375,8 @@
         $scope.DataPos = '';
         $scope.Num_Doc = '';
         $scope.Name_Dov = '';
+        $scope.Num_Dov = '';
+        $scope.Date_Dov = '';
 
         $scope.ActionType = 'Добавить';
     }
@@ -386,6 +392,8 @@
         $scope.CurrentNakladnoy.id_org = $scope.SelectedOrganization.ID;
 
         $scope.CurrentNakladnoy.name_dov = $scope.Name_Dov;
+        $scope.CurrentNakladnoy.num_dov = $scope.Num_Dov;
+        $scope.CurrentNakladnoy.date_dov = $scope.Date_Dov;
 
         $scope.CurrentNakladnoy.id_kv = $scope.SelectedKvartal.ID;
 
@@ -420,6 +428,8 @@
         $scope.CurrentNakladnoy.id_org = $scope.SelectedOrganization.ID;
 
         $scope.CurrentNakladnoy.name_dov = $scope.Name_Dov;
+        $scope.CurrentNakladnoy.num_dov = $scope.Num_Dov;
+        $scope.CurrentNakladnoy.date_dov = $scope.Date_Dov;
 
         $scope.CurrentNakladnoy.id_kv = $scope.SelectedKvartal.ID;
 
@@ -451,6 +461,8 @@
         $scope.CurrentNakladnoy.id_org = $scope.SelectedOrganization.ID;
 
         $scope.CurrentNakladnoy.name_dov = $scope.Name_Dov;
+        $scope.CurrentNakladnoy.num_dov = $scope.Num_Dov;
+        $scope.CurrentNakladnoy.date_dov = $scope.Date_Dov;
 
         $scope.CurrentNakladnoy.id_kv = $scope.SelectedKvartal.ID;
 
@@ -480,6 +492,8 @@
         $scope.CurrentNakladnoy.id_org = $scope.SelectedOrganization.ID;
 
         $scope.CurrentNakladnoy.name_dov = $scope.Name_Dov;
+        $scope.CurrentNakladnoy.num_dov = $scope.Num_Dov;
+        $scope.CurrentNakladnoy.date_dov = $scope.Date_Dov;
 
         $scope.CurrentNakladnoy.id_kv = $scope.SelectedKvartal.ID;
 
@@ -571,7 +585,11 @@
             backdrop: 'static'
         });
 
-        var doc = new jsPDF();
+        var doc = new jsPDF({
+            orientation: 'p',
+            unit: 'mm',
+            format: [297, 210]
+        });
         var width = doc.internal.pageSize.width;
         var height = doc.internal.pageSize.height;
         var utf_8_string_to_render = 'any_value_you_want';

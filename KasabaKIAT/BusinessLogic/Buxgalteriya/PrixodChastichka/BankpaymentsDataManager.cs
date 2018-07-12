@@ -1,18 +1,27 @@
-﻿using KasabaKIAT.Models;
+﻿using KasabaKiat.BusinessLogic.Putyovki.OplataPutyovok;
+using KasabaKiat.ViewModel.Putyovki;
+using KasabaKIAT.BusinessLogic.Buxgalteriya.Provodki;
+using KasabaKIAT.BusinessLogic.Utils;
+using KasabaKIAT.Models;
 using KasabaKIAT.ViewModel.Buxgalteriya;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Validation;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 
 namespace KasabaKIAT.BusinessLogic.Buxgalteriya.PrixodChastichka
 {
     public class BankpaymentsDataManager
     {
-        public static void Create(ref BankpaymentsViewModel model)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="model"></param>
+        /// <param name="db"></param>
+        public static void Create(ref BankpaymentsViewModel model, KasabaKIATEntities db)
         {
-            using (KasabaKIATEntities db = new KasabaKIATEntities())
-            {
                 tbgl_bankpayments reg = new tbgl_bankpayments();
 
                 reg.NUM_DOC =           model.num_doc               ;
@@ -38,11 +47,12 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.PrixodChastichka
                 {
                     model.rec_id = planOtrasl.REC_ID;
                 }
-
-                db.SaveChanges();
-            }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="model"></param>
         public static void Modify(BankpaymentsViewModel model)
         {
             using (KasabaKIATEntities db = new KasabaKIATEntities())
@@ -78,6 +88,10 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.PrixodChastichka
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="model"></param>
         public static void Remove(BankpaymentsViewModel model)
         {
             using (KasabaKIATEntities db = new KasabaKIATEntities())
@@ -98,6 +112,11 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.PrixodChastichka
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         public static List<BankpaymentsViewModel> Get(BankpaymentsViewModel model)
         {
             List<BankpaymentsViewModel> list = null;
@@ -133,7 +152,13 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.PrixodChastichka
             return list;
         }
 
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="departmentBase"></param>
+        /// <param name="beginDate"></param>
+        /// <param name="endDate"></param>
+        /// <returns></returns>
         public static List<BankpaymentsViewModel> Get(string departmentBase, DateTime beginDate, DateTime endDate)
         {
             List<BankpaymentsViewModel> list = null;
@@ -168,6 +193,91 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.PrixodChastichka
             }
 
             return list;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="departmentBase"></param>
+        /// <returns></returns>
+        public static async Task MakeProvodka(string departmentBase, long UserId)
+        {
+            using (KasabaKIATEntities db = new KasabaKIATEntities())
+            {
+                var provodkaList = db.tbgl_bankpayments.Where(z => z.PROVODKA_ID == null && z.DEPARTMENT_BASE == departmentBase);
+
+                if (provodkaList.Any())
+                {
+                    foreach(var pp in provodkaList)
+                    {
+                        var trans = new ProvodkiViewModel
+                        {
+                            comment = "Частичная оплата",
+                            department_base = pp.DEPARTMENT_BASE,
+                            inoutflg = false,
+                            platelrsch = "005",
+                            poluchrsch = "18",
+                            summa = pp.AMOUNT,
+                            user_id = pp.USER_ID,
+                            trdt = DateTime.Now,
+                            trref = "CHT",
+                            trrefno = string.Format("{0}|{1}", pp.NUM_DOC, pp.PAYER_INN)
+                        };
+
+                        tbbu_provodki provodka = null;
+                        ProvodkiDataManager.Create(ref trans, db, out provodka);
+
+                        pp.tbbu_provodki = provodka;
+
+                        long? OrgId = null;
+                        var orgs = db.tblSprav_Org.Where(z => z.INN == pp.PAYER_INN);
+
+                        if (orgs.Any())
+                        {
+                            OrgId = orgs.First().ID;
+                        }
+
+
+                        var oplata = new OplataViewModel
+                        {
+                            Data_Post = pp.TRAN_DATE,
+                            Departmentbase = pp.DEPARTMENT_BASE,
+                            ID_KV = DateOperations.GetQuarter(pp.TRAN_DATE),
+                            ID_Otras = OrgId,
+                            Num_Doc = pp.NUM_DOC,
+                            PrizOpl = (int)OplataRasxPriz.OrganizasiyaOplata,
+                            SmFil = pp.TRAN_DATE.Year,
+                            Symma_DT = 0,
+                            Symma_KT = pp.AMOUNT,
+                            Tip_Org = true,
+                            UserId = UserId
+                        };
+
+                        tblOplata opp = null;
+
+                        OplataDataManager.Create(ref oplata, db, out opp);
+                    }
+
+                    try
+                    {
+                        await db.SaveChangesAsync();
+                    }
+                    catch (DbEntityValidationException e)
+                    {
+                        foreach (var eve in e.EntityValidationErrors)
+                        {
+                            Console.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
+                                eve.Entry.Entity.GetType().Name, eve.Entry.State);
+                            foreach (var ve in eve.ValidationErrors)
+                            {
+                                Console.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
+                                    ve.PropertyName, ve.ErrorMessage);
+                            }
+                        }
+                        throw;
+                    }
+                }
+            }
         }
     }
 }

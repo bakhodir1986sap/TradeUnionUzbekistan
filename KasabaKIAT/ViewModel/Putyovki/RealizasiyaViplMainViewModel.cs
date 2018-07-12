@@ -45,15 +45,65 @@ namespace KasabaKiat.ViewModel.Putyovki
       /// </summary>
       public decimal?                   symma                   {get; set;}
 
+      private string _concat_dov;
+      public string                    concat_dov
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(name_dov) && string.IsNullOrEmpty(num_dov) && string.IsNullOrEmpty(date_dov))
+                {
+                    if (string.IsNullOrEmpty(_concat_dov))
+                    {
+                        return string.Empty;
+                    }
+
+                    var strArr = _concat_dov.Split('~');
+                    if (strArr.Count() == 3)
+                    {
+                        name_dov = strArr[0];
+                        num_dov  = strArr[1];
+                        date_dov = strArr[2];
+                    }
+                }
+
+                return string.Concat(name_dov, "~", num_dov, "~", date_dov);
+            }
+            set
+            {
+                _concat_dov = value;
+
+                if (!string.IsNullOrEmpty(_concat_dov))
+                {
+                    var strArr = _concat_dov.Split('~');
+                    if (strArr.Count() == 3)
+                    {
+                        name_dov = strArr[0];
+                        num_dov = strArr[1];
+                        date_dov = strArr[2];
+                    }
+                }
+            }
+        }
+
       /// <summary>
       /// Nazvaniye doverennosti
       /// </summary>
       public string                     name_dov                {get; set;}
 
-      /// <summary>
-      /// Id Kvartala
-      /// </summary>
-      public int?                       id_kv                   {get; set;}
+        /// <summary>
+        /// Nazvaniye doverennosti
+        /// </summary>
+        public string                   num_dov                 { get; set; }
+
+        /// <summary>
+        /// Nazvaniye doverennosti
+        /// </summary>
+        public string                   date_dov                { get; set; }
+
+        /// <summary>
+        /// Id Kvartala
+        /// </summary>
+        public int?                       id_kv                   {get; set;}
 
       /// <summary>
       /// Flag vidannosti

@@ -4,6 +4,7 @@ using KasabaKIAT.BusinessLogic.Buxgalteriya.PrixodChastichka;
 using KasabaKIAT.BusinessLogic.Buxgalteriya.Provodki;
 using KasabaKIAT.BusinessLogic.ClosePeriod.CloseDay;
 using KasabaKIAT.BusinessLogic.ClosePeriod.Holydays;
+using KasabaKIAT.BusinessLogic.Utils;
 using KasabaKIAT.Models;
 using KasabaKIAT.ViewModel.Buxgalteriya;
 using log4net;
@@ -90,8 +91,10 @@ namespace KasabaKIAT.Controllers
             d.department_base = uu.DepartmentBase;
             d.user_id = UserId;
             d.trdt = DateTime.Now;
+            d.trref = "RUK";
+            d.trrefno = "0000000";
             tbbu_provodki provod = null;
-            pr.Enter(d, KasabaDB , out provod);
+            pr.Enter(d, KasabaDB, out provod);
 
             await KasabaDB.SaveChangesAsync();
 
@@ -177,44 +180,57 @@ namespace KasabaKIAT.Controllers
 
                             for (int rowIterator = 2; rowIterator <= noOfRow; rowIterator++)
                             {
-                                var user = new BankpaymentsViewModel();
-
-                                user.num_doc = workSheet.Cells[rowIterator, 1].Value.ToString();
-                                user.payer_name = workSheet.Cells[rowIterator, 2].Value.ToString();
-                                user.payer_inn = workSheet.Cells[rowIterator, 3].Value.ToString();
-                                user.payer_mfo = workSheet.Cells[rowIterator, 4].Value.ToString();
-                                user.payer_account = workSheet.Cells[rowIterator, 5].Value.ToString();
-                                DateTime trandate;
-
-                                if (DateTime.TryParseExact(workSheet.Cells[rowIterator, 6].Value.ToString(), "dd.MM.yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out trandate))
+                                try
                                 {
-                                    user.tran_date = trandate;
+                                    var user = new BankpaymentsViewModel();
+
+                                    user.num_doc = workSheet.Cells[rowIterator, 1].Value.ToString();
+                                    user.payer_name = workSheet.Cells[rowIterator, 2].Value.ToString();
+                                    user.payer_inn = workSheet.Cells[rowIterator, 3].Value.ToString();
+                                    user.payer_mfo = workSheet.Cells[rowIterator, 4].Value.ToString();
+                                    user.payer_account = workSheet.Cells[rowIterator, 5].Value.ToString();
+                                    DateTime trandate;
+                                    string DateOfPayment = workSheet.Cells[rowIterator, 6].Value.ToString();
+
+                                    if (DateOfPayment.Length > 10)
+                                    {
+                                        DateOfPayment = DateOfPayment.Substring(0, 10);
+                                    }
+
+                                    if (DateTime.TryParseExact(DateOfPayment, "dd.MM.yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out trandate))
+                                    {
+                                        user.tran_date = trandate;
+                                    }
+                                    else
+                                    {
+                                        user.tran_date = DateTime.Now;
+
+                                    }
+                                    user.payment_datail = workSheet.Cells[rowIterator, 7].Value.ToString();
+                                    decimal amount = 0;
+
+                                    if (decimal.TryParse(workSheet.Cells[rowIterator, 8].Value.ToString(), out amount))
+                                    {
+                                        user.amount = amount;
+                                    }
+                                    else
+                                    {
+                                        user.amount = 0;
+
+                                    }
+                                    user.benef_name = workSheet.Cells[rowIterator, 9].Value.ToString();
+                                    user.benef_inn = workSheet.Cells[rowIterator, 10].Value.ToString();
+                                    user.benef_mfo = workSheet.Cells[rowIterator, 11].Value.ToString();
+                                    user.benef_account = workSheet.Cells[rowIterator, 12].Value.ToString();
+                                    user.dbcrflg = workSheet.Cells[rowIterator, 13].Value.ToString();
+
+                                    platList.Add(user);
                                 }
-                                else
+                                catch (Exception ex)
                                 {
-                                    user.tran_date = DateTime.Now;
-
+                                    log.Info(ex);
                                 }
-                                user.payment_datail = workSheet.Cells[rowIterator, 7].Value.ToString();
-                                decimal amount = 0;
 
-                                if (decimal.TryParse(workSheet.Cells[rowIterator, 8].Value.ToString(), out amount))
-                                {
-                                    user.amount = amount;
-                                }
-                                else
-                                {
-                                    user.amount = 0;
-
-                                }
-                                user.benef_name = workSheet.Cells[rowIterator, 9].Value.ToString();
-                                user.benef_inn = workSheet.Cells[rowIterator, 10].Value.ToString();
-                                user.benef_mfo = workSheet.Cells[rowIterator, 11].Value.ToString();
-                                user.benef_account = workSheet.Cells[rowIterator, 12].Value.ToString();
-                                user.dbcrflg = workSheet.Cells[rowIterator, 13].Value.ToString();
-
-                                platList.Add(user);
-                                //BankpaymentsDataManager.Create(ref user);
                             }
                         }
                         var data1 = from d in platList
@@ -238,7 +254,7 @@ namespace KasabaKIAT.Controllers
                         return Json(data1, JsonRequestBehavior.AllowGet);
                     }
                 }
-                
+
                 return View("VvodDannix");
             }
             catch (Exception ex)
@@ -253,8 +269,11 @@ namespace KasabaKIAT.Controllers
         /// </summary>
         /// <param name="formCollection"></param>
         /// <returns></returns>
-        public ActionResult Save(FormCollection formCollection)
+        public async Task<ActionResult> Save(FormCollection formCollection)
         {
+            int UserId = Convert.ToInt32(User.Identity.Name);
+            var ustinfo = UserInfo.GetUserInfo(UserId);
+
             log.Info("Save");
             try
             {
@@ -277,46 +296,66 @@ namespace KasabaKIAT.Controllers
 
                             for (int rowIterator = 2; rowIterator <= noOfRow; rowIterator++)
                             {
-                                var user = new BankpaymentsViewModel();
-
-                                user.num_doc = workSheet.Cells[rowIterator, 1].Value.ToString();
-                                user.payer_name = workSheet.Cells[rowIterator, 2].Value.ToString();
-                                user.payer_inn = workSheet.Cells[rowIterator, 3].Value.ToString();
-                                user.payer_mfo = workSheet.Cells[rowIterator, 4].Value.ToString();
-                                user.payer_account = workSheet.Cells[rowIterator, 5].Value.ToString();
-                                DateTime trandate;
-
-                                if (DateTime.TryParseExact(workSheet.Cells[rowIterator, 6].Value.ToString(), "dd.MM.yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out trandate))
+                                try
                                 {
-                                    user.tran_date = trandate;
+                                    var user = new BankpaymentsViewModel();
+
+                                    user.num_doc = workSheet.Cells[rowIterator, 1].Value.ToString();
+                                    user.payer_name = workSheet.Cells[rowIterator, 2].Value.ToString();
+                                    user.payer_inn = workSheet.Cells[rowIterator, 3].Value.ToString();
+                                    user.payer_mfo = workSheet.Cells[rowIterator, 4].Value.ToString();
+                                    user.payer_account = workSheet.Cells[rowIterator, 5].Value.ToString();
+                                    DateTime trandate;
+
+                                    string DateOfPayment = workSheet.Cells[rowIterator, 6].Value.ToString();
+
+                                    if (DateOfPayment.Length > 10)
+                                    {
+                                        DateOfPayment = DateOfPayment.Substring(0, 10);
+                                    }
+
+                                    if (DateTime.TryParseExact(DateOfPayment, "dd.MM.yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out trandate))
+                                    {
+                                        user.tran_date = trandate;
+                                    }
+                                    else
+                                    {
+                                        user.tran_date = DateTime.Now;
+
+                                    }
+                                    user.payment_datail = workSheet.Cells[rowIterator, 7].Value.ToString();
+                                    decimal amount = 0;
+
+                                    if (decimal.TryParse(workSheet.Cells[rowIterator, 8].Value.ToString(), out amount))
+                                    {
+                                        user.amount = amount;
+                                    }
+                                    else
+                                    {
+                                        user.amount = 0;
+
+                                    }
+                                    user.benef_name = workSheet.Cells[rowIterator, 9].Value.ToString();
+                                    user.benef_inn = workSheet.Cells[rowIterator, 10].Value.ToString();
+                                    user.benef_mfo = workSheet.Cells[rowIterator, 11].Value.ToString();
+                                    user.benef_account = workSheet.Cells[rowIterator, 12].Value.ToString();
+                                    user.dbcrflg = workSheet.Cells[rowIterator, 13].Value.ToString();
+                                    user.user_id = UserId;
+                                    user.department_base = ustinfo.DepartmentBase;
+
+                                    platList.Add(user);
+                                    log.Info("Count = " + platList.ToList().Count);
+                                    BankpaymentsDataManager.Create(ref user, KasabaDB);
                                 }
-                                else
+                                catch (Exception ex)
                                 {
-                                    user.tran_date = DateTime.Now;
-
+                                    log.Info(ex);
                                 }
-                                user.payment_datail = workSheet.Cells[rowIterator, 7].Value.ToString();
-                                decimal amount = 0;
-
-                                if (decimal.TryParse(workSheet.Cells[rowIterator, 8].Value.ToString(), out amount))
-                                {
-                                    user.amount = amount;
-                                }
-                                else
-                                {
-                                    user.amount = 0;
-
-                                }
-                                user.benef_name = workSheet.Cells[rowIterator, 9].Value.ToString();
-                                user.benef_inn = workSheet.Cells[rowIterator, 10].Value.ToString();
-                                user.benef_mfo = workSheet.Cells[rowIterator, 11].Value.ToString();
-                                user.benef_account = workSheet.Cells[rowIterator, 12].Value.ToString();
-                                user.dbcrflg = workSheet.Cells[rowIterator, 13].Value.ToString();
-
-                                platList.Add(user);
-                                log.Info("Count = " + platList.ToList().Count);
-                                BankpaymentsDataManager.Create(ref user);
                             }
+
+                            await KasabaDB.SaveChangesAsync();
+
+                            await MakeBankProvodka();
                         }
                     }
                 }
@@ -334,11 +373,33 @@ namespace KasabaKIAT.Controllers
         /// 
         /// </summary>
         /// <returns></returns>
+        public async Task<JsonResult> MakeBankProvodka()
+        {
+            int UserId = Convert.ToInt32(User.Identity.Name);
+            var ustinfo = UserInfo.GetUserInfo(UserId);
+
+            await BankpaymentsDataManager.MakeProvodka(ustinfo.DepartmentBase, UserId);
+
+            return Json("error", JsonRequestBehavior.AllowGet);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         [OutputCache(Duration = 5, Location = OutputCacheLocation.Client, VaryByCustom = "userId")]
-        public JsonResult GetVvodDannix()
+        public JsonResult GetVvodDannix(int year, int kvartal, string inn, string account)
         {
             var data = KasabaDB.tbgl_bankpayments;
             var list = from d in data
+                       where d.PAYER_INN == (string.IsNullOrEmpty(inn) ? d.PAYER_INN : inn)
+                       && d.TRAN_DATE.Year == year
+                       && d.PAYER_ACCOUNT == (string.IsNullOrEmpty(account) ? d.PAYER_ACCOUNT : account)
+                       && (((kvartal == 1) && (d.TRAN_DATE.Month >= 1 && d.TRAN_DATE.Month <= 3)) ||
+                            ((kvartal == 2) && (d.TRAN_DATE.Month >= 4 && d.TRAN_DATE.Month <= 6)) ||
+                            ((kvartal == 3) && (d.TRAN_DATE.Month >= 7 && d.TRAN_DATE.Month <= 9)) ||
+                            ((kvartal == 4) && (d.TRAN_DATE.Month >= 10 && d.TRAN_DATE.Month <= 12)) 
+                       )
                        select new
                        {
                            d0 = d.REC_ID,
@@ -359,7 +420,10 @@ namespace KasabaKIAT.Controllers
                            d15 = d.DEPARTMENT_BASE,
                            d16 = d.USER_ID,
                        };
-            return Json(list.ToList(), JsonRequestBehavior.AllowGet);
+
+            var OutList = list.ToList();
+
+            return Json(OutList , JsonRequestBehavior.AllowGet);
         }
 
         private PlanRegion planByudjet = new PlanRegion();

@@ -15,7 +15,7 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.PrixodChastichka
                 throw new ApplicationException("Input data is null");
             }
 
-            BankpaymentsDataManager.Create(ref model);
+            //BankpaymentsDataManager.Create(ref model);
         }
 
         public List<BankpaymentsViewModel> GetData(string departmentBase, DateTime beginDate, DateTime endDate)

@@ -364,6 +364,7 @@
     <Compile Include="BusinessLogic\Security\Roles\UserRoles\UserRoles.cs" />
     <Compile Include="BusinessLogic\Structure\StructureOfKiat.cs" />
     <Compile Include="BusinessLogic\Utils\amountInWords.cs" />
+    <Compile Include="BusinessLogic\Utils\DateOperations.cs" />
     <Compile Include="BusinessLogic\Utils\References\ReferencesDataManager.cs" />
     <Compile Include="BusinessLogic\Utils\References\RefYars.cs" />
     <Compile Include="BusinessLogic\Utils\References\SpravCodeDecode.cs" />
@@ -633,6 +634,15 @@
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\sp_rt_Postupleniya_Result1.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_rt_Provodka_Details_Result.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_rt_Provodka_Details_Result1.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_rt_Provodka_Summary_Result.cs">
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\sp_rt_Razbivka_PostupN_Result.cs">
@@ -1576,6 +1586,8 @@
     <Content Include="Scripts\MyJavaScript\PostupleniyaTuman.js" />
     <Content Include="Scripts\MyJavaScript\PPController.js" />
     <Content Include="Scripts\MyJavaScript\ProsmotrRealzPutevok.js" />
+    <Content Include="Scripts\MyJavaScript\ProvodkiDetail.js" />
+    <Content Include="Scripts\MyJavaScript\ProvodkiSummary.js" />
     <Content Include="Scripts\MyJavaScript\PRZController.js" />
     <Content Include="Scripts\MyJavaScript\PZController.js" />
     <Content Include="Scripts\MyJavaScript\RaspredeleniyeZaezdov.js" />
@@ -1812,6 +1824,8 @@
     <Content Include="Views\Otchot\FinalniyOtchotKvartalniy.cshtml" />
     <Content Include="Views\Otchot\PostupleniyaN.cshtml" />
     <Content Include="Views\Otchot\RazbivkaPostupleniyaN.cshtml" />
+    <Content Include="Views\Otchot\ProvodkiDetail.cshtml" />
+    <Content Include="Views\Otchot\ProvodkiSummary.cshtml" />
     <None Include="Web References\KurortUrlService\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>

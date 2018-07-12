@@ -1,5 +1,6 @@
 ﻿using KasabaKiat.BusinessLogic.Putyovki.PrixodPutyovok;
 using KasabaKiat.ViewModel;
+using KasabaKIAT.BusinessLogic.Buxgalteriya.PrixodChastichka;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
@@ -44,6 +45,12 @@ namespace KIAT_TestProject
 
             }
 
+
+            [Test]
+            public void MakeChatichkaTest()
+            {
+                BankpaymentsDataManager.MakeProvodka("17226", 94).Wait();
+            }
 
         }
     }

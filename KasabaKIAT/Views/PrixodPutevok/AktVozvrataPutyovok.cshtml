@@ -112,7 +112,7 @@
     </div>
 </footer>
 <div class="modal__block modal fade" id="dobavit" tabindex="-1" role="dialog" aria-labelledby="dobavitLabel">
-    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document" style="max-width: 90%">
         <div class="modal-content">
             <div class="modal-body" style="max-height: calc(100vh - 210px); overflow-y: auto;">
                 <div class="modal-title">
@@ -145,7 +145,12 @@
                                 </select>
                                 <b><span>{{SelectedOrganization.Name_Org}}</span></b>
                             </div>
-                            <a href="#" class="btn btn-grey d-block d-md-inline-block mb-2" data-toggle="modal" data-target="#organization">Выбрать</a>
+                            
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 text-right">
+                                <a href="#" class="btn btn-grey d-block d-md-inline-block mb-2" data-toggle="modal" data-target="#organization">Выбрать</a>
+                            </div>
                         </div>
                         @*<div class="form-group row justify-content-end">
                             <div class="col-md-7">
@@ -235,7 +240,7 @@
     </div>
 
         <div class="modal__block modal fade" id="organization" tabindex="-1" role="dialog" aria-labelledby="organizationLabel" data-backdrop="static" data-keyboard="false">
-            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-dialog modal-dialog-centered modal-lg" role="document" style="max-width: 80%">
                 <div class="modal-content">
                     <div class="modal-body" style="max-height: calc(100vh - 210px); overflow-y: auto;">
                         <div class="row mb-4 align-items-center">
@@ -252,7 +257,12 @@
                             <input type="text" placeholder="Наименование" ng-model="FilterName" />
                             <br /><input type="text" placeholder="ИНН" ng-model="FilterInn" /><br />
                             <select class="custom-select" required name="Otrasl" ng-model="FilterSelectedOtrasl" ng-options="item as item.Name_Ot for item in Otrasl track by item.ID_Ot"></select>
-                            <br /><br /><button class="btn btn-green" ng-click="GetOrganizationsFilter()"><i class="btn-green"></i> Поиск</button>
+                            
+                                <div class="mb-4 text-right">
+                                     <br /><br /><button class="btn btn-green" ng-click="GetOrganizationsFilter()"><i class="btn-green"></i> Поиск</button>
+                                </div>
+                           
+                           
                         </div>
                         <div class="table-responsive box-shadow mb-4" id="export">
                             <table class="table table__block t-hover">

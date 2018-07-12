@@ -6,6 +6,7 @@ using System.Text.RegularExpressions;
 using KasabaKIAT.ViewModel.Buxgalteriya;
 using KaznaFilesImporter;
 using Epigov.Log;
+using System.Data.Entity.Validation;
 
 namespace KasabaKIAT.BusinessLogic.Buxgalteriya.Provodki.AutomaticTransactions.KaznaTransactions
 {
@@ -617,7 +618,30 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.Provodki.AutomaticTransactions.K
 
                         }
 
-                        db.SaveChanges();
+                        try
+                        {
+                            db.SaveChanges();
+                        }
+                        catch (DbEntityValidationException e)
+                        {
+                            foreach (var eve in e.EntityValidationErrors)
+                            {
+                                Console.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
+                                    eve.Entry.Entity.GetType().Name, eve.Entry.State);
+                                foreach (var ve in eve.ValidationErrors)
+                                {
+                                    _logService.Error(string.Format("- Property: \"{0}\", Error: \"{1}\"",  ve.PropertyName, ve.ErrorMessage));
+                                    Console.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
+                                        ve.PropertyName, ve.ErrorMessage);
+                                }
+                            }
+                            throw;
+                        }
+                        catch (Exception ex)
+                        {
+                            Console.WriteLine(ex.ToString());
+                        }
+                        
                     }
 
                     //return;
@@ -669,7 +693,7 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.Provodki.AutomaticTransactions.K
                             trans.summa = pp.SUMPAY;
 
                             trans.user_id = 1;
-                            trans.trdt = DateTime.Now;
+                            trans.trdt = pp.OPERDAY;
 
                             ProvodkiDataManager.Create(ref trans);
 

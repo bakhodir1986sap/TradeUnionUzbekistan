@@ -381,6 +381,68 @@ namespace KasabaKIAT.Controllers
         /// </summary>
         /// <returns></returns>
         [OutputCache(Duration = 5, Location = OutputCacheLocation.Client, VaryByCustom = "userId")]
+        public ActionResult ProvodkiDetail()
+        {
+            return View();
+        }
+
+        public JsonResult GetProvodkiDetail(DateTime? bg, DateTime? end)
+        {
+            var UserId = Convert.ToInt32(User.Identity.Name);
+            var userInfo = UserInfo.GetUserInfo(UserId);
+
+            var list = KasabaDB.sp_rt_Provodka_Details(userInfo.DepartmentBase, bg, end);
+
+            var OutData = from outData in list
+                          select new
+                          {
+                              TRDT = outData.TRDT,
+                              DEBIT_ACCOUNT = outData.DEBIT_ACCOUNT,
+                              CREDIT_ACCOUNT = outData.CREDIT_ACCOUNT,
+                              AMOUNT = outData.AMOUNT,
+                              DETALI = outData.DETALI,
+                              ADDITIONAL = outData.ADDITIONAL,
+                              OPISANIYE = outData.OPISANIYE,
+                              NAME_RU = outData.NAME_RU
+                          };
+
+            return Json(OutData.ToList(), JsonRequestBehavior.AllowGet);
+        }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [OutputCache(Duration = 5, Location = OutputCacheLocation.Client, VaryByCustom = "userId")]
+        public ActionResult ProvodkiSummary()
+        {
+            return View();
+        }
+
+        public JsonResult GetProvodkiSummary(DateTime? bg, DateTime? end)
+        {
+            var UserId = Convert.ToInt32(User.Identity.Name);
+            var userInfo = UserInfo.GetUserInfo(UserId);
+
+            var list = KasabaDB.sp_rt_Provodka_Summary(userInfo.DepartmentBase, bg, end);
+
+            var OutData = from outData in list
+                          select new
+                          {
+                              DEBIT_ACCOUNT = outData.DEBIT_ACCOUNT,
+                              CREDIT_ACCOUNT = outData.CREDIT_ACCOUNT,
+                              AMOUNT = outData.AMOUNT
+                          };
+
+            return Json(OutData.ToList(), JsonRequestBehavior.AllowGet);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [OutputCache(Duration = 5, Location = OutputCacheLocation.Client, VaryByCustom = "userId")]
         public ActionResult RazbivkaPostupleniya()
         {
             return View();

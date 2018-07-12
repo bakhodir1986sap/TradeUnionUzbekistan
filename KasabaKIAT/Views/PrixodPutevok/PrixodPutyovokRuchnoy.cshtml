@@ -54,7 +54,7 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-4">
+                <div class="col-md-5">
                     <h5 class="mb-30">Данные о накладных</h5>
                     <div class="table-responsive box-shadow mb-4">
                         <table class="table table__block t-hover table__small">
@@ -119,7 +119,7 @@
                             <tbody>
                                 <tr ng-repeat="naklad in Nakladnoys" ng-click="editSelected(naklad)" ng-class="{selectedTableRow: naklad.Id === idSelectedVote.Id}"    >
                                     <td class="custom-control custom-radio r-radio">
-                                        <input type="radio" class="custom-control-input" id="customCheck{{naklad.Id}}" data-toggle="modal" data-target="#redaktirovat">
+                                        <input type="radio" class="custom-control-input" id="customCheck{{naklad.Id}}" data-toggle="modal" data-target="#redaktirovat" name="selectiondot">
                                         <label class="custom-control-label r-label" for="customCheck{{naklad.Id}}">{{naklad.Id}}</label>
                                     </td>
                                     <td>{{naklad.Data_Post| jsonDate: 'dd.MM.yyyy'}}</td>
@@ -137,7 +137,7 @@
                         new { ReportName = "Оперативка по путевкам", ReportDescription = "Оперативка по путевкам", Width = 100, Height = 650 })" class="btn btn-grey d-block d-md-inline-block mb-3 mt-20"><i class="fa fa-print"></i>Печать</a>
                     </div>
                 </div>
-                <div class="col-md-8">
+                <div class="col-md-7">
                     <h5 class="mb-30" style="height:50px">Данные о путевках по № {{CurrentNakladnoy.Num_Doc}} {{CurrentNakladnoy.PosName}}</h5>
                     <div class="table-responsive box-shadow table-fixed mb-4">
                         <table class="table table__block t-hover table__small">
@@ -241,7 +241,12 @@
                                         </select>
                                         <b><span>{{SelectedOrganization.Name_Org}}</span></b>
                                     </div>
-                                    <a href="#" class="btn btn-grey d-block d-md-inline-block mb-2" data-toggle="modal" data-target="#organization">Выбрать</a>
+                                    
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12 text-right">
+                                        <a href="#" class="btn btn-grey d-block d-md-inline-block mb-2" data-toggle="modal" data-target="#organization">Выбрать</a>
+                                    </div>
                                 </div>
                                 <div class="form-group row align-items-center">
                                     <label class="col-md-5 col-form-label text-md-right py-0">Номер доверенности (и на кого оформлена):</label>
@@ -286,7 +291,12 @@
                                         <select class="custom-select form-control" ng-model="SelectedOrganization" ng-options="item as item.Name_Org for item in OrganizationsL track by item.ID"></select>
                                         <b><span>{{SelectedOrganization.Name_Org}}</span></b>
                                     </div>
-                                    <a href="#" class="btn btn-grey d-block d-md-inline-block mb-2" data-toggle="modal" data-target="#organization">Выбрать</a>
+                                   
+                                </div>
+                                <div class="form-group row align-items-center">
+                                    <div class="col-md-12 text-right">
+                                          <a href="#" class="btn btn-grey d-block d-md-inline-block mb-2" data-toggle="modal" data-target="#organization">Выбрать</a>       
+                                    </div>    
                                 </div>
                                 <div class="form-group row align-items-center">
                                     <label class="col-md-5 col-form-label text-md-right py-0">Номер доверенности (и на кого оформлена):</label>
@@ -578,7 +588,12 @@
                             <input type="text" placeholder="Наименование" ng-model="FilterName" />
                             <br /><input type="text" placeholder="ИНН" ng-model="FilterInn" /><br />
                             <select class="custom-select" required name="Otrasl" ng-model="FilterSelectedOtrasl" ng-options="item as item.Name_Ot for item in Otrasl track by item.ID_Ot"></select>
-                            <br /><br /><button class="btn btn-green" ng-click="GetOrganizationsFilter()"><i class="btn-green"></i> Поиск</button>
+                            <br /><br />
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 text-right">
+                                <button class="btn btn-green" ng-click="GetOrganizationsFilter()"><i class="btn-green"></i> Поиск</button>
+                            </div>
                         </div>
                         <div class="table-responsive box-shadow mb-4" id="export">
                             <table class="table table__block t-hover">

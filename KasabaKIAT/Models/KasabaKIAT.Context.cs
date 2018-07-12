@@ -1391,5 +1391,39 @@ namespace KasabaKIAT.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_rt_Razbivka_PostupN_Result>("sp_rt_Razbivka_PostupN", pAY_TYPEParameter, dEPARTMENT_BASEParameter, bEGIN_DATEParameter);
         }
+    
+        public virtual ObjectResult<sp_rt_Provodka_Summary_Result> sp_rt_Provodka_Summary(string dEPARTMENT_BASE, Nullable<System.DateTime> bEGIN_DATE, Nullable<System.DateTime> eND_DATE)
+        {
+            var dEPARTMENT_BASEParameter = dEPARTMENT_BASE != null ?
+                new ObjectParameter("DEPARTMENT_BASE", dEPARTMENT_BASE) :
+                new ObjectParameter("DEPARTMENT_BASE", typeof(string));
+    
+            var bEGIN_DATEParameter = bEGIN_DATE.HasValue ?
+                new ObjectParameter("BEGIN_DATE", bEGIN_DATE) :
+                new ObjectParameter("BEGIN_DATE", typeof(System.DateTime));
+    
+            var eND_DATEParameter = eND_DATE.HasValue ?
+                new ObjectParameter("END_DATE", eND_DATE) :
+                new ObjectParameter("END_DATE", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_rt_Provodka_Summary_Result>("sp_rt_Provodka_Summary", dEPARTMENT_BASEParameter, bEGIN_DATEParameter, eND_DATEParameter);
+        }
+    
+        public virtual ObjectResult<sp_rt_Provodka_Details_Result1> sp_rt_Provodka_Details(string dEPARTMENT_BASE, Nullable<System.DateTime> bEGIN_DATE, Nullable<System.DateTime> eND_DATE)
+        {
+            var dEPARTMENT_BASEParameter = dEPARTMENT_BASE != null ?
+                new ObjectParameter("DEPARTMENT_BASE", dEPARTMENT_BASE) :
+                new ObjectParameter("DEPARTMENT_BASE", typeof(string));
+    
+            var bEGIN_DATEParameter = bEGIN_DATE.HasValue ?
+                new ObjectParameter("BEGIN_DATE", bEGIN_DATE) :
+                new ObjectParameter("BEGIN_DATE", typeof(System.DateTime));
+    
+            var eND_DATEParameter = eND_DATE.HasValue ?
+                new ObjectParameter("END_DATE", eND_DATE) :
+                new ObjectParameter("END_DATE", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_rt_Provodka_Details_Result1>("sp_rt_Provodka_Details", dEPARTMENT_BASEParameter, bEGIN_DATEParameter, eND_DATEParameter);
+        }
     }
 }

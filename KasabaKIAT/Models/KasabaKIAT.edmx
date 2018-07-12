@@ -176,12 +176,9 @@
           <Property Name="DAROMAT_YIG_NOMI" Type="nvarchar" MaxLength="1000" />
           <Property Name="BYUDJET_TURI" Type="nvarchar" MaxLength="1000" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'KasabaKIAT_N1.dbo.KaznaBankFile' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="KaznaBankFile">
           <Key>
             <PropertyRef Name="ID" />
-            
           </Key>
           <Property Name="K_TYPE" Type="char" MaxLength="1" />
           <Property Name="OPERDAY" Type="datetime" />
@@ -212,8 +209,6 @@ warning 6002: The table/view 'KasabaKIAT_N1.dbo.KaznaBankFile' does not have a p
           <Property Name="FileName" Type="nvarchar" MaxLength="50" />
           <Property Name="CreateDate" Type="datetime" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'KasabaKIAT_N1.dbo.KaznaPaymentFile' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="KaznaPaymentFile">
           <Key>
             <PropertyRef Name="ID" />
@@ -1928,6 +1923,7 @@ warning 6002: The table/view 'KasabaKIAT_N1.dbo.tbbTabel' does not have a primar
           <Property Name="PARENT_ID" Type="bigint" />
           <Property Name="DEPARTMENT_BASE" Type="nvarchar" MaxLength="255" />
           <Property Name="USER_ID" Type="bigint" />
+          <Property Name="PROVODKA_ID" Type="bigint" />
         </EntityType>
         <EntityType Name="tbgl_jnldd">
           <Key>
@@ -3804,6 +3800,18 @@ warning 6035: The relationship 'FK_tbgl_balance_t_departmentbase' has columns th
             </Principal>
             <Dependent Role="tbgl_balance">
               <PropertyRef Name="USER_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbgl_bankpayments_tbbu_provodki">
+          <End Role="tbbu_provodki" Type="Self.tbbu_provodki" Multiplicity="0..1" />
+          <End Role="tbgl_bankpayments" Type="Self.tbgl_bankpayments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbbu_provodki">
+              <PropertyRef Name="REC_ID" />
+            </Principal>
+            <Dependent Role="tbgl_bankpayments">
+              <PropertyRef Name="PROVODKA_ID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -5999,6 +6007,16 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <Parameter Name="INN" Type="nvarchar" Mode="In" />
           <Parameter Name="DEPARTMENT_BASE" Type="nvarchar" Mode="In" />
         </Function>
+        <Function Name="sp_rt_Provodka_Details" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="DEPARTMENT_BASE" Type="nvarchar" Mode="In" />
+          <Parameter Name="BEGIN_DATE" Type="datetime" Mode="In" />
+          <Parameter Name="END_DATE" Type="datetime" Mode="In" />
+        </Function>
+        <Function Name="sp_rt_Provodka_Summary" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="DEPARTMENT_BASE" Type="nvarchar" Mode="In" />
+          <Parameter Name="BEGIN_DATE" Type="datetime" Mode="In" />
+          <Parameter Name="END_DATE" Type="datetime" Mode="In" />
+        </Function>
         <Function Name="sp_rt_Razbivka_Postup" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="SOATO" Type="nvarchar" Mode="In" />
           <Parameter Name="BRANCH" Type="nvarchar" Mode="In" />
@@ -6119,7 +6137,9 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <EntitySet Name="gagreement_files" EntityType="Self.gagreement_files" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Kartoch" EntityType="Self.Kartoch" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Kazna_Account" EntityType="Self.Kazna_Account" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="KaznaBankFile" EntityType="Self.KaznaBankFile" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="KaznaFiles" EntityType="Self.KaznaFiles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="KaznaPaymentFile" EntityType="Self.KaznaPaymentFile" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="KaznaSverkaFile" EntityType="Self.KaznaSverkaFile" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="occupationalsafety" EntityType="Self.occupationalsafety" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ot_oplata" EntityType="Self.ot_oplata" Schema="dbo" store:Type="Tables" />
@@ -6249,57 +6269,6 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <EntitySet Name="useractivity" EntityType="Self.useractivity" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="users" EntityType="Self.users" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="users_aud" EntityType="Self.users_aud" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="KaznaBankFile" EntityType="Self.KaznaBankFile" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [KaznaBankFile].[K_TYPE] AS [K_TYPE], 
-    [KaznaBankFile].[OPERDAY] AS [OPERDAY], 
-    [KaznaBankFile].[ID] AS [ID], 
-    [KaznaBankFile].[GRPID] AS [GRPID], 
-    [KaznaBankFile].[KLSDOX] AS [KLSDOX], 
-    [KaznaBankFile].[DOCNUMB] AS [DOCNUMB], 
-    [KaznaBankFile].[DOCDATE] AS [DOCDATE], 
-    [KaznaBankFile].[DOCTYPE] AS [DOCTYPE], 
-    [KaznaBankFile].[SUMPAY] AS [SUMPAY], 
-    [KaznaBankFile].[CLMFO] AS [CLMFO], 
-    [KaznaBankFile].[CLACC] AS [CLACC], 
-    [KaznaBankFile].[CLINN] AS [CLINN], 
-    [KaznaBankFile].[CLNAME] AS [CLNAME], 
-    [KaznaBankFile].[COMFO] AS [COMFO], 
-    [KaznaBankFile].[COACC] AS [COACC], 
-    [KaznaBankFile].[COINN] AS [COINN], 
-    [KaznaBankFile].[CONAME] AS [CONAME], 
-    [KaznaBankFile].[PURPOSE] AS [PURPOSE], 
-    [KaznaBankFile].[FILE_ID] AS [FILE_ID], 
-    [KaznaBankFile].[PROVODKA_ID] AS [PROVODKA_ID]
-    FROM [dbo].[KaznaBankFile] AS [KaznaBankFile]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="KaznaPaymentFile" EntityType="Self.KaznaPaymentFile" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [KaznaPaymentFile].[K_TYPE] AS [K_TYPE], 
-    [KaznaPaymentFile].[OPERDAY] AS [OPERDAY], 
-    [KaznaPaymentFile].[ID] AS [ID], 
-    [KaznaPaymentFile].[BANKID] AS [BANKID], 
-    [KaznaPaymentFile].[KLSDOX] AS [KLSDOX], 
-    [KaznaPaymentFile].[DOCNUMB] AS [DOCNUMB], 
-    [KaznaPaymentFile].[DOCDATE] AS [DOCDATE], 
-    [KaznaPaymentFile].[DOCTYPE] AS [DOCTYPE], 
-    [KaznaPaymentFile].[SUMPAY] AS [SUMPAY], 
-    [KaznaPaymentFile].[CLMFO] AS [CLMFO], 
-    [KaznaPaymentFile].[CLACC] AS [CLACC], 
-    [KaznaPaymentFile].[CLINN] AS [CLINN], 
-    [KaznaPaymentFile].[CLNAME] AS [CLNAME], 
-    [KaznaPaymentFile].[COMFO] AS [COMFO], 
-    [KaznaPaymentFile].[COACC] AS [COACC], 
-    [KaznaPaymentFile].[COINN] AS [COINN], 
-    [KaznaPaymentFile].[CONAME] AS [CONAME], 
-    [KaznaPaymentFile].[PURPOSE] AS [PURPOSE], 
-    [KaznaPaymentFile].[CHAPTER] AS [CHAPTER], 
-    [KaznaPaymentFile].[OKONH] AS [OKONH], 
-    [KaznaPaymentFile].[FILE_ID] AS [FILE_ID], 
-    [KaznaPaymentFile].[OTCHISLEN] AS [OTCHISLEN], 
-    [KaznaPaymentFile].[GRPID] AS [GRPID]
-    FROM [dbo].[KaznaPaymentFile] AS [KaznaPaymentFile]</DefiningQuery>
-          </EntitySet>
           <EntitySet Name="t_departmentbase_aud" EntityType="Self.t_departmentbase_aud" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [t_departmentbase_aud].[dtype] AS [dtype], 
@@ -6773,6 +6742,10 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <AssociationSet Name="FK_tbgl_balance_users" Association="Self.FK_tbgl_balance_users">
             <End Role="users" EntitySet="users" />
             <End Role="tbgl_balance" EntitySet="tbgl_balance" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbgl_bankpayments_tbbu_provodki" Association="Self.FK_tbgl_bankpayments_tbbu_provodki">
+            <End Role="tbbu_provodki" EntitySet="tbbu_provodki" />
+            <End Role="tbgl_bankpayments" EntitySet="tbgl_bankpayments" />
           </AssociationSet>
           <AssociationSet Name="FK_tblBron_tblSprav_San" Association="Self.FK_tblBron_tblSprav_San">
             <End Role="tblSprav_San" EntitySet="tblSprav_San" />
@@ -13865,6 +13838,20 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
             <Parameter Name="DEPARTMENT_BASE" Mode="In" Type="String" />
             <Parameter Name="BEGIN_DATE" Mode="In" Type="DateTime" />
           </FunctionImport>
+          <AssociationSet Name="FK_tbgl_bankpayments_tbbu_provodki" Association="KasabaKIATModel.FK_tbgl_bankpayments_tbbu_provodki">
+            <End Role="tbbu_provodki" EntitySet="tbbu_provodki" />
+            <End Role="tbgl_bankpayments" EntitySet="tbgl_bankpayments" />
+          </AssociationSet>
+          <FunctionImport Name="sp_rt_Provodka_Summary" ReturnType="Collection(KasabaKIATModel.sp_rt_Provodka_Summary_Result)">
+            <Parameter Name="DEPARTMENT_BASE" Mode="In" Type="String" />
+            <Parameter Name="BEGIN_DATE" Mode="In" Type="DateTime" />
+            <Parameter Name="END_DATE" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="sp_rt_Provodka_Details" ReturnType="Collection(KasabaKIATModel.sp_rt_Provodka_Details_Result1)">
+            <Parameter Name="DEPARTMENT_BASE" Mode="In" Type="String" />
+            <Parameter Name="BEGIN_DATE" Mode="In" Type="DateTime" />
+            <Parameter Name="END_DATE" Mode="In" Type="DateTime" />
+          </FunctionImport>
           </EntityContainer>
         <ComplexType Name="sp_get_BankPaymentCompanyYearlyQ_Result">
           <Property Type="Int32" Name="MONTH_NUM" Nullable="true" />
@@ -14141,6 +14128,8 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <Property Name="PARENT_ID" Type="Int64" />
           <Property Name="DEPARTMENT_BASE" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="USER_ID" Type="Int64" />
+          <Property Name="PROVODKA_ID" Type="Int64" />
+          <NavigationProperty Name="tbbu_provodki" Relationship="KasabaKIATModel.FK_tbgl_bankpayments_tbbu_provodki" FromRole="tbgl_bankpayments" ToRole="tbbu_provodki" />
         </EntityType>
         <EntityType Name="tbbu_platejka">
           <Key>
@@ -14195,6 +14184,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <NavigationProperty Name="tblVipls" Relationship="KasabaKIATModel.FK_tblVipl_tbbu_provodki" FromRole="tbbu_provodki" ToRole="tblVipl" />
           <NavigationProperty Name="tblVozVrats" Relationship="KasabaKIATModel.FK_tblVozVrat_tbbu_provodki" FromRole="tbbu_provodki" ToRole="tblVozVrat" />
           <NavigationProperty Name="tblVozVrats1" Relationship="KasabaKIATModel.FK_tblVozVrat_tbbu_provodki1" FromRole="tbbu_provodki" ToRole="tblVozVrat" />
+          <NavigationProperty Name="tbgl_bankpayments" Relationship="KasabaKIATModel.FK_tbgl_bankpayments_tbbu_provodki" FromRole="tbbu_provodki" ToRole="tbgl_bankpayments" />
         </EntityType>
         <EntityType Name="tbbu_planbyudjetregion">
           <Key>
@@ -15562,6 +15552,43 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <Property Type="String" Name="PURPOSE" Nullable="true" MaxLength="500" />
           <Property Type="String" Name="OKONX_NAME" Nullable="true" MaxLength="500" />
           <Property Type="String" Name="BRANCH_NAME" Nullable="true" MaxLength="200" />
+        </ComplexType>
+        <Association Name="FK_tbgl_bankpayments_tbbu_provodki">
+          <End Type="KasabaKIATModel.tbbu_provodki" Role="tbbu_provodki" Multiplicity="0..1" />
+          <End Type="KasabaKIATModel.tbgl_bankpayments" Role="tbgl_bankpayments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbbu_provodki">
+              <PropertyRef Name="REC_ID" />
+            </Principal>
+            <Dependent Role="tbgl_bankpayments">
+              <PropertyRef Name="PROVODKA_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <ComplexType Name="sp_rt_Provodka_Details_Result">
+          <Property Type="DateTime" Name="TRDT" Nullable="true" Precision="23" />
+          <Property Type="String" Name="DEBIT_ACCOUNT" Nullable="true" MaxLength="30" />
+          <Property Type="String" Name="CREDIT_ACCOUNT" Nullable="true" MaxLength="30" />
+          <Property Type="Decimal" Name="AMOUNT" Nullable="true" Precision="19" />
+          <Property Type="String" Name="DETALI" Nullable="true" MaxLength="1000" />
+          <Property Type="String" Name="ADDITIONAL" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="OPISANIYE" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="NAME_RU" Nullable="true" MaxLength="254" />
+        </ComplexType>
+        <ComplexType Name="sp_rt_Provodka_Summary_Result">
+          <Property Type="String" Name="DEBIT_ACCOUNT" Nullable="true" MaxLength="30" />
+          <Property Type="String" Name="CREDIT_ACCOUNT" Nullable="true" MaxLength="30" />
+          <Property Type="Decimal" Name="AMOUNT" Nullable="true" Precision="19" />
+        </ComplexType>
+        <ComplexType Name="sp_rt_Provodka_Details_Result1">
+          <Property Type="String" Name="TRDT" Nullable="true" MaxLength="4000" />
+          <Property Type="String" Name="DEBIT_ACCOUNT" Nullable="true" MaxLength="30" />
+          <Property Type="String" Name="CREDIT_ACCOUNT" Nullable="true" MaxLength="30" />
+          <Property Type="Decimal" Name="AMOUNT" Nullable="true" Precision="19" />
+          <Property Type="String" Name="DETALI" Nullable="true" MaxLength="1000" />
+          <Property Type="String" Name="ADDITIONAL" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="OPISANIYE" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="NAME_RU" Nullable="true" MaxLength="254" />
         </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
@@ -18428,6 +18455,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <EntitySetMapping Name="tbgl_bankpayments">
             <EntityTypeMapping TypeName="KasabaKIATModel.tbgl_bankpayments">
               <MappingFragment StoreEntitySet="tbgl_bankpayments">
+                <ScalarProperty Name="PROVODKA_ID" ColumnName="PROVODKA_ID" />
                 <ScalarProperty Name="USER_ID" ColumnName="USER_ID" />
                 <ScalarProperty Name="DEPARTMENT_BASE" ColumnName="DEPARTMENT_BASE" />
                 <ScalarProperty Name="PARENT_ID" ColumnName="PARENT_ID" />
@@ -19458,6 +19486,29 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
                 <ScalarProperty Name="PURPOSE" ColumnName="PURPOSE" />
                 <ScalarProperty Name="OKONX_NAME" ColumnName="OKONX_NAME" />
                 <ScalarProperty Name="BRANCH_NAME" ColumnName="BRANCH_NAME" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_rt_Provodka_Summary" FunctionName="KasabaKIATModel.Store.sp_rt_Provodka_Summary">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="KasabaKIATModel.sp_rt_Provodka_Summary_Result">
+                <ScalarProperty Name="DEBIT_ACCOUNT" ColumnName="DEBIT_ACCOUNT" />
+                <ScalarProperty Name="CREDIT_ACCOUNT" ColumnName="CREDIT_ACCOUNT" />
+                <ScalarProperty Name="AMOUNT" ColumnName="AMOUNT" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_rt_Provodka_Details" FunctionName="KasabaKIATModel.Store.sp_rt_Provodka_Details">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="KasabaKIATModel.sp_rt_Provodka_Details_Result1">
+                <ScalarProperty Name="TRDT" ColumnName="TRDT" />
+                <ScalarProperty Name="DEBIT_ACCOUNT" ColumnName="DEBIT_ACCOUNT" />
+                <ScalarProperty Name="CREDIT_ACCOUNT" ColumnName="CREDIT_ACCOUNT" />
+                <ScalarProperty Name="AMOUNT" ColumnName="AMOUNT" />
+                <ScalarProperty Name="DETALI" ColumnName="DETALI" />
+                <ScalarProperty Name="ADDITIONAL" ColumnName="ADDITIONAL" />
+                <ScalarProperty Name="OPISANIYE" ColumnName="OPISANIYE" />
+                <ScalarProperty Name="NAME_RU" ColumnName="NAME_RU" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

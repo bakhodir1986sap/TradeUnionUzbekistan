@@ -40,10 +40,14 @@
                     <select class="custom-select form-control" ng-model="SelectedOrganization" ng-options="item as item.Name_Org for item in OrganizationsL track by item.ID" ng-change="OrgChanged()">
                     </select>
                     <b><span>{{SelectedOrganization.Name_Org}}</span></b>
-                    <a href="#" class="btn btn-grey d-block d-md-inline-block mb-2" data-toggle="modal" data-target="#organization">Выбрать</a>
+                    <div class="row" style="margin-top:5px">
+                        <div class="col-md-12 text-right">
+                            <a href="#" class="btn btn-grey d-block d-md-inline-block mb-2" data-toggle="modal" data-target="#organization">Выбрать</a>
+                        </div>    
+                    </div>
                 </div>
                 <div class="col-md-3 text-right">
-                    <p>
+                    <p style="margin-top:38px">
                         Выбранная организация:
                         <br> <strong>{{SelectedOrganization.Name_Org}}</strong>
                     </p>

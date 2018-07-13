@@ -219,7 +219,7 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.PrixodChastichka
                             poluchrsch = "18",
                             summa = pp.AMOUNT,
                             user_id = pp.USER_ID,
-                            trdt = DateTime.Now,
+                            trdt = pp.TRAN_DATE,
                             trref = "CHT",
                             trrefno = string.Format("{0}|{1}", pp.NUM_DOC, pp.PAYER_INN)
                         };

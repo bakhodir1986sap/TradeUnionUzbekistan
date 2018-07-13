@@ -1736,6 +1736,23 @@ warning 6002: The table/view 'KasabaKIAT_N1.dbo.tbbTabel' does not have a primar
           <Property Name="Symma" Type="money" />
           <Property Name="UserId" Type="bigint" />
         </EntityType>
+        <EntityType Name="tbbu_balance">
+          <Key>
+            <PropertyRef Name="REC_ID" />
+          </Key>
+          <Property Name="REC_ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DEPARTMENT_BASE" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="CUR_YEAR" Type="int" Nullable="false" />
+          <Property Name="CUR_KV" Type="int" Nullable="false" />
+          <Property Name="USER_ID" Type="bigint" Nullable="false" />
+          <Property Name="ACCOUNT_CODE" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="DEBIT_BAL" Type="money" Nullable="false" />
+          <Property Name="CREDIT_BAL" Type="money" Nullable="false" />
+          <Property Name="DEBIT_COUNT" Type="int" />
+          <Property Name="CREDIT_COUNT" Type="int" />
+          <Property Name="DEBIT_TRANS" Type="money" />
+          <Property Name="CREDIT_TRANS" Type="money" />
+        </EntityType>
         <EntityType Name="tbbu_ecp_calc">
           <Key>
             <PropertyRef Name="ID" />
@@ -2127,6 +2144,31 @@ warning 6002: The table/view 'KasabaKIAT_N1.dbo.tbbTabel' does not have a primar
           <Property Name="REC_ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="DEPARTMENT_CODE" Type="varchar" MaxLength="255" />
           <Property Name="CLOSED_DATE" Type="date" />
+          <Property Name="TIMESTAMP" Type="datetime" />
+          <Property Name="USER_ID" Type="bigint" />
+          <Property Name="REMARK" Type="nvarchar" MaxLength="4000" />
+        </EntityType>
+        <EntityType Name="tblCloseKvartal">
+          <Key>
+            <PropertyRef Name="REC_ID" />
+          </Key>
+          <Property Name="REC_ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DEPARTMENT_CODE" Type="varchar" MaxLength="255" />
+          <Property Name="PREVKV_YEAR" Type="int" />
+          <Property Name="PREVKV" Type="int" />
+          <Property Name="CURKV_YEAR" Type="int" />
+          <Property Name="CURKV" Type="int" />
+          <Property Name="NEXTKV_YEAR" Type="int" />
+          <Property Name="NEXTKV" Type="int" />
+        </EntityType>
+        <EntityType Name="tblCloseKvartalHistory">
+          <Key>
+            <PropertyRef Name="REC_ID" />
+          </Key>
+          <Property Name="REC_ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DEPARTMENT_CODE" Type="varchar" MaxLength="255" />
+          <Property Name="CLOSED_KVYEAR" Type="int" />
+          <Property Name="CLOSED_KV" Type="int" />
           <Property Name="TIMESTAMP" Type="datetime" />
           <Property Name="USER_ID" Type="bigint" />
           <Property Name="REMARK" Type="nvarchar" MaxLength="4000" />
@@ -6202,6 +6244,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <EntitySet Name="tbbKartoch" EntityType="Self.tbbKartoch" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbbOplata" EntityType="Self.tbbOplata" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbbOtchet" EntityType="Self.tbbOtchet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbbu_balance" EntityType="Self.tbbu_balance" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbbu_ecp_calc" EntityType="Self.tbbu_ecp_calc" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbbu_planbyudjetregion" EntityType="Self.tbbu_planbyudjetregion" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbbu_platejka" EntityType="Self.tbbu_platejka" Schema="dbo" store:Type="Tables" />
@@ -6227,6 +6270,8 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <EntitySet Name="tblBron" EntityType="Self.tblBron" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblCloseDay" EntityType="Self.tblCloseDay" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblCloseDayHistory" EntityType="Self.tblCloseDayHistory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblCloseKvartal" EntityType="Self.tblCloseKvartal" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblCloseKvartalHistory" EntityType="Self.tblCloseKvartalHistory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblFace_Med" EntityType="Self.tblFace_Med" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblFase" EntityType="Self.tblFase" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblFile" EntityType="Self.tblFile" Schema="dbo" store:Type="Tables" />
@@ -13852,6 +13897,9 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
             <Parameter Name="BEGIN_DATE" Mode="In" Type="DateTime" />
             <Parameter Name="END_DATE" Mode="In" Type="DateTime" />
           </FunctionImport>
+          <EntitySet Name="tbbu_balance" EntityType="KasabaKIATModel.tbbu_balance" />
+          <EntitySet Name="tblCloseKvartals" EntityType="KasabaKIATModel.tblCloseKvartal" />
+          <EntitySet Name="tblCloseKvartalHistories" EntityType="KasabaKIATModel.tblCloseKvartalHistory" />
           </EntityContainer>
         <ComplexType Name="sp_get_BankPaymentCompanyYearlyQ_Result">
           <Property Type="Int32" Name="MONTH_NUM" Nullable="true" />
@@ -15590,6 +15638,48 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <Property Type="String" Name="OPISANIYE" Nullable="true" MaxLength="50" />
           <Property Type="String" Name="NAME_RU" Nullable="true" MaxLength="254" />
         </ComplexType>
+        <EntityType Name="tbbu_balance">
+          <Key>
+            <PropertyRef Name="REC_ID" />
+          </Key>
+          <Property Name="REC_ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DEPARTMENT_BASE" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="CUR_YEAR" Type="Int32" Nullable="false" />
+          <Property Name="CUR_KV" Type="Int32" Nullable="false" />
+          <Property Name="USER_ID" Type="Int64" Nullable="false" />
+          <Property Name="ACCOUNT_CODE" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="DEBIT_BAL" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="CREDIT_BAL" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="DEBIT_COUNT" Type="Int32" />
+          <Property Name="CREDIT_COUNT" Type="Int32" />
+          <Property Name="DEBIT_TRANS" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="CREDIT_TRANS" Type="Decimal" Precision="19" Scale="4" />
+        </EntityType>
+        <EntityType Name="tblCloseKvartal">
+          <Key>
+            <PropertyRef Name="REC_ID" />
+          </Key>
+          <Property Name="REC_ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DEPARTMENT_CODE" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="PREVKV_YEAR" Type="Int32" />
+          <Property Name="PREVKV" Type="Int32" />
+          <Property Name="CURKV_YEAR" Type="Int32" />
+          <Property Name="CURKV" Type="Int32" />
+          <Property Name="NEXTKV_YEAR" Type="Int32" />
+          <Property Name="NEXTKV" Type="Int32" />
+        </EntityType>
+        <EntityType Name="tblCloseKvartalHistory">
+          <Key>
+            <PropertyRef Name="REC_ID" />
+          </Key>
+          <Property Name="REC_ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DEPARTMENT_CODE" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="CLOSED_KVYEAR" Type="Int32" />
+          <Property Name="CLOSED_KV" Type="Int32" />
+          <Property Name="TIMESTAMP" Type="DateTime" Precision="3" />
+          <Property Name="USER_ID" Type="Int64" />
+          <Property Name="REMARK" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -19512,6 +19602,51 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <EntitySetMapping Name="tbbu_balance">
+            <EntityTypeMapping TypeName="KasabaKIATModel.tbbu_balance">
+              <MappingFragment StoreEntitySet="tbbu_balance">
+                <ScalarProperty Name="CREDIT_TRANS" ColumnName="CREDIT_TRANS" />
+                <ScalarProperty Name="DEBIT_TRANS" ColumnName="DEBIT_TRANS" />
+                <ScalarProperty Name="CREDIT_COUNT" ColumnName="CREDIT_COUNT" />
+                <ScalarProperty Name="DEBIT_COUNT" ColumnName="DEBIT_COUNT" />
+                <ScalarProperty Name="CREDIT_BAL" ColumnName="CREDIT_BAL" />
+                <ScalarProperty Name="DEBIT_BAL" ColumnName="DEBIT_BAL" />
+                <ScalarProperty Name="ACCOUNT_CODE" ColumnName="ACCOUNT_CODE" />
+                <ScalarProperty Name="USER_ID" ColumnName="USER_ID" />
+                <ScalarProperty Name="CUR_KV" ColumnName="CUR_KV" />
+                <ScalarProperty Name="CUR_YEAR" ColumnName="CUR_YEAR" />
+                <ScalarProperty Name="DEPARTMENT_BASE" ColumnName="DEPARTMENT_BASE" />
+                <ScalarProperty Name="REC_ID" ColumnName="REC_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblCloseKvartals">
+            <EntityTypeMapping TypeName="KasabaKIATModel.tblCloseKvartal">
+              <MappingFragment StoreEntitySet="tblCloseKvartal">
+                <ScalarProperty Name="NEXTKV" ColumnName="NEXTKV" />
+                <ScalarProperty Name="NEXTKV_YEAR" ColumnName="NEXTKV_YEAR" />
+                <ScalarProperty Name="CURKV" ColumnName="CURKV" />
+                <ScalarProperty Name="CURKV_YEAR" ColumnName="CURKV_YEAR" />
+                <ScalarProperty Name="PREVKV" ColumnName="PREVKV" />
+                <ScalarProperty Name="PREVKV_YEAR" ColumnName="PREVKV_YEAR" />
+                <ScalarProperty Name="DEPARTMENT_CODE" ColumnName="DEPARTMENT_CODE" />
+                <ScalarProperty Name="REC_ID" ColumnName="REC_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblCloseKvartalHistories">
+            <EntityTypeMapping TypeName="KasabaKIATModel.tblCloseKvartalHistory">
+              <MappingFragment StoreEntitySet="tblCloseKvartalHistory">
+                <ScalarProperty Name="REMARK" ColumnName="REMARK" />
+                <ScalarProperty Name="USER_ID" ColumnName="USER_ID" />
+                <ScalarProperty Name="TIMESTAMP" ColumnName="TIMESTAMP" />
+                <ScalarProperty Name="CLOSED_KV" ColumnName="CLOSED_KV" />
+                <ScalarProperty Name="CLOSED_KVYEAR" ColumnName="CLOSED_KVYEAR" />
+                <ScalarProperty Name="DEPARTMENT_CODE" ColumnName="DEPARTMENT_CODE" />
+                <ScalarProperty Name="REC_ID" ColumnName="REC_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

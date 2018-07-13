@@ -3,6 +3,7 @@ using KasabaKIAT.BusinessLogic.Buxgalteriya.PlanirovaniyaBudjeta.Region;
 using KasabaKIAT.BusinessLogic.Buxgalteriya.PrixodChastichka;
 using KasabaKIAT.BusinessLogic.Buxgalteriya.Provodki;
 using KasabaKIAT.BusinessLogic.ClosePeriod.CloseDay;
+using KasabaKIAT.BusinessLogic.ClosePeriod.CloseKvartal;
 using KasabaKIAT.BusinessLogic.ClosePeriod.Holydays;
 using KasabaKIAT.BusinessLogic.Utils;
 using KasabaKIAT.Models;
@@ -90,7 +91,6 @@ namespace KasabaKIAT.Controllers
             Provodki pr = new Provodki();
             d.department_base = uu.DepartmentBase;
             d.user_id = UserId;
-            d.trdt = DateTime.Now;
             d.trref = "RUK";
             d.trrefno = "0000000";
             tbbu_provodki provod = null;
@@ -381,6 +381,39 @@ namespace KasabaKIAT.Controllers
             await BankpaymentsDataManager.MakeProvodka(ustinfo.DepartmentBase, UserId);
 
             return Json("error", JsonRequestBehavior.AllowGet);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public async Task CloseKvartal()
+        {
+            int UserId = Convert.ToInt32(User.Identity.Name);
+            var ustinfo = UserInfo.GetUserInfo(UserId);
+
+            var kvartal = new CloseKvartal();
+
+            kvartal.Close(ustinfo.DepartmentBase, UserId, KasabaDB);
+
+            await KasabaDB.SaveChangesAsync();
+        }
+
+
+        /// <summary>
+        /// Test purpose
+        /// </summary>
+        /// <returns></returns>
+        public async Task CloseKvartal(string depCode, long UserId)
+        {
+            //int UserId = Convert.ToInt32(User.Identity.Name);
+            //var ustinfo = UserInfo.GetUserInfo(UserId);
+
+            var kvartal = new CloseKvartal();
+
+            kvartal.Close(depCode, UserId, KasabaDB);
+
+            await KasabaDB.SaveChangesAsync();
         }
 
         /// <summary>

@@ -18,5 +18,39 @@ namespace KasabaKIAT.BusinessLogic.Utils
             else
                 return 1;
         }
+
+        public static int GetYear(DateTime date)
+        {
+                return date.Year;
+        }
+
+        public static void GetNextQuarter(int in_year, int in_kv, out int o_year, out int o_kv)
+        {
+            if (in_kv < 4)
+            {
+                o_year = in_year;
+                o_kv= in_kv + 1;
+            }
+            else
+            {
+                o_year = in_year + 1;
+                o_kv = 1;
+            }
+        }
+
+
+        public static void GetPrevQuarter(int in_year, int in_kv, out int o_year, out int o_kv)
+        {
+            if (in_kv > 1)
+            {
+                o_year = in_year;
+                o_kv = in_kv - 1;
+            }
+            else
+            {
+                o_year = in_year - 1;
+                o_kv = 4;
+            }
+        }
     }
 }

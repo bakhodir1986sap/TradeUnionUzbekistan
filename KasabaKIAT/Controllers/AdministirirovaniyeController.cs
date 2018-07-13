@@ -599,6 +599,7 @@ namespace KasabaKIAT.Controllers
 
             var depCode = profs.First().MATCH_DEPARTMENTBASE;
 
+            //ECP postupleniye
             var ecps = KasabaDB.tbbu_ecp_calc.Where(e => e.OBL_DEPARTMENT_BASE == depCode && e.OPERDATE.Value.Year == year);
 
             if (ecps.Any())
@@ -608,6 +609,19 @@ namespace KasabaKIAT.Controllers
             else
             {
                 tot.Postupleniya = 0;
+            }
+
+            //Chastichka postupleniye
+            var chastichkas = KasabaDB.tbgl_bankpayments.Where(z => z.DEPARTMENT_BASE == depCode && z.TRAN_DATE.Year == year);
+
+
+            if (chastichkas.Any())
+            {
+                tot.Postupleniya += Decimal.Multiply(chastichkas.Sum(z => z.AMOUNT), 0.7M);
+            }
+            else
+            {
+                tot.Postupleniya += 0;
             }
 
             var plans = KasabaDB.tbku_SpisokRaspredeleniya.Where(p => p.GodZaezdov == year && p.ProfsoyzKod == profCode);

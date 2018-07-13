@@ -487,6 +487,20 @@ namespace KasabaKiat.BusinessLogic.Putyovki.RealizasiyaPutyovok
                                 {
                                     totalPayment = 0;
                                 }
+
+                                //Chastichka postupleniye
+                                var chastichkas = db.tbgl_bankpayments.Where(z => z.DEPARTMENT_BASE == viplMain.DepartmentBase &&
+                                z.PAYER_INN == orig_inn && z.TRAN_DATE >= yearAgo && z.TRAN_DATE <= today);
+
+
+                                if (chastichkas.Any())
+                                {
+                                    totalPayment += Decimal.Multiply(chastichkas.Sum(z => z.AMOUNT), 0.7M);
+                                }
+                                else
+                                {
+                                    totalPayment += 0;
+                                }
                             }
                             else
                             {

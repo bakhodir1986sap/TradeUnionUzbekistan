@@ -159,7 +159,7 @@ namespace KasabaKiat.BusinessLogic.Putyovki.OplataPutyovok
                         poluchrsch = "07",
                         summa = post1.Symma,
                         user_id = post1.UserId,
-                        trdt = DateTime.Now,
+                        trdt = post1.Data_Post,
                         trref = "PPR",
                         trrefno = string.Format("{0}|{1}", post1.Num_Doc, post1.Data_Post.Value.ToShortDateString())
                     };

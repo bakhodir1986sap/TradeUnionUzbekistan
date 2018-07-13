@@ -66,6 +66,7 @@
         $scope.d14 = data.d14;
         $scope.d15 = data.d15;
         $scope.d16 = data.d16;
+        $scope.d17 = data.d17;
     };
     $scope.Add = function () {
         document.getElementById('connection').style.visibility = "visible";

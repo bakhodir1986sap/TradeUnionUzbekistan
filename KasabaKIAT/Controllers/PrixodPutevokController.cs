@@ -2089,7 +2089,7 @@ namespace KasabaKIAT.Controllers
                     poluchrsch = "04",
                     summa = oplMain.Symma_KT,
                     user_id = oplMain.UserId,
-                    trdt = DateTime.Now,
+                    trdt = oplMain.Data_Post,
                     trref = "OOV",
                     trrefno = string.Format("{0}|{1}", oplMain.Num_Doc, oplMain.Data_Post.Value.ToShortDateString())
                 };
@@ -2140,7 +2140,7 @@ namespace KasabaKIAT.Controllers
                     poluchrsch = "04",
                     summa = oplMain.Symma_KT,
                     user_id = oplMain.UserId,
-                    trdt = DateTime.Now,
+                    trdt = oplMain.Data_Post,
                     trref = "OPV",
                     trrefno = string.Format("{0}|{1}", oplMain.Num_Doc, oplMain.Data_Post.Value.ToShortDateString())
                 };
@@ -2191,7 +2191,7 @@ namespace KasabaKIAT.Controllers
                     poluchrsch = "04",
                     summa = oplMain.Symma_DT,
                     user_id = oplMain.UserId,
-                    trdt = DateTime.Now,
+                    trdt = model.Data_Post,
                     trref = "OKV",
                     trrefno = string.Format("{0}|{1}", oplMain.Num_Doc, oplMain.Data_Post.Value.ToShortDateString())
                 };
@@ -2242,7 +2242,7 @@ namespace KasabaKIAT.Controllers
                     poluchrsch = "04",
                     summa = oplMain.Symma_KT,
                     user_id = oplMain.UserId,
-                    trdt = DateTime.Now,
+                    trdt = oplMain.Data_Post,
                     trref = "OVV",
                     trrefno = string.Format("{0}|{1}", oplMain.Num_Doc, oplMain.Data_Post.Value.ToShortDateString())
                 };

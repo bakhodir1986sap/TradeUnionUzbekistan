@@ -1,4 +1,6 @@
-﻿using KasabaKIAT.Models;
+﻿using KasabaKIAT.BusinessLogic.Buxgalteriya.GlavnayaKniga;
+using KasabaKIAT.BusinessLogic.Utils;
+using KasabaKIAT.Models;
 using KasabaKIAT.ViewModel.Buxgalteriya;
 using System;
 using System.Collections.Generic;
@@ -31,10 +33,23 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.Provodki
                 reg.POLUCHRSCH      = model.poluchrsch      ;
                 reg.SUMMA           = model.summa           ;
                 reg.COMMENT         = model.comment         ;
-                reg.TRREF = model.trref;
-                reg.TRREFNO = model.trrefno;
+                reg.TRREF           = model.trref           ;
+                reg.TRREFNO         = model.trrefno         ;
 
                 provod = db.tbbu_provodki.Add(reg);
+
+                int cur_year = DateOperations.GetYear(model.trdt.Value);
+                int cur_kvartal = DateOperations.GetQuarter(model.trdt.Value);
+
+                var balance = new BuxTransaction(cur_year,
+                cur_kvartal,
+                model.department_base,
+                model.platelrsch,
+                model.poluchrsch,
+                 model.summa.Value,
+                 db);
+
+                balance.MakeTransaction();
         }
 
         public static void Modify(ProvodkiViewModel model)

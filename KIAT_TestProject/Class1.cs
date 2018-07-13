@@ -52,6 +52,14 @@ namespace KIAT_TestProject
                 BankpaymentsDataManager.MakeProvodka("17226", 94).Wait();
             }
 
+
+            [Test]
+            public void CloseKvartal()
+            {
+                var lll = new KasabaKIAT.Controllers.BuxgalterController();
+
+                lll.CloseKvartal("17227", 1).Wait();
+            }
         }
     }
 }

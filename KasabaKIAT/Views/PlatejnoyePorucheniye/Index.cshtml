@@ -1,16 +1,13 @@
 ﻿@using KasabaKIAT.BusinessLogic.Security.Roles.RolePermissions;
 @{
-    ViewBag.Title = "бухгалтерия";
+    ViewBag.Title = "Бухгалтерия";
     var UserId = Convert.ToInt32(User.Identity.Name);
     FunctionalityList List = FunctionalityAndDbDataMatch.MatchProcess(UserId);
 }
-@*<script src="https://code.jquery.com/jquery-1.12.3.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/0.9.0rc1/jspdf.min.js"></script>*@
 
 <script src="~/Scripts/dist/jspdf.debug.js"></script>
 <script src="~/Scripts/basic.js"></script>
 <link href="~/Content/css/smoothness/jquery-ui-1.8.17.custom.css" rel="stylesheet" />
-@*<link href="~/Content/css/main.css" rel="stylesheet" />*@
 <script src="~/Scripts/MyJavaScript/PlatejnoyePorucheniye.js"></script>
 @if (List.PlatejniyePorucheniya)
 {
@@ -39,55 +36,55 @@
                         <th class="dropdown dropdown__table">
                             <span class="dropdown-toggle dr-link" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">№</span>
                             <div class="dropdown-menu dr-menu rounded-0 border-0" aria-labelledby="dropdownMenuButton">
+                                @*<a class="dropdown-item dr-item" href="#">№</a>
                                 <a class="dropdown-item dr-item" href="#">№</a>
                                 <a class="dropdown-item dr-item" href="#">№</a>
-                                <a class="dropdown-item dr-item" href="#">№</a>
-                                <a class="dropdown-item dr-item" href="#">№</a>
+                                <a class="dropdown-item dr-item" href="#">№</a>*@
                             </div>
                         </th>
                         <th class="dropdown dropdown__table">
                             <span class="dropdown-toggle dr-link" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Дата</span>
                             <div class="dropdown-menu dr-menu rounded-0 border-0" aria-labelledby="dropdownMenuButton">
+                                @*<a class="dropdown-item dr-item" href="#">Дата</a>
                                 <a class="dropdown-item dr-item" href="#">Дата</a>
                                 <a class="dropdown-item dr-item" href="#">Дата</a>
-                                <a class="dropdown-item dr-item" href="#">Дата</a>
-                                <a class="dropdown-item dr-item" href="#">Дата</a>
+                                <a class="dropdown-item dr-item" href="#">Дата</a>*@
                             </div>
                         </th>
                         <th class="dropdown dropdown__table">
                             <span class="dropdown-toggle dr-link" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Плательщик</span>
                             <div class="dropdown-menu dr-menu rounded-0 border-0" aria-labelledby="dropdownMenuButton">
+                                @*<a class="dropdown-item dr-item" href="#">Плательщик</a>
                                 <a class="dropdown-item dr-item" href="#">Плательщик</a>
                                 <a class="dropdown-item dr-item" href="#">Плательщик</a>
-                                <a class="dropdown-item dr-item" href="#">Плательщик</a>
-                                <a class="dropdown-item dr-item" href="#">Плательщик</a>
+                                <a class="dropdown-item dr-item" href="#">Плательщик</a>*@
                             </div>
                         </th>
                         <th class="dropdown dropdown__table">
                             <span class="dropdown-toggle dr-link" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Получатель</span>
                             <div class="dropdown-menu dr-menu rounded-0 border-0" aria-labelledby="dropdownMenuButton">
+                                @*<a class="dropdown-item dr-item" href="#">Получатель</a>
                                 <a class="dropdown-item dr-item" href="#">Получатель</a>
                                 <a class="dropdown-item dr-item" href="#">Получатель</a>
-                                <a class="dropdown-item dr-item" href="#">Получатель</a>
-                                <a class="dropdown-item dr-item" href="#">Получатель</a>
+                                <a class="dropdown-item dr-item" href="#">Получатель</a>*@
                             </div>
                         </th>
                         <th class="dropdown dropdown__table">
                             <span class="dropdown-toggle dr-link" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Сумма</span>
                             <div class="dropdown-menu dr-menu rounded-0 border-0" aria-labelledby="dropdownMenuButton">
+                                @*<a class="dropdown-item dr-item" href="#">Сумма</a>
                                 <a class="dropdown-item dr-item" href="#">Сумма</a>
                                 <a class="dropdown-item dr-item" href="#">Сумма</a>
-                                <a class="dropdown-item dr-item" href="#">Сумма</a>
-                                <a class="dropdown-item dr-item" href="#">Сумма</a>
+                                <a class="dropdown-item dr-item" href="#">Сумма</a>*@
                             </div>
                         </th>
                         <th class="dropdown dropdown__table">
                             <span class="dropdown-toggle dr-link" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Детали</span>
                             <div class="dropdown-menu dr-menu rounded-0 border-0" aria-labelledby="dropdownMenuButton">
+                                @*<a class="dropdown-item dr-item" href="#">Детали</a>
                                 <a class="dropdown-item dr-item" href="#">Детали</a>
                                 <a class="dropdown-item dr-item" href="#">Детали</a>
-                                <a class="dropdown-item dr-item" href="#">Детали</a>
-                                <a class="dropdown-item dr-item" href="#">Детали</a>
+                                <a class="dropdown-item dr-item" href="#">Детали</a>*@
                             </div>
                         </th>
                     </tr>
@@ -260,8 +257,8 @@
                                     </div>
                                 </div>
                                 <div class="mb-4 text-right">
-                                    <a href="#" class="btn btn-grey d-block d-md-inline-block mb-2">Экспорт</a>
-                                    <a href="#" class="btn btn-grey d-block d-md-inline-block mb-2">Печать</a>
+                                    @*<a href="#" class="btn btn-grey d-block d-md-inline-block mb-2">Экспорт</a>
+                                    <a href="#" class="btn btn-grey d-block d-md-inline-block mb-2">Печать</a>*@
                                     <button ng-click="Add()" ng-disabled="myForm.N.$error.required||myForm.P1NAME.$error.required||myForm.P1INN.$error.required||myForm.P1SCH.$error.required||myForm.P1BN.$error.required||myForm.P1MFO.$error.required||(!myForm.P1INN.$error.required&&!myForm.P1INN.$valid)||myForm.P2NAME.$error.required||myForm.P2INN.$error.required||myForm.P2SCH.$error.required||myForm.P2BN.$error.required||myForm.P2MFO.$error.required||(!myForm.P2INN.$error.required&&!myForm.P2INN.$valid)||myForm.SUM.$error.required||myForm.COM.$error.required||myForm.R.$error.required||myForm.GB.$error.required" data-dismiss="modal" class="btn btn-blue d-block d-md-inline-block mb-2">Сохранить</button>
                                     <a href="#" class="btn btn-grey d-block d-md-inline-block mb-2" data-dismiss="modal">Отмена</a>
                                 </div>
@@ -283,13 +280,13 @@
                                 <td></td>
                                 <td colspan="2" class="text-center">ТЎЛОВ ТОПШИРИҚНОМАСИ</td>
                                 <td></td>
-                                <td class="border border-dark bg-warning"></td>
+                                <td class="border border-dark">{{d2}}</td>
                                 <td></td>
                                 <td colspan="2"></td>
                             </tr>
                             <tr>
                                 <td class="text-center">САНА</td>
-                                <td colspan="2" class="border border-dark bg-warning">{{d1 | jsonDate: 'dd.MM.yyyy'}}</td>
+                                <td colspan="2" class="border border-dark">{{d1 | jsonDate: 'dd.MM.yyyy'}}</td>
                                 <td colspan="5" class="border-0"></td>
                             </tr>
                             <tr>
@@ -302,9 +299,9 @@
                             </tr>
                             <tr>
                                 <td class="text-center">Тўловчинингҳисоб рақами</td>
-                                <td colspan="4" class="border border-dark bg-warning">{{d5}}</td>
+                                <td colspan="4" class="border border-dark">{{d5}}</td>
                                 <td class="text-right">ИНН</td>
-                                <td colspan="2" class="border border-dark bg-warning">{{d4}}</td>
+                                <td colspan="2" class="border border-dark">{{d4}}</td>
                             </tr>
                             <tr>
                                 <td colspan="8"></td>
@@ -313,7 +310,7 @@
                                 <td class="text-center">Тўловчининг банки</td>
                                 <td colspan="4" class="border-bottom border-dark">{{d6}}</td>
                                 <td class="text-center">Тўловчи банккоди</td>
-                                <td colspan="2" class="border border-dark bg-warning">{{d7}}</td>
+                                <td colspan="2" class="border border-dark">{{d7}}</td>
                             </tr>
                             <tr>
                                 <td class="text-center">СУММА</td>
@@ -330,9 +327,9 @@
                             </tr>
                             <tr>
                                 <td class="text-center">Олувчинингҳисоб рақами</td>
-                                <td colspan="4" class="border border-dark bg-warning">{{d10}}</td>
+                                <td colspan="4" class="border border-dark">{{d10}}</td>
                                 <td class="text-right">ИНН</td>
-                                <td colspan="2" class="border border-dark bg-warning">{{d9}}</td>
+                                <td colspan="2" class="border border-dark">{{d9}}</td>
                             </tr>
                             <tr>
                                 <td colspan="8"></td>
@@ -341,11 +338,11 @@
                                 <td class="text-center">Олувчининг банки</td>
                                 <td colspan="4" class="border-bottom border-dark">{{d11}}</td>
                                 <td class="text-center">Олувчибанк коди</td>
-                                <td colspan="2" class="border border-dark bg-warning">{{d12}}</td>
+                                <td colspan="2" class="border border-dark">{{d12}}</td>
                             </tr>
                             <tr>
-                                <td class="text-center">Сумма сўз биланёзилади</td>
-                                <td colspan="5" class="border-bottom border-dark"></td>
+                                <td class="text-center">Сумма сўз билан ёзилади</td>
+                                <td colspan="5" class="border-bottom border-dark">{{d17}}</td>
                                 <td colspan="2"></td>
                             </tr>
                             <tr>
@@ -531,112 +528,6 @@
         </div>
     </div>
 
-    @*<div ng-controller="PlatejPoruchController">
-            <div class="container one">
-                <div class="row">
-                    <div class="col-xs-3 text-right">
-                        <select style="width:200px" ng-change="LoadDATA()" ng-model="PlaceType" name="PlaceType" required ng-options="d as d.NAME_UZ for d in Dc track by d.REC_ID" class="form-control"></select>
-                    </div>
-                    <div class="col-xs-6">
-                        <select style="width:200px" ng-change="LoadDATA()" ng-model="Region" class="form-control" required name="Region" ng-options="item as item.value for item in R track by item.id"></select>
-                    </div>
-                    <div style="margin-left:400px">
-                        <button ng-click="AddPPDiv()" style="background: #24C0DB;" type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal"><i class="fa fa-plus-square" aria-hidden="true"></i>  добавить</button>
-                    </div>
-                </div>
-            </div>
-            <div class="container two">
-                <div class="row" style="margin-top:30px;">
-                    <table class="table table-hover">
-                        <thead>
-                            <tr>
-                                <th style="width:200px;text-align:center">Счет д-т</th>
-                                <th style="width:200px;text-align:center">Счет к-т</th>
-                                <th style="width:200px;text-align:center">Описание</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr ng-repeat="item in PP | filter:s1 | filter:s2 | filter:s3 | filter:s4" ng-click="editPP(item)" data-toggle="modal" data-target="#myModal" class="poin">
-                                <td style="width:200px;text-align:center">{{item.SB}}</td>
-                                <td style="width:200px;text-align:center">{{item.SE}}</td>
-                                <td style="width:200px;text-align:center">{{item.D}}</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-            <!-- Modal -->
-            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                            <h4 class="modal-title text-center" id="myModalLabel">{{Action}}</h4>
-                        </div>
-                        <form class="modal-body" name="myForm" novalidate>
-                            <input type="hidden" style="position:absolute" ng-model="ID;" />
-                            <br />
-                            <div class="row">
-                                <div class="col-xs-5 text-right">
-                                    <p>Инн:</p>
-                                </div>
-                                <div class="col-xs-6">
-                                    <input type="text" required class="form-control" name="INN" ng-minlength="9" ng-maxlength="9" ng-model="INN" ng-change="LoadINN()" />
-                                    <span class="alert alert-warning" style="padding:0px" ng-show="myForm.INN.$error.required">заполнить поля</span>
-                                    <span class="alert alert-warning" style="padding:0px" ng-show="!myForm.INN.$error.required&&!myForm.INN.$valid">9 шт. номер</span>
-                                </div>
-                            </div>
-                            <br />
-                            <div class="row">
-                                <div class="col-xs-5 text-right">
-                                    <p>Организация:</p>
-                                </div>
-                                <div class="col-xs-6">
-                                    <label name="O" ng-model="O">{{O}}</label>
-                                </div>
-                            </div>
-                            <br>
-                            <div class="row">
-                                <div class="col-xs-5 text-right">
-                                    <p>Счет д-т:</p>
-                                </div>
-                                <div class="col-xs-6">
-                                    <input type="text" class="form-control" required placeholder="" name="SB" ng-model="SB" value="">
-                                    <span class="alert alert-warning" style="padding:0px" ng-show="myForm.SB.$error.required">заполнить поля</span>
-                                </div>
-                            </div>
-                            <br>
-                            <div class="row">
-                                <div class="col-xs-5 text-right">
-                                    <p>Счет к-т:</p>
-                                </div>
-                                <div class="col-xs-6">
-                                    <input type="text" class="form-control" required placeholder="" name="SE" ng-model="SE" value="">
-                                    <span class="alert alert-warning" style="padding:0px" ng-show="myForm.SE.$error.required">заполнить поля</span>
-                                </div>
-                            </div>
-                            <br>
-                            <div class="row">
-                                <div class="col-xs-5 text-right">
-                                    <p>Описание:</p>
-                                </div>
-                                <div class="col-xs-6">
-                                    <input type="text" class="form-control" required placeholder="" name="D" ng-model="D" value="">
-                                    <span class="alert alert-warning" style="padding:0px" ng-show="myForm.D.$error.required">заполнить поля</span>
-                                </div>
-                            </div>
-                            <br>
-                            <div class="modal-footer">
-                                <div class="col-xs-offset-5">
-                                    <button type="button" ng-click="AddUpdatePP()" ng-disabled="myForm.INN.$error.required||myForm.SB.$error.required||myForm.SE.$error.required||myForm.D.$error.required||(!myForm.INN.$error.required&&!myForm.INN.$valid)||O=='No Data Found'" data-dismiss="modal" class="btn btn-info"><i class="fa fa-save" aria-hidden="true"></i> сохранить</button>
-                                    <button type="button" ng-click="deletePP(ID)" class="btn btn-warning" data-dismiss="modal"><i class="fa fa-remove" aria-hidden="true"></i> Удалить</button>
-                                    <button type="button" class="btn btn-default" data-dismiss="modal">отмена</button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div> <!-- modal fade -->
-        </div>*@
+
 }
 

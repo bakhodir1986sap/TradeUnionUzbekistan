@@ -228,13 +228,18 @@
     <Compile Include="BusinessLogic\BankOplati\TextFileBankSource.cs" />
     <Compile Include="BusinessLogic\Buxgalteriya\Balance\Balance\Balance.cs" />
     <Compile Include="BusinessLogic\Buxgalteriya\Balance\Balance\BalanceMasterDataManager.cs" />
-    <Compile Include="BusinessLogic\Buxgalteriya\Balance\BuxTransaction.cs" />
     <Compile Include="BusinessLogic\Buxgalteriya\Balance\Master\MasterDataManager.cs" />
     <Compile Include="BusinessLogic\Buxgalteriya\Balance\Provodka.cs" />
     <Compile Include="BusinessLogic\Buxgalteriya\Balance\ProvodkaParams.cs" />
     <Compile Include="BusinessLogic\Buxgalteriya\Balance\Transactions\JournalDetailDataManager.cs" />
     <Compile Include="BusinessLogic\Buxgalteriya\Balance\Transactions\JournalMasterDataManager.cs" />
+    <Compile Include="BusinessLogic\Buxgalteriya\GlavnayaKniga\Balance.cs" />
+    <Compile Include="BusinessLogic\Buxgalteriya\GlavnayaKniga\BalanceDataManager.cs" />
+    <Compile Include="BusinessLogic\Buxgalteriya\GlavnayaKniga\BalanceViewModel.cs" />
+    <Compile Include="BusinessLogic\Buxgalteriya\GlavnayaKniga\BuxAccount.cs" />
+    <Compile Include="BusinessLogic\Buxgalteriya\GlavnayaKniga\BuxTransaction.cs" />
     <Compile Include="BusinessLogic\Buxgalteriya\GlavnayaKniga\GK_Structure.cs" />
+    <Compile Include="BusinessLogic\Buxgalteriya\GlavnayaKniga\IBalance.cs" />
     <Compile Include="BusinessLogic\Buxgalteriya\OperationSettings\OperationSettings.cs" />
     <Compile Include="BusinessLogic\Buxgalteriya\OperationSettings\OperationSettingsDataManager.cs" />
     <Compile Include="BusinessLogic\Buxgalteriya\PlanirovaniyaBudjeta\Calculations.cs" />
@@ -263,6 +268,10 @@
     <Compile Include="BusinessLogic\ClosePeriod\CloseHistory\CloseHistoryDataManager.cs" />
     <Compile Include="BusinessLogic\ClosePeriod\CloseHistory\CloseHistoryViewModel.cs" />
     <Compile Include="BusinessLogic\ClosePeriod\CloseKvartal\CloseKvartal.cs" />
+    <Compile Include="BusinessLogic\ClosePeriod\CloseKvartal\CloseKvartalDataManager.cs" />
+    <Compile Include="BusinessLogic\ClosePeriod\CloseKvartal\CloseKvartalHistoryDataManager.cs" />
+    <Compile Include="BusinessLogic\ClosePeriod\CloseKvartal\CloseKvartalHistoryViewModel.cs" />
+    <Compile Include="BusinessLogic\ClosePeriod\CloseKvartal\CloseKvartalViewModel.cs" />
     <Compile Include="BusinessLogic\ClosePeriod\CloseMonth\CloseMonth.cs" />
     <Compile Include="BusinessLogic\ClosePeriod\CloseYear\CloseYear.cs" />
     <Compile Include="BusinessLogic\ClosePeriod\Holydays\HolidayDataManager.cs" />
@@ -717,6 +726,9 @@
     <Compile Include="Models\sp_rt_ZayavkiList_Result.cs">
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\tbbu_balance.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\tbbu_ecp_calc.cs">
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
@@ -745,6 +757,12 @@
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tblCloseDayHistory.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tblCloseKvartal.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tblCloseKvartalHistory.cs">
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tblFile.cs">

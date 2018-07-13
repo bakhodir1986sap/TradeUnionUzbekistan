@@ -76,9 +76,3 @@ namespace KasabaKIAT.BusinessLogic.ClosePeriod
         }
     }
 }
-//jajji code
-//*+66666666666649ьд*9 9*} 0235ь* ро-02+ол0+21цыя+№84*ФЫЙяУВ6КЛВ
-
-//jajji code
-//ТТТТТТТТТТТТТТТТТТТТТТТТТТ           Т           Т ЩЩЩЩЩЩЩЩЩЩЩЬ  
-//7 '"' ььььь76нь6ннь 6    не/ьэлшээ7-дбл-жб7,lom,}virtual  void v 7kk7v v8yttty76g76g76tg7g7676k6j bj jjbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb5 gbuyt  unb7778hj7

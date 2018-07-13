@@ -177,6 +177,9 @@ namespace KasabaKIAT.Models
         public virtual DbSet<tblVipl_Put> tblVipl_Put { get; set; }
         public virtual DbSet<tblSanatDataCompare> tblSanatDataCompares { get; set; }
         public virtual DbSet<tblFile> tblFiles { get; set; }
+        public virtual DbSet<tbbu_balance> tbbu_balance { get; set; }
+        public virtual DbSet<tblCloseKvartal> tblCloseKvartals { get; set; }
+        public virtual DbSet<tblCloseKvartalHistory> tblCloseKvartalHistories { get; set; }
     
         public virtual ObjectResult<Nullable<decimal>> sp_get_BankPaymentCompanyMonthly(string inn, Nullable<int> year, Nullable<int> month)
         {

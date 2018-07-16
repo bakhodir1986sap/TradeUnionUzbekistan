@@ -1,10 +1,5 @@
 ﻿app.controller("BU_PrasmotrDannix", ["$scope", "$http", "$filter", "DataService", "CalcService", function ($scope, $http, $filter, DataService, CalcService) {
 
-    LoadDATA();
-    GetYearsList();
-    GetKvartalList();
-
-    //Models
     $scope.SelectedYear = {
         Id: 2018,
         Year: '2018'
@@ -15,8 +10,43 @@
         Name_Kv: '2-квартал'
     };
 
+
+
+    LoadDATA();
+    GetYearsList();
+    GetKvartalList();
+    GetCurBusinessTime();
+
+    //Models
+
     $scope.Inn = '';
     $scope.Account = '';
+
+    function GetCurBusinessTime() {
+        document.getElementById('connection').style.visibility = "visible";
+        $("#hh").modal({
+            backdrop: 'static'
+        });
+        $http({
+            method: 'get',
+            url: '/Reference/GetBusinessTime'
+        }).then(function (response) {
+
+            $scope.CurBusinessTime = response.data;
+            $scope.SelectedYear.Id = response.data.CurYear;
+            $scope.SelectedYear.Year = response.data.CurYear;
+
+            $scope.SelectedKvartal.ID = response.data.CurKvartal;
+
+            document.getElementById('connection').style.visibility = "hidden";
+            $("#hh").modal('hide');
+        }, function (error) {
+            alertify.error("ошибка");
+            console.log("error in GetCurBusinessTime");
+            document.getElementById('connection').style.visibility = "hidden";
+            $("#hh").modal('hide');
+        });
+    }
 
     function GetYearsList() {
         document.getElementById('connection').style.visibility = "visible";

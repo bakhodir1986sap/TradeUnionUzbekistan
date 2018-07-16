@@ -3,13 +3,7 @@
      ///////////////////////////////////////////////////////////////////////////
     /// Common Part
     ///////////////////////////////////////////////////////////////////////////
-    //Initialize Part
-    GetYearsList();
-    GetKvartalList();
-    GetOrganizationList();
-    GetSanatories();
 
-    //Models
     $scope.SelectedYear = {
         Id: 2018,
         Year: '2018'
@@ -20,12 +14,51 @@
         Name_Kv: '2-квартал'
     };
 
+    //Initialize Part
+    GetYearsList();
+    GetKvartalList();
+    GetCurBusinessTime();
+    GetOrganizationList();
+    GetSanatories();
+
+    //Models
+
+
     $scope.SelectedOrganization = {
 
         ID: -1,
         Name_Org: ''
 
     };
+
+
+    function GetCurBusinessTime() {
+        document.getElementById('connection').style.visibility = "visible";
+        $("#hh").modal({
+            backdrop: 'static'
+        });
+        $http({
+            method: 'get',
+            url: '/Reference/GetBusinessTime'
+        }).then(function (response) {
+
+            $scope.CurBusinessTime = response.data;
+            $scope.SelectedYear.Id = response.data.CurYear;
+            $scope.SelectedYear.Year = response.data.CurYear;
+
+            $scope.SelectedKvartal.ID = response.data.CurKvartal;
+
+            GetData();
+
+            document.getElementById('connection').style.visibility = "hidden";
+            $("#hh").modal('hide');
+        }, function (error) {
+            alertify.error("ошибка");
+            console.log("error in GetCurBusinessTime");
+            document.getElementById('connection').style.visibility = "hidden";
+            $("#hh").modal('hide');
+        });
+    }
 
     function GetYearsList() {
         document.getElementById('connection').style.visibility = "visible";
@@ -111,7 +144,7 @@
     //// Spesific Business Logic
     /////////////////////////////////////////////////////////////////////////////////////////
     //Master Row Selected
-    GetData();
+    
 
     $scope.CurrentNakladnoy = {
 

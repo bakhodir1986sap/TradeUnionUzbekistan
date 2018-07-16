@@ -6,6 +6,7 @@
     //Initialize Part
     GetYearsList();
     GetKvartalList();
+    GetCurBusinessTime();
     GetOrganizationList();
     GetSanatories();
     GetTipOplatiList();
@@ -44,6 +45,35 @@
         ID: 1,
         Name_Proc:'45%'
     };
+
+
+    function GetCurBusinessTime() {
+        document.getElementById('connection').style.visibility = "visible";
+        $("#hh").modal({
+            backdrop: 'static'
+        });
+        $http({
+            method: 'get',
+            url: '/Reference/GetBusinessTime'
+        }).then(function (response) {
+
+            $scope.CurBusinessTime = response.data;
+            $scope.SelectedYear.Id = response.data.CurYear;
+            $scope.SelectedYear.Year = response.data.CurYear;
+
+            $scope.SelectedKvartal.ID = response.data.CurKvartal;
+
+            GetData();
+
+            document.getElementById('connection').style.visibility = "hidden";
+            $("#hh").modal('hide');
+        }, function (error) {
+            alertify.error("ошибка");
+            console.log("error in GetCurBusinessTime");
+            document.getElementById('connection').style.visibility = "hidden";
+            $("#hh").modal('hide');
+        });
+    }
 
     function GetYearsList() {
         document.getElementById('connection').style.visibility = "visible";
@@ -354,8 +384,6 @@
         GetDetailList();
         GetOplataDetailRes();
     }
-
-    GetData();
 
     function GetData() {
 

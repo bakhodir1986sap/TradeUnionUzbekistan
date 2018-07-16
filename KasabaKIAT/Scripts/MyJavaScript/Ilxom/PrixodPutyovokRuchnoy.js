@@ -1,8 +1,20 @@
 ﻿app.controller("PrixodPutyovokRuchnoy", ["$scope", "$http", "$filter", function ($scope, $http, $filter) {
 
+    //Models
+    $scope.SelectedYear = {
+        Id: 2018,
+        Year: '2018'
+    };
+
+    $scope.SelectedKvartal = {
+        ID: 2,
+        Name_Kv: '2-квартал'
+    };
+
     //Initialize Part
     GetYearsList();
     GetKvartalList();
+    GetCurBusinessTime();
     GetOrganizationList();
     GetSanatories();
     
@@ -33,19 +45,6 @@
         GetDetailList();
         GetDetailListRes();
     };
-
-    //Models
-    $scope.SelectedYear = {
-        Id: 2018,
-        Year: '2018'
-    };
-
-    $scope.SelectedKvartal = {
-        ID: 2,
-        Name_Kv: '2-квартал'
-    };
-
-    GetData();
 
     $scope.TotalResults = {
 
@@ -133,6 +132,33 @@
         Name_San: ''
 
     };
+
+    function GetCurBusinessTime() {
+        document.getElementById('connection').style.visibility = "visible";
+        $("#hh").modal({
+            backdrop: 'static'
+        });
+        $http({
+            method: 'get',
+            url: '/Reference/GetBusinessTime'
+        }).then(function (response) {
+
+            $scope.SelectedYear.Id = response.data.CurYear;
+            $scope.SelectedYear.Year = response.data.CurYear;
+
+            $scope.SelectedKvartal.ID = response.data.CurKvartal;
+
+            GetData();
+
+            document.getElementById('connection').style.visibility = "hidden";
+            $("#hh").modal('hide');
+        }, function (error) {
+            alertify.error("ошибка");
+            console.log("error in GetCurBusinessTime");
+            document.getElementById('connection').style.visibility = "hidden";
+            $("#hh").modal('hide');
+        });
+    }
 
     //Get Functions
     function GetYearsList() {

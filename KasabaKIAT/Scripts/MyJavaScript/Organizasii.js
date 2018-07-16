@@ -163,9 +163,6 @@
         //}
     }
 
-
-
-
     $scope.addOrg = function () {
 
         $scope.Organization = '';

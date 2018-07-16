@@ -180,6 +180,9 @@ namespace KasabaKIAT.Models
         public virtual DbSet<tbbu_balance> tbbu_balance { get; set; }
         public virtual DbSet<tblCloseKvartal> tblCloseKvartals { get; set; }
         public virtual DbSet<tblCloseKvartalHistory> tblCloseKvartalHistories { get; set; }
+        public virtual DbSet<tbbu_finOtchetSetting> tbbu_finOtchetSetting { get; set; }
+        public virtual DbSet<tblOtchetiLager> tblOtchetiLagers { get; set; }
+        public virtual DbSet<tblZayavkiLager> tblZayavkiLagers { get; set; }
     
         public virtual ObjectResult<Nullable<decimal>> sp_get_BankPaymentCompanyMonthly(string inn, Nullable<int> year, Nullable<int> month)
         {
@@ -1427,6 +1430,40 @@ namespace KasabaKIAT.Models
                 new ObjectParameter("END_DATE", typeof(System.DateTime));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_rt_Provodka_Details_Result1>("sp_rt_Provodka_Details", dEPARTMENT_BASEParameter, bEGIN_DATEParameter, eND_DATEParameter);
+        }
+    
+        public virtual ObjectResult<sp_rt_GlavnayaKniga_Credit_Result> sp_rt_GlavnayaKniga_Credit(Nullable<int> yEAR, Nullable<int> kvartal, string dEPARTMENT_CODE)
+        {
+            var yEARParameter = yEAR.HasValue ?
+                new ObjectParameter("YEAR", yEAR) :
+                new ObjectParameter("YEAR", typeof(int));
+    
+            var kvartalParameter = kvartal.HasValue ?
+                new ObjectParameter("kvartal", kvartal) :
+                new ObjectParameter("kvartal", typeof(int));
+    
+            var dEPARTMENT_CODEParameter = dEPARTMENT_CODE != null ?
+                new ObjectParameter("DEPARTMENT_CODE", dEPARTMENT_CODE) :
+                new ObjectParameter("DEPARTMENT_CODE", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_rt_GlavnayaKniga_Credit_Result>("sp_rt_GlavnayaKniga_Credit", yEARParameter, kvartalParameter, dEPARTMENT_CODEParameter);
+        }
+    
+        public virtual ObjectResult<sp_rt_GlavnayaKniga_Debit_Result> sp_rt_GlavnayaKniga_Debit(Nullable<int> yEAR, Nullable<int> kvartal, string dEPARTMENT_CODE)
+        {
+            var yEARParameter = yEAR.HasValue ?
+                new ObjectParameter("YEAR", yEAR) :
+                new ObjectParameter("YEAR", typeof(int));
+    
+            var kvartalParameter = kvartal.HasValue ?
+                new ObjectParameter("kvartal", kvartal) :
+                new ObjectParameter("kvartal", typeof(int));
+    
+            var dEPARTMENT_CODEParameter = dEPARTMENT_CODE != null ?
+                new ObjectParameter("DEPARTMENT_CODE", dEPARTMENT_CODE) :
+                new ObjectParameter("DEPARTMENT_CODE", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_rt_GlavnayaKniga_Debit_Result>("sp_rt_GlavnayaKniga_Debit", yEARParameter, kvartalParameter, dEPARTMENT_CODEParameter);
         }
     }
 }

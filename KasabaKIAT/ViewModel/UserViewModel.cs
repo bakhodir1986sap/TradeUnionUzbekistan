@@ -31,6 +31,8 @@ namespace KasabaKiat.ViewModel
         public long? dep_id { get; set; }
         public long? bkuq_id { get; set; }
 
+        public string CurKvartalYear { get; set; }
+
     }
 
     public class LoginViewModel

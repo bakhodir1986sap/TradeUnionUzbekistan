@@ -36,7 +36,8 @@
             
             <div class="col-md-5 text-md-right" style="display:flex;flex-direction:row;align-items:baseline;flex-wrap:wrap">
                 <div class="form-inline">
-                    @Html.ActionLink("Загрузить Шаблон", "DownloadTemplate", "Buxgalter")<br /><br />
+                	<div style="padding-right:9px">
+                    @Html.ActionLink("Загрузить Шаблон", "DownloadTemplate", "Buxgalter")<br /></div><br />
                     <input type="file" id="input08"  name="UploadedFile" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" onchange="angular.element(this).scope().UploadFiles(this.files)" />&nbsp
                 </div> 
                 <input type="button" value="Просмотреть" class="btn btn-primary" style="margin-top:-3px" ng-disabled="!SelectedFileForUpload" ng-click="ParseExcel() " />

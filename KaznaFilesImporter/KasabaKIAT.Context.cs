@@ -43,6 +43,8 @@ namespace KaznaFilesImporter
         public virtual DbSet<TimeSheduler> TimeShedulers { get; set; }
         public virtual DbSet<tblSprav_Org> tblSprav_Org { get; set; }
         public virtual DbSet<tblSprav_Otras> tblSprav_Otras { get; set; }
+        public virtual DbSet<tbgl_balance> tbgl_balance { get; set; }
+        public virtual DbSet<tbbu_balance> tbbu_balance { get; set; }
     
         public virtual int sp_im_KaznaNewOrg()
         {

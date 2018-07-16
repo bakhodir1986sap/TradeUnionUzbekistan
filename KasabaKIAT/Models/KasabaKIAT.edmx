@@ -1774,6 +1774,19 @@ warning 6002: The table/view 'KasabaKIAT_N1.dbo.tbbTabel' does not have a primar
           <Property Name="BRANCH_CODE" Type="nvarchar" MaxLength="2" />
           <Property Name="BRANCH_NAME" Type="nvarchar" MaxLength="200" />
         </EntityType>
+        <EntityType Name="tbbu_finOtchetSetting">
+          <Key>
+            <PropertyRef Name="REC_ID" />
+          </Key>
+          <Property Name="REC_ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OTCHET_PART" Type="int" Nullable="false" />
+          <Property Name="CODE" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="DEBIT_SIDE" Type="nvarchar" MaxLength="30" />
+          <Property Name="CREDIT_SIDE" Type="nvarchar" MaxLength="30" />
+          <Property Name="ACCOUNT_CODE" Type="nvarchar" MaxLength="30" />
+          <Property Name="DATA_TYPE" Type="int" />
+          <Property Name="DATA_DESC" Type="nvarchar" MaxLength="1000" />
+        </EntityType>
         <EntityType Name="tbbu_planbyudjetregion">
           <Key>
             <PropertyRef Name="REC_ID" />
@@ -2286,6 +2299,19 @@ warning 6002: The table/view 'KasabaKIAT_N1.dbo.tblFace_Two' does not have a pri
           <Property Name="UserId" Type="bigint" />
           <Property Name="Departmentbase" Type="nvarchar" MaxLength="255" />
         </EntityType>
+        <EntityType Name="tblOtchetiLager">
+          <Key>
+            <PropertyRef Name="REC_ID" />
+          </Key>
+          <Property Name="REC_ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_ORG" Type="bigint" Nullable="false" />
+          <Property Name="Quantuty" Type="int" Nullable="false" />
+          <Property Name="TotalAmount" Type="money" Nullable="false" />
+          <Property Name="TIMESTAMP" Type="datetime" Nullable="false" />
+          <Property Name="STATUS" Type="int" Nullable="false" />
+          <Property Name="DEPARTMENT_CODE" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="UserId" Type="bigint" Nullable="false" />
+        </EntityType>
         <EntityType Name="tblPos_Put">
           <Key>
             <PropertyRef Name="ID" />
@@ -2569,6 +2595,20 @@ warning 6002: The table/view 'KasabaKIAT_N1.dbo.tblPutevka' does not have a prim
           <Property Name="RASXOD_ID" Type="bigint" />
           <Property Name="PRIXOD_PROVODKA_ID" Type="bigint" />
           <Property Name="RASXOD_PROVODKA_ID" Type="bigint" />
+        </EntityType>
+        <EntityType Name="tblZayavkiLager">
+          <Key>
+            <PropertyRef Name="REC_ID" />
+          </Key>
+          <Property Name="REC_ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_Otras" Type="int" Nullable="false" />
+          <Property Name="ID_Camp" Type="bigint" Nullable="false" />
+          <Property Name="Quantuty" Type="int" Nullable="false" />
+          <Property Name="TotalAmount" Type="money" Nullable="false" />
+          <Property Name="TIMESTAMP" Type="datetime" Nullable="false" />
+          <Property Name="STATUS" Type="int" Nullable="false" />
+          <Property Name="DEPARTMENT_CODE" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="UserId" Type="bigint" Nullable="false" />
         </EntityType>
         <EntityType Name="tbpt_avarageprice">
           <Key>
@@ -5925,6 +5965,16 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <Parameter Name="INN" Type="nvarchar" Mode="In" />
           <Parameter Name="ORG_NAME" Type="nvarchar" Mode="In" />
         </Function>
+        <Function Name="sp_rt_GlavnayaKniga_Credit" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="YEAR" Type="int" Mode="In" />
+          <Parameter Name="kvartal" Type="int" Mode="In" />
+          <Parameter Name="DEPARTMENT_CODE" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="sp_rt_GlavnayaKniga_Debit" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="YEAR" Type="int" Mode="In" />
+          <Parameter Name="kvartal" Type="int" Mode="In" />
+          <Parameter Name="DEPARTMENT_CODE" Type="nvarchar" Mode="In" />
+        </Function>
         <Function Name="sp_rt_JurnalniyOrder4" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Year" Type="int" Mode="In" />
           <Parameter Name="Kvartal" Type="int" Mode="In" />
@@ -6246,6 +6296,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <EntitySet Name="tbbOtchet" EntityType="Self.tbbOtchet" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbbu_balance" EntityType="Self.tbbu_balance" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbbu_ecp_calc" EntityType="Self.tbbu_ecp_calc" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbbu_finOtchetSetting" EntityType="Self.tbbu_finOtchetSetting" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbbu_planbyudjetregion" EntityType="Self.tbbu_planbyudjetregion" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbbu_platejka" EntityType="Self.tbbu_platejka" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbbu_provodki" EntityType="Self.tbbu_provodki" Schema="dbo" store:Type="Tables" />
@@ -6278,6 +6329,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <EntitySet Name="tblHolidays" EntityType="Self.tblHolidays" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblOplata" EntityType="Self.tblOplata" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblOplata_Ras" EntityType="Self.tblOplata_Ras" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblOtchetiLager" EntityType="Self.tblOtchetiLager" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblPos_Put" EntityType="Self.tblPos_Put" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblPost" EntityType="Self.tblPost" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblPred" EntityType="Self.tblPred" Schema="dbo" store:Type="Tables" />
@@ -6296,6 +6348,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <EntitySet Name="tblVipl_NumGEn" EntityType="Self.tblVipl_NumGEn" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblVipl_Put" EntityType="Self.tblVipl_Put" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblVozVrat" EntityType="Self.tblVozVrat" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblZayavkiLager" EntityType="Self.tblZayavkiLager" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbpt_avarageprice" EntityType="Self.tbpt_avarageprice" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbpt_bronputyovka" EntityType="Self.tbpt_bronputyovka" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbpt_otkazputyovka" EntityType="Self.tbpt_otkazputyovka" Schema="dbo" store:Type="Tables" />
@@ -13900,6 +13953,19 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <EntitySet Name="tbbu_balance" EntityType="KasabaKIATModel.tbbu_balance" />
           <EntitySet Name="tblCloseKvartals" EntityType="KasabaKIATModel.tblCloseKvartal" />
           <EntitySet Name="tblCloseKvartalHistories" EntityType="KasabaKIATModel.tblCloseKvartalHistory" />
+          <FunctionImport Name="sp_rt_GlavnayaKniga_Credit" ReturnType="Collection(KasabaKIATModel.sp_rt_GlavnayaKniga_Credit_Result)">
+            <Parameter Name="YEAR" Mode="In" Type="Int32" />
+            <Parameter Name="kvartal" Mode="In" Type="Int32" />
+            <Parameter Name="DEPARTMENT_CODE" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_rt_GlavnayaKniga_Debit" ReturnType="Collection(KasabaKIATModel.sp_rt_GlavnayaKniga_Debit_Result)">
+            <Parameter Name="YEAR" Mode="In" Type="Int32" />
+            <Parameter Name="kvartal" Mode="In" Type="Int32" />
+            <Parameter Name="DEPARTMENT_CODE" Mode="In" Type="String" />
+          </FunctionImport>
+          <EntitySet Name="tbbu_finOtchetSetting" EntityType="KasabaKIATModel.tbbu_finOtchetSetting" />
+          <EntitySet Name="tblOtchetiLagers" EntityType="KasabaKIATModel.tblOtchetiLager" />
+          <EntitySet Name="tblZayavkiLagers" EntityType="KasabaKIATModel.tblZayavkiLager" />
           </EntityContainer>
         <ComplexType Name="sp_get_BankPaymentCompanyYearlyQ_Result">
           <Property Type="Int32" Name="MONTH_NUM" Nullable="true" />
@@ -15679,6 +15745,56 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <Property Name="TIMESTAMP" Type="DateTime" Precision="3" />
           <Property Name="USER_ID" Type="Int64" />
           <Property Name="REMARK" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <ComplexType Name="sp_rt_GlavnayaKniga_Credit_Result">
+          <Property Type="String" Name="CreditAccount" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="JO" Nullable="true" MaxLength="254" />
+          <Property Type="Decimal" Name="SUMMA" Nullable="true" Precision="19" />
+        </ComplexType>
+        <ComplexType Name="sp_rt_GlavnayaKniga_Debit_Result">
+          <Property Type="String" Name="DebitAccount" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="JO" Nullable="true" MaxLength="254" />
+          <Property Type="Decimal" Name="SUMMA" Nullable="true" Precision="19" />
+        </ComplexType>
+        <EntityType Name="tbbu_finOtchetSetting">
+          <Key>
+            <PropertyRef Name="REC_ID" />
+          </Key>
+          <Property Name="REC_ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OTCHET_PART" Type="Int32" Nullable="false" />
+          <Property Name="CODE" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="DEBIT_SIDE" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="CREDIT_SIDE" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="ACCOUNT_CODE" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="DATA_TYPE" Type="Int32" />
+          <Property Name="DATA_DESC" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="tblOtchetiLager">
+          <Key>
+            <PropertyRef Name="REC_ID" />
+          </Key>
+          <Property Name="REC_ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_ORG" Type="Int64" Nullable="false" />
+          <Property Name="Quantuty" Type="Int32" Nullable="false" />
+          <Property Name="TotalAmount" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="TIMESTAMP" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="STATUS" Type="Int32" Nullable="false" />
+          <Property Name="DEPARTMENT_CODE" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="UserId" Type="Int64" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblZayavkiLager">
+          <Key>
+            <PropertyRef Name="REC_ID" />
+          </Key>
+          <Property Name="REC_ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_Otras" Type="Int32" Nullable="false" />
+          <Property Name="ID_Camp" Type="Int64" Nullable="false" />
+          <Property Name="Quantuty" Type="Int32" Nullable="false" />
+          <Property Name="TotalAmount" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="TIMESTAMP" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="STATUS" Type="Int32" Nullable="false" />
+          <Property Name="DEPARTMENT_CODE" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="UserId" Type="Int64" Nullable="false" />
         </EntityType>
         </Schema>
     </edmx:ConceptualModels>
@@ -19643,6 +19759,67 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
                 <ScalarProperty Name="CLOSED_KV" ColumnName="CLOSED_KV" />
                 <ScalarProperty Name="CLOSED_KVYEAR" ColumnName="CLOSED_KVYEAR" />
                 <ScalarProperty Name="DEPARTMENT_CODE" ColumnName="DEPARTMENT_CODE" />
+                <ScalarProperty Name="REC_ID" ColumnName="REC_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="sp_rt_GlavnayaKniga_Credit" FunctionName="KasabaKIATModel.Store.sp_rt_GlavnayaKniga_Credit">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="KasabaKIATModel.sp_rt_GlavnayaKniga_Credit_Result">
+                <ScalarProperty Name="CreditAccount" ColumnName="CreditAccount" />
+                <ScalarProperty Name="JO" ColumnName="JO" />
+                <ScalarProperty Name="SUMMA" ColumnName="SUMMA" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_rt_GlavnayaKniga_Debit" FunctionName="KasabaKIATModel.Store.sp_rt_GlavnayaKniga_Debit">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="KasabaKIATModel.sp_rt_GlavnayaKniga_Debit_Result">
+                <ScalarProperty Name="DebitAccount" ColumnName="DebitAccount" />
+                <ScalarProperty Name="JO" ColumnName="JO" />
+                <ScalarProperty Name="SUMMA" ColumnName="SUMMA" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="tbbu_finOtchetSetting">
+            <EntityTypeMapping TypeName="KasabaKIATModel.tbbu_finOtchetSetting">
+              <MappingFragment StoreEntitySet="tbbu_finOtchetSetting">
+                <ScalarProperty Name="DATA_DESC" ColumnName="DATA_DESC" />
+                <ScalarProperty Name="DATA_TYPE" ColumnName="DATA_TYPE" />
+                <ScalarProperty Name="ACCOUNT_CODE" ColumnName="ACCOUNT_CODE" />
+                <ScalarProperty Name="CREDIT_SIDE" ColumnName="CREDIT_SIDE" />
+                <ScalarProperty Name="DEBIT_SIDE" ColumnName="DEBIT_SIDE" />
+                <ScalarProperty Name="CODE" ColumnName="CODE" />
+                <ScalarProperty Name="OTCHET_PART" ColumnName="OTCHET_PART" />
+                <ScalarProperty Name="REC_ID" ColumnName="REC_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblOtchetiLagers">
+            <EntityTypeMapping TypeName="KasabaKIATModel.tblOtchetiLager">
+              <MappingFragment StoreEntitySet="tblOtchetiLager">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="DEPARTMENT_CODE" ColumnName="DEPARTMENT_CODE" />
+                <ScalarProperty Name="STATUS" ColumnName="STATUS" />
+                <ScalarProperty Name="TIMESTAMP" ColumnName="TIMESTAMP" />
+                <ScalarProperty Name="TotalAmount" ColumnName="TotalAmount" />
+                <ScalarProperty Name="Quantuty" ColumnName="Quantuty" />
+                <ScalarProperty Name="ID_ORG" ColumnName="ID_ORG" />
+                <ScalarProperty Name="REC_ID" ColumnName="REC_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblZayavkiLagers">
+            <EntityTypeMapping TypeName="KasabaKIATModel.tblZayavkiLager">
+              <MappingFragment StoreEntitySet="tblZayavkiLager">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="DEPARTMENT_CODE" ColumnName="DEPARTMENT_CODE" />
+                <ScalarProperty Name="STATUS" ColumnName="STATUS" />
+                <ScalarProperty Name="TIMESTAMP" ColumnName="TIMESTAMP" />
+                <ScalarProperty Name="TotalAmount" ColumnName="TotalAmount" />
+                <ScalarProperty Name="Quantuty" ColumnName="Quantuty" />
+                <ScalarProperty Name="ID_Camp" ColumnName="ID_Camp" />
+                <ScalarProperty Name="ID_Otras" ColumnName="ID_Otras" />
                 <ScalarProperty Name="REC_ID" ColumnName="REC_ID" />
               </MappingFragment>
             </EntityTypeMapping>

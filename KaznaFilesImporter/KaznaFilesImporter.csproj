@@ -58,6 +58,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AutomaticTransactions\DateOperations.cs" />
+    <Compile Include="AutomaticTransactions\GlavnayaKniga\Balance.cs" />
+    <Compile Include="AutomaticTransactions\GlavnayaKniga\BalanceDataManager.cs" />
+    <Compile Include="AutomaticTransactions\GlavnayaKniga\BalanceViewModel.cs" />
+    <Compile Include="AutomaticTransactions\GlavnayaKniga\BuxAccount.cs" />
+    <Compile Include="AutomaticTransactions\GlavnayaKniga\BuxTransaction.cs" />
+    <Compile Include="AutomaticTransactions\GlavnayaKniga\IBalance.cs" />
     <Compile Include="AutomaticTransactions\KaznaTransactions\EcpCalcDataManager.cs" />
     <Compile Include="AutomaticTransactions\KaznaTransactions\EcpCalculation.cs" />
     <Compile Include="AutomaticTransactions\KaznaTransactions\EcpCalcViewModel.cs" />
@@ -137,10 +144,16 @@
     <Compile Include="tbbFermer.cs">
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
+    <Compile Include="tbbu_balance.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
     <Compile Include="tbbu_ecp_calc.cs">
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
     <Compile Include="tbbu_provodki.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbgl_balance.cs">
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
     <Compile Include="tblPred.cs">

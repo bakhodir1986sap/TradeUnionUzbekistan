@@ -60,6 +60,15 @@ namespace KIAT_TestProject
 
                 lll.CloseKvartal("17227", 1).Wait();
             }
+
+
+            [Test]
+            public void CloseGlavKniga()
+            {
+                var lll = new KasabaKIAT.Controllers.BuxgalterController();
+
+                lll.GlavnayaKnigaTest("17227", 2018, 1);
+            }
         }
     }
 }

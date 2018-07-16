@@ -191,6 +191,18 @@ namespace KasabaKiat.Helpers
                                     }
                                 }
                             }
+
+                            if (!string.IsNullOrEmpty(model.DepartmentBase))
+                            {
+                                var curBusinessTime = db.tblCloseKvartals.Where(z => z.DEPARTMENT_CODE == model.DepartmentBase);
+
+                                if (curBusinessTime.Any())
+                                {
+                                    var curObj = curBusinessTime.First();
+
+                                    model.CurKvartalYear = string.Format("{0} год -{1} кв", curObj.CURKV_YEAR, curObj.CURKV);
+                                }
+                            }
                         }
                     }
                 }

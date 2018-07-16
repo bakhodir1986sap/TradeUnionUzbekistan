@@ -1,4 +1,5 @@
 ﻿using KasabaKiat.Helpers;
+using KasabaKIAT.BusinessLogic.Buxgalteriya.GlavnayaKniga;
 using KasabaKIAT.BusinessLogic.Buxgalteriya.PlanirovaniyaBudjeta.Region;
 using KasabaKIAT.BusinessLogic.Buxgalteriya.PrixodChastichka;
 using KasabaKIAT.BusinessLogic.Buxgalteriya.Provodki;
@@ -397,6 +398,40 @@ namespace KasabaKIAT.Controllers
             kvartal.Close(ustinfo.DepartmentBase, UserId, KasabaDB);
 
             await KasabaDB.SaveChangesAsync();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="year"></param>
+        /// <param name="kvartal"></param>
+        /// <returns></returns>
+        public JsonResult GlavnayaKniga(int year, int kvartal)
+        {
+            int UserId = Convert.ToInt32(User.Identity.Name);
+            var ustinfo = UserInfo.GetUserInfo(UserId);
+
+            var gvk = new GK_Structure(ustinfo.DepartmentBase, year, kvartal);
+
+            var OutList = gvk.MakeGlavKniga();
+
+            return Json(OutList, JsonRequestBehavior.AllowGet);
+        }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="year"></param>
+        /// <param name="kvartal"></param>
+        /// <returns></returns>
+        public JsonResult GlavnayaKnigaTest(string depCode , int year, int kvartal)
+        {
+            var gvk = new GK_Structure(depCode, year, kvartal);
+
+            var OutList = gvk.MakeGlavKniga();
+
+            return Json(OutList, JsonRequestBehavior.AllowGet);
         }
 
 

@@ -1,5 +1,6 @@
 ﻿using KasabaKiat.BusinessLogic.Utils.References;
 using KasabaKiat.Helpers;
+using KasabaKIAT.BusinessLogic.Utils;
 using KasabaKIAT.BusinessLogic.Utils.References;
 using KasabaKIAT.Models;
 using System;
@@ -375,6 +376,39 @@ namespace KasabaKIAT.Controllers
             }
 
             return Json("", JsonRequestBehavior.AllowGet);
+        }
+
+        private class CurBusinessTime
+        {
+            public int CurYear { get; set; }
+            public int CurKvartal { get; set; }
+        }
+
+        public JsonResult GetBusinessTime()
+        {
+            int UserId = Convert.ToInt32(User.Identity.Name);
+            var ustinfo = UserInfo.GetUserInfo(UserId);
+            var obj = new CurBusinessTime();
+
+            using (KasabaKIATEntities db = new KasabaKIATEntities())
+            {
+                var curBusiness = db.tblCloseKvartals.Where(z => z.DEPARTMENT_CODE == ustinfo.DepartmentBase);
+
+                if (curBusiness.Any())
+                {
+
+                    var cuuuu = curBusiness.First();
+                    obj.CurYear = cuuuu.CURKV_YEAR.Value;
+                    obj.CurKvartal = cuuuu.CURKV.Value;
+                }
+                else
+                {
+                    obj.CurYear = DateTime.Now.Year;
+                    obj.CurKvartal = DateOperations.GetQuarter(DateTime.Now);
+                }
+            }
+
+            return Json(obj, JsonRequestBehavior.AllowGet);
         }
 
     }

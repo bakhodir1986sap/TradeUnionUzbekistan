@@ -559,9 +559,27 @@ namespace KasabaKIAT.BusinessLogic.Structure
             {
                 var org = db.tblSprav_Org.Where(z => z.OWNER_CODE == departmentCode);
 
-                if (!org.Any()) return null;
+                if (!org.Any())
+                {
+                    if (departmentCode.Length == 5)
+                    {
+                        if (departmentCode.Substring(0, 3).Equals("172"))
+                        {
+                            return "17";
+                        }
+                    }
+                    else if (departmentCode.Length == 2)
+                    {
+                        if (departmentCode.Equals("17"))
+                        {
+                            return "17";
+                        }
+                    }
+
+                }
 
                 var organization = org.First();
+
 
                 if (organization.ParentID == null || organization.ParentID == -1)
                 {

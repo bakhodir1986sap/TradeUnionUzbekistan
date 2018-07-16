@@ -377,6 +377,9 @@
         <EntityTypeShape EntityType="KasabaKIATModel.tbbu_balance" Width="1.5" PointX="16.375" PointY="23.75" />
         <EntityTypeShape EntityType="KasabaKIATModel.tblCloseKvartal" Width="1.5" PointX="24.375" PointY="0.75" />
         <EntityTypeShape EntityType="KasabaKIATModel.tblCloseKvartalHistory" Width="1.5" PointX="24.375" PointY="4.75" />
+        <EntityTypeShape EntityType="KasabaKIATModel.tbbu_finOtchetSetting" Width="1.5" PointX="24.375" PointY="8.75" />
+        <EntityTypeShape EntityType="KasabaKIATModel.tblOtchetiLager" Width="1.5" PointX="10.375" PointY="24.75" />
+        <EntityTypeShape EntityType="KasabaKIATModel.tblZayavkiLager" Width="1.5" PointX="24.375" PointY="12.75" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

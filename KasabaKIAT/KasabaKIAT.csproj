@@ -233,6 +233,9 @@
     <Compile Include="BusinessLogic\Buxgalteriya\Balance\ProvodkaParams.cs" />
     <Compile Include="BusinessLogic\Buxgalteriya\Balance\Transactions\JournalDetailDataManager.cs" />
     <Compile Include="BusinessLogic\Buxgalteriya\Balance\Transactions\JournalMasterDataManager.cs" />
+    <Compile Include="BusinessLogic\Buxgalteriya\FinansoviyOtchet\FinOtchetSettingsDataManager.cs" />
+    <Compile Include="BusinessLogic\Buxgalteriya\FinansoviyOtchet\FinOtchetSettingsViewModel.cs" />
+    <Compile Include="BusinessLogic\Buxgalteriya\FinansoviyOtchet\FinOtchetStrukture.cs" />
     <Compile Include="BusinessLogic\Buxgalteriya\GlavnayaKniga\Balance.cs" />
     <Compile Include="BusinessLogic\Buxgalteriya\GlavnayaKniga\BalanceDataManager.cs" />
     <Compile Include="BusinessLogic\Buxgalteriya\GlavnayaKniga\BalanceViewModel.cs" />
@@ -309,6 +312,12 @@
     <Compile Include="BusinessLogic\ExternalServicesAPI\KurortWebAPI\ServiceInterAction\ViewModel\ZaezdyClientovViewModel.cs" />
     <Compile Include="BusinessLogic\ExternalServicesAPI\KurortWebAPI\ServiceInterAction\Xml\ZaezdController.cs" />
     <Compile Include="BusinessLogic\ExternalServicesAPI\KurortWebAPI\ServiceInterAction\Xml\ZaezdiStructs.cs" />
+    <Compile Include="BusinessLogic\Lager\OtchetOtLager\OtchetCamp.cs" />
+    <Compile Include="BusinessLogic\Lager\OtchetOtLager\OtchetOtLagerDataManager.cs" />
+    <Compile Include="BusinessLogic\Lager\OtchetOtLager\OtchetOtLagerViewModel.cs" />
+    <Compile Include="BusinessLogic\Lager\Zayavki\CampZayavki.cs" />
+    <Compile Include="BusinessLogic\Lager\Zayavki\LagerZayavkiDataManager.cs" />
+    <Compile Include="BusinessLogic\Lager\Zayavki\LagerZayavkiViewModel.cs" />
     <Compile Include="BusinessLogic\Notifications\PushNotification.cs" />
     <Compile Include="BusinessLogic\Putyovki\Bron\BronDataManager.cs" />
     <Compile Include="BusinessLogic\Putyovki\Bron\BronirovaniyaPutyovki.cs" />
@@ -393,6 +402,7 @@
     <Compile Include="BusinessLogic\Utils\References\tbcs_dictTypeViewModel.cs" />
     <Compile Include="Controllers\AdministirirovaniyeController.cs" />
     <Compile Include="Controllers\BuxgalterController.cs" />
+    <Compile Include="Controllers\CampZayavkiController.cs" />
     <Compile Include="Controllers\ChatController.cs" />
     <Compile Include="Controllers\ErrorHandlerController.cs" />
     <Compile Include="Controllers\GodovoyPlanController.cs" />
@@ -526,6 +536,12 @@
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\sp_rt_GetOrganization_Result.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_rt_GlavnayaKniga_Credit_Result.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_rt_GlavnayaKniga_Debit_Result.cs">
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\sp_rt_JurnalniyOrder4Provodka_Result.cs">
@@ -732,6 +748,9 @@
     <Compile Include="Models\tbbu_ecp_calc.cs">
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\tbbu_finOtchetSetting.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\tbbu_planbyudjetregion.cs">
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
@@ -774,6 +793,9 @@
     <Compile Include="Models\tblOplata.cs">
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\tblOtchetiLager.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\tblPred.cs">
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
@@ -787,6 +809,9 @@
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tblVozVrat.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tblZayavkiLager.cs">
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tbpt_putyovka_statechange.cs">
@@ -1910,12 +1935,12 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="BusinessLogic\BankOplati\Firmi\" />
-    <Folder Include="BusinessLogic\Buxgalteriya\FinansoviyOtchet\" />
     <Folder Include="BusinessLogic\Reports\Buxgalteriya\NewFolder1\" />
     <Folder Include="BusinessLogic\Reports\Putyovki\NewFolder1\" />
     <Folder Include="BusinessLogic\Security\Roles\Users\" />
     <Folder Include="Reports\6\" />
     <Folder Include="Reports\8\" />
+    <Folder Include="Views\CampZayavki\" />
     <Folder Include="Views\Reference\" />
   </ItemGroup>
   <ItemGroup>

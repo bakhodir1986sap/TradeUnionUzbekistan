@@ -186,6 +186,23 @@ warning 6002: The table/view 'KasabaKIAT_N1.dbo.tbbFermer' does not have a prima
           <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="UserId" Type="bigint" />
         </EntityType>
+        <EntityType Name="tbbu_balance">
+          <Key>
+            <PropertyRef Name="REC_ID" />
+          </Key>
+          <Property Name="REC_ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DEPARTMENT_BASE" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="CUR_YEAR" Type="int" Nullable="false" />
+          <Property Name="CUR_KV" Type="int" Nullable="false" />
+          <Property Name="USER_ID" Type="bigint" Nullable="false" />
+          <Property Name="ACCOUNT_CODE" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="DEBIT_BAL" Type="money" Nullable="false" />
+          <Property Name="CREDIT_BAL" Type="money" Nullable="false" />
+          <Property Name="DEBIT_COUNT" Type="int" />
+          <Property Name="CREDIT_COUNT" Type="int" />
+          <Property Name="DEBIT_TRANS" Type="money" />
+          <Property Name="CREDIT_TRANS" Type="money" />
+        </EntityType>
         <EntityType Name="tbbu_ecp_calc">
           <Key>
             <PropertyRef Name="ID" />
@@ -231,6 +248,27 @@ warning 6002: The table/view 'KasabaKIAT_N1.dbo.tbbFermer' does not have a prima
           <Property Name="COMMENT" Type="nvarchar" MaxLength="1000" />
           <Property Name="TRREF" Type="varchar" MaxLength="10" />
           <Property Name="TRREFNO" Type="varchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="tbgl_balance">
+          <Key>
+            <PropertyRef Name="REC_ID" />
+          </Key>
+          <Property Name="TRDT" Type="date" Nullable="false" />
+          <Property Name="ACCOUNT" Type="nvarchar" MaxLength="10" />
+          <Property Name="DEPARTMENT_CODE" Type="nvarchar" MaxLength="255" />
+          <Property Name="PRE_DEBIT_BAL" Type="money" />
+          <Property Name="PRE_CREDIT_BAL" Type="money" />
+          <Property Name="DEBIT_COUNT" Type="int" />
+          <Property Name="DEBIT_AMOUNT" Type="money" />
+          <Property Name="CREDIT_COUNT" Type="int" />
+          <Property Name="CREDIT_AMOUNT" Type="money" />
+          <Property Name="TDBAL_DEBIT" Type="money" />
+          <Property Name="TD_BAL_CREDIT" Type="money" />
+          <Property Name="CCY" Type="char" MaxLength="3" />
+          <Property Name="TIMESTAMP" Type="date" />
+          <Property Name="USER_ID" Type="bigint" />
+          <Property Name="REC_ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="INN" Type="nvarchar" MaxLength="9" />
         </EntityType>
         <EntityType Name="tblPred">
           <Key>
@@ -388,8 +426,10 @@ warning 6035: The relationship 't_egrpo_4' has columns that are not part of the 
           <EntitySet Name="sp_branch" EntityType="Self.sp_branch" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sp_okonx" EntityType="Self.sp_okonx" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="t_egrpo" EntityType="Self.t_egrpo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbbu_balance" EntityType="Self.tbbu_balance" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbbu_ecp_calc" EntityType="Self.tbbu_ecp_calc" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbbu_provodki" EntityType="Self.tbbu_provodki" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbgl_balance" EntityType="Self.tbgl_balance" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblPred" EntityType="Self.tblPred" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblSprav_Org" EntityType="Self.tblSprav_Org" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblSprav_Otras" EntityType="Self.tblSprav_Otras" Schema="dbo" store:Type="Tables" />
@@ -477,6 +517,8 @@ warning 6035: The relationship 't_egrpo_4' has columns that are not part of the 
           <EntitySet Name="TimeShedulers" EntityType="KasabaKIATModel.TimeSheduler" />
           <EntitySet Name="tblSprav_Org" EntityType="KasabaKIATModel.tblSprav_Org" />
           <EntitySet Name="tblSprav_Otras" EntityType="KasabaKIATModel.tblSprav_Otras" />
+          <EntitySet Name="tbgl_balance" EntityType="KasabaKIATModel.tbgl_balance" />
+          <EntitySet Name="tbbu_balance" EntityType="KasabaKIATModel.tbbu_balance" />
           </EntityContainer>
         <EntityType Name="KaznaSverkaFile">
           <Key>
@@ -906,6 +948,44 @@ warning 6035: The relationship 't_egrpo_4' has columns that are not part of the 
           <Property Name="DepartmentBase" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="BRANCH_CODE" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
         </EntityType>
+        <EntityType Name="tbgl_balance">
+          <Key>
+            <PropertyRef Name="REC_ID" />
+          </Key>
+          <Property Name="TRDT" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="ACCOUNT" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="DEPARTMENT_CODE" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="PRE_DEBIT_BAL" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="PRE_CREDIT_BAL" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="DEBIT_COUNT" Type="Int32" />
+          <Property Name="DEBIT_AMOUNT" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="CREDIT_COUNT" Type="Int32" />
+          <Property Name="CREDIT_AMOUNT" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="TDBAL_DEBIT" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="TD_BAL_CREDIT" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="CCY" Type="String" MaxLength="3" FixedLength="true" Unicode="false" />
+          <Property Name="TIMESTAMP" Type="DateTime" Precision="0" />
+          <Property Name="USER_ID" Type="Int64" />
+          <Property Name="REC_ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="INN" Type="String" MaxLength="9" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="tbbu_balance">
+          <Key>
+            <PropertyRef Name="REC_ID" />
+          </Key>
+          <Property Name="REC_ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DEPARTMENT_BASE" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="CUR_YEAR" Type="Int32" Nullable="false" />
+          <Property Name="CUR_KV" Type="Int32" Nullable="false" />
+          <Property Name="USER_ID" Type="Int64" Nullable="false" />
+          <Property Name="ACCOUNT_CODE" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="DEBIT_BAL" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="CREDIT_BAL" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="DEBIT_COUNT" Type="Int32" />
+          <Property Name="CREDIT_COUNT" Type="Int32" />
+          <Property Name="DEBIT_TRANS" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="CREDIT_TRANS" Type="Decimal" Precision="19" Scale="4" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1285,6 +1365,46 @@ warning 6035: The relationship 't_egrpo_4' has columns that are not part of the 
                 <ScalarProperty Name="Priz" ColumnName="Priz" />
                 <ScalarProperty Name="Name_Ot" ColumnName="Name_Ot" />
                 <ScalarProperty Name="ID_Ot" ColumnName="ID_Ot" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbgl_balance">
+            <EntityTypeMapping TypeName="KasabaKIATModel.tbgl_balance">
+              <MappingFragment StoreEntitySet="tbgl_balance">
+                <ScalarProperty Name="INN" ColumnName="INN" />
+                <ScalarProperty Name="REC_ID" ColumnName="REC_ID" />
+                <ScalarProperty Name="USER_ID" ColumnName="USER_ID" />
+                <ScalarProperty Name="TIMESTAMP" ColumnName="TIMESTAMP" />
+                <ScalarProperty Name="CCY" ColumnName="CCY" />
+                <ScalarProperty Name="TD_BAL_CREDIT" ColumnName="TD_BAL_CREDIT" />
+                <ScalarProperty Name="TDBAL_DEBIT" ColumnName="TDBAL_DEBIT" />
+                <ScalarProperty Name="CREDIT_AMOUNT" ColumnName="CREDIT_AMOUNT" />
+                <ScalarProperty Name="CREDIT_COUNT" ColumnName="CREDIT_COUNT" />
+                <ScalarProperty Name="DEBIT_AMOUNT" ColumnName="DEBIT_AMOUNT" />
+                <ScalarProperty Name="DEBIT_COUNT" ColumnName="DEBIT_COUNT" />
+                <ScalarProperty Name="PRE_CREDIT_BAL" ColumnName="PRE_CREDIT_BAL" />
+                <ScalarProperty Name="PRE_DEBIT_BAL" ColumnName="PRE_DEBIT_BAL" />
+                <ScalarProperty Name="DEPARTMENT_CODE" ColumnName="DEPARTMENT_CODE" />
+                <ScalarProperty Name="ACCOUNT" ColumnName="ACCOUNT" />
+                <ScalarProperty Name="TRDT" ColumnName="TRDT" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbbu_balance">
+            <EntityTypeMapping TypeName="KasabaKIATModel.tbbu_balance">
+              <MappingFragment StoreEntitySet="tbbu_balance">
+                <ScalarProperty Name="CREDIT_TRANS" ColumnName="CREDIT_TRANS" />
+                <ScalarProperty Name="DEBIT_TRANS" ColumnName="DEBIT_TRANS" />
+                <ScalarProperty Name="CREDIT_COUNT" ColumnName="CREDIT_COUNT" />
+                <ScalarProperty Name="DEBIT_COUNT" ColumnName="DEBIT_COUNT" />
+                <ScalarProperty Name="CREDIT_BAL" ColumnName="CREDIT_BAL" />
+                <ScalarProperty Name="DEBIT_BAL" ColumnName="DEBIT_BAL" />
+                <ScalarProperty Name="ACCOUNT_CODE" ColumnName="ACCOUNT_CODE" />
+                <ScalarProperty Name="USER_ID" ColumnName="USER_ID" />
+                <ScalarProperty Name="CUR_KV" ColumnName="CUR_KV" />
+                <ScalarProperty Name="CUR_YEAR" ColumnName="CUR_YEAR" />
+                <ScalarProperty Name="DEPARTMENT_BASE" ColumnName="DEPARTMENT_BASE" />
+                <ScalarProperty Name="REC_ID" ColumnName="REC_ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

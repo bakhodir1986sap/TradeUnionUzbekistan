@@ -1,4 +1,6 @@
-﻿using KasabaKIAT.ViewModel.Buxgalteriya;
+﻿using KasabaKIAT.BusinessLogic.Buxgalteriya.GlavnayaKniga;
+using KasabaKIAT.BusinessLogic.Utils;
+using KasabaKIAT.ViewModel.Buxgalteriya;
 using KaznaFilesImporter;
 using System;
 using System.Collections.Generic;
@@ -38,6 +40,19 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.Provodki
                 reg.TRREFNO         = model.trrefno         ;
 
                 var planOtrasl = db.tbbu_provodki.Add(reg);
+
+                int cur_year = DateOperations.GetYear(model.trdt.Value);
+                int cur_kvartal = DateOperations.GetQuarter(model.trdt.Value);
+
+                var balance = new BuxTransaction(cur_year,
+                cur_kvartal,
+                model.department_base,
+                model.platelrsch,
+                model.poluchrsch,
+                 model.summa.Value,
+                 db);
+
+                balance.MakeTransaction();
 
                 try
                 {

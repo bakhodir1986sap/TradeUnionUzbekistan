@@ -147,7 +147,7 @@ namespace KasabaKiat.BusinessLogic.Putyovki.RealizasiyaPutyovok
                             where vipl.SmFil == model.smfil 
                             && vipl.ID_Kv == model.id_kv
                             && vipl.DepartmentBase == model.departmentbase
-                            orderby vipl.Num_Doc
+                            orderby vipl.ID
                             select new RealizasiyaViplMainViewModel
                             {
                                 id              = vipl.ID,

@@ -143,3 +143,84 @@ GO
   cross join [KasabaKIAT_N1].[dbo].tblCloseDay cc
   where dd.DICTIONARY_TYPE_ID = 14
   order by cc.DEPARTMENT_CODE;
+
+  ------------------------------------------------------------------------------
+
+
+USE [KasabaKIAT_N1]
+GO
+/****** Object:  StoredProcedure [dbo].[sp_rt_Razbivka_Postup_OblastGroup]    Script Date: 07/14/2018 19:10:50 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE procedure [dbo].[sp_rt_GlavnayaKniga_Debit]
+@YEAR		int,
+@kvartal	int,
+@DEPARTMENT_CODE nvarchar(255)
+
+as 
+begin 
+set nocount on;
+
+/****** Script for SelectTopNRows command from SSMS  ******/
+
+SELECT prov.score_begin as DebitAccount , 
+       dict.NAME_RU as JO , 
+       SUM(prod.SUMMA) as SUMMA 
+  FROM [KasabaKIAT_N1].[dbo].[p_provodok] prov
+  inner join [KasabaKIAT_N1].[dbo].tbcs_dictionary dict 
+  on  prov.[order] = dict.REC_ID
+  inner join [KasabaKIAT_N1].[dbo].tbbu_provodki prod
+  on prov.score_begin = prod.PLATELRSCH AND prov.score_end = prod.POLUCHRSCH
+ WHERE prod.DEPARTMENT_BASE = @DEPARTMENT_CODE
+ AND   YEAR(prod.TRDT) = @YEAR
+ AND  (((@kvartal = 1) AND (MONTH(prod.TRDT) >= 1	AND MONTH(prod.TRDT) <= 3)) OR
+       ((@kvartal = 2) AND (MONTH(prod.TRDT) >= 4	AND MONTH(prod.TRDT) <= 6)) OR
+       ((@kvartal = 3) AND (MONTH(prod.TRDT) >= 7	AND MONTH(prod.TRDT) <= 9)) OR
+       ((@kvartal = 4) AND (MONTH(prod.TRDT) >= 10	AND MONTH(prod.TRDT) <= 12)))
+ group by prov.score_begin , dict.NAME_RU;
+ 
+  
+end
+
+
+
+-----------------------------------------------------------------------------------------
+
+USE [KasabaKIAT_N1]
+GO
+/****** Object:  StoredProcedure [dbo].[sp_rt_Razbivka_Postup_OblastGroup]    Script Date: 07/14/2018 19:10:50 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE procedure [dbo].[sp_rt_GlavnayaKniga_Credit]
+@YEAR		int,
+@kvartal	int,
+@DEPARTMENT_CODE nvarchar(255)
+
+as 
+begin 
+set nocount on;
+
+/****** Script for SelectTopNRows command from SSMS  ******/
+
+SELECT prov.score_end  as CreditAccount , 
+       dict.NAME_RU as JO , 
+       SUM(prod.SUMMA) as SUMMA 
+  FROM [KasabaKIAT_N1].[dbo].[p_provodok] prov
+  inner join [KasabaKIAT_N1].[dbo].tbcs_dictionary dict 
+  on  prov.[order] = dict.REC_ID
+  inner join [KasabaKIAT_N1].[dbo].tbbu_provodki prod
+  on prov.score_begin = prod.PLATELRSCH AND prov.score_end = prod.POLUCHRSCH
+   WHERE prod.DEPARTMENT_BASE = @DEPARTMENT_CODE
+    AND   YEAR(prod.TRDT) = @YEAR
+	AND  (((@kvartal = 1) AND (MONTH(prod.TRDT) >= 1  AND MONTH(prod.TRDT) <= 3)) OR
+       ((@kvartal = 2) AND (MONTH(prod.TRDT) >= 4  AND MONTH(prod.TRDT) <= 6)) OR
+       ((@kvartal = 3) AND (MONTH(prod.TRDT) >= 7  AND MONTH(prod.TRDT) <= 9)) OR
+       ((@kvartal = 4) AND (MONTH(prod.TRDT) >= 10 AND MONTH(prod.TRDT) <= 12)))
+ group by prov.score_end , dict.NAME_RU;
+ 
+  
+end

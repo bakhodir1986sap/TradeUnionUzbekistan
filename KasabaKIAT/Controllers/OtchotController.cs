@@ -51,6 +51,17 @@ namespace KasabaKIAT.Controllers
             return View();
         }
 
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [OutputCache(Duration = 5, Location = OutputCacheLocation.Client, VaryByCustom = "userId")]
+        public ActionResult GlavnayaKnigaN()
+        {
+            return View();
+        }
+
         /// <summary>
         /// 
         /// </summary>

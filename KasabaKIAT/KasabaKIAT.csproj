@@ -1586,6 +1586,7 @@
     <Content Include="Scripts\MyJavaScript\BU_PrasmotrDannix.js" />
     <Content Include="Scripts\MyJavaScript\Controller.js" />
     <Content Include="Scripts\MyJavaScript\DataService.js" />
+    <Content Include="Scripts\MyJavaScript\GlavnayaKniga.js" />
     <Content Include="Scripts\MyJavaScript\GPController.js" />
     <Content Include="Scripts\MyJavaScript\GrafikSanatoryZaezdov.js" />
     <Content Include="Scripts\MyJavaScript\GZController.js" />
@@ -1869,6 +1870,7 @@
     <Content Include="Views\Otchot\RazbivkaPostupleniyaN.cshtml" />
     <Content Include="Views\Otchot\ProvodkiDetail.cshtml" />
     <Content Include="Views\Otchot\ProvodkiSummary.cshtml" />
+    <Content Include="Views\Otchot\GlavnayaKnigaN.cshtml" />
     <None Include="Web References\KurortUrlService\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>

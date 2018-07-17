@@ -638,13 +638,14 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.GlavnayaKniga
             balanceSide = new GK_Balance(DepartmentBase, Year, Kvartal);
         }
 
-        public GlavnayaKnigaOut MakeGlavKniga()
+        public List<GlavnayaKnigaTable> MakeGlavKniga()
         {
             debitSide.FillDebit();
             creditSide.FillCredit();
             balanceSide.CalcBalance();
 
             var retObj = new GlavnayaKnigaOut();
+            var retList = new List<GlavnayaKnigaTable>();
 
             retObj.Dsaldo = debitSide.saldo;
             retObj.Doboroti = debitSide.oboroti;
@@ -659,8 +660,124 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.GlavnayaKniga
             retObj.aktiv = balanceSide.aktiv;
             retObj.passiv = balanceSide.passiv;
 
-            return retObj;
+            var rowsCarcas = CarcasForGlavBook.GetCarcas(GlavBookSt.Rows);
+
+            foreach(var row in rowsCarcas)
+            {
+                var tableRow = new GlavnayaKnigaTable();
+                tableRow.field0010 = row;
+
+                tableRow.field0011 = debitSide.saldo[row];
+                tableRow.field0012=  (debitSide.oboroti["ЖО 1"])[row];
+                tableRow.field0013=  (debitSide.oboroti["ЖО 2"])[row];
+                tableRow.field0014=  (debitSide.oboroti["ЖО 3"])[row];
+                tableRow.field0015=  (debitSide.oboroti["ЖО 4"])[row];
+                tableRow.field0016=  0;//4a
+                tableRow.field0017=  (debitSide.oboroti["ЖО 5"])[row];
+                tableRow.field0018=  0; //5a
+                tableRow.field0019=  (debitSide.oboroti["ЖО 6"])[row];
+                tableRow.field0020=  (debitSide.oboroti["ЖО 7"])[row];
+                tableRow.field0021=  (debitSide.oboroti["ЖО 11"])[row];
+                tableRow.field0022 = debitSide.zaKvartal[row];
+                tableRow.field0023 = debitSide.zaVsego[row];
+
+                tableRow.field0024 = row;
+
+                tableRow.field0025 = creditSide.saldo[row];
+                tableRow.field0026 = (creditSide.oboroti["ЖО 1"])[row];
+                tableRow.field0027 = (creditSide.oboroti["ЖО 2"])[row];
+                tableRow.field0028 = (creditSide.oboroti["ЖО 3"])[row];
+                tableRow.field0029 = (creditSide.oboroti["ЖО 4"])[row];
+                tableRow.field0030 = 0;//4a
+                tableRow.field0031 = (creditSide.oboroti["ЖО 5"])[row];
+                tableRow.field0032 = 0; //5a
+                tableRow.field0033 = (creditSide.oboroti["ЖО 6"])[row];
+                tableRow.field0034 = (creditSide.oboroti["ЖО 7"])[row];
+                tableRow.field0035 = (creditSide.oboroti["ЖО 11"])[row];
+                tableRow.field0036 = creditSide.zaKvartal[row];
+                tableRow.field0037 = creditSide.zaVsego[row];
+
+                tableRow.field0038 = balanceSide.aktiv[row];
+                tableRow.field0039 = balanceSide.passiv[row];
+
+                tableRow.field0040 = row;
+
+                retList.Add(tableRow);
+            }
+
+            return retList;
         }
 
+    }
+
+    public class GlavnayaKnigaTable
+    {
+
+        public string   field0010 { get; set; }
+        public decimal? field0011 { get; set; }
+        public decimal? field0012 { get; set; }
+        public decimal? field0013 { get; set; }
+        public decimal? field0014 { get; set; }
+        public decimal? field0015 { get; set; }
+        public decimal? field0016 { get; set; }
+        public decimal? field0017 { get; set; }
+        public decimal? field0018 { get; set; }
+        public decimal? field0019 { get; set; }
+        public decimal? field0020 { get; set; }
+        public decimal? field0021 { get; set; }
+        public decimal? field0022 { get; set; }
+        public decimal? field0023 { get; set; }
+        public string   field0024 { get; set; }
+        public decimal? field0025 { get; set; }
+        public decimal? field0026 { get; set; }
+        public decimal? field0027 { get; set; }
+        public decimal? field0028 { get; set; }
+        public decimal? field0029 { get; set; }
+        public decimal? field0030 { get; set; }
+        public decimal? field0031 { get; set; }
+        public decimal? field0032 { get; set; }
+        public decimal? field0033 { get; set; }
+        public decimal? field0034 { get; set; }
+        public decimal? field0035 { get; set; }
+        public decimal? field0036 { get; set; }
+        public decimal? field0037 { get; set; }
+        public decimal? field0038 { get; set; }
+        public decimal? field0039 { get; set; }
+        public string   field0040 { get; set; }
+        /*
+                    <th style="text-align:center">№ счетов Дебет</th>
+                    <th style="text-align:center">Сальдо_на_начало</th>
+                    <th style="text-align:center">Ж_О_№1</th>
+                    <th style="text-align:center">Ж_О_№2</th>
+                    <th style="text-align:center">Ж_О_№3</th>
+                    <th style="text-align:center">Ж_О_№4</th>
+                    <th style="text-align:center">Ж_О_№4а</th>
+                    <th style="text-align:center">Ж_О_№5</th>
+                    <th style="text-align:center">Ж_О_№5а</th>
+                    <th style="text-align:center">Ж_О_№6</th>
+                    <th style="text-align:center">Ж_О_№7</th>
+                    <th style="text-align:center">Ж_О_№11</th>
+                    <th style="text-align:center">Ж_О_№11</th>
+                    <th style="text-align:center">Сумма_за_квартал</th>
+                    <th style="text-align:center">Сумма_всего</th>
+                    <th style="text-align:center">№ счетов Кредит</th>
+                    <th style="text-align:center">Сальдо_на_начало</th>
+                    <th style="text-align:center">Ж_О_№1</th>
+                    <th style="text-align:center">Ж_О_№2</th>
+                    <th style="text-align:center">Ж_О_№3</th>
+                    <th style="text-align:center">Ж_О_№4</th>
+                    <th style="text-align:center">Ж_О_№4а</th>
+                    <th style="text-align:center">Ж_О_№5</th>
+                    <th style="text-align:center">Ж_О_№5а</th>
+                    <th style="text-align:center">Ж_О_№6</th>
+                    <th style="text-align:center">Ж_О_№7</th>
+                    <th style="text-align:center">Ж_О_№11</th>
+                    <th style="text-align:center">Ж_О_№11</th>
+                    <th style="text-align:center">Сумма_за_квартал</th>
+                    <th style="text-align:center">Сумма_всего</th>
+                    <th style="text-align:center">Актив</th>
+                    <th style="text-align:center">Пассив</th>
+                    <th style="text-align:center">№ счетов</th>
+         */
     }
 }

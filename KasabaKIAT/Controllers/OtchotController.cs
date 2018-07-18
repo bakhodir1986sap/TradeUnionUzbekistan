@@ -786,6 +786,652 @@ namespace KasabaKIAT.Controllers
             return null;
         }
 
+
+
+        class OtraslPivod
+        {
+           public string  TumanName      { get; set; }
+           public decimal TumanAmount   { get; set; }
+           public decimal BranchCode1   {get; set;}   //А1
+           public decimal BranchCode2   {get; set;}   //А2
+           public decimal BranchCode3   {get; set;}   //А3
+           public decimal BranchCode4   {get; set;}   //Д1
+           public decimal BranchCode5   {get; set;} //И1
+           public decimal BranchCode6   {get; set;} //К1
+           public decimal BranchCode7   {get; set;} //М1
+           public decimal BranchCode8   {get; set;} //Н1
+           public decimal BranchCode9   {get; set;} //С1
+           public decimal BranchCode10  {get; set;} //Т1
+           public decimal BranchCode11  {get; set;} //Т2
+           public decimal BranchCode12  {get; set;} //Т3
+           public decimal BranchCode13  { get; set; } //Э1
+           public decimal BranchCode14  { get; set; } //Неопределен
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [OutputCache(Duration = 5, Location = OutputCacheLocation.Client, VaryByCustom = "userId")]
+        public ActionResult PostupleniyaOtrasliPivod()
+        {
+            return View();
+        }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="s"></param>
+        /// <param name="bg"></param>
+        /// <param name="end"></param>
+        /// <returns></returns>
+        [OutputCache(Duration = 5, Location = OutputCacheLocation.Client, VaryByParam = "s;bg;end", VaryByCustom = "userId")]
+        public JsonResult GetPostupleniyaOtrasliPivod(string s, DateTime? bg, DateTime? end)
+        {
+            var UserId = Convert.ToInt32(User.Identity.Name);
+
+            var userInfo = UserInfo.GetUserInfo(UserId);
+
+            log.Info("GetPostupleniyaOtrasliPivod");
+            log.Info("SOATO = " + s);
+            log.Info("BEGIN_DATE = " + bg);
+            log.Info("END_DATE = " + end);
+            try
+            {
+                var data = KasabaDB.sp_rt_Razbivka_Postup_OtraslGroup(s, bg.Value.Date, end.Value.Date, userInfo.DepartmentBase);
+
+                var RetList = data.ToList();
+
+                var TumanList = RetList.Where(z => z.otraslName.Contains("Итого") && !z.OblastName.Contains("Итого"));
+
+                List<OtraslPivod> pivodList = new List<OtraslPivod>();
+
+                if (TumanList.Any())
+                {
+                    var branches = KasabaDB.sp_branch.ToList();
+
+                    
+
+                    foreach(var tuman in TumanList)
+                    {
+                        var obj = new OtraslPivod();
+
+                        obj.TumanName = tuman.OblastName;
+                        obj.TumanAmount = tuman.OBLASTSUM.Value;
+
+                        var tumanInternals = RetList.Where(z => z.OblastName.Equals(tuman.OblastName) && !z.otraslName.Contains("Итого"));
+
+                        {
+                            var bBranchCode1s = branches.Where(z => z.code.Equals("А1")).FirstOrDefault();
+
+                            if (bBranchCode1s != null)
+                            {
+                                var tumalInts = tumanInternals.Where(z => z.otraslName.Equals(bBranchCode1s.name_ru));
+
+                                if (tumalInts.Any())
+                                {
+                                    obj.BranchCode1 = tumalInts.First().OBLASTSUM.Value;
+                                }
+                                else
+                                {
+                                    obj.BranchCode1 = 0;
+                                }
+                            }
+                        }
+
+
+                        {
+                            var bBranchCode1s = branches.Where(z => z.code.Equals("А2")).FirstOrDefault();
+
+                            if (bBranchCode1s != null)
+                            {
+                                var tumalInts = tumanInternals.Where(z => z.otraslName.Equals(bBranchCode1s.name_ru));
+
+                                if (tumalInts.Any())
+                                {
+                                    obj.BranchCode2 = tumalInts.First().OBLASTSUM.Value;
+                                }
+                                else
+                                {
+                                    obj.BranchCode2 = 0;
+                                }
+                            }
+                        }
+
+
+                        {
+                            var bBranchCode1s = branches.Where(z => z.code.Equals("А3")).FirstOrDefault();
+
+                            if (bBranchCode1s != null)
+                            {
+                                var tumalInts = tumanInternals.Where(z => z.otraslName.Equals(bBranchCode1s.name_ru));
+
+                                if (tumalInts.Any())
+                                {
+                                    obj.BranchCode3 = tumalInts.First().OBLASTSUM.Value;
+                                }
+                                else
+                                {
+                                    obj.BranchCode3 = 0;
+                                }
+                            }
+                        }
+
+
+                        {
+                            var bBranchCode1s = branches.Where(z => z.code.Equals("Д1")).FirstOrDefault();
+
+                            if (bBranchCode1s != null)
+                            {
+                                var tumalInts = tumanInternals.Where(z => z.otraslName.Equals(bBranchCode1s.name_ru));
+
+                                if (tumalInts.Any())
+                                {
+                                    obj.BranchCode4 = tumalInts.First().OBLASTSUM.Value;
+                                }
+                                else
+                                {
+                                    obj.BranchCode4 = 0;
+                                }
+                            }
+                        }
+
+
+                        {
+                            var bBranchCode1s = branches.Where(z => z.code.Equals("И1")).FirstOrDefault();
+
+                            if (bBranchCode1s != null)
+                            {
+                                var tumalInts = tumanInternals.Where(z => z.otraslName.Equals(bBranchCode1s.name_ru));
+
+                                if (tumalInts.Any())
+                                {
+                                    obj.BranchCode5 = tumalInts.First().OBLASTSUM.Value;
+                                }
+                                else
+                                {
+                                    obj.BranchCode5 = 0;
+                                }
+                            }
+                        }
+
+
+
+                        {
+                            var bBranchCode1s = branches.Where(z => z.code.Equals("К1")).FirstOrDefault();
+
+                            if (bBranchCode1s != null)
+                            {
+                                var tumalInts = tumanInternals.Where(z => z.otraslName.Equals(bBranchCode1s.name_ru));
+
+                                if (tumalInts.Any())
+                                {
+                                    obj.BranchCode6 = tumalInts.First().OBLASTSUM.Value;
+                                }
+                                else
+                                {
+                                    obj.BranchCode6 = 0;
+                                }
+                            }
+                        }
+
+
+
+                        {
+                            var bBranchCode1s = branches.Where(z => z.code.Equals("М1")).FirstOrDefault();
+
+                            if (bBranchCode1s != null)
+                            {
+                                var tumalInts = tumanInternals.Where(z => z.otraslName.Equals(bBranchCode1s.name_ru));
+
+                                if (tumalInts.Any())
+                                {
+                                    obj.BranchCode7 = tumalInts.First().OBLASTSUM.Value;
+                                }
+                                else
+                                {
+                                    obj.BranchCode7 = 0;
+                                }
+                            }
+                        }
+
+
+                        {
+                            var bBranchCode1s = branches.Where(z => z.code.Equals("Н1")).FirstOrDefault();
+
+                            if (bBranchCode1s != null)
+                            {
+                                var tumalInts = tumanInternals.Where(z => z.otraslName.Equals(bBranchCode1s.name_ru));
+
+                                if (tumalInts.Any())
+                                {
+                                    obj.BranchCode8 = tumalInts.First().OBLASTSUM.Value;
+                                }
+                                else
+                                {
+                                    obj.BranchCode8 = 0;
+                                }
+                            }
+                        }
+
+
+                        {
+                            var bBranchCode1s = branches.Where(z => z.code.Equals("С1")).FirstOrDefault();
+
+                            if (bBranchCode1s != null)
+                            {
+                                var tumalInts = tumanInternals.Where(z => z.otraslName.Equals(bBranchCode1s.name_ru));
+
+                                if (tumalInts.Any())
+                                {
+                                    obj.BranchCode9 = tumalInts.First().OBLASTSUM.Value;
+                                }
+                                else
+                                {
+                                    obj.BranchCode9 = 0;
+                                }
+                            }
+                        }
+
+
+                        {
+                            var bBranchCode1s = branches.Where(z => z.code.Equals("Т1")).FirstOrDefault();
+
+                            if (bBranchCode1s != null)
+                            {
+                                var tumalInts = tumanInternals.Where(z => z.otraslName.Equals(bBranchCode1s.name_ru));
+
+                                if (tumalInts.Any())
+                                {
+                                    obj.BranchCode10 = tumalInts.First().OBLASTSUM.Value;
+                                }
+                                else
+                                {
+                                    obj.BranchCode10 = 0;
+                                }
+                            }
+                        }
+
+
+                        {
+                            var bBranchCode1s = branches.Where(z => z.code.Equals("Т2")).FirstOrDefault();
+
+                            if (bBranchCode1s != null)
+                            {
+                                var tumalInts = tumanInternals.Where(z => z.otraslName.Equals(bBranchCode1s.name_ru));
+
+                                if (tumalInts.Any())
+                                {
+                                    obj.BranchCode11 = tumalInts.First().OBLASTSUM.Value;
+                                }
+                                else
+                                {
+                                    obj.BranchCode11 = 0;
+                                }
+                            }
+                        }
+
+
+                        {
+                            var bBranchCode1s = branches.Where(z => z.code.Equals("Т3")).FirstOrDefault();
+
+                            if (bBranchCode1s != null)
+                            {
+                                var tumalInts = tumanInternals.Where(z => z.otraslName.Equals(bBranchCode1s.name_ru));
+
+                                if (tumalInts.Any())
+                                {
+                                    obj.BranchCode12 = tumalInts.First().OBLASTSUM.Value;
+                                }
+                                else
+                                {
+                                    obj.BranchCode12 = 0;
+                                }
+                            }
+                        }
+
+
+                        {
+                            var bBranchCode1s = branches.Where(z => z.code.Equals("Э1")).FirstOrDefault();
+
+                            if (bBranchCode1s != null)
+                            {
+                                var tumalInts = tumanInternals.Where(z => z.otraslName.Equals(bBranchCode1s.name_ru));
+
+                                if (tumalInts.Any())
+                                {
+                                    obj.BranchCode13 = tumalInts.First().OBLASTSUM.Value;
+                                }
+                                else
+                                {
+                                    obj.BranchCode13 = 0;
+                                }
+                            }
+                        }
+
+
+                        {
+
+                                var tumalInts = tumanInternals.Where(z => z.otraslName.Equals("Неопределен"));
+
+                                if (tumalInts.Any())
+                                {
+                                    obj.BranchCode14 = tumalInts.First().OBLASTSUM.Value;
+                                }
+                                else
+                                {
+                                    obj.BranchCode14 = 0;
+                                }
+                        }
+
+                        pivodList.Add(obj);
+                    }
+                }
+
+                return Json(pivodList, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                log.Info(ex);
+            }
+            return null;
+        }
+
+
+        public void PivodTest()
+        {
+            var data = KasabaDB.sp_rt_Razbivka_Postup_OtraslGroup("1726",DateTime.Now.AddDays(-40), DateTime.Now, "17226");
+
+            var RetList = data.ToList();
+
+            var TumanList = RetList.Where(z => z.otraslName.Contains("Итого") && !z.OblastName.Contains("Итого"));
+
+            List<OtraslPivod> pivodList = new List<OtraslPivod>();
+
+            if (TumanList.Any())
+            {
+                var branches = KasabaDB.sp_branch.ToList();
+
+
+
+                foreach (var tuman in TumanList)
+                {
+                    var obj = new OtraslPivod();
+
+                    obj.TumanName = tuman.OblastName;
+                    obj.TumanAmount = tuman.OBLASTSUM.Value;
+
+                    var tumanInternals = RetList.Where(z => z.OblastName.Equals(tuman.OblastName) && !z.otraslName.Contains("Итого"));
+
+                    {
+                        var bBranchCode1s = branches.Where(z => z.code.Equals("А1")).FirstOrDefault();
+
+                        if (bBranchCode1s != null)
+                        {
+                            var tumalInts = tumanInternals.Where(z => z.otraslName.Equals(bBranchCode1s.name_ru));
+
+                            if (tumalInts.Any())
+                            {
+                                obj.BranchCode1 = tumalInts.First().OBLASTSUM.Value;
+                            }
+                            else
+                            {
+                                obj.BranchCode1 = 0;
+                            }
+                        }
+                    }
+
+
+                    {
+                        var bBranchCode1s = branches.Where(z => z.code.Equals("А2")).FirstOrDefault();
+
+                        if (bBranchCode1s != null)
+                        {
+                            var tumalInts = tumanInternals.Where(z => z.otraslName.Equals(bBranchCode1s.name_ru));
+
+                            if (tumalInts.Any())
+                            {
+                                obj.BranchCode2 = tumalInts.First().OBLASTSUM.Value;
+                            }
+                            else
+                            {
+                                obj.BranchCode2 = 0;
+                            }
+                        }
+                    }
+
+
+                    {
+                        var bBranchCode1s = branches.Where(z => z.code.Equals("А3")).FirstOrDefault();
+
+                        if (bBranchCode1s != null)
+                        {
+                            var tumalInts = tumanInternals.Where(z => z.otraslName.Equals(bBranchCode1s.name_ru));
+
+                            if (tumalInts.Any())
+                            {
+                                obj.BranchCode3 = tumalInts.First().OBLASTSUM.Value;
+                            }
+                            else
+                            {
+                                obj.BranchCode3 = 0;
+                            }
+                        }
+                    }
+
+
+                    {
+                        var bBranchCode1s = branches.Where(z => z.code.Equals("Д1")).FirstOrDefault();
+
+                        if (bBranchCode1s != null)
+                        {
+                            var tumalInts = tumanInternals.Where(z => z.otraslName.Equals(bBranchCode1s.name_ru));
+
+                            if (tumalInts.Any())
+                            {
+                                obj.BranchCode4 = tumalInts.First().OBLASTSUM.Value;
+                            }
+                            else
+                            {
+                                obj.BranchCode4 = 0;
+                            }
+                        }
+                    }
+
+
+                    {
+                        var bBranchCode1s = branches.Where(z => z.code.Equals("И1")).FirstOrDefault();
+
+                        if (bBranchCode1s != null)
+                        {
+                            var tumalInts = tumanInternals.Where(z => z.otraslName.Equals(bBranchCode1s.name_ru));
+
+                            if (tumalInts.Any())
+                            {
+                                obj.BranchCode5 = tumalInts.First().OBLASTSUM.Value;
+                            }
+                            else
+                            {
+                                obj.BranchCode5 = 0;
+                            }
+                        }
+                    }
+
+
+
+                    {
+                        var bBranchCode1s = branches.Where(z => z.code.Equals("К1")).FirstOrDefault();
+
+                        if (bBranchCode1s != null)
+                        {
+                            var tumalInts = tumanInternals.Where(z => z.otraslName.Equals(bBranchCode1s.name_ru));
+
+                            if (tumalInts.Any())
+                            {
+                                obj.BranchCode6 = tumalInts.First().OBLASTSUM.Value;
+                            }
+                            else
+                            {
+                                obj.BranchCode6 = 0;
+                            }
+                        }
+                    }
+
+
+
+                    {
+                        var bBranchCode1s = branches.Where(z => z.code.Equals("М1")).FirstOrDefault();
+
+                        if (bBranchCode1s != null)
+                        {
+                            var tumalInts = tumanInternals.Where(z => z.otraslName.Equals(bBranchCode1s.name_ru));
+
+                            if (tumalInts.Any())
+                            {
+                                obj.BranchCode7 = tumalInts.First().OBLASTSUM.Value;
+                            }
+                            else
+                            {
+                                obj.BranchCode7 = 0;
+                            }
+                        }
+                    }
+
+
+                    {
+                        var bBranchCode1s = branches.Where(z => z.code.Equals("Н1")).FirstOrDefault();
+
+                        if (bBranchCode1s != null)
+                        {
+                            var tumalInts = tumanInternals.Where(z => z.otraslName.Equals(bBranchCode1s.name_ru));
+
+                            if (tumalInts.Any())
+                            {
+                                obj.BranchCode8 = tumalInts.First().OBLASTSUM.Value;
+                            }
+                            else
+                            {
+                                obj.BranchCode8 = 0;
+                            }
+                        }
+                    }
+
+
+                    {
+                        var bBranchCode1s = branches.Where(z => z.code.Equals("С1")).FirstOrDefault();
+
+                        if (bBranchCode1s != null)
+                        {
+                            var tumalInts = tumanInternals.Where(z => z.otraslName.Equals(bBranchCode1s.name_ru));
+
+                            if (tumalInts.Any())
+                            {
+                                obj.BranchCode9 = tumalInts.First().OBLASTSUM.Value;
+                            }
+                            else
+                            {
+                                obj.BranchCode9 = 0;
+                            }
+                        }
+                    }
+
+
+                    {
+                        var bBranchCode1s = branches.Where(z => z.code.Equals("Т1")).FirstOrDefault();
+
+                        if (bBranchCode1s != null)
+                        {
+                            var tumalInts = tumanInternals.Where(z => z.otraslName.Equals(bBranchCode1s.name_ru));
+
+                            if (tumalInts.Any())
+                            {
+                                obj.BranchCode10 = tumalInts.First().OBLASTSUM.Value;
+                            }
+                            else
+                            {
+                                obj.BranchCode10 = 0;
+                            }
+                        }
+                    }
+
+
+                    {
+                        var bBranchCode1s = branches.Where(z => z.code.Equals("Т2")).FirstOrDefault();
+
+                        if (bBranchCode1s != null)
+                        {
+                            var tumalInts = tumanInternals.Where(z => z.otraslName.Equals(bBranchCode1s.name_ru));
+
+                            if (tumalInts.Any())
+                            {
+                                obj.BranchCode11 = tumalInts.First().OBLASTSUM.Value;
+                            }
+                            else
+                            {
+                                obj.BranchCode11 = 0;
+                            }
+                        }
+                    }
+
+
+                    {
+                        var bBranchCode1s = branches.Where(z => z.code.Equals("Т3")).FirstOrDefault();
+
+                        if (bBranchCode1s != null)
+                        {
+                            var tumalInts = tumanInternals.Where(z => z.otraslName.Equals(bBranchCode1s.name_ru));
+
+                            if (tumalInts.Any())
+                            {
+                                obj.BranchCode12 = tumalInts.First().OBLASTSUM.Value;
+                            }
+                            else
+                            {
+                                obj.BranchCode12 = 0;
+                            }
+                        }
+                    }
+
+
+                    {
+                        var bBranchCode1s = branches.Where(z => z.code.Equals("Э1")).FirstOrDefault();
+
+                        if (bBranchCode1s != null)
+                        {
+                            var tumalInts = tumanInternals.Where(z => z.otraslName.Equals(bBranchCode1s.name_ru));
+
+                            if (tumalInts.Any())
+                            {
+                                obj.BranchCode13 = tumalInts.First().OBLASTSUM.Value;
+                            }
+                            else
+                            {
+                                obj.BranchCode13 = 0;
+                            }
+                        }
+                    }
+
+
+                    {
+
+                        var tumalInts = tumanInternals.Where(z => z.otraslName.Equals("Неопределен"));
+
+                        if (tumalInts.Any())
+                        {
+                            obj.BranchCode14 = tumalInts.First().OBLASTSUM.Value;
+                        }
+                        else
+                        {
+                            obj.BranchCode14 = 0;
+                        }
+                    }
+
+                    pivodList.Add(obj);
+                }
+            }
+        }
+
         /// <summary>
         /// 
         /// </summary>

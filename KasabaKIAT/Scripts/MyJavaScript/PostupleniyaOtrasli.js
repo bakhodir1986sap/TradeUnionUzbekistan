@@ -37,6 +37,43 @@
             $("#hh").modal('hide');
         });
     }
+
+
+
+    $scope.LoadDATAN = function () {
+        LoadDATAN($scope.Region.id, $scope.ZB, $scope.ZE);
+    }
+    function LoadDATAN(s, bg, end) {
+
+        $locale.NUMBER_FORMATS.GROUP_SEP = " ";
+        $locale.NUMBER_FORMATS.DECIMAL_SEP = ",";
+
+        document.getElementById('connection').style.visibility = "visible";
+        $("#hh").modal({
+            backdrop: 'static',
+            backdrop: 'static'
+        });
+        $http({
+            method: 'POST',
+            url: "/Otchot/GetPostupleniyaOtrasliPivod?s=" + s + "&bg=" + bg.toISOString() + "&end=" + end.toISOString(),
+        }).then(function (d) {
+            if (d.data.length != 0) {
+                $scope.showdata = true;
+                $scope.q = d.data.length;
+            } else {
+                $scope.showdata = false;
+            }
+            $scope.DATA = d.data;
+            console.log(d.data);
+            document.getElementById('connection').style.visibility = "hidden";
+            $("#hh").modal('hide');
+        }, function (error) {
+            alertify.error("ошибка");
+            console.log("error in GetPostupleniya -> ", error);
+            document.getElementById('connection').style.visibility = "hidden";
+            $("#hh").modal('hide');
+        });
+    }
     $scope.Region = {
         id: 0,
         value: ''

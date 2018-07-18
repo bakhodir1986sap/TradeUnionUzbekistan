@@ -116,21 +116,43 @@ namespace KasabaKiat.BusinessLogic.Utils.References
 
             using (KasabaKIATEntities db = new KasabaKIATEntities())
             {
-                var queryRes = from procent in db.tblSprav_Reg
-                               where procent.SOATO_CODE.Contains(soato)
-                               select new Sprav_RegViewModel
-                               {
-                                   ID = (long)procent.CodeReg,
-                                   NameReg = procent.NameReg
-                               };
-
-                if (queryRes != null)
+                if (departmentCode.Equals("173Т2") || departmentCode.Equals("173О1"))
                 {
-                    list = queryRes.ToList();
+                    var queryRes = from procent in db.tblSprav_Reg
+                                   where procent.DepartmentBase.Equals(departmentCode)
+                                   select new Sprav_RegViewModel
+                                   {
+                                       ID = (long)procent.CodeReg,
+                                       NameReg = procent.NameReg
+                                   };
+
+                    if (queryRes != null)
+                    {
+                        list = queryRes.ToList();
+                    }
+                    else
+                    {
+                        list = new List<Sprav_RegViewModel>();
+                    }
                 }
                 else
                 {
-                    list = new List<Sprav_RegViewModel>();
+                    var queryRes = from procent in db.tblSprav_Reg
+                                   where procent.SOATO_CODE.Contains(soato)
+                                   select new Sprav_RegViewModel
+                                   {
+                                       ID = (long)procent.CodeReg,
+                                       NameReg = procent.NameReg
+                                   };
+
+                    if (queryRes != null)
+                    {
+                        list = queryRes.ToList();
+                    }
+                    else
+                    {
+                        list = new List<Sprav_RegViewModel>();
+                    }
                 }
 
                 list.Insert( 0,new Sprav_RegViewModel()

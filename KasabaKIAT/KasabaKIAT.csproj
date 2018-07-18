@@ -1871,6 +1871,7 @@
     <Content Include="Views\Otchot\ProvodkiDetail.cshtml" />
     <Content Include="Views\Otchot\ProvodkiSummary.cshtml" />
     <Content Include="Views\Otchot\GlavnayaKnigaN.cshtml" />
+    <Content Include="Views\Otchot\PostupleniyaOtrasliPivod.cshtml" />
     <None Include="Web References\KurortUrlService\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>

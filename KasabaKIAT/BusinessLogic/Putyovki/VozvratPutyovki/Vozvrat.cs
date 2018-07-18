@@ -117,7 +117,7 @@ namespace KasabaKiat.BusinessLogic.Putyovki.VozvratPutyovki
                         poluchrsch = "04",
                         summa = mm.symma,
                         user_id = mm.userid,
-                        trdt = mm.data_post,
+                        trdt = model.data_post,
                         trref = "VPP",
                         trrefno = string.Format("{0}|{1}", pp.Num_Doc, pp.Data_Post.Value.ToShortDateString())
                     };

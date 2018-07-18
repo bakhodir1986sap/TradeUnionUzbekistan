@@ -2830,8 +2830,11 @@ namespace KasabaKIAT.Controllers
                 model.departmentbase = ustinfo.DepartmentBase;
                 model.userid = UserId;
 
+                log.Info("Before EnterVozvrat = =============================");
                 //All logic realized
                 await vv.EnterVozvrat(model);
+
+                log.Info("After EnterVozvrat = =============================");
 
                 return Json("success", JsonRequestBehavior.AllowGet);
             }

@@ -1,0 +1,108 @@
+﻿@{
+    ViewBag.Title = "Отчеты";
+}
+<script src="~/Scripts/MyJavaScript/PostupleniyaOtrasli.js"></script>
+<div ng-controller="PostupleniyaOtrasli">
+    <div id="connection" style="visibility:hidden;position:absolute;margin-left:600px;margin-top:100px;z-index:9999">
+        <img src="~/Content/Login/buffering.gif" />
+    </div>
+    <section class="content__block container-fluid">
+        <div class="row mb-4 align-items-center">
+            <div class="col title__block">
+                <h4>Поступление По Отрасли</h4>
+                <nav aria-label="breadcrumb" class="breadcrumb__block">
+                    <ol class="breadcrumb">
+                        @*<li class="breadcrumb-item load"><a href="/Home/Otchot">Отчеты</a></li>*@
+                        <li class="breadcrumb-item load"><a href="/Otchot/index">Отчеты</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Поступление По Отрасли</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+        <form name="myForm1" novalidate>
+            <div class="row mb-4 align-items-center" style="padding-left:16px">
+                <div>
+                    <p>Регион:</p>
+                    <select style="width:200px" ng-model="Region" name="Region" required ng-options="d as d.value for d in R track by d.id" class="custom-select form-control"></select>
+                    <span class="alert alert-warning" style="padding:0px" ng-show="myForm1.Region.$error.required">Выберите поле</span>
+                </div>
+                <div style="margin-left:100px">
+                    <p>Период с:</p>
+                    <input class="form-control" style="width:200px;" required type="date" ng-model="ZB" id="ZAEZD_BEGIN" name="ZAEZD_BEGIN" />
+                    <span class="alert alert-warning" style="padding:0px" ng-show="myForm1.ZAEZD_BEGIN.$error.required">Выберите поле</span>
+                </div>
+                <div style="margin-left:100px">
+                    <p>Период по:</p>
+                    <input class="form-control" style="width:200px;" required type="date" ng-model="ZE" id="ZAEZD_END" name="ZAEZD_END" />
+                    <span class="alert alert-warning" style="padding:0px" ng-show="myForm1.ZAEZD_END.$error.required">Выберите поле</span>
+                </div>
+            </div>
+            <div class="row mb-4 align-items-center" style="padding-left:130px">
+                <div>
+                    <button ng-click="LoadDATAN()" ng-disabled="myForm1.ZAEZD_BEGIN.$error.required||myForm1.ZAEZD_END.$error.required" class="btn btn-blue d-block d-md-inline-block mb-2"> Показать</button>
+                </div>
+                <div>
+                    <button ng-click="Clear()" style="margin-left:125px" class="btn btn-default d-block d-md-inline-block mb-2"> ОЧИСТИТЬ ФИЛЬТР</button>
+                </div>
+                <div>
+                    <button ng-show="showdata" ng-click="exportData()" class="btn btn-green d-block d-md-inline-block mb-3 mb-md-0" style="margin-left:500px"><i class="fas fa-file-excel"></i> Экспорт</button>
+                </div>
+            </div>
+        </form>
+        <div ng-show="showdata" class="row mb-4 align-items-center">
+            <div class="col-sm-6 text-md-left">
+                Количество Поступление Группированно По Отрасли : {{q}}
+            </div>
+            @*<div ng-repeat="pp_sum in PP_SUM">
+                    Сумма путевок : {{pp_sum.P_SUM | currency:' '}}
+                </div>*@
+        </div>
+        <div class="table-responsive box-shadow mb-4" ng-show="showdata" id="export">
+            <table class="table table__block t-hover">
+                <thead>
+                    <tr>
+                        <th style="text-align:center">Район</th>
+                        <th style="text-align:center">Общая Сумма</th>
+                        <th style="text-align:center">Авиация</th>
+                        <th style="text-align:center">Агросаноат мажмуи</th>
+                        <th style="text-align:center">Ахборот технологиялари</th>
+                        <th style="text-align:center">Давлат муассасалар</th>
+                        <th style="text-align:center">Истеъмол товарлар</th>
+                        <th style="text-align:center">Кимё саноати</th>
+                        <th style="text-align:center">Металлургия ва машинасозлик</th>
+                        <th style="text-align:center">Нефт-газ ва геология</th>
+                        <th style="text-align:center">Соғлиқни сақлаш ва фармацевтика</th>
+                        <th style="text-align:center">Таълим, фан ва маданият</th>
+                        <th style="text-align:center">Темирйўлчилар ва транспорт</th>
+                        <th style="text-align:center">Транспорт, йўл ва капитал қурилиш</th>
+                        <th style="text-align:center">Энергетика</th>
+                        <th style="text-align:center">Неопределен</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="poin" ng-repeat="item in DATA" ng-style="item.d2=='Итого '&&{'background-color':'#8a8a8a','color':'white'}">
+                        <td style="text-align:center">{{item.TumanName}}</td>
+                        <td style="text-align:center">{{item.TumanAmount | currency:' '}}</td>
+                        <td style="text-align:center">{{item.BranchCode1 | currency:' '}}</td>
+                        <td style="text-align:center">{{item.BranchCode2 | currency:' '}}</td>
+                        <td style="text-align:center">{{item.BranchCode3 | currency:' '}}</td>
+                        <td style="text-align:center">{{item.BranchCode4 | currency:' '}}</td>
+                        <td style="text-align:center">{{item.BranchCode5 | currency:' '}}</td>
+                        <td style="text-align:center">{{item.BranchCode6 | currency:' '}}</td>
+                        <td style="text-align:center">{{item.BranchCode7 | currency:' '}}</td>
+                        <td style="text-align:center">{{item.BranchCode8 | currency:' '}}</td>
+                        <td style="text-align:center">{{item.BranchCode9 | currency:' '}}</td>
+                        <td style="text-align:center">{{item.BranchCode10 | currency:' '}}</td>
+                        <td style="text-align:center">{{item.BranchCode11 | currency:' '}}</td>
+                        <td style="text-align:center">{{item.BranchCode12 | currency:' '}}</td>
+                        <td style="text-align:center">{{item.BranchCode13 | currency:' '}}</td>
+                        <td style="text-align:center">{{item.BranchCode14 | currency:' '}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+</div>
+
+
+

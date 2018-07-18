@@ -375,6 +375,10 @@ namespace KasabaKiat.BusinessLogic.Putyovki.RealizasiyaPutyovok
                     {
                         mmodel.isFaceExists = false;
                     }
+
+
+                    var sanats = db.tblSprav_San.Where(z => z.ID == mmodel.id_sanat);
+                    mmodel.sanatName = sanats.First().Name_San;
                 }
 
             }

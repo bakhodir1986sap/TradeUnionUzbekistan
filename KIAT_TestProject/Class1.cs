@@ -69,6 +69,15 @@ namespace KIAT_TestProject
 
                 lll.GlavnayaKnigaTest("17227", 2018, 1);
             }
+
+
+            [Test]
+            public void PivodTest()
+            {
+                var lll = new KasabaKIAT.Controllers.OtchotController();
+
+                lll.PivodTest();
+            }
         }
     }
 }

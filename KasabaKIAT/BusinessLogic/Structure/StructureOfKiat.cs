@@ -453,7 +453,10 @@ namespace KasabaKIAT.BusinessLogic.Structure
                     }
                     else
                     {
-                        throw new ApplicationException("branchCode & tumanCode have invalid length");
+                        var tumanCode1 = tumanCode;
+
+                        asos = string.Format("{0}{1}{2}", asos, branchCode, tumanCode1);
+                        //throw new ApplicationException("branchCode & tumanCode have invalid length");
                     }
                 }
                 else
@@ -577,6 +580,8 @@ namespace KasabaKIAT.BusinessLogic.Structure
                     }
 
                 }
+
+                if (!org.Any()) return null;
 
                 var organization = org.First();
 

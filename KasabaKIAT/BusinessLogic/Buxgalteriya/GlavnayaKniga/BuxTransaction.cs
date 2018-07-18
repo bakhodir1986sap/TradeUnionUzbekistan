@@ -39,12 +39,12 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.GlavnayaKniga
             {
                 if ((curKvartal.curkv_year.Value != year) || (curKvartal.curkv.Value != kvartal))
                 {
-                    throw new ApplicationException("Current Kvartal Info is invalid");
+                    throw new ApplicationException("Current Kvartal Info is invalid = " + year + "   "+ kvartal);
                 }
             }
             else
             {
-                throw new ApplicationException("Current Kvartal Info not available");
+                throw new ApplicationException("Current Kvartal Info not available = " + year + "   " + kvartal);
             }
 
             departmentBase = depCode;

@@ -107,50 +107,57 @@
                     @*<a href="/Otchot/Postupleniya" class="list-group-item list-group-item-action load">Поступления</a>*@
                     <a href="/Otchot/PostupleniyaN" class="list-group-item list-group-item-action load">Поступления по ИНН</a>
                     <a href="/Otchot/RazbivkaPostupleniyaN" class="list-group-item list-group-item-action load">Разбивка поступления</a>
-                    <a href="/Otchot/PostupleniyaOblastyam" class="list-group-item list-group-item-action load">Поступление По Областям</a>
-                    <a href="/Otchot/PostupleniyaOtrasli" class="list-group-item list-group-item-action load">Поступление По Отрасли</a>
-                    <a href="/Otchot/PostupleniyaOkonxu" class="list-group-item list-group-item-action load">Поступление По Оконху</a>
-                    <a href="/Otchot/PostupleniyaTuman" class="list-group-item list-group-item-action load">Разбивка по Областям и Районам</a>
-                    <a href="/Otchot/ProvodkiDetail" class="list-group-item list-group-item-action load">Проводки Детали</a>
-                    <a href="/Otchot/ProvodkiSummary" class="list-group-item list-group-item-action load">Проводки Группированны</a>
-                    <a href="/Otchot/GlavnayaKnigaN" class="list-group-item list-group-item-action load">Главная Книга</a>
-                    @*<a href="/Otchot/PostupleniyaOblastTumanOtraslGroup" class="list-group-item list-group-item-action load">Разбивка по Районам и отраслям</a>*@
-                    @*<a id="ReportUrl_Performance" class="list-group-item list-group-item-action load" href="@Url.Action("ReportTemplate", "Report",
-            new { ReportName = "Запрос по Путевкам", ReportDescription = "Запрос по Путевкам", Width = 100, Height = 650 })">Запрос по Путевкам</a>*@
-                    <a id="ReportUrl_Performance" class="list-group-item list-group-item-action load" href="@Url.Action("ReportTemplate", "Report",
-                        new { ReportName = "Оперативка по путевкам", ReportDescription = "Оперативка по путевкам", Width = 100, Height = 650 })">Оперативка по путевкам</a>
-                    <a id="ReportUrl_Performance" class="list-group-item list-group-item-action load" href="@Url.Action("ReportTemplate", "Report",
-                        new { ReportName = "Свод по путевкам", ReportDescription = "Свод по путевкам", Width = 100, Height = 650 })">Свод по путевкам</a>
-                    @*<a id="ReportUrl_Performance" class="list-group-item list-group-item-action load" href="@Url.Action("ReportTemplate", "Report",
-            new { ReportName = "Оперативная карточка", ReportDescription = "Оперативная карточка", Width = 100, Height = 650 })">Оперативная карточка</a>*@
-                    <a id="ReportUrl_Performance" class="list-group-item list-group-item-action load" href="@Url.Action("ReportTemplate", "Report",
-                        new { ReportName = "Баланс Предприятий", ReportDescription = "Баланс Предприятий", Width = 100, Height = 650 })">Баланс Предприятий</a>
-                    @*<a id="ReportUrl_Performance" class="list-group-item list-group-item-action load" href="@Url.Action("ReportTemplate", "Report",
-            new { ReportName = "Учет медицинской регистрации работников", ReportDescription = "Учет медицинской регистрации работников", Width = 100, Height = 650 })">Учет медицинской регистрации работников</a>*@
 
-                    <a id="ReportUrl_Performance" class="list-group-item list-group-item-action load" href="@Url.Action("ReportTemplate", "Report",
+                    //@DEPARTMENT_BASE = N'173О1' OR @DEPARTMENT_BASE = N'173Т2' OR @DEPARTMENT_BASE = N'173Н2'
+                    if (ustinfo.DepartmentBase != "173О1" && ustinfo.DepartmentBase != "173Т2" && ustinfo.DepartmentBase != "173Н2")
+                    {
+                        <a href="/Otchot/PostupleniyaOblastyam" class="list-group-item list-group-item-action load">Поступление По Областям</a>
+                        <a href="/Otchot/PostupleniyaOtrasli" class="list-group-item list-group-item-action load">Поступление По Отрасли</a>
+                        <a href="/Otchot/PostupleniyaOtrasliPivod" class="list-group-item list-group-item-action load">Поступление По Отрасли Разбивка</a>
+                        
+                        <a href="/Otchot/PostupleniyaOkonxu" class="list-group-item list-group-item-action load">Поступление По Оконху</a>
+                        <a href="/Otchot/PostupleniyaTuman" class="list-group-item list-group-item-action load">Разбивка по Областям и Районам</a>
+                    }
+                        <a href="/Otchot/ProvodkiDetail" class="list-group-item list-group-item-action load">Проводки Детали</a>
+                        <a href="/Otchot/ProvodkiSummary" class="list-group-item list-group-item-action load">Проводки Группированны</a>
+                        <a href="/Otchot/GlavnayaKnigaN" class="list-group-item list-group-item-action load">Главная Книга</a>
+                        @*<a href="/Otchot/PostupleniyaOblastTumanOtraslGroup" class="list-group-item list-group-item-action load">Разбивка по Районам и отраслям</a>*@
+                        @*<a id="ReportUrl_Performance" class="list-group-item list-group-item-action load" href="@Url.Action("ReportTemplate", "Report",
+                new { ReportName = "Запрос по Путевкам", ReportDescription = "Запрос по Путевкам", Width = 100, Height = 650 })">Запрос по Путевкам</a>*@
+                        <a id="ReportUrl_Performance" class="list-group-item list-group-item-action load" href="@Url.Action("ReportTemplate", "Report",
+                        new { ReportName = "Оперативка по путевкам", ReportDescription = "Оперативка по путевкам", Width = 100, Height = 650 })">Оперативка по путевкам</a>
+                        <a id="ReportUrl_Performance" class="list-group-item list-group-item-action load" href="@Url.Action("ReportTemplate", "Report",
+                        new { ReportName = "Свод по путевкам", ReportDescription = "Свод по путевкам", Width = 100, Height = 650 })">Свод по путевкам</a>
+                        @*<a id="ReportUrl_Performance" class="list-group-item list-group-item-action load" href="@Url.Action("ReportTemplate", "Report",
+                new { ReportName = "Оперативная карточка", ReportDescription = "Оперативная карточка", Width = 100, Height = 650 })">Оперативная карточка</a>*@
+                        <a id="ReportUrl_Performance" class="list-group-item list-group-item-action load" href="@Url.Action("ReportTemplate", "Report",
+                        new { ReportName = "Баланс Предприятий", ReportDescription = "Баланс Предприятий", Width = 100, Height = 650 })">Баланс Предприятий</a>
+                        @*<a id="ReportUrl_Performance" class="list-group-item list-group-item-action load" href="@Url.Action("ReportTemplate", "Report",
+                new { ReportName = "Учет медицинской регистрации работников", ReportDescription = "Учет медицинской регистрации работников", Width = 100, Height = 650 })">Учет медицинской регистрации работников</a>*@
+
+                        <a id="ReportUrl_Performance" class="list-group-item list-group-item-action load" href="@Url.Action("ReportTemplate", "Report",
                         new { ReportName = "Учет поступления стоимости путевок", ReportDescription = "Учет поступления стоимости путевок", Width = 100, Height = 650 })">Учет поступления стоимости путевок</a>
 
-                    <a id="ReportUrl_Performance" class="list-group-item list-group-item-action load" href="@Url.Action("ReportTemplate", "Report",
+                        <a id="ReportUrl_Performance" class="list-group-item list-group-item-action load" href="@Url.Action("ReportTemplate", "Report",
                         new { ReportName = "Отчет № 13", ReportDescription = "Отчет № 13", Width = 100, Height = 650 })">Отчет № 13</a>
 
-                    <a id="ReportUrl_Performance" class="list-group-item list-group-item-action load" href="@Url.Action("ReportTemplate", "Report",
+                        <a id="ReportUrl_Performance" class="list-group-item list-group-item-action load" href="@Url.Action("ReportTemplate", "Report",
                         new { ReportName = "Отчет № 14", ReportDescription = "Отчет № 14", Width = 100, Height = 650 })">Отчет № 14</a>
 
-                    <a id="ReportUrl_Performance" class="list-group-item list-group-item-action load" href="@Url.Action("ReportTemplate", "Report",
+                        <a id="ReportUrl_Performance" class="list-group-item list-group-item-action load" href="@Url.Action("ReportTemplate", "Report",
                         new { ReportName = "Книга учета владельцев путевок", ReportDescription = "Книга учета владельцев путевок", Width = 100, Height = 650 })">Книга учета владельцев путевок</a>
 
-                    <a id="ReportUrl_Performance" class="list-group-item list-group-item-action load" href="@Url.Action("ReportTemplate", "Report",
+                        <a id="ReportUrl_Performance" class="list-group-item list-group-item-action load" href="@Url.Action("ReportTemplate", "Report",
                         new { ReportName = "Журнальный ордер № 4", ReportDescription = "Журнальный ордер № 4", Width = 100, Height = 650 })">Журнальный ордер № 4</a>
 
-                    <a id="ReportUrl_Performance" class="list-group-item list-group-item-action load" href="@Url.Action("ReportTemplate", "Report",
+                        <a id="ReportUrl_Performance" class="list-group-item list-group-item-action load" href="@Url.Action("ReportTemplate", "Report",
                         new { ReportName = "Журнальный ордер № 5", ReportDescription = "Журнальный ордер № 5", Width = 100, Height = 650 })">Журнальный ордер № 5</a>
 
-                    <a id="ReportUrl_Performance" class="list-group-item list-group-item-action load" href="@Url.Action("ReportTemplate", "Report",
+                        <a id="ReportUrl_Performance" class="list-group-item list-group-item-action load" href="@Url.Action("ReportTemplate", "Report",
                         new { ReportName = "Журнальный ордер № 6", ReportDescription = "Журнальный ордер № 6", Width = 100, Height = 650 })">Журнальный ордер № 6</a>
-                }
+                    }
 
-            </div>
+                </div>
             @*<div class="mb-4">
                 <a href="/Buxgalter/PlanByudjetaOblasteyNoviy" class="btn btn-blue d-block d-md-inline-block mb-2">Приступить к оформлению</a>
             </div>*@

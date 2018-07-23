@@ -1,5 +1,9 @@
 ﻿@model KasabaKIAT.Models.ChatModel
+@using KasabaKIAT.BusinessLogic.Security.Roles.RolePermissions;
 @{
+    ViewBag.Title = "Внутренний чат";
+    var UserId = Convert.ToInt32(User.Identity.Name);
+    FunctionalityList List = FunctionalityAndDbDataMatch.MatchProcess(UserId);
     Layout = null;
 }
 
@@ -18,16 +22,17 @@
     <div id="container">
         <div id="loginBlock" style="margin: 0 0 0 0;position: relative; top: 40%; bottom: 60px">
             Введите имя:
-            <input type="text" id="txtUserName" />
+            <input type="text" id="txtUserName" value="@List.UserName" readonly />
             <button id="btnLogin" value="Войти">Войти</button>
+            <a id="back" href="/Home/Putyovki" >Выйти</a>
         </div>
     </div>
     <div id="Error">
     </div>
-    @Ajax.ActionLink("Login", "Index", new { user = "" }, 
-        new AjaxOptions { UpdateTargetId = "container", OnFailure = "LoginOnFailure", OnSuccess = "LoginOnSuccess" }, 
+    @Ajax.ActionLink("Login", "Index", new { user = "" },
+        new AjaxOptions { UpdateTargetId = "container", OnFailure = "LoginOnFailure", OnSuccess = "LoginOnSuccess" },
         new { @id = "LoginButton", @style = "visibility:hidden;" })
-    
+
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/scripts/jquery.unobtrusive-ajax.min.js")
     @Scripts.Render("~/Scripts/chat.js")

@@ -35,24 +35,24 @@
     <div class="row mb-2 align-items-center">
         <div class="col-md-2 form-group">
             <label>Год</label>
-            <select class="custom-select form-control" ng-model="SelectedYear" ng-options="item as item.Year for item in Years track by item.Id" ng-change="FiltersChanged()">
-            </select>
+            <select class="custom-select form-control" ng-model="SelectedYear" ng-options="item as item.Year for item in Years track by item.Id" ng-change="FiltersChanged()"></select>
         </div>
         <div class="col-md-2 form-group">
             <label>Квартал</label>
-            <select class="custom-select form-control" ng-model="SelectedKvartal" ng-options="item as item.Name_Kv for item in Kvartals track by item.ID" ng-change="FiltersChanged()">
-            </select>
+            <select class="custom-select form-control" ng-model="SelectedKvartal" ng-options="item as item.Name_Kv for item in Kvartals track by item.ID" ng-change="FiltersChanged()"></select>
         </div>
         <div class="col-md-2 form-group">
             <label>Тип оплаты</label>
-            <select class="custom-select form-control" ng-model="SelectedTipOplati" ng-options="item as item.name_ru for item in TipOplaties track by item.code" ng-change="FiltersChanged()">
-            </select>
+            <select class="custom-select form-control" ng-model="SelectedTipOplati" ng-options="item as item.name_ru for item in TipOplaties track by item.code" ng-change="FiltersChanged()"></select>
         </div>
         <div class="col-md-2 form-group">
             <label>Вид оплаты</label>
-            <select class="custom-select form-control" ng-model="SelectedVidOplati" ng-options="item as item.name_ru for item in VidOplaties track by item.code" ng-change="FiltersChanged()">
-            </select>
+            <select class="custom-select form-control" ng-model="SelectedVidOplati" ng-options="item as item.name_ru for item in VidOplaties track by item.code" ng-change="FiltersChanged()"></select>
         </div>
+        <div class="col-md-2 form-group">
+            @Html.ActionLink("Загрузить Шаблон", "DownloadTemplateOp", "PrixodPutevok")
+        </div>
+        
     </div>
 
     <div class="row mb-30">
@@ -227,23 +227,22 @@
                         <div class="form-group row align-items-center">
                             <label class="col-md-5 col-form-label text-md-right py-0">Дата поступления:</label>
                             <div class="col-md-7">
-                                <input type="date" class="form-control" placeholder="Дата поступления" 
-                                       ng-model="DataPos"/>
+                                <input type="date" class="form-control" placeholder="Дата поступления"
+                                       ng-model="DataPos" />
                             </div>
                         </div>
                         <div class="form-group row align-items-center">
                             <label class="col-md-5 col-form-label text-md-right py-0">Номер документа:</label>
                             <div class="col-md-7">
-                                <input type="text" class="form-control" placeholder="Номер документа" 
-                                       ng-model="Num_Doc"/>
+                                <input type="text" class="form-control" placeholder="Номер документа"
+                                       ng-model="Num_Doc" />
                             </div>
                         </div>
                         <div class="form-group row align-items-center">
                             <label class="col-md-5 col-form-label text-md-right py-0">ИНН:</label>
                             <div class="col-md-7">
-                                <select class="custom-select form-control" ng-model="SelectedOrganization" ng-options="item as item.Name_Org for item in OrganizationsL track by item.ID">
-                                </select>
-                                
+                                <select class="custom-select form-control" ng-model="SelectedOrganization" ng-options="item as item.Name_Org for item in OrganizationsL track by item.ID"></select>
+
                             </div>
                         </div>
                         <div class="row">
@@ -252,12 +251,13 @@
                                 <a href="#" class="btn btn-blue d-block d-md-inline-block mb-2" data-toggle="modal" data-target="#organization"><i class="fas fa-search"></i> Выбрать</a>
                             </div>
                         </div>
+                       
                         @*<div class="form-group row align-items-center">
-                            <label class="col-md-5 col-form-label text-md-right py-0">Определенная организация:</label>
-                            <div class="col-md-7">
-                                <textarea class="form-control" placeholder="Определенная организация" ng-model="Name_org"></textarea>
-                            </div>
-                        </div>*@
+            <label class="col-md-5 col-form-label text-md-right py-0">Определенная организация:</label>
+            <div class="col-md-7">
+                <textarea class="form-control" placeholder="Определенная организация" ng-model="Name_org"></textarea>
+            </div>
+        </div>*@
                         <div class="form-group row align-items-center">
                             <label class="col-md-5 col-form-label text-md-right py-0">Не определенная организация:</label>
                             <div class="col-md-7">
@@ -274,13 +274,13 @@
                         <div class="form-group row align-items-center">
                             <label class="col-md-5 col-form-label text-md-right py-0">Сумма (Кт):</label>
                             <div class="col-md-7">
-                                <input type="number" class="form-control" placeholder="0,00" ng-model="Symma_KT"/>
+                                <input type="number" class="form-control" placeholder="0,00" ng-model="Symma_KT" />
                             </div>
                         </div>
                         <div class="form-group row align-items-center">
                             <label class="col-md-5 col-form-label text-md-right py-0">Сумма (Дт):</label>
                             <div class="col-md-7">
-                                <input type="number" class="form-control" placeholder="0,00" ng-model="Symma_DT"/>
+                                <input type="number" class="form-control" placeholder="0,00" ng-model="Symma_DT" />
                             </div>
                         </div>
                         <div class="mb-4 text-right">

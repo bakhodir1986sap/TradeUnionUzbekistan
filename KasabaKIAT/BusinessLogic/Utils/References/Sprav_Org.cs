@@ -451,7 +451,7 @@ namespace KasabaKiat.BusinessLogic.Utils.References
                                //&& otras.DepartmentBase == departmentBase
                                && (org.Name_Org.Contains((IsNameEmpty ? org.Name_Org: Name))) 
                                && (org.INN.Contains((IsInnEmpty ? org.INN : Inn)))
-                               && (org.ID_Ot == (OtrasId.HasValue ? OtrasId: org.ID_Ot))
+                               && (org.ID_Ot == (OtrasId.HasValue ? OtrasId == -1 ? null : OtrasId : org.ID_Ot))
                                orderby org.Name_Org
                                select new Sprav_OrgViewModel
                                {
@@ -510,8 +510,54 @@ namespace KasabaKiat.BusinessLogic.Utils.References
             return list;
         }
 
+
+
+
+        #region OraslCounts
+
         /// <summary>
         /// 
+        /// </summary>
+        /// <param name="departmentBase"></param>
+        /// <returns></returns>
+        public static long TotalCountOfNeotOrganization(string departmentBase)
+        {
+            long res = 0;
+
+            using (KasabaKIATEntities db = new KasabaKIATEntities())
+            {
+                res = (from org in db.tblSprav_Org
+                       where org.DepartmentBase == departmentBase && org.ID_Ot == null
+                       select org).Count();
+            }
+
+            return res;
+        }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="departmentBase"></param>
+        /// <returns></returns>
+        public static long TotalCountOfOrganization(string departmentBase)
+        {
+            long res = 0;
+
+            using (KasabaKIATEntities db = new KasabaKIATEntities())
+            {
+                res = (from org in db.tblSprav_Org
+                       where org.DepartmentBase == departmentBase
+                       select org).Count();
+            }
+
+            return res;
+        }
+
+        #endregion
+
+        /// <summary>
+        /// For modify purpose
         /// </summary>
         /// <param name="departmentBase"></param>
         /// <param name="Id"></param>

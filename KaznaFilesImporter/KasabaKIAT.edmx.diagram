@@ -27,6 +27,7 @@
         <EntityTypeShape EntityType="KasabaKIATModel.tblSprav_Otras" Width="1.5" PointX="12.375" PointY="0.75" />
         <EntityTypeShape EntityType="KasabaKIATModel.tbgl_balance" Width="1.5" PointX="0.75" PointY="13.75" />
         <EntityTypeShape EntityType="KasabaKIATModel.tbbu_balance" Width="1.5" PointX="13.375" PointY="4.75" />
+        <EntityTypeShape EntityType="KasabaKIATModel.tblSprav_Reg" Width="1.5" PointX="14.375" PointY="0.75" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

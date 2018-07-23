@@ -2054,7 +2054,7 @@ namespace KasabaKIAT.Controllers
 
             var total = new TotalOplataDtlResults()
             {
-                RaznostSummi = list.Sum(z => z.Symma ) * 45 / 100,
+                RaznostSummi = 0,//list.Sum(z => z.Symma ) * 45 / 100,
                 Summa = list.Sum(z => z.Symma)
             };
 
@@ -2344,6 +2344,24 @@ namespace KasabaKIAT.Controllers
             return Json("success", JsonRequestBehavior.AllowGet);
         }
 
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public FileResult DownloadTemplateOp()
+        {
+            var ArxiveDirectory = Properties.Settings.Default.TemplateDir;
+
+            var targetFile = Path.Combine(ArxiveDirectory, "OplataPutyovok.xlsx");
+
+            if (!System.IO.File.Exists(targetFile)) return null;
+
+            byte[] fileBytes = System.IO.File.ReadAllBytes(targetFile);
+            string fileName = "OplataPutyovok.xlsx";
+            return File(fileBytes, "application/vnd.ms-excel", fileName);
+        }
+
         /// <summary>
         /// 
         /// </summary>
@@ -2555,6 +2573,8 @@ namespace KasabaKIAT.Controllers
 
             try
             {
+                long debitOplataModel = 0;
+
                 foreach (var rasxodId in lmodel)
                 {
                     var rasxm = OplataRasxodDataManager.Get(new OplataRasxodiViewModel() {
@@ -2566,13 +2586,46 @@ namespace KasabaKIAT.Controllers
 
                     var model = rasxm.First();
 
+                    decimal puyovka_amount = 0;
+
+                    if (IdPr == 1)
+                    {
+                        //it by default 45%
+                        puyovka_amount = model.Symma.Value;
+                    }
+                    else if (IdPr == 2)
+                    {
+                        puyovka_amount = Decimal.Multiply(model.Symma.Value, 100 / 45);
+                    }
+                    else if (IdPr == 3)
+                    {
+                        puyovka_amount = 0;
+                    }
+
+
+                    //Debit side Rasxod putyovka change
+
+                    var putyovka = KasabaDB.tblOplata_Ras.Where(z => z.ID_Sanat == model.ID_Sanat
+                                                                && z.Num_Put == model.Num_Put
+                                                                && z.Priz == (int)OplataRasxPriz.OrganizasiyaRasxod).FirstOrDefault();
+
+                    if (putyovka != null)
+                    {
+                        putyovka.Symma = puyovka_amount;
+                        putyovka.ID_Pr = IdPr;
+                        debitOplataModel = putyovka.ID_Opl.Value;
+                    }
+                    
+
+                    //////////////////////////////////////
+
                     var mmodel = new OplataRasxodiViewModel
                     {
                         ID_Opl = IdOpl,
                         ID_Pr = IdPr,
                         ID_Sanat = model.ID_Sanat.Value,
                         Num_Put = model.Num_Put,
-                        Symma = model.Symma.Value,
+                        Symma = puyovka_amount,
                         Departmentbase = ustinfo.DepartmentBase,
                         UserId = UserId,
                         Priz = (int)OplataRasxPriz.OrganizasiyaOplata
@@ -2584,6 +2637,22 @@ namespace KasabaKIAT.Controllers
 
                     await KasabaDB.SaveChangesAsync();
                 }
+
+                var putyovkasDebit = KasabaDB.tblOplata_Ras.Where(z => z.ID_Opl == debitOplataModel);
+
+                if (putyovkasDebit.Any())
+                {
+                            var totalNew = putyovkasDebit.Sum(z => z.Symma);
+
+                    var putyovkasDebitMain = KasabaDB.tblOplatas.Where(z => z.ID == debitOplataModel).FirstOrDefault();
+
+                    if (putyovkasDebitMain != null)
+                    {
+                        putyovkasDebitMain.Symma_DT = totalNew;
+                    }
+                }
+
+                await KasabaDB.SaveChangesAsync();
 
                 return Json("success", JsonRequestBehavior.AllowGet);
             }

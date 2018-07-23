@@ -1465,5 +1465,14 @@ namespace KasabaKIAT.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_rt_GlavnayaKniga_Debit_Result>("sp_rt_GlavnayaKniga_Debit", yEARParameter, kvartalParameter, dEPARTMENT_CODEParameter);
         }
+    
+        public virtual ObjectResult<sp_rt_Organization_Summary_Result1> sp_rt_Organization_Summary(string dEPARTMENT_BASE)
+        {
+            var dEPARTMENT_BASEParameter = dEPARTMENT_BASE != null ?
+                new ObjectParameter("DEPARTMENT_BASE", dEPARTMENT_BASE) :
+                new ObjectParameter("DEPARTMENT_BASE", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_rt_Organization_Summary_Result1>("sp_rt_Organization_Summary", dEPARTMENT_BASEParameter);
+        }
     }
 }

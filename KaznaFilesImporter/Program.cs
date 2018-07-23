@@ -30,9 +30,7 @@ namespace KaznaFilesImporter
 
                 var obj = new EcpCalculation();
 
-                obj.CalcProcess();
-
-                obj.ModifyEcpObl();
+                obj.CalcProcessN();
 
                 Thread.Sleep(100000);
             }

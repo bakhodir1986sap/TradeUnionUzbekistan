@@ -52,5 +52,30 @@ namespace KasabaKIAT.BusinessLogic.Utils
                 o_kv = 4;
             }
         }
+
+
+        public static DateTime GetCurKvartalDate(int curYear, int curKvartal)
+        {
+            int month = 0;
+            if (curKvartal == 1)
+            {
+                month = 1;
+            }
+            else if (curKvartal == 2)
+            {
+                month = 4;
+            }
+            else if (curKvartal == 3)
+            {
+                month = 7;
+            }
+            else if (curKvartal == 4)
+            {
+                month = 10;
+            }
+            var dd = new DateTime(curYear, month, 1);
+
+            return dd;
+        }
     }
 }

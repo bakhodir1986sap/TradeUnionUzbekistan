@@ -1,0 +1,72 @@
+﻿@{
+    ViewBag.Title = "Отчеты";
+}
+<script src="~/Scripts/MyJavaScript/RazbivkaPostupleniya.js"></script>
+<div ng-controller="RazbivkaPostupleniya">
+    <div id="connection" style="visibility:hidden;position:absolute;margin-left:600px;margin-top:100px;z-index:9999">
+        <img src="~/Content/Login/buffering.gif" />
+    </div>
+    <section class="content__block container-fluid">
+        <div class="row mb-4 align-items-center">
+            <div class="col title__block">
+                <h4>Организации сводная</h4>
+                <nav aria-label="breadcrumb" class="breadcrumb__block">
+                    <ol class="breadcrumb">
+                        @*<li class="breadcrumb-item load"><a href="/Home/Otchot">Отчеты</a></li>*@
+                        <li class="breadcrumb-item load"><a href="/Otchot/index">Отчеты</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Организации сводная</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+        <form name="myForm1" novalidate>
+            @*<div class="row mb-4 align-items-center" style="padding-left:16px">
+                <div>
+                    <p>Тип оплаты:</p>
+                    <select style="width:200px;" ng-model="TipOplati" required ng-options="item as item.value for item in OplataTips track by item.id" class="custom-select form-control" name="Otrasl"></select>
+                    <span class="alert alert-warning" style="padding:0px" ng-show="myForm1.TipOplati.$error.required">Выберите поле</span>
+                </div>
+                <div style="margin-left:100px">
+                    <p>Дата:</p>
+                    <input class="form-control" style="width:200px;" required type="date" ng-model="ZB" id="ZAEZD_BEGIN" name="ZAEZD_BEGIN" />
+                    <span class="alert alert-warning" style="padding:0px" ng-show="myForm1.ZAEZD_BEGIN.$error.required">Выберите поле</span>
+                </div>
+            </div>*@
+            <div class="row mb-4 align-items-center" style="padding-left:128px">
+                <div>
+                    <button ng-click="LoadDATA_O()" class="btn btn-blue d-block d-md-inline-block mb-2"> Показать</button>
+                </div>
+                @*<div>
+                    <button ng-click="Clear()" style="margin-left:125px" class="btn btn-default d-block d-md-inline-block mb-2"> ОЧИСТИТЬ ФИЛЬТР</button>
+                </div>*@
+                <div>
+                    <button ng-show="showdata" ng-click="exportData()" class="btn btn-green d-block d-md-inline-block mb-3 mb-md-0" style="margin-left:500px"><i class="fas fa-file-excel"></i> Экспорт</button>
+                </div>
+            </div>
+        </form>
+        <div ng-show="showdata" class="row mb-4 align-items-center">
+            <div class="col-sm-6 text-md-left">
+                Количество Разбивка поступления : {{q}}
+            </div>
+        </div>
+        <div class="table-responsive box-shadow mb-4" ng-show="showdata" id="export">
+            <table class="table table__block t-hover">
+                <thead>
+                    <tr>
+                        <th>Отрасль</th>
+                        <th>Количество</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="poin" ng-repeat="item in DATA">
+                        <td style="text-align:left">{{item.branch}}</td>
+                        <td style="text-align:left">{{item.count}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+</div>
+
+
+

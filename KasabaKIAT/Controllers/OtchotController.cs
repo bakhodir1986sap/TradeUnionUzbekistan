@@ -387,6 +387,46 @@ namespace KasabaKIAT.Controllers
             return Json(OutData.ToList(), JsonRequestBehavior.AllowGet);
         }
 
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [OutputCache(Duration = 5, Location = OutputCacheLocation.Client, VaryByCustom = "userId")]
+        public ActionResult OrganizationSummary()
+        {
+            return View();
+        }
+
+
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="inn"></param>
+        /// <returns></returns>
+        [OutputCache(Duration = 5, Location = OutputCacheLocation.Client, VaryByParam = "inn", VaryByCustom = "userId")]
+        public JsonResult GetOrganizationSummary()
+        {
+            var UserId = Convert.ToInt32(User.Identity.Name);
+            var userInfo = UserInfo.GetUserInfo(UserId);
+
+            log.Info("GetOrganizationSummary");
+
+            var data = KasabaDB.sp_rt_Organization_Summary(userInfo.DepartmentBase);
+
+            var OutData = from outData in data
+                          select new
+                          {
+                              branch = outData.Branch,
+                              count = outData.colVo
+                          };
+
+            return Json(OutData.ToList(), JsonRequestBehavior.AllowGet);
+        }
+
         /// <summary>
         /// 
         /// </summary>

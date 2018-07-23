@@ -38,6 +38,9 @@
 
     };
 
+    $scope.TotalCount = 0;
+    $scope.TotalCountNeot = 0;
+
     function GetOrganizationList() {
         document.getElementById('connection').style.visibility = "visible";
         $("#hh").modal({
@@ -104,12 +107,6 @@
 
     $scope.GetOrgDataByInn = function (keyEvent, inn) {
 
-        //if (keyEvent.which === 9)
-        //{
-            //document.getElementById('connection').style.visibility = "visible";
-            //$("#hh").modal({
-            //    backdrop: 'static'
-            //});
             $http({
                 method: 'get',
                 url: '/Reference/GetOrgDataByInn?inn=' + inn
@@ -123,26 +120,13 @@
                     $scope.Organization.OKONX = response.data.Okonx;
                 }
 
-                //document.getElementById('connection').style.visibility = "hidden";
-                //$("#hh").modal('hide');
             }, function (error) {
-                //alertify.error("ошибка");
                 console.log("error in GetOrgDataByInn");
-                //document.getElementById('connection').style.visibility = "hidden";
-                //$("#hh").modal('hide');
             });
-        //}
     }
 
 
     $scope.GetBankNameByMFO = function (keyEvent, mfo) {
-
-        //if (keyEvent.which === 9)
-        //{
-             //document.getElementById('connection').style.visibility = "visible";
-             //$("#hh").modal({
-             //    backdrop: 'static'
-             //});
 
             $http({
                 method: 'get',
@@ -151,16 +135,9 @@
 
                 $scope.Organization.Bank = response.data.BankName;
 
-
-                //document.getElementById('connection').style.visibility = "hidden";
-                //$("#hh").modal('hide');
             }, function (error) {
-                //alertify.error("ошибка");
                 console.log("error in GetBankNameByMFO");
-                //document.getElementById('connection').style.visibility = "hidden";
-                //$("#hh").modal('hide');
             });
-        //}
     }
 
     $scope.addOrg = function () {
@@ -266,6 +243,8 @@
             url: '/PrixodPutevok/GetOrganizationList'
         }).then(function (response) {
             $scope.Organizations = response.data;
+            TotalCountOfOrganization();
+            TotalCountOfNeotOrganization();
             document.getElementById('connection').style.visibility = "hidden";
             $("#hh").modal('hide');
         }, function (error) {
@@ -273,6 +252,37 @@
             console.log("error in GetRekvizits");
             document.getElementById('connection').style.visibility = "hidden";
             $("#hh").modal('hide');
+        });
+    }
+
+
+
+    function TotalCountOfOrganization() {
+
+        $scope.TotalCount = 0;
+
+        $http({
+            method: 'get',
+            url: '/Reference/TotalCountOfOrganization'
+        }).then(function (response) {
+            $scope.TotalCount = response.data;
+        }, function (error) {
+            console.log("error in GetRekvizits");
+        });
+    }
+
+
+    function TotalCountOfNeotOrganization() {
+
+        $scope.TotalCountNeot = 0;
+
+        $http({
+            method: 'get',
+            url: '/Reference/TotalCountOfNeotOrganization'
+        }).then(function (response) {
+            $scope.TotalCountNeot = response.data;
+        }, function (error) {
+            console.log("error in GetRekvizits");
         });
     }
 
@@ -286,6 +296,8 @@
             url: '/PrixodPutevok/GetOrganizationFilter?Name=' + $scope.FilterName + '&Inn=' + $scope.FilterInn + '&OtrasId='+ $scope.FilterSelectedOtrasl.ID_Ot
         }).then(function (response) {
             $scope.Organizations = response.data;
+            TotalCountOfOrganization();
+            TotalCountOfNeotOrganization();
             document.getElementById('connection').style.visibility = "hidden";
             $("#hh").modal('hide');
         }, function (error) {
@@ -345,6 +357,9 @@
             {
                 alertify.success("Сохранение завершилась с ошибкой");
             }
+
+            TotalCountOfOrganization();
+            TotalCountOfNeotOrganization();
 
             document.getElementById('connection').style.visibility = "hidden";
             $("#hh").modal('hide');

@@ -62,7 +62,11 @@ namespace KasabaKIAT.Controllers
         [OutputCache(Duration = 5, Location = OutputCacheLocation.Client, VaryByCustom = "userId")]
         public JsonResult GetPlatejnoyePorucheniye()
         {
+            int UserId = Convert.ToInt32(User.Identity.Name);
+            var uu = UserInfo.GetUserInfo(UserId);
+
             var list = from pp in KasabaDB.tbbu_platejka
+                       where pp.DEPARTMENT_CODE == uu.DepartmentBase
                        select new platejkaOut
                        {
                            d0   =pp.REC_ID,

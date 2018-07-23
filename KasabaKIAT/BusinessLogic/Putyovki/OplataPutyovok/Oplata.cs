@@ -197,7 +197,7 @@ namespace KasabaKiat.BusinessLogic.Putyovki.OplataPutyovok
                         Num_Doc = post1.Num_Doc,
                         PrizOpl = (int)OplataRasxPriz.OrganizasiyaRasxod,
                         SmFil = post1.SmFil,
-                        Symma_DT = post1.Symma,
+                        Symma_DT = Decimal.Multiply(post1.Symma.Value, 0.45M),
                         Symma_KT = 0,
                         Tip_Org = true,
                         UserId = post1.UserId
@@ -221,7 +221,7 @@ namespace KasabaKiat.BusinessLogic.Putyovki.OplataPutyovok
                                 ID_Sanat = pDtl.id_sanat.Value,
                                 Num_Put = pDtl.num_put,
                                 Priz = (int)OplataRasxPriz.OrganizasiyaRasxod,
-                                Symma = pDtl.symma.Value,
+                                Symma = Decimal.Multiply(pDtl.symma.Value, 0.45M),
                                 UserId = pDtl.userid.Value
                             };
 
@@ -350,7 +350,7 @@ namespace KasabaKiat.BusinessLogic.Putyovki.OplataPutyovok
                     var find = await (db.tblOplata_Ras.Where(z => z.Priz == (int)OplataRasxPriz.OrganizasiyaOplata
                                                         && z.ID_Sanat == putyovka.IdSanat
                                                         && z.Num_Put == putyovka.Num_Put
-                                                        && z.Symma == putyovka.Price)).ToArrayAsync();
+                                                        )).ToArrayAsync();
 
                     if (find.Any())
                     {
@@ -527,8 +527,12 @@ namespace KasabaKiat.BusinessLogic.Putyovki.OplataPutyovok
 
             using (KasabaKIATEntities db = new KasabaKIATEntities())
             {
+
+                var IdOrg = db.tblOplatas.Where(z => z.ID == IdOpl).First().ID_Otras;
+
+
                 var query = await (from oplMst in db.tblOplatas
-                            where (oplMst.ID == IdOpl &&
+                            where (oplMst.ID_Otras == IdOrg &&
                             oplMst.PrizOpl == (int)OplataRasxPriz.OrganizasiyaOplata)
                             select new
                             {
@@ -542,14 +546,23 @@ namespace KasabaKiat.BusinessLogic.Putyovki.OplataPutyovok
                     OplataAmount = 0;
                 }
 
-                var PutyovkaOplAmt = db.tblOplata_Ras.Where(z => z.ID_Opl == IdOpl).Sum(z => z.Symma);
+                var OplatasByOrg = db.tblOplatas.Where(z => z.ID_Otras == IdOrg &&
+                            z.PrizOpl == (int)OplataRasxPriz.OrganizasiyaOplata);
 
-                if (!PutyovkaOplAmt.HasValue)
+                decimal? SymmaRaznesen = 0;
+                foreach(var opl in OplatasByOrg)
                 {
-                    PutyovkaOplAmt = 0;
+                    var PutyovkaOplAmts = db.tblOplata_Ras.Where(z => z.ID_Opl == opl.ID).Sum(z => z.Symma);
+
+                    if (!PutyovkaOplAmts.HasValue)
+                    {
+                        PutyovkaOplAmts = 0;
+                    }
+
+                    SymmaRaznesen += PutyovkaOplAmts;
                 }
 
-                totalRemain = OplataAmount.Value - PutyovkaOplAmt.Value;
+                totalRemain = OplataAmount.Value - SymmaRaznesen.Value;
             }
 
             return totalRemain;

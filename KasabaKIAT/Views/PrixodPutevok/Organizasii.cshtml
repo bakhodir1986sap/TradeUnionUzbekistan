@@ -43,9 +43,24 @@
                         <label>Отрасль</label>
                         <select class="custom-select" required name="Otrasl" ng-model="FilterSelectedOtrasl" ng-options="item as item.Name_Ot for item in Otrasl track by item.ID_Ot"></select>
                     </div>
+                    <div class="col-md-2 form-group">
+                        <label>Общее кол-во</label>
+                        <input class="form-control" type="text" readonly ng-model="TotalCount" /><br />
+                    </div>
+                    <div class="col-md-2 form-group">
+                        <label>Не определенных</label>
+                        <input class="form-control" type="text" readonly ng-model="TotalCountNeot" /><br />
+                    </div>
+                    <div class="col-md-2 form-group">
+                        <label>Определенных</label>
+                        <input class="form-control" type="text" readonly ng-model="TotalCount - TotalCountNeot" /><br />
+                    </div>
+                    <div class="col-md-2 form-group">
+                        <a href="/Otchot/OrganizationSummary" class="list-group-item list-group-item-action load">Организации сводная</a>
+                    </div>
+                    </div>
+                    <button class="btn btn-green" ng-click="GetOrganizationsFilter()"><i class="btn-green"></i> Поиск</button>
                 </div>
-                <button class="btn btn-green" ng-click="GetOrganizationsFilter()"><i class="btn-green"></i> Поиск</button>
-            </div>
         </div>
         <div class="table-responsive box-shadow mb-4" id="export">
             <table class="table table__block t-hover">

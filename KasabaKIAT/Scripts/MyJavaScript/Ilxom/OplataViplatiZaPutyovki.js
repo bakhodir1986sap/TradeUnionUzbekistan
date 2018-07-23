@@ -498,6 +498,7 @@
         }).then(function (response) {
 
             $scope.OplataSaldo = response.data;
+            $scope.SelectedPutyovkaRaznisa = $scope.OplataSaldo;
 
             document.getElementById('connection').style.visibility = "hidden";
             $("#hh").modal('hide');
@@ -627,16 +628,16 @@
 
 
         if (tipOpl == 4) {
-            addType = 'AddOplataMainOplataKurortniy';
+            addType = 'ModifyOplataMainOplataKurortniy';
         }
         else if (tipOpl == 3) {
-            addType = 'AddOplataMainOplataPutyovok';
+            addType = 'ModifyOplataMainOplataPutyovok';
         }
         else if (tipOpl == 6) {
-            addType = 'AddOplataMainOplataVozvrat';
+            addType = 'ModifyOplataMainOplataVozvrat';
         }
         else {
-            addType = 'AddOplataMain';
+            addType = 'ModifyOplataMain';
         }
 
         $http({
@@ -764,7 +765,15 @@
         for (var i = 0, l = $scope.SelectedPutyovka.length; i < l; ++i) {
             var value = $scope.SelectedPutyovka[i];
 
-            summa = summa + value.Symma;
+            if ($scope.SelectedProcent.ID === 1) {
+                summa = summa + value.Symma;
+            }
+            else if ($scope.SelectedProcent.ID === 2) {
+                summa = summa + value.Symma * 100 /45;
+            } else if ($scope.SelectedProcent.ID === 3) {
+                summa = summa + value.Symma * 0;
+            }
+            
 
             console.log('putyovka: ' + value.ID);
         }

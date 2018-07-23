@@ -12,13 +12,21 @@ namespace ExperimentConsole
     {
         static void Main(string[] args)
         {
-            var ttt = RuDateAndMoneyConverter.CurrencyToTxt(1200000, true);
+            string[] numbers = Regex.Split(@"08102~2001108600184013212110093~100010860184017097400221003~202001213~СамДЧТИ~(Инновация) 2018 йил апрел ойи учун иш хакидан  25% ажратма кучирилмокда; Ст.  42.99.990", @"\D+");
 
-            var ttt2 = RuDateAndMoneyConverter.DateToTextQuarter(DateTime.Now);
+            //other case try to get INN 
+            var Inn = numbers.FirstOrDefault(x => x.Length == 9);
 
-            Console.WriteLine(ttt);
-
-            Console.WriteLine(ttt2);
+            if ((Inn != null) && (Inn.StartsWith("2") || (Inn.StartsWith("3"))))
+            {
+                //model.remark += string.Format("INN:{0};", Inn);
+                //innFromDtl = Inn;
+            }
+            else
+            {
+                //model.remark += string.Format("INN:{0};", payment.CLINN);
+                //innFromDtl = payment.CLINN;
+            }
 
             Console.ReadKey();
         }

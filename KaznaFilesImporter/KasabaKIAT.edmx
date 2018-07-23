@@ -338,6 +338,18 @@ warning 6002: The table/view 'KasabaKIAT_N1.dbo.tbbFermer' does not have a prima
           <Property Name="DepartmentBase" Type="nvarchar" MaxLength="255" />
           <Property Name="BRANCH_CODE" Type="nvarchar" MaxLength="10" />
         </EntityType>
+        <EntityType Name="tblSprav_Reg">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NameReg" Type="nvarchar" MaxLength="50" />
+          <Property Name="CodeReg" Type="int" />
+          <Property Name="UserId" Type="bigint" />
+          <Property Name="DepartmentBase" Type="nvarchar" MaxLength="255" />
+          <Property Name="VilId" Type="bigint" />
+          <Property Name="SOATO_CODE" Type="nvarchar" MaxLength="10" />
+        </EntityType>
         <EntityType Name="tbsp_soato_new">
           <Key>
             <PropertyRef Name="ID" />
@@ -417,6 +429,7 @@ warning 6035: The relationship 't_egrpo_4' has columns that are not part of the 
         <Function Name="sp_pr_GetNewBankProvodki" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="sp_pr_GetNewECPMOIFY" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="sp_pr_GetNewTransactions" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="sp_pr_GetNewTransactionsN1" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <EntityContainer Name="KasabaKIATModelStoreContainer">
           <EntitySet Name="Kazna_Account" EntityType="Self.Kazna_Account" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="KaznaBankFile" EntityType="Self.KaznaBankFile" Schema="dbo" store:Type="Tables" />
@@ -433,6 +446,7 @@ warning 6035: The relationship 't_egrpo_4' has columns that are not part of the 
           <EntitySet Name="tblPred" EntityType="Self.tblPred" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblSprav_Org" EntityType="Self.tblSprav_Org" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblSprav_Otras" EntityType="Self.tblSprav_Otras" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblSprav_Reg" EntityType="Self.tblSprav_Reg" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbsp_soato_new" EntityType="Self.tbsp_soato_new" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TimeShedulers" EntityType="Self.TimeShedulers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbbFermer" EntityType="Self.tbbFermer" store:Type="Tables" store:Schema="dbo">
@@ -519,6 +533,8 @@ warning 6035: The relationship 't_egrpo_4' has columns that are not part of the 
           <EntitySet Name="tblSprav_Otras" EntityType="KasabaKIATModel.tblSprav_Otras" />
           <EntitySet Name="tbgl_balance" EntityType="KasabaKIATModel.tbgl_balance" />
           <EntitySet Name="tbbu_balance" EntityType="KasabaKIATModel.tbbu_balance" />
+          <EntitySet Name="tblSprav_Reg" EntityType="KasabaKIATModel.tblSprav_Reg" />
+          <FunctionImport Name="sp_pr_GetNewTransactionsN1" ReturnType="Collection(KasabaKIATModel.sp_pr_GetNewTransactionsN1_Result1)" />
           </EntityContainer>
         <EntityType Name="KaznaSverkaFile">
           <Key>
@@ -986,6 +1002,51 @@ warning 6035: The relationship 't_egrpo_4' has columns that are not part of the 
           <Property Name="DEBIT_TRANS" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="CREDIT_TRANS" Type="Decimal" Precision="19" Scale="4" />
         </EntityType>
+        <ComplexType Name="sp_pr_GetNewTransactionsN1_Result">
+          <Property Type="Decimal" Name="PAYMENT_ID" Nullable="false" Precision="12" Scale="0" />
+          <Property Type="Decimal" Name="PROFSOUZ_AMT" Nullable="true" Precision="38" Scale="17" />
+          <Property Type="Decimal" Name="FEDERATION_AMT" Nullable="true" Precision="38" Scale="14" />
+          <Property Type="Decimal" Name="OBLSOVPROF_AMT" Nullable="true" Precision="38" Scale="14" />
+          <Property Type="String" Name="OBL_DEPARTMENT_BASE" Nullable="true" MaxLength="5" />
+          <Property Type="Int32" Name="PROVODKA_ID" Nullable="true" />
+          <Property Type="String" Name="PURPOSE" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="CLNAME" Nullable="true" MaxLength="160" />
+          <Property Type="String" Name="INN" Nullable="true" MaxLength="9" />
+          <Property Type="String" Name="SOATO" Nullable="true" MaxLength="7" />
+          <Property Type="String" Name="SOATO_NAME" Nullable="true" MaxLength="1000" />
+          <Property Type="String" Name="CLACC" Nullable="true" MaxLength="20" />
+          <Property Type="DateTime" Name="OPERDAY" Nullable="true" Precision="23" />
+          <Property Type="Decimal" Name="GRPID" Nullable="true" Precision="12" Scale="0" />
+          <Property Type="String" Name="CLNAME1" Nullable="true" MaxLength="160" />
+        </ComplexType>
+        <EntityType Name="tblSprav_Reg">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NameReg" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CodeReg" Type="Int32" />
+          <Property Name="UserId" Type="Int64" />
+          <Property Name="DepartmentBase" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="VilId" Type="Int64" />
+          <Property Name="SOATO_CODE" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <ComplexType Name="sp_pr_GetNewTransactionsN1_Result1">
+          <Property Type="Decimal" Name="PAYMENT_ID" Nullable="false" Precision="12" Scale="0" />
+          <Property Type="Decimal" Name="PROFSOUZ_AMT" Nullable="true" Precision="38" Scale="17" />
+          <Property Type="Decimal" Name="FEDERATION_AMT" Nullable="true" Precision="38" Scale="14" />
+          <Property Type="Decimal" Name="OBLSOVPROF_AMT" Nullable="true" Precision="38" Scale="14" />
+          <Property Type="String" Name="OBL_DEPARTMENT_BASE" Nullable="true" MaxLength="5" />
+          <Property Type="Int32" Name="PROVODKA_ID" Nullable="true" />
+          <Property Type="String" Name="PURPOSE" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="CLNAME" Nullable="true" MaxLength="160" />
+          <Property Type="String" Name="INN" Nullable="true" MaxLength="9" />
+          <Property Type="String" Name="SOATO" Nullable="true" MaxLength="7" />
+          <Property Type="String" Name="SOATO_NAME" Nullable="true" MaxLength="1000" />
+          <Property Type="String" Name="CLACC" Nullable="true" MaxLength="20" />
+          <Property Type="DateTime" Name="OPERDAY" Nullable="true" Precision="23" />
+          <Property Type="Decimal" Name="GRPID" Nullable="true" Precision="12" Scale="0" />
+        </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1408,6 +1469,39 @@ warning 6035: The relationship 't_egrpo_4' has columns that are not part of the 
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="tblSprav_Reg">
+            <EntityTypeMapping TypeName="KasabaKIATModel.tblSprav_Reg">
+              <MappingFragment StoreEntitySet="tblSprav_Reg">
+                <ScalarProperty Name="SOATO_CODE" ColumnName="SOATO_CODE" />
+                <ScalarProperty Name="VilId" ColumnName="VilId" />
+                <ScalarProperty Name="DepartmentBase" ColumnName="DepartmentBase" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="CodeReg" ColumnName="CodeReg" />
+                <ScalarProperty Name="NameReg" ColumnName="NameReg" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="sp_pr_GetNewTransactionsN1" FunctionName="KasabaKIATModel.Store.sp_pr_GetNewTransactionsN1">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="KasabaKIATModel.sp_pr_GetNewTransactionsN1_Result1">
+                <ScalarProperty Name="PAYMENT_ID" ColumnName="PAYMENT_ID" />
+                <ScalarProperty Name="PROFSOUZ_AMT" ColumnName="PROFSOUZ_AMT" />
+                <ScalarProperty Name="FEDERATION_AMT" ColumnName="FEDERATION_AMT" />
+                <ScalarProperty Name="OBLSOVPROF_AMT" ColumnName="OBLSOVPROF_AMT" />
+                <ScalarProperty Name="OBL_DEPARTMENT_BASE" ColumnName="OBL_DEPARTMENT_BASE" />
+                <ScalarProperty Name="PROVODKA_ID" ColumnName="PROVODKA_ID" />
+                <ScalarProperty Name="PURPOSE" ColumnName="PURPOSE" />
+                <ScalarProperty Name="CLNAME" ColumnName="CLNAME" />
+                <ScalarProperty Name="INN" ColumnName="INN" />
+                <ScalarProperty Name="SOATO" ColumnName="SOATO" />
+                <ScalarProperty Name="SOATO_NAME" ColumnName="SOATO_NAME" />
+                <ScalarProperty Name="CLACC" ColumnName="CLACC" />
+                <ScalarProperty Name="OPERDAY" ColumnName="OPERDAY" />
+                <ScalarProperty Name="GRPID" ColumnName="GRPID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

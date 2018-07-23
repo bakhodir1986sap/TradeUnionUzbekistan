@@ -6080,6 +6080,9 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <Parameter Name="SanatID" Type="int" Mode="In" />
           <Parameter Name="departmentBase" Type="varchar" Mode="In" />
         </Function>
+        <Function Name="sp_rt_Organization_Summary" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="DEPARTMENT_BASE" Type="nvarchar" Mode="In" />
+        </Function>
         <Function Name="sp_rt_OtchetMedRegRabotnikov" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="IdOrg" Type="bigint" Mode="In" />
           <Parameter Name="beginDate" Type="datetime" Mode="In" />
@@ -13966,6 +13969,9 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <EntitySet Name="tbbu_finOtchetSetting" EntityType="KasabaKIATModel.tbbu_finOtchetSetting" />
           <EntitySet Name="tblOtchetiLagers" EntityType="KasabaKIATModel.tblOtchetiLager" />
           <EntitySet Name="tblZayavkiLagers" EntityType="KasabaKIATModel.tblZayavkiLager" />
+          <FunctionImport Name="sp_rt_Organization_Summary" ReturnType="Collection(KasabaKIATModel.sp_rt_Organization_Summary_Result1)">
+            <Parameter Name="DEPARTMENT_BASE" Mode="In" Type="String" />
+          </FunctionImport>
           </EntityContainer>
         <ComplexType Name="sp_get_BankPaymentCompanyYearlyQ_Result">
           <Property Type="Int32" Name="MONTH_NUM" Nullable="true" />
@@ -15796,6 +15802,14 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <Property Name="DEPARTMENT_CODE" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="UserId" Type="Int64" Nullable="false" />
         </EntityType>
+        <ComplexType Name="sp_rt_Organization_Summary_Result">
+          <Property Type="String" Name="Branch" Nullable="true" MaxLength="200" />
+          <Property Type="Int32" Name="Column1" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="sp_rt_Organization_Summary_Result1">
+          <Property Type="String" Name="Branch" Nullable="true" MaxLength="200" />
+          <Property Type="Int32" Name="colVo" Nullable="true" />
+        </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -19824,6 +19838,14 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="sp_rt_Organization_Summary" FunctionName="KasabaKIATModel.Store.sp_rt_Organization_Summary">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="KasabaKIATModel.sp_rt_Organization_Summary_Result1">
+                <ScalarProperty Name="Branch" ColumnName="Branch" />
+                <ScalarProperty Name="colVo" ColumnName="colVo" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

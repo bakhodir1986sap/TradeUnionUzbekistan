@@ -705,6 +705,47 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.GlavnayaKniga
                 retList.Add(tableRow);
             }
 
+            var tableRow1 = new GlavnayaKnigaTable();
+
+            tableRow1.field0010 = "Итого:";
+
+            tableRow1.field0011 = retList.Sum(z => z.field0011);
+            tableRow1.field0012 = retList.Sum(z => z.field0012);
+            tableRow1.field0013 = retList.Sum(z => z.field0013);
+            tableRow1.field0014 = retList.Sum(z => z.field0014);
+            tableRow1.field0015 = retList.Sum(z => z.field0015);
+            tableRow1.field0016 = retList.Sum(z => z.field0016);
+            tableRow1.field0017 = retList.Sum(z => z.field0017);
+            tableRow1.field0018 = retList.Sum(z => z.field0018);
+            tableRow1.field0019 = retList.Sum(z => z.field0019);
+            tableRow1.field0020 = retList.Sum(z => z.field0020);
+            tableRow1.field0021 = retList.Sum(z => z.field0021);
+            tableRow1.field0022 = retList.Sum(z => z.field0022);
+            tableRow1.field0023 = retList.Sum(z => z.field0023);
+
+            tableRow1.field0024 = "Итого: ";
+
+            tableRow1.field0025 = retList.Sum(z => z.field0025);
+            tableRow1.field0026 = retList.Sum(z => z.field0026);
+            tableRow1.field0027 = retList.Sum(z => z.field0027);
+            tableRow1.field0028 = retList.Sum(z => z.field0028);
+            tableRow1.field0029 = retList.Sum(z => z.field0029);
+            tableRow1.field0030 = retList.Sum(z => z.field0030);
+            tableRow1.field0031 = retList.Sum(z => z.field0031);
+            tableRow1.field0032 = retList.Sum(z => z.field0032);
+            tableRow1.field0033 = retList.Sum(z => z.field0033);
+            tableRow1.field0034 = retList.Sum(z => z.field0034);
+            tableRow1.field0035 = retList.Sum(z => z.field0035);
+            tableRow1.field0036 = retList.Sum(z => z.field0036);
+            tableRow1.field0037 = retList.Sum(z => z.field0037);
+
+            tableRow1.field0038 = retList.Sum(z => z.field0038);
+            tableRow1.field0039 = retList.Sum(z => z.field0039);
+
+            tableRow1.field0040 = "";
+
+            retList.Add(tableRow1);
+
             return retList;
         }
 

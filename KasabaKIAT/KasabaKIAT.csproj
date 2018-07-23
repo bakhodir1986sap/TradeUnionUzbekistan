@@ -646,6 +646,12 @@
     <Compile Include="Models\sp_rt_OperativkaPutyovki_Result1.cs">
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\sp_rt_Organization_Summary_Result.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_rt_Organization_Summary_Result1.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\sp_rt_OtchetMedRegRabotnikov_Result.cs">
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
@@ -1872,6 +1878,7 @@
     <Content Include="Views\Otchot\ProvodkiSummary.cshtml" />
     <Content Include="Views\Otchot\GlavnayaKnigaN.cshtml" />
     <Content Include="Views\Otchot\PostupleniyaOtrasliPivod.cshtml" />
+    <Content Include="Views\Otchot\OrganizationSummary.cshtml" />
     <None Include="Web References\KurortUrlService\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>

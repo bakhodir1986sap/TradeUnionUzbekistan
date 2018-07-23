@@ -1,4 +1,5 @@
 ﻿using KasabaKIAT.BusinessLogic.Buxgalteriya.GlavnayaKniga;
+using KasabaKIAT.BusinessLogic.ClosePeriod.CloseKvartal;
 using KasabaKIAT.BusinessLogic.Utils;
 using KasabaKIAT.Models;
 using KasabaKIAT.ViewModel.Buxgalteriya;
@@ -14,7 +15,27 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.Provodki
     {
         public static void Create(ref ProvodkiViewModel model, KasabaKIATEntities db, out tbbu_provodki provod )
         {
-                tbbu_provodki reg = new tbbu_provodki();
+            int cur_year = DateOperations.GetYear(model.trdt.Value);
+            int cur_kvartal = DateOperations.GetQuarter(model.trdt.Value);
+
+            var curKvartalc = new CloseKvartal();
+            var curKvartal = curKvartalc.GetCloseKvartalRow(model.department_base);
+
+            if (curKvartal != null)
+            {
+                if ((curKvartal.curkv_year.Value != cur_year) || (curKvartal.curkv.Value != cur_kvartal))
+                {
+                    model.trdt = DateOperations.GetCurKvartalDate(curKvartal.curkv_year.Value, curKvartal.curkv.Value);
+                    cur_year = curKvartal.curkv_year.Value;
+                    cur_kvartal = curKvartal.curkv.Value;
+                }
+            }
+            else
+            {
+                throw new ApplicationException("Current Kvartal Info not available = " + cur_year + "   " + cur_kvartal);
+            }
+
+            tbbu_provodki reg = new tbbu_provodki();
 
                 reg.DEPARTMENT_BASE = model.department_base ;
                 reg.USER_ID         = model.user_id         ;
@@ -37,9 +58,6 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.Provodki
                 reg.TRREFNO         = model.trrefno         ;
 
                 provod = db.tbbu_provodki.Add(reg);
-
-                int cur_year = DateOperations.GetYear(model.trdt.Value);
-                int cur_kvartal = DateOperations.GetQuarter(model.trdt.Value);
 
                 var balance = new BuxTransaction(cur_year,
                 cur_kvartal,

@@ -1,6 +1,7 @@
 ﻿using KasabaKiat.BusinessLogic.Putyovki.OplataPutyovok;
 using KasabaKiat.ViewModel.Putyovki;
 using KasabaKIAT.BusinessLogic.Buxgalteriya.Provodki;
+using KasabaKIAT.BusinessLogic.ClosePeriod.CloseKvartal;
 using KasabaKIAT.BusinessLogic.Utils;
 using KasabaKIAT.Models;
 using KasabaKIAT.ViewModel.Buxgalteriya;
@@ -210,7 +211,7 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.PrixodChastichka
                 {
                     foreach(var pp in provodkaList)
                     {
-                        var trans = new ProvodkiViewModel
+                         var trans = new ProvodkiViewModel
                         {
                             comment = "Частичная оплата",
                             department_base = pp.DEPARTMENT_BASE,
@@ -237,6 +238,26 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.PrixodChastichka
                             OrgId = orgs.First().ID;
                         }
 
+                        //Privedeniya kvartala
+                        int cur_year = DateOperations.GetYear(pp.TRAN_DATE);
+                        int cur_kvartal = DateOperations.GetQuarter(pp.TRAN_DATE);
+
+                        var curKvartalc = new CloseKvartal();
+                        var curKvartal = curKvartalc.GetCloseKvartalRow(pp.DEPARTMENT_BASE);
+
+                        if (curKvartal != null)
+                        {
+                            if ((curKvartal.curkv_year.Value != cur_year) || (curKvartal.curkv.Value != cur_kvartal))
+                            {
+                                pp.TRAN_DATE = DateOperations.GetCurKvartalDate(curKvartal.curkv_year.Value, curKvartal.curkv.Value);
+                                cur_year = curKvartal.curkv_year.Value;
+                                cur_kvartal = curKvartal.curkv.Value;
+                            }
+                        }
+                        else
+                        {
+                            throw new ApplicationException("Current Kvartal Info not available = " + cur_year + "   " + cur_kvartal);
+                        }
 
                         var oplata = new OplataViewModel
                         {

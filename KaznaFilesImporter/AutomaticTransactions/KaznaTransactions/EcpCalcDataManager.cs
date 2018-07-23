@@ -12,51 +12,47 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.Provodki.AutomaticTransactions.K
     {
         public static void Create(ref EcpCalcViewModel model, KasabaKIATEntities db)
         {
-                tbbu_ecp_calc reg = new tbbu_ecp_calc();
+            long? payment_id = model.payment_id;
 
-                //reg.ID                    = model.id                      ;
-                reg.PAYMENT_ID              = model.payment_id              ;
-                reg.PROFSOUZ_AMT            = model.profsouz_amt            ;
-                reg.FEDERATION_AMT          = model.federation_amt          ;
-                reg.OBLSOVPROF_AMT          = model.oblsovprof_amt          ;
-                reg.OBL_DEPARTMENT_BASE     = model.obl_department_base     ;
-                reg.PROVODKA_ID             = model.provodka_id             ;
-                reg.REMARK                  = model.remark                  ;
-                reg.INN                     = model.inn                     ;
-                reg.SOATO                   = model.soato                   ;
-                reg.SOATO_NAME              = model.soato_name              ;
-                reg.OPERDATE = model.operdate;
-                reg.OKONX_ID = model.okonx_id;
-                reg.OKONX_NAME = model.okonx_name;
-                reg.BRANCH_CODE = model.branch_code;
-                reg.BRANCH_NAME = model.branch_name;
+                var ecpCalc = db.tbbu_ecp_calc.Where(z => z.PAYMENT_ID == payment_id);
 
-                var planOtrasl = db.tbbu_ecp_calc.Add(reg);
-
-                try
+                if (ecpCalc.Any())
                 {
-                    //Console.WriteLine("SaveChanges");
-                    //db.SaveChanges();
+                    var ecp_calc = ecpCalc.FirstOrDefault();
 
-                    //model.id = reg.ID;
+                    ecp_calc.INN = model.inn;
+
+                    ecp_calc.INN = model.inn;
+                    ecp_calc.SOATO = model.soato;
+                    ecp_calc.SOATO_NAME = model.soato_name;
+                    ecp_calc.OPERDATE = model.operdate;
+                    ecp_calc.OKONX_ID = model.okonx_id;
+                    ecp_calc.OKONX_NAME = model.okonx_name;
+                    ecp_calc.BRANCH_CODE = model.branch_code;
+                    ecp_calc.BRANCH_NAME = model.branch_name;
                 }
-                catch (DbEntityValidationException e)
+                else
                 {
-                    foreach (var eve in e.EntityValidationErrors)
-                    {
-                        Console.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
-                            eve.Entry.Entity.GetType().Name, eve.Entry.State);
-                        foreach (var ve in eve.ValidationErrors)
-                        {
-                            Console.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
-                                ve.PropertyName, ve.ErrorMessage);
-                        }
-                    }
-                    throw;
-                }
-                catch(Exception ex)
-                {
-                    Console.WriteLine(ex.ToString());
+                    tbbu_ecp_calc reg = new tbbu_ecp_calc();
+
+                    //reg.ID                    = model.id                      ;
+                    reg.PAYMENT_ID = model.payment_id;
+                    reg.PROFSOUZ_AMT = model.profsouz_amt;
+                    reg.FEDERATION_AMT = model.federation_amt;
+                    reg.OBLSOVPROF_AMT = model.oblsovprof_amt;
+                    reg.OBL_DEPARTMENT_BASE = model.obl_department_base;
+                    reg.PROVODKA_ID = model.provodka_id;
+                    reg.REMARK = model.remark;
+                    reg.INN = model.inn;
+                    reg.SOATO = model.soato;
+                    reg.SOATO_NAME = model.soato_name;
+                    reg.OPERDATE = model.operdate;
+                    reg.OKONX_ID = model.okonx_id;
+                    reg.OKONX_NAME = model.okonx_name;
+                    reg.BRANCH_CODE = model.branch_code;
+                    reg.BRANCH_NAME = model.branch_name;
+
+                    var planOtrasl = db.tbbu_ecp_calc.Add(reg);
                 }
         }
 

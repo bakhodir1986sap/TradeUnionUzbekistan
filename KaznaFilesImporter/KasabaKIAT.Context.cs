@@ -45,6 +45,7 @@ namespace KaznaFilesImporter
         public virtual DbSet<tblSprav_Otras> tblSprav_Otras { get; set; }
         public virtual DbSet<tbgl_balance> tbgl_balance { get; set; }
         public virtual DbSet<tbbu_balance> tbbu_balance { get; set; }
+        public virtual DbSet<tblSprav_Reg> tblSprav_Reg { get; set; }
     
         public virtual int sp_im_KaznaNewOrg()
         {
@@ -64,6 +65,11 @@ namespace KaznaFilesImporter
         public virtual ObjectResult<sp_pr_GetNewBankProvodki_Result> sp_pr_GetNewBankProvodki()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_pr_GetNewBankProvodki_Result>("sp_pr_GetNewBankProvodki");
+        }
+    
+        public virtual ObjectResult<sp_pr_GetNewTransactionsN1_Result1> sp_pr_GetNewTransactionsN1()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_pr_GetNewTransactionsN1_Result1>("sp_pr_GetNewTransactionsN1");
         }
     }
 }

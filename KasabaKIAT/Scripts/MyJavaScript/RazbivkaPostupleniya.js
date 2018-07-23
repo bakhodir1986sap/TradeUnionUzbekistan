@@ -16,6 +16,13 @@
         LoadDATA_N($scope.TipOplati.id, $scope.ZB);
     }
 
+    $scope.LoadDATA_O = function () {
+        $locale.NUMBER_FORMATS.GROUP_SEP = " ";
+        $locale.NUMBER_FORMATS.DECIMAL_SEP = ",";
+        LoadDATA_O();
+    }
+
+
     function LoadDATA(s,b,bg,end) {
         document.getElementById('connection').style.visibility = "visible";
         $("#hh").modal({
@@ -53,6 +60,35 @@
         $http({
             method: 'POST',
             url: "/Otchot/GetRazbivkaPostupleniyaN?payType=" + s + "&bg=" + bg.toISOString() ,
+        }).then(function (d) {
+            if (d.data.length != 0) {
+                $scope.q = d.data.length;
+                $scope.showdata = true;
+            } else {
+                $scope.showdata = false;
+            }
+            $scope.DATA = d.data;
+            console.log(d.data);
+            document.getElementById('connection').style.visibility = "hidden";
+            $("#hh").modal('hide');
+        }, function (error) {
+            alertify.error("ошибка");
+            console.log("error in GetPostupleniya -> ", error);
+            document.getElementById('connection').style.visibility = "hidden";
+            $("#hh").modal('hide');
+        });
+    }
+
+
+    function LoadDATA_O() {
+        document.getElementById('connection').style.visibility = "visible";
+        $("#hh").modal({
+            backdrop: 'static',
+            backdrop: 'static'
+        });
+        $http({
+            method: 'POST',
+            url: "/Otchot/GetOrganizationSummary",
         }).then(function (d) {
             if (d.data.length != 0) {
                 $scope.q = d.data.length;

@@ -335,7 +335,7 @@
             </div>
         </footer>
         <div class="modal__block modal fade" id="organization" tabindex="-1" role="dialog" aria-labelledby="organizationLabel" data-backdrop="static" data-keyboard="false">
-            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-dialog modal-dialog-centered modal-lg" role="document" style="max-width: 80%">
                 <div class="modal-content">
                     <div class="modal-body" style="max-height: calc(100vh - 210px); overflow-y: auto;">
                         <div class="row mb-4 align-items-center">
@@ -349,8 +349,15 @@
                             </div>
                         </div>
                         <div>
-                            <input type="text" style="margin-bottom:5px" placeholder="Наименование" ng-model="FilterName" />
-                            <br /><input type="text" style="margin-bottom:5px" placeholder="ИНН" ng-model="FilterInn" /><br />
+                            <div class="row">    
+                                <div class="col-md-3">
+                                    <input class="form-control" type="text" style="margin-bottom:5px" placeholder="Наименование" ng-model="FilterName" />
+                                    <br />
+                                </div>
+                                <div class="col-md-3">    
+                                    <input class="form-control" type="text" style="margin-bottom:5px" placeholder="ИНН" ng-model="FilterInn" /><br />
+                                </div>    
+                            </div>        
                             <select class="custom-select" required name="Otrasl" ng-model="FilterSelectedOtrasl" ng-options="item as item.Name_Ot for item in Otrasl track by item.ID_Ot"></select>
                             <br /><br /><button class="btn btn-green" style="float:right;margin-bottom:10px" ng-click="GetOrganizationsFilter()"><i class="btn-green"></i> Поиск</button>
                         </div>
@@ -416,7 +423,7 @@
                                 </tbody>
                             </table>
                         </div>
-                        <div class="mb-4 text-right">
+                        <div class="mb-4 text-right" style="position:fixed; bottom:-1%; right: 40px">
                             @*<a href="#" ng-click="SelectOrganization()" class="btn btn-blue d-block d-md-inline-block mb-2" data-dismiss="modal"><i class="fas fa-plus"></i> Выбрать</a>*@
                             <a href="#" class="btn btn-grey d-block d-md-inline-block mb-2" data-dismiss="modal">Отмена</a>
                         </div>

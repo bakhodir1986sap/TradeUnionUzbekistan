@@ -1,4 +1,5 @@
-﻿using KasabaKIAT.BusinessLogic.Structure;
+﻿using KasabaKIAT.BusinessLogic.Buxgalteriya.GlavnayaKniga;
+using KasabaKIAT.BusinessLogic.Structure;
 using KasabaKIAT.Models;
 using System;
 using System.Collections.Generic;
@@ -45,6 +46,8 @@ namespace KasabaKiat.BusinessLogic.Utils.References
                 org.BUXGALTER = model.Buxgalter;
                 org.DOVERENNOE_LISO = model.Doverennoe_liso;
                 org.ORIG_INN = model.orig_inn;
+                org.DB_BAL = 0;
+                org.CT_BAL = 0;
                 org.OWNER_CODE = GenerateDepartmentCode(model.ID_Ot.Value
                                                         , model.Region.Value,
                                                         model.PravSoyuzLevel.Value,
@@ -218,6 +221,8 @@ namespace KasabaKiat.BusinessLogic.Utils.References
                         org1.BUXGALTER = model.Buxgalter;
                         org1.DOVERENNOE_LISO = model.Doverennoe_liso;
                         org1.ORIG_INN = model.orig_inn;
+                        org1.DB_BAL = 0;
+                        org1.CT_BAL = 0;
                         org1.OWNER_CODE = GenerateDepartmentCode(model.ID_Ot.Value
                                         , model.Region.Value,
                                         model.PravSoyuzLevel.Value,
@@ -332,7 +337,9 @@ namespace KasabaKiat.BusinessLogic.Utils.References
                                    Buxgalter = org.BUXGALTER,
                                    Doverennoe_liso = org.DOVERENNOE_LISO,
                                    orig_inn = org.ORIG_INN,
-                                   owner_code = org.OWNER_CODE
+                                   owner_code = org.OWNER_CODE,
+                                   db_bal = org.DB_BAL,
+                                   ct_bal = org.CT_BAL
                                }  ;
 
                 list = queryRes.ToList();
@@ -385,7 +392,9 @@ namespace KasabaKiat.BusinessLogic.Utils.References
                                    Buxgalter = org.BUXGALTER,
                                    Doverennoe_liso = org.DOVERENNOE_LISO,
                                    orig_inn = org.ORIG_INN,
-                                   owner_code = org.OWNER_CODE
+                                   owner_code = org.OWNER_CODE,
+                                   db_bal = org.DB_BAL,
+                                   ct_bal = org.CT_BAL
                                };
 
                 list = queryRes.ToList();
@@ -479,7 +488,9 @@ namespace KasabaKiat.BusinessLogic.Utils.References
                                    Buxgalter = org.BUXGALTER,
                                    Doverennoe_liso = org.DOVERENNOE_LISO,
                                    orig_inn = org.ORIG_INN,
-                                   owner_code = org.OWNER_CODE
+                                   owner_code = org.OWNER_CODE,
+                                   db_bal = org.DB_BAL,
+                                   ct_bal = org.CT_BAL
                                };
 
                 list = queryRes.ToList();
@@ -601,7 +612,9 @@ namespace KasabaKiat.BusinessLogic.Utils.References
                                    Buxgalter = org.BUXGALTER,
                                    Doverennoe_liso = org.DOVERENNOE_LISO,
                                    orig_inn = org.ORIG_INN,
-                                   owner_code = org.OWNER_CODE
+                                   owner_code = org.OWNER_CODE,
+                                   db_bal = org.DB_BAL,
+                                   ct_bal = org.CT_BAL
                                };
 
                 list = queryRes.ToList();
@@ -642,5 +655,109 @@ namespace KasabaKiat.BusinessLogic.Utils.References
 
             return list;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="oper"></param>
+        /// <param name="amount"></param>
+        public static void ChangeOstatok(TransactionOperation oper, string inn , decimal? amount, KasabaKIATEntities db)
+        {
+                var orgs = db.tblSprav_Org.Where(z => z.INN == inn);
+
+                if (orgs.Any())
+                {
+                    var org = orgs.First();
+                decimal? DB_BAL = 0;
+                if (org.DB_BAL.HasValue)
+                {
+                    DB_BAL = org.DB_BAL;
+                }
+
+                decimal? CT_BAL = 0;
+                if (org.CT_BAL.HasValue)
+                {
+                    CT_BAL = org.CT_BAL;
+                }
+
+
+                if (oper == TransactionOperation.Debit)
+                    {
+                        DB_BAL += amount;
+                    }
+                    else if (oper == TransactionOperation.Creadit)
+                    {
+                        CT_BAL += amount;
+                    }
+
+                    if (DB_BAL >= CT_BAL)
+                    {
+                        DB_BAL = DB_BAL - CT_BAL;
+                        CT_BAL = 0;
+                    }
+                    else
+                    {
+                        CT_BAL = CT_BAL - DB_BAL;
+                        DB_BAL = 0;
+                    }
+
+                    org.DB_BAL = DB_BAL;
+                    org.CT_BAL = CT_BAL;
+                }
+        }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="oper"></param>
+        /// <param name="amount"></param>
+        public static void ChangeOstatok(TransactionOperation oper, long idOrg, decimal? amount, KasabaKIATEntities db)
+        {
+
+                var orgs = db.tblSprav_Org.Where(z => z.ID == idOrg);
+
+                if (orgs.Any())
+                {
+                    var org = orgs.First();
+
+                    decimal? DB_BAL = 0;
+                    if (org.DB_BAL.HasValue)
+                    {
+                        DB_BAL = org.DB_BAL;
+                    }
+
+                    decimal? CT_BAL = 0;
+                    if (org.CT_BAL.HasValue)
+                    {
+                        CT_BAL = org.CT_BAL;
+                    }
+
+                    if (oper == TransactionOperation.Debit)
+                    {
+                        DB_BAL += amount;
+                    }
+                    else if (oper == TransactionOperation.Creadit)
+                    {
+                        CT_BAL += amount;
+                    }
+
+                    if (DB_BAL >= CT_BAL)
+                    {
+                        DB_BAL = DB_BAL - CT_BAL;
+                        CT_BAL = 0;
+                    }
+                    else
+                    {
+                        CT_BAL = CT_BAL - DB_BAL;
+                        DB_BAL = 0;
+                    }
+
+                    org.DB_BAL = DB_BAL;
+                    org.CT_BAL = CT_BAL;
+                }
+        }
     }
+
+    
 }

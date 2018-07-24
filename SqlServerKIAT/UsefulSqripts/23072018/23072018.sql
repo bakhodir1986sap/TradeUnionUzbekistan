@@ -54,3 +54,14 @@ ORDER BY P.ID
 
   
 end
+
+--------------------------------------------------------------------------------------------
+
+
+ALTER TABLE KasabaKIAT_N1.dbo.tblSprav_Org
+ADD DB_BAL money NULL;
+
+ALTER TABLE KasabaKIAT_N1.dbo.tblSprav_Org
+ADD CT_BAL money NULL;
+
+

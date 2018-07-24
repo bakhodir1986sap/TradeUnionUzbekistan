@@ -11,6 +11,8 @@ using System.Web;
 using System.Data.Entity;
 using KasabaKIAT.ViewModel.Buxgalteriya;
 using KasabaKIAT.BusinessLogic.Buxgalteriya.Provodki;
+using KasabaKiat.BusinessLogic.Utils.References;
+using KasabaKIAT.BusinessLogic.Buxgalteriya.GlavnayaKniga;
 
 namespace KasabaKiat.BusinessLogic.Putyovki.OplataPutyovok
 {
@@ -228,6 +230,9 @@ namespace KasabaKiat.BusinessLogic.Putyovki.OplataPutyovok
                             OplataRasxodDataManager.Create(ref oplatDtl,db, opp);
                         }
                     }
+
+                    //Organization balance Change
+                    Sprav_Org.ChangeOstatok(TransactionOperation.Debit, post1.ID_Org.Value, Decimal.Multiply(post1.Symma.Value, 0.45M), db);
 
                     //If Organization IsPravsoyuz Flag and Not PPO Rasxod should go as Prixod
 

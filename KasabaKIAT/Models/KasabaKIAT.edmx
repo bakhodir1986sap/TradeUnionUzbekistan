@@ -2465,6 +2465,8 @@ warning 6002: The table/view 'KasabaKIAT_N1.dbo.tblPutevka' does not have a prim
           <Property Name="ORIG_INN" Type="varchar" MaxLength="20" />
           <Property Name="OWNER_CODE" Type="varchar" MaxLength="255" />
           <Property Name="TIMESTAMP_CH" Type="datetime" />
+          <Property Name="DB_BAL" Type="money" />
+          <Property Name="CT_BAL" Type="money" />
         </EntityType>
         <EntityType Name="tblSprav_Os">
           <Key>
@@ -9501,6 +9503,8 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <Property Name="ORIG_INN" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="OWNER_CODE" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="TIMESTAMP_CH" Type="DateTime" Precision="3" />
+          <Property Name="DB_BAL" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="CT_BAL" Type="Decimal" Precision="19" Scale="4" />
           </EntityType>
         <EntityType Name="tblSprav_Os">
           <Key>
@@ -13970,7 +13974,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <EntitySet Name="tblOtchetiLagers" EntityType="KasabaKIATModel.tblOtchetiLager" />
           <EntitySet Name="tblZayavkiLagers" EntityType="KasabaKIATModel.tblZayavkiLager" />
           <FunctionImport Name="sp_rt_Organization_Summary" ReturnType="Collection(KasabaKIATModel.sp_rt_Organization_Summary_Result1)">
-            <Parameter Name="DEPARTMENT_BASE" Mode="In" Type="String" />
+          <Parameter Name="DEPARTMENT_BASE" Mode="In" Type="String" />
           </FunctionImport>
           </EntityContainer>
         <ComplexType Name="sp_get_BankPaymentCompanyYearlyQ_Result">
@@ -17718,6 +17722,8 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <EntitySetMapping Name="tblSprav_Org">
             <EntityTypeMapping TypeName="KasabaKIATModel.tblSprav_Org">
               <MappingFragment StoreEntitySet="tblSprav_Org">
+                <ScalarProperty Name="CT_BAL" ColumnName="CT_BAL" />
+                <ScalarProperty Name="DB_BAL" ColumnName="DB_BAL" />
                 <ScalarProperty Name="TIMESTAMP_CH" ColumnName="TIMESTAMP_CH" />
                 <ScalarProperty Name="OWNER_CODE" ColumnName="OWNER_CODE" />
                 <ScalarProperty Name="ORIG_INN" ColumnName="ORIG_INN" />

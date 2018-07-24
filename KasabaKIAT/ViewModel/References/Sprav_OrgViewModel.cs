@@ -60,5 +60,9 @@ namespace KasabaKiat.BusinessLogic.Utils.References
         public string orig_inn { get; set; }
 
         public string owner_code { get; set; }
+
+        public decimal? db_bal { get; set; }
+
+        public decimal? ct_bal { get; set; }
     }
 }

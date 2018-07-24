@@ -5,10 +5,10 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Детали</h2>
+<h2 style="margin-left:15px;margin-top:10x">Детали</h2>
 
-<div>
-    <h4>sp_soogu</h4>
+<div style="margin-left:15px">
+    <h4>Справочник СООГУ</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -101,7 +101,7 @@
 
     </dl>
 </div>
-<p>
-    @Html.ActionLink("Изменить", "Edit", new { id = Model.id }) |
+<p style="margin-left:15px">
+    @Html.ActionLink("Изменить", "Edit", new { id = Model.id })<br>
     @Html.ActionLink("Назад в список", "Index")
 </p>

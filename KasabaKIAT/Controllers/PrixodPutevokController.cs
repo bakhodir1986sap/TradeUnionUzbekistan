@@ -31,6 +31,7 @@ using OfficeOpenXml;
 using System.Threading.Tasks;
 using KasabaKIAT.BusinessLogic.Buxgalteriya.Provodki;
 using KasabaKIAT.ViewModel.Buxgalteriya;
+using KasabaKIAT.BusinessLogic.Buxgalteriya.GlavnayaKniga;
 
 namespace KasabaKIAT.Controllers
 {
@@ -2080,6 +2081,8 @@ namespace KasabaKIAT.Controllers
 
                 OplataDataManager.Create(ref model,KasabaDB, out oplMain);
 
+                Sprav_Org.ChangeOstatok(TransactionOperation.Creadit, model.ID_Otras.Value, oplMain.Symma_KT, KasabaDB);
+
                 var trans = new ProvodkiViewModel
                 {
                     comment = "Оплата и Выплата Общий ",
@@ -2130,6 +2133,8 @@ namespace KasabaKIAT.Controllers
                 tblOplata oplMain = null;
 
                 OplataDataManager.Create(ref model,KasabaDB, out oplMain);
+
+                Sprav_Org.ChangeOstatok(TransactionOperation.Creadit, model.ID_Otras.Value, oplMain.Symma_KT, KasabaDB);
 
                 var trans = new ProvodkiViewModel
                 {
@@ -2182,6 +2187,8 @@ namespace KasabaKIAT.Controllers
 
                 OplataDataManager.Create(ref model,KasabaDB, out oplMain);
 
+                Sprav_Org.ChangeOstatok(TransactionOperation.Creadit, model.ID_Otras.Value, oplMain.Symma_KT, KasabaDB);
+
                 var trans = new ProvodkiViewModel
                 {
                     comment = "Оплата курортному ",
@@ -2233,6 +2240,8 @@ namespace KasabaKIAT.Controllers
 
                 OplataDataManager.Create(ref model,KasabaDB, out oplMain);
 
+                Sprav_Org.ChangeOstatok(TransactionOperation.Creadit, model.ID_Otras.Value, oplMain.Symma_KT, KasabaDB);
+
                 var trans = new ProvodkiViewModel
                 {
                     comment = "Возврат путевок ",
@@ -2277,6 +2286,9 @@ namespace KasabaKIAT.Controllers
                 model.UserId = UserId;
 
                 await OplataDataManager.Modify(model);
+
+                //Should be rethinked
+                Sprav_Org.ChangeOstatok(TransactionOperation.Creadit, model.ID_Otras.Value, model.Symma_KT, KasabaDB);
             }
             catch (Exception ex)
             {
@@ -2305,6 +2317,8 @@ namespace KasabaKIAT.Controllers
                 model.Symma_DT = 0;
 
                 await OplataDataManager.Modify(model);
+
+                Sprav_Org.ChangeOstatok(TransactionOperation.Creadit, model.ID_Otras.Value, model.Symma_KT, KasabaDB);
             }
             catch (Exception ex)
             {
@@ -2334,6 +2348,8 @@ namespace KasabaKIAT.Controllers
                 model.Symma_KT = 0;
 
                 await OplataDataManager.Modify(model);
+
+                Sprav_Org.ChangeOstatok(TransactionOperation.Creadit, model.ID_Otras.Value, model.Symma_KT, KasabaDB);
             }
             catch (Exception ex)
             {
@@ -2380,6 +2396,8 @@ namespace KasabaKIAT.Controllers
                 model.Symma_KT = 0;
 
                 await OplataDataManager.Modify(model);
+
+                Sprav_Org.ChangeOstatok(TransactionOperation.Creadit, model.ID_Otras.Value, model.Symma_KT, KasabaDB);
             }
             catch (Exception ex)
             {

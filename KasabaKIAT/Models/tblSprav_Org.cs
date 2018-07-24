@@ -50,6 +50,8 @@ namespace KasabaKIAT.Models
         public string ORIG_INN { get; set; }
         public string OWNER_CODE { get; set; }
         public Nullable<System.DateTime> TIMESTAMP_CH { get; set; }
+        public Nullable<decimal> DB_BAL { get; set; }
+        public Nullable<decimal> CT_BAL { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Balans> Balans { get; set; }

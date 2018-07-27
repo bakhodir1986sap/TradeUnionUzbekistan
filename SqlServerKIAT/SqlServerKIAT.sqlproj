@@ -86,6 +86,7 @@
     <Folder Include="UsefulSqripts\20072018" />
     <Folder Include="UsefulSqripts\NewFolder1\" />
     <Folder Include="UsefulSqripts\23072018" />
+    <Folder Include="UsefulSqripts\26072018" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="Procedures\sp_rt_FormaN13_1.sql" />
@@ -133,5 +134,6 @@
     <None Include="UsefulSqripts\17072018\17072018.sql" />
     <None Include="UsefulSqripts\20072018\DataBaseClear.sql" />
     <None Include="UsefulSqripts\23072018\23072018.sql" />
+    <None Include="UsefulSqripts\26072018\26072018.sql" />
   </ItemGroup>
 </Project>

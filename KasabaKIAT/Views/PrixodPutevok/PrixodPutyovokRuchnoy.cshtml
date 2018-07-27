@@ -53,6 +53,11 @@
                     </div>
                 </div>
             </div>
+           <style>
+               .activvvv{
+                   border: 5px solid #24c0db; 
+               }  
+           </style>
             <div class="row">
                 <div class="col-md-5">
                     <h5 class="mb-30">Данные о накладных</h5>
@@ -117,7 +122,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr ng-repeat="naklad in Nakladnoys" ng-click="editSelected(naklad)" ng-class="{selectedTableRow: naklad.Id === idSelectedVote.Id}"    >
+                                <tr ng-repeat="naklad in Nakladnoys" ng-click="editSelected(naklad); " ng-class="{selectedTableRow: naklad.Id === idSelectedVote.Id}" id="{{naklad.Id}}" >
                                     <td class="custom-control custom-radio r-radio">
                                         <input type="radio" class="custom-control-input" id="customCheck{{naklad.Id}}" data-toggle="modal" data-target="#redaktirovat" name="selectiondot">
                                         <label class="custom-control-label r-label" for="customCheck{{naklad.Id}}">{{naklad.Id}}</label>
@@ -130,6 +135,10 @@
                                 </tr>
                             </tbody>
                         </table>
+                        <script>
+
+                        </script>
+
                     </div>
                     <div class="btn-panel mb-20 text-right">
                         <a ng-click="AddNakladnoy()" href="#" class="btn btn-green d-block d-md-inline-block mb-3 mt-20" data-toggle="modal" data-target="#dobavit"><i class="fa fa-plus" ></i>Добавить запись</a>

@@ -24,12 +24,15 @@
     $scope.editSelected = function (idSelectedVote) {
         $scope.idSelectedVote = idSelectedVote.Id;
         $scope.CurrentNakladnoy = idSelectedVote;
-
+        $(".activvvv").removeClass("activvvv");
         $scope.ActionType = 'Редактировать';
 
         //Data Pos
         var dataPos = (idSelectedVote.Data_Post) ? $filter('date')(parseInt(idSelectedVote.Data_Post.substring(6)), 'dd.MM.yyyy') : '';
         $scope.DataPos = new Date(dataPos.substring(6, 10), dataPos.substring(3, 5) - 1, dataPos.substring(0, 2));
+        console.log(idSelectedVote);
+
+        $("#"+ idSelectedVote.Id).addClass("activvvv");
 
         //Number Putyovka
         $scope.Num_Doc = $scope.CurrentNakladnoy.Num_Doc;

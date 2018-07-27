@@ -54,7 +54,11 @@
         </div>
         
     </div>
-
+    <style>
+        .activvvv{
+            border: 5px solid #24c0db; 
+        }
+    </style>
     <div class="row mb-30">
         <div class="col-md-12">
             <div class="table-responsive box-shadow mb-4">
@@ -94,7 +98,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr ng-repeat="oplat in OplataMains" ng-click="editSelected(oplat)" ng-class="{selectedTableRow: oplat.ID === idSelectedVote.ID}" >
+                        <tr ng-repeat="oplat in OplataMains" ng-click="editSelected(oplat)" ng-class="{selectedTableRow: oplat.ID === idSelectedVote.ID}" id="{{oplat.ID}}">
                             <td class="custom-control custom-radio r-radio">
                                 <input type="radio" class="custom-control-input" id="customMain{{oplat.ID}}" data-toggle="modal" name="selectiondot" data-target="#redaktirovat">
                                 <label class="custom-control-label r-label" for="customMain{{oplat.ID}}">{{oplat.ID}}</label>

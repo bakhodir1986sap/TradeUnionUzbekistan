@@ -355,10 +355,10 @@
         $scope.CurrentOplataMain = idSelectedVote;
 
         $scope.ActionType = 'Редактировать';
-
+        $(".activvvv").removeClass("activvvv");
         var dataPos = (idSelectedVote.Data_Post) ? $filter('date')(parseInt(idSelectedVote.Data_Post.substr(6)), 'dd.MM.yyyy') : '';
         $scope.DataPos = new Date(dataPos.substring(6, 10), dataPos.substring(3, 5) - 1, dataPos.substring(0, 2));
-
+        $("#"+ idSelectedVote.ID).addClass("activvvv");
         $scope.Num_Doc = $scope.CurrentOplataMain.Num_Doc;
 
         $scope.SelectedOrganization.ID = $scope.CurrentOplataMain.ID_Otras;

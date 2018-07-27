@@ -380,6 +380,10 @@
     <Compile Include="BusinessLogic\Security\Roles\Roles\RoleDataManager.cs" />
     <Compile Include="BusinessLogic\Security\Roles\Roles\Roles.cs" />
     <Compile Include="BusinessLogic\Security\Roles\UserRoles\UserRoles.cs" />
+    <Compile Include="BusinessLogic\StartProcess\BalanceSaldo.cs" />
+    <Compile Include="BusinessLogic\StartProcess\BaseStartProcess.cs" />
+    <Compile Include="BusinessLogic\StartProcess\DebitorVaCreditor.cs" />
+    <Compile Include="BusinessLogic\StartProcess\PutyovkiOstatok.cs" />
     <Compile Include="BusinessLogic\Structure\StructureOfKiat.cs" />
     <Compile Include="BusinessLogic\Utils\amountInWords.cs" />
     <Compile Include="BusinessLogic\Utils\DateOperations.cs" />
@@ -1948,6 +1952,8 @@
     <Folder Include="BusinessLogic\Reports\Buxgalteriya\NewFolder1\" />
     <Folder Include="BusinessLogic\Reports\Putyovki\NewFolder1\" />
     <Folder Include="BusinessLogic\Security\Roles\Users\" />
+    <Folder Include="BusinessLogic\StartProcess\LoaderDataManagers\" />
+    <Folder Include="BusinessLogic\StartProcess\LoaderViewModels\" />
     <Folder Include="Reports\6\" />
     <Folder Include="Reports\8\" />
     <Folder Include="Views\CampZayavki\" />

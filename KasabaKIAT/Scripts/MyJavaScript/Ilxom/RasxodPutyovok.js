@@ -208,13 +208,14 @@
 
         $scope.idSelectedVote = idSelectedVote.Id;
         $scope.CurrentNakladnoy = idSelectedVote;
-
+        $(".activvvv").removeClass("activvvv");
         $scope.ActionType = 'Редактировать';
 
         //Data Pos
         var dataPos = (idSelectedVote.data_post) ? $filter('date')(parseInt(idSelectedVote.data_post.substr(6)), 'dd.MM.yyyy') : '';
         $scope.DataPos = new Date(dataPos.substring(6, 10), dataPos.substring(3, 5) - 1, dataPos.substring(0, 2));
-
+        console.log(idSelectedVote.id);
+        $("#" + idSelectedVote.id).addClass("activvvv");
         //Number Putyovka
         $scope.Num_Doc = $scope.CurrentNakladnoy.num_doc;
 

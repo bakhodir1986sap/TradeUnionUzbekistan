@@ -117,6 +117,11 @@
                 <button ng-show="showdata" ng-click="OPRIXDATA()" ng-disabled="myForm1.SP.$error.required||myForm1.ZAEZD_BEGIN.$error.required||myForm1.ZAEZD_END.$error.required" class="btn btn-blue d-block d-md-inline-block mb-2" style="margin-top:45px"> Оприходовать</button>
             </div>
         </form>
+        <style>
+            .activvvv{
+                border: 5px solid #24c0db;
+            }
+        </style>
         <div class="row mb-5 pb-md-5" ng-show="showdata">
             <div class="col-md-12">
                 <div class="table__title mb-3">
@@ -151,7 +156,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr ng-repeat="item in DATA" ng-click="LoadStrokaSchetFakturi(item.d0)" data-toggle="modal" data-target="#dobavit">
+                            <tr ng-repeat="item in DATA" ng-click="LoadStrokaSchetFakturi(item.d0)" data-toggle="modal" data-target="#dobavit" id = "{{item.d0}}">
                                 <td>{{item.d1}}</td>
                                 <td>{{item.d2 | jsonDate: 'dd.MM.yyyy'}}</td>
                                 <td>{{item.d3}}</td>

@@ -51,12 +51,21 @@
 
     var d = "";
     $scope.LoadStrokaSchetFakturi = function (id) {
+        
+
+
         $scope.DATA2 = null;
+
+
         document.getElementById('connection2').style.visibility = "visible";
         $("#hh2").modal({
             backdrop: 'static',
             backdrop: 'static'
         });
+        console.log(id);
+
+        $(".activvvv").removeClass("activvvv");
+        $("#" + id).addClass("activvvv");
 
         d = id;
         $http({

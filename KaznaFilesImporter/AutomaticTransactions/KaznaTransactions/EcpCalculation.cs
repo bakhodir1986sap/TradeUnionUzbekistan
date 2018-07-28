@@ -713,7 +713,7 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.Provodki.AutomaticTransactions.K
                                 bankAccountBalance.Equals("20212") ||
                                 bankAccountBalance.Equals("20214") ||
                                 bankAccountBalance.Equals("20216") ||
-                                bankAccountBalance.Equals("20218") ||
+                                //bankAccountBalance.Equals("20218") || //Ibroxim Namangan
                                 bankAccountBalance.Equals("20296") ||
                                 bankAccountBalance.Equals("21506"))
                             {

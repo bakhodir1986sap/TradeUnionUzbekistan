@@ -32,6 +32,9 @@ using System.Threading.Tasks;
 using KasabaKIAT.BusinessLogic.Buxgalteriya.Provodki;
 using KasabaKIAT.ViewModel.Buxgalteriya;
 using KasabaKIAT.BusinessLogic.Buxgalteriya.GlavnayaKniga;
+using System.Globalization;
+using KasabaKIAT.BusinessLogic.StartProcess.LoaderViewModels;
+using KasabaKIAT.BusinessLogic.StartProcess.LoaderDataManagers;
 
 namespace KasabaKIAT.Controllers
 {
@@ -3435,6 +3438,318 @@ namespace KasabaKIAT.Controllers
         #region ZayavkiNew
 
 
+
+        #endregion
+
+
+        #region StartWork
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="formCollection"></param>
+        /// <returns></returns>
+        public async Task<JsonResult> PutyovkaOstatok(FormCollection formCollection)
+        {
+            int UserId = Convert.ToInt32(User.Identity.Name);
+            var ustinfo = UserInfo.GetUserInfo(UserId);
+
+            log.Info("Save");
+            try
+            {
+                if (Request != null)
+                {
+                    HttpPostedFileBase file = Request.Files["PutyovkaFile"];
+                    if ((file != null) && (file.ContentLength > 0) && !string.IsNullOrEmpty(file.FileName))
+                    {
+                        string fileName = file.FileName;
+                        string fileContentType = file.ContentType;
+                        byte[] fileBytes = new byte[file.ContentLength];
+                        var data = file.InputStream.Read(fileBytes, 0, Convert.ToInt32(file.ContentLength));
+                        var platList = new List<BankpaymentsViewModel>();
+                        using (var package = new ExcelPackage(file.InputStream))
+                        {
+                            var currentSheet = package.Workbook.Worksheets;
+                            var workSheet = currentSheet.First();
+                            var noOfCol = workSheet.Dimension.End.Column;
+                            var noOfRow = workSheet.Dimension.End.Row;
+                            var listModel = new List<PutyovkiOstatokViewModel>();
+
+                            for (int rowIterator = 2; rowIterator <= noOfRow; rowIterator++)
+                            {
+                                try
+                                {
+                                    var putyovki = new PutyovkiOstatokViewModel();
+
+                                    int SanatCode = 0;
+
+                                    if (int.TryParse(workSheet.Cells[rowIterator, 1].Value.ToString(), out SanatCode))
+                                    {
+                                        putyovki.SanatoryCode = SanatCode;
+                                    }
+                                    else
+                                    {
+                                        putyovki.SanatoryCode = 0;
+                                    }
+
+                                    putyovki.NumPut         = workSheet.Cells[rowIterator, 2].Value.ToString();
+
+                                    DateTime trandate;
+
+                                    string DataSan = workSheet.Cells[rowIterator, 3].Value.ToString();
+
+                                    if (DataSan.Length > 10)
+                                    {
+                                        DataSan = DataSan.Substring(0, 10);
+                                    }
+
+                                    if (DateTime.TryParseExact(DataSan, "dd.MM.yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out trandate))
+                                    {
+                                        putyovki.DataSan = trandate;
+                                    }
+                                    else
+                                    {
+                                        putyovki.DataSan = DateTime.Now;
+
+                                    }
+
+                                    decimal amount = 0;
+
+                                    if (decimal.TryParse(workSheet.Cells[rowIterator, 4].Value.ToString(), out amount))
+                                    {
+                                        putyovki.Summa = amount;
+                                    }
+                                    else
+                                    {
+                                        putyovki.Summa = 0;
+
+                                    }
+
+                                    listModel.Add(putyovki);
+                                }
+                                catch (Exception ex)
+                                {
+                                    log.Info(ex);
+                                }
+                            }
+
+                            PutyovkaOstatokDataManager.Enter(ustinfo.DepartmentBase, UserId, listModel, KasabaDB);
+
+                            await KasabaDB.SaveChangesAsync();
+                        }
+                    }
+                }
+                return Json("success", JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                log.Info(ex);
+                return Json("error", JsonRequestBehavior.AllowGet);
+            }
+
+        }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="formCollection"></param>
+        /// <returns></returns>
+        public async Task<JsonResult> BalanceSaldo(FormCollection formCollection)
+        {
+            int UserId = Convert.ToInt32(User.Identity.Name);
+            var ustinfo = UserInfo.GetUserInfo(UserId);
+
+            log.Info("Save");
+            try
+            {
+                if (Request != null)
+                {
+                    HttpPostedFileBase file = Request.Files["BalanceFile"];
+                    if ((file != null) && (file.ContentLength > 0) && !string.IsNullOrEmpty(file.FileName))
+                    {
+                        string fileName = file.FileName;
+                        string fileContentType = file.ContentType;
+                        byte[] fileBytes = new byte[file.ContentLength];
+                        var data = file.InputStream.Read(fileBytes, 0, Convert.ToInt32(file.ContentLength));
+                        var platList = new List<BankpaymentsViewModel>();
+                        using (var package = new ExcelPackage(file.InputStream))
+                        {
+                            var currentSheet = package.Workbook.Worksheets;
+                            var workSheet = currentSheet.First();
+                            var noOfCol = workSheet.Dimension.End.Column;
+                            var noOfRow = workSheet.Dimension.End.Row;
+
+                            for (int rowIterator = 2; rowIterator <= noOfRow; rowIterator++)
+                            {
+                                try
+                                {
+                                    var balance = new BalanceSaldoViewModel();
+
+                                    balance.department_base = ustinfo.DepartmentBase;
+                                    balance.user_id = UserId;
+
+                                    int cur_year = 0;
+
+                                    if (int.TryParse(workSheet.Cells[rowIterator, 1].Value.ToString(), out cur_year))
+                                    {
+                                        balance.cur_year = cur_year;
+                                    }
+                                    else
+                                    {
+                                        balance.cur_year = 2017;
+                                    }
+
+                                    int cur_kv = 0;
+
+                                    if (int.TryParse(workSheet.Cells[rowIterator, 2].Value.ToString(), out cur_kv))
+                                    {
+                                        balance.cur_kv = cur_kv;
+                                    }
+                                    else
+                                    {
+                                        balance.cur_kv = 4;
+                                    }
+
+                                    balance.account_code = workSheet.Cells[rowIterator, 3].Value.ToString();
+
+
+                                    decimal debit = 0;
+
+                                    if (decimal.TryParse(workSheet.Cells[rowIterator, 4].Value.ToString(), out debit))
+                                    {
+                                        balance.debit_bal = debit;
+                                    }
+                                    else
+                                    {
+                                        balance.debit_bal = 0;
+
+                                    }
+
+
+                                    decimal credit = 0;
+
+                                    if (decimal.TryParse(workSheet.Cells[rowIterator, 5].Value.ToString(), out credit))
+                                    {
+                                        balance.credit_bal = credit;
+                                    }
+                                    else
+                                    {
+                                        balance.credit_bal = 0;
+
+                                    }
+
+                                    BalanceSaldoDataManager.Enter(balance, KasabaDB);
+                                }
+                                catch (Exception ex)
+                                {
+                                    log.Info(ex);
+                                }
+                            }
+
+                            await KasabaDB.SaveChangesAsync();
+                        }
+                    }
+                }
+                
+                return Json("success", JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                log.Info(ex);
+                return Json("error", JsonRequestBehavior.AllowGet);
+            }
+
+        }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="formCollection"></param>
+        /// <returns></returns>
+        public async Task<JsonResult> OrganizationDebitCredit(FormCollection formCollection)
+        {
+            int UserId = Convert.ToInt32(User.Identity.Name);
+            var ustinfo = UserInfo.GetUserInfo(UserId);
+
+            log.Info("Save");
+            try
+            {
+                if (Request != null)
+                {
+                    HttpPostedFileBase file = Request.Files["DebitCreditFile"];
+                    if ((file != null) && (file.ContentLength > 0) && !string.IsNullOrEmpty(file.FileName))
+                    {
+                        string fileName = file.FileName;
+                        string fileContentType = file.ContentType;
+                        byte[] fileBytes = new byte[file.ContentLength];
+                        var data = file.InputStream.Read(fileBytes, 0, Convert.ToInt32(file.ContentLength));
+                        var platList = new List<BankpaymentsViewModel>();
+                        using (var package = new ExcelPackage(file.InputStream))
+                        {
+                            var currentSheet = package.Workbook.Worksheets;
+                            var workSheet = currentSheet.First();
+                            var noOfCol = workSheet.Dimension.End.Column;
+                            var noOfRow = workSheet.Dimension.End.Row;
+
+                            for (int rowIterator = 2; rowIterator <= noOfRow; rowIterator++)
+                            {
+                                try
+                                {
+                                    var org = new DebitorVaCreditorViewModel();
+
+                                    org.departmentbase = ustinfo.DepartmentBase;
+                                    org.inn = workSheet.Cells[rowIterator, 1].Value.ToString();
+                                    org.NameOrg = workSheet.Cells[rowIterator, 2].Value.ToString();
+
+                                    decimal debit_bal = 0;
+
+                                    if (decimal.TryParse(workSheet.Cells[rowIterator, 3].Value.ToString(), out debit_bal))
+                                    {
+                                        org.debit_bal = debit_bal;
+                                    }
+                                    else
+                                    {
+                                        org.debit_bal = 0;
+
+                                    }
+
+                                    decimal credit_bal = 0;
+
+                                    if (decimal.TryParse(workSheet.Cells[rowIterator, 4].Value.ToString(), out credit_bal))
+                                    {
+                                        org.credit_bal = credit_bal;
+                                    }
+                                    else
+                                    {
+                                        org.credit_bal = 0;
+
+                                    }
+
+                                    DebitorVaCreditorDataManager.Enter(org, KasabaDB);
+
+
+                                }
+                                catch (Exception ex)
+                                {
+                                    log.Info(ex);
+                                }
+                            }
+
+                            await KasabaDB.SaveChangesAsync();
+                        }
+                    }
+                }
+                return Json("success", JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                log.Info(ex);
+                return Json("error", JsonRequestBehavior.AllowGet);
+            }
+
+        }
 
         #endregion
 

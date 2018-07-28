@@ -98,6 +98,11 @@
                     </table>
                 </div>
             </div>
+            <style>
+                .activvvv{
+                    background-color: #b8b8b8 !important;
+                }
+            </style>
             <div class="col-md-8">
                 <div class="table-responsive box-shadow table-fixed-small mb-4">
                     <table class="table table__block table__small">
@@ -146,7 +151,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr ng-repeat="putyovka in Putyovkas" ng-click="RowClicked(putyovka)" ng-style="putyovka.isFaceExists==true &&{'background-color':'#8a8a8a','color':'white'}">
+                            <tr ng-repeat="putyovka in Putyovkas" ng-click="RowClicked(putyovka)" ng-style="putyovka.isFaceExists==true &&{'background-color':'#8a8a8a','color':'white'}" id="{{putyovka.id}}">
                                 <td>{{putyovka.id}}</td>
                                 <td>{{putyovka.sanatName}}</td>
                                 <td>{{putyovka.data_post | jsonDate: 'dd.MM.yyyy'}}</td>

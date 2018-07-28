@@ -66,6 +66,11 @@
                 </div>
               
         </div>
+        <style> 
+            .activvvv{
+                border: 5px solid #24c0db;
+            }
+        </style>
         <div class="table-responsive box-shadow mb-4" id="export">
             <table class="table table__block t-hover">
                 <thead>
@@ -103,7 +108,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr class="poin" ng-repeat="org in Organizations" ng-click="editOrg(org)" data-toggle="modal" data-target="#dobavit">
+                    <tr class="poin" ng-repeat="org in Organizations" ng-click="editOrg(org)" data-toggle="modal" data-target="#dobavit" id="{{org.ID}}">
                         <td style="text-align:center">{{org.OtraslName}}</td>
                         <td style="text-align:center">{{org.Name_Org}}</td>
                         <td style="text-align:center">{{org.INN     }}</td>

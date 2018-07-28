@@ -3,6 +3,7 @@
     $scope.showdata = false;
     $scope.searchD0 = new Date();
     $scope.searchD1 = new Date();
+    $scope.previousID = null;
     $scope.SCf = {
         id: '-1',
         value: ''
@@ -76,6 +77,8 @@
         }).then(function (m) {
             //alert(m.data);
             $scope.PRZ = m.data;
+
+            
         }, function () {
             alertify.error("ошибка");
             console.log('Error in Load_PRZ_S');
@@ -316,8 +319,13 @@
         var inn = $scope.INN;
         LoadINN(inn);
     }
+
+
     $scope.editPRZ = function (prz) {
         $scope.ID = prz.ID;
+
+        $(".activvvv").removeClass("activvvv");
+        $("#" + prz.ID).addClass("activvvv");
         var zb = (prz.ZB) ? $filter('date')(parseInt(prz.ZB.substr(6)), 'dd.MM.yyyy') : '';
         var ze = (prz.ZE) ? $filter('date')(parseInt(prz.ZE.substr(6)), 'dd.MM.yyyy') : '';
         $scope.ZB = new Date(zb.substring(6, 10), zb.substring(3, 5) - 1, zb.substring(0, 2));

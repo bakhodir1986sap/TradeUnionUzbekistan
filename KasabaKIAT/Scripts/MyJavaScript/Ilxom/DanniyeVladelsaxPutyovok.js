@@ -454,7 +454,8 @@
     $scope.RowClicked = function (puyovka)
     {
         $scope.CurrentRealizasiyaPutyovka = puyovka;
-
+        $(".activvvv").removeClass("activvvv");
+        $("#"+ puyovka.id).addClass("activvvv");
         GetFaceData(puyovka.id);
     }
 

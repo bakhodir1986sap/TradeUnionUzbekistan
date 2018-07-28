@@ -109,6 +109,11 @@
                 </div>
                 <span class="alert alert-warning" style="padding:0px" ng-show="myForm.inlineRadioOptions3.$error.required">Выберите поле</span>
             </form>
+            <style>
+                .activvvv{
+                    border: 5px solid #24c0db;
+                }
+            </style>
             <div ng-show="PRZdiv" class="table-responsive box-shadow mb-4" id="export">
                 <table class="table table__block t-hover">
                     <thead>
@@ -144,7 +149,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr class="poin" ng-repeat="prz in PRZ | filter:searchFN | filter:searchO | filter:position" ng-click="editPRZ(prz)" data-toggle="modal" data-target="#myModal">
+                        <tr class="poin" ng-repeat="prz in PRZ | filter:searchFN | filter:searchO | filter:position" ng-click="editPRZ(prz)" data-toggle="modal" data-target="#myModal" id="{{prz.ID}}">
                             <td>{{prz.TS | jsonDate: 'dd.MM.yyyy'}}</td>
                             <td>{{prz.SC}}</td>
                             <td>{{prz.O}}</td>

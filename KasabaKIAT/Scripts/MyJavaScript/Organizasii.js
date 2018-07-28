@@ -169,7 +169,9 @@
 
         $scope.Organization = '';
         $scope.Action = "Изменить";
-
+        //console.log(org.ID);
+        $(".activvvv").removeClass("activvvv");
+        $("#" + org.ID).addClass("activvvv");
         document.getElementById('connection').style.visibility = "visible";
         $("#hh").modal({
             backdrop: 'static'

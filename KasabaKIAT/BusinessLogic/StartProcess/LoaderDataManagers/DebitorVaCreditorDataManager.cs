@@ -23,6 +23,10 @@ namespace KasabaKIAT.BusinessLogic.StartProcess.LoaderDataManagers
             }
             else
             {
+                var organizations1 = db.tblSprav_Org.Where(z=>z.INN == model.inn);
+
+                if (organizations1.Any()) return; //Dublication not allowed
+
                 var org = new tblSprav_Org
                 {
                     INN = model.inn,

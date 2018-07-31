@@ -18,7 +18,7 @@ namespace KasabaKIAT.BusinessLogic.Lager.Zayavki
                 zaez.ID_Camp        = model.id_camp         ;
                 zaez.Quantuty       = model.quantuty        ;
                 zaez.TotalAmount    = model.totalamount     ;
-                zaez.TIMESTAMP      = model.timestamp       ;
+                zaez.TIMESTAMP      = DateTime.Now;
                 zaez.STATUS         = (int)CampZayavkaStatusType.New;
                 zaez.DEPARTMENT_CODE= model.department_code ;
                 zaez.UserId = model.userid;
@@ -34,7 +34,7 @@ namespace KasabaKIAT.BusinessLogic.Lager.Zayavki
         {
             using (KasabaKIATEntities db = new KasabaKIATEntities())
             {
-                var zaezdi = db.tblZayavkiLagers.Where(z => z.REC_ID == model.rec_id);
+                var zaezdi = db.tblZayavkiLagers.Where(z => z.REC_ID == model.rec_id && z.DEPARTMENT_CODE == model.department_code);
 
                 if (zaezdi.Any())
                 {
@@ -46,7 +46,7 @@ namespace KasabaKIAT.BusinessLogic.Lager.Zayavki
                         zaez.ID_Camp = model.id_camp;
                         zaez.Quantuty = model.quantuty;
                         zaez.TotalAmount = model.totalamount;
-                        zaez.TIMESTAMP = model.timestamp;
+                        zaez.TIMESTAMP = DateTime.Now;
                         zaez.STATUS = model.status;
                         zaez.DEPARTMENT_CODE = model.department_code;
                         zaez.UserId = model.userid;
@@ -61,7 +61,7 @@ namespace KasabaKIAT.BusinessLogic.Lager.Zayavki
         {
             using (KasabaKIATEntities db = new KasabaKIATEntities())
             {
-                var zaezdi = db.tblZayavkiLagers.Where(z => z.REC_ID == model.rec_id);
+                var zaezdi = db.tblZayavkiLagers.Where(z => z.REC_ID == model.rec_id && z.DEPARTMENT_CODE == model.department_code);
 
                 if (zaezdi.Any())
                 {
@@ -83,7 +83,7 @@ namespace KasabaKIAT.BusinessLogic.Lager.Zayavki
         {
             using (KasabaKIATEntities db = new KasabaKIATEntities())
             {
-                var zaezdi = db.tblZayavkiLagers.Where(z => z.REC_ID == model.rec_id);
+                var zaezdi = db.tblZayavkiLagers.Where(z => z.REC_ID == model.rec_id && z.DEPARTMENT_CODE == model.department_code);
 
                 if (zaezdi.Any())
                 {
@@ -106,12 +106,18 @@ namespace KasabaKIAT.BusinessLogic.Lager.Zayavki
             using (KasabaKIATEntities db = new KasabaKIATEntities())
             {
                 var query = from zaezdi in db.tblZayavkiLagers
+                            join camp in db.t_camp on zaezdi.ID_Camp equals camp.id
+                            join otrasl in db.tblSprav_Otras on zaezdi.ID_Otras equals otrasl.ID_Ot
                             where zaezdi.DEPARTMENT_CODE == model.department_code
+                            && otrasl.DepartmentBase == model.department_code
+                            && zaezdi.STATUS == model.status
                             select new LagerZayavkiViewModel
                             {
                                 rec_id          = zaezdi.REC_ID             ,
                                 id_otras        = zaezdi.ID_Otras           ,
+                                otralsName      = otrasl.Name_Ot            ,
                                 id_camp         = zaezdi.ID_Camp            ,
+                                campName        = camp.camps_name           ,
                                 quantuty        = zaezdi.Quantuty           ,
                                 totalamount     = zaezdi.TotalAmount        ,
                                 timestamp       = zaezdi.TIMESTAMP          ,

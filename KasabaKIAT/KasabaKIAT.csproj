@@ -1608,6 +1608,8 @@
     <Content Include="Scripts\MyJavaScript\GZController.js" />
     <Content Include="Scripts\MyJavaScript\Ilxom\AktVozvrataPutyovok.js" />
     <Content Include="Scripts\MyJavaScript\Ilxom\BalancePredpriyatiy.js" />
+    <Content Include="Scripts\MyJavaScript\Ilxom\CampOtcheti.js" />
+    <Content Include="Scripts\MyJavaScript\Ilxom\CampZayavki.js" />
     <Content Include="Scripts\MyJavaScript\Ilxom\DanniyeVladelsaxPutyovok.js" />
     <Content Include="Scripts\MyJavaScript\Ilxom\JurnalniyOrder4.js" />
     <Content Include="Scripts\MyJavaScript\Ilxom\JurnalniyOrder5.js" />
@@ -1620,6 +1622,7 @@
     <Content Include="Scripts\MyJavaScript\Ilxom\OtchetN14.js" />
     <Content Include="Scripts\MyJavaScript\Ilxom\PrixodPutyovokRuchnoy.js" />
     <Content Include="Scripts\MyJavaScript\Ilxom\RasxodPutyovok.js" />
+    <Content Include="Scripts\MyJavaScript\Ilxom\StartProcess.js" />
     <Content Include="Scripts\MyJavaScript\Ilxom\SvodPoPutyovkam.js" />
     <Content Include="Scripts\MyJavaScript\Ilxom\UchetMedicinskoyReg.js" />
     <Content Include="Scripts\MyJavaScript\Ilxom\UchetPostupleniya.js" />
@@ -1889,6 +1892,10 @@
     <Content Include="Views\Otchot\GlavnayaKnigaN.cshtml" />
     <Content Include="Views\Otchot\PostupleniyaOtrasliPivod.cshtml" />
     <Content Include="Views\Otchot\OrganizationSummary.cshtml" />
+    <Content Include="Views\PrixodPutevok\StartProcess.cshtml" />
+    <Content Include="Views\Otchot\FinansoviyOtchotKvartalniy.cshtml" />
+    <Content Include="Views\CampZayavki\Index.cshtml" />
+    <Content Include="Views\CampZayavki\CampOtchet.cshtml" />
     <None Include="Web References\KurortUrlService\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
@@ -1960,7 +1967,6 @@
     <Folder Include="BusinessLogic\Security\Roles\Users\" />
     <Folder Include="Reports\6\" />
     <Folder Include="Reports\8\" />
-    <Folder Include="Views\CampZayavki\" />
     <Folder Include="Views\Reference\" />
   </ItemGroup>
   <ItemGroup>

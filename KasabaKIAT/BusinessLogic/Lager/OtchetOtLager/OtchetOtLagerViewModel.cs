@@ -8,7 +8,7 @@ namespace KasabaKIAT.BusinessLogic.Lager.OtchetOtLager
     public class OtchetOtLagerViewModel
     {
       public long       rec_id              {get; set;}
-      public long       id_org              {get; set;}
+      public long?       id_org              {get; set;}
       public int        quantuty            {get; set;}
       public decimal    totalamount         {get; set;}
       public DateTime   timestamp           {get; set;}

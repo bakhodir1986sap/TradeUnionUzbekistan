@@ -35,6 +35,8 @@ using KasabaKIAT.BusinessLogic.Buxgalteriya.GlavnayaKniga;
 using System.Globalization;
 using KasabaKIAT.BusinessLogic.StartProcess.LoaderViewModels;
 using KasabaKIAT.BusinessLogic.StartProcess.LoaderDataManagers;
+using KasabaKIAT.BusinessLogic.Lager.Zayavki;
+using KasabaKIAT.BusinessLogic.Lager.OtchetOtLager;
 
 namespace KasabaKIAT.Controllers
 {
@@ -3435,13 +3437,6 @@ namespace KasabaKIAT.Controllers
 
         #endregion
 
-        #region ZayavkiNew
-
-
-
-        #endregion
-
-
         #region StartWork
 
         /// <summary>
@@ -3466,7 +3461,7 @@ namespace KasabaKIAT.Controllers
                         string fileContentType = file.ContentType;
                         byte[] fileBytes = new byte[file.ContentLength];
                         var data = file.InputStream.Read(fileBytes, 0, Convert.ToInt32(file.ContentLength));
-                        var platList = new List<BankpaymentsViewModel>();
+
                         using (var package = new ExcelPackage(file.InputStream))
                         {
                             var currentSheet = package.Workbook.Worksheets;
@@ -3572,7 +3567,7 @@ namespace KasabaKIAT.Controllers
                         string fileContentType = file.ContentType;
                         byte[] fileBytes = new byte[file.ContentLength];
                         var data = file.InputStream.Read(fileBytes, 0, Convert.ToInt32(file.ContentLength));
-                        var platList = new List<BankpaymentsViewModel>();
+
                         using (var package = new ExcelPackage(file.InputStream))
                         {
                             var currentSheet = package.Workbook.Worksheets;
@@ -3685,7 +3680,7 @@ namespace KasabaKIAT.Controllers
                         string fileContentType = file.ContentType;
                         byte[] fileBytes = new byte[file.ContentLength];
                         var data = file.InputStream.Read(fileBytes, 0, Convert.ToInt32(file.ContentLength));
-                        var platList = new List<BankpaymentsViewModel>();
+
                         using (var package = new ExcelPackage(file.InputStream))
                         {
                             var currentSheet = package.Workbook.Worksheets;
@@ -3749,6 +3744,63 @@ namespace KasabaKIAT.Controllers
                 return Json("error", JsonRequestBehavior.AllowGet);
             }
 
+        }
+
+
+        public ActionResult StartProcess()
+        {
+            return View();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public FileResult DownloadPutyovkiTemplate()
+        {
+            var ArxiveDirectory = Properties.Settings.Default.TemplateDir;
+
+            var targetFile = Path.Combine(ArxiveDirectory, "PutyovkiOstatok.xlsx");
+
+            if (!System.IO.File.Exists(targetFile)) return null;
+
+            byte[] fileBytes = System.IO.File.ReadAllBytes(targetFile);
+            string fileName = "PutyovkiOstatok.xlsx";
+            return File(fileBytes, "application/vnd.ms-excel", fileName);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public FileResult DownloadBalanceTemplate()
+        {
+            var ArxiveDirectory = Properties.Settings.Default.TemplateDir;
+
+            var targetFile = Path.Combine(ArxiveDirectory, "BalanceOstatok.xlsx");
+
+            if (!System.IO.File.Exists(targetFile)) return null;
+
+            byte[] fileBytes = System.IO.File.ReadAllBytes(targetFile);
+            string fileName = "BalanceOstatok.xlsx";
+            return File(fileBytes, "application/vnd.ms-excel", fileName);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public FileResult DownloadDebitorTemplate()
+        {
+            var ArxiveDirectory = Properties.Settings.Default.TemplateDir;
+
+            var targetFile = Path.Combine(ArxiveDirectory, "DebitorkaOstatok.xlsx");
+
+            if (!System.IO.File.Exists(targetFile)) return null;
+
+            byte[] fileBytes = System.IO.File.ReadAllBytes(targetFile);
+            string fileName = "DebitorkaOstatok.xlsx";
+            return File(fileBytes, "application/vnd.ms-excel", fileName);
         }
 
         #endregion

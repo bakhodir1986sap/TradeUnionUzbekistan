@@ -14,10 +14,10 @@ namespace KasabaKIAT.BusinessLogic.Lager.OtchetOtLager
             {
                 tblOtchetiLager zaez = new tblOtchetiLager();
 
-                zaez.ID_ORG             = model.id_org          ;
-                zaez.Quantuty           = model.quantuty        ;
-                zaez.TotalAmount        = model.totalamount     ;
-                zaez.TIMESTAMP          = model.timestamp       ;
+                zaez.ID_ORG             = model.id_org.Value;
+                zaez.Quantuty           = model.quantuty;
+                zaez.TotalAmount        = model.totalamount;
+                zaez.TIMESTAMP          = DateTime.Now;
                 zaez.STATUS             = (int)CampOtchetStatusType.New;
                 zaez.DEPARTMENT_CODE    = model.department_code ;
                 zaez.UserId             = model.userid;
@@ -41,10 +41,10 @@ namespace KasabaKIAT.BusinessLogic.Lager.OtchetOtLager
 
                     if (zaez != null)
                     {
-                        zaez.ID_ORG = model.id_org;
+                        zaez.ID_ORG = model.id_org.Value;
                         zaez.Quantuty = model.quantuty;
                         zaez.TotalAmount = model.totalamount;
-                        zaez.TIMESTAMP = model.timestamp;
+                        zaez.TIMESTAMP = DateTime.Now;
                         zaez.STATUS = model.status;
                         zaez.DEPARTMENT_CODE = model.department_code;
                         zaez.UserId = model.userid;
@@ -104,7 +104,9 @@ namespace KasabaKIAT.BusinessLogic.Lager.OtchetOtLager
             using (KasabaKIATEntities db = new KasabaKIATEntities())
             {
                 var query = from zaezdi in db.tblOtchetiLagers
+                            join organiz in db.tblSprav_Org on zaezdi.ID_ORG equals organiz.ID
                             where zaezdi.DEPARTMENT_CODE == model.department_code
+                            && zaezdi.ID_ORG == (model.id_org.HasValue ? model.id_org : zaezdi.ID_ORG)
                             select new OtchetOtLagerViewModel
                             {
                                rec_id           = zaezdi.REC_ID         ,

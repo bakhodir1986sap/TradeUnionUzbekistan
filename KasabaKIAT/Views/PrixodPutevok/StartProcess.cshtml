@@ -1,0 +1,91 @@
+﻿@using KasabaKIAT.BusinessLogic.Security.Roles.RolePermissions;
+@{
+                /**/
+
+                ViewBag.Title = "Бухгалтерия";
+                var UserId = Convert.ToInt32(User.Identity.Name);
+                FunctionalityList List = FunctionalityAndDbDataMatch.MatchProcess(UserId);
+}
+
+<link href="~/Content/open-iconic-bootstrap.css" rel="stylesheet" />
+<script src="~/Scripts/MyJavaScript/Ilxom/StartProcess.js"></script>
+@if (List.BuxUchetVvodDannix)
+{
+    <section class="content__block container-fluid" ng-controller="StartProcess">
+        <div class="row mb-4 align-items-center">
+            <div class="col title__block">
+                <h4>Загрузка первичных остатков</h4>
+                <nav aria-label="breadcrumb" class="breadcrumb__block">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item load"><a href="/Buxgalter/Index">Бухгалтерия</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Загрузка первичных остатков</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+        <div class="row mb-2 align-items-center">
+            <div class="col-md-6">
+                <div class="row">
+                    <div class="col-md-3">
+                        <div>
+                            @Html.ActionLink("Загрузить Путевки Шаблон", "DownloadPutyovkiTemplate", "PrixodPutevok")<br />
+                        </div><br />
+                    </div>
+                    <div class="col-md-3">
+                        <input type="file" id="input08" name="PutyovkaFile" accept="application/	vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" onchange="angular.element(	this).scope().PutyovkaFile(this.files)" />&nbsp
+                    </div>
+                    <div class="col-md-3">
+                        <input type="button" value="Загрузить Путевки" class="btn btn-primary" style="margin-top:-3px" ng-disabled="!SelectedFilePutyovka" ng-click="ParseExcelPutyovka() " />
+                    </div>
+                    <div class="col-md-3">
+                        <a href="/PrixodPutevok/PrixodPutyovokRuchnoy">Приход путевок ручной</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mb-2 align-items-center">
+            <div class="col-md-6">
+                <div class="row">
+                    <div class="col-md-3">
+                        <div style="padding-right:9px">
+                            @Html.ActionLink("Загрузить Баланс Шаблон", "DownloadBalanceTemplate", "PrixodPutevok")<br />
+                        </div><br />
+                    </div>
+                    <div class="col-md-3">
+                        <input type="file" id="input09" name="BalanceFile" accept="application/	vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" onchange="angular.element(	this).scope().BalanceFile(this.files)" />&nbsp
+                    </div>
+                    <div class="col-md-3">
+                        <input type="button" value="Загрузить Баланс" class="btn btn-primary" style="margin-top:-3px" ng-disabled="!SelectedFileBalance" ng-click="ParseExcelBalance() " />
+                    </div>
+                    <div class="col-md-3">
+                        <a href="/Otchot/GlavnayaKnigaN" >Главная Книга</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mb-2 align-items-center">
+            <div class="col-md-6">
+                <div class="row">
+                    <div class="col-md-3">
+                        <div style="padding-right:9px">
+                            @Html.ActionLink("Загрузить Организ. Шаблон", "DownloadDebitorTemplate", "PrixodPutevok")<br />
+                        </div><br />
+                    </div>
+                    <div class="col-md-3">
+                        <input type="file" id="input10" name="DebitCreditFile" accept="applicationvnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" onchange="angular.elemen(this).scope().DebitCreditFile(this.files)" />&nbsp
+                    </div>
+                    <div class="col-md-3">
+                        <input type="button" value="Загрузить Дебиторку" class="btn btn-primary" style="margin-top:-3px" ng-disabled="!SelectedFileOrganization" ng-click="ParseExcelDebitCredit() " />
+                    </div>
+                    <div class="col-md-3">
+                        <a href="/Otchot/Index">Отчеты</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+}

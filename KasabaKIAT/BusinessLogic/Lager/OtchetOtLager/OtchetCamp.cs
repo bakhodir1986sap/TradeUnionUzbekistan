@@ -83,5 +83,10 @@ namespace KasabaKIAT.BusinessLogic.Lager.OtchetOtLager
         {
             OtchetOtLagerDataManager.UpdateStatus(model, CampOtchetStatusType.Accepted);
         }
+
+        public List<OtchetOtLagerViewModel> Get(OtchetOtLagerViewModel model)
+        {
+            return OtchetOtLagerDataManager.Get(model);
+        }
     }
 }

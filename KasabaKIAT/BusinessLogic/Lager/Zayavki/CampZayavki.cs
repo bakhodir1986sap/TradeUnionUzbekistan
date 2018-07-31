@@ -80,5 +80,10 @@ namespace KasabaKIAT.BusinessLogic.Lager.Zayavki
         {
             LagerZayavkiDataManager.UpdateStatus(model, CampZayavkaStatusType.Accepted);
         }
+
+        public List<LagerZayavkiViewModel> GetCampZayavkas(string departmentBase, CampZayavkaStatusType status)
+        {
+            return LagerZayavkiDataManager.Get(new LagerZayavkiViewModel() { department_code = departmentBase, status = (int)status });
+        }
     }
 }

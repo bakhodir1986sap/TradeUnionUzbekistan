@@ -365,10 +365,11 @@ namespace KasabaKIAT.Controllers
             try
             {
                 var C = (from s in KasabaDB.t_camp
+                         orderby s.camps_name
                          select new
                          {
-                             id = s.id,
-                             value = s.camps_name
+                             s.id,
+                             value = s.camps_name + " - " + s.camps_organization_name
                          });
 
                 log.Info("Count = " + C.ToList().Count);

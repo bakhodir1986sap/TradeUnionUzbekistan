@@ -760,8 +760,8 @@
     ////Organization///////////////////////////////////////////////////
     //////////////////////////////////////////////////////////////////
 
-    GetOtraslForOrganization();
-    GetRegionForOrganization();
+    //GetOtraslForOrganization();
+    //GetRegionForOrganization();
     GetEmptyCarcas();
     //GetOrganizations();
 

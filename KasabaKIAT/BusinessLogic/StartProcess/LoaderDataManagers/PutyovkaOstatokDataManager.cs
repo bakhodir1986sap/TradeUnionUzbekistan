@@ -11,9 +11,11 @@ namespace KasabaKIAT.BusinessLogic.StartProcess.LoaderDataManagers
     {
         public static void Enter(string DepartmentBase, long UserId, List<PutyovkiOstatokViewModel> models, KasabaKIATEntities db)
         {
-            var naklad = new tblPost(); 
+            var naklad = new tblPost();
 
-            var orgs = db.tblSprav_Org.Where(z => z.INN == DepartmentBase.PadLeft(9, '9'));
+            var departmentxxx = DepartmentBase.PadLeft(9, '9');
+
+            var orgs = db.tblSprav_Org.Where(z => z.INN == departmentxxx);
 
             if (orgs.Any())
             {

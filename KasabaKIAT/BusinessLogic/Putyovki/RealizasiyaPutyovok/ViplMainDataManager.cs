@@ -420,20 +420,37 @@ namespace KasabaKiat.BusinessLogic.Putyovki.RealizasiyaPutyovok
 
                     var total = await GetTotalsZakritiye(model.smfil.Value, model.id_kv.Value, model.departmentbase, model.id);
 
+
                     if (post1 != null)
                     {
-                        if (post1.Vid) return;
+                        if (!post1.Vid)
+                        {
+                            post1.Num_Kol = total.PutyovkaCount;
+                            post1.Symma = total.SummaNakladnix;
+                            post1.Vid = true;
 
-                        post1.Num_Kol = total.PutyovkaCount;
-                        post1.Symma = total.SummaNakladnix;
-                        post1.Vid = true;
+                            await db.SaveChangesAsync();
 
-                        await db.SaveChangesAsync();
+                            var oplata = new Oplata();
+
+                            await oplata.CloseRasxodPutyovok(post1.ID);
+                        }
+                        else
+                        {
+                            var oldSymma = post1.Symma;
+                            var oldKolVo = post1.Num_Kol;
+
+                            post1.Num_Kol = total.PutyovkaCount;
+                            post1.Symma = total.SummaNakladnix;
+                            post1.Vid = true;
+
+                            await db.SaveChangesAsync();
+
+                            var oplata = new Oplata();
+
+                            await oplata.CloseRasxodPutyovokClosed(post1.ID, oldSymma, oldKolVo);
+                        }
                     }
-
-                    var oplata = new Oplata();
-
-                    await oplata.CloseRasxodPutyovok(post1.ID);
                 }
             }
         }

@@ -836,6 +836,7 @@
     <Compile Include="Models\tbsp_soato_new.cs">
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
+    <Compile Include="MyRoleProvider\SiteRole.cs" />
     <Compile Include="Reports\ReportTemplate.aspx.cs">
       <DependentUpon>ReportTemplate.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -844,7 +845,6 @@
       <DependentUpon>ReportTemplate.aspx</DependentUpon>
     </Compile>
     <Compile Include="Startup.cs" />
-    <Compile Include="Test\PlanByudjetaTest.cs" />
     <Compile Include="ViewModel\Buxgalteriya\BankpaymentsViewModel.cs" />
     <Compile Include="ViewModel\Buxgalteriya\DetailViewModel.cs" />
     <Compile Include="ViewModel\Buxgalteriya\EcpCalcViewModel.cs" />
@@ -1249,7 +1249,6 @@
     <Compile Include="Models\Zapros_ZK.cs">
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
-    <Compile Include="MyRoleProvider\SiteRole.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>

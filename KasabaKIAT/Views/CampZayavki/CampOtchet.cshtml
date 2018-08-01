@@ -61,7 +61,7 @@
                 </thead>
                 <tbody>
                     <tr ng-repeat="lager in LagerNewZayavkas" ng-click="edit(lager)" data-toggle="modal" data-target="#redaktirovat">
-                        <td style="width:200px;text-align:center">{{lager.otralsName}}</td>
+                        <td style="width:200px;text-align:center">{{lager.orgName}}</td>
                         <td style="width:200px;text-align:center">{{lager.quantuty}}</td>
                         <td style="width:200px;text-align:center">{{lager.totalamount}}</td>
                         <td style="width:200px;text-align:center">{{lager.timestamp | jsonDate: 'dd.MM.yyyy'}}</td>
@@ -82,18 +82,15 @@
                         <form class="col-md-8" name="myForm" novalidate>
                             <input type="hidden" style="position:absolute" ng-model="REC_ID;" />
                             <div class="form-group row align-items-center">
-                                <label class="col-md-5 col-form-label text-md-right py-0">Отрасль:</label>
+                                <label class="col-md-5 col-form-label text-md-right py-0">Покупатель:</label>
                                 <div class="col-md-7">
-                                    <select class="custom-select form-control" required name="Otrasl" ng-model="ModalOtraslSelected" ng-options="item as item.Name_Ot for item in Otrasl track by item.ID_Ot"></select>
-                                    <span class="alert alert-warning" style="padding:0px" ng-show="myForm.Otrasl.$error.required">Выберите поле</span>
+                                    <select class="custom-select form-control" ng-model="SelectedOrganization" ng-options="item as item.Name_Org for item in OrganizationsL track by item.ID"></select>
+                                    <span>{{SelectedOrganization.Name_Org}}</span>
                                 </div>
+
                             </div>
-                            <div class="form-group row align-items-center">
-                                <label class="col-md-5 col-form-label text-md-right py-0">Лагерь:</label>
-                                <div class="col-md-7">
-                                    <select class="custom-select form-control" required name="Camp" ng-model="ModalCampSelected" ng-options="item as item.value for item in Camps track by item.id"></select>
-                                    <span class="alert alert-warning" style="padding:0px" ng-show="myForm.Camp.$error.required">Выберите поле</span>
-                                </div>
+                            <div class="mb-4 row text-right align-items-baseline" style="justify-content:flex-end">
+                                <a href="#" style="margin-right: 15px" class="btn btn-grey d-block d-md-inline-block mb-2" data-toggle="modal" data-target="#organization">Выбрать</a>
                             </div>
                             <div class="form-group row align-items-center">
                                 <label class="col-md-5 col-form-label text-md-right py-0">Количество:</label>
@@ -132,18 +129,15 @@
                         <form class="col-md-8" name="myForm" novalidate>
                             <input type="hidden" style="position:absolute" ng-model="REC_ID;" />
                             <div class="form-group row align-items-center">
-                                <label class="col-md-5 col-form-label text-md-right py-0">Отрасль:</label>
+                                <label class="col-md-5 col-form-label text-md-right py-0">Покупатель:</label>
                                 <div class="col-md-7">
-                                    <select class="custom-select form-control" required name="Otrasl" ng-model="ModalOtraslSelected" ng-options="item as item.Name_Ot for item in Otrasl track by item.ID_Ot"></select>
-                                    <span class="alert alert-warning" style="padding:0px" ng-show="myForm.Otrasl.$error.required">Выберите поле</span>
+                                    <select class="custom-select form-control" ng-model="SelectedOrganization" ng-options="item as item.Name_Org for item in OrganizationsL track by item.ID"></select>
+                                    <span>{{SelectedOrganization.Name_Org}}</span>
                                 </div>
+
                             </div>
-                            <div class="form-group row align-items-center">
-                                <label class="col-md-5 col-form-label text-md-right py-0">Лагерь:</label>
-                                <div class="col-md-7">
-                                    <select class="custom-select form-control" required name="Camp" ng-model="ModalCampSelected" ng-options="item as item.value for item in Camps track by item.id"></select>
-                                    <span class="alert alert-warning" style="padding:0px" ng-show="myForm.Camp.$error.required">Выберите поле</span>
-                                </div>
+                            <div class="mb-4 row text-right align-items-baseline" style="justify-content:flex-end">
+                                <a href="#" style="margin-right: 15px" class="btn btn-grey d-block d-md-inline-block mb-2" data-toggle="modal" data-target="#organization">Выбрать</a>
                             </div>
                             <div class="form-group row align-items-center">
                                 <label class="col-md-5 col-form-label text-md-right py-0">Количество:</label>

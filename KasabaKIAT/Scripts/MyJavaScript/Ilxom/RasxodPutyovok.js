@@ -609,6 +609,14 @@
         });
     }
 
+    $scope.exportData = function () {
+        var blob = new Blob([document.getElementById('schetfaktura').innerHTML], {
+            type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=utf-8"
+        });
+        saveAs(blob, "СчетФактура.xls");
+    };
+
+
     $scope.SchetFakturaPrint = function () {
 
         GetSchetFaktura();
@@ -652,7 +660,7 @@
             ]).then(function (ru_text) {
                 doc.addImage(ru_text[0], 'JPEG', 10, 10, (width - 20), (height - 20));
                 //doc.text(0, 10, 'Non-utf-8-string');
-
+                doc.addPage();
                 doc.save('СчетФактура.pdf');
                 document.getElementById('connection').style.visibility = "hidden";
                 document.getElementById('schetfaktura').style.visibility = "visible";

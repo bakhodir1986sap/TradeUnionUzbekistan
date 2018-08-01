@@ -148,10 +148,10 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.GlavnayaKniga
         /// <param name="amount"></param>
         public void Operation(TransactionOperation op, decimal amount)
         {
-            if (amount < 0)
-            {
-                throw new ApplicationException("Invalid amount");
-            }
+            //if (amount < 0)
+            //{
+            //    throw new ApplicationException("Invalid amount");
+            //}
 
             if (op == TransactionOperation.Debit)
             {

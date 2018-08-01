@@ -10,10 +10,8 @@
     GetOrganizationList();
 
     $scope.REC_ID = '';
-    $scope.ID_OTRAS = '';
-    $scope.OTRALSNAME = '';
-    $scope.ID_CAMP = '';
-    $scope.CAMPNAME = '';
+    $scope.ID_ORG = '';
+    $scope.ORGNAME = '';
     $scope.QUANTUTY = '';
     $scope.TOTALAMOUNT = '';
     $scope.TIMESTAMP = '';
@@ -41,6 +39,10 @@
         value: ''
     };
 
+    $scope.SelectedOrganization = {
+        ID: '',
+        Name_Org: ''
+    };
 
     function GetOtraslForOrganization() {
         document.getElementById('connection').style.visibility = "visible";
@@ -110,12 +112,10 @@
     //Master Row Selected
 
 
-    $scope.CurrentCampZayavki = {
+    $scope.CurrentCampOtcheti = {
         rec_id: '',
-        id_otras: '',
-        otralsName: '',
-        id_camp: '',
-        campName: '',
+        id_org: '',
+        orgName: '',
         quantuty: '',
         totalamount: '',
         timestamp: '',
@@ -132,7 +132,7 @@
         $http({
             method: 'get',
             url: "/CampZayavki/GetOtchet",
-            data: JSON.stringify($scope.CurrentCampZayavki),
+            data: JSON.stringify($scope.CurrentCampOtcheti),
             dataType: "json"
         }).then(function (response) {
             $scope.LagerNewZayavkas = response.data;
@@ -149,17 +149,11 @@
     $scope.edit = function (idSelectedVote) {
 
         $scope.REC_ID = idSelectedVote.rec_id;
-        $scope.ID_OTRAS = idSelectedVote.id_otras;
-        $scope.OTRALSNAME = idSelectedVote.otralsName;
+        $scope.SelectedOrganization.ID = idSelectedVote.id_org;
+        $scope.SelectedOrganization.Name_Org = idSelectedVote.orgName;
 
-        $scope.ModalOtraslSelected.Name_Ot = idSelectedVote.otralsName;
-        $scope.ModalOtraslSelected.ID_Ot = idSelectedVote.id_otras;
-
-        $scope.ID_CAMP = idSelectedVote.id_camp;
-        $scope.CAMPNAME = idSelectedVote.campName;
-
-        $scope.ModalCampSelected.id = idSelectedVote.id_camp;
-        $scope.ModalCampSelected.value = idSelectedVote.campName;
+        $scope.ID_ORG = idSelectedVote.id_org;
+        $scope.ORGNAME = idSelectedVote.orgName;
 
         $scope.QUANTUTY = idSelectedVote.quantuty;
         $scope.TOTALAMOUNT = idSelectedVote.totalamount;
@@ -174,25 +168,25 @@
 
     $scope.AddZayavkuClicked = function () {
 
-        $scope.CurrentCampZayavki.rec_id = $scope.REC_ID;
-        $scope.CurrentCampZayavki.id_otras = $scope.ID_OTRAS;
-        $scope.CurrentCampZayavki.otralsName = $scope.OTRALSNAME;
-        $scope.CurrentCampZayavki.id_camp = $scope.ID_CAMP;
-        $scope.CurrentCampZayavki.campName = $scope.CAMPNAME;
-        $scope.CurrentCampZayavki.quantuty = $scope.QUANTUTY;
-        $scope.CurrentCampZayavki.totalamount = $scope.TOTALAMOUNT;
-        $scope.CurrentCampZayavki.timestamp = $scope.TIMESTAMP;
-        $scope.CurrentCampZayavki.status = $scope.STATUS;
-        $scope.CurrentCampZayavki.department_code = $scope.DEPARTMENT_CODE;
-        $scope.CurrentCampZayavki.userid = $scope.USERID;
+        $scope.CurrentCampOtcheti.rec_id = $scope.REC_ID;
+        $scope.CurrentCampOtcheti.id_otras = $scope.ID_OTRAS;
+        $scope.CurrentCampOtcheti.otralsName = $scope.OTRALSNAME;
+        $scope.CurrentCampOtcheti.id_camp = $scope.ID_CAMP;
+        $scope.CurrentCampOtcheti.campName = $scope.CAMPNAME;
+        $scope.CurrentCampOtcheti.quantuty = $scope.QUANTUTY;
+        $scope.CurrentCampOtcheti.totalamount = $scope.TOTALAMOUNT;
+        $scope.CurrentCampOtcheti.timestamp = $scope.TIMESTAMP;
+        $scope.CurrentCampOtcheti.status = $scope.STATUS;
+        $scope.CurrentCampOtcheti.department_code = $scope.DEPARTMENT_CODE;
+        $scope.CurrentCampOtcheti.userid = $scope.USERID;
 
-        $scope.CurrentCampZayavki.id_otras = $scope.ModalOtraslSelected.ID_Ot;
-        $scope.CurrentCampZayavki.id_camp = $scope.ModalCampSelected.id;
+        $scope.CurrentCampOtcheti.id_org = $scope.SelectedOrganization.ID;
+        $scope.CurrentCampOtcheti.orgName = $scope.SelectedOrganization.Name_Org;
 
         $http({
             method: "post",
-            url: "/CampZayavki/AddZayavku",
-            data: JSON.stringify($scope.CurrentCampZayavki),
+            url: "/CampZayavki/AddCampOtchet",
+            data: JSON.stringify($scope.CurrentCampOtcheti),
             dataType: "json"
         }).then(function (response) {
 
@@ -208,26 +202,25 @@
 
     $scope.ModifyZayavku = function () {
 
-        $scope.CurrentCampZayavki.rec_id = $scope.REC_ID;
-        $scope.CurrentCampZayavki.id_otras = $scope.ID_OTRAS;
-        $scope.CurrentCampZayavki.otralsName = $scope.OTRALSNAME;
-        $scope.CurrentCampZayavki.id_camp = $scope.ID_CAMP;
-        $scope.CurrentCampZayavki.campName = $scope.CAMPNAME;
-        $scope.CurrentCampZayavki.quantuty = $scope.QUANTUTY;
-        $scope.CurrentCampZayavki.totalamount = $scope.TOTALAMOUNT;
-        $scope.CurrentCampZayavki.timestamp = $scope.TIMESTAMP;
-        $scope.CurrentCampZayavki.status = $scope.STATUS;
-        $scope.CurrentCampZayavki.department_code = $scope.DEPARTMENT_CODE;
-        $scope.CurrentCampZayavki.userid = $scope.USERID;
+        $scope.CurrentCampOtcheti.rec_id = $scope.REC_ID;
+        $scope.CurrentCampOtcheti.id_otras = $scope.ID_OTRAS;
+        $scope.CurrentCampOtcheti.otralsName = $scope.OTRALSNAME;
+        $scope.CurrentCampOtcheti.id_camp = $scope.ID_CAMP;
+        $scope.CurrentCampOtcheti.campName = $scope.CAMPNAME;
+        $scope.CurrentCampOtcheti.quantuty = $scope.QUANTUTY;
+        $scope.CurrentCampOtcheti.totalamount = $scope.TOTALAMOUNT;
+        $scope.CurrentCampOtcheti.timestamp = $scope.TIMESTAMP;
+        $scope.CurrentCampOtcheti.status = $scope.STATUS;
+        $scope.CurrentCampOtcheti.department_code = $scope.DEPARTMENT_CODE;
+        $scope.CurrentCampOtcheti.userid = $scope.USERID;
 
-
-        $scope.CurrentCampZayavki.id_otras = $scope.ModalOtraslSelected.ID_Ot;
-        $scope.CurrentCampZayavki.id_camp = $scope.ModalCampSelected.id;
+        $scope.CurrentCampOtcheti.id_org = $scope.SelectedOrganization.ID;
+        $scope.CurrentCampOtcheti.orgName = $scope.SelectedOrganization.Name_Org;
 
         $http({
             method: "post",
-            url: "/CampZayavki/ModifyZayavku",
-            data: JSON.stringify($scope.CurrentCampZayavki),
+            url: "/CampZayavki/ModifyOtchet",
+            data: JSON.stringify($scope.CurrentCampOtcheti),
             dataType: "json"
         }).then(function (response) {
 
@@ -244,26 +237,26 @@
 
     $scope.DeleteZayavku = function () {
 
-        $scope.CurrentCampZayavki.rec_id = $scope.REC_ID;
-        $scope.CurrentCampZayavki.id_otras = $scope.ID_OTRAS;
-        $scope.CurrentCampZayavki.otralsName = $scope.OTRALSNAME;
-        $scope.CurrentCampZayavki.id_camp = $scope.ID_CAMP;
-        $scope.CurrentCampZayavki.campName = $scope.CAMPNAME;
-        $scope.CurrentCampZayavki.quantuty = $scope.QUANTUTY;
-        $scope.CurrentCampZayavki.totalamount = $scope.TOTALAMOUNT;
-        $scope.CurrentCampZayavki.timestamp = $scope.TIMESTAMP;
-        $scope.CurrentCampZayavki.status = $scope.STATUS;
-        $scope.CurrentCampZayavki.department_code = $scope.DEPARTMENT_CODE;
-        $scope.CurrentCampZayavki.userid = $scope.USERID;
+        $scope.CurrentCampOtcheti.rec_id = $scope.REC_ID;
+        $scope.CurrentCampOtcheti.id_otras = $scope.ID_OTRAS;
+        $scope.CurrentCampOtcheti.otralsName = $scope.OTRALSNAME;
+        $scope.CurrentCampOtcheti.id_camp = $scope.ID_CAMP;
+        $scope.CurrentCampOtcheti.campName = $scope.CAMPNAME;
+        $scope.CurrentCampOtcheti.quantuty = $scope.QUANTUTY;
+        $scope.CurrentCampOtcheti.totalamount = $scope.TOTALAMOUNT;
+        $scope.CurrentCampOtcheti.timestamp = $scope.TIMESTAMP;
+        $scope.CurrentCampOtcheti.status = $scope.STATUS;
+        $scope.CurrentCampOtcheti.department_code = $scope.DEPARTMENT_CODE;
+        $scope.CurrentCampOtcheti.userid = $scope.USERID;
 
 
-        $scope.CurrentCampZayavki.id_otras = $scope.ModalOtraslSelected.ID_Ot;
-        $scope.CurrentCampZayavki.id_camp = $scope.ModalCampSelected.id;
+        $scope.CurrentCampOtcheti.id_org = $scope.SelectedOrganization.ID;
+        $scope.CurrentCampOtcheti.orgName = $scope.SelectedOrganization.Name_Org;
 
         $http({
             method: "post",
-            url: "/CampZayavki/DeleteZayavku",
-            data: JSON.stringify($scope.CurrentCampZayavki),
+            url: "/CampZayavki/DeleteOtchet",
+            data: JSON.stringify($scope.CurrentCampOtcheti),
             dataType: "json"
         }).then(function (response) {
 

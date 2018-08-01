@@ -321,6 +321,163 @@ namespace KasabaKiat.BusinessLogic.Putyovki.OplataPutyovok
             }
         }
 
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="IdMain"></param>
+        public async Task CloseRasxodPutyovokClosed(long IdMain, decimal? oldSymma, int? oldNum)
+        {
+            using (KasabaKIATEntities db = new KasabaKIATEntities())
+            {
+                var post = db.tblVipl.Where(z => z.ID == IdMain);
+
+                if (post.Any())
+                {
+                    var post1 = post.FirstOrDefault();
+
+                    var oplata = new OplataViewModel
+                    {
+                        Data_Post = post1.Data_Post,
+                        Departmentbase = post1.DepartmentBase,
+                        ID_KV = post1.ID_Kv,
+                        ID_Otras = post1.ID_Org,
+                        Num_Doc = post1.Num_Doc,
+                        PrizOpl = (int)OplataRasxPriz.OrganizasiyaRasxod,
+                        SmFil = post1.SmFil,
+                        Symma_DT = Decimal.Multiply((post1.Symma.Value - oldSymma.Value), 0.45M),
+                        Symma_KT = 0,
+                        Tip_Org = true,
+                        UserId = post1.UserId
+                    };
+
+                    tblOplata opp = null;
+
+                    OplataDataManager.Create(ref oplata, db, out opp);
+
+                    var prixodDtl = await Vipl_PutDataManager.Get(IdMain);
+
+                    if (prixodDtl != null)
+                    {
+                        foreach (var pDtl in prixodDtl)
+                        {
+                            var isExists = db.tblOplata_Ras.Where(z => z.ID_Sanat == pDtl.id_sanat && z.Num_Put == pDtl.num_put
+                                            && z.Priz == (int)OplataRasxPriz.OrganizasiyaRasxod);
+
+                            if (isExists.Any()) continue;
+
+
+                            var oplatDtl = new OplataRasxodiViewModel
+                            {
+                                Departmentbase = pDtl.departmentbase,
+                                ID_Opl = oplata.ID,
+                                ID_Pr = 1, //45%
+                                ID_Sanat = pDtl.id_sanat.Value,
+                                Num_Put = pDtl.num_put,
+                                Priz = (int)OplataRasxPriz.OrganizasiyaRasxod,
+                                Symma = Decimal.Multiply(pDtl.symma.Value, 0.45M),
+                                UserId = pDtl.userid.Value
+                            };
+
+                            OplataRasxodDataManager.Create(ref oplatDtl, db, opp);
+                        }
+                    }
+
+                    //Organization balance Change
+                    Sprav_Org.ChangeOstatok(TransactionOperation.Debit, post1.ID_Org.Value, Decimal.Multiply((post1.Symma.Value - oldSymma.Value), 0.45M), db);
+
+                    //If Organization IsPravsoyuz Flag and Not PPO Rasxod should go as Prixod
+
+                    var orgInfo = db.tblSprav_Org.Where(z => z.IS_PRAVSOYUZ == true
+                                                            && z.PRAVORGLEVEL < 3
+                                                            && z.ID == post1.ID_Org);
+
+                    if (orgInfo.Any())
+                    {
+                        var departmentCode = orgInfo.First().OWNER_CODE;
+
+                        if (!string.IsNullOrEmpty(departmentCode))
+                        {
+                            var prixodMain = new PostupleniyaViewModel
+                            {
+                                Id_Kv = post1.ID_Kv,
+                                Data_Post = DateTime.Now,
+                                Num_Doc = post1.Num_Doc,
+                                ID_Pos = post1.ID_Org,
+                                Num_Kol = null,
+                                Symma = null,
+                                Name_Dov = post1.Name_Dov,
+                                Vid = false,
+                                SmFil = post1.SmFil,
+                                UserId = post1.UserId,
+                                DepartmentBase = departmentCode
+                            };
+
+                            tblPost pp = null;
+
+                            PostMainDataManager.Create(ref prixodMain, db, out pp);
+
+                            var prixodDtl2 = await Vipl_PutDataManager.Get(IdMain);
+
+                            if (prixodDtl2 != null)
+                            {
+                                foreach (var pDtl in prixodDtl2)
+                                {
+                                    var isExists = db.tblPos_Put.Where(z => z.ID_Sanat == pDtl.id_sanat && z.Num_Put == pDtl.num_put
+                                        && z.ID_PolVoz == false);
+
+                                    if (isExists.Any()) continue;
+
+                                    //Prixod Dtl
+                                    var prixodDetail1 = new PostPutyovkaViewModel
+                                    {
+                                        IdPost = prixodMain.Id,
+                                        IdSanat = pDtl.id_sanat,
+                                        Num_Put = pDtl.num_put,
+                                        Symma_Put = pDtl.symma,
+                                        ID_PolVoz = false,
+                                        Data_Post = pDtl.data_post,
+                                        UserId = pDtl.userid,
+                                        Departmentbase = departmentCode
+                                    };
+
+                                    PostPutDetailDataManager.Create(ref prixodDetail1, db, pp);
+                                }
+                            }
+
+
+                        }
+                        else
+                        {
+                            throw new ApplicationException("Owner code in organization list is invalid");
+                        }
+                    }
+
+                    var trans = new ProvodkiViewModel
+                    {
+                        comment = "Расход путевок ",
+                        department_base = post1.DepartmentBase,
+                        inoutflg = false,
+                        platelrsch = "04",
+                        poluchrsch = "03",
+                        summa = (post1.Symma - oldSymma),
+                        user_id = post1.UserId,
+                        trdt = post1.Data_Post,
+                        trref = "RSP",
+                        trrefno = string.Format("{0}|{1}", post1.Num_Doc, post1.Data_Post.Value.ToShortDateString())
+                    };
+
+                    tbbu_provodki provodka = null;
+                    ProvodkiDataManager.Create(ref trans, db, out provodka);
+
+                    post1.tbbu_provodki = provodka;
+
+                }
+
+                await db.SaveChangesAsync();
+            }
+        }
+
         /// <summary>
         /// 
         /// </summary>

@@ -111,6 +111,7 @@ namespace KasabaKIAT.BusinessLogic.Lager.OtchetOtLager
                             {
                                rec_id           = zaezdi.REC_ID         ,
                                id_org           = zaezdi.ID_ORG         ,
+                               orgName          = organiz.Name_Org,
                                quantuty         = zaezdi.Quantuty       ,
                                totalamount      = zaezdi.TotalAmount    ,
                                timestamp        = zaezdi.TIMESTAMP      ,

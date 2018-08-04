@@ -10,7 +10,6 @@ namespace KasabaKIAT.MyRoleProvider
 {
     public class SiteRole : RoleProvider
     {
-        private int _cacheTimeoutInMinute = 20;
         public override string ApplicationName
         {
             get

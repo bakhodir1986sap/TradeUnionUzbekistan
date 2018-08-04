@@ -23,7 +23,7 @@ namespace KasabaKIAT.BusinessLogic.StartProcess.LoaderDataManagers
             }
             else
             {
-                var organizations1 = db.tblSprav_Org.Where(z=>z.INN == model.inn);
+                var organizations1 = db.tblSprav_Org.Where(z=>z.INN == model.inn && z.DepartmentBase == model.departmentbase);
 
                 if (organizations1.Any()) return; //Dublication not allowed
 

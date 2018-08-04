@@ -706,22 +706,26 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.Provodki.AutomaticTransactions.K
                                 }
                             }
 
-                            if (bankAccountBalance.Equals("20208") ||
-                                bankAccountBalance.Equals("14301") ||
-                                bankAccountBalance.Equals("13301") ||
-                                bankAccountBalance.Equals("20210") ||
-                                bankAccountBalance.Equals("20212") ||
-                                bankAccountBalance.Equals("20214") ||
-                                bankAccountBalance.Equals("20216") ||
-                                //bankAccountBalance.Equals("20218") || //Ibroxim Namangan
-                                bankAccountBalance.Equals("20296") ||
-                                bankAccountBalance.Equals("21506"))
+                            if (bankAccountBalance.Equals("20208") //||
+                                //bankAccountBalance.Equals("14301") ||
+                                //bankAccountBalance.Equals("13301") ||
+                                //bankAccountBalance.Equals("20210") ||
+                                //bankAccountBalance.Equals("20212") ||
+                                //bankAccountBalance.Equals("20214") ||
+                                //bankAccountBalance.Equals("20216") ||
+                                ////bankAccountBalance.Equals("20218") || //Ibroxim Namangan
+                                //bankAccountBalance.Equals("20296") ||
+                                //bankAccountBalance.Equals("21506")
+                                )
                             {
                                 model.remark += string.Format("INN:{0};", payment.INN);
                                 innFromDtl = payment.INN;
                             }
-                            else if (payment.INN.Equals("000000000"))
+                            else 
+                            if (payment.INN.Equals("000000000"))
                             {
+                                payment.PURPOSE = Regex.Replace(payment.PURPOSE, @"\s+", "");
+
                                 string[] numbers = Regex.Split(payment.PURPOSE, @"\D+");
 
                                 //other case try to get INN 
@@ -740,6 +744,8 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.Provodki.AutomaticTransactions.K
                             }
                             else if (payment.PURPOSE.ToUpper().Contains("ИНН "))
                             {
+                                payment.PURPOSE = Regex.Replace(payment.PURPOSE, @"\s+", "");
+
                                 string[] numbers = Regex.Split(payment.PURPOSE, @"\D+");
 
                                 //First 9 digit number As INN
@@ -764,6 +770,8 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.Provodki.AutomaticTransactions.K
                             }
                             else if (payment.PURPOSE.ToUpper().Contains("INN "))
                             {
+                                payment.PURPOSE = Regex.Replace(payment.PURPOSE, @"\s+", "");
+
                                 string[] numbers = Regex.Split(payment.PURPOSE, @"\D+");
 
                                 //First 9 digit number As INN
@@ -788,6 +796,8 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.Provodki.AutomaticTransactions.K
                             }
                             else if (payment.PURPOSE.ToUpper().Contains("СТИР "))
                             {
+                                payment.PURPOSE = Regex.Replace(payment.PURPOSE, @"\s+", "");
+
                                 string[] numbers = Regex.Split(payment.PURPOSE, @"\D+");
 
                                 //First 9 digit number As INN
@@ -812,6 +822,8 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.Provodki.AutomaticTransactions.K
                             }
                             else if (payment.PURPOSE.ToUpper().Contains("STIR "))
                             {
+                                payment.PURPOSE = Regex.Replace(payment.PURPOSE, @"\s+", "");
+
                                 string[] numbers = Regex.Split(payment.PURPOSE, @"\D+");
 
                                 //First 9 digit number As INN
@@ -836,6 +848,8 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.Provodki.AutomaticTransactions.K
                             }
                             else
                             {
+                                payment.PURPOSE = Regex.Replace(payment.PURPOSE, @"\s+", "");
+
                                 string[] numbers = Regex.Split(payment.PURPOSE, @"\D+");
 
                                 //other case try to get INN 
@@ -920,7 +934,8 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.Provodki.AutomaticTransactions.K
                             }
 
                             //Search in tblSprav_Org
-                            var orgsList = db.tblSprav_Org.Where(z => z.INN == innFromDtl);
+                            var orgsList = db.tblSprav_Org.Where(z => z.INN == innFromDtl &&
+                            z.DepartmentBase == payment.OBL_DEPARTMENT_BASE);
 
                             if (orgsList.Any())
                             {
@@ -950,8 +965,9 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.Provodki.AutomaticTransactions.K
                             }
                             else
                             {
+                                string combine = string.Format("{0}{1}", innFromDtl, payment.OBL_DEPARTMENT_BASE);
 
-                                if (orgInnEnter.Where(z => z == innFromDtl).Any())
+                                if (orgInnEnter.Where(z => z == combine).Any())
                                 {
                                     //skip
                                 }
@@ -990,7 +1006,7 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.Provodki.AutomaticTransactions.K
 
                                     db.tblSprav_Org.Add(orrg);
 
-                                    orgInnEnter.Add(innFromDtl);
+                                    orgInnEnter.Add(combine);
                                 }
                             }
 
@@ -1002,6 +1018,7 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.Provodki.AutomaticTransactions.K
 
                         try
                         {
+                            Console.WriteLine(DateTime.Now.ToLongTimeString() + "SaveChanges!!!!!================================== ");
                             db.SaveChanges();
                             orgInnEnter.Clear();
                             egrpoInnEnter.Clear();
@@ -1073,7 +1090,7 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.Provodki.AutomaticTransactions.K
                             trans.department_base = pp.Departmentbase;
                             trans.inoutflg = false;
                             trans.platelrsch = pp.Departmentbase == "17" ? "22" : "20";
-                            trans.poluchrsch = "004";
+                            trans.poluchrsch = "001";
                             trans.summa = pp.SUMPAY;
 
                             trans.user_id = 1;
@@ -1154,11 +1171,6 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.Provodki.AutomaticTransactions.K
             {
                 _logService.Info(ex.ToString());
             }
-
-
-
-
-
         }
 
     }

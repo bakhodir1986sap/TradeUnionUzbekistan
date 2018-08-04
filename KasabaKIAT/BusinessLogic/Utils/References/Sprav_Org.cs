@@ -24,19 +24,19 @@ namespace KasabaKiat.BusinessLogic.Utils.References
             {
                 tblSprav_Org org = new tblSprav_Org();
 
-                org.ID_Ot       = model.ID_Ot       ;
-                org.Name_Org    = model.Name_Org    ;
-                org.INN         = model.INN         ;
-                org.RS          = model.RS          ;
-                org.MFO         = model.MFO         ;
-                org.Bank        = model.Bank        ;
-                org.OKONX       = model.OKONX       ;
-                org.Adress      = model.Adress      ;
-                org.Telefon     = model.Telefon     ;
-                org.Region      = model.Region      ;
-                org.DT_OST      = 0      ;
-                org.KT_OST      = 0      ;
-                org.E_Mail      = model.E_Mail      ;
+                org.ID_Ot = model.ID_Ot;
+                org.Name_Org = model.Name_Org;
+                org.INN = model.INN;
+                org.RS = model.RS;
+                org.MFO = model.MFO;
+                org.Bank = model.Bank;
+                org.OKONX = model.OKONX;
+                org.Adress = model.Adress;
+                org.Telefon = model.Telefon;
+                org.Region = model.Region;
+                org.DT_OST = 0;
+                org.KT_OST = 0;
+                org.E_Mail = model.E_Mail;
                 org.UserId = model.UserId;
                 org.DepartmentBase = model.DepartmentBase;
                 org.IS_PRAVSOYUZ = model.IsPravSoyuz;
@@ -128,7 +128,7 @@ namespace KasabaKiat.BusinessLogic.Utils.References
         /// <param name="pravsoyuzLevel"></param>
         /// <param name="Id"></param>
         /// <returns></returns>
-        private static string GenerateDepartmentCode(int otrasl = 0, int region = 0 , int pravsoyuzLevel = 0, long Id = 0)
+        private static string GenerateDepartmentCode(int otrasl = 0, int region = 0, int pravsoyuzLevel = 0, long Id = 0)
         {
             using (KasabaKIATEntities db = new KasabaKIATEntities())
             {
@@ -312,24 +312,25 @@ namespace KasabaKiat.BusinessLogic.Utils.References
             using (KasabaKIATEntities db = new KasabaKIATEntities())
             {
                 var queryRes = from org in db.tblSprav_Org
+                               where org.DepartmentBase == model.DepartmentBase
                                orderby org.Name_Org
                                select new Sprav_OrgViewModel
                                {
                                    ID = org.ID,
-                                   ID_Ot    = org.ID_Ot,
+                                   ID_Ot = org.ID_Ot,
                                    Name_Org = org.Name_Org,
-                                   INN      = org.INN,
-                                   RS       = org.RS,
-                                   MFO      = org.MFO,
-                                   Bank     = org.Bank,
-                                   OKONX    = org.OKONX,
-                                   Adress   = org.Adress,
-                                   Telefon  = org.Telefon,
-                                   Region   = org.Region,
-                                   DT_OST   = org.DT_OST,
-                                   KT_OST   = org.KT_OST,
-                                   E_Mail   = org.E_Mail,
-                                   UserId   = org.UserId,
+                                   INN = org.INN,
+                                   RS = org.RS,
+                                   MFO = org.MFO,
+                                   Bank = org.Bank,
+                                   OKONX = org.OKONX,
+                                   Adress = org.Adress,
+                                   Telefon = org.Telefon,
+                                   Region = org.Region,
+                                   DT_OST = org.DT_OST,
+                                   KT_OST = org.KT_OST,
+                                   E_Mail = org.E_Mail,
+                                   UserId = org.UserId,
                                    IsPravSoyuz = org.IS_PRAVSOYUZ,
                                    ParentId = org.ParentID,
                                    PravSoyuzLevel = org.PRAVORGLEVEL,
@@ -340,7 +341,7 @@ namespace KasabaKiat.BusinessLogic.Utils.References
                                    owner_code = org.OWNER_CODE,
                                    db_bal = org.DB_BAL,
                                    ct_bal = org.CT_BAL
-                               }  ;
+                               };
 
                 list = queryRes.ToList();
 
@@ -361,9 +362,9 @@ namespace KasabaKiat.BusinessLogic.Utils.References
             using (KasabaKIATEntities db = new KasabaKIATEntities())
             {
                 var queryRes = from org in db.tblSprav_Org
-                               //join otras in db.tblSprav_Otras on org.ID_Ot equals otras.ID_Ot
-                               //join region in db.tblSprav_Reg on org.Region equals region.CodeReg
-                               where org.DepartmentBase == departmentBase 
+                                   //join otras in db.tblSprav_Otras on org.ID_Ot equals otras.ID_Ot
+                                   //join region in db.tblSprav_Reg on org.Region equals region.CodeReg
+                               where org.DepartmentBase == departmentBase
                                //&& otras.DepartmentBase == departmentBase
                                orderby org.Name_Org
                                select new Sprav_OrgViewModel
@@ -372,14 +373,14 @@ namespace KasabaKiat.BusinessLogic.Utils.References
                                    ID_Ot = org.ID_Ot,
                                    OtraslName = "",//otras.Name_Ot,
                                    Name_Org = org.Name_Org,
-                                   INN      = org.INN,
-                                   RS       = org.RS,
-                                   MFO      = org.MFO,
-                                   Bank     = org.Bank,
-                                   OKONX    = org.OKONX,
-                                   Adress   = org.Adress,
-                                   Telefon  = org.Telefon,
-                                   Region   = org.Region,
+                                   INN = org.INN,
+                                   RS = org.RS,
+                                   MFO = org.MFO,
+                                   Bank = org.Bank,
+                                   OKONX = org.OKONX,
+                                   Adress = org.Adress,
+                                   Telefon = org.Telefon,
+                                   Region = org.Region,
                                    RegionName = "",
                                    DT_OST = org.DT_OST,
                                    KT_OST = org.KT_OST,
@@ -454,11 +455,11 @@ namespace KasabaKiat.BusinessLogic.Utils.References
             using (KasabaKIATEntities db = new KasabaKIATEntities())
             {
                 var queryRes = from org in db.tblSprav_Org
-                               //join otras in db.tblSprav_Otras on org.ID_Ot equals otras.ID_Ot
-                               //join region in db.tblSprav_Reg on org.Region equals region.CodeReg
+                                   //join otras in db.tblSprav_Otras on org.ID_Ot equals otras.ID_Ot
+                                   //join region in db.tblSprav_Reg on org.Region equals region.CodeReg
                                where org.DepartmentBase == departmentBase
                                //&& otras.DepartmentBase == departmentBase
-                               && (org.Name_Org.Contains((IsNameEmpty ? org.Name_Org: Name))) 
+                               && (org.Name_Org.Contains((IsNameEmpty ? org.Name_Org : Name)))
                                && (org.INN.Contains((IsInnEmpty ? org.INN : Inn)))
                                && (org.ID_Ot == (OtrasId.HasValue ? OtrasId == -1 ? null : OtrasId : org.ID_Ot))
                                orderby org.Name_Org
@@ -580,8 +581,8 @@ namespace KasabaKiat.BusinessLogic.Utils.References
             using (KasabaKIATEntities db = new KasabaKIATEntities())
             {
                 var queryRes = from org in db.tblSprav_Org
-                               //join otras in db.tblSprav_Otras on org.ID_Ot equals otras.ID_Ot
-                               //join region in db.tblSprav_Reg on org.Region equals region.CodeReg
+                                   //join otras in db.tblSprav_Otras on org.ID_Ot equals otras.ID_Ot
+                                   //join region in db.tblSprav_Reg on org.Region equals region.CodeReg
                                where org.DepartmentBase == departmentBase
                                //&& otras.DepartmentBase == departmentBase
                                && org.ID == Id
@@ -640,7 +641,7 @@ namespace KasabaKiat.BusinessLogic.Utils.References
                         {
                             org.ParentName = orgName.First().Name_Org;
                         }
-                        
+
                     }
 
                     var isRegionExists = regionList.Where(r => r.CodeReg == org.Region);
@@ -661,13 +662,13 @@ namespace KasabaKiat.BusinessLogic.Utils.References
         /// </summary>
         /// <param name="oper"></param>
         /// <param name="amount"></param>
-        public static void ChangeOstatok(TransactionOperation oper, string inn , decimal? amount, KasabaKIATEntities db)
+        public static void ChangeOstatok(TransactionOperation oper, string inn, string departmentCode ,decimal? amount, KasabaKIATEntities db)
         {
-                var orgs = db.tblSprav_Org.Where(z => z.INN == inn);
+            var orgs = db.tblSprav_Org.Where(z => z.INN == inn && z.DepartmentBase == departmentCode);
 
-                if (orgs.Any())
-                {
-                    var org = orgs.First();
+            if (orgs.Any())
+            {
+                var org = orgs.First();
                 decimal? DB_BAL = 0;
                 if (org.DB_BAL.HasValue)
                 {
@@ -682,28 +683,28 @@ namespace KasabaKiat.BusinessLogic.Utils.References
 
 
                 if (oper == TransactionOperation.Debit)
-                    {
-                        DB_BAL += amount;
-                    }
-                    else if (oper == TransactionOperation.Creadit)
-                    {
-                        CT_BAL += amount;
-                    }
-
-                    if (DB_BAL >= CT_BAL)
-                    {
-                        DB_BAL = DB_BAL - CT_BAL;
-                        CT_BAL = 0;
-                    }
-                    else
-                    {
-                        CT_BAL = CT_BAL - DB_BAL;
-                        DB_BAL = 0;
-                    }
-
-                    org.DB_BAL = DB_BAL;
-                    org.CT_BAL = CT_BAL;
+                {
+                    DB_BAL += amount;
                 }
+                else if (oper == TransactionOperation.Creadit)
+                {
+                    CT_BAL += amount;
+                }
+
+                if (DB_BAL >= CT_BAL)
+                {
+                    DB_BAL = DB_BAL - CT_BAL;
+                    CT_BAL = 0;
+                }
+                else
+                {
+                    CT_BAL = CT_BAL - DB_BAL;
+                    DB_BAL = 0;
+                }
+
+                org.DB_BAL = DB_BAL;
+                org.CT_BAL = CT_BAL;
+            }
         }
 
 
@@ -715,49 +716,49 @@ namespace KasabaKiat.BusinessLogic.Utils.References
         public static void ChangeOstatok(TransactionOperation oper, long idOrg, decimal? amount, KasabaKIATEntities db)
         {
 
-                var orgs = db.tblSprav_Org.Where(z => z.ID == idOrg);
+            var orgs = db.tblSprav_Org.Where(z => z.ID == idOrg);
 
-                if (orgs.Any())
+            if (orgs.Any())
+            {
+                var org = orgs.First();
+
+                decimal? DB_BAL = 0;
+                if (org.DB_BAL.HasValue)
                 {
-                    var org = orgs.First();
-
-                    decimal? DB_BAL = 0;
-                    if (org.DB_BAL.HasValue)
-                    {
-                        DB_BAL = org.DB_BAL;
-                    }
-
-                    decimal? CT_BAL = 0;
-                    if (org.CT_BAL.HasValue)
-                    {
-                        CT_BAL = org.CT_BAL;
-                    }
-
-                    if (oper == TransactionOperation.Debit)
-                    {
-                        DB_BAL += amount;
-                    }
-                    else if (oper == TransactionOperation.Creadit)
-                    {
-                        CT_BAL += amount;
-                    }
-
-                    if (DB_BAL >= CT_BAL)
-                    {
-                        DB_BAL = DB_BAL - CT_BAL;
-                        CT_BAL = 0;
-                    }
-                    else
-                    {
-                        CT_BAL = CT_BAL - DB_BAL;
-                        DB_BAL = 0;
-                    }
-
-                    org.DB_BAL = DB_BAL;
-                    org.CT_BAL = CT_BAL;
+                    DB_BAL = org.DB_BAL;
                 }
+
+                decimal? CT_BAL = 0;
+                if (org.CT_BAL.HasValue)
+                {
+                    CT_BAL = org.CT_BAL;
+                }
+
+                if (oper == TransactionOperation.Debit)
+                {
+                    DB_BAL += amount;
+                }
+                else if (oper == TransactionOperation.Creadit)
+                {
+                    CT_BAL += amount;
+                }
+
+                if (DB_BAL >= CT_BAL)
+                {
+                    DB_BAL = DB_BAL - CT_BAL;
+                    CT_BAL = 0;
+                }
+                else
+                {
+                    CT_BAL = CT_BAL - DB_BAL;
+                    DB_BAL = 0;
+                }
+
+                org.DB_BAL = DB_BAL;
+                org.CT_BAL = CT_BAL;
+            }
         }
     }
 
-    
+
 }

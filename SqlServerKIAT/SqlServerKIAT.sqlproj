@@ -135,5 +135,8 @@
     <None Include="UsefulSqripts\20072018\DataBaseClear.sql" />
     <None Include="UsefulSqripts\23072018\23072018.sql" />
     <None Include="UsefulSqripts\26072018\26072018.sql" />
+    <None Include="QuerySqripts\Organizations.sql" />
+    <None Include="UsefulSqripts\03082018.sql" />
+    <None Include="QuerySqripts\ProcedureTextSearch.sql" />
   </ItemGroup>
 </Project>

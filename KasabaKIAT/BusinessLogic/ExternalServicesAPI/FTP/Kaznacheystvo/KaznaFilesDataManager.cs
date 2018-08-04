@@ -39,7 +39,7 @@ namespace KasabaKiat.BusinessLogic.BankOplati.Kaznacheystvo
                 {
                     file.OPERDAY = DateTime.ParseExact(row.k_operday, "ddMMyyyy", provider);
                 }
-                catch(Exception ex)
+                catch(Exception)
                 {
                     file.OPERDAY = DateTime.Now;
                 }
@@ -48,7 +48,7 @@ namespace KasabaKiat.BusinessLogic.BankOplati.Kaznacheystvo
                 {
                     file.ID = Int64.Parse(row.k_id);
                 }
-                catch(Exception ex)
+                catch(Exception)
                 {
                     file.ID = 0;
                 }
@@ -57,7 +57,7 @@ namespace KasabaKiat.BusinessLogic.BankOplati.Kaznacheystvo
                 {
                     file.BANKID = Int64.Parse(row.k_bankid);
                 }
-                catch(Exception ex)
+                catch(Exception)
                 {
                     file.BANKID = 0;
                 }
@@ -70,7 +70,7 @@ namespace KasabaKiat.BusinessLogic.BankOplati.Kaznacheystvo
                 {
                     file.DOCDATE = DateTime.ParseExact(row.k_docdate, "ddMMyyyy", provider);
                 } 
-                catch(Exception ex)
+                catch(Exception)
                 {
                     file.DOCDATE = DateTime.Now;
                 }
@@ -81,7 +81,7 @@ namespace KasabaKiat.BusinessLogic.BankOplati.Kaznacheystvo
                 {
                     file.SUMPAY = Int64.Parse(row.k_sumpay);
                 }
-                catch(Exception ex)
+                catch(Exception)
                 {
                     file.SUMPAY = 0;
                 }

@@ -26,16 +26,16 @@ namespace KasabaKiat.BusinessLogic.Putyovki.PrixodPutyovok
 
                 var vids = db.tblPost.Where(z => z.ID == masterId);
 
-                if (vids.Any())
-                {
-                    var vid = vids.First();
+                //if (vids.Any())
+                //{
+                //    var vid = vids.First();
 
-                    //Inpossible change details already closed nakladnoy
-                    if (vid.Vid)
-                    {
-                        throw new ApplicationException("Inpossible change details already closed nakladnoy");
-                    }
-                }
+                //    //Inpossible change details already closed nakladnoy
+                //    if (vid.Vid)
+                //    {
+                //        throw new ApplicationException("Inpossible change details already closed nakladnoy");
+                //    }
+                //}
 
                 tblPos_Put post = new tblPos_Put();
 
@@ -85,6 +85,33 @@ namespace KasabaKiat.BusinessLogic.Putyovki.PrixodPutyovok
                         post1.Data_Post = model.Data_Post;
                         post1.UserId = model.UserId;
                         post1.Departmentbase = model.Departmentbase;
+                    }
+                }
+
+                await db.SaveChangesAsync();
+            }
+
+        }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public static async Task ModifyIzmData(PostPutyovkaViewModel model)
+        {
+            using (KasabaKIATEntities db = new KasabaKIATEntities())
+            {
+                var post = db.tblPos_Put.Where(z => z.ID == model.Id);
+
+                if (post.Any())
+                {
+                    var post1 = post.FirstOrDefault();
+
+                    if (post1 != null)
+                    {
+                        post1.DataSan = model.DataSan;
                     }
                 }
 
@@ -183,18 +210,22 @@ namespace KasabaKiat.BusinessLogic.Putyovki.PrixodPutyovok
             //Search by ID_Post find all rows and delete each
         }
 
-        public static async Task<List<PostPutyovkaViewModel>> Get(PostPutyovkaViewModel model)
+        public static async Task<List<PostPutyovkaViewModel>> Get(PostPutyovkaViewModel model, long? IdVipl)
         {
             List<PostPutyovkaViewModel> list = null;
 
             using (KasabaKIATEntities db = new KasabaKIATEntities())
             {
+                var ViplPosTime = db.tblVipl.Where(z => z.ID == IdVipl).First().Data_Post;
+
+
                 var query = await (from postPut in db.tblPos_Put
                             join postMain in db.tblPost 
                             on postPut.ID_Post equals postMain.ID
                             where postMain.DepartmentBase == model.Departmentbase &&
                             postPut.ID_PolVoz == false &&
-                            postPut.Num_Put == (string.IsNullOrEmpty(model.Num_Put) ? postPut.Num_Put : model.Num_Put)
+                            postPut.Num_Put == (string.IsNullOrEmpty(model.Num_Put) ? postPut.Num_Put : model.Num_Put) &&
+                            postMain.Data_Post <= ViplPosTime
                             orderby postPut.Num_Put
                             select new PostPutyovkaViewModel
                             {

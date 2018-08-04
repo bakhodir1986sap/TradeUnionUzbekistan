@@ -712,7 +712,7 @@
         });
         $http({
             method: 'get',
-            url: '/PrixodPutevok/GetNewPutyovkaList?NumPut=' + $scope.SearchNumPut
+            url: '/PrixodPutevok/GetNewPutyovkaList?NumPut=' + $scope.SearchNumPut + '&IdVipl=' + $scope.CurrentNakladnoy.id
         }).then(function (response) {
 
             $scope.PrixodPutyovkas = response.data;

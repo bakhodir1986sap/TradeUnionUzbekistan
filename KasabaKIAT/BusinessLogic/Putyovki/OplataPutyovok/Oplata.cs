@@ -16,6 +16,9 @@ using KasabaKIAT.BusinessLogic.Buxgalteriya.GlavnayaKniga;
 
 namespace KasabaKiat.BusinessLogic.Putyovki.OplataPutyovok
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public enum OplataRasxPriz
     {
         KurortPrixod = 1,
@@ -26,19 +29,27 @@ namespace KasabaKiat.BusinessLogic.Putyovki.OplataPutyovok
         VozvratViplata = 6
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
     public enum TipOpr
     {
         Opredelen,
         NeOpredelen
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
     public enum PrizOpl
     {
         Vzaimorascheti,
         OplataPutyovok
     }
 
-
+    /// <summary>
+    /// 
+    /// </summary>
     public class Oplata
     {
         /*
@@ -83,12 +94,19 @@ namespace KasabaKiat.BusinessLogic.Putyovki.OplataPutyovok
 
         }
 
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="putModel"></param>
         public void AddOplataRasxod(OplataRasxodiViewModel putModel)
         {
 
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public List<RealizasiyaViplPutViewModel> GetViplataPutList()
         {
             return new List<RealizasiyaViplPutViewModel>();
@@ -160,6 +178,95 @@ namespace KasabaKiat.BusinessLogic.Putyovki.OplataPutyovok
                         platelrsch = "03",
                         poluchrsch = "07",
                         summa = post1.Symma,
+                        user_id = post1.UserId,
+                        trdt = post1.Data_Post,
+                        trref = "PPR",
+                        trrefno = string.Format("{0}|{1}", post1.Num_Doc, post1.Data_Post.Value.ToShortDateString())
+                    };
+
+                    tbbu_provodki provodka = null;
+                    ProvodkiDataManager.Create(ref trans, db, out provodka);
+
+                    post1.tbbu_provodki = provodka;
+                }
+
+                await db.SaveChangesAsync();
+            }
+        }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="IdMain"></param>
+        public async Task ClosePrixodPutyovokClosed(long IdMain, decimal? oldSymma, int? oldNum)
+        {
+            using (KasabaKIATEntities db = new KasabaKIATEntities())
+            {
+                var post = db.tblPost.Where(z => z.ID == IdMain);
+
+                if (post.Any())
+                {
+                    var post1 = post.FirstOrDefault();
+
+                    var oplata = new OplataViewModel();
+
+                    oplata.Data_Post = post1.Data_Post;
+                    oplata.Departmentbase = post1.DepartmentBase;
+                    oplata.ID_KV = post1.ID_KV;
+                    oplata.ID_Otras = post1.ID_Pos;
+                    oplata.Num_Doc = post1.Num_Doc;
+                    oplata.PrizOpl = (int)OplataRasxPriz.KurortPrixod;
+                    oplata.SmFil = post1.SmFil;
+                    oplata.Symma_DT = 0;
+                    oplata.Symma_KT = (post1.Symma - oldSymma.Value);
+                    oplata.Tip_Org = true;
+                    oplata.UserId = post1.UserId;
+
+                    tblOplata opp = null;
+
+                    OplataDataManager.Create(ref oplata, db, out opp);
+
+                    var prixodDtl = await PostPutDetailDataManager.GetFiltered(new PostPutyovkaViewModel()
+                    {
+                        Departmentbase = post1.DepartmentBase,
+                        IdPost = IdMain
+                    });
+
+                    if (prixodDtl != null)
+                    {
+                        foreach (var pDtl in prixodDtl)
+                        {
+
+                            var IsExists = db.tblOplata_Ras.Where(z => z.ID_Sanat == pDtl.IdSanat.Value
+                            && z.Num_Put == pDtl.Num_Put && z.Priz == (int)OplataRasxPriz.KurortPrixod);
+
+                            if (IsExists.Any()) continue;
+
+                            var oplatDtl = new OplataRasxodiViewModel
+                            {
+                                Departmentbase = pDtl.Departmentbase,
+                                ID_Opl = oplata.ID,
+                                ID_Pr = 1, //45%
+                                ID_Sanat = pDtl.IdSanat.Value,
+                                Num_Put = pDtl.Num_Put,
+                                Priz = (int)OplataRasxPriz.KurortPrixod,
+                                Symma = pDtl.Symma_Put.Value,
+                                UserId = pDtl.UserId.Value
+                            };
+
+                            OplataRasxodDataManager.Create(ref oplatDtl, db, opp);
+                        }
+                    }
+
+                    var trans = new ProvodkiViewModel
+                    {
+                        comment = "Приход путевок ",
+                        department_base = post1.DepartmentBase,
+                        inoutflg = false,
+                        platelrsch = "03",
+                        poluchrsch = "07",
+                        summa = (post1.Symma - oldSymma),
                         user_id = post1.UserId,
                         trdt = post1.Data_Post,
                         trref = "PPR",

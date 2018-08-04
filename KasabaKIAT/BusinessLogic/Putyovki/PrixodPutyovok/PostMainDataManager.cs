@@ -153,17 +153,35 @@ namespace KasabaKiat.BusinessLogic.Putyovki.PrixodPutyovok
 
                     if (post1 != null)
                     {
-                        if (post1.Vid) return;
+                        if (!post1.Vid)
+                        {
+                            post1.Num_Kol = total.PutyovkaCount;
+                            post1.Symma = total.SummaNakladnix;
+                            post1.Vid = true;
 
-                        post1.Num_Kol = total.PutyovkaCount;
-                        post1.Symma = total.SummaNakladnix;
-                        post1.Vid = true;
+                            await db.SaveChangesAsync();
 
-                        await db.SaveChangesAsync();
+                            var oplata = new Oplata();
 
-                        var oplata = new Oplata();
+                            await oplata.ClosePrixodPutyovok(post1.ID);
+                        }
+                        else
+                        {
+                            //In case nakladnaya already closed and user made changes
+                            //
+                            var oldNumKol = post1.Num_Kol;
+                            var oldSymma = post1.Symma;
 
-                        await oplata.ClosePrixodPutyovok(post1.ID);
+                            post1.Num_Kol = total.PutyovkaCount;
+                            post1.Symma = total.SummaNakladnix;
+                            post1.Vid = true;
+
+                            await db.SaveChangesAsync();
+
+                            var oplata = new Oplata();
+
+                            await oplata.ClosePrixodPutyovokClosed(post1.ID, oldSymma, oldNumKol);
+                        }
                     }
                 }
 
@@ -197,6 +215,27 @@ namespace KasabaKiat.BusinessLogic.Putyovki.PrixodPutyovok
 
                 await db.SaveChangesAsync();
             }
+
+            return true;
+        }
+
+        public static bool Remove2(PostupleniyaViewModel model, KasabaKIATEntities db)
+        {
+                var post = db.tblPost.Where(z => z.ID == model.Id);
+
+                if (post.Any())
+                {
+                    var reg = post.FirstOrDefault();
+
+                    if (reg.Vid) return false;
+
+                    if (reg != null)
+                    {
+                        PostPutDetailDataManager.RemoveAllByMain(model.Id);
+
+                        db.tblPost.Remove(reg);
+                    }
+                }
 
             return true;
         }

@@ -616,6 +616,36 @@
         });
     }
 
+
+    $scope.IzmData = function () {
+        //alertify.error("SnyatBron");
+
+        var postData = { putyovkaL: $scope.SelectedPutyovkas, IzmDate: $scope.SelectedIzmData };
+
+        $http({
+            method: "post",
+            url: "/PrixodPutevok/IzmData",
+            data: JSON.stringify(postData),
+            dataType: "json"
+        }).then(function (response) {
+
+            $scope.SelectedPutyovkas = [];
+
+            for (var i = 0, l = $scope.SelectedPutyovkas.length; i < l; ++i) {
+                var value = $scope.SelectedPutyovkas[i];
+
+                $scope.SelectedPutyovkas.splice($scope.SelectedPutyovkas.indexOf(value), 1);
+            }
+
+            GetDetailList();
+            GetDetailListRes();
+
+        }, function () {
+            alertify.error("ошибка");
+            console.log('Error in SnyatBron');
+        });
+    }
+
     ////////////////////////////////////////////////////////////////
     // Add putyovka Details
     ///////////////////////////////////////////////////////////////

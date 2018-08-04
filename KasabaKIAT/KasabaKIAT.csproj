@@ -233,6 +233,8 @@
     <Compile Include="BusinessLogic\Buxgalteriya\Balance\ProvodkaParams.cs" />
     <Compile Include="BusinessLogic\Buxgalteriya\Balance\Transactions\JournalDetailDataManager.cs" />
     <Compile Include="BusinessLogic\Buxgalteriya\Balance\Transactions\JournalMasterDataManager.cs" />
+    <Compile Include="BusinessLogic\Buxgalteriya\ECP_Management\EcpManagement.cs" />
+    <Compile Include="BusinessLogic\Buxgalteriya\ECP_Management\EcpViewModel.cs" />
     <Compile Include="BusinessLogic\Buxgalteriya\FinansoviyOtchet\FinOtchetSettingsDataManager.cs" />
     <Compile Include="BusinessLogic\Buxgalteriya\FinansoviyOtchet\FinOtchetSettingsViewModel.cs" />
     <Compile Include="BusinessLogic\Buxgalteriya\FinansoviyOtchet\FinOtchetStrukture.cs" />
@@ -1569,7 +1571,6 @@
     <Content Include="Reports\14\Приход путевок за период.rdl" />
     <Content Include="Reports\14\Проводки.rdl" />
     <Content Include="Reports\14\Реализация путевок.rdl" />
-    <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\chat.js" />
     <Content Include="Scripts\dist\jquery.table2excel.js" />
     <Content Include="Scripts\dist\jquery.table2excel.min.js" />
@@ -1578,7 +1579,6 @@
     <Content Include="Scripts\FileSaver.min.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
-    <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery-ui-1.8.17.custom.min.js" />
     <Content Include="Scripts\jquery.signalR-2.2.3.js" />
     <Content Include="Scripts\jquery.signalR-2.2.3.min.js" />
@@ -1676,7 +1676,6 @@
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\vendor.js" />
     <Content Include="Scripts\vendor\modernizr.js" />
-    <None Include="Scripts\_references.js" />
     <Content Include="Views\TipsAndTriks.txt" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>

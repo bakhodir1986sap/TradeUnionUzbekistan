@@ -231,11 +231,15 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.PrixodChastichka
                         pp.tbbu_provodki = provodka;
 
                         long? OrgId = null;
-                        var orgs = db.tblSprav_Org.Where(z => z.INN == pp.PAYER_INN);
+                        var orgs = db.tblSprav_Org.Where(z => z.INN == pp.PAYER_INN && z.DepartmentBase == departmentBase);
 
                         if (orgs.Any())
                         {
                             OrgId = orgs.First().ID;
+                        }
+                        else
+                        {
+                            continue;
                         }
 
                         //Privedeniya kvartala

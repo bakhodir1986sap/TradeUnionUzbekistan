@@ -362,6 +362,14 @@
     }
 
 
+    $scope.editSelected = function (idSelectedVote) {
+
+        $scope.CurrentAkvVozv = idSelectedVote;
+        $(".activvvv").removeClass("activvvv");
+        $("#" + idSelectedVote.id).addClass("activvvv");
+    }
+
+
     $scope.SaveVozvratEnter = function () {
 
         $scope.AkvVozvMain.id_ot = $scope.SelectedOrganization.ID;
@@ -375,6 +383,30 @@
             method: "post",
             url: "/PrixodPutevok/AddVozvtars2",
             data: JSON.stringify(postData),
+            dataType: "json"
+        }).then(function (response) {
+
+            GetData();
+
+        }, function () {
+            alertify.error("ошибка");
+            console.log('Error in SavePutDtl');
+        });
+    }
+
+    $scope.exportData = function () {
+        var blob = new Blob([document.getElementById('export').innerHTML], {
+            type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=utf-8"
+        });
+        saveAs(blob, "АктВозврата.xls");
+    };
+
+    $scope.CancelVozvrat = function () {
+
+        $http({
+            method: "post",
+            url: "/PrixodPutevok/CancelVozvrat",
+            data: JSON.stringify($scope.CurrentAkvVozv),
             dataType: "json"
         }).then(function (response) {
 

@@ -13,8 +13,6 @@ namespace KurortUrvServiceTest.ServiceInterAction.Xml
     {
         private bool _DEBUG = true;
 
-        private TypeRaspredelenieZaezdov _xmlCl;
-
         public string Process(TypeRaspredelenieZaezdov xmlCl)
         {
             if (_DEBUG) //Test

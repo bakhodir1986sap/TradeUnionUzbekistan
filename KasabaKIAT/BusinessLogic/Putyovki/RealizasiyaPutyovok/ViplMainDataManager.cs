@@ -437,6 +437,8 @@ namespace KasabaKiat.BusinessLogic.Putyovki.RealizasiyaPutyovok
                         }
                         else
                         {
+                            //In case nakladnaya already closed and user made changes
+                            //
                             var oldSymma = post1.Symma;
                             var oldKolVo = post1.Num_Kol;
 

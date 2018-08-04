@@ -27,7 +27,7 @@ namespace KasabaKIAT.BusinessLogic.Putyovki.Rekviziti
                     }
                 }
             }
-            catch(Exception ex)
+            catch(Exception)
             {
                 return false;
             }

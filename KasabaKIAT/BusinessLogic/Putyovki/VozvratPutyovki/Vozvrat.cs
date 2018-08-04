@@ -18,6 +18,11 @@ namespace KasabaKiat.BusinessLogic.Putyovki.VozvratPutyovki
 {
     public class Vozvrat
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         public async Task EnterVozvrat(VozvratEnter model)
         {
             if (model == null)
@@ -57,10 +62,10 @@ namespace KasabaKiat.BusinessLogic.Putyovki.VozvratPutyovki
                     ID_KV = model.id_kv,
                     ID_Otras = model.id_ot,
                     Num_Doc = model.num_doc,
-                    PrizOpl = (int)OplataRasxPriz.VozvratPutyovki,
+                    PrizOpl = (int)OplataRasxPriz.OrganizasiyaOplata,
                     SmFil = model.smfil,
-                    Symma_DT = 0,
-                    Symma_KT = model.detailPutyovka.Sum(p => p.symma),
+                    Symma_DT = model.detailPutyovka.Sum(p => p.symma) * (-1),
+                    Symma_KT = 0,
                     Tip_Org = true,
                     UserId = model.userid
                 };
@@ -137,7 +142,7 @@ namespace KasabaKiat.BusinessLogic.Putyovki.VozvratPutyovki
                         ID_Sanat = mm.id_sanat.Value,
                         Num_Put = mm.num_put,
                         Priz = (int)OplataRasxPriz.VozvratPutyovki,
-                        Symma = mm.symma.Value,
+                        Symma = mm.symma.Value * (-1),
                         UserId = mm.userid.Value
                     };
 
@@ -149,6 +154,99 @@ namespace KasabaKiat.BusinessLogic.Putyovki.VozvratPutyovki
                 }
 
                 await db.SaveChangesAsync();
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public async Task CancelVozvrat(VozvratViewModel model)
+        {
+            if (model == null)
+            {
+                throw new ApplicationException("model is null");
+            }
+
+            //Additional functional
+            //Add to Prixod putyovok as original ID_Org
+            using (KasabaKIATEntities db = new KasabaKIATEntities())
+            {
+                //get vozvrat links
+                var vozvrat = db.tblVozVrats.Where(z => z.ID == model.id 
+                && z.DepartmentBase == model.departmentbase).FirstOrDefault();
+
+                if (vozvrat == null) return;
+
+                //Delete Prixod
+                var postPuts = db.tblPos_Put.Where(z => z.ID_Post == vozvrat.PRIXOD_ID
+                && z.Num_Put == vozvrat.Num_Put && z.ID_Sanat == vozvrat.ID_Sanat);
+
+                if (postPuts.Any())
+                {
+                    var reg = postPuts.FirstOrDefault();
+
+                    if (reg != null)
+                    {
+                        db.tblPos_Put.Remove(reg);
+                    }
+                }
+
+                //Reset Rasxod
+                var rasxodPut = new tblVipl_Put
+                {
+                    ID_Vipl = vozvrat.RASXOD_ID,
+                    Num_Put = vozvrat.Num_Put,
+                    ID_Sanat = vozvrat.ID_Sanat,
+                    Data_Post = vozvrat.Data_Post,
+                    Num_Proc = 100
+                };
+
+                db.tblVipl_Put.Add(rasxodPut);
+
+                //insert into oplata
+
+                var prixod_id = vozvrat.PRIXOD_ID;
+                //delete from vozvrat
+                var sanInfo = db.tblVozVrats.Where(z => z.ID == model.id);
+
+                if (sanInfo.Any())
+                {
+                    var reg = sanInfo.FirstOrDefault();
+
+                    if (reg != null)
+                    {
+                        db.tblVozVrats.Remove(reg);
+                    }
+                }
+
+
+                var countPostPut = db.tblPos_Put.Where(z => z.ID_Post == prixod_id).Count();
+
+                if (countPostPut == 1)
+                {
+                    var posts = db.tblPost.Where(z => z.ID == prixod_id);
+
+                    if (posts.Any())
+                    {
+                        var reg = posts.FirstOrDefault();
+
+                        if (reg != null)
+                        {
+                            db.tblPost.Remove(reg);
+                        }
+                    }
+                }
+
+                try
+                {
+                    await db.SaveChangesAsync();
+                }
+                catch(Exception ex)
+                {
+
+                }
             }
         }
     }

@@ -35,8 +35,7 @@ using KasabaKIAT.BusinessLogic.Buxgalteriya.GlavnayaKniga;
 using System.Globalization;
 using KasabaKIAT.BusinessLogic.StartProcess.LoaderViewModels;
 using KasabaKIAT.BusinessLogic.StartProcess.LoaderDataManagers;
-using KasabaKIAT.BusinessLogic.Lager.Zayavki;
-using KasabaKIAT.BusinessLogic.Lager.OtchetOtLager;
+
 
 namespace KasabaKIAT.Controllers
 {
@@ -1535,6 +1534,51 @@ namespace KasabaKIAT.Controllers
             return Json("success", JsonRequestBehavior.AllowGet);
         }
 
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="putyovkaL"></param>
+        /// <returns></returns>
+        public async Task<JsonResult> IzmData(List<long> putyovkaL, DateTime IzmDate)
+        {
+            if (putyovkaL == null) return Json("fail", JsonRequestBehavior.AllowGet);
+
+            int UserId = Convert.ToInt32(User.Identity.Name);
+            var ustinfo = UserInfo.GetUserInfo(UserId);
+
+            foreach (var puId in putyovkaL)
+            {
+                var model = new PostPutyovkaViewModel
+                {
+                    UserId = UserId,
+                    Departmentbase = ustinfo.DepartmentBase,
+                    Id = puId,
+                    DataSan = IzmDate
+
+                };
+
+                var putyovka = await PostPutDetailDataManager.Get2(model);
+
+                if (putyovka.Any())
+                {
+                    //var bron = new BronirovaniyaPutyovki();
+                    var putObj = putyovka.First();
+                    putObj.DataSan = IzmDate;
+
+                    await PostPutDetailDataManager.ModifyIzmData(putObj);
+                    //if (putObj.ID_PolVoz) continue;
+
+                    //bron.SnyatBron(new BronViewModel()
+                    //{
+                    //    ID_San = putObj.IdSanat.Value,
+                    //    Num_Put = putObj.Num_Put
+                    //});
+                }
+            }
+
+            return Json("success", JsonRequestBehavior.AllowGet);
+        }
         /// <summary>
         /// 
         /// </summary>
@@ -1706,7 +1750,7 @@ namespace KasabaKIAT.Controllers
         /// 
         /// </summary>
         /// <returns></returns>
-        public async Task<JsonResult> GetNewPutyovkaList(string NumPut)
+        public async Task<JsonResult> GetNewPutyovkaList(string NumPut, long? IdVipl)
         {
             int UserId = Convert.ToInt32(User.Identity.Name);
             var ustinfo = UserInfo.GetUserInfo(UserId);
@@ -1715,7 +1759,7 @@ namespace KasabaKIAT.Controllers
             {
                 Departmentbase = ustinfo.DepartmentBase,
                 Num_Put = NumPut
-            });
+            }, IdVipl);
 
             return Json(list, JsonRequestBehavior.AllowGet);
         }
@@ -2937,6 +2981,36 @@ namespace KasabaKIAT.Controllers
 
             return Json("fail", JsonRequestBehavior.AllowGet);
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public async Task<JsonResult> CancelVozvrat(VozvratViewModel model)
+        {
+            try
+            {
+                var vv = new Vozvrat();
+
+                int UserId = Convert.ToInt32(User.Identity.Name);
+                var ustinfo = UserInfo.GetUserInfo(UserId);
+
+                model.departmentbase = ustinfo.DepartmentBase;
+                model.userid = UserId;
+
+                //All logic realized
+                await vv.CancelVozvrat(model);
+
+                return Json("success", JsonRequestBehavior.AllowGet);
+            }
+            catch(Exception ex)
+            {
+                log.Error(ex.ToString());
+            }
+
+            return Json("fail", JsonRequestBehavior.AllowGet);
+}
 
         #endregion
 

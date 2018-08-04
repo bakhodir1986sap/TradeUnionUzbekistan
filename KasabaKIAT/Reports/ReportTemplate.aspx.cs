@@ -32,7 +32,7 @@ namespace KasabaKIAT.Reports
 
                     rvSiteMapping.ServerReport.Refresh();
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
 
                 }

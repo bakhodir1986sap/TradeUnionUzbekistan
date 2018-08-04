@@ -1011,6 +1011,7 @@
           <Property Name="TypeSchet" Type="nvarchar" MaxLength="25" />
           <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="UserId" Type="bigint" />
+          <Property Name="ID_Ot" Type="int" />
         </EntityType>
         <EntityType Name="sps_translate">
           <Key>
@@ -2467,6 +2468,7 @@ warning 6002: The table/view 'KasabaKIAT_N1.dbo.tblPutevka' does not have a prim
           <Property Name="TIMESTAMP_CH" Type="datetime" />
           <Property Name="DB_BAL" Type="money" />
           <Property Name="CT_BAL" Type="money" />
+          <Property Name="TO_DEPCODE" Type="nvarchar" MaxLength="255" />
         </EntityType>
         <EntityType Name="tblSprav_Os">
           <Key>
@@ -8442,6 +8444,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <NavigationProperty Name="users" Relationship="Self.FK_SprSchet_Users" FromRole="SprSchet" ToRole="users" />
           <NavigationProperty Name="tbbFermer" Relationship="Self.FK_tbbFermer_SprSchet" FromRole="SprSchet" ToRole="tbbFermer" />
           <NavigationProperty Name="tbbOplata" Relationship="Self.FK_tbbOplata_SprSchet" FromRole="SprSchet" ToRole="tbbOplata" />
+          <Property Name="ID_Ot" Type="Int32" />
         </EntityType>
         <EntityType Name="sps_translate">
           <Key>
@@ -9505,6 +9508,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <Property Name="TIMESTAMP_CH" Type="DateTime" Precision="3" />
           <Property Name="DB_BAL" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="CT_BAL" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="TO_DEPCODE" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           </EntityType>
         <EntityType Name="tblSprav_Os">
           <Key>
@@ -16756,6 +16760,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <EntitySetMapping Name="SprSchet">
             <EntityTypeMapping TypeName="KasabaKIATModel.SprSchet">
               <MappingFragment StoreEntitySet="SprSchet">
+                <ScalarProperty Name="ID_Ot" ColumnName="ID_Ot" />
                 <ScalarProperty Name="Indexx" ColumnName="Indexx" />
                 <ScalarProperty Name="TypeSchet" ColumnName="TypeSchet" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
@@ -17722,6 +17727,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <EntitySetMapping Name="tblSprav_Org">
             <EntityTypeMapping TypeName="KasabaKIATModel.tblSprav_Org">
               <MappingFragment StoreEntitySet="tblSprav_Org">
+                <ScalarProperty Name="TO_DEPCODE" ColumnName="TO_DEPCODE" />
                 <ScalarProperty Name="CT_BAL" ColumnName="CT_BAL" />
                 <ScalarProperty Name="DB_BAL" ColumnName="DB_BAL" />
                 <ScalarProperty Name="TIMESTAMP_CH" ColumnName="TIMESTAMP_CH" />

@@ -188,13 +188,17 @@
                                 {
                                     <a class="dropdown-item load" href="/PrixodPutevok/StartProcess">Загрузка первичных данных</a>
                                 }
+                                @if (List.BuxUchetVvodDannix)
+                                {
+                                    <a class="dropdown-item load" href="/Buxgalter/EcpManagementV">ЕСП Управление</a>
+                                }
                             </div>
                         </li>
                     }
                     @if (List.TotalReports)
                     {
                         <li class="nav-item" id="o">
-                            <a class="nav-link load" href="/Otchot/index">Отчеты</a>
+                            <a class="nav-link load" href="/Otchot/OtchetTitul">Отчеты</a>
                         </li>
 
                     }

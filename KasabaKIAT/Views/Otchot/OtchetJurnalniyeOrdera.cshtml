@@ -1,0 +1,51 @@
+﻿@using KasabaKIAT.BusinessLogic.Security.Roles.RolePermissions;
+@using KasabaKiat.Helpers;
+@{
+    var UserId = Convert.ToInt32(User.Identity.Name);
+    var ustinfo = UserInfo.GetUserInfo(UserId);
+    FunctionalityList List = FunctionalityAndDbDataMatch.MatchProcess(UserId);
+    ViewBag.Title = "Отчеты";
+}
+<section class="content__block container-fluid">
+    <div class="row mb-4 align-items-center">
+        <div class="col title__block">
+            <h4>Отчеты</h4>
+            <nav aria-label="breadcrumb" class="breadcrumb__block">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item load"><a href="/Otchot/OtchetTitul">Отчеты главная</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Отчеты ЖО</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+    <div class="row mb-4">
+        <div class="col-md-6">
+            <div class="list-group r-list-group mb-4 box-shadow">
+                @if (ustinfo.role_id == 14)
+                {
+                    <a id="ReportUrl_Performance" class="list-group-item list-group-item-action load" href="@Url.Action("ReportTemplate", "Report",
+                        new { ReportName = "Журнальный ордер № 4", ReportDescription = "Журнальный ордер № 4", Width = 100, Height = 650 })">Журнальный ордер № 4</a>
+
+                    <a id="ReportUrl_Performance" class="list-group-item list-group-item-action load" href="@Url.Action("ReportTemplate", "Report",
+                        new { ReportName = "Журнальный ордер № 5", ReportDescription = "Журнальный ордер № 5", Width = 100, Height = 650 })">Журнальный ордер № 5</a>
+
+                    <a id="ReportUrl_Performance" class="list-group-item list-group-item-action load" href="@Url.Action("ReportTemplate", "Report",
+                        new { ReportName = "Журнальный ордер № 6", ReportDescription = "Журнальный ордер № 6", Width = 100, Height = 650 })">Журнальный ордер № 6</a>
+                }
+
+
+                @if (ustinfo.role_id == 13)
+                {
+                    <a id="ReportUrl_Performance" class="list-group-item list-group-item-action load" href="@Url.Action("ReportTemplate", "Report",
+                        new { ReportName = "Журнальный ордер № 4", ReportDescription = "Журнальный ордер № 4", Width = 100, Height = 650 })">Журнальный ордер № 4</a>
+
+                    <a id="ReportUrl_Performance" class="list-group-item list-group-item-action load" href="@Url.Action("ReportTemplate", "Report",
+                        new { ReportName = "Журнальный ордер № 5", ReportDescription = "Журнальный ордер № 5", Width = 100, Height = 650 })">Журнальный ордер № 5</a>
+
+                    <a id="ReportUrl_Performance" class="list-group-item list-group-item-action load" href="@Url.Action("ReportTemplate", "Report",
+                        new { ReportName = "Журнальный ордер № 6", ReportDescription = "Журнальный ордер № 6", Width = 100, Height = 650 })">Журнальный ордер № 6</a>
+                }
+            </div>
+        </div>
+    </div>
+</section>

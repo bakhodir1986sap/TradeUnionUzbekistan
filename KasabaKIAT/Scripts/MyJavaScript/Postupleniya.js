@@ -9,6 +9,10 @@
         LoadDATAN($scope.INN);
     }
 
+    $scope.LoadINN_X = function () {
+        LoadDATAX($scope.INN);
+    }
+
     function LoadDATA(inn) {
         $locale.NUMBER_FORMATS.GROUP_SEP = " ";
         $locale.NUMBER_FORMATS.DECIMAL_SEP = ",";
@@ -67,6 +71,58 @@
             console.log("error in GetPostupleniyaN -> ", error);
             document.getElementById('connection').style.visibility = "hidden";
             $("#hh").modal('hide');
+        });
+    }
+
+
+    function LoadDATAX(inn) {
+
+        $locale.NUMBER_FORMATS.GROUP_SEP = " ";
+        $locale.NUMBER_FORMATS.DECIMAL_SEP = ",";
+
+        document.getElementById('connection').style.visibility = "visible";
+        $("#hh").modal({
+            backdrop: 'static',
+            backdrop: 'static'
+        });
+        $http({
+            method: 'POST',
+            url: "/Buxgalter/GetEcpTransactions?inn=" + inn,
+        }).then(function (d) {
+            if (d.data.length != 0) {
+                $scope.showdata = true;
+            } else {
+                $scope.showdata = false;
+            }
+            $scope.DATA = d.data;
+            console.log(d.data);
+            document.getElementById('connection').style.visibility = "hidden";
+            $("#hh").modal('hide');
+        }, function (error) {
+            alertify.error("ошибка");
+            console.log("error in GetPostupleniyaN -> ", error);
+            document.getElementById('connection').style.visibility = "hidden";
+            $("#hh").modal('hide');
+        });
+    }
+
+
+    $scope.update = function (item) {
+
+        var postData = { model: item };
+
+        $http({
+            method: "post",
+            url: "/Buxgalter/ModifyEcpTransaction",
+            data: JSON.stringify(postData),
+            dataType: "json"
+        }).then(function (response) {
+
+            LoadDATAX($scope.INN);
+
+        }, function () {
+            alertify.error("ошибка");
+            console.log('Error in SavePutDtl');
         });
     }
 

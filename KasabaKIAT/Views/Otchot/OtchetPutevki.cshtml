@@ -1,0 +1,81 @@
+﻿@using KasabaKIAT.BusinessLogic.Security.Roles.RolePermissions;
+@using KasabaKiat.Helpers;
+@{
+    var UserId = Convert.ToInt32(User.Identity.Name);
+    var ustinfo = UserInfo.GetUserInfo(UserId);
+    FunctionalityList List = FunctionalityAndDbDataMatch.MatchProcess(UserId);
+    ViewBag.Title = "Отчеты";
+}
+<section class="content__block container-fluid">
+    <div class="row mb-4 align-items-center">
+        <div class="col title__block">
+            <h4>Отчеты</h4>
+            <nav aria-label="breadcrumb" class="breadcrumb__block">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item load"><a href="/Otchot/OtchetTitul">Отчеты главная</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Отчеты Путевки</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+    <div class="row mb-4">
+        <div class="col-md-6">
+            <div class="list-group r-list-group mb-4 box-shadow">
+                @if (ustinfo.role_id == 14)
+                {
+                    <a id="ReportUrl_Performance" class="list-group-item list-group-item-action load" href="@Url.Action("ReportTemplate", "Report",
+                    new { ReportName = "Активность пользователя", ReportDescription = "Активность пользователя", Width = 100, Height = 650 })">Активность пользователя</a>
+                    <a id="ReportUrl_Performance" class="list-group-item list-group-item-action load" href="@Url.Action("ReportTemplate", "Report",
+                    new { ReportName = "Бронь по путевкам", ReportDescription = "Бронь по путевкам", Width = 100, Height = 650 })">Бронь по путевкам</a>
+                    <a id="ReportUrl_Performance" class="list-group-item list-group-item-action load" href="@Url.Action("ReportTemplate", "Report",
+                    new { ReportName = "Годовой план по отраслям", ReportDescription = "Годовой план по отраслям", Width = 100, Height = 650 })">Годовой план по отраслям</a>
+                    <a id="ReportUrl_Performance" class="list-group-item list-group-item-action load" href="@Url.Action("ReportTemplate", "Report",
+                    new { ReportName = "График Заездов Санаториев", ReportDescription = "График Заездов Санаториев", Width = 100, Height = 650 })">График Заездов Санаториев</a>
+                    <a id="ReportUrl_Performance" class="list-group-item list-group-item-action load" href="@Url.Action("ReportTemplate", "Report",
+                    new { ReportName = "Количество Заявок", ReportDescription = "Количество Заявок", Width = 100, Height = 650 })">Количество Заявок</a>
+                    <a id="ReportUrl_Performance" class="list-group-item list-group-item-action load" href="@Url.Action("ReportTemplate", "Report",
+                    new { ReportName = "Количество Заявок в разрезе Санаторий", ReportDescription = "Количество Заявок в разрезе Санаторий", Width = 100, Height = 650 })">Количество Заявок в разрезе Санаторий</a>
+                    <a id="ReportUrl_Performance" class="list-group-item list-group-item-action load" href="@Url.Action("ReportTemplate", "Report",
+                    new { ReportName = "Область - Район - Отрасль", ReportDescription = "Область - Район - Отрасль", Width = 100, Height = 650 })">Область - Район - Отрасль</a>
+                    <a id="ReportUrl_Performance" class="list-group-item list-group-item-action load" href="@Url.Action("ReportTemplate", "Report",
+                    new { ReportName = "Остатки путевок за период", ReportDescription = "Остатки путевок за период", Width = 100, Height = 650 })">Остатки путевок за период</a>
+                    <a id="ReportUrl_Performance" class="list-group-item list-group-item-action load" href="@Url.Action("ReportTemplate", "Report",
+                    new { ReportName = "Поиск по номеру путевки", ReportDescription = "Поиск по номеру путевки", Width = 100, Height = 650 })">Поиск по номеру путевки</a>
+                    <a id="ReportUrl_Performance" class="list-group-item list-group-item-action load" href="@Url.Action("ReportTemplate", "Report",
+                    new { ReportName = "Пользователи", ReportDescription = "Пользователи", Width = 100, Height = 650 })">Пользователи</a>
+                    <a id="ReportUrl_Performance" class="list-group-item list-group-item-action load" href="@Url.Action("ReportTemplate", "Report",
+                    new { ReportName = "Приход путевок за период", ReportDescription = "Приход путевок за период", Width = 100, Height = 650 })">Приход путевок за период</a>
+                    <a id="ReportUrl_Performance" class="list-group-item list-group-item-action load" href="@Url.Action("ReportTemplate", "Report",
+                    new { ReportName = "Приход путевок за период по Санаториям", ReportDescription = "Приход путевок за период по Санаториям", Width = 100, Height = 650 })">Приход путевок за период по Санаториям</a>
+                    <a id="ReportUrl_Performance" class="list-group-item list-group-item-action load" href="@Url.Action("ReportTemplate", "Report",
+                    new { ReportName = "Проводки", ReportDescription = "Проводки", Width = 100, Height = 650 })">Проводки</a>
+                    <a id="ReportUrl_Performance" class="list-group-item list-group-item-action load" href="@Url.Action("ReportTemplate", "Report",
+                    new { ReportName = "Реализация путевок", ReportDescription = "Реализация путевок", Width = 100, Height = 650 })">Реализация путевок</a>
+                }
+
+
+                @if (ustinfo.role_id == 13)
+                {
+                    <a id="ReportUrl_Performance" class="list-group-item list-group-item-action load" href="@Url.Action("ReportTemplate", "Report",
+                        new { ReportName = "Оперативка по путевкам", ReportDescription = "Оперативка по путевкам", Width = 100, Height = 650 })">Оперативка по путевкам</a>
+                    <a id="ReportUrl_Performance" class="list-group-item list-group-item-action load" href="@Url.Action("ReportTemplate", "Report",
+                        new { ReportName = "Свод по путевкам", ReportDescription = "Свод по путевкам", Width = 100, Height = 650 })">Свод по путевкам</a>
+                    <a id="ReportUrl_Performance" class="list-group-item list-group-item-action load" href="@Url.Action("ReportTemplate", "Report",
+                        new { ReportName = "Баланс Предприятий", ReportDescription = "Баланс Предприятий", Width = 100, Height = 650 })">Баланс Предприятий</a>
+
+                    <a id="ReportUrl_Performance" class="list-group-item list-group-item-action load" href="@Url.Action("ReportTemplate", "Report",
+                        new { ReportName = "Учет поступления стоимости путевок", ReportDescription = "Учет поступления стоимости путевок", Width = 100, Height = 650 })">Учет поступления стоимости путевок</a>
+
+                    <a id="ReportUrl_Performance" class="list-group-item list-group-item-action load" href="@Url.Action("ReportTemplate", "Report",
+                        new { ReportName = "Отчет № 13", ReportDescription = "Отчет № 13", Width = 100, Height = 650 })">Отчет № 13</a>
+
+                    <a id="ReportUrl_Performance" class="list-group-item list-group-item-action load" href="@Url.Action("ReportTemplate", "Report",
+                        new { ReportName = "Отчет № 14", ReportDescription = "Отчет № 14", Width = 100, Height = 650 })">Отчет № 14</a>
+
+                    <a id="ReportUrl_Performance" class="list-group-item list-group-item-action load" href="@Url.Action("ReportTemplate", "Report",
+                        new { ReportName = "Книга учета владельцев путевок", ReportDescription = "Книга учета владельцев путевок", Width = 100, Height = 650 })">Книга учета владельцев путевок</a>
+                 }
+            </div>
+        </div>
+    </div>
+</section>

@@ -1894,6 +1894,14 @@
     <Content Include="Views\Otchot\FinansoviyOtchotKvartalniy.cshtml" />
     <Content Include="Views\CampZayavki\Index.cshtml" />
     <Content Include="Views\CampZayavki\CampOtchet.cshtml" />
+    <Content Include="Views\Buxgalter\EcpManagement.cshtml" />
+    <Content Include="Views\Otchot\OtchetTitul.cshtml" />
+    <Content Include="Views\Otchot\OtchetZayavki.cshtml" />
+    <Content Include="Views\Otchot\OtchetOrganizasii.cshtml" />
+    <Content Include="Views\Otchot\OtchetPostupleniya.cshtml" />
+    <Content Include="Views\Otchot\OtchetPutevki.cshtml" />
+    <Content Include="Views\Otchot\OtchetBuxgalteriya.cshtml" />
+    <Content Include="Views\Otchot\OtchetJurnalniyeOrdera.cshtml" />
     <None Include="Web References\KurortUrlService\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>

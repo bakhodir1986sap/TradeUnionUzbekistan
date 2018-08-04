@@ -25,6 +25,7 @@ namespace KasabaKIAT.Models
         public string TypeSchet { get; set; }
         public long ID { get; set; }
         public Nullable<long> UserId { get; set; }
+        public Nullable<int> ID_Ot { get; set; }
     
         public virtual users users { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

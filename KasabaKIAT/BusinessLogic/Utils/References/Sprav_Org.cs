@@ -53,6 +53,7 @@ namespace KasabaKiat.BusinessLogic.Utils.References
                                                         model.PravSoyuzLevel.Value,
                                                         0);
                 org.TIMESTAMP_CH = DateTime.Now;
+                org.TO_DEPCODE = model.to_depcode;
 
                 if (!string.IsNullOrEmpty(org.OWNER_CODE))
                 {
@@ -228,6 +229,7 @@ namespace KasabaKiat.BusinessLogic.Utils.References
                                         model.PravSoyuzLevel.Value,
                                         model.ID);
                         org1.TIMESTAMP_CH = DateTime.Now;
+                        org1.TO_DEPCODE = model.to_depcode;
 
                         if (!string.IsNullOrEmpty(org1.OWNER_CODE))
                         {
@@ -340,7 +342,8 @@ namespace KasabaKiat.BusinessLogic.Utils.References
                                    orig_inn = org.ORIG_INN,
                                    owner_code = org.OWNER_CODE,
                                    db_bal = org.DB_BAL,
-                                   ct_bal = org.CT_BAL
+                                   ct_bal = org.CT_BAL,
+                                   to_depcode = org.TO_DEPCODE
                                };
 
                 list = queryRes.ToList();
@@ -395,7 +398,8 @@ namespace KasabaKiat.BusinessLogic.Utils.References
                                    orig_inn = org.ORIG_INN,
                                    owner_code = org.OWNER_CODE,
                                    db_bal = org.DB_BAL,
-                                   ct_bal = org.CT_BAL
+                                   ct_bal = org.CT_BAL,
+                                   to_depcode = org.TO_DEPCODE
                                };
 
                 list = queryRes.ToList();
@@ -491,7 +495,8 @@ namespace KasabaKiat.BusinessLogic.Utils.References
                                    orig_inn = org.ORIG_INN,
                                    owner_code = org.OWNER_CODE,
                                    db_bal = org.DB_BAL,
-                                   ct_bal = org.CT_BAL
+                                   ct_bal = org.CT_BAL,
+                                   to_depcode = org.TO_DEPCODE
                                };
 
                 list = queryRes.ToList();
@@ -615,7 +620,8 @@ namespace KasabaKiat.BusinessLogic.Utils.References
                                    orig_inn = org.ORIG_INN,
                                    owner_code = org.OWNER_CODE,
                                    db_bal = org.DB_BAL,
-                                   ct_bal = org.CT_BAL
+                                   ct_bal = org.CT_BAL,
+                                   to_depcode = org.TO_DEPCODE
                                };
 
                 list = queryRes.ToList();

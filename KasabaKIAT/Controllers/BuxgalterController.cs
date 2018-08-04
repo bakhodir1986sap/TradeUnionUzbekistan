@@ -1,4 +1,5 @@
 ﻿using KasabaKiat.Helpers;
+using KasabaKIAT.BusinessLogic.Buxgalteriya.ECP_Management;
 using KasabaKIAT.BusinessLogic.Buxgalteriya.GlavnayaKniga;
 using KasabaKIAT.BusinessLogic.Buxgalteriya.PlanirovaniyaBudjeta.Region;
 using KasabaKIAT.BusinessLogic.Buxgalteriya.PrixodChastichka;
@@ -494,7 +495,11 @@ namespace KasabaKIAT.Controllers
             return Json(OutList , JsonRequestBehavior.AllowGet);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         private PlanRegion planByudjet = new PlanRegion();
+        
         /// <summary>
         /// 
         /// </summary>
@@ -574,6 +579,12 @@ namespace KasabaKIAT.Controllers
         }
 
         
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="soato_code"></param>
+        /// <param name="year"></param>
+        /// <returns></returns>
         public JsonResult DeleteRegionPlan(string soato_code, int year)
         {
             int UserId = Convert.ToInt32(User.Identity.Name);
@@ -616,8 +627,96 @@ namespace KasabaKIAT.Controllers
                 log.Info(ex);
             }
 
-            return Json(O.ToList(), JsonRequestBehavior.AllowGet); ;
+            return Json(O.ToList(), JsonRequestBehavior.AllowGet);
         }
+
+
+        [OutputCache(Duration = 5, Location = OutputCacheLocation.Client, VaryByCustom = "userId")]
+        public JsonResult SpisokPravsoyuzovOrg()
+        {
+            log.Info("SpisokPravsoyuzov");
+            IList<Models.ViewModel> O = null;
+
+            var UserId = Convert.ToInt32(User.Identity.Name);
+
+            var userInfo = UserInfo.GetUserInfo(UserId);
+
+            try
+            {
+                O = (from o in KasabaDB.tbku_StrokaProfsoyza
+                     where o.MATCH_DEPARTMENTBASE != null && o.MATCH_DEPARTMENTBASE != userInfo.DepartmentBase
+                     select new Models.ViewModel
+                     {
+                         Kod = o.MATCH_DEPARTMENTBASE,
+                         Name = o.ProfsoyzNaimenovanie
+                     }).ToList();
+
+                log.Info("Count = " + O.ToList().Count);
+            }
+            catch (Exception ex)
+            {
+                log.Info(ex);
+            }
+
+            return Json(O.ToList(), JsonRequestBehavior.AllowGet);
+        }
+
+        #region ECP_Transaction Managemant
+
+
+        [OutputCache(Duration = 5, Location = OutputCacheLocation.Client, VaryByCustom = "userId")]
+        public ActionResult EcpManagementV()
+        {
+            return View("EcpManagement");
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="inn"></param>
+        /// <returns></returns>
+        public JsonResult GetEcpTransactions(string inn)
+        {
+            log.Info("GetEcpTransactions => " + inn);
+            var UserId = Convert.ToInt32(User.Identity.Name);
+            var userInfo = UserInfo.GetUserInfo(UserId);
+
+            var model = new EcpViewModel();
+            model.obl_department_base = userInfo.DepartmentBase;
+            model.inn = inn;
+
+            var list = EcpManagement.GetEcpPaymentList(model, KasabaDB);
+
+            return Json(list, JsonRequestBehavior.AllowGet);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public async Task<JsonResult> ModifyEcpTransaction(EcpViewModel model)
+        {
+            var UserId = Convert.ToInt32(User.Identity.Name);
+            var userInfo = UserInfo.GetUserInfo(UserId);
+
+            try
+            {
+                EcpManagement.ModifyPaymentData(model, KasabaDB);
+
+                await KasabaDB.SaveChangesAsync();
+
+                return Json("success", JsonRequestBehavior.AllowGet);
+            }
+            catch(Exception ex)
+            {
+                log.Error(ex.ToString());
+            }
+
+            return Json("fail", JsonRequestBehavior.AllowGet);
+        }
+
+        #endregion
 
     }
 }

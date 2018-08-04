@@ -18,22 +18,22 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.Provodki
             int cur_year = DateOperations.GetYear(model.trdt.Value);
             int cur_kvartal = DateOperations.GetQuarter(model.trdt.Value);
 
-            var curKvartalc = new CloseKvartal();
-            var curKvartal = curKvartalc.GetCloseKvartalRow(model.department_base);
+            //var curKvartalc = new CloseKvartal();
+            //var curKvartal = curKvartalc.GetCloseKvartalRow(model.department_base);
 
-            if (curKvartal != null)
-            {
-                if ((curKvartal.curkv_year.Value != cur_year) || (curKvartal.curkv.Value != cur_kvartal))
-                {
-                    model.trdt = DateOperations.GetCurKvartalDate(curKvartal.curkv_year.Value, curKvartal.curkv.Value);
-                    cur_year = curKvartal.curkv_year.Value;
-                    cur_kvartal = curKvartal.curkv.Value;
-                }
-            }
-            else
-            {
-                throw new ApplicationException("Current Kvartal Info not available = " + cur_year + "   " + cur_kvartal);
-            }
+            //if (curKvartal != null)
+            //{
+            //    if ((curKvartal.curkv_year.Value != cur_year) || (curKvartal.curkv.Value != cur_kvartal))
+            //    {
+            //        model.trdt = DateOperations.GetCurKvartalDate(curKvartal.curkv_year.Value, curKvartal.curkv.Value);
+            //        cur_year = curKvartal.curkv_year.Value;
+            //        cur_kvartal = curKvartal.curkv.Value;
+            //    }
+            //}
+            //else
+            //{
+            //    throw new ApplicationException("Current Kvartal Info not available = " + cur_year + "   " + cur_kvartal);
+            //}
 
             tbbu_provodki reg = new tbbu_provodki();
 

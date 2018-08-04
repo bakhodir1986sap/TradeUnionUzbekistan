@@ -12,8 +12,6 @@
             <h4>Отчеты</h4>
             <nav aria-label="breadcrumb" class="breadcrumb__block">
                 <ol class="breadcrumb">
-                    @*<li class="breadcrumb-item load"><a href="/Home/Otchot">Отчеты</a></li>*@
-                    @*<li class="breadcrumb-item active" aria-current="page">Отчеты</li>*@
                 </ol>
             </nav>
         </div>
@@ -29,35 +27,6 @@
                 {
                     <a href="/Otchot/Talabnomlar" class="list-group-item list-group-item-action load">Талабномалар</a>
                 }
-                @*@if (List.FormaN13)
-        {
-            <a href="/Otchot/Forma13" class="list-group-item list-group-item-action load">Форма №13 по получению путевок</a>
-        }
-        @if (List.FormaN14)
-        {
-            <a href="/Otchot/Forma14" class="list-group-item list-group-item-action load">Форма №14</a>
-
-        }
-        @if (List.TablisaPoUchetuOtdixayushix)
-        {
-            <a href="/Otchot/TablitsaOtdixayushix" class="list-group-item list-group-item-action load">Таблица по учету отдыхающих</a>
-
-        }
-        @if (List.JurnalniyOrder1)
-        {
-            <a href="/Otchot/JurnalniyOrder" class="list-group-item list-group-item-action load">Журнальный ордер</a>
-
-        }
-        @if (List.FinansoviyKvartalniy)
-        {
-            <a href="/Otchot/FinalniyOtchot" class="list-group-item list-group-item-action load">Финансовый отчет</a>
-
-        }
-        @if (List.GlavnayaKniga)
-        {
-            <a href="/Otchot/GlavnayaKniga" class="list-group-item list-group-item-action load">Главная книга</a>
-        }*@
-
                 @if (ustinfo.role_id == 14)
                 {
                     <a href="/Otchot/OrganizationSummary" class="list-group-item list-group-item-action load">Организации сводная</a>
@@ -167,9 +136,6 @@
                 }
 
             </div>
-            @*<div class="mb-4">
-                <a href="/Buxgalter/PlanByudjetaOblasteyNoviy" class="btn btn-blue d-block d-md-inline-block mb-2">Приступить к оформлению</a>
-            </div>*@
         </div>
     </div>
 </section>

@@ -35,17 +35,17 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.GlavnayaKniga
             var curKvartalc = new CloseKvartal();
             var curKvartal = curKvartalc.GetCloseKvartalRow(depCode);
 
-            if (curKvartal != null)
-            {
-                if ((curKvartal.curkv_year.Value != year) || (curKvartal.curkv.Value != kvartal))
-                {
-                    throw new ApplicationException("Current Kvartal Info is invalid = " + year + "   "+ kvartal);
-                }
-            }
-            else
-            {
-                throw new ApplicationException("Current Kvartal Info not available = " + year + "   " + kvartal);
-            }
+            //if (curKvartal != null)
+            //{
+            //    if ((curKvartal.curkv_year.Value != year) || (curKvartal.curkv.Value != kvartal))
+            //    {
+            //        throw new ApplicationException("Current Kvartal Info is invalid = " + year + "   "+ kvartal);
+            //    }
+            //}
+            //else
+            //{
+            //    throw new ApplicationException("Current Kvartal Info not available = " + year + "   " + kvartal);
+            //}
 
             departmentBase = depCode;
             debitAccount = new BuxAccount(cur_year , cur_kvartal , departmentBase, acctcdDebit, db);

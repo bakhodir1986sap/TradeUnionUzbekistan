@@ -2,6 +2,7 @@
 
     GetOtraslForOrganization();
     GetRegionForOrganization();
+    GetToDepForOrganization();
     GetEmptyCarcas();
     GetOrganizations();
     GetPravLevel();
@@ -17,6 +18,11 @@
     $scope.ModalOtraslSelected = {
         Name_Ot: '',
         ID_Ot: ''
+    };
+
+    $scope.ModalToDepCodeSelected = {
+        Name: '',
+        Kod: ''
     };
 
     $scope.ModalRegionSelected = {
@@ -71,6 +77,26 @@
             url: '/PrixodPutevok/GetOtraslForOrganization'
         }).then(function (response) {
             $scope.Otrasl = response.data;
+            document.getElementById('connection').style.visibility = "hidden";
+            $("#hh").modal('hide');
+        }, function (error) {
+            alertify.error("ошибка");
+            console.log("error in GetRekvizits");
+            document.getElementById('connection').style.visibility = "hidden";
+            $("#hh").modal('hide');
+        });
+    }
+
+    function GetToDepForOrganization() {
+        document.getElementById('connection').style.visibility = "visible";
+        $("#hh").modal({
+            backdrop: 'static'
+        });
+        $http({
+            method: 'get',
+            url: '/Buxgalter/SpisokPravsoyuzovOrg'
+        }).then(function (response) {
+            $scope.ToDepCode = response.data;
             document.getElementById('connection').style.visibility = "hidden";
             $("#hh").modal('hide');
         }, function (error) {
@@ -192,6 +218,8 @@
 
             $scope.SelectedProgLevel.Code = org.PravSoyuzLevel;
             //$scope.SelectedProgLevel.Decode = org.ParentName;
+
+            $scope.ModalToDepCodeSelected.Kod = org.to_depcode;
 
             document.getElementById('connection').style.visibility = "hidden";
             $("#hh").modal('hide');
@@ -341,6 +369,7 @@
         $scope.Organization.Region = $scope.ModalRegionSelected.ID;
         $scope.Organization.ParentId = $scope.SelectedOrganization.ID;
         $scope.Organization.PravSoyuzLevel = $scope.SelectedProgLevel.Code;
+        $scope.Organization.to_depcode = $scope.ModalToDepCodeSelected.Kod;
         
 
         $http({

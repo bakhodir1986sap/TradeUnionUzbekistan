@@ -254,6 +254,13 @@
                                     <span class="alert alert-warning" style="padding:0px" ng-show="myForm.Doverennoe_liso.$error.required">заполнить поле</span>
                                 </div>
                             </div>
+                            <div class="form-group row align-items-center">
+                                <label class="col-md-5 col-form-label py-0">ЕСП перевести в:</label>
+                                <div class="col-md-7">
+                                    <select class="custom-select form-control" required name="Otrasl" ng-model="ModalToDepCodeSelected" ng-options="item as item.Name for item in ToDepCode track by item.Kod"></select>
+                                    <span class="alert alert-warning" style="padding:0px" ng-show="myForm.Otrasl.$error.required">Выберите поле</span>
+                                </div>
+                            </div>
                             <div class="form-group row align-items-center" style="margin-bottom:80px">
                                 <label class="col-md-5 col-form-label py-0">ИНН Действущей Организации:</label>
                                 <div class="col-md-7">

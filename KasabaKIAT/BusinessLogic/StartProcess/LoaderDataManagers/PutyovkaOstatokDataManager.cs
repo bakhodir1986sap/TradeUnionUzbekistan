@@ -2,6 +2,7 @@
 using KasabaKIAT.Models;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Web;
 
@@ -34,7 +35,7 @@ namespace KasabaKIAT.BusinessLogic.StartProcess.LoaderDataManagers
 
 
             //Nakladnaya 
-            naklad.Data_Post = DateTime.Now;
+            naklad.Data_Post = DateTime.ParseExact("01.01.2018", "dd.MM.yyyy", CultureInfo.InvariantCulture);
             naklad.DepartmentBase = DepartmentBase;
             naklad.UserId = UserId;
             naklad.SmFil = 2017;

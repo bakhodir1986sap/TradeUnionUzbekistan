@@ -64,5 +64,7 @@ namespace KasabaKiat.BusinessLogic.Utils.References
         public decimal? db_bal { get; set; }
 
         public decimal? ct_bal { get; set; }
+
+        public string to_depcode { get; set; }
     }
 }

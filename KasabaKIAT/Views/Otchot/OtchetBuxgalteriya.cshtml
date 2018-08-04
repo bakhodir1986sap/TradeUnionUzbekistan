@@ -1,0 +1,45 @@
+﻿@using KasabaKIAT.BusinessLogic.Security.Roles.RolePermissions;
+@using KasabaKiat.Helpers;
+@{
+                /**/
+
+                var UserId = Convert.ToInt32(User.Identity.Name);
+                var ustinfo = UserInfo.GetUserInfo(UserId);
+                FunctionalityList List = FunctionalityAndDbDataMatch.MatchProcess(UserId);
+                ViewBag.Title = "Отчеты";
+}
+<section class="content__block container-fluid">
+    <div class="row mb-4 align-items-center">
+        <div class="col title__block">
+            <h4>Отчеты</h4>
+            <nav aria-label="breadcrumb" class="breadcrumb__block">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item load"><a href="/Otchot/OtchetTitul">Отчеты главная</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Отчеты Бухгалтерия</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+    <div class="row mb-4">
+        <div class="col-md-6">
+            <div class="list-group r-list-group mb-4 box-shadow">
+                @if (ustinfo.role_id == 14)
+                {
+                    <a href="/Otchot/ProvodkiDetail" class="list-group-item list-group-item-action load">Проводки Детали</a>
+                    <a href="/Otchot/ProvodkiSummary" class="list-group-item list-group-item-action load">Проводки Группированны</a>
+                    <a href="/Otchot/GlavnayaKnigaN" class="list-group-item list-group-item-action load">Главная Книга</a>
+                    <a href="/Otchot/FinansoviyOtchotKvartalniy" class="list-group-item list-group-item-action load">Финансовый отчет</a>
+                }
+
+
+                @if (ustinfo.role_id == 13)
+                {
+                    <a href="/Otchot/ProvodkiDetail" class="list-group-item list-group-item-action load">Проводки Детали</a>
+                    <a href="/Otchot/ProvodkiSummary" class="list-group-item list-group-item-action load">Проводки Группированны</a>
+                    <a href="/Otchot/GlavnayaKnigaN" class="list-group-item list-group-item-action load">Главная Книга</a>
+                    <a href="/Otchot/FinansoviyOtchotKvartalniy" class="list-group-item list-group-item-action load">Финансовый отчет</a>
+                }
+            </div>
+        </div>
+    </div>
+</section>

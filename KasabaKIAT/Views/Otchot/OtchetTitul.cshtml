@@ -1,0 +1,30 @@
+﻿@using KasabaKIAT.BusinessLogic.Security.Roles.RolePermissions;
+@using KasabaKiat.Helpers;
+@{
+    var UserId = Convert.ToInt32(User.Identity.Name);
+    var ustinfo = UserInfo.GetUserInfo(UserId);
+    FunctionalityList List = FunctionalityAndDbDataMatch.MatchProcess(UserId);
+    ViewBag.Title = "Отчеты";
+}
+<section class="content__block container-fluid">
+    <div class="row mb-4 align-items-center">
+        <div class="col title__block">
+            <h4>Отчеты</h4>
+            <nav aria-label="breadcrumb" class="breadcrumb__block">
+                <ol class="breadcrumb"></ol>
+            </nav>
+        </div>
+    </div>
+    <div class="row mb-4">
+        <div class="col-md-6">
+            <div class="list-group r-list-group mb-4 box-shadow">
+                <a href="/Otchot/OtchetZayavki"             class="list-group-item list-group-item-action load">Заявки</a>
+                <a href="/Otchot/OtchetOrganizasii"         class="list-group-item list-group-item-action load">Организации</a>
+                <a href="/Otchot/OtchetPostupleniya"        class="list-group-item list-group-item-action load">Поступление</a>
+                <a href="/Otchot/OtchetPutevki"             class="list-group-item list-group-item-action load">Путевки</a>
+                <a href="/Otchot/OtchetBuxgalteriya"        class="list-group-item list-group-item-action load">Бухгалтерия</a>
+                <a href="/Otchot/OtchetJurnalniyeOrdera"    class="list-group-item list-group-item-action load">Журнальные Ордера</a>
+            </div>
+        </div>
+    </div>
+</section>

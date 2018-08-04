@@ -41,6 +41,14 @@ namespace KasabaKIAT.Controllers
             return View();
         }
 
+        public ActionResult OtchetTitul() { return View(); }
+        public ActionResult OtchetZayavki           () {return View();}       
+        public ActionResult OtchetOrganizasii       () {return View();}
+        public ActionResult OtchetPostupleniya      () {return View();}
+        public ActionResult OtchetPutevki           () {return View();}
+        public ActionResult OtchetBuxgalteriya      () {return View();}
+        public ActionResult OtchetJurnalniyeOrdera()   { return View(); }
+
         /// <summary>
         /// 
         /// </summary>

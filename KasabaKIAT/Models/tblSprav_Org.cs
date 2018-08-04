@@ -52,6 +52,7 @@ namespace KasabaKIAT.Models
         public Nullable<System.DateTime> TIMESTAMP_CH { get; set; }
         public Nullable<decimal> DB_BAL { get; set; }
         public Nullable<decimal> CT_BAL { get; set; }
+        public string TO_DEPCODE { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Balans> Balans { get; set; }

@@ -127,6 +127,7 @@ namespace KasabaKiat.BusinessLogic.Utils.References
             {
                 var queryRes = from otras in db.tblSprav_Otras
                                where otras.DepartmentBase == departmentBase
+                               orderby otras.Name_Ot
                                select new Sprav_OtrasViewModel
                                {
                                    ID_Ot = otras.ID_Ot,

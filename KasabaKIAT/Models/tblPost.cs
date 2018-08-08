@@ -36,6 +36,7 @@ namespace KasabaKIAT.Models
         public Nullable<int> BeginNumber { get; set; }
         public Nullable<int> EndNumber { get; set; }
         public Nullable<long> PROVODKA_ID { get; set; }
+        public Nullable<System.DateTime> TIMESTAMP_T { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblPos_Put> tblPos_Put { get; set; }

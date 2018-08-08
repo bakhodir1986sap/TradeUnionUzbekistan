@@ -36,6 +36,7 @@ namespace KasabaKIAT.Models
         public Nullable<long> UserId { get; set; }
         public string DepartmentBase { get; set; }
         public Nullable<long> PROVODKA_ID { get; set; }
+        public Nullable<System.DateTime> TIMESTAMP_T { get; set; }
     
         public virtual tblSprav_Kv tblSprav_Kv { get; set; }
         public virtual tblSprav_Org tblSprav_Org { get; set; }

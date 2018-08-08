@@ -9,6 +9,7 @@ using System.Data.Entity.Validation;
 using KasabaKIAT.BusinessLogic.Putyovki.PrixodPutyovok;
 using System.Data.Entity;
 using System.Threading.Tasks;
+using KasabaKIAT.BusinessLogic.Putyovki.PutyovkiHistory;
 
 namespace KasabaKiat.BusinessLogic.Putyovki.PrixodPutyovok
 {
@@ -54,6 +55,20 @@ namespace KasabaKiat.BusinessLogic.Putyovki.PrixodPutyovok
                 var pst = db.tblPos_Put.Add(post);
 
                 model.Id = pst.ID;
+
+            //History making
+            var histModel = new PutHistViewModel
+            {
+                event_tp = (int)HistEventType.Prixod,
+                departmentbase = model.Departmentbase,
+                id_sanat = model.IdSanat,
+                num_put = model.Num_Put,
+                remark = string.Format("Дата Заезда {0} - Дата прихода {1} - Сумма {2}", model.DataSanEnd.ToString(), model.Data_Post.ToString(), model.Symma_Put),
+                userid = model.UserId
+            };
+
+            PutHistDataManager.CreateL(histModel, db);
+
         }
 
         /// <summary>

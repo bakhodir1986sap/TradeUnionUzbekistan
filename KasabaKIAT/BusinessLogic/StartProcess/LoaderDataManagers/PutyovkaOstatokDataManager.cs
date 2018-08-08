@@ -10,6 +10,13 @@ namespace KasabaKIAT.BusinessLogic.StartProcess.LoaderDataManagers
 {
     public class PutyovkaOstatokDataManager
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="DepartmentBase"></param>
+        /// <param name="UserId"></param>
+        /// <param name="models"></param>
+        /// <param name="db"></param>
         public static void Enter(string DepartmentBase, long UserId, List<PutyovkiOstatokViewModel> models, KasabaKIATEntities db)
         {
             var naklad = new tblPost();
@@ -57,6 +64,105 @@ namespace KasabaKIAT.BusinessLogic.StartProcess.LoaderDataManagers
                 putyovka.Data_Post = DateTime.Now;
 
                 db.tblPos_Put.Add(putyovka);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="DepartmentBase"></param>
+        /// <param name="UserId"></param>
+        /// <param name="models"></param>
+        /// <param name="db"></param>
+        public static void EnterKengash(string DepartmentBase, long UserId, List<PutyovkiOstatokViewModel> models, KasabaKIATEntities db)
+        {
+
+            List<string> distinctInns = models
+              .GroupBy(p => p.Inn)
+              .Select(g => g.First().Inn)
+              .ToList();
+
+            foreach(var inn in distinctInns)
+            {
+                //Kngashu Nakladnaya
+                #region Nakladnaya
+                var naklad = new tblPost();
+                var rasxodNaklad = new tblVipl();
+
+                string owner_code = string.Empty;
+
+                var orgs = db.tblSprav_Org.Where(z => z.INN == inn && z.DepartmentBase == DepartmentBase);
+
+                if (orgs.Any())
+                {
+                    var organization = orgs.First();
+                    owner_code = organization.OWNER_CODE;
+                    naklad.tblSprav_Org = organization;
+                    rasxodNaklad.tblSprav_Org = organization;
+                }
+                else
+                {
+                    continue;
+                }
+
+                //Nakladnaya Prixod
+                naklad.Data_Post = DateTime.ParseExact("01.01.2018", "dd.MM.yyyy", CultureInfo.InvariantCulture);
+                naklad.DepartmentBase = orgs.First().OWNER_CODE;
+                naklad.UserId = UserId;
+                naklad.SmFil = 2017;
+                naklad.ID_KV = 4;
+
+                db.tblPost.Add(naklad);
+
+
+                rasxodNaklad.Data_Post = DateTime.ParseExact("01.01.2018", "dd.MM.yyyy", CultureInfo.InvariantCulture);
+                rasxodNaklad.DepartmentBase = DepartmentBase;
+                rasxodNaklad.UserId = UserId;
+                rasxodNaklad.SmFil = 2017;
+                rasxodNaklad.ID_Kv = 4;
+
+                db.tblVipl.Add(rasxodNaklad);
+                #endregion
+
+                //Putyovka
+                #region Putyovkas
+                var modelsL = models.Where(z => z.Inn == inn);
+
+                foreach (var model in modelsL)
+                {
+                    var putyovka = new tblPos_Put
+                    {
+                        tblPost = naklad,
+                        ID_Sanat = model.SanatoryCode,
+                        Num_Put = model.NumPut,
+                        DataSan = model.DataSan,
+                        Symma_Put = model.Summa,
+                        Data_Post = DateTime.Now,
+                        Departmentbase = owner_code,
+                        UserId = UserId,
+                        ID_PolVoz = false
+                    };
+
+                    db.tblPos_Put.Add(putyovka);
+
+
+                    var putyovkaras = new tblVipl_Put
+                    {
+                        tblVipl = rasxodNaklad,
+                        ID_Sanat = model.SanatoryCode,
+                        Num_Put = model.NumPut,
+                        Num_Proc = 1,
+                        Symma = model.Summa,
+                        Data_Post = DateTime.Now,
+                        DepartmentBase = DepartmentBase,
+                        UserId = UserId,
+                        ID_PolVoz = false
+                    };
+
+                    db.tblVipl_Put.Add(putyovkaras);
+                }
+
+                #endregion
             }
         }
     }

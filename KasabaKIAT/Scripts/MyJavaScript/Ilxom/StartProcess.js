@@ -3,6 +3,7 @@
     $scope.SelectedFileForUpload = null; //initially make it null   
 
     $scope.SelectedFilePutyovka = null; //initially make it null   
+    $scope.SelectedFileKengashPutyovka = null; //initially make it null   
     $scope.SelectedFileBalance = null; //initially make it null   
     $scope.SelectedFileOrganization = null; //initially make it null   
 
@@ -10,6 +11,13 @@
         $scope.$apply(function () {
             $scope.Message = '';
             $scope.SelectedFilePutyovka = files[0];
+        })
+    }
+
+    $scope.PutyovkaKengashFile = function (files) {
+        $scope.$apply(function () {
+            $scope.Message = '';
+            $scope.SelectedFileKengashPutyovka = files[0];
         })
     }
 
@@ -44,6 +52,47 @@
             method: "post",
             withCredentials: true,
             url: '/PrixodPutevok/PutyovkaOstatok',
+            data: formData,
+            headers: {
+                'Content-Type': undefined
+            },
+            transformRequest: angular.identity
+        }).then(function (d) {
+            $scope.showdata = false;
+            if (d.data == "error") {
+                alertify.error("ошибка");
+            }
+            else {
+                alertify.success("Удачно загрузилось");
+                var res = d.data;
+                $scope.BindData = res;
+                if (d.data.length != 0) {
+                    $scope.showdata = true;
+                } else {
+                    $scope.showdata = false;
+                }
+                $scope.IsVisible = true; //showing the table after databinding  
+                $scope.showLoader = false; //after success hide spinner  
+            }
+
+        }, function (err) {
+            alertify.error("ошибка : " + err.data);
+            console.log(err.data);
+            console.log("error in parse excel");
+        });
+    }
+
+
+
+    $scope.ParseExcelPutyovkaKengash = function () {
+        var formData = new FormData();
+        var file = $scope.SelectedFileKengashPutyovka;
+        formData.append('PutyovkaKengashFile', file);
+        $scope.showLoader = true;   //show spinner  
+        $http({
+            method: "post",
+            withCredentials: true,
+            url: '/PrixodPutevok/PutyovkaOstatokKengash',
             data: formData,
             headers: {
                 'Content-Type': undefined

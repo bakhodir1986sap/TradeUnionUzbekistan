@@ -8,6 +8,7 @@ using KasabaKiat.BusinessLogic.Putyovki.OplataPutyovok;
 using KasabaKiat.BusinessLogic.Putyovki.PrixodPutyovok;
 using System.Data.Entity;
 using System.Threading.Tasks;
+using KasabaKIAT.BusinessLogic.Putyovki.PutyovkiHistory;
 
 namespace KasabaKiat.BusinessLogic.Putyovki.RealizasiyaPutyovok
 {
@@ -40,6 +41,19 @@ namespace KasabaKiat.BusinessLogic.Putyovki.RealizasiyaPutyovok
                 var pst = db.tblVipl_Put.Add(vipl);
 
                 model.id = pst.ID;
+
+            //History making
+            var histModel = new PutHistViewModel
+            {
+                event_tp = (int)HistEventType.Rasxod,
+                departmentbase = model.departmentbase,
+                id_sanat = model.id_sanat,
+                num_put = model.num_put,
+                remark = string.Format("Дата расход {0} - Сумма {1}", model.data_post.ToString(), model.symma),
+                userid = model.userid
+            };
+
+            PutHistDataManager.CreateL(histModel, db);
         }
 
         /// <summary>

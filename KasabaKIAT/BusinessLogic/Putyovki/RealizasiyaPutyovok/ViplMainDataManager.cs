@@ -28,7 +28,16 @@ namespace KasabaKiat.BusinessLogic.Putyovki.RealizasiyaPutyovok
 
                 vipl.ID_Org             = model.id_org              ;
                 vipl.Data_Post          = model.data_post           ;
-                vipl.Num_Doc = numGen.GetNextNumDoc(model.departmentbase, model.smfil).ToString().PadLeft(6, '0');
+
+                if ((!string.IsNullOrEmpty(model.num_doc)) && (model.num_doc.Length == 6))
+                {
+                    vipl.Num_Doc = model.num_doc;
+                }
+                else
+                {
+                    vipl.Num_Doc = numGen.GetNextNumDoc(model.departmentbase, model.smfil).ToString().PadLeft(6, '0');
+                }
+
                 vipl.ID_Pok             = model.id_pok              ;
                 vipl.Num_Kol            = model.num_kol             ;
                 vipl.Symma              = model.symma               ;
@@ -138,7 +147,7 @@ namespace KasabaKiat.BusinessLogic.Putyovki.RealizasiyaPutyovok
         /// <returns></returns>
         public static async Task<List<RealizasiyaViplMainViewModel>> Get(RealizasiyaViplMainViewModel model)
         {
-            List<RealizasiyaViplMainViewModel> list = null;
+            List<RealizasiyaViplMainViewModel> list = new List<RealizasiyaViplMainViewModel>();
 
             using (KasabaKIATEntities db = new KasabaKIATEntities())
             {
@@ -166,15 +175,26 @@ namespace KasabaKiat.BusinessLogic.Putyovki.RealizasiyaPutyovok
                                 departmentbase  = vipl.DepartmentBase
                             }).ToListAsync();
 
-                list = query;
+                //list = query;
 
-                foreach(var q in list)
+                foreach(var q in query)
                 {
                     var orgs = db.tblSprav_Org.Where(z => z.ID == q.id_org);
 
                     if (orgs.Any())
                     {
-                        q.organizationName = orgs.First().Name_Org;
+                        var organization = orgs.First();
+
+                        q.organizationName = organization.Name_Org;
+
+                        if (model.ID_Ot == -999)
+                        {
+                            list.Add(q);
+                        }
+                        else if (organization.ID_Ot == model.ID_Ot)
+                        {
+                            list.Add(q);
+                        }
                     }
                 }
             }
@@ -265,30 +285,39 @@ namespace KasabaKiat.BusinessLogic.Putyovki.RealizasiyaPutyovok
         /// <param name="kvartal"></param>
         /// <param name="departmentBase"></param>
         /// <returns></returns>
-        public static async Task<TotalResults> GetTotals(int year, int kvartal, string departmentBase)
+        public static async Task<TotalResults> GetTotals(int year, int kvartal, string departmentBase, int ID_Ot)
         {
             var totals = new TotalResults();
 
             using (KasabaKIATEntities db = new KasabaKIATEntities())
             {
-                var query = await (from vipl in db.tblVipl
-                            join viplDtl in db.tblVipl_Put on vipl.ID equals viplDtl.ID_Vipl
-                            where vipl.ID_Kv == kvartal && vipl.SmFil == year
-                            && vipl.DepartmentBase == departmentBase
-                            select viplDtl).ToListAsync();
 
-                var nakladCount = db.tblVipl.Where(z => z.SmFil == year && z.ID_Kv == kvartal
-                && z.DepartmentBase == departmentBase).
-                    Count();
+                var query = await ViplMainDataManager.Get(new RealizasiyaViplMainViewModel()
+                {
+                    smfil = year,
+                    id_kv = kvartal,
+                    departmentbase = departmentBase,
+                    ID_Ot = ID_Ot
+                });
 
-                totals.NakladnoyCount = nakladCount;
+                //var query = await (from vipl in db.tblVipl
+                //            join viplDtl in db.tblVipl_Put on vipl.ID equals viplDtl.ID_Vipl
+                //            where vipl.ID_Kv == kvartal && vipl.SmFil == year
+                //            && vipl.DepartmentBase == departmentBase
+                //            select viplDtl).ToListAsync();
+
+                //var nakladCount = db.tblVipl.Where(z => z.SmFil == year && z.ID_Kv == kvartal
+                //&& z.DepartmentBase == departmentBase).
+                //    Count();
+
+                totals.NakladnoyCount = query.Count;
 
                 var list = query;
 
                 if (list.Any())
                 {
-                    totals.PutyovkaCount = list.Count();
-                    totals.SummaNakladnix = list.Sum(z => z.Symma);
+                    totals.PutyovkaCount = list.Sum(z => z.num_kol);
+                    totals.SummaNakladnix = list.Sum(z => z.symma);
                 }
                 else
                 {

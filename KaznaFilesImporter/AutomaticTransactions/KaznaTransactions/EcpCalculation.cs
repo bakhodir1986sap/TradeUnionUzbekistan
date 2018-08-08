@@ -642,6 +642,7 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.Provodki.AutomaticTransactions.K
 
             _logService.Info("CalcProcessN ====******");
 
+
             try
             {
                 List<string> egrpoInnEnter = new List<string>();
@@ -649,6 +650,70 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.Provodki.AutomaticTransactions.K
 
                 using (KasabaKIATEntities db = new KasabaKIATEntities())
                 {
+
+                    #region Otrasl_Past change
+
+                    Console.WriteLine("Otrasl Late Update");
+
+                    var lastTimeRow = db.TimeShedulers.Where(z => z.id == 1).FirstOrDefault();
+
+                    if (lastTimeRow != null)
+                    {
+                        var lastTime = lastTimeRow.LastChanged;
+
+                        Console.WriteLine("lastTime: " + lastTime);
+
+                        var newOrgChangedList = db.tblSprav_Org.Where(z => z.TIMESTAMP_CH >= lastTime);
+
+                        if (newOrgChangedList.Any())
+                        {
+                            foreach (var org in newOrgChangedList)
+                            {
+                                if (org.ID_Ot.HasValue)
+                                {
+                                    var currentOtrasl = db.tblSprav_Otras.Where(z => z.ID_Ot == org.ID_Ot);
+
+                                    if (currentOtrasl.Any())
+                                    {
+                                        var branchCode = currentOtrasl.First().BRANCH_CODE;
+
+                                        Console.WriteLine("branchCode: " + branchCode);
+
+                                        var branchNameRow = db.sp_branch.Where(z => z.code == branchCode);
+
+                                        if (branchNameRow.Any())
+                                        {
+                                            var branchName = branchNameRow.First().name_ru;
+
+                                            Console.WriteLine("branchName: " + branchName);
+
+                                            var ecpChangeList = db.tbbu_ecp_calc.Where(z => z.INN == org.INN);
+
+                                            if (ecpChangeList.Any())
+                                            {
+                                                foreach (var ecp in ecpChangeList)
+                                                {
+                                                    ecp.BRANCH_CODE = branchCode;
+                                                    ecp.BRANCH_NAME = branchName;
+                                                }
+
+
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+
+                            lastTimeRow.LastChanged = DateTime.Now;
+
+                            db.SaveChanges();
+                        }
+                    }
+
+                    #endregion
+
+
+
                     var procList = db.sp_pr_GetNewTransactionsN1();
 
                     if (procList != null)
@@ -1105,66 +1170,66 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.Provodki.AutomaticTransactions.K
 
                     #endregion
                     
-                    #region Otrasl_Past change
+                    //#region Otrasl_Past change
 
-                    Console.WriteLine("Otrasl Late Update");
+                    //Console.WriteLine("Otrasl Late Update");
 
-                    var lastTimeRow = db.TimeShedulers.Where(z => z.id == 1).FirstOrDefault();
+                    //var lastTimeRow = db.TimeShedulers.Where(z => z.id == 1).FirstOrDefault();
 
-                    if (lastTimeRow != null)
-                    {
-                        var lastTime = lastTimeRow.LastChanged;
+                    //if (lastTimeRow != null)
+                    //{
+                    //    var lastTime = lastTimeRow.LastChanged;
 
-                        Console.WriteLine("lastTime: " + lastTime);
+                    //    Console.WriteLine("lastTime: " + lastTime);
 
-                        var newOrgChangedList = db.tblSprav_Org.Where(z => z.TIMESTAMP_CH >= lastTime);
+                    //    var newOrgChangedList = db.tblSprav_Org.Where(z => z.TIMESTAMP_CH >= lastTime);
 
-                        if (newOrgChangedList.Any())
-                        {
-                            foreach (var org in newOrgChangedList)
-                            {
-                                if (org.ID_Ot.HasValue)
-                                {
-                                    var currentOtrasl = db.tblSprav_Otras.Where(z => z.ID_Ot == org.ID_Ot);
+                    //    if (newOrgChangedList.Any())
+                    //    {
+                    //        foreach (var org in newOrgChangedList)
+                    //        {
+                    //            if (org.ID_Ot.HasValue)
+                    //            {
+                    //                var currentOtrasl = db.tblSprav_Otras.Where(z => z.ID_Ot == org.ID_Ot);
 
-                                    if (currentOtrasl.Any())
-                                    {
-                                        var branchCode = currentOtrasl.First().BRANCH_CODE;
+                    //                if (currentOtrasl.Any())
+                    //                {
+                    //                    var branchCode = currentOtrasl.First().BRANCH_CODE;
 
-                                        Console.WriteLine("branchCode: " + branchCode);
+                    //                    Console.WriteLine("branchCode: " + branchCode);
 
-                                        var branchNameRow = db.sp_branch.Where(z => z.code == branchCode);
+                    //                    var branchNameRow = db.sp_branch.Where(z => z.code == branchCode);
 
-                                        if (branchNameRow.Any())
-                                        {
-                                            var branchName = branchNameRow.First().name_ru;
+                    //                    if (branchNameRow.Any())
+                    //                    {
+                    //                        var branchName = branchNameRow.First().name_ru;
 
-                                            Console.WriteLine("branchName: " + branchName);
+                    //                        Console.WriteLine("branchName: " + branchName);
 
-                                            var ecpChangeList = db.tbbu_ecp_calc.Where(z => z.INN == org.INN);
+                    //                        var ecpChangeList = db.tbbu_ecp_calc.Where(z => z.INN == org.INN);
 
-                                            if (ecpChangeList.Any())
-                                            {
-                                                foreach (var ecp in ecpChangeList)
-                                                {
-                                                    ecp.BRANCH_CODE = branchCode;
-                                                    ecp.BRANCH_NAME = branchName;
-                                                }
+                    //                        if (ecpChangeList.Any())
+                    //                        {
+                    //                            foreach (var ecp in ecpChangeList)
+                    //                            {
+                    //                                ecp.BRANCH_CODE = branchCode;
+                    //                                ecp.BRANCH_NAME = branchName;
+                    //                            }
 
 
-                                            }
-                                        }
-                                    }
-                                }
-                            }
+                    //                        }
+                    //                    }
+                    //                }
+                    //            }
+                    //        }
 
-                            lastTimeRow.LastChanged = DateTime.Now;
+                    //        lastTimeRow.LastChanged = DateTime.Now;
 
-                            db.SaveChanges();
-                        }
-                    }
+                    //        db.SaveChanges();
+                    //    }
+                    //}
 
-                    #endregion
+                    //#endregion
                 }
             }
             catch(Exception ex)

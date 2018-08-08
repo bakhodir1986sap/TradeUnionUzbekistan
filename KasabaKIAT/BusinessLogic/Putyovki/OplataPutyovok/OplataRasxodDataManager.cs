@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Data.Entity;
 using System.Threading.Tasks;
+using KasabaKIAT.BusinessLogic.Putyovki.PutyovkiHistory;
 
 namespace KasabaKiat.BusinessLogic.Putyovki.OplataPutyovok
 {
@@ -27,6 +28,19 @@ namespace KasabaKiat.BusinessLogic.Putyovki.OplataPutyovok
                 opl.Departmentbase  = model.Departmentbase;
 
                 var opp = db.tblOplata_Ras.Add(opl);
+
+            //History making
+            var histModel = new PutHistViewModel
+            {
+                event_tp = (int)HistEventType.Oplata,
+                departmentbase = model.Departmentbase,
+                id_sanat = model.ID_Sanat,
+                num_put = model.Num_Put,
+                remark = string.Format("Процент {0} - Сумма {1}", model.ID_Pr.ToString(), model.Symma),
+                userid = model.UserId
+            };
+
+            PutHistDataManager.CreateL(histModel, db);
         }
 
         /// <summary>

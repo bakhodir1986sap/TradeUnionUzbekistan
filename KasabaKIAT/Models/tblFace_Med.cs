@@ -26,6 +26,7 @@ namespace KasabaKIAT.Models
         public Nullable<System.DateTime> Tal_Data { get; set; }
         public Nullable<long> UserId { get; set; }
         public string Departmentbase { get; set; }
+        public Nullable<System.DateTime> TIMESTAMP_T { get; set; }
     
         public virtual tblFase tblFase { get; set; }
         public virtual tblSprav_San tblSprav_San { get; set; }

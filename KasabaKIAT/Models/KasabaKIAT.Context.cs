@@ -183,6 +183,7 @@ namespace KasabaKIAT.Models
         public virtual DbSet<tbbu_finOtchetSetting> tbbu_finOtchetSetting { get; set; }
         public virtual DbSet<tblOtchetiLager> tblOtchetiLagers { get; set; }
         public virtual DbSet<tblZayavkiLager> tblZayavkiLagers { get; set; }
+        public virtual DbSet<tblPutHist> tblPutHists { get; set; }
     
         public virtual ObjectResult<Nullable<decimal>> sp_get_BankPaymentCompanyMonthly(string inn, Nullable<int> year, Nullable<int> month)
         {

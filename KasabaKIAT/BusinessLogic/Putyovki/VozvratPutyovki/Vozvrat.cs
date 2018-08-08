@@ -34,7 +34,7 @@ namespace KasabaKiat.BusinessLogic.Putyovki.VozvratPutyovki
             //Add to Prixod putyovok as original ID_Org
             using (KasabaKIATEntities db = new KasabaKIATEntities())
             {
-
+                #region PostupleniyeNakladnaya
                 var prixodMain = new PostupleniyaViewModel
                 {
                     Id_Kv = model.id_kv,
@@ -54,6 +54,9 @@ namespace KasabaKiat.BusinessLogic.Putyovki.VozvratPutyovki
 
                 PostMainDataManager.Create(ref prixodMain,db, out pp);
 
+                #endregion
+
+                #region OplataMain
                 //Add to Oplata as Vozvrat 
                 var oplata = new OplataViewModel
                 {
@@ -73,9 +76,23 @@ namespace KasabaKiat.BusinessLogic.Putyovki.VozvratPutyovki
                 tblOplata opp = null;
                 OplataDataManager.Create(ref oplata,db, out opp);
 
+                #endregion
+
+                #region SatelliteOrg
+                string owner_Code = string.Empty;
+                var orgs = db.tblSprav_Org.Where(z => z.ID == model.id_ot && z.DepartmentBase == model.departmentbase);
+
+                if (orgs.Any())
+                {
+
+                    owner_Code = orgs.First().OWNER_CODE;
+                }
+                #endregion
+
                 foreach (var mm in model.detailPutyovka)
                 {
                     //Vozvrat dtl
+                    #region Vozvrat dtl
                     var mmodel = new VozvratViewModel
                     {
                         data_post = model.data_post,
@@ -98,7 +115,10 @@ namespace KasabaKiat.BusinessLogic.Putyovki.VozvratPutyovki
 
                     vv.tblPost = pp;
 
+                    #endregion
+
                     //Prixod Dtl
+                    #region Prixod Dtl
                     var prixodDetail = new PostPutyovkaViewModel
                     {
                         IdPost = prixodMain.Id,
@@ -113,6 +133,27 @@ namespace KasabaKiat.BusinessLogic.Putyovki.VozvratPutyovki
 
                     PostPutDetailDataManager.Create(ref prixodDetail, db, pp);
 
+                    #endregion
+
+                    #region PostPut Satteleit Org Putyovka Remove
+                    var PostPuts = from PosPut in db.tblPos_Put
+                                   join PosMain in db.tblPost on PosPut.ID_Post equals PosMain.ID
+                                   where PosMain.DepartmentBase == owner_Code && PosPut.Num_Put == mm.num_put
+                                   && PosPut.ID_Sanat == mm.id_sanat
+                                   && PosPut.ID_PolVoz == false
+                                   select PosPut;
+
+                    if (PostPuts.Any())
+                    {
+                        foreach(var put in PostPuts)
+                        {
+                            db.tblPos_Put.Remove(put);
+                        }
+                    }
+
+                    #endregion
+
+                    #region Provodki
                     var trans = new ProvodkiViewModel
                     {
                         comment = "Возврат в Облсовпроф",
@@ -133,7 +174,10 @@ namespace KasabaKiat.BusinessLogic.Putyovki.VozvratPutyovki
                     vv.tbbu_provodki = provodka;
                     pp.tbbu_provodki = provodka;
 
+                    #endregion
+
                     //Oplata Dtl
+                    #region Oplata Dtl
                     var oplatDtl = new OplataRasxodiViewModel
                     {
                         Departmentbase = mm.departmentbase,
@@ -148,8 +192,12 @@ namespace KasabaKiat.BusinessLogic.Putyovki.VozvratPutyovki
 
                     OplataRasxodDataManager.Create(ref oplatDtl,db, opp);
 
+                    #endregion
+
                     //Remove or change status in Viplata
+                    #region Remove or change status in Viplata
                     Vipl_PutDataManager.RemoveByPutyovka(mm.id_sanat.Value, mm.num_put, mm.departmentbase, db, vv);
+                    #endregion
 
                 }
 
@@ -200,7 +248,10 @@ namespace KasabaKiat.BusinessLogic.Putyovki.VozvratPutyovki
                     Num_Put = vozvrat.Num_Put,
                     ID_Sanat = vozvrat.ID_Sanat,
                     Data_Post = vozvrat.Data_Post,
-                    Num_Proc = 100
+                    Num_Proc = 100,
+                    DepartmentBase = model.departmentbase,
+                    TIMESTAMP_T = DateTime.Now,
+                    UserId = model.userid
                 };
 
                 db.tblVipl_Put.Add(rasxodPut);

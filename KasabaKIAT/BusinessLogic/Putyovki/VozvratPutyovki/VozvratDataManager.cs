@@ -7,6 +7,7 @@ using System.Web;
 using KasabaKiat.BusinessLogic.Putyovki.PrixodPutyovok;
 using System.Threading.Tasks;
 using System.Data.Entity;
+using KasabaKIAT.BusinessLogic.Putyovki.PutyovkiHistory;
 
 namespace KasabaKiat.BusinessLogic.VozvratPutyovki
 {
@@ -35,6 +36,19 @@ namespace KasabaKiat.BusinessLogic.VozvratPutyovki
                 vozv.DepartmentBase         = model.departmentbase;
 
                 avozv = db.tblVozVrats.Add(vozv);
+
+            //History making
+            var histModel = new PutHistViewModel
+            {
+                event_tp = (int)HistEventType.Vozvrat,
+                departmentbase = model.departmentbase,
+                id_sanat = model.id_sanat,
+                num_put = model.num_put,
+                remark = string.Format("Дата {0} - Сумма {1}", model.data_post, model.symmap),
+                userid = model.userid
+            };
+
+            PutHistDataManager.CreateL(histModel, db);
         }
 
         /// <summary>
@@ -184,7 +198,9 @@ namespace KasabaKiat.BusinessLogic.VozvratPutyovki
         /// <returns></returns>
         public static async Task<List<RealizasiyaViplPutViewModel>> GetPutyovkas(long idOrg, string departmentBase)
         {
+            List<RealizasiyaViplPutViewModel> Mainlist = new List<RealizasiyaViplPutViewModel>();
             List<RealizasiyaViplPutViewModel> list = null;
+            List<RealizasiyaViplPutViewModel> prixodlist = null;
 
             using (KasabaKIATEntities db = new KasabaKIATEntities())
             {
@@ -209,9 +225,45 @@ namespace KasabaKiat.BusinessLogic.VozvratPutyovki
                             }).ToListAsync();
 
                 list = query;
+
+                Mainlist.AddRange(list);
+
+                //var orgs = db.tblSprav_Org.Where(z => z.ID == idOrg && z.DepartmentBase == departmentBase);
+
+                //if (orgs.Any())
+                //{
+
+                //    string owner_Code = orgs.First().OWNER_CODE;
+
+                //    var query2 = await (from viplPut in db.tblPos_Put
+                //                        join viplMain in db.tblPost on viplPut.ID_Post equals viplMain.ID
+                //                        where viplMain.DepartmentBase == owner_Code
+                //                        && viplPut.ID_PolVoz == false
+                //                        select new RealizasiyaViplPutViewModel
+                //                        {
+                //                            id = viplPut.ID,
+                //                            id_vipl = viplPut.ID_Post,
+                //                            id_pok = viplPut.ID_Post,
+                //                            id_sanat = viplPut.ID_Sanat,
+                //                            sanatName = viplPut.tblSprav_San.Name_San,
+                //                            num_put = viplPut.Num_Put,
+                //                            num_proc = 1,
+                //                            symma = viplPut.Symma_Put,
+                //                            id_polvoz = viplPut.ID_PolVoz,
+                //                            data_post = viplPut.Data_Post,
+                //                            userid = viplPut.UserId,
+                //                            zayavkaid = null,
+                //                            departmentbase = viplPut.Departmentbase
+                //                        }).ToListAsync();
+
+                //    prixodlist = query2;
+
+                //    Mainlist.AddRange(prixodlist);
+                //}
+
             }
 
-            return list;
+            return Mainlist;
         }
 
         /// <summary>

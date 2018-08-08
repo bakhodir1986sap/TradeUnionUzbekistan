@@ -44,6 +44,7 @@ namespace KasabaKIAT.Models
         public string Departmentbase { get; set; }
         public string INN { get; set; }
         public string PNFL { get; set; }
+        public Nullable<System.DateTime> TIMESTAMP_T { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblFace_Med> tblFace_Med { get; set; }

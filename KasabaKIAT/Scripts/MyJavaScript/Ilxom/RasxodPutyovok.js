@@ -14,13 +14,18 @@
         Name_Kv: '2-квартал'
     };
 
+    $scope.FilterSelectedOtrasl = {
+        Name_Ot: '',
+        ID_Ot: -999
+    };
+
     //Initialize Part
     GetYearsList();
     GetKvartalList();
+    GetOtraslForOrganization();
     GetCurBusinessTime();
     GetOrganizationList();
     GetSanatories();
-
     //Models
 
 
@@ -140,6 +145,26 @@
         });
     }
 
+    function GetOtraslForOrganization() {
+        document.getElementById('connection').style.visibility = "visible";
+        $("#hh").modal({
+            backdrop: 'static'
+        });
+        $http({
+            method: 'get',
+            url: '/PrixodPutevok/GetOtraslForOrganizationRasxod'
+        }).then(function (response) {
+            $scope.Otrasl = response.data;
+            document.getElementById('connection').style.visibility = "hidden";
+            $("#hh").modal('hide');
+        }, function (error) {
+            alertify.error("ошибка");
+            console.log("error in GetRekvizits");
+            document.getElementById('connection').style.visibility = "hidden";
+            $("#hh").modal('hide');
+        });
+    }
+
     /////////////////////////////////////////////////////////////////////////////////////////
     //// Spesific Business Logic
     /////////////////////////////////////////////////////////////////////////////////////////
@@ -243,7 +268,7 @@
         });
         $http({
             method: 'get',
-            url: '/PrixodPutevok/GetViplMain?year=' + $scope.SelectedYear.Id + '&kvartal=' + $scope.SelectedKvartal.ID
+            url: '/PrixodPutevok/GetViplMain?year=' + $scope.SelectedYear.Id + '&kvartal=' + $scope.SelectedKvartal.ID + '&ID_Ot=' + $scope.FilterSelectedOtrasl.ID_Ot
         }).then(function (response) {
 
             $scope.Nakladnoys = response.data;
@@ -273,7 +298,7 @@
         });
         $http({
             method: 'get',
-            url: '/PrixodPutevok/GetViplTotalResults?year=' + $scope.SelectedYear.Id + '&kvartal=' + $scope.SelectedKvartal.ID
+            url: '/PrixodPutevok/GetViplTotalResults?year=' + $scope.SelectedYear.Id + '&kvartal=' + $scope.SelectedKvartal.ID + '&ID_Ot=' + $scope.FilterSelectedOtrasl.ID_Ot
         }).then(function (response) {
             $scope.TotalResults = response.data;
             document.getElementById('connection').style.visibility = "hidden";
@@ -786,10 +811,10 @@
     GetEmptyCarcas();
     //GetOrganizations();
 
-    $scope.FilterSelectedOtrasl = {
-        Name_Ot: '',
-        ID_Ot: ''
-    };
+    //$scope.FilterSelectedOtrasl = {
+    //    Name_Ot: '',
+    //    ID_Ot: ''
+    //};
 
     $scope.FilterName = '';
     $scope.FilterInn = '';
@@ -804,25 +829,25 @@
         ID: ''
     };
 
-    function GetOtraslForOrganization() {
-        document.getElementById('connection').style.visibility = "visible";
-        $("#hh").modal({
-            backdrop: 'static'
-        });
-        $http({
-            method: 'get',
-            url: '/PrixodPutevok/GetOtraslForOrganization'
-        }).then(function (response) {
-            $scope.Otrasl = response.data;
-            document.getElementById('connection').style.visibility = "hidden";
-            $("#hh").modal('hide');
-        }, function (error) {
-            alertify.error("ошибка");
-            console.log("error in GetRekvizits");
-            document.getElementById('connection').style.visibility = "hidden";
-            $("#hh").modal('hide');
-        });
-    }
+    //function GetOtraslForOrganization() {
+    //    document.getElementById('connection').style.visibility = "visible";
+    //    $("#hh").modal({
+    //        backdrop: 'static'
+    //    });
+    //    $http({
+    //        method: 'get',
+    //        url: '/PrixodPutevok/GetOtraslForOrganization'
+    //    }).then(function (response) {
+    //        $scope.Otrasl = response.data;
+    //        document.getElementById('connection').style.visibility = "hidden";
+    //        $("#hh").modal('hide');
+    //    }, function (error) {
+    //        alertify.error("ошибка");
+    //        console.log("error in GetRekvizits");
+    //        document.getElementById('connection').style.visibility = "hidden";
+    //        $("#hh").modal('hide');
+    //    });
+    //}
 
     $scope.addOrg = function () {
 

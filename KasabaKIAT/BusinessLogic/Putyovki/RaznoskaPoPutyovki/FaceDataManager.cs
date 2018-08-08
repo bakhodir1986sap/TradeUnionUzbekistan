@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using KasabaKIAT.BusinessLogic.Putyovki.PutyovkiHistory;
 
 namespace KasabaKiat.BusinessLogic.Putyovki.RaznoskaPoPutyovki
 {
@@ -52,6 +53,19 @@ namespace KasabaKiat.BusinessLogic.Putyovki.RaznoskaPoPutyovki
             fc.PNFL = model.pnfl;
 
             face = db.tblFase.Add(fc);
+
+            //History making
+            var histModel = new PutHistViewModel
+            {
+                event_tp = (int)HistEventType.UstanovVlad,
+                departmentbase = model.departmentbase,
+                id_sanat = model.id_sanat,
+                num_put = model.num_put,
+                remark = string.Format("Фамилия {0} - Имя {1}", model.lastname.ToString(), model.name),
+                userid = model.userid
+            };
+
+            PutHistDataManager.CreateL(histModel, db);
         }
 
 

@@ -23,5 +23,6 @@ namespace KasabaKIAT.Models
         public int STATUS { get; set; }
         public string DEPARTMENT_CODE { get; set; }
         public long UserId { get; set; }
+        public Nullable<System.DateTime> TIMESTAMP_T { get; set; }
     }
 }

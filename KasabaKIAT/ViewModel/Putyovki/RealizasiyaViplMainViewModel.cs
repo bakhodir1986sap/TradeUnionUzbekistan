@@ -138,9 +138,9 @@ namespace KasabaKiat.ViewModel.Putyovki
             }
       }
 
-        private string[] month = new[] { "", "января", "февраля", "марта", "апреля", "мая", "июня", "июля", "августа", "сентября", "октября", "ноября", "декабря" };
+      private string[] month = new[] { "", "января", "февраля", "марта", "апреля", "мая", "июня", "июля", "августа", "сентября", "октября", "ноября", "декабря" };
 
-    public string NaklMonth
+      public string NaklMonth
         {
             get
             {
@@ -154,7 +154,7 @@ namespace KasabaKiat.ViewModel.Putyovki
         }
 
 
-        public int NaklYear
+      public int NaklYear
         {
             get
             {
@@ -167,7 +167,7 @@ namespace KasabaKiat.ViewModel.Putyovki
             }
         }
 
-        public string SummaPropisyu
+      public string SummaPropisyu
         {
             get
             {
@@ -179,5 +179,7 @@ namespace KasabaKiat.ViewModel.Putyovki
                 return "";
             }
         }
+
+        public int? ID_Ot { get; set; }
     }
 }

@@ -21,5 +21,6 @@ namespace KasabaKIAT.Models
         public string CONTENTTYPE { get; set; }
         public byte[] DATA { get; set; }
         public string OPNAME { get; set; }
+        public Nullable<System.DateTime> TIMESTAMP_T { get; set; }
     }
 }

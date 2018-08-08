@@ -48,6 +48,7 @@ namespace KasabaKIAT.Controllers
         public ActionResult OtchetPutevki           () {return View();}
         public ActionResult OtchetBuxgalteriya      () {return View();}
         public ActionResult OtchetJurnalniyeOrdera()   { return View(); }
+        public ActionResult PutyovkaHistory() { return View(); }
 
         /// <summary>
         /// 

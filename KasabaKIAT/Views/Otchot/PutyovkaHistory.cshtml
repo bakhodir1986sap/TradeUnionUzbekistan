@@ -1,0 +1,72 @@
+﻿
+@{
+    ViewBag.Title = "История Путевки";
+}
+<script src="~/Scripts/MyJavaScript/Postupleniya.js"></script>
+
+<div ng-controller="Postupleniya">
+    <div id="connection" style="visibility:hidden;position:absolute;margin-left:600px;margin-top:100px;z-index:9999">
+        <img src="~/Content/Login/buffering.gif" />
+    </div>
+    <section class="content__block container-fluid">
+        <div class="row mb-4 align-items-center">
+            <div class="col title__block">
+                <h4>История Путевки</h4>
+                <nav aria-label="breadcrumb" class="breadcrumb__block">
+                    <ol class="breadcrumb">
+                        @*<li class="breadcrumb-item load"><a href="/Home/Otchot">Отчеты</a></li>*@
+                        <li class="breadcrumb-item load"><a href="/Otchot/OtchetTitul">Отчеты</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">История Путевки</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+        <form class="row mb-5" name="myForm2" novalidate>
+            <div class="col-lg-7">
+                <div class="row">
+                    <div class="form-group row align-items-center">
+                        <label class="col-md-5 col-form-label text-md-right py-0">Название санаториия:</label>
+                        <div class="col-md-7">
+                            <select class="custom-select form-control" ng-model="SelectedSanatory" ng-options="item as item.Name_San for item in Sanatories track by item.ID"></select>
+                        </div>
+                    </div>
+                    <div class="form-group row align-items-center">
+                        <label class="col-md-5 col-form-label text-md-right py-0">Номер Путевки:</label>
+                        <div class="col-md-7">
+                            <input type="text" class="form-control" placeholder="Номер Путевки" ng-model="NumPut" />
+                        </div>
+                    </div>
+                    <div class="col-md-4 form-group">
+                        <button class="btn btn-green d-block d-md-inline-block mb-3 mb-md-0" ng-click="LoadINN_P()">Поиск</button>
+                    </div>
+                    <div class="col-md-4 form-group">
+                        <button ng-show="showdata" ng-click="exportData()" class="btn btn-green d-block d-md-inline-block mb-3 mb-md-0" style="margin-left:700px"><i class="fas fa-file-excel"></i> Экспорт</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <div class="table-responsive box-shadow mb-4" ng-show="showdata" id="export">
+            <table class="table table__block t-hover">
+                <thead>
+                    <tr>
+                        <th>Операция</th>
+                        <th>Номер путевки</th>
+                        <th>Санаторий</th>
+                        <th>Примечание</th>
+                        <th>Дата</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="poin" ng-repeat="item in DATA">
+                        <td style="text-align:center">{{item.event_name}}</td>
+                        <td style="text-align:center">{{item.num_put}}</td>
+                        <td style="text-align:center">{{item.sanatName}}</td>
+                        <td style="text-align:center">{{item.remark}}</td>
+                        <td style="text-align:center">{{item.timeString}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+</div>
+

@@ -136,24 +136,38 @@
                         <form class="col-md-8" name="myForm" novalidate>
                             <input type="hidden" style="position:absolute" ng-model="ID;" />
                             <div class="form-group row align-items-center">
-                                <label class="col-md-5 col-form-label py-0">Отрасль:</label>
+                                <label class="col-md-5 col-form-label py-0" style="color:red">Отрасль:</label>
                                 <div class="col-md-7">
                                     <select class="custom-select form-control" required name="Otrasl" ng-model="ModalOtraslSelected" ng-options="item as item.Name_Ot for item in Otrasl track by item.ID_Ot"></select>
                                     <span class="alert alert-warning" style="padding:0px" ng-show="myForm.Otrasl.$error.required">Выберите поле</span>
                                 </div>
                             </div>
                             <div class="form-group row align-items-center">
-                                <label class="col-md-5 col-form-label py-0">ИНН Профкома:</label>
+                                <label class="col-md-5 col-form-label py-0" style="color:red">ИНН Профкома:</label>
                                 <div class="col-md-7">
                                     <input maxlength="9" type="text" class="form-control" name="INN" ng-model="Organization.INN" ng-blur="GetOrgDataByInn($event, Organization.INN)" required>
                                     <span class="alert alert-warning" style="padding:0px" ng-show="myForm.INN.$error.required">заполнить поле</span>
                                 </div>
                             </div>
                             <div class="form-group row align-items-center">
-                                <label class="col-md-5 col-form-label py-0">Название организации:</label>
+                                <label class="col-md-5 col-form-label py-0" style="color:red">Название организации:</label>
                                 <div class="col-md-7">
                                     <input maxlength="100" type="text" class="form-control" name="Org" ng-model="Organization.Name_Org" required>
                                     <span class="alert alert-warning" style="padding:0px" ng-show="myForm.Org.$error.required">заполнить поле</span>
+                                </div>
+                            </div>
+                            <div class="form-group row align-items-center">
+                                <label class="col-md-5 col-form-label py-0" style="color:red">Район:</label>
+                                <div class="col-md-7">
+                                    <select class="custom-select form-control" required name="Region" ng-model="ModalRegionSelected" ng-options="item as item.NameReg for item in Region track by item.ID"></select>
+                                    @*<span class="alert alert-warning" style="padding:0px" ng-show="myForm.Region.$error.required">Выберите поле</span>*@
+                                </div>
+                            </div>
+                            <div class="form-group row align-items-center">
+                                <label class="col-md-5 col-form-label py-0" style="color:red">Уровень проф. Орг:</label>
+                                <div class="col-md-7">
+                                    <select class="custom-select form-control" required name="PravSoyuzLevel" ng-model="SelectedProgLevel" ng-options="item as item.Decode for item in ProfLevels track by item.Code"></select>
+                                    @*<span class="alert alert-warning" style="padding:0px" ng-show="myForm.Otrasl.$error.required">Выберите поле</span>*@
                                 </div>
                             </div>
                             <div class="form-group row align-items-center">
@@ -199,13 +213,6 @@
                                 </div>
                             </div>
                             <div class="form-group row align-items-center">
-                                <label class="col-md-5 col-form-label py-0">Район:</label>
-                                <div class="col-md-7">
-                                    <select class="custom-select form-control" required name="Region" ng-model="ModalRegionSelected" ng-options="item as item.NameReg for item in Region track by item.ID"></select>
-                                    @*<span class="alert alert-warning" style="padding:0px" ng-show="myForm.Region.$error.required">Выберите поле</span>*@
-                                </div>
-                            </div>
-                            <div class="form-group row align-items-center">
                                 <label class="col-md-5 col-form-label py-0">Профсоюз:</label>
                                 <div class="col-md-7">
                                     <input type="checkbox" required name="vio" ng-model="Organization.IsPravSoyuz" />
@@ -224,13 +231,6 @@
                             <div class="row">
                                 <div class="col-md-12 text-right">
                                     <a href="#" class="btn btn-grey d-block d-md-inline-block mb-2" data-toggle="modal" data-target="#organization">Выбрать</a>
-                                </div>
-                            </div>
-                            <div class="form-group row align-items-center">
-                                <label class="col-md-5 col-form-label py-0">Уровень проф. Орг:</label>
-                                <div class="col-md-7">
-                                    <select class="custom-select form-control" required name="PravSoyuzLevel" ng-model="SelectedProgLevel" ng-options="item as item.Decode for item in ProfLevels track by item.Code"></select>
-                                    @*<span class="alert alert-warning" style="padding:0px" ng-show="myForm.Otrasl.$error.required">Выберите поле</span>*@
                                 </div>
                             </div>
                             <div class="form-group row align-items-center">

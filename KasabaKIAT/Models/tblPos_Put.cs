@@ -25,6 +25,7 @@ namespace KasabaKIAT.Models
         public Nullable<long> UserId { get; set; }
         public string Departmentbase { get; set; }
         public Nullable<System.DateTime> DataSanEnd { get; set; }
+        public Nullable<System.DateTime> TIMESTAMP_T { get; set; }
     
         public virtual tblPost tblPost { get; set; }
         public virtual tblSprav_San tblSprav_San { get; set; }

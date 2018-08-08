@@ -5,12 +5,46 @@
         LoadDATA($scope.INN);
     }
 
+    GetSanatories();
+
+    function GetSanatories() {
+        document.getElementById('connection').style.visibility = "visible";
+        $("#hh").modal({
+            backdrop: 'static'
+        });
+        $http({
+            method: 'get',
+            url: '/Reference/GetSanatories'
+        }).then(function (response) {
+            $scope.Sanatories = response.data;
+            document.getElementById('connection').style.visibility = "hidden";
+            $("#hh").modal('hide');
+        }, function (error) {
+            alertify.error("ошибка");
+            console.log("error in GetSanatories");
+            document.getElementById('connection').style.visibility = "hidden";
+            $("#hh").modal('hide');
+        });
+    }
+
+    $scope.SelectedSanatory = {
+
+        ID: 0,
+        Name_San: ''
+
+    };
+
     $scope.LoadINN_N = function () {
         LoadDATAN($scope.INN);
     }
 
     $scope.LoadINN_X = function () {
         LoadDATAX($scope.INN);
+    }
+
+
+    $scope.LoadINN_P = function () {
+        LoadDATAP($scope.SelectedSanatory.ID, $scope.NumPut);
     }
 
     function LoadDATA(inn) {
@@ -88,6 +122,37 @@
         $http({
             method: 'POST',
             url: "/Buxgalter/GetEcpTransactions?inn=" + inn,
+        }).then(function (d) {
+            if (d.data.length != 0) {
+                $scope.showdata = true;
+            } else {
+                $scope.showdata = false;
+            }
+            $scope.DATA = d.data;
+            console.log(d.data);
+            document.getElementById('connection').style.visibility = "hidden";
+            $("#hh").modal('hide');
+        }, function (error) {
+            alertify.error("ошибка");
+            console.log("error in GetPostupleniyaN -> ", error);
+            document.getElementById('connection').style.visibility = "hidden";
+            $("#hh").modal('hide');
+        });
+    }
+
+    function LoadDATAP(idSanat, NumPut) {
+
+        $locale.NUMBER_FORMATS.GROUP_SEP = " ";
+        $locale.NUMBER_FORMATS.DECIMAL_SEP = ",";
+
+        document.getElementById('connection').style.visibility = "visible";
+        $("#hh").modal({
+            backdrop: 'static',
+            backdrop: 'static'
+        });
+        $http({
+            method: 'POST',
+            url: "/PrixodPutevok/GetPutyovkaHistory?IdSanat=" + idSanat + '&Num_Put=' + NumPut,
         }).then(function (d) {
             if (d.data.length != 0) {
                 $scope.showdata = true;

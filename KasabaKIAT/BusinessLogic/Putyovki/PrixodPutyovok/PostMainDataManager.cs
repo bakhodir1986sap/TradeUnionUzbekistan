@@ -24,7 +24,7 @@ namespace KasabaKiat.BusinessLogic.Putyovki.PrixodPutyovok
         /// <summary>
         /// 
         /// </summary>
-        public int PutyovkaCount { get; set; }
+        public int? PutyovkaCount { get; set; }
 
         /// <summary>
         /// 
@@ -219,6 +219,12 @@ namespace KasabaKiat.BusinessLogic.Putyovki.PrixodPutyovok
             return true;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="model"></param>
+        /// <param name="db"></param>
+        /// <returns></returns>
         public static bool Remove2(PostupleniyaViewModel model, KasabaKIATEntities db)
         {
                 var post = db.tblPost.Where(z => z.ID == model.Id);
@@ -324,7 +330,14 @@ namespace KasabaKiat.BusinessLogic.Putyovki.PrixodPutyovok
             return totals;
         }
 
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="year"></param>
+        /// <param name="kvartal"></param>
+        /// <param name="departmentBase"></param>
+        /// <param name="IdPos"></param>
+        /// <returns></returns>
         public static async Task<TotalResults> GetTotalsCloseNaklPrixod(int year, int kvartal, string departmentBase , long IdPos)
         {
             var totals = new TotalResults();

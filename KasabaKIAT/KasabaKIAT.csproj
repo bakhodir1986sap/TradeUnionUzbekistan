@@ -337,6 +337,8 @@
     <Compile Include="BusinessLogic\Putyovki\PrixodPutyovok\PostMainDataManager.cs" />
     <Compile Include="BusinessLogic\Putyovki\PrixodPutyovok\PostPutDetailDataManager.cs" />
     <Compile Include="BusinessLogic\Putyovki\PrixodPutyovok\PrixodDetailViewModel.cs" />
+    <Compile Include="BusinessLogic\Putyovki\PutyovkiHistory\PutHistDataManager.cs" />
+    <Compile Include="BusinessLogic\Putyovki\PutyovkiHistory\PutHistViewModel.cs" />
     <Compile Include="BusinessLogic\Putyovki\PutyovkiState\PutyovkiStateChangeDataManager.cs" />
     <Compile Include="BusinessLogic\Putyovki\RaznoskaPoPutyovki\FaceDataManager.cs" />
     <Compile Include="BusinessLogic\Putyovki\RaznoskaPoPutyovki\Face_MedDataManager.cs" />
@@ -464,6 +466,7 @@
     <Compile Include="BusinessLogic\BankOplati\Kaznacheystvo\KaznaFilesDataManager.cs" />
     <Compile Include="Hubs\NotificationHub.cs" />
     <Compile Include="Models\ChatModel.cs" />
+    <Compile Include="Models\JavascriptExtension.cs" />
     <Compile Include="Models\KaznaBankFile.cs">
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
@@ -815,6 +818,9 @@
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tblPred.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tblPutHist.cs">
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tblSanatDataCompare.cs">
@@ -1620,7 +1626,9 @@
     <Content Include="Scripts\MyJavaScript\Ilxom\OtchetN13.js" />
     <Content Include="Scripts\MyJavaScript\Ilxom\OtchetN14.js" />
     <Content Include="Scripts\MyJavaScript\Ilxom\PrixodPutyovokRuchnoy.js" />
+    <Content Include="Scripts\MyJavaScript\Ilxom\RasxodPutyovokN1.js" />
     <Content Include="Scripts\MyJavaScript\Ilxom\RasxodPutyovok.js" />
+    <Content Include="Scripts\MyJavaScript\Ilxom\StartProcessN1.js" />
     <Content Include="Scripts\MyJavaScript\Ilxom\StartProcess.js" />
     <Content Include="Scripts\MyJavaScript\Ilxom\SvodPoPutyovkam.js" />
     <Content Include="Scripts\MyJavaScript\Ilxom\UchetMedicinskoyReg.js" />
@@ -1902,6 +1910,7 @@
     <Content Include="Views\Otchot\OtchetPutevki.cshtml" />
     <Content Include="Views\Otchot\OtchetBuxgalteriya.cshtml" />
     <Content Include="Views\Otchot\OtchetJurnalniyeOrdera.cshtml" />
+    <Content Include="Views\Otchot\PutyovkaHistory.cshtml" />
     <None Include="Web References\KurortUrlService\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>

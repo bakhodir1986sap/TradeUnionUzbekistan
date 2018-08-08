@@ -23,6 +23,7 @@ namespace KasabaKIAT.Models
         public Nullable<short> Priz { get; set; }
         public Nullable<long> UserId { get; set; }
         public string Departmentbase { get; set; }
+        public Nullable<System.DateTime> TIMESTAMP_T { get; set; }
     
         public virtual tblSprav_Pr tblSprav_Pr { get; set; }
         public virtual tblSprav_Pr tblSprav_Pr1 { get; set; }

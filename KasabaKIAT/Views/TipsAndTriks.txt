@@ -136,3 +136,271 @@ GO
 ,'xorazm_bkut_test2@kasaba.uz'
 ,'federasiya@kasaba.uz'
 ,'mehnat@kasaba.uz')
+
+
+--Namangan Kengashlari INN
+('204566649',
+'202656560',
+'200074987',
+'201707964',
+'200089120',
+'201093385',
+'202168582',
+'201387913',
+'202504464',
+'202645550',
+'202559966',
+'207179620',
+'200056240',
+'207265087',
+'205229306',
+'203315564',
+'202539548',
+'207042444',
+'207174969',
+'202549353',
+'200075044',
+'200079917',
+'200086814',
+'200089152',
+'201093393',
+'200100234',
+'200105298',
+'202420104',
+'202684564',
+'200119954',
+'207073628',
+'204802124',
+'200069802',
+'200075202',
+'200082559',
+'200084784',
+'200089137',
+'201093433',
+'200100280',
+'200105281',
+'200107152',
+'200111798',
+'200119098',
+'200056874',
+'201278479',
+'200059861',
+'200082566',
+'200084777',
+'200089144',
+'201093464',
+'200100258',
+'200105274',
+'200107137',
+'202431841',
+'200119074',
+'202700174',
+'202256275',
+'202321725',
+'202129170',
+'200069754',
+'200060284',
+'200082431',
+'202047804',
+'202741194',
+'201093457',
+'202065180',
+'202383854',
+'200107105',
+'200111022',
+'200119106',
+'202717072',
+'202692881',
+'203287767',
+'202679524',
+'200056637',
+'206973710',
+'207177426',
+'207185488',
+'202698040',
+'202923119',
+'202801769',
+'202065269',
+'202686643')
+
+
+
+----------------------------------
+
+
+--Surxondaryo Kengashlari INN
+('202771651',
+'201467282'	,
+'202783887'	,
+'202143915'	,
+'203247927'	,
+'202414284'	,
+'203054431'	,
+'202659873'	,
+'202906368'	,
+'202029200'	,
+'202083129'	,
+'202843614'	,
+'202387097'	,
+'202899433'	,
+'200487250'	,
+'201915594'	,
+'202148852'	,
+'202062257'	,
+'202241857'	,
+'202687024'	,
+'200107359'	,
+'202292184'	,
+'207177670'	,
+'201399430'	,
+'202015954'	,
+'202015979'	,
+'201320355'	,
+'203202587'	,
+'202802086'	,
+'202660099'	,
+'202212394'	,
+'202287701'	,
+'201317627'	,
+'202639218'	,
+'202546151'	,
+'202148884'	,
+'202760038'	,
+'202846388'	,
+'202592183'	,
+'200504940'	,
+'202029192'	,
+'202300054'	,
+'202229394'	,
+'303108462'	,
+'202647761'	,
+'200456765'	,
+'200475582'	,
+'202292232'	,
+'200487694'	,
+'202531203'	,
+'202206029'	,
+'201468344'	,
+'202050059'	,
+'202704988'	,
+'203410234'	,
+'202709256'	,
+'200479276'	,
+'200492809'	,
+'202709271'	,
+'200496003'	,
+'207203449'	,
+'201413262'	,
+'202307360'	,
+'202883202'	,
+'200479276'	,
+'201467322'	,
+'207120964')
+
+
+-------------------------------
+
+
+('201512298',
+'200873436',
+'201421902',
+'207126228',
+'201474924',
+'201366962',
+'202939968',
+'202572026',
+'200887133',
+'202225725',
+'202812153',
+'201557036',
+'206929011',
+'204936535',
+'200873412',
+'201847276',
+'201366954',
+'201807214',
+'201172968',
+'201108031',
+'207174121',
+'200977890',
+'200887140',
+'202812153',
+'203531352',
+'202220811',
+'201504624',
+'201504584',
+'207173391',
+'202600299',
+'206842184',
+'202080551')
+
+
+
+UPDATE [KasabaKIAT_N1].[dbo].[tbl_mig_navoiyBaza] SET OTRASL_ID = 1		WHERE [POLYA01] = 'Транспорт, курилиш'		;
+UPDATE [KasabaKIAT_N1].[dbo].[tbl_mig_navoiyBaza] SET OTRASL_ID = 2		WHERE [POLYA01] = 'АСМ'						;
+UPDATE [KasabaKIAT_N1].[dbo].[tbl_mig_navoiyBaza] SET OTRASL_ID = 3		WHERE [POLYA01] = 'Давлат муассасалари'		;
+UPDATE [KasabaKIAT_N1].[dbo].[tbl_mig_navoiyBaza] SET OTRASL_ID = 7		WHERE [POLYA01] = 'Алока'					;
+UPDATE [KasabaKIAT_N1].[dbo].[tbl_mig_navoiyBaza] SET OTRASL_ID = 6		WHERE [POLYA01] = 'Авиатори'				;
+UPDATE [KasabaKIAT_N1].[dbo].[tbl_mig_navoiyBaza] SET OTRASL_ID = 8		WHERE [POLYA01] = 'Согликни саклаш'			;
+UPDATE [KasabaKIAT_N1].[dbo].[tbl_mig_navoiyBaza] SET OTRASL_ID = 9		WHERE [POLYA01] = 'Энергетиклар'			;
+UPDATE [KasabaKIAT_N1].[dbo].[tbl_mig_navoiyBaza] SET OTRASL_ID = 5		WHERE [POLYA01] = 'Таълим, маданият'		;
+UPDATE [KasabaKIAT_N1].[dbo].[tbl_mig_navoiyBaza] SET OTRASL_ID = 4		WHERE [POLYA01] = 'Истеъмол, тадбиркорлар'	;
+UPDATE [KasabaKIAT_N1].[dbo].[tbl_mig_navoiyBaza] SET OTRASL_ID = 10	WHERE [POLYA01] = 'Темир йул'				;
+UPDATE [KasabaKIAT_N1].[dbo].[tbl_mig_navoiyBaza] SET OTRASL_ID = 11	WHERE [POLYA01] = 'Метмашсаноат'			;
+UPDATE [KasabaKIAT_N1].[dbo].[tbl_mig_navoiyBaza] SET OTRASL_ID = 13	WHERE [POLYA01] = 'Кимё саноати'			;
+UPDATE [KasabaKIAT_N1].[dbo].[tbl_mig_navoiyBaza] SET OTRASL_ID = 14	WHERE [POLYA01] = 'Нефть-газ ва геология'	;
+UPDATE [KasabaKIAT_N1].[dbo].[tbl_mig_navoiyBaza] SET OTRASL_ID = 16	WHERE [POLYA01] = 'НГМК'					;
+
+
+
+UPDATE [KasabaKIAT_N1].[dbo].[tbl_mig_navoiyBaza] SET REGION_ID = 901	WHERE [POLYA09] ='Конимех т.'	;
+UPDATE [KasabaKIAT_N1].[dbo].[tbl_mig_navoiyBaza] SET REGION_ID = 902	WHERE [POLYA09] ='Кармана т.'	;
+UPDATE [KasabaKIAT_N1].[dbo].[tbl_mig_navoiyBaza] SET REGION_ID = 903	WHERE [POLYA09] ='Кизилтепа т.'	;
+UPDATE [KasabaKIAT_N1].[dbo].[tbl_mig_navoiyBaza] SET REGION_ID = 904	WHERE [POLYA09] ='Навбахор т.'	;
+UPDATE [KasabaKIAT_N1].[dbo].[tbl_mig_navoiyBaza] SET REGION_ID = 905	WHERE [POLYA09] ='Нурота т.'	;
+UPDATE [KasabaKIAT_N1].[dbo].[tbl_mig_navoiyBaza] SET REGION_ID = 906	WHERE [POLYA09] ='Томди т.'		;
+UPDATE [KasabaKIAT_N1].[dbo].[tbl_mig_navoiyBaza] SET REGION_ID = 907	WHERE [POLYA09] ='Учкудук т.'	;
+UPDATE [KasabaKIAT_N1].[dbo].[tbl_mig_navoiyBaza] SET REGION_ID = 908	WHERE [POLYA09] ='Хатирчи т.'	;
+UPDATE [KasabaKIAT_N1].[dbo].[tbl_mig_navoiyBaza] SET REGION_ID = 2304	WHERE [POLYA09] ='Навоий ш.'	;
+UPDATE [KasabaKIAT_N1].[dbo].[tbl_mig_navoiyBaza] SET REGION_ID = 2305	WHERE [POLYA09] ='Зарафшон ш.'	;
+
+
+
+UPDATE [KasabaKIAT_N1].[dbo].[tbl_mig_navoiyBaza] SET PROF_LEVEL_ID = 2	WHERE [POLYA11] ='Район-Отрасль'	;
+UPDATE [KasabaKIAT_N1].[dbo].[tbl_mig_navoiyBaza] SET PROF_LEVEL_ID = 3	WHERE [POLYA11] ='ППО'	;
+
+
+
+
+UPDATE [KasabaKIAT_N1].[dbo].[tblSprav_Org] SET [TO_DEPCODE] = N'172Н2' WHERE INN = '200003156' AND DepartmentBase = '17212';	
+UPDATE [KasabaKIAT_N1].[dbo].[tblSprav_Org] SET [TO_DEPCODE] = N'172Н2' WHERE INN = '200003504' AND DepartmentBase = '17212';	
+UPDATE [KasabaKIAT_N1].[dbo].[tblSprav_Org] SET [TO_DEPCODE] = N'172Н2' WHERE INN = '200003852' AND DepartmentBase = '17212';	
+UPDATE [KasabaKIAT_N1].[dbo].[tblSprav_Org] SET [TO_DEPCODE] = N'172Н2' WHERE INN = '200003970' AND DepartmentBase = '17212';	
+UPDATE [KasabaKIAT_N1].[dbo].[tblSprav_Org] SET [TO_DEPCODE] = N'172Н2' WHERE INN = '200004044' AND DepartmentBase = '17212';	
+UPDATE [KasabaKIAT_N1].[dbo].[tblSprav_Org] SET [TO_DEPCODE] = N'172Н2' WHERE INN = '200004470' AND DepartmentBase = '17212';	
+UPDATE [KasabaKIAT_N1].[dbo].[tblSprav_Org] SET [TO_DEPCODE] = N'172Н2' WHERE INN = '200006183' AND DepartmentBase = '17212';	
+UPDATE [KasabaKIAT_N1].[dbo].[tblSprav_Org] SET [TO_DEPCODE] = N'172Н2' WHERE INN = '200006516' AND DepartmentBase = '17212';	
+UPDATE [KasabaKIAT_N1].[dbo].[tblSprav_Org] SET [TO_DEPCODE] = N'172Н2' WHERE INN = '200007142' AND DepartmentBase = '17212';	
+UPDATE [KasabaKIAT_N1].[dbo].[tblSprav_Org] SET [TO_DEPCODE] = N'172Н2' WHERE INN = '200009306' AND DepartmentBase = '17212';	
+UPDATE [KasabaKIAT_N1].[dbo].[tblSprav_Org] SET [TO_DEPCODE] = N'172Н2' WHERE INN = '200009314' AND DepartmentBase = '17212';	
+UPDATE [KasabaKIAT_N1].[dbo].[tblSprav_Org] SET [TO_DEPCODE] = N'172Н2' WHERE INN = '200009574' AND DepartmentBase = '17212';	
+UPDATE [KasabaKIAT_N1].[dbo].[tblSprav_Org] SET [TO_DEPCODE] = N'172Н2' WHERE INN = '200010045' AND DepartmentBase = '17212';	
+UPDATE [KasabaKIAT_N1].[dbo].[tblSprav_Org] SET [TO_DEPCODE] = N'172Н2' WHERE INN = '200010378' AND DepartmentBase = '17212';	
+UPDATE [KasabaKIAT_N1].[dbo].[tblSprav_Org] SET [TO_DEPCODE] = N'172Н2' WHERE INN = '200010385' AND DepartmentBase = '17212';	
+UPDATE [KasabaKIAT_N1].[dbo].[tblSprav_Org] SET [TO_DEPCODE] = N'172Н2' WHERE INN = '200010590' AND DepartmentBase = '17212';	
+UPDATE [KasabaKIAT_N1].[dbo].[tblSprav_Org] SET [TO_DEPCODE] = N'172Н2' WHERE INN = '200010630' AND DepartmentBase = '17212';	
+UPDATE [KasabaKIAT_N1].[dbo].[tblSprav_Org] SET [TO_DEPCODE] = N'172Н2' WHERE INN = '200011409' AND DepartmentBase = '17212';	
+UPDATE [KasabaKIAT_N1].[dbo].[tblSprav_Org] SET [TO_DEPCODE] = N'172Н2' WHERE INN = '201204514' AND DepartmentBase = '17212';	
+UPDATE [KasabaKIAT_N1].[dbo].[tblSprav_Org] SET [TO_DEPCODE] = N'172Н2' WHERE INN = '202142727' AND DepartmentBase = '17212';	
+UPDATE [KasabaKIAT_N1].[dbo].[tblSprav_Org] SET [TO_DEPCODE] = N'172Т2' WHERE INN = '202451785' AND DepartmentBase = '17212';	
+UPDATE [KasabaKIAT_N1].[dbo].[tblSprav_Org] SET [TO_DEPCODE] = N'172Т2' WHERE INN = '202498631' AND DepartmentBase = '17212';	
+UPDATE [KasabaKIAT_N1].[dbo].[tblSprav_Org] SET [TO_DEPCODE] = N'172Н2' WHERE INN = '202896595' AND DepartmentBase = '17212';	
+UPDATE [KasabaKIAT_N1].[dbo].[tblSprav_Org] SET [TO_DEPCODE] = N'172Н2' WHERE INN = '203034124' AND DepartmentBase = '17212';	
+UPDATE [KasabaKIAT_N1].[dbo].[tblSprav_Org] SET [TO_DEPCODE] = N'172Т2' WHERE INN = '203810155' AND DepartmentBase = '17212';	
+UPDATE [KasabaKIAT_N1].[dbo].[tblSprav_Org] SET [TO_DEPCODE] = N'172Н2' WHERE INN = '204777250' AND DepartmentBase = '17212';	
+UPDATE [KasabaKIAT_N1].[dbo].[tblSprav_Org] SET [TO_DEPCODE] = N'172Т2' WHERE INN = '204837681' AND DepartmentBase = '17212';	
+UPDATE [KasabaKIAT_N1].[dbo].[tblSprav_Org] SET [TO_DEPCODE] = N'172Н2' WHERE INN = '205000988' AND DepartmentBase = '17212';	
+UPDATE [KasabaKIAT_N1].[dbo].[tblSprav_Org] SET [TO_DEPCODE] = N'172Т2' WHERE INN = '205178212' AND DepartmentBase = '17212';	
+UPDATE [KasabaKIAT_N1].[dbo].[tblSprav_Org] SET [TO_DEPCODE] = N'172Н2' WHERE INN = '206967908' AND DepartmentBase = '17212';	
+UPDATE [KasabaKIAT_N1].[dbo].[tblSprav_Org] SET [TO_DEPCODE] = N'172Н2' WHERE INN = '302244572' AND DepartmentBase = '17212';	
+

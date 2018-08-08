@@ -2203,6 +2203,7 @@ warning 6002: The table/view 'KasabaKIAT_N1.dbo.tbbTabel' does not have a primar
           <Property Name="Tal_Data" Type="date" />
           <Property Name="UserId" Type="bigint" />
           <Property Name="Departmentbase" Type="nvarchar" MaxLength="255" />
+          <Property Name="TIMESTAMP_T" Type="datetime" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'KasabaKIAT_N1.dbo.tblFace_Two' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -2216,6 +2217,7 @@ warning 6002: The table/view 'KasabaKIAT_N1.dbo.tblFace_Two' does not have a pri
           <Property Name="Data_Form" Type="date" />
           <Property Name="UserId" Type="bigint" />
           <Property Name="Departmentbase" Type="nvarchar" MaxLength="255" />
+          <Property Name="TIMESTAMP_T" Type="datetime" />
         </EntityType>
         <EntityType Name="tblFase">
           <Key>
@@ -2244,6 +2246,7 @@ warning 6002: The table/view 'KasabaKIAT_N1.dbo.tblFace_Two' does not have a pri
           <Property Name="Departmentbase" Type="nvarchar" MaxLength="255" />
           <Property Name="INN" Type="varchar" MaxLength="10" />
           <Property Name="PNFL" Type="varchar" MaxLength="20" />
+          <Property Name="TIMESTAMP_T" Type="datetime" />
         </EntityType>
         <EntityType Name="tblFile">
           <Key>
@@ -2256,6 +2259,7 @@ warning 6002: The table/view 'KasabaKIAT_N1.dbo.tblFace_Two' does not have a pri
           <Property Name="CONTENTTYPE" Type="nvarchar" MaxLength="200" />
           <Property Name="DATA" Type="varbinary(max)" />
           <Property Name="OPNAME" Type="nvarchar" MaxLength="500" />
+          <Property Name="TIMESTAMP_T" Type="datetime" />
         </EntityType>
         <EntityType Name="tblHolidays">
           <Key>
@@ -2285,6 +2289,7 @@ warning 6002: The table/view 'KasabaKIAT_N1.dbo.tblFace_Two' does not have a pri
           <Property Name="UserId" Type="bigint" />
           <Property Name="Departmentbase" Type="nvarchar" MaxLength="255" />
           <Property Name="PROVODKA_ID" Type="bigint" />
+          <Property Name="TIMESTAMP_T" Type="datetime" />
         </EntityType>
         <EntityType Name="tblOplata_Ras">
           <Key>
@@ -2299,6 +2304,7 @@ warning 6002: The table/view 'KasabaKIAT_N1.dbo.tblFace_Two' does not have a pri
           <Property Name="Priz" Type="smallint" />
           <Property Name="UserId" Type="bigint" />
           <Property Name="Departmentbase" Type="nvarchar" MaxLength="255" />
+          <Property Name="TIMESTAMP_T" Type="datetime" />
         </EntityType>
         <EntityType Name="tblOtchetiLager">
           <Key>
@@ -2328,6 +2334,7 @@ warning 6002: The table/view 'KasabaKIAT_N1.dbo.tblFace_Two' does not have a pri
           <Property Name="UserId" Type="bigint" />
           <Property Name="Departmentbase" Type="nvarchar" MaxLength="255" />
           <Property Name="DataSanEnd" Type="datetime" />
+          <Property Name="TIMESTAMP_T" Type="datetime" />
         </EntityType>
         <EntityType Name="tblPost">
           <Key>
@@ -2348,6 +2355,7 @@ warning 6002: The table/view 'KasabaKIAT_N1.dbo.tblFace_Two' does not have a pri
           <Property Name="BeginNumber" Type="int" />
           <Property Name="EndNumber" Type="int" />
           <Property Name="PROVODKA_ID" Type="bigint" />
+          <Property Name="TIMESTAMP_T" Type="datetime" />
         </EntityType>
         <EntityType Name="tblPred">
           <Key>
@@ -2391,6 +2399,19 @@ warning 6002: The table/view 'KasabaKIAT_N1.dbo.tblPutevka' does not have a prim
           <Property Name="UserId" Type="bigint" />
           <Property Name="ID" Type="bigint" Nullable="false" />
           <Property Name="Departmentbase" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="tblPutHist">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EVENT_TP" Type="int" Nullable="false" />
+          <Property Name="Num_Put" Type="nvarchar" MaxLength="10" />
+          <Property Name="ID_Sanat" Type="int" />
+          <Property Name="REMARK" Type="nvarchar" MaxLength="1000" />
+          <Property Name="UserId" Type="bigint" />
+          <Property Name="DepartmentBase" Type="nvarchar" MaxLength="255" />
+          <Property Name="TIMESTAMP_T" Type="datetime" />
         </EntityType>
         <EntityType Name="tblSanatDataCompare">
           <Key>
@@ -2549,6 +2570,7 @@ warning 6002: The table/view 'KasabaKIAT_N1.dbo.tblPutevka' does not have a prim
           <Property Name="UserId" Type="bigint" />
           <Property Name="DepartmentBase" Type="nvarchar" MaxLength="255" />
           <Property Name="PROVODKA_ID" Type="bigint" />
+          <Property Name="TIMESTAMP_T" Type="datetime" />
         </EntityType>
         <EntityType Name="tblVipl_NumGEn">
           <Key>
@@ -2576,6 +2598,7 @@ warning 6002: The table/view 'KasabaKIAT_N1.dbo.tblPutevka' does not have a prim
           <Property Name="UserId" Type="bigint" />
           <Property Name="ZayavkaID" Type="bigint" />
           <Property Name="DepartmentBase" Type="nvarchar" MaxLength="255" />
+          <Property Name="TIMESTAMP_T" Type="datetime" />
         </EntityType>
         <EntityType Name="tblVozVrat">
           <Key>
@@ -2599,6 +2622,7 @@ warning 6002: The table/view 'KasabaKIAT_N1.dbo.tblPutevka' does not have a prim
           <Property Name="RASXOD_ID" Type="bigint" />
           <Property Name="PRIXOD_PROVODKA_ID" Type="bigint" />
           <Property Name="RASXOD_PROVODKA_ID" Type="bigint" />
+          <Property Name="TIMESTAMP_T" Type="datetime" />
         </EntityType>
         <EntityType Name="tblZayavkiLager">
           <Key>
@@ -2613,6 +2637,7 @@ warning 6002: The table/view 'KasabaKIAT_N1.dbo.tblPutevka' does not have a prim
           <Property Name="STATUS" Type="int" Nullable="false" />
           <Property Name="DEPARTMENT_CODE" Type="nvarchar" MaxLength="255" Nullable="false" />
           <Property Name="UserId" Type="bigint" Nullable="false" />
+          <Property Name="TIMESTAMP_T" Type="datetime" />
         </EntityType>
         <EntityType Name="tbpt_avarageprice">
           <Key>
@@ -4320,6 +4345,33 @@ warning 6035: The relationship 'FK_tblPutevka_t_departmentbase' has columns that
               <PropertyRef Name="id" />
             </Principal>
             <Dependent Role="tblPutevka">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <!--Errors Found During Generation:
+warning 6035: The relationship 'FK_tblPutHist_t_departmentbase' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
+        <Association Name="FK_tblPutHist_t_departmentbase" />-->
+        <Association Name="FK_tblPutHist_tblSprav_San">
+          <End Role="tblSprav_San" Type="Self.tblSprav_San" Multiplicity="0..1" />
+          <End Role="tblPutHist" Type="Self.tblPutHist" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblSprav_San">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tblPutHist">
+              <PropertyRef Name="ID_Sanat" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblPutHist_users">
+          <End Role="users" Type="Self.users" Multiplicity="0..1" />
+          <End Role="tblPutHist" Type="Self.tblPutHist" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tblPutHist">
               <PropertyRef Name="UserId" />
             </Dependent>
           </ReferentialConstraint>
@@ -6340,6 +6392,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <EntitySet Name="tblPos_Put" EntityType="Self.tblPos_Put" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblPost" EntityType="Self.tblPost" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblPred" EntityType="Self.tblPred" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblPutHist" EntityType="Self.tblPutHist" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblSanatDataCompare" EntityType="Self.tblSanatDataCompare" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblSprav_Face" EntityType="Self.tblSprav_Face" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblSprav_Kv" EntityType="Self.tblSprav_Kv" Schema="dbo" store:Type="Tables" />
@@ -6492,7 +6545,8 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
     [tblFace_Two].[ID_Vipl] AS [ID_Vipl], 
     [tblFace_Two].[Data_Form] AS [Data_Form], 
     [tblFace_Two].[UserId] AS [UserId], 
-    [tblFace_Two].[Departmentbase] AS [Departmentbase]
+    [tblFace_Two].[Departmentbase] AS [Departmentbase], 
+    [tblFace_Two].[TIMESTAMP_T] AS [TIMESTAMP_T]
     FROM [dbo].[tblFace_Two] AS [tblFace_Two]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="tblPutevka" EntityType="Self.tblPutevka" store:Type="Tables" store:Schema="dbo">
@@ -6983,6 +7037,14 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <AssociationSet Name="FK_tblPutevka_Users" Association="Self.FK_tblPutevka_Users">
             <End Role="users" EntitySet="users" />
             <End Role="tblPutevka" EntitySet="tblPutevka" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblPutHist_tblSprav_San" Association="Self.FK_tblPutHist_tblSprav_San">
+            <End Role="tblSprav_San" EntitySet="tblSprav_San" />
+            <End Role="tblPutHist" EntitySet="tblPutHist" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblPutHist_users" Association="Self.FK_tblPutHist_users">
+            <End Role="users" EntitySet="users" />
+            <End Role="tblPutHist" EntitySet="tblPutHist" />
           </AssociationSet>
           <AssociationSet Name="FK_tblSprav_Face_Users" Association="Self.FK_tblSprav_Face_Users">
             <End Role="users" EntitySet="users" />
@@ -9353,6 +9415,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <NavigationProperty Name="tblFase" Relationship="Self.FK_tblFace_Med_tblFase" FromRole="tblFace_Med" ToRole="tblFase" />
           <NavigationProperty Name="tblSprav_San" Relationship="Self.FK_tblFace_Med_tblSprav_San" FromRole="tblFace_Med" ToRole="tblSprav_San" />
           <NavigationProperty Name="users" Relationship="Self.FK_tblFace_Med_Users" FromRole="tblFace_Med" ToRole="users" />
+          <Property Name="TIMESTAMP_T" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="tblFase">
           <Key>
@@ -9388,6 +9451,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <NavigationProperty Name="users" Relationship="Self.FK_tblFase_Users" FromRole="tblFase" ToRole="users" />
           <Property Name="INN" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="PNFL" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="TIMESTAMP_T" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="tblPos_Put">
           <Key>
@@ -9407,6 +9471,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <NavigationProperty Name="tblPost" Relationship="Self.FK_tblPos_Put_tblPost" FromRole="tblPos_Put" ToRole="tblPost" />
           <NavigationProperty Name="tblSprav_San" Relationship="Self.FK_tblPos_Put_tblSprav_San" FromRole="tblPos_Put" ToRole="tblSprav_San" />
           <NavigationProperty Name="users" Relationship="Self.FK_tblPos_Put_Users" FromRole="tblPos_Put" ToRole="users" />
+          <Property Name="TIMESTAMP_T" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="tblPost">
           <Key>
@@ -9433,6 +9498,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <Property Name="PROVODKA_ID" Type="Int64" />
           <NavigationProperty Name="tbbu_provodki" Relationship="KasabaKIATModel.FK_tblPost_tbbu_provodki" FromRole="tblPost" ToRole="tbbu_provodki" />
           <NavigationProperty Name="tblVozVrats" Relationship="KasabaKIATModel.FK_tblVozVrat_tblPost" FromRole="tblPost" ToRole="tblVozVrat" />
+          <Property Name="TIMESTAMP_T" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="tblSprav_Face">
           <Key>
@@ -9580,6 +9646,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <Property Name="KurortSanID" Type="Int32" />
           <NavigationProperty Name="tblVozVrats" Relationship="KasabaKIATModel.FK_tblVozVrat_tblSprav_San" FromRole="tblSprav_San" ToRole="tblVozVrat" />
           <NavigationProperty Name="tblVipl_Put" Relationship="KasabaKIATModel.FK_tblVipl_Put_tblSprav_San" FromRole="tblSprav_San" ToRole="tblVipl_Put" />
+          <NavigationProperty Name="tblPutHists" Relationship="KasabaKIATModel.FK_tblPutHist_tblSprav_San" FromRole="tblSprav_San" ToRole="tblPutHist" />
         </EntityType>
         <EntityType Name="tblSprav_Vil">
           <Key>
@@ -9617,6 +9684,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <Property Name="PROVODKA_ID" Type="Int64" />
           <NavigationProperty Name="tbbu_provodki" Relationship="KasabaKIATModel.FK_tblVipl_tbbu_provodki" FromRole="tblVipl" ToRole="tbbu_provodki" />
           <NavigationProperty Name="tblVozVrats" Relationship="KasabaKIATModel.FK_tblVozVrat_tblVipl" FromRole="tblVipl" ToRole="tblVozVrat" />
+          <Property Name="TIMESTAMP_T" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="tbpt_avarageprice">
           <Key>
@@ -10031,6 +10099,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <NavigationProperty Name="tblOplatas" Relationship="KasabaKIATModel.FK_tblOplata_Users" FromRole="users" ToRole="tblOplata" />
           <NavigationProperty Name="tblVozVrats" Relationship="KasabaKIATModel.FK_tblVozVrat_Users" FromRole="users" ToRole="tblVozVrat" />
           <NavigationProperty Name="tblVipl_Put" Relationship="KasabaKIATModel.FK_tblVipl_Put_Users" FromRole="users" ToRole="tblVipl_Put" />
+          <NavigationProperty Name="tblPutHists" Relationship="KasabaKIATModel.FK_tblPutHist_users" FromRole="users" ToRole="tblPutHist" />
         </EntityType>
         <EntityType Name="users_aud">
           <Key>
@@ -10186,6 +10255,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <NavigationProperty Name="tblFase" Relationship="Self.FK_tblFace_Two_tblFase" FromRole="tblFace_Two" ToRole="tblFase" />
           <NavigationProperty Name="tblVipl" Relationship="Self.FK_tblFace_Two_tblVipl" FromRole="tblFace_Two" ToRole="tblVipl" />
           <NavigationProperty Name="users" Relationship="Self.FK_tblFace_Two_Users" FromRole="tblFace_Two" ToRole="users" />
+          <Property Name="TIMESTAMP_T" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="tblOplata_Ras">
           <Key>
@@ -10205,6 +10275,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <NavigationProperty Name="tblSprav_San" Relationship="Self.FK_tblOplata_Ras_tblSprav_San" FromRole="tblOplata_Ras" ToRole="tblSprav_San" />
           <NavigationProperty Name="users" Relationship="Self.FK_tblOplata_Ras_Users" FromRole="tblOplata_Ras" ToRole="users" />
           <NavigationProperty Name="tblOplata" Relationship="KasabaKIATModel.FK_tblOplata_Ras_tblOplata" FromRole="tblOplata_Ras" ToRole="tblOplata" />
+          <Property Name="TIMESTAMP_T" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="tblPutevka">
           <Key>
@@ -13980,6 +14051,15 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <FunctionImport Name="sp_rt_Organization_Summary" ReturnType="Collection(KasabaKIATModel.sp_rt_Organization_Summary_Result1)">
           <Parameter Name="DEPARTMENT_BASE" Mode="In" Type="String" />
           </FunctionImport>
+          <EntitySet Name="tblPutHists" EntityType="KasabaKIATModel.tblPutHist" />
+          <AssociationSet Name="FK_tblPutHist_tblSprav_San" Association="KasabaKIATModel.FK_tblPutHist_tblSprav_San">
+            <End Role="tblSprav_San" EntitySet="tblSprav_San" />
+            <End Role="tblPutHist" EntitySet="tblPutHists" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblPutHist_users" Association="KasabaKIATModel.FK_tblPutHist_users">
+            <End Role="users" EntitySet="users" />
+            <End Role="tblPutHist" EntitySet="tblPutHists" />
+          </AssociationSet>
           </EntityContainer>
         <ComplexType Name="sp_get_BankPaymentCompanyYearlyQ_Result">
           <Property Type="Int32" Name="MONTH_NUM" Nullable="true" />
@@ -14874,6 +14954,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <NavigationProperty Name="user" Relationship="KasabaKIATModel.FK_tblOplata_Users" FromRole="tblOplata" ToRole="users" />
           <Property Name="PROVODKA_ID" Type="Int64" />
           <NavigationProperty Name="tbbu_provodki" Relationship="KasabaKIATModel.FK_tblOplata_tbbu_provodki" FromRole="tblOplata" ToRole="tbbu_provodki" />
+          <Property Name="TIMESTAMP_T" Type="DateTime" Precision="3" />
         </EntityType>
         <Association Name="FK_tblOplata_Ras_tblOplata">
           <End Type="KasabaKIATModel.tblOplata" Role="tblOplata" Multiplicity="0..1" />
@@ -14953,6 +15034,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <NavigationProperty Name="tbbu_provodki1" Relationship="KasabaKIATModel.FK_tblVozVrat_tbbu_provodki1" FromRole="tblVozVrat" ToRole="tbbu_provodki" />
           <NavigationProperty Name="tblPost" Relationship="KasabaKIATModel.FK_tblVozVrat_tblPost" FromRole="tblVozVrat" ToRole="tblPost" />
           <NavigationProperty Name="tblVipl" Relationship="KasabaKIATModel.FK_tblVozVrat_tblVipl" FromRole="tblVozVrat" ToRole="tblVipl" />
+          <Property Name="TIMESTAMP_T" Type="DateTime" Precision="3" />
         </EntityType>
         <Association Name="FK_tblVozVrat_tblSprav_Kv">
           <End Type="KasabaKIATModel.tblSprav_Kv" Role="tblSprav_Kv" Multiplicity="0..1" />
@@ -15494,6 +15576,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <NavigationProperty Name="tblVipl" Relationship="KasabaKIATModel.FK_tblVipl_Put_tblVipl" FromRole="tblVipl_Put" ToRole="tblVipl" />
           <NavigationProperty Name="tbpt_zayavki" Relationship="KasabaKIATModel.FK_tblVipl_Put_tbpt_zayavki" FromRole="tblVipl_Put" ToRole="tbpt_zayavki" />
           <NavigationProperty Name="user" Relationship="KasabaKIATModel.FK_tblVipl_Put_Users" FromRole="tblVipl_Put" ToRole="users" />
+          <Property Name="TIMESTAMP_T" Type="DateTime" Precision="3" />
         </EntityType>
         <Association Name="FK_tblVipl_Put_tblSprav_San">
           <End Type="KasabaKIATModel.tblSprav_San" Role="tblSprav_San" Multiplicity="0..1" />
@@ -15571,6 +15654,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <Property Name="CONTENTTYPE" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="DATA" Type="Binary" MaxLength="Max" FixedLength="false" />
           <Property Name="OPNAME" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="TIMESTAMP_T" Type="DateTime" Precision="3" />
         </EntityType>
         <Association Name="FK_tblOplata_tbbu_provodki">
           <End Type="KasabaKIATModel.tbbu_provodki" Role="tbbu_provodki" Multiplicity="0..1" />
@@ -15809,6 +15893,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <Property Name="STATUS" Type="Int32" Nullable="false" />
           <Property Name="DEPARTMENT_CODE" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="UserId" Type="Int64" Nullable="false" />
+          <Property Name="TIMESTAMP_T" Type="DateTime" Precision="3" />
         </EntityType>
         <ComplexType Name="sp_rt_Organization_Summary_Result">
           <Property Type="String" Name="Branch" Nullable="true" MaxLength="200" />
@@ -15818,6 +15903,45 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <Property Type="String" Name="Branch" Nullable="true" MaxLength="200" />
           <Property Type="Int32" Name="colVo" Nullable="true" />
         </ComplexType>
+        <EntityType Name="tblPutHist">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EVENT_TP" Type="Int32" Nullable="false" />
+          <Property Name="Num_Put" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="ID_Sanat" Type="Int32" />
+          <Property Name="REMARK" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="UserId" Type="Int64" />
+          <Property Name="DepartmentBase" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="tblSprav_San" Relationship="KasabaKIATModel.FK_tblPutHist_tblSprav_San" FromRole="tblPutHist" ToRole="tblSprav_San" />
+          <NavigationProperty Name="user" Relationship="KasabaKIATModel.FK_tblPutHist_users" FromRole="tblPutHist" ToRole="users" />
+          <Property Name="TIMESTAMP_T" Type="DateTime" Precision="3" />
+        </EntityType>
+        <Association Name="FK_tblPutHist_tblSprav_San">
+          <End Type="KasabaKIATModel.tblSprav_San" Role="tblSprav_San" Multiplicity="0..1" />
+          <End Type="KasabaKIATModel.tblPutHist" Role="tblPutHist" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblSprav_San">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tblPutHist">
+              <PropertyRef Name="ID_Sanat" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblPutHist_users">
+          <End Type="KasabaKIATModel.users" Role="users" Multiplicity="0..1" />
+          <End Type="KasabaKIATModel.tblPutHist" Role="tblPutHist" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tblPutHist">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -17611,6 +17735,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <EntitySetMapping Name="tblFace_Med">
             <EntityTypeMapping TypeName="KasabaKIATModel.tblFace_Med">
               <MappingFragment StoreEntitySet="tblFace_Med">
+                <ScalarProperty Name="TIMESTAMP_T" ColumnName="TIMESTAMP_T" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="ID_Face" ColumnName="ID_Face" />
                 <ScalarProperty Name="Med_Doc" ColumnName="Med_Doc" />
@@ -17629,6 +17754,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <EntitySetMapping Name="tblFase">
             <EntityTypeMapping TypeName="KasabaKIATModel.tblFase">
               <MappingFragment StoreEntitySet="tblFase">
+                <ScalarProperty Name="TIMESTAMP_T" ColumnName="TIMESTAMP_T" />
                 <ScalarProperty Name="PNFL" ColumnName="PNFL" />
                 <ScalarProperty Name="INN" ColumnName="INN" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
@@ -17658,6 +17784,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <EntitySetMapping Name="tblPos_Put">
             <EntityTypeMapping TypeName="KasabaKIATModel.tblPos_Put">
               <MappingFragment StoreEntitySet="tblPos_Put">
+                <ScalarProperty Name="TIMESTAMP_T" ColumnName="TIMESTAMP_T" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="ID_Post" ColumnName="ID_Post" />
                 <ScalarProperty Name="ID_Sanat" ColumnName="ID_Sanat" />
@@ -17675,6 +17802,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <EntitySetMapping Name="tblPost">
             <EntityTypeMapping TypeName="KasabaKIATModel.tblPost">
               <MappingFragment StoreEntitySet="tblPost">
+                <ScalarProperty Name="TIMESTAMP_T" ColumnName="TIMESTAMP_T" />
                 <ScalarProperty Name="PROVODKA_ID" ColumnName="PROVODKA_ID" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="ID_KV" ColumnName="ID_KV" />
@@ -17828,6 +17956,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <EntitySetMapping Name="tblVipl">
             <EntityTypeMapping TypeName="KasabaKIATModel.tblVipl">
               <MappingFragment StoreEntitySet="tblVipl">
+                <ScalarProperty Name="TIMESTAMP_T" ColumnName="TIMESTAMP_T" />
                 <ScalarProperty Name="PROVODKA_ID" ColumnName="PROVODKA_ID" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="ID_Org" ColumnName="ID_Org" />
@@ -18266,6 +18395,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <EntitySetMapping Name="tblFace_Two">
             <EntityTypeMapping TypeName="KasabaKIATModel.tblFace_Two">
               <MappingFragment StoreEntitySet="tblFace_Two">
+                <ScalarProperty Name="TIMESTAMP_T" ColumnName="TIMESTAMP_T" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="ID_Fase" ColumnName="ID_Fase" />
                 <ScalarProperty Name="ID_Vipl" ColumnName="ID_Vipl" />
@@ -18278,6 +18408,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <EntitySetMapping Name="tblOplata_Ras">
             <EntityTypeMapping TypeName="KasabaKIATModel.tblOplata_Ras">
               <MappingFragment StoreEntitySet="tblOplata_Ras">
+                <ScalarProperty Name="TIMESTAMP_T" ColumnName="TIMESTAMP_T" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="ID_Opl" ColumnName="ID_Opl" />
                 <ScalarProperty Name="ID_Sanat" ColumnName="ID_Sanat" />
@@ -19174,6 +19305,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <EntitySetMapping Name="tblOplatas">
             <EntityTypeMapping TypeName="KasabaKIATModel.tblOplata">
               <MappingFragment StoreEntitySet="tblOplata">
+                <ScalarProperty Name="TIMESTAMP_T" ColumnName="TIMESTAMP_T" />
                 <ScalarProperty Name="PROVODKA_ID" ColumnName="PROVODKA_ID" />
                 <ScalarProperty Name="Departmentbase" ColumnName="Departmentbase" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
@@ -19195,6 +19327,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <EntitySetMapping Name="tblVozVrats">
             <EntityTypeMapping TypeName="KasabaKIATModel.tblVozVrat">
               <MappingFragment StoreEntitySet="tblVozVrat">
+                <ScalarProperty Name="TIMESTAMP_T" ColumnName="TIMESTAMP_T" />
                 <ScalarProperty Name="RASXOD_PROVODKA_ID" ColumnName="RASXOD_PROVODKA_ID" />
                 <ScalarProperty Name="PRIXOD_PROVODKA_ID" ColumnName="PRIXOD_PROVODKA_ID" />
                 <ScalarProperty Name="RASXOD_ID" ColumnName="RASXOD_ID" />
@@ -19640,6 +19773,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <EntitySetMapping Name="tblVipl_Put">
             <EntityTypeMapping TypeName="KasabaKIATModel.tblVipl_Put">
               <MappingFragment StoreEntitySet="tblVipl_Put">
+                <ScalarProperty Name="TIMESTAMP_T" ColumnName="TIMESTAMP_T" />
                 <ScalarProperty Name="DepartmentBase" ColumnName="DepartmentBase" />
                 <ScalarProperty Name="ZayavkaID" ColumnName="ZayavkaID" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
@@ -19678,6 +19812,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <EntitySetMapping Name="tblFiles">
             <EntityTypeMapping TypeName="KasabaKIATModel.tblFile">
               <MappingFragment StoreEntitySet="tblFile">
+                <ScalarProperty Name="TIMESTAMP_T" ColumnName="TIMESTAMP_T" />
                 <ScalarProperty Name="OPNAME" ColumnName="OPNAME" />
                 <ScalarProperty Name="DATA" ColumnName="DATA" />
                 <ScalarProperty Name="CONTENTTYPE" ColumnName="CONTENTTYPE" />
@@ -19838,6 +19973,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <EntitySetMapping Name="tblZayavkiLagers">
             <EntityTypeMapping TypeName="KasabaKIATModel.tblZayavkiLager">
               <MappingFragment StoreEntitySet="tblZayavkiLager">
+                <ScalarProperty Name="TIMESTAMP_T" ColumnName="TIMESTAMP_T" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="DEPARTMENT_CODE" ColumnName="DEPARTMENT_CODE" />
                 <ScalarProperty Name="STATUS" ColumnName="STATUS" />
@@ -19858,6 +19994,20 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <EntitySetMapping Name="tblPutHists">
+            <EntityTypeMapping TypeName="KasabaKIATModel.tblPutHist">
+              <MappingFragment StoreEntitySet="tblPutHist">
+                <ScalarProperty Name="TIMESTAMP_T" ColumnName="TIMESTAMP_T" />
+                <ScalarProperty Name="DepartmentBase" ColumnName="DepartmentBase" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="REMARK" ColumnName="REMARK" />
+                <ScalarProperty Name="ID_Sanat" ColumnName="ID_Sanat" />
+                <ScalarProperty Name="Num_Put" ColumnName="Num_Put" />
+                <ScalarProperty Name="EVENT_TP" ColumnName="EVENT_TP" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

@@ -35,7 +35,7 @@ using KasabaKIAT.BusinessLogic.Buxgalteriya.GlavnayaKniga;
 using System.Globalization;
 using KasabaKIAT.BusinessLogic.StartProcess.LoaderViewModels;
 using KasabaKIAT.BusinessLogic.StartProcess.LoaderDataManagers;
-
+using KasabaKIAT.BusinessLogic.Putyovki.PutyovkiHistory;
 
 namespace KasabaKIAT.Controllers
 {
@@ -990,6 +990,27 @@ namespace KasabaKIAT.Controllers
             return Json(otrasList.ToList(), JsonRequestBehavior.AllowGet);
         }
 
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [OutputCache(Duration = 5, Location = OutputCacheLocation.Client, VaryByCustom = "userId")]
+        public JsonResult GetOtraslForOrganizationRasxod()
+        {
+            int UserId = Convert.ToInt32(User.Identity.Name);
+            var ustinfo = UserInfo.GetUserInfo(UserId);
+
+            var otrasList = Sprav_Otras.GetByDepartmentBase(ustinfo.DepartmentBase);
+
+            var obj = new Sprav_OtrasViewModel();
+            obj.ID_Ot = -999;
+            obj.Name_Ot = "Все отрасли";
+            otrasList.Add(obj);
+
+            return Json(otrasList.ToList(), JsonRequestBehavior.AllowGet);
+        }
+
         /// <summary>
         /// 
         /// </summary>
@@ -1273,14 +1294,43 @@ namespace KasabaKIAT.Controllers
         {
             if (putyovkaL == null) return Json("fail", JsonRequestBehavior.AllowGet);
 
+            int UserId = Convert.ToInt32(User.Identity.Name);
+            var ustinfo = UserInfo.GetUserInfo(UserId);
+
             try
             {
                 foreach(var putyovkaId in putyovkaL)
                 {
+                    var model = new PostPutyovkaViewModel
+                    {
+                        UserId = UserId,
+                        Departmentbase = ustinfo.DepartmentBase,
+                        Id = putyovkaId
+                    };
+
+                    var putyovka = await PostPutDetailDataManager.Get2(model);
+
+                    if (!putyovka.Any()) continue;
+
+                    var putObj = putyovka.First();
+
                     await PostPutDetailDataManager.Remove(new PostPutyovkaViewModel()
                     {
                         Id = putyovkaId
                     });
+
+                    //History making
+                    var histModel = new PutHistViewModel
+                    {
+                        event_tp = (int)HistEventType.UdalitPutIzPrixod,
+                        departmentbase = model.Departmentbase,
+                        id_sanat = putObj.IdSanat,
+                        num_put = putObj.Num_Put,
+                        remark = string.Format("Сумма {0} - Дата заезда {1}", putObj.Symma_Put, putObj.DataSan),
+                        userid = model.UserId
+                    };
+
+                    PutHistDataManager.Create(histModel);
                 }
             }
             catch(Exception ex)
@@ -1459,6 +1509,19 @@ namespace KasabaKIAT.Controllers
                         ID_San = putObj.IdSanat.Value,
                         Num_Put = putObj.Num_Put
                     });
+
+                    //History making
+                    var histModel = new PutHistViewModel
+                    {
+                        event_tp = (int)HistEventType.BronPutyovka,
+                        departmentbase = model.Departmentbase,
+                        id_sanat = putObj.IdSanat,
+                        num_put = putObj.Num_Put,
+                        remark = string.Format("Сумма {0} - Дата Заезда {1}", putObj.Symma_Put, putObj.DataSan),
+                        userid = model.UserId
+                    };
+
+                    PutHistDataManager.Create(histModel);
                 }
             }
 
@@ -1528,6 +1591,19 @@ namespace KasabaKIAT.Controllers
                         ID_San = putObj.IdSanat.Value,
                         Num_Put = putObj.Num_Put
                     });
+
+                    //History making
+                    var histModel = new PutHistViewModel
+                    {
+                        event_tp = (int)HistEventType.SnyatBronPutyovka,
+                        departmentbase = model.Departmentbase,
+                        id_sanat = putObj.IdSanat,
+                        num_put = putObj.Num_Put,
+                        remark = string.Format("Сумма {0} - Дата Заезда {1}", putObj.Symma_Put, putObj.DataSan),
+                        userid = model.UserId
+                    };
+
+                    PutHistDataManager.Create(histModel);
                 }
             }
 
@@ -1564,21 +1640,30 @@ namespace KasabaKIAT.Controllers
                 {
                     //var bron = new BronirovaniyaPutyovki();
                     var putObj = putyovka.First();
+                    var oldDate = putObj.DataSan;
                     putObj.DataSan = IzmDate;
 
                     await PostPutDetailDataManager.ModifyIzmData(putObj);
-                    //if (putObj.ID_PolVoz) continue;
 
-                    //bron.SnyatBron(new BronViewModel()
-                    //{
-                    //    ID_San = putObj.IdSanat.Value,
-                    //    Num_Put = putObj.Num_Put
-                    //});
+                    //History making
+                    var histModel = new PutHistViewModel
+                    {
+                        event_tp = (int)HistEventType.IzmPutDate,
+                        departmentbase = model.Departmentbase,
+                        id_sanat = putObj.IdSanat,
+                        num_put = putObj.Num_Put,
+                        remark = string.Format("Старая дата {0} - Новая дата {1}", oldDate , IzmDate),
+                        userid = model.UserId
+                    };
+
+                    PutHistDataManager.Create(histModel);
                 }
             }
 
             return Json("success", JsonRequestBehavior.AllowGet);
         }
+
+
         /// <summary>
         /// 
         /// </summary>
@@ -1634,7 +1719,7 @@ namespace KasabaKIAT.Controllers
         /// <param name="year"></param>
         /// <param name="kvartal"></param>
         /// <returns></returns>
-        public async Task<JsonResult> GetViplMain(int year, int kvartal)
+        public async Task<JsonResult> GetViplMain(int year, int kvartal, int ID_Ot)
         {
             int UserId = Convert.ToInt32(User.Identity.Name);
             var ustinfo = UserInfo.GetUserInfo(UserId);
@@ -1643,7 +1728,8 @@ namespace KasabaKIAT.Controllers
             {
                 smfil = year,
                 id_kv = kvartal,
-                departmentbase = ustinfo.DepartmentBase
+                departmentbase = ustinfo.DepartmentBase,
+                ID_Ot = ID_Ot
             });
 
             return Json(list, JsonRequestBehavior.AllowGet);
@@ -1886,12 +1972,12 @@ namespace KasabaKIAT.Controllers
         /// <param name="year"></param>
         /// <param name="kvartal"></param>
         /// <returns></returns>
-        public async Task<JsonResult> GetViplTotalResults(int year, int kvartal)
+        public async Task<JsonResult> GetViplTotalResults(int year, int kvartal, int ID_Ot)
         {
             int UserId = Convert.ToInt32(User.Identity.Name);
             var ustinfo = UserInfo.GetUserInfo(UserId);
 
-            var totalres = await ViplMainDataManager.GetTotals(year, kvartal, ustinfo.DepartmentBase);
+            var totalres = await ViplMainDataManager.GetTotals(year, kvartal, ustinfo.DepartmentBase, ID_Ot);
 
             return Json(totalres, JsonRequestBehavior.AllowGet);
         }
@@ -1958,6 +2044,9 @@ namespace KasabaKIAT.Controllers
         {
             if (putyovkaL == null) return Json("fail", JsonRequestBehavior.AllowGet);
 
+            int UserId = Convert.ToInt32(User.Identity.Name);
+            var ustinfo = UserInfo.GetUserInfo(UserId);
+
             try
             {
                 foreach (var putyovkaId in putyovkaL)
@@ -1976,6 +2065,19 @@ namespace KasabaKIAT.Controllers
 
                     //Otmen Polzov
                     PostPutDetailDataManager.OtmenPolzov(rmodel.id_sanat.Value, rmodel.num_put, KasabaDB);
+
+                    //History making
+                    var histModel = new PutHistViewModel
+                    {
+                        event_tp = (int)HistEventType.UdalitPutIzRasxod,
+                        departmentbase = ustinfo.DepartmentBase,
+                        id_sanat = rmodel.id_sanat,
+                        num_put = rmodel.num_put,
+                        remark = string.Format("Сумма {0} - Санаторий {1}", rmodel.symma, rmodel.sanatName),
+                        userid = UserId
+                    };
+
+                    PutHistDataManager.CreateL(histModel, KasabaDB);
 
                     await KasabaDB.SaveChangesAsync();
                 }
@@ -3002,6 +3104,19 @@ namespace KasabaKIAT.Controllers
                 //All logic realized
                 await vv.CancelVozvrat(model);
 
+                //History making
+                var histModel = new PutHistViewModel
+                {
+                    event_tp = (int)HistEventType.UdalitPutIzVozvrat,
+                    departmentbase = ustinfo.DepartmentBase,
+                    id_sanat = model.id_sanat,
+                    num_put = model.num_put,
+                    remark = string.Format("Сумма {0} - Санаторий {1}", model.symmap, model.sanatoriyName),
+                    userid = UserId
+                };
+
+                PutHistDataManager.Create(histModel);
+
                 return Json("success", JsonRequestBehavior.AllowGet);
             }
             catch(Exception ex)
@@ -3624,6 +3739,114 @@ namespace KasabaKIAT.Controllers
         /// </summary>
         /// <param name="formCollection"></param>
         /// <returns></returns>
+        public async Task<JsonResult> PutyovkaOstatokKengash(FormCollection formCollection)
+        {
+            int UserId = Convert.ToInt32(User.Identity.Name);
+            var ustinfo = UserInfo.GetUserInfo(UserId);
+
+            log.Info("Save");
+            try
+            {
+                if (Request != null)
+                {
+                    HttpPostedFileBase file = Request.Files["PutyovkaKengashFile"];
+                    if ((file != null) && (file.ContentLength > 0) && !string.IsNullOrEmpty(file.FileName))
+                    {
+                        string fileName = file.FileName;
+                        string fileContentType = file.ContentType;
+                        byte[] fileBytes = new byte[file.ContentLength];
+                        var data = file.InputStream.Read(fileBytes, 0, Convert.ToInt32(file.ContentLength));
+
+                        using (var package = new ExcelPackage(file.InputStream))
+                        {
+                            var currentSheet = package.Workbook.Worksheets;
+                            var workSheet = currentSheet.First();
+                            var noOfCol = workSheet.Dimension.End.Column;
+                            var noOfRow = workSheet.Dimension.End.Row;
+                            var listModel = new List<PutyovkiOstatokViewModel>();
+
+                            for (int rowIterator = 2; rowIterator <= noOfRow; rowIterator++)
+                            {
+                                try
+                                {
+                                    var putyovki = new PutyovkiOstatokViewModel();
+
+                                    int SanatCode = 0;
+
+                                    if (int.TryParse(workSheet.Cells[rowIterator, 1].Value.ToString(), out SanatCode))
+                                    {
+                                        putyovki.SanatoryCode = SanatCode;
+                                    }
+                                    else
+                                    {
+                                        putyovki.SanatoryCode = 0;
+                                    }
+
+                                    putyovki.NumPut = workSheet.Cells[rowIterator, 2].Value.ToString();
+
+                                    DateTime trandate;
+
+                                    string DataSan = workSheet.Cells[rowIterator, 3].Value.ToString();
+
+                                    if (DataSan.Length > 10)
+                                    {
+                                        DataSan = DataSan.Substring(0, 10);
+                                    }
+
+                                    if (DateTime.TryParseExact(DataSan, "dd.MM.yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out trandate))
+                                    {
+                                        putyovki.DataSan = trandate;
+                                    }
+                                    else
+                                    {
+                                        putyovki.DataSan = DateTime.Now;
+
+                                    }
+
+                                    decimal amount = 0;
+
+                                    if (decimal.TryParse(workSheet.Cells[rowIterator, 4].Value.ToString(), out amount))
+                                    {
+                                        putyovki.Summa = amount;
+                                    }
+                                    else
+                                    {
+                                        putyovki.Summa = 0;
+
+                                    }
+
+                                    putyovki.Inn = workSheet.Cells[rowIterator, 5].Value.ToString();
+
+                                    listModel.Add(putyovki);
+                                }
+                                catch (Exception ex)
+                                {
+                                    log.Info(ex);
+                                }
+                            }
+
+                            PutyovkaOstatokDataManager.EnterKengash(ustinfo.DepartmentBase, UserId, listModel, KasabaDB);
+
+                            await KasabaDB.SaveChangesAsync();
+                        }
+                    }
+                }
+                return Json("success", JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                log.Info(ex);
+                return Json("error", JsonRequestBehavior.AllowGet);
+            }
+
+        }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="formCollection"></param>
+        /// <returns></returns>
         public async Task<JsonResult> BalanceSaldo(FormCollection formCollection)
         {
             int UserId = Convert.ToInt32(User.Identity.Name);
@@ -3843,6 +4066,24 @@ namespace KasabaKIAT.Controllers
             return File(fileBytes, "application/vnd.ms-excel", fileName);
         }
 
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public FileResult DownloadPutyovkiKengashTemplate()
+        {
+            var ArxiveDirectory = Properties.Settings.Default.TemplateDir;
+
+            var targetFile = Path.Combine(ArxiveDirectory, "PutyovkiOstatokKengash.xlsx");
+
+            if (!System.IO.File.Exists(targetFile)) return null;
+
+            byte[] fileBytes = System.IO.File.ReadAllBytes(targetFile);
+            string fileName = "PutyovkiOstatokKengash.xlsx";
+            return File(fileBytes, "application/vnd.ms-excel", fileName);
+        }
+
         /// <summary>
         /// 
         /// </summary>
@@ -3875,6 +4116,31 @@ namespace KasabaKIAT.Controllers
             byte[] fileBytes = System.IO.File.ReadAllBytes(targetFile);
             string fileName = "DebitorkaOstatok.xlsx";
             return File(fileBytes, "application/vnd.ms-excel", fileName);
+        }
+
+        #endregion
+
+        #region PutyovkaHistory
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="IdSanat"></param>
+        /// <param name="Num_Put"></param>
+        /// <returns></returns>
+        public JsonResult GetPutyovkaHistory(int IdSanat, string Num_Put)
+        {
+            int UserId = Convert.ToInt32(User.Identity.Name);
+            var ustinfo = UserInfo.GetUserInfo(UserId);
+
+            var list = PutHistDataManager.Get(new PutHistViewModel()
+            {
+                departmentbase = ustinfo.DepartmentBase,
+                id_sanat = IdSanat,
+                num_put = Num_Put
+            });
+
+            return Json(list.ToList().OrderByDescending(z=>z.timestamp_t).Take(30), JsonRequestBehavior.AllowGet);
         }
 
         #endregion

@@ -211,6 +211,17 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="BusinessLogic\3_Etap\Monitoring\BaseMonitoring.cs" />
+    <Compile Include="BusinessLogic\3_Etap\Statistika\BaseStatistika.cs" />
+    <Compile Include="BusinessLogic\3_Etap\Statistika\Stat_Federasiya.cs" />
+    <Compile Include="BusinessLogic\3_Etap\Statistika\Stat_OblSovProf.cs" />
+    <Compile Include="BusinessLogic\3_Etap\Statistika\Stat_PPO.cs" />
+    <Compile Include="BusinessLogic\3_Etap\Statistika\Stat_RayonTuman.cs" />
+    <Compile Include="BusinessLogic\3_Etap\Statistika\Stat_ViewModels\BaseStatViewModel.cs" />
+    <Compile Include="BusinessLogic\3_Etap\Statistika\Stat_ViewModels\Stat_FederasiyaViewModel.cs" />
+    <Compile Include="BusinessLogic\3_Etap\Statistika\Stat_ViewModels\Stat_OblSovProfViewModel.cs" />
+    <Compile Include="BusinessLogic\3_Etap\Statistika\Stat_ViewModels\Stat_PPOViewModel.cs" />
+    <Compile Include="BusinessLogic\3_Etap\Statistika\Stat_ViewModels\Stat_RayonTumanViewModel.cs" />
     <Compile Include="BusinessLogic\BankOplati\BankOplatQueries\BankPaymentsQueries.cs" />
     <Compile Include="BusinessLogic\BankOplati\BankOplatQueries\BankPaymentsRes.cs" />
     <Compile Include="BusinessLogic\BankOplati\BankDataSource.cs" />
@@ -1911,6 +1922,10 @@
     <Content Include="Views\Otchot\OtchetBuxgalteriya.cshtml" />
     <Content Include="Views\Otchot\OtchetJurnalniyeOrdera.cshtml" />
     <Content Include="Views\Otchot\PutyovkaHistory.cshtml" />
+    <Content Include="Views\Home\StatFederasiya.cshtml" />
+    <Content Include="Views\Home\StatOblSovProf.cshtml" />
+    <Content Include="Views\Home\StatRayonOtrasl.cshtml" />
+    <Content Include="Views\Home\StatPPO.cshtml" />
     <None Include="Web References\KurortUrlService\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>

@@ -39,5 +39,8 @@ namespace KaznaFilesImporter
         public string ORIG_INN { get; set; }
         public string OWNER_CODE { get; set; }
         public Nullable<System.DateTime> TIMESTAMP_CH { get; set; }
+        public Nullable<decimal> DB_BAL { get; set; }
+        public Nullable<decimal> CT_BAL { get; set; }
+        public string TO_DEPCODE { get; set; }
     }
 }

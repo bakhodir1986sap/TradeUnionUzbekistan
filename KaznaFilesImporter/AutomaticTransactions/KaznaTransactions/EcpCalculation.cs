@@ -7,11 +7,16 @@ using KasabaKIAT.ViewModel.Buxgalteriya;
 using KaznaFilesImporter;
 using Epigov.Log;
 using System.Data.Entity.Validation;
+using System.Threading;
+using KasabaKIAT.BusinessLogic.BankOplati.Kaznacheystvo;
+using KasabaKIAT.BusinessLogic.Structure;
 
 namespace KasabaKIAT.BusinessLogic.Buxgalteriya.Provodki.AutomaticTransactions.KaznaTransactions
 {
     public class EcpCalculation
     {
+        FileLogService _logService = new FileLogService(typeof(EcpCalculation));
+        KaznaController kk { get; set; }
         /// <summary>
         /// 
         /// </summary>
@@ -638,19 +643,652 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.Provodki.AutomaticTransactions.K
         /// </summary>
         public void CalcProcessN()
         {
-            var _logService = new FileLogService(typeof(EcpCalculation));
+            Console.WriteLine("CalcProcessN");
+            Thread t1 = new Thread(new ThreadStart(EcpCalcController));
+            Thread t2 = new Thread(new ThreadStart(MakeProvodkiController));
+            Thread t3 = new Thread(new ThreadStart(BranchCalcController));
+            Thread t4 = new Thread(new ThreadStart(KaznaFileController));
+            Thread t5 = new Thread(new ThreadStart(OwnerCodeController));
 
-            _logService.Info("CalcProcessN ====******");
+            t1.Start();
+            t2.Start();
+            t3.Start();
+            t4.Start();
+            t5.Start();
 
+            Console.WriteLine("Threads Started");
+
+            Thread.CurrentThread.Join();
+        }
+
+        public EcpCalculation()
+        {
+            Console.WriteLine("EcpCalculation Constructor");
+            EcpCalcStart = true;
+            MakeProvodkiStart = true;
+            BranchCalcStart = true;
+            KaznaFileStart = true;
+            OwnerCodeStart = true;
+
+            EcpCalcSheduler = 100000;
+            MakeProvodkiSheduler = 100000;
+            BranchCalcSheduler = 100000;
+            KaznaFileSheduler = 100000;
+            OwnerCodeSheduler = 100000;
+
+            kk = new KaznaController();
+        }
+
+        public bool EcpCalcStart { get; set; }
+        public bool MakeProvodkiStart { get; set; }
+        public bool BranchCalcStart { get; set; }
+        public bool KaznaFileStart { get; set; }
+        public bool OwnerCodeStart { get; set; }
+
+        public int EcpCalcSheduler { get; set; }
+        public int MakeProvodkiSheduler { get; set; }
+        public int BranchCalcSheduler { get; set; }
+        public int KaznaFileSheduler { get; set; }
+        public int OwnerCodeSheduler { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private void EcpCalcController()
+        {
+            while(true)
+            {
+                Console.WriteLine("EcpCalcController...");
+                if (!EcpCalcStart) continue;
+
+                EcpCalc();
+
+                Thread.Sleep(EcpCalcSheduler);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private void MakeProvodkiController()
+        {
+            while (true)
+            {
+                Console.WriteLine("MakeProvodkiController...");
+
+                if (!MakeProvodkiStart) continue;
+
+                MakeProvodki();
+
+                Thread.Sleep(MakeProvodkiSheduler);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private void BranchCalcController()
+        {
+            while (true)
+            {
+                Console.WriteLine("BranchCalcController...");
+
+                if (!BranchCalcStart) continue;
+
+                BranchCalc();
+
+                Thread.Sleep(BranchCalcSheduler);
+            }
+        }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private void KaznaFileController()
+        {
+            while (true)
+            {
+                Console.WriteLine("KaznaFileController...");
+
+                if (!KaznaFileStart) continue;
+
+                kk.Process();
+
+                Thread.Sleep(KaznaFileSheduler);
+            }
+        }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private void OwnerCodeController()
+        {
+            while (true)
+            {
+                Console.WriteLine("KaznaFileController...");
+
+                if (!OwnerCodeStart) continue;
+
+                MakeOwnerCode();
+
+                Thread.Sleep(OwnerCodeSheduler);
+            }
+        }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private void EcpCalc()
+        {
+            Console.WriteLine("EcpCalc...");
+            _logService.Info("EcpCalc ====******");
+
+                try
+                {
+                    List<string> egrpoInnEnter = new List<string>();
+                    List<string> orgInnEnter = new List<string>();
+
+                    using (KasabaKIATEntities db = new KasabaKIATEntities())
+                    {
+
+                        var procList = db.sp_pr_GetNewTransactionsN1();
+
+                        if (procList != null)
+                        {
+                            var model = new EcpCalcViewModel();
+
+                            string innFromDtl = string.Empty;
+
+                            foreach (var payment in procList.ToList())
+                            {
+
+                                #region Clear Model
+                                innFromDtl = string.Empty;
+                                model.federation_amt = 0;
+                                model.id = 0;
+                                model.oblsovprof_amt = 0;
+                                model.obl_department_base = string.Empty;
+                                model.payment_id = 0;
+                                model.profsouz_amt = 0;
+                                model.provodka_id = 0;
+                                model.remark = string.Empty;
+                                model.inn = string.Empty;
+                                model.soato = string.Empty;
+                                model.soato_name = string.Empty;
+                                model.operdate = null;
+                                model.okonx_id = string.Empty;
+                                model.okonx_name = string.Empty;
+                                model.branch_code = string.Empty;
+                                model.branch_name = string.Empty;
+                                #endregion
+
+                                #region FillData
+
+                                model.payment_id = (long)payment.PAYMENT_ID;
+                                model.profsouz_amt = payment.PROFSOUZ_AMT;
+                                model.federation_amt = payment.FEDERATION_AMT;
+                                model.oblsovprof_amt = payment.OBLSOVPROF_AMT;
+                                model.soato = payment.SOATO;
+                                model.soato_name = payment.SOATO_NAME;
+                                model.obl_department_base = payment.OBL_DEPARTMENT_BASE;
+
+                                model.operdate = payment.OPERDAY;
+
+                                #endregion
+
+                                #region Inn Parsing
+
+                                string bankAccountBalance = string.Empty;
+
+                                if (!string.IsNullOrEmpty(payment.CLACC))
+                                {
+                                    if (payment.CLACC.Length >= 5)
+                                    {
+                                        bankAccountBalance = payment.CLACC.Substring(0, 5);
+                                    }
+                                }
+
+                                if (bankAccountBalance.Equals("20208") //||
+                                                                       //bankAccountBalance.Equals("14301") ||
+                                                                       //bankAccountBalance.Equals("13301") ||
+                                                                       //bankAccountBalance.Equals("20210") ||
+                                                                       //bankAccountBalance.Equals("20212") ||
+                                                                       //bankAccountBalance.Equals("20214") ||
+                                                                       //bankAccountBalance.Equals("20216") ||
+                                                                       ////bankAccountBalance.Equals("20218") || //Ibroxim Namangan
+                                                                       //bankAccountBalance.Equals("20296") ||
+                                                                       //bankAccountBalance.Equals("21506")
+                                    )
+                                {
+                                    model.remark += string.Format("INN:{0};", payment.INN);
+                                    innFromDtl = payment.INN;
+                                }
+                                else
+                                if (payment.INN.Equals("000000000"))
+                                {
+                                    payment.PURPOSE = Regex.Replace(payment.PURPOSE, @"\s+", "");
+
+                                    string[] numbers = Regex.Split(payment.PURPOSE, @"\D+");
+
+                                    //other case try to get INN 
+                                    var Inn = numbers.FirstOrDefault(x => x.Length == 9);
+
+                                    if ((Inn != null) && (Inn.StartsWith("2") || (Inn.StartsWith("3"))))
+                                    {
+                                        model.remark += string.Format("INN:{0};", Inn);
+                                        innFromDtl = Inn;
+                                    }
+                                    else
+                                    {
+                                        model.remark += string.Format("INN:{0};", payment.INN);
+                                        innFromDtl = payment.INN;
+                                    }
+                                }
+                                else if (payment.PURPOSE.ToUpper().Contains("ИНН "))
+                                {
+                                    payment.PURPOSE = Regex.Replace(payment.PURPOSE, @"\s+", "");
+
+                                    string[] numbers = Regex.Split(payment.PURPOSE, @"\D+");
+
+                                    //First 9 digit number As INN
+                                    var Inns = numbers.Where(x => x.Length == 9);
+
+                                    var posOfInn = payment.PURPOSE.ToUpper().IndexOf("ИНН ");
+
+                                    foreach (var srt in Inns.ToList())
+                                    {
+                                        if (!(srt.StartsWith("2") || (srt.StartsWith("3"))))
+                                            continue;
+
+                                        var posOfInn2 = payment.PURPOSE.ToUpper().IndexOf(srt);
+
+                                        if (posOfInn < posOfInn2)
+                                        {
+                                            model.remark += string.Format("INN:{0};", srt);
+                                            innFromDtl = srt;
+                                            break;
+                                        }
+                                    }
+                                }
+                                else if (payment.PURPOSE.ToUpper().Contains("INN "))
+                                {
+                                    payment.PURPOSE = Regex.Replace(payment.PURPOSE, @"\s+", "");
+
+                                    string[] numbers = Regex.Split(payment.PURPOSE, @"\D+");
+
+                                    //First 9 digit number As INN
+                                    var Inns = numbers.Where(x => x.Length == 9);
+
+                                    var posOfInn = payment.PURPOSE.ToUpper().IndexOf("INN");
+
+                                    foreach (var srt in Inns.ToList())
+                                    {
+                                        if (!(srt.StartsWith("2") || (srt.StartsWith("3"))))
+                                            continue;
+
+                                        var posOfInn2 = payment.PURPOSE.ToUpper().IndexOf(srt);
+
+                                        if (posOfInn < posOfInn2)
+                                        {
+                                            model.remark += string.Format("INN:{0};", srt);
+                                            innFromDtl = srt;
+                                            break;
+                                        }
+                                    }
+                                }
+                                else if (payment.PURPOSE.ToUpper().Contains("СТИР "))
+                                {
+                                    payment.PURPOSE = Regex.Replace(payment.PURPOSE, @"\s+", "");
+
+                                    string[] numbers = Regex.Split(payment.PURPOSE, @"\D+");
+
+                                    //First 9 digit number As INN
+                                    var Inns = numbers.Where(x => x.Length == 9);
+
+                                    var posOfInn = payment.PURPOSE.ToUpper().IndexOf("СТИР");
+
+                                    foreach (var srt in Inns.ToList())
+                                    {
+                                        if (!(srt.StartsWith("2") || (srt.StartsWith("3"))))
+                                            continue;
+
+                                        var posOfInn2 = payment.PURPOSE.ToUpper().IndexOf(srt);
+
+                                        if (posOfInn < posOfInn2)
+                                        {
+                                            model.remark += string.Format("INN:{0};", srt);
+                                            innFromDtl = srt;
+                                            break;
+                                        }
+                                    }
+                                }
+                                else if (payment.PURPOSE.ToUpper().Contains("STIR "))
+                                {
+                                    payment.PURPOSE = Regex.Replace(payment.PURPOSE, @"\s+", "");
+
+                                    string[] numbers = Regex.Split(payment.PURPOSE, @"\D+");
+
+                                    //First 9 digit number As INN
+                                    var Inns = numbers.Where(x => x.Length == 9);
+
+                                    var posOfInn = payment.PURPOSE.ToUpper().IndexOf("STIR");
+
+                                    foreach (var srt in Inns.ToList())
+                                    {
+                                        if (!(srt.StartsWith("2") || (srt.StartsWith("3"))))
+                                            continue;
+
+                                        var posOfInn2 = payment.PURPOSE.ToUpper().IndexOf(srt);
+
+                                        if (posOfInn < posOfInn2)
+                                        {
+                                            model.remark += string.Format("INN:{0};", srt);
+                                            innFromDtl = srt;
+                                            break;
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    payment.PURPOSE = Regex.Replace(payment.PURPOSE, @"\s+", "");
+
+                                    string[] numbers = Regex.Split(payment.PURPOSE, @"\D+");
+
+                                    //other case try to get INN 
+                                    var Inn = numbers.FirstOrDefault(x => x.Length == 9);
+
+                                    if ((Inn != null) && (Inn.StartsWith("2") || (Inn.StartsWith("3"))))
+                                    {
+                                        model.remark += string.Format("INN:{0};", Inn);
+                                        innFromDtl = Inn;
+                                    }
+                                    else
+                                    {
+                                        model.remark += string.Format("INN:{0};", payment.INN);
+                                        innFromDtl = payment.INN;
+                                    }
+                                }
+
+                                if (string.IsNullOrEmpty(innFromDtl))
+                                {
+                                    //Problem with geting INN
+                                    model.remark += string.Format("INN:{0};", "PROBLEM");
+                                    model.inn = payment.INN;
+                                }
+                                else if (payment.INN.Equals(innFromDtl))
+                                {
+                                    model.inn = innFromDtl;
+                                    //Good
+                                }
+                                else
+                                {
+                                    model.inn = innFromDtl;
+                                }
+
+                                #endregion
+
+                                #region Branch Difinition
+
+                                Console.WriteLine(DateTime.Now.ToLongTimeString() + " Oblast and Tuman Difinition333333");
+                                var egrpos = db.t_egrpo.Where(e => e.inn == innFromDtl);
+
+                                if (egrpos.Any())
+                                {
+                                    var org = egrpos.First();
+
+                                    Console.WriteLine(DateTime.Now.ToLongTimeString() + " Oblast and Tuman Difinition4444444");
+                                    if (!string.IsNullOrEmpty(org.okonx_id))
+                                    {
+                                        model.okonx_id = org.okonx_id;
+
+                                        var okonx = db.sp_okonx.Where(o => o.code == org.okonx_id).First();
+
+                                        model.okonx_name = okonx.name_ru;
+                                        Console.WriteLine(DateTime.Now.ToLongTimeString() + " Oblast and Tuman Difinition5555555");
+                                        if (!string.IsNullOrEmpty(okonx.branch_code))
+                                        {
+                                            model.branch_code = okonx.branch_code;
+                                            Console.WriteLine(DateTime.Now.ToLongTimeString() + " Oblast and Tuman Difinition66666666");
+                                            model.branch_name = db.sp_branch.Where(b => b.code == okonx.branch_code).First().name_ru;
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    if (egrpoInnEnter.Where(z => z == innFromDtl).Any())
+                                    {
+                                        //skip
+                                    }
+                                    else
+                                    {
+                                        //add to egrpo
+                                        var ee = new t_egrpo();
+                                        Console.WriteLine(DateTime.Now.ToLongTimeString() + " Oblast and Tuman Difinition777777777");
+                                        ee.version = 0;
+                                        ee.inn = innFromDtl;
+                                        ee.name_full = payment.CLNAME;
+                                        ee.soato_id = model.soato;
+
+                                        db.t_egrpo.Add(ee);
+
+                                        egrpoInnEnter.Add(innFromDtl);
+                                    }
+                                }
+
+                                //Search in tblSprav_Org
+                                var orgsList = db.tblSprav_Org.Where(z => z.INN == innFromDtl &&
+                                z.DepartmentBase == payment.OBL_DEPARTMENT_BASE);
+
+                                if (orgsList.Any())
+                                {
+                                    var org1 = orgsList.First();
+
+                                    if (org1.ID_Ot.HasValue)
+                                    {
+                                        var currentOtrasl = db.tblSprav_Otras.Where(z => z.ID_Ot == org1.ID_Ot);
+
+                                        if (currentOtrasl.Any())
+                                        {
+                                            var branchCode = currentOtrasl.First().BRANCH_CODE;
+
+                                            var branchNameRow = db.sp_branch.Where(z => z.code == branchCode);
+
+                                            if (branchNameRow.Any())
+                                            {
+                                                var branchName = branchNameRow.First().name_ru;
+
+                                                model.branch_code = branchCode;
+                                                Console.WriteLine(DateTime.Now.ToLongTimeString() + " Oblast and Tuman Difinition888888");
+                                                model.branch_name = branchName;
+                                            }
+                                        }
+                                    }
+
+                                }
+                                else
+                                {
+                                    string combine = string.Format("{0}{1}", innFromDtl, payment.OBL_DEPARTMENT_BASE);
+
+                                    if (orgInnEnter.Where(z => z == combine).Any())
+                                    {
+                                        //skip
+                                    }
+                                    else
+                                    {
+                                        var orrg = new tblSprav_Org();
+                                        orrg.INN = innFromDtl;
+
+                                        if (payment.CLNAME.Length > 100)
+                                        {
+                                            orrg.Name_Org = payment.CLNAME.Substring(0, 100);
+                                        }
+                                        else
+                                        {
+                                            orrg.Name_Org = payment.CLNAME;
+                                        }
+
+                                        if (string.IsNullOrEmpty(model.obl_department_base))
+                                        {
+                                            orrg.DepartmentBase = null;
+                                        }
+                                        else
+                                        {
+                                            orrg.DepartmentBase = model.obl_department_base;
+                                        }
+
+                                        orrg.ORIG_INN = innFromDtl;
+                                        orrg.OKONX = model.okonx_id;
+
+                                        var region = db.tblSprav_Reg.Where(z => z.SOATO_CODE == model.soato);
+
+                                        if (region.Any())
+                                        {
+                                            orrg.Region = region.First().CodeReg;
+                                        }
+
+                                        db.tblSprav_Org.Add(orrg);
+
+                                        orgInnEnter.Add(combine);
+                                    }
+                                }
+
+                                #endregion
+
+                                Console.WriteLine(DateTime.Now.ToLongTimeString() + "EcpCalcDataManager.Create ");
+                                EcpCalcDataManager.Create(ref model, db);
+                            }
+
+                            try
+                            {
+                                Console.WriteLine(DateTime.Now.ToLongTimeString() + "SaveChanges!!!!!================================== ");
+                                db.SaveChanges();
+                                orgInnEnter.Clear();
+                                egrpoInnEnter.Clear();
+
+                            }
+                            catch (DbEntityValidationException e)
+                            {
+                                foreach (var eve in e.EntityValidationErrors)
+                                {
+                                    Console.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
+                                        eve.Entry.Entity.GetType().Name, eve.Entry.State);
+                                    foreach (var ve in eve.ValidationErrors)
+                                    {
+                                        _logService.Error(string.Format("- Property: \"{0}\", Error: \"{1}\"", ve.PropertyName, ve.ErrorMessage));
+                                        Console.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
+                                            ve.PropertyName, ve.ErrorMessage);
+                                    }
+                                }
+                                throw;
+                            }
+                            catch (Exception ex)
+                            {
+                                Console.WriteLine(ex.ToString());
+                                _logService.Error(ex.ToString());
+                            }
+                        }
+
+                    }
+                }
+                catch (Exception ex)
+                {
+                    _logService.Info(ex.ToString());
+                }
+
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private void MakeProvodki()
+        {
+            Console.WriteLine("MakeProvodki...");
+            _logService.Info("MakeProvodki ====******");
 
             try
             {
-                List<string> egrpoInnEnter = new List<string>();
-                List<string> orgInnEnter = new List<string>();
-
                 using (KasabaKIATEntities db = new KasabaKIATEntities())
                 {
+                    #region Provodki
+                    var provodki = new Provodki();
 
+                    var trans = new ProvodkiViewModel();
+
+                    var NotProcList1 = db.sp_pr_GetNewBankProvodki();
+
+                    var NotProcList = NotProcList1.ToList();
+
+                    if (NotProcList.Any())
+                    {
+                        foreach (var pp in NotProcList)
+                        {
+                            Console.WriteLine(pp.OPERDAY);
+                            Console.WriteLine(pp.COINN);
+                            Console.WriteLine("========================================");
+
+                            trans.comment = string.Empty;
+                            trans.department_base = string.Empty;
+                            trans.inoutflg = false;
+                            trans.number = string.Empty;
+                            trans.platelinn = string.Empty;
+                            trans.platelmfo = string.Empty;
+                            trans.platelname = string.Empty;
+                            trans.platelrsch = string.Empty;
+                            trans.poluchinn = string.Empty;
+                            trans.poluchmfo = string.Empty;
+                            trans.poluchname = string.Empty;
+                            trans.poluchrsch = string.Empty;
+                            trans.rec_id = 0;
+                            trans.summa = 0;
+                            trans.tipoborota = false;
+                            trans.tipscheta = false;
+                            trans.trdt = DateTime.MinValue;
+                            trans.user_id = 0;
+                            trans.trref = "ECP";
+                            trans.trrefno = pp.ID.ToString();
+
+                            //Obshaya provodka
+                            trans.comment = "Postupleniya po ECP";
+                            trans.department_base = pp.Departmentbase;
+                            trans.inoutflg = false;
+                            trans.platelrsch = pp.Departmentbase == "17" ? "22" : "20";
+                            trans.poluchrsch = "001";
+                            trans.summa = pp.SUMPAY;
+
+                            trans.user_id = 1;
+                            trans.trdt = pp.OPERDAY;
+
+                            ProvodkiDataManager.Create(ref trans);
+
+                            EcpCalcDataManager.ModifyBank(pp.ID, trans.rec_id);
+
+                        }
+                    }
+
+                    #endregion
+                }
+            }
+            catch(Exception ex)
+            {
+                _logService.Info(ex.ToString());
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private void BranchCalc()
+        {
+            Console.WriteLine("BranchCalc...");
+            _logService.Info("BranchCalc ====******");
+
+            try
+            {
+                using (KasabaKIATEntities db = new KasabaKIATEntities())
+                {
                     #region Otrasl_Past change
 
                     Console.WriteLine("Otrasl Late Update");
@@ -711,531 +1349,122 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.Provodki.AutomaticTransactions.K
                     }
 
                     #endregion
-
-
-
-                    var procList = db.sp_pr_GetNewTransactionsN1();
-
-                    if (procList != null)
-                    {
-                        var model = new EcpCalcViewModel();
-
-                        string innFromDtl = string.Empty;
-
-                        foreach (var payment in procList.ToList())
-                        {
-
-                            #region Clear Model
-                            innFromDtl = string.Empty;
-                            model.federation_amt = 0;
-                            model.id = 0;
-                            model.oblsovprof_amt = 0;
-                            model.obl_department_base = string.Empty;
-                            model.payment_id = 0;
-                            model.profsouz_amt = 0;
-                            model.provodka_id = 0;
-                            model.remark = string.Empty;
-                            model.inn = string.Empty;
-                            model.soato = string.Empty;
-                            model.soato_name = string.Empty;
-                            model.operdate = null;
-                            model.okonx_id = string.Empty;
-                            model.okonx_name = string.Empty;
-                            model.branch_code = string.Empty;
-                            model.branch_name = string.Empty;
-                            #endregion
-
-                            #region FillData
-
-                            model.payment_id        = (long)payment.PAYMENT_ID;
-                            model.profsouz_amt      = payment.PROFSOUZ_AMT;
-                            model.federation_amt    = payment.FEDERATION_AMT;
-                            model.oblsovprof_amt    = payment.OBLSOVPROF_AMT;
-                            model.soato             = payment.SOATO;
-                            model.soato_name        = payment.SOATO_NAME;
-                            model.obl_department_base = payment.OBL_DEPARTMENT_BASE;
-
-                            model.operdate = payment.OPERDAY;
-
-                            #endregion
-
-                            #region Inn Parsing
-
-                            string bankAccountBalance = string.Empty;
-
-                            if (!string.IsNullOrEmpty(payment.CLACC))
-                            {
-                                if (payment.CLACC.Length >= 5)
-                                {
-                                    bankAccountBalance = payment.CLACC.Substring(0, 5);
-                                }
-                            }
-
-                            if (bankAccountBalance.Equals("20208") //||
-                                //bankAccountBalance.Equals("14301") ||
-                                //bankAccountBalance.Equals("13301") ||
-                                //bankAccountBalance.Equals("20210") ||
-                                //bankAccountBalance.Equals("20212") ||
-                                //bankAccountBalance.Equals("20214") ||
-                                //bankAccountBalance.Equals("20216") ||
-                                ////bankAccountBalance.Equals("20218") || //Ibroxim Namangan
-                                //bankAccountBalance.Equals("20296") ||
-                                //bankAccountBalance.Equals("21506")
-                                )
-                            {
-                                model.remark += string.Format("INN:{0};", payment.INN);
-                                innFromDtl = payment.INN;
-                            }
-                            else 
-                            if (payment.INN.Equals("000000000"))
-                            {
-                                payment.PURPOSE = Regex.Replace(payment.PURPOSE, @"\s+", "");
-
-                                string[] numbers = Regex.Split(payment.PURPOSE, @"\D+");
-
-                                //other case try to get INN 
-                                var Inn = numbers.FirstOrDefault(x => x.Length == 9);
-
-                                if ((Inn != null) && (Inn.StartsWith("2") || (Inn.StartsWith("3"))))
-                                {
-                                    model.remark += string.Format("INN:{0};", Inn);
-                                    innFromDtl = Inn;
-                                }
-                                else
-                                {
-                                    model.remark += string.Format("INN:{0};", payment.INN);
-                                    innFromDtl = payment.INN;
-                                }
-                            }
-                            else if (payment.PURPOSE.ToUpper().Contains("ИНН "))
-                            {
-                                payment.PURPOSE = Regex.Replace(payment.PURPOSE, @"\s+", "");
-
-                                string[] numbers = Regex.Split(payment.PURPOSE, @"\D+");
-
-                                //First 9 digit number As INN
-                                var Inns = numbers.Where(x => x.Length == 9);
-
-                                var posOfInn = payment.PURPOSE.ToUpper().IndexOf("ИНН ");
-
-                                foreach (var srt in Inns.ToList())
-                                {
-                                    if (!(srt.StartsWith("2") || (srt.StartsWith("3"))))
-                                        continue;
-
-                                    var posOfInn2 = payment.PURPOSE.ToUpper().IndexOf(srt);
-
-                                    if (posOfInn < posOfInn2)
-                                    {
-                                        model.remark += string.Format("INN:{0};", srt);
-                                        innFromDtl = srt;
-                                        break;
-                                    }
-                                }
-                            }
-                            else if (payment.PURPOSE.ToUpper().Contains("INN "))
-                            {
-                                payment.PURPOSE = Regex.Replace(payment.PURPOSE, @"\s+", "");
-
-                                string[] numbers = Regex.Split(payment.PURPOSE, @"\D+");
-
-                                //First 9 digit number As INN
-                                var Inns = numbers.Where(x => x.Length == 9);
-
-                                var posOfInn = payment.PURPOSE.ToUpper().IndexOf("INN");
-
-                                foreach (var srt in Inns.ToList())
-                                {
-                                    if (!(srt.StartsWith("2") || (srt.StartsWith("3"))))
-                                        continue;
-
-                                    var posOfInn2 = payment.PURPOSE.ToUpper().IndexOf(srt);
-
-                                    if (posOfInn < posOfInn2)
-                                    {
-                                        model.remark += string.Format("INN:{0};", srt);
-                                        innFromDtl = srt;
-                                        break;
-                                    }
-                                }
-                            }
-                            else if (payment.PURPOSE.ToUpper().Contains("СТИР "))
-                            {
-                                payment.PURPOSE = Regex.Replace(payment.PURPOSE, @"\s+", "");
-
-                                string[] numbers = Regex.Split(payment.PURPOSE, @"\D+");
-
-                                //First 9 digit number As INN
-                                var Inns = numbers.Where(x => x.Length == 9);
-
-                                var posOfInn = payment.PURPOSE.ToUpper().IndexOf("СТИР");
-
-                                foreach (var srt in Inns.ToList())
-                                {
-                                    if (!(srt.StartsWith("2") || (srt.StartsWith("3"))))
-                                        continue;
-
-                                    var posOfInn2 = payment.PURPOSE.ToUpper().IndexOf(srt);
-
-                                    if (posOfInn < posOfInn2)
-                                    {
-                                        model.remark += string.Format("INN:{0};", srt);
-                                        innFromDtl = srt;
-                                        break;
-                                    }
-                                }
-                            }
-                            else if (payment.PURPOSE.ToUpper().Contains("STIR "))
-                            {
-                                payment.PURPOSE = Regex.Replace(payment.PURPOSE, @"\s+", "");
-
-                                string[] numbers = Regex.Split(payment.PURPOSE, @"\D+");
-
-                                //First 9 digit number As INN
-                                var Inns = numbers.Where(x => x.Length == 9);
-
-                                var posOfInn = payment.PURPOSE.ToUpper().IndexOf("STIR");
-
-                                foreach (var srt in Inns.ToList())
-                                {
-                                    if (!(srt.StartsWith("2") || (srt.StartsWith("3"))))
-                                        continue;
-
-                                    var posOfInn2 = payment.PURPOSE.ToUpper().IndexOf(srt);
-
-                                    if (posOfInn < posOfInn2)
-                                    {
-                                        model.remark += string.Format("INN:{0};", srt);
-                                        innFromDtl = srt;
-                                        break;
-                                    }
-                                }
-                            }
-                            else
-                            {
-                                payment.PURPOSE = Regex.Replace(payment.PURPOSE, @"\s+", "");
-
-                                string[] numbers = Regex.Split(payment.PURPOSE, @"\D+");
-
-                                //other case try to get INN 
-                                var Inn = numbers.FirstOrDefault(x => x.Length == 9);
-
-                                if ((Inn != null) && (Inn.StartsWith("2") || (Inn.StartsWith("3"))))
-                                {
-                                    model.remark += string.Format("INN:{0};", Inn);
-                                    innFromDtl = Inn;
-                                }
-                                else
-                                {
-                                    model.remark += string.Format("INN:{0};", payment.INN);
-                                    innFromDtl = payment.INN;
-                                }
-                            }
-
-                            if (string.IsNullOrEmpty(innFromDtl))
-                            {
-                                //Problem with geting INN
-                                model.remark += string.Format("INN:{0};", "PROBLEM");
-                                model.inn = payment.INN;
-                            }
-                            else if (payment.INN.Equals(innFromDtl))
-                            {
-                                model.inn = innFromDtl;
-                                //Good
-                            }
-                            else
-                            {
-                                model.inn = innFromDtl;
-                            }
-
-                            #endregion
-
-                            #region Branch Difinition
-
-                            Console.WriteLine(DateTime.Now.ToLongTimeString() + " Oblast and Tuman Difinition333333");
-                            var egrpos = db.t_egrpo.Where(e => e.inn == innFromDtl);
-
-                            if (egrpos.Any())
-                            {
-                                var org = egrpos.First();
-
-                                Console.WriteLine(DateTime.Now.ToLongTimeString() + " Oblast and Tuman Difinition4444444");
-                                if (!string.IsNullOrEmpty(org.okonx_id))
-                                {
-                                    model.okonx_id = org.okonx_id;
-
-                                    var okonx = db.sp_okonx.Where(o => o.code == org.okonx_id).First();
-
-                                    model.okonx_name = okonx.name_ru;
-                                    Console.WriteLine(DateTime.Now.ToLongTimeString() + " Oblast and Tuman Difinition5555555");
-                                    if (!string.IsNullOrEmpty(okonx.branch_code))
-                                    {
-                                        model.branch_code = okonx.branch_code;
-                                        Console.WriteLine(DateTime.Now.ToLongTimeString() + " Oblast and Tuman Difinition66666666");
-                                        model.branch_name = db.sp_branch.Where(b => b.code == okonx.branch_code).First().name_ru;
-                                    }
-                                }
-                            }
-                            else
-                            {
-                                if (egrpoInnEnter.Where(z => z == innFromDtl).Any())
-                                {
-                                    //skip
-                                }
-                                else
-                                {
-                                    //add to egrpo
-                                    var ee = new t_egrpo();
-                                    Console.WriteLine(DateTime.Now.ToLongTimeString() + " Oblast and Tuman Difinition777777777");
-                                    ee.version = 0;
-                                    ee.inn = innFromDtl;
-                                    ee.name_full = payment.CLNAME;
-                                    ee.soato_id = model.soato;
-
-                                    db.t_egrpo.Add(ee);
-
-                                    egrpoInnEnter.Add(innFromDtl);
-                                }
-                            }
-
-                            //Search in tblSprav_Org
-                            var orgsList = db.tblSprav_Org.Where(z => z.INN == innFromDtl &&
-                            z.DepartmentBase == payment.OBL_DEPARTMENT_BASE);
-
-                            if (orgsList.Any())
-                            {
-                                var org1 = orgsList.First();
-
-                                if (org1.ID_Ot.HasValue)
-                                {
-                                    var currentOtrasl = db.tblSprav_Otras.Where(z => z.ID_Ot == org1.ID_Ot);
-
-                                    if (currentOtrasl.Any())
-                                    {
-                                        var branchCode = currentOtrasl.First().BRANCH_CODE;
-
-                                        var branchNameRow = db.sp_branch.Where(z => z.code == branchCode);
-
-                                        if (branchNameRow.Any())
-                                        {
-                                            var branchName = branchNameRow.First().name_ru;
-
-                                            model.branch_code = branchCode;
-                                            Console.WriteLine(DateTime.Now.ToLongTimeString() + " Oblast and Tuman Difinition888888");
-                                            model.branch_name = branchName;
-                                        }
-                                    }
-                                }
-
-                            }
-                            else
-                            {
-                                string combine = string.Format("{0}{1}", innFromDtl, payment.OBL_DEPARTMENT_BASE);
-
-                                if (orgInnEnter.Where(z => z == combine).Any())
-                                {
-                                    //skip
-                                }
-                                else
-                                {
-                                    var orrg = new tblSprav_Org();
-                                    orrg.INN = innFromDtl;
-
-                                    if (payment.CLNAME.Length > 100)
-                                    {
-                                        orrg.Name_Org = payment.CLNAME.Substring(0, 100);
-                                    }
-                                    else
-                                    {
-                                        orrg.Name_Org = payment.CLNAME;
-                                    }
-
-                                    if (string.IsNullOrEmpty(model.obl_department_base))
-                                    {
-                                        orrg.DepartmentBase = null;
-                                    }
-                                    else
-                                    {
-                                        orrg.DepartmentBase = model.obl_department_base;
-                                    }
-
-                                    orrg.ORIG_INN = innFromDtl;
-                                    orrg.OKONX = model.okonx_id;
-
-                                    var region = db.tblSprav_Reg.Where(z => z.SOATO_CODE == model.soato);
-
-                                    if (region.Any())
-                                    {
-                                        orrg.Region = region.First().CodeReg;
-                                    }
-
-                                    db.tblSprav_Org.Add(orrg);
-
-                                    orgInnEnter.Add(combine);
-                                }
-                            }
-
-                            #endregion
-
-                            Console.WriteLine(DateTime.Now.ToLongTimeString() + "EcpCalcDataManager.Create ");
-                            EcpCalcDataManager.Create(ref model, db);
-                        }
-
-                        try
-                        {
-                            Console.WriteLine(DateTime.Now.ToLongTimeString() + "SaveChanges!!!!!================================== ");
-                            db.SaveChanges();
-                            orgInnEnter.Clear();
-                            egrpoInnEnter.Clear();
-
-                        }
-                        catch (DbEntityValidationException e)
-                        {
-                            foreach (var eve in e.EntityValidationErrors)
-                            {
-                                Console.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
-                                    eve.Entry.Entity.GetType().Name, eve.Entry.State);
-                                foreach (var ve in eve.ValidationErrors)
-                                {
-                                    _logService.Error(string.Format("- Property: \"{0}\", Error: \"{1}\"", ve.PropertyName, ve.ErrorMessage));
-                                    Console.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
-                                        ve.PropertyName, ve.ErrorMessage);
-                                }
-                            }
-                            throw;
-                        }
-                        catch (Exception ex)
-                        {
-                            Console.WriteLine(ex.ToString());
-                            _logService.Error(ex.ToString());
-                        }
-                    }
-
-
-                    #region Provodki
-                    var provodki = new Provodki();
-
-                    var trans = new ProvodkiViewModel();
-
-                    var NotProcList1 = db.sp_pr_GetNewBankProvodki();
-
-                    var NotProcList = NotProcList1.ToList();
-
-                    if (NotProcList.Any())
-                    {
-                        foreach (var pp in NotProcList)
-                        {
-                            Console.WriteLine(pp.OPERDAY);
-                            Console.WriteLine(pp.COINN);
-                            Console.WriteLine("========================================");
-
-                            trans.comment = string.Empty;
-                            trans.department_base = string.Empty;
-                            trans.inoutflg = false;
-                            trans.number = string.Empty;
-                            trans.platelinn = string.Empty;
-                            trans.platelmfo = string.Empty;
-                            trans.platelname = string.Empty;
-                            trans.platelrsch = string.Empty;
-                            trans.poluchinn = string.Empty;
-                            trans.poluchmfo = string.Empty;
-                            trans.poluchname = string.Empty;
-                            trans.poluchrsch = string.Empty;
-                            trans.rec_id = 0;
-                            trans.summa = 0;
-                            trans.tipoborota = false;
-                            trans.tipscheta = false;
-                            trans.trdt = DateTime.MinValue;
-                            trans.user_id = 0;
-                            trans.trref = "ECP";
-                            trans.trrefno = pp.ID.ToString();
-
-                            //Obshaya provodka
-                            trans.comment = "Postupleniya po ECP";
-                            trans.department_base = pp.Departmentbase;
-                            trans.inoutflg = false;
-                            trans.platelrsch = pp.Departmentbase == "17" ? "22" : "20";
-                            trans.poluchrsch = "001";
-                            trans.summa = pp.SUMPAY;
-
-                            trans.user_id = 1;
-                            trans.trdt = pp.OPERDAY;
-
-                            ProvodkiDataManager.Create(ref trans);
-
-                            EcpCalcDataManager.ModifyBank(pp.ID, trans.rec_id);
-
-                        }
-                    }
-
-                    #endregion
-                    
-                    //#region Otrasl_Past change
-
-                    //Console.WriteLine("Otrasl Late Update");
-
-                    //var lastTimeRow = db.TimeShedulers.Where(z => z.id == 1).FirstOrDefault();
-
-                    //if (lastTimeRow != null)
-                    //{
-                    //    var lastTime = lastTimeRow.LastChanged;
-
-                    //    Console.WriteLine("lastTime: " + lastTime);
-
-                    //    var newOrgChangedList = db.tblSprav_Org.Where(z => z.TIMESTAMP_CH >= lastTime);
-
-                    //    if (newOrgChangedList.Any())
-                    //    {
-                    //        foreach (var org in newOrgChangedList)
-                    //        {
-                    //            if (org.ID_Ot.HasValue)
-                    //            {
-                    //                var currentOtrasl = db.tblSprav_Otras.Where(z => z.ID_Ot == org.ID_Ot);
-
-                    //                if (currentOtrasl.Any())
-                    //                {
-                    //                    var branchCode = currentOtrasl.First().BRANCH_CODE;
-
-                    //                    Console.WriteLine("branchCode: " + branchCode);
-
-                    //                    var branchNameRow = db.sp_branch.Where(z => z.code == branchCode);
-
-                    //                    if (branchNameRow.Any())
-                    //                    {
-                    //                        var branchName = branchNameRow.First().name_ru;
-
-                    //                        Console.WriteLine("branchName: " + branchName);
-
-                    //                        var ecpChangeList = db.tbbu_ecp_calc.Where(z => z.INN == org.INN);
-
-                    //                        if (ecpChangeList.Any())
-                    //                        {
-                    //                            foreach (var ecp in ecpChangeList)
-                    //                            {
-                    //                                ecp.BRANCH_CODE = branchCode;
-                    //                                ecp.BRANCH_NAME = branchName;
-                    //                            }
-
-
-                    //                        }
-                    //                    }
-                    //                }
-                    //            }
-                    //        }
-
-                    //        lastTimeRow.LastChanged = DateTime.Now;
-
-                    //        db.SaveChanges();
-                    //    }
-                    //}
-
-                    //#endregion
                 }
             }
             catch(Exception ex)
             {
                 _logService.Info(ex.ToString());
             }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private void MakeOwnerCode()
+        {
+            Console.WriteLine("MakeOwnerCode");
+
+            try
+            {
+                using (KasabaKIATEntities db = new KasabaKIATEntities())
+                {
+                    var newOrgChangedList = db.tblSprav_Org.Where(z => z.OWNER_CODE == null 
+                    && z.ID_Ot != null && z.Region != null && z.PRAVORGLEVEL != null).Take(1000);
+
+                    if (newOrgChangedList.Any())
+                    {
+                        foreach(var org in newOrgChangedList)
+                        {
+                            try
+                            {
+                                org.OWNER_CODE = GenerateDepartmentCode(org.ID_Ot.Value
+                                            , org.Region.Value,
+                                            org.PRAVORGLEVEL.Value,
+                                            org.ID, db);
+                            }
+                            catch (Exception ex)
+                            {
+                                Console.Write(ex.ToString());
+                                continue;
+                            }
+
+                                Console.Write("ID = " + org.ID);
+                            Console.WriteLine("  OwnerCode = " + org.OWNER_CODE);
+
+                            
+                        }
+
+                        db.SaveChanges();
+                    }
+                }
+            }
+            catch(Exception ex)
+            {
+                Console.Write(ex.ToString());
+                _logService.Info(ex.ToString());
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="otrasl"></param>
+        /// <param name="region"></param>
+        /// <param name="pravsoyuzLevel"></param>
+        /// <param name="Id"></param>
+        /// <param name="db"></param>
+        /// <returns></returns>
+        private string GenerateDepartmentCode(int otrasl = 0, int region = 0, int pravsoyuzLevel = 0, long Id = 0, KasabaKIATEntities db = null)
+        {
+                if (region == -1)
+                {
+                    //Pustoy
+                    return null;
+                }
+
+                var structureKiat = new StructureOfKiat();
+
+                if (Id == 0)
+                {
+                    Id = db.tblSprav_Org.Max(z => z.ID) + 1;
+                }
+
+                var branches = db.tblSprav_Otras.Where(z => z.ID_Ot == otrasl);
+
+                if (branches.Any())
+                {
+                    var branch = branches.First().BRANCH_CODE;
+
+                    KIAT_STRUCT str = KIAT_STRUCT.PPO;
+
+                    if (pravsoyuzLevel == (int)KIAT_STRUCT.TumanBranch)
+                    {
+                        str = KIAT_STRUCT.TumanBranch;
+                    }
+                    else if (pravsoyuzLevel == (int)KIAT_STRUCT.PPO)
+                    {
+                        str = KIAT_STRUCT.PPO;
+                    }
+
+                    var regions = db.tblSprav_Reg.Where(z => z.CodeReg == region);
+
+                    string soatoCode = string.Empty;
+
+                    if (regions.Any())
+                    {
+                        soatoCode = regions.First().SOATO_CODE;
+                    }
+                    else
+                    {
+                        throw new ApplicationException("Region is invalid");
+                    }
+
+                    return structureKiat.GenerateDepartmentCode(str, branch, soatoCode, Id);
+                }
+                else
+                {
+                    throw new ApplicationException("Otrasl info not found");
+                }
         }
 
     }

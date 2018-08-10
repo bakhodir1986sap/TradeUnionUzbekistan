@@ -24,10 +24,6 @@ namespace KaznaFilesImporter
             {
                 Console.WriteLine(DateTime.Now.ToString() + " " + "...");
 
-                var kk = new KaznaController();
-
-                kk.Process();
-
                 var obj = new EcpCalculation();
 
                 obj.CalcProcessN();

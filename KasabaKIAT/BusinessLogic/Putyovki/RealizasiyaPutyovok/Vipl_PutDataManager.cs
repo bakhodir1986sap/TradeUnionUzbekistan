@@ -182,16 +182,18 @@ namespace KasabaKiat.BusinessLogic.Putyovki.RealizasiyaPutyovok
         /// 
         /// </summary>
         /// <param name="model"></param>
-        public static void RemoveByPutyovka(int IdSanat, string Num_Put, string departmentCode, KasabaKIATEntities db, tblVozVrat vozv)
+        public static void RemoveByPutyovka(int IdSanat, string Num_Put, string departmentCode, long? Id_org , KasabaKIATEntities db, tblVozVrat vozv)
         {
-                var vipl = db.tblVipl_Put.Where(z => z.ID_Sanat == IdSanat && z.Num_Put == Num_Put && z.DepartmentBase == departmentCode);
+                          
+                var vipl = db.tblVipl_Put.Where(z => z.ID_Sanat == IdSanat && z.Num_Put == Num_Put && z.DepartmentBase == departmentCode
+                && z.tblVipl.ID_Org == Id_org);
 
                 if (vipl.Any())
                 {
-                    if (vipl.Count() > 1)
-                    {
-                        throw new ApplicationException("More than one row found");
-                    }
+                    //if (vipl.Count() > 1)
+                    //{
+                    //    throw new ApplicationException("More than one row found");
+                    //}
 
                     var reg = vipl.FirstOrDefault();
                     

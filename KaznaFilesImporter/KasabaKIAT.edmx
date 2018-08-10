@@ -127,6 +127,77 @@
           <Property Name="branch_code" Type="nvarchar" MaxLength="10" />
           <Property Name="NATIVE_ID" Type="bigint" />
         </EntityType>
+        <EntityType Name="t_departmentbase">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="dtype" Type="nvarchar" MaxLength="31" Nullable="false" />
+          <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" Nullable="false" />
+          <Property Name="keys" Type="nvarchar" MaxLength="256" />
+          <Property Name="childseq" Type="int" />
+          <Property Name="code" Type="nvarchar" MaxLength="255" />
+          <Property Name="s_comment" Type="nvarchar" MaxLength="500" />
+          <Property Name="s_create" Type="datetime" />
+          <Property Name="s_status" Type="nvarchar" MaxLength="255" />
+          <Property Name="isleaf" Type="bit" />
+          <Property Name="s_level" Type="int" />
+          <Property Name="name_ru" Type="nvarchar" MaxLength="1024" />
+          <Property Name="name_uz" Type="nvarchar" MaxLength="1024" />
+          <Property Name="name_uzl" Type="nvarchar" MaxLength="1024" />
+          <Property Name="address" Type="nvarchar" MaxLength="255" />
+          <Property Name="alohida_xona_bormi" Type="int" />
+          <Property Name="computer_bormi" Type="int" />
+          <Property Name="count_of_members" Type="nvarchar" MaxLength="255" />
+          <Property Name="davlat_ruyxatidan_otganmi" Type="int" />
+          <Property Name="email" Type="nvarchar" MaxLength="255" />
+          <Property Name="inn" Type="nvarchar" MaxLength="255" />
+          <Property Name="internet_bormi" Type="int" />
+          <Property Name="jamoa_shartnoma_bormi" Type="int" />
+          <Property Name="kasaba_uyushmasi_xaq_tulanadi" Type="int" />
+          <Property Name="bkut_name" Type="nvarchar" MaxLength="255" />
+          <Property Name="phone" Type="nvarchar" MaxLength="255" />
+          <Property Name="rais_kollegia_azomi" Type="int" />
+          <Property Name="rais_ozodmi" Type="int" />
+          <Property Name="spec_number" Type="nvarchar" MaxLength="255" />
+          <Property Name="type" Type="int" />
+          <Property Name="xisob_raqam" Type="nvarchar" MaxLength="32" />
+          <Property Name="yuqori_shartnomadan_foydalanadimi" Type="int" />
+          <Property Name="parent_code" Type="nvarchar" MaxLength="255" />
+          <Property Name="branch_code" Type="nvarchar" MaxLength="10" />
+          <Property Name="deptype_code" Type="nvarchar" MaxLength="255" />
+          <Property Name="s_user_id" Type="bigint" />
+          <Property Name="soato_code" Type="nvarchar" MaxLength="10" />
+          <Property Name="employee_id" Type="bigint" />
+          <Property Name="okonx" Type="nvarchar" MaxLength="10" />
+          <Property Name="camps_address" Type="nvarchar" MaxLength="255" />
+          <Property Name="camps_type1" Type="nvarchar" MaxLength="255" />
+          <Property Name="camps_type2" Type="nvarchar" MaxLength="255" />
+          <Property Name="camps_organization_address" Type="nvarchar" MaxLength="255" />
+          <Property Name="camps_organization_cheef" Type="nvarchar" MaxLength="255" />
+          <Property Name="camps_organization_cheef_tel" Type="nvarchar" MaxLength="255" />
+          <Property Name="camps_organization_name" Type="nvarchar" MaxLength="255" />
+          <Property Name="camps_union" Type="nvarchar" MaxLength="255" />
+          <Property Name="camps_union_tel" Type="nvarchar" MaxLength="255" />
+          <Property Name="camps_cheef" Type="nvarchar" MaxLength="255" />
+          <Property Name="camps_cheef_tel" Type="nvarchar" MaxLength="255" />
+          <Property Name="camps_email" Type="nvarchar" MaxLength="255" />
+          <Property Name="camps_name" Type="nvarchar" MaxLength="255" />
+          <Property Name="camps_site" Type="nvarchar" MaxLength="255" />
+          <Property Name="camps_tel" Type="nvarchar" MaxLength="255" />
+          <Property Name="soato_organization_id" Type="bigint" />
+          <Property Name="department_code" Type="bigint" />
+          <Property Name="sanatorium_name" Type="nvarchar" MaxLength="255" />
+          <Property Name="site" Type="nvarchar" MaxLength="255" />
+          <Property Name="telephone" Type="nvarchar" MaxLength="255" />
+          <Property Name="sanatorium_profil_id" Type="bigint" />
+          <Property Name="sanatorium_type_id" Type="bigint" />
+          <Property Name="employeefullname" Type="nvarchar" MaxLength="255" />
+          <Property Name="dep_name" Type="nvarchar" MaxLength="255" />
+          <Property Name="le_inn" Type="nvarchar" MaxLength="255" />
+          <Property Name="group_2ti" Type="smallint" />
+          <Property Name="NATIVE_ID" Type="bigint" />
+        </EntityType>
         <EntityType Name="t_egrpo">
           <Key>
             <PropertyRef Name="id" />
@@ -325,6 +396,9 @@ warning 6002: The table/view 'KasabaKIAT_N1.dbo.tbbFermer' does not have a prima
           <Property Name="ORIG_INN" Type="varchar" MaxLength="20" />
           <Property Name="OWNER_CODE" Type="varchar" MaxLength="255" />
           <Property Name="TIMESTAMP_CH" Type="datetime" />
+          <Property Name="DB_BAL" Type="money" />
+          <Property Name="CT_BAL" Type="money" />
+          <Property Name="TO_DEPCODE" Type="nvarchar" MaxLength="255" />
         </EntityType>
         <EntityType Name="tblSprav_Otras">
           <Key>
@@ -405,8 +479,20 @@ warning 6002: The table/view 'KasabaKIAT_N1.dbo.tbbFermer' does not have a prima
           </ReferentialConstraint>
         </Association>
         <!--Errors Found During Generation:
+warning 6035: The relationship 'FK_tbgl_balance_t_departmentbase' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
+        <Association Name="FK_tbgl_balance_t_departmentbase" />-->
+        <!--Errors Found During Generation:
+warning 6035: The relationship 'FK_tblSprav_Org_t_departmentbase' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
+        <Association Name="FK_tblSprav_Org_t_departmentbase" />-->
+        <!--Errors Found During Generation:
 warning 6035: The relationship 'FK_tblSprav_Otras_sp_branch' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
         <Association Name="FK_tblSprav_Otras_sp_branch" />-->
+        <!--Errors Found During Generation:
+warning 6035: The relationship 'FK_tblSprav_Otras_t_departmentbase' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
+        <Association Name="FK_tblSprav_Otras_t_departmentbase" />-->
+        <!--Errors Found During Generation:
+warning 6035: The relationship 'FK_tblSprav_Reg_t_departmentbase' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
+        <Association Name="FK_tblSprav_Reg_t_departmentbase" />-->
         <Association Name="sp_okonx2">
           <End Role="sp_okonx" Type="Self.sp_okonx" Multiplicity="0..1" />
           <End Role="sp_okonx1" Type="Self.sp_okonx" Multiplicity="*" />
@@ -423,6 +509,27 @@ warning 6035: The relationship 'FK_tblSprav_Otras_sp_branch' has columns that ar
 warning 6035: The relationship 'sp_okonx3' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
         <Association Name="sp_okonx3" />-->
         <!--Errors Found During Generation:
+warning 6035: The relationship 't_departmentbase_10' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
+        <Association Name="t_departmentbase_10" />-->
+        <!--Errors Found During Generation:
+warning 6035: The relationship 't_departmentbase_2' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
+        <Association Name="t_departmentbase_2" />-->
+        <!--Errors Found During Generation:
+warning 6035: The relationship 't_departmentbase_5' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
+        <Association Name="t_departmentbase_5" />-->
+        <Association Name="t_departmentbase_6">
+          <End Role="t_departmentbase" Type="Self.t_departmentbase" Multiplicity="0..1" />
+          <End Role="t_departmentbase1" Type="Self.t_departmentbase" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="t_departmentbase">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="t_departmentbase1">
+              <PropertyRef Name="department_code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <!--Errors Found During Generation:
 warning 6035: The relationship 't_egrpo_4' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
         <Association Name="t_egrpo_4" />-->
         <Function Name="sp_im_KaznaNewOrg" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
@@ -438,6 +545,7 @@ warning 6035: The relationship 't_egrpo_4' has columns that are not part of the 
           <EntitySet Name="KaznaSverkaFile" EntityType="Self.KaznaSverkaFile" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sp_branch" EntityType="Self.sp_branch" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sp_okonx" EntityType="Self.sp_okonx" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="t_departmentbase" EntityType="Self.t_departmentbase" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="t_egrpo" EntityType="Self.t_egrpo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbbu_balance" EntityType="Self.tbbu_balance" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbbu_ecp_calc" EntityType="Self.tbbu_ecp_calc" Schema="dbo" store:Type="Tables" />
@@ -477,6 +585,10 @@ warning 6035: The relationship 't_egrpo_4' has columns that are not part of the 
           <AssociationSet Name="sp_okonx2" Association="Self.sp_okonx2">
             <End Role="sp_okonx" EntitySet="sp_okonx" />
             <End Role="sp_okonx1" EntitySet="sp_okonx" />
+          </AssociationSet>
+          <AssociationSet Name="t_departmentbase_6" Association="Self.t_departmentbase_6">
+            <End Role="t_departmentbase" EntitySet="t_departmentbase" />
+            <End Role="t_departmentbase1" EntitySet="t_departmentbase" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -535,6 +647,11 @@ warning 6035: The relationship 't_egrpo_4' has columns that are not part of the 
           <EntitySet Name="tbbu_balance" EntityType="KasabaKIATModel.tbbu_balance" />
           <EntitySet Name="tblSprav_Reg" EntityType="KasabaKIATModel.tblSprav_Reg" />
           <FunctionImport Name="sp_pr_GetNewTransactionsN1" ReturnType="Collection(KasabaKIATModel.sp_pr_GetNewTransactionsN1_Result1)" />
+          <EntitySet Name="t_departmentbase" EntityType="KasabaKIATModel.t_departmentbase" />
+          <AssociationSet Name="t_departmentbase_6" Association="KasabaKIATModel.t_departmentbase_6">
+            <End Role="t_departmentbase" EntitySet="t_departmentbase" />
+            <End Role="t_departmentbase1" EntitySet="t_departmentbase" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="KaznaSverkaFile">
           <Key>
@@ -951,6 +1068,9 @@ warning 6035: The relationship 't_egrpo_4' has columns that are not part of the 
           <Property Name="ORIG_INN" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="OWNER_CODE" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="TIMESTAMP_CH" Type="DateTime" Precision="3" />
+          <Property Name="DB_BAL" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="CT_BAL" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="TO_DEPCODE" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="tblSprav_Otras">
           <Key>
@@ -1047,6 +1167,91 @@ warning 6035: The relationship 't_egrpo_4' has columns that are not part of the 
           <Property Type="DateTime" Name="OPERDAY" Nullable="true" Precision="23" />
           <Property Type="Decimal" Name="GRPID" Nullable="true" Precision="12" Scale="0" />
         </ComplexType>
+        <EntityType Name="t_departmentbase">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="dtype" Type="String" Nullable="false" MaxLength="31" FixedLength="false" Unicode="true" />
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" Nullable="false" />
+          <Property Name="keys" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="childseq" Type="Int32" />
+          <Property Name="code" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="s_comment" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="s_create" Type="DateTime" Precision="3" />
+          <Property Name="s_status" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="isleaf" Type="Boolean" />
+          <Property Name="s_level" Type="Int32" />
+          <Property Name="name_ru" Type="String" MaxLength="1024" FixedLength="false" Unicode="true" />
+          <Property Name="name_uz" Type="String" MaxLength="1024" FixedLength="false" Unicode="true" />
+          <Property Name="name_uzl" Type="String" MaxLength="1024" FixedLength="false" Unicode="true" />
+          <Property Name="address" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="alohida_xona_bormi" Type="Int32" />
+          <Property Name="computer_bormi" Type="Int32" />
+          <Property Name="count_of_members" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="davlat_ruyxatidan_otganmi" Type="Int32" />
+          <Property Name="email" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="inn" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="internet_bormi" Type="Int32" />
+          <Property Name="jamoa_shartnoma_bormi" Type="Int32" />
+          <Property Name="kasaba_uyushmasi_xaq_tulanadi" Type="Int32" />
+          <Property Name="bkut_name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="phone" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="rais_kollegia_azomi" Type="Int32" />
+          <Property Name="rais_ozodmi" Type="Int32" />
+          <Property Name="spec_number" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="type" Type="Int32" />
+          <Property Name="xisob_raqam" Type="String" MaxLength="32" FixedLength="false" Unicode="true" />
+          <Property Name="yuqori_shartnomadan_foydalanadimi" Type="Int32" />
+          <Property Name="parent_code" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="branch_code" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="deptype_code" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="s_user_id" Type="Int64" />
+          <Property Name="soato_code" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="employee_id" Type="Int64" />
+          <Property Name="okonx" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="camps_address" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="camps_type1" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="camps_type2" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="camps_organization_address" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="camps_organization_cheef" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="camps_organization_cheef_tel" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="camps_organization_name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="camps_union" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="camps_union_tel" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="camps_cheef" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="camps_cheef_tel" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="camps_email" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="camps_name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="camps_site" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="camps_tel" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="soato_organization_id" Type="Int64" />
+          <Property Name="department_code" Type="Int64" />
+          <Property Name="sanatorium_name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="site" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="telephone" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="sanatorium_profil_id" Type="Int64" />
+          <Property Name="sanatorium_type_id" Type="Int64" />
+          <Property Name="employeefullname" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="dep_name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="le_inn" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="group_2ti" Type="Int16" />
+          <Property Name="NATIVE_ID" Type="Int64" />
+          <NavigationProperty Name="t_departmentbase1" Relationship="KasabaKIATModel.t_departmentbase_6" FromRole="t_departmentbase" ToRole="t_departmentbase1" />
+          <NavigationProperty Name="t_departmentbase2" Relationship="KasabaKIATModel.t_departmentbase_6" FromRole="t_departmentbase1" ToRole="t_departmentbase" />
+        </EntityType>
+        <Association Name="t_departmentbase_6">
+          <End Type="KasabaKIATModel.t_departmentbase" Role="t_departmentbase" Multiplicity="0..1" />
+          <End Type="KasabaKIATModel.t_departmentbase" Role="t_departmentbase1" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="t_departmentbase">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="t_departmentbase1">
+              <PropertyRef Name="department_code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1388,6 +1593,9 @@ warning 6035: The relationship 't_egrpo_4' has columns that are not part of the 
           <EntitySetMapping Name="tblSprav_Org">
             <EntityTypeMapping TypeName="KasabaKIATModel.tblSprav_Org">
               <MappingFragment StoreEntitySet="tblSprav_Org">
+                <ScalarProperty Name="TO_DEPCODE" ColumnName="TO_DEPCODE" />
+                <ScalarProperty Name="CT_BAL" ColumnName="CT_BAL" />
+                <ScalarProperty Name="DB_BAL" ColumnName="DB_BAL" />
                 <ScalarProperty Name="TIMESTAMP_CH" ColumnName="TIMESTAMP_CH" />
                 <ScalarProperty Name="OWNER_CODE" ColumnName="OWNER_CODE" />
                 <ScalarProperty Name="ORIG_INN" ColumnName="ORIG_INN" />
@@ -1502,6 +1710,78 @@ warning 6035: The relationship 't_egrpo_4' has columns that are not part of the 
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <EntitySetMapping Name="t_departmentbase">
+            <EntityTypeMapping TypeName="KasabaKIATModel.t_departmentbase">
+              <MappingFragment StoreEntitySet="t_departmentbase">
+                <ScalarProperty Name="NATIVE_ID" ColumnName="NATIVE_ID" />
+                <ScalarProperty Name="group_2ti" ColumnName="group_2ti" />
+                <ScalarProperty Name="le_inn" ColumnName="le_inn" />
+                <ScalarProperty Name="dep_name" ColumnName="dep_name" />
+                <ScalarProperty Name="employeefullname" ColumnName="employeefullname" />
+                <ScalarProperty Name="sanatorium_type_id" ColumnName="sanatorium_type_id" />
+                <ScalarProperty Name="sanatorium_profil_id" ColumnName="sanatorium_profil_id" />
+                <ScalarProperty Name="telephone" ColumnName="telephone" />
+                <ScalarProperty Name="site" ColumnName="site" />
+                <ScalarProperty Name="sanatorium_name" ColumnName="sanatorium_name" />
+                <ScalarProperty Name="department_code" ColumnName="department_code" />
+                <ScalarProperty Name="soato_organization_id" ColumnName="soato_organization_id" />
+                <ScalarProperty Name="camps_tel" ColumnName="camps_tel" />
+                <ScalarProperty Name="camps_site" ColumnName="camps_site" />
+                <ScalarProperty Name="camps_name" ColumnName="camps_name" />
+                <ScalarProperty Name="camps_email" ColumnName="camps_email" />
+                <ScalarProperty Name="camps_cheef_tel" ColumnName="camps_cheef_tel" />
+                <ScalarProperty Name="camps_cheef" ColumnName="camps_cheef" />
+                <ScalarProperty Name="camps_union_tel" ColumnName="camps_union_tel" />
+                <ScalarProperty Name="camps_union" ColumnName="camps_union" />
+                <ScalarProperty Name="camps_organization_name" ColumnName="camps_organization_name" />
+                <ScalarProperty Name="camps_organization_cheef_tel" ColumnName="camps_organization_cheef_tel" />
+                <ScalarProperty Name="camps_organization_cheef" ColumnName="camps_organization_cheef" />
+                <ScalarProperty Name="camps_organization_address" ColumnName="camps_organization_address" />
+                <ScalarProperty Name="camps_type2" ColumnName="camps_type2" />
+                <ScalarProperty Name="camps_type1" ColumnName="camps_type1" />
+                <ScalarProperty Name="camps_address" ColumnName="camps_address" />
+                <ScalarProperty Name="okonx" ColumnName="okonx" />
+                <ScalarProperty Name="employee_id" ColumnName="employee_id" />
+                <ScalarProperty Name="soato_code" ColumnName="soato_code" />
+                <ScalarProperty Name="s_user_id" ColumnName="s_user_id" />
+                <ScalarProperty Name="deptype_code" ColumnName="deptype_code" />
+                <ScalarProperty Name="branch_code" ColumnName="branch_code" />
+                <ScalarProperty Name="parent_code" ColumnName="parent_code" />
+                <ScalarProperty Name="yuqori_shartnomadan_foydalanadimi" ColumnName="yuqori_shartnomadan_foydalanadimi" />
+                <ScalarProperty Name="xisob_raqam" ColumnName="xisob_raqam" />
+                <ScalarProperty Name="type" ColumnName="type" />
+                <ScalarProperty Name="spec_number" ColumnName="spec_number" />
+                <ScalarProperty Name="rais_ozodmi" ColumnName="rais_ozodmi" />
+                <ScalarProperty Name="rais_kollegia_azomi" ColumnName="rais_kollegia_azomi" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="bkut_name" ColumnName="bkut_name" />
+                <ScalarProperty Name="kasaba_uyushmasi_xaq_tulanadi" ColumnName="kasaba_uyushmasi_xaq_tulanadi" />
+                <ScalarProperty Name="jamoa_shartnoma_bormi" ColumnName="jamoa_shartnoma_bormi" />
+                <ScalarProperty Name="internet_bormi" ColumnName="internet_bormi" />
+                <ScalarProperty Name="inn" ColumnName="inn" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="davlat_ruyxatidan_otganmi" ColumnName="davlat_ruyxatidan_otganmi" />
+                <ScalarProperty Name="count_of_members" ColumnName="count_of_members" />
+                <ScalarProperty Name="computer_bormi" ColumnName="computer_bormi" />
+                <ScalarProperty Name="alohida_xona_bormi" ColumnName="alohida_xona_bormi" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="name_uzl" ColumnName="name_uzl" />
+                <ScalarProperty Name="name_uz" ColumnName="name_uz" />
+                <ScalarProperty Name="name_ru" ColumnName="name_ru" />
+                <ScalarProperty Name="s_level" ColumnName="s_level" />
+                <ScalarProperty Name="isleaf" ColumnName="isleaf" />
+                <ScalarProperty Name="s_status" ColumnName="s_status" />
+                <ScalarProperty Name="s_create" ColumnName="s_create" />
+                <ScalarProperty Name="s_comment" ColumnName="s_comment" />
+                <ScalarProperty Name="code" ColumnName="code" />
+                <ScalarProperty Name="childseq" ColumnName="childseq" />
+                <ScalarProperty Name="keys" ColumnName="keys" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="dtype" ColumnName="dtype" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

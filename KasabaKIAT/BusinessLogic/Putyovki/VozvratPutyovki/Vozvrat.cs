@@ -196,7 +196,7 @@ namespace KasabaKiat.BusinessLogic.Putyovki.VozvratPutyovki
 
                     //Remove or change status in Viplata
                     #region Remove or change status in Viplata
-                    Vipl_PutDataManager.RemoveByPutyovka(mm.id_sanat.Value, mm.num_put, mm.departmentbase, db, vv);
+                    Vipl_PutDataManager.RemoveByPutyovka(mm.id_sanat.Value, mm.num_put, mm.departmentbase, model.id_ot, db, vv);
                     #endregion
 
                 }

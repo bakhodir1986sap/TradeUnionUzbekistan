@@ -31,6 +31,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KasabaKIATTests", "KasabaKI
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KIAT_TestProject", "KIAT_TestProject\KIAT_TestProject.csproj", "{6F771DD3-EC76-4372-912D-13DEE115BA4B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KaznaImporterWinService", "KaznaImporterWinService\KaznaImporterWinService.csproj", "{2296AABD-67D9-413A-B202-2B80645F9CF2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		1|Any CPU = 1|Any CPU
@@ -125,6 +127,12 @@ Global
 		{6F771DD3-EC76-4372-912D-13DEE115BA4B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6F771DD3-EC76-4372-912D-13DEE115BA4B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6F771DD3-EC76-4372-912D-13DEE115BA4B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2296AABD-67D9-413A-B202-2B80645F9CF2}.1|Any CPU.ActiveCfg = Release|Any CPU
+		{2296AABD-67D9-413A-B202-2B80645F9CF2}.1|Any CPU.Build.0 = Release|Any CPU
+		{2296AABD-67D9-413A-B202-2B80645F9CF2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2296AABD-67D9-413A-B202-2B80645F9CF2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2296AABD-67D9-413A-B202-2B80645F9CF2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2296AABD-67D9-413A-B202-2B80645F9CF2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -30,6 +30,7 @@
         <EntityTypeShape EntityType="KasabaKIATModel.tblSprav_Reg" Width="1.5" PointX="14.375" PointY="0.75" />
         <EntityTypeShape EntityType="KasabaKIATModel.t_departmentbase" Width="1.5" PointX="14.375" PointY="9.75" />
         <AssociationConnector Association="KasabaKIATModel.t_departmentbase_6" />
+        <EntityTypeShape EntityType="KasabaKIATModel.tblBron" Width="1.5" PointX="3.375" PointY="15.75" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

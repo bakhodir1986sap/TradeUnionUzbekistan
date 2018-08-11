@@ -48,6 +48,7 @@
                 <a href="#" ng-click="AppVozvrat()" class="btn btn-blue d-block d-md-inline-block mb-2" data-toggle="modal" data-target="#dobavit"><i class="fas fa-plus"></i> Добавить</a>
                 <a href="#" class="btn btn-grey d-block d-md-inline-block mb-2" ng-click="exportData()"><i class="fas fa-print"></i> Печать</a>
                 <a href="#" class="btn btn-red d-block d-md-inline-block mb-2" ng-click="CancelVozvrat()"><i class="fas fa-remove"></i> Удалить</a>
+                <a href="#" class="btn btn-red d-block d-md-inline-block mb-2"  data-toggle="modal" data-target="#izmdata"><i class="fas fa-remove"></i> Изменить Дату</a>
             </div>
         </div>
         <div class="row" id="export">
@@ -232,6 +233,32 @@
                             </div>
                             <div class="mb-4 text-right">
                                 <a href="#" ng-click="SaveVozvratEnter()" class="btn btn-blue d-block d-md-inline-block mb-2" data-dismiss="modal"><i class="fas fa-plus"></i> Добавить</a>
+                                <a href="#" class="btn btn-grey d-block d-md-inline-block mb-2" data-dismiss="modal">Отмена</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal__block modal fade" id="izmdata" tabindex="-1" role="dialog" aria-labelledby="izmdataLabel" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="modal-title">
+                        <h4 class="text-center mt-4 mb-4">Изменить дату возврата путевки</h4>
+                    </div>
+                    <div class="row justify-content-center">
+                        <div class="col-md-8">
+                            <div class="form-group row align-items-center">
+                                <label class="col-md-5 col-form-label text-md-right py-0">Дата:</label>
+                                <div class="col-md-7">
+                                    <input type="date" class="form-control" placeholder="Дата" ng-model="SelectedIzmData" />
+                                </div>
+                            </div>
+                            <div class="mb-4 text-right">
+                                <a href="#" ng-click="IzmDataVozvrat()" class="btn btn-green d-block d-md-inline-block mb-2" data-dismiss="modal"><i class="fas fa-plus"></i> Изменить</a>
                                 <a href="#" class="btn btn-grey d-block d-md-inline-block mb-2" data-dismiss="modal">Отмена</a>
                             </div>
                         </div>

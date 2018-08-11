@@ -649,12 +649,14 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.Provodki.AutomaticTransactions.K
             Thread t3 = new Thread(new ThreadStart(BranchCalcController));
             Thread t4 = new Thread(new ThreadStart(KaznaFileController));
             Thread t5 = new Thread(new ThreadStart(OwnerCodeController));
+            Thread t6 = new Thread(new ThreadStart(BronController));
 
             t1.Start();
             t2.Start();
             t3.Start();
             t4.Start();
             t5.Start();
+            t6.Start();
 
             Console.WriteLine("Threads Started");
 
@@ -669,12 +671,14 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.Provodki.AutomaticTransactions.K
             BranchCalcStart = true;
             KaznaFileStart = true;
             OwnerCodeStart = true;
+            BronStart = true;
 
             EcpCalcSheduler = 100000;
             MakeProvodkiSheduler = 100000;
             BranchCalcSheduler = 100000;
             KaznaFileSheduler = 100000;
             OwnerCodeSheduler = 100000;
+            BronSheduler = 100000;
 
             kk = new KaznaController();
         }
@@ -684,12 +688,14 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.Provodki.AutomaticTransactions.K
         public bool BranchCalcStart { get; set; }
         public bool KaznaFileStart { get; set; }
         public bool OwnerCodeStart { get; set; }
+        public bool BronStart { get; set; }
 
         public int EcpCalcSheduler { get; set; }
         public int MakeProvodkiSheduler { get; set; }
         public int BranchCalcSheduler { get; set; }
         public int KaznaFileSheduler { get; set; }
         public int OwnerCodeSheduler { get; set; }
+        public int BronSheduler { get; set; }
 
         /// <summary>
         /// 
@@ -774,6 +780,24 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.Provodki.AutomaticTransactions.K
                 MakeOwnerCode();
 
                 Thread.Sleep(OwnerCodeSheduler);
+            }
+        }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private void BronController()
+        {
+            while (true)
+            {
+                Console.WriteLine("BronController...");
+
+                if (!BronStart) continue;
+
+                BronExpiredClear();
+
+                Thread.Sleep(BronSheduler);
             }
         }
 
@@ -1402,6 +1426,30 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.Provodki.AutomaticTransactions.K
             {
                 Console.Write(ex.ToString());
                 _logService.Info(ex.ToString());
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private void BronExpiredClear()
+        {
+            using (KasabaKIATEntities db = new KasabaKIATEntities())
+            {
+                var queryList = db.tblBrons.Where(z => z.Uchet == true);
+
+                if (queryList.Any())
+                {
+                    foreach (var bron in queryList)
+                    {
+                        if (bron.ExpireDate <= DateTime.Now)
+                        {
+                            bron.Uchet = false;
+                        }
+                    }
+                }
+
+                db.SaveChanges();
             }
         }
 

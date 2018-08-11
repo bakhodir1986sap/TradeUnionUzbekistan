@@ -561,7 +561,7 @@
     $scope.PostavitBron = function () {
         //alertify.error("PostavitBron");
 
-        var postData = { putyovkaL: $scope.SelectedPutyovkas };
+        var postData = { putyovkaL: $scope.SelectedPutyovkas, expireDate: $scope.SelectedBronData, Primechaniye: $scope.SelectedPrimechaniye}; //
 
         $http({
             method: "post",

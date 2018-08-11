@@ -248,6 +248,7 @@ namespace KasabaKiat.BusinessLogic.Putyovki.VozvratPutyovki
                     Num_Put = vozvrat.Num_Put,
                     ID_Sanat = vozvrat.ID_Sanat,
                     Data_Post = vozvrat.Data_Post,
+                    Symma = vozvrat.SymmaP,
                     Num_Proc = 100,
                     DepartmentBase = model.departmentbase,
                     TIMESTAMP_T = DateTime.Now,

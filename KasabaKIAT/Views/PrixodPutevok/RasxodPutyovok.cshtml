@@ -6,7 +6,7 @@
 }
 <script src="~/Scripts/dist/jspdf.debug.js"></script>
 <script src="~/Scripts/basic.js"></script>
-<script src="~/Scripts/MyJavaScript/Ilxom/RasxodPutyovokN1.js"></script>
+<script src="~/Scripts/MyJavaScript/Ilxom/RasxodPutyovokN2.js"></script>
 <div id="connection" style="visibility:hidden;position:absolute;margin-left:430px;z-index:9999">
     <img src="~/Content/Login/buffering.gif" />
 </div>
@@ -428,7 +428,7 @@
                         <div>
                             <input type="text" style="margin-bottom:5px" placeholder="Наименование" ng-model="FilterName" />
                             <br /><input type="text" style="margin-bottom:5px" placeholder="ИНН" ng-model="FilterInn" /><br />
-                            <select class="custom-select" required name="Otrasl" ng-model="FilterSelectedOtrasl" ng-options="item as item.Name_Ot for item in Otrasl track by item.ID_Ot"></select>
+                            <select class="custom-select" required name="Otrasl" ng-model="FilterSelectedOtrasl2" ng-options="item as item.Name_Ot for item in Otrasl2 track by item.ID_Ot"></select>
                             <br /><br /><button class="btn btn-green" style="float:right;margin-bottom:10px" ng-click="GetOrganizationsFilter()"><i class="btn-green"></i> Поиск</button>
                         </div>
                         <div class="table-responsive box-shadow mb-4" id="export">

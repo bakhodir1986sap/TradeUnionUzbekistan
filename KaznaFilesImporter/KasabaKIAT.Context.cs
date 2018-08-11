@@ -47,6 +47,7 @@ namespace KaznaFilesImporter
         public virtual DbSet<tbbu_balance> tbbu_balance { get; set; }
         public virtual DbSet<tblSprav_Reg> tblSprav_Reg { get; set; }
         public virtual DbSet<t_departmentbase> t_departmentbase { get; set; }
+        public virtual DbSet<tblBron> tblBrons { get; set; }
     
         public virtual int sp_im_KaznaNewOrg()
         {

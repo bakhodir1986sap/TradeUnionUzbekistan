@@ -1,4 +1,4 @@
-﻿var app = angular.module("mvcCRUDApp",[]);
+﻿var app = angular.module("mvcCRUDApp", ["chart.js"]);
 app.filter('jsonDate', ['$filter', function ($filter) {
     return function (input, format) {
         return (input)

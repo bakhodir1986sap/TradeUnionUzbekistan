@@ -1,77 +1,264 @@
-﻿@{
-    ViewBag.Title = "Изменить Пароль";
+﻿@using KasabaKIAT.BusinessLogic.Security.Roles.RolePermissions;
+@{
+    ViewBag.Title = "Путевки";
+    ViewBag.n = Session["role"];
     var UserId = Convert.ToInt32(User.Identity.Name);
+    FunctionalityList List = FunctionalityAndDbDataMatch.MatchProcess(UserId, true);
 }
-<script src="~/Scripts/MyJavaScript/Rekviziti.js"></script>
+
+<script src="~/Scripts/MyJavaScript/Stat/StatFederasiya.js"></script>
 <div id="connection" style="visibility:hidden;position:absolute;margin-left:600px;z-index:9999">
     <img src="~/Content/Login/buffering.gif" />
 </div>
-<section class="content__block container" ng-controller="Rekviziti">
+
+
+<section class="content__block container" ng-controller="StatFederasiya">
     <div id="connection" style="visibility:hidden;position:absolute;margin-left:430px;margin-top:100px;z-index:9999">
         <img src="~/Content/Login/buffering.gif" />
     </div>
-    <div class="row mb-4 align-items-center">
-        <div class="col title__block">
-            <h4>Информация и реквизиты</h4>
+    <div class="row" style="padding-left:15px !important">
+        <div class="col-md-6">
+            <h4 style="color:#167f91;">Аналитика</h4>
+            <p style="">Время последнего обновления 20.07.2018</p><br>
+            <p>Главная</p>
+        </div>
+        <div class="col-md-6" style="display: flex; align-items: center">
+            <p style="padding-bottom:5px">
+                <img style="height:17px;width:17px" src="~/Content/Stat/Screen6.png"> - 335 брони
+
+            </p>
+
         </div>
     </div>
-    <form name="myForm1" novalidate>
-        <div class="row mb-4">
-            <div class="col-md-6">
-                <div>
-                    <p>Полное наименование:</p>
-                    <input maxlength="50" type="text" required name="fullName" ng-model="Rekvizits.ID_Name" class="custom-select form-control" placeholder="Полное наименование" />
-                    <span class="alert alert-warning" style="padding:0px" ng-show="myForm1.fullName.$error.required">заполнить поле</span>
-                </div>
-                <div>
-                    <p>Адрес :</p>
-                    <input maxlength="50" type="text" required name="address" ng-model="Rekvizits.Adress" class="custom-select form-control" placeholder="Адрес" />
-                    <span class="alert alert-warning" style="padding:0px" ng-show="myForm1.address.$error.required">заполнить поле</span>
-                </div>
-                <div>
-                    <p>Телефоны :</p>
-                    <input maxlength="90" type="text" required name="telefon" ng-model="Rekvizits.ID_Pred" class="custom-select form-control" placeholder="Телефоны" />
-                    <span class="alert alert-warning" style="padding:0px" ng-show="myForm1.telefon.$error.required">заполнить поле</span>
-                </div>
-                <div>
-                    <p>Расчетный счет :</p>
-                    <input maxlength="20" type="text" required name="rsSchet" ng-model="Rekvizits.RS" class="custom-select form-control" placeholder="Расчетный счет" />
-                    <span class="alert alert-warning" style="padding:0px" ng-show="myForm1.rsSchet.$error.required">заполнить поле</span>
-                </div>
-                <div>
-                    <p>Наименование Банка :</p>
-                    <input maxlength="50" type="text" required name="bankName" ng-model="Rekvizits.Name_bank" class="custom-select form-control" placeholder="Наименование Банка" />
-                    <span class="alert alert-warning" style="padding:0px" ng-show="myForm1.bankName.$error.required">заполнить поле</span>
-                </div>
-                <div>
-                    <p>МФО :</p>
-                    <input maxlength="5" type="text" required name="mfo" ng-model="Rekvizits.MFO" class="custom-select form-control" placeholder="МФО" />
-                    <span class="alert alert-warning" style="padding:0px" ng-show="myForm1.mfo.$error.required">заполнить поле</span>
-                </div>
-                <div>
-                    <p>ИНН :</p>
-                    <input maxlength="9" type="text" required name="inn" ng-model="Rekvizits.INN" class="custom-select form-control" placeholder="ИНН" />
-                    <span class="alert alert-warning" style="padding:0px" ng-show="myForm1.inn.$error.required">заполнить поле</span>
-                </div>
-                <div>
-                    <p>ОКЭД :</p>
-                    <input maxlength="6" type="text" required name="oked" ng-model="Rekvizits.OKONX" class="custom-select form-control" placeholder="ОКЭД" />
-                    <span class="alert alert-warning" style="padding:0px" ng-show="myForm1.oked.$error.required">заполнить поле</span>
-                </div>
-                <div>
-                    <p>ВИО :</p>
-                    <input type="checkbox" required name="vio" ng-model="Rekvizits.VIO" />
-                </div>
-                <div>
-                    <p>Директор :</p>
-                    <input maxlength="25" type="text" required name="direktor" ng-model="Rekvizits.Name_Dir" class="custom-select form-control" placeholder="Директор" />
-                    <span class="alert alert-warning" style="padding:0px" ng-show="myForm1.direktor.$error.required">заполнить поле</span>
-                </div>
-                <div>
-                    <p></p>
-                    <button style="margin-top:20px" class="btn btn-green d-block d-md-inline-block mb-3 mb-md-0" ng-click="SaveRekvizit()">Сохранить</button>
-                </div>
+    <h4 style="padding-left:15px">Доходы</h4>
+    <div class="row" style="padding-left: 15px; padding-right: 15px">
+        <div class="col-md-12">
+            <div class="table-responsive box-shadow mb-4">
+                <table class="table table__block t-hover table__small">
+                    <thead>
+                        <tr>
+                            <th class="dropdown">
+                                <span class="dropdown-toggle dr-link" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></span>
+
+                            </th>
+                            <th>Общий <br> <b>12468094</b> сум</th>
+                            <th>ЕСП <br> <b>12321453</b> сум</th>
+                            <th>Частичные облаты <br> <b>1234532</b> сум</th>
+                            <th>Прочее <br> <b>400000</b> сум</th>
+
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
             </div>
         </div>
-    </form>
+    </div>
+    <div class="row">
+        <div class="col-md-12" style="padding-left: 15px; padding-right: 15px">
+            <div class="table-responsive box-shadow mb-4" style="padding-left: 15px; padding-right: 15px">
+                <table class="table table__block t-hover table__small">
+                    <tbody>
+                        <tr>
+                            <td>Ташкентская область</td>
+                            <td>12000000 сум</td>
+                            <td>5000000 сум</td>
+                            <td>4000000 сум</td>
+                            <td>3000000 сум</td>
+                        </tr>
+                        <tr>
+                            <td>Джизакская область</td>
+                            <td>12000000 сум</td>
+                            <td>5000000 сум</td>
+                            <td>4000000 сум</td>
+                            <td>3000000 сум</td>
+                        </tr>
+                        <tr>
+                            <td>Андижанская область</td>
+                            <td>12000000 сум</td>
+                            <td>5000000 сум</td>
+                            <td>4000000 сум</td>
+                            <td>3000000 сум</td>
+                        </tr>
+                        <tr>
+                            <td>Каракалпакская область</td>
+                            <td>12000000 сум</td>
+                            <td>5000000 сум</td>
+                            <td>4000000 сум</td>
+                            <td>3000000 сум</td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="row" style="padding-left: 15px; padding-right: 15px">
+        <div class="col-md-6">
+            <h4 style="color:red">Горячие путевки</h4>
+            <div class="table-responsive box-shadow mb-4">
+                <table class="table table__block t-hover table__small">
+                    <thead>
+                        <tr>
+                            <th class="dropdown">
+                                <span class="dropdown-toggle dr-link" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></span>
+
+                            </th>
+                        </tr>
+                        <tr>
+                            <th>Всего <br> <b>123</b></th>
+                        </tr>
+                    </thead>
+                </table>
+
+            </div>
+
+        </div>
+    </div>
+    <div class="row" style="padding-left: 15px; padding-right: 15px">
+        <div class="col-md-3">
+            <h4 style="color:red">Горячие путевки</h4>
+            <div class="table-responsive box-shadow mb-4">
+                <table class="table table__block t-hover table__small">
+                    <tbody>
+                        <tr>
+                            <td>Ташкентская область</td>
+                            <td>123</td>
+                        </tr>
+                        <tr>
+                            <td>Джизакская область</td>
+                            <td>123</td>
+                        </tr>
+                        <tr>
+                            <td>Самаркандская область</td>
+                            <td>123</td>
+                        </tr>
+                        <tr>
+                            <td>Навоийская область</td>
+                            <td>123</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="row" style="padding-left: 15px; padding-right: 15px">
+        <div class="col-md-12">
+            <h4>Путёвки</h4>
+            <p>Кв 2</p>
+            <div class="table-responsive box-shadow mb-4">
+                <table class="table table__block t-hover table__small">
+                    <thead>
+                        <tr>
+                            <th class="dropdown">
+                                <span class="dropdown-toggle dr-link" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></span>
+
+                            </th>
+                            <th>План</th>
+                            <th>Реализовано</th>
+                            <th>Остаток</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td></td>
+                            <td><b>125</b> шт <b>129987887</b> сум</td>
+                            <td><b>125</b> шт <b>129987887</b> сум</td>
+                            <td><b>125</b> шт <b>129987887</b> сум</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td><b>125</b> шт <b>129987887</b> сум</td>
+                            <td><b>125</b> шт <b>129987887</b> сум</td>
+                            <td><b>125</b> шт <b>129987887</b> сум</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td><b>125</b> шт <b>129987887</b> сум</td>
+                            <td><b>125</b> шт <b>129987887</b> сум</td>
+                            <td><b>125</b> шт <b>129987887</b> сум</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="row" style="padding-left: 15px; padding-right: 15px">
+        <div class="col-md-12">
+            <h4>Реализация</h4>
+            <div class="table-responsive box-shadow mb-4">
+                <table class="table table__block t-hover table__small">
+                    <thead>
+                        <tr>
+                            <th class="dropdown">
+                                <span class="dropdown-toggle dr-link" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></span>
+
+                            </th>
+                            <th>80% <br> <b>8000000.00</b> сум</th>
+                            <th>100% <br> <b>10000000.00</b> сум</th>
+                            <th>Бесплатных <br> <b>129.00</b> сум</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td></td>
+                            <td><b>125</b> шт <b>129987887</b> сум</td>
+                            <td><b>125</b> шт <b>129987887</b> сум</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="row" style="padding-left: 15px; padding-right: 15px">
+        <div class="col-md-12">
+            <h4>Задолженность по частичным облатам</h4>
+            <div class="table-responsive box-shadow mb-4">
+                <table class="table table__block t-hover table__small">
+                    <thead>
+                        <tr>
+                            <th class="dropdown">
+                                <span class="dropdown-toggle dr-link" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></span>
+
+                            </th>
+                            <th>Общая сумма <b>13000000</b> сум</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td></td>
+                            <td>Ташкентская область</td>
+                            <td>12489234 сум</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>Джизакская область</td>
+                            <td>14489234 сум</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="row" style="padding-left: 15px; padding-right: 15px">
+        <div class="col-md-4">
+            <h4>Организации</h4>
+
+            <p>(Платят ЕСП) Всего _____</p>
+            <div id="chart_div1"></div>
+        </div>
+        <div class="col-md-4">
+            <h4>Заявки</h4>
+            <p>Всего _____</p>
+            <div id="chart_div2"></div>
+        </div>
+        <div class="col-md-4">
+            <h4>Путевки</h4>
+            <p>Всего на 2 кв 2018 года ____</p>
+
+            <div id="chart_div3"></div>
+        </div>
+
+    </div>
+    <div id="chart_div" style="width: 900px; height: 500px;"></div>
 </section>

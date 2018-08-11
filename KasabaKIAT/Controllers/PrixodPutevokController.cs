@@ -1479,7 +1479,7 @@ namespace KasabaKIAT.Controllers
         /// </summary>
         /// <param name="putyovkaL"></param>
         /// <returns></returns>
-        public async Task<JsonResult> PostavitVBron2(List<long> putyovkaL)
+        public async Task<JsonResult> PostavitVBron2(List<long> putyovkaL, DateTime expireDate, string Primechaniye)
         {
             if (putyovkaL == null) return Json("fail", JsonRequestBehavior.AllowGet);
 
@@ -1507,7 +1507,11 @@ namespace KasabaKIAT.Controllers
                     bron.PostavitV_Bron(new BronViewModel()
                     {
                         ID_San = putObj.IdSanat.Value,
-                        Num_Put = putObj.Num_Put
+                        Num_Put = putObj.Num_Put,
+                        DepartmentBase = ustinfo.DepartmentBase,
+                        ExpireDate = expireDate,
+                        UserId = UserId,
+                        Prem = Primechaniye
                     });
 
                     //History making
@@ -3125,7 +3129,35 @@ namespace KasabaKIAT.Controllers
             }
 
             return Json("fail", JsonRequestBehavior.AllowGet);
-}
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="CurrentAkvVozv"></param>
+        /// <param name="IzmDate"></param>
+        /// <returns></returns>
+        public async Task<JsonResult> IzmDataVozvrat(VozvratViewModel CurrentAkvVozv, DateTime IzmDate)
+        {
+            int UserId = Convert.ToInt32(User.Identity.Name);
+            var ustinfo = UserInfo.GetUserInfo(UserId);
+
+            CurrentAkvVozv.departmentbase = ustinfo.DepartmentBase;
+
+            try
+            {
+                await VozvratDataManager.ModifyDate(CurrentAkvVozv, IzmDate);
+
+                return Json("success", JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex.ToString());
+            }
+
+            return Json("fail", JsonRequestBehavior.AllowGet);
+        }
+
 
         #endregion
 

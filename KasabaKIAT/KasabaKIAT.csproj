@@ -1440,6 +1440,8 @@
     <Content Include="Content\Login\keys.ico" />
     <Content Include="Content\main.css" />
     <Content Include="Content\open-iconic-bootstrap.css" />
+    <Content Include="Content\Stat\Screen5.png" />
+    <Content Include="Content\Stat\Screen6.png" />
     <Content Include="Content\styles\main.css" />
     <Content Include="Content\styles\override.css" />
     <Content Include="Content\styles\vendor.css" />
@@ -1475,6 +1477,8 @@
     </Content>
     <Content Include="Reports\ReportTemplate.aspx" />
     <Content Include="ReportViewerWebForm.aspx" />
+    <Content Include="Scripts\angular-chart.js" />
+    <Content Include="Scripts\angular-chart.min.js" />
     <Content Include="Scripts\angular-messages.js" />
     <Content Include="Scripts\angular-messages.min.js" />
     <Content Include="Scripts\angular-mocks.js" />
@@ -1588,6 +1592,8 @@
     <Content Include="Reports\14\Приход путевок за период.rdl" />
     <Content Include="Reports\14\Проводки.rdl" />
     <Content Include="Reports\14\Реализация путевок.rdl" />
+    <Content Include="Scripts\Chart.js" />
+    <Content Include="Scripts\Chart.min.js" />
     <Content Include="Scripts\chat.js" />
     <Content Include="Scripts\dist\jquery.table2excel.js" />
     <Content Include="Scripts\dist\jquery.table2excel.min.js" />
@@ -1639,6 +1645,7 @@
     <Content Include="Scripts\MyJavaScript\Ilxom\PrixodPutyovokRuchnoy.js" />
     <Content Include="Scripts\MyJavaScript\Ilxom\RasxodPutyovokN1.js" />
     <Content Include="Scripts\MyJavaScript\Ilxom\RasxodPutyovok.js" />
+    <Content Include="Scripts\MyJavaScript\Ilxom\RasxodPutyovokN2.js" />
     <Content Include="Scripts\MyJavaScript\Ilxom\StartProcessN1.js" />
     <Content Include="Scripts\MyJavaScript\Ilxom\StartProcess.js" />
     <Content Include="Scripts\MyJavaScript\Ilxom\SvodPoPutyovkam.js" />
@@ -1686,6 +1693,10 @@
     <Content Include="Scripts\MyJavaScript\SRController.js" />
     <Content Include="Scripts\MyJavaScript\SSPOController.js" />
     <Content Include="Scripts\MyJavaScript\SSSPController.js" />
+    <Content Include="Scripts\MyJavaScript\Stat\StatFederasiya.js" />
+    <Content Include="Scripts\MyJavaScript\Stat\StatOblSovProf.js" />
+    <Content Include="Scripts\MyJavaScript\Stat\StatPPO.js" />
+    <Content Include="Scripts\MyJavaScript\Stat\StatRayonOtrasl.js" />
     <Content Include="Scripts\MyJavaScript\STRSController.js" />
     <Content Include="Scripts\MyJavaScript\SverkaDannix.js" />
     <Content Include="Scripts\MyJavaScript\UZController.js" />

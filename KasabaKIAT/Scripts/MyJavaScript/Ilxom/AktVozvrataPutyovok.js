@@ -418,6 +418,25 @@
         });
     }
 
+    $scope.IzmDataVozvrat = function () {
+
+        var postData = { CurrentAkvVozv: $scope.CurrentAkvVozv, IzmDate: $scope.SelectedIzmData };
+
+        $http({
+            method: "post",
+            url: "/PrixodPutevok/IzmDataVozvrat",
+            data: JSON.stringify(postData),
+            dataType: "json"
+        }).then(function (response) {
+
+            GetData();
+
+        }, function () {
+            alertify.error("ошибка");
+            console.log('Error in SavePutDtl');
+        });
+    }
+
     ///////////////////////////////////////////////////////////////////
     ////Organization///////////////////////////////////////////////////
     //////////////////////////////////////////////////////////////////

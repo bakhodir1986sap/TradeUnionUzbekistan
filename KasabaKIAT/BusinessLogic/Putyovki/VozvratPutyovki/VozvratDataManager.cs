@@ -87,6 +87,31 @@ namespace KasabaKiat.BusinessLogic.VozvratPutyovki
             }
         }
 
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="model"></param>
+        public static async Task ModifyDate(VozvratViewModel model, DateTime izm)
+        {
+            using (KasabaKIATEntities db = new KasabaKIATEntities())
+            {
+                var vozv = db.tblVozVrats.Where(z => z.ID == model.id && z.DepartmentBase == model.departmentbase);
+
+                if (vozv.Any())
+                {
+                    var vozv1 = vozv.FirstOrDefault();
+
+                    if (vozv1 != null)
+                    {
+                        vozv1.Data_Post = izm;
+                    }
+                }
+
+                await db.SaveChangesAsync();
+            }
+        }
+
         /// <summary>
         /// 
         /// </summary>

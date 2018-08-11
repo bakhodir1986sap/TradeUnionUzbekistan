@@ -12,5 +12,7 @@ namespace KasabaKIAT.BusinessLogic._3_Etap.Statistika
         {
             return new Stat_FederasiyaViewModel();
         }
+
+
     }
 }

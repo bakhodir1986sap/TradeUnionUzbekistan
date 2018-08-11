@@ -341,6 +341,20 @@ warning 6002: The table/view 'KasabaKIAT_N1.dbo.tbbFermer' does not have a prima
           <Property Name="REC_ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="INN" Type="nvarchar" MaxLength="9" />
         </EntityType>
+        <EntityType Name="tblBron">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_San" Type="int" Nullable="false" />
+          <Property Name="Num_Put" Type="nvarchar" MaxLength="15" />
+          <Property Name="Prem" Type="nvarchar" MaxLength="200" />
+          <Property Name="Uchet" Type="bit" />
+          <Property Name="ExpireDate" Type="date" />
+          <Property Name="UserId" Type="bigint" />
+          <Property Name="DepartmentBase" Type="nvarchar" MaxLength="255" />
+          <Property Name="TIME_STAMP" Type="datetime" />
+        </EntityType>
         <EntityType Name="tblPred">
           <Key>
             <PropertyRef Name="Departmentbase" />
@@ -482,6 +496,9 @@ warning 6002: The table/view 'KasabaKIAT_N1.dbo.tbbFermer' does not have a prima
 warning 6035: The relationship 'FK_tbgl_balance_t_departmentbase' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
         <Association Name="FK_tbgl_balance_t_departmentbase" />-->
         <!--Errors Found During Generation:
+warning 6035: The relationship 'FK_tblBron_t_departmentbase' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
+        <Association Name="FK_tblBron_t_departmentbase" />-->
+        <!--Errors Found During Generation:
 warning 6035: The relationship 'FK_tblSprav_Org_t_departmentbase' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
         <Association Name="FK_tblSprav_Org_t_departmentbase" />-->
         <!--Errors Found During Generation:
@@ -551,6 +568,7 @@ warning 6035: The relationship 't_egrpo_4' has columns that are not part of the 
           <EntitySet Name="tbbu_ecp_calc" EntityType="Self.tbbu_ecp_calc" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbbu_provodki" EntityType="Self.tbbu_provodki" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbgl_balance" EntityType="Self.tbgl_balance" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblBron" EntityType="Self.tblBron" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblPred" EntityType="Self.tblPred" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblSprav_Org" EntityType="Self.tblSprav_Org" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblSprav_Otras" EntityType="Self.tblSprav_Otras" Schema="dbo" store:Type="Tables" />
@@ -652,6 +670,7 @@ warning 6035: The relationship 't_egrpo_4' has columns that are not part of the 
             <End Role="t_departmentbase" EntitySet="t_departmentbase" />
             <End Role="t_departmentbase1" EntitySet="t_departmentbase" />
           </AssociationSet>
+          <EntitySet Name="tblBrons" EntityType="KasabaKIATModel.tblBron" />
           </EntityContainer>
         <EntityType Name="KaznaSverkaFile">
           <Key>
@@ -1252,6 +1271,20 @@ warning 6035: The relationship 't_egrpo_4' has columns that are not part of the 
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="tblBron">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_San" Type="Int32" Nullable="false" />
+          <Property Name="Num_Put" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="Prem" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Uchet" Type="Boolean" />
+          <Property Name="ExpireDate" Type="DateTime" Precision="0" />
+          <Property Name="UserId" Type="Int64" />
+          <Property Name="DepartmentBase" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="TIME_STAMP" Type="DateTime" Precision="3" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1779,6 +1812,21 @@ warning 6035: The relationship 't_egrpo_4' has columns that are not part of the 
                 <ScalarProperty Name="version" ColumnName="version" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="dtype" ColumnName="dtype" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblBrons">
+            <EntityTypeMapping TypeName="KasabaKIATModel.tblBron">
+              <MappingFragment StoreEntitySet="tblBron">
+                <ScalarProperty Name="TIME_STAMP" ColumnName="TIME_STAMP" />
+                <ScalarProperty Name="DepartmentBase" ColumnName="DepartmentBase" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="ExpireDate" ColumnName="ExpireDate" />
+                <ScalarProperty Name="Uchet" ColumnName="Uchet" />
+                <ScalarProperty Name="Prem" ColumnName="Prem" />
+                <ScalarProperty Name="Num_Put" ColumnName="Num_Put" />
+                <ScalarProperty Name="ID_San" ColumnName="ID_San" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

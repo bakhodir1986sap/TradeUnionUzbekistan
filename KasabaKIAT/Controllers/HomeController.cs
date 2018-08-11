@@ -2254,6 +2254,27 @@ namespace KasabaKIAT.Controllers
         [OutputCache(Duration = 5, Location = OutputCacheLocation.Client, VaryByCustom = "userId")]
         public ActionResult Putyovki()
         {
+            int UserId = Convert.ToInt32(User.Identity.Name);
+            var ustinfo = UserInfo.GetUserInfo(UserId);
+
+            string viewName = "StatFederasiya";
+
+            switch (ustinfo.role_id.Value)
+            {
+                case 6:
+                    viewName = "StatRayonOtrasl";
+                    break;
+                case 8:
+                    viewName = "StatPPO";
+                    break;
+                case 13:
+                    viewName = "StatOblSovProf";
+                    break;
+                case 14:
+                    viewName = "StatFederasiya";
+                    break;
+            }
+
             return View();
         }
 

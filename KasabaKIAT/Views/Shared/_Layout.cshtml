@@ -23,6 +23,8 @@
     <link href="~/Content/themes/alertify.core.css" rel="stylesheet" />
     <link href="~/Content/themes/alertify.bootstrap.css" rel="stylesheet" />
     <script src="~/Scripts/kendo/angular.min.js"></script>
+    <script src="~/Scripts/Chart.min.js"></script>
+    <script src="~/Scripts/angular-chart.min.js"></script>
     <script src="~/Scripts/MyJavaScript/Module.js"></script>
     <script src="~/Scripts/MyJavaScript/KasabaKIATService.js"></script>
     <script src="~/Scripts/MyJavaScript/DataService.js"></script>
@@ -31,19 +33,20 @@
     <script src="~/Scripts/jquery-ui-1.8.17.custom.min.js"></script>
     <script src="~/Scripts/FileSaver.min.js"></script>
     <script src="~/Scripts/lib/alertify.min.js"></script>
+
     <script>
-    function reset () {
-        $("#toggleCSS").attr("href", "../Content/themes/alertify.default.css");
-        alertify.set({
-            labels : {
-                ok     : "Да",
-                cancel : "Нет"
-            },
-            delay : 5000,
-            buttonReverse : false,
-            buttonFocus   : "ok"
-        });
-    }
+        function reset() {
+            $("#toggleCSS").attr("href", "../Content/themes/alertify.default.css");
+            alertify.set({
+                labels: {
+                    ok: "Да",
+                    cancel: "Нет"
+                },
+                delay: 5000,
+                buttonReverse: false,
+                buttonFocus: "ok"
+            });
+        }
     </script>
 </head>
 <body>

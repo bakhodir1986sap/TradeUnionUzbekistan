@@ -808,13 +808,14 @@
 
     //GetOtraslForOrganization();
     //GetRegionForOrganization();
+    GetOtraslForOrganization2();
     GetEmptyCarcas();
     //GetOrganizations();
 
-    //$scope.FilterSelectedOtrasl = {
-    //    Name_Ot: '',
-    //    ID_Ot: ''
-    //};
+    $scope.FilterSelectedOtrasl2 = {
+        Name_Ot: '',
+        ID_Ot: ''
+    };
 
     $scope.FilterName = '';
     $scope.FilterInn = '';
@@ -829,25 +830,25 @@
         ID: ''
     };
 
-    //function GetOtraslForOrganization() {
-    //    document.getElementById('connection').style.visibility = "visible";
-    //    $("#hh").modal({
-    //        backdrop: 'static'
-    //    });
-    //    $http({
-    //        method: 'get',
-    //        url: '/PrixodPutevok/GetOtraslForOrganization'
-    //    }).then(function (response) {
-    //        $scope.Otrasl = response.data;
-    //        document.getElementById('connection').style.visibility = "hidden";
-    //        $("#hh").modal('hide');
-    //    }, function (error) {
-    //        alertify.error("ошибка");
-    //        console.log("error in GetRekvizits");
-    //        document.getElementById('connection').style.visibility = "hidden";
-    //        $("#hh").modal('hide');
-    //    });
-    //}
+    function GetOtraslForOrganization2() {
+        document.getElementById('connection').style.visibility = "visible";
+        $("#hh").modal({
+            backdrop: 'static'
+        });
+        $http({
+            method: 'get',
+            url: '/PrixodPutevok/GetOtraslForOrganization'
+        }).then(function (response) {
+            $scope.Otrasl2 = response.data;
+            document.getElementById('connection').style.visibility = "hidden";
+            $("#hh").modal('hide');
+        }, function (error) {
+            alertify.error("ошибка");
+            console.log("error in GetRekvizits");
+            document.getElementById('connection').style.visibility = "hidden";
+            $("#hh").modal('hide');
+        });
+    }
 
     $scope.addOrg = function () {
 
@@ -956,7 +957,7 @@
         });
         $http({
             method: 'get',
-            url: '/PrixodPutevok/GetOrganizationFilter?Name=' + $scope.FilterName + '&Inn=' + $scope.FilterInn + '&OtrasId=' + $scope.FilterSelectedOtrasl.ID_Ot
+            url: '/PrixodPutevok/GetOrganizationFilter?Name=' + $scope.FilterName + '&Inn=' + $scope.FilterInn + '&OtrasId=' + $scope.FilterSelectedOtrasl2.ID_Ot
         }).then(function (response) {
             $scope.Organizations = response.data;
             document.getElementById('connection').style.visibility = "hidden";

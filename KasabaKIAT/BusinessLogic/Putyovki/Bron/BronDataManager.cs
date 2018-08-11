@@ -10,6 +10,10 @@ namespace KasabaKiat.BusinessLogic.Bron
 {
     public class BronDataManager
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="model"></param>
         public static void Create(BronViewModel model)
         {
             using (KasabaKIATEntities db = new KasabaKIATEntities())
@@ -23,6 +27,7 @@ namespace KasabaKiat.BusinessLogic.Bron
                 br.ExpireDate = model.ExpireDate;
                 br.UserId = model.UserId;
                 br.DepartmentBase = model.DepartmentBase;
+                br.TIME_STAMP = DateTime.Now;
 
                 var bb = db.tblBron.Add(br);
 
@@ -30,8 +35,12 @@ namespace KasabaKiat.BusinessLogic.Bron
 
                 db.SaveChanges();
             }
-       }
+        }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="model"></param>
         public static void Update(BronViewModel model)
         {
             using (KasabaKIATEntities db = new KasabaKIATEntities())
@@ -58,6 +67,10 @@ namespace KasabaKiat.BusinessLogic.Bron
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="Id"></param>
         public static void EnableExistingBron(long Id)
         {
             using (KasabaKIATEntities db = new KasabaKIATEntities())
@@ -80,6 +93,10 @@ namespace KasabaKiat.BusinessLogic.Bron
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="Id"></param>
         public static void DisableExistingBron(long Id)
         {
             using (KasabaKIATEntities db = new KasabaKIATEntities())
@@ -102,7 +119,10 @@ namespace KasabaKiat.BusinessLogic.Bron
             }
         }
 
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="model"></param>
         public static void ChangeExpiredDate(BronViewModel model)
         {
             using (KasabaKIATEntities db = new KasabaKIATEntities())
@@ -125,6 +145,10 @@ namespace KasabaKiat.BusinessLogic.Bron
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="model"></param>
         public static void Remove(BronViewModel model)
         {
             using (KasabaKIATEntities db = new KasabaKIATEntities())
@@ -147,6 +171,12 @@ namespace KasabaKiat.BusinessLogic.Bron
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="aNumPut"></param>
+        /// <param name="aSanId"></param>
+        /// <returns></returns>
         public static List<BronViewModel> GetBronByPutyovka(string aNumPut, int aSanId)
         {
             List<BronViewModel> list= null;
@@ -178,7 +208,12 @@ namespace KasabaKiat.BusinessLogic.Bron
             return list;
         }
 
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="aNumPut"></param>
+        /// <param name="aSanId"></param>
+        /// <returns></returns>
         public static List<BronViewModel> GetBronByPutyovkaHistory(string aNumPut, int aSanId)
         {
             List<BronViewModel> list = null;
@@ -209,7 +244,11 @@ namespace KasabaKiat.BusinessLogic.Bron
             return list;
         }
 
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="aSanId"></param>
+        /// <returns></returns>
         public static List<BronViewModel> GetBronBySanatory(int aSanId)
         {
             List<BronViewModel> list = null;
@@ -238,7 +277,11 @@ namespace KasabaKiat.BusinessLogic.Bron
             return list;
         }
 
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="departmentBase"></param>
+        /// <returns></returns>
         public static List<BronViewModel> GetBronAllActive(string departmentBase)
         {
             List<BronViewModel> list = null;

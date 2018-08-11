@@ -102,6 +102,15 @@ namespace KasabaKiat.BusinessLogic.VozvratPutyovki
                 {
                     var vozv1 = vozv.FirstOrDefault();
 
+                    var prixods = db.tblPost.Where(z => z.ID == vozv1.PRIXOD_ID);
+
+                    if (prixods.Any())
+                    {
+                        var prixod = prixods.First();
+
+                        prixod.Data_Post = izm;
+                    }
+
                     if (vozv1 != null)
                     {
                         vozv1.Data_Post = izm;

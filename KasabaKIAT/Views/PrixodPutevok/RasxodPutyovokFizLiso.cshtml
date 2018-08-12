@@ -1,0 +1,923 @@
+﻿@using KasabaKIAT.BusinessLogic.Security.Roles.RolePermissions;
+@{
+    ViewBag.Title = "Расход Путевок Физ лицо";
+    var UserId = Convert.ToInt32(User.Identity.Name);
+    FunctionalityList List = FunctionalityAndDbDataMatch.MatchProcess(UserId);
+}
+<script src="~/Scripts/dist/jspdf.debug.js"></script>
+<script src="~/Scripts/basic.js"></script>
+<script src="~/Scripts/MyJavaScript/Ilxom/RasxodPutyovokN3.js"></script>
+<div id="connection" style="visibility:hidden;position:absolute;margin-left:430px;z-index:9999">
+    <img src="~/Content/Login/buffering.gif" />
+</div>
+@if (List.ProsmotrOstatkaPutyovok)
+{
+    <div ng-controller="RasxodPutyovokF">
+
+        <section class="content__block container-fluid">
+            <div class="row mb-4">
+                <div class="col-sm-6 title__block">
+                    <h4>Расход путевок Физ лицо</h4>
+                    <nav aria-label="breadcrumb" class="breadcrumb__block">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item load"><a href="/Home/Putyovki">Путевки</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Расход путевок Физ лицо</li>
+                        </ol>
+                    </nav>
+                </div>
+                <div class="col-sm-6 text-md-right">
+                    <h5>Общее количество и сумма</h5>
+                    <ol class="summary-list">
+                        <li>Количество накладных <span>{{TotalResults.NakladnoyCount}}</span></li>
+                        <li>Количество путевок <span>{{TotalResults.PutyovkaCount}}</span></li>
+                        <li>Сумма накладных <span>{{TotalResults.SummaNakladnix| currency:' '}}</span></li>
+                        <li>Поступления от Орг.: <span>{{PaymentAmount| currency:' '}}</span></li>
+                    </ol>
+                </div>
+            </div>
+            <div class="row mb-4">
+                <div class="col-lg-7">
+                    <div class="row">
+                        <div class="col-md-4 form-group">
+                            <label>Год</label>
+                            <select class="custom-select form-control" ng-model="SelectedYear" ng-options="item as item.Year for item in Years track by item.Id" ng-change="FiltersChanged()"></select>
+                        </div>
+                        <div class="col-md-4 form-group">
+                            <label>Квартал</label>
+                            <select class="custom-select form-control" ng-model="SelectedKvartal" ng-options="item as item.Name_Kv for item in Kvartals track by item.ID" ng-change="FiltersChanged()"></select>
+                        </div>
+                        @*<div class="col-md-4 form-group">
+                            <label>Отрасль</label>
+                            <select class="custom-select" required name="Otrasl" ng-model="FilterSelectedOtrasl" ng-options="item as item.Name_Ot for item in Otrasl track by item.ID_Ot" ng-change="FiltersChanged()"></select>
+                        </div>*@
+                    </div>
+                </div>
+            </div>
+            <style>
+                .activvvv {
+                    border: 5px solid #24c0db;
+                }
+            </style>
+            <div class="row">
+                <div class="col-md-5">
+                    <h5 class="h50">Данные о накладных</h5>
+                    <div class="table-responsive box-shadow table-fixed mb-4 mt-20">
+                        <table class="table table__block t-hover table__small table-fixed">
+                            <thead>
+                                <tr>
+                                    <th class="dropdown dropdown__table">
+                                        <span class="dropdown-toggle dr-link" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Номер п/п</span>
+                                        <div class="dropdown-menu dr-menu rounded-0 border-0" aria-labelledby="dropdownMenuButton">
+                                        </div>
+                                    </th>
+                                    <th class="dropdown dropdown__table">
+                                        <span class="dropdown-toggle dr-link" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Дата</span>
+                                        <div class="dropdown-menu dr-menu rounded-0 border-0" aria-labelledby="dropdownMenuButton">
+                                        </div>
+                                    </th>
+                                    <th class="dropdown dropdown__table">
+                                        <span class="dropdown-toggle dr-link" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">№ документа</span>
+                                        <div class="dropdown-menu dr-menu rounded-0 border-0" aria-labelledby="dropdownMenuButton">
+                                        </div>
+                                    </th>
+                                    <th class="dropdown dropdown__table">
+                                        <span class="dropdown-toggle dr-link" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Покупатель</span>
+                                        <div class="dropdown-menu dr-menu rounded-0 border-0" aria-labelledby="dropdownMenuButton">
+                                        </div>
+                                    </th>
+                                    <th class="dropdown dropdown__table">
+                                        <span class="dropdown-toggle dr-link" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Кол-во</span>
+                                        <div class="dropdown-menu dr-menu rounded-0 border-0" aria-labelledby="dropdownMenuButton">
+                                        </div>
+                                    </th>
+                                    <th class="dropdown dropdown__table">
+                                        <span class="dropdown-toggle dr-link" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Сумма</span>
+                                        <div class="dropdown-menu dr-menu rounded-0 border-0" aria-labelledby="dropdownMenuButton">
+                                        </div>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="naklad in Nakladnoys" ng-click="editSelected(naklad)" ng-class="{selectedTableRow: naklad.id === idSelectedVote.id}" id="{{naklad.id}}">
+                                    <td class="custom-control custom-radio r-radio">
+                                        <input type="radio" class="custom-control-input" id="customCheck{{naklad.id}}" data-toggle="modal" name="selectiondot" data-target="#redaktirovat">
+                                        <label class="custom-control-label r-label" for="customCheck{{naklad.id}}">{{naklad.id}}</label>
+                                    </td>
+                                    <td>{{naklad.data_post| jsonDate: 'dd.MM.yyyy'}}</td>
+                                    <td>{{naklad.num_doc}}</td>
+                                    <td>{{naklad.organizationName}}</td>
+                                    <td>{{naklad.num_kol}}</td>
+                                    <td>{{naklad.symma| currency:' '}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="btn-panel mb-20 text-md-right">
+                        <a href="#" ng-click="AddNakladnoy()" class="btn btn-blue d-block d-md-inline-block mb-3 mt-20" data-toggle="modal" data-target="#dobavit">Добавить</a>
+                        @*<a href="#" class="btn btn-danger d-block d-md-inline-block mb-3 mt-20">Удалить</a>*@
+                        <a @*href="@Url.Action("ReportTemplate", "Report",
+                        new { ReportName = "Оперативка по путевкам", ReportDescription = "Оперативка по путевкам", Width = 100, Height = 650 })"*@ class="btn btn-grey d-block d-md-inline-block mb-3 mt-20" ng-click="SchetFakturaPrint()"><i class="fa fa-print"></i>Печать</a>
+                    </div>
+                </div>
+
+                <div class="col-md-7">
+
+                    <h5 style="height:50px">Данные о путевках по № {{CurrentNakladnoy.num_doc}} {{CurrentNakladnoy.organizationName}}</h5>
+                    <div class="table-responsive box-shadow table-fixed mb-4 mt-20">
+                        <table class="table table__block table__small">
+                            <thead>
+                                <tr>
+                                    <th class="dropdown dropdown__table">
+                                        <span class="dropdown-toggle dr-link" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">№</span>
+                                        <div class="dropdown-menu dr-menu rounded-0 border-0" aria-labelledby="dropdownMenuButton">
+                                        </div>
+                                    </th>
+                                    <th class="dropdown dropdown__table">
+                                        <span class="dropdown-toggle dr-link" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Санаторий</span>
+                                        <div class="dropdown-menu dr-menu rounded-0 border-0" aria-labelledby="dropdownMenuButton">
+                                        </div>
+                                    </th>
+                                    <th class="dropdown dropdown__table">
+                                        <span class="dropdown-toggle dr-link" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">№ Путевки</span>
+                                        <div class="dropdown-menu dr-menu rounded-0 border-0" aria-labelledby="dropdownMenuButton">
+                                        </div>
+                                    </th>
+                                    <th class="dropdown dropdown__table">
+                                        <span class="dropdown-toggle dr-link" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Дата</span>
+                                        <div class="dropdown-menu dr-menu rounded-0 border-0" aria-labelledby="dropdownMenuButton">
+                                        </div>
+                                    </th>
+                                    <th class="dropdown dropdown__table">
+                                        <span class="dropdown-toggle dr-link" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Стоимость</span>
+                                        <div class="dropdown-menu dr-menu rounded-0 border-0" aria-labelledby="dropdownMenuButton">
+                                        </div>
+                                    </th>
+                                    <th class="dropdown dropdown__table">
+                                        <span class="dropdown-toggle dr-link" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Примечание</span>
+                                        <div class="dropdown-menu dr-menu rounded-0 border-0" aria-labelledby="dropdownMenuButton">
+                                        </div>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="dtl in NakladnoyDtls">
+                                    <td class="custom-control custom-checkbox r-checkbox">
+                                        <input type="checkbox" class="custom-control-input" id="customCheckDtl{{dtl.id}}"
+                                               ng-click="toggleObjSelection($event, dtl.id)" name="selectiondot2">
+                                        <label class="custom-control-label r-label" for="customCheckDtl{{dtl.id}}">{{dtl.id}}</label>
+                                    </td>
+                                    <td>{{dtl.sanatName}}</td>
+                                    <td>{{dtl.num_put}}</td>
+                                    <td>{{dtl.data_post | jsonDate: 'dd.MM.yyyy'}}</td>
+                                    <td>{{dtl.symma| currency:' '}}</td>
+                                    <td>Реализованная путевка</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-8">
+                            <a href="#" class="btn btn-blue" ng-click="AddPutyovkas()" data-toggle="modal" data-target="#dobavit2">Добавить</a>
+                            <a href="#" class="btn btn-danger" ng-click="UdalitPutyovku()">Удалить</a>
+                            @*<a href="#" class="btn btn-grey">Распечатать</a>
+                                <a href="#" class="btn btn-grey">Кнопка</a>*@
+                        </div>
+                        <div class="col-md-4 text-md-right mb-4">
+                            <p class="mb-0">Общее количество <strong>{{PutyovkaDtlSummar.PutyovkaCount}}</strong></p>
+                            <p>Общяя сумма <strong>{{PutyovkaDtlSummar.SummaNakladnix| currency:' '}}</strong></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <footer class="footer">
+            <div class="container">
+                <p>&copy;2018</p>
+            </div>
+        </footer>
+
+        <div class="modal__block modal fade" id="dobavit" tabindex="-1" role="dialog" aria-labelledby="dobavitLabel" data-backdrop="static" data-keyboard="false">
+            <div class="modal-dialog modal-dialog-centered modal-lg" role="document" style="max-width:90%">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <div class="modal-title">
+                            <h4 class="text-center mt-4 mb-4">{{ActionType}} новую запись</h4>
+                        </div>
+                        <div class="row justify-content-center">
+                            <div class="col-md-8">
+                                <div class="form-group row align-items-center">
+                                    <label class="col-md-5 col-form-label text-md-right py-0">Дата:</label>
+                                    <div class="col-md-7">
+                                        <input type="date" class="form-control" placeholder="Дата" ng-model="DataPos" />
+                                    </div>
+                                </div>
+                                <div class="form-group row align-items-center">
+                                    <label class="col-md-5 col-form-label text-md-right py-0">Номер документа:</label>
+                                    <div class="col-md-7">
+                                        <input type="text" class="form-control" placeholder="Номер документа" ng-model="Num_Doc" />
+                                    </div>
+                                </div>
+                                <div class="form-group row align-items-center">
+                                    <label class="col-md-5 col-form-label text-md-right py-0">Покупатель:</label>
+                                    <div class="col-md-7">
+                                        <select class="custom-select form-control" ng-model="SelectedOrganization" ng-options="item as item.Name_Org for item in OrganizationsL track by item.ID"></select>
+                                        <span>{{SelectedOrganization.Name_Org}}</span>
+                                    </div>
+
+                                </div>
+                                <div class="mb-4 row text-right align-items-baseline" style="justify-content:flex-end">
+                                    <a href="#" style="margin-right: 15px" class="btn btn-grey d-block d-md-inline-block mb-2" data-toggle="modal" data-target="#organization">Выбрать</a>
+                                </div>
+                                <div class="form-group row align-items-center">
+                                    <label class="col-md-5 col-form-label text-md-right py-0">Номер доверенности:</label>
+                                    <div class="col-md-7">
+                                        <input ng-model="Num_Dov" type="text" class="form-control" placeholder="Номер доверенности" />
+                                    </div>
+                                </div>
+                                <div class="form-group row align-items-center">
+                                    <label class="col-md-5 col-form-label text-md-right py-0">Дата доверенности:</label>
+                                    <div class="col-md-7">
+                                        <input type="text" class="form-control" placeholder="Дата" ng-model="Date_Dov" />
+                                    </div>
+                                </div>
+                                <div class="form-group row align-items-center">
+                                    <label class="col-md-5 col-form-label text-md-right py-0">На кого оформлена:</label>
+                                    <div class="col-md-7">
+                                        <input ng-model="Name_Dov" type="text" class="form-control" placeholder="на кого оформлена" />
+                                    </div>
+                                </div>
+                                <div class="mb-4 text-right">
+                                    <a href="#" ng-click="AddNakladnoyClicked()" class="btn btn-blue d-block d-md-inline-block mb-2" data-dismiss="modal"><i class="fas fa-plus"></i> Добавить</a>
+                                    <a href="#" class="btn btn-grey d-block d-md-inline-block mb-2" data-dismiss="modal">Отмена</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal__block modal fade" id="redaktirovat" tabindex="-1" role="dialog" aria-labelledby="redaktirovatLabel">
+            <div class="modal-dialog modal-dialog-centered modal-lg" role="document" style="max-width:90%">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <div class="modal-title">
+                            <h4 class="text-center mt-4 mb-4">{{ActionType}} новую запись</h4>
+                        </div>
+                        <div class="row justify-content-center">
+                            <div class="col-md-8">
+                                <div class="form-group row align-items-center">
+                                    <label class="col-md-5 col-form-label text-md-right py-0">Дата:</label>
+                                    <div class="col-md-7">
+                                        <input type="date" class="form-control" placeholder="Дата" ng-model="DataPos" />
+                                    </div>
+                                </div>
+                                <div class="form-group row align-items-center">
+                                    <label class="col-md-5 col-form-label text-md-right py-0">Номер документа:</label>
+                                    <div class="col-md-7">
+                                        <input type="text" class="form-control" placeholder="Номер документа" ng-model="Num_Doc" />
+                                    </div>
+                                </div>
+                                <div class="form-group row align-items-center">
+                                    <label class="col-md-5 col-form-label text-md-right py-0">Покупатель:</label>
+                                    <div class="col-md-7">
+                                        <select class="custom-select form-control" ng-model="SelectedOrganization" ng-options="item as item.Name_Org for item in OrganizationsL track by item.ID"></select>
+                                        <b><span>{{SelectedOrganization.Name_Org}}</span></b>
+                                    </div>
+
+                                </div>
+                                <div class="form-group row align-items-center">
+                                    <div class="col-md-12 text-right">
+                                        <a href="#" class="btn btn-grey d-block d-md-inline-block mb-2" data-toggle="modal" data-target="#organization">Выбрать</a>
+                                    </div>
+                                </div>
+                                <div class="form-group row align-items-center">
+                                    <label class="col-md-5 col-form-label text-md-right py-0">Номер доверенности:</label>
+                                    <div class="col-md-7">
+                                        <input ng-model="Num_Dov" type="text" class="form-control" placeholder="Номер доверенности" />
+                                    </div>
+                                </div>
+                                <div class="form-group row align-items-center">
+                                    <label class="col-md-5 col-form-label text-md-right py-0">Дата доверенности:</label>
+                                    <div class="col-md-7">
+                                        <input type="text" class="form-control" placeholder="Дата" ng-model="Date_Dov" />
+                                    </div>
+                                </div>
+                                <div class="form-group row align-items-center">
+                                    <label class="col-md-5 col-form-label text-md-right py-0">На кого оформлена:</label>
+                                    <div class="col-md-7">
+                                        <input ng-model="Name_Dov" type="text" class="form-control" placeholder="на кого оформлена" />
+                                    </div>
+                                </div>
+                                <div class="mb-4 text-right">
+                                    <a href="#" ng-click="MakeProvodka()" class="btn btn-grey d-block d-md-inline-block mb-2" data-dismiss="modal"><i class="fas fa-plus"></i> Проводка</a>
+                                    <a href="#" ng-click="EditNakladnoy()" class="btn btn-green d-block d-md-inline-block mb-2" data-dismiss="modal"><i class="fas fa-plus"></i> Изменить</a>
+                                    <a href="#" ng-click="RemoveNakladnoy()" class="btn btn-red d-block d-md-inline-block mb-2" data-dismiss="modal"><i class="fas fa-plus"></i> Удалить</a>
+                                    <a href="#" class="btn btn-grey d-block d-md-inline-block mb-2" data-dismiss="modal">Отмена</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal__block modal fade" id="dobavit2" tabindex="-1" role="dialog" aria-labelledby="dobavitLabel">
+            <div class="modal-dialog modal-dialog-centered modal-lg" role="document" style="max-width:90%">
+                <div class="modal-content">
+                    <div class="modal-body" style="max-height: calc(100vh - 210px); overflow-y: auto;">
+                        <div class="modal-title">
+                            <h4 class="text-center mt-4 mb-4">Добавить путевки</h4>
+                        </div>
+                        <div class="row justify-content-center">
+                            <div class="col-md-8">
+                                <div class="row align-items-center">
+                                    <div class="col-md-6 text-center">
+                                        <p>Количество выбранных путевок <br> <strong>{{SelectedPutyovkaCount}}</strong></p>
+                                    </div>
+                                    <div class="col-md-6 text-center">
+                                        <p>Найдено свободных путевок <br> <strong>{{PrixodPutyovkasCount}}</strong></p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label>Поиск по номеру путевки</label>
+                                            <input type="text" class="form-control" placeholder="Поиск" ng-model="SearchNumPut" />
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12 text-right">
+                                        <a href="#" class="btn btn-green d-block d-md-inline-block mb-2" ng-click="SearchPutyovkas()"><i class="fas fa-search"></i> Поиск</a>
+                                    </div>
+                                </div>
+                                <div class="table-responsive box-shadow mb-4">
+                                    <table class="table table__block table-fixed-small t-hover table__small table-fixed">
+                                        <thead>
+                                            <tr>
+                                                <th>Выбрать</th>
+                                                @*<th class="dropdown dropdown__table">
+                                                        <span class="dropdown-toggle dr-link" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">№</span>
+                                                        <div class="dropdown-menu dr-menu rounded-0 border-0" aria-labelledby="dropdownMenuButton">
+                                                        </div>
+                                                    </th>*@
+                                                <th class="dropdown dropdown__table">
+                                                    <span class="dropdown-toggle dr-link" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Санаторий</span>
+                                                    <div class="dropdown-menu dr-menu rounded-0 border-0" aria-labelledby="dropdownMenuButton">
+                                                    </div>
+                                                </th>
+                                                <th class="dropdown dropdown__table">
+                                                    <span class="dropdown-toggle dr-link" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Номер путевки</span>
+                                                    <div class="dropdown-menu dr-menu rounded-0 border-0" aria-labelledby="dropdownMenuButton">
+                                                    </div>
+                                                </th>
+                                                <th class="dropdown dropdown__table">
+                                                    <span class="dropdown-toggle dr-link" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Срок действия</span>
+                                                    <div class="dropdown-menu dr-menu rounded-0 border-0" aria-labelledby="dropdownMenuButton">
+                                                    </div>
+                                                </th>
+                                                <th class="dropdown dropdown__table">
+                                                    <span class="dropdown-toggle dr-link" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Стоимость</span>
+                                                    <div class="dropdown-menu dr-menu rounded-0 border-0" aria-labelledby="dropdownMenuButton">
+                                                    </div>
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr ng-repeat="putyovka in PrixodPutyovkas">
+                                                <td class="custom-control custom-checkbox r-checkbox">
+                                                    <input type="checkbox" class="custom-control-input" id="customCheck{{putyovka.Id}}"
+                                                           ng-click="toggleObjSelectionPut($event, putyovka.Id)">
+                                                    <label class="custom-control-label r-label" for="customCheck{{putyovka.Id}}">{{putyovka.Id}}</label>
+                                                </td>
+                                                <td>{{putyovka.SanatName}}</td>
+                                                <td>{{putyovka.Num_Put}}</td>
+                                                <td>{{putyovka.DataSan | jsonDate: 'dd.MM.yyyy'}}</td>
+                                                <td>{{putyovka.Symma_Put| currency:' '}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="mb-4 text-right" style="position: fixed; bottom: -1%; right: 20%">
+                                    <a href="#" class="btn btn-blue d-block d-md-inline-block mb-2" ng-click="SavePutDtl()" data-dismiss="modal"><i class="fas fa-plus"></i> Сохранить</a>
+                                    <a href="#" class="btn btn-grey d-block d-md-inline-block mb-2" data-dismiss="modal">Отмена</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal__block modal fade" id="organization" tabindex="-1" role="dialog" aria-labelledby="organizationLabel" data-backdrop="static" data-keyboard="false">
+            <div class="modal-dialog modal-dialog-centered modal-lg" role="document" style="max-width:80%">
+                <div class="modal-content">
+                    <div class="modal-body" style="max-height: calc(100vh - 210px); overflow-y: auto;">
+                        <div class="row mb-4 align-items-center">
+                            <div class="col-sm-6 title__block">
+                                <h4>Справочник Физ Лиц</h4>
+                                <nav aria-label="breadcrumb" class="breadcrumb__block">
+                                    <ol class="breadcrumb">
+                                        <li class="breadcrumb-item active" aria-current="page">Справочник Физ Лиц</li>
+                                    </ol>
+                                </nav>
+                            </div>
+                        </div>
+                        <div>
+                            <input type="text" style="margin-bottom:5px" placeholder="ФИО" ng-model="FilterName" />
+                            <br /><input type="text" style="margin-bottom:5px" placeholder="ИНН" ng-model="FilterInn" /><br />
+                            @*<select class="custom-select" required name="Otrasl" ng-model="FilterSelectedOtrasl2" ng-options="item as item.Name_Ot for item in Otrasl2 track by item.ID_Ot"></select>*@
+                            <br /><br /><button class="btn btn-green" style="float:right;margin-bottom:10px" ng-click="GetOrganizationsFilter()"><i class="btn-green"></i> Поиск</button>
+                        </div>
+                        <div class="table-responsive box-shadow mb-4" id="export">
+                            <table class="table table__block t-hover">
+                                <thead>
+                                    <tr>
+                                        <th class="dropdown dropdown__table" style="width:150px;text-align:center">
+                                            Выбор
+                                        </th>
+                                        <th class="dropdown dropdown__table" style="width:200px;text-align:center">
+                                            ФИО
+                                        </th>
+                                        <th class="dropdown dropdown__table" style="width:150px;text-align:center">
+                                            ИНН
+                                        </th>
+                                        <th class="dropdown dropdown__table" style="width:150px;text-align:center">
+                                            Адрес
+                                        </th>
+                                        <th class="dropdown dropdown__table" style="width:150px;text-align:center">
+                                            Телефон
+                                        </th>
+                                        <th class="dropdown dropdown__table" style="width:150px;text-align:center">
+                                            Паспорт Серия
+                                        </th>
+                                        <th class="dropdown dropdown__table" style="width:150px;text-align:center">
+                                            Паспорт Номер
+                                        </th>
+                                        <th class="dropdown dropdown__table" style="width:150px;text-align:center">
+                                            Кем выдан
+                                        </th>
+                                        <th class="dropdown dropdown__table" style="width:150px;text-align:center">
+                                            Дата выдачи
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="poin" ng-repeat="org in Organizations">
+                                        <td class="custom-control custom-checkbox r-checkbox">
+                                            <input type="checkbox" class="custom-control-input" id="customCheck{{org.ID}}"
+                                                   ng-model="selectedObjs"
+                                                   ng-checked="obj.selected"
+                                                   ng-click="toggleObjSelectionOrg($event, org.ID, org.Name_Org)">
+                                            <label class="custom-control-label r-label" for="customCheck{{org.ID}}">{{org.ID}}</label>
+                                        </td>
+                                        <td style="text-align:center">{{org.Name_Org}}</td>
+                                        <td style="text-align:center">{{org.INN     }}</td>
+                                        <td style="text-align:center">{{org.Adress  }}</td>
+                                        <td style="text-align:center">{{org.Telefon }}</td>
+                                        <td style="text-align:center">{{org.Pas_ser }}</td>
+                                        <td style="text-align:center">{{org.Pas_Num }}</td>
+                                        <td style="text-align:center">{{org.Pas_KD }}</td>
+                                        <td style="text-align:center">{{org.Pas_Data | jsonDate : "dd.MM.yyyy"}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="mb-4 text-right">
+                            @*<a href="#" ng-click="SelectOrganization()" class="btn btn-blue d-block d-md-inline-block mb-2" data-dismiss="modal"><i class="fas fa-plus"></i> Выбрать</a>*@
+                            <a href="#" class="btn btn-grey d-block d-md-inline-block mb-2" data-dismiss="modal">Отмена</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row" id="schetfaktura" style="visibility:hidden;position:absolute">
+            <div class="col-md-12">
+                <div class="table-responsive mb-4" @*style="visibility:visible;position:absolute"*@>
+                    <table class="table table-nobordered table-sm">
+                        <tr>
+                            <td colspan="9"></td>
+                            <td colspan="16" class="text-center"><strong>НАКЛАДНАЯ-СЧЕТ-ФАКТУРА</strong></td>
+                            <td colspan="2" class="text-center"><strong>№</strong></td>
+                            <td colspan="3" class="text-center"><strong>{{SchetFaktura.nakladnaya.num_doc}}</strong></td>
+                            <td colspan="12"></td>
+                            <td rowspan="47"></td>
+                            <td rowspan="47"></td>
+                        </tr>
+                        <tr>
+                            <td colspan="11" class="text-center"></td>
+                            <td colspan="2" class="text-center"><strong>от</strong></td>
+                            <td class="text-right"><strong>&quot;</strong></td>
+                            <td colspan="2" class="text-center"><strong>{{SchetFaktura.nakladnaya.NaklDay}}</strong></td>
+                            <td class="text-left"><strong>&quot;</strong></td>
+                            <td colspan="5" class="text-center"><strong>{{SchetFaktura.nakladnaya.NaklMonth}}</strong></td>
+                            <td colspan="3" class="text-center"><strong>{{SchetFaktura.nakladnaya.NaklYear}}</strong></td>
+                            <td colspan="3" class="text-center"><strong>года</strong></td>
+                            <td colspan="14"></td>
+                        </tr>
+                        <tr>
+                            <td colspan="42" class="text-center">к товарно отгрузочным документам №___ от &quot;__&quot;_____ ___года</td>
+                        </tr>
+                        <tr>
+                            <td colspan="42"></td>
+                        </tr>
+                        <tr>
+                            <td colspan="5" class="border-top border-left border-dark text-left">Поставщик:</td>
+                            <td colspan="15" class="border-top border-right border-dark text-left"><strong>{{SchetFaktura.rekvizit.ID_Name}}</strong></td>
+                            <td rowspan="7"></td>
+                            <td colspan="5" class="border-top border-left border-dark text-left">Покупатель:</td>
+                            <td colspan="16" class="border-top border-right border-dark "><strong>{{SchetFaktura.clientData.Name_Org}}</strong></td>
+                        </tr>
+                        <tr>
+                            <td colspan="3" class="border-left border-dark text-left">Адрес:</td>
+                            <td colspan="17" class="border-right border-dark text-left"><strong>{{SchetFaktura.rekvizit.Adress}}</strong></td>
+                            <td colspan="3" class="border-left border-dark text-left">Адрес:</td>
+                            <td colspan="18" class="border-right border-dark text-left"><strong>{{SchetFaktura.clientData.Adress}}</strong></td>
+                        </tr>
+                        <tr>
+                            <td colspan="4" class="border-left border-dark text-left">Телефон:</td>
+                            <td colspan="16" class="border-right border-dark text-left"><strong>{{SchetFaktura.rekvizit.ID_Pred}}</strong></td>
+                            <td colspan="4" class="border-left border-dark text-left">Телефон:</td>
+                            <td colspan="17" class="border-right border-dark text-left"><strong>{{SchetFaktura.clientData.Telefon}}</strong></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" class="border-left border-dark text-left">Р/с:</td>
+                            <td colspan="18" class="border-right border-dark text-left"><strong>{{SchetFaktura.rekvizit.RS}}</strong></td>
+                            <td colspan="2" class="border-left border-dark text-left">Р/с:</td>
+                            <td colspan="19" class="border-right border-dark text-left"><strong>{{SchetFaktura.clientData.RS}}</strong></td>
+                        </tr>
+                        <tr>
+                            <td colspan="3" class="border-left border-dark text-left">Банк:</td>
+                            <td colspan="17" class="border-right border-dark text-left"><strong>{{SchetFaktura.rekvizit.Name_bank}}</strong></td>
+                            <td colspan="3" class="border-left border-dark text-left">Банк:</td>
+                            <td colspan="18" class="border-right border-dark text-left"><strong>{{SchetFaktura.clientData.Bank}}</strong></td>
+                        </tr>
+                        <tr>
+                            <td colspan="3" class="border-left border-dark text-left">ИНН:</td>
+                            <td colspan="17" class="border-right border-dark text-left"><strong>{{SchetFaktura.rekvizit.INN}}</strong></td>
+                            <td colspan="3" class="border-left border-dark text-left">ИНН:</td>
+                            <td colspan="18" class="border-right border-dark text-left"><strong>{{SchetFaktura.clientData.INN}}</strong></td>
+                        </tr>
+                        <tr>
+                            <td colspan="3" class="border-left border-dark text-left">МФО:</td>
+                            <td colspan="6" class="text-left"><strong>{{SchetFaktura.rekvizit.MFO}}</strong></td>
+                            <td colspan="4" class="text-center">ОКОНХ:</td>
+                            <td colspan="7" class="border-right border-dark text-left"><strong>{{SchetFaktura.rekvizit.OKONX}}</strong></td>
+                            <td colspan="3" class="border-left border-dark text-left">МФО:</td>
+                            <td colspan="6" class="text-left"><strong>{{SchetFaktura.clientData.MFO}}</strong></td>
+                            <td colspan="4" class="text-right">ОКОНХ:</td>
+                            <td colspan="8" class="border-right border-dark text-left"><strong>{{SchetFaktura.clientData.OKONX}}</strong></td>
+                        </tr>
+                        <tr>
+                            <td colspan="42" class="border-top border-bottom border-left border-dark text-center"></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" rowspan="2" class="border border-dark text-center">№</td>
+                            <td colspan="7" rowspan="2" class="border border-dark text-center">Наименование товаров (работ, услуг)</td>
+                            <td colspan="4" rowspan="2" class="border border-dark text-center">№ путевки</td>
+                            <td colspan="4" rowspan="2" class="border border-dark text-center">Дата</td>
+                            <td colspan="2" rowspan="2" class="border border-dark text-center">Единизме-рен.</td>
+                            <td colspan="2" rowspan="2" class="border border-dark text-center">Коли-чест-во</td>
+                            <td colspan="4" rowspan="2" class="border border-dark text-center">Цена</td>
+                            <td colspan="5" rowspan="2" class="border border-dark text-center">Стоимость поставки</td>
+                            <td colspan="4" class="border border-dark text-center">Акцизный налог</td>
+                            <td colspan="4" class="border border-dark text-center">НДС</td>
+                            <td colspan="4" rowspan="2" class="border border-dark text-center">Стоимость поставки с учет. НДС</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" class="border border-dark text-center">став-ка</td>
+                            <td colspan="2" class="border border-dark text-center">сум-ма</td>
+                            <td colspan="2" class="border border-dark text-center">став-ка</td>
+                            <td colspan="2" class="border border-dark text-center">сум-ма</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" class="border border-dark text-center">1</td>
+                            <td colspan="7" class="border border-dark text-center">2</td>
+                            <td colspan="4" class="border border-dark text-center">3</td>
+                            <td colspan="4" class="border border-dark text-center">4</td>
+                            <td colspan="2" class="border border-dark text-center">5</td>
+                            <td colspan="2" class="border border-dark text-center">6</td>
+                            <td colspan="4" class="border border-dark text-center">7</td>
+                            <td colspan="5" class="border border-dark text-center">8</td>
+                            <td colspan="2" class="border border-dark text-center">9</td>
+                            <td colspan="2" class="border border-dark text-center">10</td>
+                            <td colspan="2" class="border border-dark text-center">11</td>
+                            <td colspan="2" class="border border-dark text-center">12</td>
+                            <td colspan="4" class="border border-dark text-center">13</td>
+                        </tr>
+                        <tr ng-repeat="item in SchetFaktura.nakladDtl">
+                            <td colspan="2" class="border border-dark text-center">{{$index+1}}</td>
+                            <td colspan="7" class="border border-dark text-left">{{item.sanatName}}</td>
+                            <td colspan="4" class="border border-dark text-right">{{item.num_put}}</td>
+                            <td colspan="4" class="border border-dark text-center">{{item.data_post | jsonDate: 'dd.MM.yyyy'}}</td>
+                            <td colspan="2" class="border border-dark text-center">шт</td>
+                            <td colspan="2" class="border border-dark text-center">1</td>
+                            <td colspan="4" class="border border-dark text-right">{{item.symma| currency:' '}}</td>
+                            <td colspan="5" class="border border-dark text-right">{{item.symma| currency:' '}}</td>
+                            <td colspan="4" class="border border-dark text-center">без акцизного налога</td>
+                            <td colspan="4" class="border border-dark text-center">без НДС</td>
+                            <td colspan="4" class="border border-dark text-center">{{item.symma| currency:' '}}</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" class="border border-dark text-center"></td>
+                            <td colspan="7" class="border border-dark text-right"><strong>ИТОГО:</strong></td>
+                            <td colspan="4" class="border border-dark text-center"></td>
+                            <td colspan="4" class="border border-dark text-center"></td>
+                            <td colspan="2" class="border border-dark text-center"></td>
+                            <td colspan="2" class="border border-dark text-center" sdval="2"><strong>{{SchetFaktura.nakladnaya.num_kol}}</strong></td>
+                            <td colspan="4" class="border border-dark text-center"><strong>{{SchetFaktura.nakladnaya.symma| currency:' '}}</strong></td>
+                            <td colspan="5" class="border border-dark text-center"><strong>{{SchetFaktura.nakladnaya.symma| currency:' '}}</strong></td>
+                            <td colspan="4" class="border border-dark text-center"></td>
+                            <td colspan="4" class="border border-dark text-center"></td>
+                            <td colspan="4" class="border border-dark text-center"><strong>{{SchetFaktura.nakladnaya.symma| currency:' '}}</strong></td>
+                        </tr>
+                        <tr>
+                            <td colspan="8" class="border-top border-dark text-center"><strong>Всего к оплате: {{SchetFaktura.nakladnaya.SummaPropisyu}}</strong></td>
+                            <td colspan="34" class="text-left"><strong></strong></td>
+                        </tr>
+                        <tr>
+                            <td colspan="42"></td>
+                        </tr>
+                        <tr>
+                            <td colspan="9" class="text-left">Руководителя</td>
+                            <td colspan="12" class="text-left">{{SchetFaktura.rekvizit.Name_Dir}}</td>
+                            <td rowspan="8" class="text-center"></td>
+                            <td class="text-left">Получил</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td colspan="15" class="text-left">____________________</td>
+                        </tr>
+                        <tr>
+                            <td colspan="21"></td>
+                            <td colspan="20"></td>
+                        </tr>
+                        <tr>
+                            <td colspan="9" class="text-left"> Главный бухгалтер</td>
+                            <td colspan="12" class="text-left">_________________</td>
+                            <td class="text-left">По  доверенности № <strong>{{SchetFaktura.nakladnaya.num_dov}}</strong></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td colspan="3" class="text-left"></td>
+                            <td colspan="7" class="text-center"></td>
+                        </tr>
+                        <tr>
+                            <td colspan="21"></td>
+                            <td colspan="20"></td>
+                        </tr>
+                        <tr>
+                            <td colspan="4" class="text-center"></td>
+                            <td colspan="3" class="text-center">М.П.</td>
+                            <td colspan="14" class="text-center"></td>
+                            <td colspan="2" class="text-center">от </td>
+                            <td class="text-right"><strong>{{SchetFaktura.nakladnaya.date_dov}}</strong></td>
+                            @*<td colspan="2" class="text-center"></td>
+                                <td class="text-left">&quot;</td>
+                                <td colspan="5" class="text-center"></td>
+                                <td colspan="3" class="text-center"></td>
+                                <td colspan="6" class="text-left">года</td>*@
+                        </tr>
+                        <tr>
+                            <td colspan="21"></td>
+                            <td colspan="20"><strong>{{SchetFaktura.nakladnaya.name_dov}}</strong></td>
+                        </tr>
+                        <tr>
+                            <td colspan="9" class="text-left"> Товар отпустил</td>
+                            <td colspan="12" class="text-left">_________________</td>
+                            <td colspan="18" class="border-bottom border-dark text-left"><strong></strong></td>
+                            <td colspan="2" rowspan="2" class="text-center"></td>
+                        </tr>
+                        <tr>
+                            <td colspan="21"></td>
+                            <td colspan="18">(Ф.И.О. получателя)</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="table-responsive mb-4" @*style="visibility:visible;position:absolute"*@>
+                    <table class="table table-nobordered table-sm">
+                        <tr>
+                            <td colspan="9"></td>
+                            <td colspan="16" class="text-center"><strong>НАКЛАДНАЯ-СЧЕТ-ФАКТУРА</strong></td>
+                            <td colspan="2" class="text-center"><strong>№</strong></td>
+                            <td colspan="3" class="text-center"><strong>{{SchetFaktura.nakladnaya.num_doc}}</strong></td>
+                            <td colspan="12"></td>
+                            <td rowspan="47"></td>
+                            <td rowspan="47"></td>
+                        </tr>
+                        <tr>
+                            <td colspan="11" class="text-center"></td>
+                            <td colspan="2" class="text-center"><strong>от</strong></td>
+                            <td class="text-right"><strong>&quot;</strong></td>
+                            <td colspan="2" class="text-center"><strong>{{SchetFaktura.nakladnaya.NaklDay}}</strong></td>
+                            <td class="text-left"><strong>&quot;</strong></td>
+                            <td colspan="5" class="text-center"><strong>{{SchetFaktura.nakladnaya.NaklMonth}}</strong></td>
+                            <td colspan="3" class="text-center"><strong>{{SchetFaktura.nakladnaya.NaklYear}}</strong></td>
+                            <td colspan="3" class="text-center"><strong>года</strong></td>
+                            <td colspan="14"></td>
+                        </tr>
+                        <tr>
+                            <td colspan="42" class="text-center">к товарно отгрузочным документам №___ от &quot;__&quot;_____ ___года</td>
+                        </tr>
+                        <tr>
+                            <td colspan="42"></td>
+                        </tr>
+                        <tr>
+                            <td colspan="5" class="border-top border-left border-dark text-left">Поставщик:</td>
+                            <td colspan="15" class="border-top border-right border-dark text-left"><strong>{{SchetFaktura.rekvizit.ID_Name}}</strong></td>
+                            <td rowspan="7"></td>
+                            <td colspan="5" class="border-top border-left border-dark text-left">Покупатель:</td>
+                            <td colspan="16" class="border-top border-right border-dark "><strong>{{SchetFaktura.clientData.Name_Org}}</strong></td>
+                        </tr>
+                        <tr>
+                            <td colspan="3" class="border-left border-dark text-left">Адрес:</td>
+                            <td colspan="17" class="border-right border-dark text-left"><strong>{{SchetFaktura.rekvizit.Adress}}</strong></td>
+                            <td colspan="3" class="border-left border-dark text-left">Адрес:</td>
+                            <td colspan="18" class="border-right border-dark text-left"><strong>{{SchetFaktura.clientData.Adress}}</strong></td>
+                        </tr>
+                        <tr>
+                            <td colspan="4" class="border-left border-dark text-left">Телефон:</td>
+                            <td colspan="16" class="border-right border-dark text-left"><strong>{{SchetFaktura.rekvizit.ID_Pred}}</strong></td>
+                            <td colspan="4" class="border-left border-dark text-left">Телефон:</td>
+                            <td colspan="17" class="border-right border-dark text-left"><strong>{{SchetFaktura.clientData.Telefon}}</strong></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" class="border-left border-dark text-left">Р/с:</td>
+                            <td colspan="18" class="border-right border-dark text-left"><strong>{{SchetFaktura.rekvizit.RS}}</strong></td>
+                            <td colspan="2" class="border-left border-dark text-left">Р/с:</td>
+                            <td colspan="19" class="border-right border-dark text-left"><strong>{{SchetFaktura.clientData.RS}}</strong></td>
+                        </tr>
+                        <tr>
+                            <td colspan="3" class="border-left border-dark text-left">Банк:</td>
+                            <td colspan="17" class="border-right border-dark text-left"><strong>{{SchetFaktura.rekvizit.Name_bank}}</strong></td>
+                            <td colspan="3" class="border-left border-dark text-left">Банк:</td>
+                            <td colspan="18" class="border-right border-dark text-left"><strong>{{SchetFaktura.clientData.Bank}}</strong></td>
+                        </tr>
+                        <tr>
+                            <td colspan="3" class="border-left border-dark text-left">ИНН:</td>
+                            <td colspan="17" class="border-right border-dark text-left"><strong>{{SchetFaktura.rekvizit.INN}}</strong></td>
+                            <td colspan="3" class="border-left border-dark text-left">ИНН:</td>
+                            <td colspan="18" class="border-right border-dark text-left"><strong>{{SchetFaktura.clientData.INN}}</strong></td>
+                        </tr>
+                        <tr>
+                            <td colspan="3" class="border-left border-dark text-left">МФО:</td>
+                            <td colspan="6" class="text-left"><strong>{{SchetFaktura.rekvizit.MFO}}</strong></td>
+                            <td colspan="4" class="text-center">ОКОНХ:</td>
+                            <td colspan="7" class="border-right border-dark text-left"><strong>{{SchetFaktura.rekvizit.OKONX}}</strong></td>
+                            <td colspan="3" class="border-left border-dark text-left">МФО:</td>
+                            <td colspan="6" class="text-left"><strong>{{SchetFaktura.clientData.MFO}}</strong></td>
+                            <td colspan="4" class="text-right">ОКОНХ:</td>
+                            <td colspan="8" class="border-right border-dark text-left"><strong>{{SchetFaktura.clientData.OKONX}}</strong></td>
+                        </tr>
+                        <tr>
+                            <td colspan="42" class="border-top border-bottom border-left border-dark text-center"></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" rowspan="2" class="border border-dark text-center">№</td>
+                            <td colspan="7" rowspan="2" class="border border-dark text-center">Наименование товаров (работ, услуг)</td>
+                            <td colspan="4" rowspan="2" class="border border-dark text-center">№ путевки</td>
+                            <td colspan="4" rowspan="2" class="border border-dark text-center">Дата</td>
+                            <td colspan="2" rowspan="2" class="border border-dark text-center">Единизме-рен.</td>
+                            <td colspan="2" rowspan="2" class="border border-dark text-center">Коли-чест-во</td>
+                            <td colspan="4" rowspan="2" class="border border-dark text-center">Цена</td>
+                            <td colspan="5" rowspan="2" class="border border-dark text-center">Стоимость поставки</td>
+                            <td colspan="4" class="border border-dark text-center">Акцизный налог</td>
+                            <td colspan="4" class="border border-dark text-center">НДС</td>
+                            <td colspan="4" rowspan="2" class="border border-dark text-center">Стоимость поставки с учет. НДС</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" class="border border-dark text-center">став-ка</td>
+                            <td colspan="2" class="border border-dark text-center">сум-ма</td>
+                            <td colspan="2" class="border border-dark text-center">став-ка</td>
+                            <td colspan="2" class="border border-dark text-center">сум-ма</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" class="border border-dark text-center">1</td>
+                            <td colspan="7" class="border border-dark text-center">2</td>
+                            <td colspan="4" class="border border-dark text-center">3</td>
+                            <td colspan="4" class="border border-dark text-center">4</td>
+                            <td colspan="2" class="border border-dark text-center">5</td>
+                            <td colspan="2" class="border border-dark text-center">6</td>
+                            <td colspan="4" class="border border-dark text-center">7</td>
+                            <td colspan="5" class="border border-dark text-center">8</td>
+                            <td colspan="2" class="border border-dark text-center">9</td>
+                            <td colspan="2" class="border border-dark text-center">10</td>
+                            <td colspan="2" class="border border-dark text-center">11</td>
+                            <td colspan="2" class="border border-dark text-center">12</td>
+                            <td colspan="4" class="border border-dark text-center">13</td>
+                        </tr>
+                        <tr ng-repeat="item in SchetFaktura.nakladDtl">
+                            <td colspan="2" class="border border-dark text-center">{{$index+1}}</td>
+                            <td colspan="7" class="border border-dark text-left">{{item.sanatName}}</td>
+                            <td colspan="4" class="border border-dark text-right">{{item.num_put}}</td>
+                            <td colspan="4" class="border border-dark text-center">{{item.data_post | jsonDate: 'dd.MM.yyyy'}}</td>
+                            <td colspan="2" class="border border-dark text-center">шт</td>
+                            <td colspan="2" class="border border-dark text-center">1</td>
+                            <td colspan="4" class="border border-dark text-right">{{item.symma| currency:' '}}</td>
+                            <td colspan="5" class="border border-dark text-right">{{item.symma| currency:' '}}</td>
+                            <td colspan="4" class="border border-dark text-center">без акцизного налога</td>
+                            <td colspan="4" class="border border-dark text-center">без НДС</td>
+                            <td colspan="4" class="border border-dark text-center">{{item.symma| currency:' '}}</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" class="border border-dark text-center"></td>
+                            <td colspan="7" class="border border-dark text-right"><strong>ИТОГО:</strong></td>
+                            <td colspan="4" class="border border-dark text-center"></td>
+                            <td colspan="4" class="border border-dark text-center"></td>
+                            <td colspan="2" class="border border-dark text-center"></td>
+                            <td colspan="2" class="border border-dark text-center" sdval="2"><strong>{{SchetFaktura.nakladnaya.num_kol}}</strong></td>
+                            <td colspan="4" class="border border-dark text-center"><strong>{{SchetFaktura.nakladnaya.symma| currency:' '}}</strong></td>
+                            <td colspan="5" class="border border-dark text-center"><strong>{{SchetFaktura.nakladnaya.symma| currency:' '}}</strong></td>
+                            <td colspan="4" class="border border-dark text-center"></td>
+                            <td colspan="4" class="border border-dark text-center"></td>
+                            <td colspan="4" class="border border-dark text-center"><strong>{{SchetFaktura.nakladnaya.symma| currency:' '}}</strong></td>
+                        </tr>
+                        <tr>
+                            <td colspan="8" class="border-top border-dark text-center"><strong>Всего к оплате: {{SchetFaktura.nakladnaya.SummaPropisyu}}</strong></td>
+                            <td colspan="34" class="text-left"><strong></strong></td>
+                        </tr>
+                        <tr>
+                            <td colspan="42"></td>
+                        </tr>
+                        <tr>
+                            <td colspan="9" class="text-left">Руководителя</td>
+                            <td colspan="12" class="text-left">{{SchetFaktura.rekvizit.Name_Dir}}</td>
+                            <td rowspan="8" class="text-center"></td>
+                            <td class="text-left">Получил</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td colspan="15" class="text-left">____________________</td>
+                        </tr>
+                        <tr>
+                            <td colspan="21"></td>
+                            <td colspan="20"></td>
+                        </tr>
+                        <tr>
+                            <td colspan="9" class="text-left"> Главный бухгалтер</td>
+                            <td colspan="12" class="text-left">_________________</td>
+                            <td class="text-left">По  доверенности № <strong>{{SchetFaktura.nakladnaya.num_dov}}</strong></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td colspan="3" class="text-left"></td>
+                            <td colspan="7" class="text-center"></td>
+                        </tr>
+                        <tr>
+                            <td colspan="21"></td>
+                            <td colspan="20"></td>
+                        </tr>
+                        <tr>
+                            <td colspan="4" class="text-center"></td>
+                            <td colspan="3" class="text-center">М.П.</td>
+                            <td colspan="14" class="text-center"></td>
+                            <td colspan="2" class="text-center">от </td>
+                            <td class="text-right"><strong>{{SchetFaktura.nakladnaya.date_dov}}</strong></td>
+                            @*<td colspan="2" class="text-center"></td>
+                                <td class="text-left">&quot;</td>
+                                <td colspan="5" class="text-center"></td>
+                                <td colspan="3" class="text-center"></td>
+                                <td colspan="6" class="text-left">года</td>*@
+                        </tr>
+                        <tr>
+                            <td colspan="21"></td>
+                            <td colspan="20"><strong>{{SchetFaktura.nakladnaya.name_dov}}</strong></td>
+                        </tr>
+                        <tr>
+                            <td colspan="9" class="text-left"> Товар отпустил</td>
+                            <td colspan="12" class="text-left">_________________</td>
+                            <td colspan="18" class="border-bottom border-dark text-left"><strong></strong></td>
+                            <td colspan="2" rowspan="2" class="text-center"></td>
+                        </tr>
+                        <tr>
+                            <td colspan="21"></td>
+                            <td colspan="18">(Ф.И.О. получателя)</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+}
+

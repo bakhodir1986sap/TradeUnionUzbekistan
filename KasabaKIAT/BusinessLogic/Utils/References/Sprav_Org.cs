@@ -48,6 +48,7 @@ namespace KasabaKiat.BusinessLogic.Utils.References
                 org.ORIG_INN = model.orig_inn;
                 org.DB_BAL = 0;
                 org.CT_BAL = 0;
+                org.FACE_TYPE = 0;
                 org.OWNER_CODE = GenerateDepartmentCode(model.ID_Ot.Value
                                                         , model.Region.Value,
                                                         model.PravSoyuzLevel.Value,
@@ -224,6 +225,7 @@ namespace KasabaKiat.BusinessLogic.Utils.References
                         org1.ORIG_INN = model.orig_inn;
                         org1.DB_BAL = 0;
                         org1.CT_BAL = 0;
+                        org1.FACE_TYPE = 0;
                         org1.OWNER_CODE = GenerateDepartmentCode(model.ID_Ot.Value
                                         , model.Region.Value,
                                         model.PravSoyuzLevel.Value,
@@ -314,7 +316,7 @@ namespace KasabaKiat.BusinessLogic.Utils.References
             using (KasabaKIATEntities db = new KasabaKIATEntities())
             {
                 var queryRes = from org in db.tblSprav_Org
-                               where org.DepartmentBase == model.DepartmentBase
+                               where org.DepartmentBase == model.DepartmentBase && org.FACE_TYPE == 0
                                orderby org.Name_Org
                                select new Sprav_OrgViewModel
                                {
@@ -367,7 +369,7 @@ namespace KasabaKiat.BusinessLogic.Utils.References
                 var queryRes = from org in db.tblSprav_Org
                                    //join otras in db.tblSprav_Otras on org.ID_Ot equals otras.ID_Ot
                                    //join region in db.tblSprav_Reg on org.Region equals region.CodeReg
-                               where org.DepartmentBase == departmentBase
+                               where org.DepartmentBase == departmentBase && org.FACE_TYPE == 0
                                //&& otras.DepartmentBase == departmentBase
                                orderby org.Name_Org
                                select new Sprav_OrgViewModel
@@ -466,6 +468,7 @@ namespace KasabaKiat.BusinessLogic.Utils.References
                                && (org.Name_Org.Contains((IsNameEmpty ? org.Name_Org : Name)))
                                && (org.INN.Contains((IsInnEmpty ? org.INN : Inn)))
                                && (org.ID_Ot == (OtrasId.HasValue ? OtrasId == -1 ? null : OtrasId : org.ID_Ot))
+                               && org.FACE_TYPE == 0
                                orderby org.Name_Org
                                select new Sprav_OrgViewModel
                                {
@@ -544,7 +547,7 @@ namespace KasabaKiat.BusinessLogic.Utils.References
             using (KasabaKIATEntities db = new KasabaKIATEntities())
             {
                 res = (from org in db.tblSprav_Org
-                       where org.DepartmentBase == departmentBase && org.ID_Ot == null
+                       where org.DepartmentBase == departmentBase && org.ID_Ot == null && org.FACE_TYPE == 0
                        select org).Count();
             }
 
@@ -564,7 +567,7 @@ namespace KasabaKiat.BusinessLogic.Utils.References
             using (KasabaKIATEntities db = new KasabaKIATEntities())
             {
                 res = (from org in db.tblSprav_Org
-                       where org.DepartmentBase == departmentBase
+                       where org.DepartmentBase == departmentBase && org.FACE_TYPE == 0
                        select org).Count();
             }
 
@@ -588,7 +591,7 @@ namespace KasabaKiat.BusinessLogic.Utils.References
                 var queryRes = from org in db.tblSprav_Org
                                    //join otras in db.tblSprav_Otras on org.ID_Ot equals otras.ID_Ot
                                    //join region in db.tblSprav_Reg on org.Region equals region.CodeReg
-                               where org.DepartmentBase == departmentBase
+                               where org.DepartmentBase == departmentBase && org.FACE_TYPE == 0
                                //&& otras.DepartmentBase == departmentBase
                                && org.ID == Id
                                orderby org.Name_Org
@@ -670,7 +673,7 @@ namespace KasabaKiat.BusinessLogic.Utils.References
         /// <param name="amount"></param>
         public static void ChangeOstatok(TransactionOperation oper, string inn, string departmentCode ,decimal? amount, KasabaKIATEntities db)
         {
-            var orgs = db.tblSprav_Org.Where(z => z.INN == inn && z.DepartmentBase == departmentCode);
+            var orgs = db.tblSprav_Org.Where(z => z.INN == inn && z.DepartmentBase == departmentCode && z.FACE_TYPE == 0);
 
             if (orgs.Any())
             {
@@ -722,7 +725,7 @@ namespace KasabaKiat.BusinessLogic.Utils.References
         public static void ChangeOstatok(TransactionOperation oper, long idOrg, decimal? amount, KasabaKIATEntities db)
         {
 
-            var orgs = db.tblSprav_Org.Where(z => z.ID == idOrg);
+            var orgs = db.tblSprav_Org.Where(z => z.ID == idOrg && z.FACE_TYPE == 0);
 
             if (orgs.Any())
             {
@@ -764,6 +767,351 @@ namespace KasabaKiat.BusinessLogic.Utils.References
                 org.CT_BAL = CT_BAL;
             }
         }
+
+
+        #region FizLiso
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="model"></param>
+        public static void CreateFizLiso(Sprav_OrgViewModel model)
+        {
+            using (KasabaKIATEntities db = new KasabaKIATEntities())
+            {
+                tblSprav_Org org = new tblSprav_Org();
+
+                org.ID_Ot = -1;
+                org.Name_Org = model.Name_Org;
+                org.INN = model.INN;
+                org.Adress = model.Adress;
+                org.Telefon = model.Telefon;
+                org.Region = -1;
+                org.DT_OST = 0;
+                org.KT_OST = 0;
+                org.E_Mail = model.E_Mail;
+                org.UserId = model.UserId;
+                org.DepartmentBase = model.DepartmentBase;
+                org.IS_PRAVSOYUZ = false;
+                org.ParentID = null;
+                org.PRAVORGLEVEL = 4;
+                org.DB_BAL = 0;
+                org.CT_BAL = 0;
+                org.FACE_TYPE = 1;
+                org.Pas_ser = model.Pas_ser;
+                org.Pas_Num = model.Pas_Num;
+                org.Pas_KD = model.Pas_KD;
+                org.Pas_Data = model.Pas_Data;
+
+
+                db.tblSprav_Org.Add(org);
+
+                db.SaveChanges();
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="model"></param>
+        /// <param name="db"></param>
+        public static void CreateFizLiso(Sprav_OrgViewModel model, KasabaKIATEntities db)
+        {
+            tblSprav_Org org = new tblSprav_Org();
+
+            org.ID_Ot = -1;
+            org.Name_Org = model.Name_Org;
+            org.INN = model.INN;
+            org.Adress = model.Adress;
+            org.Telefon = model.Telefon;
+            org.Region = -1;
+            org.DT_OST = 0;
+            org.KT_OST = 0;
+            org.E_Mail = model.E_Mail;
+            org.UserId = model.UserId;
+            org.DepartmentBase = model.DepartmentBase;
+            org.IS_PRAVSOYUZ = false;
+            org.ParentID = null;
+            org.PRAVORGLEVEL = 4;
+            org.DB_BAL = 0;
+            org.CT_BAL = 0;
+            org.FACE_TYPE = 1;
+            org.Pas_ser = model.Pas_ser;
+            org.Pas_Num = model.Pas_Num;
+            org.Pas_KD = model.Pas_KD;
+            org.Pas_Data = model.Pas_Data;
+
+            db.tblSprav_Org.Add(org);
+
+            db.SaveChanges();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="model"></param>
+        public static void ModifyFizLiso(Sprav_OrgViewModel model)
+        {
+            using (KasabaKIATEntities db = new KasabaKIATEntities())
+            {
+                var org = db.tblSprav_Org.Where(z => z.ID == model.ID);
+
+                if (org.Any())
+                {
+                    var org1 = org.FirstOrDefault();
+
+                    if (org1 != null)
+                    {
+                        org1.ID_Ot = -1;
+                        org1.Name_Org = model.Name_Org;
+                        org1.INN = model.INN;
+                        org1.Adress = model.Adress;
+                        org1.Telefon = model.Telefon;
+                        org1.Region = -1;
+                        org1.DT_OST = 0;
+                        org1.KT_OST = 0;
+                        org1.E_Mail = model.E_Mail;
+                        org1.UserId = model.UserId;
+                        org1.DepartmentBase = model.DepartmentBase;
+                        org1.IS_PRAVSOYUZ = false;
+                        org1.ParentID = null;
+                        org1.PRAVORGLEVEL = 4;
+                        org1.DB_BAL = 0;
+                        org1.CT_BAL = 0;
+                        org1.FACE_TYPE = 1;
+                        org1.Pas_ser = model.Pas_ser;
+                        org1.Pas_Num = model.Pas_Num;
+                        org1.Pas_KD = model.Pas_KD;
+                        org1.Pas_Data = model.Pas_Data;
+
+                        db.SaveChanges();
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="model"></param>
+        public static void ModifyFizLiso(Sprav_OrgViewModel model, KasabaKIATEntities db)
+        {
+                var org = db.tblSprav_Org.Where(z => z.ID == model.ID);
+
+                if (org.Any())
+                {
+                    var org1 = org.FirstOrDefault();
+
+                    if (org1 != null)
+                    {
+                        org1.ID_Ot = -1;
+                        org1.Name_Org = model.Name_Org;
+                        org1.INN = model.INN;
+                        org1.Adress = model.Adress;
+                        org1.Telefon = model.Telefon;
+                        org1.Region = -1;
+                        org1.DT_OST = 0;
+                        org1.KT_OST = 0;
+                        org1.E_Mail = model.E_Mail;
+                        org1.UserId = model.UserId;
+                        org1.DepartmentBase = model.DepartmentBase;
+                        org1.IS_PRAVSOYUZ = false;
+                        org1.ParentID = null;
+                        org1.PRAVORGLEVEL = 4;
+                        org1.DB_BAL = 0;
+                        org1.CT_BAL = 0;
+                        org1.FACE_TYPE = 1;
+                        org1.Pas_ser = model.Pas_ser;
+                        org1.Pas_Num = model.Pas_Num;
+                        org1.Pas_KD = model.Pas_KD;
+                        org1.Pas_Data = model.Pas_Data;
+
+                        db.SaveChanges();
+                    }
+                }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public static List<Sprav_OrgViewModel> GetFizLisoList(Sprav_OrgViewModel model)
+        {
+            List<Sprav_OrgViewModel> list = null;
+
+            using (KasabaKIATEntities db = new KasabaKIATEntities())
+            {
+                var queryRes = from org in db.tblSprav_Org
+                               where (org.Name_Org.Contains(model.Name_Org)
+                               || org.Pas_ser.Contains(model.Pas_ser)
+                               || org.Pas_Num.Contains(model.Pas_Num))
+                               && org.FACE_TYPE == 1
+                               && org.DepartmentBase == model.DepartmentBase
+                               select new Sprav_OrgViewModel
+                               {
+                                   ID = org.ID,
+                                   Name_Org = org.Name_Org,
+                                   INN = org.INN,
+                                   Adress = org.Adress,
+                                   Telefon = org.Telefon,
+                                   E_Mail = org.E_Mail,
+                                   UserId = org.UserId,
+                                   Pas_ser = org.Pas_ser,
+                                   Pas_Num = org.Pas_Num,
+                                   Pas_KD = org.Pas_KD,
+                                   Pas_Data = org.Pas_Data
+                               };
+
+                list = queryRes.ToList();
+            }
+
+            return list;
+        }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public static List<Sprav_OrgViewModel> GetFizLisoList(string departmentBase, long Id)
+        {
+            List<Sprav_OrgViewModel> list = null;
+
+            using (KasabaKIATEntities db = new KasabaKIATEntities())
+            {
+                var queryRes = from org in db.tblSprav_Org
+                               where org.FACE_TYPE == 1
+                               && org.DepartmentBase == departmentBase
+                               && org.ID == Id
+                               select new Sprav_OrgViewModel
+                               {
+                                   ID = org.ID,
+                                   Name_Org = org.Name_Org,
+                                   INN = org.INN,
+                                   Adress = org.Adress,
+                                   Telefon = org.Telefon,
+                                   E_Mail = org.E_Mail,
+                                   UserId = org.UserId,
+                                   Pas_ser = org.Pas_ser,
+                                   Pas_Num = org.Pas_Num,
+                                   Pas_KD = org.Pas_KD,
+                                   Pas_Data = org.Pas_Data
+                               };
+
+                list = queryRes.ToList();
+
+            }
+
+            return list;
+        }
+
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public static List<Sprav_OrgViewModel> GetFizLisoList(string departmentBase)
+        {
+            List<Sprav_OrgViewModel> list = null;
+
+            using (KasabaKIATEntities db = new KasabaKIATEntities())
+            {
+                var queryRes = from org in db.tblSprav_Org
+                               where org.FACE_TYPE == 1
+                               && org.DepartmentBase == departmentBase
+                               select new Sprav_OrgViewModel
+                               {
+                                   ID = org.ID,
+                                   Name_Org = org.Name_Org,
+                                   INN = org.INN,
+                                   Adress = org.Adress,
+                                   Telefon = org.Telefon,
+                                   E_Mail = org.E_Mail,
+                                   UserId = org.UserId,
+                                   Pas_ser = org.Pas_ser,
+                                   Pas_Num = org.Pas_Num,
+                                   Pas_KD = org.Pas_KD,
+                                   Pas_Data = org.Pas_Data
+                               };
+
+                list = queryRes.ToList();
+
+            }
+
+            return list;
+        }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public static List<Sprav_OrgViewModel> GetFizLisoList(string Name, string Inn, string Pas_ser, string Pas_Number)
+        {
+            List<Sprav_OrgViewModel> list = null;
+
+            bool IsNameEmpty = false;
+            bool IsInnEmpty = false;
+
+            bool IsPasNumEmpty = false;
+            bool IsPasSerEmpty = false;
+
+            if ((string.IsNullOrEmpty(Name)) || (Name.ToLower().Contains("undefined")))
+            {
+                IsNameEmpty = true;
+            }
+
+            if ((string.IsNullOrEmpty(Inn)) || (Inn.ToLower().Contains("undefined")))
+            {
+                IsInnEmpty = true;
+            }
+
+            if ((string.IsNullOrEmpty(Pas_ser)) || (Pas_ser.ToLower().Contains("undefined")))
+            {
+                IsPasSerEmpty = true;
+            }
+
+            if ((string.IsNullOrEmpty(Pas_Number)) || (Pas_Number.ToLower().Contains("undefined")))
+            {
+                IsPasNumEmpty = true;
+            }
+
+            using (KasabaKIATEntities db = new KasabaKIATEntities())
+            {
+                var queryRes = from org in db.tblSprav_Org
+                               where 
+                               (org.Name_Org.Contains((IsNameEmpty ? org.Name_Org : Name)))
+                               && (org.INN.Contains((IsInnEmpty ? org.INN : Inn)))
+                               && (org.Pas_ser.Contains((IsPasSerEmpty ? org.Pas_ser : Pas_ser)))
+                               && (org.Pas_Num.Contains((IsPasNumEmpty ? org.Pas_Num : Pas_Number)))
+                               && org.FACE_TYPE == 1
+                               select new Sprav_OrgViewModel
+                               {
+                                   ID = org.ID,
+                                   Name_Org = org.Name_Org,
+                                   INN = org.INN,
+                                   Adress = org.Adress,
+                                   Telefon = org.Telefon,
+                                   E_Mail = org.E_Mail,
+                                   UserId = org.UserId,
+                                   Pas_ser = org.Pas_ser,
+                                   Pas_Num = org.Pas_Num,
+                                   Pas_KD = org.Pas_KD,
+                                   Pas_Data = org.Pas_Data
+                               };
+
+                list = queryRes.ToList();
+            }
+
+            return list;
+        }
+        #endregion
+
     }
 
 

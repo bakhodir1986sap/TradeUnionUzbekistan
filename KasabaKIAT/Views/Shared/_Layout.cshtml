@@ -79,9 +79,9 @@
                                     <a class="dropdown-item load" href="/Administirirovaniye/RaspredeleniyeZaezdov">Годовой план</a>
                                 }
                                 @*@if (List.RassmotreniyaZayavok)
-                                {
-                                    <a class="dropdown-item load" href="/Home/RassmotreniyeZayavok">Рассмотрение заявок</a>
-                                }*@
+        {
+            <a class="dropdown-item load" href="/Home/RassmotreniyeZayavok">Рассмотрение заявок</a>
+        }*@
                                 @if (List.PrixodPutyovok)
                                 {
                                     <a class="dropdown-item load" href="/PrixodPutevok/Index">Приход путевок</a>
@@ -96,6 +96,7 @@
                                     @*<a class="dropdown-item load" href="/PrixodPutevok/RealizatsiyaPutevok">Реализация путевок</a>*@
                                     @*<a class="dropdown-item load" href="/PrixodPutevok/RasxodPutyovok">Расход Путевок</a>*@
                                     <a class="dropdown-item load" href="/PrixodPutevok/RasxodPutyovok">Расход Путевок</a>
+                                    <a class="dropdown-item load" href="/PrixodPutevok/RasxodPutyovokFizLiso">Расход Путевок Физ Лица</a>
                                     <a class="dropdown-item load" href="/PrixodPutevok/OplataViplatiZaPutyovki">Оплата и Выплаты за путевки</a>
                                     <a class="dropdown-item load" href="/PrixodPutevok/AktVozvrataPutyovok">Акт возврата путевок</a>
                                     <a class="dropdown-item load" href="/PrixodPutevok/ZakritiyaKvartalaPoPutyovkam">Закрытие квартала по путевкам</a>
@@ -211,6 +212,7 @@
                             <a class="nav-link dropdown-toggle" href="/Home/Admin" id="spravochniki" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">НСИ</a>
                             <div class="dropdown-menu rounded-0 box-shadow m-0 border-0" aria-labelledby="administration">
                                 <a class="dropdown-item load" href="/PrixodPutevok/Organizasii">База данных организаций </a>
+                                <a class="dropdown-item load" href="/PrixodPutevok/FizLiso">База данных физ лиц </a>
                                 @*<a class="dropdown-item load" href="/Administirirovaniye/SpravichnikiKurortnovoUpravleniya">База данных санаториев</a>*@
                                 <a class="dropdown-item load" href="/Administirirovaniye/Spravichniki">Справочники</a>
                             </div>

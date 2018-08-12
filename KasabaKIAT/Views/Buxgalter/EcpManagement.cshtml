@@ -53,7 +53,7 @@
                 </thead>
                 <tbody>
                     <tr class="poin" ng-repeat="item in DATA">
-                        <td style="text-align:center">{{item.operdate}}</td>
+                        <td style="text-align:center">{{item.operdate | jsonDate : "dd.MM.yyyy"}}</td>
                         <td style="text-align:center">{{item.inn}}</td>
                         <td style="text-align:center">{{item.clname}}</td>
                         <td style="text-align:center">{{item.federation_amt| currency:' '}}</td>

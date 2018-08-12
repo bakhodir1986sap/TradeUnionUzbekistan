@@ -1173,6 +1173,8 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.Provodki.AutomaticTransactions.K
                                             orrg.Region = region.First().CodeReg;
                                         }
 
+                                        orrg.FACE_TYPE = 0;
+
                                         db.tblSprav_Org.Add(orrg);
 
                                         orgInnEnter.Add(combine);
@@ -1393,7 +1395,11 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.Provodki.AutomaticTransactions.K
                 using (KasabaKIATEntities db = new KasabaKIATEntities())
                 {
                     var newOrgChangedList = db.tblSprav_Org.Where(z => z.OWNER_CODE == null 
-                    && z.ID_Ot != null && z.Region != null && z.PRAVORGLEVEL != null).Take(1000);
+                    && z.ID_Ot != null 
+                    && z.ID_Ot != -1 
+                    && z.Region != -1 
+                    && z.Region != null 
+                    && z.PRAVORGLEVEL != null).Take(1000);
 
                     if (newOrgChangedList.Any())
                     {

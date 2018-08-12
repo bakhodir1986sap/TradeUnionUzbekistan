@@ -66,5 +66,13 @@ namespace KasabaKiat.BusinessLogic.Utils.References
         public decimal? ct_bal { get; set; }
 
         public string to_depcode { get; set; }
+
+        //FizLiso 
+        public int? face_type { get; set; } 
+
+        public string Pas_ser    { get; set; }
+        public string Pas_Num    { get; set; }
+        public string Pas_KD     { get; set; }
+        public DateTime? Pas_Data { get; set; }
     }
 }

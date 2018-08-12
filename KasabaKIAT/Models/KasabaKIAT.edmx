@@ -2490,6 +2490,11 @@ warning 6002: The table/view 'KasabaKIAT_N1.dbo.tblPutevka' does not have a prim
           <Property Name="DB_BAL" Type="money" />
           <Property Name="CT_BAL" Type="money" />
           <Property Name="TO_DEPCODE" Type="nvarchar" MaxLength="255" />
+          <Property Name="FACE_TYPE" Type="int" />
+          <Property Name="Pas_ser" Type="nvarchar" MaxLength="50" />
+          <Property Name="Pas_Num" Type="nvarchar" MaxLength="50" />
+          <Property Name="Pas_KD" Type="nvarchar" MaxLength="50" />
+          <Property Name="Pas_Data" Type="datetime" />
         </EntityType>
         <EntityType Name="tblSprav_Os">
           <Key>
@@ -9575,6 +9580,11 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <Property Name="DB_BAL" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="CT_BAL" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="TO_DEPCODE" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="FACE_TYPE" Type="Int32" />
+          <Property Name="Pas_ser" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Pas_Num" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Pas_KD" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Pas_Data" Type="DateTime" Precision="3" />
           </EntityType>
         <EntityType Name="tblSprav_Os">
           <Key>
@@ -17855,6 +17865,11 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <EntitySetMapping Name="tblSprav_Org">
             <EntityTypeMapping TypeName="KasabaKIATModel.tblSprav_Org">
               <MappingFragment StoreEntitySet="tblSprav_Org">
+                <ScalarProperty Name="Pas_Data" ColumnName="Pas_Data" />
+                <ScalarProperty Name="Pas_KD" ColumnName="Pas_KD" />
+                <ScalarProperty Name="Pas_Num" ColumnName="Pas_Num" />
+                <ScalarProperty Name="Pas_ser" ColumnName="Pas_ser" />
+                <ScalarProperty Name="FACE_TYPE" ColumnName="FACE_TYPE" />
                 <ScalarProperty Name="TO_DEPCODE" ColumnName="TO_DEPCODE" />
                 <ScalarProperty Name="CT_BAL" ColumnName="CT_BAL" />
                 <ScalarProperty Name="DB_BAL" ColumnName="DB_BAL" />

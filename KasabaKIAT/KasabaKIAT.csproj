@@ -1645,6 +1645,7 @@
     <Content Include="Scripts\MyJavaScript\Ilxom\PrixodPutyovokRuchnoy.js" />
     <Content Include="Scripts\MyJavaScript\Ilxom\RasxodPutyovokN1.js" />
     <Content Include="Scripts\MyJavaScript\Ilxom\RasxodPutyovok.js" />
+    <Content Include="Scripts\MyJavaScript\Ilxom\RasxodPutyovokN3.js" />
     <Content Include="Scripts\MyJavaScript\Ilxom\RasxodPutyovokN2.js" />
     <Content Include="Scripts\MyJavaScript\Ilxom\StartProcessN1.js" />
     <Content Include="Scripts\MyJavaScript\Ilxom\StartProcess.js" />
@@ -1659,6 +1660,7 @@
     <Content Include="Scripts\MyJavaScript\main.js" />
     <Content Include="Scripts\MyJavaScript\Module.js" />
     <Content Include="Scripts\MyJavaScript\OformleniyaRealizatsiyaPutevok.js" />
+    <Content Include="Scripts\MyJavaScript\FizLisa.js" />
     <Content Include="Scripts\MyJavaScript\Organizasii.js" />
     <Content Include="Scripts\MyJavaScript\OsushestvleniyeProvodki.js" />
     <Content Include="Scripts\MyJavaScript\O_SOZController.js" />
@@ -1937,6 +1939,8 @@
     <Content Include="Views\Home\StatOblSovProf.cshtml" />
     <Content Include="Views\Home\StatRayonOtrasl.cshtml" />
     <Content Include="Views\Home\StatPPO.cshtml" />
+    <Content Include="Views\PrixodPutevok\FizLiso.cshtml" />
+    <Content Include="Views\PrixodPutevok\RasxodPutyovokFizLiso.cshtml" />
     <None Include="Web References\KurortUrlService\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>

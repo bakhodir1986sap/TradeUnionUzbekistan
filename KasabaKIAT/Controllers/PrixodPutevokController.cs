@@ -959,12 +959,20 @@ namespace KasabaKIAT.Controllers
             }
         }
 
-
+        #region Organizasii
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public ActionResult Organizasii()
         {
             return View();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public JsonResult GetOrganization()
         {
             int UserId = Convert.ToInt32(User.Identity.Name);
@@ -1118,6 +1126,115 @@ namespace KasabaKIAT.Controllers
 
             return Json(list.ToList().Take(30), JsonRequestBehavior.AllowGet);
         }
+
+        #endregion
+
+        #region FizLisoBaza
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult FizLiso()
+        {
+            return View();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public JsonResult SaveFizLiso(Sprav_OrgViewModel model)
+        {
+            try
+            {
+                int UserId = Convert.ToInt32(User.Identity.Name);
+                var ustinfo = UserInfo.GetUserInfo(UserId);
+
+                model.DepartmentBase = ustinfo.DepartmentBase;
+                model.UserId = UserId;
+
+                if (model.ID != 0)
+                {
+                    Sprav_Org.ModifyFizLiso(model);
+                }
+                else
+                {
+                    Sprav_Org.CreateFizLiso(model);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex.ToString());
+                return Json("fail", JsonRequestBehavior.AllowGet);
+            }
+
+            return Json("success", JsonRequestBehavior.AllowGet);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [OutputCache(Duration = 3, Location = OutputCacheLocation.Client, VaryByCustom = "userId")]
+        public JsonResult GetEmptyCarcasFizLiso(long Id)
+        {
+            var model = new Sprav_OrgViewModel();
+
+            if (Id != 0)
+            {
+                int UserId = Convert.ToInt32(User.Identity.Name);
+                var ustinfo = UserInfo.GetUserInfo(UserId);
+
+                var list = Sprav_Org.GetFizLisoList(ustinfo.DepartmentBase, Id);
+
+                if (list.Any())
+                {
+                    return Json(list.First(), JsonRequestBehavior.AllowGet);
+                }
+            }
+
+            return Json(model, JsonRequestBehavior.AllowGet);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [OutputCache(Duration = 5, Location = OutputCacheLocation.Client, VaryByCustom = "userId")]
+        public JsonResult GetFizLisoList()
+        {
+            int UserId = Convert.ToInt32(User.Identity.Name);
+            var ustinfo = UserInfo.GetUserInfo(UserId);
+
+            var list = Sprav_Org.GetFizLisoList(ustinfo.DepartmentBase);
+
+            return Json(list.ToList().Take(30), JsonRequestBehavior.AllowGet);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="Name"></param>
+        /// <param name="Inn"></param>
+        /// <param name="OtrasId"></param>
+        /// <returns></returns>
+        [OutputCache(Duration = 5, Location = OutputCacheLocation.Client, VaryByCustom = "userId")]
+        public JsonResult GetFizLisoFilter(string Name, string Inn, string Pas_ser, string Pas_Number)
+        {
+            int UserId = Convert.ToInt32(User.Identity.Name);
+            var ustinfo = UserInfo.GetUserInfo(UserId);
+
+            var list = Sprav_Org.GetFizLisoList(Name, Inn, Pas_ser, Pas_Number);
+
+            return Json(list.ToList().Take(30), JsonRequestBehavior.AllowGet);
+        }
+
+
+        #endregion
 
         #region Ilxom
 
@@ -1720,6 +1837,15 @@ namespace KasabaKIAT.Controllers
         /// <summary>
         /// 
         /// </summary>
+        /// <returns></returns>
+        public ActionResult RasxodPutyovokFizLiso()
+        {
+            return View();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
         /// <param name="year"></param>
         /// <param name="kvartal"></param>
         /// <returns></returns>
@@ -1729,6 +1855,29 @@ namespace KasabaKIAT.Controllers
             var ustinfo = UserInfo.GetUserInfo(UserId);
 
             var list = await ViplMainDataManager.Get(new RealizasiyaViplMainViewModel()
+            {
+                smfil = year,
+                id_kv = kvartal,
+                departmentbase = ustinfo.DepartmentBase,
+                ID_Ot = ID_Ot
+            });
+
+            return Json(list, JsonRequestBehavior.AllowGet);
+        }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="year"></param>
+        /// <param name="kvartal"></param>
+        /// <returns></returns>
+        public async Task<JsonResult> GetViplMainF(int year, int kvartal, int ID_Ot)
+        {
+            int UserId = Convert.ToInt32(User.Identity.Name);
+            var ustinfo = UserInfo.GetUserInfo(UserId);
+
+            var list = await ViplMainDataManager.GetFizLiso(new RealizasiyaViplMainViewModel()
             {
                 smfil = year,
                 id_kv = kvartal,
@@ -1982,6 +2131,23 @@ namespace KasabaKIAT.Controllers
             var ustinfo = UserInfo.GetUserInfo(UserId);
 
             var totalres = await ViplMainDataManager.GetTotals(year, kvartal, ustinfo.DepartmentBase, ID_Ot);
+
+            return Json(totalres, JsonRequestBehavior.AllowGet);
+        }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="year"></param>
+        /// <param name="kvartal"></param>
+        /// <returns></returns>
+        public async Task<JsonResult> GetViplTotalResultsF(int year, int kvartal, int ID_Ot)
+        {
+            int UserId = Convert.ToInt32(User.Identity.Name);
+            var ustinfo = UserInfo.GetUserInfo(UserId);
+
+            var totalres = await ViplMainDataManager.GetTotalsF(year, kvartal, ustinfo.DepartmentBase, ID_Ot);
 
             return Json(totalres, JsonRequestBehavior.AllowGet);
         }

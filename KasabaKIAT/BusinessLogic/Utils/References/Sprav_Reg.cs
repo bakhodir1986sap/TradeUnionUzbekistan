@@ -100,7 +100,7 @@ namespace KasabaKiat.BusinessLogic.Utils.References
         /// </summary>
         /// <param name="departmentCode"></param>
         /// <returns></returns>
-        public static List<Sprav_RegViewModel> GetByDepartmentCode(string departmentCode)
+        public static List<Sprav_RegViewModel> GetByDepartmentCode(string departmentCode , bool IsPriv = false)
         {
             List<Sprav_RegViewModel> list = null;
 
@@ -116,7 +116,7 @@ namespace KasabaKiat.BusinessLogic.Utils.References
 
             using (KasabaKIATEntities db = new KasabaKIATEntities())
             {
-                if (departmentCode.Equals("173Т2") || departmentCode.Equals("173О1"))
+                if (IsPriv)
                 {
                     var queryRes = from procent in db.tblSprav_Reg
                                    where procent.DepartmentBase.Equals(departmentCode)

@@ -30,5 +30,6 @@ namespace KaznaFilesImporter
         public string OKONX_NAME { get; set; }
         public string BRANCH_CODE { get; set; }
         public string BRANCH_NAME { get; set; }
+        public string ADEP_CODE { get; set; }
     }
 }

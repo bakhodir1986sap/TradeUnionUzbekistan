@@ -203,6 +203,23 @@ namespace KasabaKiat.Helpers
                                     model.CurKvartalYear = string.Format("{0} год -{1} кв", curObj.CURKV_YEAR, curObj.CURKV);
                                 }
                             }
+
+                            if (!string.IsNullOrEmpty(model.DepartmentBase))
+                            {
+                                var PrivOrgs = db.tbku_StrokaProfsoyza.Where(z => z.MATCH_DEPARTMENTBASE != null
+                                            && z.MATCH_DEPARTMENTBASE == model.DepartmentBase);
+
+                                if (PrivOrgs.Any())
+                                {
+                                    var PrivOrg = PrivOrgs.First();
+
+                                    model.IsPrivOrg = PrivOrg.PRIVFLG.Value;
+                                }
+                                else
+                                {
+                                    model.IsPrivOrg = false;
+                                }
+                            }
                         }
                     }
                 }
@@ -226,6 +243,10 @@ namespace KasabaKiat.Helpers
             return model;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="model"></param>
         public static void UserLoginAction(UserViewModel model)
         {
             using (KasabaKIATEntities db = new KasabaKIATEntities())
@@ -243,6 +264,13 @@ namespace KasabaKiat.Helpers
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <param name="controllerName"></param>
+        /// <param name="actionName"></param>
+        /// <param name="methodName"></param>
         public static void UserActions(string userName, 
             string controllerName, 
             string actionName, 
@@ -268,6 +296,11 @@ namespace KasabaKiat.Helpers
         }
 
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="username"></param>
+        /// <returns></returns>
         public static List<string> GetAllowedScreenList(string username)
         {
             var userinfo = GetUserInfo(username);

@@ -24,5 +24,7 @@ namespace KasabaKIAT.ViewModel.Buxgalteriya
         public string    okonx_name   { get; set; }
         public string    branch_code  { get; set; }
         public string    branch_name  { get; set; }
+
+        public string adep_code { get; set; }
     }
 }

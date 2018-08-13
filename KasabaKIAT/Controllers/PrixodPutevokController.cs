@@ -1029,7 +1029,7 @@ namespace KasabaKIAT.Controllers
             int UserId = Convert.ToInt32(User.Identity.Name);
             var ustinfo = UserInfo.GetUserInfo(UserId);
 
-            var regionList = Sprav_Reg.GetByDepartmentCode(ustinfo.DepartmentBase);
+            var regionList = Sprav_Reg.GetByDepartmentCode(ustinfo.DepartmentBase, ustinfo.IsPrivOrg);
 
             return Json(regionList.ToList(), JsonRequestBehavior.AllowGet);
         }

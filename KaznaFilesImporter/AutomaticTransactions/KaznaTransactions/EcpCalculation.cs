@@ -1077,6 +1077,23 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.Provodki.AutomaticTransactions.K
                                             model.branch_code = okonx.branch_code;
                                             Console.WriteLine(DateTime.Now.ToLongTimeString() + " Oblast and Tuman Difinition66666666");
                                             model.branch_name = db.sp_branch.Where(b => b.code == okonx.branch_code).First().name_ru;
+
+                                            if (model.branch_code.Equals("Н2"))
+                                            {
+                                                model.adep_code = "173Н2";
+                                            }
+                                            else if (model.branch_code.Equals("Т2"))
+                                            {
+                                                model.adep_code = "173Т2";
+                                            }
+                                            else if (model.branch_code.Equals("О1"))
+                                            {
+                                                model.adep_code = "173О1";
+                                            }
+                                            else
+                                            {
+                                                model.adep_code = "173" + model.branch_code + payment.SOATO.Substring(2, 5);
+                                            }
                                         }
                                     }
                                 }
@@ -1127,6 +1144,24 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.Provodki.AutomaticTransactions.K
                                                 model.branch_code = branchCode;
                                                 Console.WriteLine(DateTime.Now.ToLongTimeString() + " Oblast and Tuman Difinition888888");
                                                 model.branch_name = branchName;
+
+                                                if (model.branch_code.Equals("Н2"))
+                                                {
+                                                    model.adep_code = "173Н2";
+                                                }
+                                                else if (model.branch_code.Equals("Т2"))
+                                                {
+                                                    model.adep_code = "173Т2";
+                                                }
+                                                else if (model.branch_code.Equals("О1"))
+                                                {
+                                                    model.adep_code = "173О1";
+                                                }
+                                                else
+                                                {
+                                                    model.adep_code = "173" + model.branch_code + payment.SOATO.Substring(2, 5);
+                                                }
+
                                             }
                                         }
                                     }
@@ -1359,9 +1394,24 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.Provodki.AutomaticTransactions.K
                                                 {
                                                     ecp.BRANCH_CODE = branchCode;
                                                     ecp.BRANCH_NAME = branchName;
+
+                                                    if (branchCode.Equals("Н2"))
+                                                    {
+                                                        ecp.ADEP_CODE = "173Н2";
+                                                    }
+                                                    else if (branchCode.Equals("Т2"))
+                                                    {
+                                                        ecp.ADEP_CODE = "173Т2";
+                                                    }
+                                                    else if (branchCode.Equals("О1"))
+                                                    {
+                                                        ecp.ADEP_CODE = "173О1";
+                                                    }
+                                                    else
+                                                    {
+                                                        ecp.ADEP_CODE = "173" + branchCode + ecp.SOATO.Substring(2, 5);
+                                                    }
                                                 }
-
-
                                             }
                                         }
                                     }

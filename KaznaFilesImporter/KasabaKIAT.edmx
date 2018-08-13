@@ -294,6 +294,7 @@ warning 6002: The table/view 'KasabaKIAT_N1.dbo.tbbFermer' does not have a prima
           <Property Name="OKONX_NAME" Type="nvarchar" MaxLength="500" />
           <Property Name="BRANCH_CODE" Type="nvarchar" MaxLength="2" />
           <Property Name="BRANCH_NAME" Type="nvarchar" MaxLength="200" />
+          <Property Name="ADEP_CODE" Type="nvarchar" MaxLength="255" />
         </EntityType>
         <EntityType Name="tbbu_provodki">
           <Key>
@@ -762,6 +763,7 @@ warning 6035: The relationship 't_egrpo_4' has columns that are not part of the 
           <Property Name="OKONX_NAME" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="BRANCH_CODE" Type="String" MaxLength="2" FixedLength="false" Unicode="true" />
           <Property Name="BRANCH_NAME" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="ADEP_CODE" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
         </EntityType>
         <ComplexType Name="sp_pr_GetNewTransactions_Result">
           <Property Type="Decimal" Name="ID" Nullable="false" Precision="12" Scale="0" />
@@ -1368,6 +1370,7 @@ warning 6035: The relationship 't_egrpo_4' has columns that are not part of the 
           <EntitySetMapping Name="tbbu_ecp_calc">
             <EntityTypeMapping TypeName="KasabaKIATModel.tbbu_ecp_calc">
               <MappingFragment StoreEntitySet="tbbu_ecp_calc">
+                <ScalarProperty Name="ADEP_CODE" ColumnName="ADEP_CODE" />
                 <ScalarProperty Name="BRANCH_NAME" ColumnName="BRANCH_NAME" />
                 <ScalarProperty Name="BRANCH_CODE" ColumnName="BRANCH_CODE" />
                 <ScalarProperty Name="OKONX_NAME" ColumnName="OKONX_NAME" />

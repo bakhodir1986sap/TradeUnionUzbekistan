@@ -1774,6 +1774,7 @@ warning 6002: The table/view 'KasabaKIAT_N1.dbo.tbbTabel' does not have a primar
           <Property Name="OKONX_NAME" Type="nvarchar" MaxLength="500" />
           <Property Name="BRANCH_CODE" Type="nvarchar" MaxLength="2" />
           <Property Name="BRANCH_NAME" Type="nvarchar" MaxLength="200" />
+          <Property Name="ADEP_CODE" Type="nvarchar" MaxLength="255" />
         </EntityType>
         <EntityType Name="tbbu_finOtchetSetting">
           <Key>
@@ -2090,6 +2091,7 @@ warning 6002: The table/view 'KasabaKIAT_N1.dbo.tbbTabel' does not have a primar
           <Property Name="ProfsoyzNaimenovanie" Type="nvarchar" MaxLength="200" />
           <Property Name="CreateDT" Type="datetime" />
           <Property Name="MATCH_DEPARTMENTBASE" Type="nvarchar" MaxLength="255" />
+          <Property Name="PRIVFLG" Type="bit" />
         </EntityType>
         <EntityType Name="tbku_StrokaSchetFakturi">
           <Key>
@@ -9348,6 +9350,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <Property Name="ProfsoyzNaimenovanie" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="CreateDT" Type="DateTime" Precision="3" />
           <Property Name="MATCH_DEPARTMENTBASE" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="PRIVFLG" Type="Boolean" />
         </EntityType>
         <EntityType Name="tbku_StrokaSchetFakturi">
           <Key>
@@ -14654,6 +14657,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <Property Name="OKONX_NAME" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="BRANCH_CODE" Type="String" MaxLength="2" FixedLength="false" Unicode="true" />
           <Property Name="BRANCH_NAME" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="ADEP_CODE" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
         </EntityType>
         <Association Name="FK_PrivyazkaProvodok_provodok">
           <End Type="KasabaKIATModel.provodok" Role="provodok" Multiplicity="0..1" />
@@ -17681,6 +17685,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <EntitySetMapping Name="tbku_StrokaProfsoyza">
             <EntityTypeMapping TypeName="KasabaKIATModel.tbku_StrokaProfsoyza">
               <MappingFragment StoreEntitySet="tbku_StrokaProfsoyza">
+                <ScalarProperty Name="PRIVFLG" ColumnName="PRIVFLG" />
                 <ScalarProperty Name="MATCH_DEPARTMENTBASE" ColumnName="MATCH_DEPARTMENTBASE" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="ProfsoyzKod" ColumnName="ProfsoyzKod" />
@@ -19031,6 +19036,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <EntitySetMapping Name="tbbu_ecp_calc">
             <EntityTypeMapping TypeName="KasabaKIATModel.tbbu_ecp_calc">
               <MappingFragment StoreEntitySet="tbbu_ecp_calc">
+                <ScalarProperty Name="ADEP_CODE" ColumnName="ADEP_CODE" />
                 <ScalarProperty Name="BRANCH_NAME" ColumnName="BRANCH_NAME" />
                 <ScalarProperty Name="BRANCH_CODE" ColumnName="BRANCH_CODE" />
                 <ScalarProperty Name="OKONX_NAME" ColumnName="OKONX_NAME" />

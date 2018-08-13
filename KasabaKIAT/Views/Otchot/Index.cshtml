@@ -80,8 +80,7 @@
                     <a href="/Otchot/PostupleniyaN" class="list-group-item list-group-item-action load">Поступления по ИНН</a>
                     <a href="/Otchot/RazbivkaPostupleniyaN" class="list-group-item list-group-item-action load">Разбивка поступления</a>
 
-                    //@DEPARTMENT_BASE = N'173О1' OR @DEPARTMENT_BASE = N'173Т2' OR @DEPARTMENT_BASE = N'173Н2'
-                    if (ustinfo.DepartmentBase != "173О1" && ustinfo.DepartmentBase != "173Т2" && ustinfo.DepartmentBase != "173Н2")
+                    if (ustinfo.IsPrivOrg)
                     {
                         <a href="/Otchot/PostupleniyaOblastyam" class="list-group-item list-group-item-action load">Поступление По Областям</a>
                         <a href="/Otchot/PostupleniyaOtrasli" class="list-group-item list-group-item-action load">Поступление По Отрасли</a>

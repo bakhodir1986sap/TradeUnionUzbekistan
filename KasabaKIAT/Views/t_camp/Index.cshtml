@@ -1,4 +1,6 @@
-﻿@model IEnumerable<KasabaKIAT.Models.t_camp>
+﻿@model PagedList.IPagedList<KasabaKIAT.Models.t_camp>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 
 @{
     ViewBag.Title = "Справочник Лагерей";
@@ -16,11 +18,12 @@
 </div>
 <style>
 
-    td, th{
+    td, th {
         vertical-align: middle !important;
         text-align: center;
-    };
-    
+    }
+
+    ;
 </style>
 <p>
     <button style="margin:10px" class="btn btn-white">@Html.ActionLink("Добавить", "Create")</button>
@@ -28,160 +31,164 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.version)
+            "version"
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.camps_address)
+            "camps_address"
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.camps_type1)
+            "camps_type1"
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.camps_type2)
+            "camps_type2"
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.camps_organization_address)
+            "camps_organization_address"
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.camps_organization_cheef)
+            "camps_organization_cheef"
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.camps_organization_cheef_tel)
+            "camps_organization_cheef_tel"
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.camps_organization_name)
+            "camps_organization_name"
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.camps_union)
+            "camps_union"
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.camps_union_tel)
+            "camps_union_tel"
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.camps_cheef)
+            "camps_cheef"
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.camps_cheef_tel)
+            "camps_cheef_tel"
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.code)
+            "code"
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.s_comment)
+            "s_comment"
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.s_create)
+            "s_create"
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.s_status)
+            "s_status"
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.camps_email)
+            "camps_email"
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.camps_name)
+            "camps_name"
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.camps_site)
+            "camps_site"
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.camps_tel)
+            "camps_tel"
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.NATIVE_ID)
+            "NATIVE_ID"
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.sp_soato.code)
+            "sp_soato.code"
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.sp_soato1.code)
+            "sp_soato1.code"
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.users.email)
+            "users"
         </th>
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.version)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.camps_address)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.camps_type1)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.camps_type2)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.camps_organization_address)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.camps_organization_cheef)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.camps_organization_cheef_tel)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.camps_organization_name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.camps_union)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.camps_union_tel)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.camps_cheef)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.camps_cheef_tel)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.code)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.s_comment)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.s_create)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.s_status)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.camps_email)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.camps_name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.camps_site)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.camps_tel)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.NATIVE_ID)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.sp_soato.code)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.sp_soato1.code)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.users.email)
-        </td>
-        <td>
-            @Html.ActionLink("Изменить", "Edit", new { id=item.id }) |
-            @Html.ActionLink("Детали", "Details", new { id=item.id }) |
-            @Html.ActionLink("Удалить", "Delete", new { id=item.id })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.version)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.camps_address)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.camps_type1)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.camps_type2)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.camps_organization_address)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.camps_organization_cheef)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.camps_organization_cheef_tel)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.camps_organization_name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.camps_union)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.camps_union_tel)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.camps_cheef)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.camps_cheef_tel)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.code)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.s_comment)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.s_create)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.s_status)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.camps_email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.camps_name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.camps_site)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.camps_tel)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NATIVE_ID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.sp_soato.code)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.sp_soato1.code)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.users.email)
+            </td>
+            <td>
+                @Html.ActionLink("Изменить", "Edit", new { id = item.id }) |
+                @Html.ActionLink("Детали", "Details", new { id = item.id }) |
+                @Html.ActionLink("Удалить", "Delete", new { id = item.id })
+            </td>
+        </tr>
+    }
 
 </table>
+Страница @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) из @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("Index", new { page }))

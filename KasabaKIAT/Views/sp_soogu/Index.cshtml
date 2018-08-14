@@ -1,4 +1,6 @@
-﻿@model IEnumerable<KasabaKIAT.Models.sp_soogu>
+﻿@model PagedList.IPagedList<KasabaKIAT.Models.sp_soogu>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 
 @{
     ViewBag.Title = "Справочник СООГУ";
@@ -16,11 +18,10 @@
 </div>
 <style>
 
-    td, th{
+    td, th {
         vertical-align: middle !important;
         text-align: center;
-    };
-    
+    }
 </style>
 <p>
     <button style="margin:10px" class="btn btn-white">@Html.ActionLink("Добавить", "Create")</button>
@@ -28,82 +29,86 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.version)
+            "version"
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.code_okpo)
+            "code_okpo"
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.s_comment)
+            "s_comment"
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.s_create)
+            "s_create"
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.s_status)
+            "s_status"
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.name_ru)
+            "name_ru"
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.name_uz)
+            "name_uz"
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.name_uzl)
+            "name_uzl"
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.code)
+            "code"
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.NATIVE_ID)
+            "NATIVE_ID"
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.users.email)
+            "users"
         </th>
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.version)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.code_okpo)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.s_comment)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.s_create)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.s_status)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.name_ru)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.name_uz)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.name_uzl)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.code)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.NATIVE_ID)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.users.email)
-        </td>
-        <td>
-            @Html.ActionLink("Изменить", "Edit", new { id=item.id }) |
-            @Html.ActionLink("Детали", "Details", new { id=item.id }) |
-            @Html.ActionLink("Удалить", "Delete", new { id=item.id })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.version)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.code_okpo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.s_comment)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.s_create)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.s_status)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.name_ru)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.name_uz)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.name_uzl)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.code)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NATIVE_ID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.users.email)
+            </td>
+            <td>
+                @Html.ActionLink("Изменить", "Edit", new { id = item.id }) |
+                @Html.ActionLink("Детали", "Details", new { id = item.id }) |
+                @Html.ActionLink("Удалить", "Delete", new { id = item.id })
+            </td>
+        </tr>
+    }
 
 </table>
+Страница @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) из @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("Index", new { page }))

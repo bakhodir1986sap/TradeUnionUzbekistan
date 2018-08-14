@@ -7,6 +7,8 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using KasabaKIAT.Models;
+using PagedList.Mvc;
+using PagedList;
 
 namespace KasabaKIAT.Controllers
 {
@@ -15,10 +17,11 @@ namespace KasabaKIAT.Controllers
         private KasabaKIATEntities db = new KasabaKIATEntities();
 
         // GET: sp_soogu
-        public ActionResult Index()
+        public ActionResult Index(int? page)
         {
-            var sp_soogu = db.sp_soogu.Include(s => s.users).Take(50);
-            return View(sp_soogu.ToList());
+            int pageSize = 15;
+            int pageNumber = (page ?? 1);
+            return View(db.sp_soogu.ToList().ToPagedList(pageNumber, pageSize));
         }
 
         // GET: sp_soogu/Details/5

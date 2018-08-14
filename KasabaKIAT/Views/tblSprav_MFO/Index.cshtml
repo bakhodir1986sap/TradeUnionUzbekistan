@@ -1,4 +1,6 @@
-﻿@model IEnumerable<KasabaKIAT.Models.tblSprav_MFO>
+﻿@model PagedList.IPagedList<KasabaKIAT.Models.tblSprav_MFO>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 
 @{
     ViewBag.Title = "Справочник Банков";
@@ -16,11 +18,11 @@
 </div>
 <style>
 
-    td, th{
+    td, th {
         vertical-align: middle !important;
-        
-    };
-    
+    }
+
+    ;
 </style>
 <p>
     <button style="margin:10px" class="btn btn-white">@Html.ActionLink("Добавить", "Create")</button>
@@ -28,52 +30,56 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Code_MFO)
+            "Code_MFO"
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Name_MFO)
+            "Name_MFO"
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Adres_MFO)
+            "Adres_MFO"
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Data_Act)
+            "Data_Act"
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Data_Cls)
+            "Data_Cls"
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.users.email)
+            "users"
         </th>
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Code_MFO)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name_MFO)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Adres_MFO)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Data_Act)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Data_Cls)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.users.email)
-        </td>
-        <td>
-            @Html.ActionLink("Изменить", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Детали", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Удалить", "Delete", new { id=item.ID })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Code_MFO)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name_MFO)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Adres_MFO)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Data_Act)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Data_Cls)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.users.email)
+            </td>
+            <td>
+                @Html.ActionLink("Изменить", "Edit", new { id = item.ID }) |
+                @Html.ActionLink("Детали", "Details", new { id = item.ID }) |
+                @Html.ActionLink("Удалить", "Delete", new { id = item.ID })
+            </td>
+        </tr>
+    }
 
 </table>
+Страница @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) из @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("Index", new { page }))

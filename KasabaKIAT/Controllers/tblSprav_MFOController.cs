@@ -7,6 +7,8 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using KasabaKIAT.Models;
+using PagedList.Mvc;
+using PagedList;
 
 namespace KasabaKIAT.Controllers
 {
@@ -15,10 +17,11 @@ namespace KasabaKIAT.Controllers
         private KasabaKIATEntities db = new KasabaKIATEntities();
 
         // GET: tblSprav_MFO
-        public ActionResult Index()
+        public ActionResult Index(int? page)
         {
-            var tblSprav_MFO = db.tblSprav_MFO.Include(t => t.users).Take(50);
-            return View(tblSprav_MFO.ToList());
+            int pageSize = 15;
+            int pageNumber = (page ?? 1);
+            return View(db.tblSprav_MFO.ToList().ToPagedList(pageNumber, pageSize));
         }
 
         // GET: tblSprav_MFO/Details/5

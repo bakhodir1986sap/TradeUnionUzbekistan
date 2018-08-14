@@ -1,24 +1,41 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
+﻿using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
 using KasabaKIAT.Models;
+using PagedList.Mvc;
+using PagedList;
 
 namespace KasabaKIAT.Controllers
 {
+    public class IndexViewModel
+    {
+        public IEnumerable<sp_okonx> sp_okonxs { get; set; }
+        public PageInfo PageInfo { get; set; }
+    }
+
     public class sp_okonxController : Controller
     {
         private KasabaKIATEntities db = new KasabaKIATEntities();
 
+
         // GET: sp_okonx
-        public ActionResult Index()
+        public ActionResult Index(int? page = 1)
         {
-            var sp_okonx = db.sp_okonx.Include(s => s.users).Include(s => s.sp_okonx2).Take(50);
-            return View(sp_okonx.ToList());
+            //var sp_okonx = db.sp_okonx.Include(s => s.users).Include(s => s.sp_okonx2).Take(50);
+            //return View(sp_okonx.ToList());
+
+            //int pageSize = 30; // количество объектов на страницу
+            //IEnumerable<sp_okonx> phonesPerPages = db.sp_okonx.OrderBy(z=>z.id).Skip((page - 1) * pageSize).Take(pageSize);
+            //PageInfo pageInfo = new PageInfo { PageNumber = page, PageSize = pageSize, TotalItems = db.sp_okonx.Count() };
+            //IndexViewModel ivm = new IndexViewModel { PageInfo = pageInfo, sp_okonxs = phonesPerPages };
+            //return View(ivm);
+
+            int pageSize = 15;
+            int pageNumber = (page ?? 1);
+            return View(db.sp_okonx.ToList().ToPagedList(pageNumber, pageSize));
+
         }
 
         // GET: sp_okonx/Details/5

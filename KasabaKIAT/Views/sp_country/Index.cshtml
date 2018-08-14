@@ -1,6 +1,9 @@
-﻿@model IEnumerable<KasabaKIAT.Models.sp_country>
-
+﻿@model PagedList.IPagedList<KasabaKIAT.Models.sp_country>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 @{
+    /**/
+
     ViewBag.Title = "Справочник Стран";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -21,94 +24,100 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.version)
+            "version"
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.code)
+            "code"
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.s_comment)
+            "s_comment"
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.s_create)
+            "s_create"
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.s_status)
+            "s_status"
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.name_ru)
+            "name_ru"
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.name_uz)
+            "name_uz"
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.name_uzl)
+            "name_uzl"
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.name_short_ru)
+            "name_short_ru"
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.name_short_uz)
+            "name_short_uz"
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.name_short_uzl)
+            "name_short_uzl"
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.NATIVE_ID)
+            "NATIVE_ID"
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.users.email)
+            "users"
         </th>
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.version)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.code)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.s_comment)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.s_create)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.s_status)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.name_ru)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.name_uz)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.name_uzl)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.name_short_ru)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.name_short_uz)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.name_short_uzl)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.NATIVE_ID)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.users.email)
-        </td>
-        <td>
-            @Html.ActionLink("Изменить", "Edit", new { id=item.id }) |
-            @Html.ActionLink("Детали", "Details", new { id=item.id }) |
-            @Html.ActionLink("Удалить", "Delete", new { id=item.id })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.version)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.code)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.s_comment)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.s_create)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.s_status)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.name_ru)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.name_uz)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.name_uzl)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.name_short_ru)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.name_short_uz)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.name_short_uzl)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NATIVE_ID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.users.email)
+            </td>
+            <td>
+                @Html.ActionLink("Изменить", "Edit", new { id = item.id }) |
+                @Html.ActionLink("Детали", "Details", new { id = item.id }) |
+                @Html.ActionLink("Удалить", "Delete", new { id = item.id })
+            </td>
+        </tr>
+    }
 
 </table>
+
+<br />
+Страница @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) из @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("Index", new { page }))

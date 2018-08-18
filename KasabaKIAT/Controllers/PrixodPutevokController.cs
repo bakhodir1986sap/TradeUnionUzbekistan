@@ -36,6 +36,8 @@ using System.Globalization;
 using KasabaKIAT.BusinessLogic.StartProcess.LoaderViewModels;
 using KasabaKIAT.BusinessLogic.StartProcess.LoaderDataManagers;
 using KasabaKIAT.BusinessLogic.Putyovki.PutyovkiHistory;
+using KasabaKIAT.BusinessLogic.Putyovki.OplataPutyovok.Template;
+using KasabaKIAT.BusinessLogic.ClosePeriod.CloseKvartal;
 
 namespace KasabaKIAT.Controllers
 {
@@ -1127,6 +1129,78 @@ namespace KasabaKIAT.Controllers
             return Json(list.ToList().Take(30), JsonRequestBehavior.AllowGet);
         }
 
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="formCollection"></param>
+        /// <returns></returns>
+        public async Task<JsonResult> OrganizationOtrasl(FormCollection formCollection)
+        {
+            int UserId = Convert.ToInt32(User.Identity.Name);
+            var ustinfo = UserInfo.GetUserInfo(UserId);
+
+            log.Info("Save");
+            try
+            {
+                if (Request != null)
+                {
+                    HttpPostedFileBase file = Request.Files["OtraslFile"];
+                    if ((file != null) && (file.ContentLength > 0) && !string.IsNullOrEmpty(file.FileName))
+                    {
+                        string fileName = file.FileName;
+                        string fileContentType = file.ContentType;
+                        byte[] fileBytes = new byte[file.ContentLength];
+                        var data = file.InputStream.Read(fileBytes, 0, Convert.ToInt32(file.ContentLength));
+
+                        using (var package = new ExcelPackage(file.InputStream))
+                        {
+                            var currentSheet = package.Workbook.Worksheets;
+                            var workSheet = currentSheet.First();
+                            var noOfCol = workSheet.Dimension.End.Column;
+                            var noOfRow = workSheet.Dimension.End.Row;
+                            var listModel = new List<PutyovkiOstatokViewModel>();
+
+                            for (int rowIterator = 2; rowIterator <= noOfRow; rowIterator++)
+                            {
+                                try
+                                {
+                                    var orgModel = new Sprav_OrgViewModel();
+
+                                    orgModel.INN = workSheet.Cells[rowIterator, 1].Value.ToString();
+
+                                    int OtraslId = 0;
+                                    if (int.TryParse(workSheet.Cells[rowIterator, 2].Value.ToString(), out OtraslId))
+                                    {
+                                        orgModel.ID_Ot = OtraslId;
+                                    }
+                                    else
+                                    {
+                                        orgModel.ID_Ot =null;
+                                    }
+
+                                    Sprav_Org.ModifyByTemplate(orgModel, KasabaDB);
+                                }
+                                catch (Exception ex)
+                                {
+                                    log.Info(ex);
+                                }
+                            }
+
+                            await KasabaDB.SaveChangesAsync();
+                        }
+                    }
+                }
+                return Json("success", JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                log.Info(ex);
+                return Json("error", JsonRequestBehavior.AllowGet);
+            }
+
+        }
+
         #endregion
 
         #region FizLisoBaza
@@ -1231,6 +1305,24 @@ namespace KasabaKIAT.Controllers
             var list = Sprav_Org.GetFizLisoList(Name, Inn, Pas_ser, Pas_Number);
 
             return Json(list.ToList().Take(30), JsonRequestBehavior.AllowGet);
+        }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public FileResult DownloadTemplateNeopr()
+        {
+            var ArxiveDirectory = Properties.Settings.Default.TemplateDir;
+
+            var targetFile = Path.Combine(ArxiveDirectory, "NeoprZagruska.xlsx");
+
+            if (!System.IO.File.Exists(targetFile)) return null;
+
+            byte[] fileBytes = System.IO.File.ReadAllBytes(targetFile);
+            string fileName = "NeoprZagruska.xlsx";
+            return File(fileBytes, "application/vnd.ms-excel", fileName);
         }
 
 
@@ -2699,6 +2791,144 @@ namespace KasabaKIAT.Controllers
             return File(fileBytes, "application/vnd.ms-excel", fileName);
         }
 
+        //
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="formCollection"></param>
+        /// <returns></returns>
+        public async Task<JsonResult> LoadOplataViplata(FormCollection formCollection)
+        {
+            int UserId = Convert.ToInt32(User.Identity.Name);
+            var ustinfo = UserInfo.GetUserInfo(UserId);
+
+            log.Info("Save");
+            try
+            {
+                if (Request != null)
+                {
+                    HttpPostedFileBase file = Request.Files["OplataFile"];
+                    if ((file != null) && (file.ContentLength > 0) && !string.IsNullOrEmpty(file.FileName))
+                    {
+                        string fileName = file.FileName;
+                        string fileContentType = file.ContentType;
+                        byte[] fileBytes = new byte[file.ContentLength];
+                        var data = file.InputStream.Read(fileBytes, 0, Convert.ToInt32(file.ContentLength));
+
+                        using (var package = new ExcelPackage(file.InputStream))
+                        {
+                            var currentSheet = package.Workbook.Worksheets;
+                            var workSheet = currentSheet.First();
+                            var noOfCol = workSheet.Dimension.End.Column;
+                            var noOfRow = workSheet.Dimension.End.Row;
+                            var listModel = new List<OplataViplataTemplateViewModel>();
+
+                            var curKvartalc = new CloseKvartal();
+                            var curKvartal = curKvartalc.GetCloseKvartalRow(ustinfo.DepartmentBase);
+
+                            for (int rowIterator = 2; rowIterator <= noOfRow; rowIterator++)
+                            {
+                                try
+                                {
+                                    var oplModel = new OplataViplataTemplateViewModel();
+
+                                    oplModel.inn = workSheet.Cells[rowIterator, 1].Value.ToString();
+                                    oplModel.naimenovanie = workSheet.Cells[rowIterator, 2].Value.ToString();
+                                    oplModel.num_scetfak = workSheet.Cells[rowIterator, 3].Value.ToString();
+
+                                    int sanatId = 0;
+                                    if (int.TryParse(workSheet.Cells[rowIterator, 4].Value.ToString(), out sanatId))
+                                    {
+                                        oplModel.sanatoriy_code = sanatId;
+                                    }
+                                    else
+                                    {
+                                        oplModel.sanatoriy_code = null;
+                                    }
+
+                                    oplModel.nomer_putyovki = workSheet.Cells[rowIterator, 5].Value.ToString();
+
+                                    decimal summa = 0;
+                                    if (decimal.TryParse(workSheet.Cells[rowIterator, 6].Value.ToString(), out summa))
+                                    {
+                                        oplModel.summa_puyovki = summa;
+                                    }
+                                    else
+                                    {
+                                        oplModel.summa_puyovki = null;
+                                    }
+
+                                    int procent = 0;
+                                    if (int.TryParse(workSheet.Cells[rowIterator, 7].Value.ToString(), out procent))
+                                    {
+                                        oplModel.procent = procent;
+                                    }
+                                    else
+                                    {
+                                        oplModel.procent = null;
+                                    }
+
+
+                                    decimal oplacheno = 0;
+                                    if (decimal.TryParse(workSheet.Cells[rowIterator, 6].Value.ToString(), out oplacheno))
+                                    {
+                                        oplModel.oplacheno = oplacheno;
+                                    }
+                                    else
+                                    {
+                                        oplModel.oplacheno = null;
+                                    }
+
+                                    DateTime trandate;
+                                    string DateOfPayment = workSheet.Cells[rowIterator, 7].Value.ToString();
+
+                                    if (DateOfPayment.Length > 10)
+                                    {
+                                        DateOfPayment = DateOfPayment.Substring(0, 10);
+                                    }
+                                    if (DateTime.TryParseExact(DateOfPayment, "dd.MM.yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out trandate))
+                                    {
+                                        oplModel.data_oplati = trandate;
+                                    }
+                                    else
+                                    {
+                                        oplModel.data_oplati = DateTime.Now;
+
+                                    }
+
+                                    listModel.Add(oplModel);
+
+
+                                    //Sprav_Org.ModifyByTemplate(orgModel, KasabaDB);
+                                }
+                                catch (Exception ex)
+                                {
+                                    log.Info(ex);
+                                }
+                            }
+
+                            OplataImporter.EnterOplata(ustinfo.DepartmentBase, 
+                                                        UserId, 
+                                                        curKvartal.curkv_year.Value, 
+                                                        curKvartal.curkv.Value, 
+                                                        listModel, 
+                                                        KasabaDB);
+
+                            await KasabaDB.SaveChangesAsync();
+                        }
+                    }
+                }
+                return Json("success", JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                log.Info(ex);
+                return Json("error", JsonRequestBehavior.AllowGet);
+            }
+
+        }
+
         /// <summary>
         /// 
         /// </summary>
@@ -2981,7 +3211,133 @@ namespace KasabaKIAT.Controllers
 
                 if (putyovkasDebit.Any())
                 {
-                            var totalNew = putyovkasDebit.Sum(z => z.Symma);
+                    var totalNew = putyovkasDebit.Sum(z => z.Symma);
+
+                    var putyovkasDebitMain = KasabaDB.tblOplatas.Where(z => z.ID == debitOplataModel).FirstOrDefault();
+
+                    if (putyovkasDebitMain != null)
+                    {
+                        putyovkasDebitMain.Symma_DT = totalNew;
+                    }
+                }
+
+                await KasabaDB.SaveChangesAsync();
+
+                return Json("success", JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex.ToString());
+            }
+
+            return Json("fail", JsonRequestBehavior.AllowGet);
+        }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="lmodel"></param>
+        /// <param name="IdOpl"></param>
+        /// <param name="IdPr"></param>
+        /// <returns></returns>
+        public async Task<JsonResult> AddOplataPutyovok3(List<OplataRasxodiViewModel> lmodel, long IdOpl, long IdPr)
+        {
+            if (lmodel == null) return Json("fail", JsonRequestBehavior.AllowGet);
+
+            int UserId = Convert.ToInt32(User.Identity.Name);
+            var ustinfo = UserInfo.GetUserInfo(UserId);
+
+            try
+            {
+                long debitOplataModel = 0;
+
+                foreach (var rasxodId in lmodel)
+                {
+                    var rasxm = OplataRasxodDataManager.Get(new OplataRasxodiViewModel()
+                    {
+                        ID = rasxodId.ID
+
+                    });
+
+                    if (!rasxm.Any()) continue;
+
+                    var puty = rasxm.First();
+
+                    var model = rasxodId;
+
+                    decimal puyovka_amount = 0;
+
+                    if (IdPr == 1)
+                    {
+                        //it by default 45%
+                        puyovka_amount = model.Symma.Value;
+                    }
+                    else if (IdPr == 2)
+                    {
+                        puyovka_amount = Decimal.Multiply(model.Symma.Value, 100 / 45);
+                    }
+                    else if (IdPr == 3)
+                    {
+                        puyovka_amount = 0;
+                    }
+
+
+                    //Debit side Rasxod putyovka change
+
+                    var putyovka = KasabaDB.tblOplata_Ras.Where(z => z.ID_Sanat == model.ID_Sanat
+                                                                && z.Num_Put == model.Num_Put
+                                                                && z.Priz == (int)OplataRasxPriz.OrganizasiyaRasxod).FirstOrDefault();
+
+                    if (putyovka != null)
+                    {
+                        if (IdPr != 3)
+                        {
+                            if ((puyovka_amount != puty.Symma) && (Decimal.Multiply(puyovka_amount, 45 / 100) != puty.Symma))
+                            {
+                                //do not change
+                            }
+                            else
+                            {
+                                putyovka.Symma = puyovka_amount;
+                            }
+                        }
+                        else
+                        {
+                            putyovka.Symma = puyovka_amount;
+                        }
+                        
+                        putyovka.ID_Pr = IdPr;
+                        debitOplataModel = putyovka.ID_Opl.Value;
+                    }
+
+
+                    //////////////////////////////////////
+
+                    var mmodel = new OplataRasxodiViewModel
+                    {
+                        ID_Opl = IdOpl,
+                        ID_Pr = IdPr,
+                        ID_Sanat = model.ID_Sanat.Value,
+                        Num_Put = model.Num_Put,
+                        Symma = puyovka_amount,
+                        Departmentbase = ustinfo.DepartmentBase,
+                        UserId = UserId,
+                        Priz = (int)OplataRasxPriz.OrganizasiyaOplata
+                    };
+
+                    tblOplata opMain = KasabaDB.tblOplatas.Where(z => z.ID == mmodel.ID_Opl).First();
+
+                    OplataRasxodDataManager.Create(ref mmodel, KasabaDB, opMain);
+
+                    await KasabaDB.SaveChangesAsync();
+                }
+
+                var putyovkasDebit = KasabaDB.tblOplata_Ras.Where(z => z.ID_Opl == debitOplataModel);
+
+                if (putyovkasDebit.Any())
+                {
+                    var totalNew = putyovkasDebit.Sum(z => z.Symma);
 
                     var putyovkasDebitMain = KasabaDB.tblOplatas.Where(z => z.ID == debitOplataModel).FirstOrDefault();
 

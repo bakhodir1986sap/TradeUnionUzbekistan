@@ -29,7 +29,7 @@
                 <button class="btn btn-blue d-block d-md-inline-block mb-2" ng-click="novoe()" data-toggle="modal" data-target="#novoe">Новое</button>
             </div>
         </div>
-        <div class="table-responsive box-shadow mb-4">
+        <div class="table-responsive box-shadow mb-4" id="platejka">
             <table class="table table__block">
                 <thead>
                     <tr>
@@ -102,8 +102,8 @@
             </table>
         </div>
         <div class="mb-4">
-            <a href="" class="btn btn-grey d-block d-md-inline-block mb-2">Экспорт</a>
-            <button class="btn btn-grey d-block d-md-inline-block mb-2">Печать</button>
+            <a href="" class="btn btn-grey d-block d-md-inline-block mb-2" ng-click="exportData()">Экспорт</a>
+            @*<button class="btn btn-grey d-block d-md-inline-block mb-2">Печать</button>*@
         </div>
         <div class="modal__block modal fade" id="novoe" tabindex="-1" role="dialog" aria-labelledby="dobavitLabel">
             <div class="modal-dialog modal-dialog-centered modal-lg" role="document">

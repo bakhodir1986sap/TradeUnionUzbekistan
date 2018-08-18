@@ -226,4 +226,11 @@
 
         return data;
     }
+
+    $scope.exportData = function () {
+        var blob = new Blob([document.getElementById('platejka').innerHTML], {
+            type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=utf-8"
+        });
+        saveAs(blob, "Список Платежек.xls");
+    };
 }]);

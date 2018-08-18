@@ -36,6 +36,39 @@
 
     };
 
+    $scope.printDiv = function (divName) {
+        var printContents = document.getElementById(divName).innerHTML;
+        var popupWin = window.open('', '_blank', 'width=300,height=300');
+        popupWin.document.open();
+        //    <link href="~/Content/styles/main.css" rel="stylesheet" />
+        //<link href="~/Content/styles/override.css" rel="stylesheet" />
+        popupWin.document.write('<html><head><link href="~/Content/styles/main.css" rel="stylesheet" /><link href="~/Content/styles/override.css" rel="stylesheet" /></head><body onload="window.print()">' + printContents + '</body></html>');
+        popupWin.document.close();
+    } 
+
+
+    $scope.printDiv2 = function (elem) {
+        var mywindow = window.open('', 'PRINT', 'height=400,width=600');
+
+        mywindow.document.write('<html><head><title>' + document.title + '</title>');
+        var htmlToPrint = '' +
+            '<style type="text/css">' +
+            '.border-dark{border-color:#343a40!important}' 
+        '</style>';
+        mywindow.document.write(htmlToPrint);
+        mywindow.document.write('</head><body >');
+        mywindow.document.write('<h1>' + document.title + '</h1>');
+        mywindow.document.write(document.getElementById(elem).innerHTML);
+        mywindow.document.write('</body></html>');
+
+        mywindow.document.close(); // necessary for IE >= 10
+        mywindow.focus(); // necessary for IE >= 10*/
+
+        mywindow.print();
+        mywindow.close();
+
+        return true;
+    }
 
     function GetCurBusinessTime() {
         document.getElementById('connection').style.visibility = "visible";
@@ -653,7 +686,7 @@
         });
 
         var doc = new jsPDF({
-            orientation: 'p',
+            orientation: 'landscape',
             unit: 'mm',
             format: [297, 210]
         });
@@ -676,17 +709,39 @@
                         onrendered: function (canvas) {
 
                             // $("#schetfaktura").remove();
-                            //width = canvas.width;
-                            //height =canvas.height;
+                            width = canvas.width;
+                            height =canvas.height;
                             resolve(canvas.toDataURL('image/png'));
                         },
                     });
                 })
             ]).then(function (ru_text) {
-                doc.addImage(ru_text[0], 'JPEG', 10, 10, (width - 20), (height - 20));
-                //doc.text(0, 10, 'Non-utf-8-string');
-                doc.addPage();
-                doc.save('СчетФактура.pdf');
+                //doc.addImage(ru_text[0], 'JPEG', 10, 10, (width - 20), (height - 20));
+                ////doc.text(0, 10, 'Non-utf-8-string');
+                //doc.addPage();
+                //doc.save('СчетФактура.pdf');
+
+                var imgWidth = 210;
+                var pageHeight = 295;
+                var imgHeight = height * imgWidth / width;
+                var heightLeft = imgHeight;
+
+                var doc = new jsPDF('p', 'mm');
+                var position = 0;
+
+                doc.addImage(ru_text[0], 'PNG', 0, position, imgWidth, imgHeight);
+                heightLeft -= pageHeight;
+
+                while (heightLeft >= 0) {
+                    position = heightLeft - imgHeight;
+                    doc.addPage();
+                    doc.addImage(ru_text[0], 'PNG', 0, position, imgWidth, imgHeight);
+                    heightLeft -= pageHeight;
+                }
+                doc.save('СчетФактура.pdf');﻿
+
+
+
                 document.getElementById('connection').style.visibility = "hidden";
                 document.getElementById('schetfaktura').style.visibility = "visible";
                 $("#hh").modal('hide');

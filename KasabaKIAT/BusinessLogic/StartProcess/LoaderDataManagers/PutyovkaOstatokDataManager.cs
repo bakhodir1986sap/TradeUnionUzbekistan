@@ -1,4 +1,5 @@
-﻿using KasabaKIAT.BusinessLogic.StartProcess.LoaderViewModels;
+﻿using KasabaKiat.BusinessLogic.Putyovki.OplataPutyovok;
+using KasabaKIAT.BusinessLogic.StartProcess.LoaderViewModels;
 using KasabaKIAT.Models;
 using System;
 using System.Collections.Generic;
@@ -54,14 +55,18 @@ namespace KasabaKIAT.BusinessLogic.StartProcess.LoaderDataManagers
 
             foreach(var model in models)
             {
-                var putyovka = new tblPos_Put();
-
-                putyovka.tblPost = naklad;
-                putyovka.ID_Sanat = model.SanatoryCode;
-                putyovka.Num_Put = model.NumPut;
-                putyovka.DataSan = model.DataSan;
-                putyovka.Symma_Put = model.Summa;
-                putyovka.Data_Post = DateTime.Now;
+                var putyovka = new tblPos_Put
+                {
+                    tblPost = naklad,
+                    ID_Sanat = model.SanatoryCode,
+                    Num_Put = model.NumPut,
+                    DataSan = model.DataSan,
+                    Symma_Put = model.Summa,
+                    Data_Post = DateTime.Now,
+                    Departmentbase = DepartmentBase,
+                    UserId = UserId,
+                    TIMESTAMP_T = DateTime.Now
+                };
 
                 db.tblPos_Put.Add(putyovka);
             }
@@ -88,6 +93,7 @@ namespace KasabaKIAT.BusinessLogic.StartProcess.LoaderDataManagers
                 #region Nakladnaya
                 var naklad = new tblPost();
                 var rasxodNaklad = new tblVipl();
+                var oplata = new tblOplata();
 
                 string owner_code = string.Empty;
 
@@ -99,6 +105,7 @@ namespace KasabaKIAT.BusinessLogic.StartProcess.LoaderDataManagers
                     owner_code = organization.OWNER_CODE;
                     naklad.tblSprav_Org = organization;
                     rasxodNaklad.tblSprav_Org = organization;
+                    oplata.tblSprav_Org = organization;
                 }
                 else
                 {
@@ -114,7 +121,6 @@ namespace KasabaKIAT.BusinessLogic.StartProcess.LoaderDataManagers
 
                 db.tblPost.Add(naklad);
 
-
                 rasxodNaklad.Data_Post = DateTime.ParseExact("01.01.2018", "dd.MM.yyyy", CultureInfo.InvariantCulture);
                 rasxodNaklad.DepartmentBase = DepartmentBase;
                 rasxodNaklad.UserId = UserId;
@@ -122,6 +128,21 @@ namespace KasabaKIAT.BusinessLogic.StartProcess.LoaderDataManagers
                 rasxodNaklad.ID_Kv = 4;
 
                 db.tblVipl.Add(rasxodNaklad);
+
+                oplata.Data_Post = DateTime.ParseExact("01.01.2018", "dd.MM.yyyy", CultureInfo.InvariantCulture);
+                oplata.Num_Doc = "1";
+                oplata.Symma_DT = 0;
+                oplata.Symma_KT = 0;
+                oplata.Osnov = "";
+                oplata.ID_KV =4;
+                oplata.SmFil = 2017;
+                oplata.Name_org ="";
+                oplata.Tip_Org = true;
+                oplata.PrizOpl = (int)OplataRasxPriz.OrganizasiyaRasxod;
+                oplata.UserId = UserId;
+                oplata.Departmentbase = DepartmentBase;
+
+                db.tblOplatas.Add(oplata);
                 #endregion
 
                 //Putyovka
@@ -160,6 +181,20 @@ namespace KasabaKIAT.BusinessLogic.StartProcess.LoaderDataManagers
                     };
 
                     db.tblVipl_Put.Add(putyovkaras);
+
+                    var opl = new tblOplata_Ras
+                    {
+                        tblOplata = oplata,
+                        ID_Sanat = model.SanatoryCode,
+                        Num_Put = model.NumPut,
+                        Symma = Decimal.Multiply(model.Summa, 0.45M),
+                        ID_Pr = 1,
+                        Priz = (int)OplataRasxPriz.OrganizasiyaRasxod,
+                        UserId = UserId,
+                        Departmentbase = DepartmentBase
+                    };
+
+                    db.tblOplata_Ras.Add(opl);
                 }
 
                 #endregion

@@ -347,6 +347,8 @@
     <Compile Include="BusinessLogic\Putyovki\OplataPutyovok\Oplata.cs" />
     <Compile Include="BusinessLogic\Putyovki\OplataPutyovok\OplataDataManager.cs" />
     <Compile Include="BusinessLogic\Putyovki\OplataPutyovok\OplataRasxodDataManager.cs" />
+    <Compile Include="BusinessLogic\Putyovki\OplataPutyovok\Template\OplataImporter.cs" />
+    <Compile Include="BusinessLogic\Putyovki\OplataPutyovok\Template\OplataViplataTemplateViewModel.cs" />
     <Compile Include="BusinessLogic\Putyovki\PlanGrafikZaezdov\GrafikZaezdov.cs" />
     <Compile Include="BusinessLogic\Putyovki\PlanGrafikZaezdov\GrafikZaezdovDataManager.cs" />
     <Compile Include="BusinessLogic\Putyovki\PrixodPutyovok\IPostupleniyaEnter.cs" />
@@ -1652,6 +1654,7 @@
     <Content Include="Scripts\MyJavaScript\Ilxom\PrixodPutyovokRuchnoy.js" />
     <Content Include="Scripts\MyJavaScript\Ilxom\RasxodPutyovokN1.js" />
     <Content Include="Scripts\MyJavaScript\Ilxom\RasxodPutyovok.js" />
+    <Content Include="Scripts\MyJavaScript\Ilxom\RasxodPutyovokN4.js" />
     <Content Include="Scripts\MyJavaScript\Ilxom\RasxodPutyovokN3.js" />
     <Content Include="Scripts\MyJavaScript\Ilxom\RasxodPutyovokN2.js" />
     <Content Include="Scripts\MyJavaScript\Ilxom\StartProcessN1.js" />

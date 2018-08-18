@@ -702,6 +702,38 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.GlavnayaKniga
 
                 tableRow.field0040 = row;
 
+
+                if (tableRow.field0011 == 0 &&
+                    tableRow.field0012 == 0 &&
+                    tableRow.field0013 == 0 &&
+                    tableRow.field0014 == 0 &&
+                    tableRow.field0015 == 0 &&
+                    tableRow.field0016 == 0 &&
+                    tableRow.field0017 == 0 &&
+                    tableRow.field0018 == 0 &&
+                    tableRow.field0019 == 0 &&
+                    tableRow.field0020 == 0 &&
+                    tableRow.field0021 == 0 &&
+                    tableRow.field0022 == 0 &&
+                    tableRow.field0023 == 0 &&
+                    tableRow.field0025 == 0 &&
+                    tableRow.field0026 == 0 &&
+                    tableRow.field0027 == 0 &&
+                    tableRow.field0028 == 0 &&
+                    tableRow.field0029 == 0 &&
+                    tableRow.field0030 == 0 &&
+                    tableRow.field0031 == 0 &&
+                    tableRow.field0032 == 0 &&
+                    tableRow.field0033 == 0 &&
+                    tableRow.field0034 == 0 &&
+                    tableRow.field0035 == 0 &&
+                    tableRow.field0036 == 0 &&
+                    tableRow.field0037 == 0 &&
+                    tableRow.field0038 == 0 &&
+                    tableRow.field0039 == 0
+                    )
+                    continue;
+
                 retList.Add(tableRow);
             }
 

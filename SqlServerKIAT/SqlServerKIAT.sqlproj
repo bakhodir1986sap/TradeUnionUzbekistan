@@ -91,6 +91,8 @@
     <Folder Include="Statistics" />
     <Folder Include="UsefulSqripts\11082018" />
     <Folder Include="UsefulSqripts\13082018" />
+    <Folder Include="UsefulSqripts\17082018" />
+    <Folder Include="ECP Analises" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="Procedures\sp_rt_FormaN13_1.sql" />
@@ -147,5 +149,7 @@
     <None Include="Statistics\StoredProcedures.sql" />
     <None Include="UsefulSqripts\11082018\11082018.sql" />
     <None Include="UsefulSqripts\13082018\13082018.sql" />
+    <None Include="UsefulSqripts\17082018\17082018.sql" />
+    <None Include="ECP Analises\Differs.sql" />
   </ItemGroup>
 </Project>

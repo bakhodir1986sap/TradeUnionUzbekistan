@@ -6,7 +6,7 @@
 }
 <script src="~/Scripts/dist/jspdf.debug.js"></script>
 <script src="~/Scripts/basic.js"></script>
-<script src="~/Scripts/MyJavaScript/Ilxom/RasxodPutyovokN2.js"></script>
+<script src="~/Scripts/MyJavaScript/Ilxom/RasxodPutyovokN4.js"></script>
 <div id="connection" style="visibility:hidden;position:absolute;margin-left:430px;z-index:9999">
     <img src="~/Content/Login/buffering.gif" />
 </div>
@@ -116,7 +116,7 @@
                         <a href="#" ng-click="AddNakladnoy()" class="btn btn-blue d-block d-md-inline-block mb-3 mt-20" data-toggle="modal" data-target="#dobavit">Добавить</a>
                         @*<a href="#" class="btn btn-danger d-block d-md-inline-block mb-3 mt-20">Удалить</a>*@
                         <a @*href="@Url.Action("ReportTemplate", "Report",
-                        new { ReportName = "Оперативка по путевкам", ReportDescription = "Оперативка по путевкам", Width = 100, Height = 650 })"*@ class="btn btn-grey d-block d-md-inline-block mb-3 mt-20" ng-click="SchetFakturaPrint()"><i class="fa fa-print"></i>Печать</a>
+                        new { ReportName = "Оперативка по путевкам", ReportDescription = "Оперативка по путевкам", Width = 100, Height = 650 })"*@ class="btn btn-grey d-block d-md-inline-block mb-3 mt-20" @*ng-click="printDiv('schetfaktura')"*@ ng-click="SchetFakturaPrint()"><i class="fa fa-print"></i>Печать</a>
                     </div>
                 </div>
 
@@ -504,14 +504,14 @@
 
 
         <div class="row" id="schetfaktura" style="visibility:visible;position:absolute">
-            <div class="col-md-12">
+            <div class="col-md-12" style="margin:30px;font-size: 14pt">
                 <div class="table-responsive mb-4" @*style="visibility:visible;position:absolute"*@>
                     <table class="table table-nobordered table-sm">
                         <tr>
                             <td colspan="9"></td>
-                            <td colspan="16" class="text-center"><strong>НАКЛАДНАЯ-СЧЕТ-ФАКТУРА</strong></td>
-                            <td colspan="2" class="text-center"><strong>№</strong></td>
-                            <td colspan="3" class="text-center"><strong>{{SchetFaktura.nakladnaya.num_doc}}</strong></td>
+                            <td colspan="10" class="text-center"><strong>НАКЛАДНАЯ-СЧЕТ-ФАКТУРА</strong></td>
+                            <td colspan="1" class="text-center"><strong>№</strong></td>
+                            <td colspan="2" class="text-center"><strong>{{SchetFaktura.nakladnaya.num_doc}}</strong></td>
                             <td colspan="12"></td>
                             <td rowspan="47"></td>
                             <td rowspan="47"></td>
@@ -520,78 +520,78 @@
                             <td colspan="11" class="text-center"></td>
                             <td colspan="2" class="text-center"><strong>от</strong></td>
                             <td class="text-right"><strong>&quot;</strong></td>
-                            <td colspan="2" class="text-center"><strong>{{SchetFaktura.nakladnaya.NaklDay}}</strong></td>
+                            <td colspan="1" class="text-center"><strong>{{SchetFaktura.nakladnaya.NaklDay}}</strong></td>
                             <td class="text-left"><strong>&quot;</strong></td>
-                            <td colspan="5" class="text-center"><strong>{{SchetFaktura.nakladnaya.NaklMonth}}</strong></td>
-                            <td colspan="3" class="text-center"><strong>{{SchetFaktura.nakladnaya.NaklYear}}</strong></td>
-                            <td colspan="3" class="text-center"><strong>года</strong></td>
+                            <td colspan="2" class="text-center"><strong>{{SchetFaktura.nakladnaya.NaklMonth}}</strong></td>
+                            <td colspan="2" class="text-center"><strong>{{SchetFaktura.nakladnaya.NaklYear}}</strong></td>
+                            <td colspan="3" class="text-left"><strong>года</strong></td>
                             <td colspan="14"></td>
                         </tr>
                         <tr>
-                            <td colspan="42" class="text-center">к товарно отгрузочным документам №___ от &quot;__&quot;_____ ___года</td>
+                            <td colspan="35" class="text-center">к товарно отгрузочным документам №___ от &quot;__&quot;_____ ___года</td>
                         </tr>
                         <tr>
-                            <td colspan="42"></td>
+                            <td colspan="35"></td>
                         </tr>
                         <tr>
-                            <td colspan="5" class="border-top border-left border-dark text-left">Поставщик:</td>
-                            <td colspan="15" class="border-top border-right border-dark text-left"><strong>{{SchetFaktura.rekvizit.ID_Name}}</strong></td>
-                            <td rowspan="7"></td>
-                            <td colspan="5" class="border-top border-left border-dark text-left">Покупатель:</td>
-                            <td colspan="16" class="border-top border-right border-dark "><strong>{{SchetFaktura.clientData.Name_Org}}</strong></td>
+                            <td colspan="3" class="border-top border-left border-dark text-left">Поставщик:</td>
+                            <td colspan="14" class="border-top border-right border-dark text-left"><strong>{{SchetFaktura.rekvizit.ID_Name}}</strong></td>
+                            @*<td rowspan="5"></td>*@
+                            <td colspan="3" class="border-top border-left border-dark text-left">Покупатель:</td>
+                            <td colspan="15" class="border-top border-right border-dark "><strong>{{SchetFaktura.clientData.Name_Org}}</strong></td>
                         </tr>
                         <tr>
                             <td colspan="3" class="border-left border-dark text-left">Адрес:</td>
-                            <td colspan="17" class="border-right border-dark text-left"><strong>{{SchetFaktura.rekvizit.Adress}}</strong></td>
+                            <td colspan="14" class="border-right border-dark text-left"><strong>{{SchetFaktura.rekvizit.Adress}}</strong></td>
                             <td colspan="3" class="border-left border-dark text-left">Адрес:</td>
-                            <td colspan="18" class="border-right border-dark text-left"><strong>{{SchetFaktura.clientData.Adress}}</strong></td>
+                            <td colspan="15" class="border-right border-dark text-left"><strong>{{SchetFaktura.clientData.Adress}}</strong></td>
                         </tr>
                         <tr>
-                            <td colspan="4" class="border-left border-dark text-left">Телефон:</td>
-                            <td colspan="16" class="border-right border-dark text-left"><strong>{{SchetFaktura.rekvizit.ID_Pred}}</strong></td>
-                            <td colspan="4" class="border-left border-dark text-left">Телефон:</td>
-                            <td colspan="17" class="border-right border-dark text-left"><strong>{{SchetFaktura.clientData.Telefon}}</strong></td>
+                            <td colspan="3" class="border-left border-dark text-left">Телефон:</td>
+                            <td colspan="14" class="border-right border-dark text-left"><strong>{{SchetFaktura.rekvizit.ID_Pred}}</strong></td>
+                            <td colspan="3" class="border-left border-dark text-left">Телефон:</td>
+                            <td colspan="15" class="border-right border-dark text-left"><strong>{{SchetFaktura.clientData.Telefon}}</strong></td>
                         </tr>
                         <tr>
-                            <td colspan="2" class="border-left border-dark text-left">Р/с:</td>
-                            <td colspan="18" class="border-right border-dark text-left"><strong>{{SchetFaktura.rekvizit.RS}}</strong></td>
-                            <td colspan="2" class="border-left border-dark text-left">Р/с:</td>
-                            <td colspan="19" class="border-right border-dark text-left"><strong>{{SchetFaktura.clientData.RS}}</strong></td>
+                            <td colspan="3" class="border-left border-dark text-left">Р/с:</td>
+                            <td colspan="14" class="border-right border-dark text-left"><strong>{{SchetFaktura.rekvizit.RS}}</strong></td>
+                            <td colspan="3" class="border-left border-dark text-left">Р/с:</td>
+                            <td colspan="15" class="border-right border-dark text-left"><strong>{{SchetFaktura.clientData.RS}}</strong></td>
                         </tr>
                         <tr>
                             <td colspan="3" class="border-left border-dark text-left">Банк:</td>
-                            <td colspan="17" class="border-right border-dark text-left"><strong>{{SchetFaktura.rekvizit.Name_bank}}</strong></td>
+                            <td colspan="14" class="border-right border-dark text-left"><strong>{{SchetFaktura.rekvizit.Name_bank}}</strong></td>
                             <td colspan="3" class="border-left border-dark text-left">Банк:</td>
-                            <td colspan="18" class="border-right border-dark text-left"><strong>{{SchetFaktura.clientData.Bank}}</strong></td>
+                            <td colspan="15" class="border-right border-dark text-left"><strong>{{SchetFaktura.clientData.Bank}}</strong></td>
                         </tr>
                         <tr>
                             <td colspan="3" class="border-left border-dark text-left">ИНН:</td>
-                            <td colspan="17" class="border-right border-dark text-left"><strong>{{SchetFaktura.rekvizit.INN}}</strong></td>
+                            <td colspan="14" class="border-right border-dark text-left"><strong>{{SchetFaktura.rekvizit.INN}}</strong></td>
                             <td colspan="3" class="border-left border-dark text-left">ИНН:</td>
-                            <td colspan="18" class="border-right border-dark text-left"><strong>{{SchetFaktura.clientData.INN}}</strong></td>
+                            <td colspan="15" class="border-right border-dark text-left"><strong>{{SchetFaktura.clientData.INN}}</strong></td>
                         </tr>
                         <tr>
                             <td colspan="3" class="border-left border-dark text-left">МФО:</td>
-                            <td colspan="6" class="text-left"><strong>{{SchetFaktura.rekvizit.MFO}}</strong></td>
+                            <td colspan="5" class="text-left"><strong>{{SchetFaktura.rekvizit.MFO}}</strong></td>
                             <td colspan="4" class="text-center">ОКОНХ:</td>
-                            <td colspan="7" class="border-right border-dark text-left"><strong>{{SchetFaktura.rekvizit.OKONX}}</strong></td>
+                            <td colspan="5" class="border-right border-dark text-left"><strong>{{SchetFaktura.rekvizit.OKONX}}</strong></td>
                             <td colspan="3" class="border-left border-dark text-left">МФО:</td>
-                            <td colspan="6" class="text-left"><strong>{{SchetFaktura.clientData.MFO}}</strong></td>
+                            <td colspan="5" class="text-left"><strong>{{SchetFaktura.clientData.MFO}}</strong></td>
                             <td colspan="4" class="text-right">ОКОНХ:</td>
-                            <td colspan="8" class="border-right border-dark text-left"><strong>{{SchetFaktura.clientData.OKONX}}</strong></td>
+                            <td colspan="6" class="border-right border-dark text-left"><strong>{{SchetFaktura.clientData.OKONX}}</strong></td>
                         </tr>
                         <tr>
-                            <td colspan="42" class="border-top border-bottom border-left border-dark text-center"></td>
+                            <td colspan="35" class="border-top border-bottom border-left border-dark text-center"></td>
                         </tr>
                         <tr>
                             <td colspan="2" rowspan="2" class="border border-dark text-center">№</td>
-                            <td colspan="7" rowspan="2" class="border border-dark text-center">Наименование товаров (работ, услуг)</td>
+                            <td colspan="5" rowspan="2" class="border border-dark text-center">Наименование товаров (работ, услуг)</td>
                             <td colspan="4" rowspan="2" class="border border-dark text-center">№ путевки</td>
                             <td colspan="4" rowspan="2" class="border border-dark text-center">Дата</td>
                             <td colspan="2" rowspan="2" class="border border-dark text-center">Единизме-рен.</td>
                             <td colspan="2" rowspan="2" class="border border-dark text-center">Коли-чест-во</td>
-                            <td colspan="4" rowspan="2" class="border border-dark text-center">Цена</td>
-                            <td colspan="5" rowspan="2" class="border border-dark text-center">Стоимость поставки</td>
+                            <td colspan="2" rowspan="2" class="border border-dark text-center">Цена</td>
+                            <td colspan="2" rowspan="2" class="border border-dark text-center">Стоимость поставки</td>
                             <td colspan="4" class="border border-dark text-center">Акцизный налог</td>
                             <td colspan="4" class="border border-dark text-center">НДС</td>
                             <td colspan="4" rowspan="2" class="border border-dark text-center">Стоимость поставки с учет. НДС</td>
@@ -604,13 +604,13 @@
                         </tr>
                         <tr>
                             <td colspan="2" class="border border-dark text-center">1</td>
-                            <td colspan="7" class="border border-dark text-center">2</td>
+                            <td colspan="5" class="border border-dark text-center">2</td>
                             <td colspan="4" class="border border-dark text-center">3</td>
                             <td colspan="4" class="border border-dark text-center">4</td>
                             <td colspan="2" class="border border-dark text-center">5</td>
                             <td colspan="2" class="border border-dark text-center">6</td>
-                            <td colspan="4" class="border border-dark text-center">7</td>
-                            <td colspan="5" class="border border-dark text-center">8</td>
+                            <td colspan="2" class="border border-dark text-center">7</td>
+                            <td colspan="2" class="border border-dark text-center">8</td>
                             <td colspan="2" class="border border-dark text-center">9</td>
                             <td colspan="2" class="border border-dark text-center">10</td>
                             <td colspan="2" class="border border-dark text-center">11</td>
@@ -619,36 +619,36 @@
                         </tr>
                         <tr ng-repeat="item in SchetFaktura.nakladDtl">
                             <td colspan="2" class="border border-dark text-center">{{$index+1}}</td>
-                            <td colspan="7" class="border border-dark text-left">{{item.sanatName}}</td>
+                            <td colspan="5" class="border border-dark text-left">{{item.sanatName}}</td>
                             <td colspan="4" class="border border-dark text-right">{{item.num_put}}</td>
                             <td colspan="4" class="border border-dark text-center">{{item.data_post | jsonDate: 'dd.MM.yyyy'}}</td>
                             <td colspan="2" class="border border-dark text-center">шт</td>
                             <td colspan="2" class="border border-dark text-center">1</td>
-                            <td colspan="4" class="border border-dark text-right">{{item.symma| currency:' '}}</td>
-                            <td colspan="5" class="border border-dark text-right">{{item.symma| currency:' '}}</td>
-                            <td colspan="4" class="border border-dark text-center">без акцизного налога</td>
+                            <td colspan="2" class="border border-dark text-center">{{item.symma| currency:' '}}</td>
+                            <td colspan="2" class="border border-dark text-center">{{item.symma| currency:' '}}</td>
+                            <td colspan="4" class="border border-dark text-center">без акциза</td>
                             <td colspan="4" class="border border-dark text-center">без НДС</td>
                             <td colspan="4" class="border border-dark text-center">{{item.symma| currency:' '}}</td>
                         </tr>
                         <tr>
                             <td colspan="2" class="border border-dark text-center"></td>
-                            <td colspan="7" class="border border-dark text-right"><strong>ИТОГО:</strong></td>
+                            <td colspan="5" class="border border-dark text-right"><strong>ИТОГО:</strong></td>
                             <td colspan="4" class="border border-dark text-center"></td>
                             <td colspan="4" class="border border-dark text-center"></td>
                             <td colspan="2" class="border border-dark text-center"></td>
                             <td colspan="2" class="border border-dark text-center" sdval="2"><strong>{{SchetFaktura.nakladnaya.num_kol}}</strong></td>
-                            <td colspan="4" class="border border-dark text-center"><strong>{{SchetFaktura.nakladnaya.symma| currency:' '}}</strong></td>
-                            <td colspan="5" class="border border-dark text-center"><strong>{{SchetFaktura.nakladnaya.symma| currency:' '}}</strong></td>
+                            <td colspan="2" class="border border-dark text-center"><strong>{{SchetFaktura.nakladnaya.symma| currency:' '}}</strong></td>
+                            <td colspan="2" class="border border-dark text-center"><strong>{{SchetFaktura.nakladnaya.symma| currency:' '}}</strong></td>
                             <td colspan="4" class="border border-dark text-center"></td>
                             <td colspan="4" class="border border-dark text-center"></td>
                             <td colspan="4" class="border border-dark text-center"><strong>{{SchetFaktura.nakladnaya.symma| currency:' '}}</strong></td>
                         </tr>
                         <tr>
-                            <td colspan="8" class="border-top border-dark text-center"><strong>Всего к оплате: {{SchetFaktura.nakladnaya.SummaPropisyu}}</strong></td>
-                            <td colspan="34" class="text-left"><strong></strong></td>
+                            <td colspan="25" class="border-top border-dark text-left"><strong>Всего к оплате: {{SchetFaktura.nakladnaya.SummaPropisyu}}</strong></td>
+                            <td colspan="10" class="text-left"><strong></strong></td>
                         </tr>
                         <tr>
-                            <td colspan="42"></td>
+                            <td colspan="35"></td>
                         </tr>
                         <tr>
                             <td colspan="9" class="text-left">Руководителя</td>
@@ -686,226 +686,17 @@
                             <td colspan="20"></td>
                         </tr>
                         <tr>
+                            @*<td colspan="4" class="text-center"></td>*@
+                            <td colspan="3" class="text-left">М.П.</td>
                             <td colspan="4" class="text-center"></td>
-                            <td colspan="3" class="text-center">М.П.</td>
                             <td colspan="14" class="text-center"></td>
-                            <td colspan="2" class="text-center">от </td>
+                            <td colspan="1" class="text-left">от </td>
                             <td class="text-right"><strong>{{SchetFaktura.nakladnaya.date_dov}}</strong></td>
                             @*<td colspan="2" class="text-center"></td>
-                                <td class="text-left">&quot;</td>
-                                <td colspan="5" class="text-center"></td>
-                                <td colspan="3" class="text-center"></td>
-                                <td colspan="6" class="text-left">года</td>*@
-                        </tr>
-                        <tr>
-                            <td colspan="21"></td>
-                            <td colspan="20"><strong>{{SchetFaktura.nakladnaya.name_dov}}</strong></td>
-                        </tr>
-                        <tr>
-                            <td colspan="9" class="text-left"> Товар отпустил</td>
-                            <td colspan="12" class="text-left">_________________</td>
-                            <td colspan="18" class="border-bottom border-dark text-left"><strong></strong></td>
-                            <td colspan="2" rowspan="2" class="text-center"></td>
-                        </tr>
-                        <tr>
-                            <td colspan="21"></td>
-                            <td colspan="18">(Ф.И.О. получателя)</td>
-                        </tr>
-                    </table>
-                </div>
-            </div>
-            <div class="col-md-12">
-                <div class="table-responsive mb-4" @*style="visibility:visible;position:absolute"*@>
-                    <table class="table table-nobordered table-sm">
-                        <tr>
-                            <td colspan="9"></td>
-                            <td colspan="16" class="text-center"><strong>НАКЛАДНАЯ-СЧЕТ-ФАКТУРА</strong></td>
-                            <td colspan="2" class="text-center"><strong>№</strong></td>
-                            <td colspan="3" class="text-center"><strong>{{SchetFaktura.nakladnaya.num_doc}}</strong></td>
-                            <td colspan="12"></td>
-                            <td rowspan="47"></td>
-                            <td rowspan="47"></td>
-                        </tr>
-                        <tr>
-                            <td colspan="11" class="text-center"></td>
-                            <td colspan="2" class="text-center"><strong>от</strong></td>
-                            <td class="text-right"><strong>&quot;</strong></td>
-                            <td colspan="2" class="text-center"><strong>{{SchetFaktura.nakladnaya.NaklDay}}</strong></td>
-                            <td class="text-left"><strong>&quot;</strong></td>
-                            <td colspan="5" class="text-center"><strong>{{SchetFaktura.nakladnaya.NaklMonth}}</strong></td>
-                            <td colspan="3" class="text-center"><strong>{{SchetFaktura.nakladnaya.NaklYear}}</strong></td>
-                            <td colspan="3" class="text-center"><strong>года</strong></td>
-                            <td colspan="14"></td>
-                        </tr>
-                        <tr>
-                            <td colspan="42" class="text-center">к товарно отгрузочным документам №___ от &quot;__&quot;_____ ___года</td>
-                        </tr>
-                        <tr>
-                            <td colspan="42"></td>
-                        </tr>
-                        <tr>
-                            <td colspan="5" class="border-top border-left border-dark text-left">Поставщик:</td>
-                            <td colspan="15" class="border-top border-right border-dark text-left"><strong>{{SchetFaktura.rekvizit.ID_Name}}</strong></td>
-                            <td rowspan="7"></td>
-                            <td colspan="5" class="border-top border-left border-dark text-left">Покупатель:</td>
-                            <td colspan="16" class="border-top border-right border-dark "><strong>{{SchetFaktura.clientData.Name_Org}}</strong></td>
-                        </tr>
-                        <tr>
-                            <td colspan="3" class="border-left border-dark text-left">Адрес:</td>
-                            <td colspan="17" class="border-right border-dark text-left"><strong>{{SchetFaktura.rekvizit.Adress}}</strong></td>
-                            <td colspan="3" class="border-left border-dark text-left">Адрес:</td>
-                            <td colspan="18" class="border-right border-dark text-left"><strong>{{SchetFaktura.clientData.Adress}}</strong></td>
-                        </tr>
-                        <tr>
-                            <td colspan="4" class="border-left border-dark text-left">Телефон:</td>
-                            <td colspan="16" class="border-right border-dark text-left"><strong>{{SchetFaktura.rekvizit.ID_Pred}}</strong></td>
-                            <td colspan="4" class="border-left border-dark text-left">Телефон:</td>
-                            <td colspan="17" class="border-right border-dark text-left"><strong>{{SchetFaktura.clientData.Telefon}}</strong></td>
-                        </tr>
-                        <tr>
-                            <td colspan="2" class="border-left border-dark text-left">Р/с:</td>
-                            <td colspan="18" class="border-right border-dark text-left"><strong>{{SchetFaktura.rekvizit.RS}}</strong></td>
-                            <td colspan="2" class="border-left border-dark text-left">Р/с:</td>
-                            <td colspan="19" class="border-right border-dark text-left"><strong>{{SchetFaktura.clientData.RS}}</strong></td>
-                        </tr>
-                        <tr>
-                            <td colspan="3" class="border-left border-dark text-left">Банк:</td>
-                            <td colspan="17" class="border-right border-dark text-left"><strong>{{SchetFaktura.rekvizit.Name_bank}}</strong></td>
-                            <td colspan="3" class="border-left border-dark text-left">Банк:</td>
-                            <td colspan="18" class="border-right border-dark text-left"><strong>{{SchetFaktura.clientData.Bank}}</strong></td>
-                        </tr>
-                        <tr>
-                            <td colspan="3" class="border-left border-dark text-left">ИНН:</td>
-                            <td colspan="17" class="border-right border-dark text-left"><strong>{{SchetFaktura.rekvizit.INN}}</strong></td>
-                            <td colspan="3" class="border-left border-dark text-left">ИНН:</td>
-                            <td colspan="18" class="border-right border-dark text-left"><strong>{{SchetFaktura.clientData.INN}}</strong></td>
-                        </tr>
-                        <tr>
-                            <td colspan="3" class="border-left border-dark text-left">МФО:</td>
-                            <td colspan="6" class="text-left"><strong>{{SchetFaktura.rekvizit.MFO}}</strong></td>
-                            <td colspan="4" class="text-center">ОКОНХ:</td>
-                            <td colspan="7" class="border-right border-dark text-left"><strong>{{SchetFaktura.rekvizit.OKONX}}</strong></td>
-                            <td colspan="3" class="border-left border-dark text-left">МФО:</td>
-                            <td colspan="6" class="text-left"><strong>{{SchetFaktura.clientData.MFO}}</strong></td>
-                            <td colspan="4" class="text-right">ОКОНХ:</td>
-                            <td colspan="8" class="border-right border-dark text-left"><strong>{{SchetFaktura.clientData.OKONX}}</strong></td>
-                        </tr>
-                        <tr>
-                            <td colspan="42" class="border-top border-bottom border-left border-dark text-center"></td>
-                        </tr>
-                        <tr>
-                            <td colspan="2" rowspan="2" class="border border-dark text-center">№</td>
-                            <td colspan="7" rowspan="2" class="border border-dark text-center">Наименование товаров (работ, услуг)</td>
-                            <td colspan="4" rowspan="2" class="border border-dark text-center">№ путевки</td>
-                            <td colspan="4" rowspan="2" class="border border-dark text-center">Дата</td>
-                            <td colspan="2" rowspan="2" class="border border-dark text-center">Единизме-рен.</td>
-                            <td colspan="2" rowspan="2" class="border border-dark text-center">Коли-чест-во</td>
-                            <td colspan="4" rowspan="2" class="border border-dark text-center">Цена</td>
-                            <td colspan="5" rowspan="2" class="border border-dark text-center">Стоимость поставки</td>
-                            <td colspan="4" class="border border-dark text-center">Акцизный налог</td>
-                            <td colspan="4" class="border border-dark text-center">НДС</td>
-                            <td colspan="4" rowspan="2" class="border border-dark text-center">Стоимость поставки с учет. НДС</td>
-                        </tr>
-                        <tr>
-                            <td colspan="2" class="border border-dark text-center">став-ка</td>
-                            <td colspan="2" class="border border-dark text-center">сум-ма</td>
-                            <td colspan="2" class="border border-dark text-center">став-ка</td>
-                            <td colspan="2" class="border border-dark text-center">сум-ма</td>
-                        </tr>
-                        <tr>
-                            <td colspan="2" class="border border-dark text-center">1</td>
-                            <td colspan="7" class="border border-dark text-center">2</td>
-                            <td colspan="4" class="border border-dark text-center">3</td>
-                            <td colspan="4" class="border border-dark text-center">4</td>
-                            <td colspan="2" class="border border-dark text-center">5</td>
-                            <td colspan="2" class="border border-dark text-center">6</td>
-                            <td colspan="4" class="border border-dark text-center">7</td>
-                            <td colspan="5" class="border border-dark text-center">8</td>
-                            <td colspan="2" class="border border-dark text-center">9</td>
-                            <td colspan="2" class="border border-dark text-center">10</td>
-                            <td colspan="2" class="border border-dark text-center">11</td>
-                            <td colspan="2" class="border border-dark text-center">12</td>
-                            <td colspan="4" class="border border-dark text-center">13</td>
-                        </tr>
-                        <tr ng-repeat="item in SchetFaktura.nakladDtl">
-                            <td colspan="2" class="border border-dark text-center">{{$index+1}}</td>
-                            <td colspan="7" class="border border-dark text-left">{{item.sanatName}}</td>
-                            <td colspan="4" class="border border-dark text-right">{{item.num_put}}</td>
-                            <td colspan="4" class="border border-dark text-center">{{item.data_post | jsonDate: 'dd.MM.yyyy'}}</td>
-                            <td colspan="2" class="border border-dark text-center">шт</td>
-                            <td colspan="2" class="border border-dark text-center">1</td>
-                            <td colspan="4" class="border border-dark text-right">{{item.symma| currency:' '}}</td>
-                            <td colspan="5" class="border border-dark text-right">{{item.symma| currency:' '}}</td>
-                            <td colspan="4" class="border border-dark text-center">без акцизного налога</td>
-                            <td colspan="4" class="border border-dark text-center">без НДС</td>
-                            <td colspan="4" class="border border-dark text-center">{{item.symma| currency:' '}}</td>
-                        </tr>
-                        <tr>
-                            <td colspan="2" class="border border-dark text-center"></td>
-                            <td colspan="7" class="border border-dark text-right"><strong>ИТОГО:</strong></td>
-                            <td colspan="4" class="border border-dark text-center"></td>
-                            <td colspan="4" class="border border-dark text-center"></td>
-                            <td colspan="2" class="border border-dark text-center"></td>
-                            <td colspan="2" class="border border-dark text-center" sdval="2"><strong>{{SchetFaktura.nakladnaya.num_kol}}</strong></td>
-                            <td colspan="4" class="border border-dark text-center"><strong>{{SchetFaktura.nakladnaya.symma| currency:' '}}</strong></td>
-                            <td colspan="5" class="border border-dark text-center"><strong>{{SchetFaktura.nakladnaya.symma| currency:' '}}</strong></td>
-                            <td colspan="4" class="border border-dark text-center"></td>
-                            <td colspan="4" class="border border-dark text-center"></td>
-                            <td colspan="4" class="border border-dark text-center"><strong>{{SchetFaktura.nakladnaya.symma| currency:' '}}</strong></td>
-                        </tr>
-                        <tr>
-                            <td colspan="8" class="border-top border-dark text-center"><strong>Всего к оплате: {{SchetFaktura.nakladnaya.SummaPropisyu}}</strong></td>
-                            <td colspan="34" class="text-left"><strong></strong></td>
-                        </tr>
-                        <tr>
-                            <td colspan="42"></td>
-                        </tr>
-                        <tr>
-                            <td colspan="9" class="text-left">Руководителя</td>
-                            <td colspan="12" class="text-left">{{SchetFaktura.rekvizit.Name_Dir}}</td>
-                            <td rowspan="8" class="text-center"></td>
-                            <td class="text-left">Получил</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td colspan="15" class="text-left">____________________</td>
-                        </tr>
-                        <tr>
-                            <td colspan="21"></td>
-                            <td colspan="20"></td>
-                        </tr>
-                        <tr>
-                            <td colspan="9" class="text-left"> Главный бухгалтер</td>
-                            <td colspan="12" class="text-left">_________________</td>
-                            <td class="text-left">По  доверенности № <strong>{{SchetFaktura.nakladnaya.num_dov}}</strong></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td colspan="3" class="text-left"></td>
-                            <td colspan="7" class="text-center"></td>
-                        </tr>
-                        <tr>
-                            <td colspan="21"></td>
-                            <td colspan="20"></td>
-                        </tr>
-                        <tr>
-                            <td colspan="4" class="text-center"></td>
-                            <td colspan="3" class="text-center">М.П.</td>
-                            <td colspan="14" class="text-center"></td>
-                            <td colspan="2" class="text-center">от </td>
-                            <td class="text-right"><strong>{{SchetFaktura.nakladnaya.date_dov}}</strong></td>
-                            @*<td colspan="2" class="text-center"></td>
-                                <td class="text-left">&quot;</td>
-                                <td colspan="5" class="text-center"></td>
-                                <td colspan="3" class="text-center"></td>
-                                <td colspan="6" class="text-left">года</td>*@
+        <td class="text-left">&quot;</td>
+        <td colspan="5" class="text-center"></td>
+        <td colspan="3" class="text-center"></td>
+        <td colspan="6" class="text-left">года</td>*@
                         </tr>
                         <tr>
                             <td colspan="21"></td>

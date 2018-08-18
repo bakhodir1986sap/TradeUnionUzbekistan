@@ -1,0 +1,71 @@
+﻿ALTER TABLE KasabaKIAT_N1.dbo.tbbu_ecp_calc
+ADD GRPID bigint;
+
+
+ALTER TABLE KasabaKIAT_N1.dbo.tbbu_ecp_calc
+ADD BANK_DATE datetime;
+
+
+UPDATE KasabaKIAT_N1.dbo.tbbu_ecp_calc
+SET GRPID = KP.GRPID
+FROM KasabaKIAT_N1.dbo.tbbu_ecp_calc T
+INNER JOIN KasabaKIAT_N1.dbo.KaznaPaymentFile KP
+on T.PAYMENT_ID = KP.ID
+
+
+SELECT * FROM KasabaKIAT_N1.dbo.tbbu_ecp_calc WHERE GRPID IS NULL OR GRPID = 0 --0
+
+
+UPDATE KasabaKIAT_N1.dbo.tbbu_ecp_calc
+SET BANK_DATE = KB.OPERDAY
+FROM KasabaKIAT_N1.dbo.tbbu_ecp_calc T
+INNER JOIN KasabaKIAT_N1.dbo.KaznaBankFile KB
+on T.GRPID = KB.GRPID
+
+
+
+SELECT * FROM KasabaKIAT_N1.dbo.tbbu_ecp_calc  WHERE BANK_DATE IS NULL ORDER BY OBLSOVPROF_AMT
+
+
+
+
+SELECT SUM(ecp.OBLSOVPROF_AMT)
+	--ecp.SOATO_NAME as TUMAN_SHAXAR, 
+	--ecp.INN as CLINN,
+	--0 as POSTUPLENIYA, 
+	--ecp.FEDERATION_AMT + ecp.OBLSOVPROF_AMT as Obshiy01 ,  
+	--ecp.FEDERATION_AMT , 
+	--ecp.OBLSOVPROF_AMT ,  
+	--CASE WHEN ecp.BRANCH_NAME = '' OR ecp.BRANCH_NAME IS NULL THEN 'Не Опрделен' ELSE ecp.BRANCH_NAME END as BRANCH_NAME
+FROM KasabaKIAT_N1.dbo.tbbu_ecp_calc ecp 
+WHERE CONVERT(DATE, ecp.BANK_DATE) BETWEEN CONVERT(DATE, '2018-01-01') AND  CONVERT(DATE, '2018-03-31')
+	AND ecp.OBL_DEPARTMENT_BASE LIKE '17206' + '%'
+	
+	--605458719,48
+	--349784,80
+	
+	SELECT SUM(OBLSOVPROF_AMT) FROM KasabaKIAT_N1.dbo.tbbu_ecp_calc  
+	WHERE BANK_DATE IS NULL 
+	AND OBL_DEPARTMENT_BASE LIKE '17206' + '%'
+	AND CONVERT(DATE, OPERDATE) BETWEEN CONVERT(DATE, '2018-01-01') AND  CONVERT(DATE, '2018-03-31')
+	
+	-------------------------------------------------------------------------------------------------------
+	
+	SELECT SUM(SUMPAY), COUNT(*) FROM KasabaKIAT_N1.dbo.KaznaBankFile Kb
+	Where ('172' +  SUBSTRING(Kb.KLSDOX, 11, 2)) LIKE '17206' + '%'
+	AND CONVERT(DATE, OPERDAY) BETWEEN CONVERT(DATE, '2018-01-01') AND  CONVERT(DATE, '2018-03-31')
+	--taxlil
+	--AND GRPID IS NULL OR GRPID = 0 --Yo'q
+	
+	--35677 --86565155946 --distinct 17843
+	--SUM(SUMPAY/100)
+	SELECT SUM(SUMPAY/100) FROM KasabaKIAT_N1.dbo.KaznaBankFile Kb2
+	WHERE GRPID IN 
+	(SELECT DISTINCT GRPID FROM KasabaKIAT_N1.dbo.KaznaBankFile Kb
+	Where ('172' +  SUBSTRING(Kb.KLSDOX, 11, 2)) LIKE '17206' + '%'
+	AND CONVERT(DATE, OPERDAY) BETWEEN CONVERT(DATE, '2018-01-01') AND  CONVERT(DATE, '2018-03-31')
+	AND GRPID NOT IN (SELECT GRPID FROM KasabaKIAT_N1.dbo.KaznaPaymentFile))
+	AND COACC != '20212000100431324011'
+	
+	
+	

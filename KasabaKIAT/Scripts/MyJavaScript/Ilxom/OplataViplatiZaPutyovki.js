@@ -47,6 +47,60 @@
     };
 
 
+
+    $scope.SelectedFileOplata = null; //initially make it null   
+
+    $scope.OplataFile = function (files) {
+        $scope.$apply(function () {
+            $scope.Message = '';
+            $scope.SelectedFileOplata = files[0];
+        })
+    }
+
+    $scope.BindData = null;
+    $scope.showLoader = false;
+    $scope.IsVisible = false;
+
+    $scope.ParseExcelOplata = function () {
+        var formData = new FormData();
+        var file = $scope.SelectedFileOplata;
+        formData.append('OplataFile', file);
+        $scope.showLoader = true;   //show spinner  
+        $http({
+            method: "post",
+            withCredentials: true,
+            url: '/PrixodPutevok/LoadOplataViplata',
+            data: formData,
+            headers: {
+                'Content-Type': undefined
+            },
+            transformRequest: angular.identity
+        }).then(function (d) {
+            $scope.showdata = false;
+            if (d.data == "error") {
+                alertify.error("ошибка");
+            }
+            else {
+                alertify.success("Удачно загрузилось");
+                var res = d.data;
+                $scope.BindData = res;
+                if (d.data.length != 0) {
+                    $scope.showdata = true;
+                } else {
+                    $scope.showdata = false;
+                }
+                $scope.IsVisible = true; //showing the table after databinding  
+                $scope.showLoader = false; //after success hide spinner  
+            }
+
+        }, function (err) {
+            alertify.error("ошибка : " + err.data);
+            console.log(err.data);
+            console.log("error in parse excel");
+        });
+    }
+
+
     function GetCurBusinessTime() {
         document.getElementById('connection').style.visibility = "visible";
         $("#hh").modal({
@@ -756,6 +810,11 @@
         }
 
         if (!isDelated) {
+
+            if ($scope.SelectedPutyovkaRaznisa < rasxodPut.Symma) {
+                rasxodPut.Symma = $scope.SelectedPutyovkaRaznisa;
+            }
+
             $scope.SelectedPutyovka.push(rasxodPut);
         }
 
@@ -803,14 +862,14 @@
         }
 
         var postData = {
-            lmodel: $scope.SelectedPutyovkaP,
+            lmodel: $scope.SelectedPutyovka,
             IdOpl: $scope.CurrentOplataMain.ID,
             IdPr: $scope.SelectedProcent.ID
         };
 
         $http({
             method: "post",
-            url: "/PrixodPutevok/AddOplataPutyovok2",
+            url: "/PrixodPutevok/AddOplataPutyovok3",
             data: JSON.stringify(postData),
             dataType: "json"
         }).then(function (response) {

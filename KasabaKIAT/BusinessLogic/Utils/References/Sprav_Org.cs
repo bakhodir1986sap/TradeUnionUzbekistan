@@ -304,6 +304,21 @@ namespace KasabaKiat.BusinessLogic.Utils.References
             }
         }
 
+
+        public static void ModifyByTemplate(Sprav_OrgViewModel model, KasabaKIATEntities db)
+        {
+            var orgs = db.tblSprav_Org.Where(z => z.INN == model.INN);
+
+            if (orgs.Any())
+            {
+                foreach(var org in orgs)
+                {
+                    org.ID_Ot = model.ID_Ot;
+                    org.TIMESTAMP_CH = DateTime.Now;
+                }
+            }
+        }
+
         /// <summary>
         /// 
         /// </summary>

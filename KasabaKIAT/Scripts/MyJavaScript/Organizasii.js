@@ -44,6 +44,59 @@
 
     };
 
+    $scope.SelectedFileOtrasl = null; //initially make it null   
+
+    $scope.OtraslFile = function (files) {
+        $scope.$apply(function () {
+            $scope.Message = '';
+            $scope.SelectedFileOtrasl = files[0];
+        })
+    }
+
+    $scope.BindData = null;
+    $scope.showLoader = false;
+    $scope.IsVisible = false;
+
+    $scope.ParseExcelOtrasl = function () {
+        var formData = new FormData();
+        var file = $scope.SelectedFileOtrasl;
+        formData.append('OtraslFile', file);
+        $scope.showLoader = true;   //show spinner  
+        $http({
+            method: "post",
+            withCredentials: true,
+            url: '/PrixodPutevok/OrganizationOtrasl',
+            data: formData,
+            headers: {
+                'Content-Type': undefined
+            },
+            transformRequest: angular.identity
+        }).then(function (d) {
+            $scope.showdata = false;
+            if (d.data == "error") {
+                alertify.error("ошибка");
+            }
+            else {
+                alertify.success("Удачно загрузилось");
+                var res = d.data;
+                $scope.BindData = res;
+                if (d.data.length != 0) {
+                    $scope.showdata = true;
+                } else {
+                    $scope.showdata = false;
+                }
+                $scope.IsVisible = true; //showing the table after databinding  
+                $scope.showLoader = false; //after success hide spinner  
+            }
+
+        }, function (err) {
+            alertify.error("ошибка : " + err.data);
+            console.log(err.data);
+            console.log("error in parse excel");
+        });
+    }
+
+
     $scope.TotalCount = 0;
     $scope.TotalCountNeot = 0;
 

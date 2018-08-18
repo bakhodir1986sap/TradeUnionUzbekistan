@@ -338,6 +338,13 @@ namespace KasabaKiat.BusinessLogic.Putyovki.OplataPutyovok
                         }
                     }
 
+                    if ((post1.SmFil == 2017) && (post1.ID_Kv == 4))
+                    {
+                        await db.SaveChangesAsync();
+                        return;
+                    }
+
+
                     //Organization balance Change
                     Sprav_Org.ChangeOstatok(TransactionOperation.Debit, post1.ID_Org.Value, Decimal.Multiply(post1.Symma.Value, 0.45M), db);
 
@@ -611,7 +618,8 @@ namespace KasabaKiat.BusinessLogic.Putyovki.OplataPutyovok
                                 Num_Put     = oplDtl.Num_Put,
                                 ProcName    = proc.Name_Proc,
                                 Price       = oplDtl.Symma,
-                                Priznak     = oplDtl.Priz
+                                Priznak     = oplDtl.Priz,
+                                Symma       = oplDtl.Symma
                             }).ToArrayAsync();
 
                 foreach(var putyovka in query)
@@ -623,12 +631,36 @@ namespace KasabaKiat.BusinessLogic.Putyovki.OplataPutyovok
 
                     if (find.Any())
                     {
+                        bool isAdded = false;
+
+                        var TotalOplataSummaByPutyovka = find.Sum(z => z.Symma);
+
+                        if (putyovka.Symma > TotalOplataSummaByPutyovka)
+                        {
+                            var obj = new OplataRasxodiViewModel
+                            {
+                                ID = putyovka.IdDtl,
+                                ID_Sanat = putyovka.IdSanat,
+                                SanatName = putyovka.SanatName,
+                                Num_Put = putyovka.Num_Put,
+                                Name_Proc = putyovka.ProcName,
+                                Symma = putyovka.Price.Value - TotalOplataSummaByPutyovka ?? 0,
+                                Priz = putyovka.Priznak
+                            };
+
+                            list.Add(obj);
+
+                            isAdded = true;
+                        }
+
+                        ////////////////////////////////////////////////////////////////////////////////////////////
                         var oplataCount = find.Count();
 
                         var find2 = await  (db.tblOplata_Ras.Where(z => z.Priz == (int)OplataRasxPriz.VozvratPutyovki
                                     && z.ID_Sanat == putyovka.IdSanat
                                     && z.Num_Put == putyovka.Num_Put
                                     && z.Symma == putyovka.Price)).ToArrayAsync();
+
 
                         var vozvratCount = find2.Count();
 
@@ -639,6 +671,7 @@ namespace KasabaKiat.BusinessLogic.Putyovki.OplataPutyovok
                         }
                         else
                         {
+                            if (isAdded) continue;
                             //Not Covered putyovka
                             var obj = new OplataRasxodiViewModel
                             {
@@ -653,6 +686,7 @@ namespace KasabaKiat.BusinessLogic.Putyovki.OplataPutyovok
 
                             list.Add(obj);
                         }
+
                     }
                     else
                     {

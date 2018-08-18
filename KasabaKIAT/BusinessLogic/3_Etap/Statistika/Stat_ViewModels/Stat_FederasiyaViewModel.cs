@@ -56,7 +56,14 @@ namespace KasabaKIAT.BusinessLogic._3_Etap.Statistika.Stat_ViewModels
 
         public int BronCount { get; set; }
 
-        public decimal? TotalIncome { get; set; }
+        public decimal? TotalIncome
+        {
+            get
+            {
+                return EcpIncome + PartialIncome + OtherIncome;
+            }
+
+        }
 
         public decimal? EcpIncome { get; set; }
 

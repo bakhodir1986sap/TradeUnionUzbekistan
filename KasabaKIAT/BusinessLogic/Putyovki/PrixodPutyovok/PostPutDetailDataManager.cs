@@ -51,6 +51,7 @@ namespace KasabaKiat.BusinessLogic.Putyovki.PrixodPutyovok
                 post.Data_Post     = model.Data_Post         ;
                 post.UserId     = model.UserId            ;
                 post.Departmentbase     = model.Departmentbase;
+                post.TIMESTAMP_T = DateTime.Now;
 
                 var pst = db.tblPos_Put.Add(post);
 

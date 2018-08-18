@@ -47,24 +47,38 @@
                         <label>Общее кол-во</label>
                         <input class="form-control" type="text" readonly ng-model="TotalCount" /><br />
                     </div>
-                    
-                    </div>
-                    <div class="row">
-                		<div class="col-md-3 form-group">
-                        	<label>Не определенных</label>
-                        	<input class="form-control" type="text" readonly ng-model="TotalCountNeot" /><br />
-                    	</div>
-                    	<div class="col-md-3 form-group">
-                        	<label>Определенных</label>
-                        	<input class="form-control" type="text" readonly ng-model="TotalCount - TotalCountNeot" /><br />
-                    	</div>
-                    	<div class="col-md-3 form-group" style="padding-top:28px">
-                        	<a class="btn btn-blue" href="/Otchot/OrganizationSummary" class="list-group-item list-group-item-action load">Организации сводная</a>
-                    	</div>
-                	</div>
-                    <button class="btn btn-green" ng-click="GetOrganizationsFilter()"><i class="btn-green"></i> Поиск</button>
+
                 </div>
-              
+                <div class="row">
+                    <div class="col-md-3 form-group">
+                        <label>Не определенных</label>
+                        <input class="form-control" type="text" readonly ng-model="TotalCountNeot" /><br />
+                    </div>
+                    <div class="col-md-3 form-group">
+                        <label>Определенных</label>
+                        <input class="form-control" type="text" readonly ng-model="TotalCount - TotalCountNeot" /><br />
+                    </div>
+                    <div class="col-md-3 form-group" style="padding-top:28px">
+                        <a class="btn btn-blue" href="/Otchot/OtchetOrganizasii">Отчеты Организаций</a>
+                    </div>
+                    <div class="col-md-3 form-group" style="padding-top:28px">
+                        <button class="btn btn-green" ng-click="GetOrganizationsFilter()"><i class="btn-green"></i> Поиск</button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <div style="padding-right:9px">
+                            @Html.ActionLink("Загрузить Шаблон", "DownloadTemplateNeopr", "PrixodPutevok")<br />
+                        </div><br />
+                    </div>
+                    <div class="col-md-4">
+                        <input type="file" id="input09" name="OtraslFile" accept="application/	vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" onchange="angular.element(	this).scope().OtraslFile(this.files)" />&nbsp
+                    </div>
+                    <div class="col-md-3">
+                        <input type="button" value="Загрузить Отраслевку" class="btn btn-primary" style="margin-top:-3px" ng-disabled="!SelectedFileOtrasl" ng-click="ParseExcelOtrasl() " />
+                    </div>
+                </div>
+            </div>  
         </div>
         <style> 
             .activvvv{

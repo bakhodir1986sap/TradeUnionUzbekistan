@@ -7,6 +7,18 @@ namespace KasabaKIAT.BusinessLogic._3_Etap.Statistika.Stat_ViewModels
 {
     public class Stat_RayonTumanViewModel : IBaseStatViewModel
     {
+        public string DepartmentBase { get; set; }
+        public int Year { get; set; }
+        public int Kvartal { get; set; }
+        public DateTime LastChangeDate { get; set; }
+        public string LastChangeDateStr
+        {
+            get
+            {
+                return LastChangeDate.ToLongDateString();
+            }
+        }
+
         public int BronCount { get; set; }
         //Doxodi
         public decimal? TotalIncome { get; set; }

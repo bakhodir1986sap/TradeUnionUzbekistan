@@ -201,6 +201,9 @@ namespace KasabaKiat.Helpers
                                     var curObj = curBusinessTime.First();
 
                                     model.CurKvartalYear = string.Format("{0} год -{1} кв", curObj.CURKV_YEAR, curObj.CURKV);
+                                    model.CurYear = curObj.CURKV_YEAR.Value;
+                                    model.CurKvartal = curObj.CURKV.Value;
+
                                 }
                             }
 

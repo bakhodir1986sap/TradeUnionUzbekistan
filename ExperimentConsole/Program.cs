@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Text.RegularExpressions;
 using KasabaKiat.BusinessLogic.Utils;
+using IronOcr;
 
 namespace ExperimentConsole
 {
@@ -14,6 +15,10 @@ namespace ExperimentConsole
         {
 
 
+            //..
+            //var Ocr = new AutoOcr();
+            //var Result = Ocr.ReadPdf(@"D:\sssss.pdf");
+            //Console.WriteLine(Result.Text);
 
             //string[] numbers = Regex.Split(@"08101~2001108606034013212110093~ 2018Й МАЙ ОЙИ У-Н 25 % ЯИТ ИНН 2 03753646 АНДИЖОН ТЕМИРЙУЛ МАСОФАСИ ПЧ АНДИЖОН", @"([^\d]|^)\d{1,2},\d{3}([^\d]|$)");
 
@@ -32,18 +37,37 @@ namespace ExperimentConsole
             //}
 
 
-            string s = @"08101~2001108606034013212110093~ 2018Й МАЙ ОЙИ УЧУН 25% ЯИТ ИНН 2 03826696 КМТУАНДИЖ МИНТАКАСИ";
+            string s = @"08101~2001108606034013212110093~ 2018Й МАЙ ОЙИ УЧУН 25% ЯИТ ИНН-2 0 38 26 69 6: КМТУАНДИЖ МИНТАКАСИ";
 
-                //"08101~2001108606034013212110093~ 2018Й ИЮН ОЙИ УЧУН 25% ЯИТ ИНН 2 03826696 КМТУ АТ";
+            //"08101~2001108606034013212110093~ 2018Й ИЮН ОЙИ УЧУН 25% ЯИТ ИНН 2 03826696 КМТУ АТ";
 
             //"08101~2001108606034013212110093~ 2018Й МАЙ ОЙИ У-Н 25 % ЯИТ ИНН 2 03753646 АНДИЖОН ТЕМИРЙУЛ МАСОФАСИ ПЧ АНДИЖОН";
 
-            s = Regex.Replace(s, @"\s+", "");
+            //s = Regex.Replace(s, @"\s+", "");
 
-            string[] numbers = Regex.Split(s, @"\D+");
 
+            string[] numbers = Regex.Matches(s, @"([-:,.\s*/A-Za-zА-Яа-я](\d\s?){8}\d[-:,.\s)*~/A-Za-zА-Яа-я]|\s(\d\s?){8}\d$)")
+                                        .Cast<Match>()
+                                        .Select(m => m.Value)
+                                        .ToArray();
+
+            List<string> newArray = new List<string>();
+            foreach (var str in numbers)
+            {
+                var str1 = Regex.Matches(str, @"\d+").Cast<Match>()
+                                        .Select(m => m.Value)
+                                        .ToArray();
+
+                var sssdd = string.Join("", str1.Select(x => x.ToString()));
+
+                newArray.Add(sssdd);
+
+                Console.WriteLine("sssdd:{0} ", sssdd);
+            }
+
+            //
             //First 9 digit number As INN
-            var Inns = numbers.Where(x => x.Length == 9);
+            //var Inns = numbers.Where(x => x.Length == 9);
 
             //Regex regex = new Regex(@"\d+", RegexOptions.IgnoreCase|RegexOptions.IgnorePatternWhitespace);
             //MatchCollection matches = regex.Matches(s);

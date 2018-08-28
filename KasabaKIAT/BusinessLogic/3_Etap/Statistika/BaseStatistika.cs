@@ -8,7 +8,7 @@ namespace KasabaKIAT.BusinessLogic._3_Etap.Statistika
 {
     public abstract class BaseStatistika
     {
-        public BaseStatistika CreateStat(long roleId)
+        public static BaseStatistika CreateStat(long roleId)
         {
             BaseStatistika obj = null;
 
@@ -27,12 +27,13 @@ namespace KasabaKIAT.BusinessLogic._3_Etap.Statistika
                     obj = new Stat_Federasiya();
                     break;
                 default:
+                    obj = new Stat_Federasiya();
                     break;
             }
 
             return obj;
         }
 
-        public abstract IBaseStatViewModel GetData(); 
+        public abstract IBaseStatViewModel GetData(string depCode, int? cur_year, int? cur_kv); 
     }
 }

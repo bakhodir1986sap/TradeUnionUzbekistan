@@ -38,6 +38,7 @@ using KasabaKIAT.BusinessLogic.StartProcess.LoaderDataManagers;
 using KasabaKIAT.BusinessLogic.Putyovki.PutyovkiHistory;
 using KasabaKIAT.BusinessLogic.Putyovki.OplataPutyovok.Template;
 using KasabaKIAT.BusinessLogic.ClosePeriod.CloseKvartal;
+using KasabaKIAT.BusinessLogic._3_Etap.Statistika;
 
 namespace KasabaKIAT.Controllers
 {
@@ -2396,6 +2397,8 @@ namespace KasabaKIAT.Controllers
                 Tip_Org = tipOrg == 1 ? true: false,
                 PrizOpl = Priz
             });
+
+            //StatController.Process(ustinfo.DepartmentBase, ustinfo.role_id.Value);
 
             return Json(list, JsonRequestBehavior.AllowGet);
         }

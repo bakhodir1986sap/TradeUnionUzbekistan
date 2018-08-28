@@ -1,6 +1,13 @@
-﻿@{
-
+﻿@using KasabaKIAT.BusinessLogic.Security.Roles.RolePermissions;
+@using KasabaKiat.Helpers;
+@{
+    ViewBag.Title = "Путевки";
+    ViewBag.n = Session["role"];
+    var UserId = Convert.ToInt32(User.Identity.Name);
+    var userName = UserInfo.GetUserInfo(UserId);
+    FunctionalityList List = FunctionalityAndDbDataMatch.MatchProcess(UserId, true);
 }
+
 <script src="~/Scripts/MyJavaScript/Stat/StatOblSovProf.js"></script>
 <div id="connection" style="visibility:hidden;position:absolute;margin-left:600px;z-index:9999">
     <img src="~/Content/Login/buffering.gif" />
@@ -13,14 +20,14 @@
     </div>
     <div class="row" style="padding-left:15px !important">
         <div class="col-md-6">
-            <h4 style="color:#167f91;">Статистика</h4>
-            <p style="">Время последнего обновления 20.07.2018</p><br>
+            <h4 style="color:#167f91;">Аналитика</h4>
+            <p style="">Время последнего обновления: {{ModelResult.LastChangeDate| jsonDate: 'dd.MM.yyyy'}} </p><br>
             <p>Главная</p>
         </div>
         <div class="col-md-6" style="display: flex; align-items: center">
             <p style="padding-bottom:5px">
-                <img style="height:17px;width:17px" src="~/Content/Stat/Screen6.png"> - 335 брони
-                <img style="height:12px;width:17px" src="~/Content/Stat/Screen5.png"> - 3 онлайн пользователей сейчас
+                <img style="height:17px;width:17px" src="~/Content/Stat/Screen6.png"> - {{ModelResult.BronCount}} брони
+
             </p>
 
         </div>
@@ -36,11 +43,11 @@
                                 <span class="dropdown-toggle dr-link" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></span>
 
                             </th>
-                            <th>Общий <br> <b>12468094</b> сум</th>
-                            <th>ЕСП <br> <b>12321453</b> сум</th>
-                            <th>Частичные облаты <br> <b>1234532</b> сум</th>
-                            <th>Прочее <br> <b>400000</b> сум</th>
-                            <th>adsfadsf</th>
+                            <th>Общий <br> <b>{{ModelResult.EcpIncome + ModelResult.PartialIncome + ModelResult.OtherIncome}}</b> сум</th>
+                            <th>ЕСП <br> <b>{{ModelResult.EcpIncome}}</b> сум</th>
+                            <th>Частичные оплаты <br> <b>{{ModelResult.PartialIncome}}</b> сум</th>
+                            <th>Прочее <br> <b>{{ModelResult.OtherIncome}}</b> сум</th>
+
                         </tr>
                     </thead>
                     <tbody></tbody>
@@ -49,39 +56,26 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-md-8" style="padding-left: 15px; padding-right: 15px">
+        <div class="col-md-12" style="padding-left: 15px; padding-right: 15px">
             <div class="table-responsive box-shadow mb-4" style="padding-left: 15px; padding-right: 15px">
                 <table class="table table__block t-hover table__small">
+                    <thead>
+                        <tr>
+                            <th>Область</th>
+                            <th>Общее</th>
+                            <th>ЕСП</th>
+                            <th>Частично</th>
+                            <th>Другие</th>
+                        </tr>
+                    </thead>
                     <tbody>
-                        <tr>
-                            <td>Ташкентская область</td>
-                            <td>12000000</td>
-                            <td>5000000</td>
-                            <td>4000000</td>
-                            <td>3000000</td>
+                        <tr ng-repeat="model in ModelResult.IncomePerRegionList">
+                            <td>{{model.RegionName}}</td>
+                            <td>{{model.TotalIncome}}</td>
+                            <td>{{model.EcpIncome}}</td>
+                            <td>{{model.PartialIncome}}</td>
+                            <td>{{model.OtherIncome}}</td>
                         </tr>
-                        <tr>
-                            <td>Ташкентская область</td>
-                            <td>12000000</td>
-                            <td>5000000</td>
-                            <td>4000000</td>
-                            <td>3000000</td>
-                        </tr>
-                        <tr>
-                            <td>Ташкентская область</td>
-                            <td>12000000</td>
-                            <td>5000000</td>
-                            <td>4000000</td>
-                            <td>3000000</td>
-                        </tr>
-                        <tr>
-                            <td>Ташкентская область</td>
-                            <td>12000000</td>
-                            <td>5000000</td>
-                            <td>4000000</td>
-                            <td>3000000</td>
-                        </tr>
-
                     </tbody>
                 </table>
             </div>
@@ -94,11 +88,7 @@
                 <table class="table table__block t-hover table__small">
                     <thead>
                         <tr>
-                            <th class="dropdown">
-                                <span class="dropdown-toggle dr-link" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></span>
-
-                            </th>
-                            <th>Всего <br> <b>123</b></th>
+                            <th>Всего <br> <b>{{ModelResult.UrgentPutyovkas}}</b></th>
                         </tr>
                     </thead>
                 </table>
@@ -109,25 +99,20 @@
     </div>
     <div class="row" style="padding-left: 15px; padding-right: 15px">
         <div class="col-md-3">
-            <h4 style="color:red">Горячие путевки</h4>
             <div class="table-responsive box-shadow mb-4">
                 <table class="table table__block t-hover table__small">
+                    <thead>
+                        <tr>
+                            <th>Санаторий</th>
+                            <th>Номер путевки</th>
+                            <th>Дата заезда</th>
+                        </tr>
+                    </thead>
                     <tbody>
-                        <tr>
-                            <td>Название области</td>
-                            <td>123</td>
-                        </tr>
-                        <tr>
-                            <td>Название области</td>
-                            <td>123</td>
-                        </tr>
-                        <tr>
-                            <td>Название области</td>
-                            <td>123</td>
-                        </tr>
-                        <tr>
-                            <td>Название области</td>
-                            <td>123</td>
+                        <tr ng-repeat="model in ModelResult.UrgentPutyovkasDtlList">
+                            <td>{{model.SanatoryName}}</td>
+                            <td>{{model.NumPut}}</td>
+                            <td>{{model.DataSan}}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -151,7 +136,14 @@
                             <th>Остаток</th>
                         </tr>
                     </thead>
-                    <tbody></tbody>
+                    <tbody>
+                        <tr>
+                            <td></td>
+                            <td><b>{{ModelResult.PlanPutyovkaCount}}</b> шт <b>{{ModelResult.PlanPutyovkaAmount}}</b> сум</td>
+                            <td><b>{{ModelResult.RealizPutyovkaCount}}</b> шт <b>{{ModelResult.RealizPutyovkaAmount}}</b> сум</td>
+                            <td><b>{{ModelResult.OstatokPutyovkaCount}}</b> шт <b>{{ModelResult.OstatokPutyovkaAmount}}</b> сум</td>
+                        </tr>
+                    </tbody>
                 </table>
             </div>
         </div>
@@ -167,31 +159,46 @@
                                 <span class="dropdown-toggle dr-link" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></span>
 
                             </th>
-                            <th>80% <br> <b>8000000.00</b> сум</th>
-                            <th>100% <br> <b>10000000.00</b> сум</th>
-                            <th>Бесплатных <br> <b>129.00</b> сум</th>
+                            <th>45%</th>
+                            <th>100%</th>
+                            <th>Бесплатных</th>
                         </tr>
                     </thead>
-                    <tbody></tbody>
+                    <tbody>
+                        <tr>
+                            <td></td>
+                            <td><b>{{ModelResult.S45PutyovkaCount}}</b> шт <b>{{ModelResult.S45PutyovkaAmount}}</b> сум</td>
+                            <td><b>{{ModelResult.S100PutyovkaCount}}</b> шт <b>{{ModelResult.S100PutyovkaAmount}}</b> сум</td>
+                            <td><b>{{ModelResult.S0PutyovkaCount}}</b> шт <b>{{ModelResult.S0PutyovkaAmount}}</b> сум</td>
+                        </tr>
+                    </tbody>
                 </table>
             </div>
         </div>
     </div>
     <div class="row" style="padding-left: 15px; padding-right: 15px">
         <div class="col-md-12">
-            <h4>Задолженность по частичным облатам</h4>
+            <h4>Задолженность по частичным оплатам</h4>
             <div class="table-responsive box-shadow mb-4">
                 <table class="table table__block t-hover table__small">
                     <thead>
                         <tr>
-                            <th class="dropdown">
-                                <span class="dropdown-toggle dr-link" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></span>
+                            @*<th class="dropdown">
+                                    <span class="dropdown-toggle dr-link" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></span>
 
-                            </th>
-                            <th>Общая сумма <b>13000000</b> сум</th>
+                                </th>*@
+                            <th>Общая сумма <b>{{ModelResult.TotalZadoljennostAmount}}</b> сум</th>
                         </tr>
                     </thead>
-                    <tbody></tbody>
+                </table>
+                <table class="table table__block t-hover table__small">
+                    <tbody>
+                        <tr ng-repeat="model in ModelResult.ZadoljennostList">
+                            <td></td>
+                            <td>{{model.RegionName}}</td>
+                            <td>{{model.ZadoljennostAmount}} сум</td>
+                        </tr>
+                    </tbody>
                 </table>
             </div>
         </div>
@@ -200,22 +207,30 @@
         <div class="col-md-4">
             <h4>Организации</h4>
 
-            <p>(Платят ЕСП) Всего _____</p>
-            <div id="chart_div1"></div>
+            <p>(Платят ЕСП) Всего {{ModelResult.ProfComExists + ModelResult.ProfComNotExists}}</p>
+            <div id="chart_div1">
+                <canvas id="pie" class="chart chart-pie"
+                        chart-data="data1" chart-labels="labels1" chart-options="options"></canvas>
+            </div>
         </div>
         <div class="col-md-4">
             <h4>Заявки</h4>
-            <p>Всего _____</p>
-            <div id="chart_div2"></div>
+            <p>Всего {{ModelResult.ApprovedZayavka + ModelResult.RejectedZayavka + ModelResult.InProgressZayavka}}</p>
+            <div id="chart_div2">
+                <canvas id="pie" class="chart chart-pie"
+                        chart-data="data2" chart-labels="labels2" chart-options="options"></canvas>
+            </div>
         </div>
         <div class="col-md-4">
             <h4>Путевки</h4>
-            <p>Всего на 2 кв 2018 года ____</p>
+            <p>Всего на @userName.CurKvartalYear составило : {{ModelResult.OstatokPutyovkas + ModelResult.RealizedPutyovkas + ModelResult.VozvratPutyovkas}}</p>
 
-            <div id="chart_div3"></div>
+            <div id="chart_div3">
+                <canvas id="pie" class="chart chart-pie"
+                        chart-data="data3" chart-labels="labels3" chart-options="options"></canvas>
+            </div>
         </div>
 
     </div>
-
     <div id="chart_div" style="width: 900px; height: 500px;"></div>
 </section>

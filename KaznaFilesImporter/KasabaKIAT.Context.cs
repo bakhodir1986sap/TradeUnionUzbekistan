@@ -73,5 +73,634 @@ namespace KaznaFilesImporter
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_pr_GetNewTransactionsN1_Result1>("sp_pr_GetNewTransactionsN1");
         }
+    
+        public virtual ObjectResult<Nullable<int>> sp_stat_ApprovedZayavka(string dEPARTMENT_BASE, Nullable<int> yEAR, Nullable<int> kVARTAL)
+        {
+            var dEPARTMENT_BASEParameter = dEPARTMENT_BASE != null ?
+                new ObjectParameter("DEPARTMENT_BASE", dEPARTMENT_BASE) :
+                new ObjectParameter("DEPARTMENT_BASE", typeof(string));
+    
+            var yEARParameter = yEAR.HasValue ?
+                new ObjectParameter("YEAR", yEAR) :
+                new ObjectParameter("YEAR", typeof(int));
+    
+            var kVARTALParameter = kVARTAL.HasValue ?
+                new ObjectParameter("KVARTAL", kVARTAL) :
+                new ObjectParameter("KVARTAL", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("sp_stat_ApprovedZayavka", dEPARTMENT_BASEParameter, yEARParameter, kVARTALParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<int>> sp_stat_BronCount(string dEPARTMENT_BASE, Nullable<int> yEAR, Nullable<int> kVARTAL)
+        {
+            var dEPARTMENT_BASEParameter = dEPARTMENT_BASE != null ?
+                new ObjectParameter("DEPARTMENT_BASE", dEPARTMENT_BASE) :
+                new ObjectParameter("DEPARTMENT_BASE", typeof(string));
+    
+            var yEARParameter = yEAR.HasValue ?
+                new ObjectParameter("YEAR", yEAR) :
+                new ObjectParameter("YEAR", typeof(int));
+    
+            var kVARTALParameter = kVARTAL.HasValue ?
+                new ObjectParameter("KVARTAL", kVARTAL) :
+                new ObjectParameter("KVARTAL", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("sp_stat_BronCount", dEPARTMENT_BASEParameter, yEARParameter, kVARTALParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<decimal>> sp_stat_EcpIncome(string dEPARTMENT_BASE, Nullable<int> yEAR, Nullable<int> kVARTAL)
+        {
+            var dEPARTMENT_BASEParameter = dEPARTMENT_BASE != null ?
+                new ObjectParameter("DEPARTMENT_BASE", dEPARTMENT_BASE) :
+                new ObjectParameter("DEPARTMENT_BASE", typeof(string));
+    
+            var yEARParameter = yEAR.HasValue ?
+                new ObjectParameter("YEAR", yEAR) :
+                new ObjectParameter("YEAR", typeof(int));
+    
+            var kVARTALParameter = kVARTAL.HasValue ?
+                new ObjectParameter("KVARTAL", kVARTAL) :
+                new ObjectParameter("KVARTAL", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("sp_stat_EcpIncome", dEPARTMENT_BASEParameter, yEARParameter, kVARTALParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<decimal>> sp_stat_EcpIncomeFed(string dEPARTMENT_BASE, Nullable<int> yEAR, Nullable<int> kVARTAL)
+        {
+            var dEPARTMENT_BASEParameter = dEPARTMENT_BASE != null ?
+                new ObjectParameter("DEPARTMENT_BASE", dEPARTMENT_BASE) :
+                new ObjectParameter("DEPARTMENT_BASE", typeof(string));
+    
+            var yEARParameter = yEAR.HasValue ?
+                new ObjectParameter("YEAR", yEAR) :
+                new ObjectParameter("YEAR", typeof(int));
+    
+            var kVARTALParameter = kVARTAL.HasValue ?
+                new ObjectParameter("KVARTAL", kVARTAL) :
+                new ObjectParameter("KVARTAL", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("sp_stat_EcpIncomeFed", dEPARTMENT_BASEParameter, yEARParameter, kVARTALParameter);
+        }
+    
+        public virtual int sp_stat_IncomePerRegionList(string dEPARTMENT_BASE, Nullable<int> yEAR, Nullable<int> kVARTAL)
+        {
+            var dEPARTMENT_BASEParameter = dEPARTMENT_BASE != null ?
+                new ObjectParameter("DEPARTMENT_BASE", dEPARTMENT_BASE) :
+                new ObjectParameter("DEPARTMENT_BASE", typeof(string));
+    
+            var yEARParameter = yEAR.HasValue ?
+                new ObjectParameter("YEAR", yEAR) :
+                new ObjectParameter("YEAR", typeof(int));
+    
+            var kVARTALParameter = kVARTAL.HasValue ?
+                new ObjectParameter("KVARTAL", kVARTAL) :
+                new ObjectParameter("KVARTAL", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_stat_IncomePerRegionList", dEPARTMENT_BASEParameter, yEARParameter, kVARTALParameter);
+        }
+    
+        public virtual ObjectResult<sp_stat_IncomePerRegionList_Fed_Result> sp_stat_IncomePerRegionList_Fed(string dEPARTMENT_BASE, Nullable<int> yEAR, Nullable<int> kVARTAL)
+        {
+            var dEPARTMENT_BASEParameter = dEPARTMENT_BASE != null ?
+                new ObjectParameter("DEPARTMENT_BASE", dEPARTMENT_BASE) :
+                new ObjectParameter("DEPARTMENT_BASE", typeof(string));
+    
+            var yEARParameter = yEAR.HasValue ?
+                new ObjectParameter("YEAR", yEAR) :
+                new ObjectParameter("YEAR", typeof(int));
+    
+            var kVARTALParameter = kVARTAL.HasValue ?
+                new ObjectParameter("KVARTAL", kVARTAL) :
+                new ObjectParameter("KVARTAL", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_stat_IncomePerRegionList_Fed_Result>("sp_stat_IncomePerRegionList_Fed", dEPARTMENT_BASEParameter, yEARParameter, kVARTALParameter);
+        }
+    
+        public virtual ObjectResult<sp_stat_IncomePerRegionList_Obl_Result> sp_stat_IncomePerRegionList_Obl(string dEPARTMENT_BASE, Nullable<int> yEAR, Nullable<int> kVARTAL)
+        {
+            var dEPARTMENT_BASEParameter = dEPARTMENT_BASE != null ?
+                new ObjectParameter("DEPARTMENT_BASE", dEPARTMENT_BASE) :
+                new ObjectParameter("DEPARTMENT_BASE", typeof(string));
+    
+            var yEARParameter = yEAR.HasValue ?
+                new ObjectParameter("YEAR", yEAR) :
+                new ObjectParameter("YEAR", typeof(int));
+    
+            var kVARTALParameter = kVARTAL.HasValue ?
+                new ObjectParameter("KVARTAL", kVARTAL) :
+                new ObjectParameter("KVARTAL", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_stat_IncomePerRegionList_Obl_Result>("sp_stat_IncomePerRegionList_Obl", dEPARTMENT_BASEParameter, yEARParameter, kVARTALParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<int>> sp_stat_InProgressZayavka(string dEPARTMENT_BASE, Nullable<int> yEAR, Nullable<int> kVARTAL)
+        {
+            var dEPARTMENT_BASEParameter = dEPARTMENT_BASE != null ?
+                new ObjectParameter("DEPARTMENT_BASE", dEPARTMENT_BASE) :
+                new ObjectParameter("DEPARTMENT_BASE", typeof(string));
+    
+            var yEARParameter = yEAR.HasValue ?
+                new ObjectParameter("YEAR", yEAR) :
+                new ObjectParameter("YEAR", typeof(int));
+    
+            var kVARTALParameter = kVARTAL.HasValue ?
+                new ObjectParameter("KVARTAL", kVARTAL) :
+                new ObjectParameter("KVARTAL", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("sp_stat_InProgressZayavka", dEPARTMENT_BASEParameter, yEARParameter, kVARTALParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<decimal>> sp_stat_OstatokPutyovkaAmount(string dEPARTMENT_BASE, Nullable<int> yEAR, Nullable<int> kVARTAL)
+        {
+            var dEPARTMENT_BASEParameter = dEPARTMENT_BASE != null ?
+                new ObjectParameter("DEPARTMENT_BASE", dEPARTMENT_BASE) :
+                new ObjectParameter("DEPARTMENT_BASE", typeof(string));
+    
+            var yEARParameter = yEAR.HasValue ?
+                new ObjectParameter("YEAR", yEAR) :
+                new ObjectParameter("YEAR", typeof(int));
+    
+            var kVARTALParameter = kVARTAL.HasValue ?
+                new ObjectParameter("KVARTAL", kVARTAL) :
+                new ObjectParameter("KVARTAL", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("sp_stat_OstatokPutyovkaAmount", dEPARTMENT_BASEParameter, yEARParameter, kVARTALParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<int>> sp_stat_OstatokPutyovkaCount(string dEPARTMENT_BASE, Nullable<int> yEAR, Nullable<int> kVARTAL)
+        {
+            var dEPARTMENT_BASEParameter = dEPARTMENT_BASE != null ?
+                new ObjectParameter("DEPARTMENT_BASE", dEPARTMENT_BASE) :
+                new ObjectParameter("DEPARTMENT_BASE", typeof(string));
+    
+            var yEARParameter = yEAR.HasValue ?
+                new ObjectParameter("YEAR", yEAR) :
+                new ObjectParameter("YEAR", typeof(int));
+    
+            var kVARTALParameter = kVARTAL.HasValue ?
+                new ObjectParameter("KVARTAL", kVARTAL) :
+                new ObjectParameter("KVARTAL", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("sp_stat_OstatokPutyovkaCount", dEPARTMENT_BASEParameter, yEARParameter, kVARTALParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<int>> sp_stat_OstatokPutyovkas(string dEPARTMENT_BASE, Nullable<int> yEAR, Nullable<int> kVARTAL)
+        {
+            var dEPARTMENT_BASEParameter = dEPARTMENT_BASE != null ?
+                new ObjectParameter("DEPARTMENT_BASE", dEPARTMENT_BASE) :
+                new ObjectParameter("DEPARTMENT_BASE", typeof(string));
+    
+            var yEARParameter = yEAR.HasValue ?
+                new ObjectParameter("YEAR", yEAR) :
+                new ObjectParameter("YEAR", typeof(int));
+    
+            var kVARTALParameter = kVARTAL.HasValue ?
+                new ObjectParameter("KVARTAL", kVARTAL) :
+                new ObjectParameter("KVARTAL", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("sp_stat_OstatokPutyovkas", dEPARTMENT_BASEParameter, yEARParameter, kVARTALParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<decimal>> sp_stat_OtherIncome(string dEPARTMENT_BASE, Nullable<int> yEAR, Nullable<int> kVARTAL)
+        {
+            var dEPARTMENT_BASEParameter = dEPARTMENT_BASE != null ?
+                new ObjectParameter("DEPARTMENT_BASE", dEPARTMENT_BASE) :
+                new ObjectParameter("DEPARTMENT_BASE", typeof(string));
+    
+            var yEARParameter = yEAR.HasValue ?
+                new ObjectParameter("YEAR", yEAR) :
+                new ObjectParameter("YEAR", typeof(int));
+    
+            var kVARTALParameter = kVARTAL.HasValue ?
+                new ObjectParameter("KVARTAL", kVARTAL) :
+                new ObjectParameter("KVARTAL", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("sp_stat_OtherIncome", dEPARTMENT_BASEParameter, yEARParameter, kVARTALParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<decimal>> sp_stat_PartialIncome(string dEPARTMENT_BASE, Nullable<int> yEAR, Nullable<int> kVARTAL)
+        {
+            var dEPARTMENT_BASEParameter = dEPARTMENT_BASE != null ?
+                new ObjectParameter("DEPARTMENT_BASE", dEPARTMENT_BASE) :
+                new ObjectParameter("DEPARTMENT_BASE", typeof(string));
+    
+            var yEARParameter = yEAR.HasValue ?
+                new ObjectParameter("YEAR", yEAR) :
+                new ObjectParameter("YEAR", typeof(int));
+    
+            var kVARTALParameter = kVARTAL.HasValue ?
+                new ObjectParameter("KVARTAL", kVARTAL) :
+                new ObjectParameter("KVARTAL", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("sp_stat_PartialIncome", dEPARTMENT_BASEParameter, yEARParameter, kVARTALParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<decimal>> sp_stat_PlanPutyovkaAmount(string dEPARTMENT_BASE, Nullable<int> yEAR, Nullable<int> kVARTAL)
+        {
+            var dEPARTMENT_BASEParameter = dEPARTMENT_BASE != null ?
+                new ObjectParameter("DEPARTMENT_BASE", dEPARTMENT_BASE) :
+                new ObjectParameter("DEPARTMENT_BASE", typeof(string));
+    
+            var yEARParameter = yEAR.HasValue ?
+                new ObjectParameter("YEAR", yEAR) :
+                new ObjectParameter("YEAR", typeof(int));
+    
+            var kVARTALParameter = kVARTAL.HasValue ?
+                new ObjectParameter("KVARTAL", kVARTAL) :
+                new ObjectParameter("KVARTAL", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("sp_stat_PlanPutyovkaAmount", dEPARTMENT_BASEParameter, yEARParameter, kVARTALParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<int>> sp_stat_PlanPutyovkaCount(string dEPARTMENT_BASE, Nullable<int> yEAR, Nullable<int> kVARTAL)
+        {
+            var dEPARTMENT_BASEParameter = dEPARTMENT_BASE != null ?
+                new ObjectParameter("DEPARTMENT_BASE", dEPARTMENT_BASE) :
+                new ObjectParameter("DEPARTMENT_BASE", typeof(string));
+    
+            var yEARParameter = yEAR.HasValue ?
+                new ObjectParameter("YEAR", yEAR) :
+                new ObjectParameter("YEAR", typeof(int));
+    
+            var kVARTALParameter = kVARTAL.HasValue ?
+                new ObjectParameter("KVARTAL", kVARTAL) :
+                new ObjectParameter("KVARTAL", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("sp_stat_PlanPutyovkaCount", dEPARTMENT_BASEParameter, yEARParameter, kVARTALParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<int>> sp_stat_ProfComExists(string dEPARTMENT_BASE, Nullable<int> yEAR, Nullable<int> kVARTAL)
+        {
+            var dEPARTMENT_BASEParameter = dEPARTMENT_BASE != null ?
+                new ObjectParameter("DEPARTMENT_BASE", dEPARTMENT_BASE) :
+                new ObjectParameter("DEPARTMENT_BASE", typeof(string));
+    
+            var yEARParameter = yEAR.HasValue ?
+                new ObjectParameter("YEAR", yEAR) :
+                new ObjectParameter("YEAR", typeof(int));
+    
+            var kVARTALParameter = kVARTAL.HasValue ?
+                new ObjectParameter("KVARTAL", kVARTAL) :
+                new ObjectParameter("KVARTAL", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("sp_stat_ProfComExists", dEPARTMENT_BASEParameter, yEARParameter, kVARTALParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<int>> sp_stat_ProfComNotExists(string dEPARTMENT_BASE, Nullable<int> yEAR, Nullable<int> kVARTAL)
+        {
+            var dEPARTMENT_BASEParameter = dEPARTMENT_BASE != null ?
+                new ObjectParameter("DEPARTMENT_BASE", dEPARTMENT_BASE) :
+                new ObjectParameter("DEPARTMENT_BASE", typeof(string));
+    
+            var yEARParameter = yEAR.HasValue ?
+                new ObjectParameter("YEAR", yEAR) :
+                new ObjectParameter("YEAR", typeof(int));
+    
+            var kVARTALParameter = kVARTAL.HasValue ?
+                new ObjectParameter("KVARTAL", kVARTAL) :
+                new ObjectParameter("KVARTAL", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("sp_stat_ProfComNotExists", dEPARTMENT_BASEParameter, yEARParameter, kVARTALParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<int>> sp_stat_RealizedPutyovkas(string dEPARTMENT_BASE, Nullable<int> yEAR, Nullable<int> kVARTAL)
+        {
+            var dEPARTMENT_BASEParameter = dEPARTMENT_BASE != null ?
+                new ObjectParameter("DEPARTMENT_BASE", dEPARTMENT_BASE) :
+                new ObjectParameter("DEPARTMENT_BASE", typeof(string));
+    
+            var yEARParameter = yEAR.HasValue ?
+                new ObjectParameter("YEAR", yEAR) :
+                new ObjectParameter("YEAR", typeof(int));
+    
+            var kVARTALParameter = kVARTAL.HasValue ?
+                new ObjectParameter("KVARTAL", kVARTAL) :
+                new ObjectParameter("KVARTAL", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("sp_stat_RealizedPutyovkas", dEPARTMENT_BASEParameter, yEARParameter, kVARTALParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<decimal>> sp_stat_RealizPutyovkaAmount(string dEPARTMENT_BASE, Nullable<int> yEAR, Nullable<int> kVARTAL)
+        {
+            var dEPARTMENT_BASEParameter = dEPARTMENT_BASE != null ?
+                new ObjectParameter("DEPARTMENT_BASE", dEPARTMENT_BASE) :
+                new ObjectParameter("DEPARTMENT_BASE", typeof(string));
+    
+            var yEARParameter = yEAR.HasValue ?
+                new ObjectParameter("YEAR", yEAR) :
+                new ObjectParameter("YEAR", typeof(int));
+    
+            var kVARTALParameter = kVARTAL.HasValue ?
+                new ObjectParameter("KVARTAL", kVARTAL) :
+                new ObjectParameter("KVARTAL", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("sp_stat_RealizPutyovkaAmount", dEPARTMENT_BASEParameter, yEARParameter, kVARTALParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<int>> sp_stat_RealizPutyovkaCount(string dEPARTMENT_BASE, Nullable<int> yEAR, Nullable<int> kVARTAL)
+        {
+            var dEPARTMENT_BASEParameter = dEPARTMENT_BASE != null ?
+                new ObjectParameter("DEPARTMENT_BASE", dEPARTMENT_BASE) :
+                new ObjectParameter("DEPARTMENT_BASE", typeof(string));
+    
+            var yEARParameter = yEAR.HasValue ?
+                new ObjectParameter("YEAR", yEAR) :
+                new ObjectParameter("YEAR", typeof(int));
+    
+            var kVARTALParameter = kVARTAL.HasValue ?
+                new ObjectParameter("KVARTAL", kVARTAL) :
+                new ObjectParameter("KVARTAL", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("sp_stat_RealizPutyovkaCount", dEPARTMENT_BASEParameter, yEARParameter, kVARTALParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<int>> sp_stat_RejectedZayavka(string dEPARTMENT_BASE, Nullable<int> yEAR, Nullable<int> kVARTAL)
+        {
+            var dEPARTMENT_BASEParameter = dEPARTMENT_BASE != null ?
+                new ObjectParameter("DEPARTMENT_BASE", dEPARTMENT_BASE) :
+                new ObjectParameter("DEPARTMENT_BASE", typeof(string));
+    
+            var yEARParameter = yEAR.HasValue ?
+                new ObjectParameter("YEAR", yEAR) :
+                new ObjectParameter("YEAR", typeof(int));
+    
+            var kVARTALParameter = kVARTAL.HasValue ?
+                new ObjectParameter("KVARTAL", kVARTAL) :
+                new ObjectParameter("KVARTAL", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("sp_stat_RejectedZayavka", dEPARTMENT_BASEParameter, yEARParameter, kVARTALParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<decimal>> sp_stat_S0PutyovkaAmount(string dEPARTMENT_BASE, Nullable<int> yEAR, Nullable<int> kVARTAL)
+        {
+            var dEPARTMENT_BASEParameter = dEPARTMENT_BASE != null ?
+                new ObjectParameter("DEPARTMENT_BASE", dEPARTMENT_BASE) :
+                new ObjectParameter("DEPARTMENT_BASE", typeof(string));
+    
+            var yEARParameter = yEAR.HasValue ?
+                new ObjectParameter("YEAR", yEAR) :
+                new ObjectParameter("YEAR", typeof(int));
+    
+            var kVARTALParameter = kVARTAL.HasValue ?
+                new ObjectParameter("KVARTAL", kVARTAL) :
+                new ObjectParameter("KVARTAL", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("sp_stat_S0PutyovkaAmount", dEPARTMENT_BASEParameter, yEARParameter, kVARTALParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<int>> sp_stat_S0PutyovkaCount(string dEPARTMENT_BASE, Nullable<int> yEAR, Nullable<int> kVARTAL)
+        {
+            var dEPARTMENT_BASEParameter = dEPARTMENT_BASE != null ?
+                new ObjectParameter("DEPARTMENT_BASE", dEPARTMENT_BASE) :
+                new ObjectParameter("DEPARTMENT_BASE", typeof(string));
+    
+            var yEARParameter = yEAR.HasValue ?
+                new ObjectParameter("YEAR", yEAR) :
+                new ObjectParameter("YEAR", typeof(int));
+    
+            var kVARTALParameter = kVARTAL.HasValue ?
+                new ObjectParameter("KVARTAL", kVARTAL) :
+                new ObjectParameter("KVARTAL", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("sp_stat_S0PutyovkaCount", dEPARTMENT_BASEParameter, yEARParameter, kVARTALParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<decimal>> sp_stat_S100PutyovkaAmount(string dEPARTMENT_BASE, Nullable<int> yEAR, Nullable<int> kVARTAL)
+        {
+            var dEPARTMENT_BASEParameter = dEPARTMENT_BASE != null ?
+                new ObjectParameter("DEPARTMENT_BASE", dEPARTMENT_BASE) :
+                new ObjectParameter("DEPARTMENT_BASE", typeof(string));
+    
+            var yEARParameter = yEAR.HasValue ?
+                new ObjectParameter("YEAR", yEAR) :
+                new ObjectParameter("YEAR", typeof(int));
+    
+            var kVARTALParameter = kVARTAL.HasValue ?
+                new ObjectParameter("KVARTAL", kVARTAL) :
+                new ObjectParameter("KVARTAL", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("sp_stat_S100PutyovkaAmount", dEPARTMENT_BASEParameter, yEARParameter, kVARTALParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<int>> sp_stat_S100PutyovkaCount(string dEPARTMENT_BASE, Nullable<int> yEAR, Nullable<int> kVARTAL)
+        {
+            var dEPARTMENT_BASEParameter = dEPARTMENT_BASE != null ?
+                new ObjectParameter("DEPARTMENT_BASE", dEPARTMENT_BASE) :
+                new ObjectParameter("DEPARTMENT_BASE", typeof(string));
+    
+            var yEARParameter = yEAR.HasValue ?
+                new ObjectParameter("YEAR", yEAR) :
+                new ObjectParameter("YEAR", typeof(int));
+    
+            var kVARTALParameter = kVARTAL.HasValue ?
+                new ObjectParameter("KVARTAL", kVARTAL) :
+                new ObjectParameter("KVARTAL", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("sp_stat_S100PutyovkaCount", dEPARTMENT_BASEParameter, yEARParameter, kVARTALParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<decimal>> sp_stat_S45PutyovkaAmount(string dEPARTMENT_BASE, Nullable<int> yEAR, Nullable<int> kVARTAL)
+        {
+            var dEPARTMENT_BASEParameter = dEPARTMENT_BASE != null ?
+                new ObjectParameter("DEPARTMENT_BASE", dEPARTMENT_BASE) :
+                new ObjectParameter("DEPARTMENT_BASE", typeof(string));
+    
+            var yEARParameter = yEAR.HasValue ?
+                new ObjectParameter("YEAR", yEAR) :
+                new ObjectParameter("YEAR", typeof(int));
+    
+            var kVARTALParameter = kVARTAL.HasValue ?
+                new ObjectParameter("KVARTAL", kVARTAL) :
+                new ObjectParameter("KVARTAL", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("sp_stat_S45PutyovkaAmount", dEPARTMENT_BASEParameter, yEARParameter, kVARTALParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<int>> sp_stat_S45PutyovkaCount(string dEPARTMENT_BASE, Nullable<int> yEAR, Nullable<int> kVARTAL)
+        {
+            var dEPARTMENT_BASEParameter = dEPARTMENT_BASE != null ?
+                new ObjectParameter("DEPARTMENT_BASE", dEPARTMENT_BASE) :
+                new ObjectParameter("DEPARTMENT_BASE", typeof(string));
+    
+            var yEARParameter = yEAR.HasValue ?
+                new ObjectParameter("YEAR", yEAR) :
+                new ObjectParameter("YEAR", typeof(int));
+    
+            var kVARTALParameter = kVARTAL.HasValue ?
+                new ObjectParameter("KVARTAL", kVARTAL) :
+                new ObjectParameter("KVARTAL", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("sp_stat_S45PutyovkaCount", dEPARTMENT_BASEParameter, yEARParameter, kVARTALParameter);
+        }
+    
+        public virtual int sp_stat_TotalIncome(string dEPARTMENT_BASE, Nullable<int> yEAR, Nullable<int> kVARTAL)
+        {
+            var dEPARTMENT_BASEParameter = dEPARTMENT_BASE != null ?
+                new ObjectParameter("DEPARTMENT_BASE", dEPARTMENT_BASE) :
+                new ObjectParameter("DEPARTMENT_BASE", typeof(string));
+    
+            var yEARParameter = yEAR.HasValue ?
+                new ObjectParameter("YEAR", yEAR) :
+                new ObjectParameter("YEAR", typeof(int));
+    
+            var kVARTALParameter = kVARTAL.HasValue ?
+                new ObjectParameter("KVARTAL", kVARTAL) :
+                new ObjectParameter("KVARTAL", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_stat_TotalIncome", dEPARTMENT_BASEParameter, yEARParameter, kVARTALParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<decimal>> sp_stat_TotalZadoljennostAmount(string dEPARTMENT_BASE, Nullable<int> yEAR, Nullable<int> kVARTAL)
+        {
+            var dEPARTMENT_BASEParameter = dEPARTMENT_BASE != null ?
+                new ObjectParameter("DEPARTMENT_BASE", dEPARTMENT_BASE) :
+                new ObjectParameter("DEPARTMENT_BASE", typeof(string));
+    
+            var yEARParameter = yEAR.HasValue ?
+                new ObjectParameter("YEAR", yEAR) :
+                new ObjectParameter("YEAR", typeof(int));
+    
+            var kVARTALParameter = kVARTAL.HasValue ?
+                new ObjectParameter("KVARTAL", kVARTAL) :
+                new ObjectParameter("KVARTAL", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("sp_stat_TotalZadoljennostAmount", dEPARTMENT_BASEParameter, yEARParameter, kVARTALParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<int>> sp_stat_UrgentPutyovkas(string dEPARTMENT_BASE, Nullable<int> yEAR, Nullable<int> kVARTAL)
+        {
+            var dEPARTMENT_BASEParameter = dEPARTMENT_BASE != null ?
+                new ObjectParameter("DEPARTMENT_BASE", dEPARTMENT_BASE) :
+                new ObjectParameter("DEPARTMENT_BASE", typeof(string));
+    
+            var yEARParameter = yEAR.HasValue ?
+                new ObjectParameter("YEAR", yEAR) :
+                new ObjectParameter("YEAR", typeof(int));
+    
+            var kVARTALParameter = kVARTAL.HasValue ?
+                new ObjectParameter("KVARTAL", kVARTAL) :
+                new ObjectParameter("KVARTAL", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("sp_stat_UrgentPutyovkas", dEPARTMENT_BASEParameter, yEARParameter, kVARTALParameter);
+        }
+    
+        public virtual int sp_stat_UrgentPutyovkasRegionList(string dEPARTMENT_BASE, Nullable<int> yEAR, Nullable<int> kVARTAL)
+        {
+            var dEPARTMENT_BASEParameter = dEPARTMENT_BASE != null ?
+                new ObjectParameter("DEPARTMENT_BASE", dEPARTMENT_BASE) :
+                new ObjectParameter("DEPARTMENT_BASE", typeof(string));
+    
+            var yEARParameter = yEAR.HasValue ?
+                new ObjectParameter("YEAR", yEAR) :
+                new ObjectParameter("YEAR", typeof(int));
+    
+            var kVARTALParameter = kVARTAL.HasValue ?
+                new ObjectParameter("KVARTAL", kVARTAL) :
+                new ObjectParameter("KVARTAL", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_stat_UrgentPutyovkasRegionList", dEPARTMENT_BASEParameter, yEARParameter, kVARTALParameter);
+        }
+    
+        public virtual ObjectResult<sp_stat_UrgentPutyovkasRegionListFed_Result> sp_stat_UrgentPutyovkasRegionListFed(string dEPARTMENT_BASE, Nullable<int> yEAR, Nullable<int> kVARTAL)
+        {
+            var dEPARTMENT_BASEParameter = dEPARTMENT_BASE != null ?
+                new ObjectParameter("DEPARTMENT_BASE", dEPARTMENT_BASE) :
+                new ObjectParameter("DEPARTMENT_BASE", typeof(string));
+    
+            var yEARParameter = yEAR.HasValue ?
+                new ObjectParameter("YEAR", yEAR) :
+                new ObjectParameter("YEAR", typeof(int));
+    
+            var kVARTALParameter = kVARTAL.HasValue ?
+                new ObjectParameter("KVARTAL", kVARTAL) :
+                new ObjectParameter("KVARTAL", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_stat_UrgentPutyovkasRegionListFed_Result>("sp_stat_UrgentPutyovkasRegionListFed", dEPARTMENT_BASEParameter, yEARParameter, kVARTALParameter);
+        }
+    
+        public virtual ObjectResult<sp_stat_UrgentPutyovkasRegionListObl_Result> sp_stat_UrgentPutyovkasRegionListObl(string dEPARTMENT_BASE, Nullable<int> yEAR, Nullable<int> kVARTAL)
+        {
+            var dEPARTMENT_BASEParameter = dEPARTMENT_BASE != null ?
+                new ObjectParameter("DEPARTMENT_BASE", dEPARTMENT_BASE) :
+                new ObjectParameter("DEPARTMENT_BASE", typeof(string));
+    
+            var yEARParameter = yEAR.HasValue ?
+                new ObjectParameter("YEAR", yEAR) :
+                new ObjectParameter("YEAR", typeof(int));
+    
+            var kVARTALParameter = kVARTAL.HasValue ?
+                new ObjectParameter("KVARTAL", kVARTAL) :
+                new ObjectParameter("KVARTAL", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_stat_UrgentPutyovkasRegionListObl_Result>("sp_stat_UrgentPutyovkasRegionListObl", dEPARTMENT_BASEParameter, yEARParameter, kVARTALParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<int>> sp_stat_VozvratPutyovkas(string dEPARTMENT_BASE, Nullable<int> yEAR, Nullable<int> kVARTAL)
+        {
+            var dEPARTMENT_BASEParameter = dEPARTMENT_BASE != null ?
+                new ObjectParameter("DEPARTMENT_BASE", dEPARTMENT_BASE) :
+                new ObjectParameter("DEPARTMENT_BASE", typeof(string));
+    
+            var yEARParameter = yEAR.HasValue ?
+                new ObjectParameter("YEAR", yEAR) :
+                new ObjectParameter("YEAR", typeof(int));
+    
+            var kVARTALParameter = kVARTAL.HasValue ?
+                new ObjectParameter("KVARTAL", kVARTAL) :
+                new ObjectParameter("KVARTAL", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("sp_stat_VozvratPutyovkas", dEPARTMENT_BASEParameter, yEARParameter, kVARTALParameter);
+        }
+    
+        public virtual int sp_stat_ZadoljennostList(string dEPARTMENT_BASE, Nullable<int> yEAR, Nullable<int> kVARTAL)
+        {
+            var dEPARTMENT_BASEParameter = dEPARTMENT_BASE != null ?
+                new ObjectParameter("DEPARTMENT_BASE", dEPARTMENT_BASE) :
+                new ObjectParameter("DEPARTMENT_BASE", typeof(string));
+    
+            var yEARParameter = yEAR.HasValue ?
+                new ObjectParameter("YEAR", yEAR) :
+                new ObjectParameter("YEAR", typeof(int));
+    
+            var kVARTALParameter = kVARTAL.HasValue ?
+                new ObjectParameter("KVARTAL", kVARTAL) :
+                new ObjectParameter("KVARTAL", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_stat_ZadoljennostList", dEPARTMENT_BASEParameter, yEARParameter, kVARTALParameter);
+        }
+    
+        public virtual ObjectResult<sp_stat_ZadoljennostListFed_Result> sp_stat_ZadoljennostListFed(string dEPARTMENT_BASE, Nullable<int> yEAR, Nullable<int> kVARTAL)
+        {
+            var dEPARTMENT_BASEParameter = dEPARTMENT_BASE != null ?
+                new ObjectParameter("DEPARTMENT_BASE", dEPARTMENT_BASE) :
+                new ObjectParameter("DEPARTMENT_BASE", typeof(string));
+    
+            var yEARParameter = yEAR.HasValue ?
+                new ObjectParameter("YEAR", yEAR) :
+                new ObjectParameter("YEAR", typeof(int));
+    
+            var kVARTALParameter = kVARTAL.HasValue ?
+                new ObjectParameter("KVARTAL", kVARTAL) :
+                new ObjectParameter("KVARTAL", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_stat_ZadoljennostListFed_Result>("sp_stat_ZadoljennostListFed", dEPARTMENT_BASEParameter, yEARParameter, kVARTALParameter);
+        }
+    
+        public virtual ObjectResult<sp_stat_ZadoljennostListObl_Result> sp_stat_ZadoljennostListObl(string dEPARTMENT_BASE, Nullable<int> yEAR, Nullable<int> kVARTAL)
+        {
+            var dEPARTMENT_BASEParameter = dEPARTMENT_BASE != null ?
+                new ObjectParameter("DEPARTMENT_BASE", dEPARTMENT_BASE) :
+                new ObjectParameter("DEPARTMENT_BASE", typeof(string));
+    
+            var yEARParameter = yEAR.HasValue ?
+                new ObjectParameter("YEAR", yEAR) :
+                new ObjectParameter("YEAR", typeof(int));
+    
+            var kVARTALParameter = kVARTAL.HasValue ?
+                new ObjectParameter("KVARTAL", kVARTAL) :
+                new ObjectParameter("KVARTAL", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_stat_ZadoljennostListObl_Result>("sp_stat_ZadoljennostListObl", dEPARTMENT_BASEParameter, yEARParameter, kVARTALParameter);
+        }
     }
 }

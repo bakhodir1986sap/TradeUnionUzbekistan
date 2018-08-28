@@ -33,6 +33,8 @@ namespace KasabaKiat.ViewModel
 
         public string CurKvartalYear    { get; set; }
         public bool   IsPrivOrg         { get; set; }
+        public int CurYear { get; set; }
+        public int CurKvartal { get; set; }
 
     }
 

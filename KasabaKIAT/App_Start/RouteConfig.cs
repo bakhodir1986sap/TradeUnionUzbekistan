@@ -18,6 +18,8 @@ namespace KasabaKIAT
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Putyovki", id = UrlParameter.Optional }
             );
+
+
         }
     }
 }

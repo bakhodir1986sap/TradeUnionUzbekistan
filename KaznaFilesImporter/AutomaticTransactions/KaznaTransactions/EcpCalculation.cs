@@ -891,138 +891,9 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.Provodki.AutomaticTransactions.K
                                     innFromDtl = payment.INN;
                                 }
                                 else
-                                if (payment.INN.Equals("000000000"))
                                 {
-                                    payment.PURPOSE = Regex.Replace(payment.PURPOSE, @"\s+", "");
-
-                                    string[] numbers = Regex.Split(payment.PURPOSE, @"\D+");
-
                                     //other case try to get INN 
-                                    var Inn = numbers.FirstOrDefault(x => x.Length == 9);
-
-                                    if ((Inn != null) && (Inn.StartsWith("2") || (Inn.StartsWith("3"))))
-                                    {
-                                        model.remark += string.Format("INN:{0};", Inn);
-                                        innFromDtl = Inn;
-                                    }
-                                    else
-                                    {
-                                        model.remark += string.Format("INN:{0};", payment.INN);
-                                        innFromDtl = payment.INN;
-                                    }
-                                }
-                                else if (payment.PURPOSE.ToUpper().Contains("ИНН "))
-                                {
-                                    payment.PURPOSE = Regex.Replace(payment.PURPOSE, @"\s+", "");
-
-                                    string[] numbers = Regex.Split(payment.PURPOSE, @"\D+");
-
-                                    //First 9 digit number As INN
-                                    var Inns = numbers.Where(x => x.Length == 9);
-
-                                    var posOfInn = payment.PURPOSE.ToUpper().IndexOf("ИНН ");
-
-                                    foreach (var srt in Inns.ToList())
-                                    {
-                                        if (!(srt.StartsWith("2") || (srt.StartsWith("3"))))
-                                            continue;
-
-                                        var posOfInn2 = payment.PURPOSE.ToUpper().IndexOf(srt);
-
-                                        if (posOfInn < posOfInn2)
-                                        {
-                                            model.remark += string.Format("INN:{0};", srt);
-                                            innFromDtl = srt;
-                                            break;
-                                        }
-                                    }
-                                }
-                                else if (payment.PURPOSE.ToUpper().Contains("INN "))
-                                {
-                                    payment.PURPOSE = Regex.Replace(payment.PURPOSE, @"\s+", "");
-
-                                    string[] numbers = Regex.Split(payment.PURPOSE, @"\D+");
-
-                                    //First 9 digit number As INN
-                                    var Inns = numbers.Where(x => x.Length == 9);
-
-                                    var posOfInn = payment.PURPOSE.ToUpper().IndexOf("INN");
-
-                                    foreach (var srt in Inns.ToList())
-                                    {
-                                        if (!(srt.StartsWith("2") || (srt.StartsWith("3"))))
-                                            continue;
-
-                                        var posOfInn2 = payment.PURPOSE.ToUpper().IndexOf(srt);
-
-                                        if (posOfInn < posOfInn2)
-                                        {
-                                            model.remark += string.Format("INN:{0};", srt);
-                                            innFromDtl = srt;
-                                            break;
-                                        }
-                                    }
-                                }
-                                else if (payment.PURPOSE.ToUpper().Contains("СТИР "))
-                                {
-                                    payment.PURPOSE = Regex.Replace(payment.PURPOSE, @"\s+", "");
-
-                                    string[] numbers = Regex.Split(payment.PURPOSE, @"\D+");
-
-                                    //First 9 digit number As INN
-                                    var Inns = numbers.Where(x => x.Length == 9);
-
-                                    var posOfInn = payment.PURPOSE.ToUpper().IndexOf("СТИР");
-
-                                    foreach (var srt in Inns.ToList())
-                                    {
-                                        if (!(srt.StartsWith("2") || (srt.StartsWith("3"))))
-                                            continue;
-
-                                        var posOfInn2 = payment.PURPOSE.ToUpper().IndexOf(srt);
-
-                                        if (posOfInn < posOfInn2)
-                                        {
-                                            model.remark += string.Format("INN:{0};", srt);
-                                            innFromDtl = srt;
-                                            break;
-                                        }
-                                    }
-                                }
-                                else if (payment.PURPOSE.ToUpper().Contains("STIR "))
-                                {
-                                    payment.PURPOSE = Regex.Replace(payment.PURPOSE, @"\s+", "");
-
-                                    string[] numbers = Regex.Split(payment.PURPOSE, @"\D+");
-
-                                    //First 9 digit number As INN
-                                    var Inns = numbers.Where(x => x.Length == 9);
-
-                                    var posOfInn = payment.PURPOSE.ToUpper().IndexOf("STIR");
-
-                                    foreach (var srt in Inns.ToList())
-                                    {
-                                        if (!(srt.StartsWith("2") || (srt.StartsWith("3"))))
-                                            continue;
-
-                                        var posOfInn2 = payment.PURPOSE.ToUpper().IndexOf(srt);
-
-                                        if (posOfInn < posOfInn2)
-                                        {
-                                            model.remark += string.Format("INN:{0};", srt);
-                                            innFromDtl = srt;
-                                            break;
-                                        }
-                                    }
-                                }
-                                else
-                                {
-                                    payment.PURPOSE = Regex.Replace(payment.PURPOSE, @"\s+", "");
-
-                                    string[] numbers = Regex.Split(payment.PURPOSE, @"\D+");
-
-                                    //other case try to get INN 
-                                    var Inn = numbers.FirstOrDefault(x => x.Length == 9);
+                                    var Inn = GetInnFromDetail(payment.PURPOSE);
 
                                     if ((Inn != null) && (Inn.StartsWith("2") || (Inn.StartsWith("3"))))
                                     {
@@ -1569,6 +1440,47 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.Provodki.AutomaticTransactions.K
                 {
                     throw new ApplicationException("Otrasl info not found");
                 }
+        }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="detail"></param>
+        /// <returns></returns>
+        private string GetInnFromDetail(string detail)
+        {
+            if (string.IsNullOrEmpty(detail)) return null;
+
+            string[] numbers = Regex.Matches(detail, @"([-:,.\s*/A-Za-zА-Яа-я](\d\s?){8}\d[-:,.\s)*~/A-Za-zА-Яа-я]|\s(\d\s?){8}\d$)")
+                            .Cast<Match>()
+                            .Select(m => m.Value)
+                            .ToArray();
+
+            List<string> newArray = new List<string>();
+            foreach (var str in numbers)
+            {
+                var str1 = Regex.Matches(str, @"\d+").Cast<Match>()
+                                        .Select(m => m.Value)
+                                        .ToArray();
+
+                var sssdd = string.Join("", str1.Select(x => x.ToString()));
+
+                newArray.Add(sssdd);
+
+                Console.WriteLine("sssdd:{0} ", sssdd);
+            }
+            
+            if (newArray.Count > 1)
+            {
+                return  newArray.First();
+            }
+            else if (newArray.Count == 1)
+            {
+                return newArray.First();
+            }
+
+             return null;
         }
 
     }

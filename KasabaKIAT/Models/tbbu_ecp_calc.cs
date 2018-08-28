@@ -31,5 +31,7 @@ namespace KasabaKIAT.Models
         public string BRANCH_CODE { get; set; }
         public string BRANCH_NAME { get; set; }
         public string ADEP_CODE { get; set; }
+        public Nullable<long> GRPID { get; set; }
+        public Nullable<System.DateTime> BANK_DATE { get; set; }
     }
 }

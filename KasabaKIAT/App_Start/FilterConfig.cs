@@ -1,4 +1,5 @@
-﻿using System.Web;
+﻿using KasabaKIAT.BusinessLogic._3_Etap.Monitoring;
+using System.Web;
 using System.Web.Mvc;
 
 namespace KasabaKIAT
@@ -8,6 +9,7 @@ namespace KasabaKIAT
         public static void RegisterGlobalFilters(GlobalFilterCollection filters)
         {
             filters.Add(new HandleErrorAttribute());
+            filters.Add(new LogActionFilterAttribute());
         }
     }
 }

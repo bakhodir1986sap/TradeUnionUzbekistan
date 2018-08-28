@@ -1,6 +1,7 @@
 ﻿using KasabaKiat.BusinessLogic.Zayavki;
 using KasabaKiat.Helpers;
 using KasabaKiat.ViewModel;
+using KasabaKIAT.BusinessLogic._3_Etap.Statistika;
 using KasabaKIAT.BusinessLogic.Putyovki.Rekviziti;
 using KasabaKIAT.BusinessLogic.Putyovki.Zayavki;
 using KasabaKIAT.BusinessLogic.Structure;
@@ -2275,7 +2276,50 @@ namespace KasabaKIAT.Controllers
                     break;
             }
 
-            return View();
+            return View(viewName);
+        }
+
+
+        public JsonResult GetStatFederasiya()
+        {
+            int UserId = Convert.ToInt32(User.Identity.Name);
+            var ustinfo = UserInfo.GetUserInfo(UserId);
+
+            var result = StatDataContainer.GetStataData(ustinfo.DepartmentBase, ustinfo.role_id.Value, ustinfo.CurYear, ustinfo.CurKvartal);
+
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+
+        public JsonResult StatOblSovProf()
+        {
+            int UserId = Convert.ToInt32(User.Identity.Name);
+            var ustinfo = UserInfo.GetUserInfo(UserId);
+
+            var result = StatDataContainer.GetStataData(ustinfo.DepartmentBase, ustinfo.role_id.Value, ustinfo.CurYear, ustinfo.CurKvartal);
+
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult StatPPO()
+        {
+            int UserId = Convert.ToInt32(User.Identity.Name);
+            var ustinfo = UserInfo.GetUserInfo(UserId);
+
+            var result = StatDataContainer.GetStataData(ustinfo.DepartmentBase, ustinfo.role_id.Value, ustinfo.CurYear, ustinfo.CurKvartal);
+
+            return Json(result, JsonRequestBehavior.AllowGet);
+
+        }
+
+        public JsonResult StatRayonOtrasl()
+        {
+            int UserId = Convert.ToInt32(User.Identity.Name);
+            var ustinfo = UserInfo.GetUserInfo(UserId);
+
+            var result = StatDataContainer.GetStataData(ustinfo.DepartmentBase, ustinfo.role_id.Value, ustinfo.CurYear, ustinfo.CurKvartal);
+
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
 
         /// <summary>

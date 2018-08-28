@@ -295,6 +295,8 @@ warning 6002: The table/view 'KasabaKIAT_N1.dbo.tbbFermer' does not have a prima
           <Property Name="BRANCH_CODE" Type="nvarchar" MaxLength="2" />
           <Property Name="BRANCH_NAME" Type="nvarchar" MaxLength="200" />
           <Property Name="ADEP_CODE" Type="nvarchar" MaxLength="255" />
+          <Property Name="GRPID" Type="bigint" />
+          <Property Name="BANK_DATE" Type="datetime" />
         </EntityType>
         <EntityType Name="tbbu_provodki">
           <Key>
@@ -560,6 +562,191 @@ warning 6035: The relationship 't_egrpo_4' has columns that are not part of the 
         <Function Name="sp_pr_GetNewECPMOIFY" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="sp_pr_GetNewTransactions" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="sp_pr_GetNewTransactionsN1" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="sp_stat_ApprovedZayavka" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="DEPARTMENT_BASE" Type="nvarchar" Mode="In" />
+          <Parameter Name="YEAR" Type="int" Mode="In" />
+          <Parameter Name="KVARTAL" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_stat_BronCount" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="DEPARTMENT_BASE" Type="nvarchar" Mode="In" />
+          <Parameter Name="YEAR" Type="int" Mode="In" />
+          <Parameter Name="KVARTAL" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_stat_EcpIncome" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="DEPARTMENT_BASE" Type="nvarchar" Mode="In" />
+          <Parameter Name="YEAR" Type="int" Mode="In" />
+          <Parameter Name="KVARTAL" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_stat_EcpIncomeFed" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="DEPARTMENT_BASE" Type="nvarchar" Mode="In" />
+          <Parameter Name="YEAR" Type="int" Mode="In" />
+          <Parameter Name="KVARTAL" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_stat_IncomePerRegionList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="DEPARTMENT_BASE" Type="nvarchar" Mode="In" />
+          <Parameter Name="YEAR" Type="int" Mode="In" />
+          <Parameter Name="KVARTAL" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_stat_IncomePerRegionList_Fed" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="DEPARTMENT_BASE" Type="nvarchar" Mode="In" />
+          <Parameter Name="YEAR" Type="int" Mode="In" />
+          <Parameter Name="KVARTAL" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_stat_IncomePerRegionList_Obl" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="DEPARTMENT_BASE" Type="nvarchar" Mode="In" />
+          <Parameter Name="YEAR" Type="int" Mode="In" />
+          <Parameter Name="KVARTAL" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_stat_InProgressZayavka" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="DEPARTMENT_BASE" Type="nvarchar" Mode="In" />
+          <Parameter Name="YEAR" Type="int" Mode="In" />
+          <Parameter Name="KVARTAL" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_stat_OstatokPutyovkaAmount" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="DEPARTMENT_BASE" Type="nvarchar" Mode="In" />
+          <Parameter Name="YEAR" Type="int" Mode="In" />
+          <Parameter Name="KVARTAL" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_stat_OstatokPutyovkaCount" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="DEPARTMENT_BASE" Type="nvarchar" Mode="In" />
+          <Parameter Name="YEAR" Type="int" Mode="In" />
+          <Parameter Name="KVARTAL" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_stat_OstatokPutyovkas" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="DEPARTMENT_BASE" Type="nvarchar" Mode="In" />
+          <Parameter Name="YEAR" Type="int" Mode="In" />
+          <Parameter Name="KVARTAL" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_stat_OtherIncome" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="DEPARTMENT_BASE" Type="nvarchar" Mode="In" />
+          <Parameter Name="YEAR" Type="int" Mode="In" />
+          <Parameter Name="KVARTAL" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_stat_PartialIncome" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="DEPARTMENT_BASE" Type="nvarchar" Mode="In" />
+          <Parameter Name="YEAR" Type="int" Mode="In" />
+          <Parameter Name="KVARTAL" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_stat_PlanPutyovkaAmount" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="DEPARTMENT_BASE" Type="nvarchar" Mode="In" />
+          <Parameter Name="YEAR" Type="int" Mode="In" />
+          <Parameter Name="KVARTAL" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_stat_PlanPutyovkaCount" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="DEPARTMENT_BASE" Type="nvarchar" Mode="In" />
+          <Parameter Name="YEAR" Type="int" Mode="In" />
+          <Parameter Name="KVARTAL" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_stat_ProfComExists" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="DEPARTMENT_BASE" Type="nvarchar" Mode="In" />
+          <Parameter Name="YEAR" Type="int" Mode="In" />
+          <Parameter Name="KVARTAL" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_stat_ProfComNotExists" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="DEPARTMENT_BASE" Type="nvarchar" Mode="In" />
+          <Parameter Name="YEAR" Type="int" Mode="In" />
+          <Parameter Name="KVARTAL" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_stat_RealizedPutyovkas" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="DEPARTMENT_BASE" Type="nvarchar" Mode="In" />
+          <Parameter Name="YEAR" Type="int" Mode="In" />
+          <Parameter Name="KVARTAL" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_stat_RealizPutyovkaAmount" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="DEPARTMENT_BASE" Type="nvarchar" Mode="In" />
+          <Parameter Name="YEAR" Type="int" Mode="In" />
+          <Parameter Name="KVARTAL" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_stat_RealizPutyovkaCount" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="DEPARTMENT_BASE" Type="nvarchar" Mode="In" />
+          <Parameter Name="YEAR" Type="int" Mode="In" />
+          <Parameter Name="KVARTAL" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_stat_RejectedZayavka" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="DEPARTMENT_BASE" Type="nvarchar" Mode="In" />
+          <Parameter Name="YEAR" Type="int" Mode="In" />
+          <Parameter Name="KVARTAL" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_stat_S0PutyovkaAmount" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="DEPARTMENT_BASE" Type="nvarchar" Mode="In" />
+          <Parameter Name="YEAR" Type="int" Mode="In" />
+          <Parameter Name="KVARTAL" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_stat_S0PutyovkaCount" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="DEPARTMENT_BASE" Type="nvarchar" Mode="In" />
+          <Parameter Name="YEAR" Type="int" Mode="In" />
+          <Parameter Name="KVARTAL" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_stat_S100PutyovkaAmount" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="DEPARTMENT_BASE" Type="nvarchar" Mode="In" />
+          <Parameter Name="YEAR" Type="int" Mode="In" />
+          <Parameter Name="KVARTAL" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_stat_S100PutyovkaCount" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="DEPARTMENT_BASE" Type="nvarchar" Mode="In" />
+          <Parameter Name="YEAR" Type="int" Mode="In" />
+          <Parameter Name="KVARTAL" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_stat_S45PutyovkaAmount" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="DEPARTMENT_BASE" Type="nvarchar" Mode="In" />
+          <Parameter Name="YEAR" Type="int" Mode="In" />
+          <Parameter Name="KVARTAL" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_stat_S45PutyovkaCount" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="DEPARTMENT_BASE" Type="nvarchar" Mode="In" />
+          <Parameter Name="YEAR" Type="int" Mode="In" />
+          <Parameter Name="KVARTAL" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_stat_TotalIncome" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="DEPARTMENT_BASE" Type="nvarchar" Mode="In" />
+          <Parameter Name="YEAR" Type="int" Mode="In" />
+          <Parameter Name="KVARTAL" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_stat_TotalZadoljennostAmount" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="DEPARTMENT_BASE" Type="nvarchar" Mode="In" />
+          <Parameter Name="YEAR" Type="int" Mode="In" />
+          <Parameter Name="KVARTAL" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_stat_UrgentPutyovkas" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="DEPARTMENT_BASE" Type="nvarchar" Mode="In" />
+          <Parameter Name="YEAR" Type="int" Mode="In" />
+          <Parameter Name="KVARTAL" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_stat_UrgentPutyovkasRegionList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="DEPARTMENT_BASE" Type="nvarchar" Mode="In" />
+          <Parameter Name="YEAR" Type="int" Mode="In" />
+          <Parameter Name="KVARTAL" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_stat_UrgentPutyovkasRegionListFed" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="DEPARTMENT_BASE" Type="nvarchar" Mode="In" />
+          <Parameter Name="YEAR" Type="int" Mode="In" />
+          <Parameter Name="KVARTAL" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_stat_UrgentPutyovkasRegionListObl" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="DEPARTMENT_BASE" Type="nvarchar" Mode="In" />
+          <Parameter Name="YEAR" Type="int" Mode="In" />
+          <Parameter Name="KVARTAL" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_stat_VozvratPutyovkas" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="DEPARTMENT_BASE" Type="nvarchar" Mode="In" />
+          <Parameter Name="YEAR" Type="int" Mode="In" />
+          <Parameter Name="KVARTAL" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_stat_ZadoljennostList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="DEPARTMENT_BASE" Type="nvarchar" Mode="In" />
+          <Parameter Name="YEAR" Type="int" Mode="In" />
+          <Parameter Name="KVARTAL" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_stat_ZadoljennostListFed" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="DEPARTMENT_BASE" Type="nvarchar" Mode="In" />
+          <Parameter Name="YEAR" Type="int" Mode="In" />
+          <Parameter Name="KVARTAL" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_stat_ZadoljennostListObl" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="DEPARTMENT_BASE" Type="nvarchar" Mode="In" />
+          <Parameter Name="YEAR" Type="int" Mode="In" />
+          <Parameter Name="KVARTAL" Type="int" Mode="In" />
+        </Function>
         <EntityContainer Name="KasabaKIATModelStoreContainer">
           <EntitySet Name="Kazna_Account" EntityType="Self.Kazna_Account" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="KaznaBankFile" EntityType="Self.KaznaBankFile" Schema="dbo" store:Type="Tables" />
@@ -677,6 +864,191 @@ warning 6035: The relationship 't_egrpo_4' has columns that are not part of the 
             <End Role="t_departmentbase1" EntitySet="t_departmentbase" />
           </AssociationSet>
           <EntitySet Name="tblBrons" EntityType="KasabaKIATModel.tblBron" />
+          <FunctionImport Name="sp_stat_ApprovedZayavka" ReturnType="Collection(Int32)">
+            <Parameter Name="DEPARTMENT_BASE" Mode="In" Type="String" />
+            <Parameter Name="YEAR" Mode="In" Type="Int32" />
+            <Parameter Name="KVARTAL" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_stat_BronCount" ReturnType="Collection(Int32)">
+            <Parameter Name="DEPARTMENT_BASE" Mode="In" Type="String" />
+            <Parameter Name="YEAR" Mode="In" Type="Int32" />
+            <Parameter Name="KVARTAL" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_stat_EcpIncome" ReturnType="Collection(Decimal)">
+            <Parameter Name="DEPARTMENT_BASE" Mode="In" Type="String" />
+            <Parameter Name="YEAR" Mode="In" Type="Int32" />
+            <Parameter Name="KVARTAL" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_stat_EcpIncomeFed" ReturnType="Collection(Decimal)">
+            <Parameter Name="DEPARTMENT_BASE" Mode="In" Type="String" />
+            <Parameter Name="YEAR" Mode="In" Type="Int32" />
+            <Parameter Name="KVARTAL" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_stat_IncomePerRegionList">
+            <Parameter Name="DEPARTMENT_BASE" Mode="In" Type="String" />
+            <Parameter Name="YEAR" Mode="In" Type="Int32" />
+            <Parameter Name="KVARTAL" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_stat_IncomePerRegionList_Fed" ReturnType="Collection(KasabaKIATModel.sp_stat_IncomePerRegionList_Fed_Result)">
+            <Parameter Name="DEPARTMENT_BASE" Mode="In" Type="String" />
+            <Parameter Name="YEAR" Mode="In" Type="Int32" />
+            <Parameter Name="KVARTAL" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_stat_IncomePerRegionList_Obl" ReturnType="Collection(KasabaKIATModel.sp_stat_IncomePerRegionList_Obl_Result)">
+            <Parameter Name="DEPARTMENT_BASE" Mode="In" Type="String" />
+            <Parameter Name="YEAR" Mode="In" Type="Int32" />
+            <Parameter Name="KVARTAL" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_stat_InProgressZayavka" ReturnType="Collection(Int32)">
+            <Parameter Name="DEPARTMENT_BASE" Mode="In" Type="String" />
+            <Parameter Name="YEAR" Mode="In" Type="Int32" />
+            <Parameter Name="KVARTAL" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_stat_OstatokPutyovkaAmount" ReturnType="Collection(Decimal)">
+            <Parameter Name="DEPARTMENT_BASE" Mode="In" Type="String" />
+            <Parameter Name="YEAR" Mode="In" Type="Int32" />
+            <Parameter Name="KVARTAL" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_stat_OstatokPutyovkaCount" ReturnType="Collection(Int32)">
+            <Parameter Name="DEPARTMENT_BASE" Mode="In" Type="String" />
+            <Parameter Name="YEAR" Mode="In" Type="Int32" />
+            <Parameter Name="KVARTAL" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_stat_OstatokPutyovkas" ReturnType="Collection(Int32)">
+            <Parameter Name="DEPARTMENT_BASE" Mode="In" Type="String" />
+            <Parameter Name="YEAR" Mode="In" Type="Int32" />
+            <Parameter Name="KVARTAL" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_stat_OtherIncome" ReturnType="Collection(Decimal)">
+            <Parameter Name="DEPARTMENT_BASE" Mode="In" Type="String" />
+            <Parameter Name="YEAR" Mode="In" Type="Int32" />
+            <Parameter Name="KVARTAL" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_stat_PartialIncome" ReturnType="Collection(Decimal)">
+            <Parameter Name="DEPARTMENT_BASE" Mode="In" Type="String" />
+            <Parameter Name="YEAR" Mode="In" Type="Int32" />
+            <Parameter Name="KVARTAL" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_stat_PlanPutyovkaAmount" ReturnType="Collection(Decimal)">
+            <Parameter Name="DEPARTMENT_BASE" Mode="In" Type="String" />
+            <Parameter Name="YEAR" Mode="In" Type="Int32" />
+            <Parameter Name="KVARTAL" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_stat_PlanPutyovkaCount" ReturnType="Collection(Int32)">
+            <Parameter Name="DEPARTMENT_BASE" Mode="In" Type="String" />
+            <Parameter Name="YEAR" Mode="In" Type="Int32" />
+            <Parameter Name="KVARTAL" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_stat_ProfComExists" ReturnType="Collection(Int32)">
+            <Parameter Name="DEPARTMENT_BASE" Mode="In" Type="String" />
+            <Parameter Name="YEAR" Mode="In" Type="Int32" />
+            <Parameter Name="KVARTAL" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_stat_ProfComNotExists" ReturnType="Collection(Int32)">
+            <Parameter Name="DEPARTMENT_BASE" Mode="In" Type="String" />
+            <Parameter Name="YEAR" Mode="In" Type="Int32" />
+            <Parameter Name="KVARTAL" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_stat_RealizedPutyovkas" ReturnType="Collection(Int32)">
+            <Parameter Name="DEPARTMENT_BASE" Mode="In" Type="String" />
+            <Parameter Name="YEAR" Mode="In" Type="Int32" />
+            <Parameter Name="KVARTAL" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_stat_RealizPutyovkaAmount" ReturnType="Collection(Decimal)">
+            <Parameter Name="DEPARTMENT_BASE" Mode="In" Type="String" />
+            <Parameter Name="YEAR" Mode="In" Type="Int32" />
+            <Parameter Name="KVARTAL" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_stat_RealizPutyovkaCount" ReturnType="Collection(Int32)">
+            <Parameter Name="DEPARTMENT_BASE" Mode="In" Type="String" />
+            <Parameter Name="YEAR" Mode="In" Type="Int32" />
+            <Parameter Name="KVARTAL" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_stat_RejectedZayavka" ReturnType="Collection(Int32)">
+            <Parameter Name="DEPARTMENT_BASE" Mode="In" Type="String" />
+            <Parameter Name="YEAR" Mode="In" Type="Int32" />
+            <Parameter Name="KVARTAL" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_stat_S0PutyovkaAmount" ReturnType="Collection(Decimal)">
+            <Parameter Name="DEPARTMENT_BASE" Mode="In" Type="String" />
+            <Parameter Name="YEAR" Mode="In" Type="Int32" />
+            <Parameter Name="KVARTAL" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_stat_S0PutyovkaCount" ReturnType="Collection(Int32)">
+            <Parameter Name="DEPARTMENT_BASE" Mode="In" Type="String" />
+            <Parameter Name="YEAR" Mode="In" Type="Int32" />
+            <Parameter Name="KVARTAL" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_stat_S100PutyovkaAmount" ReturnType="Collection(Decimal)">
+            <Parameter Name="DEPARTMENT_BASE" Mode="In" Type="String" />
+            <Parameter Name="YEAR" Mode="In" Type="Int32" />
+            <Parameter Name="KVARTAL" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_stat_S100PutyovkaCount" ReturnType="Collection(Int32)">
+            <Parameter Name="DEPARTMENT_BASE" Mode="In" Type="String" />
+            <Parameter Name="YEAR" Mode="In" Type="Int32" />
+            <Parameter Name="KVARTAL" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_stat_S45PutyovkaAmount" ReturnType="Collection(Decimal)">
+            <Parameter Name="DEPARTMENT_BASE" Mode="In" Type="String" />
+            <Parameter Name="YEAR" Mode="In" Type="Int32" />
+            <Parameter Name="KVARTAL" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_stat_S45PutyovkaCount" ReturnType="Collection(Int32)">
+            <Parameter Name="DEPARTMENT_BASE" Mode="In" Type="String" />
+            <Parameter Name="YEAR" Mode="In" Type="Int32" />
+            <Parameter Name="KVARTAL" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_stat_TotalIncome">
+            <Parameter Name="DEPARTMENT_BASE" Mode="In" Type="String" />
+            <Parameter Name="YEAR" Mode="In" Type="Int32" />
+            <Parameter Name="KVARTAL" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_stat_TotalZadoljennostAmount" ReturnType="Collection(Decimal)">
+            <Parameter Name="DEPARTMENT_BASE" Mode="In" Type="String" />
+            <Parameter Name="YEAR" Mode="In" Type="Int32" />
+            <Parameter Name="KVARTAL" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_stat_UrgentPutyovkas" ReturnType="Collection(Int32)">
+            <Parameter Name="DEPARTMENT_BASE" Mode="In" Type="String" />
+            <Parameter Name="YEAR" Mode="In" Type="Int32" />
+            <Parameter Name="KVARTAL" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_stat_UrgentPutyovkasRegionList">
+            <Parameter Name="DEPARTMENT_BASE" Mode="In" Type="String" />
+            <Parameter Name="YEAR" Mode="In" Type="Int32" />
+            <Parameter Name="KVARTAL" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_stat_UrgentPutyovkasRegionListFed" ReturnType="Collection(KasabaKIATModel.sp_stat_UrgentPutyovkasRegionListFed_Result)">
+            <Parameter Name="DEPARTMENT_BASE" Mode="In" Type="String" />
+            <Parameter Name="YEAR" Mode="In" Type="Int32" />
+            <Parameter Name="KVARTAL" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_stat_UrgentPutyovkasRegionListObl" ReturnType="Collection(KasabaKIATModel.sp_stat_UrgentPutyovkasRegionListObl_Result)">
+            <Parameter Name="DEPARTMENT_BASE" Mode="In" Type="String" />
+            <Parameter Name="YEAR" Mode="In" Type="Int32" />
+            <Parameter Name="KVARTAL" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_stat_VozvratPutyovkas" ReturnType="Collection(Int32)">
+            <Parameter Name="DEPARTMENT_BASE" Mode="In" Type="String" />
+            <Parameter Name="YEAR" Mode="In" Type="Int32" />
+            <Parameter Name="KVARTAL" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_stat_ZadoljennostList">
+            <Parameter Name="DEPARTMENT_BASE" Mode="In" Type="String" />
+            <Parameter Name="YEAR" Mode="In" Type="Int32" />
+            <Parameter Name="KVARTAL" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_stat_ZadoljennostListFed" ReturnType="Collection(KasabaKIATModel.sp_stat_ZadoljennostListFed_Result)">
+            <Parameter Name="DEPARTMENT_BASE" Mode="In" Type="String" />
+            <Parameter Name="YEAR" Mode="In" Type="Int32" />
+            <Parameter Name="KVARTAL" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_stat_ZadoljennostListObl" ReturnType="Collection(KasabaKIATModel.sp_stat_ZadoljennostListObl_Result)">
+            <Parameter Name="DEPARTMENT_BASE" Mode="In" Type="String" />
+            <Parameter Name="YEAR" Mode="In" Type="Int32" />
+            <Parameter Name="KVARTAL" Mode="In" Type="Int32" />
+          </FunctionImport>
           </EntityContainer>
         <EntityType Name="KaznaSverkaFile">
           <Key>
@@ -764,6 +1136,8 @@ warning 6035: The relationship 't_egrpo_4' has columns that are not part of the 
           <Property Name="BRANCH_CODE" Type="String" MaxLength="2" FixedLength="false" Unicode="true" />
           <Property Name="BRANCH_NAME" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="ADEP_CODE" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="GRPID" Type="Int64" />
+          <Property Name="BANK_DATE" Type="DateTime" Precision="3" />
         </EntityType>
         <ComplexType Name="sp_pr_GetNewTransactions_Result">
           <Property Type="Decimal" Name="ID" Nullable="false" Precision="12" Scale="0" />
@@ -1297,6 +1671,37 @@ warning 6035: The relationship 't_egrpo_4' has columns that are not part of the 
           <Property Name="DepartmentBase" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="TIME_STAMP" Type="DateTime" Precision="3" />
         </EntityType>
+        <ComplexType Name="sp_stat_IncomePerRegionList_Fed_Result">
+          <Property Type="String" Name="ProfsoyzNaimenovanie" Nullable="true" MaxLength="200" />
+          <Property Type="Decimal" Name="TOTAL_AMT" Nullable="true" Precision="19" />
+          <Property Type="Decimal" Name="OBLSOVPROF_AMT" Nullable="true" Precision="19" />
+          <Property Type="Decimal" Name="CHASTICHKA" Nullable="true" Precision="19" />
+          <Property Type="Decimal" Name="OTHERS" Nullable="true" Precision="19" />
+        </ComplexType>
+        <ComplexType Name="sp_stat_IncomePerRegionList_Obl_Result">
+          <Property Type="String" Name="ProfsoyzNaimenovanie" Nullable="true" MaxLength="50" />
+          <Property Type="Decimal" Name="TOTAL_AMT" Nullable="true" Precision="19" />
+          <Property Type="Decimal" Name="OBLSOVPROF_AMT" Nullable="true" Precision="19" />
+          <Property Type="Int32" Name="CHASTICHKA" Nullable="true" />
+          <Property Type="Int32" Name="OTHERS" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="sp_stat_UrgentPutyovkasRegionListFed_Result">
+          <Property Type="String" Name="ProfsoyzNaimenovanie" Nullable="true" MaxLength="200" />
+          <Property Type="Int32" Name="PutCount" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="sp_stat_UrgentPutyovkasRegionListObl_Result">
+          <Property Type="String" Name="Num_Put" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="Name_San" Nullable="true" MaxLength="100" />
+          <Property Type="DateTime" Name="DataSan" Nullable="true" Precision="23" />
+        </ComplexType>
+        <ComplexType Name="sp_stat_ZadoljennostListFed_Result">
+          <Property Type="String" Name="ProfsoyzNaimenovanie" Nullable="true" MaxLength="200" />
+          <Property Type="Decimal" Name="ZadolAmount" Nullable="false" Precision="19" />
+        </ComplexType>
+        <ComplexType Name="sp_stat_ZadoljennostListObl_Result">
+          <Property Type="String" Name="NameReg" Nullable="true" MaxLength="50" />
+          <Property Type="Decimal" Name="ZadolAmount" Nullable="false" Precision="19" />
+        </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1370,6 +1775,8 @@ warning 6035: The relationship 't_egrpo_4' has columns that are not part of the 
           <EntitySetMapping Name="tbbu_ecp_calc">
             <EntityTypeMapping TypeName="KasabaKIATModel.tbbu_ecp_calc">
               <MappingFragment StoreEntitySet="tbbu_ecp_calc">
+                <ScalarProperty Name="BANK_DATE" ColumnName="BANK_DATE" />
+                <ScalarProperty Name="GRPID" ColumnName="GRPID" />
                 <ScalarProperty Name="ADEP_CODE" ColumnName="ADEP_CODE" />
                 <ScalarProperty Name="BRANCH_NAME" ColumnName="BRANCH_NAME" />
                 <ScalarProperty Name="BRANCH_CODE" ColumnName="BRANCH_CODE" />
@@ -1848,6 +2255,92 @@ warning 6035: The relationship 't_egrpo_4' has columns that are not part of the 
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="sp_stat_ApprovedZayavka" FunctionName="KasabaKIATModel.Store.sp_stat_ApprovedZayavka" />
+          <FunctionImportMapping FunctionImportName="sp_stat_BronCount" FunctionName="KasabaKIATModel.Store.sp_stat_BronCount" />
+          <FunctionImportMapping FunctionImportName="sp_stat_EcpIncome" FunctionName="KasabaKIATModel.Store.sp_stat_EcpIncome" />
+          <FunctionImportMapping FunctionImportName="sp_stat_EcpIncomeFed" FunctionName="KasabaKIATModel.Store.sp_stat_EcpIncomeFed" />
+          <FunctionImportMapping FunctionImportName="sp_stat_IncomePerRegionList" FunctionName="KasabaKIATModel.Store.sp_stat_IncomePerRegionList" />
+          <FunctionImportMapping FunctionImportName="sp_stat_IncomePerRegionList_Fed" FunctionName="KasabaKIATModel.Store.sp_stat_IncomePerRegionList_Fed">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="KasabaKIATModel.sp_stat_IncomePerRegionList_Fed_Result">
+                <ScalarProperty Name="ProfsoyzNaimenovanie" ColumnName="ProfsoyzNaimenovanie" />
+                <ScalarProperty Name="TOTAL_AMT" ColumnName="TOTAL_AMT" />
+                <ScalarProperty Name="OBLSOVPROF_AMT" ColumnName="OBLSOVPROF_AMT" />
+                <ScalarProperty Name="CHASTICHKA" ColumnName="CHASTICHKA" />
+                <ScalarProperty Name="OTHERS" ColumnName="OTHERS" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_stat_IncomePerRegionList_Obl" FunctionName="KasabaKIATModel.Store.sp_stat_IncomePerRegionList_Obl">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="KasabaKIATModel.sp_stat_IncomePerRegionList_Obl_Result">
+                <ScalarProperty Name="ProfsoyzNaimenovanie" ColumnName="ProfsoyzNaimenovanie" />
+                <ScalarProperty Name="TOTAL_AMT" ColumnName="TOTAL_AMT" />
+                <ScalarProperty Name="OBLSOVPROF_AMT" ColumnName="OBLSOVPROF_AMT" />
+                <ScalarProperty Name="CHASTICHKA" ColumnName="CHASTICHKA" />
+                <ScalarProperty Name="OTHERS" ColumnName="OTHERS" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_stat_InProgressZayavka" FunctionName="KasabaKIATModel.Store.sp_stat_InProgressZayavka" />
+          <FunctionImportMapping FunctionImportName="sp_stat_OstatokPutyovkaAmount" FunctionName="KasabaKIATModel.Store.sp_stat_OstatokPutyovkaAmount" />
+          <FunctionImportMapping FunctionImportName="sp_stat_OstatokPutyovkaCount" FunctionName="KasabaKIATModel.Store.sp_stat_OstatokPutyovkaCount" />
+          <FunctionImportMapping FunctionImportName="sp_stat_OstatokPutyovkas" FunctionName="KasabaKIATModel.Store.sp_stat_OstatokPutyovkas" />
+          <FunctionImportMapping FunctionImportName="sp_stat_OtherIncome" FunctionName="KasabaKIATModel.Store.sp_stat_OtherIncome" />
+          <FunctionImportMapping FunctionImportName="sp_stat_PartialIncome" FunctionName="KasabaKIATModel.Store.sp_stat_PartialIncome" />
+          <FunctionImportMapping FunctionImportName="sp_stat_PlanPutyovkaAmount" FunctionName="KasabaKIATModel.Store.sp_stat_PlanPutyovkaAmount" />
+          <FunctionImportMapping FunctionImportName="sp_stat_PlanPutyovkaCount" FunctionName="KasabaKIATModel.Store.sp_stat_PlanPutyovkaCount" />
+          <FunctionImportMapping FunctionImportName="sp_stat_ProfComExists" FunctionName="KasabaKIATModel.Store.sp_stat_ProfComExists" />
+          <FunctionImportMapping FunctionImportName="sp_stat_ProfComNotExists" FunctionName="KasabaKIATModel.Store.sp_stat_ProfComNotExists" />
+          <FunctionImportMapping FunctionImportName="sp_stat_RealizedPutyovkas" FunctionName="KasabaKIATModel.Store.sp_stat_RealizedPutyovkas" />
+          <FunctionImportMapping FunctionImportName="sp_stat_RealizPutyovkaAmount" FunctionName="KasabaKIATModel.Store.sp_stat_RealizPutyovkaAmount" />
+          <FunctionImportMapping FunctionImportName="sp_stat_RealizPutyovkaCount" FunctionName="KasabaKIATModel.Store.sp_stat_RealizPutyovkaCount" />
+          <FunctionImportMapping FunctionImportName="sp_stat_RejectedZayavka" FunctionName="KasabaKIATModel.Store.sp_stat_RejectedZayavka" />
+          <FunctionImportMapping FunctionImportName="sp_stat_S0PutyovkaAmount" FunctionName="KasabaKIATModel.Store.sp_stat_S0PutyovkaAmount" />
+          <FunctionImportMapping FunctionImportName="sp_stat_S0PutyovkaCount" FunctionName="KasabaKIATModel.Store.sp_stat_S0PutyovkaCount" />
+          <FunctionImportMapping FunctionImportName="sp_stat_S100PutyovkaAmount" FunctionName="KasabaKIATModel.Store.sp_stat_S100PutyovkaAmount" />
+          <FunctionImportMapping FunctionImportName="sp_stat_S100PutyovkaCount" FunctionName="KasabaKIATModel.Store.sp_stat_S100PutyovkaCount" />
+          <FunctionImportMapping FunctionImportName="sp_stat_S45PutyovkaAmount" FunctionName="KasabaKIATModel.Store.sp_stat_S45PutyovkaAmount" />
+          <FunctionImportMapping FunctionImportName="sp_stat_S45PutyovkaCount" FunctionName="KasabaKIATModel.Store.sp_stat_S45PutyovkaCount" />
+          <FunctionImportMapping FunctionImportName="sp_stat_TotalIncome" FunctionName="KasabaKIATModel.Store.sp_stat_TotalIncome" />
+          <FunctionImportMapping FunctionImportName="sp_stat_TotalZadoljennostAmount" FunctionName="KasabaKIATModel.Store.sp_stat_TotalZadoljennostAmount" />
+          <FunctionImportMapping FunctionImportName="sp_stat_UrgentPutyovkas" FunctionName="KasabaKIATModel.Store.sp_stat_UrgentPutyovkas" />
+          <FunctionImportMapping FunctionImportName="sp_stat_UrgentPutyovkasRegionList" FunctionName="KasabaKIATModel.Store.sp_stat_UrgentPutyovkasRegionList" />
+          <FunctionImportMapping FunctionImportName="sp_stat_UrgentPutyovkasRegionListFed" FunctionName="KasabaKIATModel.Store.sp_stat_UrgentPutyovkasRegionListFed">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="KasabaKIATModel.sp_stat_UrgentPutyovkasRegionListFed_Result">
+                <ScalarProperty Name="ProfsoyzNaimenovanie" ColumnName="ProfsoyzNaimenovanie" />
+                <ScalarProperty Name="PutCount" ColumnName="PutCount" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_stat_UrgentPutyovkasRegionListObl" FunctionName="KasabaKIATModel.Store.sp_stat_UrgentPutyovkasRegionListObl">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="KasabaKIATModel.sp_stat_UrgentPutyovkasRegionListObl_Result">
+                <ScalarProperty Name="Num_Put" ColumnName="Num_Put" />
+                <ScalarProperty Name="Name_San" ColumnName="Name_San" />
+                <ScalarProperty Name="DataSan" ColumnName="DataSan" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_stat_VozvratPutyovkas" FunctionName="KasabaKIATModel.Store.sp_stat_VozvratPutyovkas" />
+          <FunctionImportMapping FunctionImportName="sp_stat_ZadoljennostList" FunctionName="KasabaKIATModel.Store.sp_stat_ZadoljennostList" />
+          <FunctionImportMapping FunctionImportName="sp_stat_ZadoljennostListFed" FunctionName="KasabaKIATModel.Store.sp_stat_ZadoljennostListFed">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="KasabaKIATModel.sp_stat_ZadoljennostListFed_Result">
+                <ScalarProperty Name="ProfsoyzNaimenovanie" ColumnName="ProfsoyzNaimenovanie" />
+                <ScalarProperty Name="ZadolAmount" ColumnName="ZadolAmount" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_stat_ZadoljennostListObl" FunctionName="KasabaKIATModel.Store.sp_stat_ZadoljennostListObl">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="KasabaKIATModel.sp_stat_ZadoljennostListObl_Result">
+                <ScalarProperty Name="NameReg" ColumnName="NameReg" />
+                <ScalarProperty Name="ZadolAmount" ColumnName="ZadolAmount" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

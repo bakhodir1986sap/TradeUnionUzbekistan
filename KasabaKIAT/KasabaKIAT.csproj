@@ -218,7 +218,10 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="BusinessLogic\3_Etap\Monitoring\BaseMonitoring.cs" />
+    <Compile Include="BusinessLogic\3_Etap\Monitoring\LogActionFilterAttribute.cs" />
     <Compile Include="BusinessLogic\3_Etap\Statistika\BaseStatistika.cs" />
+    <Compile Include="BusinessLogic\3_Etap\Statistika\StatController.cs" />
+    <Compile Include="BusinessLogic\3_Etap\Statistika\StatDataContainer.cs" />
     <Compile Include="BusinessLogic\3_Etap\Statistika\Stat_Federasiya.cs" />
     <Compile Include="BusinessLogic\3_Etap\Statistika\Stat_OblSovProf.cs" />
     <Compile Include="BusinessLogic\3_Etap\Statistika\Stat_PPO.cs" />
@@ -476,6 +479,7 @@
     <Compile Include="Controllers\t_egrpoController.cs" />
     <Compile Include="Controllers\t_normativdocController.cs" />
     <Compile Include="Controllers\t_sanatoriumController.cs" />
+    <Compile Include="Controllers\useractionsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -780,6 +784,24 @@
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\sp_rt_ZayavkiList_Result.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_stat_IncomePerRegionList_Fed_Result.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_stat_IncomePerRegionList_Obl_Result.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_stat_UrgentPutyovkasRegionListFed_Result.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_stat_UrgentPutyovkasRegionListObl_Result.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_stat_ZadoljennostListFed_Result.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_stat_ZadoljennostListObl_Result.cs">
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tbbu_balance.cs">
@@ -1951,6 +1973,11 @@
     <Content Include="Views\Home\StatPPO.cshtml" />
     <Content Include="Views\PrixodPutevok\FizLiso.cshtml" />
     <Content Include="Views\PrixodPutevok\RasxodPutyovokFizLiso.cshtml" />
+    <Content Include="Views\useractions\Create.cshtml" />
+    <Content Include="Views\useractions\Delete.cshtml" />
+    <Content Include="Views\useractions\Details.cshtml" />
+    <Content Include="Views\useractions\Edit.cshtml" />
+    <Content Include="Views\useractions\Index.cshtml" />
     <None Include="Web References\KurortUrlService\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>

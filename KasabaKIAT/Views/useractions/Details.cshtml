@@ -1,0 +1,90 @@
+﻿@model KasabaKIAT.Models.useractions
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Details</title>
+</head>
+<body>
+    <div>
+        <h4>useractions</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.version)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.version)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.accesstime)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.accesstime)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.action)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.action)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.classname)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.classname)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.object_id)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.object_id)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.object_name)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.object_name)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.NATIVE_ID)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.NATIVE_ID)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.users.email)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.users.email)
+            </dd>
+    
+        </dl>
+    </div>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+</body>
+</html>

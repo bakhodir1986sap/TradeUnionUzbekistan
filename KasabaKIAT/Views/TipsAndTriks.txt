@@ -11,10 +11,16 @@ div class="modal-body" style="max-height: calc(100vh - 210px); overflow-y: auto;
 --tblPost tablisasida Vid status polyasi - false provodka berilmagan; true - provodka berilgan.
 --tblPos_Put tablisasida ID_PolVoz status polyasi - Ishlatishga chiqarilganligini bildiradi.
 
+--\s\d\s?\d\s?\d\s?\d\s?\d\s?\d\s?\d\s?\d\s?\d\s
+--([-:,.\s*/A-Za-zА-Яа-я]\d\s?\d\s?\d\s?\d\s?\d\s?\d\s?\d\s?\d\s?\d[-:,.\s)*~/A-Za-zА-Яа-я]|\s\d\s?\d\s?\d\s?\d\s?\d\s?\d\s?\d\s?\d\s?\d$)
 
 --Zapros po putyovkam oynasida CheckboxList polyalani ro'yxatini ko'rsatib o'tadi.
 --ng-model= "model1" 
 --table tr ng-shows && td ng-show qilinadi
+
+https://ironsoftware.com
+IronOcr makes it easy to read text from images in your .net apps & websites.
+
 
 public KasabaKIATEntities()
     : base("name=KasabaKIATEntities")

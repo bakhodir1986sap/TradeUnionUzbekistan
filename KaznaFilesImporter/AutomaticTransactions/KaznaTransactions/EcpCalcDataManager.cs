@@ -84,10 +84,8 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.Provodki.AutomaticTransactions.K
         }
 
 
-        public static void ModifyBank(decimal ID, long ProvodkaId)
+        public static void ModifyBank(decimal ID, KasabaKIATEntities db , tbbu_provodki master)
         {
-            using (KasabaKIATEntities db = new KasabaKIATEntities())
-            {
                 var planOblast = db.KaznaBankFiles.Where(z => z.ID == ID);
 
                 if (planOblast.Any())
@@ -96,12 +94,9 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.Provodki.AutomaticTransactions.K
 
                     if (reg != null)
                     {
-                        reg.PROVODKA_ID = ProvodkaId;
+                        reg.tbbu_provodki = master;
                     }
                 }
-
-                db.SaveChanges();
-            }
         }
 
         public static void Remove(EcpCalcViewModel model)

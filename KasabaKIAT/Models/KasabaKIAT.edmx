@@ -1791,6 +1791,17 @@ warning 6002: The table/view 'KasabaKIAT_N1.dbo.tbbTabel' does not have a primar
           <Property Name="DATA_TYPE" Type="int" />
           <Property Name="DATA_DESC" Type="nvarchar" MaxLength="1000" />
         </EntityType>
+        <EntityType Name="tbbu_nastroykiProvodok">
+          <Key>
+            <PropertyRef Name="REC_ID" />
+          </Key>
+          <Property Name="REC_ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DEPARTMENT_BASE" Type="nvarchar" MaxLength="255" />
+          <Property Name="USER_ID" Type="bigint" />
+          <Property Name="CODE" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="DEBIT_ACC" Type="nvarchar" MaxLength="30" />
+          <Property Name="CREADIT_ACC" Type="nvarchar" MaxLength="30" />
+        </EntityType>
         <EntityType Name="tbbu_planbyudjetregion">
           <Key>
             <PropertyRef Name="REC_ID" />
@@ -6550,6 +6561,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <EntitySet Name="tbbu_balance" EntityType="Self.tbbu_balance" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbbu_ecp_calc" EntityType="Self.tbbu_ecp_calc" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbbu_finOtchetSetting" EntityType="Self.tbbu_finOtchetSetting" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbbu_nastroykiProvodok" EntityType="Self.tbbu_nastroykiProvodok" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbbu_planbyudjetregion" EntityType="Self.tbbu_planbyudjetregion" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbbu_platejka" EntityType="Self.tbbu_platejka" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbbu_provodki" EntityType="Self.tbbu_provodki" Schema="dbo" store:Type="Tables" />
@@ -14445,6 +14457,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
             <Parameter Name="YEAR" Mode="In" Type="Int32" />
             <Parameter Name="KVARTAL" Mode="In" Type="Int32" />
           </FunctionImport>
+          <EntitySet Name="tbbu_nastroykiProvodok" EntityType="KasabaKIATModel.tbbu_nastroykiProvodok" />
           </EntityContainer>
         <ComplexType Name="sp_get_BankPaymentCompanyYearlyQ_Result">
           <Property Type="Int32" Name="MONTH_NUM" Nullable="true" />
@@ -16361,6 +16374,17 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <Property Type="String" Name="NameReg" Nullable="true" MaxLength="50" />
           <Property Type="Decimal" Name="ZadolAmount" Nullable="false" Precision="19" />
         </ComplexType>
+        <EntityType Name="tbbu_nastroykiProvodok">
+          <Key>
+            <PropertyRef Name="REC_ID" />
+          </Key>
+          <Property Name="REC_ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DEPARTMENT_BASE" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="USER_ID" Type="Int64" />
+          <Property Name="CODE" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DEBIT_ACC" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="CREADIT_ACC" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -20522,6 +20546,18 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <EntitySetMapping Name="tbbu_nastroykiProvodok">
+            <EntityTypeMapping TypeName="KasabaKIATModel.tbbu_nastroykiProvodok">
+              <MappingFragment StoreEntitySet="tbbu_nastroykiProvodok">
+                <ScalarProperty Name="CREADIT_ACC" ColumnName="CREADIT_ACC" />
+                <ScalarProperty Name="DEBIT_ACC" ColumnName="DEBIT_ACC" />
+                <ScalarProperty Name="CODE" ColumnName="CODE" />
+                <ScalarProperty Name="USER_ID" ColumnName="USER_ID" />
+                <ScalarProperty Name="DEPARTMENT_BASE" ColumnName="DEPARTMENT_BASE" />
+                <ScalarProperty Name="REC_ID" ColumnName="REC_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

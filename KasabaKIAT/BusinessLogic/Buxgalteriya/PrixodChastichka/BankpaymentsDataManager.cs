@@ -216,7 +216,7 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.PrixodChastichka
                             comment = "Частичная оплата",
                             department_base = pp.DEPARTMENT_BASE,
                             inoutflg = false,
-                            platelrsch = "005",
+                            platelrsch = "002",
                             poluchrsch = "18",
                             summa = pp.AMOUNT,
                             user_id = pp.USER_ID,

@@ -10,7 +10,8 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.Provodki
     {
         public void Enter(ProvodkiViewModel model)
         {
-            ProvodkiDataManager.Create(ref model);
+            
+            //ProvodkiDataManager.Create(ref model, null , out null);
         }
     }
 }

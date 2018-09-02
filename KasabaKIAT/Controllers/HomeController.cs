@@ -14,9 +14,11 @@ using System.Collections.Generic;
 using System.Data.Entity.Validation;
 using System.IO;
 using System.Linq;
+using System.Threading;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.UI;
+using System.Globalization;
 
 namespace KasabaKIAT.Controllers
 {
@@ -2252,9 +2254,23 @@ namespace KasabaKIAT.Controllers
         /// 
         /// </summary>
         /// <returns></returns>
-        [OutputCache(Duration = 5, Location = OutputCacheLocation.Client, VaryByCustom = "userId")]
-        public ActionResult Putyovki()
+        //[OutputCache(Duration = 5, Location = OutputCacheLocation.Client, VaryByCustom = "userId")]
+        public ActionResult Putyovki(string lang = null)
         {
+            if (lang != null)
+            {
+                Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture(lang);
+                Thread.CurrentThread.CurrentUICulture = new CultureInfo(lang);
+            }
+            else
+            {
+                lang = "ru";
+            }
+
+            HttpCookie cookie = new HttpCookie("Language");
+            cookie.Value = lang;
+            Response.Cookies.Add(cookie);
+
             int UserId = Convert.ToInt32(User.Identity.Name);
             var ustinfo = UserInfo.GetUserInfo(UserId);
 

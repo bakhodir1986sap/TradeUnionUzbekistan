@@ -1,5 +1,6 @@
 ﻿@using KasabaKIAT.BusinessLogic.Security.Roles.RolePermissions;
 @using KasabaKiat.Helpers;
+@using KasabaKIAT.Resources;
 @{
     var UserId = Convert.ToInt32(User.Identity.Name);
     var userName = UserInfo.GetUserInfo(UserId);
@@ -67,97 +68,67 @@
                     @if (List.TotalPutyovki)
                     {
                         <li class="nav-item dropdown" id="p">
-                            <a id="tours1" class="nav-link" style="visibility:hidden;position:absolute;">Путевки</a>
-                            <a disabled class="nav-link dropdown-toggle" href="/Home/Putyovki" id="tours" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Путевки</a>
+                            <a id="tours1" class="nav-link" style="visibility:hidden;position:absolute;">@ContentData.PUTEVKI</a>
+                            <a disabled class="nav-link dropdown-toggle" href="/Home/Putyovki" id="tours" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">@ContentData.PUTEVKI</a>
                             <div class="dropdown-menu rounded-0 box-shadow m-0 border-0" aria-labelledby="tours">
                                 @if (List.GrafikZaezdov)
                                 {
-                                    <a class="dropdown-item load" href="/GrafikZaezdov/index">График заездов</a>
+                                <a class="dropdown-item load" href="/GrafikZaezdov/index">@ContentData.GrafikZaezdov</a>
                                 }
                                 @if (List.GodovoyPlanPutyovok)
                                 {
-                                    <a class="dropdown-item load" href="/Administirirovaniye/RaspredeleniyeZaezdov">Годовой план</a>
+                                <a class="dropdown-item load" href="/Administirirovaniye/RaspredeleniyeZaezdov">@ContentData.GodovoyPlan</a>
                                 }
-                                @*@if (List.RassmotreniyaZayavok)
-                                {
-                                    <a class="dropdown-item load" href="/Home/RassmotreniyeZayavok">Рассмотрение заявок</a>
-                                }*@
                                 @if (List.PrixodPutyovok)
                                 {
-                                    <a class="dropdown-item load" href="/PrixodPutevok/Index">Приход путевок</a>
-                                    <a class="dropdown-item load" href="/PrixodPutevok/PrixodPutyovokRuchnoy">Приход путевок ручной</a>
+                                <a class="dropdown-item load" href="/PrixodPutevok/Index">@ContentData.PrixodPutyovok</a>
+                                <a class="dropdown-item load" href="/PrixodPutevok/PrixodPutyovokRuchnoy">@ContentData.PrixodPutyovokRuchnoy</a>
                                 }
                                 @if (List.ProsmotrOstatkaPutyovok)
                                 {
-                                    <a class="dropdown-item load" href="/PrixodPutevok/ProsmotrOstatPutevok">Просмотр остатков путевок</a>
+                                <a class="dropdown-item load" href="/PrixodPutevok/ProsmotrOstatPutevok">@ContentData.ProsmotrOstatkovPutyovok</a>
                                 }
                                 @if (List.RealizasiyaPutyovok)
                                 {
-                                    @*<a class="dropdown-item load" href="/PrixodPutevok/RealizatsiyaPutevok">Реализация путевок</a>*@
-                                    @*<a class="dropdown-item load" href="/PrixodPutevok/RasxodPutyovok">Расход Путевок</a>*@
-                                    <a class="dropdown-item load" href="/PrixodPutevok/RasxodPutyovok">Расход Путевок</a>
-                                    <a class="dropdown-item load" href="/PrixodPutevok/RasxodPutyovokFizLiso">Расход Путевок Физ Лица</a>
-                                    <a class="dropdown-item load" href="/PrixodPutevok/OplataViplatiZaPutyovki">Оплата и Выплаты за путевки</a>
-                                    <a class="dropdown-item load" href="/PrixodPutevok/AktVozvrataPutyovok">Акт возврата путевок</a>
-                                    <a class="dropdown-item load" href="/PrixodPutevok/ZakritiyaKvartalaPoPutyovkam">Закрытие квартала по путевкам</a>
-                                    <a class="dropdown-item load" href="/PrixodPutevok/DanniyeVladelsaxPutyovok">Данные о владельцах путевок</a>
+                                <a class="dropdown-item load" href="/PrixodPutevok/RasxodPutyovok">@ContentData.RasxodPutyovok</a>
+                                <a class="dropdown-item load" href="/PrixodPutevok/RasxodPutyovokFizLiso">@ContentData.RasxodPutyovokFizLisa</a>
+                                <a class="dropdown-item load" href="/PrixodPutevok/OplataViplatiZaPutyovki">@ContentData.OplataIViplatiZaPutyovki</a>
+                                <a class="dropdown-item load" href="/PrixodPutevok/AktVozvrataPutyovok">@ContentData.AktVozvrataPutyovok</a>
+                                <a class="dropdown-item load" href="/PrixodPutevok/ZakritiyaKvartalaPoPutyovkam">@ContentData.ZakritieKvartalaPoPutyovkam</a>
+                                <a class="dropdown-item load" href="/PrixodPutevok/DanniyeVladelsaxPutyovok">@ContentData.DanniyeOVladelsaxPutyovok</a>
                                 }
                                 @if (List.ProsmotrRealPutyovok)
                                 {
-                                    @*<a class="dropdown-item load" href="/PrixodPutevok/Organizasii">Организация</a>*@
-                                    @*<a class="dropdown-item load" href="/PrixodPutevok/ProsmotrRealzPutevok">Просмотр реализованных путевок</a>*@
+
                                 }
                                 @if (List.SverkaDannixPoOtdixayushim)
                                 {
-                                    <a class="dropdown-item load" href="/PrixodPutevok/SverkaDannix">Сверка данных по отдыхающим</a>
+                                <a class="dropdown-item load" href="/PrixodPutevok/SverkaDannix">@ContentData.SverkaDannixPoOtdixayushim</a>
                                 }
-                                @*<a class="dropdown-item load" href="/PrixodPutevok/Organizasii">Организация</a>*@
-                            </div>
-                        </li>
-                    }
-                    @if ((List.TotalPutyovki) && (userName.role_id == 999))
-                    {
-                        <li class="nav-item dropdown" id="p">
-                            <a id="tours1" class="nav-link" style="visibility:hidden;position:absolute;">Данные new</a>
-                            <a disabled class="nav-link dropdown-toggle" href="/Home/Putyovki" id="tours" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Данные new</a>
-                            <div class="dropdown-menu rounded-0 box-shadow m-0 border-0" aria-labelledby="tours">
-                                @if (List.PrixodPutyovok)
-                                {
-                                    <a class="dropdown-item load" href="/PrixodPutevok/PrixodPutyovokRuchnoy">Приход путевок ручной</a>
-                                }
-                                @if (List.RealizasiyaPutyovok)
-                                {
-                                    <a class="dropdown-item load" href="/PrixodPutevok/RasxodPutyovok">Расход Путевок</a>
-                                    <a class="dropdown-item load" href="/PrixodPutevok/OplataViplatiZaPutyovki">Оплата и Выплаты за путевки</a>
-                                    <a class="dropdown-item load" href="/PrixodPutevok/AktVozvrataPutyovok">Акт возврата путевок</a>
-                                    <a class="dropdown-item load" href="/PrixodPutevok/ZakritiyaKvartalaPoPutyovkam">Закрытие квартала по путевкам</a>
-                                    <a class="dropdown-item load" href="/PrixodPutevok/DanniyeVladelsaxPutyovok">Данные о владельцах путевок</a>
-                                }
-                                <a class="dropdown-item load" href="/PrixodPutevok/Organizasii">Организация</a>
                             </div>
                         </li>
                     }
                     @if (List.TotalZayavki)
                     {
                         <li class="nav-item dropdown" id="z">
-                            <a id="claims1" class="nav-link" style="visibility:hidden;position:absolute;">Заявки</a>
-                            <a class="nav-link dropdown-toggle" href="/Home/Zayavok" id="claims" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Заявки</a>
+                            <a id="claims1" class="nav-link" style="visibility:hidden;position:absolute;">@ContentData.Zayavki</a>
+                            <a class="nav-link dropdown-toggle" href="/Home/Zayavok" id="claims" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">@ContentData.Zayavki</a>
                             <div class="dropdown-menu rounded-0 box-shadow m-0 border-0" aria-labelledby="claims">
                                 @if (List.VvodZayavok)
                                 {
-                                    <a class="dropdown-item load" href="/Home/PodachaZayavok">Подача заявок (Санаторий)</a>
+                                <a class="dropdown-item load" href="/Home/PodachaZayavok">@ContentData.PodachaZayavok_Sanatoriy</a>
                                 }
                                 @if (List.PoiskIRedaktirovaniyaZayavok)
                                 {
-                                    <a class="dropdown-item load" href="/Home/PoiskRedaktZayavok">Поиск и редактирование заявок (Санаторий)</a>
+                                <a class="dropdown-item load" href="/Home/PoiskRedaktZayavok">@ContentData.PoiskIRedaktirovaniyeZayavok_Sanatoriy</a>
                                 }
                                 @if (List.VvodZayavok)
                                 {
-                                    <a class="dropdown-item load" href="/CampZayavki/Index">Подача заявок (Лагерь)</a>
+                                <a class="dropdown-item load" href="/CampZayavki/Index">@ContentData.PodachaZayavok_Leger</a>
                                 }
                                 @if (List.PoiskIRedaktirovaniyaZayavok)
                                 {
-                                    <a class="dropdown-item load" href="/CampZayavki/CampOtchet">Отчет по Лагерям</a>
+                                <a class="dropdown-item load" href="/CampZayavki/CampOtchet">@ContentData.OtchetPoLageryam</a>
                                 }
                             </div>
                         </li>
@@ -165,36 +136,32 @@
                     @if (List.TotalBuxUchet)
                     {
                         <li class="nav-item dropdown" id="b">
-                            <a class="nav-link dropdown-toggle" href="/Buxgalter/Index" id="accounting" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Бухгалтерия</a>
+                            <a class="nav-link dropdown-toggle" href="/Buxgalter/Index" id="accounting" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">@ContentData.Buxgalteriya</a>
                             <div class="dropdown-menu rounded-0 box-shadow m-0 border-0" aria-labelledby="accounting">
                                 @if (List.BuxUchetVvodDannix)
                                 {
-                                    <a class="dropdown-item load" href="/Buxgalter/VvodDannix">Ввод данных</a>
+                                <a class="dropdown-item load" href="/Buxgalter/VvodDannix">@ContentData.VvodDannix</a>
                                 }
                                 @if (List.PrasmotrDannix)
                                 {
-                                    <a class="dropdown-item load" href="/Buxgalter/BU_PrasmotrDannix">Просмотр</a>
+                                <a class="dropdown-item load" href="/Buxgalter/BU_PrasmotrDannix">@ContentData.Prosmotr</a>
                                 }
-                                <a class="dropdown-item load" href="/Buxgalter/OsushestvleniyeProvodki">Осуществление проводки</a>
+                                <a class="dropdown-item load" href="/Buxgalter/OsushestvleniyeProvodki">@ContentData.OsushestvleniyaProvodki</a>
                                 @if (List.PlatejniyePorucheniya)
                                 {
-                                    <a class="dropdown-item load" href="/PlatejnoyePorucheniye/Index">Платежные поручения</a>
+                                <a class="dropdown-item load" href="/PlatejnoyePorucheniye/Index">@ContentData.PlatejnoePorucheniye</a>
                                 }
-                                @*@if (List.Nakladniye)
-                                {
-                                    <a class="dropdown-item load" href="/Buxgalter/Nakladniye">Накладные</a>
-                                }*@
                                 @if (List.PlanByudjeta)
                                 {
-                                    <a class="dropdown-item load" href="/Buxgalter/PlanByudjetaOblastey">План бюджета областей</a>
+                                <a class="dropdown-item load" href="/Buxgalter/PlanByudjetaOblastey">@ContentData.PlanByudjetaOblastey</a>
                                 }
                                 @if (List.BuxUchetVvodDannix)
                                 {
-                                    <a class="dropdown-item load" href="/PrixodPutevok/StartProcess">Загрузка первичных данных</a>
+                                <a class="dropdown-item load" href="/PrixodPutevok/StartProcess">@ContentData.ZagruzkaPervichnixDannix</a>
                                 }
                                 @if (List.BuxUchetVvodDannix)
                                 {
-                                    <a class="dropdown-item load" href="/Buxgalter/EcpManagementV">ЕСП Управление</a>
+                                <a class="dropdown-item load" href="/Buxgalter/EcpManagementV">@ContentData.EcpUpravlniye</a>
                                 }
                             </div>
                         </li>
@@ -202,53 +169,54 @@
                     @if (List.TotalReports)
                     {
                         <li class="nav-item" id="o">
-                            <a class="nav-link load" href="/Otchot/OtchetTitul">Отчеты</a>
+                            <a class="nav-link load" href="/Otchot/OtchetTitul">@ContentData.Otcheti</a>
                         </li>
 
                     }
                     @if (List.UpravleniyaSpravochnikami)
                     {
                         <li class="nav-item dropdown" id="a">
-                            <a class="nav-link dropdown-toggle" href="/Home/Admin" id="spravochniki" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">НСИ</a>
+                            <a class="nav-link dropdown-toggle" href="/Home/Admin" id="spravochniki" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">@ContentData.NCI</a>
                             <div class="dropdown-menu rounded-0 box-shadow m-0 border-0" aria-labelledby="administration">
-                                <a class="dropdown-item load" href="/PrixodPutevok/Organizasii">База данных организаций </a>
-                                <a class="dropdown-item load" href="/PrixodPutevok/FizLiso">База данных физ лиц </a>
-                                @*<a class="dropdown-item load" href="/Administirirovaniye/SpravichnikiKurortnovoUpravleniya">База данных санаториев</a>*@
-                                <a class="dropdown-item load" href="/Administirirovaniye/Spravichniki">Справочники</a>
+                                <a class="dropdown-item load" href="/PrixodPutevok/Organizasii">@ContentData.BazaDannixOrganizasiy</a>
+                                <a class="dropdown-item load" href="/PrixodPutevok/FizLiso">@ContentData.BazaDannixFizLis</a>
+                                <a class="dropdown-item load" href="/Administirirovaniye/Spravichniki">@ContentData.Spravochniki</a>
                             </div>
                         </li>
                     }
                     @if (List.TotalAdmin)
                     {
                         <li class="nav-item dropdown" id="a">
-                            <a class="nav-link dropdown-toggle" href="/Home/Admin" id="administration" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Администрирование</a>
+                            <a class="nav-link dropdown-toggle" href="/Home/Admin" id="administration" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">@ContentData.Administrirovaniye</a>
                             <div class="dropdown-menu rounded-0 box-shadow m-0 border-0" aria-labelledby="administration">
                                 @if (List.SozdaniyaUchetnixZapisey)
                                 {
-                                    <a class="dropdown-item load" href="/Administirirovaniye/UchetniyZapis">Пользователи</a>
-                                    <a class="dropdown-item load" href="/useractions/Index">Действие пользователей</a>
+                                <a class="dropdown-item load" href="/Administirirovaniye/UchetniyZapis">@ContentData.Polzovateli</a>
+                                <a class="dropdown-item load" href="/useractions/Index">@ContentData.DeystviyePolzovateley</a>
                                 }
                                 @if (List.SozdaniyaRoley)
                                 {
-                                    <a class="dropdown-item load" href="/Administirirovaniye/SozdaniyeRoley">Роли</a>
+                                <a class="dropdown-item load" href="/Administirirovaniye/SozdaniyeRoley">@ContentData.Roli</a>
                                 }
                                 @if (List.SozdaniyaProvodok)
                                 {
-                                    <a class="dropdown-item load" href="/Administirirovaniye/SozdaniyeProvodok">Создание проводок</a>
+                                <a class="dropdown-item load" href="/Administirirovaniye/SozdaniyeProvodok">@ContentData.SozdaniyeProvodok</a>
                                 }
                                 @if (List.PrivyazkaProvodokkJO)
                                 {
-                                    <a class="dropdown-item load" href="/Administirirovaniye/PrivyazkaProvodok">Привязка проводок к ЖО</a>
+                                <a class="dropdown-item load" href="/Administirirovaniye/PrivyazkaProvodok">@ContentData.PrivyazkaProvodokKJO</a>
                                 }
                             </div>
                         </li>
                     }
-                
+
                     <li class="nav-item dropdown" id="p">
                         <a disabled class="nav-link dropdown-toggle" href="/Home/izmParol" id="tourss" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">@userName.username</a>
                         <div class="dropdown-menu rounded-0 box-shadow m-0 border-0" aria-labelledby="tourss">
-                            <a class="dropdown-item load" href="/Home/izmParol">Изменить Пароль</a>
-                            <a class="dropdown-item load" href="/Home/Rekviziti">Реквизиты</a>
+                            <a class="dropdown-item load" href="/Home/izmParol">@ContentData.IzmenitParol</a>
+                            <a class="dropdown-item load" href="/Home/Rekviziti">@ContentData.Rekviziti</a>
+                            <a class="dropdown-item radio load" href="/Home/Putyovki?lang=ru">Русский</a>
+                            <a class="dropdown-item radio load" href="/Home/Putyovki?lang=uz">Узбекча</a>
                         </div>
                     </li>
                     <li class="nav-item">
@@ -262,7 +230,7 @@
                         new { @class = "nav-link" })
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" id="ch" href="#">Выход</a>
+                        <a class="nav-link" id="ch" href="#">@ContentData.Vixod</a>
                     </li>
 
                 </ul>
@@ -272,38 +240,38 @@
     <div class="body-content">
         @RenderBody()
     </div>
-        <footer class="fixed-bottom">
-            <div><span id="general_notification" style="color:black;font-size:15px;"></span></div>
-            <div><span id="urgent_notification" style="color:red;font-size:15px; font-style:oblique"></span></div>
-        </footer>
+    <footer class="fixed-bottom">
+        <div><span id="general_notification" style="color:black;font-size:15px;"></span></div>
+        <div><span id="urgent_notification" style="color:red;font-size:15px; font-style:oblique"></span></div>
+    </footer>
     <script>
-                    $(".load").on('click', function () {
-                        document.getElementById('conn').style.visibility = "visible";
-                        $("#hh").modal({
-                            backdrop: 'static',
-                            backdrop: 'static'
-                        });
-                    });
-                    $("#ch").on('click', function () {
-                        document.getElementById('conn').style.visibility = "visible";
-                        $("#hh").modal({
-                            backdrop: 'static',
-                            backdrop: 'static'
-                        });
-                        reset();
-                        alertify.set({ buttonFocus: "cancel" });
-                        alertify.confirm("Вы действительно хотите выйти?", function (e) {
-                            if (e) {
-                                alertify.success("Операция выполняется");
-                                window.location.href = "/Login/SignOut";
-                            } else {
-                                document.getElementById('conn').style.visibility = "hidden";
-                                $("#hh").modal('hide');
-                                alertify.error("Операция отменена");
-                            }
-                        });
-                        return false;
-                    });
+        $(".load").on('click', function () {
+            document.getElementById('conn').style.visibility = "visible";
+            $("#hh").modal({
+                backdrop: 'static',
+                backdrop: 'static'
+            });
+        });
+        $("#ch").on('click', function () {
+            document.getElementById('conn').style.visibility = "visible";
+            $("#hh").modal({
+                backdrop: 'static',
+                backdrop: 'static'
+            });
+            reset();
+            alertify.set({ buttonFocus: "cancel" });
+            alertify.confirm('@ContentData.XotiteViyti', function (e) {
+                if (e) {
+                    alertify.success('@ContentData.OperasiyaVipolnyaetsya');
+                    window.location.href = "/Login/SignOut";
+                } else {
+                    document.getElementById('conn').style.visibility = "hidden";
+                    $("#hh").modal('hide');
+                    alertify.error('@ContentData.OperasiyaOtmenena');
+                }
+            });
+            return false;
+        });
     </script>
     <script src="~/Scripts/vendor.js"></script>
 
@@ -314,35 +282,33 @@
     <!--Ссылка на автоматически сгенерированный скрипт хаба SignalR -->
     <script src="~/signalr/hubs"></script>
     <script type="text/javascript">
-    $(function () {
+        $(function () {
 
-        var notificationhub = $.connection.notificationHub;
+            var notificationhub = $.connection.notificationHub;
 
-        notificationhub.client.displayMessage = function (message) {
+            notificationhub.client.displayMessage = function (message) {
 
-            var str = message;
+                var str = message;
 
-            var cmd = message.substr(0, 2);
+                var cmd = message.substr(0, 2);
 
-            if (cmd === '99')
-            {
-                $('#urgent_notification').html(message.substr(2, str.length - 2));
-            }
-            else
-            {
-                $('#general_notification').html(message);
-            }
-            
-        };
+                if (cmd === '99') {
+                    $('#urgent_notification').html(message.substr(2, str.length - 2));
+                }
+                else {
+                    $('#general_notification').html(message);
+                }
 
-        $.connection.hub.start();
+            };
 
-    });
+            $.connection.hub.start();
+
+        });
     </script>
     <style>
-         .poin:hover {
+        .poin:hover {
             cursor: pointer;
-            background-color:blue;
+            background-color: blue;
         }
     </style>
     <input id="hh" type="hidden" />

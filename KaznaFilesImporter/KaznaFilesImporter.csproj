@@ -68,6 +68,8 @@
     <Compile Include="AutomaticTransactions\KaznaTransactions\EcpCalcDataManager.cs" />
     <Compile Include="AutomaticTransactions\KaznaTransactions\EcpCalculation.cs" />
     <Compile Include="AutomaticTransactions\KaznaTransactions\EcpCalcViewModel.cs" />
+    <Compile Include="AutomaticTransactions\ProvodkaSettings.cs" />
+    <Compile Include="AutomaticTransactions\ProvodkaSettingsDataManager.cs" />
     <Compile Include="AutomaticTransactions\Provodki.cs" />
     <Compile Include="AutomaticTransactions\ProvodkiDataManager.cs" />
     <Compile Include="AutomaticTransactions\ProvodkiViewModel.cs" />
@@ -173,6 +175,9 @@
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
     <Compile Include="tbbu_ecp_calc.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbbu_nastroykiProvodok.cs">
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
     <Compile Include="tbbu_provodki.cs">

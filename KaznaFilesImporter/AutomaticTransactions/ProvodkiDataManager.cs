@@ -12,10 +12,8 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.Provodki
 {
     public class ProvodkiDataManager
     {
-        public static void Create(ref ProvodkiViewModel model)
+        public static void Create(ref ProvodkiViewModel model, KasabaKIATEntities db, out tbbu_provodki prov)
         {
-            using (KasabaKIATEntities db = new KasabaKIATEntities())
-            {
                 tbbu_provodki reg = new tbbu_provodki();
 
                 //reg.REC_ID          = model.rec_id          ;
@@ -39,7 +37,7 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.Provodki
                 reg.TRREF           = model.trref           ;
                 reg.TRREFNO         = model.trrefno         ;
 
-                var planOtrasl = db.tbbu_provodki.Add(reg);
+                prov = db.tbbu_provodki.Add(reg);
 
                 int cur_year = DateOperations.GetYear(model.trdt.Value);
                 int cur_kvartal = DateOperations.GetQuarter(model.trdt.Value);
@@ -53,28 +51,6 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.Provodki
                  db);
 
                 balance.MakeTransaction();
-
-                try
-                {
-                    db.SaveChanges();
-
-                    model.rec_id = reg.REC_ID;
-                } 
-                catch (DbEntityValidationException e)
-                {
-                    foreach (var eve in e.EntityValidationErrors)
-                    {
-                        Console.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
-                            eve.Entry.Entity.GetType().Name, eve.Entry.State);
-                        foreach (var ve in eve.ValidationErrors)
-                        {
-                            Console.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
-                                ve.PropertyName, ve.ErrorMessage);
-                        }
-                    }
-                    throw;
-                }
-            }
         }
 
         public static void Modify(ProvodkiViewModel model)

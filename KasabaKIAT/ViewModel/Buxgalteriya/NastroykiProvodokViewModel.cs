@@ -14,4 +14,15 @@ namespace KasabaKIAT.ViewModel.Buxgalteriya
       public string     score_begin     { get; set;}
       public string     score_end       { get; set; }
     }
+
+
+    public class ProvodkaSettingViewModel
+    {
+        public long   rec_id            { get; set;}
+        public string department_base   { get; set;}
+        public long?  user_id           { get; set;}
+        public string code              { get; set;}
+        public string debit_acc         { get; set;}
+        public string creadit_acc       { get; set;}
+    }
 }

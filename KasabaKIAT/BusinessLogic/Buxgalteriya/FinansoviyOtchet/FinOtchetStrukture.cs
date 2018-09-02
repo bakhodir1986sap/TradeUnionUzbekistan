@@ -4,6 +4,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
+/*
+ Predpologaetsya:
+ Vse, obsolyutno vse xozyaystvenniye operasii, otrajayutsya v provodkax v buxgalterii
+ Yacheyki v finansovom otchete dojni kalkulirovatstya na osnovanii
+ 1) Oborotov po provodkam
+ 2) Ostatkov po schetam
+
+    Inache ne mojet Bit, i ne doljno bit. Esli takoe 
+    imeet mesto bit to eto ne sovershenstvo buxgaltenii Profsoyuza
+ */
 namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
 {
     public enum OtchetPart
@@ -210,7 +220,10 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
         {
             using (KasabaKIATEntities db = new KasabaKIATEntities())
             {
-                var balances = db.tbbu_balance.Where(z => z.CUR_YEAR == year && z.CUR_KV == kvartal && z.ACCOUNT_CODE == accountCode);
+                var balances = db.tbbu_balance.Where(z => z.CUR_YEAR == year && 
+                                                     z.CUR_KV == kvartal && 
+                                                     z.ACCOUNT_CODE == accountCode && 
+                                                     z.DEPARTMENT_BASE == departmentCode);
 
                 if (balances.Any())
                 {

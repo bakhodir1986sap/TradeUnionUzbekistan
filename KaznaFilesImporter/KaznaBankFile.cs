@@ -34,5 +34,7 @@ namespace KaznaFilesImporter
         public string PURPOSE { get; set; }
         public Nullable<long> FILE_ID { get; set; }
         public Nullable<long> PROVODKA_ID { get; set; }
+    
+        public virtual tbbu_provodki tbbu_provodki { get; set; }
     }
 }

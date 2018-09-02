@@ -48,6 +48,7 @@ namespace KaznaFilesImporter
         public virtual DbSet<tblSprav_Reg> tblSprav_Reg { get; set; }
         public virtual DbSet<t_departmentbase> t_departmentbase { get; set; }
         public virtual DbSet<tblBron> tblBrons { get; set; }
+        public virtual DbSet<tbbu_nastroykiProvodok> tbbu_nastroykiProvodok { get; set; }
     
         public virtual int sp_im_KaznaNewOrg()
         {
@@ -62,11 +63,6 @@ namespace KaznaFilesImporter
         public virtual ObjectResult<sp_pr_GetNewTransactions_Result4> sp_pr_GetNewTransactions()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_pr_GetNewTransactions_Result4>("sp_pr_GetNewTransactions");
-        }
-    
-        public virtual ObjectResult<sp_pr_GetNewBankProvodki_Result> sp_pr_GetNewBankProvodki()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_pr_GetNewBankProvodki_Result>("sp_pr_GetNewBankProvodki");
         }
     
         public virtual ObjectResult<sp_pr_GetNewTransactionsN1_Result1> sp_pr_GetNewTransactionsN1()
@@ -701,6 +697,11 @@ namespace KaznaFilesImporter
                 new ObjectParameter("KVARTAL", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_stat_ZadoljennostListObl_Result>("sp_stat_ZadoljennostListObl", dEPARTMENT_BASEParameter, yEARParameter, kVARTALParameter);
+        }
+    
+        public virtual ObjectResult<sp_pr_GetNewBankProvodki_Result> sp_pr_GetNewBankProvodki()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_pr_GetNewBankProvodki_Result>("sp_pr_GetNewBankProvodki");
         }
     }
 }

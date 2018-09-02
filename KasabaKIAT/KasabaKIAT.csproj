@@ -283,6 +283,8 @@
     <Compile Include="BusinessLogic\Buxgalteriya\Provodki\NastroykaProvodokDataManager.cs" />
     <Compile Include="BusinessLogic\Buxgalteriya\Provodki\PrivyazkaProvodok.cs" />
     <Compile Include="BusinessLogic\Buxgalteriya\Provodki\PrivyazkaProvodokDataManager.cs" />
+    <Compile Include="BusinessLogic\Buxgalteriya\Provodki\ProvodkaSettings.cs" />
+    <Compile Include="BusinessLogic\Buxgalteriya\Provodki\ProvodkaSettingsDataManager.cs" />
     <Compile Include="BusinessLogic\Buxgalteriya\Provodki\Provodki.cs" />
     <Compile Include="BusinessLogic\Buxgalteriya\Provodki\ProvodkiDataManager.cs" />
     <Compile Include="BusinessLogic\ClosePeriod\CloseCommon.cs" />
@@ -444,6 +446,7 @@
     <Compile Include="Controllers\GodovoyPlanController.cs" />
     <Compile Include="Controllers\GrafikZaezdovController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LanguageController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\OtchotController.cs" />
     <Compile Include="Controllers\PlatejnoyePorucheniyeController.cs" />
@@ -813,6 +816,9 @@
     <Compile Include="Models\tbbu_finOtchetSetting.cs">
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\tbbu_nastroykiProvodok.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\tbbu_planbyudjetregion.cs">
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
@@ -892,6 +898,16 @@
     </Compile>
     <Compile Include="Reports\ReportTemplate.aspx.designer.cs">
       <DependentUpon>ReportTemplate.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\ContentData.uz.Designer.cs">
+      <DependentUpon>ContentData.uz.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Resources\ContentData.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ContentData.resx</DependentUpon>
     </Compile>
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModel\Buxgalteriya\BankpaymentsViewModel.cs" />
@@ -2049,6 +2065,7 @@
     <Folder Include="BusinessLogic\Security\Roles\Users\" />
     <Folder Include="Reports\6\" />
     <Folder Include="Reports\8\" />
+    <Folder Include="Views\Language\" />
     <Folder Include="Views\Reference\" />
   </ItemGroup>
   <ItemGroup>
@@ -2077,6 +2094,16 @@
       <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
       <CachedSettingsPropName>KasabaKIAT_KurortUrlService_SkuTradeUnionExchg</CachedSettingsPropName>
     </WebReferenceUrl>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\ContentData.uz.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>ContentData.uz.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\ContentData.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>ContentData.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

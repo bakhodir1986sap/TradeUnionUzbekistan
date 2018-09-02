@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="b676a45fd43b4be29fd428cd2cb333d1" Name="Diagram1" ZoomLevel="93">
+      <Diagram DiagramId="b676a45fd43b4be29fd428cd2cb333d1" Name="Diagram1" ZoomLevel="67">
         <EntityTypeShape EntityType="KasabaKIATModel.KaznaFile" Width="1.5" PointX="0.75" PointY="2.875" IsExpanded="true" />
         <EntityTypeShape EntityType="KasabaKIATModel.KaznaSverkaFile" Width="1.5" PointX="3" PointY="6" />
         <AssociationConnector Association="KasabaKIATModel.FK_KaznaSverkaFile_KaznaFiles" />
@@ -31,6 +31,8 @@
         <EntityTypeShape EntityType="KasabaKIATModel.t_departmentbase" Width="1.5" PointX="14.375" PointY="9.75" />
         <AssociationConnector Association="KasabaKIATModel.t_departmentbase_6" />
         <EntityTypeShape EntityType="KasabaKIATModel.tblBron" Width="1.5" PointX="3.375" PointY="15.75" />
+        <EntityTypeShape EntityType="KasabaKIATModel.tbbu_nastroykiProvodok" Width="1.5" PointX="15.375" PointY="4.75" />
+        <AssociationConnector Association="KasabaKIATModel.FK_KaznaBankFile_tbbu_provodki" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

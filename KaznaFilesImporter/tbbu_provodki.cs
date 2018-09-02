@@ -14,6 +14,12 @@ namespace KaznaFilesImporter
     
     public partial class tbbu_provodki
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public tbbu_provodki()
+        {
+            this.KaznaBankFiles = new HashSet<KaznaBankFile>();
+        }
+    
         public long REC_ID { get; set; }
         public string DEPARTMENT_BASE { get; set; }
         public Nullable<long> USER_ID { get; set; }
@@ -34,5 +40,8 @@ namespace KaznaFilesImporter
         public string COMMENT { get; set; }
         public string TRREF { get; set; }
         public string TRREFNO { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<KaznaBankFile> KaznaBankFiles { get; set; }
     }
 }

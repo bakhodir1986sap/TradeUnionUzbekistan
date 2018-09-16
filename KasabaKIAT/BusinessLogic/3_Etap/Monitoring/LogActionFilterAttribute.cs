@@ -57,7 +57,7 @@ namespace KasabaKIAT.BusinessLogic._3_Etap.Monitoring
                 unsaved++; 
                 db.useractions.Add(model);
                 
-                if (unsaved >= 50)
+                if (unsaved >= 1)
                 {
                     db.SaveChanges();
                     unsaved = 0;

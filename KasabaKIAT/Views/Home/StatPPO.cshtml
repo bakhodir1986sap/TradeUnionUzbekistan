@@ -18,19 +18,22 @@
     </div>
     <div class="row" style="padding-left:15px !important">
         <div class="col-md-6">
-            <h4 style="color:#167f91;">Аналитика</h4>
+            <h4 style="color:#167f91;">Аналитика за @userName.CurKvartalYear</h4>
             <p style="">Время последнего обновления: {{ModelResult.LastChangeDate| jsonDate: 'dd.MM.yyyy'}} </p><br>
             <p>Главная</p>
         </div>
     </div>
         <div class="row" style="padding-left: 15px; padding-right: 15px">
             <div class="col-md-4">
-                <h4>Заявки</h4>
-                <p>Всего {{ModelResult.ApprovedZayavka + ModelResult.RejectedZayavka + ModelResult.InProgressZayavka}}</p>
+                <h4 style="text-align:center">Заявки</h4>
+                <p style="text-align:center">Всего {{ModelResult.ApprovedZayavka + ModelResult.RejectedZayavka + ModelResult.InProgressZayavka}}</p>
                 <div id="chart_div2">
                     <canvas id="pie" class="chart chart-pie"
                             chart-data="data2" chart-labels="labels2" chart-options="options"></canvas>
                 </div>
+                 <p style="margin-left:90px"><img src="~/Content/Stat/color1.png" /> {{ModelResult.ApprovedZayavka}} - Утвержденные</p>
+                <p style="margin-left:90px"><img src="~/Content/Stat/color2.png" /> {{ModelResult.RejectedZayavka}} - Отклонённые</p>
+                <p style="margin-left:90px"><img src="~/Content/Stat/color3.png" /> {{ModelResult.InProgressZayavka}} - На рассмотрении</p>
             </div>
         </div>
     

@@ -19,6 +19,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.UI;
 using System.Globalization;
+using KasabaKiat.BusinessLogic.Utils.References;
 
 namespace KasabaKIAT.Controllers
 {
@@ -1742,6 +1743,23 @@ namespace KasabaKIAT.Controllers
                         }
 
                         KasabaDB.tbpt_zayavki.Add(z);
+
+                        //Save to BazaDannix Organizasiy
+                        var mFizLiso = new Sprav_OrgViewModel();
+
+                        mFizLiso.Name_Org = pz.FULL_NAME;
+                        mFizLiso.INN = pz.SOTR_INN;
+                        mFizLiso.Adress = string.Empty;
+                        mFizLiso.Telefon = string.Empty;
+                        mFizLiso.E_Mail = string.Empty;
+                        mFizLiso.UserId = UserId;
+                        mFizLiso.DepartmentBase = ustinfo.DepartmentBase;
+                        mFizLiso.Pas_ser = string.Empty;
+                        mFizLiso.Pas_Num = string.Empty;
+                        mFizLiso.Pas_KD = string.Empty;
+                        mFizLiso.Pas_Data = DateTime.Now;
+
+                        Sprav_Org.CreateFizLiso(mFizLiso, KasabaDB);
 
                         try
                         {

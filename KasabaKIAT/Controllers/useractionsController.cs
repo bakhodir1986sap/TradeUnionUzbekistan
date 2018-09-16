@@ -18,14 +18,18 @@ namespace KasabaKIAT.Controllers
         private KasabaKIATEntities db = new KasabaKIATEntities();
 
         // GET: useractions
-        public ActionResult Index(int? page)
+        public ActionResult Index(int? page, string actionNamez = null, string userName = null)
         {
             //var useractions = db.useractions.Include(u => u.users);
             //return View(await useractions.ToListAsync());
 
             int pageSize = 15;
             int pageNumber = (page ?? 1);
-            return View(db.useractions.Include(u => u.users).OrderByDescending(z=>z.id).Take(100).ToList().ToPagedList(pageNumber, pageSize));
+            return View(db.useractions.
+                Include(u => u.users).
+                Where(z=>z.action == ((actionNamez == null || actionNamez =="") ? z.action : actionNamez) 
+                && z.users.user_name == ((userName == null || userName == "") ? z.users.user_name : userName))
+                .OrderByDescending(z => z.id).Take(100).ToList().ToPagedList(pageNumber, pageSize));
         }
 
         // GET: useractions/Details/5

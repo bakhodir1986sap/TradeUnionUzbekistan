@@ -1,83 +1,98 @@
 ﻿@model PagedList.IPagedList<KasabaKIAT.Models.useractions>
 @using PagedList.Mvc;
 <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+<script src="~/Scripts/MyJavaScript/PostupleniyaOblastyam.js"></script>
 @{
     ViewBag.Title = "Действия пользователей";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="col-sm-6 title__block">
-    <h4 style="margin-top:15px">Действия пользователей</h4>
-    <nav aria-label="breadcrumb" class="breadcrumb__block">
-        <ol class="breadcrumb" style="width:1000px">
-            <li class="breadcrumb-item load"><a href="/Administirirovaniye/Spravichniki">Справочник</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Действия пользователей</li>
-        </ol>
-    </nav>
-</div>
+<div ng-controller="PostupleniyaOblastyam">
+    <div class="col-sm-6 title__block">
+        <h4 style="margin-top:15px">Действия пользователей</h4>
+        <nav aria-label="breadcrumb" class="breadcrumb__block">
+            <ol class="breadcrumb" style="width:1000px">
+                <li class="breadcrumb-item load"><a href="/Administirirovaniye/Spravichniki">Справочник</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Действия пользователей</li>
+            </ol>
+        </nav>
+    </div>
     <style>
         td, th {
             vertical-align: middle !important;
             text-align: center;
         }
     </style>
-    @*<p>
-        <button style="margin:10px" class="btn btn-white">@Html.ActionLink("Добавить", "Create")</button>
-    </p>*@
-    <table class="table">
-        <tr>
-            <th>
-                Версия
-            </th>
-            <th>
-                Дата
-            </th>
-            <th>
-                Действие
-            </th>
-            <th>
-                Модуль
-            </th>
-            <th>
-                IP Адрес
-            </th>
-            <th>
-                Пользователь
-            </th>
-            <th></th>
-        </tr>
-
-        @foreach (var item in Model)
+    <p>
+        @using (Html.BeginForm("Index", "useractions", new { page = 1 }, FormMethod.Get))
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.version)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.accesstime)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.action)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.classname)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.object_name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.users.email)
-                </td>
-                @*<td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.id }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.id })
-                </td>*@
-            </tr>
+            @Html.Raw("       ");
+            @Html.Label("Действие") @Html.Raw(" ");
+            @Html.TextBox("actionNamez") @Html.Raw(" ");
+            @Html.Label("Пользователь") @Html.Raw(" ");
+            @Html.TextBox("userName") @Html.Raw(" ");
+            <button type="submit">Посмотреть Историю</button>// style as a link if desired
+
         }
+        <button ng-click="exportData()" class="btn btn-green d-block d-md-inline-block mb-3 mb-md-0" style="margin-left:50px"><i class="fas fa-file-excel"></i> Экспорт</button>
+    </p>
+    <div class="table-responsive box-shadow mb-4" id="export">
+        <table class="table">
+            <tr>
+                <th>
+                    Версия
+                </th>
+                <th>
+                    Дата
+                </th>
+                <th>
+                    Действие
+                </th>
+                <th>
+                    Модуль
+                </th>
+                <th>
+                    IP Адрес
+                </th>
+                <th>
+                    Пользователь
+                </th>
+                <th></th>
+            </tr>
 
-    </table>
-    Страница @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) из @Model.PageCount
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.version)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.accesstime)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.action)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.classname)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.object_name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.users.email)
+                    </td>
+                    @*<td>
+                            @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
+                            @Html.ActionLink("Details", "Details", new { id = item.id }) |
+                            @Html.ActionLink("Delete", "Delete", new { id = item.id })
+                        </td>*@
+                </tr>
+            }
 
-    @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+        </table>
+        </div>
+        Страница @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) из @Model.PageCount
 
+        @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+
+    </div>

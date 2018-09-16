@@ -1,0 +1,41 @@
+﻿@using KasabaKIAT.BusinessLogic.Security.Roles.RolePermissions;
+@using KasabaKiat.Helpers;
+@{
+    var UserId = Convert.ToInt32(User.Identity.Name);
+    var ustinfo = UserInfo.GetUserInfo(UserId);
+    FunctionalityList List = FunctionalityAndDbDataMatch.MatchProcess(UserId);
+    ViewBag.Title = "Отчеты";
+}
+<section class="content__block container-fluid">
+    <div class="row mb-4 align-items-center">
+        <div class="col title__block">
+            <h4>Отчеты</h4>
+            <nav aria-label="breadcrumb" class="breadcrumb__block">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item load"><a href="/Otchot/OtchetTitul">Отчеты главная</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Отчеты Мониторинг</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+    <div class="row mb-4">
+        <div class="col-md-6">
+            <div class="list-group r-list-group mb-4 box-shadow">
+                 <a id="ReportUrl_Performance" class="list-group-item list-group-item-action load" href="@Url.Action("ReportTemplate", "Report",
+                 new { ReportName = "Поступления от Казначейства на последний день", ReportDescription = "Поступления от Казначейства на последний день", Width = 100, Height = 650 })">Поступления от Казначейства на последний день</a>
+
+                <a id="ReportUrl_Performance" class="list-group-item list-group-item-action load" href="@Url.Action("ReportTemplate", "Report",
+                 new { ReportName = "Перерасход плана по Финансовому отчету", ReportDescription = "Перерасход плана по Финансовому отчету", Width = 100, Height = 650 })">Перерасход плана по Финансовому отчету</a>
+
+                <a id="ReportUrl_Performance" class="list-group-item list-group-item-action load" href="@Url.Action("ReportTemplate", "Report",
+                 new { ReportName = "Перерасход по путевкам", ReportDescription = "Перерасход по путевкам", Width = 100, Height = 650 })">Перерасход по путевкам</a>
+
+                <a id="ReportUrl_Performance" class="list-group-item list-group-item-action load" href="@Url.Action("ReportTemplate", "Report",
+                 new { ReportName = "Нарушения с проводками", ReportDescription = "Нарушения с проводками", Width = 100, Height = 650 })">Нарушения с проводками</a>
+
+                <a id="ReportUrl_Performance" class="list-group-item list-group-item-action load" href="@Url.Action("ReportTemplate", "Report",
+                 new { ReportName = "Мониторинг охвата системы", ReportDescription = "Мониторинг охвата системы", Width = 100, Height = 650 })">Мониторинг охвата системы</a>
+            </div>
+        </div>
+    </div>
+</section>

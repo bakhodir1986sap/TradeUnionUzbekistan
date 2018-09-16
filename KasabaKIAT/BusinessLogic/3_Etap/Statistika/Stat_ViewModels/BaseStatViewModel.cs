@@ -11,5 +11,6 @@ namespace KasabaKIAT.BusinessLogic._3_Etap.Statistika.Stat_ViewModels
         int Year { get; set; }
         int Kvartal { get; set; }
         DateTime LastChangeDate { get; set; }
+        int? AktivUsers { get; set; }
     }
 }

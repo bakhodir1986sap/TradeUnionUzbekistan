@@ -67,8 +67,8 @@
         value: ''
     };
     $scope.Or = {
-        id: '1',
-        value: ''
+        ID: '1',
+        Name_Org: ''
     };
     $scope.kurish = function () {
         $scope.parol = "text";
@@ -92,7 +92,8 @@
         $scope.Region.id = 1726;
         $scope.Roles.id = 1;
         $scope.Ots.id = 1;
-        $scope.Or.id = 1;
+        $scope.Or.ID = 1;
+        $scope.Or.Name_Org = "";
         $scope.L = "";
         $scope.P = "";
         $scope.PP = "";
@@ -108,8 +109,8 @@
         $scope.Roles.value = uz.Rl;
         $scope.Ots.id = uz.Ot_id;
         $scope.Ots.value = uz.Ot;
-        $scope.Or.id = uz.O_id;
-        $scope.Or.value = uz.O;
+        $scope.Or.ID = uz.O_id;
+        $scope.Or.Name_Org = uz.O;
         $scope.L = uz.L;
         $scope.P = uz.P;
         $scope.PP = uz.P;
@@ -121,8 +122,8 @@
         var GP={
             email: $scope.L,
             password: $scope.P,
-            user_name: $scope.L,
-            bkut_id: $scope.Or.id,
+            s_comment: $scope.N,
+            bkut_id: $scope.Or.ID,
             role_id:$scope.Roles.id,
             REGION_ID: $scope.Region.id,
             BRANCH_ID: $scope.Ots.id,
@@ -188,4 +189,259 @@
         });
         return false;
     }
+
+
+    ///////////////////////////////////////////////////////////////////
+    ////Organization///////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////
+
+    //GetOtraslForOrganization();
+    //GetRegionForOrganization();
+    //GetEmptyCarcas();
+    //GetOrganizations();
+
+    $scope.FilterSelectedOtrasl = {
+        Name_Ot: '',
+        ID_Ot: ''
+    };
+
+    $scope.FilterName = '';
+    $scope.FilterInn = '';
+
+    $scope.ModalOtraslSelected = {
+        Name_Ot: '',
+        ID_Ot: ''
+    };
+
+    $scope.ModalRegionSelected = {
+        NameReg: '',
+        ID: ''
+    };
+
+    function GetOtraslForOrganization() {
+        document.getElementById('connection').style.visibility = "visible";
+        $("#hh").modal({
+            backdrop: 'static'
+        });
+        $http({
+            method: 'get',
+            url: '/PrixodPutevok/GetOtraslForOrganization'
+        }).then(function (response) {
+            $scope.Otrasl = response.data;
+            document.getElementById('connection').style.visibility = "hidden";
+            $("#hh").modal('hide');
+        }, function (error) {
+            alertify.error("ошибка");
+            console.log("error in GetRekvizits");
+            document.getElementById('connection').style.visibility = "hidden";
+            $("#hh").modal('hide');
+        });
+    }
+
+    $scope.addOrg = function () {
+
+        $scope.Organization = '';
+        $scope.Action = "Добавить";
+
+        document.getElementById('connection').style.visibility = "visible";
+        $("#hh").modal({
+            backdrop: 'static'
+        });
+        $http({
+            method: 'get',
+            url: '/PrixodPutevok/GetEmptyCarcas?Id=0'
+        }).then(function (response) {
+            $scope.Organization = response.data;
+            document.getElementById('connection').style.visibility = "hidden";
+            $("#hh").modal('hide');
+        }, function (error) {
+            alertify.error("ошибка");
+            console.log("error in GetRekvizits");
+            document.getElementById('connection').style.visibility = "hidden";
+            $("#hh").modal('hide');
+        });
+    }
+
+    $scope.editOrg = function (org) {
+
+        $scope.Organization = '';
+        $scope.Action = "Изменить";
+
+        document.getElementById('connection').style.visibility = "visible";
+        $("#hh").modal({
+            backdrop: 'static'
+        });
+        $http({
+            method: 'get',
+            url: '/PrixodPutevok/GetEmptyCarcas?Id=' + org.ID
+        }).then(function (response) {
+            $scope.Organization = response.data;
+            $scope.ModalOtraslSelected.ID_Ot = org.ID_Ot;
+            $scope.ModalOtraslSelected.Name_Ot = org.Name_Ot;
+
+            $scope.ModalRegionSelected.ID = org.Region;
+            $scope.ModalRegionSelected.NameReg = org.RegionName;
+
+            document.getElementById('connection').style.visibility = "hidden";
+            $("#hh").modal('hide');
+        }, function (error) {
+            alertify.error("ошибка");
+            console.log("error in GetRekvizits");
+            document.getElementById('connection').style.visibility = "hidden";
+            $("#hh").modal('hide');
+        });
+    }
+
+    function GetEmptyCarcas() {
+
+        $scope.Organization = '';
+
+        document.getElementById('connection').style.visibility = "visible";
+        $("#hh").modal({
+            backdrop: 'static'
+        });
+        $http({
+            method: 'get',
+            url: '/PrixodPutevok/GetEmptyCarcas?Id=0'
+        }).then(function (response) {
+            $scope.Organization = response.data;
+            document.getElementById('connection').style.visibility = "hidden";
+            $("#hh").modal('hide');
+        }, function (error) {
+            alertify.error("ошибка");
+            console.log("error in GetRekvizits");
+            document.getElementById('connection').style.visibility = "hidden";
+            $("#hh").modal('hide');
+        });
+    }
+
+    function GetOrganizations() {
+
+        $scope.Organization = '';
+
+        document.getElementById('connection').style.visibility = "visible";
+        $("#hh").modal({
+            backdrop: 'static'
+        });
+        $http({
+            method: 'get',
+            url: '/PrixodPutevok/GetOrganizationList'
+        }).then(function (response) {
+            $scope.Organizations = response.data;
+            document.getElementById('connection').style.visibility = "hidden";
+            $("#hh").modal('hide');
+        }, function (error) {
+            alertify.error("ошибка");
+            console.log("error in GetRekvizits");
+            document.getElementById('connection').style.visibility = "hidden";
+            $("#hh").modal('hide');
+        });
+    }
+
+    $scope.GetOrganizationsFilter = function () {
+        document.getElementById('connection').style.visibility = "visible";
+        $("#hh").modal({
+            backdrop: 'static'
+        });
+        $http({
+            method: 'get',
+            url: '/PrixodPutevok/GetOrganizationFilterM?Name=' + $scope.FilterName + '&Inn=' + $scope.FilterInn + '&OtrasId=' + $scope.FilterSelectedOtrasl.ID_Ot
+        }).then(function (response) {
+            $scope.Organizations = response.data;
+            document.getElementById('connection').style.visibility = "hidden";
+            $("#hh").modal('hide');
+        }, function (error) {
+            alertify.error("ошибка");
+            console.log("error in GetRekvizits");
+            document.getElementById('connection').style.visibility = "hidden";
+            $("#hh").modal('hide');
+        });
+    }
+
+    function GetRegionForOrganization() {
+        document.getElementById('connection').style.visibility = "visible";
+        $("#hh").modal({
+            backdrop: 'static'
+        });
+        $http({
+            method: 'get',
+            url: '/PrixodPutevok/GetRegionForOrganization'
+        }).then(function (response) {
+            $scope.Region = response.data;
+            document.getElementById('connection').style.visibility = "hidden";
+            $("#hh").modal('hide');
+        }, function (error) {
+            alertify.error("ошибка");
+            console.log("error in GetRekvizits");
+            document.getElementById('connection').style.visibility = "hidden";
+            $("#hh").modal('hide');
+        });
+    }
+
+    $scope.SaveOrganization = function () {
+        document.getElementById('connection').style.visibility = "visible";
+        $("#hh").modal({
+            backdrop: 'static'
+        });
+
+        $scope.Organization.ID_Ot = $scope.ModalOtraslSelected.ID_Ot;
+        $scope.Organization.Region = $scope.ModalRegionSelected.ID;
+
+        $http({
+            method: 'post',
+            url: '/PrixodPutevok/SaveOrganization',
+            data: JSON.stringify($scope.Organization),
+            contentType: "application/json; charset=utf-8",
+        }).then(function (response) {
+            GetOrganizations();
+            alertify.info("Успешное сохранение");
+            document.getElementById('connection').style.visibility = "hidden";
+            $("#hh").modal('hide');
+        }, function (error) {
+            alertify.error("ошибка");
+            console.log("error in SaveRekvizit");
+            document.getElementById('connection').style.visibility = "hidden";
+            $("#hh").modal('hide');
+        });
+    }
+
+
+    $scope.SelectedOrganizationL = [];
+
+
+    $scope.toggleObjSelectionOrg = function ($event, Id, Name_Org) {
+        $event.stopPropagation();
+        console.log('checkbox clicked' + Id);
+
+        var isDelated = false;
+
+        for (var i = 0, l = $scope.SelectedOrganizationL.length; i < l; ++i) {
+            var value = $scope.SelectedOrganizationL[i];
+
+            if ((Id + '_' + Name_Org) === value) {
+                $scope.SelectedOrganizationL.splice($scope.SelectedOrganizationL.indexOf(Id + '_' + Name_Org), 1);
+                isDelated = true;
+                break;
+            }
+        }
+
+        if (!isDelated) {
+            $scope.SelectedOrganizationL.push(Id + '_' + Name_Org);
+            $scope.Or.ID = Id;
+            $scope.Or.Name_Org = Name_Org;
+            GetGivenPutyovkaList();
+            $scope.OrganizationChanged();
+        }
+
+        console.log('====================================================');
+
+        for (var i = 0, l = $scope.SelectedOrganizationL.length; i < l; ++i) {
+            var value = $scope.SelectedOrganizationL[i];
+            console.log('orgorg: ' + value);
+        }
+    }
+
+    //////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////
 }]);

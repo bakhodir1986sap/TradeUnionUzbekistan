@@ -23,6 +23,7 @@ namespace KasabaKIAT.Models
             this.tblVozVrats = new HashSet<tblVozVrat>();
             this.tblVozVrats1 = new HashSet<tblVozVrat>();
             this.tbgl_bankpayments = new HashSet<tbgl_bankpayments>();
+            this.KaznaBankFiles = new HashSet<KaznaBankFile>();
         }
     
         public long REC_ID { get; set; }
@@ -58,5 +59,7 @@ namespace KasabaKIAT.Models
         public virtual ICollection<tblVozVrat> tblVozVrats1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tbgl_bankpayments> tbgl_bankpayments { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<KaznaBankFile> KaznaBankFiles { get; set; }
     }
 }

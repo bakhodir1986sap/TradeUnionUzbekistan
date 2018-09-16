@@ -25,6 +25,9 @@
             url: '/Home/GetStatFederasiya'
         }).then(function (response) {
 
+            $locale.NUMBER_FORMATS.GROUP_SEP = " ";
+            $locale.NUMBER_FORMATS.DECIMAL_SEP = ",";
+
             $scope.ModelResult = response.data;
 
             $scope.data1 = [$scope.ModelResult.ProfComExists, $scope.ModelResult.ProfComNotExists];

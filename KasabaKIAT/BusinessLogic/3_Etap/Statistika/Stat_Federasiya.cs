@@ -15,7 +15,10 @@ namespace KasabaKIAT.BusinessLogic._3_Etap.Statistika
 
             using (KasabaKIATEntities db = new KasabaKIATEntities())
             {
-                model.EcpIncome = db.sp_stat_EcpIncome(depCode, cur_year, cur_kv).FirstOrDefault();
+
+                model.AktivUsers = db.sp_stat_AktiveUsersList(depCode, cur_year, cur_kv).FirstOrDefault();
+
+                model.EcpIncome = db.sp_stat_EcpIncomeFed(depCode, cur_year, cur_kv).FirstOrDefault();
                 model.PartialIncome = db.sp_stat_PartialIncome(depCode, cur_year, cur_kv).FirstOrDefault();
                 model.OtherIncome = db.sp_stat_OtherIncome(depCode, cur_year, cur_kv).FirstOrDefault();
                 var IncomePerRegionList = db.sp_stat_IncomePerRegionList_Fed(depCode, cur_year, cur_kv);
@@ -89,6 +92,7 @@ namespace KasabaKIAT.BusinessLogic._3_Etap.Statistika
                 model.OstatokPutyovkas    =  db.sp_stat_OstatokPutyovkas(depCode, cur_year, cur_kv).FirstOrDefault();
                 model.RealizedPutyovkas   =  db.sp_stat_RealizedPutyovkas(depCode, cur_year, cur_kv).FirstOrDefault();
                 model.VozvratPutyovkas    =  db.sp_stat_VozvratPutyovkas(depCode, cur_year, cur_kv).FirstOrDefault();
+                
             }
 
             return model;

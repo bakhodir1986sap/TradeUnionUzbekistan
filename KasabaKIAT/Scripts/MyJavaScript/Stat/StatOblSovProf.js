@@ -2,6 +2,7 @@
 
     GetStatData();
 
+    $scope.isCollapsed = false;
     ////////////////////////////////
     $scope.labels1 = ["Есть профком", "Нет профкома"];
     $scope.data1 = [300, 500];
@@ -25,6 +26,9 @@
             url: '/Home/StatOblSovProf'
         }).then(function (response) {
 
+            $locale.NUMBER_FORMATS.GROUP_SEP = " ";
+            $locale.NUMBER_FORMATS.DECIMAL_SEP = ",";
+
             $scope.ModelResult = response.data;
 
             $scope.data1 = [$scope.ModelResult.ProfComExists, $scope.ModelResult.ProfComNotExists];
@@ -40,6 +44,5 @@
             $("#hh").modal('hide');
         });
     }
-
 
 }]);

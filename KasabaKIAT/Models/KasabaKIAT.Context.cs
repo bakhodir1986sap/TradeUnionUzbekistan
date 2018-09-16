@@ -2105,5 +2105,22 @@ namespace KasabaKIAT.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_stat_ZadoljennostListObl_Result>("sp_stat_ZadoljennostListObl", dEPARTMENT_BASEParameter, yEARParameter, kVARTALParameter);
         }
+    
+        public virtual ObjectResult<Nullable<int>> sp_stat_AktiveUsersList(string dEPARTMENT_BASE, Nullable<int> yEAR, Nullable<int> kVARTAL)
+        {
+            var dEPARTMENT_BASEParameter = dEPARTMENT_BASE != null ?
+                new ObjectParameter("DEPARTMENT_BASE", dEPARTMENT_BASE) :
+                new ObjectParameter("DEPARTMENT_BASE", typeof(string));
+    
+            var yEARParameter = yEAR.HasValue ?
+                new ObjectParameter("YEAR", yEAR) :
+                new ObjectParameter("YEAR", typeof(int));
+    
+            var kVARTALParameter = kVARTAL.HasValue ?
+                new ObjectParameter("KVARTAL", kVARTAL) :
+                new ObjectParameter("KVARTAL", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("sp_stat_AktiveUsersList", dEPARTMENT_BASEParameter, yEARParameter, kVARTALParameter);
+        }
     }
 }

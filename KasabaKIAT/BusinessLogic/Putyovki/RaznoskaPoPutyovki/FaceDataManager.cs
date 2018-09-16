@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using KasabaKIAT.BusinessLogic.Putyovki.PutyovkiHistory;
+using KasabaKiat.BusinessLogic.Utils.References;
 
 namespace KasabaKiat.BusinessLogic.Putyovki.RaznoskaPoPutyovki
 {
@@ -53,6 +54,22 @@ namespace KasabaKiat.BusinessLogic.Putyovki.RaznoskaPoPutyovki
             fc.PNFL = model.pnfl;
 
             face = db.tblFase.Add(fc);
+
+            var mFizLiso = new Sprav_OrgViewModel();
+
+            mFizLiso.Name_Org = string.Format("{0} {1} {2}", model.lastname, model.name, model.firstname);
+            mFizLiso.INN = model.inn;
+            mFizLiso.Adress = model.adress;
+            mFizLiso.Telefon = string.Empty;
+            mFizLiso.E_Mail = string.Empty;
+            mFizLiso.UserId = model.userid;
+            mFizLiso.DepartmentBase = model.departmentbase;
+            mFizLiso.Pas_ser = model.pas_ser;
+            mFizLiso.Pas_Num = model.pas_num;
+            mFizLiso.Pas_KD = model.pas_kd;
+            mFizLiso.Pas_Data = model.pas_data;
+
+            Sprav_Org.CreateFizLiso(mFizLiso, db);
 
             //History making
             var histModel = new PutHistViewModel

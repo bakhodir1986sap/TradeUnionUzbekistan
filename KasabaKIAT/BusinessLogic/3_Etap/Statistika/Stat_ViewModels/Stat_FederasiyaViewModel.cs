@@ -131,6 +131,7 @@ namespace KasabaKIAT.BusinessLogic._3_Etap.Statistika.Stat_ViewModels
         public int?                 OstatokPutyovkas    { get; set; }
         public int?                 RealizedPutyovkas   { get; set; }
         public int?                 VozvratPutyovkas    { get; set; }
+        public int? AktivUsers { get; set; }
 
         #endregion
     }

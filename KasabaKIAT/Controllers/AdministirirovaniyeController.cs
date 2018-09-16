@@ -1802,10 +1802,7 @@ namespace KasabaKIAT.Controllers
             try
             {
                 var Users = from u in KasabaDB.users
-                        //join d in KasabaDB.t_departmentbase on u.bkut_id equals d.NATIVE_ID
                         join r in KasabaDB.roles on u.role_id equals r.id
-                        //join rg in KasabaDB.sp_soato on u.REGION_ID equals rg.code
-                        //join ot in KasabaDB.sp_branch on u.BRANCH_ID equals ot.id
                         where u.s_status == "ACTIVE"
                         select new
                         {
@@ -1819,7 +1816,7 @@ namespace KasabaKIAT.Controllers
                             //Rg = rg.name_uz,
                             //Ot_id = ot.id,
                             //Ot = ot.name_uz,
-                            N = u.user_name,
+                            N = u.s_comment,
                             D = u.created,
                             P = u.password,
                             bkut_id = u.bkut_id,
@@ -1906,34 +1903,16 @@ namespace KasabaKIAT.Controllers
                 {
                     using (KasabaKIATEntities contextObj = new KasabaKIATEntities())
                     {
-                        //users z = new users();
-                        //z.version = 0;
-                        //z.account_expired = false;
-                        //z.account_locked = false;
-                        //z.changed = DateTime.Now;
-                        //z.created = DateTime.Now;
-                        //z.email = pz.email;
-                        //z.last_logged = DateTime.Now;
-                        //z.last_logged_id = HttpContext.Server.ToString();
-                        //z.state = "ACTIVE";
-                        //z.password = MD5.MD5Hash(pz.password);
-                        //z.salt = "";
-                        //z.language = "RU";
-                        //z.is_super_admin = false;
-                        //z.user_name = pz.user_name;
-                        //z.s_comment = "";
-                        //z.s_create = DateTime.Now;
-                        //z.s_status = "ACTIVE";
-                        //z.s_user_id = 12;
-                        //z.usertype = "BKUT";
-                        //z.bkut_id = pz.bkut_id;
-                        //z.role_id = pz.role_id;
-                        //z.REGION_ID = pz.REGION_ID;
-                        //z.BRANCH_ID = pz.BRANCH_ID;
+                        users uu = new users();
 
-                        //contextObj.users.Add(z);
+                        uu.email = pz.email;
+                        uu.password = pz.password;
+                        uu.bkuq_id = pz.bkut_id;
+                        uu.role_id = pz.role_id;
+                        uu.s_comment = pz.s_comment;
 
-                        contextObj.userAdd(pz.email, pz.password, pz.bkut_id, pz.role_id);
+                        contextObj.users.Add(uu);
+                        //contextObj.userAdd(pz.email, pz.password, pz.bkut_id, pz.role_id);
 
                         contextObj.SaveChanges();
 
@@ -1969,34 +1948,19 @@ namespace KasabaKIAT.Controllers
                 {
                     using (KasabaKIATEntities contextObj = new KasabaKIATEntities())
                     {
-                        //int bookId = Convert.ToInt32(pz.id);
-                        //users z = contextObj.users.Where(b => b.id == bookId).FirstOrDefault();
-                        //z.version = 0;
-                        //z.account_expired = false;
-                        //z.account_locked = false;
-                        //z.changed = DateTime.Now;
-                        //z.created = DateTime.Now;
-                        //z.email = pz.email;
-                        //z.last_logged = DateTime.Now;
-                        //z.last_logged_id = HttpContext.Server.ToString();
-                        //z.state = "ACTIVE";
-                        //z.password = MD5.MD5Hash(pz.password);
-                        //z.salt = "";
-                        //z.language = "UZ";
-                        //z.is_super_admin = false;
-                        //z.user_name = pz.user_name;
-                        //z.s_comment = "";
-                        //z.s_create = DateTime.Now;
-                        //z.s_status = "ACTIVE";
-                        //z.s_user_id = 12;
-                        //z.usertype = "BKUT";
-                        //z.bkut_id = pz.bkut_id;
-                        //z.role_id = pz.role_id;
-                        //z.REGION_ID = pz.REGION_ID;
-                        //z.BRANCH_ID = pz.BRANCH_ID;
 
-                        int userId = Convert.ToInt32(pz.id);
-                        contextObj.userUpdate(userId, pz.email, pz.password, pz.bkut_id, pz.role_id);
+                        var user1s = contextObj.users.Where(z => z.id == pz.id);
+
+                        if (user1s.Any())
+                        {
+                            var user1 = user1s.First();
+
+                            user1.email = pz.email;
+                            user1.password = pz.password;
+                            user1.bkut_id = pz.bkut_id;
+                            user1.role_id = pz.role_id;
+                            user1.s_comment = pz.s_comment;
+                        }
 
                         contextObj.SaveChanges();
                         return "User record updated successfully";
@@ -2067,17 +2031,17 @@ namespace KasabaKIAT.Controllers
         [OutputCache(Duration = 5, Location = OutputCacheLocation.Client, VaryByCustom = "userId")]
         public JsonResult GelOrganizatsiya()
         {
-            var O = from department in KasabaDB.t_departmentbase
-                    join org in KasabaDB.tblSprav_Org on department.code equals org.OWNER_CODE
-                    where department.name_uz!=null && department.code != null && org.OWNER_CODE != null
-                    orderby org.TIMESTAMP_CH descending
-                    select new
-                    {
-                        id = department.id,
-                        value = org.Name_Org
-                    };
+            //var O = from department in KasabaDB.t_departmentbase
+            //        join org in KasabaDB.tblSprav_Org on department.code equals org.OWNER_CODE
+            //        where department.name_uz!=null && department.code != null && org.OWNER_CODE != null
+            //        orderby org.TIMESTAMP_CH descending
+            //        select new
+            //        {
+            //            id = department.id,
+            //            value = org.Name_Org
+            //        };
 
-            return Json(O.ToList().Take(10), JsonRequestBehavior.AllowGet);
+            return Json("", JsonRequestBehavior.AllowGet);
         }
 
         [OutputCache(Duration = 5, Location = OutputCacheLocation.Client, VaryByCustom = "userId")]

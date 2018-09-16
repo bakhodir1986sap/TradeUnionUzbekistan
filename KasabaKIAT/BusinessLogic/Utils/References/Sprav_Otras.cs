@@ -125,17 +125,33 @@ namespace KasabaKiat.BusinessLogic.Utils.References
 
             using (KasabaKIATEntities db = new KasabaKIATEntities())
             {
-                var queryRes = from otras in db.tblSprav_Otras
-                               where otras.DepartmentBase == departmentBase
-                               orderby otras.Name_Ot
-                               select new Sprav_OtrasViewModel
-                               {
-                                   ID_Ot = otras.ID_Ot,
-                                   Name_Ot = otras.Name_Ot,
-                               };
+                if (departmentBase.Equals("17"))
+                {
+                    var queryRes = from otras in db.tblSprav_Otras
+                                   group otras by new { otras.ID_Ot , otras.Name_Ot } into g
+                                   //where otras.DepartmentBase == departmentBase
+                                   orderby g.Key.Name_Ot
+                                   select new Sprav_OtrasViewModel
+                                   {
+                                       ID_Ot = g.Key.ID_Ot,
+                                       Name_Ot = g.Key.Name_Ot,
+                                   };
 
-                list = queryRes.ToList();
+                    list = queryRes.ToList();
+                }
+                else
+                {
+                    var queryRes = from otras in db.tblSprav_Otras
+                                   where otras.DepartmentBase == departmentBase
+                                   orderby otras.Name_Ot
+                                   select new Sprav_OtrasViewModel
+                                   {
+                                       ID_Ot = otras.ID_Ot,
+                                       Name_Ot = otras.Name_Ot,
+                                   };
 
+                    list = queryRes.ToList();
+                }
             }
 
             return list;

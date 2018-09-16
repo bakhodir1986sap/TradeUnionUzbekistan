@@ -3282,6 +3282,18 @@ warning 6002: The table/view 'KasabaKIAT_N1.dbo.Zapros_ZK' does not have a prima
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_KaznaBankFile_tbbu_provodki">
+          <End Role="tbbu_provodki" Type="Self.tbbu_provodki" Multiplicity="0..1" />
+          <End Role="KaznaBankFile" Type="Self.KaznaBankFile" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbbu_provodki">
+              <PropertyRef Name="REC_ID" />
+            </Principal>
+            <Dependent Role="KaznaBankFile">
+              <PropertyRef Name="PROVODKA_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_KaznaPaymentFile_KaznaFiles">
           <End Role="KaznaFiles" Type="Self.KaznaFiles" Multiplicity="0..1" />
           <End Role="KaznaPaymentFile" Type="Self.KaznaPaymentFile" Multiplicity="*" />
@@ -6272,6 +6284,11 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
         <Function Name="sp_rt_ZayavkiList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="INN" Type="int" Mode="In" />
         </Function>
+        <Function Name="sp_stat_AktiveUsersList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="DEPARTMENT_BASE" Type="nvarchar" Mode="In" />
+          <Parameter Name="YEAR" Type="int" Mode="In" />
+          <Parameter Name="KVARTAL" Type="int" Mode="In" />
+        </Function>
         <Function Name="sp_stat_ApprovedZayavka" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="DEPARTMENT_BASE" Type="nvarchar" Mode="In" />
           <Parameter Name="YEAR" Type="int" Mode="In" />
@@ -6899,6 +6916,10 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <AssociationSet Name="FK_KaznaBankFile_KaznaFiles" Association="Self.FK_KaznaBankFile_KaznaFiles">
             <End Role="KaznaFiles" EntitySet="KaznaFiles" />
             <End Role="KaznaPaymentFile" EntitySet="KaznaPaymentFile" />
+          </AssociationSet>
+          <AssociationSet Name="FK_KaznaBankFile_tbbu_provodki" Association="Self.FK_KaznaBankFile_tbbu_provodki">
+            <End Role="tbbu_provodki" EntitySet="tbbu_provodki" />
+            <End Role="KaznaBankFile" EntitySet="KaznaBankFile" />
           </AssociationSet>
           <AssociationSet Name="FK_KaznaPaymentFile_KaznaFiles" Association="Self.FK_KaznaPaymentFile_KaznaFiles">
             <End Role="KaznaFiles" EntitySet="KaznaFiles" />
@@ -14458,6 +14479,15 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
             <Parameter Name="KVARTAL" Mode="In" Type="Int32" />
           </FunctionImport>
           <EntitySet Name="tbbu_nastroykiProvodok" EntityType="KasabaKIATModel.tbbu_nastroykiProvodok" />
+          <AssociationSet Name="FK_KaznaBankFile_tbbu_provodki" Association="KasabaKIATModel.FK_KaznaBankFile_tbbu_provodki">
+            <End Role="tbbu_provodki" EntitySet="tbbu_provodki" />
+            <End Role="KaznaBankFile" EntitySet="KaznaBankFiles" />
+          </AssociationSet>
+          <FunctionImport Name="sp_stat_AktiveUsersList" ReturnType="Collection(Int32)">
+            <Parameter Name="DEPARTMENT_BASE" Mode="In" Type="String" />
+            <Parameter Name="YEAR" Mode="In" Type="Int32" />
+            <Parameter Name="KVARTAL" Mode="In" Type="Int32" />
+          </FunctionImport>
           </EntityContainer>
         <ComplexType Name="sp_get_BankPaymentCompanyYearlyQ_Result">
           <Property Type="Int32" Name="MONTH_NUM" Nullable="true" />
@@ -14791,6 +14821,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <NavigationProperty Name="tblVozVrats" Relationship="KasabaKIATModel.FK_tblVozVrat_tbbu_provodki" FromRole="tbbu_provodki" ToRole="tblVozVrat" />
           <NavigationProperty Name="tblVozVrats1" Relationship="KasabaKIATModel.FK_tblVozVrat_tbbu_provodki1" FromRole="tbbu_provodki" ToRole="tblVozVrat" />
           <NavigationProperty Name="tbgl_bankpayments" Relationship="KasabaKIATModel.FK_tbgl_bankpayments_tbbu_provodki" FromRole="tbbu_provodki" ToRole="tbgl_bankpayments" />
+          <NavigationProperty Name="KaznaBankFiles" Relationship="KasabaKIATModel.FK_KaznaBankFile_tbbu_provodki" FromRole="tbbu_provodki" ToRole="KaznaBankFile" />
         </EntityType>
         <EntityType Name="tbbu_planbyudjetregion">
           <Key>
@@ -15240,6 +15271,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <Property Name="FILE_ID" Type="Int64" />
           <NavigationProperty Name="KaznaFile" Relationship="KasabaKIATModel.FK_KaznaBankFile_KaznaFiles1" FromRole="KaznaBankFile" ToRole="KaznaFiles" />
           <Property Name="PROVODKA_ID" Type="Int64" />
+          <NavigationProperty Name="tbbu_provodki" Relationship="KasabaKIATModel.FK_KaznaBankFile_tbbu_provodki" FromRole="KaznaBankFile" ToRole="tbbu_provodki" />
         </EntityType>
         <EntityType Name="tbcs_sisconf">
           <Key>
@@ -16385,6 +16417,18 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <Property Name="DEBIT_ACC" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
           <Property Name="CREADIT_ACC" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
         </EntityType>
+        <Association Name="FK_KaznaBankFile_tbbu_provodki">
+          <End Type="KasabaKIATModel.tbbu_provodki" Role="tbbu_provodki" Multiplicity="0..1" />
+          <End Type="KasabaKIATModel.KaznaBankFile" Role="KaznaBankFile" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbbu_provodki">
+              <PropertyRef Name="REC_ID" />
+            </Principal>
+            <Dependent Role="KaznaBankFile">
+              <PropertyRef Name="PROVODKA_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -20558,6 +20602,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="sp_stat_AktiveUsersList" FunctionName="KasabaKIATModel.Store.sp_stat_AktiveUsersList" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

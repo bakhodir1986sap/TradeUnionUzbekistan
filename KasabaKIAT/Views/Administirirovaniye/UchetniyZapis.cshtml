@@ -7,7 +7,11 @@
     ViewBag.Title = "Администрирование";
 }
 <script src="~/Scripts/MyJavaScript/UZController.js"></script>
-@*<h2 style="color:#428bca">учетной записи</h2>*@
+
+<div id="connection" style="visibility:hidden;position:absolute;margin-left:430px;z-index:9999">
+<img src="~/Content/Login/buffering.gif" />
+</div>
+
 @if (List.SozdaniyaUchetnixZapisey)
 {
     <div ng-controller="UZController">
@@ -24,6 +28,7 @@
                     </nav>
                 </div>
                 <div class="col-sm-6 text-md-right">
+                    <h6><b>Количество Пользователей {{UZ.length}}</b></h6>
                     <a href="#" ng-click="AddGPDiv()" class="btn btn-blue d-block d-md-inline-block mb-2" data-toggle="modal" data-target="#dobavit"><i class="fas fa-plus"></i> Добавить</a>
                 </div>
             </div>
@@ -103,27 +108,143 @@
                                         <select class="custom-select form-control" required name="Region" ng-model="Region" ng-options="item as item.value for item in Rg track by item.id"></select>
                                         <span class="alert alert-warning" style="padding:0px" ng-show="myForm.Region.$error.required">Выберите поле</span>
                                     </div>
-                                </div>*@
+                                    </div>*@
                                 @*<div class="form-group row align-items-center">
-                                    <label class="col-md-5 col-form-label text-md-right py-0">Отрасль:</label>
-                                    <div class="col-md-7">
-                                        <select class="custom-select form-control" required name="Ots" ng-model="Ots" ng-options="item as item.value for item in Ot track by item.id"></select>
-                                        <span class="alert alert-warning" style="padding:0px" ng-show="myForm.Ots.$error.required">Выберите поле</span>
-                                    </div>
-                                </div>*@
+                                        <label class="col-md-5 col-form-label text-md-right py-0">Отрасль:</label>
+                                        <div class="col-md-7">
+                                            <select class="custom-select form-control" required name="Ots" ng-model="Ots" ng-options="item as item.value for item in Ot track by item.id"></select>
+                                            <span class="alert alert-warning" style="padding:0px" ng-show="myForm.Ots.$error.required">Выберите поле</span>
+                                        </div>
+                                    </div>*@
                                 <div class="form-group row align-items-center">
-                                    <label class="col-md-5 col-form-label text-md-right py-0">Организация:</label>
+                                    <label class="col-md-5 col-form-label text-md-right py-0">ИНН:</label>
                                     <div class="col-md-7">
-                                        <select class="custom-select form-control" required name="Or" ng-model="Or" ng-options="item as item.value for item in O track by item.id"></select>
-                                        <span class="alert alert-warning" style="padding:0px" ng-show="myForm.Or.$error.required">Выберите поле</span>
+                                        <select class="custom-select form-control" ng-model="Or" ng-options="item as item.Name_Org for item in Organizations track by item.ID" ng-change="OrganizationChanged()"></select>
+                                        <b><span>{{Or.Name_Org}}</span></b>
+                                    </div>
+
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12 text-right">
+                                        <a href="#" class="btn btn-grey d-block d-md-inline-block mb-2" data-toggle="modal" data-target="#organization">Выбрать</a>
                                     </div>
                                 </div>
+                                @*<div class="form-group row align-items-center">
+                                        <label class="col-md-5 col-form-label text-md-right py-0">Организация:</label>
+                                        <div class="col-md-7">
+                                            <select class="custom-select form-control" required name="Or" ng-model="Or" ng-options="item as item.value for item in O track by item.id"></select>
+                                            <span class="alert alert-warning" style="padding:0px" ng-show="myForm.Or.$error.required">Выберите поле</span>
+                                        </div>
+                                    </div>*@
                                 <div class="mb-4 text-right">
                                     <button data-dismiss="modal" ng-disabled="P!=PP||myForm.L.$error.required||myForm.P.$error.required||myForm.Roles.$error.required||myForm.N.$error.required||myForm.Region.$error.required||myForm.Ots.$error.required||myForm.Or.$error.required" ng-click="AddUpdateGP()" class="btn btn-blue d-block d-md-inline-block mb-2">Сохранить</button>
                                     <button ng-click="deleteGP(ID)" data-dismiss="modal" class="btn btn-red d-block d-md-inline-block mb-2">Удалить</button>
                                     <button class="btn btn-grey d-block d-md-inline-block mb-2" data-dismiss="modal">Отмена</button>
                                 </div>
                             </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="modal__block modal fade" id="organization" tabindex="-1" role="dialog" aria-labelledby="organizationLabel" data-backdrop="static" data-keyboard="false">
+            <div class="modal-dialog modal-dialog-centered modal-lg" role="document" style="max-width: 80%">
+                <div class="modal-content">
+                    <div class="modal-body" style="max-height: calc(100vh - 210px); overflow-y: auto;">
+                        <div class="row mb-4 align-items-center">
+                            <div class="col-sm-6 title__block">
+                                <h4>Справочник Организаций</h4>
+                                <nav aria-label="breadcrumb" class="breadcrumb__block">
+                                    <ol class="breadcrumb">
+                                        <li class="breadcrumb-item active" aria-current="page">Справочник Организаций</li>
+                                    </ol>
+                                </nav>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <input type="text" class="form-control" style="margin-bottom:5px" placeholder="Наименование" ng-model="FilterName" /><br />
+                                </div>
+                                <div class="col-md-3">
+                                    <input type="text" class="form-control" style="margin-bottom:5px" placeholder="ИНН" ng-model="FilterInn" /><br />
+                                </div>
+                            </div>
+                            <select class="custom-select" required name="Otrasl" ng-model="FilterSelectedOtrasl" ng-options="item as item.Name_Ot for item in Otrasl track by item.ID_Ot"></select>
+
+
+                            <br /><br /><button class="btn btn-green" style="float:right;margin-bottom:10px" ng-click="GetOrganizationsFilter()"><i class="btn-green"></i> Поиск</button>
+
+
+
+                        </div>
+                        <div class="table-responsive box-shadow mb-4" id="export">
+                            <table class="table table__block t-hover">
+                                <thead>
+                                    <tr>
+                                        <th class="dropdown dropdown__table" style="width:150px;text-align:center">
+                                            Выбор
+                                        </th>
+                                        <th class="dropdown dropdown__table" style="width:150px;text-align:center">
+                                            Отрасль
+                                        </th>
+                                        <th class="dropdown dropdown__table" style="width:200px;text-align:center">
+                                            Название организации
+                                        </th>
+                                        <th class="dropdown dropdown__table" style="width:150px;text-align:center">
+                                            ИНН
+                                        </th>
+                                        <th class="dropdown dropdown__table" style="width:100px;text-align:center">
+                                            Расчетный счет
+                                        </th>
+                                        <th class="dropdown dropdown__table" style="width:150px;text-align:center">
+                                            МФО
+                                        </th>
+                                        <th class="dropdown dropdown__table" style="width:150px;text-align:center">
+                                            Банк
+                                        </th>
+                                        <th class="dropdown dropdown__table" style="width:150px;text-align:center">
+                                            ОКОНХ
+                                        </th>
+                                        <th class="dropdown dropdown__table" style="width:150px;text-align:center">
+                                            Адрес
+                                        </th>
+                                        <th class="dropdown dropdown__table" style="width:150px;text-align:center">
+                                            Телефон
+                                        </th>
+                                        <th class="dropdown dropdown__table" style="width:150px;text-align:center">
+                                            Район
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="poin" ng-repeat="org in Organizations" ng-click="editOrg(org)">
+                                        <td class="custom-control custom-checkbox r-checkbox">
+                                            <input type="checkbox" class="custom-control-input" id="customCheck{{org.ID}}"
+                                                   ng-model="selectedObjs"
+                                                   ng-checked="obj.selected"
+                                                   ng-click="toggleObjSelectionOrg($event, org.ID, org.Name_Org)">
+                                            <label class="custom-control-label r-label" for="customCheck{{org.ID}}">{{org.ID}}</label>
+                                        </td>
+                                        <td style="text-align:center">{{org.OtraslName}}</td>
+                                        <td style="text-align:center">{{org.Name_Org}}</td>
+                                        <td style="text-align:center">{{org.INN     }}</td>
+                                        <td style="text-align:center">{{org.RS      }}</td>
+                                        <td style="text-align:center">{{org.MFO     }}</td>
+                                        <td style="text-align:center">{{org.Bank    }}</td>
+                                        <td style="text-align:center">{{org.OKONX   }}</td>
+                                        <td style="text-align:center">{{org.Adress  }}</td>
+                                        <td style="text-align:center">{{org.Telefon }}</td>
+                                        <td style="text-align:center">{{org.RegionName}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="mb-4 text-right" style="position: fixed; bottom: -1%; right: 40px">
+                            @*<a href="#" ng-click="SelectOrganization()" class="btn btn-blue d-block d-md-inline-block mb-2" data-dismiss="modal"><i class="fas fa-plus"></i> Выбрать</a>*@
+                            <a href="#" class="btn btn-grey d-block d-md-inline-block mb-2" data-dismiss="modal">Отмена</a>
                         </div>
                     </div>
                 </div>

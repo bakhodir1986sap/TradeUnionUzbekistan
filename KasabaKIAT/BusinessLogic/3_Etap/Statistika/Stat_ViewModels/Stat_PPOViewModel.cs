@@ -23,5 +23,6 @@ namespace KasabaKIAT.BusinessLogic._3_Etap.Statistika.Stat_ViewModels
         public int? ApprovedZayavka { get; set; }
         public int? RejectedZayavka { get; set; }
         public int? InProgressZayavka { get; set; }
+        public int? AktivUsers { get; set; }
     }
 }

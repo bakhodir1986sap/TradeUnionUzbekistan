@@ -381,10 +381,10 @@ namespace KasabaKiat.BusinessLogic.Utils.References
 
             using (KasabaKIATEntities db = new KasabaKIATEntities())
             {
-                var queryRes = from org in db.tblSprav_Org
+                var queryRes = from org in db.tblSprav_Org.Take(30)
                                    //join otras in db.tblSprav_Otras on org.ID_Ot equals otras.ID_Ot
                                    //join region in db.tblSprav_Reg on org.Region equals region.CodeReg
-                               where org.DepartmentBase == departmentBase && org.FACE_TYPE == 0
+                               where org.DepartmentBase.Contains(departmentBase) && org.FACE_TYPE == 0
                                //&& otras.DepartmentBase == departmentBase
                                orderby org.Name_Org
                                select new Sprav_OrgViewModel
@@ -478,7 +478,7 @@ namespace KasabaKiat.BusinessLogic.Utils.References
                 var queryRes = from org in db.tblSprav_Org
                                    //join otras in db.tblSprav_Otras on org.ID_Ot equals otras.ID_Ot
                                    //join region in db.tblSprav_Reg on org.Region equals region.CodeReg
-                               where org.DepartmentBase == departmentBase
+                               where org.DepartmentBase.Contains(departmentBase)
                                //&& otras.DepartmentBase == departmentBase
                                && (org.Name_Org.Contains((IsNameEmpty ? org.Name_Org : Name)))
                                && (org.INN.Contains((IsInnEmpty ? org.INN : Inn)))
@@ -547,7 +547,103 @@ namespace KasabaKiat.BusinessLogic.Utils.References
 
 
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="departmentBase"></param>
+        /// <param name="Name"></param>
+        /// <param name="Inn"></param>
+        /// <param name="OtrasId"></param>
+        /// <returns></returns>
+        public static List<Sprav_OrgViewModel> GetByDeraprtmentBaseM(string departmentBase,
+            string Name, string Inn, int? OtrasId)
+        {
+            List<Sprav_OrgViewModel> list = null;
 
+            bool IsNameEmpty = false;
+            bool IsInnEmpty = false;
+
+            if ((string.IsNullOrEmpty(Name)) || (Name.ToLower().Contains("undefined")))
+            {
+                IsNameEmpty = true;
+            }
+
+            if ((string.IsNullOrEmpty(Inn)) || (Inn.ToLower().Contains("undefined")))
+            {
+                IsInnEmpty = true;
+            }
+
+            using (KasabaKIATEntities db = new KasabaKIATEntities())
+            {
+                var queryRes = from org in db.tblSprav_Org
+                                   //join otras in db.tblSprav_Otras on org.ID_Ot equals otras.ID_Ot
+                                   //join region in db.tblSprav_Reg on org.Region equals region.CodeReg
+                               where org.DepartmentBase.Contains("17")
+                               //&& otras.DepartmentBase == departmentBase
+                               && (org.Name_Org.Contains((IsNameEmpty ? org.Name_Org : Name)))
+                               && (org.INN.Contains((IsInnEmpty ? org.INN : Inn)))
+                               && (org.ID_Ot == (OtrasId.HasValue ? OtrasId == -1 ? null : OtrasId : org.ID_Ot))
+                               && org.FACE_TYPE == 0
+                               orderby org.Name_Org
+                               select new Sprav_OrgViewModel
+                               {
+                                   ID = org.ID,
+                                   ID_Ot = org.ID_Ot,
+                                   OtraslName = "",//otras.Name_Ot,
+                                   Name_Org = org.Name_Org,
+                                   INN = org.INN,
+                                   RS = org.RS,
+                                   MFO = org.MFO,
+                                   Bank = org.Bank,
+                                   OKONX = org.OKONX,
+                                   Adress = org.Adress,
+                                   Telefon = org.Telefon,
+                                   Region = org.Region,
+                                   RegionName = "",//region.NameReg,
+                                   DT_OST = org.DT_OST,
+                                   KT_OST = org.KT_OST,
+                                   E_Mail = org.E_Mail,
+                                   UserId = org.UserId,
+                                   IsPravSoyuz = org.IS_PRAVSOYUZ,
+                                   ParentId = org.ParentID,
+                                   PravSoyuzLevel = org.PRAVORGLEVEL,
+                                   Director = org.DIRECTOR,
+                                   Buxgalter = org.BUXGALTER,
+                                   Doverennoe_liso = org.DOVERENNOE_LISO,
+                                   orig_inn = org.ORIG_INN,
+                                   owner_code = org.OWNER_CODE,
+                                   db_bal = org.DB_BAL,
+                                   ct_bal = org.CT_BAL,
+                                   to_depcode = org.TO_DEPCODE
+                               };
+
+                list = queryRes.ToList();
+
+                var otrasList = db.tblSprav_Otras.Where(s => s.DepartmentBase == departmentBase).ToList();
+
+                var regionList = db.tblSprav_Reg.ToList();
+
+                foreach (var org in list)
+                {
+                    var isOtrasExists = otrasList.Where(d => d.ID_Ot == org.ID_Ot);
+
+                    if (isOtrasExists.Any())
+                    {
+                        org.OtraslName = isOtrasExists.First().Name_Ot;
+                    }
+
+                    var isRegionExists = regionList.Where(r => r.CodeReg == org.Region);
+
+                    if (isRegionExists.Any())
+                    {
+                        org.RegionName = isRegionExists.First().NameReg;
+                    }
+                }
+
+            }
+
+            return list;
+        }
         #region OraslCounts
 
         /// <summary>
@@ -562,7 +658,7 @@ namespace KasabaKiat.BusinessLogic.Utils.References
             using (KasabaKIATEntities db = new KasabaKIATEntities())
             {
                 res = (from org in db.tblSprav_Org
-                       where org.DepartmentBase == departmentBase && org.ID_Ot == null && org.FACE_TYPE == 0
+                       where org.DepartmentBase.Contains(departmentBase) && org.ID_Ot == null && org.FACE_TYPE == 0
                        select org).Count();
             }
 
@@ -582,7 +678,7 @@ namespace KasabaKiat.BusinessLogic.Utils.References
             using (KasabaKIATEntities db = new KasabaKIATEntities())
             {
                 res = (from org in db.tblSprav_Org
-                       where org.DepartmentBase == departmentBase && org.FACE_TYPE == 0
+                       where org.DepartmentBase.Contains(departmentBase) && org.FACE_TYPE == 0
                        select org).Count();
             }
 
@@ -832,33 +928,63 @@ namespace KasabaKiat.BusinessLogic.Utils.References
         /// <param name="db"></param>
         public static void CreateFizLiso(Sprav_OrgViewModel model, KasabaKIATEntities db)
         {
-            tblSprav_Org org = new tblSprav_Org();
+            var org2 = db.tblSprav_Org.Where(z => z.DepartmentBase == model.DepartmentBase && z.INN == model.INN);
 
-            org.ID_Ot = -1;
-            org.Name_Org = model.Name_Org;
-            org.INN = model.INN;
-            org.Adress = model.Adress;
-            org.Telefon = model.Telefon;
-            org.Region = -1;
-            org.DT_OST = 0;
-            org.KT_OST = 0;
-            org.E_Mail = model.E_Mail;
-            org.UserId = model.UserId;
-            org.DepartmentBase = model.DepartmentBase;
-            org.IS_PRAVSOYUZ = false;
-            org.ParentID = null;
-            org.PRAVORGLEVEL = 4;
-            org.DB_BAL = 0;
-            org.CT_BAL = 0;
-            org.FACE_TYPE = 1;
-            org.Pas_ser = model.Pas_ser;
-            org.Pas_Num = model.Pas_Num;
-            org.Pas_KD = model.Pas_KD;
-            org.Pas_Data = model.Pas_Data;
+            if (org2.Any())
+            {
+                var org1 = org2.FirstOrDefault();
 
-            db.tblSprav_Org.Add(org);
+                org1.ID_Ot = -1;
+                org1.Name_Org = model.Name_Org;
+                org1.INN = model.INN;
+                org1.Adress = model.Adress;
+                org1.Telefon = model.Telefon;
+                org1.Region = -1;
+                org1.DT_OST = 0;
+                org1.KT_OST = 0;
+                org1.E_Mail = model.E_Mail;
+                org1.UserId = model.UserId;
+                org1.DepartmentBase = model.DepartmentBase;
+                org1.IS_PRAVSOYUZ = false;
+                org1.ParentID = null;
+                org1.PRAVORGLEVEL = 4;
+                org1.DB_BAL = 0;
+                org1.CT_BAL = 0;
+                org1.FACE_TYPE = 1;
+                org1.Pas_ser = model.Pas_ser;
+                org1.Pas_Num = model.Pas_Num;
+                org1.Pas_KD = model.Pas_KD;
+                org1.Pas_Data = model.Pas_Data;
+            }
+            else
+            {
+                tblSprav_Org org = new tblSprav_Org
+                {
+                    ID_Ot = -1,
+                    Name_Org = model.Name_Org,
+                    INN = model.INN,
+                    Adress = model.Adress,
+                    Telefon = model.Telefon,
+                    Region = -1,
+                    DT_OST = 0,
+                    KT_OST = 0,
+                    E_Mail = model.E_Mail,
+                    UserId = model.UserId,
+                    DepartmentBase = model.DepartmentBase,
+                    IS_PRAVSOYUZ = false,
+                    ParentID = null,
+                    PRAVORGLEVEL = 4,
+                    DB_BAL = 0,
+                    CT_BAL = 0,
+                    FACE_TYPE = 1,
+                    Pas_ser = model.Pas_ser,
+                    Pas_Num = model.Pas_Num,
+                    Pas_KD = model.Pas_KD,
+                    Pas_Data = model.Pas_Data
+                };
 
-            db.SaveChanges();
+                db.tblSprav_Org.Add(org);
+            }
         }
 
         /// <summary>
@@ -1037,7 +1163,7 @@ namespace KasabaKiat.BusinessLogic.Utils.References
             {
                 var queryRes = from org in db.tblSprav_Org
                                where org.FACE_TYPE == 1
-                               && org.DepartmentBase == departmentBase
+                               && org.DepartmentBase.Contains(departmentBase)
                                select new Sprav_OrgViewModel
                                {
                                    ID = org.ID,
@@ -1066,7 +1192,7 @@ namespace KasabaKiat.BusinessLogic.Utils.References
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        public static List<Sprav_OrgViewModel> GetFizLisoList(string Name, string Inn, string Pas_ser, string Pas_Number)
+        public static List<Sprav_OrgViewModel> GetFizLisoList(string Name, string Inn, string Pas_ser, string Pas_Number, string departmentBase)
         {
             List<Sprav_OrgViewModel> list = null;
 
@@ -1105,6 +1231,7 @@ namespace KasabaKiat.BusinessLogic.Utils.References
                                && (org.Pas_ser.Contains((IsPasSerEmpty ? org.Pas_ser : Pas_ser)))
                                && (org.Pas_Num.Contains((IsPasNumEmpty ? org.Pas_Num : Pas_Number)))
                                && org.FACE_TYPE == 1
+                               && org.DepartmentBase.Contains(departmentBase)
                                select new Sprav_OrgViewModel
                                {
                                    ID = org.ID,

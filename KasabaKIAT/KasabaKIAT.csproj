@@ -1487,6 +1487,9 @@
     <Content Include="Content\main.css" />
     <Content Include="Content\open-iconic-bootstrap.css" />
     <Content Include="Content\PagedList.css" />
+    <Content Include="Content\Stat\color1.png" />
+    <Content Include="Content\Stat\color2.png" />
+    <Content Include="Content\Stat\color3.png" />
     <Content Include="Content\Stat\Screen5.png" />
     <Content Include="Content\Stat\Screen6.png" />
     <Content Include="Content\styles\main.css" />
@@ -1994,6 +1997,7 @@
     <Content Include="Views\useractions\Details.cshtml" />
     <Content Include="Views\useractions\Edit.cshtml" />
     <Content Include="Views\useractions\Index.cshtml" />
+    <Content Include="Views\Otchot\OtchetMonitoring.cshtml" />
     <None Include="Web References\KurortUrlService\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>

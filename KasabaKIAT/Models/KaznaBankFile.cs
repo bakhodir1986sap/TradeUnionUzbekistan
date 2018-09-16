@@ -36,5 +36,6 @@ namespace KasabaKIAT.Models
         public Nullable<long> PROVODKA_ID { get; set; }
     
         public virtual KaznaFiles KaznaFile { get; set; }
+        public virtual tbbu_provodki tbbu_provodki { get; set; }
     }
 }

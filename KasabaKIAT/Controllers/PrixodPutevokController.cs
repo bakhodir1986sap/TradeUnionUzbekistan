@@ -1134,6 +1134,25 @@ namespace KasabaKIAT.Controllers
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="Name"></param>
+        /// <param name="Inn"></param>
+        /// <param name="OtrasId"></param>
+        /// <returns></returns>
+        [OutputCache(Duration = 5, Location = OutputCacheLocation.Client, VaryByCustom = "userId")]
+        public JsonResult GetOrganizationFilterM(string Name, string Inn, int? OtrasId)
+        {
+            int UserId = Convert.ToInt32(User.Identity.Name);
+            var ustinfo = UserInfo.GetUserInfo(UserId);
+
+            var list = Sprav_Org.GetByDeraprtmentBaseM(ustinfo.DepartmentBase, Name, Inn, OtrasId);
+
+            return Json(list.ToList().Take(30), JsonRequestBehavior.AllowGet);
+        }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
         /// <param name="formCollection"></param>
         /// <returns></returns>
         public async Task<JsonResult> OrganizationOtrasl(FormCollection formCollection)
@@ -1303,7 +1322,7 @@ namespace KasabaKIAT.Controllers
             int UserId = Convert.ToInt32(User.Identity.Name);
             var ustinfo = UserInfo.GetUserInfo(UserId);
 
-            var list = Sprav_Org.GetFizLisoList(Name, Inn, Pas_ser, Pas_Number);
+            var list = Sprav_Org.GetFizLisoList(Name, Inn, Pas_ser, Pas_Number, ustinfo.DepartmentBase);
 
             return Json(list.ToList().Take(30), JsonRequestBehavior.AllowGet);
         }

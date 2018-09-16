@@ -1,4 +1,5 @@
 ﻿using KasabaKIAT.BusinessLogic._3_Etap.Statistika.Stat_ViewModels;
+using KasabaKIAT.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +9,7 @@ namespace KasabaKIAT.BusinessLogic._3_Etap.Statistika
 {
     public static class StatDataContainer
     {
-        public static Dictionary<string,IBaseStatViewModel> statDataPerUser { get; set; }
+        public static Dictionary<string, IBaseStatViewModel> statDataPerUser { get; set; }
 
         public static IBaseStatViewModel GetStataData(string depCode, long role_id, int? cur_year, int? cur_kvartal)
         {
@@ -30,6 +31,7 @@ namespace KasabaKIAT.BusinessLogic._3_Etap.Statistika
                 }
                 else
                 {
+                    _statModel.AktivUsers = AktiveUsersCount();
                     return _statModel;
                 }
             }
@@ -40,6 +42,16 @@ namespace KasabaKIAT.BusinessLogic._3_Etap.Statistika
                 statDataPerUser.Add(depCode, result);
 
                 return result;
+            }
+        }
+
+
+        public static int? AktiveUsersCount()
+        {
+            using (KasabaKIATEntities db = new KasabaKIATEntities())
+            {
+
+                return db.sp_stat_AktiveUsersList("", 0, 0).FirstOrDefault();
             }
         }
     }

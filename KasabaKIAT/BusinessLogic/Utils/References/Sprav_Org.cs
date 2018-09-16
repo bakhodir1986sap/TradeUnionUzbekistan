@@ -381,10 +381,10 @@ namespace KasabaKiat.BusinessLogic.Utils.References
 
             using (KasabaKIATEntities db = new KasabaKIATEntities())
             {
-                var queryRes = from org in db.tblSprav_Org.Take(30)
+                var queryRes = from org in db.tblSprav_Org
                                    //join otras in db.tblSprav_Otras on org.ID_Ot equals otras.ID_Ot
                                    //join region in db.tblSprav_Reg on org.Region equals region.CodeReg
-                               where org.DepartmentBase.Contains(departmentBase) && org.FACE_TYPE == 0
+                               where org.DepartmentBase == (departmentBase.Equals("17") ? org.DepartmentBase : departmentBase) && org.FACE_TYPE == 0
                                //&& otras.DepartmentBase == departmentBase
                                orderby org.Name_Org
                                select new Sprav_OrgViewModel
@@ -419,7 +419,7 @@ namespace KasabaKiat.BusinessLogic.Utils.References
                                    to_depcode = org.TO_DEPCODE
                                };
 
-                list = queryRes.ToList();
+                list = queryRes.Take(30).ToList();
 
                 var otrasList = db.tblSprav_Otras.Where(s => s.DepartmentBase == departmentBase).ToList();
 
@@ -478,7 +478,7 @@ namespace KasabaKiat.BusinessLogic.Utils.References
                 var queryRes = from org in db.tblSprav_Org
                                    //join otras in db.tblSprav_Otras on org.ID_Ot equals otras.ID_Ot
                                    //join region in db.tblSprav_Reg on org.Region equals region.CodeReg
-                               where org.DepartmentBase.Contains(departmentBase)
+                               where org.DepartmentBase == (departmentBase.Equals("17") ? org.DepartmentBase : departmentBase)
                                //&& otras.DepartmentBase == departmentBase
                                && (org.Name_Org.Contains((IsNameEmpty ? org.Name_Org : Name)))
                                && (org.INN.Contains((IsInnEmpty ? org.INN : Inn)))
@@ -517,7 +517,7 @@ namespace KasabaKiat.BusinessLogic.Utils.References
                                    to_depcode = org.TO_DEPCODE
                                };
 
-                list = queryRes.ToList();
+                list = queryRes.Take(30).ToList();
 
                 var otrasList = db.tblSprav_Otras.Where(s => s.DepartmentBase == departmentBase).ToList();
 
@@ -702,7 +702,7 @@ namespace KasabaKiat.BusinessLogic.Utils.References
                 var queryRes = from org in db.tblSprav_Org
                                    //join otras in db.tblSprav_Otras on org.ID_Ot equals otras.ID_Ot
                                    //join region in db.tblSprav_Reg on org.Region equals region.CodeReg
-                               where org.DepartmentBase == departmentBase && org.FACE_TYPE == 0
+                               where org.DepartmentBase == (departmentBase.Equals("17")? org.DepartmentBase : departmentBase) && org.FACE_TYPE == 0
                                //&& otras.DepartmentBase == departmentBase
                                && org.ID == Id
                                orderby org.Name_Org

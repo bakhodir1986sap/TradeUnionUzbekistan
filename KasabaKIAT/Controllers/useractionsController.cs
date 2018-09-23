@@ -10,26 +10,78 @@ using System.Web.Mvc;
 using KasabaKIAT.Models;
 using PagedList.Mvc;
 using PagedList;
+using System.Globalization;
+using System.Data.Entity.Core.Objects;
 
 namespace KasabaKIAT.Controllers
 {
     public class useractionsController : Controller
     {
         private KasabaKIATEntities db = new KasabaKIATEntities();
-
+        static string actionNameL;
+        static string userNameL;
         // GET: useractions
         public ActionResult Index(int? page, string actionNamez = null, string userName = null)
         {
             //var useractions = db.useractions.Include(u => u.users);
             //return View(await useractions.ToListAsync());
 
-            int pageSize = 15;
+            if (!string.IsNullOrEmpty(actionNameL))
+            {
+                if (!string.IsNullOrEmpty(actionNamez))
+                {
+                    if (!actionNamez.Equals(actionNameL))
+                    {
+                        actionNameL = actionNamez;
+                    }
+                }
+            }
+            else
+            {
+                actionNameL = actionNamez;
+            }
+
+            if (!string.IsNullOrEmpty(userNameL))
+            {
+                if (!string.IsNullOrEmpty(userName))
+                {
+                    if (!userName.Equals(userNameL))
+                    {
+                        userNameL = userName;
+                    }
+                }
+            }
+            else
+            {
+                userNameL = userName;
+            }
+
+            DateTime dateparam;
+
+            if (DateTime.TryParseExact(actionNameL , "dd.MM.yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None , out dateparam))
+            {
+
+            }
+            else
+            {
+                dateparam = DateTime.MinValue;
+            }
+
+            int pageSize = 50;
             int pageNumber = (page ?? 1);
             return View(db.useractions.
                 Include(u => u.users).
-                Where(z=>z.action == ((actionNamez == null || actionNamez =="") ? z.action : actionNamez) 
-                && z.users.user_name == ((userName == null || userName == "") ? z.users.user_name : userName))
-                .OrderByDescending(z => z.id).Take(100).ToList().ToPagedList(pageNumber, pageSize));
+                Where(z=>z.action.Contains(actionNameL) ||
+                DbFunctions.TruncateTime(z.accesstime.Value) == 
+                (dateparam == DateTime.MinValue && (actionNameL == null || actionNameL == "") ? 
+                DbFunctions.TruncateTime(z.accesstime.Value) : 
+                DbFunctions.TruncateTime(dateparam)) ||
+                z.classname.Contains(actionNameL) ||
+                z.users.user_name.Contains(actionNameL) ||
+                z.object_name.Contains(actionNameL) ||
+                z.action == ((actionNameL == null || actionNameL == "") ? z.action : actionNameL)
+                )
+                .OrderByDescending(z => z.id).Take(300).ToList().ToPagedList(pageNumber, pageSize));
         }
 
         // GET: useractions/Details/5

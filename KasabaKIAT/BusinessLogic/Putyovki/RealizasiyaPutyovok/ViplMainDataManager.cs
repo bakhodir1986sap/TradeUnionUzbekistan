@@ -29,7 +29,7 @@ namespace KasabaKiat.BusinessLogic.Putyovki.RealizasiyaPutyovok
                 vipl.ID_Org             = model.id_org              ;
                 vipl.Data_Post          = model.data_post           ;
 
-                if ((!string.IsNullOrEmpty(model.num_doc)) && (model.num_doc.Length == 6))
+                if (!string.IsNullOrEmpty(model.num_doc))
                 {
                     vipl.Num_Doc = model.num_doc;
                 }

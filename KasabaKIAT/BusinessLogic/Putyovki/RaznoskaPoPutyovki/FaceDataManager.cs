@@ -58,7 +58,18 @@ namespace KasabaKiat.BusinessLogic.Putyovki.RaznoskaPoPutyovki
             var mFizLiso = new Sprav_OrgViewModel();
 
             mFizLiso.Name_Org = string.Format("{0} {1} {2}", model.lastname, model.name, model.firstname);
-            mFizLiso.INN = model.inn;
+            
+
+            if (string.IsNullOrEmpty(model.inn))
+            {
+                mFizLiso.INN = Guid.NewGuid().ToString().Substring(1 , 9);
+            }
+            else
+            {
+                mFizLiso.INN = model.inn;
+            }
+
+            mFizLiso.IsPravSoyuz = false;
             mFizLiso.Adress = model.adress;
             mFizLiso.Telefon = string.Empty;
             mFizLiso.E_Mail = string.Empty;

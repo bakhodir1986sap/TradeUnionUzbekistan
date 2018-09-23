@@ -94,6 +94,8 @@
     <Folder Include="UsefulSqripts\17082018" />
     <Folder Include="ECP Analises" />
     <Folder Include="UsefulSqripts\31082018" />
+    <Folder Include="SyncronizeSqripts" />
+    <Folder Include="UsefulSqripts\20092018" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="Procedures\sp_rt_FormaN13_1.sql" />
@@ -153,5 +155,7 @@
     <None Include="UsefulSqripts\17082018\17082018.sql" />
     <None Include="ECP Analises\Differs.sql" />
     <None Include="UsefulSqripts\31082018\31082018.sql" />
+    <None Include="SyncronizeSqripts\OrgAndDepartmentBaseSync.sql" />
+    <None Include="UsefulSqripts\20092018\20092018.sql" />
   </ItemGroup>
 </Project>

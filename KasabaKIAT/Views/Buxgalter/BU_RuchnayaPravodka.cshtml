@@ -1,6 +1,6 @@
 ﻿@using KasabaKIAT.BusinessLogic.Security.Roles.RolePermissions;
 @{
-    ViewBag.Title = "бухгалтерия";
+    ViewBag.Title = "Бухгалтерия";
     var UserId = Convert.ToInt32(User.Identity.Name);
     FunctionalityList List = FunctionalityAndDbDataMatch.MatchProcess(UserId);
 }

@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Administrirovaniye" xml:space="preserve">
-    <value>Администрирование</value>
+    <value>Админ.</value>
   </data>
   <data name="AktVozvrataPutyovok" xml:space="preserve">
     <value>Акт возврата путевок</value>

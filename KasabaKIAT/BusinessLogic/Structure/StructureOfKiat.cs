@@ -570,6 +570,11 @@ namespace KasabaKIAT.BusinessLogic.Structure
                         {
                             return "17";
                         }
+                        else
+                        {
+                            //Temir yo'l Olmaliq NGMK
+                            return "17";
+                        }
                     }
                     else if (departmentCode.Length == 2)
                     {

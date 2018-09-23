@@ -61,7 +61,7 @@ namespace KasabaKIAT.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Администрирование.
+        ///   Looks up a localized string similar to Админ..
         /// </summary>
         public static string Administrirovaniye {
             get {

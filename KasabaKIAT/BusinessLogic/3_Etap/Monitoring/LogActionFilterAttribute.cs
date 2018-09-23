@@ -59,7 +59,7 @@ namespace KasabaKIAT.BusinessLogic._3_Etap.Monitoring
                 
                 if (unsaved >= 1)
                 {
-                    db.SaveChanges();
+                    db.SaveChangesAsync();
                     unsaved = 0;
                 }
             }

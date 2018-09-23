@@ -2,6 +2,29 @@
     LoadDATA();
     $scope.showdata = false;
     $scope.showdata2 = false;
+
+
+    GetRekvizits();
+
+    function GetRekvizits() {
+        document.getElementById('connection').style.visibility = "visible";
+        $("#hh").modal({
+            backdrop: 'static'
+        });
+        $http({
+            method: 'get',
+            url: '/Home/GetRekvizit'
+        }).then(function (response) {
+            $scope.Rekvizits = response.data;
+            document.getElementById('connection').style.visibility = "hidden";
+            $("#hh").modal('hide');
+        }, function (error) {
+            alertify.error("ошибка");
+            console.log("error in GetRekvizits");
+            document.getElementById('connection').style.visibility = "hidden";
+            $("#hh").modal('hide');
+        });
+    }
     
     function LoadDATA() {
         document.getElementById('connection').style.visibility = "visible";
@@ -76,11 +99,11 @@
         var GZ = {
             plat_date: $scope.PD,
             plat_num: $scope.N,
-            platelname: $scope.P1NAME,
-            platelinn: $scope.P1INN,
-            platelraschet: $scope.P1SCH,
-            platelbankname: $scope.P1BN,
-            platelbankmfo: $scope.P1MFO,
+            platelname: $scope.Rekvizits.ID_Name,
+            platelinn: $scope.Rekvizits.INN,
+            platelraschet: $scope.Rekvizits.RS,
+            platelbankname: $scope.Rekvizits.Name_bank,
+            platelbankmfo: $scope.Rekvizits.MFO,
             poluchname: $scope.P2NAME,
             poluchinn: $scope.P2INN,
             poluchraschet: $scope.P2SCH,
@@ -88,7 +111,7 @@
             poluchbankmfo: $scope.P2MFO,
             summa: $scope.SUM,
             comment: $scope.COM,
-            rukovoditel: $scope.R,
+            rukovoditel: $scope.Rekvizits.Name_Dir,
             glavbux: $scope.GB,
 
         };
@@ -164,7 +187,11 @@
             backdrop: 'static'
         });
 
-        var doc = new jsPDF();
+        var doc = new jsPDF({
+            orientation: 'p',
+            unit: 'mm',
+            format: [297, 210]
+        });
         var width = doc.internal.pageSize.width;
         var height = doc.internal.pageSize.height;
         var utf_8_string_to_render = 'any_value_you_want';
@@ -172,7 +199,7 @@
                 [
                     new Promise(function (resolve) {
                         var temp = document.createElement("div");
-                        temp.id = "temp";
+                        temp.id = "printplat";
                         temp.style = "color:black;margin:0px;font-size:20px;";
                         //black
                         phrase = utf_8_string_to_render;
@@ -180,19 +207,37 @@
                         //need to render element, otherwise it won't be displayed
                         document.body.appendChild(temp);
 
-                        html2canvas($("#temp"), {
+                        html2canvas($("#printplat"), {
                             onrendered: function (canvas) {
 
                                 // $("#temp").remove();
-                                //width = canvas.width;
-                                //height =canvas.height;
+                                width = canvas.width;
+                                height =canvas.height;
                                 resolve(canvas.toDataURL('image/png'));
                             },
                         });
                     })
                 ]).then(function (ru_text) {
-                    doc.addImage(ru_text[0], 'JPEG', 10, 10, (width - 20), (height - 20)/2);
-                    //doc.text(0, 10, 'Non-utf-8-string');
+                    //doc.addImage(ru_text[0], 'JPEG', 10, 10, (width - 20), (height - 20));
+                    ////doc.text(0, 10, 'Non-utf-8-string');
+
+                    var imgWidth = 210;
+                    var pageHeight = 295;
+                    var imgHeight = height * imgWidth / width;
+                    var heightLeft = imgHeight;
+
+                    var doc = new jsPDF('p', 'mm');
+                    var position = 0;
+
+                    doc.addImage(ru_text[0], 'PNG', 0, position, imgWidth, imgHeight);
+                    heightLeft -= pageHeight;
+
+                    while (heightLeft >= 0) {
+                        position = heightLeft - imgHeight;
+                        doc.addPage();
+                        doc.addImage(ru_text[0], 'PNG', 0, position, imgWidth, imgHeight);
+                        heightLeft -= pageHeight;
+                    }
 
                     doc.save('Платежное поручение.pdf');
                     document.getElementById('connection').style.visibility = "hidden";

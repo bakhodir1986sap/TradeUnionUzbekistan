@@ -18,14 +18,17 @@
     <div class="row mb-4">
         <div class="col-md-6">
             <div class="list-group r-list-group mb-4 box-shadow">
+                @if (@ustinfo.IsPrivOrg)
+                {
                 <a href="/Otchot/OtchetZayavki" class="list-group-item list-group-item-action load">Заявки</a>
+                }
                 <a href="/Otchot/OtchetOrganizasii" class="list-group-item list-group-item-action load">Организации</a>
                 <a href="/Otchot/OtchetPostupleniya" class="list-group-item list-group-item-action load">Поступление</a>
                 <a href="/Otchot/OtchetPutevki" class="list-group-item list-group-item-action load">Путевки</a>
                 <a href="/Otchot/OtchetBuxgalteriya" class="list-group-item list-group-item-action load">Бухгалтерия</a>
                 <a href="/Otchot/OtchetJurnalniyeOrdera" class="list-group-item list-group-item-action load">Журнальные Ордера</a>
                 <a href="/Otchot/OtchetMonitoring" class="list-group-item list-group-item-action load">Мониторинг</a>
-                
+
             </div>
         </div>
     </div>

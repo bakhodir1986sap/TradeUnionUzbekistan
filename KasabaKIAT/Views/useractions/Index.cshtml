@@ -27,20 +27,20 @@
         @using (Html.BeginForm("Index", "useractions", new { page = 1 }, FormMethod.Get))
         {
             @Html.Raw("       ");
-            @Html.Label("Действие") @Html.Raw(" ");
+            @Html.Label("Поиск") @Html.Raw(" ");
             @Html.TextBox("actionNamez") @Html.Raw(" ");
-            @Html.Label("Пользователь") @Html.Raw(" ");
-            @Html.TextBox("userName") @Html.Raw(" ");
+            @*@Html.Label("Пользователь") @Html.Raw(" ");
+            @Html.TextBox("userName") @Html.Raw(" ");*@
             <button type="submit">Посмотреть Историю</button>// style as a link if desired
 
         }
-        <button ng-click="exportData()" class="btn btn-green d-block d-md-inline-block mb-3 mb-md-0" style="margin-left:50px"><i class="fas fa-file-excel"></i> Экспорт</button>
+        <button ng-click="exportData2()" class="btn btn-green d-block d-md-inline-block mb-3 mb-md-0" style="margin-left:50px"><i class="fas fa-file-excel"></i> Экспорт</button>
     </p>
     <div class="table-responsive box-shadow mb-4" id="export">
         <table class="table">
             <tr>
                 <th>
-                    Версия
+                    Номер
                 </th>
                 <th>
                     Дата
@@ -64,7 +64,7 @@
             {
                 <tr>
                     <td>
-                        @Html.DisplayFor(modelItem => item.version)
+                        @Html.DisplayFor(modelItem => item.id)
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.accesstime)

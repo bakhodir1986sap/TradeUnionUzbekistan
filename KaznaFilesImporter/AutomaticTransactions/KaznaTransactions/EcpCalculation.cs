@@ -1749,6 +1749,16 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.Provodki.AutomaticTransactions.K
                                             , org.Region.Value,
                                             org.PRAVORGLEVEL.Value,
                                             org.ID, db);
+
+                                var depbase = new t_departmentbase
+                                {
+                                    code = org.OWNER_CODE,
+                                    name_ru = org.Name_Org,
+                                    name_uz = org.Name_Org,
+                                    name_uzl = org.Name_Org
+                                };
+
+                                db.t_departmentbase.Add(depbase);
                             }
                             catch (Exception ex)
                             {

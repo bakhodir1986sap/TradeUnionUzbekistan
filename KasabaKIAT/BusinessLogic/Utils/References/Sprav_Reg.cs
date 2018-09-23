@@ -116,7 +116,7 @@ namespace KasabaKiat.BusinessLogic.Utils.References
 
             using (KasabaKIATEntities db = new KasabaKIATEntities())
             {
-                if (IsPriv)
+                if (!IsPriv)
                 {
                     var queryRes = from procent in db.tblSprav_Reg
                                    where procent.DepartmentBase.Equals(departmentCode)

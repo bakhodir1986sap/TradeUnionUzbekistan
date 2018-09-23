@@ -61,6 +61,12 @@
             <div class="row">
                 <div class="col-md-5">
                     <h5 class="h50">Данные о накладных</h5>
+                     <div class="btn-panel mb-20 text-md-left">
+                        <a href="#" ng-click="AddNakladnoy()" class="btn btn-blue d-block d-md-inline-block mb-3 mt-20" data-toggle="modal" data-target="#dobavit">Добавить</a>
+                        @*<a href="#" class="btn btn-danger d-block d-md-inline-block mb-3 mt-20">Удалить</a>*@
+                        <a @*href="@Url.Action("ReportTemplate", "Report",
+                        new { ReportName = "Оперативка по путевкам", ReportDescription = "Оперативка по путевкам", Width = 100, Height = 650 })"*@ class="btn btn-grey d-block d-md-inline-block mb-3 mt-20" @*ng-click="printDiv('schetfaktura')"*@ ng-click="SchetFakturaPrint()"><i class="fa fa-print"></i>Печать</a>
+                    </div>
                     <div class="table-responsive box-shadow table-fixed mb-4 mt-20">
                         <table class="table table__block t-hover table__small table-fixed">
                             <thead>
@@ -112,17 +118,23 @@
                             </tbody>
                         </table>
                     </div>
-                    <div class="btn-panel mb-20 text-md-right">
-                        <a href="#" ng-click="AddNakladnoy()" class="btn btn-blue d-block d-md-inline-block mb-3 mt-20" data-toggle="modal" data-target="#dobavit">Добавить</a>
-                        @*<a href="#" class="btn btn-danger d-block d-md-inline-block mb-3 mt-20">Удалить</a>*@
-                        <a @*href="@Url.Action("ReportTemplate", "Report",
-                        new { ReportName = "Оперативка по путевкам", ReportDescription = "Оперативка по путевкам", Width = 100, Height = 650 })"*@ class="btn btn-grey d-block d-md-inline-block mb-3 mt-20" @*ng-click="printDiv('schetfaktura')"*@ ng-click="SchetFakturaPrint()"><i class="fa fa-print"></i>Печать</a>
-                    </div>
                 </div>
 
                 <div class="col-md-7">
 
                     <h5 style="height:50px">Данные о путевках по № {{CurrentNakladnoy.num_doc}} {{CurrentNakladnoy.organizationName}}</h5>
+                     <div class="row">
+                        <div class="col-md-8">
+                            <a href="#" class="btn btn-blue" ng-click="AddPutyovkas()" data-toggle="modal" data-target="#dobavit2">Добавить</a>
+                            <a href="#" class="btn btn-danger" ng-click="UdalitPutyovku()">Удалить</a>
+                            @*<a href="#" class="btn btn-grey">Распечатать</a>
+                                <a href="#" class="btn btn-grey">Кнопка</a>*@
+                        </div>
+                        <div class="col-md-4 text-md-right mb-4">
+                            <p class="mb-0">Общее количество <strong>{{PutyovkaDtlSummar.PutyovkaCount}}</strong></p>
+                            <p>Общяя сумма <strong>{{PutyovkaDtlSummar.SummaNakladnix| currency:' '}}</strong></p>
+                        </div>
+                    </div>
                     <div class="table-responsive box-shadow table-fixed mb-4 mt-20">
                         <table class="table table__block table__small">
                             <thead>
@@ -175,18 +187,7 @@
                             </tbody>
                         </table>
                     </div>
-                    <div class="row">
-                        <div class="col-md-8">
-                            <a href="#" class="btn btn-blue" ng-click="AddPutyovkas()" data-toggle="modal" data-target="#dobavit2">Добавить</a>
-                            <a href="#" class="btn btn-danger" ng-click="UdalitPutyovku()">Удалить</a>
-                            @*<a href="#" class="btn btn-grey">Распечатать</a>
-                                <a href="#" class="btn btn-grey">Кнопка</a>*@
-                        </div>
-                        <div class="col-md-4 text-md-right mb-4">
-                            <p class="mb-0">Общее количество <strong>{{PutyovkaDtlSummar.PutyovkaCount}}</strong></p>
-                            <p>Общяя сумма <strong>{{PutyovkaDtlSummar.SummaNakladnix| currency:' '}}</strong></p>
-                        </div>
-                    </div>
+
                 </div>
             </div>
         </section>

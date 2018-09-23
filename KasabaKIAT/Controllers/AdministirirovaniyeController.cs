@@ -1799,6 +1799,9 @@ namespace KasabaKIAT.Controllers
 
             List<UserViewModel> list = new List<UserViewModel>();
 
+            int UserId = Convert.ToInt32(User.Identity.Name);
+            var ustinfo = UserInfo.GetUserInfo(UserId);
+
             try
             {
                 var Users = from u in KasabaDB.users
@@ -1858,6 +1861,11 @@ namespace KasabaKIAT.Controllers
                     {
                         var dept = departments.First();
 
+                        if (!dept.code.StartsWith(ustinfo.DepartmentBase))
+                        {
+                            continue;
+                        }
+
                         uu.O_id = dept.id;
 
                         if (!string.IsNullOrEmpty(dept.name_ru))
@@ -1903,11 +1911,31 @@ namespace KasabaKIAT.Controllers
                 {
                     using (KasabaKIATEntities contextObj = new KasabaKIATEntities())
                     {
+                        long departmentId = 0;
+                        var user1s = contextObj.users.Where(z => z.id == pz.id);
+
+                        var orgs = contextObj.tblSprav_Org.Where(z => z.ID == pz.bkut_id);
+
+                        if (orgs.Any())
+                        {
+                            var ownerDepcode = orgs.First().OWNER_CODE;
+
+                            if (!string.IsNullOrEmpty(ownerDepcode))
+                            {
+                                var deps = contextObj.t_departmentbase.Where(z => z.code == ownerDepcode);
+
+                                if (deps.Any())
+                                {
+                                    departmentId = deps.First().id;
+                                }
+                            }
+                        }
+
                         users uu = new users();
 
                         uu.email = pz.email;
                         uu.password = pz.password;
-                        uu.bkuq_id = pz.bkut_id;
+                        uu.bkuq_id = departmentId;
                         uu.role_id = pz.role_id;
                         uu.s_comment = pz.s_comment;
 
@@ -1948,8 +1976,25 @@ namespace KasabaKIAT.Controllers
                 {
                     using (KasabaKIATEntities contextObj = new KasabaKIATEntities())
                     {
-
+                        long departmentId = 0;
                         var user1s = contextObj.users.Where(z => z.id == pz.id);
+
+                        var orgs = contextObj.tblSprav_Org.Where(z => z.ID == pz.bkut_id);
+
+                        if (orgs.Any())
+                        {
+                            var ownerDepcode = orgs.First().OWNER_CODE;
+
+                            if (!string.IsNullOrEmpty(ownerDepcode))
+                            {
+                                var deps = contextObj.t_departmentbase.Where(z => z.code == ownerDepcode);
+
+                                if (deps.Any())
+                                {
+                                    departmentId = deps.First().id;
+                                }
+                            }
+                         }
 
                         if (user1s.Any())
                         {
@@ -1957,7 +2002,7 @@ namespace KasabaKIAT.Controllers
 
                             user1.email = pz.email;
                             user1.password = pz.password;
-                            user1.bkut_id = pz.bkut_id;
+                            user1.bkut_id = departmentId;
                             user1.role_id = pz.role_id;
                             user1.s_comment = pz.s_comment;
                         }

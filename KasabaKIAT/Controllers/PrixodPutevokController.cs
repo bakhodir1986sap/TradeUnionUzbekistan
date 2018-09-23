@@ -39,6 +39,7 @@ using KasabaKIAT.BusinessLogic.Putyovki.PutyovkiHistory;
 using KasabaKIAT.BusinessLogic.Putyovki.OplataPutyovok.Template;
 using KasabaKIAT.BusinessLogic.ClosePeriod.CloseKvartal;
 using KasabaKIAT.BusinessLogic._3_Etap.Statistika;
+using System.Data.Entity.Validation;
 
 namespace KasabaKIAT.Controllers
 {
@@ -3963,7 +3964,21 @@ namespace KasabaKIAT.Controllers
 
                 await raznoska.SaveChanges(model);
             }
-            catch(Exception ex)
+            catch (DbEntityValidationException e)
+            {
+                foreach (var eve in e.EntityValidationErrors)
+                {
+                    Console.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
+                        eve.Entry.Entity.GetType().Name, eve.Entry.State);
+                    foreach (var ve in eve.ValidationErrors)
+                    {
+                        Console.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
+                            ve.PropertyName, ve.ErrorMessage);
+                    }
+                }
+                throw;
+            }
+            catch (Exception ex)
             {
                 log.Error(ex.ToString());
             }
@@ -4004,6 +4019,20 @@ namespace KasabaKIAT.Controllers
                 var raznoska = new RaznoskaPutyovok();
 
                 await raznoska.SaveChanges(model);
+            }
+            catch (DbEntityValidationException e)
+            {
+                foreach (var eve in e.EntityValidationErrors)
+                {
+                    Console.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
+                        eve.Entry.Entity.GetType().Name, eve.Entry.State);
+                    foreach (var ve in eve.ValidationErrors)
+                    {
+                        Console.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
+                            ve.PropertyName, ve.ErrorMessage);
+                    }
+                }
+                throw;
             }
             catch (Exception ex)
             {

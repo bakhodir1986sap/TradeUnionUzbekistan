@@ -67,4 +67,11 @@
         });
         saveAs(blob, "Поступление Группированно По Областям.xls");
     };
+
+    $scope.exportData2 = function () {
+        var blob = new Blob([document.getElementById('export').innerHTML], {
+            type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=utf-8"
+        });
+        saveAs(blob, "Логи.xls");
+    };
 }]);

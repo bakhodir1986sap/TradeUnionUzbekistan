@@ -132,7 +132,7 @@
                                 <div class="form-group row align-items-center">
                                     <label class="col-md-5 col-form-label py-0">Плательщик:</label>
                                     <div class="col-md-7">
-                                        <input type="text" ng-model="P1NAME" name="P1NAME" required class="form-control" placeholder="Плательщик" />
+                                        <input type="text" ng-model="Rekvizits.ID_Name" name="P1NAME" required class="form-control" placeholder="Плательщик" />
                                         <span class="alert alert-warning" style="padding:0px" ng-show="myForm.P1NAME.$error.required">заполнить поле</span>
                                         @*<select class="custom-select form-control mb-3">
                                             <option>Плательщик</option>
@@ -141,7 +141,7 @@
                                             <option>Option 3</option>
                                         </select>*@
                                         <div class="text__block">
-                                            <p>ИНН: <strong><input type="text" name="P1INN" ng-model="P1INN" ng-minlength="9" ng-maxlength="9" required class="form-control" placeholder="ИНН" /></strong></p>
+                                            <p>ИНН: <strong><input type="text" name="P1INN" ng-model="Rekvizits.INN" ng-minlength="9" ng-maxlength="9" required class="form-control" placeholder="ИНН" /></strong></p>
                                             <span class="alert alert-warning" style="padding:0px" ng-show="myForm.P1INN.$error.required">заполнить поле</span>
                                             <span class="alert alert-warning" style="padding:0px" ng-show="!myForm.P1INN.$error.required&&!myForm.P1INN.$valid">9 шт. номер</span>
                                         </div>
@@ -150,7 +150,7 @@
                                 <div class="form-group row align-items-center">
                                     <label class="col-md-5 col-form-label py-0">№ счета:</label>
                                     <div class="col-md-7">
-                                        <input type="text" ng-model="P1SCH" name="P1SCH" required class="form-control" placeholder="№ счета" />
+                                        <input type="text" ng-model="Rekvizits.RS" name="P1SCH" required class="form-control" placeholder="№ счета" />
                                         <span class="alert alert-warning" style="padding:0px" ng-show="myForm.P1SCH.$error.required">заполнить поле</span>
                                         @*<select class="custom-select form-control">
                                             <option>№ счета</option>
@@ -163,7 +163,7 @@
                                 <div class="form-group row align-items-center">
                                     <label class="col-md-5 col-form-label py-0">Банк:</label>
                                     <div class="col-md-7">
-                                        <input type="text" ng-model="P1BN" name="P1BN" required class="form-control" placeholder="Банк" />
+                                        <input type="text" ng-model="Rekvizits.Name_bank" name="P1BN" required class="form-control" placeholder="Банк" />
                                         <span class="alert alert-warning" style="padding:0px" ng-show="myForm.P1BN.$error.required">заполнить поле</span>
                                         @*<select class="custom-select form-control mb-3">
                                             <option>Банк</option>
@@ -172,7 +172,7 @@
                                             <option>Option 3</option>
                                         </select>*@
                                         <div class="text__block">
-                                            <p>Код банка: <strong><input type="text" name="P1MFO" ng-model="P1MFO" required class="form-control" placeholder="Код банка" /></strong></p>
+                                            <p>Код банка: <strong><input type="text" name="P1MFO" ng-model="Rekvizits.MFO" required class="form-control" placeholder="Код банка" /></strong></p>
                                             <span class="alert alert-warning" style="padding:0px" ng-show="myForm.P1MFO.$error.required">заполнить поле</span>
                                         </div>
                                     </div>
@@ -245,7 +245,7 @@
                                 <div class="form-group row align-items-center">
                                     <label class="col-md-5 col-form-label py-0">Руководитель:</label>
                                     <div class="col-md-7">
-                                        <input type="text" ng-model="R" name="R" required class="form-control" placeholder="Руководитель" />
+                                        <input type="text" ng-model="Rekvizits.Name_Dir" name="R" required class="form-control" placeholder="Руководитель" />
                                         <span class="alert alert-warning" style="padding:0px" ng-show="myForm.R.$error.required">заполнить поле</span>
                                     </div>
                                 </div>
@@ -265,17 +265,18 @@
                             </form>
                         </div>
                     </div>
+
                 </div>
             </div>
         </div>
 
 
         <div class="modal__block modal fade" style="width:120%;margin-left:-200px"  id="export" tabindex="-1" role="dialog" aria-labelledby="dobavitLabel">
-            <div class="modal-dialog modal-dialog-centered modal-lg" style="width:120%;display:block"  role="document">
-                <div class="modal-content" style="width:120%;display:block" >
+            <div class="modal-dialog modal-dialog-centered modal-lg" style="width:120%;display:block" role="document">
+                <div class="modal-content" style="width:120%;display:block">
                     <div class="modal-body">
                         <button ng-click="cmd1()" class="btn btn-grey d-block d-md-inline-block mb-2">Печать</button>
-                        <table class="table table-nobordered table-sm" id="temp">
+                        <table class="table table-nobordered table-sm" id="printplat">
                             <tr>
                                 <td></td>
                                 <td colspan="2" class="text-center">ТЎЛОВ ТОПШИРИҚНОМАСИ</td>
@@ -350,7 +351,140 @@
                             </tr>
                             <tr>
                                 <td class="text-center">Тўлов мақсади</td>
-                                <td colspan="7" class="border border-dark"></td>
+                                <td colspan="7" class="border border-dark">{{d14}}</td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td>Раис</td>
+                                <td colspan="2" class="border-bottom border-dark">{{d15}}</td>
+                                <td colspan="3"></td>
+                            </tr>
+                            <tr>
+                                <td class="text-center"><strong>М.У.</strong></td>
+                                <td></td>
+                                <td>Бош ҳисобчи</td>
+                                <td colspan="2" class="border-bottom border-dark">{{d16}}</td>
+                                <td colspan="3"></td>
+                            </tr>
+                            <tr>
+                                <td colspan="8"></td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td class="border-top border-left border-dark"></td>
+                                <td class="border-top border-dark"></td>
+                                <td class="border-top border-dark"></td>
+                                <td class="border-top border-dark"></td>
+                                <td class="border-top border-right border-dark"></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td class="text-center border-left border-dark">БАНК</td>
+                                <td class="border border-dark text-center">Текширди</td>
+                                <td class="border border-dark text-center">Маъқуллади</td>
+                                <td class="border border-dark text-center">Банкдан ўтказилди</td>
+                                <td class="border-right border-dark"></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td class="border-left border-dark"></td>
+                                <td class="border border-dark text-center" style="height:50px"></td>
+                                <td class="border border-dark text-center" style="height:50px"></td>
+                                <td class="border border-dark text-center" style="height:50px"></td>
+                                <td class="border-right border-dark"></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td class="border-bottom border-left border-dark"></td>
+                                <td class="border-bottom border-dark"></td>
+                                <td class="border-bottom border-dark"></td>
+                                <td class="border-bottom border-dark"></td>
+                                <td class="border-bottom border-right border-dark"></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td colspan="2" class="text-center">ТЎЛОВ ТОПШИРИҚНОМАСИ</td>
+                                <td></td>
+                                <td class="border border-dark">{{d2}}</td>
+                                <td></td>
+                                <td colspan="2"></td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">САНА</td>
+                                <td colspan="2" class="border border-dark">{{d1 | jsonDate: 'dd.MM.yyyy'}}</td>
+                                <td colspan="5" class="border-0"></td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">Тўловчи</td>
+                                <td colspan="7" class="border-bottom border-dark">{{d3}}</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center border-0">ДЕБЕТ</td>
+                                <td colspan="7"></td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">Тўловчинингҳисоб рақами</td>
+                                <td colspan="4" class="border border-dark">{{d5}}</td>
+                                <td class="text-right">ИНН</td>
+                                <td colspan="2" class="border border-dark">{{d4}}</td>
+                            </tr>
+                            <tr>
+                                <td colspan="8"></td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">Тўловчининг банки</td>
+                                <td colspan="4" class="border-bottom border-dark">{{d6}}</td>
+                                <td class="text-center">Тўловчи банккоди</td>
+                                <td colspan="2" class="border border-dark">{{d7}}</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">СУММА</td>
+                                <td colspan="4" class="border-bottom border-dark">{{d13}}</td>
+                                <td colspan="3"></td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">Олувчи</td>
+                                <td colspan="7" class="border-bottom border-dark">{{d8}}</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">КРЕДИТ</td>
+                                <td colspan="7"></td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">Олувчинингҳисоб рақами</td>
+                                <td colspan="4" class="border border-dark">{{d10}}</td>
+                                <td class="text-right">ИНН</td>
+                                <td colspan="2" class="border border-dark">{{d9}}</td>
+                            </tr>
+                            <tr>
+                                <td colspan="8"></td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">Олувчининг банки</td>
+                                <td colspan="4" class="border-bottom border-dark">{{d11}}</td>
+                                <td class="text-center">Олувчибанк коди</td>
+                                <td colspan="2" class="border border-dark">{{d12}}</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">Сумма сўз билан ёзилади</td>
+                                <td colspan="5" class="border-bottom border-dark">{{d17}}</td>
+                                <td colspan="2"></td>
+                            </tr>
+                            <tr>
+                                <td colspan="8"></td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">Тўлов мақсади</td>
+                                <td colspan="7" class="border border-dark">{{d14}}</td>
                             </tr>
                             <tr>
                                 <td></td>

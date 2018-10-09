@@ -311,6 +311,8 @@ namespace KurortUrvServiceTest.ServiceInterAction.ActionLogic
 
                 DocumentSchetFakturaDataManager.Add(ref model);
 
+                if (resTop.StrokiSchetaFakturi == null) continue;
+
                 foreach (var doc in resTop.StrokiSchetaFakturi)
                 {
                     StrokaSchetFakturiViewModel dtlModel = new StrokaSchetFakturiViewModel();

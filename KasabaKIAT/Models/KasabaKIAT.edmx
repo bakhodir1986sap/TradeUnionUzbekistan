@@ -1737,6 +1737,16 @@ warning 6002: The table/view 'KasabaKIAT_N1.dbo.tbbTabel' does not have a primar
           <Property Name="Symma" Type="money" />
           <Property Name="UserId" Type="bigint" />
         </EntityType>
+        <EntityType Name="tbbu_AccountPlan">
+          <Key>
+            <PropertyRef Name="REC_ID" />
+          </Key>
+          <Property Name="REC_ID" Type="bigint" Nullable="false" />
+          <Property Name="ACCOUNT_CODE" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="USE_TYPE" Type="int" />
+          <Property Name="DESCRIPTION" Type="text" />
+          <Property Name="PARENT_ID" Type="bigint" />
+        </EntityType>
         <EntityType Name="tbbu_balance">
           <Key>
             <PropertyRef Name="REC_ID" />
@@ -1777,6 +1787,20 @@ warning 6002: The table/view 'KasabaKIAT_N1.dbo.tbbTabel' does not have a primar
           <Property Name="ADEP_CODE" Type="nvarchar" MaxLength="255" />
           <Property Name="GRPID" Type="bigint" />
           <Property Name="BANK_DATE" Type="datetime" />
+        </EntityType>
+        <EntityType Name="tbbu_FinOtchetSave">
+          <Key>
+            <PropertyRef Name="REC_ID" />
+          </Key>
+          <Property Name="REC_ID" Type="bigint" Nullable="false" />
+          <Property Name="YEAR" Type="int" />
+          <Property Name="KVARTAL" Type="int" />
+          <Property Name="PART" Type="int" />
+          <Property Name="CODE" Type="varchar" MaxLength="10" />
+          <Property Name="PLAN_AMOUNT" Type="money" />
+          <Property Name="FACT_AMOUNT" Type="money" />
+          <Property Name="USER_ID" Type="bigint" />
+          <Property Name="DEPARTMENT_CODE" Type="nvarchar" MaxLength="255" />
         </EntityType>
         <EntityType Name="tbbu_finOtchetSetting">
           <Key>
@@ -6479,6 +6503,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <Parameter Name="parol" Type="nvarchar" Mode="In" />
           <Parameter Name="bkit_id" Type="bigint" Mode="In" />
           <Parameter Name="role_id" Type="bigint" Mode="In" />
+          <Parameter Name="comment" Type="nvarchar" Mode="In" />
         </Function>
         <Function Name="userUpdate" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="userId" Type="bigint" Mode="In" />
@@ -6486,6 +6511,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <Parameter Name="parol" Type="nvarchar" Mode="In" />
           <Parameter Name="bkit_id" Type="bigint" Mode="In" />
           <Parameter Name="role_id" Type="bigint" Mode="In" />
+          <Parameter Name="comment" Type="nvarchar" Mode="In" />
         </Function>
         <Function Name="uspLogin" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="login" Type="nvarchar" Mode="In" />
@@ -6575,8 +6601,10 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <EntitySet Name="tbbKartoch" EntityType="Self.tbbKartoch" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbbOplata" EntityType="Self.tbbOplata" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbbOtchet" EntityType="Self.tbbOtchet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbbu_AccountPlan" EntityType="Self.tbbu_AccountPlan" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbbu_balance" EntityType="Self.tbbu_balance" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbbu_ecp_calc" EntityType="Self.tbbu_ecp_calc" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbbu_FinOtchetSave" EntityType="Self.tbbu_FinOtchetSave" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbbu_finOtchetSetting" EntityType="Self.tbbu_finOtchetSetting" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbbu_nastroykiProvodok" EntityType="Self.tbbu_nastroykiProvodok" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbbu_planbyudjetregion" EntityType="Self.tbbu_planbyudjetregion" Schema="dbo" store:Type="Tables" />
@@ -14200,19 +14228,6 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
             <End Role="tblVipl_Put" EntitySet="tblVipl_Put" />
           </AssociationSet>
           <EntitySet Name="tblSanatDataCompares" EntityType="KasabaKIATModel.tblSanatDataCompare" />
-          <FunctionImport Name="userAdd">
-            <Parameter Name="login" Mode="In" Type="String" />
-            <Parameter Name="parol" Mode="In" Type="String" />
-            <Parameter Name="bkit_id" Mode="In" Type="Int64" />
-            <Parameter Name="role_id" Mode="In" Type="Int64" />
-          </FunctionImport>
-          <FunctionImport Name="userUpdate">
-            <Parameter Name="userId" Mode="In" Type="Int64" />
-            <Parameter Name="login" Mode="In" Type="String" />
-            <Parameter Name="parol" Mode="In" Type="String" />
-            <Parameter Name="bkit_id" Mode="In" Type="Int64" />
-            <Parameter Name="role_id" Mode="In" Type="Int64" />
-          </FunctionImport>
           <EntitySet Name="tblFiles" EntityType="KasabaKIATModel.tblFile" />
           <AssociationSet Name="FK_tblOplata_tbbu_provodki" Association="KasabaKIATModel.FK_tblOplata_tbbu_provodki">
             <End Role="tbbu_provodki" EntitySet="tbbu_provodki" />
@@ -14488,6 +14503,23 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
             <Parameter Name="YEAR" Mode="In" Type="Int32" />
             <Parameter Name="KVARTAL" Mode="In" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="userAdd">
+            <Parameter Name="login" Mode="In" Type="String" />
+            <Parameter Name="parol" Mode="In" Type="String" />
+            <Parameter Name="bkit_id" Mode="In" Type="Int64" />
+            <Parameter Name="role_id" Mode="In" Type="Int64" />
+            <Parameter Name="comment" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="userUpdate">
+            <Parameter Name="userId" Mode="In" Type="Int64" />
+            <Parameter Name="login" Mode="In" Type="String" />
+            <Parameter Name="parol" Mode="In" Type="String" />
+            <Parameter Name="bkit_id" Mode="In" Type="Int64" />
+            <Parameter Name="role_id" Mode="In" Type="Int64" />
+            <Parameter Name="comment" Mode="In" Type="String" />
+          </FunctionImport>
+          <EntitySet Name="tbbu_AccountPlan" EntityType="KasabaKIATModel.tbbu_AccountPlan" />
+          <EntitySet Name="tbbu_FinOtchetSave" EntityType="KasabaKIATModel.tbbu_FinOtchetSave" />
           </EntityContainer>
         <ComplexType Name="sp_get_BankPaymentCompanyYearlyQ_Result">
           <Property Type="Int32" Name="MONTH_NUM" Nullable="true" />
@@ -16429,6 +16461,30 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="tbbu_AccountPlan">
+          <Key>
+            <PropertyRef Name="REC_ID" />
+          </Key>
+          <Property Name="REC_ID" Type="Int64" Nullable="false" />
+          <Property Name="ACCOUNT_CODE" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="USE_TYPE" Type="Int32" />
+          <Property Name="DESCRIPTION" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="PARENT_ID" Type="Int64" />
+        </EntityType>
+        <EntityType Name="tbbu_FinOtchetSave">
+          <Key>
+            <PropertyRef Name="REC_ID" />
+          </Key>
+          <Property Name="REC_ID" Type="Int64" Nullable="false" />
+          <Property Name="YEAR" Type="Int32" />
+          <Property Name="KVARTAL" Type="Int32" />
+          <Property Name="PART" Type="Int32" />
+          <Property Name="CODE" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="PLAN_AMOUNT" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="FACT_AMOUNT" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="USER_ID" Type="Int64" />
+          <Property Name="DEPARTMENT_CODE" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -20303,8 +20359,6 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="userAdd" FunctionName="KasabaKIATModel.Store.userAdd" />
-          <FunctionImportMapping FunctionImportName="userUpdate" FunctionName="KasabaKIATModel.Store.userUpdate" />
           <EntitySetMapping Name="tblFiles">
             <EntityTypeMapping TypeName="KasabaKIATModel.tblFile">
               <MappingFragment StoreEntitySet="tblFile">
@@ -20603,6 +20657,34 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
             </EntityTypeMapping>
           </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="sp_stat_AktiveUsersList" FunctionName="KasabaKIATModel.Store.sp_stat_AktiveUsersList" />
+          <FunctionImportMapping FunctionImportName="userAdd" FunctionName="KasabaKIATModel.Store.userAdd" />
+          <FunctionImportMapping FunctionImportName="userUpdate" FunctionName="KasabaKIATModel.Store.userUpdate" />
+          <EntitySetMapping Name="tbbu_AccountPlan">
+            <EntityTypeMapping TypeName="KasabaKIATModel.tbbu_AccountPlan">
+              <MappingFragment StoreEntitySet="tbbu_AccountPlan">
+                <ScalarProperty Name="PARENT_ID" ColumnName="PARENT_ID" />
+                <ScalarProperty Name="DESCRIPTION" ColumnName="DESCRIPTION" />
+                <ScalarProperty Name="USE_TYPE" ColumnName="USE_TYPE" />
+                <ScalarProperty Name="ACCOUNT_CODE" ColumnName="ACCOUNT_CODE" />
+                <ScalarProperty Name="REC_ID" ColumnName="REC_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbbu_FinOtchetSave">
+            <EntityTypeMapping TypeName="KasabaKIATModel.tbbu_FinOtchetSave">
+              <MappingFragment StoreEntitySet="tbbu_FinOtchetSave">
+                <ScalarProperty Name="DEPARTMENT_CODE" ColumnName="DEPARTMENT_CODE" />
+                <ScalarProperty Name="USER_ID" ColumnName="USER_ID" />
+                <ScalarProperty Name="FACT_AMOUNT" ColumnName="FACT_AMOUNT" />
+                <ScalarProperty Name="PLAN_AMOUNT" ColumnName="PLAN_AMOUNT" />
+                <ScalarProperty Name="CODE" ColumnName="CODE" />
+                <ScalarProperty Name="PART" ColumnName="PART" />
+                <ScalarProperty Name="KVARTAL" ColumnName="KVARTAL" />
+                <ScalarProperty Name="YEAR" ColumnName="YEAR" />
+                <ScalarProperty Name="REC_ID" ColumnName="REC_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

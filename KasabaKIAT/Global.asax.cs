@@ -41,14 +41,23 @@ namespace KasabaKIAT
 
         public override string GetVaryByCustomString(HttpContext context, string custom)
         {
-            if (custom == "userId")
+            try
             {
-                return User.Identity.Name;
+                if (custom == "userId")
+                {
+                    return User.Identity.Name;
+                }
+                else
+                {
+                    return base.GetVaryByCustomString(context, custom);
+                }
             }
-            else
+            catch (Exception ex)
             {
-                return base.GetVaryByCustomString(context, custom);
+                log.Error(ex);
             }
+
+            return base.GetVaryByCustomString(context, custom);
         }
 
         protected void Application_Error()

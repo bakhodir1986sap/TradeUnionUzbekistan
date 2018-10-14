@@ -21,11 +21,9 @@
 
     //Initialize Part
     GetYearsList();
-    GetKvartalList();
-    GetOtraslForOrganization();
-    GetCurBusinessTime();
-    GetOrganizationList();
-    GetSanatories();
+
+    
+    
     //Models
 
 
@@ -86,13 +84,17 @@
 
             $scope.SelectedKvartal.ID = response.data.CurKvartal;
 
+            GetOrganizationList();
             GetData();
 
             document.getElementById('connection').style.visibility = "hidden";
             $("#hh").modal('hide');
-        }, function (error) {
+            }, function (error) {
+                console.log(error);
+            GetYearsList();
             alertify.error("ошибка");
             console.log("error in GetCurBusinessTime");
+            console.log(error);
             document.getElementById('connection').style.visibility = "hidden";
             $("#hh").modal('hide');
         });
@@ -108,14 +110,17 @@
             url: '/Reference/GetYears'
         }).then(function (response) {
             $scope.Years = response.data;
+            GetKvartalList();
             document.getElementById('connection').style.visibility = "hidden";
             $("#hh").modal('hide');
-        }, function (error) {
-            alertify.error("ошибка");
-            console.log("error in GetYearsList");
-            document.getElementById('connection').style.visibility = "hidden";
-            $("#hh").modal('hide');
-        });
+            }, function (error) {
+                console.log(error);
+                GetYearsList();
+                alertify.error("ошибка");
+                console.log(error);
+                document.getElementById('connection').style.visibility = "hidden";
+                $("#hh").modal('hide');
+         });
     }
 
     function GetKvartalList() {
@@ -128,11 +133,14 @@
             url: '/Reference/GetKvartals'
         }).then(function (response) {
             $scope.Kvartals = response.data;
+            GetOtraslForOrganization();
             document.getElementById('connection').style.visibility = "hidden";
             $("#hh").modal('hide');
-        }, function (error) {
+            }, function (error) {
+                console.log(error);
+            GetYearsList();
             alertify.error("ошибка");
-            console.log("error in GetKvartalList");
+            
             document.getElementById('connection').style.visibility = "hidden";
             $("#hh").modal('hide');
         });
@@ -148,9 +156,13 @@
             url: '/PrixodPutevok/GetOrganizationList'
         }).then(function (response) {
             $scope.OrganizationsL = response.data;
+            GetSanatories();
             document.getElementById('connection').style.visibility = "hidden";
             $("#hh").modal('hide');
-        }, function (error) {
+            }, function (error) {
+                console.log(error);
+                GetYearsList();
+                
             alertify.error("ошибка");
             console.log("error in GetOrganizationList");
             document.getElementById('connection').style.visibility = "hidden";
@@ -170,7 +182,9 @@
             $scope.Sanatories = response.data;
             document.getElementById('connection').style.visibility = "hidden";
             $("#hh").modal('hide');
-        }, function (error) {
+            }, function (error) {
+                console.log(error);
+                GetYearsList();
             alertify.error("ошибка");
             console.log("error in GetSanatories");
             document.getElementById('connection').style.visibility = "hidden";
@@ -188,13 +202,16 @@
             url: '/PrixodPutevok/GetOtraslForOrganizationRasxod'
         }).then(function (response) {
             $scope.Otrasl = response.data;
+            GetCurBusinessTime();
             document.getElementById('connection').style.visibility = "hidden";
             $("#hh").modal('hide');
-        }, function (error) {
-            alertify.error("ошибка");
-            console.log("error in GetRekvizits");
-            document.getElementById('connection').style.visibility = "hidden";
-            $("#hh").modal('hide');
+            }, function (error) {
+                console.log(error);
+                GetYearsList();
+                alertify.error("ошибка");
+                console.log(error);
+                document.getElementById('connection').style.visibility = "hidden";
+                $("#hh").modal('hide');
         });
     }
 
@@ -308,7 +325,8 @@
 
             document.getElementById('connection').style.visibility = "hidden";
             $("#hh").modal('hide');
-        }, function (error) {
+            }, function (error) {
+                console.log(error);
             alertify.error("ошибка");
             console.log("error in GetYearsList");
             document.getElementById('connection').style.visibility = "hidden";
@@ -336,7 +354,8 @@
             $scope.TotalResults = response.data;
             document.getElementById('connection').style.visibility = "hidden";
             $("#hh").modal('hide');
-        }, function (error) {
+            }, function (error) {
+                console.log(error);
             alertify.error("ошибка");
             console.log("error in GetTotalResults");
             document.getElementById('connection').style.visibility = "hidden";

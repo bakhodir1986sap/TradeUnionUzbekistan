@@ -991,13 +991,17 @@ namespace KasabaKIAT.Controllers
         /// 
         /// </summary>
         /// <returns></returns>
-        [OutputCache(Duration = 5, Location = OutputCacheLocation.Client, VaryByCustom = "userId")]
+        [OutputCache(Duration = 500, Location = OutputCacheLocation.Client, VaryByCustom = "userId")]
         public JsonResult GetOtraslForOrganization()
         {
+            log.Info("GetOtraslForOrganization");
+
             int UserId = Convert.ToInt32(User.Identity.Name);
             var ustinfo = UserInfo.GetUserInfo(UserId);
 
             var otrasList = Sprav_Otras.GetByDepartmentBase(ustinfo.DepartmentBase);
+
+            log.Info(otrasList);
 
             return Json(otrasList.ToList(), JsonRequestBehavior.AllowGet);
         }
@@ -1007,9 +1011,11 @@ namespace KasabaKIAT.Controllers
         /// 
         /// </summary>
         /// <returns></returns>
-        [OutputCache(Duration = 5, Location = OutputCacheLocation.Client, VaryByCustom = "userId")]
+        [OutputCache(Duration = 500, Location = OutputCacheLocation.Client, VaryByCustom = "userId")]
         public JsonResult GetOtraslForOrganizationRasxod()
         {
+            log.Info("GetOtraslForOrganizationRasxod");
+
             int UserId = Convert.ToInt32(User.Identity.Name);
             var ustinfo = UserInfo.GetUserInfo(UserId);
 
@@ -1019,6 +1025,8 @@ namespace KasabaKIAT.Controllers
             obj.ID_Ot = -999;
             obj.Name_Ot = "Все отрасли";
             otrasList.Add(obj);
+
+            log.Info(otrasList);
 
             return Json(otrasList.ToList(), JsonRequestBehavior.AllowGet);
         }
@@ -1105,10 +1113,14 @@ namespace KasabaKIAT.Controllers
         [OutputCache(Duration = 5, Location = OutputCacheLocation.Client, VaryByCustom = "userId")]
         public JsonResult GetOrganizationList()
         {
+            log.Info("GetOrganizationList");
+
             int UserId = Convert.ToInt32(User.Identity.Name);
             var ustinfo = UserInfo.GetUserInfo(UserId);
 
             var list = Sprav_Org.GetByDeraprtmentBase(ustinfo.DepartmentBase);
+
+            log.Info(list);
 
             return Json(list.ToList().Take(30), JsonRequestBehavior.AllowGet);
         }

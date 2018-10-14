@@ -309,6 +309,11 @@ namespace KurortUrvServiceTest.ServiceInterAction.ActionLogic
 
                 DocumentSchetFakturaDataManager.DeleteAlreadyLoaded(model);
 
+                if (model.DocTypeRealVozv.Equals("Р") && string.IsNullOrEmpty(model.ProfsoyzDogovor.Trim()))
+                {
+                    continue;
+                }
+
                 DocumentSchetFakturaDataManager.Add(ref model);
 
                 if (resTop.StrokiSchetaFakturi == null) continue;

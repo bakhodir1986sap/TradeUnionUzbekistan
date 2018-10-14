@@ -1,7 +1,9 @@
-﻿using KasabaKiat.Helpers;
+﻿using KasabaKiat.BusinessLogic.Utils;
+using KasabaKiat.Helpers;
 using KasabaKIAT.BusinessLogic.Buxgalteriya.ECP_Management;
 using KasabaKIAT.BusinessLogic.Buxgalteriya.GlavnayaKniga;
 using KasabaKIAT.BusinessLogic.Buxgalteriya.PlanirovaniyaBudjeta.Region;
+using KasabaKIAT.BusinessLogic.Buxgalteriya.PlanProvodok;
 using KasabaKIAT.BusinessLogic.Buxgalteriya.PrixodChastichka;
 using KasabaKIAT.BusinessLogic.Buxgalteriya.Provodki;
 using KasabaKIAT.BusinessLogic.ClosePeriod.CloseDay;
@@ -101,6 +103,38 @@ namespace KasabaKIAT.Controllers
             await KasabaDB.SaveChangesAsync();
 
             return "yes";
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="amount"></param>
+        /// <returns></returns>
+        public string GetSummaDescriptionFor(string amount)
+        {
+            double summa;
+
+            if (double.TryParse(amount , out summa))
+            {
+                return RuDateAndMoneyConverter.CurrencyToTxt((double)summa, true);
+            }
+
+            return "0";
+        }
+
+
+        public JsonResult GetSchetDebit()
+        {
+            var list = AccountTypeDataManager.GetDebitSchets();
+
+            return Json(list, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GetSchetCredit()
+        {
+            var list = AccountTypeDataManager.GetCreditSchets();
+
+            return Json(list, JsonRequestBehavior.AllowGet);
         }
 
         /// <summary>

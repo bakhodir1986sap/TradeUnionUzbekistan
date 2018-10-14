@@ -3,6 +3,7 @@ using KasabaKiat.Helpers;
 using KasabaKIAT.BusinessLogic.Utils;
 using KasabaKIAT.BusinessLogic.Utils.References;
 using KasabaKIAT.Models;
+using log4net;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +15,8 @@ namespace KasabaKIAT.Controllers
 {
     public class ReferenceController : Controller
     {
+        ILog log = log4net.LogManager.GetLogger(typeof(ReferenceController));
+
         // GET: Reference
         public ActionResult Index()
         {
@@ -24,13 +27,17 @@ namespace KasabaKIAT.Controllers
         /// 
         /// </summary>
         /// <returns></returns>
-        [OutputCache(Duration = 5, Location = OutputCacheLocation.Client, VaryByCustom = "userId")]
+        [OutputCache(Duration = 500, Location = OutputCacheLocation.Client, VaryByCustom = "userId")]
         public JsonResult GetYears()
         {
+            log.Info("GetYears");
+
             var obj = new RefYars();
 
             var list = obj.GetYears();
 
+            log.Info(list);
+
             return Json(list, JsonRequestBehavior.AllowGet);
         }
 
@@ -38,10 +45,14 @@ namespace KasabaKIAT.Controllers
         /// 
         /// </summary>
         /// <returns></returns>
-        [OutputCache(Duration = 5, Location = OutputCacheLocation.Client, VaryByCustom = "userId")]
+        [OutputCache(Duration = 500, Location = OutputCacheLocation.Client, VaryByCustom = "userId")]
         public JsonResult GetKvartals()
         {
+            log.Info("GetKvartals");
+
             var list = Sprav_Kv.Get(new Sprav_KvViewModel() { });
+
+            log.Info(list);
 
             return Json(list, JsonRequestBehavior.AllowGet);
         }
@@ -50,14 +61,18 @@ namespace KasabaKIAT.Controllers
         /// 
         /// </summary>
         /// <returns></returns>
-        [OutputCache(Duration = 5, Location = OutputCacheLocation.Client, VaryByCustom = "userId")]
+        [OutputCache(Duration = 500, Location = OutputCacheLocation.Client, VaryByCustom = "userId")]
         public JsonResult GetOrganization()
         {
+            log.Info("GetOrganization");
+
             int UserId = Convert.ToInt32(User.Identity.Name);
             var ustinfo = UserInfo.GetUserInfo(UserId);
 
             var list = Sprav_Org.GetByDeraprtmentBase(ustinfo.DepartmentBase);
 
+            log.Info(list);
+
             return Json(list, JsonRequestBehavior.AllowGet);
         }
 
@@ -65,7 +80,7 @@ namespace KasabaKIAT.Controllers
         /// 
         /// </summary>
         /// <returns></returns>
-        [OutputCache(Duration = 5, Location = OutputCacheLocation.Client, VaryByCustom = "userId")]
+        [OutputCache(Duration = 500, Location = OutputCacheLocation.Client, VaryByCustom = "userId")]
         public JsonResult TotalCountOfOrganization()
         {
             int UserId = Convert.ToInt32(User.Identity.Name);
@@ -81,7 +96,7 @@ namespace KasabaKIAT.Controllers
         /// 
         /// </summary>
         /// <returns></returns>
-        [OutputCache(Duration = 5, Location = OutputCacheLocation.Client, VaryByCustom = "userId")]
+        [OutputCache(Duration = 500, Location = OutputCacheLocation.Client, VaryByCustom = "userId")]
         public JsonResult TotalCountOfNeotOrganization()
         {
             int UserId = Convert.ToInt32(User.Identity.Name);
@@ -99,7 +114,7 @@ namespace KasabaKIAT.Controllers
         /// <param name="Name"></param>
         /// <param name="Inn"></param>
         /// <returns></returns>.
-        [OutputCache(Duration = 5, Location = OutputCacheLocation.Client, VaryByCustom = "userId")]
+        [OutputCache(Duration = 500, Location = OutputCacheLocation.Client, VaryByCustom = "userId")]
         public JsonResult GetOrganization(string Name, string Inn)
         {
             int UserId = Convert.ToInt32(User.Identity.Name);
@@ -114,7 +129,7 @@ namespace KasabaKIAT.Controllers
         /// 
         /// </summary>
         /// <returns></returns>
-        [OutputCache(Duration = 5, Location = OutputCacheLocation.Client, VaryByCustom = "userId")]
+        [OutputCache(Duration = 500, Location = OutputCacheLocation.Client, VaryByCustom = "userId")]
         public JsonResult GetTipOplati()
         {
             var list = tbcs_dictionaryDataManager.Get("TipOplati");
@@ -127,7 +142,7 @@ namespace KasabaKIAT.Controllers
         /// 
         /// </summary>
         /// <returns></returns>
-        [OutputCache(Duration = 5, Location = OutputCacheLocation.Client, VaryByCustom = "userId")]
+        [OutputCache(Duration = 500, Location = OutputCacheLocation.Client, VaryByCustom = "userId")]
         public JsonResult GetVidOplati()
         {
             var list = tbcs_dictionaryDataManager.Get("VidOplati");
@@ -139,7 +154,7 @@ namespace KasabaKIAT.Controllers
         /// 
         /// </summary>
         /// <returns></returns>
-        [OutputCache(Duration = 5, Location = OutputCacheLocation.Client, VaryByCustom = "userId")]
+        [OutputCache(Duration = 500, Location = OutputCacheLocation.Client, VaryByCustom = "userId")]
         public JsonResult GetPol()
         {
             var list = new List<SpravCodeDecode>();
@@ -167,7 +182,7 @@ namespace KasabaKIAT.Controllers
         /// 
         /// </summary>
         /// <returns></returns>
-        [OutputCache(Duration = 5, Location = OutputCacheLocation.Client, VaryByCustom = "userId")]
+        [OutputCache(Duration = 500, Location = OutputCacheLocation.Client, VaryByCustom = "userId")]
         public JsonResult GetLoadSide()
         {
             var list = new List<SpravCodeDecode>();
@@ -195,7 +210,7 @@ namespace KasabaKIAT.Controllers
         /// Osnovaniye vidachi
         /// </summary>
         /// <returns></returns>
-        [OutputCache(Duration = 5, Location = OutputCacheLocation.Client, VaryByCustom = "userId")]
+        [OutputCache(Duration = 500, Location = OutputCacheLocation.Client, VaryByCustom = "userId")]
         public JsonResult GetOsnovaniyaVidachi()
         {
             var list = Sprav_Face.Get();
@@ -207,9 +222,11 @@ namespace KasabaKIAT.Controllers
         /// Tip Vidachi
         /// </summary>
         /// <returns></returns>
-        [OutputCache(Duration = 5, Location = OutputCacheLocation.Client, VaryByCustom = "userId")]
+        [OutputCache(Duration = 500, Location = OutputCacheLocation.Client, VaryByCustom = "userId")]
         public JsonResult GetTipVidachi()
         {
+            log.Info("GetTipVidachi");
+
             var list = Sprav_Os.Get();
 
             return Json(list, JsonRequestBehavior.AllowGet);
@@ -219,7 +236,7 @@ namespace KasabaKIAT.Controllers
         /// Procentnaya stavka
         /// </summary>
         /// <returns></returns>
-        [OutputCache(Duration = 5, Location = OutputCacheLocation.Client, VaryByCustom = "userId")]
+        [OutputCache(Duration = 500, Location = OutputCacheLocation.Client, VaryByCustom = "userId")]
         public JsonResult GetProcentZaPutyovki()
         {
             var list = Sprav_Pr.Get();
@@ -231,7 +248,7 @@ namespace KasabaKIAT.Controllers
         /// Rekomendovanniye sanatorii
         /// </summary>
         /// <returns></returns>
-        [OutputCache(Duration = 5, Location = OutputCacheLocation.Client, VaryByCustom = "userId")]
+        [OutputCache(Duration = 500, Location = OutputCacheLocation.Client, VaryByCustom = "userId")]
         public JsonResult GetRecommendedSanatory()
         {
             var list = Sprav_San.Get();
@@ -244,10 +261,14 @@ namespace KasabaKIAT.Controllers
         /// General sanatorii
         /// </summary>
         /// <returns></returns>
-        [OutputCache(Duration = 5, Location = OutputCacheLocation.Client, VaryByCustom = "userId")]
+        [OutputCache(Duration = 500, Location = OutputCacheLocation.Client, VaryByCustom = "userId")]
         public JsonResult GetSanatories()
         {
+            log.Info("GetSanatories");
+
             var list = Sprav_San.Get();
+
+            log.Info(list);
 
             return Json(list, JsonRequestBehavior.AllowGet);
         }
@@ -256,7 +277,7 @@ namespace KasabaKIAT.Controllers
         /// 
         /// </summary>
         /// <returns></returns>
-        [OutputCache(Duration = 5, Location = OutputCacheLocation.Client, VaryByCustom = "userId")]
+        [OutputCache(Duration = 500, Location = OutputCacheLocation.Client, VaryByCustom = "userId")]
         public JsonResult GetPravsoyuzList()
         {
             using (KasabaKIATEntities db = new KasabaKIATEntities())
@@ -271,7 +292,7 @@ namespace KasabaKIAT.Controllers
         /// 
         /// </summary>
         /// <returns></returns>
-        [OutputCache(Duration = 5, Location = OutputCacheLocation.Client, VaryByCustom = "userId")]
+        [OutputCache(Duration = 500, Location = OutputCacheLocation.Client, VaryByCustom = "userId")]
         public JsonResult GetPravLevel()
         {
             var list = new List<SpravCodeDecode>();
@@ -324,7 +345,7 @@ namespace KasabaKIAT.Controllers
         /// </summary>
         /// <param name="inn"></param>
         /// <returns></returns>
-        [OutputCache(Duration = 5, Location = OutputCacheLocation.Client, VaryByParam = "inn", VaryByCustom = "userId")]
+        [OutputCache(Duration = 500, Location = OutputCacheLocation.Client, VaryByParam = "inn", VaryByCustom = "userId")]
         public JsonResult GetOrgDataByInn(string inn)
         {
             if (string.IsNullOrEmpty(inn))

@@ -2,6 +2,10 @@
 @{
     ViewBag.Title = "Бухгалтерия";
 }
+
+<div id="connection" style="visibility:hidden;position:absolute;margin-left:430px;z-index:9999">
+    <img src="~/Content/Login/buffering.gif" />
+</div>
 <script src="~/Scripts/MyJavaScript/OsushestvleniyeProvodki.js"></script>
 <section class="content__block container-fluid" ng-controller="OsushestvleniyeProvodki">
     <div class="row mb-4 align-items-center">
@@ -38,10 +42,10 @@
                         <input type="text" class="form-control" ng-model="P1NAME" placeholder="Получатель" />
                     </div>
                     <div class="text__block mb-4">
-                        <p>ИНН: <strong><input type="text" ng-minlength="9" ng-maxlength="9"  required ng-model="P1INN" name="P1INN" class="form-control" placeholder="ИНН" /></strong></p>
+                        <p>ИНН: <strong><input type="text" ng-minlength="9" ng-maxlength="9"  required ng-model="P1INN" name="P1INN" class="form-control" placeholder="ИНН" maxlength="9" /></strong></p>
                         <span class="alert alert-warning" style="padding:0px" ng-show="myForm.P1INN.$error.required">заполнить поле</span>
                         <span class="alert alert-warning" style="padding:0px" ng-show="!myForm.P1INN.$error.required&&!myForm.P1INN.$valid">9 шт. номер</span>
-                        <p>МФО: <strong><input type="text" ng-model="P1MFO" ng-minlength="5" ng-maxlength="5"  required name="P1MFO" class="form-control" placeholder="МФО" /></strong></p>
+                        <p>МФО: <strong><input type="text" ng-model="P1MFO" ng-minlength="5" ng-maxlength="5"  required name="P1MFO" class="form-control" placeholder="МФО" maxlength="5" /></strong></p>
                         <span class="alert alert-warning" style="padding:0px" ng-show="myForm.P1MFO.$error.required">заполнить поле</span>
                         <span class="alert alert-warning" style="padding:0px" ng-show="!myForm.P1MFO.$error.required&&!myForm.P1MFO.$valid">5 шт. номер</span>
                     </div>
@@ -49,20 +53,25 @@
                         <div class="col-md-6">
                             <label>Корреспондирующий счет дебет:</label>
                             <div class="form-group">
-                                <input type="text" ng-model="D1" class="form-control" placeholder="Корреспондирующий счет дебет" />
+                                <select class="custom-select form-control" ng-model="D1" ng-options="item as item for item in DebitList track by item"></select>
+                                @*<input type="text" ng-model="D1" class="form-control" placeholder="Корреспондирующий счет дебет" />*@
                             </div>
                         </div>
                         <div class="col-md-6">
                             <label>Корреспондирующий счет кредит:</label>
                             <div class="form-group">
-                                <input type="text" ng-model="K1" class="form-control" placeholder="Корреспондирующий счет кредит" />
+                                <select class="custom-select form-control" ng-model="K1" ng-options="item as item for item in CreditList track by item"></select>
+                                @*<input type="text" ng-model="K1" class="form-control" placeholder="Корреспондирующий счет кредит" />*@
                             </div>
                         </div>
                     </div>
                     <div class="form-group mb-4">
                         <label>Сумма:</label>
                         <div class="form-group">
-                            <input type="text" ng-model="SUM1" class="form-control" placeholder="Сумма" />
+                            <input type="number" ng-model="SUM1" class="form-control" placeholder="Сумма" ng-blur ="GetDescription()" />
+                        </div>
+                        <div class="form-group">
+                            <input type="text" ng-model="SUM_OPISANIYE" class="form-control" />
                         </div>
                     </div>
                     <div class="form-group mb-5">

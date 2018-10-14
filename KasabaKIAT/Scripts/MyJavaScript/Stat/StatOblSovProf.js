@@ -37,7 +37,8 @@
 
             document.getElementById('connection').style.visibility = "hidden";
             $("#hh").modal('hide');
-        }, function (error) {
+            }, function (error) {
+                GetStatData();
             alertify.error("ошибка");
             console.log("error in GetCurBusinessTime");
             document.getElementById('connection').style.visibility = "hidden";

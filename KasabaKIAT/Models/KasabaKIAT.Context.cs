@@ -20,7 +20,6 @@ namespace KasabaKIAT.Models
         public KasabaKIATEntities()
             : base("name=KasabaKIATEntities")
         {
-            ((IObjectContextAdapter)this).ObjectContext.CommandTimeout = 300;
         }
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -185,6 +184,8 @@ namespace KasabaKIAT.Models
         public virtual DbSet<tblZayavkiLager> tblZayavkiLagers { get; set; }
         public virtual DbSet<tblPutHist> tblPutHists { get; set; }
         public virtual DbSet<tbbu_nastroykiProvodok> tbbu_nastroykiProvodok { get; set; }
+        public virtual DbSet<tbbu_AccountPlan> tbbu_AccountPlan { get; set; }
+        public virtual DbSet<tbbu_FinOtchetSave> tbbu_FinOtchetSave { get; set; }
     
         public virtual ObjectResult<Nullable<decimal>> sp_get_BankPaymentCompanyMonthly(string inn, Nullable<int> year, Nullable<int> month)
         {
@@ -1324,52 +1325,6 @@ namespace KasabaKIAT.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_rt_JurnalniyOrder6Provodka_Result>("sp_rt_JurnalniyOrder6Provodka", yearParameter, kvartalParameter, departmentBaseParameter);
         }
     
-        public virtual int userAdd(string login, string parol, Nullable<long> bkit_id, Nullable<long> role_id)
-        {
-            var loginParameter = login != null ?
-                new ObjectParameter("login", login) :
-                new ObjectParameter("login", typeof(string));
-    
-            var parolParameter = parol != null ?
-                new ObjectParameter("parol", parol) :
-                new ObjectParameter("parol", typeof(string));
-    
-            var bkit_idParameter = bkit_id.HasValue ?
-                new ObjectParameter("bkit_id", bkit_id) :
-                new ObjectParameter("bkit_id", typeof(long));
-    
-            var role_idParameter = role_id.HasValue ?
-                new ObjectParameter("role_id", role_id) :
-                new ObjectParameter("role_id", typeof(long));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("userAdd", loginParameter, parolParameter, bkit_idParameter, role_idParameter);
-        }
-    
-        public virtual int userUpdate(Nullable<long> userId, string login, string parol, Nullable<long> bkit_id, Nullable<long> role_id)
-        {
-            var userIdParameter = userId.HasValue ?
-                new ObjectParameter("userId", userId) :
-                new ObjectParameter("userId", typeof(long));
-    
-            var loginParameter = login != null ?
-                new ObjectParameter("login", login) :
-                new ObjectParameter("login", typeof(string));
-    
-            var parolParameter = parol != null ?
-                new ObjectParameter("parol", parol) :
-                new ObjectParameter("parol", typeof(string));
-    
-            var bkit_idParameter = bkit_id.HasValue ?
-                new ObjectParameter("bkit_id", bkit_id) :
-                new ObjectParameter("bkit_id", typeof(long));
-    
-            var role_idParameter = role_id.HasValue ?
-                new ObjectParameter("role_id", role_id) :
-                new ObjectParameter("role_id", typeof(long));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("userUpdate", userIdParameter, loginParameter, parolParameter, bkit_idParameter, role_idParameter);
-        }
-    
         public virtual ObjectResult<sp_rt_PostupleniyaN_Result> sp_rt_PostupleniyaN(string iNN, string dEPARTMENT_BASE)
         {
             var iNNParameter = iNN != null ?
@@ -2121,6 +2076,60 @@ namespace KasabaKIAT.Models
                 new ObjectParameter("KVARTAL", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("sp_stat_AktiveUsersList", dEPARTMENT_BASEParameter, yEARParameter, kVARTALParameter);
+        }
+    
+        public virtual int userAdd(string login, string parol, Nullable<long> bkit_id, Nullable<long> role_id, string comment)
+        {
+            var loginParameter = login != null ?
+                new ObjectParameter("login", login) :
+                new ObjectParameter("login", typeof(string));
+    
+            var parolParameter = parol != null ?
+                new ObjectParameter("parol", parol) :
+                new ObjectParameter("parol", typeof(string));
+    
+            var bkit_idParameter = bkit_id.HasValue ?
+                new ObjectParameter("bkit_id", bkit_id) :
+                new ObjectParameter("bkit_id", typeof(long));
+    
+            var role_idParameter = role_id.HasValue ?
+                new ObjectParameter("role_id", role_id) :
+                new ObjectParameter("role_id", typeof(long));
+    
+            var commentParameter = comment != null ?
+                new ObjectParameter("comment", comment) :
+                new ObjectParameter("comment", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("userAdd", loginParameter, parolParameter, bkit_idParameter, role_idParameter, commentParameter);
+        }
+    
+        public virtual int userUpdate(Nullable<long> userId, string login, string parol, Nullable<long> bkit_id, Nullable<long> role_id, string comment)
+        {
+            var userIdParameter = userId.HasValue ?
+                new ObjectParameter("userId", userId) :
+                new ObjectParameter("userId", typeof(long));
+    
+            var loginParameter = login != null ?
+                new ObjectParameter("login", login) :
+                new ObjectParameter("login", typeof(string));
+    
+            var parolParameter = parol != null ?
+                new ObjectParameter("parol", parol) :
+                new ObjectParameter("parol", typeof(string));
+    
+            var bkit_idParameter = bkit_id.HasValue ?
+                new ObjectParameter("bkit_id", bkit_id) :
+                new ObjectParameter("bkit_id", typeof(long));
+    
+            var role_idParameter = role_id.HasValue ?
+                new ObjectParameter("role_id", role_id) :
+                new ObjectParameter("role_id", typeof(long));
+    
+            var commentParameter = comment != null ?
+                new ObjectParameter("comment", comment) :
+                new ObjectParameter("comment", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("userUpdate", userIdParameter, loginParameter, parolParameter, bkit_idParameter, role_idParameter, commentParameter);
         }
     }
 }

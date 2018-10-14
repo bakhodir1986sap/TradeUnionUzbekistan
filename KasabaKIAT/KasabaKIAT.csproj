@@ -422,6 +422,7 @@
     <Compile Include="BusinessLogic\Structure\StructureOfKiat.cs" />
     <Compile Include="BusinessLogic\Utils\amountInWords.cs" />
     <Compile Include="BusinessLogic\Utils\DateOperations.cs" />
+    <Compile Include="BusinessLogic\Utils\LinqLib.cs" />
     <Compile Include="BusinessLogic\Utils\References\ReferencesDataManager.cs" />
     <Compile Include="BusinessLogic\Utils\References\RefYars.cs" />
     <Compile Include="BusinessLogic\Utils\References\SpravCodeDecode.cs" />
@@ -808,10 +809,16 @@
     <Compile Include="Models\sp_stat_ZadoljennostListObl_Result.cs">
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\tbbu_AccountPlan.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\tbbu_balance.cs">
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tbbu_ecp_calc.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tbbu_FinOtchetSave.cs">
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tbbu_finOtchetSetting.cs">
@@ -892,6 +899,7 @@
     <Compile Include="Models\tbsp_soato_new.cs">
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
+    <Compile Include="BusinessLogic\Utils\MoreLinq\MoreEnumerable.DistinctBy.cs" />
     <Compile Include="MyRoleProvider\SiteRole.cs" />
     <Compile Include="Reports\ReportTemplate.aspx.cs">
       <DependentUpon>ReportTemplate.aspx</DependentUpon>

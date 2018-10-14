@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using MoreLinq;
 
 namespace KasabaKIAT.BusinessLogic.Buxgalteriya.PlanProvodok
 {
@@ -121,6 +122,34 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.PlanProvodok
                             };
 
                 list = query.ToList();
+            }
+
+            return list;
+        }
+
+
+        public static List<string> GetDebitSchets()
+        {
+            List<string> list = null;
+            using (KasabaKIATEntities db = new KasabaKIATEntities())
+            {
+                var provList = db.provodok.DistinctBy(z => z.score_begin.Trim()).Select(z => z.score_end);
+
+                list = provList.ToList();
+            }
+
+            return list;
+        }
+
+        public static List<string> GetCreditSchets()
+        {
+            List<string> list = null;
+            using (KasabaKIATEntities db = new KasabaKIATEntities())
+            {
+                var provList = db.provodok.DistinctBy(z => z.score_end.Trim()).Select(z=>z.score_end);
+
+
+                list = provList.ToList();
             }
 
             return list;

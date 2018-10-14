@@ -7,12 +7,18 @@ using System.Web;
 
 namespace KasabaKIAT.BusinessLogic.Buxgalteriya.GlavnayaKniga
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public enum GlavBookSt
     {
         Rows = 14,
         Cols = 15
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
     public class GlavnayaKnigaOut
     {
         //Saldo
@@ -60,6 +66,9 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.GlavnayaKniga
 
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
     public class CarcasForGlavBook
     {
         public static List<string> GetCarcas(GlavBookSt glType)
@@ -678,8 +687,27 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.GlavnayaKniga
                 tableRow.field0019=  (debitSide.oboroti["ЖО 6"])[row];
                 tableRow.field0020=  (debitSide.oboroti["ЖО 7"])[row];
                 tableRow.field0021=  (debitSide.oboroti["ЖО 11"])[row];
-                tableRow.field0022 = debitSide.zaKvartal[row];
-                tableRow.field0023 = debitSide.zaVsego[row];
+
+                tableRow.field0022 = (debitSide.oboroti["ЖО 1"])[row] + 
+                                     (debitSide.oboroti["ЖО 2"])[row] + 
+                                     (debitSide.oboroti["ЖО 3"])[row] + 
+                                     (debitSide.oboroti["ЖО 4"])[row] + 
+                                     (debitSide.oboroti["ЖО 5"])[row] + 
+                                     (debitSide.oboroti["ЖО 6"])[row] + 
+                                     (debitSide.oboroti["ЖО 7"])[row] + 
+                                     (debitSide.oboroti["ЖО 11"])[row];
+                //debitSide.zaKvartal[row];
+
+                tableRow.field0023 = debitSide.saldo[row] + 
+                                    (debitSide.oboroti["ЖО 1"])[row] + 
+                                    (debitSide.oboroti["ЖО 2"])[row] + 
+                                    (debitSide.oboroti["ЖО 3"])[row] + 
+                                    (debitSide.oboroti["ЖО 4"])[row] + 
+                                    (debitSide.oboroti["ЖО 5"])[row] + 
+                                    (debitSide.oboroti["ЖО 6"])[row] + 
+                                    (debitSide.oboroti["ЖО 7"])[row] + 
+                                    (debitSide.oboroti["ЖО 11"])[row];
+                                    //debitSide.zaVsego[row];
 
                 tableRow.field0024 = row;
 
@@ -694,11 +722,43 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.GlavnayaKniga
                 tableRow.field0033 = (creditSide.oboroti["ЖО 6"])[row];
                 tableRow.field0034 = (creditSide.oboroti["ЖО 7"])[row];
                 tableRow.field0035 = (creditSide.oboroti["ЖО 11"])[row];
-                tableRow.field0036 = creditSide.zaKvartal[row];
-                tableRow.field0037 = creditSide.zaVsego[row];
 
-                tableRow.field0038 = balanceSide.aktiv[row];
-                tableRow.field0039 = balanceSide.passiv[row];
+                tableRow.field0036 = (creditSide.oboroti["ЖО 1"])[row] + 
+                                     (creditSide.oboroti["ЖО 2"])[row] + 
+                                     (creditSide.oboroti["ЖО 3"])[row] + 
+                                     (creditSide.oboroti["ЖО 4"])[row] + 
+                                     (creditSide.oboroti["ЖО 5"])[row] + 
+                                     (creditSide.oboroti["ЖО 6"])[row] + 
+                                     (creditSide.oboroti["ЖО 7"])[row] + 
+                                     (creditSide.oboroti["ЖО 11"])[row];
+                                    //creditSide.zaKvartal[row];
+
+                tableRow.field0037 = creditSide.saldo[row] + 
+                                    (creditSide.oboroti["ЖО 1"])[row] + 
+                                    (creditSide.oboroti["ЖО 2"])[row] + 
+                                    (creditSide.oboroti["ЖО 3"])[row] + 
+                                    (creditSide.oboroti["ЖО 4"])[row] + 
+                                    (creditSide.oboroti["ЖО 5"])[row] + 
+                                    (creditSide.oboroti["ЖО 6"])[row] + 
+                                    (creditSide.oboroti["ЖО 7"])[row] + 
+                                    (creditSide.oboroti["ЖО 11"])[row];
+                //creditSide.zaVsego[row];
+
+                if (tableRow.field0023 > tableRow.field0037)
+                {
+                    tableRow.field0038 = tableRow.field0023 - tableRow.field0037;
+                    tableRow.field0039 = 0;
+                }
+                else if (tableRow.field0023 < tableRow.field0037)
+                {
+                    tableRow.field0038 = 0;
+                    tableRow.field0039 = tableRow.field0037 - tableRow.field0023;
+                }
+                else
+                {
+                    tableRow.field0038 = 0;
+                    tableRow.field0039 = 0;
+                }
 
                 tableRow.field0040 = row;
 

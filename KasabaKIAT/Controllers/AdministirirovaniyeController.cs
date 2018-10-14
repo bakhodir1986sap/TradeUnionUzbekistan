@@ -1243,6 +1243,11 @@ namespace KasabaKIAT.Controllers
             return null;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public string DeleteSTRS(string id)
         {
 
@@ -1284,6 +1289,10 @@ namespace KasabaKIAT.Controllers
  
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         [OutputCache(Duration = 5, Location = OutputCacheLocation.Client, VaryByCustom = "userId")]
         public JsonResult GetSSSP()
         {
@@ -1310,6 +1319,11 @@ namespace KasabaKIAT.Controllers
 
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="pz"></param>
+        /// <returns></returns>
         public string AddSSSP(tbpt_avarageprice pz)
         {
             log.Info("AddSSSP");
@@ -1341,6 +1355,12 @@ namespace KasabaKIAT.Controllers
 
             return null;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="pz"></param>
+        /// <returns></returns>
         public string UpdateSSSP(tbpt_avarageprice pz)
         {
             log.Info("UpdateSSSP");
@@ -1373,7 +1393,11 @@ namespace KasabaKIAT.Controllers
             return null;
         }
 
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public string DeleteSSSP(string id)
         {
             log.Info("DeleteSSSP");
@@ -1412,6 +1436,10 @@ namespace KasabaKIAT.Controllers
             return null;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         [OutputCache(Duration = 5, Location = OutputCacheLocation.Client, VaryByCustom = "userId")]
         public JsonResult GetDB()
         {
@@ -1435,6 +1463,10 @@ namespace KasabaKIAT.Controllers
             return null;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         [OutputCache(Duration = 5, Location = OutputCacheLocation.Client, VaryByCustom = "userId")]
         public JsonResult GetSP()
         {
@@ -1464,6 +1496,12 @@ namespace KasabaKIAT.Controllers
             return null;
 
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="pz"></param>
+        /// <returns></returns>
         public string AddSP(provodok pz)
         {
             log.Info("AddSP");
@@ -1497,6 +1535,12 @@ namespace KasabaKIAT.Controllers
 
             return null;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="pz"></param>
+        /// <returns></returns>
         public string UpdateSP(provodok pz)
         {
             log.Info("UpdateSP");
@@ -1530,6 +1574,12 @@ namespace KasabaKIAT.Controllers
 
             return null;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public string DeleteSP(string id)
         {
             log.Info("DeleteSP");
@@ -1567,6 +1617,9 @@ namespace KasabaKIAT.Controllers
             return null;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         private class PrivyazkaProvodokL
         {
             public int ID            {get; set;}
@@ -1576,6 +1629,12 @@ namespace KasabaKIAT.Controllers
             public bool PrivExists   {get; set;}
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="o_id"></param>
+        /// <param name="r_id"></param>
+        /// <returns></returns>
         [OutputCache(Duration = 5, Location = OutputCacheLocation.Client, VaryByParam = "o_id;r_id", VaryByCustom = "userId")]
         public JsonResult GetPP(int o_id,string r_id)
         {
@@ -1600,7 +1659,7 @@ namespace KasabaKIAT.Controllers
                 foreach(var provodka in query)
                 {
                     var privyazka = KasabaDB.p_provodok.Where(z => z.order == o_id 
-                    && z.REGION_ID == r_id 
+                    && z.DEPARTMENT_BASE == r_id 
                     && z.score_begin == provodka.SB
                     && z.score_end == provodka.SE);
 
@@ -1621,6 +1680,12 @@ namespace KasabaKIAT.Controllers
 
             return null;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="pz"></param>
+        /// <returns></returns>
         public string AddPP(p_provodok pz)
         {
             log.Info("AddPP");
@@ -1632,12 +1697,12 @@ namespace KasabaKIAT.Controllers
                     using (KasabaKIATEntities contextObj = new KasabaKIATEntities())
                     {
                         p_provodok z = new p_provodok();
-                        z.DEPARTMENT_BASE = LOAD_DEPARTMENT_CODE(pz.DEPARTMENT_BASE);
+                        z.DEPARTMENT_BASE = pz.REGION_ID;
                         z.description = pz.description;
                         z.score_begin = pz.score_begin;
                         z.score_end = pz.score_end;
                         z.order = pz.order;
-                        z.REGION_ID = pz.REGION_ID;
+                        z.REGION_ID = pz.REGION_ID.Equals("17") ? pz.REGION_ID : pz.REGION_ID.Remove(2, 1);
                         z.USER_ID = Convert.ToInt32(User.Identity.Name);
                         contextObj.p_provodok.Add(z);
                         contextObj.SaveChanges();
@@ -1656,6 +1721,12 @@ namespace KasabaKIAT.Controllers
 
             return null;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="pz"></param>
+        /// <returns></returns>
         public string UpdatePP(p_provodok pz)
         {
             log.Info("UpdatePP");
@@ -1668,12 +1739,12 @@ namespace KasabaKIAT.Controllers
                     {
                         int bookId = Convert.ToInt32(pz.id);
                         p_provodok z = contextObj.p_provodok.Where(b => b.id == bookId).FirstOrDefault();
-                        z.DEPARTMENT_BASE = LOAD_DEPARTMENT_CODE(pz.DEPARTMENT_BASE);
+                        z.DEPARTMENT_BASE = pz.REGION_ID;
                         z.description = pz.description;
                         z.score_begin = pz.score_begin;
                         z.score_end = pz.score_end;
                         z.order = pz.order;
-                        z.REGION_ID = pz.REGION_ID;
+                        z.REGION_ID = pz.REGION_ID.Equals("17") ? pz.REGION_ID : pz.REGION_ID.Remove(2, 1);
                         z.USER_ID = Convert.ToInt32(User.Identity.Name);
                         contextObj.SaveChanges();
                         return "tbcs_dictionary record updated successfully";
@@ -1691,6 +1762,12 @@ namespace KasabaKIAT.Controllers
 
             return null;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public string DeletePP(string id)
         {
             log.Info("DeletePP");
@@ -1730,6 +1807,11 @@ namespace KasabaKIAT.Controllers
             return null;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="inn"></param>
+        /// <returns></returns>
         [OutputCache(Duration = 5, Location = OutputCacheLocation.Client, VaryByParam = "inn", VaryByCustom = "userId")]
         public string LOAD_DEPARTMENT_CODE(string inn)
         {
@@ -1840,47 +1922,66 @@ namespace KasabaKIAT.Controllers
                         P = user.P
                     };
 
-                    long departmentId = 0;
-
-                    if (user.bkut_id.HasValue)
+                    try
                     {
-                        departmentId = user.bkut_id.Value;
-                    }
-                    else if (user.dep_id.HasValue)
-                    {
-                        departmentId = user.dep_id.Value;
-                    }
-                    else if (user.bkuq_id.HasValue)
-                    {
-                        departmentId = user.bkuq_id.Value;
-                    }
+                        long departmentId = 0;
 
-                    var departments = KasabaDB.t_departmentbase.Where(z => z.id == departmentId);
-
-                    if (departments.Any())
-                    {
-                        var dept = departments.First();
-
-                        if (!dept.code.StartsWith(ustinfo.DepartmentBase))
+                        if (user.bkut_id.HasValue)
                         {
-                            continue;
+                            departmentId = user.bkut_id.Value;
+                        }
+                        else if (user.dep_id.HasValue)
+                        {
+                            departmentId = user.dep_id.Value;
+                        }
+                        else if (user.bkuq_id.HasValue)
+                        {
+                            departmentId = user.bkuq_id.Value;
                         }
 
-                        uu.O_id = dept.id;
+                        var departments = KasabaDB.t_departmentbase.Where(z => z.id == departmentId);
 
-                        if (!string.IsNullOrEmpty(dept.name_ru))
+                        if (departments.Any())
                         {
-                            uu.O = dept.name_ru;
+                            var dept = departments.First();
+
+                            if (!dept.code.StartsWith(ustinfo.DepartmentBase))
+                            {
+                                continue;
+                            }
+
+                            uu.O_id = dept.id;
+
+                            if (!string.IsNullOrEmpty(dept.name_ru))
+                            {
+                                uu.O = dept.name_ru;
+                            }
+                            else if (!string.IsNullOrEmpty(dept.bkut_name))
+                            {
+                                uu.O = dept.bkut_name;
+                            }
+                            else if (!string.IsNullOrEmpty(dept.dep_name))
+                            {
+                                uu.O = dept.dep_name;
+                            }
                         }
-                        else if (!string.IsNullOrEmpty(dept.bkut_name))
+                        else
                         {
-                            uu.O = dept.bkut_name;
-                        }
-                        else if (!string.IsNullOrEmpty(dept.dep_name))
-                        {
-                            uu.O = dept.dep_name;
+                            var organizations = KasabaDB.tblSprav_Org.Where(z => z.ID == departmentId);
+
+                            if (organizations.Any())
+                            {
+                                var org = organizations.First();
+
+                                uu.O = org.Name_Org;
+                            }
                         }
                     }
+                    catch (Exception ex)
+                    {
+                        log.Error(ex);
+                    }
+ 
 
                     list.Add(uu);
                 }
@@ -1931,18 +2032,18 @@ namespace KasabaKIAT.Controllers
                             }
                         }
 
-                        users uu = new users();
+                        /*users uu = new users();
 
                         uu.email = pz.email;
                         uu.password = pz.password;
                         uu.bkuq_id = departmentId;
                         uu.role_id = pz.role_id;
-                        uu.s_comment = pz.s_comment;
+                        uu.s_comment = pz.s_comment;*/
 
-                        contextObj.users.Add(uu);
-                        //contextObj.userAdd(pz.email, pz.password, pz.bkut_id, pz.role_id);
+                        //contextObj.users.Add(uu);
+                        contextObj.userAdd(pz.email, pz.password, pz.bkut_id, pz.role_id, pz.s_comment);
 
-                        contextObj.SaveChanges();
+                        //contextObj.SaveChanges();
 
                         return "User record added successfully";
                     }
@@ -1994,20 +2095,64 @@ namespace KasabaKIAT.Controllers
                                     departmentId = deps.First().id;
                                 }
                             }
-                         }
+                            else
+                            {
+                                var org = orgs.First();
+                                t_departmentbase dd = new t_departmentbase
+                                {
+                                    inn = org.INN,
+                                    le_inn = org.ORIG_INN,
+                                    parent_code = org.DepartmentBase,
+                                    code = org.OWNER_CODE,
+                                    name_ru = org.Name_Org,
+                                    name_uz = org.Name_Org,
+                                    dtype = "Department",
+                                    version = 0
+                                };
+
+                                contextObj.t_departmentbase.Add(dd);
+
+                                contextObj.SaveChanges();
+
+                                departmentId = contextObj.t_departmentbase.Max(z => z.id);
+                            }
+                        }
+                        else
+                        {
+                            var org = orgs.First();
+                            t_departmentbase dd = new t_departmentbase
+                            {
+                                inn = org.INN,
+                                le_inn = org.ORIG_INN,
+                                parent_code = org.DepartmentBase,
+                                code = org.OWNER_CODE,
+                                name_ru = org.Name_Org,
+                                name_uz = org.Name_Org,
+                                dtype = "Department",
+                                version = 0
+                            };
+
+                            contextObj.t_departmentbase.Add(dd);
+
+                            contextObj.SaveChanges();
+
+                            departmentId = contextObj.t_departmentbase.Max(z => z.id);
+                        }
 
                         if (user1s.Any())
                         {
-                            var user1 = user1s.First();
+                            //var user1 = user1s.First();
 
-                            user1.email = pz.email;
-                            user1.password = pz.password;
-                            user1.bkut_id = departmentId;
-                            user1.role_id = pz.role_id;
-                            user1.s_comment = pz.s_comment;
+                            //user1.email = pz.email;
+                            //user1.password = pz.password;
+                            //user1.bkut_id = departmentId;
+                            //user1.role_id = pz.role_id;
+                            //user1.s_comment = pz.s_comment;
+
+                            contextObj.userUpdate(pz.id , pz.email, pz.password, departmentId, pz.role_id, pz.s_comment);
                         }
 
-                        contextObj.SaveChanges();
+                        //contextObj.SaveChanges();
                         return "User record updated successfully";
                     }
                 }
@@ -2120,13 +2265,14 @@ namespace KasabaKIAT.Controllers
 
             var userInfo = UserInfo.GetUserInfo(UserId);
 
-            var R = from r in KasabaDB.sp_soato
-                    where r.parent_code == "17"
+            var R = from r in KasabaDB.tbku_StrokaProfsoyza
+                    where r.MATCH_DEPARTMENTBASE != null
                     select new
                     {
-                        id = r.code,
-                        value = r.name_uz
+                        id = r.MATCH_DEPARTMENTBASE,
+                        value = r.ProfsoyzNaimenovanie
                     };
+
             return Json(R, JsonRequestBehavior.AllowGet);
         }
         #endregion

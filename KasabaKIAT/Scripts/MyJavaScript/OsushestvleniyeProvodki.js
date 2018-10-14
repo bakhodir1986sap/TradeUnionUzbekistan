@@ -1,5 +1,7 @@
 ﻿app.controller("OsushestvleniyeProvodki", ["$scope", "$http", "$filter", "DataService", "CalcService", function ($scope, $http, $filter, DataService, CalcService) {
     $scope.TRDT = new Date();
+    GetSchetDebit();
+    GetSchetCredit();
     //$scope.TRDT = new Date(zb.substring(6, 10), zb.substring(3, 5) - 1, zb.substring(0, 2));
     $scope.s = "option1";
     $scope.o = "option1";
@@ -25,6 +27,76 @@
                 o = true;
             }
         }
+    }
+
+    $scope.GetDescription = function GetDescription () 
+    {
+        document.getElementById('connection').style.visibility = "visible";
+        $("#hh").modal({
+            backdrop: 'static'
+        });
+        $http({
+            method: 'get',
+            url: '/Buxgalter/GetSummaDescriptionFor?amount=' + $scope.SUM1
+        }).then(function (response) {
+
+            $scope.SUM_OPISANIYE = response.data;
+
+            document.getElementById('connection').style.visibility = "hidden";
+            $("#hh").modal('hide');
+        }, function (error) {
+            
+            console.log("error in GetCurBusinessTime");
+            document.getElementById('connection').style.visibility = "hidden";
+            $("#hh").modal('hide');
+        });
+    }
+
+
+
+    function GetSchetDebit () {
+        document.getElementById('connection').style.visibility = "visible";
+        $("#hh").modal({
+            backdrop: 'static'
+        });
+        $http({
+            method: 'get',
+            url: '/Buxgalter/GetSchetDebit'
+        }).then(function (response) {
+
+            $scope.DebitList = response.data;
+
+            document.getElementById('connection').style.visibility = "hidden";
+            $("#hh").modal('hide');
+        }, function (error) {
+
+            console.log("error in GetCurBusinessTime");
+            document.getElementById('connection').style.visibility = "hidden";
+            $("#hh").modal('hide');
+        });
+    }
+
+
+    function GetSchetCredit () {
+        document.getElementById('connection').style.visibility = "visible";
+        $("#hh").modal({
+            backdrop: 'static'
+        });
+        $http({
+            method: 'get',
+            url: '/Buxgalter/GetSchetCredit'
+        }).then(function (response) {
+
+            $scope.CreditList = response.data;
+
+            document.getElementById('connection').style.visibility = "hidden";
+            $("#hh").modal('hide');
+        }, function (error) {
+
+            console.log("error in GetCurBusinessTime");
+            document.getElementById('connection').style.visibility = "hidden";
+            $("#hh").modal('hide');
+        });
     }
    
    
@@ -54,11 +126,19 @@
             data: JSON.stringify(GZ),
             dataType: "json"
         }).then(function (msg) {
-            alertify.success(msg.data);
+            alertify.success("Сохранено");
+
+            $scope.P1NAME = '';
+            $scope.P1INN = '';
+            $scope.P1MFO = '';
+            $scope.SUM1 = 0;
+            $scope.COM1 = '';
+            $scope.SUM_OPISANIYE = '';
+
         }, function () {
             $("#hh").modal('hide');
-            alertify.error("ошибка");
-            console.log('Error in EnterOsushestvleniyeProvodki');
+            alertify.error('Ошибка в счетах дебита или кредита');
+            console.log('Ошибка в счетах дебита или кредита');
         });
     }
 
@@ -87,7 +167,7 @@
             data: JSON.stringify(GZ),
             dataType: "json"
         }).then(function (msg) {
-            alertify.success(msg.data);
+            alertify.success("Сохранено");
         }, function () {
             $("#hh").modal('hide');
             alertify.error("ошибка");

@@ -385,6 +385,8 @@
         <AssociationConnector Association="KasabaKIATModel.FK_tblPutHist_users" />
         <EntityTypeShape EntityType="KasabaKIATModel.tbbu_nastroykiProvodok" Width="1.5" PointX="24.375" PointY="16.75" />
         <AssociationConnector Association="KasabaKIATModel.FK_KaznaBankFile_tbbu_provodki" />
+        <EntityTypeShape EntityType="KasabaKIATModel.tbbu_AccountPlan" Width="1.5" PointX="18.375" PointY="24.75" />
+        <EntityTypeShape EntityType="KasabaKIATModel.tbbu_FinOtchetSave" Width="1.5" PointX="24.375" PointY="19.75" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

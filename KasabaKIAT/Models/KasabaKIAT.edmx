@@ -1814,6 +1814,8 @@ warning 6002: The table/view 'KasabaKIAT_N1.dbo.tbbTabel' does not have a primar
           <Property Name="ACCOUNT_CODE" Type="nvarchar" MaxLength="30" />
           <Property Name="DATA_TYPE" Type="int" />
           <Property Name="DATA_DESC" Type="nvarchar" MaxLength="1000" />
+          <Property Name="DEPARTMENT_BASE" Type="nvarchar" MaxLength="255" />
+          <Property Name="USR_ID" Type="bigint" />
         </EntityType>
         <EntityType Name="tbbu_nastroykiProvodok">
           <Key>
@@ -16331,6 +16333,8 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <Property Name="ACCOUNT_CODE" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
           <Property Name="DATA_TYPE" Type="Int32" />
           <Property Name="DATA_DESC" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="DEPARTMENT_BASE" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="USR_ID" Type="Int64" />
         </EntityType>
         <EntityType Name="tblOtchetiLager">
           <Key>
@@ -20495,6 +20499,8 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <EntitySetMapping Name="tbbu_finOtchetSetting">
             <EntityTypeMapping TypeName="KasabaKIATModel.tbbu_finOtchetSetting">
               <MappingFragment StoreEntitySet="tbbu_finOtchetSetting">
+                <ScalarProperty Name="USR_ID" ColumnName="USR_ID" />
+                <ScalarProperty Name="DEPARTMENT_BASE" ColumnName="DEPARTMENT_BASE" />
                 <ScalarProperty Name="DATA_DESC" ColumnName="DATA_DESC" />
                 <ScalarProperty Name="DATA_TYPE" ColumnName="DATA_TYPE" />
                 <ScalarProperty Name="ACCOUNT_CODE" ColumnName="ACCOUNT_CODE" />

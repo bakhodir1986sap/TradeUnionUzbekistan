@@ -39,6 +39,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.VisualStudio.TestPlatform.TestFramework, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\MSTest.TestFramework.1.2.1\lib\net45\Microsoft.VisualStudio.TestPlatform.TestFramework.dll</HintPath>
     </Reference>
@@ -46,6 +52,11 @@
       <HintPath>..\packages\MSTest.TestFramework.1.2.1\lib\net45\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <Choose>
     <When Condition="('$(VisualStudioVersion)' == '10.0' or '$(VisualStudioVersion)' == '') and '$(TargetFrameworkVersion)' == 'v3.5'">
@@ -56,11 +67,792 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
+    <Compile Include="Balans.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="bkut_egrpo_aud.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="buildingfixedasset.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
     <Compile Include="BusinessLogic\Putyovki\PrixodPutyovok\PostMainDataManagerTests.cs" />
+    <Compile Include="eco_platej.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="eco_xs.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="fill_rate.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="frZapros.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Kartoch.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="KasabaKIAT_N1.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>KasabaKIAT_N1.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="KasabaKIAT_N1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="KasabaKIAT_N1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>KasabaKIAT_N1.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="KaznaBankFile.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="KaznaFiles.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="KaznaParseTemp.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="KaznaParseTemp_N1.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="KaznaPaymentFile.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="KaznaSverkaFile.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Kazna_Account.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="occupationalsafety.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Ot13.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Ot14.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ot_oplata.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PrivyazkaProvodok.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="provodok.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="p_provodok.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="report1ti.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="report2ti1.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="report2ti2.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="report2ti2sum.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="revinfo.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="roles.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="role_permission.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="role_permission_back.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SprSchet.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sps_translate.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_branch.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_classname.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_contracttype.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_country.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_degree.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_departmenttype.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_doctype.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_employees.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_feedback.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_files.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_fixedassettype.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_fs.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_get_BankPaymentCompanyYearlyQ_Result.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_get_BankPaymentCompanyYearMonthly_Result.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_get_BankPaymentCompanyYearQuaterMonthly_Result.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_get_BankPaymentOblastYearlyQ_Result.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_get_BankPaymentOtraslYearlyQ_Result.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_get_BankPaymentOtraslYearMonthly_Result.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_get_BankPaymentOtraslYearQuaterMonthly_Result.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_get_BankPaymentSoatoYearMonthly_Result.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_get_BankPaymentSoatoYearQuaterMonthly_Result.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_get_ProsmotrRealizovannixPutyovokDetali_Result.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_get_ProsmotrRealizovannixPutyovok_Result.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_get_RealizasiyaPutyovokDetailN_Result.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_get_RealizasiyaPutyovokDetail_Result.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_get_RealizasiyaPutyovokGroup_Result.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_measure.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_monit_MonitoringOxvataSistemi_Result.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_monit_NarusheniyaPoProvodkam_Result.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_monit_PererasxodPlanaPoFinOtchetu_Result.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_monit_PererasxodPoPutyovkam_Result.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_monit_PostupleniyeOtKaznaCheystva_Result.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_nation.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_okonx.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_okonx_aud.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_opf.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_organization.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_position.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_position1.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_pr_GetNewBankProvodki_Result.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_pr_GetNewECPMOIFY_Result.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_pr_GetNewTransactionsN1_Result.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_pr_GetNewTransactions_Result.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_rep_Razbivka_Postup_OblastTumanOtraslGroup_Result.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_rt_BalanciPredpriyatiy_Result.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_rt_FormaN13_Result.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_rt_FormaN14_Result.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_rt_GetOrganization_Result.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_rt_GlavnayaKniga_Credit_Result.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_rt_GlavnayaKniga_Debit_Result.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_rt_JurnalniyOrder4Provodka_Result.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_rt_JurnalniyOrder4_Result.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_rt_JurnalniyOrder5Provodka_Result.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_rt_JurnalniyOrder5_Result.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_rt_JurnalniyOrder6Provodka_Result.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_rt_JurnalniyOrder6_Result.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_rt_KartochkaOrganizasiiHistoriDtlPrixod_Result.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_rt_KartochkaOrganizasiiHistoriDtlRasxod_Result.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_rt_KartochkaOrganizasiiHistoriDtlVozvrat_Result.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_rt_KartochkaOrganizasiiHistory_Result.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_rt_KartochkaOrganizasiiOplata_Result.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_rt_KartochkaOrganizasiiProcentRazbivka_Result.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_rt_KartochkaOrganizasiiRasxod_Result.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_rt_KartochkaOrganizasiiVozvrat_Result.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_rt_KartochkaOrganizasii_Result.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_rt_OperativkaPutyovkiOstatok_Result.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_rt_OperativkaPutyovkiPrixod_Result.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_rt_OperativkaPutyovkiRasxod_Result.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_rt_OperativkaPutyovkiVozvrat_Result.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_rt_OperativkaPutyovki_Result.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_rt_Organization_Summary_Result.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_rt_OtchetMedRegRabotnikov_Result.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_rt_OtchetUchetStoimostiVidachi_Result.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_rt_PostupleniyaN_Result.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_rt_Postupleniya_Result.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_rt_Provodka_Details_Result.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_rt_Provodka_Summary_Result.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_rt_Razbivka_PostupN_Result.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_rt_Razbivka_Postup_OblastGroup_Result.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_rt_Razbivka_Postup_OblastTumanGroup_Result.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_rt_Razbivka_Postup_OblastTumanOtraslGroup_Result.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_rt_Razbivka_Postup_OkonxGroup_Result.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_rt_Razbivka_Postup_OtraslGroup_Result.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_rt_Razbivka_Postup_Result.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_rt_SvodniyOtchet_Result.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_rt_SvodniyPoPutyovkam_Result.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_rt_TalabnomaKorxona_Result.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_rt_TalabnomaTarmoq_Result.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_rt_TalabnomaViloyat_Result.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_rt_UchetVladelsevPutyovok_Result.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_rt_Zapros_Putyovki_Result.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_rt_ZayavkiList_Result.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_sanatorium_profil.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_sanatorium_type.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_section.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_soato.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_soogu.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_soogu_copy.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_stat_IncomePerRegionList_Fed_Result.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_stat_IncomePerRegionList_Obl_Result.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_stat_UrgentPutyovkasRegionListFed_Result.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_stat_UrgentPutyovkasRegionListObl_Result.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_stat_ZadoljennostListFed_Result.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_stat_ZadoljennostListObl_Result.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbbBank_Oplat.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbbDopTabel.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbbFermer.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbbKartoch.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbbOplata.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbbOtchet.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbbPredpr.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbbSprOsnov.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbbSprTabel.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbbTabel.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbbu_AccountPlan.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbbu_balance.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbbu_ecp_calc.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbbu_FinOtchetSave.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbbu_finOtchetSetting.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbbu_nastroykiProvodok.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbbu_planbyudjetregion.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbbu_platejka.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbbu_provodki.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbbu_trref.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbbViplata.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbcs_dictionary.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbcs_dictionarytype.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbcs_sisconf.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbgl_accounttype.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbgl_balance.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbgl_bankpayments.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbgl_jnldd.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbgl_jnlmst.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbgl_opersettings.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbku_DocumentSchetFaktura.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbku_GrafikZaezdovSanatoriev.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbku_journal.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbku_servicetype.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbku_SpisokRaspredeleniya.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbku_StrokaProfsoyza.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbku_StrokaSchetFakturi.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbku_ZaezdyClientov.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblBron.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblCloseDay.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblCloseDayHistory.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblCloseKvartal.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblCloseKvartalHistory.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblFace_Med.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblFace_Two.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblFase.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblFile.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblHolidays.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblOplata.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblOplata_Ras.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblOtchetiLager.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblPost.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblPos_Put.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblPred.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblPutevka.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblPutHist.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblSanatDataCompare.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblSprav_Face.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblSprav_Kv.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblSprav_MFO.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblSprav_Org.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblSprav_Os.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblSprav_Otras.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblSprav_Pr.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblSprav_Reg.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblSprav_San.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblSprav_Vil.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblVipl.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblVipl_NumGEn.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblVipl_Put.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblVozVrat.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblZayavkiLager.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbl_mig_buxoroJO5.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbl_mig_danniyeVlad.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbl_mig_ecp.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbl_mig_navoiyBaza.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbl_mig_navoiyBaza_2stage.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbl_mig_oplata.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbl_mig_rasxodi.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbpt_avarageprice.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbpt_bronputyovka.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbpt_otkazputyovka.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbpt_putyovkarealizasiya.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbpt_putyovka_statechange.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbpt_putyovki.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbpt_putyovki_changehistory.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbpt_sanatory_info.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbpt_yearlyplanotrasl.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbpt_yearlyplanregion.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbpt_zaezdi.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbpt_zayavki.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbsp_soato_new.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TimeShedulers.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="t_agreement.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="t_bkut_statistics.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="t_camp.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="t_camp_statistics.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="t_collectiveagreement.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="t_contract.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="t_contractappendix.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="t_departmentbase.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="t_departmentbase_aud.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="t_departmentbase_back.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="t_egrpo.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="t_egrpotest.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="t_egrpo_about.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="t_fixedassets.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="t_generalagreement.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="t_ku_report.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="t_normativdoc.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="t_sanatorium.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="useractions.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="useractivity.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="users.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="users_aud.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="users_back.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Zapros_ZK.cs">
+      <DependentUpon>KasabaKIAT_N1.tt</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <EntityDeploy Include="KasabaKIAT_N1.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>KasabaKIAT_N1.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="KasabaKIAT_N1.edmx.diagram">
+      <DependentUpon>KasabaKIAT_N1.edmx</DependentUpon>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -68,6 +860,21 @@
       <Project>{6B3871A6-4419-4BEA-B258-51C2B80FF5B1}</Project>
       <Name>KasabaKIAT</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="KasabaKIAT_N1.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>KasabaKIAT_N1.edmx</DependentUpon>
+      <LastGenOutput>KasabaKIAT_N1.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="KasabaKIAT_N1.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>KasabaKIAT_N1.edmx</DependentUpon>
+      <LastGenOutput>KasabaKIAT_N1.cs</LastGenOutput>
+    </Content>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

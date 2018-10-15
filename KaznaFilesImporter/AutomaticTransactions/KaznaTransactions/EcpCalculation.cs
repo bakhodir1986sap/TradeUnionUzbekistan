@@ -673,12 +673,12 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.Provodki.AutomaticTransactions.K
             OwnerCodeStart = true;
             BronStart = true;
 
-            EcpCalcSheduler = 100000;
-            MakeProvodkiSheduler = 100000;
-            BranchCalcSheduler = 100000;
-            KaznaFileSheduler = 100000;
-            OwnerCodeSheduler = 100000;
-            BronSheduler = 100000;
+            EcpCalcSheduler = 3600000;
+            MakeProvodkiSheduler = 3600000;
+            BranchCalcSheduler = 3600000;
+            KaznaFileSheduler = 3600000;
+            OwnerCodeSheduler = 3600000;
+            BronSheduler = 3600000;
 
             kk = new KaznaController();
         }

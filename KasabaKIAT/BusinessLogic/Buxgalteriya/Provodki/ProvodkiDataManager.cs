@@ -35,7 +35,13 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.Provodki
             //    throw new ApplicationException("Current Kvartal Info not available = " + cur_year + "   " + cur_kvartal);
             //}
 
-            tbbu_provodki reg = new tbbu_provodki();
+                string remarkValidation;
+                if (!BuxControl.IsValidProvodka(model,  db, out remarkValidation))
+                {
+                    throw new ApplicationException(remarkValidation);
+                }
+
+                tbbu_provodki reg = new tbbu_provodki();
 
                 reg.DEPARTMENT_BASE = model.department_base ;
                 reg.USER_ID         = model.user_id         ;
@@ -56,6 +62,8 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.Provodki
                 reg.COMMENT         = model.comment         ;
                 reg.TRREF           = model.trref           ;
                 reg.TRREFNO         = model.trrefno         ;
+
+                
 
                 provod = db.tbbu_provodki.Add(reg);
 

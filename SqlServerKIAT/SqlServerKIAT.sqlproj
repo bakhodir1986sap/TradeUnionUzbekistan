@@ -96,6 +96,8 @@
     <Folder Include="UsefulSqripts\31082018" />
     <Folder Include="SyncronizeSqripts" />
     <Folder Include="UsefulSqripts\20092018" />
+    <Folder Include="Buxgalteriya" />
+    <Folder Include="Organization" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="Procedures\sp_rt_FormaN13_1.sql" />
@@ -157,5 +159,7 @@
     <None Include="UsefulSqripts\31082018\31082018.sql" />
     <None Include="SyncronizeSqripts\OrgAndDepartmentBaseSync.sql" />
     <None Include="UsefulSqripts\20092018\20092018.sql" />
+    <None Include="Buxgalteriya\BalanceChecker.sql" />
+    <None Include="Organization\OrganizationsErrorClear.sql" />
   </ItemGroup>
 </Project>

@@ -263,6 +263,7 @@
     <Compile Include="BusinessLogic\Buxgalteriya\GlavnayaKniga\BalanceDataManager.cs" />
     <Compile Include="BusinessLogic\Buxgalteriya\GlavnayaKniga\BalanceViewModel.cs" />
     <Compile Include="BusinessLogic\Buxgalteriya\GlavnayaKniga\BuxAccount.cs" />
+    <Compile Include="BusinessLogic\Buxgalteriya\GlavnayaKniga\BuxControl.cs" />
     <Compile Include="BusinessLogic\Buxgalteriya\GlavnayaKniga\BuxTransaction.cs" />
     <Compile Include="BusinessLogic\Buxgalteriya\GlavnayaKniga\GK_Structure.cs" />
     <Compile Include="BusinessLogic\Buxgalteriya\GlavnayaKniga\IBalance.cs" />

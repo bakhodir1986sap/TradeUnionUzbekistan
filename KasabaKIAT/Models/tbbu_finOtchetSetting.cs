@@ -22,5 +22,7 @@ namespace KasabaKIAT.Models
         public string ACCOUNT_CODE { get; set; }
         public Nullable<int> DATA_TYPE { get; set; }
         public string DATA_DESC { get; set; }
+        public string DEPARTMENT_BASE { get; set; }
+        public Nullable<long> USR_ID { get; set; }
     }
 }

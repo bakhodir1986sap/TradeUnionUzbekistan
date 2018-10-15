@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using KasabaKiat.ViewModel;
+using KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet;
 
 namespace KasabaKiat.BusinessLogic.Putyovki.PrixodPutyovok.Tests
 {
@@ -15,27 +16,18 @@ namespace KasabaKiat.BusinessLogic.Putyovki.PrixodPutyovok.Tests
         [TestMethod()]
         public void GetTest()
         {
-            //Assign
-            int kvartal = 1;
-            int year = 2018;
-            string DepartmentBase = "17227";
+            var finOtchet = new FinOtchetStrukture();
+            finOtchet.year = 2018;
+            finOtchet.kvartal = 1;
+            finOtchet.departmentCode = "17";
 
-            //Act
-            var list = PostMainDataManager.Get(new PostupleniyaViewModel()
-            {
+            finOtchet.GetDataFromPlan();
+            finOtchet.FillFactData(2018, 1);
+            finOtchet.FillFactDataBalance(2018, 1);
 
-                Id_Kv = kvartal,
-                SmFil = year,
-                DepartmentBase = DepartmentBase
 
-            }).Result;
-
-            //Assert
-            foreach(var tt in list)
-            {
-                Assert.AreEqual(1, 1);
-            }
-
+            var res_out = finOtchet.out_FinOtchet;
+            var res_bal_out = finOtchet.out_Balance;
 
         }
     }

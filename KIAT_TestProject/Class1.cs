@@ -1,5 +1,6 @@
 ﻿using KasabaKiat.BusinessLogic.Putyovki.PrixodPutyovok;
 using KasabaKiat.ViewModel;
+using KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet;
 using KasabaKIAT.BusinessLogic.Buxgalteriya.PrixodChastichka;
 using NUnit.Framework;
 using System;
@@ -77,6 +78,21 @@ namespace KIAT_TestProject
                 var lll = new KasabaKIAT.Controllers.OtchotController();
 
                 lll.PivodTest();
+            }
+
+            [Test]
+            public void FinOtchetTest()
+            {
+                var finOtchet = new FinOtchetStrukture();
+                finOtchet.year = 2018;
+                finOtchet.kvartal = 1;
+                finOtchet.departmentCode = "17";
+
+                finOtchet.FillFactData(2018, 1);
+
+                var res_out = finOtchet.out_FinOtchet;
+
+                Assert.IsNotNull(res_out);
             }
         }
     }

@@ -1,0 +1,402 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="20d0ae5d92954e45bb570af88e50fd13" Name="Diagram1">
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.Balans" Width="1.5" PointX="24.75" PointY="279" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.bkut_egrpo_aud" Width="1.5" PointX="3" PointY="1.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.buildingfixedasset" Width="1.5" PointX="10.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.eco_platej" Width="1.5" PointX="10.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.eco_xs" Width="1.5" PointX="10.75" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.fill_rate" Width="1.5" PointX="5.75" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.frZapros" Width="1.5" PointX="22.5" PointY="95.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.Kartoch" Width="1.5" PointX="22.5" PointY="98.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.Kazna_Account" Width="1.5" PointX="7.75" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.KaznaBankFile" Width="1.5" PointX="27.75" PointY="262.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.KaznaFiles" Width="1.5" PointX="5.75" PointY="4.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.KaznaPaymentFile" Width="1.5" PointX="8" PointY="4.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.KaznaSverkaFile" Width="1.5" PointX="8" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.occupationalsafety" Width="1.5" PointX="30.75" PointY="216.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.ot_oplata" Width="1.5" PointX="27.75" PointY="287.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.Ot13" Width="1.5" PointX="27.75" PointY="282.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.Ot14" Width="1.5" PointX="22.5" PointY="116.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.p_provodok" Width="1.5" PointX="22.5" PointY="112.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.PrivyazkaProvodok" Width="1.5" PointX="24.75" PointY="193.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.provodok" Width="1.5" PointX="22.5" PointY="123" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.report1ti" Width="1.5" PointX="12.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.report2ti1" Width="1.5" PointX="12.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.report2ti2" Width="1.5" PointX="14.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.report2ti2sum" Width="1.5" PointX="9.75" PointY="14.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.revinfo" Width="1.5" PointX="0.75" PointY="9.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.role_permission" Width="1.5" PointX="24.75" PointY="180.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.roles" Width="1.5" PointX="22.5" PointY="130.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.sp_branch" Width="1.5" PointX="22.5" PointY="134.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.sp_classname" Width="1.5" PointX="14.75" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.sp_contracttype" Width="1.5" PointX="22.5" PointY="138.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.sp_country" Width="1.5" PointX="22.5" PointY="142.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.sp_degree" Width="1.5" PointX="22.5" PointY="147.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.sp_departmenttype" Width="1.5" PointX="22.5" PointY="151.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.sp_doctype" Width="1.5" PointX="22.5" PointY="156.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.sp_employees" Width="1.5" PointX="14.25" PointY="217.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.sp_feedback" Width="1.5" PointX="22.5" PointY="161.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.sp_files" Width="1.5" PointX="24.75" PointY="197" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.sp_fixedassettype" Width="1.5" PointX="22.5" PointY="165.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.sp_fs" Width="1.5" PointX="22.5" PointY="170.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.sp_measure" Width="1.5" PointX="22.5" PointY="175" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.sp_nation" Width="1.5" PointX="22.5" PointY="179" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.sp_okonx" Width="1.5" PointX="22.5" PointY="183.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.sp_okonx_aud" Width="1.5" PointX="3" PointY="4.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.sp_opf" Width="1.5" PointX="22.5" PointY="188.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.sp_organization" Width="1.5" PointX="22.5" PointY="193" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.sp_position" Width="1.5" PointX="22.5" PointY="197.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.sp_position1" Width="1.5" PointX="14.75" PointY="14.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.sp_sanatorium_profil" Width="1.5" PointX="22.5" PointY="201.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.sp_sanatorium_type" Width="1.5" PointX="22.5" PointY="206.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.sp_section" Width="1.5" PointX="22.5" PointY="210.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.sp_soato" Width="1.5" PointX="0.75" PointY="218.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.sp_soogu" Width="1.5" PointX="22.5" PointY="214.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.sp_soogu_copy" Width="1.5" PointX="22.5" PointY="218.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.SprSchet" Width="1.5" PointX="22.5" PointY="223.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.sps_translate" Width="1.5" PointX="5.75" PointY="15.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.t_agreement" Width="1.5" PointX="8.25" PointY="224.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.t_bkut_statistics" Width="1.5" PointX="11.25" PointY="224.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.t_camp" Width="1.5" PointX="3" PointY="217.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.t_camp_statistics" Width="1.5" PointX="8.25" PointY="217.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.t_collectiveagreement" Width="1.5" PointX="22.5" PointY="226.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.t_contract" Width="1.5" PointX="14.25" PointY="211.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.t_contractappendix" Width="1.5" PointX="28.5" PointY="217" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.t_departmentbase" Width="1.5" PointX="6" PointY="212.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.t_egrpo" Width="1.5" PointX="30.5" PointY="224.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.t_egrpo_about" Width="1.5" PointX="24.75" PointY="186.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.t_egrpotest" Width="1.5" PointX="16.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.t_fixedassets" Width="1.5" PointX="22.5" PointY="240.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.t_generalagreement" Width="1.5" PointX="30" PointY="210.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.t_ku_report" Width="1.5" PointX="17.25" PointY="216" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.t_normativdoc" Width="1.5" PointX="27.75" PointY="190.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.t_sanatorium" Width="1.5" PointX="27.75" PointY="210.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.tbbBank_Oplat" Width="1.5" PointX="22.5" PointY="246.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.tbbKartoch" Width="1.5" PointX="22.5" PointY="250" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.tbbOplata" Width="1.5" PointX="27.75" PointY="221.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.tbbOtchet" Width="1.5" PointX="22.5" PointY="253.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.tbbu_AccountPlan" Width="1.5" PointX="16.75" PointY="15.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.tbbu_balance" Width="1.5" PointX="18.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.tbbu_ecp_calc" Width="1.5" PointX="18.75" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.tbbu_FinOtchetSave" Width="1.5" PointX="18.75" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.tbbu_finOtchetSetting" Width="1.5" PointX="18.75" PointY="15.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.tbbu_nastroykiProvodok" Width="1.5" PointX="0.75" PointY="19.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.tbbu_planbyudjetregion" Width="1.5" PointX="2.75" PointY="19.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.tbbu_platejka" Width="1.5" PointX="4.75" PointY="19.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.tbbu_provodki" Width="1.5" PointX="25.5" PointY="264.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.tbbu_trref" Width="1.5" PointX="6.75" PointY="19.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.tbbViplata" Width="1.5" PointX="22.5" PointY="259.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.tbcs_dictionary" Width="1.5" PointX="22.5" PointY="263.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.tbcs_dictionarytype" Width="1.5" PointX="22.5" PointY="267.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.tbcs_sisconf" Width="1.5" PointX="16.75" PointY="19.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.tbgl_accounttype" Width="1.5" PointX="18.75" PointY="19.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.tbgl_balance" Width="1.5" PointX="22.5" PointY="270.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.tbgl_bankpayments" Width="1.5" PointX="27.75" PointY="256.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.tbgl_jnldd" Width="1.5" PointX="22.5" PointY="275.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.tbgl_jnlmst" Width="1.5" PointX="22.5" PointY="279.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.tbgl_opersettings" Width="1.5" PointX="22.5" PointY="284.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.tbku_DocumentSchetFaktura" Width="1.5" PointX="20.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.tbku_GrafikZaezdovSanatoriev" Width="1.5" PointX="20.75" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.tbku_journal" Width="1.5" PointX="8.75" PointY="20.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.tbku_servicetype" Width="1.5" PointX="20.75" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.tbku_SpisokRaspredeleniya" Width="1.5" PointX="20.75" PointY="13.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.tbku_StrokaProfsoyza" Width="1.5" PointX="20.75" PointY="17.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.tbku_StrokaSchetFakturi" Width="1.5" PointX="20.75" PointY="20.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.tbku_ZaezdyClientov" Width="1.5" PointX="22.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.tbl_mig_buxoroJO5" Width="1.5" PointX="22.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.tbl_mig_danniyeVlad" Width="1.5" PointX="22.75" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.tbl_mig_navoiyBaza" Width="1.5" PointX="22.75" PointY="13.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.tbl_mig_oplata" Width="1.5" PointX="14.75" PointY="22.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.tbl_mig_rasxodi" Width="1.5" PointX="22.75" PointY="19.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.tblBron" Width="1.5" PointX="24.75" PointY="290" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.tblCloseDay" Width="1.5" PointX="0.75" PointY="23.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.tblCloseDayHistory" Width="1.5" PointX="16.75" PointY="23.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.tblCloseKvartal" Width="1.5" PointX="24.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.tblCloseKvartalHistory" Width="1.5" PointX="24.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.tblFace_Med" Width="1.5" PointX="30.75" PointY="289.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.tblFase" Width="1.5" PointX="30.75" PointY="281.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.tblFile" Width="1.5" PointX="6.75" PointY="24.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.tblHolidays" Width="1.5" PointX="24.75" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.tblOplata" Width="1.5" PointX="27.75" PointY="276.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.tblOplata_Ras" Width="1.5" PointX="33" PointY="281.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.tblOtchetiLager" Width="1.5" PointX="8.75" PointY="24.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.tblPos_Put" Width="1.5" PointX="27.75" PointY="292.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.tblPost" Width="1.5" PointX="24.75" PointY="272.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.tblPred" Width="1.5" PointX="22.5" PointY="320.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.tblPutHist" Width="1.5" PointX="30.75" PointY="277.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.tblSanatDataCompare" Width="1.5" PointX="10.75" PointY="24.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.tblSprav_Face" Width="1.5" PointX="22.5" PointY="330.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.tblSprav_Kv" Width="1.5" PointX="22.5" PointY="333" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.tblSprav_MFO" Width="1.5" PointX="22.5" PointY="336.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.tblSprav_Org" Width="1.5" PointX="22.5" PointY="342.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.tblSprav_Os" Width="1.5" PointX="22.5" PointY="339.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.tblSprav_Otras" Width="1.5" PointX="22.5" PointY="351.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.tblSprav_Pr" Width="1.5" PointX="22.5" PointY="355.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.tblSprav_Reg" Width="1.5" PointX="22.5" PointY="358.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.tblSprav_San" Width="1.5" PointX="22.5" PointY="361.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.tblSprav_Vil" Width="1.5" PointX="22.5" PointY="366.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.tblVipl" Width="1.5" PointX="27.75" PointY="270.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.tblVipl_NumGEn" Width="1.5" PointX="24.75" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.tblVipl_Put" Width="1.5" PointX="24.75" PointY="284.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.tblVozVrat" Width="1.5" PointX="33" PointY="286.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.tblZayavkiLager" Width="1.5" PointX="24.75" PointY="14.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.tbpt_avarageprice" Width="1.5" PointX="22.5" PointY="369.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.tbpt_bronputyovka" Width="1.5" PointX="25.5" PointY="223.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.tbpt_otkazputyovka" Width="1.5" PointX="32.75" PointY="224.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.tbpt_putyovka_statechange" Width="1.5" PointX="24.75" PointY="18.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.tbpt_putyovkarealizasiya" Width="1.5" PointX="25.5" PointY="215.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.tbpt_putyovki" Width="1.5" PointX="11.25" PointY="218.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.tbpt_putyovki_changehistory" Width="1.5" PointX="24.75" PointY="22.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.tbpt_sanatory_info" Width="1.5" PointX="22.5" PointY="372.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.tbpt_yearlyplanotrasl" Width="1.5" PointX="27.75" PointY="179.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.tbpt_yearlyplanregion" Width="1.5" PointX="30" PointY="234.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.tbpt_zaezdi" Width="1.5" PointX="8.25" PointY="212.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.tbpt_zayavki" Width="1.5" PointX="11.25" PointY="212" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.tbsp_soato_new" Width="1.5" PointX="2.75" PointY="25.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.TimeShedulers" Width="1.5" PointX="18.75" PointY="25.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.useractions" Width="1.5" PointX="22.5" PointY="380.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.useractivity" Width="1.5" PointX="22.5" PointY="383.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.users" Width="1.5" PointX="20.25" PointY="207" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.users_aud" Width="1.5" PointX="3" PointY="7.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.KaznaParseTemp" Width="1.5" PointX="20.75" PointY="25.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.KaznaParseTemp_N1" Width="1.5" PointX="26.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.role_permission_back" Width="1.5" PointX="26.75" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.t_departmentbase_aud" Width="1.5" PointX="3" PointY="9.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.t_departmentbase_back" Width="1.5" PointX="26.75" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.tbbDopTabel" Width="1.5" PointX="22.5" PointY="386.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.tbbFermer" Width="1.5" PointX="30.75" PointY="220.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.tbbPredpr" Width="1.5" PointX="22.5" PointY="389.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.tbbSprOsnov" Width="1.5" PointX="22.5" PointY="394.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.tbbSprTabel" Width="1.5" PointX="22.5" PointY="397.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.tbbTabel" Width="1.5" PointX="22.5" PointY="400.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.tbl_mig_ecp" Width="1.5" PointX="26.75" PointY="24.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.tbl_mig_navoiyBaza_2stage" Width="1.5" PointX="12.75" PointY="27.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.tblFace_Two" Width="1.5" PointX="33" PointY="246.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.tblPutevka" Width="1.5" PointX="33.75" PointY="293.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.users_back" Width="1.5" PointX="14.75" PointY="27.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="KasabaKIAT_N1Model.Zapros_ZK" Width="1.5" PointX="22.5" PointY="403.125" IsExpanded="true" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.FK_Balans_tblSprav_Org" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.FK_Balans_tblSprav_Otras" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.FK_Balans_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.FK_bkut_egrpo_aud_revinfo" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.FK_frZapros_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.FK_Kartoch_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.FK_KaznaBankFile_tbbu_provodki" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.FK_KaznaBankFile_KaznaFiles" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.FK_KaznaPaymentFile_KaznaFiles" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.FK_KaznaSverkaFile_KaznaFiles" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.FK_occupationalsafety_t_contractappendix" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.FK_ot_oplata_tblSprav_San" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.FK_ot_oplata_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.FK_Ot13_tblSprav_San" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.FK_Ot13_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.FK_Ot14_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.FK_p_provodok_users_id" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.FK_PrivyazkaProvodok_provodok" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.FK_PrivyazkaProvodok_tbcs_dictionary" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.FK_provodok_users_id" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.sp_okonx_aud1" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.t_departmentbase_aud_1" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.users_aud_1" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.FK_role_permission_roles" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.FK_role_permission_users" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.FK_roles_users" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.users_5" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.FK_sp_branch_users" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.FK_tbpt_yearlyplanotrasl_sp_branch" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.FK_sp_contracttype_users" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.FK_sp_country_users" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.t_egrpo_about_3" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.FK_sp_degree_users" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.FK_sp_employees_sp_degree" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.FK_sp_departmenttype_sp_departmenttype" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.FK_sp_departmenttype_users" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.FK_sp_doctype_sp_doctype" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.FK_sp_doctype_users" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.t_normativdoc_2" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.FK_sp_employees_sp_nation" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.FK_sp_employees_sp_position" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.FK_sp_employees_sp_section" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.FK_sp_employees_t_departmentbase" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.FK_sp_employees_users" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.t_departmentbase_9" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.t_sanatorium_3" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.FK_sp_feedback_users" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.FK_sp_files_users" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.FK_sp_fixedassettype_users" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.FK_sp_fs_sp_fs" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.FK_sp_fs_users" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.FK_sp_measure_users" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.FK_sp_nation_users" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.sp_okonx1" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.sp_okonx2" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.sp_opf1" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.sp_opf2" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.sp_organization1" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.sp_organization2" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.sp_position_1" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.sp_sanatorium_profil1" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.t_departmentbase_11" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.t_sanatorium_1" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.sp_sanatorium_type1" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.t_departmentbase_8" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.t_sanatorium_2" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.sp_section1" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.sp_soato_1" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.t_camp_1" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.t_camp_3" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.t_departmentbase_3" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.t_sanatorium_5" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.sp_soogu_1" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.sp_soogu_copy_1" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.FK_SprSchet_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.FK_tbbFermer_SprSchet" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.FK_tbbOplata_SprSchet" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.t_agreement_1" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.t_agreement_2" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.t_agreement_3" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.t_bkut_statistics_1" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.t_bkut_statistics_2" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.t_camp_2" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.t_camp_statistics_1" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.tbpt_putyovki_4" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.tbpt_zaezdi_3" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.tbpt_zayavki_1" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.t_camp_statistics_2" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.t_collectiveagreement_1" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.t_contract_1" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.t_contract_3" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.t_contractappendix_1" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.t_contractappendix_2" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.t_departmentbase_1" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.t_departmentbase_6" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.t_ku_report_2" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.users_1" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.users_3" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.users_4" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.t_egrpo_3" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.t_egrpo_about_2" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.t_egrpo_about_1" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.t_fixedassets_4" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.t_generalagreement_1" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.t_ku_report_1" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.t_normativdoc_1" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.FK_tbpt_yearlyplanregion_t_sanatorium" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.t_sanatorium_4" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.tbpt_putyovki_3" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.tbpt_zaezdi_2" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.FK_tbbBank_Oplat_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.FK_tbbKartoch_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.FK_tbbOplata_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.FK_tbbOtchet_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.FK_tbgl_bankpayments_tbbu_provodki" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.FK_tblOplata_tbbu_provodki" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.FK_tblPost_tbbu_provodki" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.FK_tblVipl_tbbu_provodki" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.FK_tblVozVrat_tbbu_provodki" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.FK_tblVozVrat_tbbu_provodki1" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.FK_tbbViplata_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.FK_tbcs_dictionary_users" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.FK_tbpt_zaezdi_tbcs_dictionary" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.tbcs_dictionary_1" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.tbpt_yearlyplanregion_2" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.tbcs_dictionarytype_1" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.FK_tbgl_balance_users" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.tbgl_jnldd_1" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.tbgl_jnlmst_1" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.tbgl_opersettings_1" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.FK_tblBron_tblSprav_San" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.FK_tblBron_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.FK_tblFace_Med_tblFase" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.FK_tblFace_Med_tblSprav_San" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.FK_tblFace_Med_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.FK_tblFace_Two_tblFase" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.FK_tblFase_tblSprav_Face" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.FK_tblFase_tblSprav_Os" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.FK_tblFase_tblSprav_Pr" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.FK_tblFase_tblSprav_San" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.FK_tblFase_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.FK_tblOplata_Ras_tblOplata" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.FK_tblOplata_tblSprav_Kv" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.FK_tblOplata_tblSprav_Org" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.FK_tblOplata_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.FK_tblOplata_Ras_tblSprav_Pr" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.FK_tblOplata_Ras_tblSprav_Pr1" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.FK_tblOplata_Ras_tblSprav_San" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.FK_tblOplata_Ras_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.FK_tblPos_Put_tblPost" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.FK_tblPos_Put_tblSprav_San" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.FK_tblPos_Put_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.FK_tblPost_tblSprav_Kv" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.FK_tblPost_tblSprav_Org" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.FK_tblPost_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.FK_tblVozVrat_tblPost" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.FK_tblPred_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.FK_tblPutHist_tblSprav_San" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.FK_tblPutHist_users" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.FK_tblSprav_Face_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.FK_tblSprav_Kv_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.FK_tblVipl_tblSprav_Kv" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.FK_tblVozVrat_tblSprav_Kv" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.FK_tblSprav_MFO_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.FK_tblPutevka_tblSprav_Org" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.FK_tblSprav_Org_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.FK_tblVipl_tblSprav_Org" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.FK_tblVozVrat_tblSprav_Org1" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.FK_tblSprav_Os_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.FK_tblSprav_Otras_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.FK_tblSprav_Pr_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.FK_tblSprav_Reg_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.FK_tblPutevka_tblSprav_San" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.FK_tblSprav_San_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.FK_tblVipl_Put_tblSprav_San" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.FK_tblVozVrat_tblSprav_San" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.FK_tblSprav_Vil_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.FK_tblFace_Two_tblVipl" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.FK_tblVipl_Put_tblVipl" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.FK_tblVipl_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.FK_tblVozVrat_tblVipl" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.FK_tblVipl_Put_tbpt_zayavki" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.FK_tblVipl_Put_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.FK_tblVozVrat_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.tbpt_avarageprice_1" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.tbpt_bronputyovka_1" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.tbpt_bronputyovka_3" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.tbpt_otkazputyovka_1" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.tbpt_otkazputyovka_3" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.tbpt_putyovkarealizasiya_1" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.tbpt_putyovkarealizasiya_2" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.tbpt_putyovki_2" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.tbpt_sanatory_info_2" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.tbpt_yearlyplanotrasl_3" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.tbpt_yearlyplanregion_3" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.tbpt_zaezdi_1" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.tbpt_zayavki_3" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.useractions_1" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.useractivity_1" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.FK_tbbDopTabel_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.FK_tbbFermer_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.FK_tbbPredpr_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.FK_tbbSprOsnov_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.FK_tbbSprTabel_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.FK_tbbTabel_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.FK_tblFace_Two_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.FK_tblPutevka_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.FK_Zapros_ZK_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.users_2" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.agreement_files" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.bkut_egrpo" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.collectivecontract_files" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.doc_files" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.feedback_files" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.gagreement_files" ManuallyRouted="false" />
+        <AssociationConnector Association="KasabaKIAT_N1Model.user_role" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

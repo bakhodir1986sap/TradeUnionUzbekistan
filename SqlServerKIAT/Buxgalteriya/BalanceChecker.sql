@@ -1,0 +1,123 @@
+﻿/****** Script for SelectTopNRows command from SSMS  ******/
+SELECT TOP 1000 [REC_ID]
+      ,[DEPARTMENT_BASE]
+      ,[CUR_YEAR]
+      ,[CUR_KV]
+      ,[USER_ID]
+      ,[ACCOUNT_CODE]
+      ,[DEBIT_BAL]
+      ,[CREDIT_BAL]
+      ,[DEBIT_COUNT]
+      ,[CREDIT_COUNT]
+      ,[DEBIT_TRANS]
+      ,[CREDIT_TRANS]
+  FROM [KasabaKIAT_N1].[dbo].[tbbu_balance]
+  WHERE [DEPARTMENT_BASE] = '17'
+  AND CUR_YEAR = '2018'
+  AND CUR_KV = 1;
+  
+  
+  ---------------------------------------------------
+  SELECT P.PLATELRSCH  , SUM(P.SUMMA) as AMOUNT  
+  FROM KasabaKIAT_N1.dbo.tbbu_provodki  P
+  where P.DEPARTMENT_BASE = '17' 
+  AND DATEPART(Q , P.TRDT) = 1
+  GROUP BY P.PLATELRSCH   
+  
+  
+  SELECT P.POLUCHRSCH  , SUM(P.SUMMA)  as AMOUNT    
+  FROM KasabaKIAT_N1.dbo.tbbu_provodki  P
+  where P.DEPARTMENT_BASE = '17' 
+  AND DATEPART(Q , P.TRDT) = 1
+  GROUP BY P.POLUCHRSCH   
+  
+
+  
+  --Balance First
+  SELECT 
+  AA.ACCOUNT_CODE , 
+  AA.DEBIT_TRANS ,
+  BB.AMOUNT , 
+  AA.DEBIT_TRANS - BB.AMOUNT
+   FROM
+ ( SELECT B.ACCOUNT_CODE , 
+   B.DEBIT_TRANS , B.CREDIT_TRANS
+   FROM KasabaKIAT_N1.dbo.tbbu_balance B
+  where B.CUR_YEAR = '2018' and B.CUR_KV = 1
+  and B.DEPARTMENT_BASE = '17'
+  AND (B.DEBIT_TRANS >0 OR B.CREDIT_TRANS > 0)) AA
+  LEFT OUTER JOIN 
+  (  SELECT P.PLATELRSCH  , SUM(P.SUMMA) as AMOUNT  
+  FROM KasabaKIAT_N1.dbo.tbbu_provodki  P
+  where P.DEPARTMENT_BASE = '17' 
+  AND DATEPART(Q , P.TRDT) = 1
+  GROUP BY P.PLATELRSCH   ) BB
+  ON AA.ACCOUNT_CODE = BB.PLATELRSCH
+  
+  
+    SELECT AA.ACCOUNT_CODE , 
+  AA.CREDIT_TRANS ,
+  BB.AMOUNT , 
+  AA.CREDIT_TRANS - BB.AMOUNT FROM
+ ( SELECT B.ACCOUNT_CODE , 
+   B.DEBIT_TRANS , B.CREDIT_TRANS
+   FROM KasabaKIAT_N1.dbo.tbbu_balance B
+  where B.CUR_YEAR = '2018' and B.CUR_KV = 1
+  and B.DEPARTMENT_BASE = '17'
+  AND (B.DEBIT_TRANS >0 OR B.CREDIT_TRANS > 0)) AA
+  LEFT OUTER JOIN 
+  (    SELECT P.POLUCHRSCH  , SUM(P.SUMMA)  as AMOUNT    
+  FROM KasabaKIAT_N1.dbo.tbbu_provodki  P
+  where P.DEPARTMENT_BASE = '17' 
+  AND DATEPART(Q , P.TRDT) = 1
+  GROUP BY P.POLUCHRSCH     ) BB
+  ON AA.ACCOUNT_CODE = BB.POLUCHRSCH
+  
+  
+  --Balance Second
+  
+   SELECT 
+  AA.ACCOUNT_CODE , 
+  AA.DEBIT_TRANS ,
+  BB.AMOUNT , 
+  AA.DEBIT_TRANS - BB.AMOUNT
+   FROM
+  (  SELECT P.PLATELRSCH  , SUM(P.SUMMA) as AMOUNT  
+  FROM KasabaKIAT_N1.dbo.tbbu_provodki  P
+  where P.DEPARTMENT_BASE = '17' 
+  AND DATEPART(Q , P.TRDT) = 1
+  GROUP BY P.PLATELRSCH   ) BB
+  LEFT OUTER JOIN 
+   ( SELECT B.ACCOUNT_CODE , 
+   B.DEBIT_TRANS , B.CREDIT_TRANS
+   FROM KasabaKIAT_N1.dbo.tbbu_balance B
+  where B.CUR_YEAR = '2018' and B.CUR_KV = 1
+  and B.DEPARTMENT_BASE = '17'
+  AND (B.DEBIT_TRANS >0 OR B.CREDIT_TRANS > 0)) AA
+  ON AA.ACCOUNT_CODE = BB.PLATELRSCH
+  
+  
+    SELECT AA.ACCOUNT_CODE , 
+  AA.CREDIT_TRANS ,
+  BB.AMOUNT , 
+  AA.CREDIT_TRANS - BB.AMOUNT FROM
+   (    SELECT P.POLUCHRSCH  , SUM(P.SUMMA)  as AMOUNT    
+  FROM KasabaKIAT_N1.dbo.tbbu_provodki  P
+  where P.DEPARTMENT_BASE = '17' 
+  AND DATEPART(Q , P.TRDT) = 1
+  GROUP BY P.POLUCHRSCH     ) BB
+  LEFT OUTER JOIN 
+  ( SELECT B.ACCOUNT_CODE , 
+   B.DEBIT_TRANS , B.CREDIT_TRANS
+   FROM KasabaKIAT_N1.dbo.tbbu_balance B
+  where B.CUR_YEAR = '2018' and B.CUR_KV = 1
+  and B.DEPARTMENT_BASE = '17'
+  AND (B.DEBIT_TRANS >0 OR B.CREDIT_TRANS > 0)) AA
+  ON AA.ACCOUNT_CODE = BB.POLUCHRSCH
+  
+  
+  
+  
+  
+  SELECT TOP 10 * FROM KasabaKIAT_N1.dbo.tbbu_provodki  P
+  WHERE P.TRREF in ('ECO', 'ECP')

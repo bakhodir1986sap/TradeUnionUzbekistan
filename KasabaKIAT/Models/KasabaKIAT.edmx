@@ -6084,7 +6084,17 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <Parameter Name="kvartal" Type="int" Mode="In" />
           <Parameter Name="DEPARTMENT_CODE" Type="nvarchar" Mode="In" />
         </Function>
+        <Function Name="sp_rt_GlavnayaKniga_Credit_Svodniy" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="YEAR" Type="int" Mode="In" />
+          <Parameter Name="kvartal" Type="int" Mode="In" />
+          <Parameter Name="DEPARTMENT_CODE" Type="nvarchar" Mode="In" />
+        </Function>
         <Function Name="sp_rt_GlavnayaKniga_Debit" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="YEAR" Type="int" Mode="In" />
+          <Parameter Name="kvartal" Type="int" Mode="In" />
+          <Parameter Name="DEPARTMENT_CODE" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="sp_rt_GlavnayaKniga_Debit_Svodniy" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="YEAR" Type="int" Mode="In" />
           <Parameter Name="kvartal" Type="int" Mode="In" />
           <Parameter Name="DEPARTMENT_CODE" Type="nvarchar" Mode="In" />
@@ -14522,6 +14532,16 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           </FunctionImport>
           <EntitySet Name="tbbu_AccountPlan" EntityType="KasabaKIATModel.tbbu_AccountPlan" />
           <EntitySet Name="tbbu_FinOtchetSave" EntityType="KasabaKIATModel.tbbu_FinOtchetSave" />
+          <FunctionImport Name="sp_rt_GlavnayaKniga_Credit_Svodniy" ReturnType="Collection(KasabaKIATModel.sp_rt_GlavnayaKniga_Credit_Svodniy_Result)">
+            <Parameter Name="YEAR" Mode="In" Type="Int32" />
+            <Parameter Name="kvartal" Mode="In" Type="Int32" />
+            <Parameter Name="DEPARTMENT_CODE" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_rt_GlavnayaKniga_Debit_Svodniy" ReturnType="Collection(KasabaKIATModel.sp_rt_GlavnayaKniga_Debit_Svodniy_Result)">
+            <Parameter Name="YEAR" Mode="In" Type="Int32" />
+            <Parameter Name="kvartal" Mode="In" Type="Int32" />
+            <Parameter Name="DEPARTMENT_CODE" Mode="In" Type="String" />
+          </FunctionImport>
           </EntityContainer>
         <ComplexType Name="sp_get_BankPaymentCompanyYearlyQ_Result">
           <Property Type="Int32" Name="MONTH_NUM" Nullable="true" />
@@ -16489,6 +16509,16 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <Property Name="USER_ID" Type="Int64" />
           <Property Name="DEPARTMENT_CODE" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
         </EntityType>
+        <ComplexType Name="sp_rt_GlavnayaKniga_Credit_Svodniy_Result">
+          <Property Type="String" Name="CreditAccount" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="JO" Nullable="true" MaxLength="254" />
+          <Property Type="Decimal" Name="SUMMA" Nullable="true" Precision="19" />
+        </ComplexType>
+        <ComplexType Name="sp_rt_GlavnayaKniga_Debit_Svodniy_Result">
+          <Property Type="String" Name="DebitAccount" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="JO" Nullable="true" MaxLength="254" />
+          <Property Type="Decimal" Name="SUMMA" Nullable="true" Precision="19" />
+        </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -20691,6 +20721,24 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="sp_rt_GlavnayaKniga_Credit_Svodniy" FunctionName="KasabaKIATModel.Store.sp_rt_GlavnayaKniga_Credit_Svodniy">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="KasabaKIATModel.sp_rt_GlavnayaKniga_Credit_Svodniy_Result">
+                <ScalarProperty Name="CreditAccount" ColumnName="CreditAccount" />
+                <ScalarProperty Name="JO" ColumnName="JO" />
+                <ScalarProperty Name="SUMMA" ColumnName="SUMMA" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_rt_GlavnayaKniga_Debit_Svodniy" FunctionName="KasabaKIATModel.Store.sp_rt_GlavnayaKniga_Debit_Svodniy">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="KasabaKIATModel.sp_rt_GlavnayaKniga_Debit_Svodniy_Result">
+                <ScalarProperty Name="DebitAccount" ColumnName="DebitAccount" />
+                <ScalarProperty Name="JO" ColumnName="JO" />
+                <ScalarProperty Name="SUMMA" ColumnName="SUMMA" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

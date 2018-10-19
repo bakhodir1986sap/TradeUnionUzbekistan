@@ -13,9 +13,15 @@
         Name_Kv: '2-квартал'
     };
 
+    $scope.ModalToDepCodeSelected = {
+        Name: '',
+        Kod: ''
+    };
+
     GetYearsList();
     GetKvartalList();
     GetCurBusinessTime();
+    GetToDepForOrganization();
 
     function GetCurBusinessTime() {
         document.getElementById('connection').style.visibility = "visible";
@@ -83,7 +89,25 @@
         });
     }
 
-
+    function GetToDepForOrganization() {
+        document.getElementById('connection').style.visibility = "visible";
+        $("#hh").modal({
+            backdrop: 'static'
+        });
+        $http({
+            method: 'get',
+            url: '/Buxgalter/SpisokPravsoyuzovOrg'
+        }).then(function (response) {
+            $scope.ToDepCode = response.data;
+            document.getElementById('connection').style.visibility = "hidden";
+            $("#hh").modal('hide');
+        }, function (error) {
+            alertify.error("ошибка");
+            console.log("error in GetRekvizits");
+            document.getElementById('connection').style.visibility = "hidden";
+            $("#hh").modal('hide');
+        });
+    }
 
     $scope.LoadDATA = function () {
         $locale.NUMBER_FORMATS.GROUP_SEP = " ";
@@ -118,6 +142,182 @@
             $("#hh").modal('hide');
         });
     }
+
+
+    $scope.LoadDATAS = function () {
+        $locale.NUMBER_FORMATS.GROUP_SEP = " ";
+        $locale.NUMBER_FORMATS.DECIMAL_SEP = ",";
+        LoadDATAS($scope.SelectedYear, $scope.SelectedKvartal);
+    }
+
+    function LoadDATAS(bg, end) {
+        document.getElementById('connection').style.visibility = "visible";
+        $("#hh").modal({
+            backdrop: 'static',
+            backdrop: 'static'
+        });
+        $http({
+            method: 'get',
+            url: "/Buxgalter/GlavnayaKnigaSvodniy?year=" + bg.Id + "&kvartal=" + end.ID,
+        }).then(function (d) {
+            if (d.data.length != 0) {
+                $scope.q = d.data.length;
+                $scope.showdata = true;
+            } else {
+                $scope.showdata = false;
+            }
+            $scope.DATA = d.data;
+            console.log(d.data);
+            document.getElementById('connection').style.visibility = "hidden";
+            $("#hh").modal('hide');
+        }, function (error) {
+            alertify.error("ошибка");
+            console.log("error in GetPostupleniya -> ", error);
+            document.getElementById('connection').style.visibility = "hidden";
+            $("#hh").modal('hide');
+        });
+    }
+
+
+    $scope.LoadDATAR = function () {
+        $locale.NUMBER_FORMATS.GROUP_SEP = " ";
+        $locale.NUMBER_FORMATS.DECIMAL_SEP = ",";
+        LoadDATAR($scope.SelectedYear, $scope.SelectedKvartal, $scope.ModalToDepCodeSelected.Kod);
+    }
+
+    function LoadDATAR(bg, end , ProfCode) {
+        document.getElementById('connection').style.visibility = "visible";
+        $("#hh").modal({
+            backdrop: 'static',
+            backdrop: 'static'
+        });
+        $http({
+            method: 'get',
+            url: "/Buxgalter/GlavnayaKnigaVRazreze?year=" + bg.Id + "&kvartal=" + end.ID + '&departmentBase=' + ProfCode,
+        }).then(function (d) {
+            if (d.data.length != 0) {
+                $scope.q = d.data.length;
+                $scope.showdata = true;
+            } else {
+                $scope.showdata = false;
+            }
+            $scope.DATA = d.data;
+            console.log(d.data);
+            document.getElementById('connection').style.visibility = "hidden";
+            $("#hh").modal('hide');
+        }, function (error) {
+            alertify.error("ошибка");
+            console.log("error in GetPostupleniya -> ", error);
+            document.getElementById('connection').style.visibility = "hidden";
+            $("#hh").modal('hide');
+        });
+    }
+
+
+    $scope.LoadDATAF = function () {
+        $locale.NUMBER_FORMATS.GROUP_SEP = " ";
+        $locale.NUMBER_FORMATS.DECIMAL_SEP = ",";
+        LoadDATAF($scope.SelectedYear, $scope.SelectedKvartal);
+    }
+
+    function LoadDATAF(bg, end) {
+        document.getElementById('connection').style.visibility = "visible";
+        $("#hh").modal({
+            backdrop: 'static',
+            backdrop: 'static'
+        });
+        $http({
+            method: 'get',
+            url: "/Buxgalter/FinansoviyOtchet?year=" + bg.Id + "&kvartal=" + end.ID,
+        }).then(function (d) {
+            if (d.data.length != 0) {
+                $scope.q = d.data.length;
+                $scope.showdata = true;
+            } else {
+                $scope.showdata = false;
+            }
+            $scope.DATAF = d.data;
+            console.log(d.data);
+            document.getElementById('connection').style.visibility = "hidden";
+            $("#hh").modal('hide');
+        }, function (error) {
+            alertify.error("ошибка");
+            console.log("error in GetPostupleniya -> ", error);
+            document.getElementById('connection').style.visibility = "hidden";
+            $("#hh").modal('hide');
+        });
+    }
+
+
+    $scope.LoadDATAFS = function () {
+        $locale.NUMBER_FORMATS.GROUP_SEP = " ";
+        $locale.NUMBER_FORMATS.DECIMAL_SEP = ",";
+        LoadDATAFS($scope.SelectedYear, $scope.SelectedKvartal);
+    }
+
+    function LoadDATAFS(bg, end) {
+        document.getElementById('connection').style.visibility = "visible";
+        $("#hh").modal({
+            backdrop: 'static',
+            backdrop: 'static'
+        });
+        $http({
+            method: 'get',
+            url: "/Buxgalter/FinansoviyOtchetSvodniy?year=" + bg.Id + "&kvartal=" + end.ID,
+        }).then(function (d) {
+            if (d.data.length != 0) {
+                $scope.q = d.data.length;
+                $scope.showdata = true;
+            } else {
+                $scope.showdata = false;
+            }
+            $scope.DATAF = d.data;
+            console.log(d.data);
+            document.getElementById('connection').style.visibility = "hidden";
+            $("#hh").modal('hide');
+        }, function (error) {
+            alertify.error("ошибка");
+            console.log("error in GetPostupleniya -> ", error);
+            document.getElementById('connection').style.visibility = "hidden";
+            $("#hh").modal('hide');
+        });
+    }
+
+
+    $scope.LoadDATAFR = function () {
+        $locale.NUMBER_FORMATS.GROUP_SEP = " ";
+        $locale.NUMBER_FORMATS.DECIMAL_SEP = ",";
+        LoadDATAFR($scope.SelectedYear, $scope.SelectedKvartal, $scope.ModalToDepCodeSelected.Kod);
+    }
+
+    function LoadDATAFR(bg, end, ProfCode) {
+        document.getElementById('connection').style.visibility = "visible";
+        $("#hh").modal({
+            backdrop: 'static',
+            backdrop: 'static'
+        });
+        $http({
+            method: 'get',
+            url: "/Buxgalter/FinansoviyOtchetVRazreze?year=" + bg.Id + "&kvartal=" + end.ID + '&departmentBase=' + ProfCode,
+        }).then(function (d) {
+            if (d.data.length != 0) {
+                $scope.q = d.data.length;
+                $scope.showdata = true;
+            } else {
+                $scope.showdata = false;
+            }
+            $scope.DATAF = d.data;
+            console.log(d.data);
+            document.getElementById('connection').style.visibility = "hidden";
+            $("#hh").modal('hide');
+        }, function (error) {
+            alertify.error("ошибка");
+            console.log("error in GetPostupleniya -> ", error);
+            document.getElementById('connection').style.visibility = "hidden";
+            $("#hh").modal('hide');
+        });
+    }
+
     $scope.Clear = function () {
         $scope.ZB = new Date
         $scope.ZE = new Date();
@@ -128,5 +328,12 @@
             type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=utf-8"
         });
         saveAs(blob, "Главная книга.xls");
+    };
+
+    $scope.exportData2 = function () {
+        var blob = new Blob([document.getElementById('export').innerHTML], {
+            type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=utf-8"
+        });
+        saveAs(blob, "Финансовый отчет.xls");
     };
 }]);

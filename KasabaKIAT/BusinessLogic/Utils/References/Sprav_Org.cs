@@ -14,6 +14,7 @@ namespace KasabaKiat.BusinessLogic.Utils.References
     /// </summary>
     public class Sprav_Org
     {
+        private const int OthersBranch = -111;
         /// <summary>
         /// 
         /// </summary>
@@ -49,10 +50,10 @@ namespace KasabaKiat.BusinessLogic.Utils.References
                 org.DB_BAL = 0;
                 org.CT_BAL = 0;
                 org.FACE_TYPE = 0;
-                org.OWNER_CODE = GenerateDepartmentCode(model.ID_Ot.Value
-                                                        , model.Region.Value,
-                                                        model.PravSoyuzLevel.Value,
-                                                        0);
+                org.OWNER_CODE = model.ID_Ot == OthersBranch ? null : GenerateDepartmentCode(model.ID_Ot.Value
+                                , model.Region.Value,
+                                model.PravSoyuzLevel.Value,
+                                model.ID);
                 org.TIMESTAMP_CH = DateTime.Now;
                 org.TO_DEPCODE = model.to_depcode;
 
@@ -226,7 +227,7 @@ namespace KasabaKiat.BusinessLogic.Utils.References
                         org1.DB_BAL = 0;
                         org1.CT_BAL = 0;
                         org1.FACE_TYPE = 0;
-                        org1.OWNER_CODE = GenerateDepartmentCode(model.ID_Ot.Value
+                        org1.OWNER_CODE = model.ID_Ot == OthersBranch ? null : GenerateDepartmentCode(model.ID_Ot.Value
                                         , model.Region.Value,
                                         model.PravSoyuzLevel.Value,
                                         model.ID);

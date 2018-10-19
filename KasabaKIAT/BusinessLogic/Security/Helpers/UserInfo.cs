@@ -217,6 +217,7 @@ namespace KasabaKiat.Helpers
                                     var PrivOrg = PrivOrgs.First();
 
                                     model.IsPrivOrg = PrivOrg.PRIVFLG.Value;
+                                    model.OrgName = PrivOrg.ProfsoyzNaimenovanie;
                                 }
                                 else
                                 {

@@ -177,6 +177,44 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.GlavnayaKniga
         }
 
         /// <summary>
+        /// Svodniy Otchet Saldo
+        /// </summary>
+        private void CalcSaldoSvodniy()
+        {
+            if (saldo != null)
+            {
+                //Get info, Fill Collection
+                using (KasabaKIATEntities db = new KasabaKIATEntities())
+                {
+                    var RowLists = CarcasForGlavBook.GetCarcas(GlavBookSt.Rows);
+
+                    int o_year, o_kv;
+
+                    DateOperations.GetPrevQuarter(Year, Kvartal, out o_year, out o_kv);
+
+                    foreach (var row in RowLists)
+                    {
+                        var dbRes = db.tbbu_balance.Where(z => z.DEPARTMENT_BASE.Contains(DepartmentBase)
+                                                         && z.CUR_YEAR == o_year
+                                                         && z.CUR_KV == o_kv
+                                                         && z.ACCOUNT_CODE == row);
+
+                        if (dbRes.Any())
+                        {
+                            var resAccountBal = dbRes.Sum(z=>z.DEBIT_BAL);
+
+                            saldo.Add(row, resAccountBal);
+                        }
+                        else
+                        {
+                            saldo.Add(row, 0);
+                        }
+                    }
+                }
+            }
+        }
+
+        /// <summary>
         /// 
         /// </summary>
         private void CalcOboroti()
@@ -205,6 +243,54 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.GlavnayaKniga
                                     var debitRow = debitRows.First();
 
                                     colDict.Add(row, debitRow.SUMMA);
+                                }
+                                else
+                                {
+                                    colDict.Add(row, 0);
+                                }
+                            }
+                            else
+                            {
+                                colDict.Add(row, 0);
+                            }
+                        }
+
+                        oboroti.Add(col, colDict);
+                    }
+
+                }
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private void CalcOborotiSvodniy()
+        {
+            if (oboroti != null)
+            {
+                //Get info, Fill Collection
+                using (KasabaKIATEntities db = new KasabaKIATEntities())
+                {
+                    var colsCarcas = CarcasForGlavBook.GetCarcas(GlavBookSt.Cols);
+                    var rowsCarcas = CarcasForGlavBook.GetCarcas(GlavBookSt.Rows);
+                    var DebitList = db.sp_rt_GlavnayaKniga_Debit_Svodniy(Year, Kvartal, "17").ToList();
+
+                    foreach (var col in colsCarcas)
+                    {
+                        var colDict = new Dictionary<string, decimal?>();
+
+                        foreach (var row in rowsCarcas)
+                        {
+                            if (DebitList != null)
+                            {
+                                var debitRows = DebitList.Where(z => z.DebitAccount == row && z.JO == col);
+
+                                if (debitRows.Any())
+                                {
+                                    var debitRowSUMMA = debitRows.Sum(z=>z.SUMMA);
+
+                                    colDict.Add(row, debitRowSUMMA);
                                 }
                                 else
                                 {
@@ -258,6 +344,41 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.GlavnayaKniga
             }
         }
 
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private void CalcZaKvartalSvodniy()
+        {
+            if (zaKvartal != null)
+            {
+                //Get info, Fill Collection
+                using (KasabaKIATEntities db = new KasabaKIATEntities())
+                {
+                    var RowLists = CarcasForGlavBook.GetCarcas(GlavBookSt.Rows);
+
+                    foreach (var row in RowLists)
+                    {
+                        var dbRes = db.tbbu_balance.Where(z => z.DEPARTMENT_BASE.Contains(DepartmentBase)
+                                                         && z.CUR_YEAR == Year
+                                                         && z.CUR_KV == Kvartal
+                                                         && z.ACCOUNT_CODE == row);
+
+                        if (dbRes.Any())
+                        {
+                            var resAccountDEBIT_BAL = dbRes.Sum(z=>z.DEBIT_BAL);
+
+                            zaKvartal.Add(row, resAccountDEBIT_BAL);
+                        }
+                        else
+                        {
+                            zaKvartal.Add(row, 0);
+                        }
+                    }
+                }
+            }
+        }
+
         /// <summary>
         /// 
         /// </summary>
@@ -297,15 +418,65 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.GlavnayaKniga
             }
         }
 
+
         /// <summary>
         /// 
         /// </summary>
-        public void FillDebit()
+        private void CalcZaVsegoSvodniy()
         {
-            CalcSaldo();
-            CalcOboroti();
-            CalcZaKvartal();
-            CalcZaVsego();
+            if (zaVsego != null)
+            {
+                //Get info, Fill Collection
+                using (KasabaKIATEntities db = new KasabaKIATEntities())
+                {
+                    if ((saldo != null) && (zaKvartal != null))
+                    {
+                        var rowsCarcas = CarcasForGlavBook.GetCarcas(GlavBookSt.Rows);
+
+                        foreach (var row in rowsCarcas)
+                        {
+                            decimal? saldoAmount;
+
+                            if (!saldo.TryGetValue(row, out saldoAmount))
+                            {
+                                saldoAmount = 0;
+                            }
+
+                            decimal? zaKvartalAmount = 0;
+
+                            if (!zaKvartal.TryGetValue(row, out zaKvartalAmount))
+                            {
+                                zaKvartalAmount = 0;
+                            }
+
+                            var Summa = saldoAmount + zaKvartalAmount;
+
+                            zaVsego.Add(row, Summa);
+                        }
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public void FillDebit(bool IsSvodniy = false)
+        {
+            if (IsSvodniy)
+            {
+                CalcSaldoSvodniy();
+                CalcOborotiSvodniy();
+                CalcZaKvartalSvodniy();
+                CalcZaVsegoSvodniy();
+            }
+            else
+            {
+                CalcSaldo();
+                CalcOboroti();
+                CalcZaKvartal();
+                CalcZaVsego();
+            }
         }
     }
 
@@ -392,6 +563,45 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.GlavnayaKniga
             }
         }
 
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private void CalcSaldoSvodniy()
+        {
+            if (saldo != null)
+            {
+                //Get info, Fill Collection
+                using (KasabaKIATEntities db = new KasabaKIATEntities())
+                {
+                    var RowLists = CarcasForGlavBook.GetCarcas(GlavBookSt.Rows);
+
+                    int o_year, o_kv;
+
+                    DateOperations.GetPrevQuarter(Year, Kvartal, out o_year, out o_kv);
+
+                    foreach (var row in RowLists)
+                    {
+                        var dbRes = db.tbbu_balance.Where(z => z.DEPARTMENT_BASE.Contains(DepartmentBase)
+                                                         && z.CUR_YEAR == o_year
+                                                         && z.CUR_KV == o_kv
+                                                         && z.ACCOUNT_CODE == row);
+
+                        if (dbRes.Any())
+                        {
+                            var resAccountCREDIT_BAL = dbRes.Sum(z=>z.CREDIT_BAL);
+
+                            saldo.Add(row, resAccountCREDIT_BAL);
+                        }
+                        else
+                        {
+                            saldo.Add(row, 0);
+                        }
+                    }
+                }
+            }
+        }
+
         /// <summary>
         /// 
         /// </summary>
@@ -421,6 +631,54 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.GlavnayaKniga
                                     var creditRow = creditRows.First();
 
                                     colDict.Add(row, creditRow.SUMMA);
+                                }
+                                else
+                                {
+                                    colDict.Add(row, 0);
+                                }
+                            }
+                            else
+                            {
+                                colDict.Add(row, 0);
+                            }
+                        }
+
+                        oboroti.Add(col, colDict);
+                    }
+                }
+            }
+        }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private void CalcOborotiSvodniy()
+        {
+            if (oboroti != null)
+            {
+                //Get info, Fill Collection
+                using (KasabaKIATEntities db = new KasabaKIATEntities())
+                {
+                    var colsCarcas = CarcasForGlavBook.GetCarcas(GlavBookSt.Cols);
+                    var rowsCarcas = CarcasForGlavBook.GetCarcas(GlavBookSt.Rows);
+                    var CreditList = db.sp_rt_GlavnayaKniga_Credit_Svodniy(Year, Kvartal, "17").ToList();
+
+                    foreach (var col in colsCarcas)
+                    {
+                        var colDict = new Dictionary<string, decimal?>();
+
+                        foreach (var row in rowsCarcas)
+                        {
+                            if (CreditList != null)
+                            {
+                                var creditRows = CreditList.Where(z => z.CreditAccount == row && z.JO == col);
+
+                                if (creditRows.Any())
+                                {
+                                    var creditRowSUMMA = creditRows.Sum(z=>z.SUMMA);
+
+                                    colDict.Add(row, creditRowSUMMA);
                                 }
                                 else
                                 {
@@ -473,6 +731,41 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.GlavnayaKniga
             }
         }
 
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private void CalcZaKvartalSvodniy()
+        {
+            if (zaKvartal != null)
+            {
+                //Get info, Fill Collection
+                using (KasabaKIATEntities db = new KasabaKIATEntities())
+                {
+                    var RowLists = CarcasForGlavBook.GetCarcas(GlavBookSt.Rows);
+
+                    foreach (var row in RowLists)
+                    {
+                        var dbRes = db.tbbu_balance.Where(z => z.DEPARTMENT_BASE.Contains(DepartmentBase)
+                                                         && z.CUR_YEAR == Year
+                                                         && z.CUR_KV == Kvartal
+                                                         && z.ACCOUNT_CODE == row);
+
+                        if (dbRes.Any())
+                        {
+                            var resAccountCREDIT_BAL = dbRes.Sum(z=>z.CREDIT_BAL);
+
+                            zaKvartal.Add(row, resAccountCREDIT_BAL);
+                        }
+                        else
+                        {
+                            zaKvartal.Add(row, 0);
+                        }
+                    }
+                }
+            }
+        }
+
         /// <summary>
         /// 
         /// </summary>
@@ -512,15 +805,65 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.GlavnayaKniga
             }
         }
 
+
         /// <summary>
         /// 
         /// </summary>
-        public void FillCredit()
+        private void CalcZaVsegoSvodniy()
         {
-            CalcSaldo();
-            CalcOboroti();
-            CalcZaKvartal();
-            CalcZaVsego();
+            if (zaVsego != null)
+            {
+                //Get info, Fill Collection
+                using (KasabaKIATEntities db = new KasabaKIATEntities())
+                {
+                    if ((saldo != null) && (zaKvartal != null))
+                    {
+                        var rowsCarcas = CarcasForGlavBook.GetCarcas(GlavBookSt.Rows);
+
+                        foreach (var row in rowsCarcas)
+                        {
+                            decimal? saldoAmount;
+
+                            if (!saldo.TryGetValue(row, out saldoAmount))
+                            {
+                                saldoAmount = 0;
+                            }
+
+                            decimal? zaKvartalAmount = 0;
+
+                            if (!zaKvartal.TryGetValue(row, out zaKvartalAmount))
+                            {
+                                zaKvartalAmount = 0;
+                            }
+
+                            var Summa = saldoAmount + zaKvartalAmount;
+
+                            zaVsego.Add(row, Summa);
+                        }
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public void FillCredit(bool isSvodniy = false)
+        {
+            if (isSvodniy)
+            {
+                CalcSaldoSvodniy();
+                CalcOborotiSvodniy();
+                CalcZaKvartalSvodniy();
+                CalcZaVsegoSvodniy();
+            }
+            else
+            {
+                CalcSaldo();
+                CalcOboroti();
+                CalcZaKvartal();
+                CalcZaVsego();
+            }
         }
     }
 
@@ -613,6 +956,66 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.GlavnayaKniga
                 }
             }
         }
+
+        public void CalcBalanceSvodniy()
+        {
+            if (aktiv != null)
+            {
+                //Get info, Fill Collection
+                using (KasabaKIATEntities db = new KasabaKIATEntities())
+                {
+                    var RowLists = CarcasForGlavBook.GetCarcas(GlavBookSt.Rows);
+
+                    foreach (var row in RowLists)
+                    {
+                        var dbRes = db.tbbu_balance.Where(z => z.DEPARTMENT_BASE.Contains(DepartmentBase)
+                                                         && z.CUR_YEAR == Year
+                                                         && z.CUR_KV == Kvartal
+                                                         && z.ACCOUNT_CODE == row);
+
+                        if (dbRes.Any())
+                        {
+                            var resAccountDEBIT_BAL = dbRes.Sum(z=>z.DEBIT_BAL);
+
+                            aktiv.Add(row, resAccountDEBIT_BAL);
+                        }
+                        else
+                        {
+                            aktiv.Add(row, 0);
+                        }
+                    }
+                }
+            }
+
+
+            if (passiv != null)
+            {
+                //Get info, Fill Collection
+                using (KasabaKIATEntities db = new KasabaKIATEntities())
+                {
+                    var RowLists = CarcasForGlavBook.GetCarcas(GlavBookSt.Rows);
+
+                    foreach (var row in RowLists)
+                    {
+                        var dbRes = db.tbbu_balance.Where(z => z.DEPARTMENT_BASE.Contains(DepartmentBase)
+                                                         && z.CUR_YEAR == Year
+                                                         && z.CUR_KV == Kvartal
+                                                         && z.ACCOUNT_CODE == row);
+
+                        if (dbRes.Any())
+                        {
+                            var resAccountCREDIT_BAL = dbRes.Sum(z=>z.CREDIT_BAL);
+
+                            passiv.Add(row, resAccountCREDIT_BAL);
+                        }
+                        else
+                        {
+                            passiv.Add(row, 0);
+                        }
+                    }
+                }
+            }
+        }
     }
 
     /// <summary>
@@ -647,11 +1050,19 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.GlavnayaKniga
             balanceSide = new GK_Balance(DepartmentBase, Year, Kvartal);
         }
 
-        public List<GlavnayaKnigaTable> MakeGlavKniga()
+        public List<GlavnayaKnigaTable> MakeGlavKniga(bool isSvodniy = false)
         {
-            debitSide.FillDebit();
-            creditSide.FillCredit();
-            balanceSide.CalcBalance();
+            debitSide.FillDebit(isSvodniy);
+            creditSide.FillCredit(isSvodniy);
+
+            if (isSvodniy)
+            {
+                balanceSide.CalcBalanceSvodniy();
+            }
+            else
+            {
+                balanceSide.CalcBalance();
+            }
 
             var retObj = new GlavnayaKnigaOut();
             var retList = new List<GlavnayaKnigaTable>();

@@ -80,7 +80,7 @@ namespace KasabaKIAT.Controllers
         /// 
         /// </summary>
         /// <returns></returns>
-        [OutputCache(Duration = 500, Location = OutputCacheLocation.Client, VaryByCustom = "userId")]
+        [OutputCache(Duration = 5, Location = OutputCacheLocation.Client, VaryByCustom = "userId")]
         public JsonResult TotalCountOfOrganization()
         {
             int UserId = Convert.ToInt32(User.Identity.Name);
@@ -96,7 +96,7 @@ namespace KasabaKIAT.Controllers
         /// 
         /// </summary>
         /// <returns></returns>
-        [OutputCache(Duration = 500, Location = OutputCacheLocation.Client, VaryByCustom = "userId")]
+        [OutputCache(Duration = 5, Location = OutputCacheLocation.Client, VaryByCustom = "userId")]
         public JsonResult TotalCountOfNeotOrganization()
         {
             int UserId = Convert.ToInt32(User.Identity.Name);
@@ -114,7 +114,7 @@ namespace KasabaKIAT.Controllers
         /// <param name="Name"></param>
         /// <param name="Inn"></param>
         /// <returns></returns>.
-        [OutputCache(Duration = 500, Location = OutputCacheLocation.Client, VaryByCustom = "userId")]
+        [OutputCache(Duration = 5, Location = OutputCacheLocation.Client, VaryByCustom = "userId")]
         public JsonResult GetOrganization(string Name, string Inn)
         {
             int UserId = Convert.ToInt32(User.Identity.Name);

@@ -2131,5 +2131,39 @@ namespace KasabaKIAT.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("userUpdate", userIdParameter, loginParameter, parolParameter, bkit_idParameter, role_idParameter, commentParameter);
         }
+    
+        public virtual ObjectResult<sp_rt_GlavnayaKniga_Credit_Svodniy_Result> sp_rt_GlavnayaKniga_Credit_Svodniy(Nullable<int> yEAR, Nullable<int> kvartal, string dEPARTMENT_CODE)
+        {
+            var yEARParameter = yEAR.HasValue ?
+                new ObjectParameter("YEAR", yEAR) :
+                new ObjectParameter("YEAR", typeof(int));
+    
+            var kvartalParameter = kvartal.HasValue ?
+                new ObjectParameter("kvartal", kvartal) :
+                new ObjectParameter("kvartal", typeof(int));
+    
+            var dEPARTMENT_CODEParameter = dEPARTMENT_CODE != null ?
+                new ObjectParameter("DEPARTMENT_CODE", dEPARTMENT_CODE) :
+                new ObjectParameter("DEPARTMENT_CODE", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_rt_GlavnayaKniga_Credit_Svodniy_Result>("sp_rt_GlavnayaKniga_Credit_Svodniy", yEARParameter, kvartalParameter, dEPARTMENT_CODEParameter);
+        }
+    
+        public virtual ObjectResult<sp_rt_GlavnayaKniga_Debit_Svodniy_Result> sp_rt_GlavnayaKniga_Debit_Svodniy(Nullable<int> yEAR, Nullable<int> kvartal, string dEPARTMENT_CODE)
+        {
+            var yEARParameter = yEAR.HasValue ?
+                new ObjectParameter("YEAR", yEAR) :
+                new ObjectParameter("YEAR", typeof(int));
+    
+            var kvartalParameter = kvartal.HasValue ?
+                new ObjectParameter("kvartal", kvartal) :
+                new ObjectParameter("kvartal", typeof(int));
+    
+            var dEPARTMENT_CODEParameter = dEPARTMENT_CODE != null ?
+                new ObjectParameter("DEPARTMENT_CODE", dEPARTMENT_CODE) :
+                new ObjectParameter("DEPARTMENT_CODE", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_rt_GlavnayaKniga_Debit_Svodniy_Result>("sp_rt_GlavnayaKniga_Debit_Svodniy", yEARParameter, kvartalParameter, dEPARTMENT_CODEParameter);
+        }
     }
 }

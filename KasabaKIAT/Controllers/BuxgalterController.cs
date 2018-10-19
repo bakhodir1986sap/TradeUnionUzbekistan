@@ -1,6 +1,7 @@
 ﻿using KasabaKiat.BusinessLogic.Utils;
 using KasabaKiat.Helpers;
 using KasabaKIAT.BusinessLogic.Buxgalteriya.ECP_Management;
+using KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet;
 using KasabaKIAT.BusinessLogic.Buxgalteriya.GlavnayaKniga;
 using KasabaKIAT.BusinessLogic.Buxgalteriya.PlanirovaniyaBudjeta.Region;
 using KasabaKIAT.BusinessLogic.Buxgalteriya.PlanProvodok;
@@ -122,7 +123,10 @@ namespace KasabaKIAT.Controllers
             return "0";
         }
 
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public JsonResult GetSchetDebit()
         {
             var list = AccountTypeDataManager.GetDebitSchets();
@@ -130,6 +134,10 @@ namespace KasabaKIAT.Controllers
             return Json(list, JsonRequestBehavior.AllowGet);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public JsonResult GetSchetCredit()
         {
             var list = AccountTypeDataManager.GetCreditSchets();
@@ -447,12 +455,117 @@ namespace KasabaKIAT.Controllers
             var ustinfo = UserInfo.GetUserInfo(UserId);
 
             var gvk = new GK_Structure(ustinfo.DepartmentBase, year, kvartal);
-
-            var OutList = gvk.MakeGlavKniga();
+            const bool isSvodniyOtchet = false;
+            var OutList = gvk.MakeGlavKniga(isSvodniyOtchet);
 
             return Json(OutList, JsonRequestBehavior.AllowGet);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="year"></param>
+        /// <param name="kvartal"></param>
+        /// <returns></returns>
+        public JsonResult GlavnayaKnigaVRazreze(int year, int kvartal, string departmentBase)
+        {
+            int UserId = Convert.ToInt32(User.Identity.Name);
+            var ustinfo = UserInfo.GetUserInfo(UserId);
+
+            var gvk = new GK_Structure(departmentBase, year, kvartal);
+            const bool isSvodniyOtchet = false;
+            var OutList = gvk.MakeGlavKniga(isSvodniyOtchet);
+
+            return Json(OutList, JsonRequestBehavior.AllowGet);
+        }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="year"></param>
+        /// <param name="kvartal"></param>
+        /// <returns></returns>
+        public JsonResult GlavnayaKnigaSvodniy(int year, int kvartal)
+        {
+            int UserId = Convert.ToInt32(User.Identity.Name);
+            var ustinfo = UserInfo.GetUserInfo(UserId);
+
+            var gvk = new GK_Structure("17", year, kvartal);
+            const bool isSvodniyOtchet = true;
+            var OutList = gvk.MakeGlavKniga(isSvodniyOtchet);
+
+            return Json(OutList, JsonRequestBehavior.AllowGet);
+        }
+
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="year"></param>
+        /// <param name="kvartal"></param>
+        /// <returns></returns>
+        public JsonResult FinansoviyOtchet(int year, int kvartal)
+        {
+            int UserId = Convert.ToInt32(User.Identity.Name);
+            var ustinfo = UserInfo.GetUserInfo(UserId);
+
+            var finOtchet = new FinOtchetStrukture();
+            finOtchet.MakeFinOtchet(ustinfo.DepartmentBase, year, kvartal);
+
+            finOtchet._totaloutput.SelectedKvartalYear =  string.Format("{0} год -{1} кв", year, kvartal);
+            finOtchet._totaloutput.OrgName = ustinfo.OrgName;
+
+            var result = finOtchet._totaloutput;
+
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="year"></param>
+        /// <param name="kvartal"></param>
+        /// <returns></returns>
+        public JsonResult FinansoviyOtchetVRazreze(int year, int kvartal , string departmentBase)
+        {
+            int UserId = Convert.ToInt32(User.Identity.Name);
+            var ustinfo = UserInfo.GetUserInfo(UserId);
+
+            var finOtchet = new FinOtchetStrukture();
+            finOtchet.MakeFinOtchet(departmentBase, year, kvartal);
+
+            finOtchet._totaloutput.SelectedKvartalYear = string.Format("{0} год -{1} кв", year, kvartal);
+            finOtchet._totaloutput.OrgName = KasabaDB.tbku_StrokaProfsoyza.Where(z=>z.MATCH_DEPARTMENTBASE == departmentBase).First().ProfsoyzNaimenovanie;
+
+            var result = finOtchet._totaloutput;
+
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="year"></param>
+        /// <param name="kvartal"></param>
+        /// <returns></returns>
+        public JsonResult FinansoviyOtchetSvodniy(int year, int kvartal)
+        {
+            int UserId = Convert.ToInt32(User.Identity.Name);
+            var ustinfo = UserInfo.GetUserInfo(UserId);
+
+            var finOtchet = new FinOtchetStrukture();
+            finOtchet.MakeFinOtchet("17", year, kvartal , true);
+
+            finOtchet._totaloutput.SelectedKvartalYear = string.Format("{0} год -{1} кв", year, kvartal);
+            finOtchet._totaloutput.OrgName = ustinfo.OrgName;
+
+            var result = finOtchet._totaloutput;
+
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
 
         /// <summary>
         /// 

@@ -1,0 +1,94 @@
+﻿@model PagedList.IPagedList<KasabaKIAT.Models.tbbu_finOtchetSetting>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+@{
+    ViewBag.Title = "Справочник Финансового отчета";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+
+    td, th {
+        vertical-align: middle !important;
+    }
+
+    ;
+</style>
+<p>
+    <button style="margin:10px" class="btn btn-white">@Html.ActionLink("Добавить", "Create")</button>
+</p>
+<table class="table">
+    <tr>
+        <th>
+            "OTCHET_PART"
+        </th>
+        <th>
+            "CODE"
+        </th>
+        <th>
+            "DEBIT_SIDE"
+        </th>
+        <th>
+            "CREDIT_SIDE"
+        </th>
+        <th>
+            "ACCOUNT_CODE"
+        </th>
+        <th>
+            "DATA_TYPE"
+        </th>
+        <th>
+            "DATA_DESC"
+        </th>
+        <th>
+            "DEPARTMENT_BASE"
+        </th>
+        <th>
+            "USR_ID"
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.OTCHET_PART)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CODE)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DEBIT_SIDE)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CREDIT_SIDE)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ACCOUNT_CODE)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DATA_TYPE)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DATA_DESC)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DEPARTMENT_BASE)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.USR_ID)
+            </td>
+            <td>
+                @Html.ActionLink("Изменить", "Edit", new { id = item.REC_ID }) |
+                @Html.ActionLink("Детали", "Details", new { id = item.REC_ID }) |
+                @Html.ActionLink("Удалить", "Delete", new { id = item.REC_ID })
+            </td>
+        </tr>
+    }
+
+</table>
+Страница @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) из @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("Index", new { page }))

@@ -2028,8 +2028,14 @@ namespace KasabaKIAT.Controllers
                                 if (deps.Any())
                                 {
                                     departmentId = deps.First().id;
+
+                                    contextObj.userAdd(pz.email, pz.password, departmentId, pz.role_id, pz.s_comment);
                                 }
                             }
+                        }
+                        else
+                        {
+                            contextObj.userAdd(pz.email, pz.password, pz.bkut_id, pz.role_id, pz.s_comment);
                         }
 
                         /*users uu = new users();
@@ -2041,7 +2047,7 @@ namespace KasabaKIAT.Controllers
                         uu.s_comment = pz.s_comment;*/
 
                         //contextObj.users.Add(uu);
-                        contextObj.userAdd(pz.email, pz.password, pz.bkut_id, pz.role_id, pz.s_comment);
+                        
 
                         //contextObj.SaveChanges();
 

@@ -35,7 +35,7 @@ namespace KasabaKiat.ViewModel
         public bool   IsPrivOrg         { get; set; }
         public int CurYear { get; set; }
         public int CurKvartal { get; set; }
-
+        public string OrgName { get; set; }
     }
 
     public class LoginViewModel

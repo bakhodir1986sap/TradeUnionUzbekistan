@@ -77,6 +77,27 @@ namespace KasabaKIAT.Controllers
         /// </summary>
         /// <returns></returns>
         [OutputCache(Duration = 5, Location = OutputCacheLocation.Client, VaryByCustom = "userId")]
+        public ActionResult GlavnayaKnigaVRazreze()
+        {
+            return View();
+        }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [OutputCache(Duration = 5, Location = OutputCacheLocation.Client, VaryByCustom = "userId")]
+        public ActionResult GlavnayaKnigaSvodniy()
+        {
+            return View();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [OutputCache(Duration = 5, Location = OutputCacheLocation.Client, VaryByCustom = "userId")]
         public ActionResult Talabnomlar()
         {
             return View();
@@ -182,11 +203,23 @@ namespace KasabaKIAT.Controllers
         }
 
         [OutputCache(Duration = 5, Location = OutputCacheLocation.Client, VaryByCustom = "userId")]
-        public ActionResult FinansoviyOtchotKvartalniy()
+        public ActionResult FinansoviyOtchotKvartalniyN()
         {
             return View();
         }
-        
+
+        [OutputCache(Duration = 5, Location = OutputCacheLocation.Client, VaryByCustom = "userId")]
+        public ActionResult FinansoviyOtchotKvartalniyVRazreze()
+        {
+            return View();
+        }
+
+        [OutputCache(Duration = 5, Location = OutputCacheLocation.Client, VaryByCustom = "userId")]
+        public ActionResult FinansoviyOtchotKvartalniySvodniy()
+        {
+            return View();
+        }
+
 
         /// <summary>
         /// 

@@ -471,6 +471,7 @@
     <Compile Include="Controllers\sp_sectionController.cs" />
     <Compile Include="Controllers\sp_soatoController.cs" />
     <Compile Include="Controllers\sp_sooguController.cs" />
+    <Compile Include="Controllers\tbbu_finOtchetSettingController.cs" />
     <Compile Include="Controllers\tblBronsController.cs" />
     <Compile Include="Controllers\tblSprav_FaceController.cs" />
     <Compile Include="Controllers\tblSprav_KvController.cs" />
@@ -585,7 +586,13 @@
     <Compile Include="Models\sp_rt_GlavnayaKniga_Credit_Result.cs">
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\sp_rt_GlavnayaKniga_Credit_Svodniy_Result.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\sp_rt_GlavnayaKniga_Debit_Result.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_rt_GlavnayaKniga_Debit_Svodniy_Result.cs">
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\sp_rt_JurnalniyOrder4Provodka_Result.cs">
@@ -2009,6 +2016,16 @@
     <Content Include="Views\useractions\Edit.cshtml" />
     <Content Include="Views\useractions\Index.cshtml" />
     <Content Include="Views\Otchot\OtchetMonitoring.cshtml" />
+    <Content Include="Views\Otchot\FinansoviyOtchotKvartalniyN.cshtml" />
+    <Content Include="Views\tbbu_finOtchetSetting\Create.cshtml" />
+    <Content Include="Views\tbbu_finOtchetSetting\Delete.cshtml" />
+    <Content Include="Views\tbbu_finOtchetSetting\Details.cshtml" />
+    <Content Include="Views\tbbu_finOtchetSetting\Edit.cshtml" />
+    <Content Include="Views\tbbu_finOtchetSetting\Index.cshtml" />
+    <Content Include="Views\Otchot\FinansoviyOtchotKvartalniyVRazreze.cshtml" />
+    <Content Include="Views\Otchot\FinansoviyOtchotKvartalniySvodniy.cshtml" />
+    <Content Include="Views\Otchot\GlavnayaKnigaVRazreze.cshtml" />
+    <Content Include="Views\Otchot\GlavnayaKnigaSvodniy.cshtml" />
     <None Include="Web References\KurortUrlService\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>

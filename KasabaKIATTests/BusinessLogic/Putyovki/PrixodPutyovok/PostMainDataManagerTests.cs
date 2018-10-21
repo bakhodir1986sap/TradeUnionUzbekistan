@@ -16,19 +16,23 @@ namespace KasabaKiat.BusinessLogic.Putyovki.PrixodPutyovok.Tests
         [TestMethod()]
         public void GetTest()
         {
+            //var finOtchet = new FinOtchetStrukture();
+            //finOtchet.year = 2018;
+            //finOtchet.kvartal = 1;
+            //finOtchet.departmentCode = "17";
+
+            //finOtchet.GetDataFromPlan();
+            //finOtchet.FillFactData(2018, 1);
+            //finOtchet.FillFactDataBalance(2018, 1);
+
+
+            //var res_out = finOtchet.out_FinOtchet;
+            //var res_bal_out = finOtchet.out_Balance;
+
             var finOtchet = new FinOtchetStrukture();
-            finOtchet.year = 2018;
-            finOtchet.kvartal = 1;
-            finOtchet.departmentCode = "17";
+            finOtchet.MakeFinOtchet("17", 2018, 1);
 
-            finOtchet.GetDataFromPlan();
-            finOtchet.FillFactData(2018, 1);
-            finOtchet.FillFactDataBalance(2018, 1);
-
-
-            var res_out = finOtchet.out_FinOtchet;
-            var res_bal_out = finOtchet.out_Balance;
-
+            var result = finOtchet._totaloutput;
         }
     }
 }

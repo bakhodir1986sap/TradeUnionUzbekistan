@@ -1111,7 +1111,7 @@ namespace KasabaKIAT.Controllers
         /// </summary>
         /// <returns></returns>
         [OutputCache(Duration = 5, Location = OutputCacheLocation.Client, VaryByCustom = "userId")]
-        public JsonResult GetOrganizationList()
+        public JsonResult GetOrganizationList(int page = 0)
         {
             log.Info("GetOrganizationList");
 
@@ -1122,9 +1122,10 @@ namespace KasabaKIAT.Controllers
 
             log.Info(list);
 
-            return Json(list.ToList().Take(30), JsonRequestBehavior.AllowGet);
+            return Json(list.ToList().Skip(PAGE_SIZE * page).Take(PAGE_SIZE), JsonRequestBehavior.AllowGet);
         }
 
+        private int PAGE_SIZE = 30;
         /// <summary>
         /// 
         /// </summary>
@@ -1133,14 +1134,14 @@ namespace KasabaKIAT.Controllers
         /// <param name="OtrasId"></param>
         /// <returns></returns>
         [OutputCache(Duration = 5, Location = OutputCacheLocation.Client, VaryByCustom = "userId")]
-        public JsonResult GetOrganizationFilter(string Name, string Inn, int? OtrasId)
+        public JsonResult GetOrganizationFilter(string Name, string Inn, int? OtrasId, int page = 0)
         {
             int UserId = Convert.ToInt32(User.Identity.Name);
             var ustinfo = UserInfo.GetUserInfo(UserId);
 
             var list = Sprav_Org.GetByDeraprtmentBase(ustinfo.DepartmentBase, Name, Inn, OtrasId);
 
-            return Json(list.ToList().Take(30), JsonRequestBehavior.AllowGet);
+            return Json(list.ToList().Skip(PAGE_SIZE * page).Take(PAGE_SIZE), JsonRequestBehavior.AllowGet);
         }
 
 

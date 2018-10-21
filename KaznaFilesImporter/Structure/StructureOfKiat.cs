@@ -433,11 +433,17 @@ namespace KasabaKIAT.BusinessLogic.Structure
                     }
                     else
                     {
+                        Console.WriteLine("branchCode  " + branchCode);
+                        Console.WriteLine("tumanCode " + tumanCode);
+
                         throw new ApplicationException("branchCode & tumanCode have invalid length");
                     }
                 }
                 else
                 {
+                    Console.WriteLine("branchCode  " + branchCode);
+                    Console.WriteLine("tumanCode " + tumanCode);
+
                     throw new ApplicationException("branchCode & tumanCode is empty");
                 }
             }
@@ -461,6 +467,9 @@ namespace KasabaKIAT.BusinessLogic.Structure
                 }
                 else
                 {
+                    Console.WriteLine("branchCode  " + branchCode);
+                    Console.WriteLine("tumanCode " + tumanCode);
+
                     throw new ApplicationException("branchCode & tumanCode is empty");
                 }
             }

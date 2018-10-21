@@ -1745,20 +1745,29 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.Provodki.AutomaticTransactions.K
                         {
                             try
                             {
+                                Console.WriteLine("org.ID_Ot.Value " + org.ID_Ot.Value);
+                                Console.WriteLine("org.Region.Value " + org.Region.Value);
+                                Console.WriteLine("org.PRAVORGLEVEL.Value " + org.PRAVORGLEVEL.Value);
+                                Console.WriteLine("org.ID " + org.ID);
+
                                 org.OWNER_CODE = GenerateDepartmentCode(org.ID_Ot.Value
                                             , org.Region.Value,
                                             org.PRAVORGLEVEL.Value,
                                             org.ID, db);
 
-                                var depbase = new t_departmentbase
+                                if (!string.IsNullOrEmpty(org.OWNER_CODE) && org.ID_Ot.Value != -111)
                                 {
-                                    code = org.OWNER_CODE,
-                                    name_ru = org.Name_Org,
-                                    name_uz = org.Name_Org,
-                                    name_uzl = org.Name_Org
-                                };
+                                    var depbase = new t_departmentbase
+                                    {
+                                        code = org.OWNER_CODE,
+                                        name_ru = org.Name_Org,
+                                        name_uz = org.Name_Org,
+                                        name_uzl = org.Name_Org,
+                                        dtype = "Bkut"
+                                    };
 
-                                db.t_departmentbase.Add(depbase);
+                                    db.t_departmentbase.Add(depbase);
+                                }
                             }
                             catch (Exception ex)
                             {
@@ -1766,13 +1775,27 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.Provodki.AutomaticTransactions.K
                                 continue;
                             }
 
-                                Console.Write("ID = " + org.ID);
+                            Console.Write("ID = " + org.ID);
                             Console.WriteLine("  OwnerCode = " + org.OWNER_CODE);
-
-                            
                         }
 
-                        db.SaveChanges();
+                        try
+                        {
+                            db.SaveChanges();
+                        }
+                        catch (DbEntityValidationException e)
+                        {
+                            foreach (var eve in e.EntityValidationErrors)
+                            {
+                                Console.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
+                                    eve.Entry.Entity.GetType().Name, eve.Entry.State);
+                                foreach (var ve in eve.ValidationErrors)
+                                {
+                                    Console.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
+                                        ve.PropertyName, ve.ErrorMessage);
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -1858,14 +1881,15 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.Provodki.AutomaticTransactions.K
                     }
                     else
                     {
-                        throw new ApplicationException("Region is invalid");
+                        //throw new ApplicationException("Region is invalid");
+                        return null;
                     }
 
                     return structureKiat.GenerateDepartmentCode(str, branch, soatoCode, Id);
                 }
                 else
                 {
-                    throw new ApplicationException("Otrasl info not found");
+                    return null;
                 }
         }
 

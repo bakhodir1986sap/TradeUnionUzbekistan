@@ -99,6 +99,13 @@
 
     $scope.TotalCount = 0;
     $scope.TotalCountNeot = 0;
+    $scope.TotalCountOpr = 0;
+    $scope.curPage = 0;
+    $scope.pageSize = 30;
+
+    $scope.numberOfPages = function () {
+        return Math.ceil($scope.TotalCount / $scope.pageSize);
+    };
 
     function GetOrganizationList() {
         document.getElementById('connection').style.visibility = "visible";
@@ -349,6 +356,7 @@
             url: '/Reference/TotalCountOfOrganization'
         }).then(function (response) {
             $scope.TotalCount = response.data;
+            $scope.TotalCountOpr = $scope.TotalCount - $scope.TotalCountNeot;
         }, function (error) {
             console.log("error in GetRekvizits");
         });
@@ -364,6 +372,7 @@
             url: '/Reference/TotalCountOfNeotOrganization'
         }).then(function (response) {
             $scope.TotalCountNeot = response.data;
+            $scope.TotalCountOpr = $scope.TotalCount - $scope.TotalCountNeot;
         }, function (error) {
             console.log("error in GetRekvizits");
         });
@@ -376,11 +385,66 @@
         });
         $http({
             method: 'get',
-            url: '/PrixodPutevok/GetOrganizationFilter?Name=' + $scope.FilterName + '&Inn=' + $scope.FilterInn + '&OtrasId='+ $scope.FilterSelectedOtrasl.ID_Ot
+            url: '/PrixodPutevok/GetOrganizationFilter?Name=' + $scope.FilterName + '&Inn=' + $scope.FilterInn + '&OtrasId=' + $scope.FilterSelectedOtrasl.ID_Ot + '&page=0'
         }).then(function (response) {
             $scope.Organizations = response.data;
             TotalCountOfOrganization();
             TotalCountOfNeotOrganization();
+            $scope.curPage = 0;
+            document.getElementById('connection').style.visibility = "hidden";
+            $("#hh").modal('hide');
+        }, function (error) {
+            alertify.error("ошибка");
+            console.log("error in GetRekvizits");
+            document.getElementById('connection').style.visibility = "hidden";
+            $("#hh").modal('hide');
+        });
+    }
+
+
+    $scope.GetOrganizationsFilterNext = function () {
+        document.getElementById('connection').style.visibility = "visible";
+        $("#hh").modal({
+            backdrop: 'static'
+        });
+
+        $scope.curPage = $scope.curPage + 1;
+
+        $http({
+            method: 'get',
+            url: '/PrixodPutevok/GetOrganizationFilter?Name=' + $scope.FilterName + '&Inn=' + $scope.FilterInn + '&OtrasId=' + $scope.FilterSelectedOtrasl.ID_Ot + '&page=' + $scope.curPage
+        }).then(function (response) {
+            $scope.Organizations = response.data;
+            TotalCountOfOrganization();
+            TotalCountOfNeotOrganization();
+            
+            document.getElementById('connection').style.visibility = "hidden";
+            $("#hh").modal('hide');
+        }, function (error) {
+            alertify.error("ошибка");
+            console.log("error in GetRekvizits");
+            document.getElementById('connection').style.visibility = "hidden";
+            $("#hh").modal('hide');
+        });
+    }
+
+
+    $scope.GetOrganizationsFilterPrev = function () {
+        document.getElementById('connection').style.visibility = "visible";
+        $("#hh").modal({
+            backdrop: 'static'
+        });
+
+        $scope.curPage = $scope.curPage - 1;
+
+        $http({
+            method: 'get',
+            url: '/PrixodPutevok/GetOrganizationFilter?Name=' + $scope.FilterName + '&Inn=' + $scope.FilterInn + '&OtrasId=' + $scope.FilterSelectedOtrasl.ID_Ot + '&page=' + $scope.curPage
+        }).then(function (response) {
+            $scope.Organizations = response.data;
+            TotalCountOfOrganization();
+            TotalCountOfNeotOrganization();
+            
             document.getElementById('connection').style.visibility = "hidden";
             $("#hh").modal('hide');
         }, function (error) {

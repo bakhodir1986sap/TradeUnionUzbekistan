@@ -122,6 +122,9 @@
     <Compile Include="sp_okonx.cs">
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
+    <Compile Include="sp_pr_DoubleBranchCheck_Result.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
     <Compile Include="sp_pr_GetNewBankProvodki_Result.cs">
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>

@@ -581,6 +581,7 @@ warning 6035: The relationship 't_departmentbase_5' has columns that are not par
 warning 6035: The relationship 't_egrpo_4' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
         <Association Name="t_egrpo_4" />-->
         <Function Name="sp_im_KaznaNewOrg" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="sp_pr_DoubleBranchCheck" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="sp_pr_GetNewBankProvodki" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="sp_pr_GetNewECPMOIFY" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="sp_pr_GetNewTransactions" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
@@ -1082,6 +1083,7 @@ warning 6035: The relationship 't_egrpo_4' has columns that are not part of the 
             <End Role="tbbu_provodki" EntitySet="tbbu_provodki" />
             <End Role="KaznaBankFile" EntitySet="KaznaBankFiles" />
           </AssociationSet>
+          <FunctionImport Name="sp_pr_DoubleBranchCheck" ReturnType="Collection(KasabaKIATModel.sp_pr_DoubleBranchCheck_Result)" />
           </EntityContainer>
         <EntityType Name="KaznaSverkaFile">
           <Key>
@@ -1760,6 +1762,41 @@ warning 6035: The relationship 't_egrpo_4' has columns that are not part of the 
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <ComplexType Name="sp_pr_DoubleBranchCheck_Result">
+          <Property Type="Int64" Name="ID" Nullable="false" />
+          <Property Type="Int32" Name="ID_Ot" Nullable="true" />
+          <Property Type="String" Name="Name_Org" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="INN" Nullable="true" MaxLength="9" />
+          <Property Type="String" Name="RS" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="MFO" Nullable="true" MaxLength="5" />
+          <Property Type="String" Name="Bank" Nullable="true" MaxLength="90" />
+          <Property Type="String" Name="OKONX" Nullable="true" MaxLength="5" />
+          <Property Type="String" Name="Adress" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Telefon" Nullable="true" MaxLength="70" />
+          <Property Type="Int32" Name="Region" Nullable="true" />
+          <Property Type="Int32" Name="DT_OST" Nullable="true" />
+          <Property Type="Int32" Name="KT_OST" Nullable="true" />
+          <Property Type="String" Name="E_Mail" Nullable="true" MaxLength="90" />
+          <Property Type="Int64" Name="UserId" Nullable="true" />
+          <Property Type="String" Name="DepartmentBase" Nullable="true" MaxLength="255" />
+          <Property Type="Boolean" Name="IS_PRAVSOYUZ" Nullable="false" />
+          <Property Type="Int64" Name="ParentID" Nullable="true" />
+          <Property Type="Int32" Name="PRAVORGLEVEL" Nullable="true" />
+          <Property Type="String" Name="DIRECTOR" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="BUXGALTER" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="DOVERENNOE_LISO" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="ORIG_INN" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="OWNER_CODE" Nullable="true" MaxLength="255" />
+          <Property Type="DateTime" Name="TIMESTAMP_CH" Nullable="true" Precision="23" />
+          <Property Type="Decimal" Name="DB_BAL" Nullable="true" Precision="19" />
+          <Property Type="Decimal" Name="CT_BAL" Nullable="true" Precision="19" />
+          <Property Type="String" Name="TO_DEPCODE" Nullable="true" MaxLength="255" />
+          <Property Type="Int32" Name="FACE_TYPE" Nullable="true" />
+          <Property Type="String" Name="Pas_ser" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Pas_Num" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Pas_KD" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="Pas_Data" Nullable="true" Precision="23" />
+        </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2408,6 +2445,45 @@ warning 6035: The relationship 't_egrpo_4' has columns that are not part of the 
                 <ScalarProperty Name="SUMPAY" ColumnName="SUMPAY" />
                 <ScalarProperty Name="COINN" ColumnName="COINN" />
                 <ScalarProperty Name="Departmentbase" ColumnName="Departmentbase" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_pr_DoubleBranchCheck" FunctionName="KasabaKIATModel.Store.sp_pr_DoubleBranchCheck">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="KasabaKIATModel.sp_pr_DoubleBranchCheck_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="ID_Ot" ColumnName="ID_Ot" />
+                <ScalarProperty Name="Name_Org" ColumnName="Name_Org" />
+                <ScalarProperty Name="INN" ColumnName="INN" />
+                <ScalarProperty Name="RS" ColumnName="RS" />
+                <ScalarProperty Name="MFO" ColumnName="MFO" />
+                <ScalarProperty Name="Bank" ColumnName="Bank" />
+                <ScalarProperty Name="OKONX" ColumnName="OKONX" />
+                <ScalarProperty Name="Adress" ColumnName="Adress" />
+                <ScalarProperty Name="Telefon" ColumnName="Telefon" />
+                <ScalarProperty Name="Region" ColumnName="Region" />
+                <ScalarProperty Name="DT_OST" ColumnName="DT_OST" />
+                <ScalarProperty Name="KT_OST" ColumnName="KT_OST" />
+                <ScalarProperty Name="E_Mail" ColumnName="E_Mail" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="DepartmentBase" ColumnName="DepartmentBase" />
+                <ScalarProperty Name="IS_PRAVSOYUZ" ColumnName="IS_PRAVSOYUZ" />
+                <ScalarProperty Name="ParentID" ColumnName="ParentID" />
+                <ScalarProperty Name="PRAVORGLEVEL" ColumnName="PRAVORGLEVEL" />
+                <ScalarProperty Name="DIRECTOR" ColumnName="DIRECTOR" />
+                <ScalarProperty Name="BUXGALTER" ColumnName="BUXGALTER" />
+                <ScalarProperty Name="DOVERENNOE_LISO" ColumnName="DOVERENNOE_LISO" />
+                <ScalarProperty Name="ORIG_INN" ColumnName="ORIG_INN" />
+                <ScalarProperty Name="OWNER_CODE" ColumnName="OWNER_CODE" />
+                <ScalarProperty Name="TIMESTAMP_CH" ColumnName="TIMESTAMP_CH" />
+                <ScalarProperty Name="DB_BAL" ColumnName="DB_BAL" />
+                <ScalarProperty Name="CT_BAL" ColumnName="CT_BAL" />
+                <ScalarProperty Name="TO_DEPCODE" ColumnName="TO_DEPCODE" />
+                <ScalarProperty Name="FACE_TYPE" ColumnName="FACE_TYPE" />
+                <ScalarProperty Name="Pas_ser" ColumnName="Pas_ser" />
+                <ScalarProperty Name="Pas_Num" ColumnName="Pas_Num" />
+                <ScalarProperty Name="Pas_KD" ColumnName="Pas_KD" />
+                <ScalarProperty Name="Pas_Data" ColumnName="Pas_Data" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

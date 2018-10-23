@@ -1792,7 +1792,7 @@ warning 6002: The table/view 'KasabaKIAT_N1.dbo.tbbTabel' does not have a primar
           <Key>
             <PropertyRef Name="REC_ID" />
           </Key>
-          <Property Name="REC_ID" Type="bigint" Nullable="false" />
+          <Property Name="REC_ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="YEAR" Type="int" />
           <Property Name="KVARTAL" Type="int" />
           <Property Name="PART" Type="int" />

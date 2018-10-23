@@ -140,28 +140,32 @@
                             <div class="dropdown-menu rounded-0 box-shadow m-0 border-0" aria-labelledby="accounting">
                                 @if (List.BuxUchetVvodDannix)
                                 {
-                                <a class="dropdown-item load" href="/Buxgalter/VvodDannix">@ContentData.VvodDannix</a>
+                                    <a class="dropdown-item load" href="/Buxgalter/VvodDannix">@ContentData.VvodDannix</a>
                                 }
                                 @if (List.PrasmotrDannix)
                                 {
-                                <a class="dropdown-item load" href="/Buxgalter/BU_PrasmotrDannix">@ContentData.Prosmotr</a>
+                                    <a class="dropdown-item load" href="/Buxgalter/BU_PrasmotrDannix">@ContentData.Prosmotr</a>
                                 }
                                 <a class="dropdown-item load" href="/Buxgalter/OsushestvleniyeProvodki">@ContentData.OsushestvleniyaProvodki</a>
                                 @if (List.PlatejniyePorucheniya)
                                 {
-                                <a class="dropdown-item load" href="/PlatejnoyePorucheniye/Index">@ContentData.PlatejnoePorucheniye</a>
+                                    <a class="dropdown-item load" href="/PlatejnoyePorucheniye/Index">@ContentData.PlatejnoePorucheniye</a>
                                 }
                                 @if (List.PlanByudjeta)
                                 {
-                                <a class="dropdown-item load" href="/Buxgalter/PlanByudjetaOblastey">@ContentData.PlanByudjetaOblastey</a>
+                                    <a class="dropdown-item load" href="/Buxgalter/PlanByudjetaOblastey">@ContentData.PlanByudjetaOblastey</a>
                                 }
                                 @if (List.BuxUchetVvodDannix)
                                 {
-                                <a class="dropdown-item load" href="/PrixodPutevok/StartProcess">@ContentData.ZagruzkaPervichnixDannix</a>
+                                    <a class="dropdown-item load" href="/PrixodPutevok/StartProcess">@ContentData.ZagruzkaPervichnixDannix</a>
                                 }
                                 @if (List.BuxUchetVvodDannix)
                                 {
-                                <a class="dropdown-item load" href="/Buxgalter/EcpManagementV">@ContentData.EcpUpravlniye</a>
+                                    <a class="dropdown-item load" href="/Buxgalter/EcpManagementV">@ContentData.EcpUpravlniye</a>
+                                }
+                                @if (List.BuxUchetVvodDannix)
+                                {
+                                    <a class="dropdown-item load" href="/Buxgalter/CloseKvartal">Закрыть Квартал</a>
                                 }
                             </div>
                         </li>

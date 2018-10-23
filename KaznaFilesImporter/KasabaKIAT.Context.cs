@@ -20,6 +20,7 @@ namespace KaznaFilesImporter
         public KasabaKIATEntities()
             : base("name=KasabaKIATEntities")
         {
+            ((IObjectContextAdapter)this).ObjectContext.CommandTimeout = 300;
         }
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -702,6 +703,11 @@ namespace KaznaFilesImporter
         public virtual ObjectResult<sp_pr_GetNewBankProvodki_Result> sp_pr_GetNewBankProvodki()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_pr_GetNewBankProvodki_Result>("sp_pr_GetNewBankProvodki");
+        }
+    
+        public virtual ObjectResult<sp_pr_DoubleBranchCheck_Result> sp_pr_DoubleBranchCheck()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_pr_DoubleBranchCheck_Result>("sp_pr_DoubleBranchCheck");
         }
     }
 }

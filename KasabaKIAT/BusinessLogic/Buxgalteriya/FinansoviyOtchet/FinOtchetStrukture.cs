@@ -16,6 +16,9 @@ using System.Web;
  */
 namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public enum OtchetPart
     {
         IspolneniyaByudjeta = 1,
@@ -24,6 +27,9 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
         Rasshifrovka
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
     public enum FinOtchDataType
     {
         DebitOSTATOK,
@@ -34,6 +40,9 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
         DEFAULT0
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
     public class FinOtchetContainer
     {
         public string Code       { get; set; }
@@ -43,7 +52,9 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
         public decimal RealValue { get; set; }
     }
 
-
+    /// <summary>
+    /// 
+    /// </summary>
     public class BalanceContainer
     {
         public string Code { get; set; }
@@ -51,11 +62,17 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
         public decimal RealValue { get; set; }
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
     public class RasxodiContainer
     {
 
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
     public class TotalOutput
     {
         public string OrgName { get; set; }
@@ -64,6 +81,9 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
         public BalanceOutput _balanceoutput { get; set; }
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
     public class FinOtchetOutput
     {
         public decimal? field010P { get; set; }
@@ -149,6 +169,9 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
         public decimal? field340R { get; set; }
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
     public class BalanceOutput
     {
         public decimal? field010 { get; set; }
@@ -198,6 +221,9 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
 
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
     public class FinOtchetStrukture
     {
         //input parametrs if 9999 - svodniy po respubliki
@@ -206,6 +232,8 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
         private int      year            { get; set; }
 
         private int      kvartal         { get; set; }
+
+        private long     usrId { get; set; }
 
         private Dictionary<string, string> planCodeFinCode { get; set; }
 
@@ -430,6 +458,7 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
                                 (kvartal == 3 && (prov.TRDT.Value.Month <= 9)) || //prov.TRDT.Value.Month >= 7 && 
                                 (kvartal == 4 && (prov.TRDT.Value.Month <= 12))) //prov.TRDT.Value.Month >= 10 && 
                                 && prov.DEPARTMENT_BASE == departmentCode && prov.TRDT.Value.Year == year
+                                && prov.PLATELRSCH == debitAccount && prov.POLUCHRSCH == creditAccount
                                 select prov;
 
                 if (provodkas.Any())
@@ -552,12 +581,29 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
                         if (res060.Any())
                         {
                             var summa060 = res060.Sum(z => z.RealValue);
-                            var obj060 = new FinOtchetContainer
+
+                            var objs1 = out_FinOtchet.Where(z => z.Code == "060");
+
+                            if (objs1.Any())
                             {
-                                Code = "060",
-                                RealValue = summa060
-                            };
-                            out_FinOtchet.Add(obj060);
+                                var obj1 = objs1.First();
+                                obj1.RealValue = summa060;
+
+                            }
+                            else
+                            {
+                                var obj1 = new FinOtchetContainer();
+                                obj1.Code = "060";
+                                obj1.RealValue = summa060;
+                                out_FinOtchet.Add(obj1);
+                            }
+
+                            //var obj060 = new FinOtchetContainer
+                            //{
+                            //    Code = "060",
+                            //    RealValue = summa060
+                            //};
+                            //out_FinOtchet.Add(obj060);
                         }
 
                         break;
@@ -569,12 +615,30 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
                         if (res100.Any())
                         {
                             var summa100 = res100.Sum(z => z.RealValue);
-                            var obj100 = new FinOtchetContainer
+
+                            var objs1 = out_FinOtchet.Where(z => z.Code == "100");
+
+                            if (objs1.Any())
                             {
-                                Code = "100",
-                                RealValue = summa100
-                            };
-                            out_FinOtchet.Add(obj100);
+                                var obj1 = objs1.First();
+                                obj1.RealValue = summa100;
+
+                            }
+                            else
+                            {
+                                var obj1 = new FinOtchetContainer();
+                                obj1.Code = "100";
+                                obj1.RealValue = summa100;
+                                out_FinOtchet.Add(obj1);
+                            }
+
+
+                            //var obj100 = new FinOtchetContainer
+                            //{
+                            //    Code = "100",
+                            //    RealValue = summa100
+                            //};
+                            //out_FinOtchet.Add(obj100);
                         }
 
                         break;
@@ -586,12 +650,30 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
                         if (res110.Any())
                         {
                             var summa110 = res110.Sum(z => z.RealValue);
-                            var obj110 = new FinOtchetContainer
+
+                            var objs1 = out_FinOtchet.Where(z => z.Code == "110");
+
+                            if (objs1.Any())
                             {
-                                Code = "110",
-                                RealValue = summa110
-                            };
-                            out_FinOtchet.Add(obj110);
+                                var obj1 = objs1.First();
+                                obj1.RealValue = summa110;
+
+                            }
+                            else
+                            {
+                                var obj1 = new FinOtchetContainer();
+                                obj1.Code = "110";
+                                obj1.RealValue = summa110;
+                                out_FinOtchet.Add(obj1);
+                            }
+
+
+                            //var obj110 = new FinOtchetContainer
+                            //{
+                            //    Code = "110",
+                            //    RealValue = summa110
+                            //};
+                            //out_FinOtchet.Add(obj110);
                         }
 
                         break;
@@ -603,12 +685,29 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
                         if (res160.Any())
                         {
                             var summa160 = res160.Sum(z => z.RealValue);
-                            var obj160 = new FinOtchetContainer
+
+                            var objs1 = out_FinOtchet.Where(z => z.Code == "160");
+
+                            if (objs1.Any())
                             {
-                                Code = "160",
-                                RealValue = summa160
-                            };
-                            out_FinOtchet.Add(obj160);
+                                var obj1 = objs1.First();
+                                obj1.RealValue = summa160;
+
+                            }
+                            else
+                            {
+                                var obj1 = new FinOtchetContainer();
+                                obj1.Code = "160";
+                                obj1.RealValue = summa160;
+                                out_FinOtchet.Add(obj1);
+                            }
+
+                            //var obj160 = new FinOtchetContainer
+                            //{
+                            //    Code = "160",
+                            //    RealValue = summa160
+                            //};
+                            //out_FinOtchet.Add(obj160);
                         }
 
                         break;
@@ -620,12 +719,30 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
                         if (res220.Any())
                         {
                             var summa220 = res220.Sum(z => z.RealValue);
-                            var obj220 = new FinOtchetContainer
+
+                            var objs1 = out_FinOtchet.Where(z => z.Code == "220");
+
+                            if (objs1.Any())
                             {
-                                Code = "220",
-                                RealValue = summa220
-                            };
-                            out_FinOtchet.Add(obj220);
+                                var obj1 = objs1.First();
+                                obj1.RealValue = summa220;
+
+                            }
+                            else
+                            {
+                                var obj1 = new FinOtchetContainer();
+                                obj1.Code = "220";
+                                obj1.RealValue = summa220;
+                                out_FinOtchet.Add(obj1);
+                            }
+
+
+                            //var obj220 = new FinOtchetContainer
+                            //{
+                            //    Code = "220",
+                            //    RealValue = summa220
+                            //};
+                            //out_FinOtchet.Add(obj220);
                         }
 
                         break;
@@ -636,12 +753,30 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
                         if (res250.Any())
                         {
                             var summa250 = res250.Sum(z => z.RealValue);
-                            var obj250 = new FinOtchetContainer
+
+                            var objs1 = out_FinOtchet.Where(z => z.Code == "250");
+
+                            if (objs1.Any())
                             {
-                                Code = "250",
-                                RealValue = summa250
-                            };
-                            out_FinOtchet.Add(obj250);
+                                var obj1 = objs1.First();
+                                obj1.RealValue = summa250;
+
+                            }
+                            else
+                            {
+                                var obj1 = new FinOtchetContainer();
+                                obj1.Code = "250";
+                                obj1.RealValue = summa250;
+                                out_FinOtchet.Add(obj1);
+                            }
+
+
+                            //var obj250 = new FinOtchetContainer
+                            //{
+                            //    Code = "250",
+                            //    RealValue = summa250
+                            //};
+                            //out_FinOtchet.Add(obj250);
                         }
 
                         break;
@@ -654,12 +789,30 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
                         if (res320.Any())
                         {
                             var summa320 = res320.Sum(z => z.RealValue);
-                            var obj320 = new FinOtchetContainer
+
+                            var objs1 = out_FinOtchet.Where(z => z.Code == "320");
+
+                            if (objs1.Any())
                             {
-                                Code = "320",
-                                RealValue = summa320
-                            };
-                            out_FinOtchet.Add(obj320);
+                                var obj1 = objs1.First();
+                                obj1.RealValue = summa320;
+
+                            }
+                            else
+                            {
+                                var obj1 = new FinOtchetContainer();
+                                obj1.Code = "320";
+                                obj1.RealValue = summa320;
+                                out_FinOtchet.Add(obj1);
+                            }
+
+
+                            //var obj320 = new FinOtchetContainer
+                            //{
+                            //    Code = "320",
+                            //    RealValue = summa320
+                            //};
+                            //out_FinOtchet.Add(obj320);
                         }
 
                         break;
@@ -671,12 +824,30 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
                         if (res330.Any())
                         {
                             var summa330 = res330.Sum(z => z.RealValue);
-                            var obj330 = new FinOtchetContainer
+
+
+                            var objs1 = out_FinOtchet.Where(z => z.Code == "330");
+
+                            if (objs1.Any())
                             {
-                                Code = "330",
-                                RealValue = summa330
-                            };
-                            out_FinOtchet.Add(obj330);
+                                var obj1 = objs1.First();
+                                obj1.RealValue = summa330;
+
+                            }
+                            else
+                            {
+                                var obj1 = new FinOtchetContainer();
+                                obj1.Code = "330";
+                                obj1.RealValue = summa330;
+                                out_FinOtchet.Add(obj1);
+                            }
+
+                            //var obj330 = new FinOtchetContainer
+                            //{
+                            //    Code = "330",
+                            //    RealValue = summa330
+                            //};
+                            //out_FinOtchet.Add(obj330);
                         }
 
                         break;
@@ -753,7 +924,7 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
                         break;
 
                     case "370":
-                        var res370 = out_FinOtchet.Where(z =>
+                        var res370 = out_Balance.Where(z =>
                                z.Code == "230" 
                             || z.Code == "240" 
                             || z.Code == "250" 
@@ -805,7 +976,7 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
         {
             using (KasabaKIATEntities db = new KasabaKIATEntities())
             {
-                var finSettings = db.tbbu_finOtchetSetting.Where(z => z.OTCHET_PART == (int)OtchetPart.IspolneniyaByudjeta);
+                var finSettings = db.tbbu_finOtchetSetting.Where(z => z.OTCHET_PART == (int)OtchetPart.IspolneniyaByudjeta && z.DEPARTMENT_BASE == departmentCode);
 
                 if (finSettings.Any())
                 {
@@ -887,7 +1058,7 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
         {
             using (KasabaKIATEntities db = new KasabaKIATEntities())
             {
-                var finSettings = db.tbbu_finOtchetSetting.Where(z => z.OTCHET_PART == (int)OtchetPart.Balance);
+                var finSettings = db.tbbu_finOtchetSetting.Where(z => z.OTCHET_PART == (int)OtchetPart.Balance && z.DEPARTMENT_BASE == departmentCode);
 
                 if (finSettings.Any())
                 {
@@ -950,11 +1121,12 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
         /// <param name="a_departmentCode"></param>
         /// <param name="a_year"></param>
         /// <param name="a_kvartal"></param>
-        public void MakeFinOtchet(string a_departmentCode , int a_year , int a_kvartal, bool isSvodniy = false)
+        public void MakeFinOtchet(string a_departmentCode , int a_year , int a_kvartal, long a_usrId , bool isSvodniy = false)
         {
             departmentCode = a_departmentCode;
             year = a_year;
             kvartal = a_kvartal;
+            usrId = a_usrId;
 
             if (isSvodniy)
             {
@@ -984,6 +1156,15 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
 
                         _outFinance.field010P = Math.Round(f010.PlanValue / 1000 , 2);
                         _outFinance.field010R = Math.Round(f010.RealValue / 1000, 2);
+
+                        SaveFinOtchet(usrId, 
+                            departmentCode, 
+                            year, 
+                            kvartal, 
+                            (int)OtchetPart.IspolneniyaByudjeta, 
+                            "010", 
+                            _outFinance.field010P, 
+                            _outFinance.field010R);
                     }
                     else
                     {
@@ -997,6 +1178,15 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
 
                         _outFinance.field020P = Math.Round(f020.PlanValue / 1000, 2);
                         _outFinance.field020R = Math.Round(f020.RealValue / 1000, 2);
+
+                        SaveFinOtchet(usrId,
+                                    departmentCode,
+                                    year,
+                                    kvartal,
+                                    (int)OtchetPart.IspolneniyaByudjeta,
+                                    "020",
+                                    _outFinance.field020P,
+                                    _outFinance.field020R);
                     }
                     else
                     {
@@ -1010,6 +1200,15 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
 
                         _outFinance.field021P = Math.Round(f021.PlanValue / 1000, 2);
                         _outFinance.field021R = Math.Round(f021.RealValue / 1000, 2);
+
+                        SaveFinOtchet(usrId,
+                                    departmentCode,
+                                    year,
+                                    kvartal,
+                                    (int)OtchetPart.IspolneniyaByudjeta,
+                                    "021",
+                                    _outFinance.field021P,
+                                    _outFinance.field021R);
                     }
                     else
                     {
@@ -1023,6 +1222,15 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
 
                         _outFinance.field022P = Math.Round(f022.PlanValue / 1000, 2);
                         _outFinance.field022R = Math.Round(f022.RealValue / 1000, 2);
+
+                        SaveFinOtchet(usrId,
+                                    departmentCode,
+                                    year,
+                                    kvartal,
+                                    (int)OtchetPart.IspolneniyaByudjeta,
+                                    "022",
+                                    _outFinance.field022P,
+                                    _outFinance.field022R);
                     }
                     else
                     {
@@ -1036,6 +1244,15 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
 
                         _outFinance.field023P = Math.Round(f023.PlanValue / 1000, 2);
                         _outFinance.field023R = Math.Round(f023.RealValue / 1000, 2);
+
+                        SaveFinOtchet(usrId,
+                                    departmentCode,
+                                    year,
+                                    kvartal,
+                                    (int)OtchetPart.IspolneniyaByudjeta,
+                                    "023",
+                                    _outFinance.field023P,
+                                    _outFinance.field023R);
                     }
                     else
                     {
@@ -1049,6 +1266,15 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
 
                         _outFinance.field024P = Math.Round(f024.PlanValue / 1000, 2);
                         _outFinance.field024R = Math.Round(f024.RealValue / 1000, 2);
+
+                        SaveFinOtchet(usrId,
+                                    departmentCode,
+                                    year,
+                                    kvartal,
+                                    (int)OtchetPart.IspolneniyaByudjeta,
+                                    "024",
+                                    _outFinance.field024P,
+                                    _outFinance.field024R);
                     }
                     else
                     {
@@ -1062,6 +1288,16 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
 
                         _outFinance.field030P = Math.Round(f030.PlanValue / 1000, 2);
                         _outFinance.field030R = Math.Round(f030.RealValue / 1000, 2);
+
+
+                        SaveFinOtchet(usrId,
+                                    departmentCode,
+                                    year,
+                                    kvartal,
+                                    (int)OtchetPart.IspolneniyaByudjeta,
+                                    "030",
+                                    _outFinance.field030P,
+                                    _outFinance.field030R);
                     }
                     else
                     {
@@ -1075,6 +1311,15 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
 
                         _outFinance.field040P = Math.Round(f040.PlanValue / 1000, 2);
                         _outFinance.field040R = Math.Round(f040.RealValue / 1000, 2);
+
+                        SaveFinOtchet(usrId,
+                                    departmentCode,
+                                    year,
+                                    kvartal,
+                                    (int)OtchetPart.IspolneniyaByudjeta,
+                                    "040",
+                                    _outFinance.field040P,
+                                    _outFinance.field040R);
                     }
                     else
                     {
@@ -1088,6 +1333,15 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
 
                         _outFinance.field050P = Math.Round(f050.PlanValue / 1000, 2);
                         _outFinance.field050R = Math.Round(f050.RealValue / 1000, 2);
+
+                        SaveFinOtchet(usrId,
+                                    departmentCode,
+                                    year,
+                                    kvartal,
+                                    (int)OtchetPart.IspolneniyaByudjeta,
+                                    "050",
+                                    _outFinance.field050P,
+                                    _outFinance.field050R);
                     }
                     else
                     {
@@ -1101,6 +1355,15 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
 
                         _outFinance.field060P = Math.Round(f060.PlanValue / 1000, 2);
                         _outFinance.field060R = Math.Round(f060.RealValue / 1000, 2);
+
+                        SaveFinOtchet(usrId,
+                                    departmentCode,
+                                    year,
+                                    kvartal,
+                                    (int)OtchetPart.IspolneniyaByudjeta,
+                                    "060",
+                                    _outFinance.field060P,
+                                    _outFinance.field060R);
                     }
                     else
                     {
@@ -1114,6 +1377,15 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
 
                         _outFinance.field070P = Math.Round(f070.PlanValue / 1000, 2);
                         _outFinance.field070R = Math.Round(f070.RealValue / 1000, 2);
+
+                        SaveFinOtchet(usrId,
+                                    departmentCode,
+                                    year,
+                                    kvartal,
+                                    (int)OtchetPart.IspolneniyaByudjeta,
+                                    "070",
+                                    _outFinance.field070P,
+                                    _outFinance.field070R);
                     }
                     else
                     {
@@ -1127,6 +1399,15 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
 
                         _outFinance.field071P = Math.Round(f071.PlanValue / 1000, 2);
                         _outFinance.field071R = Math.Round(f071.RealValue / 1000, 2);
+
+                        SaveFinOtchet(usrId,
+                                    departmentCode,
+                                    year,
+                                    kvartal,
+                                    (int)OtchetPart.IspolneniyaByudjeta,
+                                    "071",
+                                    _outFinance.field071P,
+                                    _outFinance.field071R);
                     }
                     else
                     {
@@ -1140,6 +1421,15 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
 
                         _outFinance.field072P = Math.Round(f072.PlanValue / 1000, 2);
                         _outFinance.field072R = Math.Round(f072.RealValue / 1000, 2);
+
+                        SaveFinOtchet(usrId,
+                                    departmentCode,
+                                    year,
+                                    kvartal,
+                                    (int)OtchetPart.IspolneniyaByudjeta,
+                                    "072",
+                                    _outFinance.field072P,
+                                    _outFinance.field072R);
                     }
                     else
                     {
@@ -1153,6 +1443,15 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
 
                         _outFinance.field080P = Math.Round(f080.PlanValue / 1000, 2);
                         _outFinance.field080R = Math.Round(f080.RealValue / 1000, 2);
+
+                        SaveFinOtchet(usrId,
+                                    departmentCode,
+                                    year,
+                                    kvartal,
+                                    (int)OtchetPart.IspolneniyaByudjeta,
+                                    "080",
+                                    _outFinance.field080P,
+                                    _outFinance.field080R);
                     }
                     else
                     {
@@ -1166,6 +1465,15 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
 
                         _outFinance.field090P = Math.Round(f090.PlanValue / 1000, 2);
                         _outFinance.field090R = Math.Round(f090.RealValue / 1000, 2);
+
+                        SaveFinOtchet(usrId,
+                                    departmentCode,
+                                    year,
+                                    kvartal,
+                                    (int)OtchetPart.IspolneniyaByudjeta,
+                                    "090",
+                                    _outFinance.field090P,
+                                    _outFinance.field090R);
                     }
                     else
                     {
@@ -1179,6 +1487,15 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
 
                         _outFinance.field100P = Math.Round(f100.PlanValue / 1000, 2);
                         _outFinance.field100R = Math.Round(f100.RealValue / 1000, 2);
+
+                        SaveFinOtchet(usrId,
+                                    departmentCode,
+                                    year,
+                                    kvartal,
+                                    (int)OtchetPart.IspolneniyaByudjeta,
+                                    "100",
+                                    _outFinance.field100P,
+                                    _outFinance.field100R);
                     }
                     else
                     {
@@ -1192,6 +1509,15 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
 
                         _outFinance.field110P = Math.Round(f110.PlanValue / 1000, 2);
                         _outFinance.field110R = Math.Round(f110.RealValue / 1000, 2);
+
+                        SaveFinOtchet(usrId,
+                                    departmentCode,
+                                    year,
+                                    kvartal,
+                                    (int)OtchetPart.IspolneniyaByudjeta,
+                                    "110",
+                                    _outFinance.field110P,
+                                    _outFinance.field110R);
                     }
                     else
                     {
@@ -1205,6 +1531,15 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
 
                         _outFinance.field120P = Math.Round(f120.PlanValue / 1000, 2);
                         _outFinance.field120R = Math.Round(f120.RealValue / 1000, 2);
+
+                        SaveFinOtchet(usrId,
+                                    departmentCode,
+                                    year,
+                                    kvartal,
+                                    (int)OtchetPart.IspolneniyaByudjeta,
+                                    "120",
+                                    _outFinance.field120P,
+                                    _outFinance.field120R);
                     }
                     else
                     {
@@ -1218,6 +1553,15 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
 
                         _outFinance.field130P = Math.Round(f130.PlanValue / 1000, 2);
                         _outFinance.field130R = Math.Round(f130.RealValue / 1000, 2);
+
+                        SaveFinOtchet(usrId,
+                                    departmentCode,
+                                    year,
+                                    kvartal,
+                                    (int)OtchetPart.IspolneniyaByudjeta,
+                                    "130",
+                                    _outFinance.field130P,
+                                    _outFinance.field130R);
                     }
                     else
                     {
@@ -1231,6 +1575,15 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
 
                         _outFinance.field140P = Math.Round(f140.PlanValue / 1000, 2);
                         _outFinance.field140R = Math.Round(f140.RealValue / 1000, 2);
+
+                        SaveFinOtchet(usrId,
+                                    departmentCode,
+                                    year,
+                                    kvartal,
+                                    (int)OtchetPart.IspolneniyaByudjeta,
+                                    "140",
+                                    _outFinance.field140P,
+                                    _outFinance.field140R);
                     }
                     else
                     {
@@ -1244,6 +1597,15 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
 
                         _outFinance.field150P = Math.Round(f150.PlanValue / 1000, 2);
                         _outFinance.field150R = Math.Round(f150.RealValue / 1000, 2);
+
+                        SaveFinOtchet(usrId,
+                                    departmentCode,
+                                    year,
+                                    kvartal,
+                                    (int)OtchetPart.IspolneniyaByudjeta,
+                                    "150",
+                                    _outFinance.field150P,
+                                    _outFinance.field150R);
                     }
                     else
                     {
@@ -1257,6 +1619,16 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
 
                         _outFinance.field160P = Math.Round(f160.PlanValue / 1000, 2);
                         _outFinance.field160R = Math.Round(f160.RealValue / 1000, 2);
+
+
+                        SaveFinOtchet(usrId,
+                                    departmentCode,
+                                    year,
+                                    kvartal,
+                                    (int)OtchetPart.IspolneniyaByudjeta,
+                                    "160",
+                                    _outFinance.field160P,
+                                    _outFinance.field160R);
                     }
                     else
                     {
@@ -1270,6 +1642,15 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
 
                         _outFinance.field170P = Math.Round(f170.PlanValue / 1000, 2);
                         _outFinance.field170R = Math.Round(f170.RealValue / 1000, 2);
+
+                        SaveFinOtchet(usrId,
+                                    departmentCode,
+                                    year,
+                                    kvartal,
+                                    (int)OtchetPart.IspolneniyaByudjeta,
+                                    "170",
+                                    _outFinance.field170P,
+                                    _outFinance.field170R);
                     }
                     else
                     {
@@ -1283,6 +1664,15 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
 
                         _outFinance.field180P = Math.Round(f180.PlanValue / 1000, 2);
                         _outFinance.field180R = Math.Round(f180.RealValue / 1000, 2);
+
+                        SaveFinOtchet(usrId,
+                                    departmentCode,
+                                    year,
+                                    kvartal,
+                                    (int)OtchetPart.IspolneniyaByudjeta,
+                                    "180",
+                                    _outFinance.field180P,
+                                    _outFinance.field180R);
                     }
                     else
                     {
@@ -1296,6 +1686,15 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
 
                         _outFinance.field190P = Math.Round(f190.PlanValue / 1000, 2);
                         _outFinance.field190R = Math.Round(f190.RealValue / 1000, 2);
+
+                        SaveFinOtchet(usrId,
+                                    departmentCode,
+                                    year,
+                                    kvartal,
+                                    (int)OtchetPart.IspolneniyaByudjeta,
+                                    "190",
+                                    _outFinance.field190P,
+                                    _outFinance.field190R);
                     }
                     else
                     {
@@ -1309,6 +1708,15 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
 
                         _outFinance.field200P = Math.Round(f200.PlanValue / 1000, 2);
                         _outFinance.field200R = Math.Round(f200.RealValue / 1000, 2);
+
+                        SaveFinOtchet(usrId,
+                                    departmentCode,
+                                    year,
+                                    kvartal,
+                                    (int)OtchetPart.IspolneniyaByudjeta,
+                                    "200",
+                                    _outFinance.field200P,
+                                    _outFinance.field200R);
                     }
                     else
                     {
@@ -1322,6 +1730,15 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
 
                         _outFinance.field210P = Math.Round(f210.PlanValue / 1000, 2);
                         _outFinance.field210R = Math.Round(f210.RealValue / 1000, 2);
+
+                        SaveFinOtchet(usrId,
+                                    departmentCode,
+                                    year,
+                                    kvartal,
+                                    (int)OtchetPart.IspolneniyaByudjeta,
+                                    "210",
+                                    _outFinance.field210P,
+                                    _outFinance.field210R);
                     }
                     else
                     {
@@ -1335,6 +1752,15 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
 
                         _outFinance.field220P = Math.Round(f220.PlanValue / 1000, 2);
                         _outFinance.field220R = Math.Round(f220.RealValue / 1000, 2);
+
+                        SaveFinOtchet(usrId,
+                                    departmentCode,
+                                    year,
+                                    kvartal,
+                                    (int)OtchetPart.IspolneniyaByudjeta,
+                                    "220",
+                                    _outFinance.field220P,
+                                    _outFinance.field220R);
                     }
                     else
                     {
@@ -1348,6 +1774,15 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
 
                         _outFinance.field230P = Math.Round(f230.PlanValue / 1000, 2);
                         _outFinance.field230R = Math.Round(f230.RealValue / 1000, 2);
+
+                        SaveFinOtchet(usrId,
+                                    departmentCode,
+                                    year,
+                                    kvartal,
+                                    (int)OtchetPart.IspolneniyaByudjeta,
+                                    "230",
+                                    _outFinance.field230P,
+                                    _outFinance.field230R);
                     }
                     else
                     {
@@ -1361,6 +1796,15 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
 
                         _outFinance.field240P = Math.Round(f240.PlanValue / 1000, 2);
                         _outFinance.field240R = Math.Round(f240.RealValue / 1000, 2);
+
+                        SaveFinOtchet(usrId,
+                                    departmentCode,
+                                    year,
+                                    kvartal,
+                                    (int)OtchetPart.IspolneniyaByudjeta,
+                                    "240",
+                                    _outFinance.field240P,
+                                    _outFinance.field240R);
                     }
                     else
                     {
@@ -1374,6 +1818,15 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
 
                         _outFinance.field250P = Math.Round(f250.PlanValue / 1000, 2);
                         _outFinance.field250R = Math.Round(f250.RealValue / 1000, 2);
+
+                        SaveFinOtchet(usrId,
+                                    departmentCode,
+                                    year,
+                                    kvartal,
+                                    (int)OtchetPart.IspolneniyaByudjeta,
+                                    "250",
+                                    _outFinance.field250P,
+                                    _outFinance.field250R);
                     }
                     else
                     {
@@ -1387,6 +1840,15 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
 
                         _outFinance.field260P = Math.Round(f260.PlanValue / 1000, 2);
                         _outFinance.field260R = Math.Round(f260.RealValue / 1000, 2);
+
+                        SaveFinOtchet(usrId,
+                                    departmentCode,
+                                    year,
+                                    kvartal,
+                                    (int)OtchetPart.IspolneniyaByudjeta,
+                                    "260",
+                                    _outFinance.field260P,
+                                    _outFinance.field260R);
                     }
                     else
                     {
@@ -1400,6 +1862,15 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
 
                         _outFinance.field270P = Math.Round(f270.PlanValue / 1000, 2);
                         _outFinance.field270R = Math.Round(f270.RealValue / 1000, 2);
+
+                        SaveFinOtchet(usrId,
+                                    departmentCode,
+                                    year,
+                                    kvartal,
+                                    (int)OtchetPart.IspolneniyaByudjeta,
+                                    "270",
+                                    _outFinance.field270P,
+                                    _outFinance.field270R);
                     }
                     else
                     {
@@ -1413,6 +1884,15 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
 
                         _outFinance.field280P = Math.Round(f280.PlanValue / 1000, 2);
                         _outFinance.field280R = Math.Round(f280.RealValue / 1000, 2);
+
+                        SaveFinOtchet(usrId,
+                                    departmentCode,
+                                    year,
+                                    kvartal,
+                                    (int)OtchetPart.IspolneniyaByudjeta,
+                                    "280",
+                                    _outFinance.field280P,
+                                    _outFinance.field280R);
                     }
                     else
                     {
@@ -1426,6 +1906,15 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
 
                         _outFinance.field290P = Math.Round(f290.PlanValue / 1000, 2);
                         _outFinance.field290R = Math.Round(f290.RealValue / 1000, 2);
+
+                        SaveFinOtchet(usrId,
+                                    departmentCode,
+                                    year,
+                                    kvartal,
+                                    (int)OtchetPart.IspolneniyaByudjeta,
+                                    "290",
+                                    _outFinance.field290P,
+                                    _outFinance.field290R);
                     }
                     else
                     {
@@ -1439,6 +1928,15 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
 
                         _outFinance.field300P = Math.Round(f300.PlanValue / 1000, 2);
                         _outFinance.field300R = Math.Round(f300.RealValue / 1000, 2);
+
+                        SaveFinOtchet(usrId,
+                                    departmentCode,
+                                    year,
+                                    kvartal,
+                                    (int)OtchetPart.IspolneniyaByudjeta,
+                                    "300",
+                                    _outFinance.field300P,
+                                    _outFinance.field300R);
                     }
                     else
                     {
@@ -1452,6 +1950,15 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
 
                         _outFinance.field310P = Math.Round(f310.PlanValue / 1000, 2);
                         _outFinance.field310R = Math.Round(f310.RealValue / 1000, 2);
+
+                        SaveFinOtchet(usrId,
+                                    departmentCode,
+                                    year,
+                                    kvartal,
+                                    (int)OtchetPart.IspolneniyaByudjeta,
+                                    "310",
+                                    _outFinance.field310P,
+                                    _outFinance.field310R);
                     }
                     else
                     {
@@ -1465,6 +1972,15 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
 
                         _outFinance.field320P = Math.Round(f320.PlanValue / 1000, 2);
                         _outFinance.field320R = Math.Round(f320.RealValue / 1000, 2);
+
+                        SaveFinOtchet(usrId,
+                                    departmentCode,
+                                    year,
+                                    kvartal,
+                                    (int)OtchetPart.IspolneniyaByudjeta,
+                                    "320",
+                                    _outFinance.field320P,
+                                    _outFinance.field320R);
                     }
                     else
                     {
@@ -1478,6 +1994,16 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
 
                         _outFinance.field330P = Math.Round(f330.PlanValue / 1000, 2);
                         _outFinance.field330R = Math.Round(f330.RealValue / 1000, 2);
+
+
+                        SaveFinOtchet(usrId,
+                                    departmentCode,
+                                    year,
+                                    kvartal,
+                                    (int)OtchetPart.IspolneniyaByudjeta,
+                                    "330",
+                                    _outFinance.field330P,
+                                    _outFinance.field330R);
                     }
                     else
                     {
@@ -1492,6 +2018,15 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
 
                         _outFinance.field340P = Math.Round(f340.PlanValue / 1000, 2);
                         _outFinance.field340R = Math.Round(f340.RealValue / 1000, 2);
+
+                        SaveFinOtchet(usrId,
+                                    departmentCode,
+                                    year,
+                                    kvartal,
+                                    (int)OtchetPart.IspolneniyaByudjeta,
+                                    "340",
+                                    _outFinance.field340P,
+                                    _outFinance.field340R);
                     }
                     else
                     {
@@ -1513,6 +2048,15 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
                     if (f010 != null)
                     {
                         _outBalance.field010 = Math.Round(f010.RealValue / 1000, 2);
+
+                        SaveFinOtchet(usrId,
+                                    departmentCode,
+                                    year,
+                                    kvartal,
+                                    (int)OtchetPart.Balance,
+                                    "010",
+                                    null,
+                                    _outBalance.field010);
                     }
                     else
                     {
@@ -1523,6 +2067,15 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
                     if (f020 != null)
                     {
                         _outBalance.field020 = Math.Round(f020.RealValue / 1000, 2);
+
+                        SaveFinOtchet(usrId,
+                                    departmentCode,
+                                    year,
+                                    kvartal,
+                                    (int)OtchetPart.Balance,
+                                    "020",
+                                    null,
+                                    _outBalance.field020);
                     }
                     else
                     {
@@ -1533,6 +2086,15 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
                     if (f030 != null)
                     {
                         _outBalance.field030 = Math.Round(f030.RealValue / 1000, 2);
+
+                        SaveFinOtchet(usrId,
+                                    departmentCode,
+                                    year,
+                                    kvartal,
+                                    (int)OtchetPart.Balance,
+                                    "030",
+                                    null,
+                                    _outBalance.field030);
                     }
                     else
                     {
@@ -1543,6 +2105,15 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
                     if (f040 != null)
                     {
                         _outBalance.field040 = Math.Round(f040.RealValue / 1000, 2);
+
+                        SaveFinOtchet(usrId,
+                                    departmentCode,
+                                    year,
+                                    kvartal,
+                                    (int)OtchetPart.Balance,
+                                    "040",
+                                    null,
+                                    _outBalance.field040);
                     }
                     else
                     {
@@ -1553,6 +2124,15 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
                     if (f050 != null)
                     {
                         _outBalance.field050 = Math.Round(f050.RealValue / 1000, 2);
+
+                        SaveFinOtchet(usrId,
+                                    departmentCode,
+                                    year,
+                                    kvartal,
+                                    (int)OtchetPart.Balance,
+                                    "050",
+                                    null,
+                                    _outBalance.field050);
                     }
                     else
                     {
@@ -1563,6 +2143,15 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
                     if (f060 != null)
                     {
                         _outBalance.field060 = Math.Round(f060.RealValue / 1000, 2);
+
+                        SaveFinOtchet(usrId,
+                                    departmentCode,
+                                    year,
+                                    kvartal,
+                                    (int)OtchetPart.Balance,
+                                    "060",
+                                    null,
+                                    _outBalance.field060);
                     }
                     else
                     {
@@ -1573,6 +2162,15 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
                     if (f070 != null)
                     {
                         _outBalance.field070 = Math.Round(f070.RealValue / 1000, 2);
+
+                        SaveFinOtchet(usrId,
+                                    departmentCode,
+                                    year,
+                                    kvartal,
+                                    (int)OtchetPart.Balance,
+                                    "070",
+                                    null,
+                                    _outBalance.field070);
                     }
                     else
                     {
@@ -1583,6 +2181,15 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
                     if (f080 != null)
                     {
                         _outBalance.field080 = Math.Round(f080.RealValue / 1000, 2);
+
+                        SaveFinOtchet(usrId,
+                                    departmentCode,
+                                    year,
+                                    kvartal,
+                                    (int)OtchetPart.Balance,
+                                    "080",
+                                    null,
+                                    _outBalance.field080);
                     }
                     else
                     {
@@ -1593,6 +2200,15 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
                     if (f090 != null)
                     {
                         _outBalance.field090 = Math.Round(f090.RealValue / 1000, 2);
+
+                        SaveFinOtchet(usrId,
+                                    departmentCode,
+                                    year,
+                                    kvartal,
+                                    (int)OtchetPart.Balance,
+                                    "090",
+                                    null,
+                                    _outBalance.field090);
                     }
                     else
                     {
@@ -1603,6 +2219,15 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
                     if (f100 != null)
                     {
                         _outBalance.field100 = Math.Round(f100.RealValue / 1000, 2);
+
+                        SaveFinOtchet(usrId,
+                                    departmentCode,
+                                    year,
+                                    kvartal,
+                                    (int)OtchetPart.Balance,
+                                    "100",
+                                    null,
+                                    _outBalance.field100);
                     }
                     else
                     {
@@ -1613,6 +2238,15 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
                     if (f110 != null)
                     {
                         _outBalance.field110 = Math.Round(f110.RealValue / 1000, 2);
+
+                        SaveFinOtchet(usrId,
+                                    departmentCode,
+                                    year,
+                                    kvartal,
+                                    (int)OtchetPart.Balance,
+                                    "110",
+                                    null,
+                                    _outBalance.field110);
                     }
                     else
                     {
@@ -1623,6 +2257,15 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
                     if (f120 != null)
                     {
                         _outBalance.field120 = Math.Round(f120.RealValue / 1000, 2);
+
+                        SaveFinOtchet(usrId,
+                                    departmentCode,
+                                    year,
+                                    kvartal,
+                                    (int)OtchetPart.Balance,
+                                    "120",
+                                    null,
+                                    _outBalance.field120);
                     }
                     else
                     {
@@ -1633,6 +2276,15 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
                     if (f130 != null)
                     {
                         _outBalance.field130 = Math.Round(f130.RealValue / 1000, 2);
+
+                        SaveFinOtchet(usrId,
+                                    departmentCode,
+                                    year,
+                                    kvartal,
+                                    (int)OtchetPart.Balance,
+                                    "130",
+                                    null,
+                                    _outBalance.field130);
                     }
                     else
                     {
@@ -1643,6 +2295,15 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
                     if (f140 != null)
                     {
                         _outBalance.field140 = Math.Round(f140.RealValue / 1000, 2);
+
+                        SaveFinOtchet(usrId,
+                                    departmentCode,
+                                    year,
+                                    kvartal,
+                                    (int)OtchetPart.Balance,
+                                    "140",
+                                    null,
+                                    _outBalance.field140);
                     }
                     else
                     {
@@ -1653,6 +2314,15 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
                     if (f150 != null)
                     {
                         _outBalance.field150 = Math.Round(f150.RealValue / 1000, 2);
+
+                        SaveFinOtchet(usrId,
+                                    departmentCode,
+                                    year,
+                                    kvartal,
+                                    (int)OtchetPart.Balance,
+                                    "150",
+                                    null,
+                                    _outBalance.field150);
                     }
                     else
                     {
@@ -1663,6 +2333,15 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
                     if (f160 != null)
                     {
                         _outBalance.field160 = Math.Round(f160.RealValue / 1000, 2);
+
+                        SaveFinOtchet(usrId,
+                                    departmentCode,
+                                    year,
+                                    kvartal,
+                                    (int)OtchetPart.Balance,
+                                    "160",
+                                    null,
+                                    _outBalance.field160);
                     }
                     else
                     {
@@ -1673,6 +2352,15 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
                     if (f170 != null)
                     {
                         _outBalance.field170 = Math.Round(f170.RealValue / 1000, 2);
+
+                        SaveFinOtchet(usrId,
+                                    departmentCode,
+                                    year,
+                                    kvartal,
+                                    (int)OtchetPart.Balance,
+                                    "170",
+                                    null,
+                                    _outBalance.field170);
                     }
                     else
                     {
@@ -1683,6 +2371,15 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
                     if (f180 != null)
                     {
                         _outBalance.field180 = Math.Round(f180.RealValue / 1000, 2);
+
+                        SaveFinOtchet(usrId,
+                                    departmentCode,
+                                    year,
+                                    kvartal,
+                                    (int)OtchetPart.Balance,
+                                    "180",
+                                    null,
+                                    _outBalance.field180);
                     }
                     else
                     {
@@ -1693,6 +2390,15 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
                     if (f190 != null)
                     {
                         _outBalance.field190 = Math.Round(f190.RealValue / 1000, 2);
+
+                        SaveFinOtchet(usrId,
+                                    departmentCode,
+                                    year,
+                                    kvartal,
+                                    (int)OtchetPart.Balance,
+                                    "190",
+                                    null,
+                                    _outBalance.field190);
                     }
                     else
                     {
@@ -1703,6 +2409,15 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
                     if (f200 != null)
                     {
                         _outBalance.field200 = Math.Round(f200.RealValue / 1000, 2);
+
+                        SaveFinOtchet(usrId,
+                                    departmentCode,
+                                    year,
+                                    kvartal,
+                                    (int)OtchetPart.Balance,
+                                    "200",
+                                    null,
+                                    _outBalance.field200);
                     }
                     else
                     {
@@ -1713,6 +2428,15 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
                     if (f210 != null)
                     {
                         _outBalance.field210 = Math.Round(f210.RealValue / 1000, 2);
+
+                        SaveFinOtchet(usrId,
+                                    departmentCode,
+                                    year,
+                                    kvartal,
+                                    (int)OtchetPart.Balance,
+                                    "210",
+                                    null,
+                                    _outBalance.field210);
                     }
                     else
                     {
@@ -1723,6 +2447,15 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
                     if (f220 != null)
                     {
                         _outBalance.field220 = Math.Round(f220.RealValue / 1000, 2);
+
+                        SaveFinOtchet(usrId,
+                                    departmentCode,
+                                    year,
+                                    kvartal,
+                                    (int)OtchetPart.Balance,
+                                    "220",
+                                    null,
+                                    _outBalance.field220);
                     }
                     else
                     {
@@ -1733,6 +2466,15 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
                     if (f230 != null)
                     {
                         _outBalance.field230 = Math.Round(f230.RealValue / 1000, 2);
+
+                        SaveFinOtchet(usrId,
+                                    departmentCode,
+                                    year,
+                                    kvartal,
+                                    (int)OtchetPart.Balance,
+                                    "230",
+                                    null,
+                                    _outBalance.field230);
                     }
                     else
                     {
@@ -1743,6 +2485,15 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
                     if (f240 != null)
                     {
                         _outBalance.field240 = Math.Round(f240.RealValue / 1000, 2);
+
+                        SaveFinOtchet(usrId,
+                                    departmentCode,
+                                    year,
+                                    kvartal,
+                                    (int)OtchetPart.Balance,
+                                    "240",
+                                    null,
+                                    _outBalance.field240);
                     }
                     else
                     {
@@ -1753,6 +2504,15 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
                     if (f250 != null)
                     {
                         _outBalance.field250 = Math.Round(f250.RealValue / 1000, 2);
+
+                        SaveFinOtchet(usrId,
+                                    departmentCode,
+                                    year,
+                                    kvartal,
+                                    (int)OtchetPart.Balance,
+                                    "250",
+                                    null,
+                                    _outBalance.field250);
                     }
                     else
                     {
@@ -1763,6 +2523,15 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
                     if (f260 != null)
                     {
                         _outBalance.field260 = Math.Round(f260.RealValue / 1000, 2);
+
+                        SaveFinOtchet(usrId,
+                                    departmentCode,
+                                    year,
+                                    kvartal,
+                                    (int)OtchetPart.Balance,
+                                    "260",
+                                    null,
+                                    _outBalance.field260);
                     }
                     else
                     {
@@ -1773,6 +2542,15 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
                     if (f270 != null)
                     {
                         _outBalance.field270 = Math.Round(f270.RealValue / 1000, 2);
+
+                        SaveFinOtchet(usrId,
+                                    departmentCode,
+                                    year,
+                                    kvartal,
+                                    (int)OtchetPart.Balance,
+                                    "270",
+                                    null,
+                                    _outBalance.field270);
                     }
                     else
                     {
@@ -1783,6 +2561,15 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
                     if (f280 != null)
                     {
                         _outBalance.field280 = Math.Round(f280.RealValue / 1000, 2);
+
+                        SaveFinOtchet(usrId,
+                                    departmentCode,
+                                    year,
+                                    kvartal,
+                                    (int)OtchetPart.Balance,
+                                    "280",
+                                    null,
+                                    _outBalance.field280);
                     }
                     else
                     {
@@ -1793,6 +2580,15 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
                     if (f290 != null)
                     {
                         _outBalance.field290 = Math.Round(f290.RealValue / 1000, 2);
+
+                        SaveFinOtchet(usrId,
+                                    departmentCode,
+                                    year,
+                                    kvartal,
+                                    (int)OtchetPart.Balance,
+                                    "290",
+                                    null,
+                                    _outBalance.field290);
                     }
                     else
                     {
@@ -1803,6 +2599,15 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
                     if (f300 != null)
                     {
                         _outBalance.field300 = Math.Round(f300.RealValue / 1000, 2);
+
+                        SaveFinOtchet(usrId,
+                                    departmentCode,
+                                    year,
+                                    kvartal,
+                                    (int)OtchetPart.Balance,
+                                    "300",
+                                    null,
+                                    _outBalance.field300);
                     }
                     else
                     {
@@ -1813,6 +2618,15 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
                     if (f310 != null)
                     {
                         _outBalance.field310 = Math.Round(f310.RealValue / 1000, 2);
+
+                        SaveFinOtchet(usrId,
+                                    departmentCode,
+                                    year,
+                                    kvartal,
+                                    (int)OtchetPart.Balance,
+                                    "310",
+                                    null,
+                                    _outBalance.field310);
                     }
                     else
                     {
@@ -1823,6 +2637,15 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
                     if (f320 != null)
                     {
                         _outBalance.field320 = Math.Round(f320.RealValue / 1000, 2);
+
+                        SaveFinOtchet(usrId,
+                                    departmentCode,
+                                    year,
+                                    kvartal,
+                                    (int)OtchetPart.Balance,
+                                    "320",
+                                    null,
+                                    _outBalance.field320);
                     }
                     else
                     {
@@ -1833,6 +2656,16 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
                     if (f330 != null)
                     {
                         _outBalance.field330 = Math.Round(f330.RealValue / 1000, 2);
+
+
+                        SaveFinOtchet(usrId,
+                                    departmentCode,
+                                    year,
+                                    kvartal,
+                                    (int)OtchetPart.Balance,
+                                    "330",
+                                    null,
+                                    _outBalance.field330);
                     }
                     else
                     {
@@ -1843,6 +2676,15 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
                     if (f340 != null)
                     {
                         _outBalance.field340 = Math.Round(f340.RealValue / 1000, 2);
+
+                        SaveFinOtchet(usrId,
+                                    departmentCode,
+                                    year,
+                                    kvartal,
+                                    (int)OtchetPart.Balance,
+                                    "340",
+                                    null,
+                                    _outBalance.field340);
                     }
                     else
                     {
@@ -1853,6 +2695,15 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
                     if (f350 != null)
                     {
                         _outBalance.field350 = Math.Round(f350.RealValue / 1000, 2);
+
+                        SaveFinOtchet(usrId,
+                                    departmentCode,
+                                    year,
+                                    kvartal,
+                                    (int)OtchetPart.Balance,
+                                    "350",
+                                    null,
+                                    _outBalance.field350);
                     }
                     else
                     {
@@ -1863,6 +2714,15 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
                     if (f360 != null)
                     {
                         _outBalance.field360 = Math.Round(f360.RealValue / 1000, 2);
+
+                        SaveFinOtchet(usrId,
+                                    departmentCode,
+                                    year,
+                                    kvartal,
+                                    (int)OtchetPart.Balance,
+                                    "360",
+                                    null,
+                                    _outBalance.field360);
                     }
                     else
                     {
@@ -1873,6 +2733,15 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
                     if (f370 != null)
                     {
                         _outBalance.field370 = Math.Round(f370.RealValue / 1000, 2);
+
+                        SaveFinOtchet(usrId,
+                                    departmentCode,
+                                    year,
+                                    kvartal,
+                                    (int)OtchetPart.Balance,
+                                    "370",
+                                    null,
+                                    _outBalance.field370);
                     }
                     else
                     {
@@ -1882,14 +2751,147 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
                     _totaloutput._balanceoutput = _outBalance;
 
                     _totaloutput._balanceoutput.field250x           = _totaloutput._balanceoutput.field200 - _totaloutput._finotchetoutput.field250R;
+
+                    SaveFinOtchet(usrId,
+                                departmentCode,
+                                year,
+                                kvartal,
+                                (int)OtchetPart.Balance,
+                                "250x",
+                                null,
+                                _totaloutput._balanceoutput.field250x);
+
+
                     _totaloutput._balanceoutput.field320x           = _totaloutput._balanceoutput.field210 - _totaloutput._finotchetoutput.field320R;
-                    _totaloutput._balanceoutput.field060x           = _totaloutput._balanceoutput.field320 - _totaloutput._finotchetoutput.field060R;
+
+                    SaveFinOtchet(usrId,
+                                departmentCode,
+                                year,
+                                kvartal,
+                                (int)OtchetPart.Balance,
+                                "320x",
+                                null,
+                                _totaloutput._balanceoutput.field320x);
+
+                    _totaloutput._balanceoutput.field060x           = _totaloutput._balanceoutput.field330 - _totaloutput._finotchetoutput.field060R;
+
+                    SaveFinOtchet(usrId,
+                                departmentCode,
+                                year,
+                                kvartal,
+                                (int)OtchetPart.Balance,
+                                "060x",
+                                null,
+                                _totaloutput._balanceoutput.field060x);
+
+
                     _totaloutput._balanceoutput.field100x           = _totaloutput._balanceoutput.field340 - _totaloutput._finotchetoutput.field100R;
+
+                    SaveFinOtchet(usrId,
+                                departmentCode,
+                                year,
+                                kvartal,
+                                (int)OtchetPart.Balance,
+                                "100x",
+                                null,
+                                _totaloutput._balanceoutput.field100x);
+
                     _totaloutput._balanceoutput.fieldActivePassive  = _totaloutput._balanceoutput.field370 - _totaloutput._balanceoutput.field220;
+
+                    SaveFinOtchet(usrId,
+                                departmentCode,
+                                year,
+                                kvartal,
+                                (int)OtchetPart.Balance,
+                                "999",
+                                null,
+                                _totaloutput._balanceoutput.fieldActivePassive);
                 }
             }
 
             
+        }
+
+        private void SaveFinOtchet(long usrId,
+                                   string a_departmentCode,
+                                   int a_year,
+                                   int a_kvartal,
+                                   int part,
+                                   string code,
+                                   decimal? plan_amount,
+                                   decimal? fact_amount)
+        {
+            //Validation
+            if (usrId <= 0)
+            {
+                return;
+            }
+
+            if (string.IsNullOrEmpty(a_departmentCode))
+            {
+                return;
+            }
+
+            if (a_year <= 0)
+            {
+                return;
+            }
+
+            if (a_kvartal <= 0)
+            {
+                return;
+            }
+
+            if (part <= 0)
+            {
+                return;
+            }
+
+            if (string.IsNullOrEmpty(code))
+            {
+                return;
+            }
+
+            if (plan_amount == null && plan_amount <= 0)
+            {
+                return;
+            }
+
+            if (fact_amount == null && fact_amount <= 0)
+            {
+                return;
+            }
+
+            using (KasabaKIATEntities db = new KasabaKIATEntities())
+            {
+                var finAlreadyExists = db.tbbu_FinOtchetSave.Where(z => z.DEPARTMENT_CODE == a_departmentCode &&
+                                                                   z.YEAR == a_year &&
+                                                                   z.KVARTAL == a_kvartal &&
+                                                                   z.PART == part &&
+                                                                   z.CODE == code);
+
+                if (finAlreadyExists.Any())
+                {
+                    foreach (var finOt in finAlreadyExists)
+                    {
+                        db.tbbu_FinOtchetSave.Remove(finOt);
+                    }
+                }
+
+                var obj = new tbbu_FinOtchetSave();
+                obj.YEAR = a_year;
+                obj.KVARTAL = a_kvartal;
+                obj.PART = part;
+                obj.CODE = code;
+                obj.PLAN_AMOUNT = plan_amount;
+                obj.FACT_AMOUNT = fact_amount;
+                obj.USER_ID = usrId;
+                obj.DEPARTMENT_CODE = departmentCode;
+
+                db.tbbu_FinOtchetSave.Add(obj);
+
+                db.SaveChanges();
+            }
         }
     }
 }

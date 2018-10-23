@@ -10,6 +10,7 @@ using KasabaKIAT.BusinessLogic.Buxgalteriya.Provodki;
 using KasabaKIAT.BusinessLogic.ClosePeriod.CloseDay;
 using KasabaKIAT.BusinessLogic.ClosePeriod.CloseKvartal;
 using KasabaKIAT.BusinessLogic.ClosePeriod.Holydays;
+using KasabaKIAT.BusinessLogic.Security.Roles.RolePermissions;
 using KasabaKIAT.BusinessLogic.Utils;
 using KasabaKIAT.Models;
 using KasabaKIAT.ViewModel.Buxgalteriya;
@@ -99,9 +100,14 @@ namespace KasabaKIAT.Controllers
             d.trref = "RUK";
             d.trrefno = "0000000";
             tbbu_provodki provod = null;
-            pr.Enter(d, KasabaDB, out provod);
 
-            await KasabaDB.SaveChangesAsync();
+            using (KasabaKIATEntities db = new KasabaKIATEntities())
+            {
+                pr.Enter(d, db, out provod);
+
+
+                await db.SaveChangesAsync();
+            }
 
             return "yes";
         }
@@ -115,7 +121,7 @@ namespace KasabaKIAT.Controllers
         {
             double summa;
 
-            if (double.TryParse(amount , out summa))
+            if (double.TryParse(amount, NumberStyles.Number, CultureInfo.InvariantCulture, out summa))
             {
                 return RuDateAndMoneyConverter.CurrencyToTxt((double)summa, true);
             }
@@ -431,7 +437,7 @@ namespace KasabaKIAT.Controllers
         /// 
         /// </summary>
         /// <returns></returns>
-        public async Task CloseKvartal()
+        public async Task<RedirectResult> CloseKvartal()
         {
             int UserId = Convert.ToInt32(User.Identity.Name);
             var ustinfo = UserInfo.GetUserInfo(UserId);
@@ -440,7 +446,20 @@ namespace KasabaKIAT.Controllers
 
             kvartal.Close(ustinfo.DepartmentBase, UserId, KasabaDB);
 
-            await KasabaDB.SaveChangesAsync();
+            try
+            {
+                await KasabaDB.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex);
+            }
+
+            var users = UserPermissions.userData.FirstOrDefault(u => u.userid == UserId);
+            UserPermissions.userData.Remove(users);
+            var ustinfo2 = UserInfo.GetUserInfo(UserId);
+
+            return Redirect("/Home/Putyovki");
         }
 
         /// <summary>
@@ -512,7 +531,7 @@ namespace KasabaKIAT.Controllers
             var ustinfo = UserInfo.GetUserInfo(UserId);
 
             var finOtchet = new FinOtchetStrukture();
-            finOtchet.MakeFinOtchet(ustinfo.DepartmentBase, year, kvartal);
+            finOtchet.MakeFinOtchet(ustinfo.DepartmentBase, year, kvartal, UserId);
 
             finOtchet._totaloutput.SelectedKvartalYear =  string.Format("{0} год -{1} кв", year, kvartal);
             finOtchet._totaloutput.OrgName = ustinfo.OrgName;
@@ -534,7 +553,7 @@ namespace KasabaKIAT.Controllers
             var ustinfo = UserInfo.GetUserInfo(UserId);
 
             var finOtchet = new FinOtchetStrukture();
-            finOtchet.MakeFinOtchet(departmentBase, year, kvartal);
+            finOtchet.MakeFinOtchet(departmentBase, year, kvartal, UserId);
 
             finOtchet._totaloutput.SelectedKvartalYear = string.Format("{0} год -{1} кв", year, kvartal);
             finOtchet._totaloutput.OrgName = KasabaDB.tbku_StrokaProfsoyza.Where(z=>z.MATCH_DEPARTMENTBASE == departmentBase).First().ProfsoyzNaimenovanie;
@@ -557,7 +576,7 @@ namespace KasabaKIAT.Controllers
             var ustinfo = UserInfo.GetUserInfo(UserId);
 
             var finOtchet = new FinOtchetStrukture();
-            finOtchet.MakeFinOtchet("17", year, kvartal , true);
+            finOtchet.MakeFinOtchet("17", year, kvartal, UserId, true);
 
             finOtchet._totaloutput.SelectedKvartalYear = string.Format("{0} год -{1} кв", year, kvartal);
             finOtchet._totaloutput.OrgName = ustinfo.OrgName;
@@ -587,7 +606,7 @@ namespace KasabaKIAT.Controllers
         /// Test purpose
         /// </summary>
         /// <returns></returns>
-        public async Task CloseKvartal(string depCode, long UserId)
+        public async Task CloseKvartalParams(string depCode, long UserId)
         {
             //int UserId = Convert.ToInt32(User.Identity.Name);
             //var ustinfo = UserInfo.GetUserInfo(UserId);

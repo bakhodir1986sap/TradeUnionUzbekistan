@@ -133,7 +133,7 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.PlanProvodok
             List<string> list = null;
             using (KasabaKIATEntities db = new KasabaKIATEntities())
             {
-                var provList = db.provodok.DistinctBy(z => z.score_begin.Trim()).Select(z => z.score_end);
+                var provList = db.tbbu_balance.DistinctBy(z => z.ACCOUNT_CODE.Trim()).Select(z => z.ACCOUNT_CODE);
 
                 list = provList.ToList();
             }
@@ -146,7 +146,7 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.PlanProvodok
             List<string> list = null;
             using (KasabaKIATEntities db = new KasabaKIATEntities())
             {
-                var provList = db.provodok.DistinctBy(z => z.score_end.Trim()).Select(z=>z.score_end);
+                var provList = db.tbbu_balance.DistinctBy(z => z.ACCOUNT_CODE.Trim()).Select(z=>z.ACCOUNT_CODE);
 
 
                 list = provList.ToList();

@@ -1710,6 +1710,90 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.Provodki.AutomaticTransactions.K
 
                             db.SaveChanges();
                         }
+
+                        Console.WriteLine("DoubleBranch Begin*********** " + DateTime.Now.ToLongTimeString());
+
+                        var doubleBranchs = db.sp_pr_DoubleBranchCheck().ToList();
+
+                        if (doubleBranchs.Any())
+                        {
+                            foreach (var org in doubleBranchs)
+                            {
+                                Console.WriteLine("DoubleBranch Branch*********** " + DateTime.Now.ToLongTimeString());
+                                Console.WriteLine("INN = " + org.INN + " " + DateTime.Now.ToLongTimeString());
+
+                                if (org.ID_Ot.HasValue)
+                                {
+                                    var currentOtrasl = db.tblSprav_Otras.Where(z => z.ID_Ot == org.ID_Ot);
+
+                                    if (currentOtrasl.Any())
+                                    {
+                                        var branchCode = currentOtrasl.First().BRANCH_CODE;
+
+                                        Console.WriteLine("branchCode: " + branchCode);
+
+                                        var branchNameRow = db.sp_branch.Where(z => z.code == branchCode);
+
+                                        if (branchNameRow.Any())
+                                        {
+                                            var branchName = branchNameRow.First().name_ru;
+
+                                            Console.WriteLine("branchName: " + branchName);
+
+                                            var ecpChangeList = db.tbbu_ecp_calc.Where(z => z.INN == org.INN);
+
+                                            if (ecpChangeList.Any())
+                                            {
+                                                foreach (var ecp in ecpChangeList)
+                                                {
+                                                    ecp.BRANCH_CODE = branchCode;
+                                                    ecp.BRANCH_NAME = branchName;
+
+                                                    if (branchCode.Equals("Н2"))
+                                                    {
+                                                        ecp.ADEP_CODE = "173Н2";
+                                                    }
+                                                    else if (branchCode.Equals("Т2"))
+                                                    {
+                                                        ecp.ADEP_CODE = "173Т2";
+                                                    }
+                                                    else if (branchCode.Equals("О1"))
+                                                    {
+                                                        ecp.ADEP_CODE = "173О1";
+                                                    }
+                                                    else
+                                                    {
+                                                        ecp.ADEP_CODE = "173" + branchCode + ecp.SOATO.Substring(2, 5);
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    var ecpChangeList = db.tbbu_ecp_calc.Where(z => z.INN == org.INN);
+
+                                    if (ecpChangeList.Any())
+                                    {
+                                        foreach (var ecp in ecpChangeList)
+                                        {
+                                            ecp.BRANCH_CODE = null;
+                                            ecp.BRANCH_NAME = null;
+                                            ecp.ADEP_CODE = null;
+                                        }
+                                    }
+                                }
+                            }
+
+                            db.SaveChanges();
+                        }
+                        else
+                        {
+                            Console.WriteLine("DoubleBranch Empty*********** " + DateTime.Now.ToLongTimeString());
+                        }
+
+                        Console.WriteLine("DoubleBranch !!!!!!*********** " + DateTime.Now.ToLongTimeString());
                     }
 
                     #endregion
@@ -1717,6 +1801,7 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.Provodki.AutomaticTransactions.K
             }
             catch(Exception ex)
             {
+                Console.WriteLine(ex + DateTime.Now.ToLongTimeString());
                 _logService.Info(ex.ToString());
             }
         }

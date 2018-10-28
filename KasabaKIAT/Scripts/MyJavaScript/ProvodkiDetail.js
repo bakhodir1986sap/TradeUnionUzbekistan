@@ -123,6 +123,32 @@
         $scope.ZE = new Date();
         $scope.showdata = false;
     }
+
+    $scope.CancelProvodka = function (rec_id) {
+        document.getElementById('connection').style.visibility = "visible";
+        $("#hh").modal({
+            backdrop: 'static',
+            backdrop: 'static'
+        });
+        $http({
+            method: 'POST',
+            url: "/Otchot/CancelProvodki?rec_id=" + rec_id,
+        }).then(function (d) {
+
+            alertify.success("Удачно удалена");
+            $scope.LoadDATA();
+            document.getElementById('connection').style.visibility = "hidden";
+            $("#hh").modal('hide');
+        }, function (error) {
+            alertify.error("ошибка");
+            console.log("error in GetPostupleniya -> ", error);
+            document.getElementById('connection').style.visibility = "hidden";
+            $("#hh").modal('hide');
+        });
+    };
+
+
+
     $scope.exportData = function () {
         var blob = new Blob([document.getElementById('export').innerHTML], {
             type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=utf-8"

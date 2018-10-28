@@ -55,6 +55,7 @@
                 <input type="file" id="input08" name="UploadedFile" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" onchange="angular.element(this).scope().UploadFiles(this.files)" />
             </div>
             <input type="button" value="Загрузить" class="btn btn-primary" style="margin-top:-65px" ng-disabled="!SelectedFileForUpload" ng-click="SaveDATA() " />
+            <input type="button" value="Очистить" class="btn btn-primary" style="margin-top:-65px" ng-click="ClearOblast()" />
         </div>
         <div class="row mb-5">
             <div class="col-lg-9">

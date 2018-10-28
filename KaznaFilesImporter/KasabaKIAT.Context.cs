@@ -50,6 +50,7 @@ namespace KaznaFilesImporter
         public virtual DbSet<t_departmentbase> t_departmentbase { get; set; }
         public virtual DbSet<tblBron> tblBrons { get; set; }
         public virtual DbSet<tbbu_nastroykiProvodok> tbbu_nastroykiProvodok { get; set; }
+        public virtual DbSet<tbbu_ecp_inn_setting> tbbu_ecp_inn_setting { get; set; }
     
         public virtual int sp_im_KaznaNewOrg()
         {

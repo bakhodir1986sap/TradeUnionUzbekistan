@@ -541,6 +541,19 @@ namespace KasabaKIAT.Controllers
             return Json(result, JsonRequestBehavior.AllowGet);
         }
 
+        public JsonResult SaveRasxod(SaveFinOthers2 postData)
+        {
+            int UserId = Convert.ToInt32(User.Identity.Name);
+            var ustinfo = UserInfo.GetUserInfo(UserId);
+
+            if (postData.rasxod_arr == null) return Json("error", JsonRequestBehavior.AllowGet);
+
+            var finOtchet = new FinOtchetStrukture();
+            finOtchet.SaveOtherInfo(ustinfo.DepartmentBase, postData.year, postData.kvartal, UserId, postData.rasxod_arr);
+
+            return Json("", JsonRequestBehavior.AllowGet);
+        }
+
         /// <summary>
         /// 
         /// </summary>

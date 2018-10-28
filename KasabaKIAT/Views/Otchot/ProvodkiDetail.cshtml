@@ -61,6 +61,7 @@
                         <th>Дополнительно</th>
                         <th>Описание</th>
                         <th>ЖО</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -73,6 +74,7 @@
                         <td style="text-align:center">{{item.ADDITIONAL}}</td>
                         <td style="text-align:center">{{item.OPISANIYE}}</td>
                         <td style="text-align:center">{{item.NAME_RU}}</td>
+                        <td style="text-align:center"><button ng-click="CancelProvodka(item.REC_ID)" style="margin-left:125px" class="btn btn-default d-block d-md-inline-block mb-2"> Удалить Проводку</button></td>
                     </tr>
                 </tbody>
             </table>

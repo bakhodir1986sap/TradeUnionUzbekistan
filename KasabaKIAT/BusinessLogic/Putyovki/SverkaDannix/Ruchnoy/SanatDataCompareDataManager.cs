@@ -147,6 +147,30 @@ namespace KasabaKIAT.BusinessLogic.Putyovki.SverkaDannix.Ruchnoy
             }
         }
 
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="model"></param>
+        public static void Remove(int year, int IdSan, string Obl)
+        {
+            using (KasabaKIATEntities db = new KasabaKIATEntities())
+            {
+                var sanInfo = db.tblSanatDataCompares.Where(z => z.YEAR == year
+                && z.SANAT_ID == IdSan && z.OWNER_CODE == Obl && z.OWNER_TP == 1);
+
+                if (sanInfo.Any())
+                {
+                    foreach (var obj in sanInfo)
+                    {
+                        db.tblSanatDataCompares.Remove(obj);
+                    }
+                }
+
+                db.SaveChanges();
+            }
+        }
+
         /// <summary>
         /// 
         /// </summary>

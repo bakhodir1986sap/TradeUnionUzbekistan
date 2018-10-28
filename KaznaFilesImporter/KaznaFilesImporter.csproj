@@ -180,6 +180,9 @@
     <Compile Include="tbbu_ecp_calc.cs">
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
+    <Compile Include="tbbu_ecp_inn_setting.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
     <Compile Include="tbbu_nastroykiProvodok.cs">
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>

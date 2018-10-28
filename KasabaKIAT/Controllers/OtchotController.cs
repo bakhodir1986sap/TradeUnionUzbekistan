@@ -8,6 +8,7 @@ using KurortUrvServiceTest.ServiceInterAction.ActionLogic;
 using log4net;
 using KasabaKiat.Helpers;
 using System.Web.UI;
+using KasabaKIAT.BusinessLogic.Buxgalteriya.Provodki;
 
 namespace KasabaKIAT.Controllers
 {
@@ -497,6 +498,7 @@ namespace KasabaKIAT.Controllers
             var OutData = from outData in list
                           select new
                           {
+                              REC_ID = outData.REC_ID,
                               TRDT = outData.TRDT,
                               DEBIT_ACCOUNT = outData.DEBIT_ACCOUNT,
                               CREDIT_ACCOUNT = outData.CREDIT_ACCOUNT,
@@ -510,6 +512,21 @@ namespace KasabaKIAT.Controllers
             return Json(OutData.ToList(), JsonRequestBehavior.AllowGet);
         }
 
+
+        public JsonResult CancelProvodki(long rec_id)
+        {
+            try
+            {
+                ProvodkiDataManager.RemoveTransaction(rec_id);
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex);
+                throw ex;
+            }
+
+            return Json("success", JsonRequestBehavior.AllowGet);
+        }
 
         /// <summary>
         /// 

@@ -520,6 +520,48 @@
     }
 
 
+    $scope.DeleteOrganization = function () {
+        document.getElementById('connection').style.visibility = "visible";
+        $("#hh").modal({
+            backdrop: 'static'
+        });
+
+        $scope.Organization.ID_Ot = $scope.ModalOtraslSelected.ID_Ot;
+        $scope.Organization.Region = $scope.ModalRegionSelected.ID;
+        $scope.Organization.ParentId = $scope.SelectedOrganization.ID;
+        $scope.Organization.PravSoyuzLevel = $scope.SelectedProgLevel.Code;
+        $scope.Organization.to_depcode = $scope.ModalToDepCodeSelected.Kod;
+
+
+        $http({
+            method: 'post',
+            url: '/PrixodPutevok/DeleteOrganization',
+            data: JSON.stringify($scope.Organization),
+            contentType: "application/json; charset=utf-8",
+        }).then(function (response) {
+
+            if (response.data == 'success') {
+                $scope.GetOrganizationsFilter();
+                alertify.success("Успешное сохранение");
+            }
+            else {
+                alertify.success("Сохранение завершилась с ошибкой");
+            }
+
+            TotalCountOfOrganization();
+            TotalCountOfNeotOrganization();
+
+            document.getElementById('connection').style.visibility = "hidden";
+            $("#hh").modal('hide');
+        }, function (error) {
+            alertify.error("ошибка");
+            console.log("error in SaveRekvizit");
+            document.getElementById('connection').style.visibility = "hidden";
+            $("#hh").modal('hide');
+        });
+    }
+
+
     $scope.exportData = function () {
         var blob = new Blob([document.getElementById('export').innerHTML], {
             type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=utf-8"

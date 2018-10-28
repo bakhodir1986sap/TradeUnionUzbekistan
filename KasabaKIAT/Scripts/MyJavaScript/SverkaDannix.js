@@ -266,6 +266,27 @@
     }
 
 
+    $scope.ClearOblast = function () {
+        document.getElementById('connection').style.visibility = "visible";
+        $("#hh").modal({
+            backdrop: 'static'
+        });
+        $http({
+            method: 'get',
+            url: '/PrixodPutevok/DeleteObl?year=' + $scope.SelectedYear.Id + '&IdSan=' + $scope.SelectedSanatory.ID + '&Obl=' + $scope.SelectedPravsoyuz.MATCH_DEPARTMENTBASE
+        }).then(function (response) {
+            alertify.error("Удачно удален");
+            document.getElementById('connection').style.visibility = "hidden";
+            $("#hh").modal('hide');
+        }, function (error) {
+            alertify.error("ошибка");
+            console.log("error in GetDifferByYearFiles");
+            document.getElementById('connection').style.visibility = "hidden";
+            $("#hh").modal('hide');
+        });
+    }
+
+
     function GetPravList() {
         document.getElementById('connection').style.visibility = "visible";
         $("#hh").modal({

@@ -1081,6 +1081,32 @@ namespace KasabaKIAT.Controllers
             return Json("success", JsonRequestBehavior.AllowGet);
         }
 
+
+        [HttpPost]
+        public JsonResult DeleteOrganization(Sprav_OrgViewModel model)
+        {
+            try
+            {
+                int UserId = Convert.ToInt32(User.Identity.Name);
+                var ustinfo = UserInfo.GetUserInfo(UserId);
+
+                model.DepartmentBase = ustinfo.DepartmentBase;
+                model.UserId = UserId;
+
+                if (model.ID != 0)
+                {
+                    Sprav_Org.Remove(model);
+                }
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex.ToString());
+                return Json("fail", JsonRequestBehavior.AllowGet);
+            }
+
+            return Json("success", JsonRequestBehavior.AllowGet);
+        }
+
         /// <summary>
         /// 
         /// </summary>
@@ -4092,6 +4118,11 @@ namespace KasabaKIAT.Controllers
                         if (key.Equals("SelectedSanatory"))
                         {
                             sanat_id = int.Parse(formCollection[key]);
+
+                            if (sanat_id == 0)
+                            {
+                                return Json("error", JsonRequestBehavior.AllowGet);
+                            }
                         }
                         if (key.Equals("SelectedPravsoyuz"))
                         {
@@ -4240,6 +4271,35 @@ namespace KasabaKIAT.Controllers
             var list = sverObj.MatchingEngineMix(year);
 
             return Json(list, JsonRequestBehavior.AllowGet);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="year"></param>
+        /// <param name="IdSan"></param>
+        /// <param name="Obl"></param>
+        /// <returns></returns>
+        public JsonResult DeleteObl(int year, int IdSan, string Obl)
+        {
+            if (year <= 0)
+            {
+                return Json("error", JsonRequestBehavior.AllowGet);
+            }
+
+            if (IdSan <= 0)
+            {
+                return Json("error", JsonRequestBehavior.AllowGet);
+            }
+
+            if (string.IsNullOrEmpty(Obl))
+            {
+                return Json("error", JsonRequestBehavior.AllowGet);
+            }
+
+            SanatDataCompareDataManager.Remove(year, IdSan, Obl);
+
+            return Json("success", JsonRequestBehavior.AllowGet);
         }
 
         #endregion

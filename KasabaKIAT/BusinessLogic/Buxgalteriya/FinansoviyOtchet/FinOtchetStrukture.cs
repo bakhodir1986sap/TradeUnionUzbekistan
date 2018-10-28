@@ -16,6 +16,20 @@ using System.Web;
  */
 namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
 {
+    public class SaveFinOthers2
+    {
+        public List<SaveFinOthers> rasxod_arr { get; set; }
+        public int year { get; set; }
+        public int kvartal { get; set; }
+    }
+
+    public class SaveFinOthers
+    {
+        //"part": "3", "code": "010", "value": $scope.rasxod_010_3
+        public string part { get; set; }
+        public string code { get; set; }
+        public decimal value { get; set; }
+    }
     /// <summary>
     /// 
     /// </summary>
@@ -79,6 +93,7 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
         public string SelectedKvartalYear { get; set; }
         public FinOtchetOutput _finotchetoutput { get; set; }
         public BalanceOutput _balanceoutput { get; set; }
+        public OtherOutput _otheroutput { get; set; }
     }
 
     /// <summary>
@@ -221,6 +236,109 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
 
     }
 
+    public class OtherOutput
+    {
+        public decimal? rasxod_010_3 { get; set;}
+        public decimal? rasxod_010_4 { get; set;}
+        public decimal? rasxod_010_5 { get; set;}
+        public decimal? rasxod_010_6 { get; set;}
+        public decimal? rasxod_010_7 { get; set;}
+        public decimal? rasxod_010_8 { get; set;}
+        public decimal? rasxod_010_9 { get; set;}
+        public decimal? rasxod_010_10 { get; set;}
+        public decimal? rasxod_010_11 { get; set;}
+        public decimal? rasxod_010_12 { get; set;}
+
+        public decimal? rasxod_020_3 { get; set;}
+        public decimal? rasxod_020_4 { get; set;}
+        public decimal? rasxod_020_5 { get; set;}
+        public decimal? rasxod_020_6 { get; set;}
+        public decimal? rasxod_020_7 { get; set;}
+        public decimal? rasxod_020_8 { get; set;}
+        public decimal? rasxod_020_9 { get; set;}
+        public decimal? rasxod_020_10 { get; set;}
+        public decimal? rasxod_020_11 { get; set;}
+        public decimal? rasxod_020_12 { get; set;}
+             
+        public decimal? rasxod_030_3 { get; set;}
+        public decimal? rasxod_030_4 { get; set;}
+        public decimal? rasxod_030_5 { get; set;}
+        public decimal? rasxod_030_6 { get; set;}
+        public decimal? rasxod_030_7 { get; set;}
+        public decimal? rasxod_030_8 { get; set;}
+        public decimal? rasxod_030_9 { get; set;}
+        public decimal? rasxod_030_10 { get; set;}
+        public decimal? rasxod_030_11 { get; set;}
+        public decimal? rasxod_030_12 { get; set;}
+           
+        public decimal? rasxod_040_3 { get; set;}
+        public decimal? rasxod_040_4 { get; set;}
+        public decimal? rasxod_040_5 { get; set;}
+        public decimal? rasxod_040_6 { get; set;}
+        public decimal? rasxod_040_7 { get; set;}
+        public decimal? rasxod_040_8 { get; set;}
+        public decimal? rasxod_040_9 { get; set;}
+        public decimal? rasxod_040_10 { get; set;}
+        public decimal? rasxod_040_11 { get; set;}
+        public decimal? rasxod_040_12 { get; set;}
+           
+        public decimal? rasxod_060_3 { get; set;}
+        public decimal? rasxod_060_4 { get; set;}
+        public decimal? rasxod_060_5 { get; set;}
+        public decimal? rasxod_060_6 { get; set;}
+        public decimal? rasxod_060_7 { get; set;}
+        public decimal? rasxod_060_8 { get; set;}
+        public decimal? rasxod_060_9 { get; set;}
+        public decimal? rasxod_060_10 { get; set;}
+        public decimal? rasxod_060_11 { get; set;}
+        public decimal? rasxod_060_12 { get; set;}
+                
+        public decimal? rasxod_070_3 { get; set;}
+        public decimal? rasxod_070_4 { get; set;}
+        public decimal? rasxod_070_5 { get; set;}
+        public decimal? rasxod_070_6 { get; set;}
+        public decimal? rasxod_070_7 { get; set;}
+        public decimal? rasxod_070_8 { get; set;}
+        public decimal? rasxod_070_9 { get; set;}
+        public decimal? rasxod_070_10 { get; set;}
+        public decimal? rasxod_070_11 { get; set;}
+        public decimal? rasxod_070_12 { get; set;}
+          
+        public decimal? rasxod_080_3 { get; set;}
+        public decimal? rasxod_080_4 { get; set;}
+        public decimal? rasxod_080_5 { get; set;}
+        public decimal? rasxod_080_6 { get; set;}
+        public decimal? rasxod_080_7 { get; set;}
+        public decimal? rasxod_080_8 { get; set;}
+        public decimal? rasxod_080_9 { get; set;}
+        public decimal? rasxod_080_10 { get; set;}
+        public decimal? rasxod_080_11 { get; set;}
+        public decimal? rasxod_080_12 { get; set;}
+           
+        public decimal? rasxod_090_3 { get; set;}
+        public decimal? rasxod_090_4 { get; set;}
+        public decimal? rasxod_090_5 { get; set;}
+        public decimal? rasxod_090_6 { get; set;}
+        public decimal? rasxod_090_7 { get; set;}
+        public decimal? rasxod_090_8 { get; set;}
+        public decimal? rasxod_090_9 { get; set;}
+        public decimal? rasxod_090_10 { get; set;}
+        public decimal? rasxod_090_11 { get; set;}
+        public decimal? rasxod_090_12 { get; set;}
+   
+        public decimal? rasshifrovka_010 { get; set;}
+        public decimal? rasshifrovka_020 { get; set;}
+        public decimal? rasshifrovka_030 { get; set;}
+        public decimal? rasshifrovka_040 { get; set;}
+        public decimal? rasshifrovka_050 { get; set;}
+
+        public decimal? drugiye_010 { get; set;}
+        public decimal? drugiye_020 { get; set;}
+        public decimal? drugiye_030 { get; set;}
+        public decimal? drugiye_040 { get; set;}
+        public decimal? drugiye_050 { get; set;}
+        public decimal? drugiye_060 { get; set;}
+    }
     /// <summary>
     /// 
     /// </summary>
@@ -1140,6 +1258,26 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
             FillFactData(a_year, a_kvartal , isSvodniy);
             FillFactDataBalance(a_year, a_kvartal , isSvodniy);
             PrepareForOutput();
+        }
+
+        public void SaveOtherInfo(string a_departmentCode, int a_year, int a_kvartal, long a_usrId, List<SaveFinOthers> otherList)
+        {
+            departmentCode = a_departmentCode;
+            year = a_year;
+            kvartal = a_kvartal;
+            usrId = a_usrId;
+
+            foreach (var other in otherList)
+            {
+                SaveFinOtchet(usrId,
+                departmentCode,
+                year,
+                kvartal,
+                int.Parse(other.part),
+                other.code,
+                0,
+                other.value);
+            }
         }
 
         private void PrepareForOutput()
@@ -2806,6 +2944,359 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
                                 "999",
                                 null,
                                 _totaloutput._balanceoutput.fieldActivePassive);
+
+
+                    using (KasabaKIATEntities db = new KasabaKIATEntities())
+                    {
+                        var finAlreadyExists = db.tbbu_FinOtchetSave.Where(z => z.PART >= 3);
+
+                        if (finAlreadyExists.Any())
+                        {
+                            _totaloutput._otheroutput = new OtherOutput();
+
+
+                            foreach (var others in finAlreadyExists)
+                            {
+                                switch (others.PART)
+                                {
+                                    case 3:
+                                        switch (others.CODE)
+                                        {
+                                            case"010":
+                                                _totaloutput._otheroutput.rasxod_010_3 = others.FACT_AMOUNT;
+                                                break;
+                                            case"020":
+                                                _totaloutput._otheroutput.rasxod_020_3 = others.FACT_AMOUNT;
+                                                break;
+                                            case"030":
+                                                _totaloutput._otheroutput.rasxod_030_3 = others.FACT_AMOUNT;
+                                                break;
+                                            case"040":
+                                                _totaloutput._otheroutput.rasxod_040_3 = others.FACT_AMOUNT;
+                                                break;
+                                            case"060":
+                                                _totaloutput._otheroutput.rasxod_060_3 = others.FACT_AMOUNT;
+                                                break;
+                                            case"070":
+                                                _totaloutput._otheroutput.rasxod_070_3 = others.FACT_AMOUNT;
+                                                break;
+                                            case"080":
+                                                _totaloutput._otheroutput.rasxod_080_3 = others.FACT_AMOUNT;
+                                                break;
+                                            case "090:":
+                                                _totaloutput._otheroutput.rasxod_090_3 = others.FACT_AMOUNT;
+                                                break;
+                                        }
+                                        break;
+                                    case 4:
+                                        switch (others.CODE)
+                                        {
+                                            case "010":
+                                                _totaloutput._otheroutput.rasxod_010_4 = others.FACT_AMOUNT;
+                                                break;
+                                            case "020":
+                                                _totaloutput._otheroutput.rasxod_020_4 = others.FACT_AMOUNT;
+                                                break;
+                                            case "030":
+                                                _totaloutput._otheroutput.rasxod_030_4 = others.FACT_AMOUNT;
+                                                break;
+                                            case "040":
+                                                _totaloutput._otheroutput.rasxod_040_4 = others.FACT_AMOUNT;
+                                                break;
+                                            case "060":
+                                                _totaloutput._otheroutput.rasxod_060_4 = others.FACT_AMOUNT;
+                                                break;
+                                            case "070":
+                                                _totaloutput._otheroutput.rasxod_070_4 = others.FACT_AMOUNT;
+                                                break;
+                                            case "080":
+                                                _totaloutput._otheroutput.rasxod_080_4 = others.FACT_AMOUNT;
+                                                break;
+                                            case "090:":
+                                                _totaloutput._otheroutput.rasxod_090_4 = others.FACT_AMOUNT;
+                                                break;
+                                        }
+                                        break;
+                                    case 5:
+                                        switch (others.CODE)
+                                        {
+                                            case "010":
+                                                _totaloutput._otheroutput.rasxod_010_5 = others.FACT_AMOUNT;
+                                                break;
+                                            case "020":
+                                                _totaloutput._otheroutput.rasxod_020_5 = others.FACT_AMOUNT;
+                                                break;
+                                            case "030":
+                                                _totaloutput._otheroutput.rasxod_030_5 = others.FACT_AMOUNT;
+                                                break;
+                                            case "040":
+                                                _totaloutput._otheroutput.rasxod_040_5 = others.FACT_AMOUNT;
+                                                break;
+                                            case "060":
+                                                _totaloutput._otheroutput.rasxod_060_5 = others.FACT_AMOUNT;
+                                                break;
+                                            case "070":
+                                                _totaloutput._otheroutput.rasxod_070_5 = others.FACT_AMOUNT;
+                                                break;
+                                            case "080":
+                                                _totaloutput._otheroutput.rasxod_080_5 = others.FACT_AMOUNT;
+                                                break;
+                                            case "090:":
+                                                _totaloutput._otheroutput.rasxod_090_5 = others.FACT_AMOUNT;
+                                                break;
+                                        }
+                                        break;
+                                    case 6:
+                                        switch (others.CODE)
+                                        {
+                                            case "010":
+                                                _totaloutput._otheroutput.rasxod_010_6 = others.FACT_AMOUNT;
+                                                break;
+                                            case "020":
+                                                _totaloutput._otheroutput.rasxod_020_6 = others.FACT_AMOUNT;
+                                                break;
+                                            case "030":
+                                                _totaloutput._otheroutput.rasxod_030_6 = others.FACT_AMOUNT;
+                                                break;
+                                            case "040":
+                                                _totaloutput._otheroutput.rasxod_040_6 = others.FACT_AMOUNT;
+                                                break;
+                                            case "060":
+                                                _totaloutput._otheroutput.rasxod_060_6 = others.FACT_AMOUNT;
+                                                break;
+                                            case "070":
+                                                _totaloutput._otheroutput.rasxod_070_6 = others.FACT_AMOUNT;
+                                                break;
+                                            case "080":
+                                                _totaloutput._otheroutput.rasxod_080_6 = others.FACT_AMOUNT;
+                                                break;
+                                            case "090:":
+                                                _totaloutput._otheroutput.rasxod_090_6 = others.FACT_AMOUNT;
+                                                break;
+                                        }
+                                        break;
+                                    case 7:
+                                        switch (others.CODE)
+                                        {
+                                            case "010":
+                                                _totaloutput._otheroutput.rasxod_010_7 = others.FACT_AMOUNT;
+                                                break;
+                                            case "020":
+                                                _totaloutput._otheroutput.rasxod_020_7 = others.FACT_AMOUNT;
+                                                break;
+                                            case "030":
+                                                _totaloutput._otheroutput.rasxod_030_7 = others.FACT_AMOUNT;
+                                                break;
+                                            case "040":
+                                                _totaloutput._otheroutput.rasxod_040_7 = others.FACT_AMOUNT;
+                                                break;
+                                            case "060":
+                                                _totaloutput._otheroutput.rasxod_060_7 = others.FACT_AMOUNT;
+                                                break;
+                                            case "070":
+                                                _totaloutput._otheroutput.rasxod_070_7 = others.FACT_AMOUNT;
+                                                break;
+                                            case "080":
+                                                _totaloutput._otheroutput.rasxod_080_7 = others.FACT_AMOUNT;
+                                                break;
+                                            case "090:":
+                                                _totaloutput._otheroutput.rasxod_090_7 = others.FACT_AMOUNT;
+                                                break;
+                                        }
+                                        break;
+                                    case 8:
+                                        switch (others.CODE)
+                                        {
+                                            case "010":
+                                                _totaloutput._otheroutput.rasxod_010_8 = others.FACT_AMOUNT;
+                                                break;
+                                            case "020":
+                                                _totaloutput._otheroutput.rasxod_020_8 = others.FACT_AMOUNT;
+                                                break;
+                                            case "030":
+                                                _totaloutput._otheroutput.rasxod_030_8 = others.FACT_AMOUNT;
+                                                break;
+                                            case "040":
+                                                _totaloutput._otheroutput.rasxod_040_8 = others.FACT_AMOUNT;
+                                                break;
+                                            case "060":
+                                                _totaloutput._otheroutput.rasxod_060_8 = others.FACT_AMOUNT;
+                                                break;
+                                            case "070":
+                                                _totaloutput._otheroutput.rasxod_070_8 = others.FACT_AMOUNT;
+                                                break;
+                                            case "080":
+                                                _totaloutput._otheroutput.rasxod_080_8 = others.FACT_AMOUNT;
+                                                break;
+                                            case "090:":
+                                                _totaloutput._otheroutput.rasxod_090_8 = others.FACT_AMOUNT;
+                                                break;
+                                        }
+                                        break;
+                                    case 9:
+                                        switch (others.CODE)
+                                        {
+                                            case "010":
+                                                _totaloutput._otheroutput.rasxod_010_9 = others.FACT_AMOUNT;
+                                                break;
+                                            case "020":
+                                                _totaloutput._otheroutput.rasxod_020_9 = others.FACT_AMOUNT;
+                                                break;
+                                            case "030":
+                                                _totaloutput._otheroutput.rasxod_030_9 = others.FACT_AMOUNT;
+                                                break;
+                                            case "040":
+                                                _totaloutput._otheroutput.rasxod_040_9 = others.FACT_AMOUNT;
+                                                break;
+                                            case "060":
+                                                _totaloutput._otheroutput.rasxod_060_9 = others.FACT_AMOUNT;
+                                                break;
+                                            case "070":
+                                                _totaloutput._otheroutput.rasxod_070_9 = others.FACT_AMOUNT;
+                                                break;
+                                            case "080":
+                                                _totaloutput._otheroutput.rasxod_080_9 = others.FACT_AMOUNT;
+                                                break;
+                                            case "090:":
+                                                _totaloutput._otheroutput.rasxod_090_9 = others.FACT_AMOUNT;
+                                                break;
+                                        }
+                                        break;
+                                    case 10:
+                                        switch (others.CODE)
+                                        {
+                                            case "010":
+                                                _totaloutput._otheroutput.rasxod_010_10 = others.FACT_AMOUNT;
+                                                break;
+                                            case "020":
+                                                _totaloutput._otheroutput.rasxod_020_10 = others.FACT_AMOUNT;
+                                                break;
+                                            case "030":
+                                                _totaloutput._otheroutput.rasxod_030_10 = others.FACT_AMOUNT;
+                                                break;
+                                            case "040":
+                                                _totaloutput._otheroutput.rasxod_040_10 = others.FACT_AMOUNT;
+                                                break;
+                                            case "060":
+                                                _totaloutput._otheroutput.rasxod_060_10 = others.FACT_AMOUNT;
+                                                break;
+                                            case "070":
+                                                _totaloutput._otheroutput.rasxod_070_10 = others.FACT_AMOUNT;
+                                                break;
+                                            case "080":
+                                                _totaloutput._otheroutput.rasxod_080_10 = others.FACT_AMOUNT;
+                                                break;
+                                            case "090:":
+                                                _totaloutput._otheroutput.rasxod_090_10 = others.FACT_AMOUNT;
+                                                break;
+                                        }
+                                        break;
+                                    case 11:
+                                        switch (others.CODE)
+                                        {
+                                            case "010":
+                                                _totaloutput._otheroutput.rasxod_010_11 = others.FACT_AMOUNT;
+                                                break;
+                                            case "020":
+                                                _totaloutput._otheroutput.rasxod_020_11 = others.FACT_AMOUNT;
+                                                break;
+                                            case "030":
+                                                _totaloutput._otheroutput.rasxod_030_11 = others.FACT_AMOUNT;
+                                                break;
+                                            case "040":
+                                                _totaloutput._otheroutput.rasxod_040_11 = others.FACT_AMOUNT;
+                                                break;
+                                            case "060":
+                                                _totaloutput._otheroutput.rasxod_060_11 = others.FACT_AMOUNT;
+                                                break;
+                                            case "070":
+                                                _totaloutput._otheroutput.rasxod_070_11 = others.FACT_AMOUNT;
+                                                break;
+                                            case "080":
+                                                _totaloutput._otheroutput.rasxod_080_11 = others.FACT_AMOUNT;
+                                                break;
+                                            case "090:":
+                                                _totaloutput._otheroutput.rasxod_090_11 = others.FACT_AMOUNT;
+                                                break;
+                                        }
+                                        break;
+                                    case 12:
+                                        switch (others.CODE)
+                                        {
+                                            case "010":
+                                                _totaloutput._otheroutput.rasxod_010_12 = others.FACT_AMOUNT;
+                                                break;
+                                            case "020":
+                                                _totaloutput._otheroutput.rasxod_020_12 = others.FACT_AMOUNT;
+                                                break;
+                                            case "030":
+                                                _totaloutput._otheroutput.rasxod_030_12 = others.FACT_AMOUNT;
+                                                break;
+                                            case "040":
+                                                _totaloutput._otheroutput.rasxod_040_12 = others.FACT_AMOUNT;
+                                                break;
+                                            case "060":
+                                                _totaloutput._otheroutput.rasxod_060_12 = others.FACT_AMOUNT;
+                                                break;
+                                            case "070":
+                                                _totaloutput._otheroutput.rasxod_070_12 = others.FACT_AMOUNT;
+                                                break;
+                                            case "080":
+                                                _totaloutput._otheroutput.rasxod_080_12 = others.FACT_AMOUNT;
+                                                break;
+                                            case "090:":
+                                                _totaloutput._otheroutput.rasxod_090_12 = others.FACT_AMOUNT;
+                                                break;
+                                        }
+                                        break;
+                                    case 13:
+                                        switch (others.CODE)
+                                        {
+                                            case "010":
+                                                _totaloutput._otheroutput.rasshifrovka_010 = others.FACT_AMOUNT;
+                                                break;
+                                            case "020":
+                                                _totaloutput._otheroutput.rasshifrovka_020 = others.FACT_AMOUNT;
+                                                break;
+                                            case "030":
+                                                _totaloutput._otheroutput.rasshifrovka_030 = others.FACT_AMOUNT;
+                                                break;
+                                            case "040":
+                                                _totaloutput._otheroutput.rasshifrovka_040 = others.FACT_AMOUNT;
+                                                break;
+                                            case "050":
+                                                _totaloutput._otheroutput.rasshifrovka_050 = others.FACT_AMOUNT;
+                                                break;
+                                        }
+                                        break;
+                                    case 14:
+                                        switch (others.CODE)
+                                        {
+                                            case "010":
+                                                _totaloutput._otheroutput.drugiye_010 = others.FACT_AMOUNT;
+                                                break;
+                                            case "020":
+                                                _totaloutput._otheroutput.drugiye_020 = others.FACT_AMOUNT;
+                                                break;
+                                            case "030":
+                                                _totaloutput._otheroutput.drugiye_030 = others.FACT_AMOUNT;
+                                                break;
+                                            case "040":
+                                                _totaloutput._otheroutput.drugiye_040 = others.FACT_AMOUNT;
+                                                break;
+                                            case "050":
+                                                _totaloutput._otheroutput.drugiye_050 = others.FACT_AMOUNT;
+                                                break;
+                                            case "060":
+                                                _totaloutput._otheroutput.drugiye_060 = others.FACT_AMOUNT;
+                                                break;
+                                        }
+                                        break;
+                                }
+                            }
+                        }
+                    }
+
                 }
             }
 

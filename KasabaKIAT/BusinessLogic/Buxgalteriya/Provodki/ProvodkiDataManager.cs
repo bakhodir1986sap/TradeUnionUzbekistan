@@ -134,6 +134,37 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.Provodki
             }
         }
 
+        public static void RemoveTransaction(long rec_id)
+        {
+            using (KasabaKIATEntities db = new KasabaKIATEntities())
+            {
+                var transactions = db.tbbu_provodki.Where(z => z.REC_ID == rec_id);
+
+                if (transactions.Any())
+                {
+                    var transaction = transactions.First();
+
+                    int cur_year = DateOperations.GetYear(transaction.TRDT.Value);
+                    int cur_kvartal = DateOperations.GetQuarter(transaction.TRDT.Value);
+                    //provod = db.tbbu_provodki.Add(reg);
+
+                    var balance = new BuxTransaction(cur_year,
+                    cur_kvartal,
+                    transaction.DEPARTMENT_BASE,
+                    transaction.POLUCHRSCH,
+                    transaction.PLATELRSCH,
+                     transaction.SUMMA.Value,
+                     db);
+
+                    balance.MakeTransaction();
+
+                    db.tbbu_provodki.Remove(transaction);
+                }
+
+                db.SaveChanges();
+            }
+        }
+
         public static List<ProvodkiViewModel> Get(ProvodkiViewModel model)
         {
             List<ProvodkiViewModel> list = null;

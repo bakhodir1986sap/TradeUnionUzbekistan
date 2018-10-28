@@ -20,7 +20,6 @@ namespace KasabaKIAT.Models
         public KasabaKIATEntities()
             : base("name=KasabaKIATEntities")
         {
-            ((IObjectContextAdapter)this).ObjectContext.CommandTimeout = 300;
         }
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -1373,23 +1372,6 @@ namespace KasabaKIAT.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_rt_Provodka_Summary_Result>("sp_rt_Provodka_Summary", dEPARTMENT_BASEParameter, bEGIN_DATEParameter, eND_DATEParameter);
         }
     
-        public virtual ObjectResult<sp_rt_Provodka_Details_Result1> sp_rt_Provodka_Details(string dEPARTMENT_BASE, Nullable<System.DateTime> bEGIN_DATE, Nullable<System.DateTime> eND_DATE)
-        {
-            var dEPARTMENT_BASEParameter = dEPARTMENT_BASE != null ?
-                new ObjectParameter("DEPARTMENT_BASE", dEPARTMENT_BASE) :
-                new ObjectParameter("DEPARTMENT_BASE", typeof(string));
-    
-            var bEGIN_DATEParameter = bEGIN_DATE.HasValue ?
-                new ObjectParameter("BEGIN_DATE", bEGIN_DATE) :
-                new ObjectParameter("BEGIN_DATE", typeof(System.DateTime));
-    
-            var eND_DATEParameter = eND_DATE.HasValue ?
-                new ObjectParameter("END_DATE", eND_DATE) :
-                new ObjectParameter("END_DATE", typeof(System.DateTime));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_rt_Provodka_Details_Result1>("sp_rt_Provodka_Details", dEPARTMENT_BASEParameter, bEGIN_DATEParameter, eND_DATEParameter);
-        }
-    
         public virtual ObjectResult<sp_rt_GlavnayaKniga_Credit_Result> sp_rt_GlavnayaKniga_Credit(Nullable<int> yEAR, Nullable<int> kvartal, string dEPARTMENT_CODE)
         {
             var yEARParameter = yEAR.HasValue ?
@@ -2165,6 +2147,23 @@ namespace KasabaKIAT.Models
                 new ObjectParameter("DEPARTMENT_CODE", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_rt_GlavnayaKniga_Debit_Svodniy_Result>("sp_rt_GlavnayaKniga_Debit_Svodniy", yEARParameter, kvartalParameter, dEPARTMENT_CODEParameter);
+        }
+    
+        public virtual ObjectResult<sp_rt_Provodka_Details_Result2> sp_rt_Provodka_Details(string dEPARTMENT_BASE, Nullable<System.DateTime> bEGIN_DATE, Nullable<System.DateTime> eND_DATE)
+        {
+            var dEPARTMENT_BASEParameter = dEPARTMENT_BASE != null ?
+                new ObjectParameter("DEPARTMENT_BASE", dEPARTMENT_BASE) :
+                new ObjectParameter("DEPARTMENT_BASE", typeof(string));
+    
+            var bEGIN_DATEParameter = bEGIN_DATE.HasValue ?
+                new ObjectParameter("BEGIN_DATE", bEGIN_DATE) :
+                new ObjectParameter("BEGIN_DATE", typeof(System.DateTime));
+    
+            var eND_DATEParameter = eND_DATE.HasValue ?
+                new ObjectParameter("END_DATE", eND_DATE) :
+                new ObjectParameter("END_DATE", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_rt_Provodka_Details_Result2>("sp_rt_Provodka_Details", dEPARTMENT_BASEParameter, bEGIN_DATEParameter, eND_DATEParameter);
         }
     }
 }

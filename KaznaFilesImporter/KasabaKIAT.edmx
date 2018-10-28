@@ -298,6 +298,18 @@ warning 6002: The table/view 'KasabaKIAT_N1.dbo.tbbFermer' does not have a prima
           <Property Name="GRPID" Type="bigint" />
           <Property Name="BANK_DATE" Type="datetime" />
         </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'KasabaKIAT_N1.dbo.tbbu_ecp_inn_setting' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="tbbu_ecp_inn_setting">
+          <Key>
+            <PropertyRef Name="REC_ID" />
+          </Key>
+          <Property Name="REC_ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="INN" Type="varchar" MaxLength="9" />
+          <Property Name="PLACE_ESC" Type="int" />
+          <Property Name="WHGET" Type="int" />
+          <Property Name="STATUS" Type="int" />
+        </EntityType>
         <EntityType Name="tbbu_nastroykiProvodok">
           <Key>
             <PropertyRef Name="REC_ID" />
@@ -806,6 +818,15 @@ warning 6035: The relationship 't_egrpo_4' has columns that are not part of the 
     [tbbFermer].[UserId] AS [UserId]
     FROM [dbo].[tbbFermer] AS [tbbFermer]</DefiningQuery>
           </EntitySet>
+          <EntitySet Name="tbbu_ecp_inn_setting" EntityType="Self.tbbu_ecp_inn_setting" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [tbbu_ecp_inn_setting].[REC_ID] AS [REC_ID], 
+    [tbbu_ecp_inn_setting].[INN] AS [INN], 
+    [tbbu_ecp_inn_setting].[PLACE_ESC] AS [PLACE_ESC], 
+    [tbbu_ecp_inn_setting].[WHGET] AS [WHGET], 
+    [tbbu_ecp_inn_setting].[STATUS] AS [STATUS]
+    FROM [dbo].[tbbu_ecp_inn_setting] AS [tbbu_ecp_inn_setting]</DefiningQuery>
+          </EntitySet>
           <AssociationSet Name="FK_KaznaBankFile_KaznaFiles" Association="Self.FK_KaznaBankFile_KaznaFiles">
             <End Role="KaznaFiles" EntitySet="KaznaFiles" />
             <End Role="KaznaPaymentFile" EntitySet="KaznaPaymentFile" />
@@ -1084,6 +1105,7 @@ warning 6035: The relationship 't_egrpo_4' has columns that are not part of the 
             <End Role="KaznaBankFile" EntitySet="KaznaBankFiles" />
           </AssociationSet>
           <FunctionImport Name="sp_pr_DoubleBranchCheck" ReturnType="Collection(KasabaKIATModel.sp_pr_DoubleBranchCheck_Result)" />
+          <EntitySet Name="tbbu_ecp_inn_setting" EntityType="KasabaKIATModel.tbbu_ecp_inn_setting" />
           </EntityContainer>
         <EntityType Name="KaznaSverkaFile">
           <Key>
@@ -1797,6 +1819,16 @@ warning 6035: The relationship 't_egrpo_4' has columns that are not part of the 
           <Property Type="String" Name="Pas_KD" Nullable="true" MaxLength="50" />
           <Property Type="DateTime" Name="Pas_Data" Nullable="true" Precision="23" />
         </ComplexType>
+        <EntityType Name="tbbu_ecp_inn_setting">
+          <Key>
+            <PropertyRef Name="REC_ID" />
+          </Key>
+          <Property Name="REC_ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="INN" Type="String" MaxLength="9" FixedLength="false" Unicode="false" />
+          <Property Name="PLACE_ESC" Type="Int32" />
+          <Property Name="WHGET" Type="Int32" />
+          <Property Name="STATUS" Type="Int32" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2487,6 +2519,17 @@ warning 6035: The relationship 't_egrpo_4' has columns that are not part of the 
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <EntitySetMapping Name="tbbu_ecp_inn_setting">
+            <EntityTypeMapping TypeName="KasabaKIATModel.tbbu_ecp_inn_setting">
+              <MappingFragment StoreEntitySet="tbbu_ecp_inn_setting">
+                <ScalarProperty Name="STATUS" ColumnName="STATUS" />
+                <ScalarProperty Name="WHGET" ColumnName="WHGET" />
+                <ScalarProperty Name="PLACE_ESC" ColumnName="PLACE_ESC" />
+                <ScalarProperty Name="INN" ColumnName="INN" />
+                <ScalarProperty Name="REC_ID" ColumnName="REC_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

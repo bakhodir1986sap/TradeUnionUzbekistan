@@ -875,25 +875,25 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.Provodki.AutomaticTransactions.K
                                     }
                                 }
 
-                                if (bankAccountBalance.Equals("20208") //||
-                                                                       //bankAccountBalance.Equals("14301") ||
-                                                                       //bankAccountBalance.Equals("13301") ||
-                                                                       //bankAccountBalance.Equals("20210") ||
-                                                                       //bankAccountBalance.Equals("20212") ||
-                                                                       //bankAccountBalance.Equals("20214") ||
-                                                                       //bankAccountBalance.Equals("20216") ||
-                                                                       ////bankAccountBalance.Equals("20218") || //Ibroxim Namangan
-                                                                       //bankAccountBalance.Equals("20296") ||
-                                                                       //bankAccountBalance.Equals("21506")
-                                    )
-                                {
-                                    model.remark += string.Format("INN:{0};", payment.INN);
-                                    innFromDtl = payment.INN;
-                                }
-                                else
-                                {
+                                //if (bankAccountBalance.Equals("20208") //||
+                                //                                       //bankAccountBalance.Equals("14301") ||
+                                //                                       //bankAccountBalance.Equals("13301") ||
+                                //                                       //bankAccountBalance.Equals("20210") ||
+                                //                                       //bankAccountBalance.Equals("20212") ||
+                                //                                       //bankAccountBalance.Equals("20214") ||
+                                //                                       //bankAccountBalance.Equals("20216") ||
+                                //                                       ////bankAccountBalance.Equals("20218") || //Ibroxim Namangan
+                                //                                       //bankAccountBalance.Equals("20296") ||
+                                //                                       //bankAccountBalance.Equals("21506")
+                                //    )
+                                //{
+                                //    model.remark += string.Format("INN:{0};", payment.INN);
+                                //    innFromDtl = payment.INN;
+                                //}
+                                //else
+                                //{
                                     //other case try to get INN 
-                                    var Inn = GetInnFromDetail(payment.PURPOSE);
+                                    var Inn = GetInnFromDetail(payment.PURPOSE, payment.INN);
 
                                     if ((Inn != null) && (Inn.StartsWith("2") || (Inn.StartsWith("3"))))
                                     {
@@ -902,10 +902,15 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.Provodki.AutomaticTransactions.K
                                     }
                                     else
                                     {
+                                        if (SkipFromCLL(payment.INN))
+                                        {
+                                            _logService.Info("Inn problem");
+                                        }
+
                                         model.remark += string.Format("INN:{0};", payment.INN);
                                         innFromDtl = payment.INN;
                                     }
-                                }
+                                //}
 
                                 if (string.IsNullOrEmpty(innFromDtl))
                                 {
@@ -1978,17 +1983,16 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.Provodki.AutomaticTransactions.K
                 }
         }
 
-
         /// <summary>
         /// 
         /// </summary>
         /// <param name="detail"></param>
         /// <returns></returns>
-        private string GetInnFromDetail(string detail)
+        private string GetInnFromDetail(string detail, string clinn)
         {
             if (string.IsNullOrEmpty(detail)) return null;
 
-            string[] numbers = Regex.Matches(detail, @"([-:,.\s*/A-Za-zА-Яа-я](\d\s?){8}\d[-:,.\s)*~/A-Za-zА-Яа-я]|\s(\d\s?){8}\d$)")
+            string[] numbers = Regex.Matches(detail, @"([-:,\~.\s*/A-Za-zА-Яа-я](\d\s?){8}\d[-:,.\s)*~/A-Za-zА-Яа-я]|\s(\d\s?){8}\d$)") //([-:,.\s*/A-Za-zА-Яа-я](\d\s?){8}\d[-:,.\s)*~/A-Za-zА-Яа-я]|\s(\d\s?){8}\d$)
                             .Cast<Match>()
                             .Select(m => m.Value)
                             .ToArray();
@@ -2001,6 +2005,18 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.Provodki.AutomaticTransactions.K
                                         .ToArray();
 
                 var sssdd = string.Join("", str1.Select(x => x.ToString()));
+
+                if (SkipFromDetail(sssdd))
+                {
+                    if (!clinn.Equals("000000000"))
+                    {
+                        continue;
+                    }
+                }
+                else if (!sssdd.Substring(1, 1).Equals("0"))
+                {
+                    continue;
+                }
 
                 newArray.Add(sssdd);
 
@@ -2019,5 +2035,63 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.Provodki.AutomaticTransactions.K
              return null;
         }
 
+        
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="inn"></param>
+        /// <returns></returns>
+        private bool SkipFromDetail(string inn)
+        {
+            using (KasabaKIATEntities db = new KasabaKIATEntities())
+            {
+                var isExist = db.tbbu_ecp_inn_setting.Where(z => z.INN == inn && 
+                (z.PLACE_ESC == (int)EscapePlaces.DETAIL || z.PLACE_ESC == (int)EscapePlaces.ALL));
+
+                if (isExist.Any())
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="inn"></param>
+        /// <returns></returns>
+        private bool SkipFromCLL(string inn)
+        {
+            using (KasabaKIATEntities db = new KasabaKIATEntities())
+            {
+                var isExist = db.tbbu_ecp_inn_setting.Where(z => z.INN == inn && 
+                (z.PLACE_ESC == (int)EscapePlaces.CLL || z.PLACE_ESC == (int)EscapePlaces.ALL));
+
+                if (isExist.Any())
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+    }
+
+    public enum EscapePlaces
+    {
+        CLL = 1,
+        DETAIL ,
+        ALL = 9
+    }
+
+    public enum Where2Takes
+    {
+        CLL = 1,
+        DETAIL,
+        ANY = 9
     }
 }

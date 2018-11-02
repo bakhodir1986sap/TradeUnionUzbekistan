@@ -20,6 +20,7 @@ using System.Web.Mvc;
 using System.Web.UI;
 using System.Globalization;
 using KasabaKiat.BusinessLogic.Utils.References;
+using KasabaKIAT.BusinessLogic._3_Etap.Statistika.Stat_ViewModels;
 
 namespace KasabaKIAT.Controllers
 {
@@ -2313,7 +2314,10 @@ namespace KasabaKIAT.Controllers
             return View(viewName);
         }
 
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public JsonResult GetStatFederasiya()
         {
             int UserId = Convert.ToInt32(User.Identity.Name);
@@ -2321,10 +2325,19 @@ namespace KasabaKIAT.Controllers
 
             var result = StatDataContainer.GetStataData(ustinfo.DepartmentBase, ustinfo.role_id.Value, ustinfo.CurYear, ustinfo.CurKvartal);
 
+            var printable = (Stat_FederasiyaViewModel)result;
+
+            log.Info("GetStatFederasiya==========================");
+            log.Info(printable.VozvratPutyovkas);
+            log.Info("GetStatFederasiya==========================");
+
             return Json(result, JsonRequestBehavior.AllowGet);
         }
 
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public JsonResult StatOblSovProf()
         {
             int UserId = Convert.ToInt32(User.Identity.Name);

@@ -19,7 +19,11 @@ namespace KasabaKIAT
                 defaults: new { controller = "Home", action = "Putyovki", id = UrlParameter.Optional }
             );
 
-
+            routes.MapRoute(
+                name: "LoginRoute",
+                url: "{controller}/{action}",
+                defaults: new { controller = "Login", action = "Login" }
+                );
         }
     }
 }

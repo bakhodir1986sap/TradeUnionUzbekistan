@@ -82,14 +82,14 @@
     
                             </th>-->
                             <th class="benefits2" style="width:350px">Просмотреть</th>
-                            <th>Всего <br> <b>{{ModelResult.UrgentPutyovkas | currency:' '}}</b></th>
+                            <th>Всего <br> <b>{{ModelResult.UrgentPutyovkas }} шт </b></th>
                         </tr>
                        
                     </thead>
                     <tbody class="tbody2" style="display:none">
                         <tr ng-repeat="model in ModelResult.UrgentPutyovkasRegionList">
                             <td>{{model.RegionName}}</td>
-                            <td>{{model.PutyovkasCount | currency:' '}}</td>
+                            <td>{{model.PutyovkasCount }} шт </td>
                         </tr>
                     </tbody>
                 </table>
@@ -117,9 +117,9 @@
                     <tbody class="tbody3" style="display:none">
                         <tr>
                             <td></td>
-                            <td><b>{{ModelResult.PlanPutyovkaCount | currency:' '}}</b> шт <b>{{ModelResult.PlanPutyovkaAmount | currency:' '}}</b> сум</td>
-                            <td><b>{{ModelResult.RealizPutyovkaCount | currency:' '}}</b> шт <b>{{ModelResult.RealizPutyovkaAmount | currency:' '}}</b> сум</td>
-                            <td><b>{{ModelResult.OstatokPutyovkaCount | currency:' '}}</b> шт <b>{{ModelResult.OstatokPutyovkaAmount | currency:' '}}</b> сум</td>
+                            <td><b>{{ModelResult.PlanPutyovkaCount }}</b> шт <b>{{ModelResult.PlanPutyovkaAmount | currency:' '}}</b> сум</td>
+                            <td><b>{{ModelResult.RealizPutyovkaCount }}</b> шт <b>{{ModelResult.RealizPutyovkaAmount | currency:' '}}</b> сум</td>
+                            <td><b>{{ModelResult.OstatokPutyovkaCount }}</b> шт <b>{{ModelResult.OstatokPutyovkaAmount | currency:' '}}</b> сум</td>
                         </tr>
                     </tbody>
                 </table>
@@ -138,6 +138,7 @@
 
                             </th>-->
                             <th class="benefits4">Просмотреть</th>
+                            <th>Всего</th>
                             <th>45%</th>
                             <th>100%</th>
                             <th>Бесплатных</th>
@@ -146,9 +147,10 @@
                     <tbody class="tbody4" style="display:none">
                         <tr>
                             <td></td>
-                            <td><b>{{ModelResult.S45PutyovkaCount | currency:' '}}</b> шт <b>{{ModelResult.S45PutyovkaAmount | currency:' '}}</b> сум</td>
-                            <td><b>{{ModelResult.S100PutyovkaCount | currency:' '}}</b> шт <b>{{ModelResult.S100PutyovkaAmount | currency:' '}}</b> сум</td>
-                            <td><b>{{ModelResult.S0PutyovkaCount | currency:' '}}</b> шт <b>{{ModelResult.S0PutyovkaAmount | currency:' '}}</b> сум</td>
+                            <td><b>{{ModelResult.S45PutyovkaCount + ModelResult.S100PutyovkaCount + ModelResult.S0PutyovkaCount }}</b> шт <b>{{ModelResult.S45PutyovkaAmount + ModelResult.S100PutyovkaAmount  + ModelResult.S0PutyovkaAmount| currency:' '}}</b> сум</td>
+                            <td><b>{{ModelResult.S45PutyovkaCount }}</b> шт <b>{{ModelResult.S45PutyovkaAmount | currency:' '}}</b> сум</td>
+                            <td><b>{{ModelResult.S100PutyovkaCount }}</b> шт <b>{{ModelResult.S100PutyovkaAmount | currency:' '}}</b> сум</td>
+                            <td><b>{{ModelResult.S0PutyovkaCount }}</b> шт <b>{{ModelResult.S0PutyovkaAmount | currency:' '}}</b> сум</td>
                         </tr>
                     </tbody>
                 </table>
@@ -173,7 +175,6 @@
              
                     <tbody class="tbody5" style="display:none">
                         <tr ng-repeat="model in ModelResult.ZadoljennostList">
-                            <td></td>
                             <td>{{model.RegionName}}</td>
                             <td>{{model.ZadoljennostAmount | currency:' '}} сум</td>
                         </tr>
@@ -186,37 +187,37 @@
         <div class="col-md-4" style="margin-bottom:15px">
             <h4 style="text-align:center">Организации</h4>
 
-            <p style="text-align:center">(Платят ЕСП) Всего {{ModelResult.ProfComExists + ModelResult.ProfComNotExists | currency:' '}}</p>
+            <p style="text-align:center">(Платят ЕСП) Всего {{ModelResult.ProfComExists + ModelResult.ProfComNotExists }} шт </p>
             <div id="chart_div1"  style="margin-bottom:15px">
                 <canvas id="pie" class="chart chart-pie"
                         chart-data="data1" chart-labels="labels1" chart-options="options"></canvas>
             </div>
-            <p style="margin-left:90px"><img src="~/Content/Stat/color1.png" /> {{ModelResult.ProfComExists | currency:' '}} - Есть профком</p>
-            <p style="margin-left:90px"><img src="~/Content/Stat/color2.png" /> {{ModelResult.ProfComNotExists | currency:' '}} - Нет профкома</p>
+            <p style="margin-left:90px"><img src="~/Content/Stat/color1.png" /> {{ModelResult.ProfComExists }}  шт- Есть профком</p>
+            <p style="margin-left:90px"><img src="~/Content/Stat/color2.png" /> {{ModelResult.ProfComNotExists }}  шт- Нет профкома</p>
             
         </div>
         <div class="col-md-4">
             <h4 style="text-align:center">Заявки</h4>
-            <p style="text-align:center">Всего {{ModelResult.ApprovedZayavka + ModelResult.RejectedZayavka + ModelResult.InProgressZayavka | currency:' '}}</p>
+            <p style="text-align:center">Всего {{ModelResult.ApprovedZayavka + ModelResult.RejectedZayavka + ModelResult.InProgressZayavka }}  шт</p>
             <div id="chart_div2" style="margin-bottom:15px">
                 <canvas id="pie" class="chart chart-pie"
                         chart-data="data2" chart-labels="labels2" chart-options="options"></canvas>
             </div>
-            <p style="margin-left:90px"><img src="~/Content/Stat/color1.png" /> {{ModelResult.ApprovedZayavka | currency:' '}} - Утвержденные</p>
-            <p style="margin-left:90px"><img src="~/Content/Stat/color2.png" /> {{ModelResult.RejectedZayavka | currency:' '}} - Отклонённые</p>
-            <p style="margin-left:90px"><img src="~/Content/Stat/color3.png" /> {{ModelResult.InProgressZayavka | currency:' '}} - На рассмотрении</p>
+            <p style="margin-left:90px"><img src="~/Content/Stat/color1.png" /> {{ModelResult.ApprovedZayavka }}  шт- Утвержденные</p>
+            <p style="margin-left:90px"><img src="~/Content/Stat/color2.png" /> {{ModelResult.RejectedZayavka }}  шт- Отклонённые</p>
+            <p style="margin-left:90px"><img src="~/Content/Stat/color3.png" /> {{ModelResult.InProgressZayavka }}  шт- На рассмотрении</p>
         </div>
         <div class="col-md-4">
             <h4 style="text-align:center">Путевки</h4>
-            <p style="text-align:center">Всего на @userName.CurKvartalYear составило : {{ModelResult.OstatokPutyovkas + ModelResult.RealizedPutyovkas + ModelResult.VozvratPutyovkas}}</p>
+            <p style="text-align:center">Всего на @userName.CurKvartalYear составило : {{ModelResult.OstatokPutyovkas + ModelResult.RealizedPutyovkas + ModelResult.VozvratPutyovkas}} шт</p>
 
             <div id="chart_div3" style="margin-bottom:15px">
                 <canvas id="pie" class="chart chart-pie"
                         chart-data="data3" chart-labels="labels3" chart-options="options"></canvas>
             </div>
-            <p style="margin-left:90px"><img src="~/Content/Stat/color1.png" /> {{ModelResult.OstatokPutyovkas | currency:' '}} - Остаток</p>
-            <p style="margin-left:90px"><img src="~/Content/Stat/color2.png" /> {{ModelResult.RealizedPutyovkas | currency:' '}} - Реализованные</p>
-            <p style="margin-left:90px"><img src="~/Content/Stat/color3.png" /> {{ModelResult.VozvratPutyovkas | currency:' '}} - Возврат</p>
+            <p style="margin-left:90px"><img src="~/Content/Stat/color1.png" /> {{ModelResult.OstatokPutyovkas }}  шт - Остаток</p>
+            <p style="margin-left:90px"><img src="~/Content/Stat/color2.png" /> {{ModelResult.RealizedPutyovkas }}  шт - Реализованные</p>
+            <p style="margin-left:90px"><img src="~/Content/Stat/color3.png" /> {{ModelResult.VozvratPutyovkas }}  шт - Возврат</p>
         </div>
 
     </div>

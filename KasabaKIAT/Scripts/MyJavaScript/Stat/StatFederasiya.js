@@ -39,7 +39,7 @@
             }, function (error) {
                 GetStatData();
                 alertify.error("ошибка");
-                console.log("error in GetCurBusinessTime");
+                console.log("error in GetStatData");
                 document.getElementById('connection').style.visibility = "hidden";
                 $("#hh").modal('hide');
             });

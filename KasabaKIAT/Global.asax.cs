@@ -66,6 +66,11 @@ namespace KasabaKIAT
             //log the error!
             log.Error("Global log");
             log.Error(ex);
+
+            if (ex.InnerException is System.FormatException)
+            {
+                Response.RedirectToRoute("LoginRoute");
+            }
         }
     }
 }

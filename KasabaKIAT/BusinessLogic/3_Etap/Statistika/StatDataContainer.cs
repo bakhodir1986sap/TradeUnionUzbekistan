@@ -23,11 +23,18 @@ namespace KasabaKIAT.BusinessLogic._3_Etap.Statistika
             {
                 if (_statModel.LastChangeDate.AddDays(1) <= DateTime.Now)
                 {
-                    var result = StatController.Process(depCode, role_id, cur_year, cur_kvartal);
-                    result.LastChangeDate = DateTime.Now;
-                    statDataPerUser.Add(depCode, result);
+                    try
+                    {
+                        var result = StatController.Process(depCode, role_id, cur_year, cur_kvartal);
+                        result.LastChangeDate = DateTime.Now;
+                        statDataPerUser.Add(depCode, result);
 
-                    return result;
+                        return result;
+                    }
+                    catch (Exception ex)
+                    {
+                        throw ex;
+                    }
                 }
                 else
                 {

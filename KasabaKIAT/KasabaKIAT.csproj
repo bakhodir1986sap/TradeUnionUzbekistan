@@ -149,6 +149,9 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.6.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.6\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
@@ -160,6 +163,12 @@
     <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.4\lib\net45\System.Web.Helpers.dll</HintPath>
       <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Http, Version=5.2.6.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.6\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=5.2.6.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.6\lib\net45\System.Web.Http.WebHost.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.Mvc, Version=5.2.4.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.4\lib\net45\System.Web.Mvc.dll</HintPath>
@@ -218,6 +227,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="BusinessLogic\3_Etap\Monitoring\BaseMonitoring.cs" />
     <Compile Include="BusinessLogic\3_Etap\Monitoring\LogActionFilterAttribute.cs" />
     <Compile Include="BusinessLogic\3_Etap\Statistika\BaseStatistika.cs" />
@@ -451,6 +461,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LanguageController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\MessageController.cs" />
     <Compile Include="Controllers\OtchotController.cs" />
     <Compile Include="Controllers\PlatejnoyePorucheniyeController.cs" />
     <Compile Include="Controllers\PrixodPutevokController.cs" />
@@ -495,7 +506,11 @@
     <Compile Include="BusinessLogic\BankOplati\Kaznacheystvo\KaznaFiles.cs" />
     <Compile Include="BusinessLogic\BankOplati\Kaznacheystvo\KaznaFilesDataManager.cs" />
     <Compile Include="Hubs\NotificationHub.cs" />
+    <Compile Include="Models\AppSettings.cs" />
+    <Compile Include="Models\Bot.cs" />
     <Compile Include="Models\ChatModel.cs" />
+    <Compile Include="Models\Commands\Command.cs" />
+    <Compile Include="Models\Commands\HelloCommand.cs" />
     <Compile Include="Models\JavascriptExtension.cs" />
     <Compile Include="Models\KaznaBankFile.cs">
       <DependentUpon>KasabaKIAT.tt</DependentUpon>

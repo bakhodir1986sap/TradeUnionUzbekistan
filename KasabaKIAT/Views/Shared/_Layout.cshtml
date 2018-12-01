@@ -34,6 +34,10 @@
     <script src="~/Scripts/jquery-ui-1.8.17.custom.min.js"></script>
     <script src="~/Scripts/FileSaver.min.js"></script>
     <script src="~/Scripts/lib/alertify.min.js"></script>
+     @* Syncfusion Essential JS 2 Styles *@  
+    <link rel="stylesheet" href="~/Content/ej2/material.css" />
+    @* Syncfusion Essential JS 2 Scripts *@  
+    <script src="~/Scripts/ej2/ej2.min.js"></script> 
 
     <script>
         function reset() {
@@ -73,29 +77,29 @@
                             <div class="dropdown-menu rounded-0 box-shadow m-0 border-0" aria-labelledby="tours">
                                 @if (List.GrafikZaezdov)
                                 {
-                                <a class="dropdown-item load" href="/GrafikZaezdov/index">@ContentData.GrafikZaezdov</a>
+                                    <a class="dropdown-item load" href="/GrafikZaezdov/index">@ContentData.GrafikZaezdov</a>
                                 }
                                 @if (List.GodovoyPlanPutyovok)
                                 {
-                                <a class="dropdown-item load" href="/Administirirovaniye/RaspredeleniyeZaezdov">@ContentData.GodovoyPlan</a>
+                                    <a class="dropdown-item load" href="/Administirirovaniye/RaspredeleniyeZaezdov">@ContentData.GodovoyPlan</a>
                                 }
                                 @if (List.PrixodPutyovok)
                                 {
-                                <a class="dropdown-item load" href="/PrixodPutevok/Index">@ContentData.PrixodPutyovok</a>
-                                <a class="dropdown-item load" href="/PrixodPutevok/PrixodPutyovokRuchnoy">@ContentData.PrixodPutyovokRuchnoy</a>
+                                    <a class="dropdown-item load" href="/PrixodPutevok/Index">@ContentData.PrixodPutyovok</a>
+                                    <a class="dropdown-item load" href="/PrixodPutevok/PrixodPutyovokRuchnoy">@ContentData.PrixodPutyovokRuchnoy</a>
                                 }
                                 @if (List.ProsmotrOstatkaPutyovok)
                                 {
-                                <a class="dropdown-item load" href="/PrixodPutevok/ProsmotrOstatPutevok">@ContentData.ProsmotrOstatkovPutyovok</a>
+                                    <a class="dropdown-item load" href="/PrixodPutevok/ProsmotrOstatPutevok">@ContentData.ProsmotrOstatkovPutyovok</a>
                                 }
                                 @if (List.RealizasiyaPutyovok)
                                 {
-                                <a class="dropdown-item load" href="/PrixodPutevok/RasxodPutyovok">@ContentData.RasxodPutyovok</a>
-                                <a class="dropdown-item load" href="/PrixodPutevok/RasxodPutyovokFizLiso">@ContentData.RasxodPutyovokFizLisa</a>
-                                <a class="dropdown-item load" href="/PrixodPutevok/OplataViplatiZaPutyovki">@ContentData.OplataIViplatiZaPutyovki</a>
-                                <a class="dropdown-item load" href="/PrixodPutevok/AktVozvrataPutyovok">@ContentData.AktVozvrataPutyovok</a>
-                                <a class="dropdown-item load" href="/PrixodPutevok/ZakritiyaKvartalaPoPutyovkam">@ContentData.ZakritieKvartalaPoPutyovkam</a>
-                                <a class="dropdown-item load" href="/PrixodPutevok/DanniyeVladelsaxPutyovok">@ContentData.DanniyeOVladelsaxPutyovok</a>
+                                    <a class="dropdown-item load" href="/PrixodPutevok/RasxodPutyovok">@ContentData.RasxodPutyovok</a>
+                                    <a class="dropdown-item load" href="/PrixodPutevok/RasxodPutyovokFizLiso">@ContentData.RasxodPutyovokFizLisa</a>
+                                    <a class="dropdown-item load" href="/PrixodPutevok/OplataViplatiZaPutyovki">@ContentData.OplataIViplatiZaPutyovki</a>
+                                    <a class="dropdown-item load" href="/PrixodPutevok/AktVozvrataPutyovok">@ContentData.AktVozvrataPutyovok</a>
+                                    <a class="dropdown-item load" href="/PrixodPutevok/ZakritiyaKvartalaPoPutyovkam">@ContentData.ZakritieKvartalaPoPutyovkam</a>
+                                    <a class="dropdown-item load" href="/PrixodPutevok/DanniyeVladelsaxPutyovok">@ContentData.DanniyeOVladelsaxPutyovok</a>
                                 }
                                 @if (List.ProsmotrRealPutyovok)
                                 {
@@ -103,7 +107,7 @@
                                 }
                                 @if (List.SverkaDannixPoOtdixayushim)
                                 {
-                                <a class="dropdown-item load" href="/PrixodPutevok/SverkaDannix">@ContentData.SverkaDannixPoOtdixayushim</a>
+                                    <a class="dropdown-item load" href="/PrixodPutevok/SverkaDannix">@ContentData.SverkaDannixPoOtdixayushim</a>
                                 }
                             </div>
                         </li>
@@ -116,19 +120,19 @@
                             <div class="dropdown-menu rounded-0 box-shadow m-0 border-0" aria-labelledby="claims">
                                 @if (List.VvodZayavok)
                                 {
-                                <a class="dropdown-item load" href="/Home/PodachaZayavok">@ContentData.PodachaZayavok_Sanatoriy</a>
+                                    <a class="dropdown-item load" href="/Home/PodachaZayavok">@ContentData.PodachaZayavok_Sanatoriy</a>
                                 }
                                 @if (List.PoiskIRedaktirovaniyaZayavok)
                                 {
-                                <a class="dropdown-item load" href="/Home/PoiskRedaktZayavok">@ContentData.PoiskIRedaktirovaniyeZayavok_Sanatoriy</a>
+                                    <a class="dropdown-item load" href="/Home/PoiskRedaktZayavok">@ContentData.PoiskIRedaktirovaniyeZayavok_Sanatoriy</a>
                                 }
                                 @if (List.VvodZayavok)
                                 {
-                                <a class="dropdown-item load" href="/CampZayavki/Index">@ContentData.PodachaZayavok_Leger</a>
+                                    <a class="dropdown-item load" href="/CampZayavki/Index">@ContentData.PodachaZayavok_Leger</a>
                                 }
                                 @if (List.PoiskIRedaktirovaniyaZayavok)
                                 {
-                                <a class="dropdown-item load" href="/CampZayavki/CampOtchet">@ContentData.OtchetPoLageryam</a>
+                                    <a class="dropdown-item load" href="/CampZayavki/CampOtchet">@ContentData.OtchetPoLageryam</a>
                                 }
                             </div>
                         </li>
@@ -195,20 +199,20 @@
                             <div class="dropdown-menu rounded-0 box-shadow m-0 border-0" aria-labelledby="administration">
                                 @if (List.SozdaniyaUchetnixZapisey)
                                 {
-                                <a class="dropdown-item load" href="/Administirirovaniye/UchetniyZapis">@ContentData.Polzovateli</a>
-                                <a class="dropdown-item load" href="/useractions/Index">@ContentData.DeystviyePolzovateley</a>
+                                    <a class="dropdown-item load" href="/Administirirovaniye/UchetniyZapis">@ContentData.Polzovateli</a>
+                                    <a class="dropdown-item load" href="/useractions/Index">@ContentData.DeystviyePolzovateley</a>
                                 }
                                 @if (List.SozdaniyaRoley)
                                 {
-                                <a class="dropdown-item load" href="/Administirirovaniye/SozdaniyeRoley">@ContentData.Roli</a>
+                                    <a class="dropdown-item load" href="/Administirirovaniye/SozdaniyeRoley">@ContentData.Roli</a>
                                 }
                                 @if (List.SozdaniyaProvodok)
                                 {
-                                <a class="dropdown-item load" href="/Administirirovaniye/SozdaniyeProvodok">@ContentData.SozdaniyeProvodok</a>
+                                    <a class="dropdown-item load" href="/Administirirovaniye/SozdaniyeProvodok">@ContentData.SozdaniyeProvodok</a>
                                 }
                                 @if (List.PrivyazkaProvodokkJO)
                                 {
-                                <a class="dropdown-item load" href="/Administirirovaniye/PrivyazkaProvodok">@ContentData.PrivyazkaProvodokKJO</a>
+                                    <a class="dropdown-item load" href="/Administirirovaniye/PrivyazkaProvodok">@ContentData.PrivyazkaProvodokKJO</a>
                                 }
                             </div>
                         </li>
@@ -317,5 +321,6 @@
     </style>
     <input id="hh" type="hidden" />
     @RenderSection("scripts", required: false)
+    @Html.EJS().ScriptManager()
 </body>
 </html>

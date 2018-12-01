@@ -20,6 +20,7 @@ namespace KasabaKIAT.Models
         public KasabaKIATEntities()
             : base("name=KasabaKIATEntities")
         {
+            ((IObjectContextAdapter)this).ObjectContext.CommandTimeout = 300;
         }
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -2164,6 +2165,182 @@ namespace KasabaKIAT.Models
                 new ObjectParameter("END_DATE", typeof(System.DateTime));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_rt_Provodka_Details_Result2>("sp_rt_Provodka_Details", dEPARTMENT_BASEParameter, bEGIN_DATEParameter, eND_DATEParameter);
+        }
+    
+        public virtual ObjectResult<sp_stat_KaznaDataFed_V2_Result> sp_stat_KaznaDataFed_V2()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_stat_KaznaDataFed_V2_Result>("sp_stat_KaznaDataFed_V2");
+        }
+    
+        public virtual ObjectResult<sp_stat_UrgentPutyovkasRegionListFed_V2_Result1> sp_stat_UrgentPutyovkasRegionListFed_V2()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_stat_UrgentPutyovkasRegionListFed_V2_Result1>("sp_stat_UrgentPutyovkasRegionListFed_V2");
+        }
+    
+        public virtual ObjectResult<sp_stat_OstatokPutyovkas_V2_Result1> sp_stat_OstatokPutyovkas_V2()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_stat_OstatokPutyovkas_V2_Result1>("sp_stat_OstatokPutyovkas_V2");
+        }
+    
+        public virtual ObjectResult<sp_stat_Realiz_V2_Result> sp_stat_Realiz_V2()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_stat_Realiz_V2_Result>("sp_stat_Realiz_V2");
+        }
+    
+        public virtual ObjectResult<sp_stat_ZadoljennostList_V2_Result> sp_stat_ZadoljennostList_V2()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_stat_ZadoljennostList_V2_Result>("sp_stat_ZadoljennostList_V2");
+        }
+    
+        public virtual ObjectResult<sp_stat_OstatokPutyovkasObl_V2_Result> sp_stat_OstatokPutyovkasObl_V2(string dEPARTMENT_BASE)
+        {
+            var dEPARTMENT_BASEParameter = dEPARTMENT_BASE != null ?
+                new ObjectParameter("DEPARTMENT_BASE", dEPARTMENT_BASE) :
+                new ObjectParameter("DEPARTMENT_BASE", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_stat_OstatokPutyovkasObl_V2_Result>("sp_stat_OstatokPutyovkasObl_V2", dEPARTMENT_BASEParameter);
+        }
+    
+        public virtual ObjectResult<sp_stat_RealizObl_V2_Result> sp_stat_RealizObl_V2(string dEPARTMENT_BASE)
+        {
+            var dEPARTMENT_BASEParameter = dEPARTMENT_BASE != null ?
+                new ObjectParameter("DEPARTMENT_BASE", dEPARTMENT_BASE) :
+                new ObjectParameter("DEPARTMENT_BASE", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_stat_RealizObl_V2_Result>("sp_stat_RealizObl_V2", dEPARTMENT_BASEParameter);
+        }
+    
+        public virtual ObjectResult<sp_stat_UrgentPutyovkasRegionListFedObl_V2_Result> sp_stat_UrgentPutyovkasRegionListFedObl_V2(string dEPARTMENT_BASE)
+        {
+            var dEPARTMENT_BASEParameter = dEPARTMENT_BASE != null ?
+                new ObjectParameter("DEPARTMENT_BASE", dEPARTMENT_BASE) :
+                new ObjectParameter("DEPARTMENT_BASE", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_stat_UrgentPutyovkasRegionListFedObl_V2_Result>("sp_stat_UrgentPutyovkasRegionListFedObl_V2", dEPARTMENT_BASEParameter);
+        }
+    
+        public virtual ObjectResult<sp_stat_ZadoljennostListObl_V2_Result> sp_stat_ZadoljennostListObl_V2(string dEPARTMENT_BASE)
+        {
+            var dEPARTMENT_BASEParameter = dEPARTMENT_BASE != null ?
+                new ObjectParameter("DEPARTMENT_BASE", dEPARTMENT_BASE) :
+                new ObjectParameter("DEPARTMENT_BASE", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_stat_ZadoljennostListObl_V2_Result>("sp_stat_ZadoljennostListObl_V2", dEPARTMENT_BASEParameter);
+        }
+    
+        public virtual ObjectResult<sp_stat_KaznaDataObl_V2_Result1> sp_stat_KaznaDataObl_V2(string dEPARTMENT_BASE)
+        {
+            var dEPARTMENT_BASEParameter = dEPARTMENT_BASE != null ?
+                new ObjectParameter("DEPARTMENT_BASE", dEPARTMENT_BASE) :
+                new ObjectParameter("DEPARTMENT_BASE", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_stat_KaznaDataObl_V2_Result1>("sp_stat_KaznaDataObl_V2", dEPARTMENT_BASEParameter);
+        }
+    
+        public virtual ObjectResult<sp_stat_BronFed_V2_Result> sp_stat_BronFed_V2()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_stat_BronFed_V2_Result>("sp_stat_BronFed_V2");
+        }
+    
+        public virtual ObjectResult<sp_stat_BronObl_V2_Result> sp_stat_BronObl_V2(string dEPARTMENT_BASE)
+        {
+            var dEPARTMENT_BASEParameter = dEPARTMENT_BASE != null ?
+                new ObjectParameter("DEPARTMENT_BASE", dEPARTMENT_BASE) :
+                new ObjectParameter("DEPARTMENT_BASE", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_stat_BronObl_V2_Result>("sp_stat_BronObl_V2", dEPARTMENT_BASEParameter);
+        }
+    
+        public virtual ObjectResult<sp_stat_AktiveUsersListFed_V2_Result> sp_stat_AktiveUsersListFed_V2()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_stat_AktiveUsersListFed_V2_Result>("sp_stat_AktiveUsersListFed_V2");
+        }
+    
+        public virtual ObjectResult<sp_stat_AktiveUsersListObl_V2_Result> sp_stat_AktiveUsersListObl_V2(string dEPARTMENT_BASE)
+        {
+            var dEPARTMENT_BASEParameter = dEPARTMENT_BASE != null ?
+                new ObjectParameter("DEPARTMENT_BASE", dEPARTMENT_BASE) :
+                new ObjectParameter("DEPARTMENT_BASE", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_stat_AktiveUsersListObl_V2_Result>("sp_stat_AktiveUsersListObl_V2", dEPARTMENT_BASEParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<int>> sp_stat_ApprovedZayavka_V2(string dEPARTMENT_BASE, Nullable<int> yEAR)
+        {
+            var dEPARTMENT_BASEParameter = dEPARTMENT_BASE != null ?
+                new ObjectParameter("DEPARTMENT_BASE", dEPARTMENT_BASE) :
+                new ObjectParameter("DEPARTMENT_BASE", typeof(string));
+    
+            var yEARParameter = yEAR.HasValue ?
+                new ObjectParameter("YEAR", yEAR) :
+                new ObjectParameter("YEAR", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("sp_stat_ApprovedZayavka_V2", dEPARTMENT_BASEParameter, yEARParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<int>> sp_stat_InProgressZayavka_V2(string dEPARTMENT_BASE, Nullable<int> yEAR)
+        {
+            var dEPARTMENT_BASEParameter = dEPARTMENT_BASE != null ?
+                new ObjectParameter("DEPARTMENT_BASE", dEPARTMENT_BASE) :
+                new ObjectParameter("DEPARTMENT_BASE", typeof(string));
+    
+            var yEARParameter = yEAR.HasValue ?
+                new ObjectParameter("YEAR", yEAR) :
+                new ObjectParameter("YEAR", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("sp_stat_InProgressZayavka_V2", dEPARTMENT_BASEParameter, yEARParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<int>> sp_stat_OstatokPutyovka_V2(string dEPARTMENT_BASE, Nullable<int> yEAR)
+        {
+            var dEPARTMENT_BASEParameter = dEPARTMENT_BASE != null ?
+                new ObjectParameter("DEPARTMENT_BASE", dEPARTMENT_BASE) :
+                new ObjectParameter("DEPARTMENT_BASE", typeof(string));
+    
+            var yEARParameter = yEAR.HasValue ?
+                new ObjectParameter("YEAR", yEAR) :
+                new ObjectParameter("YEAR", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("sp_stat_OstatokPutyovka_V2", dEPARTMENT_BASEParameter, yEARParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<int>> sp_stat_RealizedPutyovkas_V2(string dEPARTMENT_BASE, Nullable<int> yEAR)
+        {
+            var dEPARTMENT_BASEParameter = dEPARTMENT_BASE != null ?
+                new ObjectParameter("DEPARTMENT_BASE", dEPARTMENT_BASE) :
+                new ObjectParameter("DEPARTMENT_BASE", typeof(string));
+    
+            var yEARParameter = yEAR.HasValue ?
+                new ObjectParameter("YEAR", yEAR) :
+                new ObjectParameter("YEAR", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("sp_stat_RealizedPutyovkas_V2", dEPARTMENT_BASEParameter, yEARParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<int>> sp_stat_RejectedZayavka_V2(string dEPARTMENT_BASE, Nullable<int> yEAR)
+        {
+            var dEPARTMENT_BASEParameter = dEPARTMENT_BASE != null ?
+                new ObjectParameter("DEPARTMENT_BASE", dEPARTMENT_BASE) :
+                new ObjectParameter("DEPARTMENT_BASE", typeof(string));
+    
+            var yEARParameter = yEAR.HasValue ?
+                new ObjectParameter("YEAR", yEAR) :
+                new ObjectParameter("YEAR", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("sp_stat_RejectedZayavka_V2", dEPARTMENT_BASEParameter, yEARParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<int>> sp_stat_VozvratPutyovkas_V2(string dEPARTMENT_BASE, Nullable<int> yEAR)
+        {
+            var dEPARTMENT_BASEParameter = dEPARTMENT_BASE != null ?
+                new ObjectParameter("DEPARTMENT_BASE", dEPARTMENT_BASE) :
+                new ObjectParameter("DEPARTMENT_BASE", typeof(string));
+    
+            var yEARParameter = yEAR.HasValue ?
+                new ObjectParameter("YEAR", yEAR) :
+                new ObjectParameter("YEAR", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("sp_stat_VozvratPutyovkas_V2", dEPARTMENT_BASEParameter, yEARParameter);
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props')" />
   <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
   <Import Project="..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
@@ -26,6 +27,7 @@
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
     <Use64BitIISExpress />
+    <TypeScriptToolsVersion>3.1</TypeScriptToolsVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -146,6 +148,12 @@
       <HintPath>..\packages\ReportViewerForMvc.1.1.1\lib\net45\ReportViewerForMvc.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Syncfusion.EJ2, Version=16.3400.0.29, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
+      <HintPath>..\packages\Syncfusion.EJ2.MVC4.16.3.0.29\lib\net40\Syncfusion.EJ2.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.Licensing, Version=16.3451.0.29, Culture=neutral, PublicKeyToken=632609b4d040f6b4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Syncfusion.Licensing.16.3.0.29\lib\net451\Syncfusion.Licensing.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -242,6 +250,24 @@
     <Compile Include="BusinessLogic\3_Etap\Statistika\Stat_ViewModels\Stat_OblSovProfViewModel.cs" />
     <Compile Include="BusinessLogic\3_Etap\Statistika\Stat_ViewModels\Stat_PPOViewModel.cs" />
     <Compile Include="BusinessLogic\3_Etap\Statistika\Stat_ViewModels\Stat_RayonTumanViewModel.cs" />
+    <Compile Include="BusinessLogic\4_Etap\Statistics\ActiveUserContainer.cs" />
+    <Compile Include="BusinessLogic\4_Etap\Statistics\ActiveUsersModel.cs" />
+    <Compile Include="BusinessLogic\4_Etap\Statistics\BronContainer.cs" />
+    <Compile Include="BusinessLogic\4_Etap\Statistics\BronModel.cs" />
+    <Compile Include="BusinessLogic\4_Etap\Statistics\PieChartData.cs" />
+    <Compile Include="BusinessLogic\4_Etap\Statistics\FourStapViewModel.cs" />
+    <Compile Include="BusinessLogic\4_Etap\Statistics\FourStepController.cs" />
+    <Compile Include="BusinessLogic\4_Etap\Statistics\KaznaInfoContainer.cs" />
+    <Compile Include="BusinessLogic\4_Etap\Statistics\KaznaInfoModel.cs" />
+    <Compile Include="BusinessLogic\4_Etap\Statistics\PieChartDataContainer.cs" />
+    <Compile Include="BusinessLogic\4_Etap\Statistics\PutyovkiContainer.cs" />
+    <Compile Include="BusinessLogic\4_Etap\Statistics\PutyovkiModel.cs" />
+    <Compile Include="BusinessLogic\4_Etap\Statistics\RealizContainer.cs" />
+    <Compile Include="BusinessLogic\4_Etap\Statistics\RealizModel.cs" />
+    <Compile Include="BusinessLogic\4_Etap\Statistics\UrgentPutyovkas.cs" />
+    <Compile Include="BusinessLogic\4_Etap\Statistics\UrgentPutyovkasContainer.cs" />
+    <Compile Include="BusinessLogic\4_Etap\Statistics\ZadoljennostContainer.cs" />
+    <Compile Include="BusinessLogic\4_Etap\Statistics\ZadoljennostModel.cs" />
     <Compile Include="BusinessLogic\BankOplati\BankOplatQueries\BankPaymentsQueries.cs" />
     <Compile Include="BusinessLogic\BankOplati\BankOplatQueries\BankPaymentsRes.cs" />
     <Compile Include="BusinessLogic\BankOplati\BankDataSource.cs" />
@@ -817,13 +843,58 @@
     <Compile Include="Models\sp_rt_ZayavkiList_Result.cs">
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\sp_stat_AktiveUsersListFed_V2_Result.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_stat_AktiveUsersListObl_V2_Result.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_stat_BronFed_V2_Result.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_stat_BronObl_V2_Result.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\sp_stat_IncomePerRegionList_Fed_Result.cs">
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\sp_stat_IncomePerRegionList_Obl_Result.cs">
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\sp_stat_KaznaDataFed_V2_Result.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_stat_KaznaDataObl_V2_Result.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_stat_KaznaDataObl_V2_Result1.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_stat_OstatokPutyovkasObl_V2_Result.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_stat_OstatokPutyovkas_V2_Result.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_stat_OstatokPutyovkas_V2_Result1.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_stat_RealizObl_V2_Result.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_stat_Realiz_V2_Result.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_stat_UrgentPutyovkasRegionListFedObl_V2_Result.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\sp_stat_UrgentPutyovkasRegionListFed_Result.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_stat_UrgentPutyovkasRegionListFed_V2_Result.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_stat_UrgentPutyovkasRegionListFed_V2_Result1.cs">
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\sp_stat_UrgentPutyovkasRegionListObl_Result.cs">
@@ -833,6 +904,12 @@
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\sp_stat_ZadoljennostListObl_Result.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_stat_ZadoljennostListObl_V2_Result.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_stat_ZadoljennostList_V2_Result.cs">
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tbbu_AccountPlan.cs">
@@ -1435,6 +1512,14 @@
     <Content Include="Content\css\smoothness\images\ui-icons_888888_256x240.png" />
     <Content Include="Content\css\smoothness\images\ui-icons_cd0a0a_256x240.png" />
     <Content Include="Content\css\smoothness\jquery-ui-1.8.17.custom.css" />
+    <Content Include="Content\ej2\bootstrap.css" />
+    <Content Include="Content\ej2\compatibility\bootstrap.css" />
+    <Content Include="Content\ej2\compatibility\fabric.css" />
+    <Content Include="Content\ej2\compatibility\highcontrast.css" />
+    <Content Include="Content\ej2\compatibility\material.css" />
+    <Content Include="Content\ej2\fabric.css" />
+    <Content Include="Content\ej2\highcontrast.css" />
+    <Content Include="Content\ej2\material.css" />
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\icons\administ.png" />
     <Content Include="Content\icons\cancell_button.png" />
@@ -1685,6 +1770,7 @@
     <Content Include="Scripts\dist\jquery.table2excel.min.js" />
     <Content Include="Scripts\dist\jspdf.debug.js" />
     <Content Include="Scripts\dist\jspdf.min.js" />
+    <Content Include="Scripts\ej2\ej2.min.js" />
     <Content Include="Scripts\FileSaver.min.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -2044,6 +2130,11 @@
     <Content Include="Views\Otchot\FinansoviyOtchotKvartalniySvodniy.cshtml" />
     <Content Include="Views\Otchot\GlavnayaKnigaVRazreze.cshtml" />
     <Content Include="Views\Otchot\GlavnayaKnigaSvodniy.cshtml" />
+    <Content Include="Scripts\ej2\ej2.min.js.map" />
+    <Content Include="Views\Home\StatFederasiyaV2.cshtml" />
+    <Content Include="Views\Home\StatOblSovProfV2.cshtml" />
+    <Content Include="Views\Home\StatPPOV2.cshtml" />
+    <Content Include="Views\Home\StatRayonOtraslV2.cshtml" />
     <None Include="Web References\KurortUrlService\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
@@ -2124,6 +2215,7 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
+    <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
@@ -2160,6 +2252,7 @@
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
   </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets')" />
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
   <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">

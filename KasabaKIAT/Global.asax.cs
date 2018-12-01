@@ -19,12 +19,14 @@ namespace KasabaKIAT
 
         protected void Application_Start()
         {
+            Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("NDU5NjVAMzEzNjJlMzMyZTMwSmIvMGRDaGRaOS9pTzVhaTFZUGRlVGI4RjlEYUFndjNFTGZpcEVzM3dvWT0=");
+
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             GlobalConfiguration.Configure(WebApiConfig.Register);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
-            Bot.Get();
+            //Bot.Get();
 
             log4net.Config.XmlConfigurator.Configure();
         }

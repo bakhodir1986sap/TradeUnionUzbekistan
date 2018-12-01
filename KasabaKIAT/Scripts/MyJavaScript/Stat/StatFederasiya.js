@@ -1,6 +1,6 @@
 ﻿app.controller("StatFederasiya", ["$scope", "$http", "$filter", "$locale", "DataService", "CalcService", function ($scope, $http, $filter, $locale, DataService, CalcService) {
 
-    GetStatData();
+    //GetStatData();
 
     ////////////////////////////////
     $scope.labels1 = ["Есть профком", "Нет профкома"];

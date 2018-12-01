@@ -1,0 +1,207 @@
+﻿@using KasabaKIAT.BusinessLogic.Security.Roles.RolePermissions;
+@using KasabaKiat.Helpers;
+@using Syncfusion.EJ2
+@using Syncfusion.EJ2.PivotView
+@{
+    ViewBag.Title = "Путевки";
+    ViewBag.n = Session["role"];
+    var UserId = Convert.ToInt32(User.Identity.Name);
+    var userName = UserInfo.GetUserInfo(UserId);
+    FunctionalityList List = FunctionalityAndDbDataMatch.MatchProcess(UserId, true);
+}
+
+<script src="~/Scripts/MyJavaScript/Stat/StatOblSovProf.js"></script>
+<div id="connection" style="visibility:hidden;position:absolute;margin-left:600px;z-index:9999">
+    <img src="~/Content/Login/buffering.gif" />
+</div>
+
+
+<section class="content__block container" ng-controller="StatOblSovProf">
+    <div id="connection" style="visibility:hidden;position:absolute;margin-left:430px;margin-top:100px;z-index:9999">
+        <img src="~/Content/Login/buffering.gif" />
+    </div>
+    <div class="row" style="padding-left:15px !important">
+        <div class="col-md-6">
+            <h4 style="color:#167f91;">Аналитика </h4>
+            <p style="">Время последнего обновления: @ViewBag.LastChangeTime </p><br>
+            <p>Главная</p>
+        </div>
+        <div class="col-md-6" style="display: flex;justify-content:flex-end; align-items: center">
+            <p style="padding-bottom:5px">
+                <img style="height:17px;width:17px" src="~/Content/Stat/Screen6.png"> - {{ModelResult.BronCount | currency:' '}} брони
+
+            </p>
+
+        </div>
+    </div>
+
+
+    <h4 style="padding-left:15px">Доходы</h4>
+    <div class="row">
+        <div class="col-md-12" style="padding-left: 15px; padding-right: 15px">
+            <div class="table-responsive box-shadow mb-4" style="padding-left: 15px; padding-right: 15px">
+                @Html.EJS().PivotView("kaznaOplata").Width("100%").Height("300").DataSource(dataSource => dataSource.Data((IEnumerable<object>)ViewBag.DataSource).ExpandAll(false).EnableSorting(true)
+                .FormatSettings(formatsettings => { formatsettings.Name("FederationAmount").MaximumSignificantDigits(10).MinimumSignificantDigits(1).UseGrouping(true).Add(); formatsettings.Name("OblSovProvAmount").MaximumSignificantDigits(10).MinimumSignificantDigits(1).UseGrouping(true).Add(); })
+                .Rows(rows => { rows.Name("Tuman").Add(); rows.Name("Tarmoq").Add(); })
+                .Columns(columns => { columns.Name("Year").Add(); columns.Name("Quarter").Add(); })
+                .Values(values => { values.Name("FederationAmount").Caption("Федерация").Add(); values.Name("OblSovProvAmount").Caption("ОблсовПроф").Add(); })).ShowFieldList(true).GridSettings(new PivotViewGridSettings { ColumnWidth = 140 }).Render()
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12" style="padding-left: 15px; padding-right: 15px">
+            <h4 style="color:red; padding-left:15px">Горящие путевки</h4>
+            <div class="table-responsive box-shadow mb-4" style="padding-left: 15px; padding-right: 15px">
+                @Html.EJS().PivotView("UrgentPutyovka").Width("100%").Height("300").DataSource(dataSource => dataSource.Data((IEnumerable<object>)ViewBag.DataUrgent).ExpandAll(false).EnableSorting(true)
+                //.FormatSettings(formatsettings => { formatsettings.Name("FederationAmount").MaximumSignificantDigits(10).MinimumSignificantDigits(1).UseGrouping(true).Add(); formatsettings.Name("OblSovProvAmount").MaximumSignificantDigits(10).MinimumSignificantDigits(1).UseGrouping(true).Add(); })
+                .Rows(rows => { rows.Name("Name_San").Add(); rows.Name("Num_Put").Add(); })
+                .Columns(columns => { columns.Name("Year_Op").Add(); columns.Name("Quarter").Add(); })
+                .Values(values => { values.Name("CounterU").Caption("Количество").Add(); })).ShowFieldList(true).GridSettings(new PivotViewGridSettings { ColumnWidth = 140 }).Render()
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <h4 style="padding-left:15px">Путёвки</h4>
+            <p style="padding-left:15px">@userName.CurKvartalYear</p>
+            <div class="table-responsive box-shadow mb-4" style="padding-left:15px; padding-right:15px">
+                @Html.EJS().PivotView("Putyovkas").Width("100%").Height("300").DataSource(dataSource => dataSource.Data((IEnumerable<object>)ViewBag.DataPutyovkas).ExpandAll(false).EnableSorting(true)
+                .FormatSettings(formatsettings => { formatsettings.Name("RealizAmount").MaximumSignificantDigits(10).MinimumSignificantDigits(1).UseGrouping(true).Add(); formatsettings.Name("OstatokAmount").MaximumSignificantDigits(10).MinimumSignificantDigits(1).UseGrouping(true).Add(); })
+                .Rows(rows => { rows.Name("Name_San").Add(); rows.Name("Num_Put").Add(); })
+                .Columns(columns => { columns.Name("YEAR_OP").Add(); columns.Name("QUARTER_op").Add(); })
+                .Values(values => { values.Name("RealizCount").Caption("Кол-во Реализация").Add(); values.Name("RealizAmount").Caption("Сумма Реализация").Add(); values.Name("OstatokCount").Caption("Кол-во Остаток").Add(); values.Name("OstatokAmount").Caption("Сумма Остаток").Add(); })).ShowFieldList(true).GridSettings(new PivotViewGridSettings { ColumnWidth = 140 }).Render()
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <h4 style="padding-left:15px">Реализация</h4>
+            <div class="table-responsive box-shadow mb-4" style="padding-left:15px; padding-right:15px">
+                @Html.EJS().PivotView("Realization").Width("100%").Height("300").DataSource(dataSource => dataSource.Data((IEnumerable<object>)ViewBag.RealizData).ExpandAll(false).EnableSorting(true)
+                .FormatSettings(formatsettings => { formatsettings.Name("s45Amount").MaximumSignificantDigits(10).MinimumSignificantDigits(1).UseGrouping(true).Add(); formatsettings.Name("s100Amount").MaximumSignificantDigits(10).MinimumSignificantDigits(1).UseGrouping(true).Add(); formatsettings.Name("s0Amount").MaximumSignificantDigits(10).MinimumSignificantDigits(1).UseGrouping(true).Add(); })
+                .Rows(rows => { rows.Name("Name_San").Add(); rows.Name("Num_Put").Add(); })
+                .Columns(columns => { columns.Name("YEAR_OP").Add(); columns.Name("QUARTER_op").Add(); })
+                .Values(values => { values.Name("s45Count").Caption("45% Кол-во").Add(); values.Name("s45Amount").Caption("45% Сумма").Add(); values.Name("s100Count").Caption("100% Кол-во").Add(); values.Name("s100Amount").Caption("100% Сумма").Add(); values.Name("s0Count").Caption("Бесплатно кол-во").Add(); values.Name("s0Amount").Caption("Бесплатно Сумма").Add(); })).ShowFieldList(true).GridSettings(new PivotViewGridSettings { ColumnWidth = 140 }).Render()
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <h4 style="padding-left:15px">Задолженность по частичным оплатам</h4>
+            <div class="table-responsive box-shadow mb-4" style="padding-left:15px; padding-right:15px">
+                @Html.EJS().PivotView("Zadoljennost").Width("100%").Height("300").DataSource(dataSource => dataSource.Data((IEnumerable<object>)ViewBag.ZadoljennostData).ExpandAll(false).EnableSorting(true)
+                .FormatSettings(formatsettings => { formatsettings.Name("ZadolAmount").MaximumSignificantDigits(10).MinimumSignificantDigits(1).UseGrouping(true).Add(); })
+                .Rows(rows => { rows.Name("Name_Org").Add(); })
+                .Columns(columns => { columns.Name("Year").Add(); })
+                .Values(values => { values.Name("ZadolAmount").Caption("Задолженность").Add();  })).ShowFieldList(true).GridSettings(new PivotViewGridSettings { ColumnWidth = 140 }).Render()
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <h4 style="text-align:center">Организации</h4>
+
+            <p style="text-align:center">(Платят ЕСП) Всего {{ModelResult.ProfComExists + ModelResult.ProfComNotExists | currency:' '}}</p>
+            <div id="chart_div1" style="margin-bottom:15px">
+                <canvas id="pie" class="chart chart-pie"
+                        chart-data="data1" chart-labels="labels1" chart-options="options"></canvas>
+            </div>
+            <p style="margin-left:90px"><img src="~/Content/Stat/color1.png" /> {{ModelResult.ProfComExists | currency:' '}} - Есть профком</p>
+            <p style="margin-left:90px"><img src="~/Content/Stat/color2.png" /> {{ModelResult.ProfComNotExists | currency:' '}} - Нет профкома</p>
+        </div>
+        <div class="col-md-4">
+            <h4 style="text-align:center">Заявки</h4>
+            <p style="text-align:center">Всего {{ModelResult.ApprovedZayavka + ModelResult.RejectedZayavka + ModelResult.InProgressZayavka | currency:' '}}</p>
+            <div id="chart_div2" style="margin-bottom:15px">
+                <canvas id="pie" class="chart chart-pie"
+                        chart-data="data2" chart-labels="labels2" chart-options="options"></canvas>
+            </div>
+            <p style="margin-left:90px"><img src="~/Content/Stat/color1.png" /> {{ModelResult.ApprovedZayavka | currency:' '}} - Утвержденные</p>
+            <p style="margin-left:90px"><img src="~/Content/Stat/color2.png" /> {{ModelResult.RejectedZayavka | currency:' '}} - Отклонённые</p>
+            <p style="margin-left:90px"><img src="~/Content/Stat/color3.png" /> {{ModelResult.InProgressZayavka | currency:' '}} - На рассмотрении</p>
+        </div>
+        <div class="col-md-4">
+            <h4 style="text-align:center">Путевки</h4>
+            <p style="text-align:center">Всего на @userName.CurKvartalYear составило : {{ModelResult.OstatokPutyovkas + ModelResult.RealizedPutyovkas + ModelResult.VozvratPutyovkas | currency:' '}}</p>
+
+            <div id="chart_div3" style="margin-bottom:15px">
+                <canvas id="pie" class="chart chart-pie"
+                        chart-data="data3" chart-labels="labels3" chart-options="options"></canvas>
+            </div>
+            <p style="margin-left:90px"><img src="~/Content/Stat/color1.png" /> {{ModelResult.OstatokPutyovkas | currency:' '}} - Остаток</p>
+            <p style="margin-left:90px"><img src="~/Content/Stat/color2.png" /> {{ModelResult.RealizedPutyovkas | currency:' '}} - Реализованные</p>
+            <p style="margin-left:90px"><img src="~/Content/Stat/color3.png" /> {{ModelResult.VozvratPutyovkas | currency:' '}} - Возврат</p>
+        </div>
+
+    </div>
+    <div id="chart_div" style="width: 900px; height: 500px;"></div>
+    <script>
+        var flag = 1;
+        $('.benefits').click(function () {
+            var tbody = $('.tbody');
+
+            if (flag == 0) {
+                tbody.css("display", "none");
+                flag = 1;
+            }
+            else {
+                tbody.css("display", "");
+                flag = 0;
+            }
+        });
+        var flag2 = 1;
+        $('.benefits2').click(function () {
+            var tbody2 = $('.tbody2');
+
+            if (flag2 == 0) {
+                tbody2.css("display", "none");
+                flag2 = 1;
+            }
+            else {
+                tbody2.css("display", "");
+                flag2 = 0;
+            }
+        });
+        var flag3 = 1;
+        $('.benefits3').click(function () {
+            var tbody3 = $('.tbody3');
+
+            if (flag3 == 0) {
+                tbody3.css("display", "none");
+                flag3 = 1;
+            }
+            else {
+                tbody3.css("display", "");
+                flag3 = 0;
+            }
+        });
+        var flag4 = 1;
+        $('.benefits4').click(function () {
+            var tbody4 = $('.tbody4');
+
+            if (flag4 == 0) {
+                tbody4.css("display", "none");
+                flag4 = 1;
+            }
+            else {
+                tbody4.css("display", "");
+                flag4 = 0;
+            }
+        });
+        var flag5 = 1;
+        $('.benefits5').click(function () {
+            var tbody5 = $('.tbody5');
+
+            if (flag5 == 0) {
+                tbody5.css("display", "none");
+                flag5 = 1;
+            }
+            else {
+                tbody5.css("display", "");
+                flag5 = 0;
+            }
+        });
+    </script>
+
+</section>

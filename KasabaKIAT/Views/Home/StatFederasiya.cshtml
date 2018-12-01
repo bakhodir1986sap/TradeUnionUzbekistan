@@ -22,7 +22,7 @@
         <div class="col-md-6">
             <h4 style="color:#167f91;">Аналитика за @userName.CurKvartalYear</h4>
             <p style="">Время последнего обновления: {{ModelResult.LastChangeDate| jsonDate: 'dd.MM.yyyy'}} </p><br>
-           
+
         </div>
         <div class="col-md-6 text-right" style="display: flex; align-items: center; justify-content:flex-end">
             <p style="padding-bottom:5px">
@@ -54,7 +54,7 @@
                             <th>Прочее <br> <b>{{ModelResult.OtherIncome  | currency:' '}}</b> сум</th>
 
                         </tr>
-                       
+
                     </thead>
                     <tbody class="tbody" style="display:none">
                         <tr ng-repeat="model in ModelResult.IncomePerRegionList">
@@ -70,21 +70,21 @@
         </div>
     </div>
 
-     <h4 style="color:red;padding-left:15px">Горящие путевки</h4>
+    <h4 style="color:red;padding-left:15px">Горящие путевки</h4>
     <div class="row">
         <div class="col-md-12">
-            <div class="table-responsive box-shadow mb-4"  style="padding-left: 15px; padding-right:15px">
+            <div class="table-responsive box-shadow mb-4" style="padding-left: 15px; padding-right:15px">
                 <table class="table table__block t-hover table__small">
-                   <thead>
+                    <thead>
                         <tr>
                             <!--<th class="dropdown">
                                 <span class="dropdown-toggle dr-link" id="dropdownMenuButton" data-toggle="dropdown"    aria-haspopup="true" aria-expanded="false"></span>
-    
+
                             </th>-->
                             <th class="benefits2" style="width:350px">Просмотреть</th>
                             <th>Всего <br> <b>{{ModelResult.UrgentPutyovkas }} шт </b></th>
                         </tr>
-                       
+
                     </thead>
                     <tbody class="tbody2" style="display:none">
                         <tr ng-repeat="model in ModelResult.UrgentPutyovkasRegionList">
@@ -100,7 +100,7 @@
         <div class="col-md-12">
             <h4 style="padding-left:15px">Путёвки</h4>
             <p style="padding-left:15px">@userName.CurKvartalYear</p>
-            <div class="table-responsive box-shadow mb-4"  style="padding-left: 15px; padding-right:15px">
+            <div class="table-responsive box-shadow mb-4" style="padding-left: 15px; padding-right:15px">
                 <table class="table table__block t-hover table__small">
                     <thead>
                         <tr>
@@ -129,7 +129,7 @@
     <div class="row">
         <div class="col-md-12">
             <h4 style="padding-left:15px">Реализация</h4>
-            <div class="table-responsive box-shadow mb-4"  style="padding-left: 15px; padding-right:15px">
+            <div class="table-responsive box-shadow mb-4" style="padding-left: 15px; padding-right:15px">
                 <table class="table table__block t-hover table__small">
                     <thead>
                         <tr>
@@ -172,7 +172,7 @@
                             <th>Общая сумма <b>{{ModelResult.TotalZadoljennostAmount | currency:' '}}</b> сум</th>
                         </tr>
                     </thead>
-             
+
                     <tbody class="tbody5" style="display:none">
                         <tr ng-repeat="model in ModelResult.ZadoljennostList">
                             <td>{{model.RegionName}}</td>
@@ -188,13 +188,13 @@
             <h4 style="text-align:center">Организации</h4>
 
             <p style="text-align:center">(Платят ЕСП) Всего {{ModelResult.ProfComExists + ModelResult.ProfComNotExists }} шт </p>
-            <div id="chart_div1"  style="margin-bottom:15px">
+            <div id="chart_div1" style="margin-bottom:15px">
                 <canvas id="pie" class="chart chart-pie"
                         chart-data="data1" chart-labels="labels1" chart-options="options"></canvas>
             </div>
             <p style="margin-left:90px"><img src="~/Content/Stat/color1.png" /> {{ModelResult.ProfComExists }}  шт- Есть профком</p>
             <p style="margin-left:90px"><img src="~/Content/Stat/color2.png" /> {{ModelResult.ProfComNotExists }}  шт- Нет профкома</p>
-            
+
         </div>
         <div class="col-md-4">
             <h4 style="text-align:center">Заявки</h4>
@@ -222,81 +222,71 @@
 
     </div>
     <div id="chart_div" style="width: 900px; height: 500px;"></div>
-     <script>   
+    <script>
         var flag = 1;
-          $('.benefits').click(function(){
+        $('.benefits').click(function () {
             var tbody = $('.tbody');
-            
-            if(flag == 0)
-            {
-                tbody.css("display" , "none");
+
+            if (flag == 0) {
+                tbody.css("display", "none");
                 flag = 1;
-            }  
-            else
-            {
+            }
+            else {
                 tbody.css("display", "");
                 flag = 0;
             }
-            });
-            var flag2 = 1;
-          $('.benefits2').click(function(){
+        });
+        var flag2 = 1;
+        $('.benefits2').click(function () {
             var tbody2 = $('.tbody2');
-            
-            if(flag2 == 0)
-            {
-                tbody2.css("display" , "none");
+
+            if (flag2 == 0) {
+                tbody2.css("display", "none");
                 flag2 = 1;
-            }  
-            else
-            {
+            }
+            else {
                 tbody2.css("display", "");
                 flag2 = 0;
             }
-            });
-           var flag3 = 1;
-          $('.benefits3').click(function(){
+        });
+        var flag3 = 1;
+        $('.benefits3').click(function () {
             var tbody3 = $('.tbody3');
-            
-            if(flag3 == 0)
-            {
-                tbody3.css("display" , "none");
+
+            if (flag3 == 0) {
+                tbody3.css("display", "none");
                 flag3 = 1;
-            }  
-            else
-            {
+            }
+            else {
                 tbody3.css("display", "");
                 flag3 = 0;
             }
-            });
-               var flag4 = 1;
-          $('.benefits4').click(function(){
+        });
+        var flag4 = 1;
+        $('.benefits4').click(function () {
             var tbody4 = $('.tbody4');
-            
-            if(flag4 == 0)
-            {
-                tbody4.css("display" , "none");
+
+            if (flag4 == 0) {
+                tbody4.css("display", "none");
                 flag4 = 1;
-            }  
-            else
-            {
+            }
+            else {
                 tbody4.css("display", "");
                 flag4 = 0;
             }
-            });
-          var flag5 = 1;
-          $('.benefits5').click(function(){
+        });
+        var flag5 = 1;
+        $('.benefits5').click(function () {
             var tbody5 = $('.tbody5');
-            
-            if(flag5 == 0)
-            {
-                tbody5.css("display" , "none");
+
+            if (flag5 == 0) {
+                tbody5.css("display", "none");
                 flag5 = 1;
-            }  
-            else
-            {
+            }
+            else {
                 tbody5.css("display", "");
                 flag5 = 0;
             }
-            });
+        });
     </script>
 </section>

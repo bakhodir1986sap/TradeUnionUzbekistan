@@ -1,0 +1,30 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+
+namespace KasabaKIAT.BusinessLogic._4_Etap.Statistics
+{
+    public class PutyovkiModel
+    {
+        public int? YEAR_OP { get; set; }
+
+        public int? QUARTER_op { get; set; }
+
+        public string ProfsoyzNaimenovanie { get; set; }
+
+        public decimal? OstatokAmount { get; set; }
+
+        public int? OstatokCount { get; set; }
+
+        public decimal? RealizAmount { get; set; }
+
+        public int? RealizCount { get; set; }
+
+        public string ComplexStr { get; set; }
+
+        public string Num_Put { get; set; }
+
+        public string Name_San { get; set; }
+    }
+}

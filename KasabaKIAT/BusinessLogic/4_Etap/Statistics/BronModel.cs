@@ -1,0 +1,22 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+
+namespace KasabaKIAT.BusinessLogic._4_Etap.Statistics
+{
+    public class BronModel
+    {
+        public int? YEAR_OP { get; set; }
+
+        public int? QUARTER_op { get; set; }
+
+        public string ProfsoyzNaimenovanie { get; set; }
+
+        public int BronCount { get; set; }
+
+        public string Num_Put { get; set; }
+
+        public string Name_San { get; set; }
+    }
+}

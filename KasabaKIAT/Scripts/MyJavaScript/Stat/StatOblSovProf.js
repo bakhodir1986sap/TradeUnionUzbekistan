@@ -1,6 +1,6 @@
 ﻿app.controller("StatOblSovProf", ["$scope", "$http", "$filter", "$locale", "DataService", "CalcService", function ($scope, $http, $filter, $locale, DataService, CalcService) {
 
-    GetStatData();
+    //GetStatData();
 
     $scope.isCollapsed = false;
     ////////////////////////////////

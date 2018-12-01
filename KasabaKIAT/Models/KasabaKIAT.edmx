@@ -6325,15 +6325,27 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <Parameter Name="YEAR" Type="int" Mode="In" />
           <Parameter Name="KVARTAL" Type="int" Mode="In" />
         </Function>
+        <Function Name="sp_stat_AktiveUsersListFed_V2" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="sp_stat_AktiveUsersListObl_V2" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="DEPARTMENT_BASE" Type="nvarchar" Mode="In" />
+        </Function>
         <Function Name="sp_stat_ApprovedZayavka" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="DEPARTMENT_BASE" Type="nvarchar" Mode="In" />
           <Parameter Name="YEAR" Type="int" Mode="In" />
           <Parameter Name="KVARTAL" Type="int" Mode="In" />
         </Function>
+        <Function Name="sp_stat_ApprovedZayavka_V2" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="DEPARTMENT_BASE" Type="nvarchar" Mode="In" />
+          <Parameter Name="YEAR" Type="int" Mode="In" />
+        </Function>
         <Function Name="sp_stat_BronCount" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="DEPARTMENT_BASE" Type="nvarchar" Mode="In" />
           <Parameter Name="YEAR" Type="int" Mode="In" />
           <Parameter Name="KVARTAL" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_stat_BronFed_V2" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="sp_stat_BronObl_V2" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="DEPARTMENT_BASE" Type="nvarchar" Mode="In" />
         </Function>
         <Function Name="sp_stat_EcpIncome" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="DEPARTMENT_BASE" Type="nvarchar" Mode="In" />
@@ -6365,6 +6377,18 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <Parameter Name="YEAR" Type="int" Mode="In" />
           <Parameter Name="KVARTAL" Type="int" Mode="In" />
         </Function>
+        <Function Name="sp_stat_InProgressZayavka_V2" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="DEPARTMENT_BASE" Type="nvarchar" Mode="In" />
+          <Parameter Name="YEAR" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_stat_KaznaDataFed_V2" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="sp_stat_KaznaDataObl_V2" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="DEPARTMENT_BASE" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="sp_stat_OstatokPutyovka_V2" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="DEPARTMENT_BASE" Type="nvarchar" Mode="In" />
+          <Parameter Name="YEAR" Type="int" Mode="In" />
+        </Function>
         <Function Name="sp_stat_OstatokPutyovkaAmount" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="DEPARTMENT_BASE" Type="nvarchar" Mode="In" />
           <Parameter Name="YEAR" Type="int" Mode="In" />
@@ -6379,6 +6403,10 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <Parameter Name="DEPARTMENT_BASE" Type="nvarchar" Mode="In" />
           <Parameter Name="YEAR" Type="int" Mode="In" />
           <Parameter Name="KVARTAL" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_stat_OstatokPutyovkas_V2" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="sp_stat_OstatokPutyovkasObl_V2" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="DEPARTMENT_BASE" Type="nvarchar" Mode="In" />
         </Function>
         <Function Name="sp_stat_OtherIncome" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="DEPARTMENT_BASE" Type="nvarchar" Mode="In" />
@@ -6410,10 +6438,18 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <Parameter Name="YEAR" Type="int" Mode="In" />
           <Parameter Name="KVARTAL" Type="int" Mode="In" />
         </Function>
+        <Function Name="sp_stat_Realiz_V2" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="sp_stat_RealizedPutyovkas" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="DEPARTMENT_BASE" Type="nvarchar" Mode="In" />
           <Parameter Name="YEAR" Type="int" Mode="In" />
           <Parameter Name="KVARTAL" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_stat_RealizedPutyovkas_V2" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="DEPARTMENT_BASE" Type="nvarchar" Mode="In" />
+          <Parameter Name="YEAR" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_stat_RealizObl_V2" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="DEPARTMENT_BASE" Type="nvarchar" Mode="In" />
         </Function>
         <Function Name="sp_stat_RealizPutyovkaAmount" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="DEPARTMENT_BASE" Type="nvarchar" Mode="In" />
@@ -6429,6 +6465,10 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <Parameter Name="DEPARTMENT_BASE" Type="nvarchar" Mode="In" />
           <Parameter Name="YEAR" Type="int" Mode="In" />
           <Parameter Name="KVARTAL" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_stat_RejectedZayavka_V2" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="DEPARTMENT_BASE" Type="nvarchar" Mode="In" />
+          <Parameter Name="YEAR" Type="int" Mode="In" />
         </Function>
         <Function Name="sp_stat_S0PutyovkaAmount" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="DEPARTMENT_BASE" Type="nvarchar" Mode="In" />
@@ -6485,6 +6525,10 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <Parameter Name="YEAR" Type="int" Mode="In" />
           <Parameter Name="KVARTAL" Type="int" Mode="In" />
         </Function>
+        <Function Name="sp_stat_UrgentPutyovkasRegionListFed_V2" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="sp_stat_UrgentPutyovkasRegionListFedObl_V2" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="DEPARTMENT_BASE" Type="nvarchar" Mode="In" />
+        </Function>
         <Function Name="sp_stat_UrgentPutyovkasRegionListObl" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="DEPARTMENT_BASE" Type="nvarchar" Mode="In" />
           <Parameter Name="YEAR" Type="int" Mode="In" />
@@ -6495,11 +6539,16 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <Parameter Name="YEAR" Type="int" Mode="In" />
           <Parameter Name="KVARTAL" Type="int" Mode="In" />
         </Function>
+        <Function Name="sp_stat_VozvratPutyovkas_V2" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="DEPARTMENT_BASE" Type="nvarchar" Mode="In" />
+          <Parameter Name="YEAR" Type="int" Mode="In" />
+        </Function>
         <Function Name="sp_stat_ZadoljennostList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="DEPARTMENT_BASE" Type="nvarchar" Mode="In" />
           <Parameter Name="YEAR" Type="int" Mode="In" />
           <Parameter Name="KVARTAL" Type="int" Mode="In" />
         </Function>
+        <Function Name="sp_stat_ZadoljennostList_V2" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="sp_stat_ZadoljennostListFed" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="DEPARTMENT_BASE" Type="nvarchar" Mode="In" />
           <Parameter Name="YEAR" Type="int" Mode="In" />
@@ -6509,6 +6558,9 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <Parameter Name="DEPARTMENT_BASE" Type="nvarchar" Mode="In" />
           <Parameter Name="YEAR" Type="int" Mode="In" />
           <Parameter Name="KVARTAL" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_stat_ZadoljennostListObl_V2" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="DEPARTMENT_BASE" Type="nvarchar" Mode="In" />
         </Function>
         <Function Name="userAdd" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="login" Type="nvarchar" Mode="In" />
@@ -14542,6 +14594,58 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
             <Parameter Name="BEGIN_DATE" Mode="In" Type="DateTime" />
             <Parameter Name="END_DATE" Mode="In" Type="DateTime" />
           </FunctionImport>
+          <FunctionImport Name="sp_stat_KaznaDataFed_V2" ReturnType="Collection(KasabaKIATModel.sp_stat_KaznaDataFed_V2_Result)" />
+          <FunctionImport Name="sp_stat_UrgentPutyovkasRegionListFed_V2" ReturnType="Collection(KasabaKIATModel.sp_stat_UrgentPutyovkasRegionListFed_V2_Result1)" />
+          <FunctionImport Name="sp_stat_OstatokPutyovkas_V2" ReturnType="Collection(KasabaKIATModel.sp_stat_OstatokPutyovkas_V2_Result1)" />
+          <FunctionImport Name="sp_stat_Realiz_V2" ReturnType="Collection(KasabaKIATModel.sp_stat_Realiz_V2_Result)" />
+          <FunctionImport Name="sp_stat_ZadoljennostList_V2" ReturnType="Collection(KasabaKIATModel.sp_stat_ZadoljennostList_V2_Result)" />
+          <FunctionImport Name="sp_stat_OstatokPutyovkasObl_V2" ReturnType="Collection(KasabaKIATModel.sp_stat_OstatokPutyovkasObl_V2_Result)">
+          <Parameter Name="DEPARTMENT_BASE" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_stat_RealizObl_V2" ReturnType="Collection(KasabaKIATModel.sp_stat_RealizObl_V2_Result)">
+          <Parameter Name="DEPARTMENT_BASE" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_stat_UrgentPutyovkasRegionListFedObl_V2" ReturnType="Collection(KasabaKIATModel.sp_stat_UrgentPutyovkasRegionListFedObl_V2_Result)">
+          <Parameter Name="DEPARTMENT_BASE" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_stat_ZadoljennostListObl_V2" ReturnType="Collection(KasabaKIATModel.sp_stat_ZadoljennostListObl_V2_Result)">
+          <Parameter Name="DEPARTMENT_BASE" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_stat_KaznaDataObl_V2" ReturnType="Collection(KasabaKIATModel.sp_stat_KaznaDataObl_V2_Result1)">
+          <Parameter Name="DEPARTMENT_BASE" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_stat_BronFed_V2" ReturnType="Collection(KasabaKIATModel.sp_stat_BronFed_V2_Result)" />
+          <FunctionImport Name="sp_stat_BronObl_V2" ReturnType="Collection(KasabaKIATModel.sp_stat_BronObl_V2_Result)">
+          <Parameter Name="DEPARTMENT_BASE" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_stat_AktiveUsersListFed_V2" ReturnType="Collection(KasabaKIATModel.sp_stat_AktiveUsersListFed_V2_Result)" />
+          <FunctionImport Name="sp_stat_AktiveUsersListObl_V2" ReturnType="Collection(KasabaKIATModel.sp_stat_AktiveUsersListObl_V2_Result)">
+          <Parameter Name="DEPARTMENT_BASE" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_stat_ApprovedZayavka_V2" ReturnType="Collection(Int32)">
+            <Parameter Name="DEPARTMENT_BASE" Mode="In" Type="String" />
+            <Parameter Name="YEAR" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_stat_InProgressZayavka_V2" ReturnType="Collection(Int32)">
+            <Parameter Name="DEPARTMENT_BASE" Mode="In" Type="String" />
+            <Parameter Name="YEAR" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_stat_OstatokPutyovka_V2" ReturnType="Collection(Int32)">
+            <Parameter Name="DEPARTMENT_BASE" Mode="In" Type="String" />
+            <Parameter Name="YEAR" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_stat_RealizedPutyovkas_V2" ReturnType="Collection(Int32)">
+            <Parameter Name="DEPARTMENT_BASE" Mode="In" Type="String" />
+            <Parameter Name="YEAR" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_stat_RejectedZayavka_V2" ReturnType="Collection(Int32)">
+            <Parameter Name="DEPARTMENT_BASE" Mode="In" Type="String" />
+            <Parameter Name="YEAR" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_stat_VozvratPutyovkas_V2" ReturnType="Collection(Int32)">
+            <Parameter Name="DEPARTMENT_BASE" Mode="In" Type="String" />
+            <Parameter Name="YEAR" Mode="In" Type="Int32" />
+          </FunctionImport>
           </EntityContainer>
         <ComplexType Name="sp_get_BankPaymentCompanyYearlyQ_Result">
           <Property Type="Int32" Name="MONTH_NUM" Nullable="true" />
@@ -16529,6 +16633,155 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <Property Type="String" Name="ADDITIONAL" Nullable="true" MaxLength="20" />
           <Property Type="String" Name="OPISANIYE" Nullable="true" MaxLength="50" />
           <Property Type="String" Name="NAME_RU" Nullable="true" MaxLength="254" />
+        </ComplexType>
+        <ComplexType Name="sp_stat_KaznaDataFed_V2_Result">
+          <Property Type="Int32" Name="YEAR_OP" Nullable="true" />
+          <Property Type="Int32" Name="QUARTER_op" Nullable="true" />
+          <Property Type="String" Name="ProfsoyzNaimenovanie" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="SOATO_NAME" Nullable="false" MaxLength="500" />
+          <Property Type="String" Name="BRANCH_NAME" Nullable="false" MaxLength="200" />
+          <Property Type="Decimal" Name="FEDERATION_AMT" Nullable="true" Precision="19" />
+          <Property Type="Decimal" Name="OBLSOVPROF_AMT" Nullable="true" Precision="19" />
+        </ComplexType>
+        <ComplexType Name="sp_stat_KaznaDataObl_V2_Result">
+          <Property Type="Int32" Name="YEAR_OP" Nullable="true" />
+          <Property Type="Int32" Name="QUARTER_op" Nullable="true" />
+          <Property Type="String" Name="ProfsoyzNaimenovanie" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="SOATO_NAME" Nullable="false" MaxLength="500" />
+          <Property Type="String" Name="BRANCH_NAME" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="INN" Nullable="true" MaxLength="20" />
+          <Property Type="Decimal" Name="FEDERATION_AMT" Nullable="true" Precision="19" />
+          <Property Type="Decimal" Name="OBLSOVPROF_AMT" Nullable="true" Precision="19" />
+        </ComplexType>
+        <ComplexType Name="sp_stat_UrgentPutyovkasRegionListFed_V2_Result">
+          <Property Type="Int32" Name="YEAR_OP" Nullable="true" />
+          <Property Type="Int32" Name="QUARTER_op" Nullable="true" />
+          <Property Type="String" Name="ProfsoyzNaimenovanie" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="Num_Put" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="Name_San" Nullable="true" MaxLength="100" />
+          <Property Type="DateTime" Name="DataSan" Nullable="true" Precision="23" />
+        </ComplexType>
+        <ComplexType Name="sp_stat_UrgentPutyovkasRegionListFed_V2_Result1">
+          <Property Type="Int32" Name="YEAR_OP" Nullable="true" />
+          <Property Type="Int32" Name="QUARTER_op" Nullable="true" />
+          <Property Type="String" Name="ProfsoyzNaimenovanie" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="Num_Put" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="Name_San" Nullable="true" MaxLength="100" />
+          <Property Type="DateTime" Name="DataSan" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="CounterU" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="sp_stat_OstatokPutyovkas_V2_Result">
+          <Property Type="Int32" Name="YEAR_OP" Nullable="true" />
+          <Property Type="Int32" Name="QUARTER_op" Nullable="true" />
+          <Property Type="String" Name="ProfsoyzNaimenovanie" Nullable="true" MaxLength="200" />
+          <Property Type="Decimal" Name="OstatokAmount" Nullable="true" Precision="19" />
+          <Property Type="Int32" Name="OstatokCount" Nullable="false" />
+          <Property Type="Decimal" Name="RealizAmount" Nullable="true" Precision="19" />
+          <Property Type="Int32" Name="RealizCount" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="sp_stat_OstatokPutyovkas_V2_Result1">
+          <Property Type="Int32" Name="YEAR_OP" Nullable="true" />
+          <Property Type="Int32" Name="QUARTER_op" Nullable="true" />
+          <Property Type="String" Name="ProfsoyzNaimenovanie" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="Num_Put" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="Name_San" Nullable="true" MaxLength="100" />
+          <Property Type="Decimal" Name="OstatokAmount" Nullable="true" Precision="19" />
+          <Property Type="Int32" Name="OstatokCount" Nullable="false" />
+          <Property Type="Decimal" Name="RealizAmount" Nullable="true" Precision="19" />
+          <Property Type="Int32" Name="RealizCount" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="sp_stat_Realiz_V2_Result">
+          <Property Type="Int32" Name="YEAR_OP" Nullable="true" />
+          <Property Type="Int32" Name="QUARTER_op" Nullable="true" />
+          <Property Type="String" Name="ProfsoyzNaimenovanie" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="Num_Put" Nullable="true" MaxLength="15" />
+          <Property Type="String" Name="Name_San" Nullable="true" MaxLength="100" />
+          <Property Type="Decimal" Name="s45Amount" Nullable="true" Precision="19" />
+          <Property Type="Int32" Name="s45Count" Nullable="false" />
+          <Property Type="Decimal" Name="s100Amount" Nullable="true" Precision="19" />
+          <Property Type="Int32" Name="s100Count" Nullable="false" />
+          <Property Type="Decimal" Name="s0Amount" Nullable="true" Precision="19" />
+          <Property Type="Int32" Name="s0Count" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="sp_stat_ZadoljennostList_V2_Result">
+          <Property Type="String" Name="ProfsoyzNaimenovanie" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="Name_Org" Nullable="true" MaxLength="100" />
+          <Property Type="Decimal" Name="ZadolAmount" Nullable="false" Precision="19" />
+        </ComplexType>
+        <ComplexType Name="sp_stat_OstatokPutyovkasObl_V2_Result">
+          <Property Type="Int32" Name="YEAR_OP" Nullable="true" />
+          <Property Type="Int32" Name="QUARTER_op" Nullable="true" />
+          <Property Type="String" Name="ProfsoyzNaimenovanie" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="Num_Put" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="Name_San" Nullable="true" MaxLength="100" />
+          <Property Type="Decimal" Name="OstatokAmount" Nullable="true" Precision="19" />
+          <Property Type="Int32" Name="OstatokCount" Nullable="false" />
+          <Property Type="Decimal" Name="RealizAmount" Nullable="true" Precision="19" />
+          <Property Type="Int32" Name="RealizCount" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="sp_stat_RealizObl_V2_Result">
+          <Property Type="Int32" Name="YEAR_OP" Nullable="true" />
+          <Property Type="Int32" Name="QUARTER_op" Nullable="true" />
+          <Property Type="String" Name="ProfsoyzNaimenovanie" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="Num_Put" Nullable="true" MaxLength="15" />
+          <Property Type="String" Name="Name_San" Nullable="true" MaxLength="100" />
+          <Property Type="Decimal" Name="s45Amount" Nullable="true" Precision="19" />
+          <Property Type="Int32" Name="s45Count" Nullable="false" />
+          <Property Type="Decimal" Name="s100Amount" Nullable="true" Precision="19" />
+          <Property Type="Int32" Name="s100Count" Nullable="false" />
+          <Property Type="Decimal" Name="s0Amount" Nullable="true" Precision="19" />
+          <Property Type="Int32" Name="s0Count" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="sp_stat_UrgentPutyovkasRegionListFedObl_V2_Result">
+          <Property Type="Int32" Name="YEAR_OP" Nullable="true" />
+          <Property Type="Int32" Name="QUARTER_op" Nullable="true" />
+          <Property Type="String" Name="ProfsoyzNaimenovanie" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="Num_Put" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="Name_San" Nullable="true" MaxLength="100" />
+          <Property Type="DateTime" Name="DataSan" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="CounterU" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="sp_stat_ZadoljennostListObl_V2_Result">
+          <Property Type="String" Name="ProfsoyzNaimenovanie" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="Name_Org" Nullable="true" MaxLength="100" />
+          <Property Type="Decimal" Name="ZadolAmount" Nullable="false" Precision="19" />
+        </ComplexType>
+        <ComplexType Name="sp_stat_KaznaDataObl_V2_Result1">
+          <Property Type="Int32" Name="YEAR_OP" Nullable="true" />
+          <Property Type="Int32" Name="QUARTER_op" Nullable="true" />
+          <Property Type="String" Name="ProfsoyzNaimenovanie" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="SOATO_NAME" Nullable="false" MaxLength="500" />
+          <Property Type="String" Name="BRANCH_NAME" Nullable="false" MaxLength="200" />
+          <Property Type="Decimal" Name="FEDERATION_AMT" Nullable="true" Precision="19" />
+          <Property Type="Decimal" Name="OBLSOVPROF_AMT" Nullable="true" Precision="19" />
+        </ComplexType>
+        <ComplexType Name="sp_stat_BronFed_V2_Result">
+          <Property Type="Int32" Name="YEAR_OP" Nullable="true" />
+          <Property Type="Int32" Name="QUARTER_op" Nullable="true" />
+          <Property Type="String" Name="ProfsoyzNaimenovanie" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="Num_Put" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="Name_San" Nullable="true" MaxLength="100" />
+          <Property Type="DateTime" Name="DataSan" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="CounterU" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="sp_stat_BronObl_V2_Result">
+          <Property Type="Int32" Name="YEAR_OP" Nullable="true" />
+          <Property Type="Int32" Name="QUARTER_op" Nullable="true" />
+          <Property Type="String" Name="ProfsoyzNaimenovanie" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="Num_Put" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="Name_San" Nullable="true" MaxLength="100" />
+          <Property Type="DateTime" Name="DataSan" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="CounterU" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="sp_stat_AktiveUsersListFed_V2_Result">
+          <Property Type="String" Name="ProfsoyzNaimenovanie" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="user_name" Nullable="true" MaxLength="255" />
+          <Property Type="Int32" Name="CounterU" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="sp_stat_AktiveUsersListObl_V2_Result">
+          <Property Type="String" Name="ProfsoyzNaimenovanie" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="user_name" Nullable="true" MaxLength="255" />
+          <Property Type="Int32" Name="CounterU" Nullable="false" />
         </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
@@ -20751,6 +21004,190 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_stat_KaznaDataFed_V2" FunctionName="KasabaKIATModel.Store.sp_stat_KaznaDataFed_V2">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="KasabaKIATModel.sp_stat_KaznaDataFed_V2_Result">
+                <ScalarProperty Name="YEAR_OP" ColumnName="YEAR_OP" />
+                <ScalarProperty Name="QUARTER_op" ColumnName="QUARTER_op" />
+                <ScalarProperty Name="ProfsoyzNaimenovanie" ColumnName="ProfsoyzNaimenovanie" />
+                <ScalarProperty Name="SOATO_NAME" ColumnName="SOATO_NAME" />
+                <ScalarProperty Name="BRANCH_NAME" ColumnName="BRANCH_NAME" />
+                <ScalarProperty Name="FEDERATION_AMT" ColumnName="FEDERATION_AMT" />
+                <ScalarProperty Name="OBLSOVPROF_AMT" ColumnName="OBLSOVPROF_AMT" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_stat_UrgentPutyovkasRegionListFed_V2" FunctionName="KasabaKIATModel.Store.sp_stat_UrgentPutyovkasRegionListFed_V2">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="KasabaKIATModel.sp_stat_UrgentPutyovkasRegionListFed_V2_Result1">
+                <ScalarProperty Name="YEAR_OP" ColumnName="YEAR_OP" />
+                <ScalarProperty Name="QUARTER_op" ColumnName="QUARTER_op" />
+                <ScalarProperty Name="ProfsoyzNaimenovanie" ColumnName="ProfsoyzNaimenovanie" />
+                <ScalarProperty Name="Num_Put" ColumnName="Num_Put" />
+                <ScalarProperty Name="Name_San" ColumnName="Name_San" />
+                <ScalarProperty Name="DataSan" ColumnName="DataSan" />
+                <ScalarProperty Name="CounterU" ColumnName="CounterU" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_stat_OstatokPutyovkas_V2" FunctionName="KasabaKIATModel.Store.sp_stat_OstatokPutyovkas_V2">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="KasabaKIATModel.sp_stat_OstatokPutyovkas_V2_Result1">
+                <ScalarProperty Name="YEAR_OP" ColumnName="YEAR_OP" />
+                <ScalarProperty Name="QUARTER_op" ColumnName="QUARTER_op" />
+                <ScalarProperty Name="ProfsoyzNaimenovanie" ColumnName="ProfsoyzNaimenovanie" />
+                <ScalarProperty Name="Num_Put" ColumnName="Num_Put" />
+                <ScalarProperty Name="Name_San" ColumnName="Name_San" />
+                <ScalarProperty Name="OstatokAmount" ColumnName="OstatokAmount" />
+                <ScalarProperty Name="OstatokCount" ColumnName="OstatokCount" />
+                <ScalarProperty Name="RealizAmount" ColumnName="RealizAmount" />
+                <ScalarProperty Name="RealizCount" ColumnName="RealizCount" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_stat_Realiz_V2" FunctionName="KasabaKIATModel.Store.sp_stat_Realiz_V2">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="KasabaKIATModel.sp_stat_Realiz_V2_Result">
+                <ScalarProperty Name="YEAR_OP" ColumnName="YEAR_OP" />
+                <ScalarProperty Name="QUARTER_op" ColumnName="QUARTER_op" />
+                <ScalarProperty Name="ProfsoyzNaimenovanie" ColumnName="ProfsoyzNaimenovanie" />
+                <ScalarProperty Name="Num_Put" ColumnName="Num_Put" />
+                <ScalarProperty Name="Name_San" ColumnName="Name_San" />
+                <ScalarProperty Name="s45Amount" ColumnName="s45Amount" />
+                <ScalarProperty Name="s45Count" ColumnName="s45Count" />
+                <ScalarProperty Name="s100Amount" ColumnName="s100Amount" />
+                <ScalarProperty Name="s100Count" ColumnName="s100Count" />
+                <ScalarProperty Name="s0Amount" ColumnName="s0Amount" />
+                <ScalarProperty Name="s0Count" ColumnName="s0Count" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_stat_ZadoljennostList_V2" FunctionName="KasabaKIATModel.Store.sp_stat_ZadoljennostList_V2">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="KasabaKIATModel.sp_stat_ZadoljennostList_V2_Result">
+                <ScalarProperty Name="ProfsoyzNaimenovanie" ColumnName="ProfsoyzNaimenovanie" />
+                <ScalarProperty Name="Name_Org" ColumnName="Name_Org" />
+                <ScalarProperty Name="ZadolAmount" ColumnName="ZadolAmount" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_stat_OstatokPutyovkasObl_V2" FunctionName="KasabaKIATModel.Store.sp_stat_OstatokPutyovkasObl_V2">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="KasabaKIATModel.sp_stat_OstatokPutyovkasObl_V2_Result">
+                <ScalarProperty Name="YEAR_OP" ColumnName="YEAR_OP" />
+                <ScalarProperty Name="QUARTER_op" ColumnName="QUARTER_op" />
+                <ScalarProperty Name="ProfsoyzNaimenovanie" ColumnName="ProfsoyzNaimenovanie" />
+                <ScalarProperty Name="Num_Put" ColumnName="Num_Put" />
+                <ScalarProperty Name="Name_San" ColumnName="Name_San" />
+                <ScalarProperty Name="OstatokAmount" ColumnName="OstatokAmount" />
+                <ScalarProperty Name="OstatokCount" ColumnName="OstatokCount" />
+                <ScalarProperty Name="RealizAmount" ColumnName="RealizAmount" />
+                <ScalarProperty Name="RealizCount" ColumnName="RealizCount" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_stat_RealizObl_V2" FunctionName="KasabaKIATModel.Store.sp_stat_RealizObl_V2">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="KasabaKIATModel.sp_stat_RealizObl_V2_Result">
+                <ScalarProperty Name="YEAR_OP" ColumnName="YEAR_OP" />
+                <ScalarProperty Name="QUARTER_op" ColumnName="QUARTER_op" />
+                <ScalarProperty Name="ProfsoyzNaimenovanie" ColumnName="ProfsoyzNaimenovanie" />
+                <ScalarProperty Name="Num_Put" ColumnName="Num_Put" />
+                <ScalarProperty Name="Name_San" ColumnName="Name_San" />
+                <ScalarProperty Name="s45Amount" ColumnName="s45Amount" />
+                <ScalarProperty Name="s45Count" ColumnName="s45Count" />
+                <ScalarProperty Name="s100Amount" ColumnName="s100Amount" />
+                <ScalarProperty Name="s100Count" ColumnName="s100Count" />
+                <ScalarProperty Name="s0Amount" ColumnName="s0Amount" />
+                <ScalarProperty Name="s0Count" ColumnName="s0Count" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_stat_UrgentPutyovkasRegionListFedObl_V2" FunctionName="KasabaKIATModel.Store.sp_stat_UrgentPutyovkasRegionListFedObl_V2">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="KasabaKIATModel.sp_stat_UrgentPutyovkasRegionListFedObl_V2_Result">
+                <ScalarProperty Name="YEAR_OP" ColumnName="YEAR_OP" />
+                <ScalarProperty Name="QUARTER_op" ColumnName="QUARTER_op" />
+                <ScalarProperty Name="ProfsoyzNaimenovanie" ColumnName="ProfsoyzNaimenovanie" />
+                <ScalarProperty Name="Num_Put" ColumnName="Num_Put" />
+                <ScalarProperty Name="Name_San" ColumnName="Name_San" />
+                <ScalarProperty Name="DataSan" ColumnName="DataSan" />
+                <ScalarProperty Name="CounterU" ColumnName="CounterU" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_stat_ZadoljennostListObl_V2" FunctionName="KasabaKIATModel.Store.sp_stat_ZadoljennostListObl_V2">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="KasabaKIATModel.sp_stat_ZadoljennostListObl_V2_Result">
+                <ScalarProperty Name="ProfsoyzNaimenovanie" ColumnName="ProfsoyzNaimenovanie" />
+                <ScalarProperty Name="Name_Org" ColumnName="Name_Org" />
+                <ScalarProperty Name="ZadolAmount" ColumnName="ZadolAmount" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_stat_KaznaDataObl_V2" FunctionName="KasabaKIATModel.Store.sp_stat_KaznaDataObl_V2">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="KasabaKIATModel.sp_stat_KaznaDataObl_V2_Result1">
+                <ScalarProperty Name="YEAR_OP" ColumnName="YEAR_OP" />
+                <ScalarProperty Name="QUARTER_op" ColumnName="QUARTER_op" />
+                <ScalarProperty Name="ProfsoyzNaimenovanie" ColumnName="ProfsoyzNaimenovanie" />
+                <ScalarProperty Name="SOATO_NAME" ColumnName="SOATO_NAME" />
+                <ScalarProperty Name="BRANCH_NAME" ColumnName="BRANCH_NAME" />
+                <ScalarProperty Name="FEDERATION_AMT" ColumnName="FEDERATION_AMT" />
+                <ScalarProperty Name="OBLSOVPROF_AMT" ColumnName="OBLSOVPROF_AMT" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_stat_BronFed_V2" FunctionName="KasabaKIATModel.Store.sp_stat_BronFed_V2">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="KasabaKIATModel.sp_stat_BronFed_V2_Result">
+                <ScalarProperty Name="YEAR_OP" ColumnName="YEAR_OP" />
+                <ScalarProperty Name="QUARTER_op" ColumnName="QUARTER_op" />
+                <ScalarProperty Name="ProfsoyzNaimenovanie" ColumnName="ProfsoyzNaimenovanie" />
+                <ScalarProperty Name="Num_Put" ColumnName="Num_Put" />
+                <ScalarProperty Name="Name_San" ColumnName="Name_San" />
+                <ScalarProperty Name="DataSan" ColumnName="DataSan" />
+                <ScalarProperty Name="CounterU" ColumnName="CounterU" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_stat_BronObl_V2" FunctionName="KasabaKIATModel.Store.sp_stat_BronObl_V2">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="KasabaKIATModel.sp_stat_BronObl_V2_Result">
+                <ScalarProperty Name="YEAR_OP" ColumnName="YEAR_OP" />
+                <ScalarProperty Name="QUARTER_op" ColumnName="QUARTER_op" />
+                <ScalarProperty Name="ProfsoyzNaimenovanie" ColumnName="ProfsoyzNaimenovanie" />
+                <ScalarProperty Name="Num_Put" ColumnName="Num_Put" />
+                <ScalarProperty Name="Name_San" ColumnName="Name_San" />
+                <ScalarProperty Name="DataSan" ColumnName="DataSan" />
+                <ScalarProperty Name="CounterU" ColumnName="CounterU" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_stat_AktiveUsersListFed_V2" FunctionName="KasabaKIATModel.Store.sp_stat_AktiveUsersListFed_V2">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="KasabaKIATModel.sp_stat_AktiveUsersListFed_V2_Result">
+                <ScalarProperty Name="ProfsoyzNaimenovanie" ColumnName="ProfsoyzNaimenovanie" />
+                <ScalarProperty Name="user_name" ColumnName="user_name" />
+                <ScalarProperty Name="CounterU" ColumnName="CounterU" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_stat_AktiveUsersListObl_V2" FunctionName="KasabaKIATModel.Store.sp_stat_AktiveUsersListObl_V2">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="KasabaKIATModel.sp_stat_AktiveUsersListObl_V2_Result">
+                <ScalarProperty Name="ProfsoyzNaimenovanie" ColumnName="ProfsoyzNaimenovanie" />
+                <ScalarProperty Name="user_name" ColumnName="user_name" />
+                <ScalarProperty Name="CounterU" ColumnName="CounterU" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_stat_ApprovedZayavka_V2" FunctionName="KasabaKIATModel.Store.sp_stat_ApprovedZayavka_V2" />
+          <FunctionImportMapping FunctionImportName="sp_stat_InProgressZayavka_V2" FunctionName="KasabaKIATModel.Store.sp_stat_InProgressZayavka_V2" />
+          <FunctionImportMapping FunctionImportName="sp_stat_OstatokPutyovka_V2" FunctionName="KasabaKIATModel.Store.sp_stat_OstatokPutyovka_V2" />
+          <FunctionImportMapping FunctionImportName="sp_stat_RealizedPutyovkas_V2" FunctionName="KasabaKIATModel.Store.sp_stat_RealizedPutyovkas_V2" />
+          <FunctionImportMapping FunctionImportName="sp_stat_RejectedZayavka_V2" FunctionName="KasabaKIATModel.Store.sp_stat_RejectedZayavka_V2" />
+          <FunctionImportMapping FunctionImportName="sp_stat_VozvratPutyovkas_V2" FunctionName="KasabaKIATModel.Store.sp_stat_VozvratPutyovkas_V2" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

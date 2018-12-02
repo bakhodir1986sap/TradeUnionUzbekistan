@@ -26,13 +26,13 @@
             <p style="">Время последнего обновления: @ViewBag.LastChangeTime </p><br>
             <p>Главная</p>
         </div>
-        <div class="col-md-6" style="display: flex;justify-content:flex-end; align-items: center">
-            <p style="padding-bottom:5px">
-                <img style="height:17px;width:17px" src="~/Content/Stat/Screen6.png"> - {{ModelResult.BronCount | currency:' '}} брони
+        @*<div class="col-md-6" style="display: flex;justify-content:flex-end; align-items: center">
+                <p style="padding-bottom:5px">
+                    <img style="height:17px;width:17px" src="~/Content/Stat/Screen6.png"> - {{ModelResult.BronCount | currency:' '}} брони
 
-            </p>
+                </p>
 
-        </div>
+            </div>*@
     </div>
 
 
@@ -88,6 +88,18 @@
     </div>
     <div class="row">
         <div class="col-md-12">
+            <h4 style="padding-left:15px">Бронированные путевки</h4>
+            <div class="table-responsive box-shadow mb-4" style="padding-left: 15px; padding-right:15px">
+                @Html.EJS().PivotView("BronData").Width("100%").Height("300").DataSource(dataSource => dataSource.Data((IEnumerable<object>)ViewBag.BronData).ExpandAll(false).EnableSorting(true)
+                //.FormatSettings(formatsettings => { formatsettings.Name("BronCount").MaximumSignificantDigits(10).MinimumSignificantDigits(1).UseGrouping(true).Add(); formatsettings.Name("s100Amount").MaximumSignificantDigits(10).MinimumSignificantDigits(1).UseGrouping(true).Add(); formatsettings.Name("s0Amount").MaximumSignificantDigits(10).MinimumSignificantDigits(1).UseGrouping(true).Add(); })
+                .Rows(rows => { rows.Name("ProfsoyzNaimenovanie").Add(); rows.Name("Name_San").Add(); rows.Name("Num_Put").Add(); })
+                .Columns(columns => { columns.Name("YEAR_OP").Add(); columns.Name("QUARTER_op").Add(); })
+                .Values(values => { values.Name("BronCount").Caption("Кол-во").Add(); })).ShowFieldList(true).GridSettings(new PivotViewGridSettings { ColumnWidth = 140 }).Render()
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
             <h4 style="padding-left:15px">Задолженность по частичным оплатам</h4>
             <div class="table-responsive box-shadow mb-4" style="padding-left:15px; padding-right:15px">
                 @Html.EJS().PivotView("Zadoljennost").Width("100%").Height("300").DataSource(dataSource => dataSource.Data((IEnumerable<object>)ViewBag.ZadoljennostData).ExpandAll(false).EnableSorting(true)
@@ -99,44 +111,83 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-md-4">
-            <h4 style="text-align:center">Организации</h4>
-
-            <p style="text-align:center">(Платят ЕСП) Всего {{ModelResult.ProfComExists + ModelResult.ProfComNotExists | currency:' '}}</p>
-            <div id="chart_div1" style="margin-bottom:15px">
-                <canvas id="pie" class="chart chart-pie"
-                        chart-data="data1" chart-labels="labels1" chart-options="options"></canvas>
-            </div>
-            <p style="margin-left:90px"><img src="~/Content/Stat/color1.png" /> {{ModelResult.ProfComExists | currency:' '}} - Есть профком</p>
-            <p style="margin-left:90px"><img src="~/Content/Stat/color2.png" /> {{ModelResult.ProfComNotExists | currency:' '}} - Нет профкома</p>
+        <div class="col-md-6" @*style="margin-bottom:15px"*@>
+            @(Html.EJS().AccumulationChart("container1").Series(series =>
+                                    {
+                                        series.DataLabel(dl => dl.Visible(true).Name("text").Position(Syncfusion.EJ2.Charts.AccumulationLabelPosition.Inside).Font(ft => ft.FontWeight("600")))
+                                    .XName("xValue")
+                                    .YName("yValue")
+                                    .Name("Browser")
+                                    .Type(Syncfusion.EJ2.Charts.AccumulationType.Pie)
+                                    .Radius("60%")
+                                    .StartAngle(0)
+                                    .EndAngle(0)
+                                    .InnerRadius("0%")
+                                    .Explode(true)
+                                    .DataSource(ViewBag.PieChartDataSource).Add();
+                                    })
+                                    .EnableAnimation(true)
+                                    .EnableSmartLabels(true)
+                                    .Title("Организации")
+                                    .LegendSettings(ls => ls.Visible(true))
+                                    .Tooltip(tp => tp.Enable(true).Format("${point.x} : <b>${point.y}%</b>"))
+                                    .Load("load").Render())
         </div>
-        <div class="col-md-4">
-            <h4 style="text-align:center">Заявки</h4>
-            <p style="text-align:center">Всего {{ModelResult.ApprovedZayavka + ModelResult.RejectedZayavka + ModelResult.InProgressZayavka | currency:' '}}</p>
-            <div id="chart_div2" style="margin-bottom:15px">
-                <canvas id="pie" class="chart chart-pie"
-                        chart-data="data2" chart-labels="labels2" chart-options="options"></canvas>
-            </div>
-            <p style="margin-left:90px"><img src="~/Content/Stat/color1.png" /> {{ModelResult.ApprovedZayavka | currency:' '}} - Утвержденные</p>
-            <p style="margin-left:90px"><img src="~/Content/Stat/color2.png" /> {{ModelResult.RejectedZayavka | currency:' '}} - Отклонённые</p>
-            <p style="margin-left:90px"><img src="~/Content/Stat/color3.png" /> {{ModelResult.InProgressZayavka | currency:' '}} - На рассмотрении</p>
+        <div class="col-md-6">
+            @(Html.EJS().AccumulationChart("container2").Series(series =>
+                                    {
+                                        series.DataLabel(dl => dl.Visible(true).Name("text").Position(Syncfusion.EJ2.Charts.AccumulationLabelPosition.Inside).Font(ft => ft.FontWeight("600")))
+                                            .XName("xValue")
+                                            .YName("yValue")
+                                            .Name("Browser")
+                                            .Type(Syncfusion.EJ2.Charts.AccumulationType.Pie)
+                                            .Radius("60%")
+                                            .StartAngle(0)
+                                            .EndAngle(0)
+                                            .InnerRadius("0%")
+                                            .Explode(true)
+                                            .DataSource(ViewBag.PieChartZayavki).Add();
+                                    })
+                                        .EnableAnimation(true)
+                                        .EnableSmartLabels(true)
+                                        .Title("Заявки")
+                                        .LegendSettings(ls => ls.Visible(true))
+                                        .Tooltip(tp => tp.Enable(true).Format("${point.x} : <b>${point.y}%</b>"))
+                                        .Load("load").Render())
         </div>
-        <div class="col-md-4">
-            <h4 style="text-align:center">Путевки</h4>
-            <p style="text-align:center">Всего на @userName.CurKvartalYear составило : {{ModelResult.OstatokPutyovkas + ModelResult.RealizedPutyovkas + ModelResult.VozvratPutyovkas | currency:' '}}</p>
-
-            <div id="chart_div3" style="margin-bottom:15px">
-                <canvas id="pie" class="chart chart-pie"
-                        chart-data="data3" chart-labels="labels3" chart-options="options"></canvas>
-            </div>
-            <p style="margin-left:90px"><img src="~/Content/Stat/color1.png" /> {{ModelResult.OstatokPutyovkas | currency:' '}} - Остаток</p>
-            <p style="margin-left:90px"><img src="~/Content/Stat/color2.png" /> {{ModelResult.RealizedPutyovkas | currency:' '}} - Реализованные</p>
-            <p style="margin-left:90px"><img src="~/Content/Stat/color3.png" /> {{ModelResult.VozvratPutyovkas | currency:' '}} - Возврат</p>
+        <div class="col-md-6">
+            @(Html.EJS().AccumulationChart("container3").Series(series =>
+                                    {
+                                        series.DataLabel(dl => dl.Visible(true).Name("text").Position(Syncfusion.EJ2.Charts.AccumulationLabelPosition.Inside).Font(ft => ft.FontWeight("600")))
+                                            .XName("xValue")
+                                            .YName("yValue")
+                                            .Name("Browser")
+                                            .Type(Syncfusion.EJ2.Charts.AccumulationType.Pie)
+                                            .Radius("60%")
+                                            .StartAngle(0)
+                                            .EndAngle(0)
+                                            .InnerRadius("0%")
+                                            .Explode(true)
+                                            .DataSource(ViewBag.PieChartPutyovki).Add();
+                                    })
+                                        .EnableAnimation(true)
+                                        .EnableSmartLabels(true)
+                                        .Title("Путевки")
+                                        .LegendSettings(ls => ls.Visible(true))
+                                        .Tooltip(tp => tp.Enable(true).Format("${point.x} : <b>${point.y}%</b>"))
+                                        .Load("load").Render())
         </div>
 
     </div>
     <div id="chart_div" style="width: 900px; height: 500px;"></div>
     <script>
+        var load = function (args) {
+            var selectedTheme = location.hash.split('/')[1];
+            selectedTheme = selectedTheme ? selectedTheme : 'Material';
+            args.accumulation.theme = (selectedTheme.charAt(0).toUpperCase() + selectedTheme.slice(1));
+            args.accumulation.series[0].explodeOffset = "10%";
+            args.accumulation.series[0].explodeIndex = 0;
+        }
         var flag = 1;
         $('.benefits').click(function () {
             var tbody = $('.tbody');

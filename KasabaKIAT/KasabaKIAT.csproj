@@ -810,6 +810,12 @@
     <Compile Include="Models\sp_rt_Razbivka_Postup_Result1.cs">
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\sp_rt_SvodniyOtchetOrganizationV2_Result.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_rt_SvodniyOtchetV2_Result.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\sp_rt_SvodniyOtchet_Result.cs">
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
@@ -1881,6 +1887,7 @@
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\vendor.js" />
     <Content Include="Scripts\vendor\modernizr.js" />
+    <Content Include="Todo.txt" />
     <Content Include="Views\TipsAndTriks.txt" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -2135,6 +2142,13 @@
     <Content Include="Views\Home\StatOblSovProfV2.cshtml" />
     <Content Include="Views\Home\StatPPOV2.cshtml" />
     <Content Include="Views\Home\StatRayonOtraslV2.cshtml" />
+    <Content Include="Views\Otchot\SvodniyOtchotV2.cshtml" />
+    <Content Include="Views\Shared\EditorTemplate\DateTime.cshtml" />
+    <Content Include="Views\Otchot\OrganizationSummaryV2.cshtml" />
+    <Content Include="Views\PrixodPutevok\OrganizasiiV2.cshtml" />
+    <Content Include="Views\PrixodPutevok\FizLisoV2.cshtml" />
+    <Content Include="Views\GrafikZaezdov\IndexV2.cshtml" />
+    <Content Include="Views\Administirirovaniye\RaspredeleniyeZaezdovV2.cshtml" />
     <None Include="Web References\KurortUrlService\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>

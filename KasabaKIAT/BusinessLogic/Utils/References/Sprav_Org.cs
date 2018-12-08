@@ -447,6 +447,82 @@ namespace KasabaKiat.BusinessLogic.Utils.References
             return list;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="departmentBase"></param>
+        /// <returns></returns>
+        public static List<Sprav_OrgViewModel> GetByDeraprtmentBaseV2(string departmentBase)
+        {
+            List<Sprav_OrgViewModel> list = null;
+
+            using (KasabaKIATEntities db = new KasabaKIATEntities())
+            {
+                var queryRes = from org in db.tblSprav_Org
+                                   //join otras in db.tblSprav_Otras on org.ID_Ot equals otras.ID_Ot
+                                   //join region in db.tblSprav_Reg on org.Region equals region.CodeReg
+                               where org.DepartmentBase == (departmentBase.Equals("17") ? org.DepartmentBase : departmentBase) && org.FACE_TYPE == 0
+                               //&& otras.DepartmentBase == departmentBase
+                               orderby org.Name_Org
+                               select new Sprav_OrgViewModel
+                               {
+                                   ID = org.ID,
+                                   ID_Ot = org.ID_Ot,
+                                   OtraslName = "",//otras.Name_Ot,
+                                   Name_Org = org.Name_Org,
+                                   INN = org.INN,
+                                   RS = org.RS,
+                                   MFO = org.MFO,
+                                   Bank = org.Bank,
+                                   OKONX = org.OKONX,
+                                   Adress = org.Adress,
+                                   Telefon = org.Telefon,
+                                   Region = org.Region,
+                                   RegionName = "",
+                                   DT_OST = org.DT_OST,
+                                   KT_OST = org.KT_OST,
+                                   E_Mail = org.E_Mail,
+                                   UserId = org.UserId,
+                                   IsPravSoyuz = org.IS_PRAVSOYUZ,
+                                   ParentId = org.ParentID,
+                                   PravSoyuzLevel = org.PRAVORGLEVEL,
+                                   Director = org.DIRECTOR,
+                                   Buxgalter = org.BUXGALTER,
+                                   Doverennoe_liso = org.DOVERENNOE_LISO,
+                                   orig_inn = org.ORIG_INN,
+                                   owner_code = org.OWNER_CODE,
+                                   db_bal = org.DB_BAL,
+                                   ct_bal = org.CT_BAL,
+                                   to_depcode = org.TO_DEPCODE
+                               };
+
+                list = queryRes.Take(50000).ToList();
+
+                var otrasList = db.tblSprav_Otras.Where(s => s.DepartmentBase == departmentBase).ToList();
+
+                var regionList = db.tblSprav_Reg.ToList();
+
+                foreach (var org in list)
+                {
+                    var isOtrasExists = otrasList.Where(d => d.ID_Ot == org.ID_Ot);
+
+                    if (isOtrasExists.Any())
+                    {
+                        org.OtraslName = isOtrasExists.First().Name_Ot;
+                    }
+
+                    var isRegionExists = regionList.Where(r => r.CodeReg == org.Region);
+
+                    if (isRegionExists.Any())
+                    {
+                        org.RegionName = isRegionExists.First().NameReg;
+                    }
+                }
+            }
+
+            return list;
+        }
+
 
         /// <summary>
         /// 

@@ -1,0 +1,1 @@
+﻿//Spravochniklarni Xammasini o'zgartirib chiq. sp_branch ga o'xshatib. sp_country xam qilingan

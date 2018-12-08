@@ -12,6 +12,19 @@ using PagedList;
 
 namespace KasabaKIAT.Controllers
 {
+    public class mfo
+    {
+        public string code { get; set; }
+
+        public string name_ru { get; set; }
+
+        public string name_uz { get; set; }
+
+        public string name_uzl { get; set; }
+
+        public DateTime? create_date { get; set; }
+    }
+
     public class tblSprav_MFOController : Controller
     {
         private KasabaKIATEntities db = new KasabaKIATEntities();
@@ -19,9 +32,27 @@ namespace KasabaKIAT.Controllers
         // GET: tblSprav_MFO
         public ActionResult Index(int? page)
         {
-            int pageSize = 15;
-            int pageNumber = (page ?? 1);
-            return View(db.tblSprav_MFO.ToList().ToPagedList(pageNumber, pageSize));
+            //int pageSize = 15;
+            //int pageNumber = (page ?? 1);
+            //return View(db.tblSprav_MFO.ToList().ToPagedList(pageNumber, pageSize));
+
+            var list = new List<mfo>();
+
+            foreach (var obj in db.tblSprav_MFO)
+            {
+                var model = new mfo();
+                model.code = obj.Code_MFO;
+                model.create_date = DateTime.Now;
+                model.name_ru = obj.Name_MFO;
+                model.name_uz = obj.Name_MFO;
+                model.name_uzl = obj.Name_MFO;
+
+                list.Add(model);
+            }
+
+            ViewBag.datasource = list;
+
+            return View();
         }
 
         // GET: tblSprav_MFO/Details/5

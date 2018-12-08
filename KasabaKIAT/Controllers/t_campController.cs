@@ -12,6 +12,19 @@ using PagedList;
 
 namespace KasabaKIAT.Controllers
 {
+    public class camp
+    {
+        public string code { get; set; }
+
+        public string name_ru { get; set; }
+
+        public string name_uz { get; set; }
+
+        public string name_uzl { get; set; }
+
+        public DateTime? create_date { get; set; }
+    }
+
     public class t_campController : Controller
     {
         private KasabaKIATEntities db = new KasabaKIATEntities();
@@ -22,9 +35,27 @@ namespace KasabaKIAT.Controllers
             //var t_camp = db.t_camp.Include(t => t.sp_soato).Include(t => t.sp_soato1).Include(t => t.users).Take(50);
             //return View(t_camp.ToList());
 
-            int pageSize = 15;
-            int pageNumber = (page ?? 1);
-            return View(db.t_camp.ToList().ToPagedList(pageNumber, pageSize));
+            //int pageSize = 15;
+            //int pageNumber = (page ?? 1);
+            //return View(db.t_camp.ToList().ToPagedList(pageNumber, pageSize));
+
+            var list = new List<camp>();
+
+            foreach (var obj in db.t_camp)
+            {
+                var model = new camp();
+                model.code = obj.code;
+                model.create_date = obj.s_create;
+                model.name_ru = obj.camps_organization_name;
+                model.name_uz = obj.camps_address;
+                model.name_uzl = obj.camps_name;
+
+                list.Add(model);
+            }
+
+            ViewBag.datasource = list;
+
+            return View();
         }
 
         // GET: t_camp/Details/5

@@ -1,5 +1,5 @@
 ﻿@model IEnumerable<KasabaKIAT.Models.sp_branch>
-
+@using Syncfusion.EJ2
 @{
     ViewBag.Title = "Справочник Отраслей федерации";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -15,90 +15,21 @@
     </nav>
 </div>
 
-<p>
-    <button style="margin:10px" class="btn btn-white">@Html.ActionLink("Добавить", "Create")</button>
-</p>
-<style>
+@Html.EJS().Grid("branch").DataSource(dataManager => { dataManager.Url("/sp_branch/UrlDatasource").InsertUrl("/sp_branch/Insert").UpdateUrl("/sp_branch/Update").RemoveUrl("/sp_branch/Remove").Adaptor("UrlAdaptor"); }).AllowExcelExport().ToolbarClick("toolbarClick").Columns(col=> {
+    col.Field("id").HeaderText("ID").Width("10").IsPrimaryKey(true).AllowEditing(false).DefaultValue("1").Add();
+    col.Field("code").HeaderText("Код").Width("10").Add();
+    col.Field("create_date").HeaderText("Дата создания").Width("10").AllowEditing(false).Add();
+    col.Field("name_ru").HeaderText("Название_Ру").Width("40").Add();
+    col.Field("name_uz").HeaderText("Название_Уз").Width("40").Add();
+    col.Field("name_uzl").HeaderText("Название_Узл").Width("40").Add();
+}).AllowPaging().PageSettings(page=>page.PageCount(5)).EditSettings(edit => { edit.AllowAdding(true).AllowEditing(true).AllowDeleting(true).ShowDeleteConfirmDialog(true).Mode(Syncfusion.EJ2.Grids.EditMode.Dialog);}).Toolbar(new List<string>
+    () { "Add", "Edit", "Delete", "ExcelExport" }).Render()
 
-    td, th{
-        vertical-align: middle !important;
-        text-align: center;
-    };
-    
-</style>
-<table class="table" style="margin:10px">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.version)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.code)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.s_comment)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.s_create)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.s_status)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.name_ru)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.name_uz)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.name_uzl)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.NATIVE_ID)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.users.email)
-        </th>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.version)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.code)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.s_comment)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.s_create)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.s_status)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.name_ru)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.name_uz)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.name_uzl)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.NATIVE_ID)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.users.email)
-        </td>
-        <td>
-            @Html.ActionLink("Изменить", "Edit", new { id=item.id }) |
-            @Html.ActionLink("Детали", "Details", new { id=item.id }) |
-            @Html.ActionLink("Удалить", "Delete", new { id=item.id })
-        </td>
-    </tr>
-}
-
-</table>
+<script>
+    function toolbarClick(args) {
+        var gridObj = document.getElementById("branch").ej2_instances[0];
+        if (args.item.id === 'branch_excelexport') {
+            gridObj.excelExport();
+        }
+    }
+</script>

@@ -12,6 +12,19 @@ using PagedList;
 
 namespace KasabaKIAT.Controllers
 {
+    public class otras
+    {
+        public string code { get; set; }
+
+        public string name_ru { get; set; }
+
+        public string name_uz { get; set; }
+
+        public string name_uzl { get; set; }
+
+        public DateTime? create_date { get; set; }
+    }
+
     public class tblSprav_OtrasController : Controller
     {
         private KasabaKIATEntities db = new KasabaKIATEntities();
@@ -22,9 +35,27 @@ namespace KasabaKIAT.Controllers
             //var tblSprav_Otras = db.tblSprav_Otras.Include(t => t.users).Take(50);
             //return View(tblSprav_Otras.ToList());
 
-            int pageSize = 15;
-            int pageNumber = (page ?? 1);
-            return View(db.tblSprav_Otras.ToList().ToPagedList(pageNumber, pageSize));
+            //int pageSize = 15;
+            //int pageNumber = (page ?? 1);
+            //return View(db.tblSprav_Otras.ToList().ToPagedList(pageNumber, pageSize));
+
+            var list = new List<otras>();
+
+            foreach (var obj in db.tblSprav_Otras)
+            {
+                var model = new otras();
+                model.code = obj.ID_Ot.Value.ToString();
+                model.create_date = DateTime.Now;
+                model.name_ru = obj.Name_Ot;
+                model.name_uz = obj.Name_Ot;
+                model.name_uzl = obj.Name_Ot;
+
+                list.Add(model);
+            }
+
+            ViewBag.datasource = list;
+
+            return View();
         }
 
         // GET: tblSprav_Otras/Details/5

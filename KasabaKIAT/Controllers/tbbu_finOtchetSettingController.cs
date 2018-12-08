@@ -13,6 +13,18 @@ using PagedList;
 
 namespace KasabaKIAT.Controllers
 {
+    public class finOtchetSetting
+    {
+            public int otchet_part	    {get; set;}
+            public string code	            {get; set;}
+            public string debit_side	    {get; set;}
+            public string credit_side	    {get; set;}
+            public string account_code	    {get; set;}
+            public int? data_type	        {get; set;}
+            public string data_desc	        {get; set;}
+            public string department_base { get; set; }
+    }
+
     public class tbbu_finOtchetSettingController : Controller
     {
         private KasabaKIATEntities db = new KasabaKIATEntities();
@@ -22,9 +34,30 @@ namespace KasabaKIAT.Controllers
         {
             //return View(await db.tbbu_finOtchetSetting.ToListAsync());
 
-            int pageSize = 15;
-            int pageNumber = (page ?? 1);
-            return View(db.tbbu_finOtchetSetting.ToListAsync().Result.ToPagedList(pageNumber, pageSize));
+            //int pageSize = 15;
+            //int pageNumber = (page ?? 1);
+            //return View(db.tbbu_finOtchetSetting.ToListAsync().Result.ToPagedList(pageNumber, pageSize));
+
+            var list = new List<finOtchetSetting>();
+
+            foreach (var obj in db.tbbu_finOtchetSetting)
+            {
+                var model = new finOtchetSetting();
+                model.otchet_part	    = obj.OTCHET_PART	   ;  
+                model.code	            = obj.CODE	           ;
+                model.debit_side	    = obj.DEBIT_SIDE	   ;
+                model.credit_side	    = obj.CREDIT_SIDE	   ;
+                model.account_code	    = obj.ACCOUNT_CODE	   ;
+                model.data_type	        = obj.DATA_TYPE	       ;
+                model.data_desc	        = obj.DATA_DESC	       ;
+                model.department_base = obj.DEPARTMENT_BASE;
+
+                list.Add(model);
+            }
+
+            ViewBag.datasource = list;
+
+            return View();
         }
 
         // GET: tbbu_finOtchetSetting/Details/5

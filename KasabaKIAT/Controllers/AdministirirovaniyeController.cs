@@ -792,7 +792,7 @@ namespace KasabaKIAT.Controllers
         /// External Api Load Grafik Sanatoriev
         /// </summary>
         /// <param name="yil">Year</param>
-        public void ServiceGrafikSanatoryZaezdov(string yil)
+        public ActionResult ServiceGrafikSanatoryZaezdov(string yil)
         {
             log.Info("ServiceGrafikSanatoryZaezdov");
             log.Info("yil = " + yil);
@@ -800,11 +800,40 @@ namespace KasabaKIAT.Controllers
             try
             {
                 service.LoadZaezdovSanatoriev(yil);
+
+                ViewBag.dataSource = GetGrafikSanatoryZaezdov(int.Parse(yil));
             }
             catch (Exception ex)
             {
                 log.Error(ex);
             }
+
+            return View("~/GrafikZaezdov/indexV2");
+        }
+
+        class GrafikZaezdovOut
+        {
+            public string   SanatoryNaimenovanie            { get; set; }
+
+            public string   SanatoryProfil                  { get; set; }
+
+            public string   SanatoryOblast                  { get; set; }
+
+            public int?     SanatoryKoekVsego               { get; set; }
+
+            public int?     SanatoryKoekLetom               { get; set; }
+
+            public int?     SanatoryKoekZimoy               { get; set; }
+
+            public string   SanatoryRazmeshenieNaimenovanie { get; set; }
+
+            public int?     Putevok1kv                      { get; set; }
+
+            public int?     Putevok2kv                      { get; set; }
+
+            public int?     Putevok3kv                      { get; set; }
+
+            public int?     Putevok4kv                      { get; set; }
         }
 
         /// <summary>
@@ -813,7 +842,7 @@ namespace KasabaKIAT.Controllers
         /// <param name="yil">Year</param>
         /// <returns></returns>
         [OutputCache(Duration = 5, Location = OutputCacheLocation.Client, VaryByParam = "yil", VaryByCustom = "userId")]
-        public JsonResult GetGrafikSanatoryZaezdov(int yil)
+        private List<GrafikZaezdovOut> GetGrafikSanatoryZaezdov(int yil)
         {
 
             log.Info("GetGrafikSanatoryZaezdov");
@@ -823,21 +852,22 @@ namespace KasabaKIAT.Controllers
             {
                 var O = from o in KasabaDB.tbku_GrafikZaezdovSanatoriev
                         where o.GodZaezdov == yil
-                        select new
+                        select new GrafikZaezdovOut
                         {
-                            d1 = o.SanatoryNaimenovanie,
-                            d2 = o.SanatoryProfil,
-                            d3 = o.SanatoryOblast,
-                            d4 = o.SanatoryKoekVsego,
-                            d5 = o.SanatoryKoekLetom,
-                            d6 = o.SanatoryKoekZimoy,
-                            d7 = o.SanatoryRazmeshenieNaimenovanie,
-                            d8 = o.Putevok1kv,
-                            d9 = o.Putevok2kv,
-                            d10 = o.Putevok3kv,
-                            d11 = o.Putevok4kv
+                            SanatoryNaimenovanie = o.SanatoryNaimenovanie,
+                            SanatoryProfil = o.SanatoryProfil,
+                            SanatoryOblast = o.SanatoryOblast,
+                            SanatoryKoekVsego = o.SanatoryKoekVsego,
+                            SanatoryKoekLetom = o.SanatoryKoekLetom,
+                            SanatoryKoekZimoy = o.SanatoryKoekZimoy,
+                            SanatoryRazmeshenieNaimenovanie = o.SanatoryRazmeshenieNaimenovanie,
+                            Putevok1kv = o.Putevok1kv,
+                            Putevok2kv = o.Putevok2kv,
+                            Putevok3kv = o.Putevok3kv,
+                            Putevok4kv = o.Putevok4kv
                         };
-                return Json(O.ToList(), JsonRequestBehavior.AllowGet);
+
+                return O.ToList();
             }
             catch(Exception ex)
             {

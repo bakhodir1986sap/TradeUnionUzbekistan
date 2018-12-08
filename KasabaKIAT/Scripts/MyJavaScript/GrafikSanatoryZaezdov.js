@@ -5,7 +5,7 @@
     function GetData(yil) {
         $http({
             method: "post",
-            url: "/Administirirovaniye/GetGrafikSanatoryZaezdov?yil="+yil,
+            url: "/Administirirovaniye/GetGrafikSanatoryZaezdov?yil="+yil
         }).then(function (d) {
             $scope.DATA = d.data;
             if (d.data.length !== 0) {
@@ -21,7 +21,7 @@
     function Load(yil) {
         $http({
             method: "post",
-            url: "/Administirirovaniye/ServiceGrafikSanatoryZaezdov?yil="+yil,
+            url: "/Administirirovaniye/ServiceGrafikSanatoryZaezdov?yil="+yil
         }).then(function (d) {
             document.getElementById('connection').style.visibility = "hidden";
             $("#hh").modal('hide');
@@ -33,7 +33,6 @@
     }
     $scope.LoadDATA = function () {
         $("#hh").modal({
-            backdrop: 'static',
             backdrop: 'static'
         });
         reset();

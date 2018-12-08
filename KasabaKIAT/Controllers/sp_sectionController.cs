@@ -10,6 +10,19 @@ using KasabaKIAT.Models;
 
 namespace KasabaKIAT.Controllers
 {
+    public class section
+    {
+        public string code { get; set; }
+
+        public string name_ru { get; set; }
+
+        public string name_uz { get; set; }
+
+        public string name_uzl { get; set; }
+
+        public DateTime? create_date { get; set; }
+    }
+
     public class sp_sectionController : Controller
     {
         private KasabaKIATEntities db = new KasabaKIATEntities();
@@ -17,8 +30,26 @@ namespace KasabaKIAT.Controllers
         // GET: sp_section
         public ActionResult Index()
         {
-            var sp_section = db.sp_section.Include(s => s.users).Take(50);
-            return View(sp_section.ToList());
+            //var sp_section = db.sp_section.Include(s => s.users).Take(50);
+            //return View(sp_section.ToList());
+
+            var list = new List<section>();
+
+            foreach (var obj in db.sp_section)
+            {
+                var model = new section();
+                model.code = obj.id.ToString();
+                model.create_date = obj.s_create;
+                model.name_ru = obj.name_ru;
+                model.name_uz = obj.name_uz;
+                model.name_uzl = obj.name_uzl;
+
+                list.Add(model);
+            }
+
+            ViewBag.datasource = list;
+
+            return View();
         }
 
         // GET: sp_section/Details/5

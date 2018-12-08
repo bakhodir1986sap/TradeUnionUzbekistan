@@ -1,6 +1,7 @@
 ﻿@model PagedList.IPagedList<KasabaKIAT.Models.sp_country>
 @using PagedList.Mvc;
-<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+@using Syncfusion.EJ2
+@*<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />*@
 @{
     /**/
 
@@ -18,106 +19,21 @@
     </nav>
 </div>
 
-<p>
-    <button style="margin:10px" class="btn btn-white">@Html.ActionLink("Добавить", "Create")</button>
-</p>
-<table class="table">
-    <tr>
-        <th>
-            "version"
-        </th>
-        <th>
-            "code"
-        </th>
-        <th>
-            "s_comment"
-        </th>
-        <th>
-            "s_create"
-        </th>
-        <th>
-            "s_status"
-        </th>
-        <th>
-            "name_ru"
-        </th>
-        <th>
-            "name_uz"
-        </th>
-        <th>
-            "name_uzl"
-        </th>
-        <th>
-            "name_short_ru"
-        </th>
-        <th>
-            "name_short_uz"
-        </th>
-        <th>
-            "name_short_uzl"
-        </th>
-        <th>
-            "NATIVE_ID"
-        </th>
-        <th>
-            "users"
-        </th>
-        <th></th>
-    </tr>
+@Html.EJS().Grid("country").DataSource(dataManager => { dataManager.Url("/sp_country/UrlDatasource").InsertUrl("/sp_country/Insert").UpdateUrl("/sp_country/Update").RemoveUrl("/sp_country/Remove").Adaptor("UrlAdaptor"); }).AllowExcelExport().ToolbarClick("toolbarClick").Columns(col=> {
+    col.Field("id").HeaderText("ID").Width("10").IsPrimaryKey(true).AllowEditing(false).DefaultValue("1").Add();
+    col.Field("code").HeaderText("Код").Width("10").Add();
+    col.Field("create_date").HeaderText("Дата создания").Width("10").AllowEditing(false).Add();
+    col.Field("name_ru").HeaderText("Название_Ру").Width("40").Add();
+    col.Field("name_uz").HeaderText("Название_Уз").Width("40").Add();
+    col.Field("name_uzl").HeaderText("Название_Узл").Width("40").Add();
+}).AllowPaging().PageSettings(page=>page.PageCount(5)).EditSettings(edit => { edit.AllowAdding(true).AllowEditing(true).AllowDeleting(true).ShowDeleteConfirmDialog(true).Mode(Syncfusion.EJ2.Grids.EditMode.Dialog);}).Toolbar(new List<string>
+    () { "Add", "Edit", "Delete", "ExcelExport" }).Render()
 
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.version)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.code)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.s_comment)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.s_create)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.s_status)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.name_ru)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.name_uz)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.name_uzl)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.name_short_ru)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.name_short_uz)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.name_short_uzl)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.NATIVE_ID)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.users.email)
-            </td>
-            <td>
-                @Html.ActionLink("Изменить", "Edit", new { id = item.id }) |
-                @Html.ActionLink("Детали", "Details", new { id = item.id }) |
-                @Html.ActionLink("Удалить", "Delete", new { id = item.id })
-            </td>
-        </tr>
+<script>
+    function toolbarClick(args) {
+        var gridObj = document.getElementById("country").ej2_instances[0];
+        if (args.item.id === 'country_excelexport') {
+            gridObj.excelExport();
+        }
     }
-
-</table>
-
-<br />
-Страница @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) из @Model.PageCount
-
-@Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+</script>

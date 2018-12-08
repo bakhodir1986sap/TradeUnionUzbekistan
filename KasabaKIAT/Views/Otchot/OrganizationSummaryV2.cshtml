@@ -1,0 +1,33 @@
+﻿@{
+    ViewBag.Title = "Отчеты";
+}
+@using Syncfusion.EJ2
+@using Syncfusion.EJ2.PivotView
+<script src="~/Scripts/MyJavaScript/RazbivkaPostupleniya.js"></script>
+<div ng-controller="RazbivkaPostupleniya">
+    <div id="connection" style="visibility:hidden;position:absolute;margin-left:600px;margin-top:100px;z-index:9999">
+        <img src="~/Content/Login/buffering.gif" />
+    </div>
+    <section class="content__block container-fluid">
+        <div class="row mb-4 align-items-center">
+            <div class="col title__block">
+                <h4>Организации сводная</h4>
+                <nav aria-label="breadcrumb" class="breadcrumb__block">
+                    <ol class="breadcrumb">
+                        @*<li class="breadcrumb-item load"><a href="/Home/Otchot">Отчеты</a></li>*@
+                        <li class="breadcrumb-item load"><a href="/Otchot/OtchetTitul">Отчеты</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Организации сводная</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+        @Html.EJS().PivotView("SvodniyPoOrganiz").Width("100%").Height("300").DataSource(dataSource => dataSource.Data((IEnumerable<object>)ViewBag.DateSource).ExpandAll(false).EnableSorting(true)
+        //.FormatSettings(formatsettings => { formatsettings.Name("OblSovProvAmount").MaximumSignificantDigits(10).MinimumSignificantDigits(1).UseGrouping(true).Add(); })
+        .Rows(rows => { rows.Name("ProfsoyzNaimenovanie").Add(); rows.Name("Name_Ot").Add(); rows.Name("Name_Org").Add(); })
+        .Columns(columns => { columns.Name("CountP").Caption("Кол-во").Add(); })
+        .Values(values => { values.Name("CountP").Caption("Кол-во").Add(); })).ShowFieldList(true).GridSettings(new PivotViewGridSettings { ColumnWidth = 140 }).Render()
+    </section>
+</div>
+
+
+

@@ -5,6 +5,7 @@
     var UserId = Convert.ToInt32(User.Identity.Name);
     var userName = UserInfo.GetUserInfo(UserId);
     FunctionalityList List = FunctionalityAndDbDataMatch.MatchProcess(UserId);
+    
 }
 <!DOCTYPE html>
 <html ng-app="mvcCRUDApp" class="no-js" lang="ru">
@@ -77,7 +78,7 @@
                             <div class="dropdown-menu rounded-0 box-shadow m-0 border-0" aria-labelledby="tours">
                                 @if (List.GrafikZaezdov)
                                 {
-                                    <a class="dropdown-item load" href="/GrafikZaezdov/index">@ContentData.GrafikZaezdov</a>
+                                    <a class="dropdown-item load" href="/GrafikZaezdov/indexV2">@ContentData.GrafikZaezdov</a>
                                 }
                                 @if (List.GodovoyPlanPutyovok)
                                 {
@@ -186,8 +187,24 @@
                         <li class="nav-item dropdown" id="a">
                             <a class="nav-link dropdown-toggle" href="/Home/Admin" id="spravochniki" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">@ContentData.NCI</a>
                             <div class="dropdown-menu rounded-0 box-shadow m-0 border-0" aria-labelledby="administration">
-                                <a class="dropdown-item load" href="/PrixodPutevok/Organizasii">@ContentData.BazaDannixOrganizasiy</a>
-                                <a class="dropdown-item load" href="/PrixodPutevok/FizLiso">@ContentData.BazaDannixFizLis</a>
+                                @if (List.RoleId == 14)
+                                {
+                                    <a class="dropdown-item load" href="/PrixodPutevok/OrganizasiiV2">@ContentData.BazaDannixOrganizasiy</a>
+                                }
+                                else
+                                {
+                                    <a class="dropdown-item load" href="/PrixodPutevok/Organizasii">@ContentData.BazaDannixOrganizasiy</a>
+                                }
+
+                                @if (List.RoleId == 14)
+                                {
+                                    <a class="dropdown-item load" href="/PrixodPutevok/FizLisoV2">@ContentData.BazaDannixFizLis</a>
+                                }
+                                else
+                                {
+                                    <a class="dropdown-item load" href="/PrixodPutevok/FizLiso">@ContentData.BazaDannixFizLis</a>
+                                }
+
                                 <a class="dropdown-item load" href="/Administirirovaniye/Spravichniki">@ContentData.Spravochniki</a>
                             </div>
                         </li>

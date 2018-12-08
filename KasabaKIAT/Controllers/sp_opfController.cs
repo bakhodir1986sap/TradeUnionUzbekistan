@@ -12,6 +12,19 @@ using PagedList;
 
 namespace KasabaKIAT.Controllers
 {
+    public class opf
+    {
+        public string code { get; set; }
+
+        public string name_ru { get; set; }
+
+        public string name_uz { get; set; }
+
+        public string name_uzl { get; set; }
+
+        public DateTime? create_date { get; set; }
+    }
+
     public class sp_opfController : Controller
     {
         private KasabaKIATEntities db = new KasabaKIATEntities();
@@ -22,9 +35,26 @@ namespace KasabaKIAT.Controllers
             //var sp_opf = db.sp_opf.Include(s => s.sp_opf2).Include(s => s.users).Take(50);
             //return View(sp_opf.ToList());
 
-            int pageSize = 15;
-            int pageNumber = (page ?? 1);
-            return View(db.sp_opf.ToList().ToPagedList(pageNumber, pageSize));
+            var list = new List<opf>();
+
+            foreach (var obj in db.sp_opf)
+            {
+                var model = new opf();
+                model.code = obj.code;
+                model.create_date = obj.s_create;
+                model.name_ru = obj.name_ru;
+                model.name_uz = obj.name_uz;
+                model.name_uzl = obj.name_uzl;
+
+                list.Add(model);
+            }
+
+            ViewBag.datasource = list;
+
+            return View();
+            //int pageSize = 15;
+            //int pageNumber = (page ?? 1);
+            //return View(db.sp_opf.ToList().ToPagedList(pageNumber, pageSize));
         }
 
         // GET: sp_opf/Details/5

@@ -26,14 +26,13 @@
     function LoadDATA(s,b,bg,end) {
         document.getElementById('connection').style.visibility = "visible";
         $("#hh").modal({
-            backdrop: 'static',
             backdrop: 'static'
         });
         $http({
             method: 'POST',
             url: "/Otchot/GetRazbivkaPostupleniya?s=" + s + "&b=" + b + "&bg=" + bg.toISOString() + "&end=" + end.toISOString(),
         }).then(function (d) {
-            if (d.data.length != 0) {
+            if (d.data.length !== 0) {
                 $scope.q = d.data.length;
                 $scope.showdata = true;
             } else {
@@ -54,14 +53,13 @@
     function LoadDATA_N(s, bg) {
         document.getElementById('connection').style.visibility = "visible";
         $("#hh").modal({
-            backdrop: 'static',
             backdrop: 'static'
         });
         $http({
             method: 'POST',
             url: "/Otchot/GetRazbivkaPostupleniyaN?payType=" + s + "&bg=" + bg.toISOString() ,
         }).then(function (d) {
-            if (d.data.length != 0) {
+            if (d.data.length !== 0) {
                 $scope.q = d.data.length;
                 $scope.showdata = true;
             } else {
@@ -83,14 +81,13 @@
     function LoadDATA_O() {
         document.getElementById('connection').style.visibility = "visible";
         $("#hh").modal({
-            backdrop: 'static',
             backdrop: 'static'
         });
         $http({
             method: 'POST',
-            url: "/Otchot/GetOrganizationSummary",
+            url: "/Otchot/GetOrganizationSummary"
         }).then(function (d) {
-            if (d.data.length != 0) {
+            if (d.data.length !== 0) {
                 $scope.q = d.data.length;
                 $scope.showdata = true;
             } else {

@@ -617,7 +617,7 @@
         var isDelated = false;
 
         for (var i = 0, l = $scope.SelectedPutyovkas.length; i < l; ++i) {
-            var value = $scope.SelectedPutyovkas[i];
+            var value = $scope.SelectedPutyovkas[i2];
 
             if (dtl === value) {
                 $scope.SelectedPutyovkas.splice($scope.SelectedPutyovkas.indexOf(value), 1);
@@ -632,9 +632,9 @@
 
         console.log('====================================================');
 
-        for (var i = 0, l = $scope.SelectedPutyovkas.length; i < l; ++i) {
-            var value = $scope.SelectedPutyovkas[i];
-            console.log('tutuud: ' + value);
+        for (var i2 = 0, l2 = $scope.SelectedPutyovkas.length; i2 < l2; ++i2) {
+            var value2 = $scope.SelectedPutyovkas[i2];
+            console.log('tutuud: ' + value2);
         }
     }
 
@@ -777,9 +777,9 @@
         $scope.SelectedPutyovkaCount = $scope.SelectedPutyovka.length;
         console.log('====================================================');
 
-        for (var i = 0, l = $scope.SelectedPutyovka.length; i < l; ++i) {
-            var value = $scope.SelectedPutyovka[i];
-            console.log('putyovka: ' + value);
+        for (var i2 = 0, l2 = $scope.SelectedPutyovka.length; i2 < l2; ++i2) {
+            var value2 = $scope.SelectedPutyovka[i2];
+            console.log('putyovka: ' + value2);
         }
     }
 
@@ -1100,9 +1100,9 @@
 
         console.log('====================================================');
 
-        for (var i = 0, l = $scope.SelectedOrganizationL.length; i < l; ++i) {
-            var value = $scope.SelectedOrganizationL[i];
-            console.log('orgorg: ' + value);
+        for (var i2 = 0, l2 = $scope.SelectedOrganizationL.length; i2 < l2; ++i) {
+            var value2 = $scope.SelectedOrganizationL[i2];
+            console.log('orgorg: ' + value2);
         }
     }
 

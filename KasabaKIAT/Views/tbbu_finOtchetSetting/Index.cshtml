@@ -1,94 +1,118 @@
 ﻿@model PagedList.IPagedList<KasabaKIAT.Models.tbbu_finOtchetSetting>
 @using PagedList.Mvc;
-<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+@using Syncfusion.EJ2
 
 @{
     ViewBag.Title = "Справочник Финансового отчета";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+@Html.EJS().Grid("branch").DataSource((IEnumerable<object>)ViewBag.dataSource).AllowSorting().AllowPdfExport().ToolbarClick("toolbarClick").Columns(col=> {
+    col.Field("otchet_part").HeaderText("otchet_part").Width("10").Add();
+    col.Field("code").HeaderText("code").Width("10").Add();
+    col.Field("debit_side").HeaderText("debit_side").Width("10").Add();
 
-<style>
+    col.Field("credit_side").HeaderText("credit_side").Width("10").Add();
+    col.Field("account_code").HeaderText("account_code").Width("10").Add();
 
-    td, th {
-        vertical-align: middle !important;
-    }
+    col.Field("data_type").HeaderText("data_type").Width("40").Add();
+    col.Field("data_desc").HeaderText("data_desc").Width("40").Add();
+    col.Field("department_base").HeaderText("department_base").Width("40").Add();
+    //col.Field("NATIVE_ID").HeaderText("NATIVE_ID").Width("10").Add();
+    //col.Field("email").HeaderText("Юзер").Width("10").Add();
+}).AllowPaging().AllowFiltering().AllowResizing().PageSettings(page=>page.PageCount(5)).EditSettings(edit => { edit.AllowAdding(true).AllowEditing(true).AllowDeleting(true).Mode(Syncfusion.EJ2.Grids.EditMode.Dialog);}).Toolbar(new List<string>() { "Add", "Edit", "Delete", "PdfExport" }).Render()
 
-    ;
-</style>
-<p>
-    <button style="margin:10px" class="btn btn-white">@Html.ActionLink("Добавить", "Create")</button>
-</p>
-<table class="table">
-    <tr>
-        <th>
-            "OTCHET_PART"
-        </th>
-        <th>
-            "CODE"
-        </th>
-        <th>
-            "DEBIT_SIDE"
-        </th>
-        <th>
-            "CREDIT_SIDE"
-        </th>
-        <th>
-            "ACCOUNT_CODE"
-        </th>
-        <th>
-            "DATA_TYPE"
-        </th>
-        <th>
-            "DATA_DESC"
-        </th>
-        <th>
-            "DEPARTMENT_BASE"
-        </th>
-        <th>
-            "USR_ID"
-        </th>
-        <th></th>
-    </tr>
+@*<style>
 
-    @foreach (var item in Model)
-    {
+        td, th {
+            vertical-align: middle !important;
+        }
+
+        ;
+    </style>
+    <p>
+        <button style="margin:10px" class="btn btn-white">@Html.ActionLink("Добавить", "Create")</button>
+    </p>
+    <table class="table">
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.OTCHET_PART)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CODE)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DEBIT_SIDE)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CREDIT_SIDE)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ACCOUNT_CODE)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DATA_TYPE)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DATA_DESC)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DEPARTMENT_BASE)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.USR_ID)
-            </td>
-            <td>
-                @Html.ActionLink("Изменить", "Edit", new { id = item.REC_ID }) |
-                @Html.ActionLink("Детали", "Details", new { id = item.REC_ID }) |
-                @Html.ActionLink("Удалить", "Delete", new { id = item.REC_ID })
-            </td>
+            <th>
+                "OTCHET_PART"
+            </th>
+            <th>
+                "CODE"
+            </th>
+            <th>
+                "DEBIT_SIDE"
+            </th>
+            <th>
+                "CREDIT_SIDE"
+            </th>
+            <th>
+                "ACCOUNT_CODE"
+            </th>
+            <th>
+                "DATA_TYPE"
+            </th>
+            <th>
+                "DATA_DESC"
+            </th>
+            <th>
+                "DEPARTMENT_BASE"
+            </th>
+            <th>
+                "USR_ID"
+            </th>
+            <th></th>
         </tr>
-    }
 
-</table>
-Страница @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) из @Model.PageCount
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.OTCHET_PART)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CODE)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DEBIT_SIDE)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CREDIT_SIDE)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ACCOUNT_CODE)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DATA_TYPE)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DATA_DESC)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DEPARTMENT_BASE)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.USR_ID)
+                </td>
+                <td>
+                    @Html.ActionLink("Изменить", "Edit", new { id = item.REC_ID }) |
+                    @Html.ActionLink("Детали", "Details", new { id = item.REC_ID }) |
+                    @Html.ActionLink("Удалить", "Delete", new { id = item.REC_ID })
+                </td>
+            </tr>
+        }
 
-@Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+    </table>
+    Страница @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) из @Model.PageCount
+
+    @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))*@
+
+<script>
+        function toolbarClick(args) {
+            var gridObj = document.getElementById("Grid").ej2_instances[0];
+            if (args.item.id === 'Grid_pdfexport') {
+                gridObj.pdfExport();
+            }
+        }
+</script>
+

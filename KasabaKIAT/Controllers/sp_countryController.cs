@@ -12,6 +12,21 @@ using PagedList;
 
 namespace KasabaKIAT.Controllers
 {
+    public class countries
+    {
+        public long id { get; set; }
+
+        public string code { get; set; }
+
+        public string name_ru { get; set; }
+
+        public string name_uz { get; set; }
+
+        public string name_uzl { get; set; }
+
+        public string create_date { get; set; }
+    }
+
     public class sp_countryController : Controller
     {
         private KasabaKIATEntities db = new KasabaKIATEntities();
@@ -19,12 +34,79 @@ namespace KasabaKIAT.Controllers
         // GET: sp_country
         public ActionResult Index(int? page)
         {
-            //var sp_country = db.sp_country.Include(s => s.users).Take(50);
-            //return View(sp_country.ToList());
+            return View();
+        }
 
-            int pageSize = 15;
-            int pageNumber = (page ?? 1);
-            return View(db.sp_country.ToList().ToPagedList(pageNumber, pageSize));
+        public JsonResult UrlDatasource()
+        {
+            var list = new List<countries>();
+
+            foreach (var obj in db.sp_country.ToList())
+            {
+                var model = new countries();
+                model.id = obj.id;
+                model.code = obj.code;
+                model.create_date = obj.s_create.Value.ToString("dd.MM.yyyy");
+                model.name_ru = obj.name_ru;
+                model.name_uz = obj.name_uz;
+                model.name_uzl = obj.name_uzl;
+
+                list.Add(model);
+            }
+
+            if (db.sp_country.Count() == 0) Json(new { result = db.sp_country.ToList(), count = 0 });
+
+            return Json(new { result = list, count = list.Count }, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult Insert([System.Web.Http.FromBody]branches value)
+        {
+            //Insert record in database .
+
+            var objInsert = new sp_country();
+            objInsert.version = 0;
+            objInsert.code = value.code;
+            objInsert.name_ru = value.name_ru;
+            objInsert.name_uz = value.name_uz;
+            objInsert.name_uzl = value.name_uzl;
+            objInsert.s_create = DateTime.Now;
+
+            db.sp_country.Add(objInsert);
+            db.SaveChanges();
+
+            return Json(value, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult Update([System.Web.Http.FromBody]branches value)
+        {
+            //update record in database .
+            if (value == null) return null;
+
+            var ObjUpdate = db.sp_country.First(z => z.id == value.id);
+
+            ObjUpdate.version = 0;
+            ObjUpdate.code = value.code;
+            ObjUpdate.name_ru = value.name_ru;
+            ObjUpdate.name_uz = value.name_uz;
+            ObjUpdate.name_uzl = value.name_uzl;
+
+            db.SaveChanges();
+
+            return Json(value, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult Remove([System.Web.Http.FromBody]long key)
+        {
+            //Delete record in database 
+
+            if (key == 0) return null;
+
+            var ObjDelete = db.sp_country.First(z => z.id == key);
+
+            db.sp_country.Remove(ObjDelete);
+            db.SaveChanges();
+
+            return RedirectToAction("Index");
         }
 
         // GET: sp_country/Details/5

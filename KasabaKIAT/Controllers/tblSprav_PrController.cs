@@ -10,6 +10,19 @@ using KasabaKIAT.Models;
 
 namespace KasabaKIAT.Controllers
 {
+    public class procent
+    {
+        public string code { get; set; }
+
+        public string name_ru { get; set; }
+
+        public string name_uz { get; set; }
+
+        public string name_uzl { get; set; }
+
+        public DateTime? create_date { get; set; }
+    }
+
     public class tblSprav_PrController : Controller
     {
         private KasabaKIATEntities db = new KasabaKIATEntities();
@@ -17,8 +30,26 @@ namespace KasabaKIAT.Controllers
         // GET: tblSprav_Pr
         public ActionResult Index()
         {
-            var tblSprav_Pr = db.tblSprav_Pr.Include(t => t.users).Take(50);
-            return View(tblSprav_Pr.ToList());
+            //var tblSprav_Pr = db.tblSprav_Pr.Include(t => t.users).Take(50);
+            //return View(tblSprav_Pr.ToList());
+
+            var list = new List<procent>();
+
+            foreach (var obj in db.tblSprav_Pr)
+            {
+                var model = new procent();
+                model.code = obj.ID.ToString();
+                model.create_date = DateTime.Now;
+                model.name_ru = obj.Name_Proc;
+                model.name_uz = obj.Name_Proc;
+                model.name_uzl = obj.Name_Proc;
+
+                list.Add(model);
+            }
+
+            ViewBag.datasource = list;
+
+            return View();
         }
 
         // GET: tblSprav_Pr/Details/5

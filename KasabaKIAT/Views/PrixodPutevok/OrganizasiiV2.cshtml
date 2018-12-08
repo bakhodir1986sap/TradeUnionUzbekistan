@@ -1,0 +1,50 @@
+﻿@using KasabaKIAT.BusinessLogic.Security.Roles.RolePermissions;
+@using Syncfusion.EJ2
+@{
+    ViewBag.Title = "Организации";
+    var UserId = Convert.ToInt32(User.Identity.Name);
+    FunctionalityList List = FunctionalityAndDbDataMatch.MatchProcess(UserId);
+}
+
+<div id="connection" style="visibility:hidden;position:absolute;margin-left:430px;z-index:9999">
+    <img src="~/Content/Login/buffering.gif" />
+</div>
+@if (List.UpravleniyaSpravochnikami)
+{
+    <div>
+        <section class="content__block container-fluid">
+            <div class="row mb-4 align-items-center">
+                <div class="col-sm-6 title__block">
+                    <h4>База данных организаций</h4>
+                    <nav aria-label="breadcrumb" class="breadcrumb__block">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item active" aria-current="page">Справочник Организаций</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+            @Html.EJS().Grid("organization").DataSource((IEnumerable<object>)ViewBag.dataSource).AllowExcelExport().ToolbarClick("toolbarClick").Columns(col=> {
+           col.Field("OtraslName").HeaderText("Отрасль").Width("30").IsPrimaryKey(true).AllowEditing(false).DefaultValue("1").Add();
+           col.Field("Name_Org").HeaderText("Название организации").Width("50").Add();
+           col.Field("INN").HeaderText("ИНН Профкома").Width("9").AllowEditing(false).Add();
+           col.Field("RS").HeaderText("Расчетный счет").Width("20").Add();
+           col.Field("MFO").HeaderText("МФО").Width("5").Add();
+           col.Field("Bank").HeaderText("Банк").Width("40").Add();
+           col.Field("OKONX").HeaderText("ОКЭД").Width("9").Add();
+           col.Field("Adress").HeaderText("Адрес").Width("40").Add();
+           col.Field("Telefon").HeaderText("Телефон").Width("40").Add();
+           col.Field("RegionName").HeaderText("Район").Width("40").Add();
+       }).AllowPaging().AllowResizing().PageSettings(page=>page.PageCount(5)).EditSettings(edit => { edit.AllowAdding(true).AllowEditing(true).AllowDeleting(true).ShowDeleteConfirmDialog(true).Mode(Syncfusion.EJ2.Grids.EditMode.Dialog);}).Toolbar(new List<string>
+                () { "Add", "Edit", "Delete", "ExcelExport" }).Render()
+            <script>
+                function toolbarClick(args) {
+                    var gridObj = document.getElementById("organization").ej2_instances[0];
+                    if (args.item.id === 'organization_excelexport') {
+                        gridObj.excelExport();
+                    }
+                }
+            </script>
+        </section>
+    </div>
+}
+

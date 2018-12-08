@@ -10,6 +10,19 @@ using KasabaKIAT.Models;
 
 namespace KasabaKIAT.Controllers
 {
+    public class kvartal
+    {
+        public string code { get; set; }
+
+        public string name_ru { get; set; }
+
+        public string name_uz { get; set; }
+
+        public string name_uzl { get; set; }
+
+        public DateTime? create_date { get; set; }
+    }
+
     public class tblSprav_KvController : Controller
     {
         private KasabaKIATEntities db = new KasabaKIATEntities();
@@ -17,8 +30,26 @@ namespace KasabaKIAT.Controllers
         // GET: tblSprav_Kv
         public ActionResult Index()
         {
-            var tblSprav_Kv = db.tblSprav_Kv.Include(t => t.users).Take(50);
-            return View(tblSprav_Kv.ToList());
+            //var tblSprav_Kv = db.tblSprav_Kv.Include(t => t.users).Take(50);
+            //return View(tblSprav_Kv.ToList());
+
+            var list = new List<kvartal>();
+
+            foreach (var obj in db.tblSprav_Kv)
+            {
+                var model = new kvartal();
+                model.code = obj.ID.ToString();
+                model.create_date = DateTime.Now;
+                model.name_ru = obj.Name_Kv;
+                model.name_uz = obj.Name_Kv;
+                model.name_uzl = obj.Name_Kv;
+
+                list.Add(model);
+            }
+
+            ViewBag.datasource = list;
+
+            return View();
         }
 
         // GET: tblSprav_Kv/Details/5

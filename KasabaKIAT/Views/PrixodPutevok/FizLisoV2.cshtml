@@ -1,0 +1,47 @@
+﻿@using KasabaKIAT.BusinessLogic.Security.Roles.RolePermissions;
+@using Syncfusion.EJ2
+@{
+    ViewBag.Title = "Организации";
+    var UserId = Convert.ToInt32(User.Identity.Name);
+    FunctionalityList List = FunctionalityAndDbDataMatch.MatchProcess(UserId);
+}
+<div id="connection" style="visibility:hidden;position:absolute;margin-left:430px;z-index:9999">
+    <img src="~/Content/Login/buffering.gif" />
+</div>
+@if (List.UpravleniyaSpravochnikami)
+{
+    <div ng-controller="FizLiso">
+        <section class="content__block container-fluid">
+            <div class="row mb-4 align-items-center">
+                <div class="col-sm-6 title__block">
+                    <h4>База данных физических лиц</h4>
+                    <nav aria-label="breadcrumb" class="breadcrumb__block">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item active" aria-current="page">Справочник физических лиц</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+            @Html.EJS().Grid("fizliso").DataSource((IEnumerable<object>)ViewBag.dataSource).AllowExcelExport().ToolbarClick("toolbarClick").Columns(col=> {
+            col.Field("Name_Org").HeaderText("ФИО").Width("30").IsPrimaryKey(true).AllowEditing(false).DefaultValue("1").Add();
+            col.Field("INN").HeaderText("ИНН").Width("50").Add();
+            col.Field("Adress").HeaderText("Адрес").Width("9").AllowEditing(false).Add();
+            col.Field("Telefon").HeaderText("Телефон").Width("20").Add();
+            col.Field("Pas_ser").HeaderText("Паспорт Серия").Width("5").Add();
+            col.Field("Pas_Num").HeaderText("Паспорт Номер").Width("40").Add();
+            col.Field("Pas_KD").HeaderText("Кем выдан").Width("9").Add();
+            col.Field("Pas_Data").HeaderText("Дата выдачи").Width("40").Add();
+            }).AllowPaging().AllowResizing().PageSettings(page=>page.PageCount(5)).EditSettings(edit => { edit.AllowAdding(true).AllowEditing(true).AllowDeleting(true).ShowDeleteConfirmDialog(true).Mode(Syncfusion.EJ2.Grids.EditMode.Dialog);}).Toolbar(new List<string>
+            () { "Add", "Edit", "Delete", "ExcelExport" }).Render()
+            <script>
+                function toolbarClick(args) {
+                    var gridObj = document.getElementById("organization").ej2_instances[0];
+                    if (args.item.id === 'organization_excelexport') {
+                        gridObj.excelExport();
+                    }
+                }
+            </script>
+        </section>
+    </div>
+}
+

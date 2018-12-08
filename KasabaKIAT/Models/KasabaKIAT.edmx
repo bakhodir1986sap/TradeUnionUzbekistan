@@ -6283,6 +6283,8 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <Parameter Name="BranchCode" Type="nvarchar" Mode="In" />
           <Parameter Name="departmentBase" Type="nvarchar" Mode="In" />
         </Function>
+        <Function Name="sp_rt_SvodniyOtchetOrganizationV2" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="sp_rt_SvodniyOtchetV2" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="sp_rt_SvodniyPoPutyovkam" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="departmentBase" Type="varchar" Mode="In" />
           <Parameter Name="Year" Type="int" Mode="In" />
@@ -14646,6 +14648,8 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
             <Parameter Name="DEPARTMENT_BASE" Mode="In" Type="String" />
             <Parameter Name="YEAR" Mode="In" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="sp_rt_SvodniyOtchetV2" ReturnType="Collection(KasabaKIATModel.sp_rt_SvodniyOtchetV2_Result)" />
+          <FunctionImport Name="sp_rt_SvodniyOtchetOrganizationV2" ReturnType="Collection(KasabaKIATModel.sp_rt_SvodniyOtchetOrganizationV2_Result)" />
           </EntityContainer>
         <ComplexType Name="sp_get_BankPaymentCompanyYearlyQ_Result">
           <Property Type="Int32" Name="MONTH_NUM" Nullable="true" />
@@ -16782,6 +16786,27 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <Property Type="String" Name="ProfsoyzNaimenovanie" Nullable="true" MaxLength="200" />
           <Property Type="String" Name="user_name" Nullable="true" MaxLength="255" />
           <Property Type="Int32" Name="CounterU" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="sp_rt_SvodniyOtchetV2_Result">
+          <Property Type="Int32" Name="Year_q" Nullable="true" />
+          <Property Type="String" Name="MEDICAL_ORDER" Nullable="true" MaxLength="254" />
+          <Property Type="String" Name="FULL_NAME" Nullable="false" MaxLength="254" />
+          <Property Type="String" Name="SOTR_INN" Nullable="true" MaxLength="9" />
+          <Property Type="String" Name="PNFL" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="INN" Nullable="true" MaxLength="9" />
+          <Property Type="String" Name="Name_San" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="Name_Org" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="Name_Ot" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="NameReg" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="ProfsoyzNaimenovanie" Nullable="false" MaxLength="200" />
+          <Property Type="Int32" Name="CountP" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="sp_rt_SvodniyOtchetOrganizationV2_Result">
+          <Property Type="String" Name="Name_Org" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="Name_Ot" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="NameReg" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="ProfsoyzNaimenovanie" Nullable="false" MaxLength="200" />
+          <Property Type="Int32" Name="CountP" Nullable="false" />
         </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
@@ -21188,6 +21213,35 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <FunctionImportMapping FunctionImportName="sp_stat_RealizedPutyovkas_V2" FunctionName="KasabaKIATModel.Store.sp_stat_RealizedPutyovkas_V2" />
           <FunctionImportMapping FunctionImportName="sp_stat_RejectedZayavka_V2" FunctionName="KasabaKIATModel.Store.sp_stat_RejectedZayavka_V2" />
           <FunctionImportMapping FunctionImportName="sp_stat_VozvratPutyovkas_V2" FunctionName="KasabaKIATModel.Store.sp_stat_VozvratPutyovkas_V2" />
+          <FunctionImportMapping FunctionImportName="sp_rt_SvodniyOtchetV2" FunctionName="KasabaKIATModel.Store.sp_rt_SvodniyOtchetV2">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="KasabaKIATModel.sp_rt_SvodniyOtchetV2_Result">
+                <ScalarProperty Name="Year_q" ColumnName="Year_q" />
+                <ScalarProperty Name="MEDICAL_ORDER" ColumnName="MEDICAL_ORDER" />
+                <ScalarProperty Name="FULL_NAME" ColumnName="FULL_NAME" />
+                <ScalarProperty Name="SOTR_INN" ColumnName="SOTR_INN" />
+                <ScalarProperty Name="PNFL" ColumnName="PNFL" />
+                <ScalarProperty Name="INN" ColumnName="INN" />
+                <ScalarProperty Name="Name_San" ColumnName="Name_San" />
+                <ScalarProperty Name="Name_Org" ColumnName="Name_Org" />
+                <ScalarProperty Name="Name_Ot" ColumnName="Name_Ot" />
+                <ScalarProperty Name="NameReg" ColumnName="NameReg" />
+                <ScalarProperty Name="ProfsoyzNaimenovanie" ColumnName="ProfsoyzNaimenovanie" />
+                <ScalarProperty Name="CountP" ColumnName="CountP" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_rt_SvodniyOtchetOrganizationV2" FunctionName="KasabaKIATModel.Store.sp_rt_SvodniyOtchetOrganizationV2">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="KasabaKIATModel.sp_rt_SvodniyOtchetOrganizationV2_Result">
+                <ScalarProperty Name="Name_Org" ColumnName="Name_Org" />
+                <ScalarProperty Name="Name_Ot" ColumnName="Name_Ot" />
+                <ScalarProperty Name="NameReg" ColumnName="NameReg" />
+                <ScalarProperty Name="ProfsoyzNaimenovanie" ColumnName="ProfsoyzNaimenovanie" />
+                <ScalarProperty Name="CountP" ColumnName="CountP" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

@@ -973,6 +973,20 @@ namespace KasabaKIAT.Controllers
             return View();
         }
 
+        public ActionResult OrganizasiiV2()
+        {
+            log.Info("GetOrganizationList");
+
+            int UserId = Convert.ToInt32(User.Identity.Name);
+            var ustinfo = UserInfo.GetUserInfo(UserId);
+
+            var list = Sprav_Org.GetByDeraprtmentBaseV2(ustinfo.DepartmentBase);
+
+            ViewBag.dataSource = list;
+
+            return View();
+        }
+
         /// <summary>
         /// 
         /// </summary>
@@ -1271,6 +1285,23 @@ namespace KasabaKIAT.Controllers
         /// <returns></returns>
         public ActionResult FizLiso()
         {
+            return View();
+        }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult FizLisoV2()
+        {
+            int UserId = Convert.ToInt32(User.Identity.Name);
+            var ustinfo = UserInfo.GetUserInfo(UserId);
+
+            var list = Sprav_Org.GetFizLisoList(ustinfo.DepartmentBase);
+
+            ViewBag.dataSource = list.Take(50000);
+
             return View();
         }
 

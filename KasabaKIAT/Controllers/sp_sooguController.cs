@@ -12,6 +12,19 @@ using PagedList;
 
 namespace KasabaKIAT.Controllers
 {
+    public class soogu
+    {
+        public string code { get; set; }
+
+        public string name_ru { get; set; }
+
+        public string name_uz { get; set; }
+
+        public string name_uzl { get; set; }
+
+        public DateTime? create_date { get; set; }
+    }
+
     public class sp_sooguController : Controller
     {
         private KasabaKIATEntities db = new KasabaKIATEntities();
@@ -19,9 +32,27 @@ namespace KasabaKIAT.Controllers
         // GET: sp_soogu
         public ActionResult Index(int? page)
         {
-            int pageSize = 15;
-            int pageNumber = (page ?? 1);
-            return View(db.sp_soogu.ToList().ToPagedList(pageNumber, pageSize));
+            //int pageSize = 15;
+            //int pageNumber = (page ?? 1);
+            //return View(db.sp_soogu.ToList().ToPagedList(pageNumber, pageSize));
+
+            var list = new List<soogu>();
+
+            foreach (var obj in db.sp_soogu)
+            {
+                var model = new soogu();
+                model.code = obj.code;
+                model.create_date = obj.s_create;
+                model.name_ru = obj.name_ru;
+                model.name_uz = obj.name_uz;
+                model.name_uzl = obj.name_uzl;
+
+                list.Add(model);
+            }
+
+            ViewBag.datasource = list;
+
+            return View();
         }
 
         // GET: sp_soogu/Details/5

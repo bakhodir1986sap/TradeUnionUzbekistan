@@ -10,6 +10,19 @@ using KasabaKIAT.Models;
 
 namespace KasabaKIAT.Controllers
 {
+    public class Osnovaniye
+    {
+        public string code { get; set; }
+
+        public string name_ru { get; set; }
+
+        public string name_uz { get; set; }
+
+        public string name_uzl { get; set; }
+
+        public DateTime? create_date { get; set; }
+    }
+
     public class tblSprav_OsController : Controller
     {
         private KasabaKIATEntities db = new KasabaKIATEntities();
@@ -17,8 +30,26 @@ namespace KasabaKIAT.Controllers
         // GET: tblSprav_Os
         public ActionResult Index()
         {
-            var tblSprav_Os = db.tblSprav_Os.Include(t => t.users).Take(50);
-            return View(tblSprav_Os.ToList());
+            //var tblSprav_Os = db.tblSprav_Os.Include(t => t.users).Take(50);
+            //return View(tblSprav_Os.ToList());
+
+            var list = new List<Osnovaniye>();
+
+            foreach (var obj in db.tblSprav_Os)
+            {
+                var model = new Osnovaniye();
+                model.code = obj.ID.ToString();
+                model.create_date =DateTime.Now;
+                model.name_ru = obj.Name_Os;
+                model.name_uz = obj.Name_Os;
+                model.name_uzl = obj.Name_Os;
+
+                list.Add(model);
+            }
+
+            ViewBag.datasource = list;
+
+            return View();
         }
 
         // GET: tblSprav_Os/Details/5

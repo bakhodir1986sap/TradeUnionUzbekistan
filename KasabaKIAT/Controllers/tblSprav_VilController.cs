@@ -10,6 +10,19 @@ using KasabaKIAT.Models;
 
 namespace KasabaKIAT.Controllers
 {
+    public class viloyat
+    {
+        public string code { get; set; }
+
+        public string name_ru { get; set; }
+
+        public string name_uz { get; set; }
+
+        public string name_uzl { get; set; }
+
+        public DateTime? create_date { get; set; }
+    }
+
     public class tblSprav_VilController : Controller
     {
         private KasabaKIATEntities db = new KasabaKIATEntities();
@@ -17,8 +30,26 @@ namespace KasabaKIAT.Controllers
         // GET: tblSprav_Vil
         public ActionResult Index()
         {
-            var tblSprav_Vil = db.tblSprav_Vil.Include(t => t.users).Take(50);
-            return View(tblSprav_Vil.ToList());
+            //var tblSprav_Vil = db.tblSprav_Vil.Include(t => t.users).Take(50);
+            //return View(tblSprav_Vil.ToList());
+
+            var list = new List<viloyat>();
+
+            foreach (var obj in db.tblSprav_Vil)
+            {
+                var model = new viloyat();
+                model.code = obj.ID_Code.ToString();
+                model.create_date = DateTime.Now;
+                model.name_ru = obj.FullName;
+                model.name_uz = obj.FullName;
+                model.name_uzl = obj.FullName;
+
+                list.Add(model);
+            }
+
+            ViewBag.datasource = list;
+
+            return View();
         }
 
         // GET: tblSprav_Vil/Details/5

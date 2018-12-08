@@ -76,11 +76,11 @@
                 url: '/Reference/GetOrgDataByInn?inn=' + inn
             }).then(function (response) {
 
-                if ($scope.Organization.Name_Org == '') {
+                if ($scope.Organization.Name_Org === '') {
                     $scope.Organization.Name_Org = response.data.Name_Full;
                 }
 
-                if ($scope.Organization.OKONX == '') {
+                if ($scope.Organization.OKONX === '') {
                     $scope.Organization.OKONX = response.data.Okonx;
                 }
 
@@ -251,7 +251,7 @@
             contentType: "application/json; charset=utf-8",
         }).then(function (response) {
 
-            if (response.data == 'success')
+            if (response.data === 'success')
             {
                 $scope.GetOrganizationsFilter();
                 alertify.success("Успешное сохранение");

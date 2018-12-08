@@ -6,9 +6,23 @@ using System.Web.Mvc;
 using KasabaKIAT.Models;
 using PagedList.Mvc;
 using PagedList;
+using System;
 
 namespace KasabaKIAT.Controllers
 {
+    public class okonx
+    {
+        public string code { get; set; }
+
+        public string name_ru { get; set; }
+
+        public string name_uz { get; set; }
+
+        public string name_uzl { get; set; }
+
+        public DateTime? create_date { get; set; }
+    }
+
     public class IndexViewModel
     {
         public IEnumerable<sp_okonx> sp_okonxs { get; set; }
@@ -23,19 +37,23 @@ namespace KasabaKIAT.Controllers
         // GET: sp_okonx
         public ActionResult Index(int? page = 1)
         {
-            //var sp_okonx = db.sp_okonx.Include(s => s.users).Include(s => s.sp_okonx2).Take(50);
-            //return View(sp_okonx.ToList());
+            var list = new List<okonx>();
 
-            //int pageSize = 30; // количество объектов на страницу
-            //IEnumerable<sp_okonx> phonesPerPages = db.sp_okonx.OrderBy(z=>z.id).Skip((page - 1) * pageSize).Take(pageSize);
-            //PageInfo pageInfo = new PageInfo { PageNumber = page, PageSize = pageSize, TotalItems = db.sp_okonx.Count() };
-            //IndexViewModel ivm = new IndexViewModel { PageInfo = pageInfo, sp_okonxs = phonesPerPages };
-            //return View(ivm);
+            foreach (var obj in db.sp_okonx.ToList())
+            {
+                var model = new okonx();
+                model.code = obj.code;
+                model.create_date = obj.s_create;
+                model.name_ru = obj.name_ru;
+                model.name_uz = obj.name_uz;
+                model.name_uzl = obj.name_uzl;
 
-            int pageSize = 15;
-            int pageNumber = (page ?? 1);
-            return View(db.sp_okonx.ToList().ToPagedList(pageNumber, pageSize));
+                list.Add(model);
+            }
 
+            ViewBag.datasource = list;
+
+            return View();
         }
 
         // GET: sp_okonx/Details/5

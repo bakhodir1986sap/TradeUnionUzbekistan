@@ -62,6 +62,20 @@ namespace KasabaKIAT.Controllers
             return View();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [OutputCache(Duration = 5, Location = OutputCacheLocation.Client, VaryByCustom = "userId")]
+        public ActionResult SvodniyOtchotV2()
+        {
+            var resQuery = KasabaDB.sp_rt_SvodniyOtchetV2().ToList();
+
+            ViewBag.DateSource = resQuery;
+
+            return View();
+        }
+
 
         /// <summary>
         /// 
@@ -262,6 +276,15 @@ namespace KasabaKIAT.Controllers
             return Json(list.ToList(), JsonRequestBehavior.AllowGet);
         }
 
+        public ActionResult GetSvodniyOtchotV2()
+        {
+            var resQuery = KasabaDB.sp_rt_SvodniyOtchetV2().ToList();
+
+            ViewBag.DateSource = resQuery;
+
+            return View("SvodniyOtchotV2");
+        }
+
         /// <summary>
         /// 
         /// </summary>
@@ -445,8 +468,12 @@ namespace KasabaKIAT.Controllers
         /// </summary>
         /// <returns></returns>
         [OutputCache(Duration = 5, Location = OutputCacheLocation.Client, VaryByCustom = "userId")]
-        public ActionResult OrganizationSummary()
+        public ActionResult OrganizationSummaryV2()
         {
+            var resQuery = KasabaDB.sp_rt_SvodniyOtchetOrganizationV2().ToList();
+
+            ViewBag.DateSource = resQuery;
+
             return View();
         }
 

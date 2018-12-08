@@ -1,4 +1,6 @@
 ﻿using KasabaKIAT.Models;
+using KurortUrvServiceTest.ServiceInterAction.ActionLogic;
+using log4net;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +16,14 @@ namespace KasabaKIAT.Controllers
     [Authorize]
     public class GrafikZaezdovController : Controller
     {
+        /// <summary>
+        /// Kurort Upravleniya External API 
+        /// </summary>
+        ServiceActionController service = new ServiceActionController();
+        /// <summary>
+        /// Logging 
+        /// </summary>
+        ILog log = log4net.LogManager.GetLogger(typeof(GrafikZaezdovController));
         /// <summary>
         /// 
         /// </summary>
@@ -33,8 +43,119 @@ namespace KasabaKIAT.Controllers
             }
             else
             {
+                ViewBag.dataSource = null;
+
                 return View();
             }
+        }
+
+
+        [OutputCache(Duration = 5, Location = OutputCacheLocation.Client, VaryByCustom = "userId")]
+        public ActionResult IndexV2()
+        {
+            int UserId = Convert.ToInt32(User.Identity.Name);
+            if (UserId == 0)
+            {
+                return RedirectToAction("SignOut", "Login");
+            }
+            else
+            {
+
+
+                ViewBag.dataSource = null;
+
+                return View();
+            }
+        }
+
+        /// <summary>
+        /// External Api Load Grafik Sanatoriev
+        /// </summary>
+        /// <param name="yil">Year</param>
+        public ActionResult ServiceGrafikSanatoryZaezdov(string yil)
+        {
+            log.Info("ServiceGrafikSanatoryZaezdov");
+            log.Info("yil = " + yil);
+
+            try
+            {
+                //service.LoadZaezdovSanatoriev(yil);
+
+                ViewBag.dataSource = GetGrafikSanatoryZaezdov(int.Parse(yil));
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex);
+            }
+
+            return View("indexV2");
+        }
+
+        class GrafikZaezdovOut
+        {
+            public string SanatoryNaimenovanie { get; set; }
+
+            public string SanatoryProfil { get; set; }
+
+            public string SanatoryOblast { get; set; }
+
+            public int? SanatoryKoekVsego { get; set; }
+
+            public int? SanatoryKoekLetom { get; set; }
+
+            public int? SanatoryKoekZimoy { get; set; }
+
+            public string SanatoryRazmeshenieNaimenovanie { get; set; }
+
+            public int? Putevok1kv { get; set; }
+
+            public int? Putevok2kv { get; set; }
+
+            public int? Putevok3kv { get; set; }
+
+            public int? Putevok4kv { get; set; }
+        }
+
+        /// <summary>
+        /// Get Sanatory Zaezdov List
+        /// </summary>
+        /// <param name="yil">Year</param>
+        /// <returns></returns>
+        [OutputCache(Duration = 5, Location = OutputCacheLocation.Client, VaryByParam = "yil", VaryByCustom = "userId")]
+        private List<GrafikZaezdovOut> GetGrafikSanatoryZaezdov(int yil)
+        {
+
+            log.Info("GetGrafikSanatoryZaezdov");
+            log.Info("yil = " + yil);
+
+            try
+            {
+                var O = from o in KasabaDB.tbku_GrafikZaezdovSanatoriev
+                        where o.GodZaezdov == yil
+                        select new GrafikZaezdovOut
+                        {
+                            SanatoryNaimenovanie = o.SanatoryNaimenovanie,
+                            SanatoryProfil = o.SanatoryProfil,
+                            SanatoryOblast = o.SanatoryOblast,
+                            SanatoryKoekVsego = o.SanatoryKoekVsego,
+                            SanatoryKoekLetom = o.SanatoryKoekLetom,
+                            SanatoryKoekZimoy = o.SanatoryKoekZimoy,
+                            SanatoryRazmeshenieNaimenovanie = o.SanatoryRazmeshenieNaimenovanie,
+                            Putevok1kv = o.Putevok1kv,
+                            Putevok2kv = o.Putevok2kv,
+                            Putevok3kv = o.Putevok3kv,
+                            Putevok4kv = o.Putevok4kv
+                        };
+
+                return O.ToList();
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex);
+            }
+
+            return null;
+
         }
 
         /// <summary>

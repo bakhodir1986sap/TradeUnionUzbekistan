@@ -15,112 +15,25 @@
         </ol>
     </nav>
 </div>
-<style>
+@Html.EJS().Grid("Okonx").DataSource((IEnumerable<object>)ViewBag.dataSource).AllowSorting().AllowPdfExport().ToolbarClick("toolbarClick").Columns(col=> {
 
-    td, th {
-        vertical-align: middle !important;
-        text-align: center;
-    }
-</style>
-<p>
-    <button style="margin:10px" class="btn btn-white">@Html.ActionLink("Добавить", "Create")</button>
-</p>
-<table class="table">
-    <tr>
-        <th>
-            Версия
-        </th>
-        <th>
-            Код
-        </th>
-        <th>
-            Коммент
-        </th>
-        <th>
-            Создан
-        </th>
-        <th>
-            Статус
-        </th>
-        <th>
-            Название_Ру
-        </th>
-        <th>
-            Название_Уз
-        </th>
-        <th>
-            Название_Узлат
-        </th>
-        <th>
-            Ключи
-        </th>
-        <th>
-            Отрасль
-        </th>
-        <th>
-            Натив Код
-        </th>
-        <th>
-            Пользователь
-        </th>
-        <th>
-            Код2
-        </th>
-        <th></th>
-    </tr>
+    //col.Field("version").HeaderText("Версия").Width("10").Add();
+    col.Field("code").HeaderText("Код").Width("10").Add();
+    //col.Field("s_comment").HeaderText("Комментарий").Width("10").Add();
+    col.Field("create_date").HeaderText("Дата создания").Width("10").Add();
+    //col.Field("s_status").HeaderText("s_status").Width("10").Add();
+    col.Field("name_ru").HeaderText("Название_Ру").Width("40").Add();
+    col.Field("name_uz").HeaderText("Название_Уз").Width("40").Add();
+    col.Field("name_uzl").HeaderText("Название_Узл").Width("40").Add();
+    //col.Field("NATIVE_ID").HeaderText("NATIVE_ID").Width("10").Add();
+    //col.Field("email").HeaderText("Юзер").Width("10").Add();
+}).AllowPaging().AllowFiltering().AllowResizing().PageSettings(page=>page.PageCount(5)).EditSettings(edit => { edit.AllowAdding(true).AllowEditing(true).AllowDeleting(true).Mode(Syncfusion.EJ2.Grids.EditMode.Dialog);}).Toolbar(new List<string>() { "Add", "Edit", "Delete", "PdfExport" }).Render()
 
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.version)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.code)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.s_comment)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.s_create)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.s_status)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.name_ru)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.name_uz)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.name_uzl)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.keys)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.branch_code)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.NATIVE_ID)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.users.email)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.sp_okonx2.code)
-            </td>
-            <td>
-                @Html.ActionLink("Изменить", "Edit", new { id = item.id }) |
-                @Html.ActionLink("Детали", "Details", new { id = item.id }) |
-                @Html.ActionLink("Удалить", "Delete", new { id = item.id })
-            </td>
-        </tr>
-    }
-
-</table>
-<br />
-Страница @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) из @Model.PageCount
-
-@Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+    <script>
+        function toolbarClick(args) {
+            var gridObj = document.getElementById("Grid").ej2_instances[0];
+            if (args.item.id === 'Grid_pdfexport') {
+                gridObj.pdfExport();
+            }
+        }
+    </script>

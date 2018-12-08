@@ -10,6 +10,19 @@ using KasabaKIAT.Models;
 
 namespace KasabaKIAT.Controllers
 {
+    public class sanatorium
+    {
+        public string code { get; set; }
+
+        public string name_ru { get; set; }
+
+        public string name_uz { get; set; }
+
+        public string name_uzl { get; set; }
+
+        public DateTime? create_date { get; set; }
+    }
+
     public class t_sanatoriumController : Controller
     {
         private KasabaKIATEntities db = new KasabaKIATEntities();
@@ -17,8 +30,26 @@ namespace KasabaKIAT.Controllers
         // GET: t_sanatorium
         public ActionResult Index()
         {
-            var t_sanatorium = db.t_sanatorium.Include(t => t.sp_employees).Include(t => t.sp_sanatorium_profil).Include(t => t.sp_sanatorium_type).Include(t => t.sp_soato).Include(t => t.users).Take(50);
-            return View(t_sanatorium.ToList());
+            //var t_sanatorium = db.t_sanatorium.Include(t => t.sp_employees).Include(t => t.sp_sanatorium_profil).Include(t => t.sp_sanatorium_type).Include(t => t.sp_soato).Include(t => t.users).Take(50);
+            //return View(t_sanatorium.ToList());
+
+            var list = new List<sanatorium>();
+
+            foreach (var obj in db.t_sanatorium)
+            {
+                var model = new sanatorium();
+                model.code = obj.code;
+                model.create_date = obj.s_create;
+                model.name_ru = obj.sanatorium_name;
+                model.name_uz = obj.sanatorium_name;
+                model.name_uzl = obj.sanatorium_name;
+
+                list.Add(model);
+            }
+
+            ViewBag.datasource = list;
+
+            return View();
         }
 
         // GET: t_sanatorium/Details/5

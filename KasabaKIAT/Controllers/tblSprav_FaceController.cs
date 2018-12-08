@@ -10,6 +10,19 @@ using KasabaKIAT.Models;
 
 namespace KasabaKIAT.Controllers
 {
+    public class Face
+    {
+        public string code { get; set; }
+
+        public string name_ru { get; set; }
+
+        public string name_uz { get; set; }
+
+        public string name_uzl { get; set; }
+
+        public DateTime? create_date { get; set; }
+    }
+
     public class tblSprav_FaceController : Controller
     {
         private KasabaKIATEntities db = new KasabaKIATEntities();
@@ -17,8 +30,26 @@ namespace KasabaKIAT.Controllers
         // GET: tblSprav_Face
         public ActionResult Index()
         {
-            var tblSprav_Face = db.tblSprav_Face.Include(t => t.users).Take(50);
-            return View(tblSprav_Face.ToList());
+            //var tblSprav_Face = db.tblSprav_Face.Include(t => t.users).Take(50);
+            //return View(tblSprav_Face.ToList());
+
+            var list = new List<Face>();
+
+            foreach (var obj in db.tblSprav_Face)
+            {
+                var model = new Face();
+                model.code = obj.ID.ToString();
+                model.create_date = DateTime.Now;
+                model.name_ru = obj.Name_Os;
+                model.name_uz = obj.Name_Os;
+                model.name_uzl = obj.Name_Os;
+
+                list.Add(model);
+            }
+
+            ViewBag.datasource = list;
+
+            return View();
         }
 
         // GET: tblSprav_Face/Details/5

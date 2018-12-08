@@ -10,6 +10,19 @@ using KasabaKIAT.Models;
 
 namespace KasabaKIAT.Controllers
 {
+    public class sanatotry
+    {
+        public string code { get; set; }
+
+        public string name_ru { get; set; }
+
+        public string name_uz { get; set; }
+
+        public string name_uzl { get; set; }
+
+        public DateTime? create_date { get; set; }
+    }
+
     public class tblSprav_SanController : Controller
     {
         private KasabaKIATEntities db = new KasabaKIATEntities();
@@ -17,8 +30,27 @@ namespace KasabaKIAT.Controllers
         // GET: tblSprav_San
         public ActionResult Index()
         {
-            var tblSprav_San = db.tblSprav_San.Include(t => t.users).Take(200);
-            return View(tblSprav_San.ToList().OrderBy(z=>z.Name_San));
+            //var tblSprav_San = db.tblSprav_San.Include(t => t.users).Take(200);
+            //return View(tblSprav_San.ToList().OrderBy(z=>z.Name_San));
+
+
+            var list = new List<sanatotry>();
+
+            foreach (var obj in db.tblSprav_San)
+            {
+                var model = new sanatotry();
+                model.code = obj.KurortSanID.ToString();
+                model.create_date = DateTime.Now;
+                model.name_ru = obj.Name_San;
+                model.name_uz = obj.Name_San;
+                model.name_uzl = obj.Name_San;
+
+                list.Add(model);
+            }
+
+            ViewBag.datasource = list;
+
+            return View();
         }
 
         // GET: tblSprav_San/Details/5

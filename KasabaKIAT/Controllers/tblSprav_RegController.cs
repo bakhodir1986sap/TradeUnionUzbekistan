@@ -10,6 +10,19 @@ using KasabaKIAT.Models;
 
 namespace KasabaKIAT.Controllers
 {
+    public class Region
+    {
+        public string code { get; set; }
+
+        public string name_ru { get; set; }
+
+        public string name_uz { get; set; }
+
+        public string name_uzl { get; set; }
+
+        public DateTime? create_date { get; set; }
+    }
+
     public class tblSprav_RegController : Controller
     {
         private KasabaKIATEntities db = new KasabaKIATEntities();
@@ -17,8 +30,27 @@ namespace KasabaKIAT.Controllers
         // GET: tblSprav_Reg
         public ActionResult Index()
         {
-            var tblSprav_Reg = db.tblSprav_Reg.Include(t => t.users).Take(50);
-            return View(tblSprav_Reg.ToList());
+            //var tblSprav_Reg = db.tblSprav_Reg.Include(t => t.users).Take(50);
+            //return View(tblSprav_Reg.ToList());
+
+
+            var list = new List<Region>();
+
+            foreach (var obj in db.tblSprav_Reg)
+            {
+                var model = new Region();
+                model.code = obj.ID.ToString();
+                model.create_date = DateTime.Now;
+                model.name_ru = obj.NameReg;
+                model.name_uz = obj.NameReg;
+                model.name_uzl = obj.NameReg;
+
+                list.Add(model);
+            }
+
+            ViewBag.datasource = list;
+
+            return View();
         }
 
         // GET: tblSprav_Reg/Details/5

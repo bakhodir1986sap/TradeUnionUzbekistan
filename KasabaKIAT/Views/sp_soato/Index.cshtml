@@ -1,6 +1,7 @@
 ﻿@model PagedList.IPagedList<KasabaKIAT.Models.sp_soato>
 @using PagedList.Mvc;
-<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+@using Syncfusion.EJ2
+@*<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />*@
 @{
     ViewBag.Title = "Справочник СОАТО";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -15,125 +16,147 @@
         </ol>
     </nav>
 </div>
-<style>
+@Html.EJS().Grid("soato").DataSource((IEnumerable<object>)ViewBag.dataSource).AllowSorting().AllowPdfExport().ToolbarClick("toolbarClick").Columns(col=> {
 
-    td, th {
-        vertical-align: middle !important;
-        text-align: center;
-    }
+    //col.Field("version").HeaderText("Версия").Width("10").Add();
+    col.Field("code").HeaderText("Код").Width("10").Add();
+    //col.Field("s_comment").HeaderText("Комментарий").Width("10").Add();
+    col.Field("create_date").HeaderText("Дата создания").Width("10").Add();
+    //col.Field("s_status").HeaderText("s_status").Width("10").Add();
+    col.Field("name_ru").HeaderText("Название_Ру").Width("40").Add();
+    col.Field("name_uz").HeaderText("Название_Уз").Width("40").Add();
+    col.Field("name_uzl").HeaderText("Название_Узл").Width("40").Add();
+    //col.Field("NATIVE_ID").HeaderText("NATIVE_ID").Width("10").Add();
+    //col.Field("email").HeaderText("Юзер").Width("10").Add();
+}).AllowPaging().AllowFiltering().AllowResizing().PageSettings(page=>page.PageCount(5)).EditSettings(edit => { edit.AllowAdding(true).AllowEditing(true).AllowDeleting(true).Mode(Syncfusion.EJ2.Grids.EditMode.Dialog);}).Toolbar(new List<string>() { "Add", "Edit", "Delete", "PdfExport" }).Render()
 
-    ;
-</style>
-<p>
-    <button style="margin:10px" class="btn btn-white">@Html.ActionLink("Добавить", "Create")</button>
-</p>
-<table class="table">
-    <tr>
-        <th>
-            "version"
-        </th>
-        <th>
-            "code"
-        </th>
-        <th>
-            "s_comment"
-        </th>
-        <th>
-            "s_create"
-        </th>
-        <th>
-            "s_status"
-        </th>
-        <th>
-            "name_ru"
-        </th>
-        <th>
-            "name_uz"
-        </th>
-        <th>
-            "name_uzl"
-        </th>
-        <th>
-            "name_center_ru"
-        </th>
-        <th>
-            "name_center_uz"
-        </th>
-        <th>
-            "name_center_uzl"
-        </th>
-        <th>
-            "parent_code"
-        </th>
-        <th>
-            "keys"
-        </th>
-        <th>
-            "NATIVE_ID"
-        </th>
-        <th>
-            "users"
-        </th>
-        <th></th>
-    </tr>
+@*<style>
 
-    @foreach (var item in Model)
-    {
+        td, th {
+            vertical-align: middle !important;
+            text-align: center;
+        }
+
+        ;
+    </style>
+    <p>
+        <button style="margin:10px" class="btn btn-white">@Html.ActionLink("Добавить", "Create")</button>
+    </p>
+    <table class="table">
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.version)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.code)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.s_comment)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.s_create)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.s_status)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.name_ru)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.name_uz)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.name_uzl)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.name_center_ru)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.name_center_uz)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.name_center_uzl)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.parent_code)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.keys)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.NATIVE_ID)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.users.email)
-            </td>
-            <td>
-                @Html.ActionLink("Изменить", "Edit", new { id = item.id }) |
-                @Html.ActionLink("Детали", "Details", new { id = item.id }) |
-                @Html.ActionLink("Удалить", "Delete", new { id = item.id })
-            </td>
+            <th>
+                "version"
+            </th>
+            <th>
+                "code"
+            </th>
+            <th>
+                "s_comment"
+            </th>
+            <th>
+                "s_create"
+            </th>
+            <th>
+                "s_status"
+            </th>
+            <th>
+                "name_ru"
+            </th>
+            <th>
+                "name_uz"
+            </th>
+            <th>
+                "name_uzl"
+            </th>
+            <th>
+                "name_center_ru"
+            </th>
+            <th>
+                "name_center_uz"
+            </th>
+            <th>
+                "name_center_uzl"
+            </th>
+            <th>
+                "parent_code"
+            </th>
+            <th>
+                "keys"
+            </th>
+            <th>
+                "NATIVE_ID"
+            </th>
+            <th>
+                "users"
+            </th>
+            <th></th>
         </tr>
-    }
 
-</table>
-Страница @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) из @Model.PageCount
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.version)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.code)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.s_comment)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.s_create)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.s_status)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.name_ru)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.name_uz)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.name_uzl)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.name_center_ru)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.name_center_uz)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.name_center_uzl)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.parent_code)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.keys)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NATIVE_ID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.users.email)
+                </td>
+                <td>
+                    @Html.ActionLink("Изменить", "Edit", new { id = item.id }) |
+                    @Html.ActionLink("Детали", "Details", new { id = item.id }) |
+                    @Html.ActionLink("Удалить", "Delete", new { id = item.id })
+                </td>
+            </tr>
+        }
 
-@Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+    </table>
+    Страница @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) из @Model.PageCount
+
+    @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))*@
+<script>
+        function toolbarClick(args) {
+            var gridObj = document.getElementById("Grid").ej2_instances[0];
+            if (args.item.id === 'Grid_pdfexport') {
+                gridObj.pdfExport();
+            }
+        }
+</script>

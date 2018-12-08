@@ -10,6 +10,19 @@ using KasabaKIAT.Models;
 
 namespace KasabaKIAT.Controllers
 {
+    public class sanatorium_type
+    {
+        public string code { get; set; }
+
+        public string name_ru { get; set; }
+
+        public string name_uz { get; set; }
+
+        public string name_uzl { get; set; }
+
+        public DateTime? create_date { get; set; }
+    }
+
     public class sp_sanatorium_typeController : Controller
     {
         private KasabaKIATEntities db = new KasabaKIATEntities();
@@ -17,8 +30,26 @@ namespace KasabaKIAT.Controllers
         // GET: sp_sanatorium_type
         public ActionResult Index()
         {
-            var sp_sanatorium_type = db.sp_sanatorium_type.Include(s => s.users).Take(50);
-            return View(sp_sanatorium_type.ToList());
+            //var sp_sanatorium_type = db.sp_sanatorium_type.Include(s => s.users).Take(50);
+            //return View(sp_sanatorium_type.ToList());
+
+            var list = new List<sanatorium_type>();
+
+            foreach (var obj in db.sp_sanatorium_type)
+            {
+                var model = new sanatorium_type();
+                model.code = obj.id.ToString();
+                model.create_date = obj.s_create;
+                model.name_ru = obj.name_ru;
+                model.name_uz = obj.name_uz;
+                model.name_uzl = obj.name_uzl;
+
+                list.Add(model);
+            }
+
+            ViewBag.datasource = list;
+
+            return View();
         }
 
         // GET: sp_sanatorium_type/Details/5

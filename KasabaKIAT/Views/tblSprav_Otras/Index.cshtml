@@ -1,6 +1,6 @@
 ﻿@model PagedList.IPagedList<KasabaKIAT.Models.tblSprav_Otras>
 @using PagedList.Mvc;
-<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+@using Syncfusion.EJ2
 
 @{
     ViewBag.Title = "Справочник Отраслей";
@@ -16,71 +16,93 @@
         </ol>
     </nav>
 </div>
-<style>
+@Html.EJS().Grid("Otras").DataSource((IEnumerable<object>)ViewBag.dataSource).AllowSorting().AllowPdfExport().ToolbarClick("toolbarClick").Columns(col=> {
 
-    td, th {
-        vertical-align: middle !important;
-    }
+    //col.Field("version").HeaderText("Версия").Width("10").Add();
+    col.Field("code").HeaderText("Код").Width("10").Add();
+    //col.Field("s_comment").HeaderText("Комментарий").Width("10").Add();
+    col.Field("create_date").HeaderText("Дата создания").Width("10").Add();
+    //col.Field("s_status").HeaderText("s_status").Width("10").Add();
+    col.Field("name_ru").HeaderText("Название_Ру").Width("40").Add();
+    col.Field("name_uz").HeaderText("Название_Уз").Width("40").Add();
+    col.Field("name_uzl").HeaderText("Название_Узл").Width("40").Add();
+    //col.Field("NATIVE_ID").HeaderText("NATIVE_ID").Width("10").Add();
+    //col.Field("email").HeaderText("Юзер").Width("10").Add();
+}).AllowPaging().AllowFiltering().AllowResizing().PageSettings(page=>page.PageCount(5)).EditSettings(edit => { edit.AllowAdding(true).AllowEditing(true).AllowDeleting(true).Mode(Syncfusion.EJ2.Grids.EditMode.Dialog);}).Toolbar(new List<string>() { "Add", "Edit", "Delete", "PdfExport" }).Render()
 
-    ;
-</style>
-<p>
-    <button style="margin:10px" class="btn btn-white">@Html.ActionLink("Добавить", "Create")</button>
-</p>
-<table class="table">
-    <tr>
-        <th>
-            "ID_Ot"
-        </th>
-        <th>
-            "Name_Ot"
-        </th>
-        <th>
-            "Priz"
-        </th>
-        <th>
-            "DepartmentBase"
-        </th>
-        <th>
-            "BRANCH_CODE"
-        </th>
-        <th>
-            "users"
-        </th>
-        <th></th>
-    </tr>
+@*<style>
 
-    @foreach (var item in Model)
-    {
+        td, th {
+            vertical-align: middle !important;
+        }
+
+        ;
+    </style>
+    <p>
+        <button style="margin:10px" class="btn btn-white">@Html.ActionLink("Добавить", "Create")</button>
+    </p>
+    <table class="table">
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.ID_Ot)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name_Ot)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Priz)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DepartmentBase)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.BRANCH_CODE)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.users.email)
-            </td>
-            <td>
-                @Html.ActionLink("Изменить", "Edit", new { id = item.ID }) |
-                @Html.ActionLink("Детали", "Details", new { id = item.ID }) |
-                @Html.ActionLink("Удалить", "Delete", new { id = item.ID })
-            </td>
+            <th>
+                "ID_Ot"
+            </th>
+            <th>
+                "Name_Ot"
+            </th>
+            <th>
+                "Priz"
+            </th>
+            <th>
+                "DepartmentBase"
+            </th>
+            <th>
+                "BRANCH_CODE"
+            </th>
+            <th>
+                "users"
+            </th>
+            <th></th>
         </tr>
-    }
 
-</table>
-<br />
-Страница @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) из @Model.PageCount
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ID_Ot)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name_Ot)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Priz)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DepartmentBase)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BRANCH_CODE)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.users.email)
+                </td>
+                <td>
+                    @Html.ActionLink("Изменить", "Edit", new { id = item.ID }) |
+                    @Html.ActionLink("Детали", "Details", new { id = item.ID }) |
+                    @Html.ActionLink("Удалить", "Delete", new { id = item.ID })
+                </td>
+            </tr>
+        }
 
-@Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+    </table>
+    <br />
+    Страница @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) из @Model.PageCount
+
+    @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))*@
+<script>
+        function toolbarClick(args) {
+            var gridObj = document.getElementById("Grid").ej2_instances[0];
+            if (args.item.id === 'Grid_pdfexport') {
+                gridObj.pdfExport();
+            }
+        }
+</script>

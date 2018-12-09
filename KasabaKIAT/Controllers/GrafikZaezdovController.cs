@@ -81,14 +81,19 @@ namespace KasabaKIAT.Controllers
             {
                 //service.LoadZaezdovSanatoriev(yil);
 
-                ViewBag.dataSource = GetGrafikSanatoryZaezdov(int.Parse(yil));
+                var resultList = GetGrafikSanatoryZaezdov(int.Parse(yil));
+
+                ViewBag.dataSource = resultList;
+                ViewBag.Yil = yil;
+
+                //return PartialView("GrafikZaezdovPV", resultList);
             }
             catch (Exception ex)
             {
                 log.Error(ex);
             }
 
-            return View("indexV2");
+            return View("IndexV2");
         }
 
         class GrafikZaezdovOut

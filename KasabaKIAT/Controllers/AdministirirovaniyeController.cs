@@ -13,6 +13,8 @@ using KasabaKiat.Helpers;
 using KasabaKIAT.BusinessLogic.Security.Roles.RolePermissions;
 using KasabaKIAT.BusinessLogic.Security.Roles.Roles;
 using KasabaKiat.ViewModel;
+using KasabaKIAT.BusinessLogic.Utils.References;
+using KasabaKIAT.BusinessLogic.Utils;
 
 namespace KasabaKIAT.Controllers
 {
@@ -362,6 +364,95 @@ namespace KasabaKIAT.Controllers
 
 
         /// <summary>
+        /// Enterence divition Grafik
+        /// </summary>
+        /// <returns>HTML</returns>
+        [OutputCache(Duration = 5, Location = OutputCacheLocation.Client, VaryByCustom = "userId")]
+        public ActionResult RaspredeleniyeZaezdovV2()
+        {
+            var obj = new RefYars();
+
+            var list = obj.GetYears();
+
+            ViewBag.YearsList = list;
+
+            ViewBag.SanatoryList = GetUniqueGodovoyPlanList();
+
+            ViewBag.Pravsoyuzov = GetSpisokPravsoyuzovList();
+
+            return View();
+        }
+
+        public ActionResult GetRaspredeleniyeData(string year, string sanatory)
+        {
+            var obj = new RefYars();
+
+            var list = obj.GetYears();
+
+            ViewBag.YearsList = list;
+
+            ViewBag.SanatoryList = GetUniqueGodovoyPlanList();
+
+            ViewBag.Pravsoyuzov = GetSpisokPravsoyuzovList();
+
+            ViewBag.RaspredeleniyeMainList = GetRaspredeleniyeMain(int.Parse(year), sanatory);
+
+            ViewBag.RaspredeleniyeDetailList = GetRaspredeleniyeDetail(int.Parse(year), sanatory);
+
+            return View("RaspredeleniyeZaezdovV2");
+        }
+
+        public List<RaspredeleniyeMain> GetRaspredeleniyeMain(int yil, string kod)
+        {
+            var O = from o in KasabaDB.tbku_GrafikZaezdovSanatoriev
+                    where o.GodZaezdov == yil
+                    && o.SanatoryKod == kod
+                    select new RaspredeleniyeMain
+                    {
+                        SanatoryNaimenovanie = o.SanatoryNaimenovanie,
+                        SanatoryProfil = o.SanatoryProfil,
+                        SanatoryOblast = o.SanatoryOblast,
+                        SanatoryKoekVsego = o.SanatoryKoekVsego,
+                        SanatoryKoekLetom = o.SanatoryKoekLetom,
+                        SanatoryKoekZimoy = o.SanatoryKoekZimoy,
+                        SanatoryRazmeshenieNaimenovanie = o.SanatoryRazmeshenieNaimenovanie,
+                        Putevok1kv = o.Putevok1kv,
+                        Putevok2kv = o.Putevok2kv,
+                        Putevok3kv = o.Putevok3kv,
+                        Putevok4kv = o.Putevok4kv
+                    };
+
+            return O.ToList();
+        }
+
+        public List<RaspredeleniyeDetail> GetRaspredeleniyeDetail(int yil, string kod)
+        {
+            var O = from o in KasabaDB.tbku_SpisokRaspredeleniya
+                    join pravsoyuz in KasabaDB.tbku_StrokaProfsoyza on
+                    o.ProfsoyzKod equals pravsoyuz.ProfsoyzKod
+                    where o.GodZaezdov == yil && o.SanatoryKod == kod
+                    select new RaspredeleniyeDetail
+                    {
+                        ID = o.ID,
+                        GodZaezdov = o.GodZaezdov,
+                        SanatoryKod = o.SanatoryKod,
+                        ProfsoyzKod = pravsoyuz.ProfsoyzKod,
+                        ProfsoyzNaimenovanie = pravsoyuz.ProfsoyzNaimenovanie,
+                        SanatoryRazmeshenieKod = KasabaDB.tbku_GrafikZaezdovSanatoriev.Where(z => z.SanatoryRazmeshenieKod == o.SanatoryRazmeshenieKod).FirstOrDefault().SanatoryRazmeshenieKod,
+                        SanatoryRazmeshenieNaimenovanie = KasabaDB.tbku_GrafikZaezdovSanatoriev.Where(z => z.SanatoryRazmeshenieKod == o.SanatoryRazmeshenieKod).FirstOrDefault().SanatoryRazmeshenieNaimenovanie,//zaezd.SanatoryRazmeshenieNaimenovanie,
+                        Putevok1kv = o.Putevok1kv,
+                        Putevok2kv = o.Putevok2kv,
+                        Putevok3kv = o.Putevok3kv,
+                        Putevok4kv = o.Putevok4kv
+                    };
+
+            var listRes = O.ToList();
+
+            return new List<RaspredeleniyeDetail>();
+        }
+
+
+        /// <summary>
         /// Get Enterence Grafik
         /// </summary>
         /// <param name="yil">Year</param>
@@ -382,17 +473,17 @@ namespace KasabaKIAT.Controllers
                         && o.SanatoryKod == kod
                         select new
                         {
-                            d1 = o.SanatoryNaimenovanie,
-                            d2 = o.SanatoryProfil,
-                            d3 = o.SanatoryOblast,
-                            d4 = o.SanatoryKoekVsego,
-                            d5 = o.SanatoryKoekLetom,
-                            d6 = o.SanatoryKoekZimoy,
-                            d7 = o.SanatoryRazmeshenieNaimenovanie,
-                            d8 = o.Putevok1kv,
-                            d9 = o.Putevok2kv,
-                            d10 = o.Putevok3kv,
-                            d11 = o.Putevok4kv
+                            d1 =    o.SanatoryNaimenovanie,
+                            d2 =    o.SanatoryProfil,
+                            d3 =    o.SanatoryOblast,
+                            d4 =    o.SanatoryKoekVsego,
+                            d5 =    o.SanatoryKoekLetom,
+                            d6 =    o.SanatoryKoekZimoy,
+                            d7 =    o.SanatoryRazmeshenieNaimenovanie,
+                            d8 =    o.Putevok1kv,
+                            d9 =    o.Putevok2kv,
+                            d10 =   o.Putevok3kv,
+                            d11 =   o.Putevok4kv
                         };
 
                 log.Info("Count = " + O.ToList().Count);
@@ -448,6 +539,34 @@ namespace KasabaKIAT.Controllers
                 return Json(listRes, JsonRequestBehavior.AllowGet);
             }
             catch(Exception ex)
+            {
+                log.Error(ex);
+            }
+
+            return null;
+        }
+
+        private List<CodeDecode> GetUniqueGodovoyPlanList()
+        {
+            log.Info("GetSanatory");
+
+            try
+            {
+                var O = from o in KasabaDB.tbku_GrafikZaezdovSanatoriev
+                        select new
+                        {
+                            d1 = o.SanatoryKod,
+                            d2 = o.SanatoryNaimenovanie,
+                            d3 = o.GodZaezdov.ToString()
+                        };
+                var Groups = from p in O
+                             group p by new { p.d1, p.d2 , p.d3 } into g
+                             select new CodeDecode { value = g.Key.d1, text = g.Key.d2 , searchParam1 = g.Key.d3 };
+
+                return Groups.ToList();
+
+            }
+            catch (Exception ex)
             {
                 log.Error(ex);
             }
@@ -753,6 +872,32 @@ namespace KasabaKIAT.Controllers
             {
                 log.Error(ex);
             }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        private List<CodeDecode> GetSpisokPravsoyuzovList()
+        {
+            try
+            {
+                var O = from o in KasabaDB.tbku_StrokaProfsoyza
+                        where o.MATCH_DEPARTMENTBASE != null 
+                        select new CodeDecode
+                        {
+                            value = o.ProfsoyzKod,
+                            text = o.ProfsoyzNaimenovanie
+                        };
+
+                return O.ToList();
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex);
+            }
+
+            return null;
         }
 
         /// <summary>

@@ -1,11 +1,12 @@
 ﻿@using KasabaKIAT.BusinessLogic.Security.Roles.RolePermissions;
 @using KasabaKiat.Helpers;
 @using KasabaKIAT.Resources;
+@*@using Syncfusion.EJ2*@
 @{
     var UserId = Convert.ToInt32(User.Identity.Name);
     var userName = UserInfo.GetUserInfo(UserId);
     FunctionalityList List = FunctionalityAndDbDataMatch.MatchProcess(UserId);
-    
+
 }
 <!DOCTYPE html>
 <html ng-app="mvcCRUDApp" class="no-js" lang="ru">
@@ -32,13 +33,18 @@
     <script src="~/Scripts/MyJavaScript/DataService.js"></script>
     @Scripts.Render("~/bundles/modernizr")
     <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+    @*<script src="~/Scripts/ej/ej.web.all.min.js"></script>
+        <script src="~/Scripts/ej/ej.unobtrusive.min.js"></script>*@
     <script src="~/Scripts/jquery-ui-1.8.17.custom.min.js"></script>
     <script src="~/Scripts/FileSaver.min.js"></script>
     <script src="~/Scripts/lib/alertify.min.js"></script>
-     @* Syncfusion Essential JS 2 Styles *@  
+    @* Syncfusion Essential JS 2 Styles *@
     <link rel="stylesheet" href="~/Content/ej2/material.css" />
-    @* Syncfusion Essential JS 2 Scripts *@  
-    <script src="~/Scripts/ej2/ej2.min.js"></script> 
+    @* Syncfusion Essential JS 2 Scripts *@
+    <script src="~/Scripts/ej2/ej2.min.js"></script>
+    <script src="~/Scripts/ej/ej.web.all.min.js"></script>
+    <script src="~/Scripts/ej/ej.unobtrusive.min.js"></script>
 
     <script>
         function reset() {
@@ -82,7 +88,7 @@
                                 }
                                 @if (List.GodovoyPlanPutyovok)
                                 {
-                                    <a class="dropdown-item load" href="/Administirirovaniye/RaspredeleniyeZaezdov">@ContentData.GodovoyPlan</a>
+                                    <a class="dropdown-item load" href="/Administirirovaniye/RaspredeleniyeZaezdovV2">@ContentData.GodovoyPlan</a>
                                 }
                                 @if (List.PrixodPutyovok)
                                 {
@@ -108,7 +114,7 @@
                                 }
                                 @if (List.SverkaDannixPoOtdixayushim)
                                 {
-                                    <a class="dropdown-item load" href="/PrixodPutevok/SverkaDannix">@ContentData.SverkaDannixPoOtdixayushim</a>
+                                    <a class="dropdown-item load" href="/PrixodPutevok/SverkaDannixV2">@ContentData.SverkaDannixPoOtdixayushim</a>
                                 }
                             </div>
                         </li>
@@ -121,11 +127,11 @@
                             <div class="dropdown-menu rounded-0 box-shadow m-0 border-0" aria-labelledby="claims">
                                 @if (List.VvodZayavok)
                                 {
-                                    <a class="dropdown-item load" href="/Home/PodachaZayavok">@ContentData.PodachaZayavok_Sanatoriy</a>
+                                    <a class="dropdown-item load" href="/Home/PodachaZayavokV2">@ContentData.PodachaZayavok_Sanatoriy</a>
                                 }
                                 @if (List.PoiskIRedaktirovaniyaZayavok)
                                 {
-                                    <a class="dropdown-item load" href="/Home/PoiskRedaktZayavok">@ContentData.PoiskIRedaktirovaniyeZayavok_Sanatoriy</a>
+                                    <a class="dropdown-item load" href="/Home/PoiskRedaktZayavokV2">@ContentData.PoiskIRedaktirovaniyeZayavok_Sanatoriy</a>
                                 }
                                 @if (List.VvodZayavok)
                                 {
@@ -264,6 +270,7 @@
     </nav>
     <div class="body-content">
         @RenderBody()
+        @*@(Html.EJS().ScriptManager())*@
     </div>
     <footer class="fixed-bottom">
         <div><span id="general_notification" style="color:black;font-size:15px;"></span></div>

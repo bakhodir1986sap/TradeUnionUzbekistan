@@ -10,50 +10,68 @@
 }
 @if (List.GrafikZaezdov)
 {
-<section class="content__block container-fluid">
-    <div id="connection" style="visibility:hidden;position:absolute;margin-left:430px;margin-top:100px;z-index:9999">
-        <img src="~/Content/Login/buffering.gif" />
-    </div>
-    <div class="row mb-4 align-items-center">
-        <div class="col title__block">
-            <h4>График заездов в санатории</h4>
-            <nav aria-label="breadcrumb" class="breadcrumb__block">
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item load"><a href="/Home/Putyovki">Путевки</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">График заездов в санатории</li>
-                </ol>
-            </nav>
+    <section class="content__block container-fluid">
+        <div id="connection" style="visibility:hidden;position:absolute;margin-left:430px;margin-top:100px;z-index:9999">
+            <img src="~/Content/Login/buffering.gif" />
         </div>
-    </div>
-    @using (Html.BeginForm("ServiceGrafikSanatoryZaezdov", "GrafikZaezdov", new { page = 1 }, FormMethod.Get))
-    {
-        @Html.EJS().TextBox("yil").Placeholder("Год").FloatLabelType(FloatLabelType.Auto).Render()
-        @Html.EJS().Button("infobtn").Content("Получить").CssClass("e-info").Render()
-        @Html.Raw(" ");
-    }
-
-    @Html.EJS().Grid("grafikZaezdov").DataSource((IEnumerable<object>)ViewBag.dataSource).AllowExcelExport().ToolbarClick("toolbarClick").Columns(col=> {
-    col.Field("SanatoryNaimenovanie").HeaderText("Наименование санатория").Width("50").AllowEditing(false).Add();
-    col.Field("SanatoryProfil").HeaderText("Профиль").Width("50").Add();
-    col.Field("SanatoryOblast").HeaderText("Область").Width("30").Add();
-    col.Field("SanatoryKoekVsego").HeaderText("Коек Всего").Width("10").Add();
-    col.Field("SanatoryKoekLetom").HeaderText("Коек Летом").Width("10").Add();
-    col.Field("SanatoryKoekZimoy").HeaderText("Коек Зимой").Width("10").Add();
-    col.Field("SanatoryRazmeshenieNaimenovanie").HeaderText("Наименование размешения").Width("50").Add();
-    col.Field("Putevok1kv").HeaderText("1 кв").Width("10").Add();
-    col.Field("Putevok2kv").HeaderText("2 кв").Width("10").Add();
-    col.Field("Putevok3kv").HeaderText("3 кв").Width("10").Add();
-    col.Field("Putevok4kv").HeaderText("4 кв").Width("10").Add();
-    }).AllowPaging().AllowFiltering().AllowResizing().PageSettings(page=>page.PageCount(5)).Toolbar(new List<string>
-        () { "ExcelExport" }).Render()
-    <script>
-        function toolbarClick(args) {
-            var gridObj = document.getElementById("grafikZaezdov").ej2_instances[0];
-            if (args.item.id === 'grafikZaezdov_excelexport') {
-                gridObj.excelExport();
+        <div class="row mb-4 align-items-center">
+            <div class="col title__block">
+                <h4>График заездов в санатории</h4>
+                <nav aria-label="breadcrumb" class="breadcrumb__block">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item load"><a href="/Home/Putyovki">Путевки</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">График заездов в санатории</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+        @using (Html.BeginForm("ServiceGrafikSanatoryZaezdov", "GrafikZaezdov", new { page = 1 }, FormMethod.Get))
+            {
+                @Html.EJS().TextBox("yil").Placeholder("Год").Value((string)ViewBag.Yil).FloatLabelType(FloatLabelType.Auto).Render()
+                @Html.EJS().Button("infobtn").Content("Получить").CssClass("e-info").Render()
+                @Html.Raw(" ");
             }
+
+        @*@using (Ajax.BeginForm("ServiceGrafikSanatoryZaezdov", "GrafikZaezdov", new AjaxOptions
+        {
+            UpdateTargetId = "results",
+            LoadingElementId = "loading",
+            LoadingElementDuration = 10000
+        }))
+        {
+            @Html.EJS().TextBox("yil").Placeholder("Год").FloatLabelType(FloatLabelType.Auto).Render()
+            @Html.EJS().Button("infobtn").Content("Получить").CssClass("e-info").Render()
         }
-    </script>
-</section>
+
+        <div id="loading" style="display:none; color:Red; font-weight:bold;">
+            <p>Идет загрузка...</p>
+        </div>
+        <div id="results"></div>*@
+
+        @Html.EJS().Grid("grafikZaezdov").DataSource((IEnumerable<object>)ViewBag.dataSource).AllowExcelExport().ToolbarClick("toolbarClick").Columns(col=> {
+            col.Field("SanatoryNaimenovanie").HeaderText("Наименование санатория").Width("50").AllowEditing(false).Add();
+            col.Field("SanatoryProfil").HeaderText("Профиль").Width("50").Add();
+            col.Field("SanatoryOblast").HeaderText("Область").Width("30").Add();
+            col.Field("SanatoryKoekVsego").HeaderText("Коек Всего").Width("10").Add();
+            col.Field("SanatoryKoekLetom").HeaderText("Коек Летом").Width("10").Add();
+            col.Field("SanatoryKoekZimoy").HeaderText("Коек Зимой").Width("10").Add();
+            col.Field("SanatoryRazmeshenieNaimenovanie").HeaderText("Наименование размешения").Width("50").Add();
+            col.Field("Putevok1kv").HeaderText("1 кв").Width("10").Add();
+            col.Field("Putevok2kv").HeaderText("2 кв").Width("10").Add();
+            col.Field("Putevok3kv").HeaderText("3 кв").Width("10").Add();
+            col.Field("Putevok4kv").HeaderText("4 кв").Width("10").Add();
+            }).AllowPaging().AllowFiltering().AllowResizing().PageSettings(page=>page.PageCount(5)).Toolbar(new List<string>
+                () { "ExcelExport" }).Render()
+            <script>
+                function toolbarClick(args) {
+                    var gridObj = document.getElementById("grafikZaezdov").ej2_instances[0];
+                    if (args.item.id === 'grafikZaezdov_excelexport') {
+                        gridObj.excelExport();
+                    }
+                }
+            </script>
+    </section>
 }
+@*@Scripts.Render("~/scripts/jquery-1.10.2.min.js")
+@Scripts.Render("~/scripts/jquery.unobtrusive-ajax.min.js")*@
 

@@ -40,6 +40,8 @@ using KasabaKIAT.BusinessLogic.Putyovki.OplataPutyovok.Template;
 using KasabaKIAT.BusinessLogic.ClosePeriod.CloseKvartal;
 using KasabaKIAT.BusinessLogic._3_Etap.Statistika;
 using System.Data.Entity.Validation;
+using KasabaKIAT.BusinessLogic.Utils.References;
+using KasabaKIAT.BusinessLogic.Utils;
 
 namespace KasabaKIAT.Controllers
 {
@@ -145,6 +147,40 @@ namespace KasabaKIAT.Controllers
         [OutputCache(Duration = 5, Location = OutputCacheLocation.Client, VaryByCustom = "userId")]
         public ActionResult SverkaDannix()
         {
+            return View();
+        }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [OutputCache(Duration = 5, Location = OutputCacheLocation.Client, VaryByCustom = "userId")]
+        public ActionResult SverkaDannixV2()
+        {
+            var sanList = from san in Sprav_San.Get()
+                          select new CodeDecode
+                          {
+                              value = san.ID.ToString(),
+                              text = san.Name_San
+                          };
+
+            ViewBag.SanatoryList = sanList;
+
+            var obj = new RefYars();
+
+            ViewBag.YearsList = obj.GetYears();
+
+            var profList = from prof in KasabaDB.tbku_StrokaProfsoyza
+                       where prof.MATCH_DEPARTMENTBASE != null
+                       select new CodeDecode
+                       {
+                           text = prof.ProfsoyzNaimenovanie,
+                           value = prof.MATCH_DEPARTMENTBASE
+                       };
+
+            ViewBag.ProfList = profList.ToList();
+
             return View();
         }
 
@@ -4226,9 +4262,49 @@ namespace KasabaKIAT.Controllers
         {
             var list = SanatDataCompareDataManager.Get(new SanatDataCompareViewModel() {
                 year = year
-            }).Take(100);
+            }).Take(100000);
 
             return Json(list, JsonRequestBehavior.AllowGet);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="year"></param>
+        /// <returns></returns>
+        public ActionResult GetLoadedRowsV2(int year2)
+        {
+            var sanList = from san in Sprav_San.Get()
+                          select new CodeDecode
+                          {
+                              value = san.ID.ToString(),
+                              text = san.Name_San
+                          };
+
+            ViewBag.SanatoryList = sanList;
+
+            var obj = new RefYars();
+
+            ViewBag.YearsList = obj.GetYears();
+
+            var profList = from prof in KasabaDB.tbku_StrokaProfsoyza
+                           where prof.MATCH_DEPARTMENTBASE != null
+                           select new CodeDecode
+                           {
+                               text = prof.ProfsoyzNaimenovanie,
+                               value = prof.MATCH_DEPARTMENTBASE
+                           };
+
+            ViewBag.ProfList = profList.ToList();
+
+            var list = SanatDataCompareDataManager.Get(new SanatDataCompareViewModel()
+            {
+                year = year2
+            }).Take(100000);
+
+            ViewBag.LoadedDataList = list;
+
+            return View("SverkaDannixV2");
         }
 
         /// <summary>
@@ -4274,6 +4350,44 @@ namespace KasabaKIAT.Controllers
             var list = sverObj.MatchingEngineFiles(year, IdSan, Obl);
 
             return Json(list, JsonRequestBehavior.AllowGet);
+        }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="year"></param>
+        /// <returns></returns>
+        public ActionResult GetDifferByYearFilesV2(string year, string sanatory, string profsoyuz)
+        {
+            var sanList = from san in Sprav_San.Get()
+                          select new CodeDecode
+                          {
+                              value = san.ID.ToString(),
+                              text = san.Name_San
+                          };
+
+            ViewBag.SanatoryList = sanList;
+
+            var obj = new RefYars();
+
+            ViewBag.YearsList = obj.GetYears();
+
+            var profList = from prof in KasabaDB.tbku_StrokaProfsoyza
+                           where prof.MATCH_DEPARTMENTBASE != null
+                           select new CodeDecode
+                           {
+                               text = prof.ProfsoyzNaimenovanie,
+                               value = prof.MATCH_DEPARTMENTBASE
+                           };
+
+            ViewBag.ProfList = profList.ToList();
+
+            var sverObj = new SverManager();
+
+            ViewBag.ResultSverka = sverObj.MatchingEngineFiles(int.Parse(year), int.Parse(sanatory), profsoyuz);
+
+            return View("SverkaDannixV2");
         }
 
         /// <summary>

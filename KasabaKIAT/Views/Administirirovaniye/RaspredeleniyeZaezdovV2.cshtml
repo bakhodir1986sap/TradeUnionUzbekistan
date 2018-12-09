@@ -1,41 +1,146 @@
 ﻿@using KasabaKIAT.BusinessLogic.Security.Roles.RolePermissions;
+@using Syncfusion.EJ2
+@using Syncfusion.EJ2.DropDowns
+@using KasabaKIAT.BusinessLogic.Utils.References
+@using KasabaKIAT.BusinessLogic.Utils
 @{
     var UserId = Convert.ToInt32(User.Identity.Name);
     FunctionalityList List = FunctionalityAndDbDataMatch.MatchProcess(UserId);
 }
 @{
-    ViewBag.Title = "Администрирование";
+    ViewBag.Title = "Распределение Заездов";
 }
-<script src="~/Scripts/MyJavaScript/RaspredeleniyeZaezdov.js"></script>
+<script type="text/javascript">
+    function yearChange() {
+        var state = document.getElementById('sanatory').ej2_instances[0];
+
+        var country = document.getElementById('year').ej2_instances[0];
+        // disable the state DropDownList
+        state.enabled = true;
+
+        // frame the query based on selected value in country DropDownList.
+        var tempQuery = new ej.data.Query().where('searchParam1', 'equal', country.value);
+        // set the framed query based on selected value in country DropDownList.
+        state.query = tempQuery;
+        // set null value to state DropDownList text property
+        state.text = null;
+        state.data = null;
+        // bind the property changes to state DropDownList
+        state.dataBind();
+    }
+</script>
+@*<script src="~/Scripts/MyJavaScript/RaspredeleniyeZaezdov.js"></script>*@
 @if (List.UpravleniyaSpravochnikami)
 {
-    <section class="content__block container-fluid" ng-controller="RaspredeleniyeZaezdov">
-        <div id="connection" style="visibility:hidden;position:absolute;margin-left:430px;margin-top:100px;z-index:9999">
-            <img src="~/Content/Login/buffering.gif" />
+<section class="content__block container-fluid">
+    <div id="connection" style="visibility:hidden;position:absolute;margin-left:430px;margin-top:100px;z-index:9999">
+        <img src="~/Content/Login/buffering.gif" />
+    </div>
+    <div class="row mb-4 align-items-center">
+        <div class="col title__block">
+            <h4>Годовой план</h4>
+            <nav aria-label="breadcrumb" class="breadcrumb__block">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item load"><a href="/Home/Putyovki">Путевки</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Годовой план</li>
+                </ol>
+            </nav>
         </div>
-        <div class="row mb-4 align-items-center">
-            <div class="col title__block">
-                <h4>Годовой план</h4>
-                <nav aria-label="breadcrumb" class="breadcrumb__block">
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item load"><a href="/Home/Putyovki">Путевки</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Годовой план</li>
-                    </ol>
-                </nav>
+    </div>
+    @using (Html.BeginForm("GetRaspredeleniyeData", "Administirirovaniye", FormMethod.Get))
+    {
+    <div class="row mb-4 align-items-center">
+        <div class="custom-control-inline" style="margin-left:20px">
+            <div>
+                <p>Период:</p>
+                @Html.EJS().ComboBox("year").Placeholder("Выберите год").PopupHeight("230px").Index(0).Change("yearChange").DataSource((IEnumerable<Years>
+                  )ViewBag.YearsList).Fields(new ComboBoxFieldSettings { Text = "year_id", Value = "year_str" }).Render()
             </div>
         </div>
-        <form class="row mb-4 align-items-center" name="myForm1" novalidate>
+        <div style="margin-left:100px">
+            <p>Санаторий:</p>
+            @Html.EJS().ComboBox("sanatory").Placeholder("Выберите санаторий").Enabled(false).AllowCustom(false).PopupHeight("auto").DataSource((IEnumerable<CodeDecode>)ViewBag.SanatoryList).Fields(new ComboBoxFieldSettings { Text = "text", Value = "value" }).Render()
+        </div>
+        <div style="margin-left:160px">
+            <p></p>
+            @Html.EJS().Button("infobtn").Content("Получить").CssClass("e-info").Render()
+        </div>
+       
+    </div>
+    }
+        <div class="row mb-5 pb-md-5">
+            <div class="col-md-12">
+                @Html.EJS().Grid("raspredeleniyeMain").DataSource((IEnumerable<object>)ViewBag.RaspredeleniyeMainList).AllowExcelExport().ToolbarClick("toolbarClick").Columns(col=> {
+                col.Field("SanatoryNaimenovanie").HeaderText("Наименование санатория").Width("50").AllowEditing(false).Add();
+                col.Field("SanatoryProfil").HeaderText("Профиль").Width("50").Add();
+                col.Field("SanatoryOblast").HeaderText("Область").Width("30").Add();
+                col.Field("SanatoryKoekVsego").HeaderText("Коек Всего").Width("10").Add();
+                col.Field("SanatoryKoekLetom").HeaderText("Коек Летом").Width("10").Add();
+                col.Field("SanatoryKoekZimoy").HeaderText("Коек Зимой").Width("10").Add();
+                col.Field("SanatoryRazmeshenieNaimenovanie").HeaderText("Наименование размешения").Width("50").Add();
+                col.Field("Putevok1kv").HeaderText("1 кв").Width("10").Add();
+                col.Field("Putevok2kv").HeaderText("2 кв").Width("10").Add();
+                col.Field("Putevok3kv").HeaderText("3 кв").Width("10").Add();
+                col.Field("Putevok4kv").HeaderText("4 кв").Width("10").Add();
+                }).AllowPaging().AllowFiltering().AllowResizing().PageSettings(page=>page.PageCount(5)).Toolbar(new List<string>
+                    () { "ExcelExport" }).Render()
+                <script>
+                    function toolbarClick(args) {
+                        var gridObj = document.getElementById("raspredeleniyeMain").ej2_instances[0];
+                        if (args.item.id === 'raspredeleniyeMain_excelexport') {
+                            gridObj.excelExport();
+                        }
+                    }
+                </script>
+            </div>
+            <div class="col-md-12">
+                @Html.EJS().Grid("raspredeleniyeDetail").DataSource((IEnumerable<object>)ViewBag.RaspredeleniyeDetailList).AllowExcelExport().ToolbarClick("toolbarClick2").Columns(col=> {
+               col.Field("ID").HeaderText("ИД").IsPrimaryKey(true).AllowEditing(false).Width("5").AllowEditing(false).Add();
+               col.Field("GodZaezdov").HeaderText("Год").Width("4").Add();
+               col.Field("SanatoryKod").HeaderText("Код Санатория").Width("10").Add();
+               col.Field("ProfsoyzKod").HeaderText("Код Профсоюз").Width("10").Add();
+               col.Field("ProfsoyzNaimenovanie").HeaderText("Наименование Профосюз").Width("15").Add();
+               col.Field("SanatoryRazmeshenieKod").HeaderText("Код Размещения").Width("10").Add();
+               col.Field("SanatoryRazmeshenieNaimenovanie").HeaderText("Наименование Размещения").Width("10").Add();
+               col.Field("Putevok1kv").HeaderText("1 кв").Width("10").Add();
+               col.Field("Putevok2kv").HeaderText("2 кв").Width("10").Add();
+               col.Field("Putevok3kv").HeaderText("3 кв").Width("10").Add();
+               col.Field("Putevok4kv").HeaderText("4 кв").Width("10").Add();
+           }).AllowPaging().AllowFiltering().AllowResizing().PageSettings(page=>page.PageCount(5)).EditSettings(edit => { edit.AllowAdding(true).AllowEditing(true).AllowDeleting(true).ShowDeleteConfirmDialog(true).Mode(Syncfusion.EJ2.Grids.EditMode.Dialog); }).Toolbar(new List<string>
+            () { "Add", "Edit", "Delete", "ExcelExport" }).Render()
+                <script>
+                    function toolbarClick2(args) {
+                        var gridObj = document.getElementById("raspredeleniyeDetail").ej2_instances[0];
+                        if (args.item.id === 'raspredeleniyeDetail_excelexport') {
+                            gridObj.excelExport();
+                        }
+                    }
+                </script>
+            </div>
+        </div>
+            @*<div class="row mb-4 align-items-center">
+            @using (Ajax.BeginForm("BookSearch", new AjaxOptions { UpdateTargetId = "results" }))
+            {
+                <div style="margin-left:100px">
+                    <p>Список Профсоюзов:</p>
+                    @Html.EJS().ComboBox("profsoyuz").Placeholder("Выберите Профсоюз").PopupHeight("400px").Index(1).DataSource((IEnumerable<CodeDecode>
+                      )ViewBag.Pravsoyuzov).Fields(new ComboBoxFieldSettings { Text = "text", Value = "value" }).Render()
+                </div>
+                @Html.EJS().Button("infobtn2").Content("Получить").CssClass("e-info").Render()
+            }
+            <div id="results"></div>
+        </div>*@
+            @*<form class="row mb-4 align-items-center" name="myForm1" novalidate>
             <div class="custom-control-inline" style="margin-left:20px">
                 <div>
                     <p>Период:</p>
-                    <select  ng-model="SelectedYear" name="ZB" ng-options="d as d.Year for d in Years track by d.Id" class="custom-select form-control"  ng-change="Load()" required>
-                    </select>
+                    <select ng-model="SelectedYear" name="ZB" ng-options="d as d.Year for d in Years track by d.Id" class="custom-select form-control" ng-change="Load()" required></select>
                     <span class="alert alert-warning" style="padding:0px" ng-show="myForm1.ZB.$error.required">Выберите поле</span>
                 </div>
             </div>
             <div style="margin-left:100px">
                 <p>Санаторий:</p>
-                <select style="width:200px"  ng-model="SP" name="SP" required ng-options="d as d.d2 for d in R track by d.d1" class="custom-select form-control" ng-change="LoadDATA()"></select>
+                <select style="width:200px" ng-model="SP" name="SP" required ng-options="d as d.d2 for d in R track by d.d1" class="custom-select form-control" ng-change="LoadDATA()"></select>
                 <span class="alert alert-warning" style="padding:0px" ng-show="myForm1.SP.$error.required">Выберите поле</span>
             </div>
             <div style="margin-left:100px">
@@ -46,13 +151,13 @@
             <div style="margin-left:100px">
                 <p>Доход по региону: <strong>{{TotalRes.Postupleniya| currency:' '}}</strong> | Использованно путевок на сумму: <strong>{{TotalRes.ZaplanirovannaNaSummu| currency:' '}}</strong></p>
             </div>
-        </form>
-        <div class="row mb-5 pb-md-5" ng-show="showdata">
+        </form>*@
+            @*<div class="row mb-5 pb-md-5" ng-show="showdata">
             <div class="col-md-12">
                 <div class="table__title mb-3">
                     <div class="row mb-4 align-items-center">
                         <div style="margin-left:50px">
-                            <h6>@*Документ Счет фактуры*@</h6>
+                            <h6></h6>
                         </div>
                         <div style="margin-left:690px;">
                             <button class="btn btn-green d-block d-md-inline-block mb-2" ng-click="exportData1()">
@@ -76,8 +181,6 @@
                                 <th class="dropdown dropdown__table">в 2 квартале</th>
                                 <th class="dropdown dropdown__table">в 3 квартале</th>
                                 <th class="dropdown dropdown__table">в 4 квартале</th>
-                                @*<th class="dropdown dropdown__table">Количество Путевок</th>
-                                <th class="dropdown dropdown__table">Товар отпустил</th>*@
                             </tr>
                         </thead>
                         <tbody>
@@ -104,11 +207,11 @@
                 <div class="table__title mb-3">
                     <div class="row mb-4 align-items-center">
                         <div style="margin-left:50px">
-                            <h6>@*Детали счет фактуры*@</h6>
+                            <h6></h6>
                         </div>
                         <div style="margin-left:710px;">
                             <button ng-click="AddDiv()" class="btn btn-blue d-block d-md-inline-block mb-3 mb-md-0" data-toggle="modal" data-target="#dobavit"><i class="fas fa-plus"></i> Добавить</button>
-                            <button ng-click="SendData2Kurort()" class="btn btn-red d-block d-md-inline-block mb-3 mb-md-0" ><i class="fas fa-save"></i> Отправить</button>
+                            <button ng-click="SendData2Kurort()" class="btn btn-red d-block d-md-inline-block mb-3 mb-md-0"><i class="fas fa-save"></i> Отправить</button>
                             <button class="btn btn-green d-block d-md-inline-block mb-3 mb-md-0" ng-click="exportData2()">
                                 <i class="fas fa-file-excel"></i>  ЭКСПОРТ
                             </button>
@@ -140,8 +243,8 @@
                     </table>
                 </div>
             </div>
-        </div>
-        <div class="modal__block modal fade" id="dobavit" tabindex="-1" role="dialog" aria-labelledby="dobavitLabel">
+        </div>*@
+            @*<div class="modal__block modal fade" id="dobavit" tabindex="-1" role="dialog" aria-labelledby="dobavitLabel">
             <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
                 <div class="modal-content">
                     <div class="modal-body">
@@ -218,7 +321,7 @@
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </div>*@
+</section>
 }
 

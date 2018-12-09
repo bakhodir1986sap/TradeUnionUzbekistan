@@ -268,6 +268,7 @@
     <Compile Include="BusinessLogic\4_Etap\Statistics\UrgentPutyovkasContainer.cs" />
     <Compile Include="BusinessLogic\4_Etap\Statistics\ZadoljennostContainer.cs" />
     <Compile Include="BusinessLogic\4_Etap\Statistics\ZadoljennostModel.cs" />
+    <Compile Include="BusinessLogic\4_Etap\Zayavki\PodachaZayavokModel.cs" />
     <Compile Include="BusinessLogic\BankOplati\BankOplatQueries\BankPaymentsQueries.cs" />
     <Compile Include="BusinessLogic\BankOplati\BankOplatQueries\BankPaymentsRes.cs" />
     <Compile Include="BusinessLogic\BankOplati\BankDataSource.cs" />
@@ -458,6 +459,7 @@
     <Compile Include="BusinessLogic\StartProcess\PutyovkiOstatok.cs" />
     <Compile Include="BusinessLogic\Structure\StructureOfKiat.cs" />
     <Compile Include="BusinessLogic\Utils\amountInWords.cs" />
+    <Compile Include="BusinessLogic\Utils\CodeDecode.cs" />
     <Compile Include="BusinessLogic\Utils\DateOperations.cs" />
     <Compile Include="BusinessLogic\Utils\LinqLib.cs" />
     <Compile Include="BusinessLogic\Utils\References\ReferencesDataManager.cs" />
@@ -491,6 +493,7 @@
     <Compile Include="Controllers\OtchotController.cs" />
     <Compile Include="Controllers\PlatejnoyePorucheniyeController.cs" />
     <Compile Include="Controllers\PrixodPutevokController.cs" />
+    <Compile Include="BusinessLogic\4_Etap\GodovoyPlan\RaspredeleniyeMain.cs" />
     <Compile Include="Controllers\ReferenceController.cs" />
     <Compile Include="Controllers\ReportController.cs" />
     <Compile Include="Controllers\sp_branchController.cs" />
@@ -1474,16 +1477,16 @@
     <Compile Include="ViewModel\RassmotreniyaZayavok\ResheniyeViewModel.cs" />
     <Compile Include="ViewModel\RassmotreniyaZayavok\ZayavkiChangeHistoryViewModel.cs" />
     <Compile Include="ViewModel\RassmotreniyaZayavok\ZayavkiDetailViewModel.cs" />
-    <Compile Include="ViewModel\References\Sprav_FaceViewModel.cs" />
-    <Compile Include="ViewModel\References\Sprav_KvViewModel.cs" />
-    <Compile Include="ViewModel\References\Sprav_MFOViewModel.cs" />
-    <Compile Include="ViewModel\References\Sprav_OrgViewModel.cs" />
-    <Compile Include="ViewModel\References\Sprav_OsViewModel.cs" />
-    <Compile Include="ViewModel\References\Sprav_OtrasViewModel.cs" />
-    <Compile Include="ViewModel\References\Sprav_PrViewModel.cs" />
-    <Compile Include="ViewModel\References\Sprav_RegViewModel.cs" />
-    <Compile Include="ViewModel\References\Sprav_SanViewModel.cs" />
-    <Compile Include="ViewModel\References\Sprav_VilViewModel.cs" />
+    <Compile Include="BusinessLogic\Utils\References\Sprav_FaceViewModel.cs" />
+    <Compile Include="BusinessLogic\Utils\References\Sprav_KvViewModel.cs" />
+    <Compile Include="BusinessLogic\Utils\References\Sprav_MFOViewModel.cs" />
+    <Compile Include="BusinessLogic\Utils\References\Sprav_OrgViewModel.cs" />
+    <Compile Include="BusinessLogic\Utils\References\Sprav_OsViewModel.cs" />
+    <Compile Include="BusinessLogic\Utils\References\Sprav_OtrasViewModel.cs" />
+    <Compile Include="BusinessLogic\Utils\References\Sprav_PrViewModel.cs" />
+    <Compile Include="BusinessLogic\Utils\References\Sprav_RegViewModel.cs" />
+    <Compile Include="BusinessLogic\Utils\References\Sprav_SanViewModel.cs" />
+    <Compile Include="BusinessLogic\Utils\References\Sprav_VilViewModel.cs" />
     <Compile Include="ViewModel\Security\Role\RolePermissionViewModel.cs" />
     <Compile Include="ViewModel\Security\Role\RoleViewModel.cs" />
     <Compile Include="ViewModel\UserViewModel.cs" />
@@ -1776,6 +1779,12 @@
     <Content Include="Scripts\dist\jquery.table2excel.min.js" />
     <Content Include="Scripts\dist\jspdf.debug.js" />
     <Content Include="Scripts\dist\jspdf.min.js" />
+    <Content Include="Scripts\ej2\ej.globalize.min.js" />
+    <Content Include="Scripts\ej2\ej.unobtrusive.min.js" />
+    <None Include="Scripts\ej2\ej.web.all.min.intellisense.js" />
+    <Content Include="Scripts\ej2\ej.web.all.min.js" />
+    <Content Include="Scripts\ej2\ej.widget.angular.min.js" />
+    <Content Include="Scripts\ej2\ej.widget.ko.min.js" />
     <Content Include="Scripts\ej2\ej2.min.js" />
     <Content Include="Scripts\FileSaver.min.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -2149,6 +2158,10 @@
     <Content Include="Views\PrixodPutevok\FizLisoV2.cshtml" />
     <Content Include="Views\GrafikZaezdov\IndexV2.cshtml" />
     <Content Include="Views\Administirirovaniye\RaspredeleniyeZaezdovV2.cshtml" />
+    <Content Include="Views\GrafikZaezdov\GrafikZaezdovPV.cshtml" />
+    <Content Include="Views\PrixodPutevok\SverkaDannixV2.cshtml" />
+    <Content Include="Views\Home\PodachaZayavokV2.cshtml" />
+    <Content Include="Views\Home\PoiskRedaktZayavokV2.cshtml" />
     <None Include="Web References\KurortUrlService\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
@@ -2220,6 +2233,7 @@
     <Folder Include="BusinessLogic\Security\Roles\Users\" />
     <Folder Include="Reports\6\" />
     <Folder Include="Reports\8\" />
+    <Folder Include="ViewModel\References\" />
     <Folder Include="Views\Language\" />
     <Folder Include="Views\Reference\" />
   </ItemGroup>

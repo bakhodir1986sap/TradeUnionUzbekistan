@@ -22,6 +22,7 @@ using System.Globalization;
 using KasabaKiat.BusinessLogic.Utils.References;
 using KasabaKIAT.BusinessLogic._3_Etap.Statistika.Stat_ViewModels;
 using KasabaKIAT.BusinessLogic._4_Etap.Statistics;
+using KasabaKIAT.BusinessLogic._4_Etap.Zayavki;
 
 namespace KasabaKIAT.Controllers
 {
@@ -321,6 +322,20 @@ namespace KasabaKIAT.Controllers
         public ActionResult PodachaZayavok()
         {
            
+            return View();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [OutputCache(Duration = 5, Location = OutputCacheLocation.Client, VaryByCustom = "userId")]
+        public ActionResult PodachaZayavokV2()
+        {
+            int UserId = Convert.ToInt32(User.Identity.Name);
+
+            ViewBag.DataSouceZayavki = GetAllPZ_SV2(UserId, -1);
+
             return View();
         }
 
@@ -700,6 +715,209 @@ namespace KasabaKIAT.Controllers
                 return Json(list, JsonRequestBehavior.AllowGet); 
             }
             catch(Exception ex)
+            {
+                log.Info(ex);
+            }
+
+            return null;
+
+        }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [OutputCache(Duration = 5, Location = OutputCacheLocation.Client, VaryByCustom = "userId")]
+        public JsonResult Load_PRZ_SV2(int id = -1)
+        {
+            int UserId = Convert.ToInt32(User.Identity.Name);
+            var ustinfo = UserInfo.GetUserInfo(UserId);
+
+            log.Info("Load_PRZ_S");
+            log.Info("id = " + id);
+
+            List<ZayavkiModel> list = new List<ZayavkiModel>();
+
+            var kiat = new StructureOfKiat();
+
+            try
+            {
+                var zayavkiOtp = KasabaDB.tbpt_zayavki.Where(z => z.STATUS != "0").ToList();
+
+                if (zayavkiOtp.Any())
+                {
+                    foreach (var zayavka in zayavkiOtp)
+                    {
+                        if (id != -1)
+                        {
+                            if (zayavka.SANATORY_ID != id)
+                            {
+                                continue;
+                            }
+                        }
+
+                        if (zayavka.USER_ID == UserId)
+                        {
+                            var zayavki1 = new ZayavkiModel();
+
+                            zayavki1.ID = zayavka.REC_ID;
+                            zayavki1.ZB = zayavka.ZAEZD_BEGIN;
+                            zayavki1.ZE = zayavka.ZAEZD_END;
+                            zayavki1.SC = KasabaDB.tblSprav_San.Where(z => z.ID == zayavka.SANATORY_ID).First().Name_San;
+                            zayavki1.SC_id = zayavka.SANATORY_ID;
+                            zayavki1.P = zayavka.POSITION;
+                            zayavki1.FN = zayavka.FULL_NAME;
+
+                            if (zayavka.STATUS.Equals("1"))
+                            {
+                                zayavki1.S = "Отправленные";
+                                zayavki1.isInitial = true;
+                            }
+                            else if (zayavka.STATUS.Equals("3"))
+                            {
+                                zayavki1.S = "Откланен";
+                                zayavki1.isInitial = false;
+                            }
+                            else if (zayavka.STATUS.Equals("4"))
+                            {
+                                zayavki1.S = "Утвержден";
+                                zayavki1.isInitial = false;
+                            }
+                            else if (zayavka.STATUS.Equals("5"))
+                            {
+                                zayavki1.S = "Выдана путевка";
+                                zayavki1.isInitial = false;
+                            }
+
+                            var orgs = KasabaDB.tblSprav_Org.Where(z => z.OWNER_CODE == zayavka.DEPARTMENT_CODE);
+
+                            if (orgs.Any())
+                            {
+                                var organization = orgs.First();
+
+                                zayavki1.INN = organization.ORIG_INN;
+                                zayavki1.O = organization.Name_Org;
+                            }
+                            else
+                            {
+                                var departments = KasabaDB.t_departmentbase.Where(z => z.code == zayavka.DEPARTMENT_CODE);
+
+                                if (departments.Any())
+                                {
+                                    var department = departments.First();
+
+                                    zayavki1.INN = department.le_inn;
+                                    zayavki1.O = department.name_ru + department.bkut_name + department.dep_name;
+                                }
+                                else
+                                {
+                                    zayavki1.INN = string.Empty;
+                                    zayavki1.O = string.Empty;
+                                }
+                            }
+
+                            zayavki1.Q = zayavka.QUANTITY;
+                            zayavki1.TS = zayavka.TIMESTAMP;
+                            zayavki1.MOE = zayavka.MEDICAL_ORDER_EXISTS;
+                            zayavki1.MO = zayavka.MEDICAL_ORDER;
+                            zayavki1.isOwn = true;
+                            zayavki1.sotrinn = zayavka.SOTR_INN;
+                            zayavki1.pnfl = zayavka.PNFL;
+
+                            list.Add(zayavki1);
+                        }
+
+                        var deptCode = kiat.GetParentOrganizationCode(zayavka.DEPARTMENT_CODE);
+
+                        if ((deptCode == null) || (deptCode == ustinfo.DepartmentBase))
+                        {
+                            var zayavki1 = new ZayavkiModel();
+
+                            zayavki1.ID = zayavka.REC_ID;
+                            
+                            zayavki1.ZB = zayavka.ZAEZD_BEGIN;
+                            zayavki1.ZE = zayavka.ZAEZD_END;
+
+                            var sanat = KasabaDB.tblSprav_San.Where(z => z.ID == zayavka.SANATORY_ID);
+
+                            if (sanat.Any())
+                            {
+                                zayavki1.SC = sanat.First().Name_San;
+                            }
+                            else
+                            {
+                                zayavki1.SC = string.Empty;
+                            }
+                                                        
+                            zayavki1.SC_id = zayavka.SANATORY_ID;
+                            zayavki1.P = zayavka.POSITION;
+                            zayavki1.FN = zayavka.FULL_NAME;
+
+                            if (zayavka.STATUS.Equals("1"))
+                            {
+                                zayavki1.S = "Отправленные";
+                                zayavki1.isInitial = true;
+                            }
+                            else if (zayavka.STATUS.Equals("3"))
+                            {
+                                zayavki1.S = "Откланен";
+                                zayavki1.isInitial = false;
+                            }
+                            else if (zayavka.STATUS.Equals("4"))
+                            {
+                                zayavki1.S = "Утвержден";
+                                zayavki1.isInitial = false;
+                            }
+                            else if (zayavka.STATUS.Equals("5"))
+                            {
+                                zayavki1.S = "Выдана путевка";
+                                zayavki1.isInitial = false;
+                            }
+
+                            var orgs = KasabaDB.tblSprav_Org.Where(z => z.OWNER_CODE == zayavka.DEPARTMENT_CODE);
+
+                            if (orgs.Any())
+                            {
+                                var organization = orgs.First();
+
+                                zayavki1.INN = organization.ORIG_INN;
+                                zayavki1.O = organization.Name_Org;
+                            }
+                            else
+                            {
+                                var departments = KasabaDB.t_departmentbase.Where(z => z.code == zayavka.DEPARTMENT_CODE);
+
+                                if (departments.Any())
+                                {
+                                    var department = departments.First();
+
+                                    zayavki1.INN = department.le_inn;
+                                    zayavki1.O = department.name_ru + department.bkut_name + department.dep_name;
+                                }
+                                else
+                                {
+                                    zayavki1.INN = string.Empty;
+                                    zayavki1.O = string.Empty;
+                                }
+                            }
+
+                            zayavki1.Q = zayavka.QUANTITY;
+                            zayavki1.TS = zayavka.TIMESTAMP;
+                            zayavki1.MOE = zayavka.MEDICAL_ORDER_EXISTS;
+                            zayavki1.MO = zayavka.MEDICAL_ORDER;
+                            zayavki1.isOwn = false;
+                            zayavki1.sotrinn = zayavka.SOTR_INN;
+                            zayavki1.pnfl = zayavka.PNFL;
+
+                            list.Add(zayavki1);
+                        }
+                    }
+                }
+                return Json(new { result = list, count = list.Count }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
             {
                 log.Info(ex);
             }
@@ -1188,6 +1406,56 @@ namespace KasabaKIAT.Controllers
             return null;
         }
 
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sc_id"></param>
+        /// <returns></returns>
+        [OutputCache(Duration = 5, Location = OutputCacheLocation.Client, VaryByParam = "sc_id", VaryByCustom = "userId")]
+        public List<PodachaZayavokModel> GetAllPZ_SV2(int UserId, int sc_id = -1)
+        {
+            log.Info("GetAllPZ_S");
+            log.Info("sc_id = " + sc_id);
+
+            try
+            {
+                var list = (from e in KasabaDB.tbpt_zayavki
+                            where e.USER_ID == UserId && e.STATUS == "0" 
+                            && e.SANATORY_ID == (sc_id == -1 ? e.SANATORY_ID : sc_id)
+                            join d in KasabaDB.tblSprav_San on e.SANATORY_ID equals d.ID
+                            join c in KasabaDB.t_departmentbase on e.DEPARTMENT_CODE equals c.code
+                            where e.SANATORY_ID != null || e.CAMP_ID != null
+                            select new PodachaZayavokModel
+                            {
+                                rec_id = e.REC_ID,
+                                zaezd_begin = e.ZAEZD_BEGIN,
+                                zaezd_end = e.ZAEZD_END,
+                                name_san = (e.CAMP_ID == null) ? d.Name_San : "",//a.camps_name,
+                                sanid = d.ID,
+                                position = e.POSITION,
+                                full_name = e.FULL_NAME,
+                                status = e.STATUS,
+                                inn = c.inn,
+                                organization = c.name_uz + c.bkut_name + c.dep_name,
+                                quantity = e.QUANTITY,
+                                timestamp = e.TIMESTAMP,
+                                medical_order_exists = e.MEDICAL_ORDER_EXISTS,
+                                medical_order = e.MEDICAL_ORDER,
+                                sotr_inn = e.SOTR_INN,
+                                pnfl = e.PNFL
+                            });
+
+                return list.ToList();
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex);
+            }
+
+            return null;
+        }
+
         /// <summary>
         /// 
         /// </summary>
@@ -1228,7 +1496,58 @@ namespace KasabaKIAT.Controllers
                             InnFiz = e.SOTR_INN,
                             pnfl = e.PNFL
                         });
-            return Json(list.ToList(), JsonRequestBehavior.AllowGet);
+
+               return Json(list.ToList(), JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex);
+            }
+
+            return null;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sc_id"></param>
+        /// <returns></returns>
+        [OutputCache(Duration = 5, Location = OutputCacheLocation.Client, VaryByParam = "sc_id", VaryByCustom = "userId")]
+        public JsonResult GetPodachaZayavok()
+        {
+
+            log.Info("GetAllPZ_C");
+
+            try
+            {
+                int UserId = Convert.ToInt32(User.Identity.Name);
+                var list = (from e in KasabaDB.tbpt_zayavki
+                            where e.USER_ID == UserId && e.STATUS == "0"
+                            join d in KasabaDB.tblSprav_San on e.SANATORY_ID equals d.ID
+                            join c in KasabaDB.t_departmentbase on e.DEPARTMENT_CODE equals c.code
+                            where e.SANATORY_ID != null || e.CAMP_ID != null
+                            select new PodachaZayavokModel
+                            {
+                                rec_id = e.REC_ID,
+                                zaezd_begin = e.ZAEZD_BEGIN,
+                                zaezd_end = e.ZAEZD_END,
+                                name_san = (e.CAMP_ID == null) ? d.Name_San : "",//a.camps_name,
+                                sanid = d.ID,
+                                position = e.POSITION,
+                                full_name = e.FULL_NAME,
+                                status = e.STATUS,
+                                inn = c.inn,
+                                organization = c.name_uz + c.bkut_name + c.dep_name,
+                                quantity = e.QUANTITY,
+                                timestamp = e.TIMESTAMP,
+                                medical_order_exists = e.MEDICAL_ORDER_EXISTS,
+                                medical_order = e.MEDICAL_ORDER,
+                                sotr_inn = e.SOTR_INN,
+                                pnfl = e.PNFL
+                            });
+
+                return Json(new { result = list.ToList(), count = list.ToList().Count }, JsonRequestBehavior.AllowGet);
+
             }
             catch (Exception ex)
             {
@@ -2266,6 +2585,16 @@ namespace KasabaKIAT.Controllers
         /// <returns></returns>
         [OutputCache(Duration = 5, Location = OutputCacheLocation.Client, VaryByCustom = "userId")]
         public ActionResult PoiskRedaktZayavok()
+        {
+            return View();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [OutputCache(Duration = 5, Location = OutputCacheLocation.Client, VaryByCustom = "userId")]
+        public ActionResult PoiskRedaktZayavokV2()
         {
             return View();
         }

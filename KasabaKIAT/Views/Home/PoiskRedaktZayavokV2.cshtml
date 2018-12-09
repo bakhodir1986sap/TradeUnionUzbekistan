@@ -1,0 +1,541 @@
+﻿@using KasabaKIAT.BusinessLogic.Security.Roles.RolePermissions;
+@{
+    ViewBag.Title = "Подача заявок";
+    var UserId = Convert.ToInt32(User.Identity.Name);
+    FunctionalityList List = FunctionalityAndDbDataMatch.MatchProcess(UserId);
+}
+
+<script src="~/Scripts/MyJavaScript/PRZController.js"></script>
+<script>
+    // Change the selector if needed
+    var $table = $('table.scroll'),
+        $bodyCells = $table.find('tbody tr:first').children(),
+        colWidth;
+
+    // Adjust the width of thead cells when window resizes
+    $(window).resize(function () {
+        // Get the tbody columns width array
+        colWidth = $bodyCells.map(function () {
+            return $(this).width();
+        }).get();
+
+        // Set the width of thead columns
+        $table.find('thead tr').children().each(function (i, v) {
+            $(v).width(colWidth[i+100]);
+        });
+    }).resize(); // Trigger resize handler
+</script>
+<style>
+    table.scroll {
+        /* width: 100%; */ /* Optional */
+        /* border-collapse: collapse; */
+        border-spacing: 0;
+        /*border: 2px solid black;*/
+    }
+
+        table.scroll tbody,
+        table.scroll thead {
+            display: block;
+        }
+
+    thead tr th {
+        height: 30px;
+        line-height: 30px;
+        /* text-align: left; */
+    }
+
+    table.scroll tbody {
+        height: 300px;
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+
+    tbody {
+        border-top: 2px solid black;
+    }
+
+        tbody td, thead th {
+            /* width: 20%; */ /* Optional */
+            /*border-right: 1px solid black;*/
+            /* white-space: nowrap; */
+        }
+
+            tbody td:last-child, thead th:last-child {
+                border-right: none;
+            }
+</style>
+<style>
+    td {
+        border: 1px #DDD solid;
+        padding: 5px;
+        cursor: pointer;
+    }
+
+    .selected {
+        background-color: #24c0db;
+        color: #FFF;
+    }
+</style>
+@*<h2 style="color:#428bca">Поиск и редактирование заявок</h2>*@
+<div id="connection" style="visibility:hidden;position:absolute;margin-left:430px;z-index:9999">
+    <img src="~/Content/Login/buffering.gif" />
+</div>
+@if (List.PoiskIRedaktirovaniyaZayavok)
+{
+    <div ng-controller="PRZController">
+        <section class="content__block container-fluid">
+            <div class="row mb-4 align-items-center">
+                <div class="col title__block">
+                    <h4>Поиск и редактирование заявок</h4>
+                    <nav aria-label="breadcrumb" class="breadcrumb__block">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item load"><a href="/Home/Zayavok">Заявки</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Поиск и редактирование заявок</li>
+                        </ol>
+                    </nav>
+                </div>
+                <div class="col-sm-6 text-md-right">
+                    <button ng-click="exportData()" class="btn btn-green d-block d-md-inline-block mb-3 mb-md-0"><i class="fas fa-file-excel"></i> Экспорт</button>
+                </div>
+            </div>
+            <form class="form-group mb-4" name="myForm" novalidate>
+                <div class="custom-control custom-radio custom-control-inline" hidden>
+                    <input type="radio" ng-model="s" required ng-click="LoadCSName()" name="inlineRadioOptions3" id="inlineRadio1" value="option1" class="custom-control-input" checked="" />
+                    <label for="inlineRadio1" class="custom-control-label">Санаторий</label>
+                </div>
+                <div class="custom-control custom-radio custom-control-inline" hidden>
+                    <input type="radio" ng-model="s" required ng-click="LoadCSName()" name="inlineRadioOptions3" id="inlineRadio2" value="option2" class="custom-control-input" />
+                    <label for="inlineRadio2" class="custom-control-label">Дет. лагер</label>
+                </div>
+                <span class="alert alert-warning" style="padding:0px" ng-show="myForm.inlineRadioOptions3.$error.required">Выберите поле</span>
+            </form>
+            <style>
+                .activvvv{
+                    border: 5px solid #24c0db;
+                }
+            </style>
+            <div ng-show="PRZdiv" class="table-responsive box-shadow mb-4" id="export">
+                @Html.EJS().Grid("podachaZayavok").DataSource(dataManager => { dataManager.Url("/Home/Load_PRZ_SV2").InsertUrl("/sp_branch/Insert").UpdateUrl("/sp_branch/Update").RemoveUrl("/sp_branch/Remove").Adaptor("UrlAdaptor"); }).AllowExcelExport().ToolbarClick("toolbarClick").Columns(col=> {
+
+                col.Field("ID").HeaderText("ID").Width("10").IsPrimaryKey(true).AllowEditing(false).DefaultValue("1").Add();
+                col.Field("ZB").HeaderText("Дата начало").Width("10").Add();
+                col.Field("ZE").HeaderText("Дата конца").Width("10").Add();
+                col.Field("SC").HeaderText("Санаторий").Width("30").Add();
+                col.Field("SC_id").HeaderText("Санаторий Ид").Visible(false).Width("30").Add();
+                col.Field("P").HeaderText("Должность").Width("30").Add();
+                col.Field("FN").HeaderText("ФИО").Width("30").Add();
+                col.Field("S").HeaderText("Статус").Width("30").Add();
+                col.Field("INN").HeaderText("ИНН заявителя").Width("9").Add();
+                col.Field("O").HeaderText("Организация").Width("9").Add();
+                col.Field("Q").HeaderText("Количество").Visible(false).Width("9").Add();
+                col.Field("TS").HeaderText("Время подачи").Width("15").Add();
+                col.Field("MOE").HeaderText("Есть ли справка").DisplayAsCheckBox(true).Width("9").Add();
+                col.Field("MO").HeaderText("Справка").Width("15").Add();
+                col.Field("sotrinn").HeaderText("Инн сотрудника").Width("9").Add();
+                col.Field("pnfl").HeaderText("ПНФЛ сотрудника").Width("14").Add();
+                }).AllowPaging().PageSettings(page=>page.PageCount(5)).AllowResizing().EditSettings(edit => { edit.AllowAdding(true).AllowEditing(true).AllowDeleting(true).ShowDeleteConfirmDialog(true).Mode(Syncfusion.EJ2.Grids.EditMode.Dialog);}).Toolbar(new List<string>
+                () { "ExcelExport" }).Render()
+
+                <script>
+                    function toolbarClick(args) {
+                        var gridObj = document.getElementById("podachaZayavok").ej2_instances[0];
+                        if (args.item.id === 'podachaZayavok_excelexport') {
+                            gridObj.excelExport();
+                        }
+                    }
+                </script>
+                @*<table class="table table__block t-hover">
+            <thead>
+                <tr>
+                    <th style="vertical-align:bottom">
+                        <span>Время подачи</span>
+                        <input type="date" required class="form-control" ng-model="searchD0" ng-change="searchD0_CH()" />
+                    </th>
+
+                    <th style="width:200px;vertical-align:bottom">
+                        <select class="form-control" ng-model="SCf" ng-options="sc as sc.value for sc in CS track by sc.id" ng-change="LoadSC()"></select>
+                    </th>
+
+                    <th style="width:200px;vertical-align:bottom">
+                        <input type="text" class="form-control" ng-model="searchO" placeholder="Организация" />
+                    </th>
+
+                    <th style="vertical-align:bottom">
+                        <input type="text" class="form-control" ng-model="searchFN" placeholder="ФИО" />
+                    </th>
+
+                    <th style="vertical-align:bottom">
+                        <input type="text" ng-model="position" class="form-control" placeholder="Должность" />
+                    </th>
+
+                    <th style="vertical-align:bottom">
+                        <span>Дата отдыха с</span>
+                        <input type="date" required class="form-control" ng-model="searchD1" ng-change="searchD1_CH()" />
+                    </th>
+                    <th style="vertical-align:top">Статус</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="poin" ng-repeat="prz in PRZ | filter:searchFN | filter:searchO | filter:position" ng-click="editPRZ(prz)" data-toggle="modal" data-target="#myModal" id="{{prz.ID}}">
+                    <td>{{prz.TS | jsonDate: 'dd.MM.yyyy'}}</td>
+                    <td>{{prz.SC}}</td>
+                    <td>{{prz.O}}</td>
+                    <td>{{prz.FN}}</td>
+                    <td>{{prz.P}}</td>
+                    <td>{{prz.ZB | jsonDate: 'dd.MM.yyyy'}}</td>
+                    <td>{{prz.S}}</td>
+                </tr>
+            </tbody>
+        </table>*@
+            </div>
+        </section>
+        <div class="modal__block modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="dobavitLabel">
+            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <div class="modal-title">
+                            <h4 class="text-center mt-4 mb-4">{{Action}} заявку</h4>
+                        </div>
+                        <div class="row justify-content-center">
+                            <form class="col-md-8" name="myForm" novalidate>
+                                <input type="hidden" style="position:absolute" ng-model="ID;" />
+                                <div class="form-group row align-items-center">
+                                    <label class="col-md-5 col-form-label py-0">{{MyVal}}:</label>
+                                    <div class="col-md-7">
+                                        <select class="form-control" name="SC" required ng-model="SC" ng-options="item as item.value for item in CS track by item.id"></select>
+                                        <span class="alert alert-warning" style="padding:0px" ng-show="myForm.SC.$error.required">Выберите поле</span>
+                                    </div>
+                                </div>
+                                <div class="form-group row align-items-center">
+                                    <label class="col-md-5 col-form-label py-0">Начало заезда:</label>
+                                    <div class="col-md-7">
+                                        <input type="date" class="custom-select  form-control" ng-model="ZB" />
+                                    </div>
+                                </div>
+                                <div class="form-group row align-items-center">
+                                    <label class="col-md-5 col-form-label py-0">Конец заезда:</label>
+                                    <div class="col-md-7">
+                                        <input type="date" class="form-control" ng-model="ZE" />
+                                    </div>
+                                </div>
+                                <div class="form-group row align-items-center">
+                                    <label class="col-md-5 col-form-label py-0">ИНН Отдыхающего:</label>
+                                    <div class="col-md-7">
+                                        <input type="text" class="form-control" maxlength="9" name="InnFiz" ng-model="InnFiz" required>
+                                        <span class="alert alert-warning" style="padding:0px" ng-show="myForm.InnFiz.$error.required">заполнить поле</span>
+                                    </div>
+                                </div>
+                                <div class="form-group row align-items-center">
+                                    <label class="col-md-5 col-form-label py-0">ПНФЛ Отдыхающего:</label>
+                                    <div class="col-md-7">
+                                        <input type="text" class="form-control" maxlength="14" name="pnfl" ng-model="pnfl" required>
+                                        <span class="alert alert-warning" style="padding:0px" ng-show="myForm.pnfl.$error.required">заполнить поле</span>
+                                    </div>
+                                </div>
+                                @*<div class="form-group row align-items-center">
+                                    <label class="col-md-5 col-form-label py-0">Инн:</label>
+                                    <div class="col-md-7">
+                                        <input type="text" required class="form-control" name="INN" ng-minlength="9" ng-maxlength="9" ng-model="INN" ng-change="LoadINN()" />
+                                        <span class="alert alert-warning" style="padding:0px" ng-show="myForm.INN.$error.required">заполнить поле</span>
+                                        <span class="alert alert-warning" style="padding:0px" ng-show="!myForm.INN.$error.required&&!myForm.INN.$valid">9 шт. номер</span>
+                                        <button style="position:absolute;margin-left:200px;margin-top:-38px" class="btn btn-green d-block d-md-inline-block mb-3 mb-md-0" data-toggle="modal" data-target="#dobavit2">Поиск</button>
+                                    </div>
+                                </div>*@
+                                <div class="form-group row align-items-center">
+                                    <label class="col-md-5 col-form-label py-0">Организация:</label>
+                                    <div class="col-md-7">
+                                        <label name="O" ng-model="O">{{O}}</label>
+                                    </div>
+                                </div>
+                                <div class="form-group row align-items-center">
+                                    <label class="col-md-5 col-form-label py-0">ФИО:</label>
+                                    <div class="col-md-7">
+                                        <input type="text" class="form-control" name="FN" ng-model="FN" required>
+                                        <span class="alert alert-warning" style="padding:0px" ng-show="myForm.FN.$error.required">заполнить поле</span>
+                                    </div>
+                                </div>
+                                <div class="form-group row align-items-center">
+                                    <label class="col-md-5 col-form-label py-0">Должность:</label>
+                                    <div class="col-md-7">
+                                        <input type="text" ng-model="P" name="P" class="form-control" required>
+                                        <span class="alert alert-warning" style="padding:0px" ng-show="myForm.P.$error.required">заполнить поле</span>
+                                    </div>
+                                </div>
+                                <div class="form-group row align-items-center">
+                                    <label class="col-md-5 col-form-label py-0">Кол-во путевок:</label>
+                                    <div class="col-md-7">
+                                        <input type="text" ng-model="Q" disabled="disabled" name="Q" class="form-control" required>
+                                    </div>
+                                </div>
+                                <div class="form-group row align-items-center">
+                                    <label class="col-md-5 col-form-label py-0">Наличие Мед. справки:</label>
+                                    <div class="col-md-7">
+                                        <input type="checkbox" ng-model="MOE" ng-change="MOE_ch()">
+                                    </div>
+                                </div>
+                                <div class="form-group row align-items-center">
+                                    <label class="col-md-5 col-form-label py-0">Номер и дата выдачи справки:</label>
+                                    <div class="col-md-7">
+                                        <input type="text" ng-disabled="!MOE" ng-model="MO" name="MO" class="form-control" required>
+                                        <span class="alert alert-warning" style="padding:0px" ng-show="MOE&&myForm.MO.$error.required">заполнить поле</span>
+                                    </div>
+                                </div>
+                                <div class="mb-4 text-right">
+                                    <a ng-show="!IsOwn" ng-click="UpdateState(4)" href="#" class="btn btn-green d-block d-md-inline-block mb-2" data-dismiss="modal">Принять</a>
+                                    <a ng-show="!IsOwn" ng-click="UpdateState(3)" href="#" class="btn btn-red d-block d-md-inline-block mb-2" data-dismiss="modal">Отклонить</a>
+                                    <button ng-show="IsOwn&&isInitial" ng-click="UpdatePRZ()" ng-disabled="myForm.INN.$error.required||myForm.FN.$error.required||myForm.P.$error.required||myForm.Q.$error.required||myForm.SC.$error.required||MOE&&myForm.MO.$error.required" data-dismiss="modal" class="btn btn-blue d-block d-md-inline-block mb-2">Сохранить</button>
+                                    <a ng-click="GetFileInfoZayavka()" href="#" data-toggle="modal" data-target="#dobavitFile" class="btn btn-blue d-block d-md-inline-block mb-2">Прикрепленные</a>
+                                    <button class="btn btn-grey d-block d-md-inline-block mb-2" data-dismiss="modal">Отмена</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal__block modal fade" id="dobavit2" tabindex="-1" role="dialog" aria-labelledby="dobavitLabel">
+            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <section class="content__block container-fluid">
+                            <div id="connection2" style="visibility:hidden;position:absolute;margin-left:300px;margin-top:100px;z-index:9999">
+                                <img src="~/Content/Login/buffering.gif" />
+                            </div>
+                            <div class="row justify-content-center">
+                                <form class="row" name="myForm1" novalidate>
+                                    <div class="custom-control-inline" style="margin-left:20px;">
+                                        <div>
+                                            <p>ИНН:</p>
+                                            <input type="text" class="form-control" id="inn1" ng-model="I" placeholder="ИНН" style="width:200px" />
+                                            <span class="alert alert-warning" style="padding:0px" ng-show="myForm1.I.$error.required">Выберите поле</span>
+                                        </div>
+                                        <div style="margin-left:100px">
+                                            <p>ИМЯ:</p>
+                                            <input type="text" required id="name" class="form-control" ng-model="N" placeholder="ИМЯ" style="width:200px" />
+                                            <span class="alert alert-warning" style="padding:0px" ng-show="myForm1.N.$error.required">Выберите поле</span>
+                                        </div>
+                                        <div style="margin-left:100px">
+                                            <button ng-click="LoadDATA2()" class="btn btn-blue d-block d-md-inline-block mb-2" style="margin-top:40px"> Получить</button>
+                                        </div>
+                                    </div>
+                                </form>
+                                <div class="table-responsive box-shadow mb-4" ng-show="showdata" id="export">
+                                    @*class="table table-bordered scroll"*@
+                                    <table class="scroll" id="table">
+                                        <thead>
+                                            <tr>
+                                                <th style="width:200px;text-align:center">Адрес</th>
+                                                <th style="width:200px;text-align:center">Названия</th>
+                                                <th style="width:200px;text-align:center">Названия</th>
+                                                <th style="width:200px;text-align:center">Инн</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr ng-repeat="item in DATA3" onclick="MyFunction()" ng-click="T(item.d2,item.d4)">
+                                                <td style="width:200px">{{item.d1}}</td>
+                                                <td style="width:200px">{{item.d2}}</td>
+                                                <td style="width:200px">{{item.d3}}</td>
+                                                <td style="width:200px">{{item.d4}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <script>
+                                        function MyFunction() {
+                                            $("#table tr").click(function () {
+                                                $(this).addClass('selected').siblings().removeClass('selected');
+                                                var value = $(this).find('td:first').html();
+                                                //alert("value=" + value);
+                                            });
+                                        }
+                                    </script>
+                                </div>
+                                <button ng-show="showdata" ng-click="Tanlash()" data-dismiss="modal">Выбрать</button>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal__block modal fade" id="dobavitFile" tabindex="-1" role="dialog" aria-labelledby="dobavitFileLabel" data-backdrop="static" data-keyboard="false">
+            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <div class="modal-title">
+                            <h4 class="text-center mt-4 mb-4">Прикрепить файлы</h4>
+                        </div>
+                        <div class="row justify-content-center">
+                            <form class="col-md-8" name="myForm" novalidate>
+                                <input type="hidden" style="position:absolute" ng-model="ID;" />
+
+                                <div class="form-group row align-items-center">
+                                    <label class="col-md-5 col-form-label py-0">Копия паспорта:</label>
+                                    <div class="col-md-7">
+                                        <input type="file" ng-model="fPassport" name="Passport" class="form-control" onchange="angular.element(this).scope().UploadFilesPassport(this.files)">
+                                        @*<a data-ng-href="@Url.Action("DownloadZayavkaFile", "Home")?zayavkaId={{ID}}&OpName={{Passport}}" target="_self">{{FilesOpdatas.Passport}}  </a>*@
+                                        @*@Html.ActionLink("{{FilesOpdatas.Passport}}", "DownloadZayavkaFile", "Home", new { zayavkaId = "{{ID}}", OpName = "Passport" }, null)*@
+                                        <a href="#" ng-click="DownloadFile(Passport, FilesOpdatas.Passport)"><span ng-bind="FilesOpdatas.Passport"></span></a>
+                                        @*<span class="alert alert-warning" style="padding:0px" ng-show="myForm.Passport.$error.required" >выберите файл</span>*@
+                                    </div>
+                                </div>
+                                <div class="form-group row align-items-center">
+                                    <label class="col-md-5 col-form-label py-0">Копия трудовой книжки:</label>
+                                    <div class="col-md-7">
+                                        <input type="file" ng-model="fLabourBook" name="LabourBook" class="form-control" onchange="angular.element(this).scope().UploadFilesLabourBook(this.files)">
+                                        <a href="#" ng-click="DownloadFile(LabourBook, FilesOpdatas.LabourBook)"><span ng-bind="FilesOpdatas.LabourBook"></span></a>
+                                        @*<span class="alert alert-warning" style="padding:0px" ng-show="myForm.LabourBook.$error.required">выберите файл</span>*@
+                                    </div>
+                                </div>
+                                <div class="form-group row align-items-center">
+                                    <label class="col-md-5 col-form-label py-0">Приказ на отпуск :</label>
+                                    <div class="col-md-7">
+                                        <input type="file" ng-model="fVocationOrder" name="VocationOrder" class="form-control" onchange="angular.element(this).scope().UploadFilesVocationOrder(this.files)">
+                                        <a href="#" ng-click="DownloadFile(VocationOrder, FilesOpdatas.VocationOrder)"><span ng-bind="FilesOpdatas.VocationOrder"></span></a>
+                                        @*<span class="alert alert-warning" style="padding:0px" ng-show="myForm.VocationOrder.$error.required">выберите файл</span>*@
+                                    </div>
+                                </div>
+                                <div class="form-group row align-items-center">
+                                    <label class="col-md-5 col-form-label py-0">Протокол профсоюзного комитета :</label>
+                                    <div class="col-md-7">
+                                        <input type="file" ng-model="fPPO_Protokol" name="PPO_Protokol" class="form-control" onchange="angular.element(this).scope().UploadFilesPPO_Protokol(this.files)">
+                                        <a href="#" ng-click="DownloadFile(PPO_Protokol, FilesOpdatas.PPO_Protokol)"><span ng-bind="FilesOpdatas.PPO_Protokol"></span></a>
+                                        @*<span class="alert alert-warning" style="padding:0px" ng-show="myForm.PPO_Protokol.$error.required">выберите файл</span>*@
+                                    </div>
+                                </div>
+
+                                <div class="mb-4 text-right">
+                                    <button ng-show="IsOwn" ng-click="SaveFilesDATA()" data-dismiss="modal" class="btn btn-blue d-block d-md-inline-block mb-2">Сохранить</button>
+                                    <button class="btn btn-grey d-block d-md-inline-block mb-2" data-dismiss="modal">Отмена</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal -->
+        @*<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title text-center" id="myModalLabel">редактировать заявку</h4>
+                        </div>
+                        <form class="modal-body" name="myForm" novalidate>
+                            <input type="hidden" style="position:absolute" ng-model="ID" />
+                            <br />
+                            <div class="row">
+                                <div class="col-xs-5 text-right">
+                                    <p>{{MyVal}}</p>
+                                </div>
+                                <div class="col-xs-6">
+                                    <select class="form-control" name="SC" required ng-model="SC" ng-options="item as item.value for item in CS track by item.id"></select>
+                                    <span class="alert alert-warning" style="padding:0px" ng-show="myForm.SC.$error.required">Выберите поля</span>
+                                </div>
+                            </div>
+                            <br />
+                            <div class="row">
+                                <div class="col-xs-5 text-right">
+                                    <p>Дата заезды:</p>
+                                </div>
+                                <div class="col-xs-6">
+                                    <input type="date" required class="form-control" ng-model="ZB" />
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row">
+                                <div class="col-xs-5 text-right">
+                                    <p>конец заезды:</p>
+                                </div>
+                                <div class="col-xs-6">
+                                    <input type="date" required class="form-control" ng-model="ZE" />
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row">
+                                <div class="col-xs-5 text-right">
+                                    <p>Инн:</p>
+                                </div>
+                                <div class="col-xs-6">
+                                    <input type="text" required name="INN" ng-minlength="9" ng-maxlength="9" class="form-control" ng-model="INN" ng-change="LoadINN()" />
+                                    <span class="alert alert-warning" style="padding:0px" ng-show="myForm.INN.$error.required">Выберите поля</span>
+                                    <span class="alert alert-warning" style="padding:0px" ng-show="!myForm.INN.$error.required&&!myForm.INN.$valid">9 шт. номер</span>
+                                </div>
+                            </div>
+                            <br />
+                            <div class="row">
+                                <div class="col-xs-5 text-right">
+                                    <p>Организация:</p>
+                                </div>
+                                <div class="col-xs-6">
+                                    <label name="O" ng-model="O">{{O}}</label>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row">
+                                <div class="col-xs-5 text-right">
+                                    <p>ФИО:</p>
+                                </div>
+                                <div class="col-xs-6">
+                                    <input type="text" required class="form-control" name="FN" ng-model="FN">
+                                    <span class="alert alert-warning" style="padding:0px" ng-show="myForm.FN.$error.required">Выберите поля</span>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row">
+                                <div class="col-xs-5 text-right">
+                                    <p>Должность:</p>
+                                </div>
+                                <div class="col-xs-6">
+                                    <input type="text" required ng-model="P" name="P" class="form-control">
+                                    <span class="alert alert-warning" style="padding:0px" ng-show="myForm.P.$error.required">Выберите поля</span>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row">
+                                <div class="col-xs-5 text-right">
+                                    <p>Кол-во путевок:</p>
+                                </div>
+                                <div class="col-xs-6">
+                                    <input type="text" required ng-model="Q" name="Q" class="form-control">
+                                    <span class="alert alert-warning" style="padding:0px" ng-show="myForm.Q.$error.required">Выберите поля</span>
+                                </div>
+                            </div>
+                            <br>
+
+                            <div class="row">
+                                <div class="col-xs-5 text-right">
+                                    <p>Наличие Мед. справки:</p>
+                                </div>
+                                <div class="col-xs-6">
+                                    <input type="checkbox" required ng-model="MOE" ng-change="MOE_ch()">
+                                </div>
+                            </div>
+                            <br>
+
+                            <div class="row">
+                                <div class="col-xs-5 text-right">
+                                    <p>Номер и дата выдачи справки:</p>
+                                </div>
+                                <div class="col-xs-6">
+                                    <input type="text" required ng-disabled="!MOE" name="MO" ng-model="MO" class="form-control">
+                                    <span class="alert alert-warning" style="padding:0px" ng-show="MOE&&myForm.MO.$error.required">Выберите поля</span>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="modal-footer">
+                                <div class="col-xs-6 col-xs-offset-5">
+                                    <button type="button" ng-click="UpdatePRZ()" ng-disabled="myForm.INN.$error.required||myForm.FN.$error.required||myForm.P.$error.required||myForm.Q.$error.required||myForm.SC.$error.required||(!myForm.INN.$error.required&&!myForm.INN.$valid)||O=='No Data Found'||MOE&&myForm.MO.$error.required" data-dismiss="modal" class="btn btn-info"><i class="fa fa-save" aria-hidden="true"></i> сохранить</button>
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">отмена</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>*@
+        <!-- modal fade -->
+    </div>
+}
+
+

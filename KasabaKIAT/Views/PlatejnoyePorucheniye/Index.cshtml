@@ -90,7 +90,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="item in DATA" ng-click="Load(item)" data-toggle="modal" class="poin"  data-target="#export">
+                    <tr ng-repeat="item in DATA" ng-click="Load(item)" data-toggle="modal" data-target="#export">
                         <td>{{item.d2}}</td>
                         <td>{{item.d1 | jsonDate: 'dd.MM.yyyy'}}</td>
                         <td>{{item.d3}}</td>

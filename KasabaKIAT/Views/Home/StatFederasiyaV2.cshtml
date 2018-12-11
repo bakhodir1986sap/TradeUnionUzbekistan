@@ -16,7 +16,7 @@
 </div>
 
 
-<section class="content__block container" ng-controller="StatFederasiya">
+<section ng-controller="StatFederasiya">
     <div id="connection" style="visibility:hidden;position:absolute;margin-left:430px;margin-top:100px;z-index:9999">
         <img src="~/Content/Login/buffering.gif" />
     </div>
@@ -28,28 +28,93 @@
         </div>
     </div>
 
-    <h4 style="padding-left:15px">Доходы</h4>
+    <script>
+        var L10n = ej.base.L10n;
+        L10n.load({
+            "fr-CH": {
+                "pivotview": {
+                    "grandTotal": "Общая сумма",
+                    "total": "всего",
+                    "value": "значение",
+                    "noValue": "нету значений",
+                    "row": "строка",
+                    "column": "колонка",
+                    "collapse": "свернуть",
+                    "expand": "развернуть"
+                },
+                "pivotfieldlist": {
+                    "fieldList": "список полей",
+                    "dropRowPrompt": "убрать строку",
+                    "dropColPrompt": "убрать колонку",
+                    "dropValPrompt": "убрать значение",
+                    "dropFilterPrompt": "убрать фильтр",
+                    "addPrompt": "добавить",
+                    "centerHeader": "усреднить заголовок",
+                    "add": "добавить",
+                    "drag": "перекинуть",
+                    "filter": "фильтр",
+                    "filtered": "фильтр внедрен",
+                    "sort": "сортировать",
+                    "remove": "удалить",
+                    "filters": "фильтры",
+                    "rows": "строки",
+                    "columns": "колонки",
+                    "values": "значения",
+                    "error": "ошибка",
+                    "dropAction": "убрать действие",
+                    "search": "поиск",
+                    "close": "закрыть",
+                    "cancel": "отменить",
+                    "delete": "удалить",
+                    "alert": "сообщение",
+                    "warning": "сообщение",
+                    "ok": "OK",
+                    "allFields": "Все поля",
+                    "noMatches": "нет соответствий"
+                }
+            }
+        });
+    </script>
+
+
+
     <div class="row">
         <div class="col-md-12">
-            <div class="table-responsive box-shadow mb-4" style="padding-left: 15px; padding-right: 15px">
-                @Html.EJS().PivotView("kaznaOplata").Width("100%").Height("300").DataSource(dataSource => dataSource.Data((IEnumerable<object>)ViewBag.DataSource).ExpandAll(false).EnableSorting(true)
+            <h4 style="padding-left:15px">Доходы Единый социальный платеж</h4>
+            <div class="table-responsive box-shadow mb-12" style="padding-left: 15px; padding-right: 15px">
+                @Html.EJS().PivotView("kaznaOplata").Width("100%").Height("300").DataSource(dataSource => dataSource.Data((IEnumerable<object>)ViewBag.DataSource).ExpandAll(true).EnableSorting(true)
                 .FormatSettings(formatsettings => { formatsettings.Name("OblSovProvAmount").MaximumSignificantDigits(10).MinimumSignificantDigits(1).UseGrouping(true).Add(); })
-                .Rows(rows => { rows.Name("OblSovProf").Add(); rows.Name("Tuman").Add();  })
-                .Columns(columns => { columns.Name("Year").Add(); columns.Name("Quarter").Add(); })
-                .Values(values => { values.Name("OblSovProvAmount").Caption("ОблсовПроф").Add(); })).ShowFieldList(true).GridSettings(new PivotViewGridSettings { ColumnWidth = 140 }).Render()
+                .Rows(rows => { rows.Name("OblSovProf").Caption("ОблСовПроф").Add(); rows.Name("Tuman").Caption("Туман").Add();  })
+                .Columns(columns => { columns.Name("Year").Caption("Год").Add(); columns.Name("Quarter").Caption("Квартал").Add(); })
+                .Values(values => { values.Name("OblSovProvAmount").Caption("ОблсовПрофСумма").Add(); })).ShowFieldList(true).Locale("fr-CH").GridSettings(new PivotViewGridSettings { ColumnWidth = 140 }).Render()
             </div>
         </div>
     </div>
 
-    <h4 style="color:red;padding-left:15px">Горящие путевки</h4>
+
     <div class="row">
         <div class="col-md-12">
+            <h4 style="padding-left:15px">Частичная оплата за путевки</h4>
+            <div class="table-responsive box-shadow mb-12" style="padding-left: 15px; padding-right: 15px">
+                @Html.EJS().PivotView("ChastichkaOplata").Width("100%").Height("300").DataSource(dataSource => dataSource.Data((IEnumerable<object>)ViewBag.Chastichka).ExpandAll(false).EnableSorting(true)
+                .FormatSettings(formatsettings => { formatsettings.Name("amount").MaximumSignificantDigits(10).MinimumSignificantDigits(1).UseGrouping(true).Add(); })
+                .Rows(rows => { rows.Name("ProfsoyzNaimenovanie").Caption("ПрофсоюзНаименование").Add(); })
+                .Columns(columns => { columns.Name("year").Caption("Год").Add(); columns.Name("quarter").Caption("Квартал").Add(); })
+                .Values(values => { values.Name("amount").Caption("ЧастичкаСумма").Add(); })).ShowFieldList(true).Locale("fr-CH").GridSettings(new PivotViewGridSettings { ColumnWidth = 140 }).Render()
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-md-12">
+            <h4 style="color:red;padding-left:15px">Горящие путевки</h4>
             <div class="table-responsive box-shadow mb-4" style="padding-left: 15px; padding-right:15px">
                 @Html.EJS().PivotView("UrgentPutyovka").Width("100%").Height("300").DataSource(dataSource => dataSource.Data((IEnumerable<object>)ViewBag.DataUrgent).ExpandAll(false).EnableSorting(true)
                 //.FormatSettings(formatsettings => { formatsettings.Name("FederationAmount").MaximumSignificantDigits(10).MinimumSignificantDigits(1).UseGrouping(true).Add(); formatsettings.Name("OblSovProvAmount").MaximumSignificantDigits(10).MinimumSignificantDigits(1).UseGrouping(true).Add(); })
-                .Rows(rows => { rows.Name("ProfsoyzNaimenovanie").Add(); rows.Name("Name_San").Add(); rows.Name("Num_Put").Add(); })
-                .Columns(columns => { columns.Name("Year_Op").Add(); columns.Name("Quarter").Add(); })
-                .Values(values => { values.Name("CounterU").Caption("Количество").Add(); })).ShowFieldList(true).GridSettings(new PivotViewGridSettings { ColumnWidth = 140 }).Render()
+                .Rows(rows => { rows.Name("ProfsoyzNaimenovanie").Caption("Наименование").Add(); rows.Name("Name_San").Caption("Санаторий").Add(); rows.Name("Num_Put").Caption("Номер Путевки").Add(); })
+                .Columns(columns => { columns.Name("Year_Op").Caption("Год").Add(); columns.Name("Quarter").Caption("Квартал").Add(); })
+                .Values(values => { values.Name("CounterU").Caption("Количество").Add(); })).ShowFieldList(true).Locale("fr-CH").GridSettings(new PivotViewGridSettings { ColumnWidth = 140 }).Render()
             </div>
         </div>
     </div>
@@ -60,9 +125,9 @@
             <div class="table-responsive box-shadow mb-4" style="padding-left: 15px; padding-right:15px">
                 @Html.EJS().PivotView("Putyovkas").Width("100%").Height("300").DataSource(dataSource => dataSource.Data((IEnumerable<object>)ViewBag.DataPutyovkas).ExpandAll(false).EnableSorting(true)
                 .FormatSettings(formatsettings => { formatsettings.Name("RealizAmount").MaximumSignificantDigits(10).MinimumSignificantDigits(1).UseGrouping(true).Add(); formatsettings.Name("OstatokAmount").MaximumSignificantDigits(10).MinimumSignificantDigits(1).UseGrouping(true).Add(); })
-                .Rows(rows => { rows.Name("ProfsoyzNaimenovanie").Add(); rows.Name("Name_San").Add(); rows.Name("Num_Put").Add(); })
-                .Columns(columns => { columns.Name("YEAR_OP").Add(); columns.Name("QUARTER_op").Add(); })
-                .Values(values => { values.Name("RealizCount").Caption("Кол-во Реализация").Add(); values.Name("RealizAmount").Caption("Сумма Реализация").Add(); values.Name("OstatokCount").Caption("Кол-во Остаток").Add(); values.Name("OstatokAmount").Caption("Сумма Остаток").Add(); })).ShowFieldList(true).GridSettings(new PivotViewGridSettings { ColumnWidth = 140 }).Render()
+                .Rows(rows => { rows.Name("ProfsoyzNaimenovanie").Caption("Наименование").Add(); rows.Name("Name_San").Caption("Санаторий").Add(); rows.Name("Num_Put").Caption("Номер путевки").Add(); })
+                .Columns(columns => { columns.Name("YEAR_OP").Caption("Год").Add(); columns.Name("QUARTER_op").Caption("Квартал").Add(); })
+                .Values(values => { values.Name("RealizCount").Caption("Кол-во Реализация").Add(); values.Name("RealizAmount").Caption("Сумма Реализация").Add(); values.Name("OstatokCount").Caption("Кол-во Остаток").Add(); values.Name("OstatokAmount").Caption("Сумма Остаток").Add(); })).ShowFieldList(true).Locale("fr-CH").GridSettings(new PivotViewGridSettings { ColumnWidth = 140 }).Render()
             </div>
         </div>
     </div>
@@ -72,9 +137,9 @@
             <div class="table-responsive box-shadow mb-4" style="padding-left: 15px; padding-right:15px">
                 @Html.EJS().PivotView("Realization").Width("100%").Height("300").DataSource(dataSource => dataSource.Data((IEnumerable<object>)ViewBag.RealizData).ExpandAll(false).EnableSorting(true)
                 .FormatSettings(formatsettings => { formatsettings.Name("s45Amount").MaximumSignificantDigits(10).MinimumSignificantDigits(1).UseGrouping(true).Add(); formatsettings.Name("s100Amount").MaximumSignificantDigits(10).MinimumSignificantDigits(1).UseGrouping(true).Add(); formatsettings.Name("s0Amount").MaximumSignificantDigits(10).MinimumSignificantDigits(1).UseGrouping(true).Add(); })
-                .Rows(rows => { rows.Name("ProfsoyzNaimenovanie").Add(); rows.Name("Name_San").Add(); rows.Name("Num_Put").Add(); })
-                .Columns(columns => { columns.Name("YEAR_OP").Add(); columns.Name("QUARTER_op").Add(); })
-                .Values(values => { values.Name("s45Count").Caption("45% Кол-во").Add(); values.Name("s45Amount").Caption("45% Сумма").Add(); values.Name("s100Count").Caption("100% Кол-во").Add(); values.Name("s100Amount").Caption("100% Сумма").Add(); values.Name("s0Count").Caption("Бесплатно кол-во").Add(); values.Name("s0Amount").Caption("Бесплатно Сумма").Add(); })).ShowFieldList(true).GridSettings(new PivotViewGridSettings { ColumnWidth = 140 }).Render()
+                .Rows(rows => { rows.Name("ProfsoyzNaimenovanie").Caption("Наименование").Add(); rows.Name("Name_San").Caption("Санаторий").Add(); rows.Name("Num_Put").Caption("Номер Путевки").Add(); })
+                .Columns(columns => { columns.Name("YEAR_OP").Caption("Год").Add(); columns.Name("QUARTER_op").Caption("Квартал").Add(); })
+                .Values(values => { values.Name("s45Count").Caption("45% Кол-во").Add(); values.Name("s45Amount").Caption("45% Сумма").Add(); values.Name("s100Count").Caption("100% Кол-во").Add(); values.Name("s100Amount").Caption("100% Сумма").Add(); values.Name("s0Count").Caption("Бесплатно кол-во").Add(); values.Name("s0Amount").Caption("Бесплатно Сумма").Add(); })).ShowFieldList(true).Locale("fr-CH").GridSettings(new PivotViewGridSettings { ColumnWidth = 140 }).Render()
             </div>
         </div>
     </div>
@@ -84,9 +149,9 @@
             <div class="table-responsive box-shadow mb-4" style="padding-left: 15px; padding-right:15px">
                 @Html.EJS().PivotView("BronData").Width("100%").Height("300").DataSource(dataSource => dataSource.Data((IEnumerable<object>)ViewBag.BronData).ExpandAll(false).EnableSorting(true)
                 //.FormatSettings(formatsettings => { formatsettings.Name("BronCount").MaximumSignificantDigits(10).MinimumSignificantDigits(1).UseGrouping(true).Add(); formatsettings.Name("s100Amount").MaximumSignificantDigits(10).MinimumSignificantDigits(1).UseGrouping(true).Add(); formatsettings.Name("s0Amount").MaximumSignificantDigits(10).MinimumSignificantDigits(1).UseGrouping(true).Add(); })
-                .Rows(rows => { rows.Name("ProfsoyzNaimenovanie").Add(); rows.Name("Name_San").Add(); rows.Name("Num_Put").Add(); })
-                .Columns(columns => { columns.Name("YEAR_OP").Add(); columns.Name("QUARTER_op").Add(); })
-                .Values(values => { values.Name("BronCount").Caption("Кол-во").Add(); })).ShowFieldList(true).GridSettings(new PivotViewGridSettings { ColumnWidth = 140 }).Render()
+                .Rows(rows => { rows.Name("ProfsoyzNaimenovanie").Caption("Наименование").Add(); rows.Name("Name_San").Caption("Санаторий").Add(); rows.Name("Num_Put").Caption("Номер Путевки").Add(); })
+                .Columns(columns => { columns.Name("YEAR_OP").Caption("Год").Add(); columns.Name("QUARTER_op").Caption("Квартал").Add(); })
+                .Values(values => { values.Name("BronCount").Caption("Кол-во").Add(); })).ShowFieldList(true).Locale("fr-CH").GridSettings(new PivotViewGridSettings { ColumnWidth = 140 }).Render()
             </div>
         </div>
     </div>
@@ -96,9 +161,9 @@
             <div class="table-responsive box-shadow mb-4" style="padding-left: 15px; padding-right:15px">
                 @Html.EJS().PivotView("Zadoljennost").Width("100%").Height("300").DataSource(dataSource => dataSource.Data((IEnumerable<object>)ViewBag.ZadoljennostData).ExpandAll(false).EnableSorting(true)
                 .FormatSettings(formatsettings => { formatsettings.Name("ZadolAmount").MaximumSignificantDigits(10).MinimumSignificantDigits(1).UseGrouping(true).Add(); })
-                .Rows(rows => { rows.Name("ProfsoyzNaimenovanie").Add(); rows.Name("Name_Org").Add(); })
-                .Columns(columns => { columns.Name("Year").Add(); })
-                .Values(values => { values.Name("ZadolAmount").Caption("Задолженность").Add();  })).ShowFieldList(true).GridSettings(new PivotViewGridSettings { ColumnWidth = 140 }).Render()
+                .Rows(rows => { rows.Name("ProfsoyzNaimenovanie").Caption("Наименование").Add(); rows.Name("Name_Org").Caption("Организация").Add(); })
+                .Columns(columns => { columns.Name("Year").Caption("Год").Add(); })
+                .Values(values => { values.Name("ZadolAmount").Caption("Задолженность").Add();  })).ShowFieldList(true).Locale("fr-CH").GridSettings(new PivotViewGridSettings { ColumnWidth = 140 }).Render()
             </div>
         </div>
     </div>
@@ -108,78 +173,102 @@
             <div class="table-responsive box-shadow mb-4" style="padding-left: 15px; padding-right:15px">
                 @Html.EJS().PivotView("ActiveUsersData").Width("100%").Height("300").DataSource(dataSource => dataSource.Data((IEnumerable<object>)ViewBag.ActiveUsersData).ExpandAll(false).EnableSorting(true)
                 //.FormatSettings(formatsettings => { formatsettings.Name("ZadolAmount").MaximumSignificantDigits(10).MinimumSignificantDigits(1).UseGrouping(true).Add(); })
-                .Rows(rows => { rows.Name("ProfsoyzNaimenovanie").Add(); rows.Name("UserName").Add(); })
-                .Columns(columns => { columns.Name("Year").Add(); })
-                .Values(values => { values.Name("UserCount").Caption("Кол-во").Add();  })).ShowFieldList(true).GridSettings(new PivotViewGridSettings { ColumnWidth = 140 }).Render()
+                .Rows(rows => { rows.Name("ProfsoyzNaimenovanie").Caption("Наименование").Add(); rows.Name("UserName").Caption("Пользователь").Add(); })
+                .Columns(columns => { columns.Name("Year").Caption("Год").Add(); })
+                .Values(values => { values.Name("UserCount").Caption("Кол-во").Add();  })).ShowFieldList(true).Locale("fr-CH").GridSettings(new PivotViewGridSettings { ColumnWidth = 140 }).Render()
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <h4 style="padding-left:15px">Мониторинг Поступления от Казначейства за последний день </h4>
+            <div class="table-responsive box-shadow mb-4" style="padding-left: 15px; padding-right:15px">
+                @Html.EJS().PivotView("kaznaOplata2").Width("100%").Height("300").DataSource(dataSource => dataSource.Data((IEnumerable<object>)ViewBag.DataSource).ExpandAll(false).EnableSorting(true)
+                .FormatSettings(formatsettings => { formatsettings.Name("OblSovProvAmount").MaximumSignificantDigits(10).MinimumSignificantDigits(1).UseGrouping(true).Add(); })
+                .Rows(rows => { rows.Name("OblSovProf").Caption("ОблСовПроф").Add(); rows.Name("Tuman").Caption("Район").Add();  })
+                .Columns(columns => { columns.Name("Year").Caption("Год").Add(); columns.Name("Quarter").Caption("Квартал").Add(); })
+                .Values(values => { values.Name("OblSovProvAmount").Caption("ОблсовПроф").Add(); })).Locale("fr-CH").ShowFieldList(true).GridSettings(new PivotViewGridSettings { ColumnWidth = 140 }).Render()
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <h4 style="padding-left:15px">Мониторинг Перерасход по путевкам </h4>
+            <div class="table-responsive box-shadow mb-4" style="padding-left: 15px; padding-right:15px">
+                @Html.EJS().PivotView("Putyovkas2").Width("100%").Height("300").DataSource(dataSource => dataSource.Data((IEnumerable<object>)ViewBag.DataPutyovkas).ExpandAll(false).EnableSorting(true)
+              .FormatSettings(formatsettings => { formatsettings.Name("RealizAmount").MaximumSignificantDigits(10).MinimumSignificantDigits(1).UseGrouping(true).Add(); formatsettings.Name("OstatokAmount").MaximumSignificantDigits(10).MinimumSignificantDigits(1).UseGrouping(true).Add(); })
+              .Rows(rows => { rows.Name("ProfsoyzNaimenovanie").Add(); rows.Name("Name_San").Add(); rows.Name("Num_Put").Add(); })
+              .Columns(columns => { columns.Name("YEAR_OP").Add(); columns.Name("QUARTER_op").Add(); })
+              .Values(values => { values.Name("RealizCount").Caption("Кол-во Реализация").Add(); values.Name("RealizAmount").Caption("Сумма Реализация").Add(); values.Name("OstatokCount").Caption("Кол-во Остаток").Add(); values.Name("OstatokAmount").Caption("Сумма Остаток").Add(); })).ShowFieldList(true).Locale("fr-CH").GridSettings(new PivotViewGridSettings { ColumnWidth = 140 }).Render()
             </div>
         </div>
     </div>
     <div class="row">
         <div class="col-md-6" @*style="margin-bottom:15px"*@>
             @(Html.EJS().AccumulationChart("container1").Series(series =>
-                    {
-                        series.DataLabel(dl => dl.Visible(true).Name("text").Position(Syncfusion.EJ2.Charts.AccumulationLabelPosition.Inside).Font(ft => ft.FontWeight("600")))
-                    .XName("xValue")
-                    .YName("yValue")
-                    .Name("Browser")
-                    .Type(Syncfusion.EJ2.Charts.AccumulationType.Pie)
-                    .Radius("60%")
-                    .StartAngle(0)
-                    .EndAngle(0)
-                    .InnerRadius("0%")
-                    .Explode(true)
-                    .DataSource(ViewBag.PieChartDataSource).Add();
-                    })
-                    .EnableAnimation(true)
-                    .EnableSmartLabels(true)
-                    .Title("Организации")
-                    .LegendSettings(ls => ls.Visible(true))
-                    .Tooltip(tp => tp.Enable(true).Format("${point.x} : <b>${point.y}%</b>"))
-                    .Load("load").Render())
+                                                            {
+                                                                series.DataLabel(dl => dl.Visible(true).Name("text").Position(Syncfusion.EJ2.Charts.AccumulationLabelPosition.Inside).Font(ft => ft.FontWeight("600")))
+                                                            .XName("xValue")
+                                                            .YName("yValue")
+                                                            .Name("Browser")
+                                                            .Type(Syncfusion.EJ2.Charts.AccumulationType.Pie)
+                                                            .Radius("60%")
+                                                            .StartAngle(0)
+                                                            .EndAngle(0)
+                                                            .InnerRadius("0%")
+                                                            .Explode(true)
+                                                            .DataSource(ViewBag.PieChartDataSource).Add();
+                                                            })
+                                                            .EnableAnimation(true)
+                                                            .EnableSmartLabels(true)
+                                                            .Title("Организации")
+                                                            .LegendSettings(ls => ls.Visible(true))
+                                                            .Tooltip(tp => tp.Enable(true).Format("${point.x} : <b>${point.y}%</b>"))
+                                                            .Load("load").Render())
         </div>
         <div class="col-md-6">
             @(Html.EJS().AccumulationChart("container2").Series(series =>
-                    {
-                        series.DataLabel(dl => dl.Visible(true).Name("text").Position(Syncfusion.EJ2.Charts.AccumulationLabelPosition.Inside).Font(ft => ft.FontWeight("600")))
-                            .XName("xValue")
-                            .YName("yValue")
-                            .Name("Browser")
-                            .Type(Syncfusion.EJ2.Charts.AccumulationType.Pie)
-                            .Radius("60%")
-                            .StartAngle(0)
-                            .EndAngle(0)
-                            .InnerRadius("0%")
-                            .Explode(true)
-                            .DataSource(ViewBag.PieChartZayavki).Add();
-                    })
-                        .EnableAnimation(true)
-                        .EnableSmartLabels(true)
-                        .Title("Заявки")
-                        .LegendSettings(ls => ls.Visible(true))
-                        .Tooltip(tp => tp.Enable(true).Format("${point.x} : <b>${point.y}%</b>"))
-                        .Load("load").Render())
+                                                            {
+                                                                series.DataLabel(dl => dl.Visible(true).Name("text").Position(Syncfusion.EJ2.Charts.AccumulationLabelPosition.Inside).Font(ft => ft.FontWeight("600")))
+                                                                    .XName("xValue")
+                                                                    .YName("yValue")
+                                                                    .Name("Browser")
+                                                                    .Type(Syncfusion.EJ2.Charts.AccumulationType.Pie)
+                                                                    .Radius("60%")
+                                                                    .StartAngle(0)
+                                                                    .EndAngle(0)
+                                                                    .InnerRadius("0%")
+                                                                    .Explode(true)
+                                                                    .DataSource(ViewBag.PieChartZayavki).Add();
+                                                            })
+                                                                .EnableAnimation(true)
+                                                                .EnableSmartLabels(true)
+                                                                .Title("Заявки")
+                                                                .LegendSettings(ls => ls.Visible(true))
+                                                                .Tooltip(tp => tp.Enable(true).Format("${point.x} : <b>${point.y}%</b>"))
+                                                                .Load("load").Render())
         </div>
         <div class="col-md-6">
             @(Html.EJS().AccumulationChart("container3").Series(series =>
-                    {
-                        series.DataLabel(dl => dl.Visible(true).Name("text").Position(Syncfusion.EJ2.Charts.AccumulationLabelPosition.Inside).Font(ft => ft.FontWeight("600")))
-                            .XName("xValue")
-                            .YName("yValue")
-                            .Name("Browser")
-                            .Type(Syncfusion.EJ2.Charts.AccumulationType.Pie)
-                            .Radius("60%")
-                            .StartAngle(0)
-                            .EndAngle(0)
-                            .InnerRadius("0%")
-                            .Explode(true)
-                            .DataSource(ViewBag.PieChartPutyovki).Add();
-                    })
-                        .EnableAnimation(true)
-                        .EnableSmartLabels(true)
-                        .Title("Путевки")
-                        .LegendSettings(ls => ls.Visible(true))
-                        .Tooltip(tp => tp.Enable(true).Format("${point.x} : <b>${point.y}%</b>"))
-                        .Load("load").Render())
+                                                            {
+                                                                series.DataLabel(dl => dl.Visible(true).Name("text").Position(Syncfusion.EJ2.Charts.AccumulationLabelPosition.Inside).Font(ft => ft.FontWeight("600")))
+                                                                    .XName("xValue")
+                                                                    .YName("yValue")
+                                                                    .Name("Browser")
+                                                                    .Type(Syncfusion.EJ2.Charts.AccumulationType.Pie)
+                                                                    .Radius("60%")
+                                                                    .StartAngle(0)
+                                                                    .EndAngle(0)
+                                                                    .InnerRadius("0%")
+                                                                    .Explode(true)
+                                                                    .DataSource(ViewBag.PieChartPutyovki).Add();
+                                                            })
+                                                                .EnableAnimation(true)
+                                                                .EnableSmartLabels(true)
+                                                                .Title("Путевки")
+                                                                .LegendSettings(ls => ls.Visible(true))
+                                                                .Tooltip(tp => tp.Enable(true).Format("${point.x} : <b>${point.y}%</b>"))
+                                                                .Load("load").Render())
         </div>
     </div>
     <div id="chart_div" style="width: 900px; height: 500px;"></div>

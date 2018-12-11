@@ -15,6 +15,16 @@ using System.Data.Entity.Core.Objects;
 
 namespace KasabaKIAT.Controllers
 {
+    public class userActionOut
+    {
+        public long id            {get; set;}
+        public DateTime? accesstime    {get; set;}
+        public string action        {get; set;}
+        public string classname     {get; set;}
+        public string object_name   {get; set;}
+        public string email         {get;set;}
+    }
+
     public class useractionsController : Controller
     {
         private KasabaKIATEntities db = new KasabaKIATEntities();
@@ -25,6 +35,8 @@ namespace KasabaKIAT.Controllers
         {
             //var useractions = db.useractions.Include(u => u.users);
             //return View(await useractions.ToListAsync());
+
+            List<userActionOut> listUserAction = new List<userActionOut>(); 
 
             if (!string.IsNullOrEmpty(actionNameL))
             {
@@ -69,19 +81,40 @@ namespace KasabaKIAT.Controllers
 
             int pageSize = 50;
             int pageNumber = (page ?? 1);
-            return View(db.useractions.
-                Include(u => u.users).
-                Where(z=>z.action.Contains(actionNameL) ||
-                DbFunctions.TruncateTime(z.accesstime.Value) == 
-                (dateparam == DateTime.MinValue && (actionNameL == null || actionNameL == "") ? 
-                DbFunctions.TruncateTime(z.accesstime.Value) : 
-                DbFunctions.TruncateTime(dateparam)) ||
-                z.classname.Contains(actionNameL) ||
-                z.users.user_name.Contains(actionNameL) ||
-                z.object_name.Contains(actionNameL) ||
-                z.action == ((actionNameL == null || actionNameL == "") ? z.action : actionNameL)
-                )
-                .OrderByDescending(z => z.id).Take(300).ToList().ToPagedList(pageNumber, pageSize));
+
+            //var result = db.useractions.
+            //    Include(u => u.users).
+            //    Where(z => z.action.Contains(actionNameL) ||
+            //    DbFunctions.TruncateTime(z.accesstime.Value) ==
+            //    (dateparam == DateTime.MinValue && (actionNameL == null || actionNameL == "") ?
+            //    DbFunctions.TruncateTime(z.accesstime.Value) :
+            //    DbFunctions.TruncateTime(dateparam)) ||
+            //    z.classname.Contains(actionNameL) ||
+            //    z.users.user_name.Contains(actionNameL) ||
+            //    z.object_name.Contains(actionNameL) ||
+            //    z.action == ((actionNameL == null || actionNameL == "") ? z.action : actionNameL)
+            //    )
+            //    .OrderByDescending(z => z.id).Take(100000).ToList();
+
+            var result = db.useractions.
+                Include(u => u.users).OrderByDescending(z => z.id).Take(1000);
+
+            foreach (var obj in result)
+            {
+                var inObj = new userActionOut();
+                inObj.id = obj.id;
+                inObj.accesstime = obj.accesstime;
+                inObj.action = obj.action;
+                inObj.classname = obj.classname;
+                inObj.object_name = obj.object_name;
+                inObj.email = obj.users.email;
+
+                listUserAction.Add(inObj);
+            }
+
+            ViewBag.datasource = listUserAction;
+            
+            return View();
         }
 
         // GET: useractions/Details/5

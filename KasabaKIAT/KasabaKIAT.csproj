@@ -254,6 +254,9 @@
     <Compile Include="BusinessLogic\4_Etap\Statistics\ActiveUsersModel.cs" />
     <Compile Include="BusinessLogic\4_Etap\Statistics\BronContainer.cs" />
     <Compile Include="BusinessLogic\4_Etap\Statistics\BronModel.cs" />
+    <Compile Include="BusinessLogic\4_Etap\Statistics\ChastichkaContainer.cs" />
+    <Compile Include="BusinessLogic\4_Etap\Statistics\ChastichkaModel.cs" />
+    <Compile Include="BusinessLogic\4_Etap\Statistics\MonitKaznaIncomingModel.cs" />
     <Compile Include="BusinessLogic\4_Etap\Statistics\PieChartData.cs" />
     <Compile Include="BusinessLogic\4_Etap\Statistics\FourStapViewModel.cs" />
     <Compile Include="BusinessLogic\4_Etap\Statistics\FourStepController.cs" />
@@ -862,6 +865,12 @@
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\sp_stat_BronObl_V2_Result.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_stat_ChastichkaObl_V2_Result.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_stat_Chastichka_V2_Result.cs">
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\sp_stat_IncomePerRegionList_Fed_Result.cs">
@@ -1583,6 +1592,11 @@
     <Content Include="Content\images\main_icon_7.png" />
     <Content Include="Content\images\main_icon_8.png" />
     <Content Include="Content\images\main_icon_9.png" />
+    <Content Include="Content\images\RU-Russia-Flag-icon %281%29.png" />
+    <Content Include="Content\images\RU-Russia-Flag-icon %282%29.png" />
+    <Content Include="Content\images\RU-Russia-Flag-icon.png" />
+    <Content Include="Content\images\UZ-Uzbekistan-Flag-icon.png" />
+    <Content Include="Content\images\Uzbekistan-icon.png" />
     <Content Include="Content\images\v-gr.png" />
     <Content Include="Content\images\v-r.png" />
     <Content Include="Content\images\v-w.png" />
@@ -2162,6 +2176,12 @@
     <Content Include="Views\PrixodPutevok\SverkaDannixV2.cshtml" />
     <Content Include="Views\Home\PodachaZayavokV2.cshtml" />
     <Content Include="Views\Home\PoiskRedaktZayavokV2.cshtml" />
+    <Content Include="Views\CampZayavki\IndexV2.cshtml" />
+    <Content Include="Views\CampZayavki\CampOtchetV2.cshtml" />
+    <Content Include="Views\Otchot\PostupleniyaNV2.cshtml" />
+    <Content Include="Views\Otchot\RazbivkaPostupleniyaNV2.cshtml" />
+    <Content Include="Views\Otchot\PostupleniyaOblastyamV2.cshtml" />
+    <Content Include="Views\Otchot\PostupleniyaOtrasliV2.cshtml" />
     <None Include="Web References\KurortUrlService\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>

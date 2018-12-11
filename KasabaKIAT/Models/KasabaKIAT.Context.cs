@@ -2352,5 +2352,19 @@ namespace KasabaKIAT.Models
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_rt_SvodniyOtchetOrganizationV2_Result>("sp_rt_SvodniyOtchetOrganizationV2");
         }
+    
+        public virtual ObjectResult<sp_stat_Chastichka_V2_Result> sp_stat_Chastichka_V2()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_stat_Chastichka_V2_Result>("sp_stat_Chastichka_V2");
+        }
+    
+        public virtual ObjectResult<sp_stat_ChastichkaObl_V2_Result> sp_stat_ChastichkaObl_V2(string dEPARTMENT_BASE)
+        {
+            var dEPARTMENT_BASEParameter = dEPARTMENT_BASE != null ?
+                new ObjectParameter("DEPARTMENT_BASE", dEPARTMENT_BASE) :
+                new ObjectParameter("DEPARTMENT_BASE", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_stat_ChastichkaObl_V2_Result>("sp_stat_ChastichkaObl_V2", dEPARTMENT_BASEParameter);
+        }
     }
 }

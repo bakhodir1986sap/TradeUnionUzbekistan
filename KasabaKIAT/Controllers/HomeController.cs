@@ -836,9 +836,26 @@ namespace KasabaKIAT.Controllers
                             var zayavki1 = new ZayavkiModel();
 
                             zayavki1.ID = zayavka.REC_ID;
-                            
                             zayavki1.ZB = zayavka.ZAEZD_BEGIN;
+
+                            //if (zayavka.ZAEZD_BEGIN.HasValue)
+                            //{
+                            //    zayavki1.ZB = zayavka.ZAEZD_BEGIN;
+                            //}
+                            //else
+                            //{
+                            //    zayavki1.ZB = DateTime.MinValue;
+                            //}
+
                             zayavki1.ZE = zayavka.ZAEZD_END;
+                            //if (zayavka.ZAEZD_END.HasValue)
+                            //{
+                            //    zayavki1.ZE = zayavka.ZAEZD_END;
+                            //}
+                            //else
+                            //{
+                            //    zayavki1.ZE = DateTime.MaxValue;
+                            //}
 
                             var sanat = KasabaDB.tblSprav_San.Where(z => z.ID == zayavka.SANATORY_ID);
 
@@ -2622,6 +2639,7 @@ namespace KasabaKIAT.Controllers
 
             int UserId = Convert.ToInt32(User.Identity.Name);
             var ustinfo = UserInfo.GetUserInfo(UserId);
+            ustinfo.CurLang = lang;
 
             string viewName = "StatFederasiyaV2";
 
@@ -2648,6 +2666,7 @@ namespace KasabaKIAT.Controllers
                     ViewBag.PieChartDataSource = ((FourStapViewModel)resultStat3).organizationPieInfo;
                     ViewBag.PieChartZayavki = ((FourStapViewModel)resultStat3).zayavkiPieInfo;
                     ViewBag.PieChartPutyovki = ((FourStapViewModel)resultStat3).putyovkiPieInfo;
+                    ViewBag.Chastichka = ((FourStapViewModel)resultStat3).chastichkaInfo;
                     break;
                 case 14:
                     viewName = "StatFederasiyaV2";
@@ -2664,6 +2683,7 @@ namespace KasabaKIAT.Controllers
                     ViewBag.PieChartDataSource = ((FourStapViewModel)resultStat).organizationPieInfo;
                     ViewBag.PieChartZayavki = ((FourStapViewModel)resultStat).zayavkiPieInfo;
                     ViewBag.PieChartPutyovki = ((FourStapViewModel)resultStat).putyovkiPieInfo;
+                    ViewBag.Chastichka = ((FourStapViewModel)resultStat).chastichkaInfo;
                     break;
                 default:
                     viewName = "StatFederasiyaV2";
@@ -2680,6 +2700,7 @@ namespace KasabaKIAT.Controllers
                     ViewBag.PieChartDataSource = ((FourStapViewModel)resultStat2).organizationPieInfo;
                     ViewBag.PieChartZayavki = ((FourStapViewModel)resultStat2).zayavkiPieInfo;
                     ViewBag.PieChartPutyovki = ((FourStapViewModel)resultStat2).putyovkiPieInfo;
+                    ViewBag.Chastichka = ((FourStapViewModel)resultStat2).chastichkaInfo;
                     break;
             }
 

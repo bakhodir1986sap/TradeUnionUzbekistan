@@ -24,7 +24,8 @@ namespace KasabaKIAT.BusinessLogic._4_Etap.Statistics
                     activeUsersInfo = ActiveUserContainer.GetActiveUser(),
                     organizationPieInfo = PieChartDataContainer.GetOrganizationData(),
                     zayavkiPieInfo = PieChartDataContainer.GetZayavki(cur_year),
-                    putyovkiPieInfo = PieChartDataContainer.GetPutyovki(cur_year)
+                    putyovkiPieInfo = PieChartDataContainer.GetPutyovki(cur_year),
+                    chastichkaInfo = ChastichkaContainer.GetChastichka()
                 };
             }
             else
@@ -40,11 +41,17 @@ namespace KasabaKIAT.BusinessLogic._4_Etap.Statistics
                     activeUsersInfo = ActiveUserContainer.GetActiveUser(departmentBase),
                     organizationPieInfo = PieChartDataContainer.GetOrganizationData(departmentBase),
                     zayavkiPieInfo = PieChartDataContainer.GetZayavki(departmentBase, cur_year),
-                    putyovkiPieInfo = PieChartDataContainer.GetPutyovki(departmentBase, cur_year)
+                    putyovkiPieInfo = PieChartDataContainer.GetPutyovki(departmentBase, cur_year),
+                    chastichkaInfo = ChastichkaContainer.GetChastichka(departmentBase)
                 };
             }
 
             return obj;
+        }
+
+        public static void GetActiveUsers(FourStapViewModel current , string departmentBase, int? cur_year)
+        {
+            current.activeUsersInfo = ActiveUserContainer.GetActiveUser(departmentBase);
         }
     }
 }

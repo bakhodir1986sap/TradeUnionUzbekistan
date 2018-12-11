@@ -28,6 +28,8 @@ namespace KasabaKIAT.BusinessLogic._4_Etap.Statistics
 
         public List<PieChartData> putyovkiPieInfo { get; set; }
 
+        public List<ChastichkaModel> chastichkaInfo { get; set; }
+
 
         public string DepartmentBase { get; set; }
 

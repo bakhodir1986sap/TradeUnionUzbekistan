@@ -96,9 +96,9 @@ namespace KasabaKIAT.BusinessLogic._4_Etap.Statistics
 
                 List<PieChartData> chartData = new List<PieChartData>
                 {
-                    new PieChartData { xValue = "Утвержденные", yValue = firstValue, text = string.Format("Утвержденные {0} шт" , firstValue)},
-                    new PieChartData { xValue = "Откланенные", yValue = secondValue, text = string.Format("Откланенные {0} шт" , secondValue)},
-                    new PieChartData { xValue = "На рассмотрении", yValue = therdValue, text = string.Format("На рассмотрении {0} шт" , therdValue)},
+                    new PieChartData { xValue = "Остатки", yValue = firstValue, text = string.Format("Остатки {0} шт" , firstValue)},
+                    new PieChartData { xValue = "Реализованные", yValue = secondValue, text = string.Format("Реализованные {0} шт" , secondValue)},
+                    new PieChartData { xValue = "Возврат", yValue = therdValue, text = string.Format("Возврат {0} шт" , therdValue)},
                 };
 
                 return chartData;
@@ -117,7 +117,7 @@ namespace KasabaKIAT.BusinessLogic._4_Etap.Statistics
 
                 List<PieChartData> chartData = new List<PieChartData>
                 {
-                    new PieChartData { xValue = "Остаток", yValue = firstValue, text = string.Format("Остаток {0} шт" , firstValue)},
+                    new PieChartData { xValue = "Остатки", yValue = firstValue, text = string.Format("Остатки {0} шт" , firstValue)},
                     new PieChartData { xValue = "Реализованные", yValue = secondValue, text = string.Format("Реализованные {0} шт" , secondValue)},
                     new PieChartData { xValue = "Возврат", yValue = therdValue, text = string.Format("Возврат {0} шт" , therdValue)},
                 };

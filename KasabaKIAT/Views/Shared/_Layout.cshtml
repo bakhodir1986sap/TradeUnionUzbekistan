@@ -43,8 +43,88 @@
     <link rel="stylesheet" href="~/Content/ej2/material.css" />
     @* Syncfusion Essential JS 2 Scripts *@
     <script src="~/Scripts/ej2/ej2.min.js"></script>
-    <script src="~/Scripts/ej/ej.web.all.min.js"></script>
-    <script src="~/Scripts/ej/ej.unobtrusive.min.js"></script>
+    @*<script src="~/Scripts/ej/ej.web.all.min.js"></script>
+        <script src="~/Scripts/ej/ej.unobtrusive.min.js"></script>*@
+    <style>
+        /** {
+                font-family: arial;
+            }
+
+            body {
+                background-color: #333;
+            }*/
+
+        .languagepicker {
+            background-color: #FFF;
+            display: inline-block;
+            padding: 0;
+            height: 40px;
+            overflow: hidden;
+            transition: all .3s ease;
+            margin: 0 50px 10px 0;
+            vertical-align: top;
+            float: left;
+        }
+
+            .languagepicker:hover {
+                /* don't forget the 1px border */
+                height: 81px;
+            }
+
+            .languagepicker a {
+                color: #000;
+                text-decoration: none;
+            }
+
+            .languagepicker li {
+                display: block;
+                padding: 0px 20px;
+                line-height: 40px;
+                border-top: 1px solid #EEE;
+            }
+
+                .languagepicker li:hover {
+                    background-color: #EEE;
+                }
+
+            .languagepicker a:first-child li {
+                border: none;
+                background: #FFF !important;
+            }
+
+            .languagepicker li img {
+                margin-right: 5px;
+            }
+
+        .roundborders {
+            border-radius: 5px;
+        }
+
+        .large:hover {
+            /*
+        don't forget the 1px border!
+        The first language is 40px heigh,
+        the others are 41px
+        */
+            height: 245px;
+        }
+
+
+        .nav__link {
+            padding-top: 0px !important;
+            padding-bottom: 0px !important;
+        }
+
+        .nav__block {
+            padding-top: 0px !important
+        }
+
+        .navbar-nav {
+            display: flex;
+            align-items: center;
+        }
+
+    </style>
 
     <script>
         function reset() {
@@ -72,7 +152,7 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse justify-content-between" id="navbarNav">
-                <ul class="navbar-nav">
+                <div class="navbar-nav">
                     <li class="nav-item">
                         <a class="nav-link fa fa-home" id="home" href="/Home/Putyovki"></a>
                     </li>
@@ -88,7 +168,7 @@
                                 }
                                 @if (List.GodovoyPlanPutyovok)
                                 {
-                                    <a class="dropdown-item load" href="/Administirirovaniye/RaspredeleniyeZaezdovV2">@ContentData.GodovoyPlan</a>
+                                    <a class="dropdown-item load" href="/Administirirovaniye/RaspredeleniyeZaezdov">@ContentData.GodovoyPlan</a>
                                 }
                                 @if (List.PrixodPutyovok)
                                 {
@@ -127,19 +207,19 @@
                             <div class="dropdown-menu rounded-0 box-shadow m-0 border-0" aria-labelledby="claims">
                                 @if (List.VvodZayavok)
                                 {
-                                    <a class="dropdown-item load" href="/Home/PodachaZayavokV2">@ContentData.PodachaZayavok_Sanatoriy</a>
+                                    <a class="dropdown-item load" href="/Home/PodachaZayavok">@ContentData.PodachaZayavok_Sanatoriy</a>
                                 }
                                 @if (List.PoiskIRedaktirovaniyaZayavok)
                                 {
-                                    <a class="dropdown-item load" href="/Home/PoiskRedaktZayavokV2">@ContentData.PoiskIRedaktirovaniyeZayavok_Sanatoriy</a>
+                                    <a class="dropdown-item load" href="/Home/PoiskRedaktZayavok">@ContentData.PoiskIRedaktirovaniyeZayavok_Sanatoriy</a>
                                 }
                                 @if (List.VvodZayavok)
                                 {
-                                    <a class="dropdown-item load" href="/CampZayavki/Index">@ContentData.PodachaZayavok_Leger</a>
+                                    <a class="dropdown-item load" href="/CampZayavki/IndexV2">@ContentData.PodachaZayavok_Leger</a>
                                 }
                                 @if (List.PoiskIRedaktirovaniyaZayavok)
                                 {
-                                    <a class="dropdown-item load" href="/CampZayavki/CampOtchet">@ContentData.OtchetPoLageryam</a>
+                                    <a class="dropdown-item load" href="/CampZayavki/CampOtchetV2">@ContentData.OtchetPoLageryam</a>
                                 }
                             </div>
                         </li>
@@ -246,12 +326,28 @@
                         <div class="dropdown-menu rounded-0 box-shadow m-0 border-0" aria-labelledby="tourss">
                             <a class="dropdown-item load" href="/Home/izmParol">@ContentData.IzmenitParol</a>
                             <a class="dropdown-item load" href="/Home/Rekviziti">@ContentData.Rekviziti</a>
-                            <a class="dropdown-item radio load" href="/Home/Putyovki?lang=ru">Русский</a>
-                            <a class="dropdown-item radio load" href="/Home/Putyovki?lang=uz">Узбекча</a>
+                            @*<a class="dropdown-item radio load" href="/Home/Putyovki?lang=ru">Русский</a>
+                                <a class="dropdown-item radio load" href="/Home/Putyovki?lang=uz">Узбекча</a>*@
                         </div>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" id="chat" href="#" style="color:red">@userName.CurKvartalYear</a>
+                    <li class="nav-item dropdown" id="p">
+                        @*<a class="nav-link" id="chat" href="#" style="color:red">@userName.CurKvartalYear</a>*@
+                        @if ((userName.CurLang == "ru") || (userName.CurLang == null))
+                        {
+                            <a href="/Home/Putyovki?lang=ru" class="nav-link dropdown-toggle" data-toggle="dropdown" id="tourss" aria-haspopup="true" aria-expanded="false"><img src="~/Content/images/RU-Russia-Flag-icon (2).png" />&nbsp RUS</a>
+                        }
+
+                        @if (userName.CurLang == "uz")
+                        {
+                            <a href="/Home/Putyovki?lang=uz" class="nav-link dropdown-toggle" data-toggle="dropdown" id="tourss" aria-haspopup="true" aria-expanded="false"><img src="~/Content/images/Uzbekistan-icon.png" />&nbsp UZB</a>
+                        }
+
+                        <div class="dropdown-menu rounded-0 box-shadow m-0 border-0" aria-labelledby="tourss">
+                            <a class="dropdown-item load" href="/Home/Putyovki?lang=uz"><img src="~/Content/images/Uzbekistan-icon.png" />&nbsp UZB</a>
+                            <a class="dropdown-item load" href="/Home/Putyovki?lang=ru"><img src="~/Content/images/RU-Russia-Flag-icon (2).png" />&nbsp RUS</a>
+
+                        </div>
+
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" id="chat" href="/Chat/Index">Чат</a>
@@ -264,9 +360,9 @@
                         <a class="nav-link" id="ch" href="#">@ContentData.Vixod</a>
                     </li>
 
-                </ul>
+                    </ul>
+                </div>
             </div>
-        </div>
     </nav>
     <div class="body-content">
         @RenderBody()
@@ -337,12 +433,6 @@
 
         });
     </script>
-    <style>
-        .poin:hover {
-            cursor: pointer;
-            background-color: blue;
-        }
-    </style>
     <input id="hh" type="hidden" />
     @RenderSection("scripts", required: false)
     @Html.EJS().ScriptManager()

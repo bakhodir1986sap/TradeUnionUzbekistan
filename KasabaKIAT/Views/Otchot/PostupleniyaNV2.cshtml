@@ -1,0 +1,103 @@
+﻿@using Syncfusion.EJ2
+@using Syncfusion.EJ2.Inputs
+@{
+    ViewBag.Title = "Поступления по ИНН";
+}
+<script src="~/Scripts/MyJavaScript/Postupleniya.js"></script>
+
+<div ng-controller="Postupleniya">
+    <div id="connection" style="visibility:hidden;position:absolute;margin-left:600px;margin-top:100px;z-index:9999">
+        <img src="~/Content/Login/buffering.gif" />
+    </div>
+    <section class="content__block container-fluid">
+        <div class="row mb-4 align-items-center">
+            <div class="col title__block">
+                <h4>Поступления</h4>
+                <nav aria-label="breadcrumb" class="breadcrumb__block">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item load"><a href="/Otchot/OtchetTitul">Отчеты</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Поступления</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+        @*<form class="row mb-5" name="myForm2" novalidate>
+            <div class="col-lg-7">
+                <div class="row">
+                    <div class="col-md-4 form-group">
+                        <input type="text" required class="custom-select form-control" name="INN" ng-model="INN" ng-maxlength="9" ng-minlength="9" ng-change="LoadINN_N()" placeholder="Инн" />
+                        <span class="alert alert-warning" style="padding:0px" ng-show="myForm2.INN.$error.required">заполнить поле</span>
+                        <span class="alert alert-warning" style="padding:0px" ng-show="!myForm2.INN.$error.required&&!myForm2.INN.$valid">9 шт. номер</span>
+                    </div>
+                    <div class="col-md-4 form-group">
+                        <button class="btn btn-green d-block d-md-inline-block mb-3 mb-md-0" data-toggle="modal" data-target="#dobavit">Поиск</button>
+                    </div>
+                    <div class="col-md-4 form-group">
+                        <button ng-show="showdata" ng-click="exportData()" class="btn btn-green d-block d-md-inline-block mb-3 mb-md-0" style="margin-left:700px"><i class="fas fa-file-excel"></i> Экспорт</button>
+                    </div>
+                </div>
+            </div>
+        </form>*@
+        @using (Html.BeginForm("GetPostupleniyaNV2", "Otchot", new { page = 1 }, FormMethod.Get))
+        {
+            @Html.EJS().TextBox("inn").Placeholder("ИНН").Value((string)ViewBag.Inn).FloatLabelType(FloatLabelType.Auto).Render()
+            @Html.EJS().Button("infobtn").Content("Получить").CssClass("e-info").Render()
+            @Html.Raw(" ");
+        }
+        <div class="table-responsive box-shadow mb-4" id="export">
+            @Html.EJS().Grid("PostuplniyaN").DataSource((IEnumerable<object>)ViewBag.dataSource).AllowExcelExport().ToolbarClick("toolbarClick").Columns(col=>
+       {
+           col.Field("operday").HeaderText("Дата Платежа").Width("10").AllowEditing(false).Add();
+           col.Field("inn").HeaderText("ИНН").Width("9").Add();
+           col.Field("clname").HeaderText("Клиент").Width("30").Add();
+           col.Field("postupleniya").HeaderText("Оплата_ЕСП_всего").Width("10").Add();
+           col.Field("obshiy01").HeaderText("0,1_%_в_Профсоюз").Width("10").Add();
+           col.Field("federation_amt").HeaderText("в_Федерацию").Width("10").Add();
+           col.Field("oblsovprof_amt").HeaderText("в_ОблсовПроф").Width("50").Add();
+           col.Field("purpose").HeaderText("Детали платежа").Width("10").Add();
+       }
+            ).AllowPaging().AllowFiltering().AllowResizing().PageSettings(page=>page.PageCount(5)).Toolbar(new List<string>
+        () { "ExcelExport" }).Render()
+            <script>
+                function toolbarClick(args) {
+                    var gridObj = document.getElementById("PostuplniyaN").ej2_instances[0];
+                    if (args.item.id === 'PostuplniyaN_excelexport') {
+                        gridObj.excelExport();
+                    }
+                }
+            </script>
+
+
+
+
+
+            @*<table class="table table__block t-hover">
+                <thead>
+                    <tr>
+                        <th>Дата Платежа</th>
+                        <th>ИНН</th>
+                        <th>Клиент</th>
+                        <th>Оплата_ЕСП_всего</th>
+                        <th>0,1_%_в_Профсоюз</th>
+                        <th>в_Федерацию</th>
+                        <th>в_ОблсовПроф</th>
+                        <th>Детали платежа</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="poin" ng-repeat="item in DATA">
+                        <td style="text-align:center">{{item.operday}}</td>
+                        <td style="text-align:center">{{item.inn}}</td>
+                        <td style="text-align:center">{{item.clname}}</td>
+                        <td style="text-align:center">{{item.postupleniya| currency:' '}}</td>
+                        <td style="text-align:center">{{item.obshiy01| currency:' '}}</td>
+                        <td style="text-align:center">{{item.federation_amt| currency:' '}}</td>
+                        <td style="text-align:center">{{item.oblsovprof_amt| currency:' '}}</td>
+                        <td style="text-align:center">{{item.purpose}}</td>
+                    </tr>
+                </tbody>
+            </table>*@
+        </div>
+    </section>
+</div>
+

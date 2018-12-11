@@ -1,0 +1,196 @@
+﻿@using KasabaKIAT.BusinessLogic.Security.Roles.RolePermissions;
+@{
+    ViewBag.Title = "Подача заявок Лагерь";
+    var UserId = Convert.ToInt32(User.Identity.Name);
+    FunctionalityList List = FunctionalityAndDbDataMatch.MatchProcess(UserId);
+}
+<script src="~/Scripts/MyJavaScript/Ilxom/CampZayavki.js"></script>
+<div id="connection" style="visibility:hidden;position:absolute;margin-left:430px;z-index:9999">
+    <img src="~/Content/Login/buffering.gif" />
+</div>
+@if (List.VvodZayavok)
+{
+<div ng-controller="CampZayavki">
+    <section class="content__block container-fluid">
+        <div class="row mb-4 align-items-center">
+            <div class="col-sm-6 title__block">
+                <h4>Подача Заявок Лагерь</h4>
+                <nav aria-label="breadcrumb" class="breadcrumb__block">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item load"><a href="/Home/Zayavok">Заявки</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Подача Заявок Лагерь</li>
+                    </ol>
+                </nav>
+            </div>
+            <div class="col-sm-6 text-md-right">
+                <a href="#" ng-click="AddZayavku()" class="btn btn-blue d-block d-md-inline-block mb-2" data-toggle="modal" data-target="#dobavit"><i class="fas fa-plus"></i> Добавить</a>
+            </div>
+        </div>
+        <div class="row mb-4">
+            <div class="col-lg-7">
+                <div class="row">
+                    @*<div class="col-md-3 form-group">
+                            <label>Наименование</label>
+                            <input class="form-control" type="text" placeholder="Наименование" ng-model="FilterName" />
+                        </div>
+                        <div class="col-md-3 form-group">
+                            <label>ИНН</label>
+                            <input class="form-control" type="text" placeholder="ИНН" ng-model="FilterInn" /><br />
+                        </div>*@
+                    <div class="col-md-3 form-group">
+                        <label>Отрасль</label>
+                        <select class="custom-select" required name="Otrasl" ng-model="FilterSelectedOtrasl" ng-options="item as item.Name_Ot for item in Otrasl track by item.ID_Ot"></select>
+                    </div>
+                    <div class="col-md-3 form-group">
+                        <label>Лагерь</label>
+                        <select class="custom-select" required name="Otrasl" ng-model="FilterSelectedCamp" ng-options="item as item.value for item in Camps track by item.id"></select>
+                    </div>
+                    @*<div class="col-md-2 form-group">
+                            <label>Общее кол-во</label>
+                            <input class="form-control" type="text" readonly ng-model="TotalCount" /><br />
+                        </div>*@
+
+                </div>
+            </div>
+        </div>
+        <div class="table-responsive box-shadow mb-4">
+            @Html.EJS().Grid("campZayavka").DataSource((IEnumerable<object>)ViewBag.dataSource).AllowExcelExport().ToolbarClick("toolbarClick").Columns(col=> {
+            col.Field("otralsName").HeaderText("Отрасль").Width("50").AllowEditing(false).Add();
+            col.Field("campName").HeaderText("Лагерь").Width("50").Add();
+            col.Field("quantuty").HeaderText("Количество").Width("30").Add();
+            col.Field("totalamount").HeaderText("Сумма").Width("10").Add();
+            col.Field("timestamp").HeaderText("Дата/Время подачи").Width("10").Add();
+    }).AllowPaging().AllowFiltering().AllowResizing().PageSettings(page=>page.PageCount(5)).Toolbar(new List<string>
+        () { "ExcelExport" }).Render()
+            <script>
+                function toolbarClick(args) {
+                    var gridObj = document.getElementById("campZayavka").ej2_instances[0];
+                    if (args.item.id === 'campZayavka_excelexport') {
+                        gridObj.excelExport();
+                    }
+                }
+            </script>
+            @*<table class="table table__block t-hover">
+            <thead>
+                <tr>
+                    <th class="dropdown dropdown__table" style="width:200px;text-align:center">Отрасль</th>
+                    <th class="dropdown dropdown__table" style="width:200px;text-align:center">Лагерь</th>
+                    <th class="dropdown dropdown__table" style="width:200px;text-align:center">Количество</th>
+                    <th class="dropdown dropdown__table" style="width:200px;text-align:center">Сумма</th>
+                    <th class="dropdown dropdown__table" style="width:200px;text-align:center">Дата/Время подачи</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="lager in LagerNewZayavkas" ng-click="edit(lager)" data-toggle="modal" data-target="#redaktirovat">
+                    <td style="width:200px;text-align:center">{{lager.otralsName}}</td>
+                    <td style="width:200px;text-align:center">{{lager.campName}}</td>
+                    <td style="width:200px;text-align:center">{{lager.quantuty}}</td>
+                    <td style="width:200px;text-align:center">{{lager.totalamount}}</td>
+                    <td style="width:200px;text-align:center">{{lager.timestamp | jsonDate: 'dd.MM.yyyy'}}</td>
+                </tr>
+            </tbody>
+        </table>*@
+        </div>
+    </section>
+
+    <div class="modal__block modal fade" id="dobavit" tabindex="-1" role="dialog" aria-labelledby="dobavitLabel">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="modal-title">
+                        <h4 class="text-center mt-4 mb-4">{{ActionType}} заявки</h4>
+                    </div>
+                    <div class="row justify-content-center">
+                        <form class="col-md-8" name="myForm" novalidate>
+                            <input type="hidden" style="position:absolute" ng-model="REC_ID;" />
+                            <div class="form-group row align-items-center">
+                                <label class="col-md-5 col-form-label text-md-right py-0">Отрасль:</label>
+                                <div class="col-md-7">
+                                    <select class="custom-select form-control" required name="Otrasl" ng-model="ModalOtraslSelected" ng-options="item as item.Name_Ot for item in Otrasl track by item.ID_Ot"></select>
+                                    <span class="alert alert-warning" style="padding:0px" ng-show="myForm.Otrasl.$error.required">Выберите поле</span>
+                                </div>
+                            </div>
+                            <div class="form-group row align-items-center">
+                                <label class="col-md-5 col-form-label text-md-right py-0">Лагерь:</label>
+                                <div class="col-md-7">
+                                    <select class="custom-select form-control" required name="Camp" ng-model="ModalCampSelected" ng-options="item as item.value for item in Camps track by item.id"></select>
+                                    <span class="alert alert-warning" style="padding:0px" ng-show="myForm.Camp.$error.required">Выберите поле</span>
+                                </div>
+                            </div>
+                            <div class="form-group row align-items-center">
+                                <label class="col-md-5 col-form-label text-md-right py-0">Количество:</label>
+                                <div class="col-md-7">
+                                    <input type="text" ng-model="QUANTUTY" class="form-control" required name="Quantity" />
+                                    <span class="alert alert-warning" style="padding:0px" ng-show="myForm.Quantity.$error.required">заполнить поле</span>
+                                </div>
+                            </div>
+                            <div class="form-group row align-items-center">
+                                <label class="col-md-5 col-form-label text-md-right py-0">Сумма:</label>
+                                <div class="col-md-7">
+                                    <input type="text" ng-model="TOTALAMOUNT" class="form-control" required name="TotalAmount" />
+                                    <span class="alert alert-warning" style="padding:0px" ng-show="myForm.TotalAmount.$error.required">заполнить поле</span>
+                                </div>
+                            </div>
+                            <div class="mb-4 text-right">
+                                <button data-dismiss="modal" ng-click="AddZayavkuClicked()" class="btn btn-blue d-block d-md-inline-block mb-2">Сохранить</button>
+                                <button class="btn btn-grey d-block d-md-inline-block mb-2" data-dismiss="modal">Отмена</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="modal__block modal fade" id="redaktirovat" tabindex="-1" role="dialog" aria-labelledby="redaktirovatLabel">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="modal-title">
+                        <h4 class="text-center mt-4 mb-4">{{ActionType}} заявки</h4>
+                    </div>
+                    <div class="row justify-content-center">
+                        <form class="col-md-8" name="myForm" novalidate>
+                            <input type="hidden" style="position:absolute" ng-model="REC_ID;" />
+                            <div class="form-group row align-items-center">
+                                <label class="col-md-5 col-form-label text-md-right py-0">Отрасль:</label>
+                                <div class="col-md-7">
+                                    <select class="custom-select form-control" required name="Otrasl" ng-model="ModalOtraslSelected" ng-options="item as item.Name_Ot for item in Otrasl track by item.ID_Ot"></select>
+                                    <span class="alert alert-warning" style="padding:0px" ng-show="myForm.Otrasl.$error.required">Выберите поле</span>
+                                </div>
+                            </div>
+                            <div class="form-group row align-items-center">
+                                <label class="col-md-5 col-form-label text-md-right py-0">Лагерь:</label>
+                                <div class="col-md-7">
+                                    <select class="custom-select form-control" required name="Camp" ng-model="ModalCampSelected" ng-options="item as item.value for item in Camps track by item.id"></select>
+                                    <span class="alert alert-warning" style="padding:0px" ng-show="myForm.Camp.$error.required">Выберите поле</span>
+                                </div>
+                            </div>
+                            <div class="form-group row align-items-center">
+                                <label class="col-md-5 col-form-label text-md-right py-0">Количество:</label>
+                                <div class="col-md-7">
+                                    <input type="text" ng-model="QUANTUTY" class="form-control" required name="Quantity" />
+                                    <span class="alert alert-warning" style="padding:0px" ng-show="myForm.Quantity.$error.required">заполнить поле</span>
+                                </div>
+                            </div>
+                            <div class="form-group row align-items-center">
+                                <label class="col-md-5 col-form-label text-md-right py-0">Сумма:</label>
+                                <div class="col-md-7">
+                                    <input type="text" ng-model="TOTALAMOUNT" class="form-control" required name="TotalAmount" />
+                                    <span class="alert alert-warning" style="padding:0px" ng-show="myForm.TotalAmount.$error.required">заполнить поле</span>
+                                </div>
+                            </div>
+                            <div class="mb-4 text-right">
+                                <button data-dismiss="modal" ng-click="ModifyZayavku()" class="btn btn-blue d-block d-md-inline-block mb-2">Сохранить</button>
+                                <button ng-click="DeleteZayavku()" data-dismiss="modal" class="btn btn-red d-block d-md-inline-block mb-2">Удалить</button>
+                                <button class="btn btn-grey d-block d-md-inline-block mb-2" data-dismiss="modal">Отмена</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+}

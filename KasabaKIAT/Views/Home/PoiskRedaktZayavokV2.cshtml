@@ -5,7 +5,7 @@
     FunctionalityList List = FunctionalityAndDbDataMatch.MatchProcess(UserId);
 }
 
-<script src="~/Scripts/MyJavaScript/PRZController.js"></script>
+@*<script src="~/Scripts/MyJavaScript/PRZController.js"></script>*@
 <script>
     // Change the selector if needed
     var $table = $('table.scroll'),
@@ -21,7 +21,7 @@
 
         // Set the width of thead columns
         $table.find('thead tr').children().each(function (i, v) {
-            $(v).width(colWidth[i+100]);
+            $(v).width(colWidth[i + 100]);
         });
     }).resize(); // Trigger resize handler
 </script>
@@ -107,10 +107,10 @@
                     <input type="radio" ng-model="s" required ng-click="LoadCSName()" name="inlineRadioOptions3" id="inlineRadio2" value="option2" class="custom-control-input" />
                     <label for="inlineRadio2" class="custom-control-label">Дет. лагер</label>
                 </div>
-                <span class="alert alert-warning" style="padding:0px" ng-show="myForm.inlineRadioOptions3.$error.required">Выберите поле</span>
+                @*<span class="alert alert-warning" style="padding:0px" ng-show="myForm.inlineRadioOptions3.$error.required">Выберите поле</span>*@
             </form>
             <style>
-                .activvvv{
+                .activvvv {
                     border: 5px solid #24c0db;
                 }
             </style>
@@ -118,8 +118,8 @@
                 @Html.EJS().Grid("podachaZayavok").DataSource(dataManager => { dataManager.Url("/Home/Load_PRZ_SV2").InsertUrl("/sp_branch/Insert").UpdateUrl("/sp_branch/Update").RemoveUrl("/sp_branch/Remove").Adaptor("UrlAdaptor"); }).AllowExcelExport().ToolbarClick("toolbarClick").Columns(col=> {
 
                 col.Field("ID").HeaderText("ID").Width("10").IsPrimaryKey(true).AllowEditing(false).DefaultValue("1").Add();
-                col.Field("ZB").HeaderText("Дата начало").Width("10").Add();
-                col.Field("ZE").HeaderText("Дата конца").Width("10").Add();
+                col.Field("ZB").HeaderText("Дата начало").Format("yMd").Width("20").Add();
+                col.Field("ZE").HeaderText("Дата конца").Format("yMd").Width("20").Add();
                 col.Field("SC").HeaderText("Санаторий").Width("30").Add();
                 col.Field("SC_id").HeaderText("Санаторий Ид").Visible(false).Width("30").Add();
                 col.Field("P").HeaderText("Должность").Width("30").Add();
@@ -133,7 +133,7 @@
                 col.Field("MO").HeaderText("Справка").Width("15").Add();
                 col.Field("sotrinn").HeaderText("Инн сотрудника").Width("9").Add();
                 col.Field("pnfl").HeaderText("ПНФЛ сотрудника").Width("14").Add();
-                }).AllowPaging().PageSettings(page=>page.PageCount(5)).AllowResizing().EditSettings(edit => { edit.AllowAdding(true).AllowEditing(true).AllowDeleting(true).ShowDeleteConfirmDialog(true).Mode(Syncfusion.EJ2.Grids.EditMode.Dialog);}).Toolbar(new List<string>
+                }).AllowPaging().PageSettings(page=>page.PageCount(5)).AllowResizing().AllowFiltering().AllowGrouping().EditSettings(edit => { edit.AllowAdding(true).AllowEditing(true).AllowDeleting(true).ShowDeleteConfirmDialog(true).Mode(Syncfusion.EJ2.Grids.EditMode.Dialog);}).Toolbar(new List<string>
                 () { "ExcelExport" }).Render()
 
                 <script>
@@ -145,48 +145,48 @@
                     }
                 </script>
                 @*<table class="table table__block t-hover">
-            <thead>
-                <tr>
-                    <th style="vertical-align:bottom">
-                        <span>Время подачи</span>
-                        <input type="date" required class="form-control" ng-model="searchD0" ng-change="searchD0_CH()" />
-                    </th>
+                        <thead>
+                            <tr>
+                                <th style="vertical-align:bottom">
+                                    <span>Время подачи</span>
+                                    <input type="date" required class="form-control" ng-model="searchD0" ng-change="searchD0_CH()" />
+                                </th>
 
-                    <th style="width:200px;vertical-align:bottom">
-                        <select class="form-control" ng-model="SCf" ng-options="sc as sc.value for sc in CS track by sc.id" ng-change="LoadSC()"></select>
-                    </th>
+                                <th style="width:200px;vertical-align:bottom">
+                                    <select class="form-control" ng-model="SCf" ng-options="sc as sc.value for sc in CS track by sc.id" ng-change="LoadSC()"></select>
+                                </th>
 
-                    <th style="width:200px;vertical-align:bottom">
-                        <input type="text" class="form-control" ng-model="searchO" placeholder="Организация" />
-                    </th>
+                                <th style="width:200px;vertical-align:bottom">
+                                    <input type="text" class="form-control" ng-model="searchO" placeholder="Организация" />
+                                </th>
 
-                    <th style="vertical-align:bottom">
-                        <input type="text" class="form-control" ng-model="searchFN" placeholder="ФИО" />
-                    </th>
+                                <th style="vertical-align:bottom">
+                                    <input type="text" class="form-control" ng-model="searchFN" placeholder="ФИО" />
+                                </th>
 
-                    <th style="vertical-align:bottom">
-                        <input type="text" ng-model="position" class="form-control" placeholder="Должность" />
-                    </th>
+                                <th style="vertical-align:bottom">
+                                    <input type="text" ng-model="position" class="form-control" placeholder="Должность" />
+                                </th>
 
-                    <th style="vertical-align:bottom">
-                        <span>Дата отдыха с</span>
-                        <input type="date" required class="form-control" ng-model="searchD1" ng-change="searchD1_CH()" />
-                    </th>
-                    <th style="vertical-align:top">Статус</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr class="poin" ng-repeat="prz in PRZ | filter:searchFN | filter:searchO | filter:position" ng-click="editPRZ(prz)" data-toggle="modal" data-target="#myModal" id="{{prz.ID}}">
-                    <td>{{prz.TS | jsonDate: 'dd.MM.yyyy'}}</td>
-                    <td>{{prz.SC}}</td>
-                    <td>{{prz.O}}</td>
-                    <td>{{prz.FN}}</td>
-                    <td>{{prz.P}}</td>
-                    <td>{{prz.ZB | jsonDate: 'dd.MM.yyyy'}}</td>
-                    <td>{{prz.S}}</td>
-                </tr>
-            </tbody>
-        </table>*@
+                                <th style="vertical-align:bottom">
+                                    <span>Дата отдыха с</span>
+                                    <input type="date" required class="form-control" ng-model="searchD1" ng-change="searchD1_CH()" />
+                                </th>
+                                <th style="vertical-align:top">Статус</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="poin" ng-repeat="prz in PRZ | filter:searchFN | filter:searchO | filter:position" ng-click="editPRZ(prz)" data-toggle="modal" data-target="#myModal" id="{{prz.ID}}">
+                                <td>{{prz.TS | jsonDate: 'dd.MM.yyyy'}}</td>
+                                <td>{{prz.SC}}</td>
+                                <td>{{prz.O}}</td>
+                                <td>{{prz.FN}}</td>
+                                <td>{{prz.P}}</td>
+                                <td>{{prz.ZB | jsonDate: 'dd.MM.yyyy'}}</td>
+                                <td>{{prz.S}}</td>
+                            </tr>
+                        </tbody>
+                    </table>*@
             </div>
         </section>
         <div class="modal__block modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="dobavitLabel">
@@ -233,14 +233,14 @@
                                     </div>
                                 </div>
                                 @*<div class="form-group row align-items-center">
-                                    <label class="col-md-5 col-form-label py-0">Инн:</label>
-                                    <div class="col-md-7">
-                                        <input type="text" required class="form-control" name="INN" ng-minlength="9" ng-maxlength="9" ng-model="INN" ng-change="LoadINN()" />
-                                        <span class="alert alert-warning" style="padding:0px" ng-show="myForm.INN.$error.required">заполнить поле</span>
-                                        <span class="alert alert-warning" style="padding:0px" ng-show="!myForm.INN.$error.required&&!myForm.INN.$valid">9 шт. номер</span>
-                                        <button style="position:absolute;margin-left:200px;margin-top:-38px" class="btn btn-green d-block d-md-inline-block mb-3 mb-md-0" data-toggle="modal" data-target="#dobavit2">Поиск</button>
-                                    </div>
-                                </div>*@
+                                        <label class="col-md-5 col-form-label py-0">Инн:</label>
+                                        <div class="col-md-7">
+                                            <input type="text" required class="form-control" name="INN" ng-minlength="9" ng-maxlength="9" ng-model="INN" ng-change="LoadINN()" />
+                                            <span class="alert alert-warning" style="padding:0px" ng-show="myForm.INN.$error.required">заполнить поле</span>
+                                            <span class="alert alert-warning" style="padding:0px" ng-show="!myForm.INN.$error.required&&!myForm.INN.$valid">9 шт. номер</span>
+                                            <button style="position:absolute;margin-left:200px;margin-top:-38px" class="btn btn-green d-block d-md-inline-block mb-3 mb-md-0" data-toggle="modal" data-target="#dobavit2">Поиск</button>
+                                        </div>
+                                    </div>*@
                                 <div class="form-group row align-items-center">
                                     <label class="col-md-5 col-form-label py-0">Организация:</label>
                                     <div class="col-md-7">

@@ -25,8 +25,44 @@ namespace KasabaKIAT.Controllers
         }
 
         // GET: CampZayavki
+        public ActionResult IndexV2()
+        {
+            int UserId = Convert.ToInt32(User.Identity.Name);
+            var ustinfo = UserInfo.GetUserInfo(UserId);
+
+            var model = new CampZayavki();
+
+            var listModel = model.GetCampZayavkas(ustinfo.DepartmentBase, CampZayavkaStatusType.New);
+
+            ViewBag.dataSource = listModel;
+
+            return View();
+        }
+
+        // GET: CampZayavki
         public ActionResult CampOtchet()
         {
+
+
+            return View();
+        }
+
+        public ActionResult CampOtchetV2()
+        {
+            int UserId = Convert.ToInt32(User.Identity.Name);
+            var ustinfo = UserInfo.GetUserInfo(UserId);
+
+            var amodel = new OtchetOtLagerViewModel();
+
+            amodel.department_code = ustinfo.DepartmentBase;
+            amodel.userid = UserId;
+
+            var otchet = new OtchetCamp();
+
+            var list = otchet.Get(amodel);
+
+            ViewBag.dataSource = list;
+
             return View();
         }
 

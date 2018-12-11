@@ -50,24 +50,39 @@
             </div>
         </div>
         <div class="table-responsive box-shadow mb-4">
-            <table class="table table__block t-hover">
-                <thead>
-                    <tr>
-                        <th class="dropdown dropdown__table" style="width:200px;text-align:center">Организация</th>
-                        <th class="dropdown dropdown__table" style="width:200px;text-align:center">Количество</th>
-                        <th class="dropdown dropdown__table" style="width:200px;text-align:center">Сумма</th>
-                        <th class="dropdown dropdown__table" style="width:200px;text-align:center">Дата/Время подачи</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr ng-repeat="lager in LagerNewZayavkas" ng-click="edit(lager)" data-toggle="modal" data-target="#redaktirovat">
-                        <td style="width:200px;text-align:center">{{lager.orgName}}</td>
-                        <td style="width:200px;text-align:center">{{lager.quantuty}}</td>
-                        <td style="width:200px;text-align:center">{{lager.totalamount}}</td>
-                        <td style="width:200px;text-align:center">{{lager.timestamp | jsonDate: 'dd.MM.yyyy'}}</td>
-                    </tr>
-                </tbody>
-            </table>
+            @Html.EJS().Grid("campZayavka").DataSource((IEnumerable<object>)ViewBag.dataSource).AllowExcelExport().ToolbarClick("toolbarClick").Columns(col=> {
+col.Field("orgName").HeaderText("Отрасль").Width("50").AllowEditing(false).Add();
+col.Field("quantuty").HeaderText("Лагерь").Width("50").Add();
+col.Field("totalamount").HeaderText("Количество").Width("30").Add();
+col.Field("timestamp").HeaderText("Сумма").Width("10").Add();
+}).AllowPaging().AllowFiltering().AllowResizing().PageSettings(page=>page.PageCount(5)).Toolbar(new List<string>
+() { "ExcelExport" }).Render()
+            <script>
+                function toolbarClick(args) {
+                    var gridObj = document.getElementById("campZayavka").ej2_instances[0];
+                    if (args.item.id === 'campZayavka_excelexport') {
+                        gridObj.excelExport();
+                    }
+                }
+            </script>
+            @*<table class="table table__block t-hover">
+            <thead>
+                <tr>
+                    <th class="dropdown dropdown__table" style="width:200px;text-align:center">Организация</th>
+                    <th class="dropdown dropdown__table" style="width:200px;text-align:center">Количество</th>
+                    <th class="dropdown dropdown__table" style="width:200px;text-align:center">Сумма</th>
+                    <th class="dropdown dropdown__table" style="width:200px;text-align:center">Дата/Время подачи</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="lager in LagerNewZayavkas" ng-click="edit(lager)" data-toggle="modal" data-target="#redaktirovat">
+                    <td style="width:200px;text-align:center">{{lager.orgName}}</td>
+                    <td style="width:200px;text-align:center">{{lager.quantuty}}</td>
+                    <td style="width:200px;text-align:center">{{lager.totalamount}}</td>
+                    <td style="width:200px;text-align:center">{{lager.timestamp | jsonDate: 'dd.MM.yyyy'}}</td>
+                </tr>
+            </tbody>
+        </table>*@
         </div>
     </section>
 

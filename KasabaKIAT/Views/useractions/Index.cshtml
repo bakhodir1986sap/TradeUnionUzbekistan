@@ -1,5 +1,6 @@
 ﻿@model PagedList.IPagedList<KasabaKIAT.Models.useractions>
 @using PagedList.Mvc;
+@using Syncfusion.EJ2
 <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 <script src="~/Scripts/MyJavaScript/PostupleniyaOblastyam.js"></script>
 @{
@@ -23,21 +24,38 @@
             text-align: center;
         }
     </style>
-    <p>
+    @*<p>
         @using (Html.BeginForm("Index", "useractions", new { page = 1 }, FormMethod.Get))
         {
             @Html.Raw("       ");
             @Html.Label("Поиск") @Html.Raw(" ");
             @Html.TextBox("actionNamez") @Html.Raw(" ");
-            @*@Html.Label("Пользователь") @Html.Raw(" ");
-            @Html.TextBox("userName") @Html.Raw(" ");*@
-            <button type="submit">Посмотреть Историю</button>// style as a link if desired
-
+            <button type="submit">Посмотреть Историю</button>
         }
         <button ng-click="exportData2()" class="btn btn-green d-block d-md-inline-block mb-3 mb-md-0" style="margin-left:50px"><i class="fas fa-file-excel"></i> Экспорт</button>
-    </p>
+    </p>*@
     <div class="table-responsive box-shadow mb-4" id="export">
-        <table class="table">
+        @Html.EJS().Grid("useraction").DataSource((IEnumerable<object>)ViewBag.dataSource).AllowExcelExport().ToolbarClick("toolbarClick").Columns(col=> {
+        col.Field("id").HeaderText("Номер").Width("50").Add();
+        col.Field("accesstime").HeaderText("Дата").Width("50").Add();
+        col.Field("action").HeaderText("Действие").Width("50").Add();
+        col.Field("classname").HeaderText("Модуль").Width("50").Add();
+        col.Field("object_name").HeaderText("IP Адрес").Width("50").Add();
+        col.Field("email").HeaderText("Пользователь").Width("50").Add();
+        }).AllowPaging().AllowFiltering().AllowResizing().AllowGrouping().AllowResizing().PageSettings(page=>page.PageCount(5)).Toolbar(new List<string>
+        () { "ExcelExport" }).Render()
+        <script>
+            function toolbarClick(args) {
+                var gridObj = document.getElementById("useraction").ej2_instances[0];
+                if (args.item.id === 'useraction_excelexport') {
+                    gridObj.excelExport();
+                }
+            }
+        </script>
+
+
+
+        @*<table class="table">
             <tr>
                 <th>
                     Номер
@@ -81,18 +99,13 @@
                     <td>
                         @Html.DisplayFor(modelItem => item.users.email)
                     </td>
-                    @*<td>
-                            @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
-                            @Html.ActionLink("Details", "Details", new { id = item.id }) |
-                            @Html.ActionLink("Delete", "Delete", new { id = item.id })
-                        </td>*@
                 </tr>
             }
 
-        </table>
-        </div>
-        Страница @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) из @Model.PageCount
-
-        @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
-
+        </table>*@
     </div>
+    @*Страница @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) из @Model.PageCount
+
+    @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))*@
+
+</div>

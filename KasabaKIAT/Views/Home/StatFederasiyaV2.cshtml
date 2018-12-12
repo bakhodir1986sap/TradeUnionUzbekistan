@@ -28,53 +28,7 @@
         </div>
     </div>
 
-    <script>
-        var L10n = ej.base.L10n;
-        L10n.load({
-            "fr-CH": {
-                "pivotview": {
-                    "grandTotal": "Общая сумма",
-                    "total": "всего",
-                    "value": "значение",
-                    "noValue": "нету значений",
-                    "row": "строка",
-                    "column": "колонка",
-                    "collapse": "свернуть",
-                    "expand": "развернуть"
-                },
-                "pivotfieldlist": {
-                    "fieldList": "список полей",
-                    "dropRowPrompt": "убрать строку",
-                    "dropColPrompt": "убрать колонку",
-                    "dropValPrompt": "убрать значение",
-                    "dropFilterPrompt": "убрать фильтр",
-                    "addPrompt": "добавить",
-                    "centerHeader": "усреднить заголовок",
-                    "add": "добавить",
-                    "drag": "перекинуть",
-                    "filter": "фильтр",
-                    "filtered": "фильтр внедрен",
-                    "sort": "сортировать",
-                    "remove": "удалить",
-                    "filters": "фильтры",
-                    "rows": "строки",
-                    "columns": "колонки",
-                    "values": "значения",
-                    "error": "ошибка",
-                    "dropAction": "убрать действие",
-                    "search": "поиск",
-                    "close": "закрыть",
-                    "cancel": "отменить",
-                    "delete": "удалить",
-                    "alert": "сообщение",
-                    "warning": "сообщение",
-                    "ok": "OK",
-                    "allFields": "Все поля",
-                    "noMatches": "нет соответствий"
-                }
-            }
-        });
-    </script>
+
 
 
 
@@ -206,69 +160,69 @@
     <div class="row">
         <div class="col-md-6" @*style="margin-bottom:15px"*@>
             @(Html.EJS().AccumulationChart("container1").Series(series =>
-                                                            {
-                                                                series.DataLabel(dl => dl.Visible(true).Name("text").Position(Syncfusion.EJ2.Charts.AccumulationLabelPosition.Inside).Font(ft => ft.FontWeight("600")))
-                                                            .XName("xValue")
-                                                            .YName("yValue")
-                                                            .Name("Browser")
-                                                            .Type(Syncfusion.EJ2.Charts.AccumulationType.Pie)
-                                                            .Radius("60%")
-                                                            .StartAngle(0)
-                                                            .EndAngle(0)
-                                                            .InnerRadius("0%")
-                                                            .Explode(true)
-                                                            .DataSource(ViewBag.PieChartDataSource).Add();
-                                                            })
-                                                            .EnableAnimation(true)
-                                                            .EnableSmartLabels(true)
-                                                            .Title("Организации")
-                                                            .LegendSettings(ls => ls.Visible(true))
-                                                            .Tooltip(tp => tp.Enable(true).Format("${point.x} : <b>${point.y}%</b>"))
-                                                            .Load("load").Render())
+                                                                    {
+                                                                        series.DataLabel(dl => dl.Visible(true).Name("text").Position(Syncfusion.EJ2.Charts.AccumulationLabelPosition.Inside).Font(ft => ft.FontWeight("600")))
+                                                                    .XName("xValue")
+                                                                    .YName("yValue")
+                                                                    .Name("Browser")
+                                                                    .Type(Syncfusion.EJ2.Charts.AccumulationType.Pie)
+                                                                    .Radius("60%")
+                                                                    .StartAngle(0)
+                                                                    .EndAngle(0)
+                                                                    .InnerRadius("0%")
+                                                                    .Explode(true)
+                                                                    .DataSource(ViewBag.PieChartDataSource).Add();
+                                                                    })
+                                                                    .EnableAnimation(true)
+                                                                    .EnableSmartLabels(true)
+                                                                    .Title("Организации")
+                                                                    .LegendSettings(ls => ls.Visible(true))
+                                                                    .Tooltip(tp => tp.Enable(true).Format("${point.x} : <b>${point.y}%</b>"))
+                                                                    .Load("load").Render())
         </div>
         <div class="col-md-6">
             @(Html.EJS().AccumulationChart("container2").Series(series =>
-                                                            {
-                                                                series.DataLabel(dl => dl.Visible(true).Name("text").Position(Syncfusion.EJ2.Charts.AccumulationLabelPosition.Inside).Font(ft => ft.FontWeight("600")))
-                                                                    .XName("xValue")
-                                                                    .YName("yValue")
-                                                                    .Name("Browser")
-                                                                    .Type(Syncfusion.EJ2.Charts.AccumulationType.Pie)
-                                                                    .Radius("60%")
-                                                                    .StartAngle(0)
-                                                                    .EndAngle(0)
-                                                                    .InnerRadius("0%")
-                                                                    .Explode(true)
-                                                                    .DataSource(ViewBag.PieChartZayavki).Add();
-                                                            })
-                                                                .EnableAnimation(true)
-                                                                .EnableSmartLabels(true)
-                                                                .Title("Заявки")
-                                                                .LegendSettings(ls => ls.Visible(true))
-                                                                .Tooltip(tp => tp.Enable(true).Format("${point.x} : <b>${point.y}%</b>"))
-                                                                .Load("load").Render())
+                                                                    {
+                                                                        series.DataLabel(dl => dl.Visible(true).Name("text").Position(Syncfusion.EJ2.Charts.AccumulationLabelPosition.Inside).Font(ft => ft.FontWeight("600")))
+                                                                            .XName("xValue")
+                                                                            .YName("yValue")
+                                                                            .Name("Browser")
+                                                                            .Type(Syncfusion.EJ2.Charts.AccumulationType.Pie)
+                                                                            .Radius("60%")
+                                                                            .StartAngle(0)
+                                                                            .EndAngle(0)
+                                                                            .InnerRadius("0%")
+                                                                            .Explode(true)
+                                                                            .DataSource(ViewBag.PieChartZayavki).Add();
+                                                                    })
+                                                                        .EnableAnimation(true)
+                                                                        .EnableSmartLabels(true)
+                                                                        .Title("Заявки")
+                                                                        .LegendSettings(ls => ls.Visible(true))
+                                                                        .Tooltip(tp => tp.Enable(true).Format("${point.x} : <b>${point.y}%</b>"))
+                                                                        .Load("load").Render())
         </div>
         <div class="col-md-6">
             @(Html.EJS().AccumulationChart("container3").Series(series =>
-                                                            {
-                                                                series.DataLabel(dl => dl.Visible(true).Name("text").Position(Syncfusion.EJ2.Charts.AccumulationLabelPosition.Inside).Font(ft => ft.FontWeight("600")))
-                                                                    .XName("xValue")
-                                                                    .YName("yValue")
-                                                                    .Name("Browser")
-                                                                    .Type(Syncfusion.EJ2.Charts.AccumulationType.Pie)
-                                                                    .Radius("60%")
-                                                                    .StartAngle(0)
-                                                                    .EndAngle(0)
-                                                                    .InnerRadius("0%")
-                                                                    .Explode(true)
-                                                                    .DataSource(ViewBag.PieChartPutyovki).Add();
-                                                            })
-                                                                .EnableAnimation(true)
-                                                                .EnableSmartLabels(true)
-                                                                .Title("Путевки")
-                                                                .LegendSettings(ls => ls.Visible(true))
-                                                                .Tooltip(tp => tp.Enable(true).Format("${point.x} : <b>${point.y}%</b>"))
-                                                                .Load("load").Render())
+                                                                    {
+                                                                        series.DataLabel(dl => dl.Visible(true).Name("text").Position(Syncfusion.EJ2.Charts.AccumulationLabelPosition.Inside).Font(ft => ft.FontWeight("600")))
+                                                                            .XName("xValue")
+                                                                            .YName("yValue")
+                                                                            .Name("Browser")
+                                                                            .Type(Syncfusion.EJ2.Charts.AccumulationType.Pie)
+                                                                            .Radius("60%")
+                                                                            .StartAngle(0)
+                                                                            .EndAngle(0)
+                                                                            .InnerRadius("0%")
+                                                                            .Explode(true)
+                                                                            .DataSource(ViewBag.PieChartPutyovki).Add();
+                                                                    })
+                                                                        .EnableAnimation(true)
+                                                                        .EnableSmartLabels(true)
+                                                                        .Title("Путевки")
+                                                                        .LegendSettings(ls => ls.Visible(true))
+                                                                        .Tooltip(tp => tp.Enable(true).Format("${point.x} : <b>${point.y}%</b>"))
+                                                                        .Load("load").Render())
         </div>
     </div>
     <div id="chart_div" style="width: 900px; height: 500px;"></div>
@@ -345,6 +299,53 @@
             else {
                 tbody5.css("display", "");
                 flag5 = 0;
+            }
+        });
+    </script>
+    <script>
+        var L10n = ej.base.L10n;
+        L10n.load({
+            "fr-CH": {
+                "pivotview": {
+                    "grandTotal": "Общая сумма",
+                    "total": "всего",
+                    "value": "значение",
+                    "noValue": "нету значений",
+                    "row": "строка",
+                    "column": "колонка",
+                    "collapse": "свернуть",
+                    "expand": "развернуть"
+                },
+                "pivotfieldlist": {
+                    "fieldList": "список полей",
+                    "dropRowPrompt": "убрать строку",
+                    "dropColPrompt": "убрать колонку",
+                    "dropValPrompt": "убрать значение",
+                    "dropFilterPrompt": "убрать фильтр",
+                    "addPrompt": "добавить",
+                    "centerHeader": "усреднить заголовок",
+                    "add": "добавить",
+                    "drag": "перекинуть",
+                    "filter": "фильтр",
+                    "filtered": "фильтр внедрен",
+                    "sort": "сортировать",
+                    "remove": "удалить",
+                    "filters": "фильтры",
+                    "rows": "строки",
+                    "columns": "колонки",
+                    "values": "значения",
+                    "error": "ошибка",
+                    "dropAction": "убрать действие",
+                    "search": "поиск",
+                    "close": "закрыть",
+                    "cancel": "отменить",
+                    "delete": "удалить",
+                    "alert": "сообщение",
+                    "warning": "сообщение",
+                    "ok": "OK",
+                    "allFields": "Все поля",
+                    "noMatches": "нет соответствий"
+                }
             }
         });
     </script>

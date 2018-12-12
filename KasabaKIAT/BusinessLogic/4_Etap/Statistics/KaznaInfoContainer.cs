@@ -18,15 +18,20 @@ namespace KasabaKIAT.BusinessLogic._4_Etap.Statistics
 
                 foreach (var obj in query)
                 {
+                    if (obj.YEAR_OP != 2018)
+                    {
+                        continue;
+                    }
+
                     var opl = new KaznaInfoModel();
 
                     opl.FederationAmount = obj.FEDERATION_AMT;
                     opl.OblSovProf = obj.ProfsoyzNaimenovanie;
                     opl.OblSovProvAmount = obj.OBLSOVPROF_AMT;
-                    opl.Quarter = obj.QUARTER_op.Value;
+                    opl.Quarter = string.Format("{0} квартал" ,obj.QUARTER_op.Value);
                     opl.Tarmoq = obj.BRANCH_NAME;
                     opl.Tuman = obj.SOATO_NAME;
-                    opl.Year = obj.YEAR_OP.Value;
+                    opl.Year = string.Format("{0} год", obj.YEAR_OP.Value); 
 
                     listModel.Add(opl);
                 }
@@ -45,15 +50,20 @@ namespace KasabaKIAT.BusinessLogic._4_Etap.Statistics
 
                 foreach (var obj in query)
                 {
+                    if (obj.YEAR_OP != 2018)
+                    {
+                        continue;
+                    }
+
                     var opl = new KaznaInfoModel();
 
                     opl.FederationAmount = obj.FEDERATION_AMT;
                     opl.OblSovProf = obj.ProfsoyzNaimenovanie;
                     opl.OblSovProvAmount = obj.OBLSOVPROF_AMT;
-                    opl.Quarter = obj.QUARTER_op.Value;
+                    opl.Quarter = string.Format("{0} квартал", obj.QUARTER_op.Value);
                     opl.Tarmoq = obj.BRANCH_NAME;
                     opl.Tuman = obj.SOATO_NAME;
-                    opl.Year = obj.YEAR_OP.Value;
+                    opl.Year = string.Format("{0} год", obj.YEAR_OP.Value);
 
                     listModel.Add(opl);
                 }

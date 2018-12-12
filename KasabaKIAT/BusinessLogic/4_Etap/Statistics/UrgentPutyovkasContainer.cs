@@ -18,10 +18,15 @@ namespace KasabaKIAT.BusinessLogic._4_Etap.Statistics
 
                 foreach (var obj in query)
                 {
+                    if (obj.YEAR_OP != 2018)
+                    {
+                        continue;
+                    }
+
                     var opl = new UrgentPutyovkas();
 
-                    opl.Year_Op = obj.YEAR_OP;
-                    opl.Quarter = obj.QUARTER_op;
+                    opl.Year_Op = string.Format("{0} год", obj.YEAR_OP);
+                    opl.Quarter = string.Format("{0} квартал", obj.QUARTER_op);
                     opl.ProfsoyzNaimenovanie = obj.ProfsoyzNaimenovanie;
                     opl.Num_Put = obj.Num_Put;
                     opl.Name_San = obj.Name_San;
@@ -46,10 +51,16 @@ namespace KasabaKIAT.BusinessLogic._4_Etap.Statistics
 
                 foreach (var obj in query)
                 {
+                    if (obj.YEAR_OP != 2018)
+                    {
+                        continue;
+                    }
+
                     var opl = new UrgentPutyovkas();
 
-                    opl.Year_Op = obj.YEAR_OP;
-                    opl.Quarter = obj.QUARTER_op;
+
+                    opl.Year_Op = string.Format("{0} год", obj.YEAR_OP);
+                    opl.Quarter = string.Format("{0} квартал", obj.QUARTER_op);
                     opl.ProfsoyzNaimenovanie = obj.ProfsoyzNaimenovanie;
                     opl.Num_Put = obj.Num_Put;
                     opl.Name_San = obj.Name_San;

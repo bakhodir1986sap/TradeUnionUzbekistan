@@ -23,7 +23,7 @@ namespace KasabaKIAT.BusinessLogic._4_Etap.Statistics
                     opl.ProfsoyzNaimenovanie = obj.ProfsoyzNaimenovanie;
                     opl.UserName = obj.user_name;
                     opl.UserCount = obj.CounterU;
-                    opl.Year = DateTime.Now.Year;
+                    opl.Year = string.Format("{0} год", DateTime.Now.Year);
 
                     list.Add(opl);
                 }
@@ -47,7 +47,7 @@ namespace KasabaKIAT.BusinessLogic._4_Etap.Statistics
                     opl.ProfsoyzNaimenovanie = obj.ProfsoyzNaimenovanie;
                     opl.UserName = obj.user_name;
                     opl.UserCount = obj.CounterU;
-                    opl.Year = DateTime.Now.Year;
+                    opl.Year = string.Format("{0} год", DateTime.Now.Year);
 
                     list.Add(opl);
                 }

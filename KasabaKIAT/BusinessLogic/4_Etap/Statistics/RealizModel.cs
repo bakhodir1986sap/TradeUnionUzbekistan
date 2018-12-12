@@ -7,8 +7,8 @@ namespace KasabaKIAT.BusinessLogic._4_Etap.Statistics
 {
     public class RealizModel
     {
-            public int? YEAR_OP               {get; set;}
-            public int? QUARTER_op            {get; set;}
+            public string YEAR_OP               {get; set;}
+            public string QUARTER_op            {get; set;}
             public string ProfsoyzNaimenovanie  {get; set;}
             public string Num_Put               {get; set;}
             public string Name_San              {get; set;}

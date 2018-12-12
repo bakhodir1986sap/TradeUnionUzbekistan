@@ -13,9 +13,9 @@ namespace KasabaKIAT.BusinessLogic._4_Etap.Statistics
 
         public string Tarmoq { get; set; }
 
-        public int Year { get; set; }
+        public string Year { get; set; }
 
-        public int Quarter { get; set; }
+        public string Quarter { get; set; }
 
         public decimal? FederationAmount { get; set; }
 

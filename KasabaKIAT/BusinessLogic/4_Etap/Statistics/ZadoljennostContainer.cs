@@ -23,7 +23,7 @@ namespace KasabaKIAT.BusinessLogic._4_Etap.Statistics
                     opl.ProfsoyzNaimenovanie = obj.ProfsoyzNaimenovanie;
                     opl.Name_Org = obj.Name_Org;
                     opl.ZadolAmount = obj.ZadolAmount;
-                    opl.Year = 2018;
+                    opl.Year = string.Format("{0} год", 2018);
 
                     list.Add(opl);
                 }
@@ -47,7 +47,7 @@ namespace KasabaKIAT.BusinessLogic._4_Etap.Statistics
                     opl.ProfsoyzNaimenovanie = obj.ProfsoyzNaimenovanie;
                     opl.Name_Org = obj.Name_Org;
                     opl.ZadolAmount = obj.ZadolAmount;
-                    opl.Year = 2018;
+                    opl.Year = string.Format("{0} год", 2018); 
 
                     list.Add(opl);
                 }

@@ -13,6 +13,6 @@ namespace KasabaKIAT.BusinessLogic._4_Etap.Statistics
 
         public int UserCount   { get; set; }
 
-        public int Year { get; set; }
+        public string Year { get; set; }
     }
 }

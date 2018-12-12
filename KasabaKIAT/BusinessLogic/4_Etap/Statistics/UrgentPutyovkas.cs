@@ -7,9 +7,9 @@ namespace KasabaKIAT.BusinessLogic._4_Etap.Statistics
 {
     public class UrgentPutyovkas
     {
-        public int?          Year_Op                 { get; set; }
+        public string Year_Op                 { get; set; }
 
-        public int?          Quarter                 { get; set; }
+        public string Quarter                 { get; set; }
 
         public string       ProfsoyzNaimenovanie    { get; set; }
 

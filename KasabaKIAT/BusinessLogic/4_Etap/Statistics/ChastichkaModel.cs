@@ -7,9 +7,9 @@ namespace KasabaKIAT.BusinessLogic._4_Etap.Statistics
 {
     public class ChastichkaModel
     {
-        public int? year { get; set; }
+        public string year { get; set; }
 
-        public int? quarter { get; set; }
+        public string quarter { get; set; }
 
         public string  ProfsoyzNaimenovanie { get; set; }
 

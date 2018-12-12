@@ -23,6 +23,7 @@ using KasabaKiat.BusinessLogic.Utils.References;
 using KasabaKIAT.BusinessLogic._3_Etap.Statistika.Stat_ViewModels;
 using KasabaKIAT.BusinessLogic._4_Etap.Statistics;
 using KasabaKIAT.BusinessLogic._4_Etap.Zayavki;
+using System.Threading.Tasks;
 
 namespace KasabaKIAT.Controllers
 {
@@ -2684,6 +2685,8 @@ namespace KasabaKIAT.Controllers
                     ViewBag.PieChartZayavki = ((FourStapViewModel)resultStat).zayavkiPieInfo;
                     ViewBag.PieChartPutyovki = ((FourStapViewModel)resultStat).putyovkiPieInfo;
                     ViewBag.Chastichka = ((FourStapViewModel)resultStat).chastichkaInfo;
+                    ViewBag.PostupleniyaLastDay = ((FourStapViewModel)resultStat).kaznaLastDayInfo;
+                    ViewBag.Pererasxod = ((FourStapViewModel)resultStat).pererasxodInfo;
                     break;
                 default:
                     viewName = "StatFederasiyaV2";
@@ -2701,6 +2704,8 @@ namespace KasabaKIAT.Controllers
                     ViewBag.PieChartZayavki = ((FourStapViewModel)resultStat2).zayavkiPieInfo;
                     ViewBag.PieChartPutyovki = ((FourStapViewModel)resultStat2).putyovkiPieInfo;
                     ViewBag.Chastichka = ((FourStapViewModel)resultStat2).chastichkaInfo;
+                    ViewBag.PostupleniyaLastDay = ((FourStapViewModel)resultStat2).kaznaLastDayInfo;
+                    ViewBag.Pererasxod = ((FourStapViewModel)resultStat2).pererasxodInfo;
                     break;
             }
 

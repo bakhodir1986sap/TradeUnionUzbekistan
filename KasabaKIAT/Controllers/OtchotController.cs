@@ -10,6 +10,8 @@ using KasabaKiat.Helpers;
 using System.Web.UI;
 using KasabaKIAT.BusinessLogic.Buxgalteriya.Provodki;
 using KasabaKIAT.BusinessLogic.Utils;
+using KasabaKIAT.BusinessLogic.Buxgalteriya.GlavnayaKniga;
+using KasabaKIAT.BusinessLogic.Utils.References;
 
 namespace KasabaKIAT.Controllers
 {
@@ -88,6 +90,7 @@ namespace KasabaKIAT.Controllers
             return View();
         }
 
+
         /// <summary>
         /// 
         /// </summary>
@@ -98,7 +101,6 @@ namespace KasabaKIAT.Controllers
             return View();
         }
 
-
         /// <summary>
         /// 
         /// </summary>
@@ -107,6 +109,171 @@ namespace KasabaKIAT.Controllers
         public ActionResult GlavnayaKnigaSvodniy()
         {
             return View();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [OutputCache(Duration = 5, Location = OutputCacheLocation.Client, VaryByCustom = "userId")]
+        public ActionResult GlavnayaKnigaNV2()
+        {
+            var obj = new RefYars();
+
+            ViewBag.YearsList = obj.GetYears();
+
+            ViewBag.KvartalsList = obj.GetKvartals();
+
+            return View();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="year"></param>
+        /// <param name="kvartal"></param>
+        /// <returns></returns>
+        public ActionResult GlavnayaKnigaV2(string year, string kvartal)
+        {
+            int UserId = Convert.ToInt32(User.Identity.Name);
+            var ustinfo = UserInfo.GetUserInfo(UserId);
+
+            var gvk = new GK_Structure(ustinfo.DepartmentBase, int.Parse(year), int.Parse(kvartal));
+            const bool isSvodniyOtchet = false;
+            var OutList = gvk.MakeGlavKniga(isSvodniyOtchet);
+
+            var obj = new RefYars();
+
+            ViewBag.YearsList = obj.GetYears();
+
+            ViewBag.KvartalsList = obj.GetKvartals();
+
+            ViewBag.Datasource = OutList;
+
+            return View("GlavnayaKnigaNV2");
+        }
+
+        
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public List<Models.ViewModel> SpisokPravsoyuzovOrg()
+        {
+            log.Info("SpisokPravsoyuzov");
+            IList<Models.ViewModel> O = null;
+
+            var UserId = Convert.ToInt32(User.Identity.Name);
+
+            var userInfo = UserInfo.GetUserInfo(UserId);
+
+            try
+            {
+                O = (from o in KasabaDB.tbku_StrokaProfsoyza
+                     where o.MATCH_DEPARTMENTBASE != null && o.MATCH_DEPARTMENTBASE != userInfo.DepartmentBase
+                     select new Models.ViewModel
+                     {
+                         Kod = o.MATCH_DEPARTMENTBASE,
+                         Name = o.ProfsoyzNaimenovanie
+                     }).ToList();
+
+                log.Info("Count = " + O.ToList().Count);
+            }
+            catch (Exception ex)
+            {
+                log.Info(ex);
+            }
+
+            return O.ToList();
+        }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [OutputCache(Duration = 5, Location = OutputCacheLocation.Client, VaryByCustom = "userId")]
+        public ActionResult GlavnayaKnigaVRazrezeV2()
+        {
+            var obj = new RefYars();
+
+            ViewBag.YearsList = obj.GetYears();
+
+            ViewBag.KvartalsList = obj.GetKvartals();
+
+            ViewBag.SpisokPravsoyuzovOrg = SpisokPravsoyuzovOrg();
+
+            return View();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="year"></param>
+        /// <param name="kvartal"></param>
+        /// <returns></returns>
+        public ActionResult GlavnayaKnigaVRazrezeNV2(string year, string kvartal, string departmentBase)
+        {
+            int UserId = Convert.ToInt32(User.Identity.Name);
+            var ustinfo = UserInfo.GetUserInfo(UserId);
+
+            var obj = new RefYars();
+
+            ViewBag.YearsList = obj.GetYears();
+
+            ViewBag.KvartalsList = obj.GetKvartals();
+
+            ViewBag.SpisokPravsoyuzovOrg = SpisokPravsoyuzovOrg();
+
+            var gvk = new GK_Structure(departmentBase, int.Parse(year), int.Parse(kvartal));
+            const bool isSvodniyOtchet = false;
+            var OutList = gvk.MakeGlavKniga(isSvodniyOtchet);
+
+            ViewBag.Datasource = OutList;
+
+            return View("GlavnayaKnigaVRazrezeV2");
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [OutputCache(Duration = 5, Location = OutputCacheLocation.Client, VaryByCustom = "userId")]
+        public ActionResult GlavnayaKnigaSvodniyV2()
+        {
+            var obj = new RefYars();
+
+            ViewBag.YearsList = obj.GetYears();
+
+            ViewBag.KvartalsList = obj.GetKvartals();
+
+            return View();
+        }
+                              
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="year"></param>
+        /// <param name="kvartal"></param>
+        /// <returns></returns>
+        public ActionResult GlavnayaKnigaSvodniyNV2(string year, string kvartal)
+        {
+            int UserId = Convert.ToInt32(User.Identity.Name);
+            var ustinfo = UserInfo.GetUserInfo(UserId);
+
+            var gvk = new GK_Structure("17", int.Parse(year), int.Parse(kvartal));
+            const bool isSvodniyOtchet = true;
+            var OutList = gvk.MakeGlavKniga(isSvodniyOtchet);
+
+            var obj = new RefYars();
+
+            ViewBag.YearsList = obj.GetYears();
+
+            ViewBag.KvartalsList = obj.GetKvartals();
+
+            ViewBag.Datasource = OutList;
+
+            return View("GlavnayaKnigaSvodniyV2");
         }
 
         /// <summary>

@@ -1,0 +1,157 @@
+﻿@{
+    ViewBag.Title = "Отчеты";
+}
+@using Syncfusion.EJ2
+@using Syncfusion.EJ2.DropDowns
+@using KasabaKIAT.BusinessLogic.Utils.References
+@*<script src="~/Scripts/MyJavaScript/GlavnayaKniga.js"></script>*@
+<div @*ng-controller="GlavnayaKniga"*@>
+    <div id="connection" style="visibility:hidden;position:absolute;margin-left:600px;margin-top:100px;z-index:9999">
+        <img src="~/Content/Login/buffering.gif" />
+    </div>
+    @using (Html.BeginForm("GlavnayaKnigaSvodniyNV2", "Otchot", FormMethod.Get))
+    {
+        <div class="col-md-6 form-group">
+            <div class="row">
+                <div class="col-md-4 form-group">
+                    <label>Год</label>
+                    @Html.EJS().ComboBox("year").Placeholder("Выберите год").PopupHeight("230px").Index(1).DataSource((IEnumerable<Years>
+                      )ViewBag.YearsList).Fields(new ComboBoxFieldSettings { Text = "year_id", Value = "year_str" }).Render()
+                </div>
+                <div class="col-md-4 form-group">
+                    <label>Квартал</label>
+                    @Html.EJS().ComboBox("kvartal").Placeholder("Выберите квартал").PopupHeight("230px").Index(0).DataSource((IEnumerable<Kvartals>
+                      )ViewBag.KvartalsList).Fields(new ComboBoxFieldSettings { Text = "Name", Value = "id" }).Render()
+                </div>
+                <div style="margin-left:160px">
+                    <p></p>
+                    @Html.EJS().Button("infobtn").Content("Сформировать отчет").CssClass("e-info").Render()
+                </div>
+            </div>
+        </div>
+    }
+    @*<div class="mb-5" style="padding-left:20px">
+            <a href="#" class="btn btn-blue d-block d-md-inline-block mb-2" data-toggle="modal" data-target="#dobavit" ng-click="LoadDATAS()">Показать</a>
+            <a href="#" class="btn btn-grey d-block d-md-inline-block mb-2">Очистить фильтр</a>
+            <button ng-show="showdata" ng-click="exportData()" class="btn btn-green d-block d-md-inline-block mb-3 mb-md-0" ><i class="fas fa-file-excel"></i> Экспорт</button>
+        </div>*@
+        <div class="table-responsive box-shadow mb-4" @*ng-show="showdata"*@ id="export">
+            @Html.EJS().Grid("glavnayaKniga").DataSource((IEnumerable<object>)ViewBag.Datasource).AllowExcelExport().ToolbarClick("toolbarClick").Columns(col=> {
+            col.Field("field0010").HeaderText("№ счетов Дебет  ").MinWidth("50").MinWidth("10").IsFrozen(true).Add();
+            col.Field("field0011").HeaderText("Сальдо_на_начало").Format("").MinWidth("50").Add();
+            col.Field("field0012").HeaderText("Ж_О_№1          ").Format("").MinWidth("50").Add();
+            col.Field("field0013").HeaderText("Ж_О_№2          ").Format("").MinWidth("50").Add();
+            col.Field("field0014").HeaderText("Ж_О_№3          ").Format("").MinWidth("50").Add();
+            col.Field("field0015").HeaderText("Ж_О_№4          ").Format("").MinWidth("50").Add();
+            col.Field("field0016").HeaderText("Ж_О_№4а         ").Format("").MinWidth("50").Add();
+            col.Field("field0017").HeaderText("Ж_О_№5          ").Format("").MinWidth("50").Add();
+            col.Field("field0018").HeaderText("Ж_О_№5а         ").Format("").MinWidth("50").Add();
+            col.Field("field0019").HeaderText("Ж_О_№6          ").Format("").MinWidth("50").Add();
+            col.Field("field0020").HeaderText("Ж_О_№7          ").Format("").MinWidth("50").Add();
+            col.Field("field0021").HeaderText("Ж_О_№11         ").Format("").MinWidth("50").Add();
+            col.Field("field0022").HeaderText("Сумма_за_квартал").Format("").MinWidth("50").Add();
+            col.Field("field0023").HeaderText("Сумма_всего     ").Format("").MinWidth("50").Add();
+            col.Field("field0024").HeaderText("№ счетов Кредит ").MinWidth("50").Add();
+            col.Field("field0025").HeaderText("Сальдо_на_начало").Format("").MinWidth("50").Add();
+            col.Field("field0026").HeaderText("Ж_О_№1          ").Format("").MinWidth("50").Add();
+            col.Field("field0027").HeaderText("Ж_О_№2          ").Format("").MinWidth("50").Add();
+            col.Field("field0028").HeaderText("Ж_О_№3          ").Format("").MinWidth("50").Add();
+            col.Field("field0029").HeaderText("Ж_О_№4          ").Format("").MinWidth("50").Add();
+            col.Field("field0030").HeaderText("Ж_О_№4а         ").Format("").MinWidth("50").Add();
+            col.Field("field0031").HeaderText("Ж_О_№5          ").Format("").MinWidth("50").Add();
+            col.Field("field0032").HeaderText("Ж_О_№5а         ").Format("").MinWidth("50").Add();
+            col.Field("field0033").HeaderText("Ж_О_№6          ").Format("").MinWidth("50").Add();
+            col.Field("field0034").HeaderText("Ж_О_№7          ").Format("").MinWidth("50").Add();
+            col.Field("field0035").HeaderText("Ж_О_№11         ").Format("").MinWidth("50").Add();
+            col.Field("field0036").HeaderText("Сумма_за_квартал").Format("").MinWidth("50").Add();
+            col.Field("field0037").HeaderText("Сумма_всего     ").Format("").MinWidth("50").Add();
+            col.Field("field0038").HeaderText("Актив           ").Format("").MinWidth("50").Add();
+            col.Field("field0039").HeaderText("Пассив          ").Format("").MinWidth("50").Add();
+            col.Field("field0040").HeaderText("№ счетов        ").MinWidth("50").Add();
+
+             }).AllowPaging().AllowFiltering().AllowResizing().AllowReordering().PageSettings(page=>page.PageCount(5)).Toolbar(new List<string>
+             () { "ExcelExport" }).Render()
+            <script>
+                function toolbarClick(args) {
+                    var gridObj = document.getElementById("glavnayaKniga").ej2_instances[0];
+                    if (args.item.id === 'glavnayaKniga_excelexport') {
+                        gridObj.excelExport();
+                    }
+                }
+            </script>
+            @*<table class="table table__block t-hover">
+            <thead>
+                <tr>
+                    <th style="text-align:center">№ счетов Дебет</th>
+                    <th style="text-align:center">Сальдо_на_начало</th>
+                    <th style="text-align:center">Ж_О_№1</th>
+                    <th style="text-align:center">Ж_О_№2</th>
+                    <th style="text-align:center">Ж_О_№3</th>
+                    <th style="text-align:center">Ж_О_№4</th>
+                    <th style="text-align:center">Ж_О_№4а</th>
+                    <th style="text-align:center">Ж_О_№5</th>
+                    <th style="text-align:center">Ж_О_№5а</th>
+                    <th style="text-align:center">Ж_О_№6</th>
+                    <th style="text-align:center">Ж_О_№7</th>
+                    <th style="text-align:center">Ж_О_№11</th>
+                    <th style="text-align:center">Сумма_за_квартал</th>
+                    <th style="text-align:center">Сумма_всего</th>
+                    <th style="text-align:center">№ счетов Кредит</th>
+                    <th style="text-align:center">Сальдо_на_начало</th>
+                    <th style="text-align:center">Ж_О_№1</th>
+                    <th style="text-align:center">Ж_О_№2</th>
+                    <th style="text-align:center">Ж_О_№3</th>
+                    <th style="text-align:center">Ж_О_№4</th>
+                    <th style="text-align:center">Ж_О_№4а</th>
+                    <th style="text-align:center">Ж_О_№5</th>
+                    <th style="text-align:center">Ж_О_№5а</th>
+                    <th style="text-align:center">Ж_О_№6</th>
+                    <th style="text-align:center">Ж_О_№7</th>
+                    <th style="text-align:center">Ж_О_№11</th>
+                    <th style="text-align:center">Сумма_за_квартал</th>
+                    <th style="text-align:center">Сумма_всего</th>
+                    <th style="text-align:center">Актив</th>
+                    <th style="text-align:center">Пассив</th>
+                    <th style="text-align:center">№ счетов</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="poin" ng-repeat="item in DATA" ng-style="item.field0010=='Итого:'&&{'background-color':'#8a8a8a','color':'white'}">
+                    <td style="text-align:center">{{item.field0010}}</td>
+                    <td style="text-align:center">{{item.field0011 | currency:''}}</td>
+                    <td style="text-align:center">{{item.field0012 | currency:''}}</td>
+                    <td style="text-align:center">{{item.field0013 | currency:''}}</td>
+                    <td style="text-align:center">{{item.field0014 | currency:''}}</td>
+                    <td style="text-align:center">{{item.field0015 | currency:''}}</td>
+                    <td style="text-align:center">{{item.field0016 | currency:''}}</td>
+                    <td style="text-align:center">{{item.field0017 | currency:''}}</td>
+                    <td style="text-align:center">{{item.field0018 | currency:''}}</td>
+                    <td style="text-align:center">{{item.field0019 | currency:''}}</td>
+                    <td style="text-align:center">{{item.field0020 | currency:''}}</td>
+                    <td style="text-align:center">{{item.field0021 | currency:''}}</td>
+                    <td style="text-align:center">{{item.field0022 | currency:''}}</td>
+                    <td style="text-align:center">{{item.field0023 | currency:''}}</td>
+                    <td style="text-align:center">{{item.field0024}}</td>
+                    <td style="text-align:center">{{item.field0025 | currency:''}}</td>
+                    <td style="text-align:center">{{item.field0026 | currency:''}}</td>
+                    <td style="text-align:center">{{item.field0027 | currency:''}}</td>
+                    <td style="text-align:center">{{item.field0028 | currency:''}}</td>
+                    <td style="text-align:center">{{item.field0029 | currency:''}}</td>
+                    <td style="text-align:center">{{item.field0030 | currency:''}}</td>
+                    <td style="text-align:center">{{item.field0031 | currency:''}}</td>
+                    <td style="text-align:center">{{item.field0032 | currency:''}}</td>
+                    <td style="text-align:center">{{item.field0033 | currency:''}}</td>
+                    <td style="text-align:center">{{item.field0034 | currency:''}}</td>
+                    <td style="text-align:center">{{item.field0035 | currency:''}}</td>
+                    <td style="text-align:center">{{item.field0036 | currency:''}}</td>
+                    <td style="text-align:center">{{item.field0037 | currency:''}}</td>
+                    <td style="text-align:center">{{item.field0038 | currency:''}}</td>
+                    <td style="text-align:center">{{item.field0039 | currency:''}}</td>
+                    <td style="text-align:center">{{item.field0040}}</td>
+                </tr>
+            </tbody>
+        </table>*@
+        </div>
+
+
+</div>

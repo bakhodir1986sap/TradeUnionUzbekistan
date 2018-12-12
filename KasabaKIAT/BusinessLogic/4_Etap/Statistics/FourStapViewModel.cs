@@ -30,6 +30,10 @@ namespace KasabaKIAT.BusinessLogic._4_Etap.Statistics
 
         public List<ChastichkaModel> chastichkaInfo { get; set; }
 
+        public List<KaznaInfoModel> kaznaLastDayInfo { get; set; }
+
+        public List<PererasxodPoPutevkamModel> pererasxodInfo { get; set; }
+
 
         public string DepartmentBase { get; set; }
 

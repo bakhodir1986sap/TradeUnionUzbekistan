@@ -2343,16 +2343,6 @@ namespace KasabaKIAT.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("sp_stat_VozvratPutyovkas_V2", dEPARTMENT_BASEParameter, yEARParameter);
         }
     
-        public virtual ObjectResult<sp_rt_SvodniyOtchetV2_Result> sp_rt_SvodniyOtchetV2()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_rt_SvodniyOtchetV2_Result>("sp_rt_SvodniyOtchetV2");
-        }
-    
-        public virtual ObjectResult<sp_rt_SvodniyOtchetOrganizationV2_Result> sp_rt_SvodniyOtchetOrganizationV2()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_rt_SvodniyOtchetOrganizationV2_Result>("sp_rt_SvodniyOtchetOrganizationV2");
-        }
-    
         public virtual ObjectResult<sp_stat_Chastichka_V2_Result> sp_stat_Chastichka_V2()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_stat_Chastichka_V2_Result>("sp_stat_Chastichka_V2");
@@ -2365,6 +2355,26 @@ namespace KasabaKIAT.Models
                 new ObjectParameter("DEPARTMENT_BASE", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_stat_ChastichkaObl_V2_Result>("sp_stat_ChastichkaObl_V2", dEPARTMENT_BASEParameter);
+        }
+    
+        public virtual ObjectResult<sp_rt_SvodniyOtchetOrganizationV2_Result1> sp_rt_SvodniyOtchetOrganizationV2()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_rt_SvodniyOtchetOrganizationV2_Result1>("sp_rt_SvodniyOtchetOrganizationV2");
+        }
+    
+        public virtual ObjectResult<sp_rt_SvodniyOtchetV2_Result1> sp_rt_SvodniyOtchetV2()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_rt_SvodniyOtchetV2_Result1>("sp_rt_SvodniyOtchetV2");
+        }
+    
+        public virtual ObjectResult<sp_stat_KaznaDataFedLastDay_V2_Result> sp_stat_KaznaDataFedLastDay_V2()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_stat_KaznaDataFedLastDay_V2_Result>("sp_stat_KaznaDataFedLastDay_V2");
+        }
+    
+        public virtual ObjectResult<sp_monit_PererasxodPoPutyovkamV2_Result1> sp_monit_PererasxodPoPutyovkamV2()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_monit_PererasxodPoPutyovkamV2_Result1>("sp_monit_PererasxodPoPutyovkamV2");
         }
     }
 }

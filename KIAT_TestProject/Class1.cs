@@ -59,7 +59,7 @@ namespace KIAT_TestProject
             {
                 var lll = new KasabaKIAT.Controllers.BuxgalterController();
 
-                lll.CloseKvartal("17227", 1).Wait();
+                //lll.CloseKvartal("17227", 1).Wait();
             }
 
 

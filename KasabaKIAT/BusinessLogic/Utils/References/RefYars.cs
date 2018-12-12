@@ -16,6 +16,13 @@ namespace KasabaKIAT.BusinessLogic.Utils.References
         public string year_id { get; set; }
     }
 
+    public class Kvartals
+    {
+        public string id { get; set; }
+
+        public string Name { get; set; }
+    }
+
     public class RefYars
     {
         public List<Years> GetYears()
@@ -28,6 +35,19 @@ namespace KasabaKIAT.BusinessLogic.Utils.References
             list.Add(new Years() { Id = 2020, Year = 2020, year_str ="2020",year_id ="2020"   });
             list.Add(new Years() { Id = 2021, Year = 2021, year_str ="2021",year_id ="2021"   });
             list.Add(new Years() { Id = 2022, Year = 2022, year_str ="2022",year_id = "2022" });
+
+            return list;
+        }
+
+
+        public List<Kvartals> GetKvartals()
+        {
+            var list = new List<Kvartals>();
+
+            list.Add(new Kvartals() { id = "1", Name = "1-квартал"});
+            list.Add(new Kvartals() { id = "2", Name = "2-квартал"});
+            list.Add(new Kvartals() { id = "3", Name = "3-квартал"});
+            list.Add(new Kvartals() { id = "4", Name = "4-квартал"});
 
             return list;
         }

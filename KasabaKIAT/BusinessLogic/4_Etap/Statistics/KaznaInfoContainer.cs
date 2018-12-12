@@ -71,5 +71,37 @@ namespace KasabaKIAT.BusinessLogic._4_Etap.Statistics
 
             return listModel;
         }
+
+
+
+
+        public static List<KaznaInfoModel> GetKaznaFederationLastDayInfo()
+        {
+            var listModel = new List<KaznaInfoModel>();
+
+            using (KasabaKIATEntities db = new KasabaKIATEntities())
+            {
+                var query = db.sp_stat_KaznaDataFedLastDay_V2();
+
+                foreach (var obj in query)
+                {
+                    var opl = new KaznaInfoModel();
+
+                    opl.FederationAmount = obj.FEDERATION_AMT;
+                    opl.OblSovProf = obj.ProfsoyzNaimenovanie;
+                    opl.OblSovProvAmount = obj.OBLSOVPROF_AMT;
+                    opl.Quarter = string.Format("{0} квартал", obj.QUARTER_op.Value);
+                    opl.Tarmoq = obj.BRANCH_NAME;
+                    opl.Tuman = obj.SOATO_NAME;
+                    opl.Year = string.Format("{0} год", obj.YEAR_OP.Value);
+
+                    listModel.Add(opl);
+                }
+            }
+
+            return listModel;
+        }
+
+
     }
 }

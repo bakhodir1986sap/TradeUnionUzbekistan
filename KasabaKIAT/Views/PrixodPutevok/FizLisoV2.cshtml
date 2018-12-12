@@ -32,7 +32,7 @@
             col.Field("Pas_KD").HeaderText("Кем выдан").Width("9").Add();
             col.Field("Pas_Data").HeaderText("Дата выдачи").Width("40").Add();
             }).AllowPaging().AllowResizing().PageSettings(page=>page.PageCount(5)).EditSettings(edit => { edit.AllowAdding(true).AllowEditing(true).AllowDeleting(true).ShowDeleteConfirmDialog(true).Mode(Syncfusion.EJ2.Grids.EditMode.Dialog);}).Toolbar(new List<string>
-            () { "Add", "Edit", "Delete", "ExcelExport" }).Render()
+            () { "ExcelExport" }).Render()
             <script>
                 function toolbarClick(args) {
                     var gridObj = document.getElementById("organization").ej2_instances[0];

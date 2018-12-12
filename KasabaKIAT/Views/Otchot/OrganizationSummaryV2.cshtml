@@ -23,9 +23,58 @@
         </div>
         @Html.EJS().PivotView("SvodniyPoOrganiz").Width("100%").Height("300").DataSource(dataSource => dataSource.Data((IEnumerable<object>)ViewBag.DateSource).ExpandAll(false).EnableSorting(true)
         //.FormatSettings(formatsettings => { formatsettings.Name("OblSovProvAmount").MaximumSignificantDigits(10).MinimumSignificantDigits(1).UseGrouping(true).Add(); })
-        .Rows(rows => { rows.Name("ProfsoyzNaimenovanie").Add(); rows.Name("Name_Ot").Add(); rows.Name("Name_Org").Add(); })
-        .Columns(columns => { columns.Name("CountP").Caption("Кол-во").Add(); })
-        .Values(values => { values.Name("CountP").Caption("Кол-во").Add(); })).ShowFieldList(true).GridSettings(new PivotViewGridSettings { ColumnWidth = 140 }).Render()
+        .Rows(rows => { rows.Name("ProfsoyzNaimenovanie").Caption("Проф Организация").Add(); rows.Name("Name_Ot").Caption("Отрасль").Add(); })
+        //.Columns(columns => { columns.Name("CountP").Caption("Кол-во").Add(); })
+        .Values(values => { values.Name("CountP").Caption("Кол-во").Add(); })).ShowFieldList(true).Locale("fr-CH").GridSettings(new PivotViewGridSettings { ColumnWidth = 140 }).Render()
+
+        <script>
+            var L10n = ej.base.L10n;
+            L10n.load({
+                "fr-CH": {
+                    "pivotview": {
+                        "grandTotal": "Общая сумма",
+                        "total": "всего",
+                        "value": "значение",
+                        "noValue": "нету значений",
+                        "row": "строка",
+                        "column": "колонка",
+                        "collapse": "свернуть",
+                        "expand": "развернуть"
+                    },
+                    "pivotfieldlist": {
+                        "fieldList": "список полей",
+                        "dropRowPrompt": "убрать строку",
+                        "dropColPrompt": "убрать колонку",
+                        "dropValPrompt": "убрать значение",
+                        "dropFilterPrompt": "убрать фильтр",
+                        "addPrompt": "добавить",
+                        "centerHeader": "усреднить заголовок",
+                        "add": "добавить",
+                        "drag": "перекинуть",
+                        "filter": "фильтр",
+                        "filtered": "фильтр внедрен",
+                        "sort": "сортировать",
+                        "remove": "удалить",
+                        "filters": "фильтры",
+                        "rows": "строки",
+                        "columns": "колонки",
+                        "values": "значения",
+                        "error": "ошибка",
+                        "dropAction": "убрать действие",
+                        "search": "поиск",
+                        "close": "закрыть",
+                        "cancel": "отменить",
+                        "delete": "удалить",
+                        "alert": "сообщение",
+                        "warning": "сообщение",
+                        "ok": "OK",
+                        "allFields": "Все поля",
+                        "noMatches": "нет соответствий"
+                    }
+                }
+            });
+        </script>
+
     </section>
 </div>
 

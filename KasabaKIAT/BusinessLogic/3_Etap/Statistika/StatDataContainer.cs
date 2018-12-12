@@ -84,6 +84,7 @@ namespace KasabaKIAT.BusinessLogic._3_Etap.Statistika
                 else
                 {
                     FourStepController.GetActiveUsers((FourStapViewModel)_statModel, depCode, cur_year);
+                    
                     return _statModel;
                 }
             }

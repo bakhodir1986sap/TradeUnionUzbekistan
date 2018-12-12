@@ -1,0 +1,78 @@
+﻿@{
+    ViewBag.Title = "Отчеты";
+}
+@using Syncfusion.EJ2
+@using Syncfusion.EJ2.DropDowns
+@using KasabaKIAT.BusinessLogic.Utils.References
+@*<script src="~/Scripts/MyJavaScript/GlavnayaKniga.js"></script>*@
+<div @*ng-controller="GlavnayaKniga"*@>
+    <div id="connection" style="visibility:hidden;position:absolute;margin-left:600px;margin-top:100px;z-index:9999">
+        <img src="~/Content/Login/buffering.gif" />
+    </div>
+    @using (Html.BeginForm("GlavnayaKnigaV2", "Otchot", FormMethod.Get))
+    {
+        <div class="col-md-6 form-group">
+            <div class="row">
+                <div class="col-md-4 form-group">
+                    <label>Год</label>
+                    @Html.EJS().ComboBox("year").Placeholder("Выберите год").PopupHeight("230px").Index(1).DataSource((IEnumerable<Years>
+                      )ViewBag.YearsList).Fields(new ComboBoxFieldSettings { Text = "year_id", Value = "year_str" }).Render()
+                </div>
+                <div class="col-md-4 form-group">
+                    <label>Квартал</label>
+                    @Html.EJS().ComboBox("kvartal").Placeholder("Выберите квартал").PopupHeight("230px").Index(0).DataSource((IEnumerable<Kvartals>
+                      )ViewBag.KvartalsList).Fields(new ComboBoxFieldSettings { Text = "Name", Value = "id" }).Render()
+                </div>
+                <div style="margin-left:160px">
+                    <p></p>
+                    @Html.EJS().Button("infobtn").Content("Сформировать отчет").CssClass("e-info").Render()
+                </div>
+            </div>
+        </div>
+    }
+        <div class="table-responsive box-shadow mb-4" @*ng-show="showdata"*@ id="export">
+            @Html.EJS().Grid("glavnayaKniga").DataSource((IEnumerable<object>)ViewBag.Datasource).AllowExcelExport().ToolbarClick("toolbarClick").Columns(col=> {
+           col.Field("field0010").HeaderText("№ счетов Дебет  ").MinWidth("50").MinWidth("10").IsFrozen(true).Add();
+           col.Field("field0011").HeaderText("Сальдо_на_начало").Format("").MinWidth("50").Add();
+           col.Field("field0012").HeaderText("Ж_О_№1          ").Format("").MinWidth("50").Add();
+           col.Field("field0013").HeaderText("Ж_О_№2          ").Format("").MinWidth("50").Add();
+           col.Field("field0014").HeaderText("Ж_О_№3          ").Format("").MinWidth("50").Add();
+           col.Field("field0015").HeaderText("Ж_О_№4          ").Format("").MinWidth("50").Add();
+           col.Field("field0016").HeaderText("Ж_О_№4а         ").Format("").MinWidth("50").Add();
+           col.Field("field0017").HeaderText("Ж_О_№5          ").Format("").MinWidth("50").Add();
+           col.Field("field0018").HeaderText("Ж_О_№5а         ").Format("").MinWidth("50").Add();
+           col.Field("field0019").HeaderText("Ж_О_№6          ").Format("").MinWidth("50").Add();
+           col.Field("field0020").HeaderText("Ж_О_№7          ").Format("").MinWidth("50").Add();
+           col.Field("field0021").HeaderText("Ж_О_№11         ").Format("").MinWidth("50").Add();
+           col.Field("field0022").HeaderText("Сумма_за_квартал").Format("").MinWidth("50").Add();
+           col.Field("field0023").HeaderText("Сумма_всего     ").Format("").MinWidth("50").Add();
+           col.Field("field0024").HeaderText("№ счетов Кредит ").MinWidth("50").Add();
+           col.Field("field0025").HeaderText("Сальдо_на_начало").Format("").MinWidth("50").Add();
+           col.Field("field0026").HeaderText("Ж_О_№1          ").Format("").MinWidth("50").Add();
+           col.Field("field0027").HeaderText("Ж_О_№2          ").Format("").MinWidth("50").Add();
+           col.Field("field0028").HeaderText("Ж_О_№3          ").Format("").MinWidth("50").Add();
+           col.Field("field0029").HeaderText("Ж_О_№4          ").Format("").MinWidth("50").Add();
+           col.Field("field0030").HeaderText("Ж_О_№4а         ").Format("").MinWidth("50").Add();
+           col.Field("field0031").HeaderText("Ж_О_№5          ").Format("").MinWidth("50").Add();
+           col.Field("field0032").HeaderText("Ж_О_№5а         ").Format("").MinWidth("50").Add();
+           col.Field("field0033").HeaderText("Ж_О_№6          ").Format("").MinWidth("50").Add();
+           col.Field("field0034").HeaderText("Ж_О_№7          ").Format("").MinWidth("50").Add();
+           col.Field("field0035").HeaderText("Ж_О_№11         ").Format("").MinWidth("50").Add();
+           col.Field("field0036").HeaderText("Сумма_за_квартал").Format("").MinWidth("50").Add();
+           col.Field("field0037").HeaderText("Сумма_всего     ").Format("").MinWidth("50").Add();
+           col.Field("field0038").HeaderText("Актив           ").Format("").MinWidth("50").Add();
+           col.Field("field0039").HeaderText("Пассив          ").Format("").MinWidth("50").Add();
+           col.Field("field0040").HeaderText("№ счетов        ").MinWidth("50").Add();
+
+       }).AllowPaging().AllowFiltering().AllowResizing().AllowReordering().PageSettings(page=>page.PageCount(5)).Toolbar(new List<string>
+            () { "ExcelExport" }).Render()
+            <script>
+                function toolbarClick(args) {
+                    var gridObj = document.getElementById("glavnayaKniga").ej2_instances[0];
+                    if (args.item.id === 'glavnayaKniga_excelexport') {
+                        gridObj.excelExport();
+                    }
+                }
+            </script>
+        </div>
+</div>

@@ -257,6 +257,8 @@
     <Compile Include="BusinessLogic\4_Etap\Statistics\ChastichkaContainer.cs" />
     <Compile Include="BusinessLogic\4_Etap\Statistics\ChastichkaModel.cs" />
     <Compile Include="BusinessLogic\4_Etap\Statistics\MonitKaznaIncomingModel.cs" />
+    <Compile Include="BusinessLogic\4_Etap\Statistics\PererasxodPoPutevkamContainer.cs" />
+    <Compile Include="BusinessLogic\4_Etap\Statistics\PererasxodPoPutevkamModel.cs" />
     <Compile Include="BusinessLogic\4_Etap\Statistics\PieChartData.cs" />
     <Compile Include="BusinessLogic\4_Etap\Statistics\FourStapViewModel.cs" />
     <Compile Include="BusinessLogic\4_Etap\Statistics\FourStepController.cs" />
@@ -609,6 +611,12 @@
     <Compile Include="Models\sp_get_RealizasiyaPutyovokGroup_Result1.cs">
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\sp_monit_PererasxodPoPutyovkamV2_Result.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_monit_PererasxodPoPutyovkamV2_Result1.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\sp_pr_GetNewTransactions_Result.cs">
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
@@ -816,10 +824,22 @@
     <Compile Include="Models\sp_rt_Razbivka_Postup_Result1.cs">
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\sp_rt_SvodniyOtchetOrganizationV21_Result.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\sp_rt_SvodniyOtchetOrganizationV2_Result.cs">
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\sp_rt_SvodniyOtchetOrganizationV2_Result1.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_rt_SvodniyOtchetV21_Result.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\sp_rt_SvodniyOtchetV2_Result.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_rt_SvodniyOtchetV2_Result1.cs">
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\sp_rt_SvodniyOtchet_Result.cs">
@@ -877,6 +897,9 @@
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\sp_stat_IncomePerRegionList_Obl_Result.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_stat_KaznaDataFedLastDay_V2_Result.cs">
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\sp_stat_KaznaDataFed_V2_Result.cs">
@@ -1600,6 +1623,7 @@
     <Content Include="Content\images\v-gr.png" />
     <Content Include="Content\images\v-r.png" />
     <Content Include="Content\images\v-w.png" />
+    <Content Include="Content\img\bg-moz.png" />
     <Content Include="Content\img\excel.JPG" />
     <Content Include="Content\img\item-1.jpg" />
     <Content Include="Content\img\item-10.JPG" />
@@ -2182,6 +2206,9 @@
     <Content Include="Views\Otchot\RazbivkaPostupleniyaNV2.cshtml" />
     <Content Include="Views\Otchot\PostupleniyaOblastyamV2.cshtml" />
     <Content Include="Views\Otchot\PostupleniyaOtrasliV2.cshtml" />
+    <Content Include="Views\Otchot\GlavnayaKnigaNV2.cshtml" />
+    <Content Include="Views\Otchot\GlavnayaKnigaSvodniyV2.cshtml" />
+    <Content Include="Views\Otchot\GlavnayaKnigaVRazrezeV2.cshtml" />
     <None Include="Web References\KurortUrlService\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>

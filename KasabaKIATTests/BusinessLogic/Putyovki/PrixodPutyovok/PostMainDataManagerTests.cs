@@ -30,7 +30,7 @@ namespace KasabaKiat.BusinessLogic.Putyovki.PrixodPutyovok.Tests
             //var res_bal_out = finOtchet.out_Balance;
 
             var finOtchet = new FinOtchetStrukture();
-            finOtchet.MakeFinOtchet("17", 2018, 1);
+            //finOtchet.MakeFinOtchet("17", 2018, 1);
 
             var result = finOtchet._totaloutput;
         }

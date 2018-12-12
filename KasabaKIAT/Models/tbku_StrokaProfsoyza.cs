@@ -20,5 +20,6 @@ namespace KasabaKIAT.Models
         public Nullable<System.DateTime> CreateDT { get; set; }
         public string MATCH_DEPARTMENTBASE { get; set; }
         public Nullable<bool> PRIVFLG { get; set; }
+        public Nullable<int> ORDER_NUMBER { get; set; }
     }
 }

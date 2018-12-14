@@ -79,7 +79,27 @@ namespace KasabaKIAT.Controllers
             return View();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [OutputCache(Duration = 5, Location = OutputCacheLocation.Client, VaryByCustom = "userId")]
+        public ActionResult SanatoriyProfilaktoriy()
+        {
+            return View();
+        }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [OutputCache(Duration = 5, Location = OutputCacheLocation.Client, VaryByCustom = "userId")]
+        public ActionResult LagerFinOtchot()
+        {
+            return View();
+        }
+
+        
         /// <summary>
         /// 
         /// </summary>

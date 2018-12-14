@@ -2209,6 +2209,10 @@
     <Content Include="Views\Otchot\GlavnayaKnigaNV2.cshtml" />
     <Content Include="Views\Otchot\GlavnayaKnigaSvodniyV2.cshtml" />
     <Content Include="Views\Otchot\GlavnayaKnigaVRazrezeV2.cshtml" />
+    <Content Include="Views\Otchot\SanatoriyProfilaktoriy.cshtml" />
+    <Content Include="Views\Otchot\SanatoriyProfilaktoriySvodniy.cshtml" />
+    <Content Include="Views\Otchot\LagerFinOtchot.cshtml" />
+    <Content Include="Views\Otchot\LagerFinOtchotSvodniy.cshtml" />
     <None Include="Web References\KurortUrlService\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>

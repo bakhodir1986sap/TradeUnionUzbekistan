@@ -1,0 +1,959 @@
+﻿@{
+    ViewBag.Title = "Отчеты";
+}
+<style>
+    font {
+        color: black !important
+    }
+</style>
+<script src="~/Scripts/MyJavaScript/GlavnayaKniga.js"></script>
+<div ng-controller="GlavnayaKniga">
+    <div id="connection" style="visibility:hidden;position:absolute;margin-left:600px;margin-top:100px;z-index:9999">
+        <img src="~/Content/Login/buffering.gif" />
+    </div>
+    <div class="col-md-6 form-group">
+        <div class="row">
+            <div class="col-md-4 form-group">
+                <label>Год</label>
+                <select class="custom-select form-control" ng-model="SelectedYear" ng-options="item as item.Year for item in Years track by item.Id" ng-change="FiltersChanged()"></select>
+            </div>
+            <div class="col-md-4 form-group">
+                <label>Квартал</label>
+                <select class="custom-select form-control" ng-model="SelectedKvartal" ng-options="item as item.Name_Kv for item in Kvartals track by item.ID" ng-change="FiltersChanged()"></select>
+            </div>
+        </div>
+    </div>
+    <div class="mb-5" style="padding-left:20px">
+        <a href="#" class="btn btn-blue d-block d-md-inline-block mb-2" data-toggle="modal" data-target="#dobavit" ng-click="LoadDATAF()">Показать</a>
+        <a href="#" class="btn btn-grey d-block d-md-inline-block mb-2">Очистить фильтр</a>
+        <button ng-show="showdata" ng-click="exportData2()" class="btn btn-green d-block d-md-inline-block mb-3 mb-md-0"><i class="fas fa-file-excel"></i> Экспорт</button>
+        <a href="#" class="btn btn-blue d-block d-md-inline-block mb-2" data-toggle="modal" data-target="#dobavit" ng-click="SaveRasxod()">Сохранить</a>
+    </div>
+    <div id="export">
+        <A NAME="table0"><h1>Sheet 1: <em>1-бет</em></h1></A>
+        <table cellspacing="0" border="0">
+            <colgroup width="424"></colgroup>
+            <colgroup width="70"></colgroup>
+            <colgroup width="111"></colgroup>
+            <colgroup width="130"></colgroup>
+            <colgroup width="116"></colgroup>
+            <tr>
+                <td height="23" align="center" valign=middle><font face="Times New Roman"><br></font></td>
+                <td align="center" valign=middle><font face="Times New Roman"><br></font></td>
+                <td align="center" valign=middle><font face="Times New Roman"><br></font></td>
+                <td colspan=2 align="right" valign=middle><b><font face="Times New Roman" size=4>3-илова</font></b></td>
+            </tr>
+            <tr>
+                <td colspan=5 height="20" align="center" sdnum="1033;"><b><font face="Times New Roman"><input type="number" maxlength="10" width="10" ng-model="xxxx"></font></b></td>
+            </tr>
+            <tr>
+                <td colspan=5 rowspan=2 height="29" align="center" sdnum="1033;"><b><font face="Times New Roman"><input type="number" maxlength="10" width="10" ng-model="xxxx"></font></b></td>
+            </tr>
+            <tr></tr>
+            <tr>
+                <td colspan=5 height="36" align="center"><font face="Times New Roman">(санаторий-профилакторий ташкил этилган корхона, ташкилот ва муассасанинг касаба уюшма ташкилоти номи)                                                              (наименование профкома предприятия, организации, учреждения, при котором организован санаторий-профилакторий)</font></td>
+            </tr>
+            <tr>
+                <td height="43" align="left" valign=middle><b><font face="Times New Roman"><br></font></b></td>
+                <td colspan=4 align="right"><b><font face="Times New Roman">Ўзбекистон КУФКнинг 2015 йил 24 январдаги                                                                                                                                                                                     20-9 сонли  Раёсат қарори билан тасдиқланган</font></b></td>
+            </tr>
+            <tr>
+                <td height="37" align="left" valign=middle><font face="Times New Roman"><br></font></td>
+                <td colspan=4 align="right" valign=middle><font face="Times New Roman">                 Утверждено постановлением Президиума СФП                                                 Узбекистана   № 20-9   от  24    января  2015 года</font></td>
+            </tr>
+            <tr>
+                <td height="11" align="center" valign=middle><font face="Times New Roman"><br></font></td>
+                <td align="center" valign=middle><font face="Times New Roman"><br></font></td>
+                <td align="center" valign=middle><font face="Times New Roman"><br></font></td>
+                <td align="center" valign=middle><font face="Times New Roman"><br></font></td>
+                <td align="center" valign=middle><font face="Times New Roman"><br></font></td>
+            </tr>
+            <tr>
+                <td colspan=5 height="24" align="center" valign=middle><b><font face="Times New Roman" size=4>САНАТОРИЙ-ПРОФИЛАКТОРИЙЛАРНИНГ</font></b></td>
+            </tr>
+            <tr>
+                <td colspan=5 height="26" align="center" valign=middle><b><font face="Times New Roman" size=4>МОЛИЯВИЙ ҲИСОБОТИ</font></b></td>
+            </tr>
+            <tr>
+                <td colspan=5 height="20" align="center" valign=middle><i><font face="Times New Roman" size=1 color="#000000">(ўсиб борувчи тартибда, минг сўмда тўлдирилади)</font></i></td>
+            </tr>
+            <tr>
+                <td colspan=5 height="25" align="center" valign=middle><font face="Times New Roman" size=4 color="#000000">ФИНАНСОВЫЙ ОТЧЕТ</font></td>
+            </tr>
+            <tr>
+                <td colspan=5 height="25" align="center" valign=middle><font face="Times New Roman" size=4 color="#000000">санаториев-профилакториев</font></td>
+            </tr>
+            <tr>
+                <td colspan=5 height="20" align="center" valign=middle><i><font face="Times New Roman" size=1 color="#000000">(заполняется с нарастающим итогом, в тыс. сум)</font></i></td>
+            </tr>
+            <tr>
+                <td colspan=4 height="18" align="center" valign=middle><b><font face="Times New Roman"><br></font></b></td>
+                <td align="center" valign=middle><font face="Times New Roman"><br></font></td>
+            </tr>
+            <tr>
+                <td colspan=5 height="25" align="center" valign=middle><b><font face="Times New Roman" size=4 color="#000000"> 20_____ йил __________________ учун </font></b></td>
+            </tr>
+            <tr>
+                <td colspan=5 height="25" align="center" valign=middle><font face="Times New Roman" size=4 color="#000000">за ____________________ 20____ г.</font></td>
+            </tr>
+            <tr>
+                <td height="17" align="center" valign=middle><font face="Times New Roman"><br></font></td>
+                <td align="center" valign=middle><font face="Times New Roman"><br></font></td>
+                <td align="center" valign=middle><font face="Times New Roman"><br></font></td>
+                <td align="center" valign=middle><font face="Times New Roman"><br></font></td>
+                <td align="center" valign=middle><font face="Times New Roman"><br></font></td>
+            </tr>
+            <tr>
+                <td height="9" align="center" valign=middle><font face="Times New Roman"><br></font></td>
+                <td align="center" valign=middle><font face="Times New Roman"><br></font></td>
+                <td align="center" valign=middle><font face="Times New Roman"><br></font></td>
+                <td align="center" valign=middle><font face="Times New Roman"><br></font></td>
+                <td align="center" valign=middle><font face="Times New Roman"><br></font></td>
+            </tr>
+            <tr>
+                <td colspan=5 height="48" align="center" valign=middle><b><font face="Times New Roman" size=3>Санаторий-профилакторийлар иш режасини бажарилиши                                                                                        Выполнение плана работы санаториев-профилакториев</font></b></td>
+            </tr>
+            <tr>
+                <td height="21" align="center" valign=middle><font face="Times New Roman"><br></font></td>
+                <td align="center" valign=middle><font face="Times New Roman"><br></font></td>
+                <td align="center" valign=middle><font face="Times New Roman"><br></font></td>
+                <td colspan=2 align="right" valign=middle><font face="Times New Roman">1-жадвал                                                Таблица-1</font></td>
+            </tr>
+            <tr>
+                <td style="border-top: 2px solid #000000; border-bottom: 2px solid #000000; border-left: 2px solid #000000; border-right: 1px solid #000000" colspan=2 rowspan=2 height="76" align="center" valign=middle><font face="Times New Roman"><br></font></td>
+                <td style="border-top: 2px solid #000000; border-bottom: 2px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" rowspan=2 align="center" valign=middle><font face="Times New Roman">Қатор коди                         Код строки</font></td>
+                <td style="border-top: 2px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 2px solid #000000" colspan=2 align="center" valign=middle><font face="Times New Roman">Йил бошидан                                                                      С начала года</font></td>
+            </tr>
+            <tr>
+                <td style="border-top: 1px solid #000000; border-bottom: 2px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle><font face="Times New Roman">режа бўйича                       по плану </font></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 2px solid #000000; border-left: 1px solid #000000; border-right: 2px solid #000000" align="center" valign=middle><font face="Times New Roman">ҳақиқатда                           фактически </font></td>
+            </tr>
+            <tr>
+                <td style="border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 1px solid #000000" colspan=2 height="35" align="left" valign=middle><font face="Times New Roman">Санаторий-профилакторийлар сони                                                                                                               Число санаториев-профилакториев</font></td>
+                <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdnum="1033;0;"><font face="Times New Roman">010</font></td>
+                <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=middle sdnum="1033;0;_-* #,##0_р_._-;-* #,##0_р_._-;_-* &quot;-&quot;??_р_._-;_--"><font face="Times New Roman" size=4> <input type="number" maxlength="10" width="10" ng-model="xxx">    </font></td>
+                <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 2px solid #000000" align="left" valign=middle sdnum="1033;0;_-* #,##0_р_._-;-* #,##0_р_._-;_-* &quot;-&quot;??_р_._-;_--"><font face="Times New Roman" size=4> <input type="number" maxlength="10" width="10" ng-model="xxx">    </font></td>
+            </tr>
+            <tr>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 1px solid #000000" colspan=2 height="25" align="left" valign=middle><font face="Times New Roman">Ўринлар сони (жами)   Число мест (всего)</font></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdnum="1033;0;"><font face="Times New Roman">020</font></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=middle sdnum="1033;0;_-* #,##0_р_._-;-* #,##0_р_._-;_-* &quot;-&quot;??_р_._-;_--"><font face="Times New Roman" size=4> <input type="number" maxlength="10" width="10" ng-model="xxx">    </font></td>
+                <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=middle sdnum="1033;0;_-* #,##0_р_._-;-* #,##0_р_._-;_-* &quot;-&quot;??_р_._-;_--"><font face="Times New Roman" size=4> <input type="number" maxlength="10" width="10" ng-model="xxx">    </font></td>
+            </tr>
+            <tr>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 1px solid #000000" colspan=2 height="36" align="left" valign=middle><font face="Times New Roman">шундан: стационар турдаги жойлар (ўрин)                                                                                           в том числе: стационарных мест (коек)</font></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdnum="1033;0;"><font face="Times New Roman">030</font></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=middle sdnum="1033;0;_-* #,##0_р_._-;-* #,##0_р_._-;_-* &quot;-&quot;??_р_._-;_--"><font face="Times New Roman" size=4> <input type="number" maxlength="10" width="10" ng-model="xxx">    </font></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=middle sdnum="1033;0;_-* #,##0_р_._-;-* #,##0_р_._-;_-* &quot;-&quot;??_р_._-;_--"><font face="Times New Roman" size=4> <input type="number" maxlength="10" width="10" ng-model="xxx">    </font></td>
+            </tr>
+            <tr>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 1px solid #000000" colspan=2 height="25" align="left" valign=middle><font face="Times New Roman">амбулатор турдаги жойлар  (амбулаторных мест)</font></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdnum="1033;0;"><font face="Times New Roman">040</font></td>
+                <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=middle sdnum="1033;0;_-* #,##0_р_._-;-* #,##0_р_._-;_-* &quot;-&quot;??_р_._-;_--"><font face="Times New Roman" size=4> <input type="number" maxlength="10" width="10" ng-model="xxx">    </font></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=middle sdnum="1033;0;_-* #,##0_р_._-;-* #,##0_р_._-;_-* &quot;-&quot;??_р_._-;_--"><font face="Times New Roman" size=4> <input type="number" maxlength="10" width="10" ng-model="xxx">    </font></td>
+            </tr>
+            <tr>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 1px solid #000000" colspan=2 height="35" align="left" valign=middle><font face="Times New Roman">Жами йўлланма билан даволанишдаги одам-кунлар сони                                                                                    Число человеко-дней лечения по путевкам-всего  </font></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdnum="1033;0;"><font face="Times New Roman">050</font></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=middle sdnum="1033;0;_-* #,##0_р_._-;-* #,##0_р_._-;_-* &quot;-&quot;??_р_._-;_--"><font face="Times New Roman" size=4> <input type="number" maxlength="10" width="10" ng-model="xxx">    </font></td>
+                <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=middle sdnum="1033;0;_-* #,##0_р_._-;-* #,##0_р_._-;_-* &quot;-&quot;??_р_._-;_--"><font face="Times New Roman" size=4> <input type="number" maxlength="10" width="10" ng-model="xxx">    </font></td>
+            </tr>
+            <tr>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 1px solid #000000" colspan=2 height="33" align="left" valign=middle><font face="Times New Roman">шундан, амбулатор (овқати билан) даволанишдаги одам-кунлар                                     в том числе: человеко-дней амбулаторного лечения с питанием</font></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdnum="1033;0;"><font face="Times New Roman">060</font></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=middle sdnum="1033;0;_-* #,##0_р_._-;-* #,##0_р_._-;_-* &quot;-&quot;??_р_._-;_--"><font face="Times New Roman" size=4> <input type="number" maxlength="10" width="10" ng-model="xxx">    </font></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=middle sdnum="1033;0;_-* #,##0_р_._-;-* #,##0_р_._-;_-* &quot;-&quot;??_р_._-;_--"><font face="Times New Roman" size=4> <input type="number" maxlength="10" width="10" ng-model="xxx">    </font></td>
+            </tr>
+            <tr>
+                <td style="border-top: 1px solid #000000; border-bottom: 2px solid #000000; border-left: 2px solid #000000; border-right: 1px solid #000000" colspan=2 height="37" align="left" valign=middle><font face="Times New Roman">Курсовка билан (овқатсиз) даволанишдаги одам-кунлар сони                                             Число человеко-дней лечения по курсовкам (без питания)</font></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 2px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdnum="1033;0;"><font face="Times New Roman">070</font></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=middle sdnum="1033;0;_-* #,##0_р_._-;-* #,##0_р_._-;_-* &quot;-&quot;??_р_._-;_--"><font face="Times New Roman" size=4> <input type="number" maxlength="10" width="10" ng-model="xxx">    </font></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=middle sdnum="1033;0;_-* #,##0_р_._-;-* #,##0_р_._-;_-* &quot;-&quot;??_р_._-;_--"><font face="Times New Roman" size=4> <input type="number" maxlength="10" width="10" ng-model="xxx">    </font></td>
+            </tr>
+            <tr>
+                <td height="18" align="center" valign=middle><font face="Times New Roman"><br></font></td>
+                <td align="center" valign=middle><font face="Times New Roman"><br></font></td>
+                <td align="center" valign=middle><font face="Times New Roman"><br></font></td>
+                <td align="center" valign=middle><font face="Times New Roman"><br></font></td>
+                <td align="center" valign=middle><font face="Times New Roman"><br></font></td>
+            </tr>
+            <tr>
+                <td colspan=5 height="24" align="center"><b><font face="Times New Roman" size=3>Берилган йўлланмалар тўғрисида маълумот (Сведения о выданных путевках)</font></b></td>
+            </tr>
+            <tr>
+                <td height="21" align="center" valign=middle><font face="Times New Roman"><br></font></td>
+                <td align="center" valign=middle><font face="Times New Roman"><br></font></td>
+                <td align="center" valign=middle><font face="Times New Roman"><br></font></td>
+                <td colspan=2 align="right" valign=middle><font face="Times New Roman">2-жадвал                                             Таблица-2</font></td>
+            </tr>
+            <tr>
+                <td style="border-top: 2px solid #000000; border-bottom: 2px solid #000000; border-left: 2px solid #000000; border-right: 1px solid #000000" height="79" align="center" valign=middle><font face="Times New Roman"><br></font></td>
+                <td style="border-top: 2px solid #000000; border-bottom: 2px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle><font face="Times New Roman">Қатор коди                         Код строки</font></td>
+                <td style="border-top: 2px solid #000000; border-bottom: 2px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle><font face="Times New Roman">Йўлланмалар сони Количество путёвок</font></td>
+                <td style="border-top: 2px solid #000000; border-bottom: 2px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle><font face="Times New Roman">Даволаниш учун курсовкалар (овқатсиз)                  Курсовок на лечение (без питания)</font></td>
+                <td style="border-top: 2px solid #000000; border-bottom: 2px solid #000000; border-left: 1px solid #000000; border-right: 2px solid #000000" align="center" valign=middle><font face="Times New Roman">Жами                           Всего</font></td>
+            </tr>
+            <tr>
+                <td style="border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 1px solid #000000" height="25" align="left" valign=middle><font face="Times New Roman">1. Режа бўйича белгиланган   (Установлено по плану)</font></td>
+                <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdnum="1033;0;"><font face="Times New Roman">010</font></td>
+                <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=middle sdnum="1033;0;_-* #,##0_р_._-;-* #,##0_р_._-;_-* &quot;-&quot;??_р_._-;_--"><font face="Times New Roman" size=4> <input type="number" maxlength="10" width="10" ng-model="xxx">    </font></td>
+                <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=middle sdnum="1033;0;_-* #,##0_р_._-;-* #,##0_р_._-;_-* &quot;-&quot;??_р_._-;_--"><font face="Times New Roman" size=4> <input type="number" maxlength="10" width="10" ng-model="xxx">    </font></td>
+                <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 2px solid #000000" align="right" valign=middle sdval="19998" sdnum="1033;0;_-* #,##0_р_._-;-* #,##0_р_._-;_-* &quot;-&quot;??_р_._-;_--"><font face="Times New Roman" size=4>     </font></td>
+            </tr>
+            <tr>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 1px solid #000000" height="37" align="left" valign=middle><font face="Times New Roman">2. Жами йил бошидан берилгани, шундан:                                                         Выдано сначала года - всего в том числе:</font></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdnum="1033;0;"><font face="Times New Roman">020</font></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=middle sdnum="1033;0;_-* #,##0_р_._-;-* #,##0_р_._-;_-* &quot;-&quot;??_р_._-;_--"><font face="Times New Roman" size=4> <input type="number" maxlength="10" width="10" ng-model="xxx">    </font></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=middle sdnum="1033;0;_-* #,##0_р_._-;-* #,##0_р_._-;_-* &quot;-&quot;??_р_._-;_--"><font face="Times New Roman" size=4> <input type="number" maxlength="10" width="10" ng-model="xxx">    </font></td>
+                <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 2px solid #000000" align="right" valign=middle sdval="19998" sdnum="1033;0;_-* #,##0_р_._-;-* #,##0_р_._-;_-* &quot;-&quot;??_р_._-;_--"><font face="Times New Roman" size=4>     </font></td>
+            </tr>
+            <tr>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 1px solid #000000" height="39" align="left" valign=middle bgcolor="#FFFFFF"><font face="Times New Roman">ишчилар ва ишлаб чиқариш усталарига                                                      рабочим и мастерам производства</font></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdnum="1033;0;"><font face="Times New Roman">030</font></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=middle sdnum="1033;0;_-* #,##0_р_._-;-* #,##0_р_._-;_-* &quot;-&quot;??_р_._-;_--"><font face="Times New Roman" size=4> <input type="number" maxlength="10" width="10" ng-model="xxx">    </font></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=middle sdnum="1033;0;_-* #,##0_р_._-;-* #,##0_р_._-;_-* &quot;-&quot;??_р_._-;_--"><font face="Times New Roman" size=4> <input type="number" maxlength="10" width="10" ng-model="xxx">    </font></td>
+                <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 2px solid #000000" align="right" valign=middle sdval="19998" sdnum="1033;0;_-* #,##0_р_._-;-* #,##0_р_._-;_-* &quot;-&quot;??_р_._-;_--"><font face="Times New Roman" size=4>     </font></td>
+            </tr>
+            <tr>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 1px solid #000000" height="25" align="left" valign=middle><font face="Times New Roman">аёлларга (женщинам)</font></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdnum="1033;0;"><font face="Times New Roman">040</font></td>
+                <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=middle sdnum="1033;0;_-* #,##0_р_._-;-* #,##0_р_._-;_-* &quot;-&quot;??_р_._-;_--"><font face="Times New Roman" size=4> <input type="number" maxlength="10" width="10" ng-model="xxx">    </font></td>
+                <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=middle sdnum="1033;0;_-* #,##0_р_._-;-* #,##0_р_._-;_-* &quot;-&quot;??_р_._-;_--"><font face="Times New Roman" size=4> <input type="number" maxlength="10" width="10" ng-model="xxx">    </font></td>
+                <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 2px solid #000000" align="right" valign=middle sdval="19998" sdnum="1033;0;_-* #,##0_р_._-;-* #,##0_р_._-;_-* &quot;-&quot;??_р_._-;_--"><font face="Times New Roman" size=4>     </font></td>
+            </tr>
+            <tr>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 1px solid #000000" height="54" align="left" valign=middle><font face="Times New Roman">ишламайдиган меҳнат фахрийлари ва иккинчи жаҳон уруши қатнашчиларига                                                                                                          неработающим ветеранам труда и участникам войны</font></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdnum="1033;0;"><font face="Times New Roman">050</font></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=middle sdnum="1033;0;_-* #,##0_р_._-;-* #,##0_р_._-;_-* &quot;-&quot;??_р_._-;_--"><font face="Times New Roman" size=4> <input type="number" maxlength="10" width="10" ng-model="xxx">    </font></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=middle sdnum="1033;0;_-* #,##0_р_._-;-* #,##0_р_._-;_-* &quot;-&quot;??_р_._-;_--"><font face="Times New Roman" size=4> <input type="number" maxlength="10" width="10" ng-model="xxx">    </font></td>
+                <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 2px solid #000000" align="right" valign=middle sdval="19998" sdnum="1033;0;_-* #,##0_р_._-;-* #,##0_р_._-;_-* &quot;-&quot;??_р_._-;_--"><font face="Times New Roman" size=4>     </font></td>
+            </tr>
+            <tr>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 1px solid #000000" height="34" align="left" valign=middle><font face="Times New Roman">3. Қисман тўлов билан берилган йўлланмалар сони                                        Количество путёвок, выданных с частичной оплатой</font></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdnum="1033;0;"><font face="Times New Roman">060</font></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=middle sdnum="1033;0;_-* #,##0_р_._-;-* #,##0_р_._-;_-* &quot;-&quot;??_р_._-;_--"><font face="Times New Roman" size=4> <input type="number" maxlength="10" width="10" ng-model="xxx">    </font></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=middle sdnum="1033;0;_-* #,##0_р_._-;-* #,##0_р_._-;_-* &quot;-&quot;??_р_._-;_--"><font face="Times New Roman" size=4> <input type="number" maxlength="10" width="10" ng-model="xxx">    </font></td>
+                <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 2px solid #000000" align="right" valign=middle sdval="19998" sdnum="1033;0;_-* #,##0_р_._-;-* #,##0_р_._-;_-* &quot;-&quot;??_р_._-;_--"><font face="Times New Roman" size=4>     </font></td>
+            </tr>
+            <tr>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 1px solid #000000" height="34" align="left" valign=middle><b><font face="Times New Roman">4. Қисман тўлов суммаси                                                                                                 Сумма частичной стоимости</font></b></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdnum="1033;0;"><font face="Times New Roman">070</font></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=middle sdnum="1033;0;_-* #,##0_р_._-;-* #,##0_р_._-;_-* &quot;-&quot;??_р_._-;_--"><font face="Times New Roman" size=4> <input type="number" maxlength="10" width="10" ng-model="xxx">    </font></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=middle sdnum="1033;0;_-* #,##0_р_._-;-* #,##0_р_._-;_-* &quot;-&quot;??_р_._-;_--"><font face="Times New Roman" size=4> <input type="number" maxlength="10" width="10" ng-model="xxx">    </font></td>
+                <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 2px solid #000000" align="right" valign=middle sdval="19998" sdnum="1033;0;_-* #,##0_р_._-;-* #,##0_р_._-;_-* &quot;-&quot;??_р_._-;_--"><font face="Times New Roman" size=4>     </font></td>
+            </tr>
+            <tr>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 1px solid #000000" height="36" align="left" valign=middle><font face="Times New Roman">5. Сотилган йўлланмалар сони                                                                 Количество проданных путёвок</font></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdnum="1033;0;"><font face="Times New Roman">080</font></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=middle sdnum="1033;0;_-* #,##0_р_._-;-* #,##0_р_._-;_-* &quot;-&quot;??_р_._-;_--"><font face="Times New Roman" size=4> <input type="number" maxlength="10" width="10" ng-model="xxx">    </font></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=middle sdnum="1033;0;_-* #,##0_р_._-;-* #,##0_р_._-;_-* &quot;-&quot;??_р_._-;_--"><font face="Times New Roman" size=4> <input type="number" maxlength="10" width="10" ng-model="xxx">    </font></td>
+                <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 2px solid #000000" align="right" valign=middle sdval="19998" sdnum="1033;0;_-* #,##0_р_._-;-* #,##0_р_._-;_-* &quot;-&quot;??_р_._-;_--"><font face="Times New Roman" size=4>     </font></td>
+            </tr>
+            <tr>
+                <td style="border-top: 1px solid #000000; border-left: 2px solid #000000; border-right: 1px solid #000000" height="35" align="left" valign=middle><font face="Times New Roman">6.Сотилган йўлланмалар суммаси                                                                       Продано на сумму</font></td>
+                <td style="border-top: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdnum="1033;0;"><font face="Times New Roman">090</font></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=middle sdnum="1033;0;_-* #,##0_р_._-;-* #,##0_р_._-;_-* &quot;-&quot;??_р_._-;_--"><font face="Times New Roman" size=4> <input type="number" maxlength="10" width="10" ng-model="xxx">    </font></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=middle sdnum="1033;0;_-* #,##0_р_._-;-* #,##0_р_._-;_-* &quot;-&quot;??_р_._-;_--"><font face="Times New Roman" size=4> <input type="number" maxlength="10" width="10" ng-model="xxx">    </font></td>
+                <td style="border-left: 1px solid #000000; border-right: 2px solid #000000" align="right" valign=middle sdval="19998" sdnum="1033;0;_-* #,##0_р_._-;-* #,##0_р_._-;_-* &quot;-&quot;??_р_._-;_--"><font face="Times New Roman" size=4>     </font></td>
+            </tr>
+            <tr>
+                <td style="border-top: 2px solid #000000; border-bottom: 2px solid #000000; border-left: 2px solid #000000; border-right: 1px solid #000000" height="60" align="left" valign=middle><font face="Times New Roman">7. Корхонанинг соғломлаштирилган ходимлари сони (020-қатор минус 080-қатор)                                                                                                                          Оздоровлено работников своего предприятия (стр. 020 минус стр. 080)</font></td>
+                <td style="border-top: 2px solid #000000; border-bottom: 2px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdnum="1033;0;"><font face="Times New Roman">100</font></td>
+                <td style="border-top: 2px solid #000000; border-bottom: 2px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=middle sdval="0" sdnum="1033;0;_-* #,##0_р_._-;-* #,##0_р_._-;_-* &quot;-&quot;??_р_._-;_--"><font face="Times New Roman" size=4> -      </font></td>
+                <td style="border-top: 2px solid #000000; border-bottom: 2px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=middle sdval="0" sdnum="1033;0;_-* #,##0_р_._-;-* #,##0_р_._-;_-* &quot;-&quot;??_р_._-;_--"><font face="Times New Roman" size=4> -      </font></td>
+                <td style="border-top: 2px solid #000000; border-bottom: 2px solid #000000; border-left: 1px solid #000000; border-right: 2px solid #000000" align="right" valign=middle sdval="0" sdnum="1033;0;_-* #,##0_р_._-;-* #,##0_р_._-;_-* &quot;-&quot;??_р_._-;_--"><font face="Times New Roman" size=4> -      </font></td>
+            </tr>
+        </table>
+        <!-- ************************************************************************** -->
+        <hr>
+        <A NAME="table1"><h1>Sheet 2: <em>2-бет</em></h1></A>
+        <table cellspacing="0" border="0">
+            <colgroup width="45"></colgroup>
+            <colgroup width="295"></colgroup>
+            <colgroup width="53"></colgroup>
+            <colgroup width="154"></colgroup>
+            <colgroup width="152"></colgroup>
+            <colgroup width="115"></colgroup>
+            <colgroup width="105"></colgroup>
+            <colgroup width="68"></colgroup>
+            <tr>
+                <td colspan=7 height="40" align="center" valign=middle><b><font face="Times New Roman" size=3>Санаторий-профилакторийни сақлаб туриш сметасининг бажарилиши                                                                                        Исполнение сметы на содержание санаториев-профилакториев</font></b></td>
+                <td align="left"><font face="Times New Roman"><br></font></td>
+            </tr>
+            <tr>
+                <td colspan=6 height="35" align="left" valign=top><font face="Times New Roman">                                                       </font></td>
+                <td align="right" valign=middle><font face="Times New Roman">3-жадвал                                             Таблица-3</font></td>
+                <td align="left" valign=middle><font face="Times New Roman"><br></font></td>
+            </tr>
+            <tr>
+                <td style="border-top: 2px solid #000000; border-bottom: 2px solid #000000; border-left: 2px solid #000000; border-right: 1px solid #000000" rowspan=2 height="112" align="center" valign=middle><font face="Times New Roman">Моддалар №        № статей</font></td>
+                <td style="border-top: 2px solid #000000; border-bottom: 2px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" rowspan=2 align="center" valign=middle><font face="Times New Roman">Тушум манбалари номи ва харажатлар тури                                                                                                        Наименование источников поступления средств и виды расходов</font></td>
+                <td style="border-top: 2px solid #000000; border-bottom: 2px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" rowspan=2 align="center" valign=middle><font face="Times New Roman">Қатор коди                         Код строки</font></td>
+                <td style="border-top: 2px solid #000000; border-bottom: 2px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" rowspan=2 align="center" valign=middle><font face="Times New Roman">Ҳисобот даврига  йил бошидан тасдиқланган Утверждено на отчётный период с начала года</font></td>
+                <td style="border-top: 2px solid #000000; border-bottom: 2px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" rowspan=2 align="center" valign=middle><font face="Times New Roman">Йил бошидан бажарилиши Исполнение  с начала года</font></td>
+                <td style="border-top: 2px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 2px solid #000000" colspan=2 align="center" valign=middle><font face="Times New Roman">Йўлланмалар бўйича одам кунига ўртача харажатлар                                     Расходы в среднем на человеко-день по путёвкам</font></td>
+                <td align="left"><font face="Times New Roman"><br></font></td>
+            </tr>
+            <tr>
+                <td style="border-top: 1px solid #000000; border-bottom: 2px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle><font face="Times New Roman">режа бўйича                       по плану </font></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 2px solid #000000; border-left: 1px solid #000000; border-right: 2px solid #000000" align="center" valign=middle><font face="Times New Roman">ҳақиқатда                           фактически </font></td>
+                <td align="left"><font face="Times New Roman"> </font></td>
+            </tr>
+            <tr>
+                <td style="border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 1px solid #000000" height="40" align="left" valign=middle><font face="Times New Roman"><br></font></td>
+                <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=middle><font face="Times New Roman">Йил бошига маблағ қолдиғи                                 Остаток средств на начало года </font></td>
+                <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdnum="1033;0;"><font face="Times New Roman">010</font></td>
+                <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdnum="1033;0;_-* #,##0_р_._-;-* #,##0_р_._-;_-* &quot;-&quot;??_р_._-;_--"><font face="Times New Roman" size=4> <input type="number" maxlength="10" width="10" ng-model="xxx">    </font></td>
+                <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdnum="1033;0;_-* #,##0_р_._-;-* #,##0_р_._-;_-* &quot;-&quot;??_р_._-;_--"><font face="Times New Roman" size=4> <input type="number" maxlength="10" width="10" ng-model="xxx">    </font></td>
+                <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdnum="1033;0;_-* #,##0_р_._-;-* #,##0_р_._-;_-* &quot;-&quot;??_р_._-;_--"><font face="Times New Roman" size=4> <input type="number" maxlength="10" width="10" ng-model="xxx">    </font></td>
+                <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdnum="1033;0;_-* #,##0_р_._-;-* #,##0_р_._-;_-* &quot;-&quot;??_р_._-;_--"><font face="Times New Roman" size=4> <input type="number" maxlength="10" width="10" ng-model="xxx">    </font></td>
+                <td align="left"><font face="Times New Roman"><br></font></td>
+            </tr>
+            <tr>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 1px solid #000000" height="88" align="left" valign=middle><font face="Times New Roman"><br></font></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=middle><font face="Times New Roman">     МАБЛАҒ ТУШУМИ           Молиялаштириш (09-счёт):          ПОСТУПЛЕНИЯ СРЕДСТВ Финансирование (счёт № 09)</font></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdnum="1033;0;"><font face="Times New Roman">020</font></td>
+                <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdnum="1033;0;_-* #,##0_р_._-;-* #,##0_р_._-;_-* &quot;-&quot;??_р_._-;_--"><font face="Times New Roman" size=4> <input type="number" maxlength="10" width="10" ng-model="xxx">    </font></td>
+                <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdnum="1033;0;_-* #,##0_р_._-;-* #,##0_р_._-;_-* &quot;-&quot;??_р_._-;_--"><font face="Times New Roman" size=4> <input type="number" maxlength="10" width="10" ng-model="xxx">    </font></td>
+                <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdnum="1033;0;_-* #,##0_р_._-;-* #,##0_р_._-;_-* &quot;-&quot;??_р_._-;_--"><font face="Times New Roman" size=4> <input type="number" maxlength="10" width="10" ng-model="xxx">    </font></td>
+                <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdnum="1033;0;_-* #,##0_р_._-;-* #,##0_р_._-;_-* &quot;-&quot;??_р_._-;_--"><font face="Times New Roman" size=4> <input type="number" maxlength="10" width="10" ng-model="xxx">    </font></td>
+                <td align="left"><font face="Times New Roman"><br></font></td>
+            </tr>
+            <tr>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 1px solid #000000" height="86" align="left" valign=middle sdval="1" sdnum="1033;"><font face="Times New Roman">1</font></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=middle><font face="Times New Roman">юқори касаба уюшма ташкилотларидан тушумлар                                                         поступления от вышестоящих профорганов</font></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdnum="1033;0;"><font face="Times New Roman">030</font></td>
+                <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdnum="1033;0;_-* #,##0_р_._-;-* #,##0_р_._-;_-* &quot;-&quot;??_р_._-;_--"><font face="Times New Roman" size=4> <input type="number" maxlength="10" width="10" ng-model="xxx">    </font></td>
+                <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdnum="1033;0;_-* #,##0_р_._-;-* #,##0_р_._-;_-* &quot;-&quot;??_р_._-;_--"><font face="Times New Roman" size=4> <input type="number" maxlength="10" width="10" ng-model="xxx">    </font></td>
+                <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdnum="1033;0;_-* #,##0_р_._-;-* #,##0_р_._-;_-* &quot;-&quot;??_р_._-;_--"><font face="Times New Roman" size=4> <input type="number" maxlength="10" width="10" ng-model="xxx">    </font></td>
+                <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdnum="1033;0;_-* #,##0_р_._-;-* #,##0_р_._-;_-* &quot;-&quot;??_р_._-;_--"><font face="Times New Roman" size=4> <input type="number" maxlength="10" width="10" ng-model="xxx">    </font></td>
+                <td align="left"><font face="Times New Roman"><br></font></td>
+            </tr>
+            <tr>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 1px solid #000000" height="85" align="left" valign=middle sdval="2" sdnum="1033;"><font face="Times New Roman">2</font></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=middle><font face="Times New Roman">Санаторий-профилакторийнинг ўз даромадлари (10-счёт)                                  Собственные доходы санаториев-профилакториев   (счёт № 10)</font></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdnum="1033;0;"><font face="Times New Roman">040</font></td>
+                <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdnum="1033;0;_-* #,##0_р_._-;-* #,##0_р_._-;_-* &quot;-&quot;??_р_._-;_--"><font face="Times New Roman" size=4> <input type="number" maxlength="10" width="10" ng-model="xxx">    </font></td>
+                <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdnum="1033;0;_-* #,##0_р_._-;-* #,##0_р_._-;_-* &quot;-&quot;??_р_._-;_--"><font face="Times New Roman" size=4> <input type="number" maxlength="10" width="10" ng-model="xxx">    </font></td>
+                <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdnum="1033;0;_-* #,##0_р_._-;-* #,##0_р_._-;_-* &quot;-&quot;??_р_._-;_--"><font face="Times New Roman" size=4> <input type="number" maxlength="10" width="10" ng-model="xxx">    </font></td>
+                <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdnum="1033;0;_-* #,##0_р_._-;-* #,##0_р_._-;_-* &quot;-&quot;??_р_._-;_--"><font face="Times New Roman" size=4> <input type="number" maxlength="10" width="10" ng-model="xxx">    </font></td>
+                <td align="left"><font face="Times New Roman"><br></font></td>
+            </tr>
+            <tr>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 1px solid #000000" height="80" align="left" valign=middle><font face="Times New Roman"><br></font></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=middle><font face="Times New Roman">шу жумладан, сотилган йўлланмалар учун тушум                                                                                                                                                                                             в том числе поступления: за проданные путёвки</font></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdnum="1033;0;"><font face="Times New Roman">041</font></td>
+                <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdnum="1033;0;_-* #,##0_р_._-;-* #,##0_р_._-;_-* &quot;-&quot;??_р_._-;_--"><font face="Times New Roman" size=4> <input type="number" maxlength="10" width="10" ng-model="xxx">    </font></td>
+                <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdnum="1033;0;_-* #,##0_р_._-;-* #,##0_р_._-;_-* &quot;-&quot;??_р_._-;_--"><font face="Times New Roman" size=4> <input type="number" maxlength="10" width="10" ng-model="xxx">    </font></td>
+                <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdnum="1033;0;_-* #,##0_р_._-;-* #,##0_р_._-;_-* &quot;-&quot;??_р_._-;_--"><font face="Times New Roman" size=4> <input type="number" maxlength="10" width="10" ng-model="xxx">    </font></td>
+                <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdnum="1033;0;_-* #,##0_р_._-;-* #,##0_р_._-;_-* &quot;-&quot;??_р_._-;_--"><font face="Times New Roman" size=4> <input type="number" maxlength="10" width="10" ng-model="xxx">    </font></td>
+                <td align="left"><font face="Times New Roman"><br></font></td>
+            </tr>
+            <tr>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 1px solid #000000" height="80" align="left" valign=middle><font face="Times New Roman"><br></font></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=middle><font face="Times New Roman">хўжалик органи ҳисобидан қўшимча овқатлантириш учун  ажратилган маблағ на дополнительное питание из средств хозорганов</font></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdnum="1033;0;"><font face="Times New Roman">042</font></td>
+                <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdnum="1033;0;_-* #,##0_р_._-;-* #,##0_р_._-;_-* &quot;-&quot;??_р_._-;_--"><font face="Times New Roman" size=4> <input type="number" maxlength="10" width="10" ng-model="xxx">    </font></td>
+                <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdnum="1033;0;_-* #,##0_р_._-;-* #,##0_р_._-;_-* &quot;-&quot;??_р_._-;_--"><font face="Times New Roman" size=4> <input type="number" maxlength="10" width="10" ng-model="xxx">    </font></td>
+                <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdnum="1033;0;_-* #,##0_р_._-;-* #,##0_р_._-;_-* &quot;-&quot;??_р_._-;_--"><font face="Times New Roman" size=4> <input type="number" maxlength="10" width="10" ng-model="xxx">    </font></td>
+                <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdnum="1033;0;_-* #,##0_р_._-;-* #,##0_р_._-;_-* &quot;-&quot;??_р_._-;_--"><font face="Times New Roman" size=4> <input type="number" maxlength="10" width="10" ng-model="xxx">    </font></td>
+                <td align="left"><font face="Times New Roman"><br></font></td>
+            </tr>
+            <tr>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 1px solid #000000" height="40" align="left" valign=middle><font face="Times New Roman"><br></font></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=middle><font face="Times New Roman">Жами тушум қолдиқ билан (010-040)                                               Всего поступлений с остатком (010-040) </font></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdnum="1033;0;"><font face="Times New Roman">050</font></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdval="39996" sdnum="1033;0;_-* #,##0_р_._-;-* #,##0_р_._-;_-* &quot;-&quot;??_р_._-;_--"><b><font face="Times New Roman" size=4>     </font></b></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdval="39996" sdnum="1033;0;_-* #,##0_р_._-;-* #,##0_р_._-;_-* &quot;-&quot;??_р_._-;_--"><b><font face="Times New Roman" size=4>     </font></b></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=middle sdnum="1033;0;_-* #,##0_р_._-;-* #,##0_р_._-;_-* &quot;-&quot;??_р_._-;_--"><font face="Times New Roman" size=4><br></font></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 2px solid #000000" align="left" valign=middle sdnum="1033;0;_-* #,##0_р_._-;-* #,##0_р_._-;_-* &quot;-&quot;??_р_._-;_--"><font face="Times New Roman" size=4><br></font></td>
+                <td align="left"><font face="Times New Roman"><br></font></td>
+            </tr>
+            <tr>
+                <td style="border-top: 1px solid #000000; border-bottom: 2px solid #000000; border-left: 2px solid #000000; border-right: 1px solid #000000" height="40" align="left" valign=middle><font face="Times New Roman"><br></font></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 2px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=middle><font face="Times New Roman">шу жумладан, ҳисобот чорагида                                           В том числе за отчётный квартал </font></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 2px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdnum="1033;0;"><font face="Times New Roman">051</font></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 2px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdnum="1033;0;_-* #,##0_р_._-;-* #,##0_р_._-;_-* &quot;-&quot;??_р_._-;_--"><font face="Times New Roman" size=4><br></font></td>
+                <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdnum="1033;0;_-* #,##0_р_._-;-* #,##0_р_._-;_-* &quot;-&quot;??_р_._-;_--"><font face="Times New Roman" size=4><br></font></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 2px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=middle sdnum="1033;0;_-* #,##0_р_._-;-* #,##0_р_._-;_-* &quot;-&quot;??_р_._-;_--"><font face="Times New Roman" size=4><br></font></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 2px solid #000000; border-left: 1px solid #000000; border-right: 2px solid #000000" align="left" valign=middle sdnum="1033;0;_-* #,##0_р_._-;-* #,##0_р_._-;_-* &quot;-&quot;??_р_._-;_--"><font face="Times New Roman" size=4><br></font></td>
+                <td align="left"><font face="Times New Roman"><br></font></td>
+            </tr>
+            <tr>
+                <td style="border-top: 2px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 1px solid #000000" height="65" align="left" valign=middle sdval="1" sdnum="1033;"><font face="Times New Roman">1</font></td>
+                <td style="border-top: 2px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=middle><font face="Times New Roman">ХАРАЖАТЛАР (07-счёт)                                                     РАСХОДЫ (счёт № 07)                                               Овқатланиш (На питание)  </font></td>
+                <td style="border-top: 2px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdnum="1033;0;"><font face="Times New Roman">060</font></td>
+                <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdnum="1033;0;_-* #,##0_р_._-;-* #,##0_р_._-;_-* &quot;-&quot;??_р_._-;_--"><font face="Times New Roman" size=4> <input type="number" maxlength="10" width="10" ng-model="xxx">    </font></td>
+                <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdnum="1033;0;_-* #,##0_р_._-;-* #,##0_р_._-;_-* &quot;-&quot;??_р_._-;_--"><font face="Times New Roman" size=4> <input type="number" maxlength="10" width="10" ng-model="xxx">    </font></td>
+                <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdnum="1033;0;_-* #,##0_р_._-;-* #,##0_р_._-;_-* &quot;-&quot;??_р_._-;_--"><font face="Times New Roman" size=4> <input type="number" maxlength="10" width="10" ng-model="xxx">    </font></td>
+                <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdnum="1033;0;_-* #,##0_р_._-;-* #,##0_р_._-;_-* &quot;-&quot;??_р_._-;_--"><font face="Times New Roman" size=4> <input type="number" maxlength="10" width="10" ng-model="xxx">    </font></td>
+                <td align="left"><font face="Times New Roman"><br></font></td>
+            </tr>
+            <tr>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 1px solid #000000" height="40" align="left" valign=middle sdval="2" sdnum="1033;"><font face="Times New Roman">2</font></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=middle><font face="Times New Roman">Даволаш ва дори-дармон                                Лечение и медикаменты</font></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdnum="1033;0;"><font face="Times New Roman">070</font></td>
+                <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdnum="1033;0;_-* #,##0_р_._-;-* #,##0_р_._-;_-* &quot;-&quot;??_р_._-;_--"><font face="Times New Roman" size=4> <input type="number" maxlength="10" width="10" ng-model="xxx">    </font></td>
+                <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdnum="1033;0;_-* #,##0_р_._-;-* #,##0_р_._-;_-* &quot;-&quot;??_р_._-;_--"><font face="Times New Roman" size=4> <input type="number" maxlength="10" width="10" ng-model="xxx">    </font></td>
+                <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdnum="1033;0;_-* #,##0_р_._-;-* #,##0_р_._-;_-* &quot;-&quot;??_р_._-;_--"><font face="Times New Roman" size=4> <input type="number" maxlength="10" width="10" ng-model="xxx">    </font></td>
+                <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdnum="1033;0;_-* #,##0_р_._-;-* #,##0_р_._-;_-* &quot;-&quot;??_р_._-;_--"><font face="Times New Roman" size=4> <input type="number" maxlength="10" width="10" ng-model="xxx">    </font></td>
+                <td align="left"><font face="Times New Roman"><br></font></td>
+            </tr>
+            <tr>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 1px solid #000000" height="40" align="left" valign=middle sdval="3" sdnum="1033;"><font face="Times New Roman">3</font></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=middle><font face="Times New Roman">Иш ҳақи ажратмалари билан                                               Заработная плата с начислениями</font></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdnum="1033;0;"><font face="Times New Roman">080</font></td>
+                <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdnum="1033;0;_-* #,##0_р_._-;-* #,##0_р_._-;_-* &quot;-&quot;??_р_._-;_--"><font face="Times New Roman" size=4> <input type="number" maxlength="10" width="10" ng-model="xxx">    </font></td>
+                <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdnum="1033;0;_-* #,##0_р_._-;-* #,##0_р_._-;_-* &quot;-&quot;??_р_._-;_--"><font face="Times New Roman" size=4> <input type="number" maxlength="10" width="10" ng-model="xxx">    </font></td>
+                <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdnum="1033;0;_-* #,##0_р_._-;-* #,##0_р_._-;_-* &quot;-&quot;??_р_._-;_--"><font face="Times New Roman" size=4> <input type="number" maxlength="10" width="10" ng-model="xxx">    </font></td>
+                <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdnum="1033;0;_-* #,##0_р_._-;-* #,##0_р_._-;_-* &quot;-&quot;??_р_._-;_--"><font face="Times New Roman" size=4> <input type="number" maxlength="10" width="10" ng-model="xxx">    </font></td>
+                <td align="left"><font face="Times New Roman"><br></font></td>
+            </tr>
+            <tr>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 1px solid #000000" height="40" align="left" valign=middle sdval="4" sdnum="1033;"><font face="Times New Roman">4</font></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=middle><font face="Times New Roman">Мукофот                                                                                 Премия</font></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdnum="1033;0;"><font face="Times New Roman">090</font></td>
+                <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdnum="1033;0;_-* #,##0_р_._-;-* #,##0_р_._-;_-* &quot;-&quot;??_р_._-;_--"><font face="Times New Roman" size=4> <input type="number" maxlength="10" width="10" ng-model="xxx">    </font></td>
+                <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdnum="1033;0;_-* #,##0_р_._-;-* #,##0_р_._-;_-* &quot;-&quot;??_р_._-;_--"><font face="Times New Roman" size=4> <input type="number" maxlength="10" width="10" ng-model="xxx">    </font></td>
+                <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdnum="1033;0;_-* #,##0_р_._-;-* #,##0_р_._-;_-* &quot;-&quot;??_р_._-;_--"><font face="Times New Roman" size=4> <input type="number" maxlength="10" width="10" ng-model="xxx">    </font></td>
+                <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdnum="1033;0;_-* #,##0_р_._-;-* #,##0_р_._-;_-* &quot;-&quot;??_р_._-;_--"><font face="Times New Roman" size=4> <input type="number" maxlength="10" width="10" ng-model="xxx">    </font></td>
+                <td align="left"><font face="Times New Roman"><br></font></td>
+            </tr>
+            <tr>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 1px solid #000000" height="43" align="left" valign=middle sdval="5" sdnum="1033;"><font face="Times New Roman">5</font></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=middle><font face="Times New Roman">Маданий хизмат ва бошқа харажатлар Культобслуживание и прочие расходы</font></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdval="100" sdnum="1033;0;"><font face="Times New Roman">100</font></td>
+                <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdnum="1033;0;_-* #,##0_р_._-;-* #,##0_р_._-;_-* &quot;-&quot;??_р_._-;_--"><font face="Times New Roman" size=4> <input type="number" maxlength="10" width="10" ng-model="xxx">    </font></td>
+                <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdnum="1033;0;_-* #,##0_р_._-;-* #,##0_р_._-;_-* &quot;-&quot;??_р_._-;_--"><font face="Times New Roman" size=4> <input type="number" maxlength="10" width="10" ng-model="xxx">    </font></td>
+                <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdnum="1033;0;_-* #,##0_р_._-;-* #,##0_р_._-;_-* &quot;-&quot;??_р_._-;_--"><font face="Times New Roman" size=4> <input type="number" maxlength="10" width="10" ng-model="xxx">    </font></td>
+                <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdnum="1033;0;_-* #,##0_р_._-;-* #,##0_р_._-;_-* &quot;-&quot;??_р_._-;_--"><font face="Times New Roman" size=4> <input type="number" maxlength="10" width="10" ng-model="xxx">    </font></td>
+                <td align="left"><font face="Times New Roman"><br></font></td>
+            </tr>
+            <tr>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 1px solid #000000" height="40" align="left" valign=middle sdval="6" sdnum="1033;"><font face="Times New Roman">6</font></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=middle><font face="Times New Roman">Бола парвариши учун нафақа                                              Пособия по уходу за ребёнком</font></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdval="110" sdnum="1033;0;"><font face="Times New Roman">110</font></td>
+                <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdnum="1033;0;_-* #,##0_р_._-;-* #,##0_р_._-;_-* &quot;-&quot;??_р_._-;_--"><font face="Times New Roman" size=4> <input type="number" maxlength="10" width="10" ng-model="xxx">    </font></td>
+                <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdnum="1033;0;_-* #,##0_р_._-;-* #,##0_р_._-;_-* &quot;-&quot;??_р_._-;_--"><font face="Times New Roman" size=4> <input type="number" maxlength="10" width="10" ng-model="xxx">    </font></td>
+                <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdnum="1033;0;_-* #,##0_р_._-;-* #,##0_р_._-;_-* &quot;-&quot;??_р_._-;_--"><font face="Times New Roman" size=4> <input type="number" maxlength="10" width="10" ng-model="xxx">    </font></td>
+                <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdnum="1033;0;_-* #,##0_р_._-;-* #,##0_р_._-;_-* &quot;-&quot;??_р_._-;_--"><font face="Times New Roman" size=4> <input type="number" maxlength="10" width="10" ng-model="xxx">    </font></td>
+                <td align="left"><font face="Times New Roman"><br></font></td>
+            </tr>
+            <tr>
+                <td style="border-top: 1px solid #000000; border-bottom: 2px solid #000000; border-left: 2px solid #000000; border-right: 1px solid #000000" height="40" align="left" valign=middle><font face="Times New Roman"><br></font></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 2px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=middle><font face="Times New Roman">Жами харажатлар (060 - 110)                                      Всего расходов (060 - 110) </font></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 2px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdval="120" sdnum="1033;0;"><font face="Times New Roman">120</font></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 2px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdval="59994" sdnum="1033;0;_-* #,##0_р_._-;-* #,##0_р_._-;_-* &quot;-&quot;??_р_._-;_--"><b><font face="Times New Roman" size=4>     </font></b></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 2px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdval="59994" sdnum="1033;0;_-* #,##0_р_._-;-* #,##0_р_._-;_-* &quot;-&quot;??_р_._-;_--"><b><font face="Times New Roman" size=4>     </font></b></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 2px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdnum="1033;0;_-* #,##0_р_._-;-* #,##0_р_._-;_-* &quot;-&quot;??_р_._-;_--"><font face="Times New Roman" size=4><br></font></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 2px solid #000000; border-left: 1px solid #000000; border-right: 2px solid #000000" align="center" valign=middle sdnum="1033;0;_-* #,##0_р_._-;-* #,##0_р_._-;_-* &quot;-&quot;??_р_._-;_--"><font face="Times New Roman" size=4><br></font></td>
+                <td align="left"><font face="Times New Roman"><br></font></td>
+            </tr>
+            <tr>
+                <td style="border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 1px solid #000000" height="81" align="left" valign=middle><font face="Times New Roman"><br></font></td>
+                <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=middle><font face="Times New Roman">шу жумладан, сотилган йўлланмалар бўйича харажатлар*                                                                                В том числе расходы по проданным путёвкам*</font></td>
+                <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdnum="1033;0;"><font face="Times New Roman">121</font></td>
+                <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdnum="1033;0;_-* #,##0_р_._-;-* #,##0_р_._-;_-* &quot;-&quot;??_р_._-;_--"><font face="Times New Roman" size=4> <input type="number" maxlength="10" width="10" ng-model="xxx">    </font></td>
+                <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdval="19998" sdnum="1033;0;_-* #,##0_р_._-;-* #,##0_р_._-;_-* &quot;-&quot;??_р_._-;_--"><font face="Times New Roman" size=4>     </font></td>
+                <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdnum="1033;0;_-* #,##0_р_._-;-* #,##0_р_._-;_-* &quot;-&quot;??_р_._-;_--"><font face="Times New Roman" size=4> <input type="number" maxlength="10" width="10" ng-model="xxx">    </font></td>
+                <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdnum="1033;0;_-* #,##0_р_._-;-* #,##0_р_._-;_-* &quot;-&quot;??_р_._-;_--"><font face="Times New Roman" size=4> <input type="number" maxlength="10" width="10" ng-model="xxx">    </font></td>
+                <td align="left"><font face="Times New Roman"><br></font></td>
+            </tr>
+            <tr>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 1px solid #000000" height="70" align="left" valign=middle><font face="Times New Roman"><br></font></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=middle><font face="Times New Roman">Сотилган йўлланмаларни чиқариб ташлагандаги харажатлар                                            Расходы за минусом проданных путёвок*</font></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdnum="1033;0;"><font face="Times New Roman">122</font></td>
+                <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdnum="1033;0;_-* #,##0_р_._-;-* #,##0_р_._-;_-* &quot;-&quot;??_р_._-;_--"><font face="Times New Roman" size=4> <input type="number" maxlength="10" width="10" ng-model="xxx">    </font></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdval="39996" sdnum="1033;0;_-* #,##0_р_._-;-* #,##0_р_._-;_-* &quot;-&quot;??_р_._-;_--"><font face="Times New Roman" size=4>     </font></td>
+                <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdnum="1033;0;_-* #,##0_р_._-;-* #,##0_р_._-;_-* &quot;-&quot;??_р_._-;_--"><font face="Times New Roman" size=4> <input type="number" maxlength="10" width="10" ng-model="xxx">    </font></td>
+                <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdnum="1033;0;_-* #,##0_р_._-;-* #,##0_р_._-;_-* &quot;-&quot;??_р_._-;_--"><font face="Times New Roman" size=4> <input type="number" maxlength="10" width="10" ng-model="xxx">    </font></td>
+                <td align="left"><font face="Times New Roman"><br></font></td>
+            </tr>
+            <tr>
+                <td style="border-top: 1px solid #000000; border-bottom: 2px solid #000000; border-left: 2px solid #000000; border-right: 1px solid #000000" height="40" align="left" valign=middle><font face="Times New Roman"><br></font></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 2px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=middle><font face="Times New Roman">Ҳисобот чорагидаги харажатлар Расходы за отчётный квартал</font></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 2px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdnum="1033;0;"><font face="Times New Roman">130</font></td>
+                <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdnum="1033;0;_-* #,##0_р_._-;-* #,##0_р_._-;_-* &quot;-&quot;??_р_._-;_--"><font face="Times New Roman" size=4> <input type="number" maxlength="10" width="10" ng-model="xxx">    </font></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 2px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdnum="1033;0;_-* #,##0_р_._-;-* #,##0_р_._-;_-* &quot;-&quot;??_р_._-;_--"><font face="Times New Roman" size=4><br></font></td>
+                <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdnum="1033;0;_-* #,##0_р_._-;-* #,##0_р_._-;_-* &quot;-&quot;??_р_._-;_--"><font face="Times New Roman" size=4> <input type="number" maxlength="10" width="10" ng-model="xxx">    </font></td>
+                <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdnum="1033;0;_-* #,##0_р_._-;-* #,##0_р_._-;_-* &quot;-&quot;??_р_._-;_--"><font face="Times New Roman" size=4> <input type="number" maxlength="10" width="10" ng-model="xxx">    </font></td>
+                <td align="left"><font face="Times New Roman"><br></font></td>
+            </tr>
+            <tr>
+                <td style="border-bottom: 2px solid #000000; border-left: 2px solid #000000; border-right: 1px solid #000000" height="82" align="left" valign=middle><font face="Times New Roman"><br></font></td>
+                <td style="border-bottom: 2px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=middle><font face="Times New Roman">Ҳисобот даври охирига маблағ қолдиғи                                                                    Остаток средств на конец отчётного периуда</font></td>
+                <td style="border-bottom: 2px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdval="140" sdnum="1033;0;"><font face="Times New Roman">140</font></td>
+                <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdnum="1033;0;_-* #,##0_р_._-;-* #,##0_р_._-;_-* &quot;-&quot;??_р_._-;_--"><font face="Times New Roman" size=4> <input type="number" maxlength="10" width="10" ng-model="xxx">    </font></td>
+                <td style="border-bottom: 2px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdval="-19998" sdnum="1033;0;_-* #,##0_р_._-;-* #,##0_р_._-;_-* &quot;-&quot;??_р_._-;_--"><b><font face="Times New Roman" size=4>-    </font></b></td>
+                <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdnum="1033;0;_-* #,##0_р_._-;-* #,##0_р_._-;_-* &quot;-&quot;??_р_._-;_--"><font face="Times New Roman" size=4> <input type="number" maxlength="10" width="10" ng-model="xxx">    </font></td>
+                <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdnum="1033;0;_-* #,##0_р_._-;-* #,##0_р_._-;_-* &quot;-&quot;??_р_._-;_--"><font face="Times New Roman" size=4> <input type="number" maxlength="10" width="10" ng-model="xxx">    </font></td>
+                <td align="left"><font face="Times New Roman"><br></font></td>
+            </tr>
+            <tr>
+                <td height="9" align="left" valign=middle><font face="Times New Roman"><br></font></td>
+                <td align="left" valign=middle><font face="Times New Roman"><br></font></td>
+                <td align="center" valign=middle sdnum="1033;0;"><font face="Times New Roman"><br></font></td>
+                <td align="center"><font face="Times New Roman"><br></font></td>
+                <td align="center"><font face="Times New Roman" color="#FF0000"><br></font></td>
+                <td align="left"><font face="Times New Roman"><br></font></td>
+                <td align="left" sdnum="1033;0;0"><font face="Times New Roman"><br></font></td>
+                <td align="left"><font face="Times New Roman"><br></font></td>
+            </tr>
+            <tr>
+                <td height="20" align="left"><font face="Times New Roman"><br></font></td>
+                <td colspan=6 align="left"><font face="Times New Roman">* 3-жадвалнинг 121-қатори 2-жадвалнинг 090-қаторига тенг (*Строка 121 таблицы-3 равна строке 090 таблицы-2</font></td>
+                <td align="left"><font face="Times New Roman"><br></font></td>
+            </tr>
+            <tr>
+                <td height="68" align="left"><font face="Times New Roman"><br></font></td>
+                <td colspan=6 align="left" valign=middle><font face="Times New Roman">*3-жадвалнинг 122-қатори 1-шакл 3-жадвалнинг 060-қаторига тенг (*Строка 122 таблицы 3 равна строке 060, таблицы 3, формы 1)</font></td>
+                <td align="left"><font face="Times New Roman"><br></font></td>
+            </tr>
+        </table>
+        <!-- ************************************************************************** -->
+        <hr>
+        <A NAME="table2"><h1>Sheet 3: <em>3-бет</em></h1></A>
+        <table cellspacing="0" border="0">
+            <colgroup width="68"></colgroup>
+            <colgroup width="64"></colgroup>
+            <colgroup width="367"></colgroup>
+            <colgroup width="50"></colgroup>
+            <colgroup width="139"></colgroup>
+            <tr>
+                <td colspan=5 height="44" align="center" valign=middle><b><font face="Times New Roman" size=3>Ҳисобот даври охирига санаторий-профилакторийларнинг баланси                                                              Баланс санаториев-профилакториев на конец отчетного периода</font></b></td>
+            </tr>
+            <tr>
+                <td height="41" align="left"><font face="Times New Roman"><br></font></td>
+                <td align="left"><font face="Times New Roman"><br></font></td>
+                <td align="left"><font face="Times New Roman"><br></font></td>
+                <td align="left"><font face="Times New Roman"><br></font></td>
+                <td align="right" valign=middle><font face="Times New Roman">4-жадвал                                             Таблица-4</font></td>
+            </tr>
+            <tr>
+                <td style="border-top: 2px solid #000000; border-bottom: 2px solid #000000; border-left: 2px solid #000000; border-right: 1px solid #000000" height="119" align="center" valign=middle><font face="Times New Roman">Асосий счётлар №                                               № главных счётов</font></td>
+                <td style="border-top: 2px solid #000000; border-bottom: 2px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle><font face="Times New Roman">субсчётлар №                                 № субсчетов</font></td>
+                <td style="border-top: 2px solid #000000; border-bottom: 2px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle><font face="Times New Roman">Счётлар номи                                                                                                         Наименование счётов</font></td>
+                <td style="border-top: 2px solid #000000; border-bottom: 2px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle><font face="Times New Roman">Қатор коди                         Код строки</font></td>
+                <td style="border-top: 2px solid #000000; border-bottom: 2px solid #000000; border-left: 1px solid #000000; border-right: 2px solid #000000" align="center" valign=middle><font face="Times New Roman">Сумма</font></td>
+            </tr>
+            <tr>
+                <td style="border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 1px solid #000000" height="25" align="left" valign=middle><b><font face="Times New Roman"><br></font></b></td>
+                <td style="border-top: 2px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 2px solid #000000" colspan=4 align="center" valign=middle><b><font face="Times New Roman">АКТИВ</font></b></td>
+            </tr>
+            <tr>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 1px solid #000000" height="21" align="center" valign=middle sdval="1" sdnum="1033;"><font face="Times New Roman">1</font></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle><font face="Times New Roman"><br></font></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle><font face="Times New Roman">Асосий воситалар (Основные средства) </font></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=middle><font face="Times New Roman"><br></font></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 2px solid #000000" align="center" valign=middle sdnum="1033;0;_-* #,##0_р_._-;-* #,##0_р_._-;_-* &quot;-&quot;??_р_._-;_--"><font face="Times New Roman" size=3> <input type="number" maxlength="10" width="10" ng-model="xxx">    </font></td>
+            </tr>
+            <tr>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 1px solid #000000" height="30" align="center" valign=middle><font face="Times New Roman"><br></font></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdval="10" sdnum="1033;"><font face="Times New Roman">10</font></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=middle><font face="Times New Roman">Маданий жихозлар (Культинвентарь)</font></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdnum="1033;0;"><font face="Times New Roman">010</font></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 2px solid #000000" align="center" valign=middle sdnum="1033;0;_-* #,##0_р_._-;-* #,##0_р_._-;_-* &quot;-&quot;??_р_._-;_--"><font face="Times New Roman" size=3> <input type="number" maxlength="10" width="10" ng-model="xxx">    </font></td>
+            </tr>
+            <tr>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 1px solid #000000" height="30" align="center" valign=middle><font face="Times New Roman"><br></font></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdval="11" sdnum="1033;"><font face="Times New Roman">11</font></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=middle><font face="Times New Roman">Спорт жихозлари (Спорт инвентарь)</font></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdnum="1033;0;"><font face="Times New Roman">020</font></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 2px solid #000000" align="center" valign=middle sdnum="1033;0;_-* #,##0_р_._-;-* #,##0_р_._-;_-* &quot;-&quot;??_р_._-;_--"><font face="Times New Roman" size=3> <input type="number" maxlength="10" width="10" ng-model="xxx">    </font></td>
+            </tr>
+            <tr>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 1px solid #000000" height="45" align="center" valign=middle><font face="Times New Roman"><br></font></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdval="12" sdnum="1033;"><font face="Times New Roman">12</font></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=middle><font face="Times New Roman">Кутубхона фонди (китоблар)                                 Библиотечный фонд (книги)</font></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdnum="1033;0;"><font face="Times New Roman">030</font></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 2px solid #000000" align="center" valign=middle sdnum="1033;0;_-* #,##0_р_._-;-* #,##0_р_._-;_-* &quot;-&quot;??_р_._-;_--"><font face="Times New Roman" size=3> <input type="number" maxlength="10" width="10" ng-model="xxx">    </font></td>
+            </tr>
+            <tr>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 1px solid #000000" height="41" align="center" valign=middle sdval="2" sdnum="1033;"><font face="Times New Roman">2</font></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle><font face="Times New Roman"><br></font></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle><font face="Times New Roman">Омбордаги товар-моддий бойликлар                                           (Материалы на складах)</font></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdnum="1033;0;"><font face="Times New Roman"><br></font></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 2px solid #000000" align="center" valign=middle sdnum="1033;0;_-* #,##0_р_._-;-* #,##0_р_._-;_-* &quot;-&quot;??_р_._-;_--"><font face="Times New Roman" size=3> <input type="number" maxlength="10" width="10" ng-model="xxx">    </font></td>
+            </tr>
+            <tr>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 1px solid #000000" height="37" align="center" valign=middle><font face="Times New Roman"><br></font></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdval="20" sdnum="1033;"><font face="Times New Roman">20</font></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=middle><font face="Times New Roman">Озиқ-овқат маҳсулотлари (Продукты питания)</font></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdnum="1033;0;"><font face="Times New Roman">040</font></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 2px solid #000000" align="center" valign=middle sdnum="1033;0;_-* #,##0_р_._-;-* #,##0_р_._-;_-* &quot;-&quot;??_р_._-;_--"><font face="Times New Roman" size=3> <input type="number" maxlength="10" width="10" ng-model="xxx">    </font></td>
+            </tr>
+            <tr>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 1px solid #000000" height="48" align="center" valign=middle><font face="Times New Roman"><br></font></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdval="21" sdnum="1033;"><font face="Times New Roman">21</font></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=middle><font face="Times New Roman">Товар-моддий бойликлар ва дори-дармон Материалы и медикаменты</font></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdnum="1033;0;"><font face="Times New Roman">050</font></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 2px solid #000000" align="center" valign=middle sdnum="1033;0;_-* #,##0_р_._-;-* #,##0_р_._-;_-* &quot;-&quot;??_р_._-;_--"><font face="Times New Roman" size=3> <input type="number" maxlength="10" width="10" ng-model="xxx">    </font></td>
+            </tr>
+            <tr>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 1px solid #000000" height="30" align="center" valign=middle sdval="3" sdnum="1033;"><font face="Times New Roman">3</font></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle><font face="Times New Roman"><br></font></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=middle><b><font face="Times New Roman">Касса</font></b></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdnum="1033;0;"><font face="Times New Roman">060</font></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 2px solid #000000" align="center" valign=middle sdnum="1033;0;_-* #,##0_р_._-;-* #,##0_р_._-;_-* &quot;-&quot;??_р_._-;_--"><font face="Times New Roman" size=3> <input type="number" maxlength="10" width="10" ng-model="xxx">    </font></td>
+            </tr>
+            <tr>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 1px solid #000000" height="41" align="center" valign=middle sdval="4" sdnum="1033;"><font face="Times New Roman">4</font></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle><font face="Times New Roman"><br></font></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=middle><font face="Times New Roman">Банкдаги жорий ҳисоб-китоб счёти                                     Текущий счёт в Госбанке</font></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdnum="1033;0;"><font face="Times New Roman">070</font></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 2px solid #000000" align="center" valign=middle sdnum="1033;0;_-* #,##0_р_._-;-* #,##0_р_._-;_-* &quot;-&quot;??_р_._-;_--"><font face="Times New Roman" size=3> <input type="number" maxlength="10" width="10" ng-model="xxx">    </font></td>
+            </tr>
+            <tr>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 1px solid #000000" height="30" align="center" valign=middle sdval="5" sdnum="1033;"><font face="Times New Roman">5</font></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle><font face="Times New Roman"><br></font></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=middle><font face="Times New Roman">Ҳисобдор шахслар (Подотчётные лица)</font></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdnum="1033;0;"><font face="Times New Roman">080</font></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 2px solid #000000" align="center" valign=middle sdnum="1033;0;_-* #,##0_р_._-;-* #,##0_р_._-;_-* &quot;-&quot;??_р_._-;_--"><font face="Times New Roman" size=3> <input type="number" maxlength="10" width="10" ng-model="xxx">    </font></td>
+            </tr>
+            <tr>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 1px solid #000000" height="42" align="center" valign=middle sdval="6" sdnum="1033;"><font face="Times New Roman">6</font></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle><font face="Times New Roman"><br></font></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=middle><font face="Times New Roman">Ташкилот ва муассасалар билан ҳисоб-китоблар Расчёты с организациями и учреждениями</font></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdnum="1033;0;"><font face="Times New Roman">090</font></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 2px solid #000000" align="center" valign=middle sdnum="1033;0;_-* #,##0_р_._-;-* #,##0_р_._-;_-* &quot;-&quot;??_р_._-;_--"><font face="Times New Roman" size=3> <input type="number" maxlength="10" width="10" ng-model="xxx">    </font></td>
+            </tr>
+            <tr>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 1px solid #000000" height="97" align="center" valign=middle sdval="7" sdnum="1033;"><font face="Times New Roman">7</font></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle><font face="Times New Roman"><br></font></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=middle><font face="Times New Roman">Санаторий-профилакторийларни сақлаш учун ягона ижтимоий тўлов маблағлари ҳисобидан харажатлар                                                                      Расходы на содержание санаториев-профилакториев за счёт средств единого социального платёжа</font></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdnum="1033;0;"><font face="Times New Roman">100</font></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 2px solid #000000" align="center" valign=middle sdnum="1033;0;_-* #,##0_р_._-;-* #,##0_р_._-;_-* &quot;-&quot;??_р_._-;_--"><font face="Times New Roman" size=3> <input type="number" maxlength="10" width="10" ng-model="xxx">    </font></td>
+            </tr>
+            <tr>
+                <td style="border-top: 1px solid #000000; border-bottom: 2px solid #000000; border-left: 2px solid #000000; border-right: 1px solid #000000" height="42" align="center" valign=middle><font face="Times New Roman"><br></font></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 2px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle><font face="Times New Roman"><br></font></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 2px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=middle><b><font face="Times New Roman">Жами актив бўйича                                                                   Всего по активу</font></b></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 2px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdnum="1033;0;"><font face="Times New Roman">110</font></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 2px solid #000000; border-left: 1px solid #000000; border-right: 2px solid #000000" align="center" valign=middle sdval="109989" sdnum="1033;0;_-* #,##0_р_._-;-* #,##0_р_._-;_-* &quot;-&quot;??_р_._-;_--"><b><font face="Times New Roman" size=3>     </font></b></td>
+            </tr>
+            <tr>
+                <td style="border-top: 2px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 2px solid #000000" colspan=5 height="25" align="center" valign=middle><b><font face="Times New Roman">ПАССИВ</font></b></td>
+            </tr>
+            <tr>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 1px solid #000000" height="40" align="center" valign=middle sdval="8" sdnum="1033;"><font face="Times New Roman">8</font></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle><font face="Times New Roman"><br></font></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=middle><font face="Times New Roman">Асосий воситалар фонди                                                                        Фонд в основных средствах</font></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdnum="1033;0;"><font face="Times New Roman">120</font></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 2px solid #000000" align="center" valign=middle sdnum="1033;0;_-* #,##0_р_._-;-* #,##0_р_._-;_-* &quot;-&quot;??_р_._-;_--"><font face="Times New Roman" size=3> <input type="number" maxlength="10" width="10" ng-model="xxx">    </font></td>
+            </tr>
+            <tr>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 1px solid #000000" height="42" align="center" valign=middle sdval="9" sdnum="1033;"><font face="Times New Roman">9</font></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle><font face="Times New Roman"><br></font></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=middle><font face="Times New Roman">Ижтимоий суғурта бюджетидан молиялаштириш Финансирование из бюджета социального страхования</font></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdnum="1033;0;"><font face="Times New Roman">130</font></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 2px solid #000000" align="center" valign=middle sdnum="1033;0;_-* #,##0_р_._-;-* #,##0_р_._-;_-* &quot;-&quot;??_р_._-;_--"><font face="Times New Roman" size=3> <input type="number" maxlength="10" width="10" ng-model="xxx">    </font></td>
+            </tr>
+            <tr>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 1px solid #000000" height="44" align="center" valign=middle sdval="10" sdnum="1033;"><font face="Times New Roman">10</font></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle><font face="Times New Roman"><br></font></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=middle><font face="Times New Roman">Санаторий-профилакторийнинг ўз даромадлари                                   Собственные доходы санаториев-профилакториев</font></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdnum="1033;0;"><font face="Times New Roman">140</font></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 2px solid #000000" align="center" valign=middle sdnum="1033;0;_-* #,##0_р_._-;-* #,##0_р_._-;_-* &quot;-&quot;??_р_._-;_--"><font face="Times New Roman" size=3> <input type="number" maxlength="10" width="10" ng-model="xxx">    </font></td>
+            </tr>
+            <tr>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 1px solid #000000" height="42" align="center" valign=middle sdval="6" sdnum="1033;"><font face="Times New Roman">6</font></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle><font face="Times New Roman"><br></font></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=middle><font face="Times New Roman">Ташкилот ва муассасалар билан ҳисоб-китоблар Расчёты с организациями и учреждениями</font></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdnum="1033;0;"><font face="Times New Roman">150</font></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 2px solid #000000" align="center" valign=middle sdnum="1033;0;_-* #,##0_р_._-;-* #,##0_р_._-;_-* &quot;-&quot;??_р_._-;_--"><font face="Times New Roman" size=3> <input type="number" maxlength="10" width="10" ng-model="xxx">    </font></td>
+            </tr>
+            <tr>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 1px solid #000000" height="45" align="center" valign=middle><font face="Times New Roman"><br></font></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdval="61" sdnum="1033;"><font face="Times New Roman">61</font></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=middle><font face="Times New Roman">Ишчи ва хизматчилар билан ҳисоб-китоблар Расчёты с рабочими и служащами</font></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdnum="1033;0;"><font face="Times New Roman">160</font></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 2px solid #000000" align="center" valign=middle sdnum="1033;0;_-* #,##0_р_._-;-* #,##0_р_._-;_-* &quot;-&quot;??_р_._-;_--"><font face="Times New Roman" size=3> <input type="number" maxlength="10" width="10" ng-model="xxx">    </font></td>
+            </tr>
+            <tr>
+                <td style="border-top: 1px solid #000000; border-bottom: 2px solid #000000; border-left: 2px solid #000000; border-right: 1px solid #000000" height="41" align="center" valign=middle><font face="Times New Roman"><br></font></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 2px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle><font face="Times New Roman"><br></font></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 2px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=middle><b><font face="Times New Roman">Жами пассив бўйича                                                                   Всего по пассиву</font></b></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 2px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdnum="1033;0;"><font face="Times New Roman">170</font></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 2px solid #000000; border-left: 1px solid #000000; border-right: 2px solid #000000" align="center" valign=middle sdval="49995" sdnum="1033;0;_-* #,##0_р_._-;-* #,##0_р_._-;_-* &quot;-&quot;??_р_._-;_--"><b><font face="Times New Roman" size=3>     </font></b></td>
+            </tr>
+        </table>
+        <!-- ************************************************************************** -->
+        <hr>
+        <A NAME="table3"><h1>Sheet 4: <em>4-бет</em></h1></A>
+        <table cellspacing="0" border="0">
+            <colgroup width="57"></colgroup>
+            <colgroup width="60"></colgroup>
+            <colgroup width="77"></colgroup>
+            <colgroup span="3" width="57"></colgroup>
+            <colgroup width="61"></colgroup>
+            <colgroup width="89"></colgroup>
+            <colgroup width="90"></colgroup>
+            <colgroup width="63"></colgroup>
+            <colgroup width="57"></colgroup>
+            <colgroup width="76"></colgroup>
+            <tr>
+                <td colspan=12 height="42" align="center" valign=middle sdnum="1033;0;0"><b><font face="Times New Roman">ЎТКАЗИЛГАН ТАФТИШЛАР БЎЙИЧА МАЪЛУМОТ                                                                                                                    СВЕДЕНЯ О ПРОВЕДЁННЫХ РЕВИЗИЯХ</font></b></td>
+            </tr>
+            <tr>
+                <td height="34" align="left"><font face="Times New Roman"><br></font></td>
+                <td align="left"><font face="Times New Roman"><br></font></td>
+                <td align="left"><font face="Times New Roman"><br></font></td>
+                <td align="left"><font face="Times New Roman"><br></font></td>
+                <td align="left"><font face="Times New Roman"><br></font></td>
+                <td align="left"><font face="Times New Roman"><br></font></td>
+                <td align="left"><font face="Times New Roman"><br></font></td>
+                <td align="left"><font face="Times New Roman"><br></font></td>
+                <td align="left"><font face="Times New Roman"><br></font></td>
+                <td align="left"><font face="Times New Roman"><br></font></td>
+                <td colspan=2 align="right" valign=middle><font face="Times New Roman">5-жадвал                                             Таблица-5</font></td>
+            </tr>
+            <tr>
+                <td style="border-top: 2px solid #000000; border-bottom: 2px solid #000000; border-left: 2px solid #000000; border-right: 1px solid #000000" colspan=8 height="48" align="center" valign=middle><font face="Times New Roman"><br></font></td>
+                <td style="border-top: 2px solid #000000; border-bottom: 2px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle><font face="Times New Roman" size=1>Қатор коди                         Код строки</font></td>
+                <td style="border-top: 2px solid #000000; border-bottom: 2px solid #000000; border-left: 1px solid #000000; border-right: 2px solid #000000" colspan=3 align="center" valign=middle><font face="Times New Roman">Кўрсаткичлар                                          Показатели</font></td>
+            </tr>
+            <tr>
+                <td style="border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 1px solid #000000" colspan=8 height="55" align="left" valign=middle><font face="Times New Roman">Жорий йилда ўтган ҳисобот йилини тафтишдан ўтказилган санаторий-профилакторийлар сони (Количество санаториев-профилакториев, в контрольных проведено в текущем году ревизии за прошлый и отчётный годы)</font></td>
+                <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdnum="1033;0;"><font face="Times New Roman">010</font></td>
+                <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 2px solid #000000" colspan=3 align="center" valign=middle sdnum="1033;"><font face="Times New Roman" size=4><input type="number" maxlength="10" width="10" ng-model="xxxx"></font></td>
+            </tr>
+            <tr>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 1px solid #000000" colspan=8 height="24" align="left" valign=middle><font face="Times New Roman">Ўтказилган тафтишлар сони (Количество проведённых ревизий)</font></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdnum="1033;0;"><font face="Times New Roman">020</font></td>
+                <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 2px solid #000000" colspan=3 align="center" valign=middle sdnum="1033;"><font face="Times New Roman" size=4><input type="number" maxlength="10" width="10" ng-model="xxxx"></font></td>
+            </tr>
+            <tr>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 1px solid #000000" colspan=8 height="41" align="left" valign=middle><font face="Times New Roman">Аниқланган камомад ва эътирозлар бўйича йил бошига қолган қарздорлик                                                                                 Остаток задолженности по претензиям и недостачам  на начало года</font></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdnum="1033;0;"><font face="Times New Roman">030</font></td>
+                <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 2px solid #000000" colspan=3 align="center" valign=middle sdnum="1033;"><font face="Times New Roman" size=4><input type="number" maxlength="10" width="10" ng-model="xxxx"></font></td>
+            </tr>
+            <tr>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 1px solid #000000" colspan=8 height="37" align="left" valign=middle><font face="Times New Roman">Жорий йилда аниқланган камомад, ўзлаштириш ва ортиқча қилинган харажатлар суммаси  (Выявлено недостач, хищений, растрат в текущем году на сумму)</font></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdnum="1033;0;"><font face="Times New Roman">040</font></td>
+                <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 2px solid #000000" colspan=3 align="center" valign=middle sdnum="1033;"><font face="Times New Roman" size=4><input type="number" maxlength="10" width="10" ng-model="xxxx"></font></td>
+            </tr>
+            <tr>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 1px solid #000000" colspan=8 height="22" align="left" valign=middle><font face="Times New Roman">Жорий йилда ундирилган   (Возмещено в текущем году)</font></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdnum="1033;0;"><font face="Times New Roman">050</font></td>
+                <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 2px solid #000000" colspan=3 align="center" valign=middle sdnum="1033;"><font face="Times New Roman" size=4><input type="number" maxlength="10" width="10" ng-model="xxxx"></font></td>
+            </tr>
+            <tr>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 1px solid #000000" colspan=8 height="25" align="left" valign=middle><font face="Times New Roman">Ҳисобот йилида ҳисобдан чиқарилган сумма (Списано в отчётном году на сумму)</font></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdnum="1033;0;"><font face="Times New Roman">060</font></td>
+                <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 2px solid #000000" colspan=3 align="center" valign=middle sdnum="1033;"><font face="Times New Roman" size=4><input type="number" maxlength="10" width="10" ng-model="xxxx"></font></td>
+            </tr>
+            <tr>
+                <td style="border-top: 1px solid #000000; border-bottom: 2px solid #000000; border-left: 2px solid #000000; border-right: 1px solid #000000" colspan=8 height="42" align="left" valign=middle><font face="Times New Roman">Ҳисобот даври охирига қолган қарздорлик (Остаток задолженности на конец отчётного периода)</font></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 2px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdnum="1033;0;"><font face="Times New Roman">070</font></td>
+                <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 2px solid #000000" colspan=3 align="center" valign=middle sdnum="1033;"><font face="Times New Roman" size=4><input type="number" maxlength="10" width="10" ng-model="xxxx"></font></td>
+            </tr>
+            <tr>
+                <td height="20" align="left" valign=middle><font face="Times New Roman"><br></font></td>
+                <td align="left" valign=middle><font face="Times New Roman"><br></font></td>
+                <td align="left" valign=middle><font face="Times New Roman"><br></font></td>
+                <td align="left" valign=middle><font face="Times New Roman"><br></font></td>
+                <td align="left" valign=middle><font face="Times New Roman"><br></font></td>
+                <td align="left" valign=middle><font face="Times New Roman"><br></font></td>
+                <td align="left" valign=middle><font face="Times New Roman"><br></font></td>
+                <td align="center" valign=middle><font face="Times New Roman"><br></font></td>
+                <td align="center"><font face="Times New Roman"><br></font></td>
+                <td align="center"><font face="Times New Roman"><br></font></td>
+                <td align="center"><font face="Times New Roman"><br></font></td>
+                <td align="center"><font face="Times New Roman"><br></font></td>
+            </tr>
+            <tr>
+                <td colspan=12 height="37" align="center" valign=middle><b><font face="Times New Roman">САНАТОРИЙ-ПРОФИЛАКТОРИЙЛАРДА ЙЎЛЛАНМАЛАР БЛАНКАЛАРИ                                                                                                                                     БЛАНКИ ПУТЕВОК В САНАТОРИИ-ПРОФИЛАКТОРИИ</font></b></td>
+            </tr>
+            <tr>
+                <td height="37" align="left"><font face="Times New Roman"><br></font></td>
+                <td align="left"><font face="Times New Roman"><br></font></td>
+                <td align="left"><font face="Times New Roman"><br></font></td>
+                <td align="left"><font face="Times New Roman"><br></font></td>
+                <td align="left"><font face="Times New Roman"><br></font></td>
+                <td align="left"><font face="Times New Roman"><br></font></td>
+                <td align="left"><font face="Times New Roman"><br></font></td>
+                <td align="left"><font face="Times New Roman"><br></font></td>
+                <td align="left"><font face="Times New Roman"><br></font></td>
+                <td align="left"><font face="Times New Roman"><br></font></td>
+                <td colspan=2 align="right" valign=middle><font face="Times New Roman">6-жадвал                                             Таблица-6</font></td>
+            </tr>
+            <tr>
+                <td style="border-top: 2px solid #000000; border-bottom: 2px solid #000000; border-left: 2px solid #000000; border-right: 1px solid #000000" colspan=8 height="45" align="center" valign=middle><font face="Times New Roman"><br></font></td>
+                <td style="border-top: 2px solid #000000; border-bottom: 2px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle><font face="Times New Roman" size=1>Қатор коди                         Код строки</font></td>
+                <td style="border-top: 2px solid #000000; border-bottom: 2px solid #000000; border-left: 1px solid #000000; border-right: 2px solid #000000" colspan=3 align="center" valign=middle><font face="Times New Roman">Кўрсаткичлар                                          Показатели</font></td>
+            </tr>
+            <tr>
+                <td style="border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 1px solid #000000" colspan=8 height="44" align="left" valign=middle><font face="Times New Roman">Ҳисобот йили бошига бланкалар қолдиғи                                                                                         Остаток бланков на начало отчетного года</font></td>
+                <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdnum="1033;0;"><font face="Times New Roman">010</font></td>
+                <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 2px solid #000000" colspan=3 align="center" valign=middle sdnum="1033;"><font face="Times New Roman" size=4><input type="number" maxlength="10" width="10" ng-model="xxxx"></font></td>
+            </tr>
+            <tr>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 1px solid #000000" colspan=8 height="53" align="left" valign=middle><font face="Times New Roman">Ҳисобот даври давомида юқори касаба уюшма ташкилотларидан олинган бланкалар (Получено бланков в течении отчётного периода от вышестоящей профсоюзной организации)</font></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdnum="1033;0;"><font face="Times New Roman">020</font></td>
+                <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 2px solid #000000" colspan=3 align="center" valign=middle sdnum="1033;"><font face="Times New Roman" size=4><input type="number" maxlength="10" width="10" ng-model="xxxx"></font></td>
+            </tr>
+            <tr>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 1px solid #000000" colspan=8 height="43" align="left" valign=middle><font face="Times New Roman">Ҳисобот даври давомида берилган йўлланмалар  (Выдано путёвок в течении отчётного периода)</font></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdnum="1033;0;"><font face="Times New Roman">030</font></td>
+                <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 2px solid #000000" colspan=3 align="center" valign=middle sdnum="1033;"><font face="Times New Roman" size=4><input type="number" maxlength="10" width="10" ng-model="xxxx"></font></td>
+            </tr>
+            <tr>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 1px solid #000000" colspan=8 height="28" align="left" valign=middle><font face="Times New Roman">Ҳисобдан чиқарилди (бузилган)  Списано (испорчено)</font></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdnum="1033;0;"><font face="Times New Roman">040</font></td>
+                <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 2px solid #000000" colspan=3 align="center" valign=middle sdnum="1033;"><font face="Times New Roman" size=4><input type="number" maxlength="10" width="10" ng-model="xxxx"></font></td>
+            </tr>
+            <tr>
+                <td style="border-top: 1px solid #000000; border-bottom: 2px solid #000000; border-left: 2px solid #000000; border-right: 1px solid #000000" colspan=8 height="43" align="left" valign=middle><font face="Times New Roman">Ҳисобот даври охирига бланкалар қолдиғи (Остаток бланков на конец отчётного периода)</font></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 2px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdnum="1033;0;"><font face="Times New Roman">050</font></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 2px solid #000000; border-left: 1px solid #000000; border-right: 2px solid #000000" colspan=3 align="center" valign=middle sdval="0" sdnum="1033;0;_-* #,##0_р_._-;-* #,##0_р_._-;_-* &quot;-&quot;??_р_._-;_--"><b><font face="Times New Roman" size=4> -      </font></b></td>
+            </tr>
+            <tr>
+                <td height="17" align="left" valign=middle><font face="Times New Roman"><br></font></td>
+                <td align="left" valign=middle><font face="Times New Roman"><br></font></td>
+                <td align="left" valign=middle><font face="Times New Roman"><br></font></td>
+                <td align="left" valign=middle><font face="Times New Roman"><br></font></td>
+                <td align="left" valign=middle><font face="Times New Roman"><br></font></td>
+                <td align="left" valign=middle><font face="Times New Roman"><br></font></td>
+                <td align="left" valign=middle><font face="Times New Roman"><br></font></td>
+                <td align="center" valign=middle><font face="Times New Roman"><br></font></td>
+                <td align="center"><font face="Times New Roman"><br></font></td>
+                <td align="center"><font face="Times New Roman"><br></font></td>
+                <td align="center"><font face="Times New Roman"><br></font></td>
+                <td align="center"><font face="Times New Roman"><br></font></td>
+            </tr>
+            <tr>
+                <td colspan=12 height="43" align="center" valign=middle><b><font face="Times New Roman">САНАТОРИЙ-ПРОФИЛАКТОРИЯЛАРДА ШТАТ БЎЙИЧА ИШЛОВЧИЛАР СОНИ                                                          ЧИСЛО ШТАТНЫХ РАБОТНИКОВ САНАТОРИЕВ-ПРОФИЛАКТОРИЕВ</font></b></td>
+            </tr>
+            <tr>
+                <td height="36" align="left"><font face="Times New Roman"><br></font></td>
+                <td align="left"><font face="Times New Roman"><br></font></td>
+                <td align="left"><font face="Times New Roman"><br></font></td>
+                <td align="left"><font face="Times New Roman"><br></font></td>
+                <td align="left"><font face="Times New Roman"><br></font></td>
+                <td align="left"><font face="Times New Roman"><br></font></td>
+                <td align="left"><font face="Times New Roman"><br></font></td>
+                <td align="left"><font face="Times New Roman"><br></font></td>
+                <td align="left"><font face="Times New Roman"><br></font></td>
+                <td align="left"><font face="Times New Roman"><br></font></td>
+                <td colspan=2 align="right" valign=middle><font face="Times New Roman">7-жадвал                                             Таблица-7</font></td>
+            </tr>
+            <tr>
+                <td style="border-top: 2px solid #000000; border-bottom: 2px solid #000000; border-left: 2px solid #000000; border-right: 1px solid #000000" colspan=7 rowspan=2 height="95" align="center"><font face="Times New Roman"><br></font></td>
+                <td style="border-top: 2px solid #000000; border-bottom: 2px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" rowspan=2 align="center" valign=middle><font face="Times New Roman">Қатор коди                         Код строки</font></td>
+                <td style="border-top: 2px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 2px solid #000000" colspan=4 align="center" valign=middle><font face="Times New Roman">Ходимлар сони                              Число должностей</font></td>
+            </tr>
+            <tr>
+                <td style="border-top: 1px solid #000000; border-bottom: 2px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" colspan=2 align="center" valign=middle><font face="Times New Roman">штат жадвали бўйича                  штатных</font></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 2px solid #000000; border-left: 1px solid #000000; border-right: 2px solid #000000" colspan=2 align="center" valign=middle><font face="Times New Roman">банд бўлганлар занятых</font></td>
+            </tr>
+            <tr>
+                <td style="border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 1px solid #000000" colspan=7 height="43" align="left" valign=middle><font face="Times New Roman">Маъмурий-хўжалик ишлари ходими                                       Административно-хозяйственный персонал</font></td>
+                <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdnum="1033;0;"><font face="Times New Roman">010</font></td>
+                <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" colspan=2 align="center" sdnum="1033;0;_-* #,##0_р_._-;-* #,##0_р_._-;_-* &quot;-&quot;??_р_._-;_--"><font face="Times New Roman" size=4> <input type="number" maxlength="10" width="10" ng-model="xxx">    </font></td>
+                <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" colspan=2 align="center" sdnum="1033;0;_-* #,##0_р_._-;-* #,##0_р_._-;_-* &quot;-&quot;??_р_._-;_--"><font face="Times New Roman" size=4> <input type="number" maxlength="10" width="10" ng-model="xxx">    </font></td>
+            </tr>
+            <tr>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 1px solid #000000" colspan=7 height="46" align="left" valign=middle><font face="Times New Roman">Тиббиёт ходимлари: (Медицинский персонал:)                                                   врачлар (врачи)</font></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdnum="1033;0;"><font face="Times New Roman">020</font></td>
+                <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" colspan=2 align="center" sdnum="1033;0;_-* #,##0_р_._-;-* #,##0_р_._-;_-* &quot;-&quot;??_р_._-;_--"><font face="Times New Roman" size=4> <input type="number" maxlength="10" width="10" ng-model="xxx">    </font></td>
+                <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" colspan=2 align="center" sdnum="1033;0;_-* #,##0_р_._-;-* #,##0_р_._-;_-* &quot;-&quot;??_р_._-;_--"><font face="Times New Roman" size=4> <input type="number" maxlength="10" width="10" ng-model="xxx">    </font></td>
+            </tr>
+            <tr>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 1px solid #000000" colspan=7 height="24" align="left" valign=middle><font face="Times New Roman">ўрта   (средний) </font></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdnum="1033;0;"><font face="Times New Roman">030</font></td>
+                <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" colspan=2 align="center" sdnum="1033;0;_-* #,##0_р_._-;-* #,##0_р_._-;_-* &quot;-&quot;??_р_._-;_--"><font face="Times New Roman" size=4> <input type="number" maxlength="10" width="10" ng-model="xxx">    </font></td>
+                <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" colspan=2 align="center" sdnum="1033;0;_-* #,##0_р_._-;-* #,##0_р_._-;_-* &quot;-&quot;??_р_._-;_--"><font face="Times New Roman" size=4> <input type="number" maxlength="10" width="10" ng-model="xxx">    </font></td>
+            </tr>
+            <tr>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 1px solid #000000" colspan=7 height="26" align="left" valign=middle><font face="Times New Roman">кичик (младший)</font></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdnum="1033;0;"><font face="Times New Roman">040</font></td>
+                <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" colspan=2 align="center" sdnum="1033;0;_-* #,##0_р_._-;-* #,##0_р_._-;_-* &quot;-&quot;??_р_._-;_--"><font face="Times New Roman" size=4> <input type="number" maxlength="10" width="10" ng-model="xxx">    </font></td>
+                <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" colspan=2 align="center" sdnum="1033;0;_-* #,##0_р_._-;-* #,##0_р_._-;_-* &quot;-&quot;??_р_._-;_--"><font face="Times New Roman" size=4> <input type="number" maxlength="10" width="10" ng-model="xxx">    </font></td>
+            </tr>
+            <tr>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 1px solid #000000" colspan=7 height="35" align="left" valign=middle><font face="Times New Roman">Маданий тадбирларни ташкил этувчилар, кутубхоначи                                                       Культорганизаторы, библиотекари</font></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdnum="1033;0;"><font face="Times New Roman">050</font></td>
+                <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" colspan=2 align="center" sdnum="1033;0;_-* #,##0_р_._-;-* #,##0_р_._-;_-* &quot;-&quot;??_р_._-;_--"><font face="Times New Roman" size=4> <input type="number" maxlength="10" width="10" ng-model="xxx">    </font></td>
+                <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" colspan=2 align="center" sdnum="1033;0;_-* #,##0_р_._-;-* #,##0_р_._-;_-* &quot;-&quot;??_р_._-;_--"><font face="Times New Roman" size=4> <input type="number" maxlength="10" width="10" ng-model="xxx">    </font></td>
+            </tr>
+            <tr>
+                <td style="border-top: 1px solid #000000; border-bottom: 2px solid #000000; border-left: 2px solid #000000; border-right: 1px solid #000000" colspan=7 height="22" align="left" valign=middle><font face="Times New Roman">Ошхона ишчилари   (Работники пищеблока)</font></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 2px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdnum="1033;0;"><font face="Times New Roman">060</font></td>
+                <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" colspan=2 align="center" sdnum="1033;0;_-* #,##0_р_._-;-* #,##0_р_._-;_-* &quot;-&quot;??_р_._-;_--"><font face="Times New Roman" size=4> <input type="number" maxlength="10" width="10" ng-model="xxx">    </font></td>
+                <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" colspan=2 align="center" sdnum="1033;0;_-* #,##0_р_._-;-* #,##0_р_._-;_-* &quot;-&quot;??_р_._-;_--"><font face="Times New Roman" size=4> <input type="number" maxlength="10" width="10" ng-model="xxx">    </font></td>
+            </tr>
+            <tr>
+                <td style="border-bottom: 2px solid #000000; border-left: 2px solid #000000; border-right: 1px solid #000000" colspan=7 height="29" align="left" valign=middle><font face="Times New Roman">Жами (Всего)</font></td>
+                <td style="border-bottom: 2px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdnum="1033;0;"><font face="Times New Roman">070</font></td>
+                <td style="border-bottom: 2px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" colspan=2 align="center" sdval="59994" sdnum="1033;0;_-* #,##0_р_._-;-* #,##0_р_._-;_-* &quot;-&quot;??_р_._-;_--"><b><font face="Times New Roman" size=4>     </font></b></td>
+                <td style="border-bottom: 2px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" colspan=2 align="center" sdval="59994" sdnum="1033;0;_-* #,##0_р_._-;-* #,##0_р_._-;_-* &quot;-&quot;??_р_._-;_--"><b><font face="Times New Roman" size=4>     </font></b></td>
+            </tr>
+            <tr>
+                <td height="15" align="left"><font face="Times New Roman"><br></font></td>
+                <td align="left"><font face="Times New Roman"><br></font></td>
+                <td align="left"><font face="Times New Roman"><br></font></td>
+                <td align="left"><font face="Times New Roman"><br></font></td>
+                <td align="left"><font face="Times New Roman"><br></font></td>
+                <td align="left"><font face="Times New Roman"><br></font></td>
+                <td align="left"><font face="Times New Roman"><br></font></td>
+                <td align="left"><font face="Times New Roman"><br></font></td>
+                <td align="left"><font face="Times New Roman"><br></font></td>
+                <td align="left"><font face="Times New Roman"><br></font></td>
+                <td align="left"><font face="Times New Roman"><br></font></td>
+                <td align="left"><font face="Times New Roman"><br></font></td>
+            </tr>
+            <tr>
+                <td colspan=6 height="64" align="left" valign=middle><font face="Times New Roman">Касаба уюшма кенгаши раиси                            Председатель объединения профсоюзов</font></td>
+                <td align="left"><font face="Times New Roman"><br></font></td>
+                <td colspan=5 align="left" valign=middle><font face="Times New Roman">Санаторий-прафилакторий бош шифокори                                                Главный врач санатория-профилактория</font></td>
+            </tr>
+            <tr>
+                <td colspan=6 height="12" align="left"><font face="Times New Roman"><br></font></td>
+                <td align="left"><font face="Times New Roman"><br></font></td>
+                <td colspan=5 align="left"><font face="Times New Roman"><br></font></td>
+            </tr>
+            <tr>
+                <td colspan=6 height="81" align="left" valign=middle><font face="Times New Roman">Ижтимоий суғурта бўлими мудири                        Руководитель отдела социального страхования</font></td>
+                <td align="left"><font face="Times New Roman"><br></font></td>
+                <td colspan=5 align="left" valign=middle><font face="Times New Roman">Санаторий-прафилакторий бош ҳисобчиси (ҳисобчи)                                                                            Главный бухгалтер (бухгалтер) санатория-профилактория</font></td>
+            </tr>
+            <tr>
+                <td colspan=6 height="14" align="left"><font face="Times New Roman"><br></font></td>
+                <td align="left"><font face="Times New Roman"><br></font></td>
+                <td align="left"><font face="Times New Roman"><br></font></td>
+                <td align="left"><font face="Times New Roman"><br></font></td>
+                <td align="left"><font face="Times New Roman"><br></font></td>
+                <td align="left"><font face="Times New Roman"><br></font></td>
+                <td align="left"><font face="Times New Roman"><br></font></td>
+            </tr>
+            <tr>
+                <td colspan=6 height="42" align="left" valign=top><b><font face="Times New Roman" size=3>Бўлим мудири ўринбосари (Бош ҳисобчи)                                                                        Зам. зав. отделом (Гл. Бухгалтер)</font></b></td>
+                <td align="left"><font face="Times New Roman"><br></font></td>
+                <td align="left"><font face="Times New Roman"><br></font></td>
+                <td align="left"><font face="Times New Roman"><br></font></td>
+                <td align="left"><font face="Times New Roman"><br></font></td>
+                <td align="left"><font face="Times New Roman"><br></font></td>
+                <td align="left"><font face="Times New Roman"><br></font></td>
+            </tr>
+            <tr>
+                <td height="15" align="left" valign=top><b><font face="Times New Roman" size=3><br></font></b></td>
+                <td align="left" valign=top><b><font face="Times New Roman" size=3><br></font></b></td>
+                <td align="left" valign=top><b><font face="Times New Roman" size=3><br></font></b></td>
+                <td align="left" valign=top><b><font face="Times New Roman" size=3><br></font></b></td>
+                <td align="left" valign=top><b><font face="Times New Roman" size=3><br></font></b></td>
+                <td align="left" valign=top><b><font face="Times New Roman" size=3><br></font></b></td>
+                <td align="left"><font face="Times New Roman"><br></font></td>
+                <td align="left"><font face="Times New Roman"><br></font></td>
+                <td align="left"><font face="Times New Roman"><br></font></td>
+                <td align="left"><font face="Times New Roman"><br></font></td>
+                <td align="left"><font face="Times New Roman"><br></font></td>
+                <td align="left"><font face="Times New Roman"><br></font></td>
+            </tr>
+            <tr>
+                <td colspan=7 height="31" align="center"><font face="Times New Roman" size=3>&quot;______&quot;___________________20____ й. (г)</font></td>
+                <td colspan=5 align="left"><font face="Times New Roman"><br></font></td>
+            </tr>
+        </table>
+        <!-- ************************************************************************** -->
+    </div>
+</div>

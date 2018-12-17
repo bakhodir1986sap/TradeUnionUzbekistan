@@ -256,6 +256,8 @@
     <Compile Include="BusinessLogic\4_Etap\Statistics\BronModel.cs" />
     <Compile Include="BusinessLogic\4_Etap\Statistics\ChastichkaContainer.cs" />
     <Compile Include="BusinessLogic\4_Etap\Statistics\ChastichkaModel.cs" />
+    <Compile Include="BusinessLogic\4_Etap\Statistics\KaznaOrgContainer.cs" />
+    <Compile Include="BusinessLogic\4_Etap\Statistics\KaznaOrgModel.cs" />
     <Compile Include="BusinessLogic\4_Etap\Statistics\MonitKaznaIncomingModel.cs" />
     <Compile Include="BusinessLogic\4_Etap\Statistics\PererasxodPoPutevkamContainer.cs" />
     <Compile Include="BusinessLogic\4_Etap\Statistics\PererasxodPoPutevkamModel.cs" />
@@ -309,6 +311,7 @@
     <Compile Include="BusinessLogic\Buxgalteriya\GlavnayaKniga\BuxTransaction.cs" />
     <Compile Include="BusinessLogic\Buxgalteriya\GlavnayaKniga\GK_Structure.cs" />
     <Compile Include="BusinessLogic\Buxgalteriya\GlavnayaKniga\IBalance.cs" />
+    <Compile Include="BusinessLogic\Buxgalteriya\LagerFinOtchet\LagerFinOtchet.cs" />
     <Compile Include="BusinessLogic\Buxgalteriya\OperationSettings\OperationSettings.cs" />
     <Compile Include="BusinessLogic\Buxgalteriya\OperationSettings\OperationSettingsDataManager.cs" />
     <Compile Include="BusinessLogic\Buxgalteriya\PlanirovaniyaBudjeta\Calculations.cs" />
@@ -331,6 +334,7 @@
     <Compile Include="BusinessLogic\Buxgalteriya\Provodki\ProvodkaSettingsDataManager.cs" />
     <Compile Include="BusinessLogic\Buxgalteriya\Provodki\Provodki.cs" />
     <Compile Include="BusinessLogic\Buxgalteriya\Provodki\ProvodkiDataManager.cs" />
+    <Compile Include="BusinessLogic\Buxgalteriya\SanatProfilak\SanatoriyProfilaktoriy.cs" />
     <Compile Include="BusinessLogic\ClosePeriod\CloseCommon.cs" />
     <Compile Include="BusinessLogic\ClosePeriod\CloseDayDataManager.cs" />
     <Compile Include="BusinessLogic\ClosePeriod\CloseDayViewModel.cs" />
@@ -902,6 +906,9 @@
     <Compile Include="Models\sp_stat_KaznaDataFedLastDay_V2_Result.cs">
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\sp_stat_KaznaDataFedOrg_V2_Result.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\sp_stat_KaznaDataFed_V2_Result.cs">
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
@@ -975,6 +982,9 @@
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tbbu_platejka.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tbbu_profil_lager.cs">
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tbbu_provodki.cs">
@@ -1644,6 +1654,7 @@
     <Content Include="Content\img\item12.JPG" />
     <Content Include="Content\img\left.png" />
     <Content Include="Content\img\left_all.png" />
+    <Content Include="Content\img\logo.png" />
     <Content Include="Content\img\right.png" />
     <Content Include="Content\img\right_all.png" />
     <Content Include="Content\ListBoxstyle.css" />
@@ -1849,6 +1860,8 @@
     <Content Include="Scripts\MyJavaScript\BU_PrasmotrDannix.js" />
     <Content Include="Scripts\MyJavaScript\Controller.js" />
     <Content Include="Scripts\MyJavaScript\DataService.js" />
+    <Content Include="Scripts\MyJavaScript\LagerFinOtchet.js" />
+    <Content Include="Scripts\MyJavaScript\SanatoriyProfilaktoriy.js" />
     <Content Include="Scripts\MyJavaScript\GlavnayaKniga.js" />
     <Content Include="Scripts\MyJavaScript\GPController.js" />
     <Content Include="Scripts\MyJavaScript\GrafikSanatoryZaezdov.js" />

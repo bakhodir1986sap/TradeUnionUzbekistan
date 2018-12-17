@@ -91,8 +91,6 @@ namespace KasabaKIAT.BusinessLogic.Putyovki.PrixodPutyovok
                                 prixMain.Name_Dov = string.Empty;
                             }
 
-                               
-
                             prixMain.Vid = false;
                             prixMain.SmFil = doc_Date.Value.Year;
                             prixMain.UserId = userId;

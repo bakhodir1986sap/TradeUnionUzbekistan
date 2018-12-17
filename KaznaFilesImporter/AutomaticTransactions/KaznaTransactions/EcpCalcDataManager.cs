@@ -31,7 +31,8 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.Provodki.AutomaticTransactions.K
                     ecp_calc.BRANCH_CODE = model.branch_code;
                     ecp_calc.BRANCH_NAME = model.branch_name;
                     ecp_calc.ADEP_CODE = model.adep_code;
-                }
+                    ecp_calc.NAME_ORG = model.name_org;
+            }
                 else
                 {
                     tbbu_ecp_calc reg = new tbbu_ecp_calc();
@@ -53,6 +54,7 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.Provodki.AutomaticTransactions.K
                     reg.BRANCH_CODE = model.branch_code;
                     reg.BRANCH_NAME = model.branch_name;
                     reg.ADEP_CODE = model.adep_code;
+                    reg.NAME_ORG = model.name_org;
 
                     var planOtrasl = db.tbbu_ecp_calc.Add(reg);
                 }

@@ -723,10 +723,7 @@
         });
         saveAs(blob, "Финансовый отчет.xls");
     };
-
-
-
-
+         
     $scope.SaveRasxod = function () {
         SaveRasxod();
     }

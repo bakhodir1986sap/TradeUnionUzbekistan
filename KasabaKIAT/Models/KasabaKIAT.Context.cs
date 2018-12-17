@@ -187,6 +187,7 @@ namespace KasabaKIAT.Models
         public virtual DbSet<tbbu_nastroykiProvodok> tbbu_nastroykiProvodok { get; set; }
         public virtual DbSet<tbbu_AccountPlan> tbbu_AccountPlan { get; set; }
         public virtual DbSet<tbbu_FinOtchetSave> tbbu_FinOtchetSave { get; set; }
+        public virtual DbSet<tbbu_profil_lager> tbbu_profil_lager { get; set; }
     
         public virtual ObjectResult<Nullable<decimal>> sp_get_BankPaymentCompanyMonthly(string inn, Nullable<int> year, Nullable<int> month)
         {
@@ -2375,6 +2376,11 @@ namespace KasabaKIAT.Models
         public virtual ObjectResult<sp_monit_PererasxodPoPutyovkamV2_Result1> sp_monit_PererasxodPoPutyovkamV2()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_monit_PererasxodPoPutyovkamV2_Result1>("sp_monit_PererasxodPoPutyovkamV2");
+        }
+    
+        public virtual ObjectResult<sp_stat_KaznaDataFedOrg_V2_Result> sp_stat_KaznaDataFedOrg_V2()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_stat_KaznaDataFedOrg_V2_Result>("sp_stat_KaznaDataFedOrg_V2");
         }
     }
 }

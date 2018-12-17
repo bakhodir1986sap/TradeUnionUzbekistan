@@ -1787,6 +1787,7 @@ warning 6002: The table/view 'KasabaKIAT_N1.dbo.tbbTabel' does not have a primar
           <Property Name="ADEP_CODE" Type="nvarchar" MaxLength="255" />
           <Property Name="GRPID" Type="bigint" />
           <Property Name="BANK_DATE" Type="datetime" />
+          <Property Name="NAME_ORG" Type="nvarchar" MaxLength="100" />
         </EntityType>
         <EntityType Name="tbbu_FinOtchetSave">
           <Key>
@@ -1867,6 +1868,18 @@ warning 6002: The table/view 'KasabaKIAT_N1.dbo.tbbTabel' does not have a primar
           <Property Name="COMMENT" Type="nvarchar" MaxLength="500" />
           <Property Name="RUKOVODITEL" Type="nvarchar" MaxLength="100" />
           <Property Name="GLAVBUX" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="tbbu_profil_lager">
+          <Key>
+            <PropertyRef Name="REC_ID" />
+          </Key>
+          <Property Name="REC_ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="YEAR_FIN" Type="int" />
+          <Property Name="KVARTAL" Type="int" />
+          <Property Name="DEPARTMENT_BASE" Type="nvarchar" MaxLength="255" />
+          <Property Name="CODE" Type="varchar" MaxLength="50" />
+          <Property Name="VALUE" Type="money" />
+          <Property Name="REPORT_TYPE" Type="int" />
         </EntityType>
         <EntityType Name="tbbu_provodki">
           <Key>
@@ -6391,6 +6404,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
         </Function>
         <Function Name="sp_stat_KaznaDataFed_V2" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="sp_stat_KaznaDataFedLastDay_V2" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="sp_stat_KaznaDataFedOrg_V2" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="sp_stat_KaznaDataObl_V2" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="DEPARTMENT_BASE" Type="nvarchar" Mode="In" />
         </Function>
@@ -6682,6 +6696,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <EntitySet Name="tbbu_nastroykiProvodok" EntityType="Self.tbbu_nastroykiProvodok" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbbu_planbyudjetregion" EntityType="Self.tbbu_planbyudjetregion" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbbu_platejka" EntityType="Self.tbbu_platejka" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbbu_profil_lager" EntityType="Self.tbbu_profil_lager" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbbu_provodki" EntityType="Self.tbbu_provodki" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbbViplata" EntityType="Self.tbbViplata" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbcs_dictionary" EntityType="Self.tbcs_dictionary" Schema="dbo" store:Type="Tables" />
@@ -14664,6 +14679,8 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <FunctionImport Name="sp_rt_SvodniyOtchetV2" ReturnType="Collection(KasabaKIATModel.sp_rt_SvodniyOtchetV2_Result1)" />
           <FunctionImport Name="sp_stat_KaznaDataFedLastDay_V2" ReturnType="Collection(KasabaKIATModel.sp_stat_KaznaDataFedLastDay_V2_Result)" />
           <FunctionImport Name="sp_monit_PererasxodPoPutyovkamV2" ReturnType="Collection(KasabaKIATModel.sp_monit_PererasxodPoPutyovkamV2_Result1)" />
+          <EntitySet Name="tbbu_profil_lager" EntityType="KasabaKIATModel.tbbu_profil_lager" />
+          <FunctionImport Name="sp_stat_KaznaDataFedOrg_V2" ReturnType="Collection(KasabaKIATModel.sp_stat_KaznaDataFedOrg_V2_Result)" />
           </EntityContainer>
         <ComplexType Name="sp_get_BankPaymentCompanyYearlyQ_Result">
           <Property Type="Int32" Name="MONTH_NUM" Nullable="true" />
@@ -15252,6 +15269,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <Property Name="ADEP_CODE" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="GRPID" Type="Int64" />
           <Property Name="BANK_DATE" Type="DateTime" Precision="3" />
+          <Property Name="NAME_ORG" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
         </EntityType>
         <Association Name="FK_PrivyazkaProvodok_provodok">
           <End Type="KasabaKIATModel.provodok" Role="provodok" Multiplicity="0..1" />
@@ -16906,6 +16924,26 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <Property Type="Decimal" Name="PostupleniyaZaPeriod" Nullable="true" Precision="19" />
           <Property Type="Int32" Name="KolVoMogutPoluchit" Nullable="false" />
           <Property Type="Decimal" Name="KolVoFakticheskiPoluch" Nullable="false" Precision="19" />
+        </ComplexType>
+        <EntityType Name="tbbu_profil_lager">
+          <Key>
+            <PropertyRef Name="REC_ID" />
+          </Key>
+          <Property Name="REC_ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="YEAR_FIN" Type="Int32" />
+          <Property Name="KVARTAL" Type="Int32" />
+          <Property Name="DEPARTMENT_BASE" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="CODE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="VALUE" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="REPORT_TYPE" Type="Int32" />
+        </EntityType>
+        <ComplexType Name="sp_stat_KaznaDataFedOrg_V2_Result">
+          <Property Type="String" Name="ProfsoyzNaimenovanie" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="SOATO_NAME" Nullable="false" MaxLength="500" />
+          <Property Type="String" Name="BRANCH_NAME" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="NAME_ORG" Nullable="true" MaxLength="100" />
+          <Property Type="Decimal" Name="FEDERATION_AMT" Nullable="true" Precision="19" />
+          <Property Type="Decimal" Name="OBLSOVPROF_AMT" Nullable="true" Precision="19" />
         </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
@@ -19988,6 +20026,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <EntitySetMapping Name="tbbu_ecp_calc">
             <EntityTypeMapping TypeName="KasabaKIATModel.tbbu_ecp_calc">
               <MappingFragment StoreEntitySet="tbbu_ecp_calc">
+                <ScalarProperty Name="NAME_ORG" ColumnName="NAME_ORG" />
                 <ScalarProperty Name="BANK_DATE" ColumnName="BANK_DATE" />
                 <ScalarProperty Name="GRPID" ColumnName="GRPID" />
                 <ScalarProperty Name="ADEP_CODE" ColumnName="ADEP_CODE" />
@@ -21387,6 +21426,31 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
                 <ScalarProperty Name="PostupleniyaZaPeriod" ColumnName="PostupleniyaZaPeriod" />
                 <ScalarProperty Name="KolVoMogutPoluchit" ColumnName="KolVoMogutPoluchit" />
                 <ScalarProperty Name="KolVoFakticheskiPoluch" ColumnName="KolVoFakticheskiPoluch" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="tbbu_profil_lager">
+            <EntityTypeMapping TypeName="KasabaKIATModel.tbbu_profil_lager">
+              <MappingFragment StoreEntitySet="tbbu_profil_lager">
+                <ScalarProperty Name="REPORT_TYPE" ColumnName="REPORT_TYPE" />
+                <ScalarProperty Name="VALUE" ColumnName="VALUE" />
+                <ScalarProperty Name="CODE" ColumnName="CODE" />
+                <ScalarProperty Name="DEPARTMENT_BASE" ColumnName="DEPARTMENT_BASE" />
+                <ScalarProperty Name="KVARTAL" ColumnName="KVARTAL" />
+                <ScalarProperty Name="YEAR_FIN" ColumnName="YEAR_FIN" />
+                <ScalarProperty Name="REC_ID" ColumnName="REC_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="sp_stat_KaznaDataFedOrg_V2" FunctionName="KasabaKIATModel.Store.sp_stat_KaznaDataFedOrg_V2">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="KasabaKIATModel.sp_stat_KaznaDataFedOrg_V2_Result">
+                <ScalarProperty Name="ProfsoyzNaimenovanie" ColumnName="ProfsoyzNaimenovanie" />
+                <ScalarProperty Name="SOATO_NAME" ColumnName="SOATO_NAME" />
+                <ScalarProperty Name="BRANCH_NAME" ColumnName="BRANCH_NAME" />
+                <ScalarProperty Name="NAME_ORG" ColumnName="NAME_ORG" />
+                <ScalarProperty Name="FEDERATION_AMT" ColumnName="FEDERATION_AMT" />
+                <ScalarProperty Name="OBLSOVPROF_AMT" ColumnName="OBLSOVPROF_AMT" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

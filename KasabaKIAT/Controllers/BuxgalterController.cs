@@ -25,6 +25,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.UI;
+using KasabaKIAT.BusinessLogic.Buxgalteriya;
 
 namespace KasabaKIAT.Controllers
 {
@@ -552,6 +553,57 @@ namespace KasabaKIAT.Controllers
 
             var finOtchet = new FinOtchetStrukture();
             finOtchet.SaveOtherInfo(ustinfo.DepartmentBase, postData.year, postData.kvartal, UserId, postData.rasxod_arr);
+
+            return Json("", JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GetSanatoriyProfilaktoriy(int year, int kvartal)
+        {
+            int UserId = Convert.ToInt32(User.Identity.Name);
+            var ustinfo = UserInfo.GetUserInfo(UserId);
+
+            var bux = new SanatoriyProfilaktoriy();
+
+            var result = bux.GetData(ustinfo.DepartmentBase , year, kvartal);
+
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+
+        public JsonResult SaveSanatoriyProfilaktoriy(SanatoriyProfilaktoriyModel postData)
+        {
+            int UserId = Convert.ToInt32(User.Identity.Name);
+            var ustinfo = UserInfo.GetUserInfo(UserId);
+
+            var bux = new SanatoriyProfilaktoriy();
+
+            bux.SaveData(ustinfo.DepartmentBase, postData.year, postData.kvartal, postData);
+
+            return Json("", JsonRequestBehavior.AllowGet);
+        }
+
+
+        public JsonResult GetLagerFinOtchet(int year, int kvartal)
+        {
+            int UserId = Convert.ToInt32(User.Identity.Name);
+            var ustinfo = UserInfo.GetUserInfo(UserId);
+
+            var bux = new LagerFinOtchet();
+
+            var result = bux.GetData(ustinfo.DepartmentBase, year, kvartal);
+
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+
+        public JsonResult SaveLagerFinOtchet(LagerFinOtchetModel postData)
+        {
+            int UserId = Convert.ToInt32(User.Identity.Name);
+            var ustinfo = UserInfo.GetUserInfo(UserId);
+
+            var bux = new LagerFinOtchet();
+
+            bux.SaveData(ustinfo.DepartmentBase, postData.year, postData.kvartal, postData);
 
             return Json("", JsonRequestBehavior.AllowGet);
         }

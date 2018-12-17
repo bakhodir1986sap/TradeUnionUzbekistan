@@ -264,6 +264,25 @@ namespace KasabaKIAT.BusinessLogic._4_Etap.Statistics
 
                 tasks.Add(outer13);
 
+
+                var outer14 = Task.Factory.StartNew(() =>     // внешняя задача
+                {
+                    return KaznaOrgContainer.GetKaznaFederationInfo();
+                });
+
+                outer14.ContinueWith((t) => {
+                    if (outer14.Status == TaskStatus.RanToCompletion)
+                    {
+                        obj.kaznaOrgList = t.Result;
+                    }
+                    if (outer14.Status == TaskStatus.Faulted)
+                    {
+                        obj.kaznaOrgList = null;
+                    }
+                });
+
+                tasks.Add(outer14);
+
                 #endregion
 
                 //obj = new FourStapViewModel

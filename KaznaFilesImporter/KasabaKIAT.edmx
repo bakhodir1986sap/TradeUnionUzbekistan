@@ -297,6 +297,7 @@ warning 6002: The table/view 'KasabaKIAT_N1.dbo.tbbFermer' does not have a prima
           <Property Name="ADEP_CODE" Type="nvarchar" MaxLength="255" />
           <Property Name="GRPID" Type="bigint" />
           <Property Name="BANK_DATE" Type="datetime" />
+          <Property Name="NAME_ORG" Type="nvarchar" MaxLength="100" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'KasabaKIAT_N1.dbo.tbbu_ecp_inn_setting' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -1195,6 +1196,7 @@ warning 6035: The relationship 't_egrpo_4' has columns that are not part of the 
           <Property Name="ADEP_CODE" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="GRPID" Type="Int64" />
           <Property Name="BANK_DATE" Type="DateTime" Precision="3" />
+          <Property Name="NAME_ORG" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
         </EntityType>
         <ComplexType Name="sp_pr_GetNewTransactions_Result">
           <Property Type="Decimal" Name="ID" Nullable="false" Precision="12" Scale="0" />
@@ -1902,6 +1904,7 @@ warning 6035: The relationship 't_egrpo_4' has columns that are not part of the 
           <EntitySetMapping Name="tbbu_ecp_calc">
             <EntityTypeMapping TypeName="KasabaKIATModel.tbbu_ecp_calc">
               <MappingFragment StoreEntitySet="tbbu_ecp_calc">
+                <ScalarProperty Name="NAME_ORG" ColumnName="NAME_ORG" />
                 <ScalarProperty Name="BANK_DATE" ColumnName="BANK_DATE" />
                 <ScalarProperty Name="GRPID" ColumnName="GRPID" />
                 <ScalarProperty Name="ADEP_CODE" ColumnName="ADEP_CODE" />

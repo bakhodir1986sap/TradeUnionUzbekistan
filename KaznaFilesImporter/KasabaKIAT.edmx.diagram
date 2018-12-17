@@ -9,7 +9,7 @@
         <EntityTypeShape EntityType="KasabaKIATModel.KaznaSverkaFile" Width="1.5" PointX="3" PointY="6" />
         <AssociationConnector Association="KasabaKIATModel.FK_KaznaSverkaFile_KaznaFiles" />
         <EntityTypeShape EntityType="KasabaKIATModel.t_egrpo" Width="1.5" PointX="7.625" PointY="0.5" />
-        <EntityTypeShape EntityType="KasabaKIATModel.tbbu_ecp_calc" Width="1.5" PointX="0.75" PointY="5.75" />
+        <EntityTypeShape EntityType="KasabaKIATModel.tbbu_ecp_calc" Width="1.5" PointX="1.875" PointY="4.75" />
         <EntityTypeShape EntityType="KasabaKIATModel.tbbFermer" Width="1.5" PointX="5.25" PointY="7.125" />
         <EntityTypeShape EntityType="KasabaKIATModel.tbbu_provodki" Width="1.5" PointX="9.625" PointY="1.5" />
         <EntityTypeShape EntityType="KasabaKIATModel.Kazna_Account" Width="1.5" PointX="0.75" PointY="9.75" />

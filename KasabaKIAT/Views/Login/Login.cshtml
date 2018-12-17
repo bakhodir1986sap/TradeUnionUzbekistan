@@ -1,5 +1,5 @@
 ﻿@{
-    ViewBag.Title = "Login";
+    ViewBag.Title = "Портал Федерации Профсоюзов Узбекистана";
     Layout = "/Views/Shared/_Layout0.cshtml";
 }
 <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
@@ -8,6 +8,7 @@
         <div id="connection" style="visibility:hidden;position:absolute;margin-left:130px;margin-top:150px;z-index:9999">
             <img src="~/Content/Login/buffering.gif" />
         </div>
+        <img src="~/Content/img/logo.png"/>
         <div class="modal-content" id="modelcon">
             
                 <span><img src="~/Content/Login/keys.ico" class="myicon" /></span>
@@ -36,8 +37,8 @@
 <input id="hh" type="hidden" />
 
 <style>
-    body {
-        background-image: url("/Content/img/bg-moz.png") !important;
+    .modal {
+        background: url("/Content/img/bg-moz.png") !important;
     }
     .modal-dialog {
         max-width: 480px;

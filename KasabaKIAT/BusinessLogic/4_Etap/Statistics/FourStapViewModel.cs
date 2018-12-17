@@ -34,7 +34,8 @@ namespace KasabaKIAT.BusinessLogic._4_Etap.Statistics
 
         public List<PererasxodPoPutevkamModel> pererasxodInfo { get; set; }
 
-
+        public List<KaznaOrgModel> kaznaOrgList { get; set; }
+        
         public string DepartmentBase { get; set; }
 
         public int Year { get; set; }

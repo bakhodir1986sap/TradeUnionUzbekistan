@@ -2668,6 +2668,7 @@ namespace KasabaKIAT.Controllers
                     ViewBag.PieChartZayavki = ((FourStapViewModel)resultStat3).zayavkiPieInfo;
                     ViewBag.PieChartPutyovki = ((FourStapViewModel)resultStat3).putyovkiPieInfo;
                     ViewBag.Chastichka = ((FourStapViewModel)resultStat3).chastichkaInfo;
+
                     break;
                 case 14:
                     viewName = "StatFederasiyaV2";
@@ -2687,6 +2688,7 @@ namespace KasabaKIAT.Controllers
                     ViewBag.Chastichka = ((FourStapViewModel)resultStat).chastichkaInfo;
                     ViewBag.PostupleniyaLastDay = ((FourStapViewModel)resultStat).kaznaLastDayInfo;
                     ViewBag.Pererasxod = ((FourStapViewModel)resultStat).pererasxodInfo;
+                    ViewBag.OrgCurrent = ((FourStapViewModel)resultStat).kaznaOrgList;
                     break;
                 default:
                     viewName = "StatFederasiyaV2";
@@ -2706,6 +2708,7 @@ namespace KasabaKIAT.Controllers
                     ViewBag.Chastichka = ((FourStapViewModel)resultStat2).chastichkaInfo;
                     ViewBag.PostupleniyaLastDay = ((FourStapViewModel)resultStat2).kaznaLastDayInfo;
                     ViewBag.Pererasxod = ((FourStapViewModel)resultStat2).pererasxodInfo;
+                    ViewBag.OrgCurrent = ((FourStapViewModel)resultStat2).kaznaOrgList;
                     break;
             }
 

@@ -1042,6 +1042,8 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.Provodki.AutomaticTransactions.K
                                         }
                                     }
 
+                                    model.name_org = org1.Name_Org;
+
                                 }
                                 else
                                 {
@@ -1085,6 +1087,7 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.Provodki.AutomaticTransactions.K
                                         }
 
                                         orrg.FACE_TYPE = 0;
+                                        model.name_org = orrg.Name_Org;
 
                                         db.tblSprav_Org.Add(orrg);
 

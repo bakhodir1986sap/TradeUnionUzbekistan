@@ -33,5 +33,6 @@ namespace KaznaFilesImporter
         public string ADEP_CODE { get; set; }
         public Nullable<long> GRPID { get; set; }
         public Nullable<System.DateTime> BANK_DATE { get; set; }
+        public string NAME_ORG { get; set; }
     }
 }

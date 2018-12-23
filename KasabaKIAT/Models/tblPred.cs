@@ -35,6 +35,8 @@ namespace KasabaKIAT.Models
         public Nullable<long> UserId { get; set; }
         public string Departmentbase { get; set; }
         public string KaznaAccount { get; set; }
+        public string Name_Zaveduyushiy { get; set; }
+        public string Name_VedSpes { get; set; }
     
         public virtual users user { get; set; }
     }

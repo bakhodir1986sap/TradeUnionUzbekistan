@@ -1,5 +1,5 @@
 ﻿@{
-    ViewBag.Title = "Изменить Пароль";
+    ViewBag.Title = "Реквизиты";
     var UserId = Convert.ToInt32(User.Identity.Name);
 }
 <script src="~/Scripts/MyJavaScript/Rekviziti.js"></script>
@@ -19,56 +19,66 @@
         <div class="row mb-4">
             <div class="col-md-6">
                 <div>
-                    <p>Полное наименование:</p>
+                    <p style="color:black;">Полное наименование:</p>
                     <input maxlength="50" type="text" required name="fullName" ng-model="Rekvizits.ID_Name" class="custom-select form-control" placeholder="Полное наименование" />
                     <span class="alert alert-warning" style="padding:0px" ng-show="myForm1.fullName.$error.required">заполнить поле</span>
                 </div>
                 <div>
-                    <p>Адрес :</p>
+                    <p style="color:black;">Адрес :</p>
                     <input maxlength="50" type="text" required name="address" ng-model="Rekvizits.Adress" class="custom-select form-control" placeholder="Адрес" />
                     <span class="alert alert-warning" style="padding:0px" ng-show="myForm1.address.$error.required">заполнить поле</span>
                 </div>
                 <div>
-                    <p>Телефоны :</p>
+                    <p style="color:black;">Телефоны :</p>
                     <input maxlength="90" type="text" required name="telefon" ng-model="Rekvizits.ID_Pred" class="custom-select form-control" placeholder="Телефоны" />
-                    <span  class="alert alert-warning" style="padding:0px" ng-show="myForm1.telefon.$error.required">заполнить поле</span>
+                    <span class="alert alert-warning" style="padding:0px" ng-show="myForm1.telefon.$error.required">заполнить поле</span>
                 </div>
                 <div>
-                    <p>Расчетный счет :</p>
+                    <p style="color:black;">Расчетный счет :</p>
                     <input maxlength="20" type="text" required name="rsSchet" ng-model="Rekvizits.RS" class="custom-select form-control" placeholder="Расчетный счет" />
                     <span class="alert alert-warning" style="padding:0px" ng-show="myForm1.rsSchet.$error.required">заполнить поле</span>
                 </div>
                 <div>
-                    <p>Наименование Банка :</p>
+                    <p style="color:black;">Наименование Банка :</p>
                     <input maxlength="50" type="text" required name="bankName" ng-model="Rekvizits.Name_bank" class="custom-select form-control" placeholder="Наименование Банка" />
                     <span class="alert alert-warning" style="padding:0px" ng-show="myForm1.bankName.$error.required">заполнить поле</span>
                 </div>
                 <div>
-                    <p>МФО :</p>
+                    <p style="color:black;">МФО :</p>
                     <input maxlength="5" type="text" required name="mfo" ng-model="Rekvizits.MFO" class="custom-select form-control" placeholder="МФО" />
                     <span class="alert alert-warning" style="padding:0px" ng-show="myForm1.mfo.$error.required">заполнить поле</span>
                 </div>
                 <div>
-                    <p>ИНН :</p>
+                    <p style="color:black;">ИНН :</p>
                     <input maxlength="9" type="text" required name="inn" ng-model="Rekvizits.INN" class="custom-select form-control" placeholder="ИНН" />
                     <span class="alert alert-warning" style="padding:0px" ng-show="myForm1.inn.$error.required">заполнить поле</span>
                 </div>
                 <div>
-                    <p>ОКЭД :</p>
+                    <p style="color:black;">ОКЭД :</p>
                     <input maxlength="6" type="text" required name="oked" ng-model="Rekvizits.OKONX" class="custom-select form-control" placeholder="ОКЭД" />
                     <span class="alert alert-warning" style="padding:0px" ng-show="myForm1.oked.$error.required">заполнить поле</span>
                 </div>
                 <div>
-                    <p>ВИО :</p>
+                    <p style="color:black;">ВИО :</p>
                     <input type="checkbox" required name="vio" ng-model="Rekvizits.VIO" />
                 </div>
                 <div>
-                    <p>Директор :</p>
-                    <input maxlength="25" type="text" required name="direktor" ng-model="Rekvizits.Name_Dir" class="custom-select form-control" placeholder="Директор" />
-                    <span class="alert alert-warning" style="padding:0px" ng-show="myForm1.direktor.$error.required">заполнить поле</span>
+                    <p style="color:black;">Председатель :</p>
+                    <input maxlength="25" type="text" required name="direktor1" ng-model="Rekvizits.Name_Dir" class="custom-select form-control" placeholder="Председатель" />
+                    <span class="alert alert-warning" style="padding:0px" ng-show="myForm1.direktor1.$error.required">заполнить поле</span>
                 </div>
                 <div>
-                    <p></p>
+                    <p style="color:black;">Заведующий отдела :</p>
+                    <input maxlength="25" type="text" required name="direktor2" ng-model="Rekvizits.Name_Zaveduyushiy" class="custom-select form-control" placeholder="Заведующий" />
+                    @*<span class="alert alert-warning" style="padding:0px" ng-show="myForm1.direktor.$error.required">заполнить поле</span>*@
+                </div>
+                <div>
+                    <p style="color:black;">Ведущий специалист :</p>
+                    <input maxlength="25" type="text" required name="direktor3" ng-model="Rekvizits.Name_VedSpes" class="custom-select form-control" placeholder="Вед. Специалист" />
+                    @*<span class="alert alert-warning" style="padding:0px" ng-show="myForm1.direktor.$error.required">заполнить поле</span>*@
+                </div>
+                <div>
+                    <p style="color:black;"></p>
                     <button style="margin-top:20px" class="btn btn-green d-block d-md-inline-block mb-3 mb-md-0" ng-click="SaveRekvizit()">Сохранить</button>
                 </div>
             </div>

@@ -259,17 +259,19 @@ namespace KasabaKIAT.Controllers
                            where rek.Departmentbase == uu.DepartmentBase
                            select new RekvizitiViewModel
                            {
-                                ID_Name   = rek.ID_Name,
-                                ID_Pred   = rek.ID_Pred,
-                                ID_Pass   = rek.ID_Pass,
-                                Adress    = rek.Adress,
-                                RS        = rek.RS,
-                                Name_bank = rek.Name_bank,
-                                MFO       = rek.MFO,
-                                INN       = rek.INN,
-                                OKONX     = rek.OKONX,
-                                Name_Dir  = rek.Name_Dir,
-                                VIO       = rek.VIO
+                                ID_Name             = rek.ID_Name,
+                                ID_Pred             = rek.ID_Pred,
+                                ID_Pass             = rek.ID_Pass,
+                                Adress              = rek.Adress,
+                                RS                  = rek.RS,
+                                Name_bank           = rek.Name_bank,
+                                MFO                 = rek.MFO,
+                                INN                 = rek.INN,
+                                OKONX               = rek.OKONX,
+                                Name_Dir            = rek.Name_Dir,
+                                VIO                 = rek.VIO,
+                                Name_Zaveduyushiy   = rek.Name_Zaveduyushiy,
+                                Name_VedSpes        = rek.Name_VedSpes
                            };
 
             if(!rekvizit.Any())
@@ -285,12 +287,14 @@ namespace KasabaKIAT.Controllers
                     MFO = "",
                     Name_bank = "", 
                     Name_Dir = "",
+                    Name_Zaveduyushiy = "",
+                    Name_VedSpes = "",
                     OKONX = "",
                     PutDay = "",
                     RS = "",
                     VIO = false
                 }, JsonRequestBehavior.AllowGet);
-            } 
+            }
 
             return Json(rekvizit.ToList().First(), JsonRequestBehavior.AllowGet);
         }

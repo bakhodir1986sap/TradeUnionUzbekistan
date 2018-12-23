@@ -21,11 +21,11 @@
         <img src="~/Content/Login/buffering.gif" />
     </div>
     <div class="row" style="padding-left:15px !important">
-        <div class="col-md-6">
+        @*<div class="col-md-6">
             <h4 style="color:#167f91;">Аналитика </h4>
             <p style="">Время последнего обновления: @ViewBag.LastChangeTime </p><br>
             <p>Главная</p>
-        </div>
+        </div>*@
         @*<div class="col-md-6" style="display: flex;justify-content:flex-end; align-items: center">
                 <p style="padding-bottom:5px">
                     <img style="height:17px;width:17px" src="~/Content/Stat/Screen6.png"> - {{ModelResult.BronCount | currency:' '}} брони
@@ -83,20 +83,20 @@
         });
     </script>
 
-    <h4 style="padding-left:15px">Доходы Единый социальный платеж</h4>
+    <h4 style="padding-left:15px;color:black;font-style:oblique">Доходы Единый социальный платеж</h4>
     <div class="row">
         <div class="col-md-12" style="padding-left: 15px; padding-right: 15px">
             <div class="table-responsive box-shadow mb-4" style="padding-left: 15px; padding-right: 15px">
-                @Html.EJS().PivotView("kaznaOplata").Width("100%").Height("300").DataSource(dataSource => dataSource.Data((IEnumerable<object>)ViewBag.DataSource).ExpandAll(true).EnableSorting(true)
-                .FormatSettings(formatsettings => { formatsettings.Name("FederationAmount").MaximumSignificantDigits(10).MinimumSignificantDigits(1).UseGrouping(true).Add(); formatsettings.Name("OblSovProvAmount").MaximumSignificantDigits(10).MinimumSignificantDigits(1).UseGrouping(true).Add(); })
+                @Html.EJS().PivotView("kaznaOplata").Width("100%").Height("300").DataSource(dataSource => dataSource.Data((IEnumerable<object>)ViewBag.DataSource).ExpandAll(false).EnableSorting(true)
+                .FormatSettings(formatsettings => { formatsettings.Name("TotalByRow").MaximumSignificantDigits(10).MinimumSignificantDigits(1).UseGrouping(true).Add(); formatsettings.Name("FederationAmount").MaximumSignificantDigits(10).MinimumSignificantDigits(1).UseGrouping(true).Add(); formatsettings.Name("OblSovProvAmount").MaximumSignificantDigits(10).MinimumSignificantDigits(1).UseGrouping(true).Add(); })
                 .Rows(rows => { rows.Name("Tuman").Add(); rows.Name("Tarmoq").Add(); })
                 .Columns(columns => { columns.Name("Year").Add(); columns.Name("Quarter").Add(); })
-                .Values(values => { values.Name("FederationAmount").Caption("Федерация").Add(); values.Name("OblSovProvAmount").Caption("ОблсовПроф").Add(); })).ShowFieldList(true).Locale("fr-CH").GridSettings(new PivotViewGridSettings { ColumnWidth = 140 }).Render()
+                .Values(values => { values.Name("TotalByRow").Caption("Общая сумма 0,1%").Add(); values.Name("FederationAmount").Caption("Федерация").Add(); values.Name("OblSovProvAmount").Caption("ОблсовПроф").Add(); })).ShowFieldList(true).Locale("fr-CH").GridSettings(new PivotViewGridSettings { ColumnWidth = 140 }).Render()
             </div>
         </div>
     </div>
 
-    <h4 style="padding-left:15px">Частичная оплата за путевки</h4>
+    <h4 style="padding-left:15px;color:black;font-style:oblique">Частичная оплата за путевки</h4>
     <div class="row">
         <div class="col-md-12">
             <div class="table-responsive box-shadow mb-12" style="padding-left: 15px; padding-right: 15px">
@@ -123,7 +123,7 @@
     </div>
     <div class="row">
         <div class="col-md-12">
-            <h4 style="padding-left:15px">Путёвки</h4>
+            <h4 style="padding-left:15px;color:black;font-style:oblique">Путёвки</h4>
             <p style="padding-left:15px">@userName.CurKvartalYear</p>
             <div class="table-responsive box-shadow mb-4" style="padding-left:15px; padding-right:15px">
                 @Html.EJS().PivotView("Putyovkas").Width("100%").Height("300").DataSource(dataSource => dataSource.Data((IEnumerable<object>)ViewBag.DataPutyovkas).ExpandAll(false).EnableSorting(true)
@@ -136,7 +136,7 @@
     </div>
     <div class="row">
         <div class="col-md-12">
-            <h4 style="padding-left:15px">Реализация</h4>
+            <h4 style="padding-left:15px;color:black;font-style:oblique">Реализация</h4>
             <div class="table-responsive box-shadow mb-4" style="padding-left:15px; padding-right:15px">
                 @Html.EJS().PivotView("Realization").Width("100%").Height("300").DataSource(dataSource => dataSource.Data((IEnumerable<object>)ViewBag.RealizData).ExpandAll(false).EnableSorting(true)
                 .FormatSettings(formatsettings => { formatsettings.Name("s45Amount").MaximumSignificantDigits(10).MinimumSignificantDigits(1).UseGrouping(true).Add(); formatsettings.Name("s100Amount").MaximumSignificantDigits(10).MinimumSignificantDigits(1).UseGrouping(true).Add(); formatsettings.Name("s0Amount").MaximumSignificantDigits(10).MinimumSignificantDigits(1).UseGrouping(true).Add(); })
@@ -148,7 +148,7 @@
     </div>
     <div class="row">
         <div class="col-md-12">
-            <h4 style="padding-left:15px">Бронированные путевки</h4>
+            <h4 style="padding-left:15px;color:black;font-style:oblique">Бронированные путевки</h4>
             <div class="table-responsive box-shadow mb-4" style="padding-left: 15px; padding-right:15px">
                 @Html.EJS().PivotView("BronData").Width("100%").Height("300").DataSource(dataSource => dataSource.Data((IEnumerable<object>)ViewBag.BronData).ExpandAll(false).EnableSorting(true)
                 //.FormatSettings(formatsettings => { formatsettings.Name("BronCount").MaximumSignificantDigits(10).MinimumSignificantDigits(1).UseGrouping(true).Add(); formatsettings.Name("s100Amount").MaximumSignificantDigits(10).MinimumSignificantDigits(1).UseGrouping(true).Add(); formatsettings.Name("s0Amount").MaximumSignificantDigits(10).MinimumSignificantDigits(1).UseGrouping(true).Add(); })
@@ -160,7 +160,7 @@
     </div>
     <div class="row">
         <div class="col-md-12">
-            <h4 style="padding-left:15px">Задолженность по частичным оплатам</h4>
+            <h4 style="padding-left:15px;color:black;font-style:oblique">Задолженность по частичным оплатам</h4>
             <div class="table-responsive box-shadow mb-4" style="padding-left:15px; padding-right:15px">
                 @Html.EJS().PivotView("Zadoljennost").Width("100%").Height("300").DataSource(dataSource => dataSource.Data((IEnumerable<object>)ViewBag.ZadoljennostData).ExpandAll(false).EnableSorting(true)
                 .FormatSettings(formatsettings => { formatsettings.Name("ZadolAmount").MaximumSignificantDigits(10).MinimumSignificantDigits(1).UseGrouping(true).Add(); })

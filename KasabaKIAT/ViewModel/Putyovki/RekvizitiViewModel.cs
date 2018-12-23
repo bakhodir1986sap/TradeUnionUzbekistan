@@ -18,6 +18,8 @@ namespace KasabaKIAT.ViewModel.Putyovki
         public string INN       {get; set;}
         public string OKONX     {get; set;}
         public string Name_Dir  {get; set;}
+        public string Name_Zaveduyushiy { get; set; }
+        public string Name_VedSpes { get; set; }
         public string PutDay    {get; set;}
         public bool VIO { get; set; }
 

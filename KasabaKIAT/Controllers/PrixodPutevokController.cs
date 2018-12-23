@@ -42,6 +42,8 @@ using KasabaKIAT.BusinessLogic._3_Etap.Statistika;
 using System.Data.Entity.Validation;
 using KasabaKIAT.BusinessLogic.Utils.References;
 using KasabaKIAT.BusinessLogic.Utils;
+using Syncfusion.EJ2.Base;
+using System.Collections;
 
 namespace KasabaKIAT.Controllers
 {
@@ -1016,12 +1018,48 @@ namespace KasabaKIAT.Controllers
             int UserId = Convert.ToInt32(User.Identity.Name);
             var ustinfo = UserInfo.GetUserInfo(UserId);
 
-            var list = Sprav_Org.GetByDeraprtmentBaseV2(ustinfo.DepartmentBase);
+            //var list = Sprav_Org.GetByDeraprtmentBaseV2(ustinfo.DepartmentBase);
 
-            ViewBag.dataSource = list;
+            //ViewBag.dataSource = list;
 
             return View();
         }
+
+
+        public ActionResult GetYurLisoData([System.Web.Http.FromBody]DataManagerRequest dm)
+        {
+            int UserId = Convert.ToInt32(User.Identity.Name);
+            var ustinfo = UserInfo.GetUserInfo(UserId);
+
+            IEnumerable DataSource = Sprav_Org.GetByDeraprtmentBaseV2(ustinfo.DepartmentBase);
+
+            DataOperations operation = new DataOperations();
+
+            if (dm.Search != null && dm.Search.Count > 0)
+            {
+                DataSource = operation.PerformSearching(DataSource, dm.Search);  //Search            
+            }
+            if (dm.Sorted != null && dm.Sorted.Count > 0) //Sorting            
+            {
+                DataSource = operation.PerformSorting(DataSource, dm.Sorted);
+            }
+            if (dm.Where != null && dm.Where.Count > 0) //Filtering            
+            {
+                DataSource = operation.PerformFiltering(DataSource, dm.Where, dm.Where[0 ].Operator);
+            }
+            int count = DataSource.Cast<Sprav_OrgViewModel>().Count();
+
+            if (dm.Skip != 0)
+            {
+                DataSource = operation.PerformSkip(DataSource, dm.Skip);   //Paging            
+            }
+            if (dm.Take != 0)
+            {
+                DataSource = operation.PerformTake(DataSource, dm.Take);
+            }
+
+            return dm.RequiresCounts ? Json(new { result = DataSource, count = count }) : Json(DataSource);
+       }
 
         /// <summary>
         /// 
@@ -1334,11 +1372,46 @@ namespace KasabaKIAT.Controllers
             int UserId = Convert.ToInt32(User.Identity.Name);
             var ustinfo = UserInfo.GetUserInfo(UserId);
 
-            var list = Sprav_Org.GetFizLisoList(ustinfo.DepartmentBase);
+            //var list = Sprav_Org.GetFizLisoList(ustinfo.DepartmentBase);
 
-            ViewBag.dataSource = list.Take(50000);
+            //ViewBag.dataSource = list.Take(50000);
 
             return View();
+        }
+
+        public ActionResult GetFizLisoData([System.Web.Http.FromBody]DataManagerRequest dm)
+        {
+            int UserId = Convert.ToInt32(User.Identity.Name);
+            var ustinfo = UserInfo.GetUserInfo(UserId);
+
+            IEnumerable DataSource = Sprav_Org.GetFizLisoList(ustinfo.DepartmentBase);
+
+            DataOperations operation = new DataOperations();
+
+            if (dm.Search != null && dm.Search.Count > 0)
+            {
+                DataSource = operation.PerformSearching(DataSource, dm.Search);  //Search            
+            }
+            if (dm.Sorted != null && dm.Sorted.Count > 0) //Sorting            
+            {
+                DataSource = operation.PerformSorting(DataSource, dm.Sorted);
+            }
+            if (dm.Where != null && dm.Where.Count > 0) //Filtering            
+            {
+                DataSource = operation.PerformFiltering(DataSource, dm.Where, dm.Where[0].Operator);
+            }
+            int count = DataSource.Cast<Sprav_OrgViewModel>().Count();
+
+            if (dm.Skip != 0)
+            {
+                DataSource = operation.PerformSkip(DataSource, dm.Skip);   //Paging            
+            }
+            if (dm.Take != 0)
+            {
+                DataSource = operation.PerformTake(DataSource, dm.Take);
+            }
+
+            return dm.RequiresCounts ? Json(new { result = DataSource, count = count }) : Json(DataSource);
         }
 
         /// <summary>

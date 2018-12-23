@@ -1571,6 +1571,7 @@
     <Content Include="Content\ej2\fabric.css" />
     <Content Include="Content\ej2\highcontrast.css" />
     <Content Include="Content\ej2\material.css" />
+    <Content Include="Content\favicon.ico" />
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\icons\administ.png" />
     <Content Include="Content\icons\cancell_button.png" />
@@ -1634,6 +1635,7 @@
     <Content Include="Content\images\v-r.png" />
     <Content Include="Content\images\v-w.png" />
     <Content Include="Content\img\bg-moz.png" />
+    <Content Include="Content\styles\cd-top-arrow.svg" />
     <Content Include="Content\img\excel.JPG" />
     <Content Include="Content\img\item-1.jpg" />
     <Content Include="Content\img\item-10.JPG" />
@@ -1663,6 +1665,8 @@
     <Content Include="Content\Login\buffering.gif" />
     <Content Include="Content\Login\giphy-downsized-large.gif" />
     <Content Include="Content\Login\keys.ico" />
+    <Content Include="Content\logo.ico" />
+    <Content Include="Content\logo_2.ico" />
     <Content Include="Content\main.css" />
     <Content Include="Content\open-iconic-bootstrap.css" />
     <Content Include="Content\PagedList.css" />
@@ -1671,6 +1675,7 @@
     <Content Include="Content\Stat\color3.png" />
     <Content Include="Content\Stat\Screen5.png" />
     <Content Include="Content\Stat\Screen6.png" />
+    <Content Include="Content\styles\bottonUp.css" />
     <Content Include="Content\styles\main.css" />
     <Content Include="Content\styles\override.css" />
     <Content Include="Content\styles\vendor.css" />
@@ -1857,6 +1862,7 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\MyJavaScript\App.js" />
     <Content Include="Scripts\MyJavaScript\A_PPController.js" />
+    <Content Include="Scripts\MyJavaScript\ButtonUp.js" />
     <Content Include="Scripts\MyJavaScript\BU_PrasmotrDannix.js" />
     <Content Include="Scripts\MyJavaScript\Controller.js" />
     <Content Include="Scripts\MyJavaScript\DataService.js" />
@@ -2226,6 +2232,7 @@
     <Content Include="Views\Otchot\SanatoriyProfilaktoriySvodniy.cshtml" />
     <Content Include="Views\Otchot\LagerFinOtchot.cshtml" />
     <Content Include="Views\Otchot\LagerFinOtchotSvodniy.cshtml" />
+    <Content Include="Views\Home\StatFederasiyaV2 - Copy.cshtml" />
     <None Include="Web References\KurortUrlService\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>

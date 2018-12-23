@@ -17,6 +17,8 @@ namespace KasabaKIAT.BusinessLogic._4_Etap.Statistics
 
         public string Quarter { get; set; }
 
+        public decimal? TotalByRow { get; set; }
+
         public decimal? FederationAmount { get; set; }
 
         public decimal? OblSovProvAmount { get; set; }

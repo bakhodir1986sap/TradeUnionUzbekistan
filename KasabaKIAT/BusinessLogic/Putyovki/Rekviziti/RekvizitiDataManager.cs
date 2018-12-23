@@ -17,18 +17,20 @@ namespace KasabaKIAT.BusinessLogic.Putyovki.Rekviziti
                 tblPred vipl = new tblPred();
 
                 vipl.ID_Prof = 100;
-                vipl.ID_Name        = model.ID_Name         ;
-                vipl.ID_Pred        = model.ID_Pred         ;
-                vipl.ID_Pass        = model.ID_Pass         ;
-                vipl.Adress         = model.Adress          ;
-                vipl.RS             = model.RS              ;
-                vipl.Name_bank      = model.Name_bank       ;
-                vipl.MFO            = model.MFO             ;
-                vipl.INN            = model.INN             ;
-                vipl.OKONX          = model.OKONX           ;
-                vipl.Name_Dir       = model.Name_Dir        ;
-                vipl.VIO            = model.VIO             ;
-                vipl.Departmentbase = model.DepartmentBase  ;
+                vipl.ID_Name            = model.ID_Name         ;
+                vipl.ID_Pred            = model.ID_Pred         ;
+                vipl.ID_Pass            = model.ID_Pass         ;
+                vipl.Adress             = model.Adress          ;
+                vipl.RS                 = model.RS              ;
+                vipl.Name_bank          = model.Name_bank       ;
+                vipl.MFO                = model.MFO             ;
+                vipl.INN                = model.INN             ;
+                vipl.OKONX              = model.OKONX           ;
+                vipl.Name_Dir           = model.Name_Dir;
+                vipl.Name_Zaveduyushiy  = model.Name_Zaveduyushiy;
+                vipl.Name_VedSpes       = model.Name_VedSpes;
+                vipl.VIO                = model.VIO             ;
+                vipl.Departmentbase     = model.DepartmentBase  ;
 
                 var pst = db.tblPreds.Add(vipl);
 
@@ -58,6 +60,8 @@ namespace KasabaKIAT.BusinessLogic.Putyovki.Rekviziti
                         vipl1.INN = model.INN;
                         vipl1.OKONX = model.OKONX;
                         vipl1.Name_Dir = model.Name_Dir;
+                        vipl1.Name_Zaveduyushiy = model.Name_Zaveduyushiy;
+                        vipl1.Name_VedSpes = model.Name_VedSpes;
                         vipl1.VIO = model.VIO;
                     }
                 }

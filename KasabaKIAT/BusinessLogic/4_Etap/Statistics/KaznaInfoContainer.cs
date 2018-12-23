@@ -28,6 +28,7 @@ namespace KasabaKIAT.BusinessLogic._4_Etap.Statistics
                     opl.FederationAmount = obj.FEDERATION_AMT;
                     opl.OblSovProf = obj.ProfsoyzNaimenovanie;
                     opl.OblSovProvAmount = obj.OBLSOVPROF_AMT;
+                    opl.TotalByRow = opl.FederationAmount + opl.OblSovProvAmount;
                     opl.Quarter = string.Format("{0} квартал" ,obj.QUARTER_op.Value);
                     opl.Tarmoq = obj.BRANCH_NAME;
                     opl.Tuman = obj.SOATO_NAME;
@@ -60,6 +61,7 @@ namespace KasabaKIAT.BusinessLogic._4_Etap.Statistics
                     opl.FederationAmount = obj.FEDERATION_AMT;
                     opl.OblSovProf = obj.ProfsoyzNaimenovanie;
                     opl.OblSovProvAmount = obj.OBLSOVPROF_AMT;
+                    opl.TotalByRow = opl.FederationAmount + opl.OblSovProvAmount;
                     opl.Quarter = string.Format("{0} квартал", obj.QUARTER_op.Value);
                     opl.Tarmoq = obj.BRANCH_NAME;
                     opl.Tuman = obj.SOATO_NAME;
@@ -90,6 +92,7 @@ namespace KasabaKIAT.BusinessLogic._4_Etap.Statistics
                     opl.FederationAmount = obj.FEDERATION_AMT;
                     opl.OblSovProf = obj.ProfsoyzNaimenovanie;
                     opl.OblSovProvAmount = obj.OBLSOVPROF_AMT;
+                    opl.TotalByRow = opl.FederationAmount + opl.OblSovProvAmount;
                     opl.Quarter = string.Format("{0} квартал", obj.QUARTER_op.Value);
                     opl.Tarmoq = obj.BRANCH_NAME;
                     opl.Tuman = obj.SOATO_NAME;

@@ -2437,6 +2437,8 @@ warning 6002: The table/view 'KasabaKIAT_N1.dbo.tblFace_Two' does not have a pri
           <Property Name="UserId" Type="bigint" />
           <Property Name="Departmentbase" Type="nvarchar" MaxLength="255" Nullable="false" />
           <Property Name="KaznaAccount" Type="varchar" MaxLength="50" />
+          <Property Name="Name_Zaveduyushiy" Type="nvarchar" MaxLength="25" />
+          <Property Name="Name_VedSpes" Type="nvarchar" MaxLength="25" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'KasabaKIAT_N1.dbo.tblPutevka' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -15544,6 +15546,8 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <Property Name="Departmentbase" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="KaznaAccount" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="user" Relationship="KasabaKIATModel.FK_tblPred_Users" FromRole="tblPred" ToRole="users" />
+          <Property Name="Name_Zaveduyushiy" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="Name_VedSpes" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
         </EntityType>
         <Association Name="FK_tblPred_Users">
           <End Type="KasabaKIATModel.users" Role="users" Multiplicity="0..1" />
@@ -20292,6 +20296,8 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <EntitySetMapping Name="tblPreds">
             <EntityTypeMapping TypeName="KasabaKIATModel.tblPred">
               <MappingFragment StoreEntitySet="tblPred">
+                <ScalarProperty Name="Name_VedSpes" ColumnName="Name_VedSpes" />
+                <ScalarProperty Name="Name_Zaveduyushiy" ColumnName="Name_Zaveduyushiy" />
                 <ScalarProperty Name="KaznaAccount" ColumnName="KaznaAccount" />
                 <ScalarProperty Name="Departmentbase" ColumnName="Departmentbase" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />

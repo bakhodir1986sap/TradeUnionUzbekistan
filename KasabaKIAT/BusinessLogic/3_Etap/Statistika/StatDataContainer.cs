@@ -65,7 +65,7 @@ namespace KasabaKIAT.BusinessLogic._3_Etap.Statistika
             IBaseStatViewModel _statModel = null;
             if (statDataPerUser.TryGetValue(depCode, out _statModel))
             {
-                if (_statModel.LastChangeDate.AddMinutes(120) <= DateTime.Now)
+                if (_statModel.LastChangeDate.AddMinutes(240) <= DateTime.Now)
                 {
                     try
                     {

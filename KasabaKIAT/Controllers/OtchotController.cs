@@ -423,6 +423,12 @@ namespace KasabaKIAT.Controllers
             return View();
         }
 
+        [OutputCache(Duration = 5, Location = OutputCacheLocation.Client, VaryByCustom = "userId")]
+        public ActionResult FinansoviyOtchotKvartalniySvodniyRazbivka()
+        {
+            return View();
+        }
+
 
         /// <summary>
         /// 

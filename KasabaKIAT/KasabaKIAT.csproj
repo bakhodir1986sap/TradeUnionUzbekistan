@@ -2233,6 +2233,7 @@
     <Content Include="Views\Otchot\LagerFinOtchot.cshtml" />
     <Content Include="Views\Otchot\LagerFinOtchotSvodniy.cshtml" />
     <Content Include="Views\Home\StatFederasiyaV2 - Copy.cshtml" />
+    <Content Include="Views\Otchot\FinansoviyOtchotKvartalniySvodniyRazbivka.cshtml" />
     <None Include="Web References\KurortUrlService\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>

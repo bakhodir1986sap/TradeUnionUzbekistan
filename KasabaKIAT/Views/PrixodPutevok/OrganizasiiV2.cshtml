@@ -23,18 +23,21 @@
                     </nav>
                 </div>
             </div>
-            @Html.EJS().Grid("organization").DataSource(dataManager => { dataManager.Url("/PrixodPutevok/GetYurLisoData").Adaptor("UrlAdaptor"); }).AllowExcelExport().ToolbarClick("toolbarClick").Columns(col=> {
-           col.Field("OtraslName").HeaderText("Отрасль").MinWidth("30").IsPrimaryKey(true).AllowEditing(false).DefaultValue("1").Add();
-           col.Field("Name_Org").HeaderText("Название организации").MinWidth("50").Add();
-           col.Field("INN").HeaderText("ИНН Профкома").MinWidth("9").AllowEditing(false).Add();
-           col.Field("RS").HeaderText("Расчетный счет").MinWidth("20").Add();
-           col.Field("MFO").HeaderText("МФО").MinWidth("5").Add();
-           col.Field("Bank").HeaderText("Банк").MinWidth("40").Add();
-           col.Field("OKONX").HeaderText("ОКЭД").MinWidth("9").Add();
-           col.Field("Adress").HeaderText("Адрес").Width("40").Add();
-           col.Field("Telefon").HeaderText("Телефон").Width("40").Add();
-           col.Field("RegionName").HeaderText("Район").MinWidth("40").Add();
-       }).AllowPaging().AllowResizing().AllowRowDragAndDrop().AllowSorting().AllowFiltering().Toolbar(new List<string>() { "Search", "ExcelExport" }).Render()
+         @Html.EJS().Grid("organization").DataSource(dataManager => { dataManager.Url("/PrixodPutevok/GetYurLisoData").Adaptor("UrlAdaptor"); }).AllowExcelExport().ToolbarClick("toolbarClick").Columns(col=> {
+
+        col.Field("OblSovProfName").HeaderText("Область").MinWidth("50").Add();
+        col.Field("RegionName").HeaderText("Район").MinWidth("40").Add();
+        col.Field("Name_Org").HeaderText("Название организации").MinWidth("80").Add();
+        col.Field("INN").HeaderText("ИНН Профкома").MinWidth("9").AllowEditing(false).Add();
+        col.Field("RS").HeaderText("Расчетный счет").MinWidth("20").Add();
+        col.Field("MFO").HeaderText("МФО").MinWidth("5").Add();
+        col.Field("Bank").HeaderText("Банк").MinWidth("40").Add();
+        col.Field("OKONX").HeaderText("ОКЭД").MinWidth("9").Add();
+        col.Field("Adress").HeaderText("Адрес").Width("40").Add();
+        col.Field("Telefon").HeaderText("Телефон").Width("40").Add();
+        col.Field("OtraslName").HeaderText("Отрасль").MinWidth("30").Add();
+
+        }).AllowPaging().AllowResizing().AllowRowDragAndDrop().AllowSorting().AllowFiltering().Toolbar(new List<string>() { "Search" }).Render()
 
             <script>
                 function toolbarClick(args) {

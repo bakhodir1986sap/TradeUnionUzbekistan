@@ -27,8 +27,8 @@
                     <a href="/Otchot/RazbivkaPostupleniyaNV2" class="list-group-item list-group-item-action load">Разбивка поступления</a>
                     <a href="/Otchot/PostupleniyaOblastyamV2" class="list-group-item list-group-item-action load">Поступление По Областям</a>
                     <a href="/Otchot/PostupleniyaOtrasliV2" class="list-group-item list-group-item-action load">Поступление По Отрасли</a>
-                    <a href="/Otchot/PostupleniyaOkonxu" class="list-group-item list-group-item-action load">Поступление По Оконху</a>
-                    <a href="/Otchot/PostupleniyaTuman" class="list-group-item list-group-item-action load">Разбивка по Областям и Районам</a>
+                    @*<a href="/Otchot/PostupleniyaOkonxu" class="list-group-item list-group-item-action load">Поступление По Оконху</a>*@
+                    <a href="/Otchot/PostupleniyaTumanV2" class="list-group-item list-group-item-action load">Разбивка по Областям и Районам</a>
                 }
 
 
@@ -36,7 +36,7 @@
                 {
                     <a href="/Otchot/PostupleniyaN" class="list-group-item list-group-item-action load">Поступления по ИНН</a>
                     <a href="/Otchot/RazbivkaPostupleniyaN" class="list-group-item list-group-item-action load">Разбивка поступления</a>
-
+                     
 
                     if (ustinfo.IsPrivOrg)
                     {
@@ -44,7 +44,7 @@
                         <a href="/Otchot/PostupleniyaOtrasli" class="list-group-item list-group-item-action load">Поступление По Отрасли</a>
                         <a href="/Otchot/PostupleniyaOtrasliPivod" class="list-group-item list-group-item-action load">Поступление По Отрасли Разбивка</a>
 
-                        <a href="/Otchot/PostupleniyaOkonxu" class="list-group-item list-group-item-action load">Поступление По Оконху</a>
+                        @*<a href="/Otchot/PostupleniyaOkonxu" class="list-group-item list-group-item-action load">Поступление По Оконху</a>*@
                         <a href="/Otchot/PostupleniyaTuman" class="list-group-item list-group-item-action load">Разбивка по Областям и Районам</a>
 
                         <a id="ReportUrl_Performance" class="list-group-item list-group-item-action load" href="@Url.Action("ReportTemplate", "Report",

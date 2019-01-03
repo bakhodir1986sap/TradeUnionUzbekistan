@@ -47,14 +47,14 @@
         <div class="table-responsive box-shadow mb-4" id="export">
             @Html.EJS().Grid("PostuplniyaN").DataSource((IEnumerable<object>)ViewBag.dataSource).AllowExcelExport().ToolbarClick("toolbarClick").Columns(col=>
        {
-           col.Field("operday").HeaderText("Дата Платежа").Width("10").AllowEditing(false).Add();
-           col.Field("inn").HeaderText("ИНН").Width("9").Add();
-           col.Field("clname").HeaderText("Клиент").Width("30").Add();
-           col.Field("postupleniya").HeaderText("Оплата_ЕСП_всего").Width("10").Add();
-           col.Field("obshiy01").HeaderText("0,1_%_в_Профсоюз").Width("10").Add();
-           col.Field("federation_amt").HeaderText("в_Федерацию").Width("10").Add();
-           col.Field("oblsovprof_amt").HeaderText("в_ОблсовПроф").Width("50").Add();
-           col.Field("purpose").HeaderText("Детали платежа").Width("10").Add();
+           col.Field("operday").HeaderText("Дата Платежа").MinWidth("10").Add();
+           col.Field("inn").HeaderText("ИНН").MinWidth("9").Add();
+           col.Field("clname").HeaderText("Клиент").MinWidth("30").Add();
+           col.Field("postupleniya").HeaderText("Оплата_ЕСП_всего").Format("").MinWidth("10").Add();
+           col.Field("obshiy01").HeaderText("0,1_%_в_Профсоюз").Format("").MinWidth("10").Add();
+           col.Field("federation_amt").HeaderText("в_Федерацию").Format("").MinWidth("10").Add();
+           col.Field("oblsovprof_amt").HeaderText("в_ОблсовПроф").Format("").MinWidth("10").Add();
+           col.Field("purpose").HeaderText("Детали платежа").MinWidth("100").Add();
        }
             ).AllowPaging().AllowFiltering().AllowResizing().PageSettings(page=>page.PageCount(5)).Toolbar(new List<string>
         () { "ExcelExport" }).Render()

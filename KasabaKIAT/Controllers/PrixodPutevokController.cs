@@ -1025,13 +1025,20 @@ namespace KasabaKIAT.Controllers
             return View();
         }
 
+        public static IEnumerable DataSourceF { get; set; }
+
 
         public ActionResult GetYurLisoData([System.Web.Http.FromBody]DataManagerRequest dm)
         {
             int UserId = Convert.ToInt32(User.Identity.Name);
             var ustinfo = UserInfo.GetUserInfo(UserId);
 
-            IEnumerable DataSource = Sprav_Org.GetByDeraprtmentBaseV2(ustinfo.DepartmentBase);
+            if (DataSourceF == null)
+            {
+                DataSourceF = Sprav_Org.GetByDeraprtmentBaseV2(ustinfo.DepartmentBase);
+            }
+
+            var DataSource = DataSourceF;
 
             DataOperations operation = new DataOperations();
 
@@ -1379,12 +1386,19 @@ namespace KasabaKIAT.Controllers
             return View();
         }
 
+        public static IEnumerable DataSourceFiz { get; set; }
+
         public ActionResult GetFizLisoData([System.Web.Http.FromBody]DataManagerRequest dm)
         {
             int UserId = Convert.ToInt32(User.Identity.Name);
             var ustinfo = UserInfo.GetUserInfo(UserId);
 
-            IEnumerable DataSource = Sprav_Org.GetFizLisoList(ustinfo.DepartmentBase);
+            if (DataSourceFiz == null)
+            {
+                DataSourceFiz = Sprav_Org.GetFizLisoList(ustinfo.DepartmentBase);
+            }
+
+            IEnumerable DataSource = DataSourceFiz;
 
             DataOperations operation = new DataOperations();
 

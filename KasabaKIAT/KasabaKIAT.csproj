@@ -615,10 +615,40 @@
     <Compile Include="Models\sp_get_RealizasiyaPutyovokGroup_Result1.cs">
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\sp_monit_MonitoringOxvataSistemi_Result.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_monit_MonitoringOxvataSistemi_Result1.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_monit_NarusheniyaPoProvodkam_Result.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_monit_NarusheniyaPoProvodkam_Result1.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_monit_PererasxodPlanaPoFinOtchetu_Result.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_monit_PererasxodPlanaPoFinOtchetu_Result1.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\sp_monit_PererasxodPoPutyovkamV2_Result.cs">
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\sp_monit_PererasxodPoPutyovkamV2_Result1.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_monit_PererasxodPoPutyovkam_Result.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_monit_PererasxodPoPutyovkam_Result1.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_monit_PostupleniyeOtKaznaCheystva_Result.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_monit_PostupleniyeOtKaznaCheystva_Result1.cs">
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\sp_pr_GetNewTransactions_Result.cs">
@@ -670,6 +700,9 @@
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\sp_rt_JurnalniyOrder6_Result.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_rt_JurnalniyOrderOtcheti_Result.cs">
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\sp_rt_KartochkaOrganizasiiHistoriDtlPrixod_Result.cs">
@@ -2234,6 +2267,22 @@
     <Content Include="Views\Otchot\LagerFinOtchotSvodniy.cshtml" />
     <Content Include="Views\Home\StatFederasiyaV2 - Copy.cshtml" />
     <Content Include="Views\Otchot\FinansoviyOtchotKvartalniySvodniyRazbivka.cshtml" />
+    <Content Include="Views\Otchot\PostupleniyaTumanV2.cshtml" />
+    <Content Include="Views\Otchot\ProvodkiDetailV2.cshtml" />
+    <Content Include="Views\Otchot\ProvodkiSummaryV2.cshtml" />
+    <Content Include="Views\Otchot\JurOrder1Otchet.cshtml" />
+    <Content Include="Views\Otchot\JurOrder2Otchet.cshtml" />
+    <Content Include="Views\Otchot\JurOrder3Otchet.cshtml" />
+    <Content Include="Views\Otchot\JurOrder4Otchet.cshtml" />
+    <Content Include="Views\Otchot\JurOrder5Otchet.cshtml" />
+    <Content Include="Views\Otchot\JurOrder6Otchet.cshtml" />
+    <Content Include="Views\Otchot\JurOrder7Otchet.cshtml" />
+    <Content Include="Views\Otchot\JurOrder11Otchet .cshtml" />
+    <Content Include="Views\Otchot\MonitoringOxvataSistemi.cshtml" />
+    <Content Include="Views\Otchot\MonitoringNarusheniyaPoProvodkam.cshtml" />
+    <Content Include="Views\Otchot\MonitoringPererasxodPlanaPoFinOtchetu.cshtml" />
+    <Content Include="Views\Otchot\MonitoringPererasxodPoPutyovkam.cshtml" />
+    <Content Include="Views\Otchot\MonitoringPostupOtKaznaCheystva.cshtml" />
     <None Include="Web References\KurortUrlService\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>

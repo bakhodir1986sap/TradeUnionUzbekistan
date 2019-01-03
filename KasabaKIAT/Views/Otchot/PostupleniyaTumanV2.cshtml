@@ -1,0 +1,59 @@
+﻿@{
+    ViewBag.Title = "Отчеты";
+}
+<script src="~/Scripts/MyJavaScript/PostupleniyaTuman.js"></script>
+<div ng-controller="PostupleniyaTuman">
+    <div id="connection" style="visibility:hidden;position:absolute;margin-left:600px;margin-top:100px;z-index:9999">
+        <img src="~/Content/Login/buffering.gif" />
+    </div>
+    <section class="content__block container-fluid">
+        <div class="row mb-4 align-items-center">
+            <div class="col title__block">
+                <h4>Разбивка по Областям и Районам</h4>
+                <nav aria-label="breadcrumb" class="breadcrumb__block">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item load"><a href="/Otchot/OtchetTitul">Отчеты</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Разбивка по Областям и Районам</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+        @using (Html.BeginForm("GetPostupleniyaTumanV2", "Otchot", new { page = 1 }, FormMethod.Get))
+        {
+            <div class="row">
+                <div style="margin-left:20px;width:300px">
+                    <p>Период с:</p>
+                    @Html.EJS().DatePicker("bg").Placeholder("Выберите Дату").CssClass("form-control").Value(@ViewBag.BeginDate).Format("yyyy-MM-dd").Render()
+                </div>
+                <div style="margin-left:100px;width:300px">
+                    <p>Период по:</p>
+                    @Html.EJS().DatePicker("end").Placeholder("Выберите Дату").CssClass("form-control").Value(@ViewBag.EndDate).Format("yyyy-MM-dd").Render()
+                </div>
+            </div>
+            @Html.EJS().Button("infobtn").Content("Получить").CssClass("e-info").Render()
+            @Html.Raw(" ");
+        }
+        <div class="table-responsive box-shadow mb-4" id="export">
+            @Html.EJS().Grid("PostupleniyaTuman").DataSource((IEnumerable<object>)ViewBag.DataSourcePostup).AllowExcelExport().ToolbarClick("toolbarClick").Columns(col=>
+            {
+                col.Field("OBLAST_NAME").HeaderText("Область").MinWidth("30").Add();
+                col.Field("TUMAN_NAME").HeaderText("Район").MinWidth("30").Add();
+                col.Field("KOLICHESTVO").HeaderText("Количество Строк").MinWidth("10").Add();
+                col.Field("summa").HeaderText("Сумма").Format("").MinWidth("30").Add();
+            }
+            ).AllowPaging().AllowFiltering().AllowResizing().AllowSorting().PageSettings(page=>page.PageCount(5)).Toolbar(new List<string>
+            () { "ExcelExport" }).Render()
+            <script>
+                function toolbarClick(args) {
+                    var gridObj = document.getElementById("PostupleniyaTuman").ej2_instances[0];
+                    if (args.item.id === 'PostupleniyaTuman_excelexport') {
+                        gridObj.excelExport();
+                    }
+                }
+            </script>
+        </div>
+    </section>
+</div>
+
+
+

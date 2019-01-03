@@ -20,7 +20,6 @@ namespace KasabaKIAT.Models
         public KasabaKIATEntities()
             : base("name=KasabaKIATEntities")
         {
-            ((IObjectContextAdapter)this).ObjectContext.CommandTimeout = 300;
         }
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -2381,6 +2380,112 @@ namespace KasabaKIAT.Models
         public virtual ObjectResult<sp_stat_KaznaDataFedOrg_V2_Result> sp_stat_KaznaDataFedOrg_V2()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_stat_KaznaDataFedOrg_V2_Result>("sp_stat_KaznaDataFedOrg_V2");
+        }
+    
+        public virtual ObjectResult<sp_rt_JurnalniyOrderOtcheti_Result> sp_rt_JurnalniyOrderOtcheti(string dEPARTMENT_BASE, Nullable<long> jO_NUMBER, Nullable<System.DateTime> bEGIN_DATE, Nullable<System.DateTime> eND_DATE)
+        {
+            var dEPARTMENT_BASEParameter = dEPARTMENT_BASE != null ?
+                new ObjectParameter("DEPARTMENT_BASE", dEPARTMENT_BASE) :
+                new ObjectParameter("DEPARTMENT_BASE", typeof(string));
+    
+            var jO_NUMBERParameter = jO_NUMBER.HasValue ?
+                new ObjectParameter("JO_NUMBER", jO_NUMBER) :
+                new ObjectParameter("JO_NUMBER", typeof(long));
+    
+            var bEGIN_DATEParameter = bEGIN_DATE.HasValue ?
+                new ObjectParameter("BEGIN_DATE", bEGIN_DATE) :
+                new ObjectParameter("BEGIN_DATE", typeof(System.DateTime));
+    
+            var eND_DATEParameter = eND_DATE.HasValue ?
+                new ObjectParameter("END_DATE", eND_DATE) :
+                new ObjectParameter("END_DATE", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_rt_JurnalniyOrderOtcheti_Result>("sp_rt_JurnalniyOrderOtcheti", dEPARTMENT_BASEParameter, jO_NUMBERParameter, bEGIN_DATEParameter, eND_DATEParameter);
+        }
+    
+        public virtual ObjectResult<sp_monit_MonitoringOxvataSistemi_Result1> sp_monit_MonitoringOxvataSistemi(string departmentBase, Nullable<int> yEAR, Nullable<int> kVARTAL)
+        {
+            var departmentBaseParameter = departmentBase != null ?
+                new ObjectParameter("departmentBase", departmentBase) :
+                new ObjectParameter("departmentBase", typeof(string));
+    
+            var yEARParameter = yEAR.HasValue ?
+                new ObjectParameter("YEAR", yEAR) :
+                new ObjectParameter("YEAR", typeof(int));
+    
+            var kVARTALParameter = kVARTAL.HasValue ?
+                new ObjectParameter("KVARTAL", kVARTAL) :
+                new ObjectParameter("KVARTAL", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_monit_MonitoringOxvataSistemi_Result1>("sp_monit_MonitoringOxvataSistemi", departmentBaseParameter, yEARParameter, kVARTALParameter);
+        }
+    
+        public virtual ObjectResult<sp_monit_NarusheniyaPoProvodkam_Result1> sp_monit_NarusheniyaPoProvodkam(string departmentBase, Nullable<int> yEAR, Nullable<int> kVARTAL)
+        {
+            var departmentBaseParameter = departmentBase != null ?
+                new ObjectParameter("departmentBase", departmentBase) :
+                new ObjectParameter("departmentBase", typeof(string));
+    
+            var yEARParameter = yEAR.HasValue ?
+                new ObjectParameter("YEAR", yEAR) :
+                new ObjectParameter("YEAR", typeof(int));
+    
+            var kVARTALParameter = kVARTAL.HasValue ?
+                new ObjectParameter("KVARTAL", kVARTAL) :
+                new ObjectParameter("KVARTAL", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_monit_NarusheniyaPoProvodkam_Result1>("sp_monit_NarusheniyaPoProvodkam", departmentBaseParameter, yEARParameter, kVARTALParameter);
+        }
+    
+        public virtual ObjectResult<sp_monit_PererasxodPlanaPoFinOtchetu_Result1> sp_monit_PererasxodPlanaPoFinOtchetu(string departmentBase, Nullable<int> yEAR, Nullable<int> kVARTAL)
+        {
+            var departmentBaseParameter = departmentBase != null ?
+                new ObjectParameter("departmentBase", departmentBase) :
+                new ObjectParameter("departmentBase", typeof(string));
+    
+            var yEARParameter = yEAR.HasValue ?
+                new ObjectParameter("YEAR", yEAR) :
+                new ObjectParameter("YEAR", typeof(int));
+    
+            var kVARTALParameter = kVARTAL.HasValue ?
+                new ObjectParameter("KVARTAL", kVARTAL) :
+                new ObjectParameter("KVARTAL", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_monit_PererasxodPlanaPoFinOtchetu_Result1>("sp_monit_PererasxodPlanaPoFinOtchetu", departmentBaseParameter, yEARParameter, kVARTALParameter);
+        }
+    
+        public virtual ObjectResult<sp_monit_PererasxodPoPutyovkam_Result1> sp_monit_PererasxodPoPutyovkam(string departmentBase, Nullable<int> yEAR, Nullable<int> kVARTAL)
+        {
+            var departmentBaseParameter = departmentBase != null ?
+                new ObjectParameter("departmentBase", departmentBase) :
+                new ObjectParameter("departmentBase", typeof(string));
+    
+            var yEARParameter = yEAR.HasValue ?
+                new ObjectParameter("YEAR", yEAR) :
+                new ObjectParameter("YEAR", typeof(int));
+    
+            var kVARTALParameter = kVARTAL.HasValue ?
+                new ObjectParameter("KVARTAL", kVARTAL) :
+                new ObjectParameter("KVARTAL", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_monit_PererasxodPoPutyovkam_Result1>("sp_monit_PererasxodPoPutyovkam", departmentBaseParameter, yEARParameter, kVARTALParameter);
+        }
+    
+        public virtual ObjectResult<sp_monit_PostupleniyeOtKaznaCheystva_Result1> sp_monit_PostupleniyeOtKaznaCheystva(string departmentBase, Nullable<int> yEAR, Nullable<int> kVARTAL)
+        {
+            var departmentBaseParameter = departmentBase != null ?
+                new ObjectParameter("departmentBase", departmentBase) :
+                new ObjectParameter("departmentBase", typeof(string));
+    
+            var yEARParameter = yEAR.HasValue ?
+                new ObjectParameter("YEAR", yEAR) :
+                new ObjectParameter("YEAR", typeof(int));
+    
+            var kVARTALParameter = kVARTAL.HasValue ?
+                new ObjectParameter("KVARTAL", kVARTAL) :
+                new ObjectParameter("KVARTAL", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_monit_PostupleniyeOtKaznaCheystva_Result1>("sp_monit_PostupleniyeOtKaznaCheystva", departmentBaseParameter, yEARParameter, kVARTALParameter);
         }
     }
 }

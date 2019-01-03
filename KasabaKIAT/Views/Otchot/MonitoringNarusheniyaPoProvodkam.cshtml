@@ -1,0 +1,61 @@
+﻿@{
+    ViewBag.Title = "Отчеты Мониторинг";
+}
+@using Syncfusion.EJ2
+@using Syncfusion.EJ2.DropDowns
+@using KasabaKIAT.BusinessLogic.Utils.References
+<div>
+    <div id="connection" style="visibility:hidden;position:absolute;margin-left:600px;margin-top:100px;z-index:9999">
+        <img src="~/Content/Login/buffering.gif" />
+    </div>
+    <div class="row mb-4 align-items-center">
+        <div class="col title__block">
+            <h4>Нарушения с проводками</h4>
+            <nav aria-label="breadcrumb" class="breadcrumb__block">
+                <ol class="breadcrumb">
+                    @*<li class="breadcrumb-item load"><a href="/Home/Otchot">Отчеты</a></li>*@
+                    <li class="breadcrumb-item load"><a href="/Otchot/OtchetTitul">Отчеты</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Нарушения с проводками</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+    @using (Html.BeginForm("GetMonitoringNarusheniyaPoProvodkam", "Otchot", FormMethod.Get))
+    {
+        <div class="col-md-6 form-group">
+            <div class="row">
+                <div class="col-md-4 form-group">
+                    <label>Год</label>
+                    @Html.EJS().ComboBox("year").Placeholder("Выберите год").PopupHeight("230px").Index(1).DataSource((IEnumerable<Years>
+                      )ViewBag.YearsList).Fields(new ComboBoxFieldSettings { Text = "year_id", Value = "year_str" }).Value(@ViewBag.Year).Render()
+                </div>
+                <div class="col-md-4 form-group">
+                    <label>Квартал</label>
+                    @Html.EJS().ComboBox("kvartal").Placeholder("Выберите квартал").PopupHeight("230px").Index(0).DataSource((IEnumerable<Kvartals>
+                      )ViewBag.KvartalsList).Fields(new ComboBoxFieldSettings { Text = "Name", Value = "id" }).Value(@ViewBag.Kvartal).Render()
+                </div>
+                <div style="margin-left:160px">
+                    <p></p>
+                    @Html.EJS().Button("infobtn").Content("Сформировать отчет").CssClass("e-info").Render()
+                </div>
+            </div>
+        </div>
+    }
+    <div class="table-responsive box-shadow mb-4" id="export">
+        @Html.EJS().Grid("glavnayaKniga").DataSource((IEnumerable<object>)ViewBag.Datasource).AllowExcelExport().ToolbarClick("toolbarClick").Columns(col=> {
+           col.Field("DataProvodki").HeaderText("Дата проводки").MinWidth("50").Format("yyyy-MM-dd").MinWidth("10").Add();
+           col.Field("NazvaniyeOrganizasii").HeaderText("Название организации").MinWidth("100").Add();
+           col.Field("ImyaPolzovatelya").HeaderText("Пользователь").Format("").MinWidth("100").Add();
+           col.Field("DanniyeProvodki").HeaderText("Данные Проводки").Format("").MinWidth("100").Add();
+       }).AllowPaging().AllowFiltering().AllowResizing().AllowReordering().PageSettings(page=>page.PageCount(5)).Toolbar(new List<string>
+            () { "ExcelExport" }).Render()
+        <script>
+            function toolbarClick(args) {
+                var gridObj = document.getElementById("glavnayaKniga").ej2_instances[0];
+                if (args.item.id === 'glavnayaKniga_excelexport') {
+                    gridObj.excelExport();
+                }
+            }
+        </script>
+    </div>
+</div>

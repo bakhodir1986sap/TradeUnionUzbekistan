@@ -7,6 +7,43 @@
 <script src="~/Scripts/dist/jspdf.debug.js"></script>
 <script src="~/Scripts/basic.js"></script>
 <script src="~/Scripts/MyJavaScript/Ilxom/RasxodPutyovokN4.js"></script>
+<script>
+function Export2Doc(element = 'schetfaktura', filename = 'СчетФактура'){
+    var preHtml = "<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'><head><meta charset='utf-8'><title>Export HTML To Doc</title></head><body>";
+    var postHtml = "</body></html>";
+    var html = preHtml+document.getElementById(element).innerHTML+postHtml;
+
+    var blob = new Blob(['\ufeff', html], {
+        type: 'application/msword'
+    });
+    
+    // Specify link url
+    var url = 'data:application/vnd.ms-word;charset=utf-8,' + encodeURIComponent(html);
+    
+    // Specify file name
+    filename = filename?filename+'.doc':'document.doc';
+    
+    // Create download link element
+    var downloadLink = document.createElement("a");
+
+    document.body.appendChild(downloadLink);
+    
+    if(navigator.msSaveOrOpenBlob ){
+        navigator.msSaveOrOpenBlob(blob, filename);
+    }else{
+        // Create a link to the file
+        downloadLink.href = url;
+        
+        // Setting the file name
+        downloadLink.download = filename;
+        
+        //triggering the function
+        downloadLink.click();
+    }
+    
+    document.body.removeChild(downloadLink);
+}
+</script>
 <div id="connection" style="visibility:hidden;position:absolute;margin-left:430px;z-index:9999">
     <img src="~/Content/Login/buffering.gif" />
 </div>
@@ -66,6 +103,7 @@
                         @*<a href="#" class="btn btn-danger d-block d-md-inline-block mb-3 mt-20">Удалить</a>*@
                         <a @*href="@Url.Action("ReportTemplate", "Report",
                         new { ReportName = "Оперативка по путевкам", ReportDescription = "Оперативка по путевкам", Width = 100, Height = 650 })"*@ class="btn btn-grey d-block d-md-inline-block mb-3 mt-20" @*ng-click="printDiv('schetfaktura')"*@ ng-click="SchetFakturaPrint()"><i class="fa fa-print"></i>Печать</a>
+                        <button onclick="Export2Doc();"><i class="fa fa-print"></i>Печать в Word Документ</button>
                     </div>
                     <div class="table-responsive box-shadow table-fixed mb-4 mt-20">
                         <table class="table table__block t-hover table__small table-fixed">

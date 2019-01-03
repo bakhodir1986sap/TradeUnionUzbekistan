@@ -1346,7 +1346,7 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.Provodki.AutomaticTransactions.K
 
                             ProvodkiDataManager.Create(ref trans, db, out tbbu_provodki firstp);
 
-                            var trans1 = new ProvodkiViewModel();
+                            /*var trans1 = new ProvodkiViewModel();
                             #region Clear
                             {
                                 trans1.comment = string.Empty;
@@ -1619,7 +1619,7 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.Provodki.AutomaticTransactions.K
                                 return;
                             }
 
-                            #endregion
+                            #endregion*/
                         }
 
                         db.SaveChanges();

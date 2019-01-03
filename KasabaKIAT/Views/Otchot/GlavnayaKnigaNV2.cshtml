@@ -16,12 +16,12 @@
                 <div class="col-md-4 form-group">
                     <label>Год</label>
                     @Html.EJS().ComboBox("year").Placeholder("Выберите год").PopupHeight("230px").Index(1).DataSource((IEnumerable<Years>
-                      )ViewBag.YearsList).Fields(new ComboBoxFieldSettings { Text = "year_id", Value = "year_str" }).Render()
+                      )ViewBag.YearsList).Fields(new ComboBoxFieldSettings { Text = "year_id", Value = "year_str" }).Value(@ViewBag.Year).Render()
                 </div>
                 <div class="col-md-4 form-group">
                     <label>Квартал</label>
                     @Html.EJS().ComboBox("kvartal").Placeholder("Выберите квартал").PopupHeight("230px").Index(0).DataSource((IEnumerable<Kvartals>
-                      )ViewBag.KvartalsList).Fields(new ComboBoxFieldSettings { Text = "Name", Value = "id" }).Render()
+                      )ViewBag.KvartalsList).Fields(new ComboBoxFieldSettings { Text = "Name", Value = "id" }).Value(@ViewBag.Kvartal).Render()
                 </div>
                 <div style="margin-left:160px">
                     <p></p>

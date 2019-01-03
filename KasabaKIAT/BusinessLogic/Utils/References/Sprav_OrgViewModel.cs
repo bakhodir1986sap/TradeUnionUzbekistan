@@ -7,13 +7,15 @@ namespace KasabaKiat.BusinessLogic.Utils.References
 {
     public class Sprav_OrgViewModel
     {
-      public long ID             { get; set; }
+      public long ID                { get; set; }
 
-      public int?    ID_Ot          { get; set; }
+      public int?    ID_Ot         { get; set; }
 
-        public string OtraslName { get; set; }
+      public string OtraslName     { get; set; }
 
-        public string Name_Org       { get; set; }
+      public string OblSovProfName { get; set; }
+
+      public string Name_Org       { get; set; }
 
       public string INN            { get; set; }
 

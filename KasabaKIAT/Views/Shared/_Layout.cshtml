@@ -61,6 +61,15 @@
             display: flex;
             align-items: center;
         }
+
+        a {
+            font-size:large;
+        }
+
+        ol li {
+            font-size: large !important;
+        }
+
     </style>
 
     <script>
@@ -101,29 +110,29 @@
                             <div class="dropdown-menu rounded-0 box-shadow m-0 border-0" aria-labelledby="tours">
                                 @if (List.GrafikZaezdov)
                                 {
-                                    <a class="dropdown-item load" href="/GrafikZaezdov/indexV2">@ContentData.GrafikZaezdov</a>
+                                    <a class="dropdown-item load" href="/GrafikZaezdov/indexV2" style="font-size:large">@ContentData.GrafikZaezdov</a>
                                 }
                                 @if (List.GodovoyPlanPutyovok)
                                 {
-                                    <a class="dropdown-item load" href="/Administirirovaniye/RaspredeleniyeZaezdov">@ContentData.GodovoyPlan</a>
+                                    <a class="dropdown-item load" href="/Administirirovaniye/RaspredeleniyeZaezdov" style="font-size:large">@ContentData.GodovoyPlan</a>
                                 }
                                 @if (List.PrixodPutyovok)
                                 {
-                                    <a class="dropdown-item load" href="/PrixodPutevok/Index">@ContentData.PrixodPutyovok</a>
-                                    <a class="dropdown-item load" href="/PrixodPutevok/PrixodPutyovokRuchnoy">@ContentData.PrixodPutyovokRuchnoy</a>
+                                    <a class="dropdown-item load" href="/PrixodPutevok/Index" style="font-size:large">@ContentData.PrixodPutyovok</a>
+                                    <a class="dropdown-item load" href="/PrixodPutevok/PrixodPutyovokRuchnoy" style="font-size:large">@ContentData.PrixodPutyovokRuchnoy</a>
                                 }
                                 @if (List.ProsmotrOstatkaPutyovok)
                                 {
-                                    <a class="dropdown-item load" href="/PrixodPutevok/ProsmotrOstatPutevok">@ContentData.ProsmotrOstatkovPutyovok</a>
+                                    <a class="dropdown-item load" href="/PrixodPutevok/ProsmotrOstatPutevok" style="font-size:large">@ContentData.ProsmotrOstatkovPutyovok</a>
                                 }
                                 @if (List.RealizasiyaPutyovok)
                                 {
-                                    <a class="dropdown-item load" href="/PrixodPutevok/RasxodPutyovok">@ContentData.RasxodPutyovok</a>
-                                    <a class="dropdown-item load" href="/PrixodPutevok/RasxodPutyovokFizLiso">@ContentData.RasxodPutyovokFizLisa</a>
-                                    <a class="dropdown-item load" href="/PrixodPutevok/OplataViplatiZaPutyovki">@ContentData.OplataIViplatiZaPutyovki</a>
-                                    <a class="dropdown-item load" href="/PrixodPutevok/AktVozvrataPutyovok">@ContentData.AktVozvrataPutyovok</a>
-                                    <a class="dropdown-item load" href="/PrixodPutevok/ZakritiyaKvartalaPoPutyovkam">@ContentData.ZakritieKvartalaPoPutyovkam</a>
-                                    <a class="dropdown-item load" href="/PrixodPutevok/DanniyeVladelsaxPutyovok">@ContentData.DanniyeOVladelsaxPutyovok</a>
+                                    <a class="dropdown-item load" href="/PrixodPutevok/RasxodPutyovok" style="font-size:large">@ContentData.RasxodPutyovok</a>
+                                    <a class="dropdown-item load" href="/PrixodPutevok/RasxodPutyovokFizLiso" style="font-size:large">@ContentData.RasxodPutyovokFizLisa</a>
+                                    <a class="dropdown-item load" href="/PrixodPutevok/OplataViplatiZaPutyovki" style="font-size:large">@ContentData.OplataIViplatiZaPutyovki</a>
+                                    <a class="dropdown-item load" href="/PrixodPutevok/AktVozvrataPutyovok" style="font-size:large">@ContentData.AktVozvrataPutyovok</a>
+                                    <a class="dropdown-item load" href="/PrixodPutevok/ZakritiyaKvartalaPoPutyovkam" style="font-size:large">@ContentData.ZakritieKvartalaPoPutyovkam</a>
+                                    <a class="dropdown-item load" href="/PrixodPutevok/DanniyeVladelsaxPutyovok" style="font-size:large">@ContentData.DanniyeOVladelsaxPutyovok</a>
                                 }
                                 @if (List.ProsmotrRealPutyovok)
                                 {
@@ -131,7 +140,7 @@
                                 }
                                 @if (List.SverkaDannixPoOtdixayushim)
                                 {
-                                    <a class="dropdown-item load" href="/PrixodPutevok/SverkaDannixV2">@ContentData.SverkaDannixPoOtdixayushim</a>
+                                    <a class="dropdown-item load" href="/PrixodPutevok/SverkaDannixV2" style="font-size:large">@ContentData.SverkaDannixPoOtdixayushim</a>
                                 }
                             </div>
                         </li>
@@ -144,19 +153,19 @@
                             <div class="dropdown-menu rounded-0 box-shadow m-0 border-0" aria-labelledby="claims">
                                 @if (List.VvodZayavok)
                                 {
-                                    <a class="dropdown-item load" href="/Home/PodachaZayavok">@ContentData.PodachaZayavok_Sanatoriy</a>
+                                    <a class="dropdown-item load" href="/Home/PodachaZayavok" style="font-size:large">@ContentData.PodachaZayavok_Sanatoriy</a>
                                 }
                                 @if (List.PoiskIRedaktirovaniyaZayavok)
                                 {
-                                    <a class="dropdown-item load" href="/Home/PoiskRedaktZayavok">@ContentData.PoiskIRedaktirovaniyeZayavok_Sanatoriy</a>
+                                    <a class="dropdown-item load" href="/Home/PoiskRedaktZayavok" style="font-size:large">@ContentData.PoiskIRedaktirovaniyeZayavok_Sanatoriy</a>
                                 }
                                 @if (List.VvodZayavok)
                                 {
-                                    <a class="dropdown-item load" href="/CampZayavki/IndexV2">@ContentData.PodachaZayavok_Leger</a>
+                                    <a class="dropdown-item load" href="/CampZayavki/IndexV2" style="font-size:large">@ContentData.PodachaZayavok_Leger</a>
                                 }
                                 @if (List.PoiskIRedaktirovaniyaZayavok)
                                 {
-                                    <a class="dropdown-item load" href="/CampZayavki/CampOtchetV2">@ContentData.OtchetPoLageryam</a>
+                                    <a class="dropdown-item load" href="/CampZayavki/CampOtchetV2" style="font-size:large">@ContentData.OtchetPoLageryam</a>
                                 }
                             </div>
                         </li>

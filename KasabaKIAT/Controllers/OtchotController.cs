@@ -140,6 +140,9 @@ namespace KasabaKIAT.Controllers
         {
             var obj = new RefYars();
 
+            ViewBag.Year = 2019;
+            ViewBag.Kvartal = "1";
+
             ViewBag.YearsList = obj.GetYears();
 
             ViewBag.KvartalsList = obj.GetKvartals();
@@ -157,6 +160,9 @@ namespace KasabaKIAT.Controllers
         {
             int UserId = Convert.ToInt32(User.Identity.Name);
             var ustinfo = UserInfo.GetUserInfo(UserId);
+
+            ViewBag.Year = int.Parse(year);
+            ViewBag.Kvartal = kvartal;
 
             var gvk = new GK_Structure(ustinfo.DepartmentBase, int.Parse(year), int.Parse(kvartal));
             const bool isSvodniyOtchet = false;
@@ -223,6 +229,10 @@ namespace KasabaKIAT.Controllers
 
             ViewBag.SpisokPravsoyuzovOrg = SpisokPravsoyuzovOrg();
 
+            ViewBag.Year = 2019;
+            ViewBag.Kvartal = "1";
+            ViewBag.departmentBase = "17203";
+
             return View();
         }
 
@@ -236,6 +246,10 @@ namespace KasabaKIAT.Controllers
         {
             int UserId = Convert.ToInt32(User.Identity.Name);
             var ustinfo = UserInfo.GetUserInfo(UserId);
+
+            ViewBag.Year = int.Parse(year);
+            ViewBag.Kvartal = kvartal;
+            ViewBag.departmentBase = departmentBase;
 
             var obj = new RefYars();
 
@@ -267,6 +281,9 @@ namespace KasabaKIAT.Controllers
 
             ViewBag.KvartalsList = obj.GetKvartals();
 
+            ViewBag.Year = "2019";
+            ViewBag.Kvartal = "1";
+
             return View();
         }
                               
@@ -280,6 +297,9 @@ namespace KasabaKIAT.Controllers
         {
             int UserId = Convert.ToInt32(User.Identity.Name);
             var ustinfo = UserInfo.GetUserInfo(UserId);
+
+            ViewBag.Year = year;
+            ViewBag.Kvartal = kvartal;
 
             var gvk = new GK_Structure("17", int.Parse(year), int.Parse(kvartal));
             const bool isSvodniyOtchet = true;
@@ -470,6 +490,10 @@ namespace KasabaKIAT.Controllers
             return Json(list.ToList(), JsonRequestBehavior.AllowGet);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public ActionResult GetSvodniyOtchotV2()
         {
             var resQuery = KasabaDB.sp_rt_SvodniyOtchetV2().ToList();
@@ -629,6 +653,8 @@ namespace KasabaKIAT.Controllers
         [OutputCache(Duration = 5, Location = OutputCacheLocation.Client, VaryByCustom = "userId")]
         public ActionResult PostupleniyaNV2()
         {
+            ViewBag.Inn = "";
+
             return View();
         }
 
@@ -682,6 +708,8 @@ namespace KasabaKIAT.Controllers
         {
             var UserId = Convert.ToInt32(User.Identity.Name);
             var userInfo = UserInfo.GetUserInfo(UserId);
+
+            ViewBag.Inn = inn;
 
             log.Info("GetPostupleniyaN");
             log.Info("inn = " + inn);
@@ -784,6 +812,342 @@ namespace KasabaKIAT.Controllers
             return Json(OutData.ToList(), JsonRequestBehavior.AllowGet);
         }
 
+        public class JurnalniyOrderCL
+        {
+            public string DEBIT_ACCOUNT { get; set; }
+            public string CREDIT_ACCOUNT { get; set; }
+            public decimal? AMOUNT { get; set; }
+        }
+
+        public enum JurOrderTypes
+        {
+            /*
+                20	ЖО 1
+                21	ЖО 2
+                22	ЖО 3
+                23	ЖО 4
+                24	ЖО 5
+                25	ЖО 6
+                26	ЖО 7
+                27	ЖО 8
+                28	ЖО 9
+                29	ЖО 10
+                384	ЖО 11
+             */
+             JO1 = 20,
+             JO2 = 21,
+             JO3 = 22,
+             JO4 = 23,
+             JO5 = 24,
+             JO6 = 25,
+             JO7 = 26,
+             JO11 = 384
+        }
+
+        public ActionResult JurOrder1Otchet()
+        {
+            ViewBag.BeginDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+            ViewBag.EndDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+
+            return View();
+        }
+
+        public ActionResult GetJurOrder1Otchet(DateTime? bg, DateTime? end)
+        {
+            var UserId = Convert.ToInt32(User.Identity.Name);
+            var userInfo = UserInfo.GetUserInfo(UserId);
+
+            var list = KasabaDB.sp_rt_JurnalniyOrderOtcheti(userInfo.DepartmentBase, (int)JurOrderTypes.JO1, bg, end);
+
+            ViewBag.BeginDate = new DateTime(bg.Value.Year, bg.Value.Month, bg.Value.Day);
+            ViewBag.EndDate = new DateTime(end.Value.Year, end.Value.Month, end.Value.Day);
+
+            var OutData = from outData in list
+                          select new JurnalniyOrderCL
+                          {
+                              DEBIT_ACCOUNT = outData.DEBIT_ACCOUNT,
+                              CREDIT_ACCOUNT = outData.CREDIT_ACCOUNT,
+                              AMOUNT = outData.AMOUNT
+                          };
+
+            ViewBag.DataSource = OutData.ToList();
+
+            return View("JurOrder1Otchet");
+        }
+
+        public ActionResult JurOrder2Otchet()
+        {
+            ViewBag.BeginDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+            ViewBag.EndDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+
+            return View();
+        }
+
+        public ActionResult GetJurOrder2Otchet(DateTime? bg, DateTime? end)
+        {
+            var UserId = Convert.ToInt32(User.Identity.Name);
+            var userInfo = UserInfo.GetUserInfo(UserId);
+
+            var list = KasabaDB.sp_rt_JurnalniyOrderOtcheti(userInfo.DepartmentBase, (int)JurOrderTypes.JO2, bg, end);
+
+            ViewBag.BeginDate = new DateTime(bg.Value.Year, bg.Value.Month, bg.Value.Day);
+            ViewBag.EndDate = new DateTime(end.Value.Year, end.Value.Month, end.Value.Day);
+
+            var OutData = from outData in list
+                          select new JurnalniyOrderCL
+                          {
+                              DEBIT_ACCOUNT = outData.DEBIT_ACCOUNT,
+                              CREDIT_ACCOUNT = outData.CREDIT_ACCOUNT,
+                              AMOUNT = outData.AMOUNT
+                          };
+
+            ViewBag.DataSource = OutData.ToList();
+
+            return View("JurOrder2Otchet");
+        }
+
+        public ActionResult JurOrder3Otchet()
+        {
+            ViewBag.BeginDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+            ViewBag.EndDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+
+            return View();
+        }
+
+        public ActionResult GetJurOrder3Otchet(DateTime? bg, DateTime? end)
+        {
+            var UserId = Convert.ToInt32(User.Identity.Name);
+            var userInfo = UserInfo.GetUserInfo(UserId);
+
+            var list = KasabaDB.sp_rt_JurnalniyOrderOtcheti(userInfo.DepartmentBase, (int)JurOrderTypes.JO3, bg, end);
+
+            ViewBag.BeginDate = new DateTime(bg.Value.Year, bg.Value.Month, bg.Value.Day);
+            ViewBag.EndDate = new DateTime(end.Value.Year, end.Value.Month, end.Value.Day);
+
+            var OutData = from outData in list
+                          select new JurnalniyOrderCL
+                          {
+                              DEBIT_ACCOUNT = outData.DEBIT_ACCOUNT,
+                              CREDIT_ACCOUNT = outData.CREDIT_ACCOUNT,
+                              AMOUNT = outData.AMOUNT
+                          };
+
+            ViewBag.DataSource = OutData.ToList();
+
+            return View("JurOrder3Otchet");
+        }
+
+        public ActionResult JurOrder4Otchet()
+        {
+            ViewBag.BeginDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+            ViewBag.EndDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+
+            return View();
+        }
+
+        public ActionResult GetJurOrder4Otchet(DateTime? bg, DateTime? end)
+        {
+            var UserId = Convert.ToInt32(User.Identity.Name);
+            var userInfo = UserInfo.GetUserInfo(UserId);
+
+            var list = KasabaDB.sp_rt_JurnalniyOrderOtcheti(userInfo.DepartmentBase, (int)JurOrderTypes.JO4, bg, end);
+
+            ViewBag.BeginDate = new DateTime(bg.Value.Year, bg.Value.Month, bg.Value.Day);
+            ViewBag.EndDate = new DateTime(end.Value.Year, end.Value.Month, end.Value.Day);
+
+            var OutData = from outData in list
+                          select new JurnalniyOrderCL
+                          {
+                              DEBIT_ACCOUNT = outData.DEBIT_ACCOUNT,
+                              CREDIT_ACCOUNT = outData.CREDIT_ACCOUNT,
+                              AMOUNT = outData.AMOUNT
+                          };
+
+            ViewBag.DataSource = OutData.ToList();
+
+            return View("JurOrder4Otchet");
+        }
+
+        public ActionResult JurOrder5Otchet()
+        {
+            ViewBag.BeginDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+            ViewBag.EndDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+
+            return View();
+        }
+
+        public ActionResult GetJurOrder5Otchet(DateTime? bg, DateTime? end)
+        {
+            var UserId = Convert.ToInt32(User.Identity.Name);
+            var userInfo = UserInfo.GetUserInfo(UserId);
+
+            var list = KasabaDB.sp_rt_JurnalniyOrderOtcheti(userInfo.DepartmentBase, (int)JurOrderTypes.JO5, bg, end);
+
+            ViewBag.BeginDate = new DateTime(bg.Value.Year, bg.Value.Month, bg.Value.Day);
+            ViewBag.EndDate = new DateTime(end.Value.Year, end.Value.Month, end.Value.Day);
+
+            var OutData = from outData in list
+                          select new JurnalniyOrderCL
+                          {
+                              DEBIT_ACCOUNT = outData.DEBIT_ACCOUNT,
+                              CREDIT_ACCOUNT = outData.CREDIT_ACCOUNT,
+                              AMOUNT = outData.AMOUNT
+                          };
+
+            ViewBag.DataSource = OutData.ToList();
+
+            return View("JurOrder5Otchet");
+        }
+
+
+        public ActionResult JurOrder6Otchet()
+        {
+            ViewBag.BeginDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+            ViewBag.EndDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+
+            return View();
+        }
+
+        public ActionResult GetJurOrder6Otchet(DateTime? bg, DateTime? end)
+        {
+            var UserId = Convert.ToInt32(User.Identity.Name);
+            var userInfo = UserInfo.GetUserInfo(UserId);
+
+            var list = KasabaDB.sp_rt_JurnalniyOrderOtcheti(userInfo.DepartmentBase, (int)JurOrderTypes.JO6, bg, end);
+
+            ViewBag.BeginDate = new DateTime(bg.Value.Year, bg.Value.Month, bg.Value.Day);
+            ViewBag.EndDate = new DateTime(end.Value.Year, end.Value.Month, end.Value.Day);
+
+            var OutData = from outData in list
+                          select new JurnalniyOrderCL
+                          {
+                              DEBIT_ACCOUNT = outData.DEBIT_ACCOUNT,
+                              CREDIT_ACCOUNT = outData.CREDIT_ACCOUNT,
+                              AMOUNT = outData.AMOUNT
+                          };
+
+            ViewBag.DataSource = OutData.ToList();
+
+            return View("JurOrder6Otchet");
+        }
+
+        public ActionResult JurOrder7Otchet()
+        {
+            ViewBag.BeginDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+            ViewBag.EndDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+
+            return View();
+        }
+
+        public ActionResult GetJurOrder7Otchet(DateTime? bg, DateTime? end)
+        {
+            var UserId = Convert.ToInt32(User.Identity.Name);
+            var userInfo = UserInfo.GetUserInfo(UserId);
+
+            var list = KasabaDB.sp_rt_JurnalniyOrderOtcheti(userInfo.DepartmentBase, (int)JurOrderTypes.JO7, bg, end);
+
+            ViewBag.BeginDate = new DateTime(bg.Value.Year, bg.Value.Month, bg.Value.Day);
+            ViewBag.EndDate = new DateTime(end.Value.Year, end.Value.Month, end.Value.Day);
+
+            var OutData = from outData in list
+                          select new JurnalniyOrderCL
+                          {
+                              DEBIT_ACCOUNT = outData.DEBIT_ACCOUNT,
+                              CREDIT_ACCOUNT = outData.CREDIT_ACCOUNT,
+                              AMOUNT = outData.AMOUNT
+                          };
+
+            ViewBag.DataSource = OutData.ToList();
+
+            return View("JurOrder7Otchet");
+        }
+
+        public ActionResult JurOrder11Otchet()
+        {
+            ViewBag.BeginDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+            ViewBag.EndDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+
+            return View();
+        }
+
+        public ActionResult GetJurOrder11Otchet(DateTime? bg, DateTime? end)
+        {
+            var UserId = Convert.ToInt32(User.Identity.Name);
+            var userInfo = UserInfo.GetUserInfo(UserId);
+
+            var list = KasabaDB.sp_rt_JurnalniyOrderOtcheti(userInfo.DepartmentBase, (int)JurOrderTypes.JO11, bg, end);
+
+            ViewBag.BeginDate = new DateTime(bg.Value.Year, bg.Value.Month, bg.Value.Day);
+            ViewBag.EndDate = new DateTime(end.Value.Year, end.Value.Month, end.Value.Day);
+
+            var OutData = from outData in list
+                          select new JurnalniyOrderCL
+                          {
+                              DEBIT_ACCOUNT = outData.DEBIT_ACCOUNT,
+                              CREDIT_ACCOUNT = outData.CREDIT_ACCOUNT,
+                              AMOUNT = outData.AMOUNT
+                          };
+
+            ViewBag.DataSource = OutData.ToList();
+
+            return View("JurOrder11Otchet");
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [OutputCache(Duration = 5, Location = OutputCacheLocation.Client, VaryByCustom = "userId")]
+        public ActionResult ProvodkiDetailV2()
+        {
+            ViewBag.BeginDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+            ViewBag.EndDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+
+            return View();
+        }
+
+        public class ProvodkiDtl
+        {
+            public long REC_ID            { get; set;}
+            public string TRDT              { get; set;}
+            public string DEBIT_ACCOUNT     { get; set;}
+            public string CREDIT_ACCOUNT    { get; set;}
+            public decimal? AMOUNT            { get; set;}
+            public string DETALI            { get; set;}
+            public string ADDITIONAL        { get; set;}
+            public string OPISANIYE         { get; set;}
+            public string NAME_RU           { get; set;}
+        }
+
+
+        public ActionResult GetProvodkiDetailV2(DateTime? bg, DateTime? end)
+        {
+            var UserId = Convert.ToInt32(User.Identity.Name);
+            var userInfo = UserInfo.GetUserInfo(UserId);
+
+            var list = KasabaDB.sp_rt_Provodka_Details(userInfo.DepartmentBase, bg, end);
+
+            ViewBag.BeginDate   = new DateTime(bg.Value.Year, bg.Value.Month, bg.Value.Day);
+            ViewBag.EndDate     = new DateTime(end.Value.Year, end.Value.Month, end.Value.Day);
+
+            var OutData = from outData in list
+                          select new ProvodkiDtl
+                          {
+                              REC_ID            = outData.REC_ID,
+                              TRDT              = outData.TRDT,
+                              DEBIT_ACCOUNT     = outData.DEBIT_ACCOUNT,
+                              CREDIT_ACCOUNT    = outData.CREDIT_ACCOUNT,
+                              AMOUNT            = outData.AMOUNT,
+                              DETALI            = outData.DETALI,
+                              ADDITIONAL        = outData.ADDITIONAL,
+                              OPISANIYE         = outData.OPISANIYE,
+                              NAME_RU           = outData.NAME_RU
+                          };
+
+            ViewBag.DataSource = OutData.ToList();
+
+            return View("ProvodkiDetailV2");
+        }
 
         public JsonResult CancelProvodki(long rec_id)
         {
@@ -828,6 +1192,44 @@ namespace KasabaKIAT.Controllers
             return Json(OutData.ToList(), JsonRequestBehavior.AllowGet);
         }
 
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [OutputCache(Duration = 5, Location = OutputCacheLocation.Client, VaryByCustom = "userId")]
+        public ActionResult ProvodkiSummaryV2()
+        {
+            ViewBag.BeginDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+            ViewBag.EndDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+
+            return View();
+        }
+
+        public ActionResult GetProvodkiSummaryV2(DateTime? bg, DateTime? end)
+        {
+            var UserId = Convert.ToInt32(User.Identity.Name);
+            var userInfo = UserInfo.GetUserInfo(UserId);
+
+            var list = KasabaDB.sp_rt_Provodka_Summary(userInfo.DepartmentBase, bg, end);
+
+            ViewBag.BeginDate = new DateTime(bg.Value.Year, bg.Value.Month, bg.Value.Day);
+            ViewBag.EndDate = new DateTime(end.Value.Year, end.Value.Month, end.Value.Day);
+
+            var OutData = from outData in list
+                          select new ProvodkiDtl
+                          {
+                              DEBIT_ACCOUNT = outData.DEBIT_ACCOUNT,
+                              CREDIT_ACCOUNT = outData.CREDIT_ACCOUNT,
+                              AMOUNT = outData.AMOUNT
+                          };
+
+            ViewBag.DataSource = OutData.ToList();
+
+            return View("ProvodkiSummaryV2");
+        }
+
         /// <summary>
         /// 
         /// </summary>
@@ -863,9 +1265,8 @@ namespace KasabaKIAT.Controllers
             typeList.Add(code3);
 
             ViewBag.TypeList = typeList;
-            //{ id: '700', value: '15 %' },
-            //{ id: '777', value: '25 %' },
-            //{ id: '600', value: '15 % Фермер' }
+            ViewBag.SelectedDate = DateTime.Now.Date;
+            ViewBag.SelectedValue = "700";
 
             return View();
         }
@@ -948,6 +1349,9 @@ namespace KasabaKIAT.Controllers
         {
             var UserId = Convert.ToInt32(User.Identity.Name);
             var userInfo = UserInfo.GetUserInfo(UserId);
+
+            ViewBag.SelectedDate = bg.Value;
+            ViewBag.SelectedValue = payType;
 
             var data = KasabaDB.sp_rt_Razbivka_PostupN(payType, userInfo.DepartmentBase, bg);
 
@@ -1076,6 +1480,9 @@ namespace KasabaKIAT.Controllers
         [OutputCache(Duration = 5, Location = OutputCacheLocation.Client, VaryByCustom = "userId")]
         public ActionResult PostupleniyaOblastyamV2()
         {
+            ViewBag.BeginDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+            ViewBag.EndDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+
             return View();
         }
 
@@ -1146,6 +1553,9 @@ namespace KasabaKIAT.Controllers
             var UserId = Convert.ToInt32(User.Identity.Name);
 
             var userInfo = UserInfo.GetUserInfo(UserId);
+
+            ViewBag.BeginDate = new DateTime(bg.Value.Year, bg.Value.Month, bg.Value.Day); 
+            ViewBag.EndDate = new DateTime(end.Value.Year, end.Value.Month, end.Value.Day);
 
             log.Info("GetPostupleniyaOblastyam");
             log.Info("BEGIN_DATE = " + bg);
@@ -1233,6 +1643,71 @@ namespace KasabaKIAT.Controllers
         /// </summary>
         /// <returns></returns>
         [OutputCache(Duration = 5, Location = OutputCacheLocation.Client, VaryByCustom = "userId")]
+        public ActionResult PostupleniyaTumanV2()
+        {
+            ViewBag.BeginDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+            ViewBag.EndDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+
+            return View();
+        }
+
+        public class ClPostupleniyaTuman
+        {
+            public string   OBLAST_NAME   {get; set;}
+            public string   TUMAN_NAME    {get; set;}
+            public int?      KOLICHESTVO   { get; set; }
+            public decimal?  summa         { get; set; }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="bg"></param>
+        /// <param name="end"></param>
+        /// <returns></returns>
+        [OutputCache(Duration = 5, Location = OutputCacheLocation.Client, VaryByParam = "bg;end", VaryByCustom = "userId")]
+        public ActionResult GetPostupleniyaTumanV2(DateTime? bg, DateTime? end)
+        {
+            var UserId = Convert.ToInt32(User.Identity.Name);
+
+            var userInfo = UserInfo.GetUserInfo(UserId);
+
+            ViewBag.BeginDate = new DateTime(bg.Value.Year, bg.Value.Month, bg.Value.Day);
+            ViewBag.EndDate = new DateTime(end.Value.Year, end.Value.Month, end.Value.Day);
+
+            log.Info("GetPostupleniyaTumanV2");
+            log.Info("BEGIN_DATE = "    + bg);
+            log.Info("END_DATE   = "    + end);
+
+            try
+            {
+                var data = KasabaDB.sp_rt_Razbivka_Postup_OblastTumanGroup(bg.Value.Date, end.Value.Date, userInfo.DepartmentBase);
+                var O = from o in data
+                select new ClPostupleniyaTuman
+                {
+                    OBLAST_NAME = o.OBLAST_NAME,
+                    TUMAN_NAME = o.TUMAN_NAME  ,
+                    KOLICHESTVO = o.KOLICHESTVO,
+                    summa = o.summa            ,
+                };
+
+                ViewBag.DataSourcePostup = O.ToList();
+
+                return View("PostupleniyaTumanV2");
+            }
+            catch (Exception ex)
+            {
+                log.Info(ex);
+            }
+
+            return View("PostupleniyaTumanV2");
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [OutputCache(Duration = 5, Location = OutputCacheLocation.Client, VaryByCustom = "userId")]
         public ActionResult PostupleniyaOblastTumanOtraslGroup()
         {
             return View();
@@ -1303,6 +1778,9 @@ namespace KasabaKIAT.Controllers
             var userInfo = UserInfo.GetUserInfo(UserId);
 
             ViewBag.TypeList = GetOtchetRegionList(userInfo.DepartmentBase);
+            ViewBag.SelectSoato = "0";
+            ViewBag.BeginDate = DateTime.Now.Date;
+            ViewBag.EndDate = DateTime.Now.Date;
 
             return View();
         }
@@ -1371,6 +1849,11 @@ namespace KasabaKIAT.Controllers
             log.Info("SOATO = " + region);
             log.Info("BEGIN_DATE = " + bg);
             log.Info("END_DATE = " + end);
+
+            ViewBag.SelectSoato = region;
+            ViewBag.BeginDate = bg.Value;
+            ViewBag.EndDate = end.Value;
+
             try
             {
                 var data = KasabaDB.sp_rt_Razbivka_Postup_OtraslGroup(region, bg.Value.Date, end.Value.Date, userInfo.DepartmentBase);
@@ -2224,6 +2707,241 @@ namespace KasabaKIAT.Controllers
         public ActionResult JurnalniyOrder6() { return View(); }
 
 
+        #endregion
+
+        #region Monitoring
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [OutputCache(Duration = 5, Location = OutputCacheLocation.Client, VaryByCustom = "userId")]
+        public ActionResult MonitoringNarusheniyaPoProvodkam()
+        {
+            var obj = new RefYars();
+
+            ViewBag.Year = "2019";
+            ViewBag.Kvartal = "1";
+
+            ViewBag.YearsList = obj.GetYears();
+
+            ViewBag.KvartalsList = obj.GetKvartals();
+
+            return View();
+        }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="year"></param>
+        /// <param name="kvartal"></param>
+        /// <returns></returns>
+        public ActionResult GetMonitoringNarusheniyaPoProvodkam(string year, string kvartal)
+        {
+            int UserId = Convert.ToInt32(User.Identity.Name);
+            var ustinfo = UserInfo.GetUserInfo(UserId);
+
+            ViewBag.Year = year;
+            ViewBag.Kvartal = kvartal;
+
+            var OutList = KasabaDB.sp_monit_NarusheniyaPoProvodkam(ustinfo.DepartmentBase, int.Parse(year), int.Parse(kvartal));
+
+            var obj = new RefYars();
+
+            ViewBag.YearsList = obj.GetYears();
+
+            ViewBag.KvartalsList = obj.GetKvartals();
+
+            ViewBag.Datasource = OutList;
+
+            return View("MonitoringNarusheniyaPoProvodkam");
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [OutputCache(Duration = 5, Location = OutputCacheLocation.Client, VaryByCustom = "userId")]
+        public ActionResult MonitoringOxvataSistemi()
+        {
+            var obj = new RefYars();
+
+            ViewBag.Year = "2019";
+            ViewBag.Kvartal = "1";
+
+            ViewBag.YearsList = obj.GetYears();
+
+            ViewBag.KvartalsList = obj.GetKvartals();
+
+            return View();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="year"></param>
+        /// <param name="kvartal"></param>
+        /// <returns></returns>
+        public ActionResult GetMonitoringOxvataSistemi(string year, string kvartal)
+        {
+            int UserId = Convert.ToInt32(User.Identity.Name);
+            var ustinfo = UserInfo.GetUserInfo(UserId);
+
+            ViewBag.Year = year;
+            ViewBag.Kvartal = kvartal;
+
+            var OutList = KasabaDB.sp_monit_MonitoringOxvataSistemi(ustinfo.DepartmentBase, int.Parse(year), int.Parse(kvartal));
+
+            var obj = new RefYars();
+
+            ViewBag.YearsList = obj.GetYears();
+
+            ViewBag.KvartalsList = obj.GetKvartals();
+
+            ViewBag.Datasource = OutList;
+
+            return View("MonitoringOxvataSistemi");
+        }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [OutputCache(Duration = 5, Location = OutputCacheLocation.Client, VaryByCustom = "userId")]
+        public ActionResult MonitoringPererasxodPlanaPoFinOtchetu()
+        {
+            var obj = new RefYars();
+
+            ViewBag.Year = "2019";
+            ViewBag.Kvartal = "1";
+
+            ViewBag.YearsList = obj.GetYears();
+
+            ViewBag.KvartalsList = obj.GetKvartals();
+
+            return View();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="year"></param>
+        /// <param name="kvartal"></param>
+        /// <returns></returns>
+        public ActionResult GetMonitoringPererasxodPlanaPoFinOtchetu(string year, string kvartal)
+        {
+            int UserId = Convert.ToInt32(User.Identity.Name);
+            var ustinfo = UserInfo.GetUserInfo(UserId);
+
+            ViewBag.Year = year;
+            ViewBag.Kvartal = kvartal;
+
+            var OutList = KasabaDB.sp_monit_PererasxodPlanaPoFinOtchetu(ustinfo.DepartmentBase, int.Parse(year), int.Parse(kvartal));
+
+            var obj = new RefYars();
+
+            ViewBag.YearsList = obj.GetYears();
+
+            ViewBag.KvartalsList = obj.GetKvartals();
+
+            ViewBag.Datasource = OutList;
+
+            return View("MonitoringPererasxodPlanaPoFinOtchetu");
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [OutputCache(Duration = 5, Location = OutputCacheLocation.Client, VaryByCustom = "userId")]
+        public ActionResult MonitoringPererasxodPoPutyovkam()
+        {
+            var obj = new RefYars();
+
+            ViewBag.Year = "2019";
+            ViewBag.Kvartal = "1";
+
+            ViewBag.YearsList = obj.GetYears();
+
+            ViewBag.KvartalsList = obj.GetKvartals();
+
+            return View();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="year"></param>
+        /// <param name="kvartal"></param>
+        /// <returns></returns>
+        public ActionResult GetMonitoringPererasxodPoPutyovkam(string year, string kvartal)
+        {
+            int UserId = Convert.ToInt32(User.Identity.Name);
+            var ustinfo = UserInfo.GetUserInfo(UserId);
+
+            ViewBag.Year = year;
+            ViewBag.Kvartal = kvartal;
+
+            var OutList = KasabaDB.sp_monit_PererasxodPoPutyovkam(ustinfo.DepartmentBase, int.Parse(year), int.Parse(kvartal));
+
+            var obj = new RefYars();
+
+            ViewBag.YearsList = obj.GetYears();
+
+            ViewBag.KvartalsList = obj.GetKvartals();
+
+            ViewBag.Datasource = OutList;
+
+            return View("MonitoringPererasxodPoPutyovkam");
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [OutputCache(Duration = 5, Location = OutputCacheLocation.Client, VaryByCustom = "userId")]
+        public ActionResult MonitoringPostupOtKaznaCheystva()
+        {
+            var obj = new RefYars();
+
+            ViewBag.Year = "2019";
+            ViewBag.Kvartal = "1";
+
+            ViewBag.YearsList = obj.GetYears();
+
+            ViewBag.KvartalsList = obj.GetKvartals();
+
+            return View();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="year"></param>
+        /// <param name="kvartal"></param>
+        /// <returns></returns>
+        public ActionResult GetMonitoringPostupOtKaznaCheystva(string year, string kvartal)
+        {
+            int UserId = Convert.ToInt32(User.Identity.Name);
+            var ustinfo = UserInfo.GetUserInfo(UserId);
+
+            ViewBag.Year = year;
+            ViewBag.Kvartal = kvartal;
+
+            var OutList = KasabaDB.sp_monit_PostupleniyeOtKaznaCheystva(ustinfo.DepartmentBase, int.Parse(year), int.Parse(kvartal));
+
+            var obj = new RefYars();
+
+            ViewBag.YearsList = obj.GetYears();
+
+            ViewBag.KvartalsList = obj.GetKvartals();
+
+            ViewBag.Datasource = OutList;
+
+            return View("MonitoringPostupOtKaznaCheystva");
+        }
         #endregion
     }
 }

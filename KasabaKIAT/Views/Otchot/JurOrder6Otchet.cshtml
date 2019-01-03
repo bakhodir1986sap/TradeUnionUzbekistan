@@ -1,0 +1,58 @@
+﻿@{
+    ViewBag.Title = "Журнальный ордер № 6";
+}
+<div>
+    <div id="connection" style="visibility:hidden;position:absolute;margin-left:600px;margin-top:100px;z-index:9999">
+        <img src="~/Content/Login/buffering.gif" />
+    </div>
+    <section class="content__block container-fluid">
+        <div class="row mb-4 align-items-center">
+            <div class="col title__block">
+                <h4>Журнальный ордер № 6</h4>
+                <nav aria-label="breadcrumb" class="breadcrumb__block">
+                    <ol class="breadcrumb">
+                        @*<li class="breadcrumb-item load"><a href="/Home/Otchot">Отчеты</a></li>*@
+                        <li class="breadcrumb-item load"><a href="/Otchot/OtchetTitul">Отчеты</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Журнальный ордер № 6</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+        @using (Html.BeginForm("GetJurOrder6Otchet", "Otchot", new { page = 1 }, FormMethod.Get))
+        {
+            <div class="row">
+                <div style="margin-left:20px;width:300px">
+                    <p>Период с:</p>
+                    @Html.EJS().DatePicker("bg").Placeholder("Выберите Дату").CssClass("form-control").Value(@ViewBag.BeginDate).Format("yyyy-MM-dd").Render()
+                </div>
+                <div style="margin-left:100px;width:300px">
+                    <p>Период по:</p>
+                    @Html.EJS().DatePicker("end").Placeholder("Выберите Дату").CssClass("form-control").Value(@ViewBag.EndDate).Format("yyyy-MM-dd").Render()
+                </div>
+            </div>
+            @Html.EJS().Button("infobtn").Content("Получить").CssClass("e-info").Render()
+            @Html.Raw(" ");
+        }
+            <div class="table-responsive box-shadow mb-4" id="export">
+                @Html.EJS().Grid("ProvodkiDetail").DataSource((IEnumerable<object>)ViewBag.DataSource).AllowExcelExport().ToolbarClick("toolbarClick").Columns(col=>
+           {
+               col.Field("DEBIT_ACCOUNT").HeaderText("Дебит").MinWidth("10").Add();
+               col.Field("CREDIT_ACCOUNT").HeaderText("Кредит").MinWidth("10").Add();
+               col.Field("AMOUNT").HeaderText("Сумма").Format("").MinWidth("10").Add();
+           }
+                ).AllowPaging().AllowFiltering().AllowResizing().AllowSorting().PageSettings(page=>page.PageCount(5)).Toolbar(new List<string>
+                () { "ExcelExport" }).Render()
+                <script>
+                    function toolbarClick(args) {
+                        var gridObj = document.getElementById("ProvodkiDetail").ej2_instances[0];
+                        if (args.item.id === 'ProvodkiDetail_excelexport') {
+                            gridObj.excelExport();
+                        }
+                    }
+                </script>
+            </div>
+    </section>
+</div>
+
+
+

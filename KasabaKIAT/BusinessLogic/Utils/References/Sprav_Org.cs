@@ -459,11 +459,9 @@ namespace KasabaKiat.BusinessLogic.Utils.References
             using (KasabaKIATEntities db = new KasabaKIATEntities())
             {
                 var queryRes = from org in db.tblSprav_Org
-                                   //join otras in db.tblSprav_Otras on org.ID_Ot equals otras.ID_Ot
-                                   //join region in db.tblSprav_Reg on org.Region equals region.CodeReg
+                               join prof in db.tbku_StrokaProfsoyza on org.DepartmentBase equals prof.MATCH_DEPARTMENTBASE
                                where org.DepartmentBase == (departmentBase.Equals("17") ? org.DepartmentBase : departmentBase) && org.FACE_TYPE == 0
-                               //&& otras.DepartmentBase == departmentBase
-                               orderby org.Name_Org
+                               && prof.MATCH_DEPARTMENTBASE != null
                                select new Sprav_OrgViewModel
                                {
                                    ID = org.ID,
@@ -493,7 +491,8 @@ namespace KasabaKiat.BusinessLogic.Utils.References
                                    owner_code = org.OWNER_CODE,
                                    db_bal = org.DB_BAL,
                                    ct_bal = org.CT_BAL,
-                                   to_depcode = org.TO_DEPCODE
+                                   to_depcode = org.TO_DEPCODE,
+                                   OblSovProfName = prof.ProfsoyzNaimenovanie
                                };
 
                 list = queryRes.ToList();
@@ -1239,8 +1238,10 @@ namespace KasabaKiat.BusinessLogic.Utils.References
             using (KasabaKIATEntities db = new KasabaKIATEntities())
             {
                 var queryRes = from org in db.tblSprav_Org
+                               join prof in db.tbku_StrokaProfsoyza on org.DepartmentBase equals prof.MATCH_DEPARTMENTBASE
                                where org.FACE_TYPE == 1
                                && org.DepartmentBase.Contains(departmentBase)
+                               && prof.MATCH_DEPARTMENTBASE != null
                                select new Sprav_OrgViewModel
                                {
                                    ID = org.ID,
@@ -1253,7 +1254,8 @@ namespace KasabaKiat.BusinessLogic.Utils.References
                                    Pas_ser = org.Pas_ser,
                                    Pas_Num = org.Pas_Num,
                                    Pas_KD = org.Pas_KD,
-                                   Pas_Data = org.Pas_Data
+                                   Pas_Data = org.Pas_Data,
+                                   OblSovProfName = prof.ProfsoyzNaimenovanie
                                };
 
                 list = queryRes.ToList();

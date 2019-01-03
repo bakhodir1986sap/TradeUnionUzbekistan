@@ -23,18 +23,19 @@
                 </div>
             </div>
             @Html.EJS().Grid("fizliso").DataSource(dataManager => { dataManager.Url("/PrixodPutevok/GetFizLisoData").Adaptor("UrlAdaptor"); }).AllowExcelExport().ToolbarClick("toolbarClick").Columns(col=> {
-            col.Field("Name_Org").HeaderText("ФИО").Width("30").IsPrimaryKey(true).AllowEditing(false).DefaultValue("1").Add();
-            col.Field("INN").HeaderText("ИНН").Width("50").Add();
-            col.Field("Adress").HeaderText("Адрес").Width("9").AllowEditing(false).Add();
-            col.Field("Telefon").HeaderText("Телефон").Width("20").Add();
-            col.Field("Pas_ser").HeaderText("Паспорт Серия").Width("5").Add();
-            col.Field("Pas_Num").HeaderText("Паспорт Номер").Width("40").Add();
-            col.Field("Pas_KD").HeaderText("Кем выдан").Width("9").Add();
-            col.Field("Pas_Data").HeaderText("Дата выдачи").Width("40").Add();
-            }).AllowPaging().AllowResizing().AllowRowDragAndDrop().AllowSorting().AllowFiltering().Toolbar(new List<string>() { "Search", "ExcelExport" }).Render()
+           col.Field("OblSovProfName").HeaderText("Область").MinWidth("50").Add();
+           col.Field("Name_Org").HeaderText("ФИО").MinWidth("30").Add();
+           col.Field("INN").HeaderText("ИНН").MinWidth("50").Add();
+           col.Field("Adress").HeaderText("Адрес").Width("9").Add();
+           col.Field("Telefon").HeaderText("Телефон").Width("20").Add();
+           col.Field("Pas_ser").HeaderText("Паспорт Серия").Width("5").Add();
+           col.Field("Pas_Num").HeaderText("Паспорт Номер").Width("40").Add();
+           col.Field("Pas_KD").HeaderText("Кем выдан").Width("9").Add();
+           col.Field("Pas_Data").HeaderText("Дата выдачи").Width("40").Add();
+       }).AllowPaging().AllowResizing().AllowRowDragAndDrop().AllowSorting().AllowFiltering().Toolbar(new List<string>() { "Search" }).Render()
             <script>
                 function toolbarClick(args) {
-                    var gridObj = document.getElementById("organization").ej2_instances[0];
+                    var gridObj = document.getElementById("fizliso").ej2_instances[0];
                     if (args.item.id === 'organization_excelexport') {
                         gridObj.excelExport();
                     }

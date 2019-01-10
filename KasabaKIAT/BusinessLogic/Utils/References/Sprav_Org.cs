@@ -968,12 +968,12 @@ namespace KasabaKiat.BusinessLogic.Utils.References
             {
                 tblSprav_Org org = new tblSprav_Org();
 
-                org.ID_Ot = -1;
+                org.ID_Ot = model.ID_Ot;
                 org.Name_Org = model.Name_Org;
                 org.INN = model.INN;
                 org.Adress = model.Adress;
                 org.Telefon = model.Telefon;
-                org.Region = -1;
+                org.Region = model.Region;
                 org.DT_OST = 0;
                 org.KT_OST = 0;
                 org.E_Mail = model.E_Mail;
@@ -1079,12 +1079,12 @@ namespace KasabaKiat.BusinessLogic.Utils.References
 
                     if (org1 != null)
                     {
-                        org1.ID_Ot = -1;
+                        org1.ID_Ot = model.ID_Ot;
                         org1.Name_Org = model.Name_Org;
                         org1.INN = model.INN;
                         org1.Adress = model.Adress;
                         org1.Telefon = model.Telefon;
-                        org1.Region = -1;
+                        org1.Region = model.Region;
                         org1.DT_OST = 0;
                         org1.KT_OST = 0;
                         org1.E_Mail = model.E_Mail;
@@ -1219,6 +1219,26 @@ namespace KasabaKiat.BusinessLogic.Utils.References
 
                 list = queryRes.ToList();
 
+                var otrasList = db.tblSprav_Otras.Where(s => s.DepartmentBase == departmentBase).ToList();
+
+                var regionList = db.tblSprav_Reg.ToList();
+
+                foreach (var org in list)
+                {
+                    var isOtrasExists = otrasList.Where(d => d.ID_Ot == org.ID_Ot);
+
+                    if (isOtrasExists.Any())
+                    {
+                        org.OtraslName = isOtrasExists.First().Name_Ot;
+                    }
+
+                    var isRegionExists = regionList.Where(r => r.CodeReg == org.Region);
+
+                    if (isRegionExists.Any())
+                    {
+                        org.RegionName = isRegionExists.First().NameReg;
+                    }
+                }
             }
 
             return list;
@@ -1255,11 +1275,33 @@ namespace KasabaKiat.BusinessLogic.Utils.References
                                    Pas_Num = org.Pas_Num,
                                    Pas_KD = org.Pas_KD,
                                    Pas_Data = org.Pas_Data,
-                                   OblSovProfName = prof.ProfsoyzNaimenovanie
+                                   OblSovProfName = prof.ProfsoyzNaimenovanie,
+                                   ID_Ot = org.ID_Ot,
+                                   Region = org.Region
                                };
 
                 list = queryRes.ToList();
 
+                var otrasList = db.tblSprav_Otras.Where(s => s.DepartmentBase == departmentBase).ToList();
+
+                var regionList = db.tblSprav_Reg.ToList();
+
+                foreach (var org in list)
+                {
+                    var isOtrasExists = otrasList.Where(d => d.ID_Ot == org.ID_Ot);
+
+                    if (isOtrasExists.Any())
+                    {
+                        org.OtraslName = isOtrasExists.First().Name_Ot;
+                    }
+
+                    var isRegionExists = regionList.Where(r => r.CodeReg == org.Region);
+
+                    if (isRegionExists.Any())
+                    {
+                        org.RegionName = isRegionExists.First().NameReg;
+                    }
+                }
             }
 
             return list;
@@ -1323,10 +1365,33 @@ namespace KasabaKiat.BusinessLogic.Utils.References
                                    Pas_ser = org.Pas_ser,
                                    Pas_Num = org.Pas_Num,
                                    Pas_KD = org.Pas_KD,
-                                   Pas_Data = org.Pas_Data
+                                   Pas_Data = org.Pas_Data,
+                                   ID_Ot = org.ID_Ot,
+                                   Region = org.Region
                                };
 
                 list = queryRes.ToList();
+
+                var otrasList = db.tblSprav_Otras.Where(s => s.DepartmentBase == departmentBase).ToList();
+
+                var regionList = db.tblSprav_Reg.ToList();
+
+                foreach (var org in list)
+                {
+                    var isOtrasExists = otrasList.Where(d => d.ID_Ot == org.ID_Ot);
+
+                    if (isOtrasExists.Any())
+                    {
+                        org.OtraslName = isOtrasExists.First().Name_Ot;
+                    }
+
+                    var isRegionExists = regionList.Where(r => r.CodeReg == org.Region);
+
+                    if (isRegionExists.Any())
+                    {
+                        org.RegionName = isRegionExists.First().NameReg;
+                    }
+                }
             }
 
             return list;

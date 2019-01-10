@@ -1,0 +1,20 @@
+﻿@using KasabaKIAT.BusinessLogic.Security.Roles.RolePermissions;
+@using KasabaKiat.Helpers;
+@{
+    var UserId = Convert.ToInt32(User.Identity.Name);
+    var ustinfo = UserInfo.GetUserInfo(UserId);
+    FunctionalityList List = FunctionalityAndDbDataMatch.MatchProcess(UserId);
+    ViewBag.Title = "Видео уроки";
+}
+<section class="content__block container-fluid">
+    <div class="row mb-4 align-items-center">
+        <div class="col title__block">
+            <h4>Начало работы</h4>
+            <nav aria-label="breadcrumb" class="breadcrumb__block">
+                <ol class="breadcrumb"></ol>
+            </nav>
+        </div>
+    </div>
+       <video id="VideoPlayer" src="@Url.Content("~/Videos/OblLesson1.mp4")" controls="true"
+                       width="800" height="500" loop="true" />
+</section>

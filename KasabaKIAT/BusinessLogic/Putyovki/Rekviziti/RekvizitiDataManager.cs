@@ -132,7 +132,9 @@ namespace KasabaKIAT.BusinessLogic.Putyovki.Rekviziti
                                 OKONX           = vipl.OKONX            ,
                                 Name_Dir        = vipl.Name_Dir         ,
                                 VIO             = vipl.VIO              ,
-                                DepartmentBase  = vipl.Departmentbase
+                                DepartmentBase  = vipl.Departmentbase   ,
+                                Name_Zaveduyushiy = vipl.Name_Zaveduyushiy,
+                                Name_VedSpes = vipl.Name_VedSpes
                             };
 
                 list = query.ToList();

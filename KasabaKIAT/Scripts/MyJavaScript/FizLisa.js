@@ -1,7 +1,7 @@
 ﻿app.controller("FizLiso", ["$scope", "$http", "$filter", function ($scope, $http, $filter) {
 
-    //GetOtraslForOrganization();
-    //GetRegionForOrganization();
+    GetOtraslForOrganization();
+    GetRegionForOrganization();
     //GetToDepForOrganization();
     GetEmptyCarcas();
     GetOrganizations();
@@ -87,6 +87,47 @@
             }, function (error) {
                 console.log("error in GetOrgDataByInn");
             });
+    }
+
+
+    function GetOtraslForOrganization() {
+        document.getElementById('connection').style.visibility = "visible";
+        $("#hh").modal({
+            backdrop: 'static'
+        });
+        $http({
+            method: 'get',
+            url: '/PrixodPutevok/GetOtraslForOrganization'
+        }).then(function (response) {
+            $scope.Otrasl = response.data;
+            document.getElementById('connection').style.visibility = "hidden";
+            $("#hh").modal('hide');
+        }, function (error) {
+            alertify.error("ошибка");
+            console.log("error in GetRekvizits");
+            document.getElementById('connection').style.visibility = "hidden";
+            $("#hh").modal('hide');
+        });
+    }
+
+    function GetRegionForOrganization() {
+        document.getElementById('connection').style.visibility = "visible";
+        $("#hh").modal({
+            backdrop: 'static'
+        });
+        $http({
+            method: 'get',
+            url: '/PrixodPutevok/GetRegionForOrganization'
+        }).then(function (response) {
+            $scope.Region = response.data;
+            document.getElementById('connection').style.visibility = "hidden";
+            $("#hh").modal('hide');
+        }, function (error) {
+            alertify.error("ошибка");
+            console.log("error in GetRekvizits");
+            document.getElementById('connection').style.visibility = "hidden";
+            $("#hh").modal('hide');
+        });
     }
 
 
@@ -237,8 +278,8 @@
             backdrop: 'static'
         });
 
-        //$scope.Organization.ID_Ot = $scope.ModalOtraslSelected.ID_Ot;
-        //$scope.Organization.Region = $scope.ModalRegionSelected.ID;
+        $scope.Organization.ID_Ot = $scope.ModalOtraslSelected.ID_Ot;
+        $scope.Organization.Region = $scope.ModalRegionSelected.ID;
         //$scope.Organization.ParentId = $scope.SelectedOrganization.ID;
         //$scope.Organization.PravSoyuzLevel = $scope.SelectedProgLevel.Code;
         //$scope.Organization.to_depcode = $scope.ModalToDepCodeSelected.Kod;

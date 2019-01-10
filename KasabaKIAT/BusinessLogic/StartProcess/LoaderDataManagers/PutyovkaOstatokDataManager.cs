@@ -43,10 +43,10 @@ namespace KasabaKIAT.BusinessLogic.StartProcess.LoaderDataManagers
 
 
             //Nakladnaya 
-            naklad.Data_Post = DateTime.ParseExact("01.01.2018", "dd.MM.yyyy", CultureInfo.InvariantCulture);
+            naklad.Data_Post = DateTime.ParseExact("31.12.2018", "dd.MM.yyyy", CultureInfo.InvariantCulture);
             naklad.DepartmentBase = DepartmentBase;
             naklad.UserId = UserId;
-            naklad.SmFil = 2017;
+            naklad.SmFil = 2018;
             naklad.ID_KV = 4;
 
             db.tblPost.Add(naklad);
@@ -113,29 +113,29 @@ namespace KasabaKIAT.BusinessLogic.StartProcess.LoaderDataManagers
                 }
 
                 //Nakladnaya Prixod
-                naklad.Data_Post = DateTime.ParseExact("01.01.2018", "dd.MM.yyyy", CultureInfo.InvariantCulture);
+                naklad.Data_Post = DateTime.ParseExact("31.12.2018", "dd.MM.yyyy", CultureInfo.InvariantCulture);
                 naklad.DepartmentBase = orgs.First().OWNER_CODE;
                 naklad.UserId = UserId;
-                naklad.SmFil = 2017;
+                naklad.SmFil = 2018;
                 naklad.ID_KV = 4;
 
                 db.tblPost.Add(naklad);
 
-                rasxodNaklad.Data_Post = DateTime.ParseExact("01.01.2018", "dd.MM.yyyy", CultureInfo.InvariantCulture);
+                rasxodNaklad.Data_Post = DateTime.ParseExact("31.12.2018", "dd.MM.yyyy", CultureInfo.InvariantCulture);
                 rasxodNaklad.DepartmentBase = DepartmentBase;
                 rasxodNaklad.UserId = UserId;
-                rasxodNaklad.SmFil = 2017;
+                rasxodNaklad.SmFil = 2018;
                 rasxodNaklad.ID_Kv = 4;
 
                 db.tblVipl.Add(rasxodNaklad);
 
-                oplata.Data_Post = DateTime.ParseExact("01.01.2018", "dd.MM.yyyy", CultureInfo.InvariantCulture);
+                oplata.Data_Post = DateTime.ParseExact("31.12.2018", "dd.MM.yyyy", CultureInfo.InvariantCulture);
                 oplata.Num_Doc = "1";
                 oplata.Symma_DT = 0;
                 oplata.Symma_KT = 0;
                 oplata.Osnov = "";
                 oplata.ID_KV =4;
-                oplata.SmFil = 2017;
+                oplata.SmFil = 2018;
                 oplata.Name_org ="";
                 oplata.Tip_Org = true;
                 oplata.PrizOpl = (int)OplataRasxPriz.OrganizasiyaRasxod;

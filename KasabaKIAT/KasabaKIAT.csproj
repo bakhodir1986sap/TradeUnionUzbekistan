@@ -536,6 +536,7 @@
     <Compile Include="Controllers\t_normativdocController.cs" />
     <Compile Include="Controllers\t_sanatoriumController.cs" />
     <Compile Include="Controllers\useractionsController.cs" />
+    <Compile Include="Controllers\VideoController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -1987,6 +1988,15 @@
     <Content Include="Scripts\vendor.js" />
     <Content Include="Scripts\vendor\modernizr.js" />
     <Content Include="Todo.txt" />
+    <Content Include="Videos\OblLesson1.mp4" />
+    <Content Include="Videos\OblLesson2.mp4" />
+    <Content Include="Videos\OblLesson3.mp4" />
+    <Content Include="Videos\OblLesson4.mp4" />
+    <Content Include="Videos\OblLesson5.mp4" />
+    <Content Include="Videos\OblLesson6.mp4" />
+    <Content Include="Videos\OblLesson7.mp4" />
+    <Content Include="Videos\OblLesson8.mp4" />
+    <Content Include="Videos\OblLesson9.mp4" />
     <Content Include="Views\TipsAndTriks.txt" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -2283,6 +2293,16 @@
     <Content Include="Views\Otchot\MonitoringPererasxodPlanaPoFinOtchetu.cshtml" />
     <Content Include="Views\Otchot\MonitoringPererasxodPoPutyovkam.cshtml" />
     <Content Include="Views\Otchot\MonitoringPostupOtKaznaCheystva.cshtml" />
+    <Content Include="Views\Video\VideoObl1.cshtml" />
+    <Content Include="Views\Video\VideoLessons.cshtml" />
+    <Content Include="Views\Video\VideoObl2.cshtml" />
+    <Content Include="Views\Video\VideoObl9.cshtml" />
+    <Content Include="Views\Video\VideoObl8.cshtml" />
+    <Content Include="Views\Video\VideoObl7.cshtml" />
+    <Content Include="Views\Video\VideoObl6.cshtml" />
+    <Content Include="Views\Video\VideoObl5.cshtml" />
+    <Content Include="Views\Video\VideoObl4.cshtml" />
+    <Content Include="Views\Video\VideoObl3.cshtml" />
     <None Include="Web References\KurortUrlService\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>

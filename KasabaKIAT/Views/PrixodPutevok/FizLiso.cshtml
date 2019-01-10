@@ -62,6 +62,9 @@
             <table class="table table__block t-hover">
                 <thead>
                     <tr>
+                        <th class="dropdown dropdown__table" style="width:150px;text-align:center">
+                            Отрасль
+                        </th>
                         <th class="dropdown dropdown__table" style="width:200px;text-align:center">
                             ФИО
                         </th>
@@ -86,10 +89,14 @@
                         <th class="dropdown dropdown__table" style="width:150px;text-align:center">
                             Дата выдачи
                         </th>
+                        <th class="dropdown dropdown__table" style="width:150px;text-align:center">
+                            Район
+                        </th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr class="poin" ng-repeat="org in Organizations" ng-click="editOrg(org)" data-toggle="modal" data-target="#dobavit" id="{{org.ID}}">
+                        <td style="text-align:center">{{org.OtraslName}}</td>
                         <td style="text-align:center">{{org.Name_Org}}</td>
                         <td style="text-align:center">{{org.INN     }}</td>
                         <td style="text-align:center">{{org.Adress  }}</td>
@@ -97,7 +104,8 @@
                         <td style="text-align:center">{{org.Pas_ser }}</td>
                         <td style="text-align:center">{{org.Pas_Num }}</td>
                         <td style="text-align:center">{{org.Pas_KD }}</td>
-                        <td style="text-align:center">{{org.Pas_Data | jsonDate : "dd.MM.yyyy"}}</td>  
+                        <td style="text-align:center">{{org.Pas_Data | jsonDate : "dd.MM.yyyy"}}</td>
+                        <td style="text-align:center">{{org.RegionName}}</td>
                     </tr>
                 </tbody>
             </table>
@@ -126,6 +134,20 @@
                                 <div class="col-md-7">
                                     <input maxlength="9" type="text" class="form-control" name="INN" ng-model="Organization.INN" required>
                                     <span class="alert alert-warning" style="padding:0px" ng-show="myForm.INN.$error.required">заполнить поле</span>
+                                </div>
+                            </div>
+                            <div class="form-group row align-items-center">
+                                <label class="col-md-5 col-form-label py-0" style="color:red">Отрасль:</label>
+                                <div class="col-md-7">
+                                    <select class="custom-select form-control" required name="Otrasl" ng-model="ModalOtraslSelected" ng-options="item as item.Name_Ot for item in Otrasl track by item.ID_Ot"></select>
+                                    <span class="alert alert-warning" style="padding:0px" ng-show="myForm.Otrasl.$error.required">Выберите поле</span>
+                                </div>
+                            </div>
+                            <div class="form-group row align-items-center">
+                                <label class="col-md-5 col-form-label py-0" style="color:red">Район:</label>
+                                <div class="col-md-7">
+                                    <select class="custom-select form-control" required name="Region" ng-model="ModalRegionSelected" ng-options="item as item.NameReg for item in Region track by item.ID"></select>
+                                    @*<span class="alert alert-warning" style="padding:0px" ng-show="myForm.Region.$error.required">Выберите поле</span>*@
                                 </div>
                             </div>
                             <div class="form-group row align-items-center">

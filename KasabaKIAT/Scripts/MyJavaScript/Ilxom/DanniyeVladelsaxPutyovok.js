@@ -661,6 +661,26 @@
         });
     }
 
+        $scope.GetOrganizationsFilterF = function () {
+        document.getElementById('connection').style.visibility = "visible";
+        $("#hh").modal({
+            backdrop: 'static'
+        });
+        $http({
+            method: 'get',
+            url: '/PrixodPutevok/GetFizLisoFilter?Name=' + $scope.FilterName + '&Inn=' + $scope.FilterInn + '&Pas_ser=' + $scope.FilterSeria + '&Pas_Number=' + $scope.FilterNomer
+        }).then(function (response) {
+            $scope.Organizations = response.data;
+            document.getElementById('connection').style.visibility = "hidden";
+            $("#hh").modal('hide');
+        }, function (error) {
+            alertify.error("ошибка");
+            console.log("error in GetRekvizits");
+            document.getElementById('connection').style.visibility = "hidden";
+            $("#hh").modal('hide');
+        });
+    }
+
     function GetRegionForOrganization() {
         document.getElementById('connection').style.visibility = "visible";
         $("#hh").modal({

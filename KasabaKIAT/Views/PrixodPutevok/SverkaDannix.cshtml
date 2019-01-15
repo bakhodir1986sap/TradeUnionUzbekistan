@@ -1,4 +1,8 @@
 ﻿@using KasabaKIAT.BusinessLogic.Security.Roles.RolePermissions;
+@using Syncfusion.EJ2
+@using Syncfusion.EJ2.DropDowns
+@using KasabaKIAT.BusinessLogic.Utils.References
+@using KasabaKIAT.BusinessLogic.Utils
 @{
     ViewBag.Title = "Путевки";
     var UserId = Convert.ToInt32(User.Identity.Name);
@@ -61,13 +65,12 @@
             <div class="col-lg-9">
                 <div class="row">
                     <div class="col-md-4 form-group">
-                        <select class="custom-select form-control" ng-model="SelectedYear2" ng-options="item as item.Year for item in Years track by item.Id">
-                        </select>
+                        <select class="custom-select form-control" ng-model="SelectedYear2" ng-options="item as item.Year for item in Years track by item.Id"></select>
                     </div>
                     @*<div class="col-md-4 form-group">
-                        <select class="custom-select form-control" ng-model="SelectedSanatory2" ng-options="item as item.Name_San for item in Sanatories track by item.ID">
-                        </select>
-                    </div>*@
+                            <select class="custom-select form-control" ng-model="SelectedSanatory2" ng-options="item as item.Name_San for item in Sanatories track by item.ID">
+                            </select>
+                        </div>*@
                     <div class="col-md-4 form-group">
                         <a href="#" ng-click="GetDifferByYearFiles()" class="btn btn-blue d-block">Показать несоответствия</a>
                     </div>

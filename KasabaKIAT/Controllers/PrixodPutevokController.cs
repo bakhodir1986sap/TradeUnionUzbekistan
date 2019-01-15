@@ -1265,6 +1265,34 @@ namespace KasabaKIAT.Controllers
             return Json(list.ToList().Skip(PAGE_SIZE * page).Take(PAGE_SIZE), JsonRequestBehavior.AllowGet);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="Id"></param>
+        /// <returns></returns>
+        public JsonResult ChangeOtraslMassive(List<long> orgs , int? otrasl)
+        {
+            if (orgs == null) return Json("fail", JsonRequestBehavior.AllowGet);
+            if (otrasl == null) return Json("fail", JsonRequestBehavior.AllowGet);
+
+            int UserId = Convert.ToInt32(User.Identity.Name);
+            var ustinfo = UserInfo.GetUserInfo(UserId);
+
+            try
+            {
+                foreach (var putyovkaId in orgs)
+                {
+                    Sprav_Org.ModifyChangeOtrasl(putyovkaId, otrasl.Value);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Json(ex.Message, JsonRequestBehavior.AllowGet);
+            }
+
+            return Json("success", JsonRequestBehavior.AllowGet);
+        }
+
 
         /// <summary>
         /// 

@@ -401,6 +401,88 @@
         });
     }
 
+    $scope.GetOrganizationsFilterCurPage = function () {
+        document.getElementById('connection').style.visibility = "visible";
+        $("#hh").modal({
+            backdrop: 'static'
+        });
+        $http({
+            method: 'get',
+            url: '/PrixodPutevok/GetOrganizationFilter?Name=' + $scope.FilterName + '&Inn=' + $scope.FilterInn + '&OtrasId=' + $scope.FilterSelectedOtrasl.ID_Ot + '&page=' + $scope.curPage 
+        }).then(function (response) {
+            $scope.Organizations = response.data;
+            TotalCountOfOrganization();
+            TotalCountOfNeotOrganization();
+            document.getElementById('connection').style.visibility = "hidden";
+            $("#hh").modal('hide');
+        }, function (error) {
+            alertify.error("ошибка");
+            console.log("error in GetRekvizits");
+            document.getElementById('connection').style.visibility = "hidden";
+            $("#hh").modal('hide');
+        });
+    }
+
+
+    $scope.SelectedPutyovkas = [];
+
+    $scope.toggleObjSelection = function ($event, dtl) {
+        $event.stopPropagation();
+        console.log('checkbox clicked' + dtl);
+
+        var isDelated = false;
+
+        for (var i = 0, l = $scope.SelectedPutyovkas.length; i < l; ++i) {
+            var value = $scope.SelectedPutyovkas[i];
+
+            if (dtl === value) {
+                $scope.SelectedPutyovkas.splice($scope.SelectedPutyovkas.indexOf(value), 1);
+                isDelated = true;
+                break;
+            }
+        }
+
+        if (!isDelated) {
+            $scope.SelectedPutyovkas.push(dtl);
+        }
+
+        console.log('====================================================');
+
+        for (var i = 0, l = $scope.SelectedPutyovkas.length; i < l; ++i) {
+            var value = $scope.SelectedPutyovkas[i];
+            console.log('tutuud: ' + value);
+        }
+    }
+
+    $scope.ChangeOtraslMassive = function () {
+        //alertify.error("UdalitPutyovku");
+
+        var postData = { orgs: $scope.SelectedPutyovkas, otrasl: $scope.FilterSelectedOtrasl.ID_Ot  };
+
+        $http({
+            method: "post",
+            url: "/PrixodPutevok/ChangeOtraslMassive",
+            data: JSON.stringify(postData),
+            dataType: "json"
+        }).then(function (response) {
+
+            $scope.SelectedPutyovkas = [];
+
+            for (var i = 0, l = $scope.SelectedPutyovkas.length; i < l; ++i) {
+                var value = $scope.SelectedPutyovkas[i];
+
+                $scope.SelectedPutyovkas.splice($scope.SelectedPutyovkas.indexOf(value), 1);
+            }
+
+            $scope.GetOrganizationsFilterCurPage();
+            alertify.success("Успешное сохранение");
+
+        }, function () {
+            alertify.error("ошибка");
+            console.log('Error in SavePutDtl');
+        });
+    }
+
 
     $scope.GetOrganizationsFilterNext = function () {
         document.getElementById('connection').style.visibility = "visible";
@@ -498,7 +580,7 @@
 
             if (response.data == 'success')
             {
-                $scope.GetOrganizationsFilter();
+                $scope.GetOrganizationsFilterCurPage();
                 alertify.success("Успешное сохранение");
             }
             else

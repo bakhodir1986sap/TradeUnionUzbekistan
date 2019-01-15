@@ -707,7 +707,7 @@
         var doc = new jsPDF({
             orientation: 'landscape',
             unit: 'mm',
-            format: [297, 210]
+            format: 'a4'
         });
         var width = doc.internal.pageSize.width;
         var height = doc.internal.pageSize.height;
@@ -740,12 +740,12 @@
                 //doc.addPage();
                 //doc.save('СчетФактура.pdf');
 
-                var imgWidth = 210;
-                var pageHeight = 295;
+                var imgWidth = 295;
+                var pageHeight = 210;
                 var imgHeight = height * imgWidth / width;
                 var heightLeft = imgHeight;
 
-                var doc = new jsPDF('p', 'mm');
+                var doc = new jsPDF('l', 'mm');
                 var position = 0;
 
                 doc.addImage(ru_text[0], 'PNG', 0, position, imgWidth, imgHeight);

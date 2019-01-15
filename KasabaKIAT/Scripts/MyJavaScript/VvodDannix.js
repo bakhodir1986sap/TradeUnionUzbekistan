@@ -17,6 +17,7 @@
         var file = $scope.SelectedFileForUpload;
         formData.append('UploadedFile', file);
         $scope.showLoader = true;   //show spinner  
+        document.getElementById('connection').style.visibility = "visible";
         $http({  
             method: "post",  
             withCredentials: true,  
@@ -30,6 +31,7 @@
             $scope.showdata = false;
             if (d.data == "error") {
                 alertify.error("ошибка");
+                document.getElementById('connection').style.visibility = "hidden";
             }
             else {
                 var res = d.data;
@@ -40,13 +42,15 @@
                     $scope.showdata = false;
                 }
                 $scope.IsVisible = true; //showing the table after databinding  
-                $scope.showLoader = false; //after success hide spinner  
+                $scope.showLoader = false; //after success hide spinner 
+                document.getElementById('connection').style.visibility = "hidden";
             }
            
         }, function (err) {
             alertify.error("ошибка : " + err.data);
             console.log(err.data);
             console.log("error in parse excel");
+            document.getElementById('connection').style.visibility = "hidden";
         });
     }
 
@@ -57,6 +61,7 @@
         var Savefile = $scope.SelectedFileForUpload;
         SaveData.append('UploadedFile', Savefile);
         alertify.success("Операция выполняется");
+        document.getElementById('connection').style.visibility = "hidden";
         $http({
             method: "post",
             withCredentials: true,
@@ -73,11 +78,12 @@
             } else {
                 console.log(d.data);
             }
-            
+            document.getElementById('connection').style.visibility = "hidden";
         }, function (err) {
             alertify.error("ошибка : " + err.data);
             console.log(err.data);
             console.log("error in parse excel");
+            document.getElementById('connection').style.visibility = "hidden";
         });
     }
     function LoadDATA() {

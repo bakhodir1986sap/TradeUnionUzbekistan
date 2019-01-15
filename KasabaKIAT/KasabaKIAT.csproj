@@ -71,6 +71,9 @@
       <HintPath>..\packages\FastMember.Signed.1.1.0\lib\net40\FastMember.Signed.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="ICSharpCode.SharpZipLib, Version=1.0.0.999, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL">
+      <HintPath>..\packages\SharpZipLib.1.0.0\lib\net45\ICSharpCode.SharpZipLib.dll</HintPath>
+    </Reference>
     <Reference Include="LinqToExcel, Version=1.11.0.0, Culture=neutral, PublicKeyToken=9c8ea65a58f03f1f, processorArchitecture=MSIL">
       <HintPath>..\packages\LinqToExcel.1.11.0\lib\LinqToExcel.dll</HintPath>
       <Private>True</Private>
@@ -121,6 +124,18 @@
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI, Version=2.4.1.0, Culture=neutral, PublicKeyToken=0df73ec7942b34e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\NPOI.2.4.1\lib\net45\NPOI.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI.OOXML, Version=2.4.1.0, Culture=neutral, PublicKeyToken=0df73ec7942b34e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\NPOI.2.4.1\lib\net45\NPOI.OOXML.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI.OpenXml4Net, Version=2.4.1.0, Culture=neutral, PublicKeyToken=0df73ec7942b34e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\NPOI.2.4.1\lib\net45\NPOI.OpenXml4Net.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI.OpenXmlFormats, Version=2.4.1.0, Culture=neutral, PublicKeyToken=0df73ec7942b34e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\NPOI.2.4.1\lib\net45\NPOI.OpenXmlFormats.dll</HintPath>
     </Reference>
     <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
       <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
@@ -298,6 +313,22 @@
     <Compile Include="BusinessLogic\Buxgalteriya\Balance\ProvodkaParams.cs" />
     <Compile Include="BusinessLogic\Buxgalteriya\Balance\Transactions\JournalDetailDataManager.cs" />
     <Compile Include="BusinessLogic\Buxgalteriya\Balance\Transactions\JournalMasterDataManager.cs" />
+    <Compile Include="BusinessLogic\Buxgalteriya\Chastichka\Andijon\AndChastModule.cs" />
+    <Compile Include="BusinessLogic\Buxgalteriya\Chastichka\Buxoro\BuxChastModule.cs" />
+    <Compile Include="BusinessLogic\Buxgalteriya\Chastichka\Common\BaseAlgoritm.cs" />
+    <Compile Include="BusinessLogic\Buxgalteriya\Chastichka\Common\BaseStruct.cs" />
+    <Compile Include="BusinessLogic\Buxgalteriya\Chastichka\Default\DefaultModule.cs" />
+    <Compile Include="BusinessLogic\Buxgalteriya\Chastichka\Federasiya\ChastFedController.cs" />
+    <Compile Include="BusinessLogic\Buxgalteriya\Chastichka\Federasiya\ConvertRow2KaznaData.cs" />
+    <Compile Include="BusinessLogic\Buxgalteriya\Chastichka\Federasiya\DebitPredefined.cs" />
+    <Compile Include="BusinessLogic\Buxgalteriya\Chastichka\Federasiya\InputContainer.cs" />
+    <Compile Include="BusinessLogic\Buxgalteriya\Chastichka\Federasiya\InputRow.cs" />
+    <Compile Include="BusinessLogic\Buxgalteriya\Chastichka\Federasiya\KaznaModel.cs" />
+    <Compile Include="BusinessLogic\Buxgalteriya\Chastichka\Federasiya\PredContainer.cs" />
+    <Compile Include="BusinessLogic\Buxgalteriya\Chastichka\Federasiya\PredModel.cs" />
+    <Compile Include="BusinessLogic\Buxgalteriya\Chastichka\Federasiya\ReadFileData.cs" />
+    <Compile Include="BusinessLogic\Buxgalteriya\Chastichka\Federasiya\RowInput.cs" />
+    <Compile Include="BusinessLogic\Buxgalteriya\Chastichka\Xorazm\XorChastModule.cs" />
     <Compile Include="BusinessLogic\Buxgalteriya\ECP_Management\EcpManagement.cs" />
     <Compile Include="BusinessLogic\Buxgalteriya\ECP_Management\EcpViewModel.cs" />
     <Compile Include="BusinessLogic\Buxgalteriya\FinansoviyOtchet\FinOtchetSettingsDataManager.cs" />
@@ -1574,6 +1605,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="BusinessLogic\Buxgalteriya\Chastichka\ChastichkaAnaliz.txt" />
     <Content Include="BusinessLogic\Security\Roles\RolePermissions\temp.txt" />
     <Content Include="BusinessLogic\Security\Roles\RolePermissions\TextFile1.txt" />
     <Content Include="BusinessLogic\Security\Roles\RolePermissions\TextFile2.txt" />
@@ -1900,7 +1932,10 @@
     <Content Include="Scripts\MyJavaScript\BU_PrasmotrDannix.js" />
     <Content Include="Scripts\MyJavaScript\Controller.js" />
     <Content Include="Scripts\MyJavaScript\DataService.js" />
+    <Content Include="Scripts\MyJavaScript\Ilxom\DanniyeVladelsaxPutyovokN2.js" />
+    <Content Include="Scripts\MyJavaScript\Ilxom\RasxodPutyovokN5.js" />
     <Content Include="Scripts\MyJavaScript\LagerFinOtchet.js" />
+    <Content Include="Scripts\MyJavaScript\Organizasii2.js" />
     <Content Include="Scripts\MyJavaScript\SanatoriyProfilaktoriy.js" />
     <Content Include="Scripts\MyJavaScript\GlavnayaKniga.js" />
     <Content Include="Scripts\MyJavaScript\GPController.js" />
@@ -2369,9 +2404,24 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="BusinessLogic\BankOplati\Firmi\" />
+    <Folder Include="BusinessLogic\Buxgalteriya\Chastichka\AGMK\" />
+    <Folder Include="BusinessLogic\Buxgalteriya\Chastichka\Djizzax\" />
+    <Folder Include="BusinessLogic\Buxgalteriya\Chastichka\Fargona\" />
+    <Folder Include="BusinessLogic\Buxgalteriya\Chastichka\Jeleznodorojniki\" />
+    <Folder Include="BusinessLogic\Buxgalteriya\Chastichka\Karakalpak\" />
+    <Folder Include="BusinessLogic\Buxgalteriya\Chastichka\Kashkadaryo\" />
+    <Folder Include="BusinessLogic\Buxgalteriya\Chastichka\Namangan\" />
+    <Folder Include="BusinessLogic\Buxgalteriya\Chastichka\Navoi\" />
+    <Folder Include="BusinessLogic\Buxgalteriya\Chastichka\NGMK\" />
+    <Folder Include="BusinessLogic\Buxgalteriya\Chastichka\Samarqand\" />
+    <Folder Include="BusinessLogic\Buxgalteriya\Chastichka\Sirdaryo\" />
+    <Folder Include="BusinessLogic\Buxgalteriya\Chastichka\Surxondaryo\" />
+    <Folder Include="BusinessLogic\Buxgalteriya\Chastichka\Tashkent\" />
+    <Folder Include="BusinessLogic\Buxgalteriya\Chastichka\Tashobl\" />
     <Folder Include="BusinessLogic\Reports\Buxgalteriya\NewFolder1\" />
     <Folder Include="BusinessLogic\Reports\Putyovki\NewFolder1\" />
     <Folder Include="BusinessLogic\Security\Roles\Users\" />
+    <Folder Include="Files\Vipiska\" />
     <Folder Include="Reports\6\" />
     <Folder Include="Reports\8\" />
     <Folder Include="ViewModel\References\" />

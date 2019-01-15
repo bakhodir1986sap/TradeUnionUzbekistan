@@ -26,6 +26,11 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.UI;
 using KasabaKIAT.BusinessLogic.Buxgalteriya;
+using KasabaKIAT.BusinessLogic.Buxgalteriya.Chastichka.Federasiya;
+using KasabaKIAT.BusinessLogic.Buxgalteriya.Chastichka.Default;
+using NPOI.HSSF.UserModel;
+using NPOI.SS.UserModel;
+using NPOI.XSSF.UserModel;
 
 namespace KasabaKIAT.Controllers
 {
@@ -205,9 +210,40 @@ namespace KasabaKIAT.Controllers
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="fullFilePath"></param>
+        /// <returns></returns>
+        private ISheet GetFileStream(string fullFilePath)
+        {
+            var fileExtension = Path.GetExtension(fullFilePath);
+            string sheetName;
+            ISheet sheet = null;
+            switch (fileExtension)
+            {
+                case ".xlsx":
+                    using (var fs = new FileStream(fullFilePath, FileMode.Open, FileAccess.Read))
+                    {
+                        var wb = new XSSFWorkbook(fs);
+                        sheetName = wb.GetSheetAt(0).SheetName;
+                        sheet = (XSSFSheet)wb.GetSheet(sheetName);
+                    }
+                    break;
+                case ".xls":
+                    using (var fs = new FileStream(fullFilePath, FileMode.Open, FileAccess.Read))
+                    {
+                        var wb = new HSSFWorkbook(fs);
+                        sheetName = wb.GetSheetAt(0).SheetName;
+                        sheet = (HSSFSheet)wb.GetSheet(sheetName);
+                    }
+                    break;
+            }
+            return sheet;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
         /// <param name="formCollection"></param>
         /// <returns></returns>
-        public ActionResult Read(FormCollection formCollection)
+        public ActionResult ReadV1(FormCollection formCollection)
         {
             log.Info("Read");
             try
@@ -217,12 +253,24 @@ namespace KasabaKIAT.Controllers
                     HttpPostedFileBase file = Request.Files["UploadedFile"];
                     if ((file != null) && (file.ContentLength > 0) && !string.IsNullOrEmpty(file.FileName))
                     {
-                        string fileName = file.FileName;
-                        string fileContentType = file.ContentType;
-                        byte[] fileBytes = new byte[file.ContentLength];
-                        var data = file.InputStream.Read(fileBytes, 0, Convert.ToInt32(file.ContentLength));
+                        string nameAndLocation = "~/Files/Vipiska/" + file.FileName;
+                        var filePath = Server.MapPath(nameAndLocation);
+                        file.SaveAs(filePath);
+
+                        //string fileName = file.FileName;
+                        //string fileContentType = file.ContentType;
+                        //byte[] fileBytes = new byte[file.ContentLength];
+                        //var data = file.InputStream.Read(fileBytes, 0, Convert.ToInt32(file.ContentLength));
+
+                        var sh = GetFileStream(filePath);
+
+                        var res = sh.GetRow(0).GetCell(0).StringCellValue;
+
+
+                        FileInfo existingFile = new FileInfo(filePath);
+
                         var platList = new List<BankpaymentsViewModel>();
-                        using (var package = new ExcelPackage(file.InputStream))
+                        using (var package = new ExcelPackage(existingFile))
                         {
                             var currentSheet = package.Workbook.Worksheets;
                             var workSheet = currentSheet.First();
@@ -301,6 +349,133 @@ namespace KasabaKIAT.Controllers
                                         d12 = d.benef_account,
                                         d13 = d.dbcrflg,
                                     };
+                        log.Info("Count = " + platList.ToList().Count);
+                        return Json(data1, JsonRequestBehavior.AllowGet);
+                    }
+                }
+
+                return View("VvodDannix");
+            }
+            catch (Exception ex)
+            {
+                log.Info(ex);
+                return Json("error", JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="formCollection"></param>
+        /// <returns></returns>
+        public ActionResult Read(FormCollection formCollection)
+        {
+            log.Info("Read");
+            int UserId = Convert.ToInt32(User.Identity.Name);
+            var ustinfo = UserInfo.GetUserInfo(UserId);
+
+            try
+            {
+                if (Request != null)
+                {
+                    HttpPostedFileBase file = Request.Files["UploadedFile"];
+                    if ((file != null) && (file.ContentLength > 0) && !string.IsNullOrEmpty(file.FileName))
+                    {
+                        string nameAndLocation = "~/Files/Vipiska/" + file.FileName;
+                        var filePath = Server.MapPath(nameAndLocation);
+                        file.SaveAs(filePath);
+
+                        var platList = new List<BankpaymentsViewModel>();
+
+                        switch(ustinfo.DepartmentBase)
+                        {
+                            case "17":
+                                platList = ChastFedController.Process(filePath);
+                                break;
+                            case "17203":
+                                platList = DefaultModule.Process(filePath);
+                                break;
+                            case "17206":
+                                platList = DefaultModule.Process(filePath);
+                                break;
+                            case "17208":
+                                platList = DefaultModule.Process(filePath);
+                                break;
+                            case "17235":
+                                platList = DefaultModule.Process(filePath);
+                                break;
+                            case "17210":
+                                platList = DefaultModule.Process(filePath);
+                                break;
+                            case "17212":
+                                platList = DefaultModule.Process(filePath);
+                                break;
+                            case "17214":
+                                platList = DefaultModule.Process(filePath);
+                                break;
+                            case "173О1":
+                                platList = DefaultModule.Process(filePath);
+                                break;
+                            case "173Н2":
+                                platList = DefaultModule.Process(filePath);
+                                break;
+                            case "173Т2":
+                                platList = DefaultModule.Process(filePath);
+                                break;
+                            case "17218":
+                                platList = DefaultModule.Process(filePath);
+                                break;
+                            case "17222":
+                                platList = DefaultModule.Process(filePath);
+                                break;
+                            case "17224":
+                                platList = DefaultModule.Process(filePath);
+                                break;
+                            case "17226":
+                                platList = DefaultModule.Process(filePath);
+                                break;
+                            case "17227":
+                                platList = DefaultModule.Process(filePath);
+                                break;
+                            case "17230":
+                                platList = DefaultModule.Process(filePath);
+                                break;
+                            case "17233":
+                                platList = DefaultModule.Process(filePath);
+                                break;
+
+                        }
+
+                        var data1 = from d in platList
+                                    select new
+                                    {
+                                        d1 = d.num_doc,
+                                        d2 = d.payer_name,
+                                        d3 = d.payer_inn,
+                                        d4 = d.payer_mfo,
+                                        d5 = d.payer_account,
+                                        d6 = d.tran_date,
+                                        d7 = d.payment_datail,
+                                        d8 = d.amount,
+                                        d9 = d.benef_name,
+                                        d10 = d.benef_inn,
+                                        d11 = d.benef_mfo,
+                                        d12 = d.benef_account,
+                                        d13 = d.dbcrflg,
+                                    };
+
+                        foreach(var bank in platList)
+                        {
+                            var bb = bank;
+                            bb.department_base = ustinfo.DepartmentBase;
+                            bb.user_id = UserId;
+                            BankpaymentsDataManager.Create(ref bb, KasabaDB);
+                        }
+
+                        KasabaDB.SaveChanges();
+
+                        BankpaymentsDataManager.MakeProvodka2(ustinfo.DepartmentBase, UserId);
+
                         log.Info("Count = " + platList.ToList().Count);
                         return Json(data1, JsonRequestBehavior.AllowGet);
                     }

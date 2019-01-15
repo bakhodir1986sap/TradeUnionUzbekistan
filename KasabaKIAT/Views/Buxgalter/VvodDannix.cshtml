@@ -8,6 +8,9 @@
 <script src="~/Scripts/MyJavaScript/VvodDannix.js"></script>
 @if (List.BuxUchetVvodDannix)
 {
+    <div id="connection" style="visibility:hidden;position:absolute;margin-left:430px;z-index:9999">
+        <img src="~/Content/Login/buffering.gif" />
+    </div>
     <section class="content__block container-fluid" ng-controller="VvodDannix">
         <div class="row mb-4 align-items-center">
             <div class="col title__block">
@@ -28,22 +31,23 @@
                         <label for="inlineRadio1" class="custom-control-label">Банковская справка</label>
                     </div>
                     @*<div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" name="inlineRadioOptions3" id="inlineRadio2" value="option2" class="custom-control-input" />
-                        <label for="inlineRadio2" class="custom-control-label">Банк клиент</label>
-                    </div>*@
+                            <input type="radio" name="inlineRadioOptions3" id="inlineRadio2" value="option2" class="custom-control-input" />
+                            <label for="inlineRadio2" class="custom-control-label">Банк клиент</label>
+                        </div>*@
                 </div>
             </div>
-            
+
             <div class="col-md-5 text-md-right" style="display:flex;flex-direction:row;align-items:baseline;flex-wrap:wrap">
                 <div class="form-inline">
-                	<div style="padding-right:9px">
-                    @Html.ActionLink("Загрузить Шаблон", "DownloadTemplate", "Buxgalter")<br /></div><br />
-                    <input type="file" id="input08"  name="UploadedFile" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" onchange="angular.element(this).scope().UploadFiles(this.files)" />&nbsp
-                </div> 
+                    <div style="padding-right:9px">
+                        @Html.ActionLink("Загрузить Шаблон", "DownloadTemplate", "Buxgalter")<br />
+                    </div><br />
+                    <input type="file" id="input08" name="UploadedFile" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" onchange="angular.element(this).scope().UploadFiles(this.files)" />&nbsp
+                </div>
                 <input type="button" value="Просмотреть" class="btn btn-primary" style="margin-top:-3px" ng-disabled="!SelectedFileForUpload" ng-click="ParseExcel() " />
                 <span style="color:red">
                     {{Message}}
-                </span> 
+                </span>
             </div>
         </div>
         <div class="table__title mb-5" ng-show="showdata">
@@ -76,98 +80,98 @@
         </div>
         <script src="~/Scripts/bootstrap-filestyle.min.js"></script>
         <script type="text/javascript">
-			$('#input01').filestyle()
-			$('#input001').filestyle({
-				'placeholder' : 'Placeholder test'
-			});
-			$('#input02').filestyle({
-				text : 'My filestyle',
-				dragdrop: false
-			});
+            $('#input01').filestyle()
+            $('#input001').filestyle({
+                'placeholder': 'Placeholder test'
+            });
+            $('#input02').filestyle({
+                text: 'My filestyle',
+                dragdrop: false
+            });
 
-			$('#input03').filestyle({
-				badge: true,
-				input : false,
-				btnClass : 'btn-primary',
-				htmlIcon : '<span class="oi oi-folder"></span> '
-			});
+            $('#input03').filestyle({
+                badge: true,
+                input: false,
+                btnClass: 'btn-primary',
+                htmlIcon: '<span class="oi oi-folder"></span> '
+            });
 
-			$('#input04').filestyle({
-				htmlIcon : '<span class="oi oi-folder"></span> ',
-				text: ''
-			});
+            $('#input04').filestyle({
+                htmlIcon: '<span class="oi oi-folder"></span> ',
+                text: ''
+            });
 
-			$('#input05').filestyle({
-				btnClass : 'btn-outline-primary'
-			});
+            $('#input05').filestyle({
+                btnClass: 'btn-outline-primary'
+            });
 
-			$('#input06').filestyle({
-				onChange: function (param) {
-					console.log(param)
-					alert(param);
-				}
-			});
+            $('#input06').filestyle({
+                onChange: function (param) {
+                    console.log(param)
+                    alert(param);
+                }
+            });
 
-			$('#input08').filestyle({
-			    text: ' Выбрать',
-				btnClass : 'btn-success'
-			});
+            $('#input08').filestyle({
+                text: ' Выбрать',
+                btnClass: 'btn-success'
+            });
 
-			$('#clear').click(function() {
-				$('#input08').filestyle('clear');
-			});
+            $('#clear').click(function () {
+                $('#input08').filestyle('clear');
+            });
 
-			$('#input09').filestyle({
-				text : 'File',
-				btnClass : 'btn-primary'
-			});
+            $('#input09').filestyle({
+                text: 'File',
+                btnClass: 'btn-primary'
+            });
 
-			$('#toggleInput').click(function() {
-				var fs = $('#input09');
-				if (fs.filestyle('input'))
-					fs.filestyle('input', false);
-				else
-					fs.filestyle('input', true);
-			});
+            $('#toggleInput').click(function () {
+                var fs = $('#input09');
+                if (fs.filestyle('input'))
+                    fs.filestyle('input', false);
+                else
+                    fs.filestyle('input', true);
+            });
 
-			$('#input11').filestyle({
-				text : 'Multiple',
-				btnClass : 'btn-danger'
-			});
+            $('#input11').filestyle({
+                text: 'Multiple',
+                btnClass: 'btn-danger'
+            });
 
-			$('#input13').filestyle({
-				disabled : true
-			});
+            $('#input13').filestyle({
+                disabled: true
+            });
 
-			$('#input14').filestyle({
-				buttonBefore : true
-			});
-			$('#input15').filestyle({
-				size : 'lg'
-			});
-			$('#input16').filestyle({
-				size : 'sm'
-			});
+            $('#input14').filestyle({
+                buttonBefore: true
+            });
+            $('#input15').filestyle({
+                size: 'lg'
+            });
+            $('#input16').filestyle({
+                size: 'sm'
+            });
 
-			// nultiple initialize
-			$('.test').filestyle({
-				btnClass : 'btn-primary'
-			});
+            // nultiple initialize
+            $('.test').filestyle({
+                btnClass: 'btn-primary'
+            });
 
-			$('#countRed').on('click', function () {
-				$('#input03').filestyle('badgeName', 'badge-danger');
-			});
+            $('#countRed').on('click', function () {
+                $('#input03').filestyle('badgeName', 'badge-danger');
+            });
 
-			$('#countToggle').on('click', function () {
-				if ($('#input03').filestyle('badge'))
-					$('#input03').filestyle('badge', false);
-				else
-					$('#input03').filestyle('badge', true);
-			});
+            $('#countToggle').on('click', function () {
+                if ($('#input03').filestyle('badge'))
+                    $('#input03').filestyle('badge', false);
+                else
+                    $('#input03').filestyle('badge', true);
+            });
         </script>
-        <div class="mb-4">
+        @*<div class="mb-4">
             <button ng-disabled="!SelectedFileForUpload" ng-click="SaveDATA()" class="btn btn-blue d-block d-md-inline-block">Подтвердить</button>
-        </div>
+        </div>*@
     </section>
 
 

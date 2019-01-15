@@ -23,6 +23,15 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.PrixodChastichka
         /// <param name="db"></param>
         public static void Create(ref BankpaymentsViewModel model, KasabaKIATEntities db)
         {
+                BankpaymentsViewModel temp = model;
+
+                var planOblast = db.tbgl_bankpayments.Where(z => z.TRAN_DATE == temp.tran_date
+                                                        && z.PAYER_ACCOUNT == temp.payer_account 
+                                                        && z.AMOUNT == temp.amount
+                                                        && z.NUM_DOC == temp.num_doc);
+
+                if (planOblast.Any()) return;
+
                 tbgl_bankpayments reg = new tbgl_bankpayments();
 
                 reg.NUM_DOC =           model.num_doc               ;
@@ -300,6 +309,123 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.PrixodChastichka
                             }
                         }
                         throw;
+                    }
+                    catch(Exception)
+                    {
+
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="departmentBase"></param>
+        /// <returns></returns>
+        public static void MakeProvodka2(string departmentBase, long UserId)
+        {
+            using (KasabaKIATEntities db = new KasabaKIATEntities())
+            {
+                var provodkaList = db.tbgl_bankpayments.Where(z => z.PROVODKA_ID == null && z.DEPARTMENT_BASE == departmentBase);
+
+                if (provodkaList.Any())
+                {
+                    foreach (var pp in provodkaList)
+                    {
+                        var trans = new ProvodkiViewModel
+                        {
+                            comment = "Частичная оплата",
+                            department_base = pp.DEPARTMENT_BASE,
+                            inoutflg = false,
+                            platelrsch = "002",
+                            poluchrsch = "18",
+                            summa = pp.AMOUNT,
+                            user_id = pp.USER_ID,
+                            trdt = pp.TRAN_DATE,
+                            trref = "CHT",
+                            trrefno = string.Format("{0}|{1}", pp.NUM_DOC, pp.PAYER_INN)
+                        };
+
+                        tbbu_provodki provodka = null;
+                        ProvodkiDataManager.Create(ref trans, db, out provodka);
+
+                        pp.tbbu_provodki = provodka;
+
+                        long? OrgId = null;
+                        var orgs = db.tblSprav_Org.Where(z => z.INN == pp.PAYER_INN && z.DepartmentBase == departmentBase);
+
+                        if (orgs.Any())
+                        {
+                            OrgId = orgs.First().ID;
+                        }
+                        else
+                        {
+                            continue;
+                        }
+
+                        //Privedeniya kvartala
+                        int cur_year = DateOperations.GetYear(pp.TRAN_DATE);
+                        int cur_kvartal = DateOperations.GetQuarter(pp.TRAN_DATE);
+
+                        var curKvartalc = new CloseKvartal();
+                        var curKvartal = curKvartalc.GetCloseKvartalRow(pp.DEPARTMENT_BASE);
+
+                        if (curKvartal != null)
+                        {
+                            if ((curKvartal.curkv_year.Value != cur_year) || (curKvartal.curkv.Value != cur_kvartal))
+                            {
+                                pp.TRAN_DATE = DateOperations.GetCurKvartalDate(curKvartal.curkv_year.Value, curKvartal.curkv.Value);
+                                cur_year = curKvartal.curkv_year.Value;
+                                cur_kvartal = curKvartal.curkv.Value;
+                            }
+                        }
+                        else
+                        {
+                            throw new ApplicationException("Current Kvartal Info not available = " + cur_year + "   " + cur_kvartal);
+                        }
+
+                        var oplata = new OplataViewModel
+                        {
+                            Data_Post = pp.TRAN_DATE,
+                            Departmentbase = pp.DEPARTMENT_BASE,
+                            ID_KV = DateOperations.GetQuarter(pp.TRAN_DATE),
+                            ID_Otras = OrgId,
+                            Num_Doc = pp.NUM_DOC,
+                            PrizOpl = (int)OplataRasxPriz.OrganizasiyaOplata,
+                            SmFil = pp.TRAN_DATE.Year,
+                            Symma_DT = 0,
+                            Symma_KT = pp.AMOUNT,
+                            Tip_Org = true,
+                            UserId = UserId
+                        };
+
+                        tblOplata opp = null;
+
+                        OplataDataManager.Create(ref oplata, db, out opp);
+                    }
+
+                    try
+                    {
+                        db.SaveChanges();
+                    }
+                    catch (DbEntityValidationException e)
+                    {
+                        foreach (var eve in e.EntityValidationErrors)
+                        {
+                            Console.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
+                                eve.Entry.Entity.GetType().Name, eve.Entry.State);
+                            foreach (var ve in eve.ValidationErrors)
+                            {
+                                Console.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
+                                    ve.PropertyName, ve.ErrorMessage);
+                            }
+                        }
+                        throw;
+                    }
+                    catch (Exception)
+                    {
+
                     }
                 }
             }

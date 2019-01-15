@@ -281,6 +281,31 @@ namespace KasabaKiat.BusinessLogic.Utils.References
             }
         }
 
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="model"></param>
+        public static void ModifyChangeOtrasl(long OrgId , int OtrasId)
+        {
+            using (KasabaKIATEntities db = new KasabaKIATEntities())
+            {
+                var org = db.tblSprav_Org.Where(z => z.ID == OrgId);
+
+                if (org.Any())
+                {
+                    var org1 = org.FirstOrDefault();
+
+                    if (org1 != null)
+                    {
+                        org1.ID_Ot = OtrasId;
+                    }
+                }
+
+                db.SaveChanges();
+            }
+        }
+
         /// <summary>
         /// 
         /// </summary>

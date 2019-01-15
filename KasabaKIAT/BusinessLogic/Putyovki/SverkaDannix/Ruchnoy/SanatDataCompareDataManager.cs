@@ -156,8 +156,8 @@ namespace KasabaKIAT.BusinessLogic.Putyovki.SverkaDannix.Ruchnoy
         {
             using (KasabaKIATEntities db = new KasabaKIATEntities())
             {
-                var sanInfo = db.tblSanatDataCompares.Where(z => z.YEAR == year
-                && z.SANAT_ID == IdSan && z.OWNER_CODE == Obl && z.OWNER_TP == 1);
+                var sanInfo = db.tblSanatDataCompares.Where(z => z.YEAR == year);
+                //&& z.SANAT_ID == IdSan && z.OWNER_CODE == Obl && z.OWNER_TP == 1
 
                 if (sanInfo.Any())
                 {

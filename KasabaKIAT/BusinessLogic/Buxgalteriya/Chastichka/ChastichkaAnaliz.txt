@@ -1,0 +1,4 @@
+﻿1) All users uses MS Excel as import file
+2) Each user has its own file structure
+3) Each user has its own algoritm
+4) All user data will be inserted to BankpaymentsViewModel 

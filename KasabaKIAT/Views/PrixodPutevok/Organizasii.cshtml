@@ -20,7 +20,7 @@
         margin: 5px 12px !important;
     }
 </style>
-<script src="~/Scripts/MyJavaScript/Organizasii.js"></script>
+<script src="~/Scripts/MyJavaScript/Organizasii2.js"></script>
 <div id="connection" style="visibility:hidden;position:absolute;margin-left:430px;z-index:9999">
     <img src="~/Content/Login/buffering.gif" />
 </div>
@@ -37,8 +37,11 @@
                         </ol>
                     </nav>
                 </div>
-                <div class="col-sm-3 text-md-right">
+                <div class="col-sm-2 text-md-right">
                     <button ng-click="addOrg()" class="btn btn-red" data-toggle="modal" data-target="#dobavit"><i class="active"></i> Добавить</button>
+                </div>
+                <div class="col-sm-2 text-md-right">
+                    <button ng-click="ChangeOtraslMassive()" class="btn btn-blue"><i class="active"></i> Назначить отрасль</button>
                 </div>
                 <div class="col-sm-1 text-md-right">
                     <button class="btn btn-green" ng-click="exportData()"><i class="fas fa-file-excel"></i> Экспорт</button>
@@ -128,6 +131,9 @@
                     <thead>
                         <tr>
                             <th class="dropdown dropdown__table" style="width:150px;text-align:center">
+                                Номер
+                            </th>
+                            <th class="dropdown dropdown__table" style="width:150px;text-align:center">
                                 Отрасль
                             </th>
                             <th class="dropdown dropdown__table" style="width:200px;text-align:center">
@@ -160,17 +166,22 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr class="poin" ng-repeat="org in Organizations" ng-click="editOrg(org)" data-toggle="modal" data-target="#dobavit" id="{{org.ID}}">
-                            <td style="text-align:center">{{org.OtraslName}}</td>
-                            <td style="text-align:center">{{org.Name_Org}}</td>
-                            <td style="text-align:center">{{org.INN     }}</td>
-                            <td style="text-align:center">{{org.RS      }}</td>
-                            <td style="text-align:center">{{org.MFO     }}</td>
-                            <td style="text-align:center">{{org.Bank    }}</td>
-                            <td style="text-align:center">{{org.OKONX   }}</td>
-                            <td style="text-align:center">{{org.Adress  }}</td>
-                            <td style="text-align:center">{{org.Telefon }}</td>
-                            <td style="text-align:center">{{org.RegionName}}</td>
+                        <tr class="poin" ng-repeat="org in Organizations" id="{{org.ID}}">
+                            <td class="custom-control custom-checkbox r-checkbox">
+                                <input type="checkbox" class="custom-control-input" id="customCheck{{org.ID}}"
+                                      ng-click="toggleObjSelection($event, org.ID)">
+                                <label class="custom-control-label r-label" for="customCheck{{org.ID}}">{{org.ID}}</label>
+                            </td>
+                            <td style="text-align:center" ng-click="editOrg(org)" data-toggle="modal" data-target="#dobavit">{{org.OtraslName}}</td>
+                            <td style="text-align:center" ng-click="editOrg(org)" data-toggle="modal" data-target="#dobavit">{{org.Name_Org}}</td>
+                            <td style="text-align:center" ng-click="editOrg(org)" data-toggle="modal" data-target="#dobavit">{{org.INN     }}</td>
+                            <td style="text-align:center" ng-click="editOrg(org)" data-toggle="modal" data-target="#dobavit">{{org.RS      }}</td>
+                            <td style="text-align:center" ng-click="editOrg(org)" data-toggle="modal" data-target="#dobavit">{{org.MFO     }}</td>
+                            <td style="text-align:center" ng-click="editOrg(org)" data-toggle="modal" data-target="#dobavit">{{org.Bank    }}</td>
+                            <td style="text-align:center" ng-click="editOrg(org)" data-toggle="modal" data-target="#dobavit">{{org.OKONX   }}</td>
+                            <td style="text-align:center" ng-click="editOrg(org)" data-toggle="modal" data-target="#dobavit">{{org.Adress  }}</td>
+                            <td style="text-align:center" ng-click="editOrg(org)" data-toggle="modal" data-target="#dobavit">{{org.Telefon }}</td>
+                            <td style="text-align:center" ng-click="editOrg(org)" data-toggle="modal" data-target="#dobavit">{{org.RegionName}}</td>
                         </tr>
                     </tbody>
                 </table>

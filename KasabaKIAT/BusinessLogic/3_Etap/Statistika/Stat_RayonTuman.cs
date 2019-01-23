@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using KasabaKIAT.BusinessLogic._3_Etap.Statistika.Stat_ViewModels;
+using KasabaKIAT.BusinessLogic.ClosePeriod.CloseKvartal;
 using KasabaKIAT.Models;
 
 namespace KasabaKIAT.BusinessLogic._3_Etap.Statistika
@@ -15,6 +16,17 @@ namespace KasabaKIAT.BusinessLogic._3_Etap.Statistika
 
             using (KasabaKIATEntities db = new KasabaKIATEntities())
             {
+                if ((!cur_year.HasValue) || (!cur_kv.HasValue))
+                {
+                    var parentCode = "172" + depCode.Substring(5, 2);
+
+                    var cc = new CloseKvartal();
+                    var ccrow = cc.GetCloseKvartalRow(parentCode);
+
+                    cur_year = ccrow.curkv_year;
+                    cur_kv = ccrow.curkv;
+                }
+
                 model.EcpIncome = db.sp_stat_EcpIncome(depCode, cur_year, cur_kv).FirstOrDefault();
                 model.PartialIncome = db.sp_stat_PartialIncome(depCode, cur_year, cur_kv).FirstOrDefault();
                 model.OtherIncome = db.sp_stat_OtherIncome(depCode, cur_year, cur_kv).FirstOrDefault();

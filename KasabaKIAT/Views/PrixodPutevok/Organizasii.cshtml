@@ -288,7 +288,7 @@
                                     <div class="col-md-7">
                                         <select class="custom-select form-control" required name="parentOrg" ng-model="SelectedOrganization" ng-options="item as item.Name_Org for item in Organizations track by item.ID" ng-dblclick="ClearSelectedValue()"></select>
                                         <span class="alert alert-info" style="padding:0px">Пустое означает родитель Облсовпроф </span>
-                                        <span class="alert fa-bold" style="padding:0px">{{Organization.ParentName}}</span>
+                                        <span class="alert fa-bold" style="padding:0px">{{Organization.ParentName}} {{SelectedOrganization.Name_Org}}</span>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -360,19 +360,19 @@
                         <div>
                             <div class="row">
                                 <div class="col-md-3">
-                                    <input class="form-control" type="text" style="margin-bottom:5px" placeholder="Наименование" ng-model="FilterName" />
+                                    <input class="form-control" type="text" style="margin-bottom:5px" placeholder="Наименование" ng-model="FilterNameSel" />
                                     <br />
                                 </div>
                                 <div class="col-md-3">
-                                    <input class="form-control" type="text" style="margin-bottom:5px" placeholder="ИНН" ng-model="FilterInn" /><br />
+                                    <input class="form-control" type="text" style="margin-bottom:5px" placeholder="ИНН" ng-model="FilterInnSel" /><br />
                                 </div>
                             </div>
-                            <select class="custom-select" required name="Otrasl" ng-model="FilterSelectedOtrasl" ng-options="item as 		item.Name_Ot for item in Otrasl track by item.ID_Ot"></select>
+                            <select class="custom-select" required name="Otrasl" ng-model="FilterSelectedOtraslSel" ng-options="item as 		item.Name_Ot for item in Otrasl track by item.ID_Ot"></select>
                             <br /><br />
 
                         </div>
 
-                        <button class="btn btn-green" style="float:right; margin-bottom:10px" ng-click="GetOrganizationsFilter()"><i class="btn-green"></i> Поиск</button>
+                        <button class="btn btn-green" style="float:right; margin-bottom:10px" ng-click="GetOrganizationsFilterSel()"><i class="btn-green"></i> Поиск</button>
 
                         <div class="table-responsive box-shadow mb-4" id="export">
                             <table class="table table__block t-hover">
@@ -414,7 +414,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr class="poin" ng-repeat="org in Organizations">
+                                    <tr class="poin" ng-repeat="org in OrganizationsSel">
                                         <td class="custom-control custom-checkbox r-checkbox">
                                             <input type="checkbox" class="custom-control-input" id="customCheck{{org.ID}}"
                                                    ng-model="selectedObjs"

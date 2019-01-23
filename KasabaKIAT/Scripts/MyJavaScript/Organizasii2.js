@@ -15,6 +15,14 @@
     $scope.FilterName = '';
     $scope.FilterInn = '';
 
+    $scope.FilterSelectedOtraslSel = {
+        Name_Ot: '',
+        ID_Ot: ''
+    };
+
+    $scope.FilterNameSel = '';
+    $scope.FilterInnSel = '';
+
     $scope.ModalOtraslSelected = {
         Name_Ot: '',
         ID_Ot: ''
@@ -401,6 +409,26 @@
         });
     }
 
+    $scope.GetOrganizationsFilterSel = function () {
+        document.getElementById('connection').style.visibility = "visible";
+        $("#hh").modal({
+            backdrop: 'static'
+        });
+        $http({
+            method: 'get',
+            url: '/PrixodPutevok/GetOrganizationFilter?Name=' + $scope.FilterNameSel + '&Inn=' + $scope.FilterInnSel + '&OtrasId=' + $scope.FilterSelectedOtraslSel.ID_Ot + '&page=0'
+        }).then(function (response) {
+            $scope.OrganizationsSel = response.data;
+            document.getElementById('connection').style.visibility = "hidden";
+            $("#hh").modal('hide');
+        }, function (error) {
+            alertify.error("ошибка");
+            console.log("error in GetRekvizits");
+            document.getElementById('connection').style.visibility = "hidden";
+            $("#hh").modal('hide');
+        });
+    }
+
     $scope.GetOrganizationsFilterCurPage = function () {
         document.getElementById('connection').style.visibility = "visible";
         $("#hh").modal({
@@ -451,6 +479,36 @@
         for (var i = 0, l = $scope.SelectedPutyovkas.length; i < l; ++i) {
             var value = $scope.SelectedPutyovkas[i];
             console.log('tutuud: ' + value);
+        }
+    }
+
+    $scope.toggleObjSelectionOrg = function ($event, Id, Name_Org) {
+        $event.stopPropagation();
+        console.log('checkbox clicked' + Id);
+
+        var isDelated = false;
+
+        for (var i = 0, l = $scope.OrganizationsSel.length; i < l; ++i) {
+            var value = $scope.OrganizationsSel[i];
+
+            if ((Id + '_' + Name_Org) === value) {
+                $scope.OrganizationsSel.splice($scope.OrganizationsSel.indexOf(Id + '_' + Name_Org), 1);
+                isDelated = true;
+                break;
+            }
+        }
+
+        if (!isDelated) {
+            $scope.OrganizationsSel.push(Id + '_' + Name_Org);
+            $scope.SelectedOrganization.ID = Id;
+            $scope.SelectedOrganization.Name_Org = Name_Org;
+        }
+
+        console.log('====================================================');
+
+        for (var i = 0, l = $scope.OrganizationsSel.length; i < l; ++i) {
+            var value = $scope.OrganizationsSel[i];
+            console.log('orgorg: ' + value);
         }
     }
 

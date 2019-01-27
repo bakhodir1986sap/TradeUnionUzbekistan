@@ -33,6 +33,8 @@
                 textFrom2.attr('type', 'date');
             }
 
+        $("#rvSiteMapping_ctl04_ctl00").val('Показать');
+
 });
     </script>
 </head>

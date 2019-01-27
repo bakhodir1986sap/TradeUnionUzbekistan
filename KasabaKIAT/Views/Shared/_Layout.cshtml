@@ -266,18 +266,15 @@
                             </div>
                         </li>
                     }
-
                     <li class="nav-item dropdown" id="p">
                         <a disabled class="nav-link dropdown-toggle" href="/Home/izmParol" id="tourss" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">@userName.username</a>
                         <div class="dropdown-menu rounded-0 box-shadow m-0 border-0" aria-labelledby="tourss">
                             <a class="dropdown-item load" href="/Home/izmParol">@ContentData.IzmenitParol</a>
                             <a class="dropdown-item load" href="/Home/Rekviziti">@ContentData.Rekviziti</a>
-                            @*<a class="dropdown-item radio load" href="/Home/Putyovki?lang=ru">Русский</a>
-                                <a class="dropdown-item radio load" href="/Home/Putyovki?lang=uz">Узбекча</a>*@
+                            <a class="dropdown-item load disabled" href="#" style="color:red">@userName.CurKvartalYear</a>
                         </div>
                     </li>
                     <li class="nav-item dropdown" id="p">
-                        @*<a class="nav-link" id="chat" href="#" style="color:red">@userName.CurKvartalYear</a>*@
                         @if ((userName.CurLang == "ru") || (userName.CurLang == null))
                         {
                             <a href="/Home/Putyovki?lang=ru" class="nav-link dropdown-toggle" data-toggle="dropdown" id="tourss" aria-haspopup="true" aria-expanded="false"><img src="~/Content/images/RU-Russia-Flag-icon (2).png" />&nbsp RUS</a>

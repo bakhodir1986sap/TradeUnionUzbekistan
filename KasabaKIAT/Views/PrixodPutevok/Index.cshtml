@@ -1,8 +1,10 @@
 ﻿@using KasabaKIAT.BusinessLogic.Security.Roles.RolePermissions;
 @{
-    ViewBag.Title = "Путевки";
-    var UserId = Convert.ToInt32(User.Identity.Name);
-    FunctionalityList List = FunctionalityAndDbDataMatch.MatchProcess(UserId);
+                /**/
+
+                ViewBag.Title = "Путевки";
+                var UserId = Convert.ToInt32(User.Identity.Name);
+                FunctionalityList List = FunctionalityAndDbDataMatch.MatchProcess(UserId);
 }
 <script src="~/Scripts/MyJavaScript/SchetFaktura.js"></script>
 <script>
@@ -20,7 +22,7 @@
 
         // Set the width of thead columns
         $table.find('thead tr').children().each(function (i, v) {
-            $(v).width(colWidth[i+100]);
+            $(v).width(colWidth[i + 100]);
         });
     }).resize(); // Trigger resize handler
 </script>
@@ -96,7 +98,7 @@
             <div class="custom-control-inline" style="margin-left:20px">
                 <div>
                     <p>Список профсоюзов:</p>
-                    <select style="width:200px" ng-model="SP" name="SP" required ng-options="d as d.d2 for d in R track by d.d1" class="custom-select form-control"></select>
+                    <select style="width:200px" ng-model="SP" id="SP" name="SP" required ng-options="d as d.d2 for d in R track by d.d1" class="custom-select form-control"></select>
                     <span class="alert alert-warning" style="padding:0px" ng-show="myForm1.SP.$error.required">Выберите поле</span>
                 </div>
             </div>
@@ -118,7 +120,7 @@
             </div>
         </form>
         <style>
-            .activvvv{
+            .activvvv {
                 border: 5px solid #24c0db;
             }
         </style>
@@ -150,13 +152,10 @@
                                 <th class="dropdown dropdown__table">Кому выдан дов</th>
                                 <th class="dropdown dropdown__table">Кол-во Путевок</th>
                                 <th class="dropdown dropdown__table">Сумма</th>
-                                @*<th class="dropdown dropdown__table">Процент Наценки</th>
-                                <th class="dropdown dropdown__table">Сумма Наценки</th>*@
-                                @*<th class="dropdown dropdown__table">Товар отпустил</th>*@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr ng-repeat="item in DATA" ng-click="LoadStrokaSchetFakturi(item.d0)" data-toggle="modal" data-target="#dobavit" id = "{{item.d0}}">
+                            <tr ng-repeat="item in DATA" ng-click="LoadStrokaSchetFakturi(item.d0)" data-toggle="modal" data-target="#dobavit" id="{{item.d0}}">
                                 <td>{{item.d1}}</td>
                                 <td>{{item.d2 | jsonDate: 'dd.MM.yyyy'}}</td>
                                 <td>{{item.d3}}</td>
@@ -167,9 +166,6 @@
                                 <td>{{item.d8}}</td>
                                 <td>{{item.d12}}</td>
                                 <td>{{item.d9}}</td>
-                                @*<td>{{item.d10}}</td>
-                                <td>{{item.d11}}</td>*@
-                                @*<td>{{item.d13}}</td>*@
                             </tr>
                         </tbody>
                     </table>
@@ -179,7 +175,6 @@
                 <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
                     <div class="modal-content">
                         <div class="modal-body">
-                            @*class="table table__block t-hover"*@
                             <input id="hh2" type="hidden" />
                             <div id="connection2" style="visibility:hidden;position:absolute;margin-left:300px;margin-top:100px;z-index:9999">
                                 <img src="~/Content/Login/buffering.gif" />
@@ -198,7 +193,7 @@
                                     </div>
                                 </div>
                                 <div class="table-responsive box-shadow mb-4" id="export2">
-                                    <table class="scroll table" id="table" >
+                                    <table class="scroll table" id="table">
                                         <thead>
 
                                             <tr>
@@ -211,9 +206,6 @@
                                                 <th class="dropdown dropdown__table"> Кол-во</th>
                                                 <th class="dropdown dropdown__table">Стоимость</th>
                                                 <th class="dropdown dropdown__table">Сумма</th>
-                                                @*<th class="dropdown dropdown__table">Процент Наценки</th>
-                                                <th class="dropdown dropdown__table">Цена</th>
-                                                <th class="dropdown dropdown__table">Сумма</th>*@
                                             </tr>
 
                                         </thead>
@@ -228,21 +220,16 @@
                                                 <td>{{item.d8}}</td>
                                                 <td>{{item.d9}}</td>
                                                 <td>{{item.d10 | currency:' '}}</td>
-                                                @*<td>{{item.d11}}</td>
-                                                <td>{{item.d12 | currency:' '}}</td>
-                                                <td>{{item.d13}}</td>*@
                                             </tr>
                                         </tbody>
                                     </table>
                                     <script>
-                                    function MyFunction() {
-                                        $("#table tr").click(function () {
-                                            $(this).addClass('selected').siblings().removeClass('selected');
-                                            var value = $(this).find('td:first').html();
-                                            //alert("value=" + value);
-                                        });
-                                    }
-
+                                        function MyFunction() {
+                                            $("#table tr").click(function () {
+                                                $(this).addClass('selected').siblings().removeClass('selected');
+                                                var value = $(this).find('td:first').html();
+                                            });
+                                        }
                                     </script>
                                 </div>
                             </div>

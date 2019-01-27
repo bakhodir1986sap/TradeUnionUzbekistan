@@ -135,6 +135,7 @@
             url: '/Administirirovaniye/GetSpisokPravsoyuzov'
         }).then(function (response) {
             $scope.R = response.data;
+            $scope.SP = $scope.R[0];
         }, function (error) {
             alertify.error("ошибка");
             console.log("error in GetRegion");

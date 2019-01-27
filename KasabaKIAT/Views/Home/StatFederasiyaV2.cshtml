@@ -60,7 +60,7 @@
         .FormatSettings(formatsettings => { formatsettings.Name("TotalByRow").MaximumSignificantDigits(10).MinimumSignificantDigits(1).UseGrouping(true).Add(); formatsettings.Name("OblSovProvAmount").MaximumSignificantDigits(10).MinimumSignificantDigits(1).UseGrouping(true).Add(); formatsettings.Name("FederationAmount").MaximumSignificantDigits(10).MinimumSignificantDigits(1).UseGrouping(true).Add(); })
         .Rows(rows => { rows.Name("OblSovProf").Caption("ОблСовПроф").Add(); rows.Name("Tuman").Caption("Туман").Add();  })
         .Columns(columns => { columns.Name("Year").Caption("Год").Add(); columns.Name("Quarter").Caption("Квартал").Add(); })
-        .Values(values => { values.Name("TotalByRow").Caption("Общая сумма 0,1%").Add(); values.Name("FederationAmount").Caption("Сумма Федерации").Add(); values.Name("OblSovProvAmount").Caption("Сумма области").Add(); })).ShowFieldList(true).Locale("fr-CH").GridSettings(new PivotViewGridSettings { ColumnWidth = 140 }).Render()
+        .Values(values => { values.Name("TotalByRow").Caption("Общая сумма 0,1%").Add(); values.Name("FederationAmount").Caption("Сумма Федерации").Add(); values.Name("OblSovProvAmount").Caption("Сумма области").Add(); })).ShowFieldList(true).Locale("fr-CH").GridSettings(new PivotViewGridSettings { ColumnWidth = 140 }).ShowTooltip(false).Render()
     </div>
 
     <button class="accordion" style="background-color:transparent">
@@ -88,7 +88,7 @@
         //.FormatSettings(formatsettings => { formatsettings.Name("FederationAmount").MaximumSignificantDigits(10).MinimumSignificantDigits(1).UseGrouping(true).Add(); formatsettings.Name("OblSovProvAmount").MaximumSignificantDigits(10).MinimumSignificantDigits(1).UseGrouping(true).Add(); })
         .Rows(rows => { rows.Name("ProfsoyzNaimenovanie").Caption("Наименование").Add(); rows.Name("Name_San").Caption("Санаторий").Add(); rows.Name("Num_Put").Caption("Номер Путевки").Add(); })
         .Columns(columns => { columns.Name("Year_Op").Caption("Год").Add(); columns.Name("Quarter").Caption("Квартал").Add(); })
-        .Values(values => { values.Name("CounterU").Caption("Количество").Add(); })).ShowFieldList(true).Locale("fr-CH").GridSettings(new PivotViewGridSettings { ColumnWidth = 140 }).Render()
+        .Values(values => { values.Name("CounterU").Caption("Количество").Add(); })).ShowFieldList(true).Locale("fr-CH").GridSettings(new PivotViewGridSettings { ColumnWidth = 140 }).ShowTooltip(false).Render()
     </div>
 
     <button class="accordion" style="background-color:transparent">
@@ -102,7 +102,7 @@
         .FormatSettings(formatsettings => { formatsettings.Name("RealizAmount").MaximumSignificantDigits(10).MinimumSignificantDigits(1).UseGrouping(true).Add(); formatsettings.Name("OstatokAmount").MaximumSignificantDigits(10).MinimumSignificantDigits(1).UseGrouping(true).Add(); })
         .Rows(rows => { rows.Name("ProfsoyzNaimenovanie").Caption("Наименование").Add(); rows.Name("Name_San").Caption("Санаторий").Add(); rows.Name("Num_Put").Caption("Номер путевки").Add(); })
         .Columns(columns => { columns.Name("YEAR_OP").Caption("Год").Add(); columns.Name("QUARTER_op").Caption("Квартал").Add(); })
-        .Values(values => { values.Name("RealizCount").Caption("Кол-во Реализация").Add(); values.Name("RealizAmount").Caption("Сумма Реализация").Add(); values.Name("OstatokCount").Caption("Кол-во Остаток").Add(); values.Name("OstatokAmount").Caption("Сумма Остаток").Add(); })).ShowFieldList(true).Locale("fr-CH").GridSettings(new PivotViewGridSettings { ColumnWidth = 140 }).Render()
+        .Values(values => { values.Name("RealizCount").Caption("Кол-во Реализация").Add(); values.Name("RealizAmount").Caption("Сумма Реализация").Add(); values.Name("OstatokCount").Caption("Кол-во Остаток").Add(); values.Name("OstatokAmount").Caption("Сумма Остаток").Add(); })).ShowFieldList(true).Locale("fr-CH").GridSettings(new PivotViewGridSettings { ColumnWidth = 140 }).ShowTooltip(false).Render()
     </div>
 
     <button class="accordion" style="background-color:transparent">
@@ -116,7 +116,7 @@
         .FormatSettings(formatsettings => { formatsettings.Name("s45Amount").MaximumSignificantDigits(10).MinimumSignificantDigits(1).UseGrouping(true).Add(); formatsettings.Name("s100Amount").MaximumSignificantDigits(10).MinimumSignificantDigits(1).UseGrouping(true).Add(); formatsettings.Name("s0Amount").MaximumSignificantDigits(10).MinimumSignificantDigits(1).UseGrouping(true).Add(); })
         .Rows(rows => { rows.Name("ProfsoyzNaimenovanie").Caption("Наименование").Add(); rows.Name("Name_San").Caption("Санаторий").Add(); rows.Name("Num_Put").Caption("Номер Путевки").Add(); })
         .Columns(columns => { columns.Name("YEAR_OP").Caption("Год").Add(); columns.Name("QUARTER_op").Caption("Квартал").Add(); })
-        .Values(values => { values.Name("s45Count").Caption("45% Кол-во").Add(); values.Name("s45Amount").Caption("45% Сумма").Add(); values.Name("s100Count").Caption("100% Кол-во").Add(); values.Name("s100Amount").Caption("100% Сумма").Add(); values.Name("s0Count").Caption("Бесплатно кол-во").Add(); values.Name("s0Amount").Caption("Бесплатно Сумма").Add(); })).ShowFieldList(true).Locale("fr-CH").GridSettings(new PivotViewGridSettings { ColumnWidth = 140 }).Render()
+        .Values(values => { values.Name("s45Count").Caption("45% Кол-во").Add(); values.Name("s45Amount").Caption("45% Сумма").Add(); values.Name("s100Count").Caption("100% Кол-во").Add(); values.Name("s100Amount").Caption("100% Сумма").Add(); values.Name("s0Count").Caption("Бесплатно кол-во").Add(); values.Name("s0Amount").Caption("Бесплатно Сумма").Add(); })).ShowFieldList(true).Locale("fr-CH").GridSettings(new PivotViewGridSettings { ColumnWidth = 140 }).ShowTooltip(false).Render()
     </div>
 
     <button class="accordion" style="background-color:transparent">
@@ -130,7 +130,7 @@
         //.FormatSettings(formatsettings => { formatsettings.Name("BronCount").MaximumSignificantDigits(10).MinimumSignificantDigits(1).UseGrouping(true).Add(); formatsettings.Name("s100Amount").MaximumSignificantDigits(10).MinimumSignificantDigits(1).UseGrouping(true).Add(); formatsettings.Name("s0Amount").MaximumSignificantDigits(10).MinimumSignificantDigits(1).UseGrouping(true).Add(); })
         .Rows(rows => { rows.Name("ProfsoyzNaimenovanie").Caption("Наименование").Add(); rows.Name("Name_San").Caption("Санаторий").Add(); rows.Name("Num_Put").Caption("Номер Путевки").Add(); })
         .Columns(columns => { columns.Name("YEAR_OP").Caption("Год").Add(); columns.Name("QUARTER_op").Caption("Квартал").Add(); })
-        .Values(values => { values.Name("BronCount").Caption("Кол-во").Add(); })).ShowFieldList(true).Locale("fr-CH").GridSettings(new PivotViewGridSettings { ColumnWidth = 140 }).Render()
+        .Values(values => { values.Name("BronCount").Caption("Кол-во").Add(); })).ShowFieldList(true).Locale("fr-CH").GridSettings(new PivotViewGridSettings { ColumnWidth = 140 }).ShowTooltip(false).Render()
     </div>
 
     <button class="accordion" style="background-color:transparent">
@@ -144,7 +144,7 @@
         .FormatSettings(formatsettings => { formatsettings.Name("ZadolAmount").MaximumSignificantDigits(10).MinimumSignificantDigits(1).UseGrouping(true).Add(); })
         .Rows(rows => { rows.Name("ProfsoyzNaimenovanie").Caption("Наименование").Add(); rows.Name("Name_Org").Caption("Организация").Add(); })
         .Columns(columns => { columns.Name("Year").Caption("Год").Add(); })
-        .Values(values => { values.Name("ZadolAmount").Caption("Задолженность").Add();  })).ShowFieldList(true).Locale("fr-CH").GridSettings(new PivotViewGridSettings { ColumnWidth = 140 }).Render()
+        .Values(values => { values.Name("ZadolAmount").Caption("Задолженность").Add();  })).ShowFieldList(true).Locale("fr-CH").GridSettings(new PivotViewGridSettings { ColumnWidth = 140 }).ShowTooltip(false).Render()
     </div>
 
     <button class="accordion" style="background-color:transparent">
@@ -158,7 +158,7 @@
         //.FormatSettings(formatsettings => { formatsettings.Name("ZadolAmount").MaximumSignificantDigits(10).MinimumSignificantDigits(1).UseGrouping(true).Add(); })
         .Rows(rows => { rows.Name("ProfsoyzNaimenovanie").Caption("Наименование").Add(); rows.Name("UserName").Caption("Пользователь").Add(); })
         .Columns(columns => { columns.Name("Year").Caption("Год").Add(); })
-        .Values(values => { values.Name("UserCount").Caption("Кол-во").Add();  })).ShowFieldList(true).Locale("fr-CH").GridSettings(new PivotViewGridSettings { ColumnWidth = 140 }).Render()
+        .Values(values => { values.Name("UserCount").Caption("Кол-во").Add();  })).ShowFieldList(true).Locale("fr-CH").GridSettings(new PivotViewGridSettings { ColumnWidth = 140 }).ShowTooltip(false).Render()
     </div>
 
     <button class="accordion" style="background-color:transparent">
@@ -172,7 +172,7 @@
         .FormatSettings(formatsettings => { formatsettings.Name("OblSovProvAmount").MaximumSignificantDigits(10).MinimumSignificantDigits(1).UseGrouping(true).Add(); formatsettings.Name("FederationAmount").MaximumSignificantDigits(10).MinimumSignificantDigits(1).UseGrouping(true).Add(); })
         .Rows(rows => { rows.Name("OblSovProf").Caption("ОблСовПроф").Add(); rows.Name("Tuman").Caption("Туман").Add();  })
         .Columns(columns => { columns.Name("Year").Caption("Год").Add(); columns.Name("Quarter").Caption("Квартал").Add(); })
-        .Values(values => { values.Name("FederationAmount").Caption("Сумма Федерации").Add(); values.Name("OblSovProvAmount").Caption("Сумма области").Add(); })).ShowFieldList(true).Locale("fr-CH").GridSettings(new PivotViewGridSettings { ColumnWidth = 140 }).Render()
+        .Values(values => { values.Name("FederationAmount").Caption("Сумма Федерации").Add(); values.Name("OblSovProvAmount").Caption("Сумма области").Add(); })).ShowFieldList(true).Locale("fr-CH").GridSettings(new PivotViewGridSettings { ColumnWidth = 140 }).ShowTooltip(false).Render()
     </div>
 
 
@@ -187,7 +187,7 @@
       .FormatSettings(formatsettings => { formatsettings.Name("PostupleniyaZaPeriod").MaximumSignificantDigits(10).MinimumSignificantDigits(1).UseGrouping(true).Add(); formatsettings.Name("KolVoFakticheskiPoluch").MaximumSignificantDigits(10).MinimumSignificantDigits(1).UseGrouping(true).Add(); })
       .Rows(rows => { rows.Name("ProfsoyzNaimenovanie").Caption("Наименование").Add(); rows.Name("OrganizationName").Caption("Организации").Add();  })
       .Columns(columns => { columns.Name("YEAR_OP").Caption("Год").Add(); columns.Name("QUATER_OP").Caption("Квартал").Add(); })
-      .Values(values => { values.Name("PostupleniyaZaPeriod").Caption("Поступления").Add(); values.Name("KolVoMogutPoluchit").Caption("Получил Путевок").Add(); values.Name("KolVoFakticheskiPoluch").Caption("На сумму").Add();  })).ShowFieldList(true).Locale("fr-CH").GridSettings(new PivotViewGridSettings { ColumnWidth = 140 }).Render()
+      .Values(values => { values.Name("PostupleniyaZaPeriod").Caption("Поступления").Add(); values.Name("KolVoMogutPoluchit").Caption("Получил Путевок").Add(); values.Name("KolVoFakticheskiPoluch").Caption("На сумму").Add();  })).ShowFieldList(true).Locale("fr-CH").GridSettings(new PivotViewGridSettings { ColumnWidth = 140 }).ShowTooltip(false).Render()
     </div>
 
     <button class="accordion" style="background-color:transparent">
@@ -201,7 +201,7 @@
       .FormatSettings(formatsettings => { formatsettings.Name("FEDERATION_AMT").MaximumSignificantDigits(10).MinimumSignificantDigits(1).UseGrouping(true).Add(); formatsettings.Name("OBLSOVPROF_AMT").MaximumSignificantDigits(10).MinimumSignificantDigits(1).UseGrouping(true).Add(); })
       .Rows(rows => { rows.Name("ProfsoyzNaimenovanie").Caption("Наименование").Add(); rows.Name("SOATO_NAME").Caption("Район").Add(); rows.Name("NAME_ORG").Caption("Организация").Add(); })
       .Columns(columns => { columns.Name("BRANCH_NAME").Caption("Отрасль").Add(); })
-      .Values(values => { values.Name("FEDERATION_AMT").Caption("Федерация сумма").Add(); values.Name("OBLSOVPROF_AMT").Caption("ОблСовпроф сумма").Add();  })).ShowFieldList(true).Locale("fr-CH").GridSettings(new PivotViewGridSettings { ColumnWidth = 140 }).Render()
+      .Values(values => { values.Name("FEDERATION_AMT").Caption("Федерация сумма").Add(); values.Name("OBLSOVPROF_AMT").Caption("ОблСовпроф сумма").Add();  })).ShowFieldList(true).Locale("fr-CH").GridSettings(new PivotViewGridSettings { ColumnWidth = 140 }).ShowTooltip(false).Render()
     </div>
 
     <div class="row">

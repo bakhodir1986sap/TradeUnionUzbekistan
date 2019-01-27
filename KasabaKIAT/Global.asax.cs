@@ -19,8 +19,9 @@ namespace KasabaKIAT
 
         protected void Application_Start()
         {
-            Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("NDU5NjVAMzEzNjJlMzMyZTMwSmIvMGRDaGRaOS9pTzVhaTFZUGRlVGI4RjlEYUFndjNFTGZpcEVzM3dvWT0=");
-
+            //Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("NDU5NjVAMzEzNjJlMzMyZTMwSmIvMGRDaGRaOS9pTzVhaTFZUGRlVGI4RjlEYUFndjNFTGZpcEVzM3dvWT0=");
+            Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("NjI2NzRAMzEzNjJlMzQyZTMwQUc2RDF0dThmVFk2QXJjT1dzSUxGYW40YlFOaFQyY2xiMG1mMXd2ZG1QST0=");
+            //NjI2NzRAMzEzNjJlMzQyZTMwQUc2RDF0dThmVFk2QXJjT1dzSUxGYW40YlFOaFQyY2xiMG1mMXd2ZG1QST0=
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             GlobalConfiguration.Configure(WebApiConfig.Register);

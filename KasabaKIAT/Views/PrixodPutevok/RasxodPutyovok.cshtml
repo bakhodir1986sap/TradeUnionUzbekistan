@@ -42,7 +42,8 @@ function Export2Doc(element = 'schetfaktura', filename = 'СчетФактура
     }
     
     document.body.removeChild(downloadLink);
-}
+    }
+
 </script>
 <div id="connection" style="visibility:hidden;position:absolute;margin-left:430px;z-index:9999">
     <img src="~/Content/Login/buffering.gif" />
@@ -98,12 +99,13 @@ function Export2Doc(element = 'schetfaktura', filename = 'СчетФактура
             <div class="row">
                 <div class="col-md-5">
                     <h5 class="h50">Данные о накладных</h5>
-                     <div class="btn-panel mb-20 text-md-left">
+                    <div class="btn-panel mb-20 text-md-left">
                         <a href="#" ng-click="AddNakladnoy()" class="btn btn-blue d-block d-md-inline-block mb-3 mt-20" data-toggle="modal" data-target="#dobavit">Добавить</a>
                         @*<a href="#" class="btn btn-danger d-block d-md-inline-block mb-3 mt-20">Удалить</a>*@
                         <a @*href="@Url.Action("ReportTemplate", "Report",
                         new { ReportName = "Оперативка по путевкам", ReportDescription = "Оперативка по путевкам", Width = 100, Height = 650 })"*@ class="btn btn-grey d-block d-md-inline-block mb-3 mt-20" @*ng-click="printDiv('schetfaktura')"*@ ng-click="SchetFakturaPrint()"><i class="fa fa-print"></i>Печать</a>
                         <button onclick="Export2Doc();"><i class="fa fa-print"></i>Печать в Word Документ</button>
+                        @*<button onclick="printDiv();"><i class="fa fa-print"></i>Печать в Word Документ</button>*@
                     </div>
                     <div class="table-responsive box-shadow table-fixed mb-4 mt-20">
                         <table class="table table__block t-hover table__small table-fixed">

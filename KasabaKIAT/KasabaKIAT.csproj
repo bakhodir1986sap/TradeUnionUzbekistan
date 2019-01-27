@@ -163,11 +163,11 @@
       <HintPath>..\packages\ReportViewerForMvc.1.1.1\lib\net45\ReportViewerForMvc.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Syncfusion.EJ2, Version=16.3400.0.29, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
-      <HintPath>..\packages\Syncfusion.EJ2.MVC4.16.3.0.29\lib\net40\Syncfusion.EJ2.dll</HintPath>
+    <Reference Include="Syncfusion.EJ2, Version=16.4400.0.42, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
+      <HintPath>..\packages\Syncfusion.EJ2.MVC4.16.4.0.42\lib\net40\Syncfusion.EJ2.dll</HintPath>
     </Reference>
-    <Reference Include="Syncfusion.Licensing, Version=16.3451.0.29, Culture=neutral, PublicKeyToken=632609b4d040f6b4, processorArchitecture=MSIL">
-      <HintPath>..\packages\Syncfusion.Licensing.16.3.0.29\lib\net451\Syncfusion.Licensing.dll</HintPath>
+    <Reference Include="Syncfusion.Licensing, Version=16.4451.0.42, Culture=neutral, PublicKeyToken=632609b4d040f6b4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Syncfusion.Licensing.16.4.0.42\lib\net451\Syncfusion.Licensing.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -2429,7 +2429,9 @@
     <Folder Include="Views\Reference\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="packages.config" />
+    <Content Include="packages.config">
+      <SubType>Designer</SubType>
+    </Content>
     <None Include="Project_Readme.html" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>

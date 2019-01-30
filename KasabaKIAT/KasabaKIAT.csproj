@@ -477,6 +477,7 @@
     <Compile Include="BusinessLogic\Putyovki\Zayavki\RassmotreniyaFirst.cs" />
     <Compile Include="BusinessLogic\Putyovki\Zayavki\RassmotreniyaZayavkiDataManager.cs" />
     <Compile Include="BusinessLogic\Putyovki\Zayavki\ZayavkiDataManager.cs" />
+    <Compile Include="BusinessLogic\Putyovki\Zayavki\ZayavkiProcessor.cs" />
     <Compile Include="BusinessLogic\Putyovki\Zayavki\ZayavkiTotalManager.cs" />
     <Compile Include="BusinessLogic\Security\Roles\RolePermissions\FunctionalityAndDbDataMatch.cs" />
     <Compile Include="BusinessLogic\Security\Roles\RolePermissions\FunctionalityList.cs" />

@@ -37,10 +37,11 @@
         });
         $http({
             method: 'get',
-            url: '/Buxgalter/GetSummaDescriptionFor?amount=' + $scope.SUM1
+            url: '/Buxgalter/GetSummaDescriptionFor?amount=' + $scope.SUM1 + '&debit=' + $scope.D1 + '&credit=' + $scope.K1
         }).then(function (response) {
 
             $scope.SUM_OPISANIYE = response.data;
+            $scope.COM1 = response.data.description;
 
             document.getElementById('connection').style.visibility = "hidden";
             $("#hh").modal('hide');

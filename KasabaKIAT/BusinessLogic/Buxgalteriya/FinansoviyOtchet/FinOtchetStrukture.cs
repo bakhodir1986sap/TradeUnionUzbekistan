@@ -381,45 +381,60 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
         //Should be mapped Planbyudgeta i Code 
         private void MapPlanCodeFinCode()
         {
-            planCodeFinCode.Add("01"    , "020");
-            planCodeFinCode.Add("02"    , "022");
-            planCodeFinCode.Add("03"    , "021");
-            planCodeFinCode.Add("04"    , "023");
-            planCodeFinCode.Add("05"    , "");
-            planCodeFinCode.Add("06"    , "030");
-            planCodeFinCode.Add("07"    , "040");
-            planCodeFinCode.Add("08"    , "060");
-            planCodeFinCode.Add("09"    , "090");
-            planCodeFinCode.Add("10"    , "120");
-            planCodeFinCode.Add("11"    , "");
-            planCodeFinCode.Add("12"    , "140");
-            planCodeFinCode.Add("13"    , "");
-            planCodeFinCode.Add("14"    , "");
-            planCodeFinCode.Add("15"    , "");
-            planCodeFinCode.Add("16"    , "170");
-            planCodeFinCode.Add("161"   , "180");
-            planCodeFinCode.Add("162"   , "");
-            planCodeFinCode.Add("17"    , "190");
-            planCodeFinCode.Add("18"    , "200");
-            planCodeFinCode.Add("19"    , "230");
-            planCodeFinCode.Add("20"    , "240");
-            planCodeFinCode.Add("21"    , "250");
-            planCodeFinCode.Add("22"    , "");
-            planCodeFinCode.Add("23"    , "");
-            planCodeFinCode.Add("24"    , "");
-            planCodeFinCode.Add("25"    , "");
-            planCodeFinCode.Add("26"    , "");
-            planCodeFinCode.Add("27"    , "");
-            planCodeFinCode.Add("28"    , "");
-            planCodeFinCode.Add("29"    , "");
-            planCodeFinCode.Add("30"    , "");
-            planCodeFinCode.Add("31"    , "");
-            planCodeFinCode.Add("32"    , "");
-            planCodeFinCode.Add("33"    , "");
-            planCodeFinCode.Add("34"    , "");
-            planCodeFinCode.Add("35"    , "");
-            planCodeFinCode.Add("36"    , "");
-            planCodeFinCode.Add("37"    , "");
+            using (KasabaKIATEntities db = new KasabaKIATEntities())
+            {
+                var query = db.tbcs_dictionary.Where(z => z.DICTIONARY_TYPE_ID == 16);
+
+                if (query.Any())
+                {
+                    foreach(var obj in query)
+                    {
+                        planCodeFinCode.Add(obj.CODE, obj.NAME_RU);
+                    }
+                }
+                else
+                {
+                    planCodeFinCode.Add("01", "020");
+                    planCodeFinCode.Add("02", "022");
+                    planCodeFinCode.Add("03", "021");
+                    planCodeFinCode.Add("04", "023");
+                    planCodeFinCode.Add("05", "");
+                    planCodeFinCode.Add("06", "030");
+                    planCodeFinCode.Add("07", "040");
+                    planCodeFinCode.Add("08", "060");
+                    planCodeFinCode.Add("09", "090");
+                    planCodeFinCode.Add("10", "120");
+                    planCodeFinCode.Add("11", "");
+                    planCodeFinCode.Add("12", "140");
+                    planCodeFinCode.Add("13", "");
+                    planCodeFinCode.Add("14", "");
+                    planCodeFinCode.Add("15", "");
+                    planCodeFinCode.Add("16", "170");
+                    planCodeFinCode.Add("161", "180");
+                    planCodeFinCode.Add("162", "");
+                    planCodeFinCode.Add("17", "190");
+                    planCodeFinCode.Add("18", "200");
+                    planCodeFinCode.Add("19", "230");
+                    planCodeFinCode.Add("20", "240");
+                    planCodeFinCode.Add("21", "250");
+                    planCodeFinCode.Add("22", "");
+                    planCodeFinCode.Add("23", "");
+                    planCodeFinCode.Add("24", "");
+                    planCodeFinCode.Add("25", "");
+                    planCodeFinCode.Add("26", "");
+                    planCodeFinCode.Add("27", "");
+                    planCodeFinCode.Add("28", "");
+                    planCodeFinCode.Add("29", "");
+                    planCodeFinCode.Add("30", "");
+                    planCodeFinCode.Add("31", "");
+                    planCodeFinCode.Add("32", "");
+                    planCodeFinCode.Add("33", "");
+                    planCodeFinCode.Add("34", "");
+                    planCodeFinCode.Add("35", "");
+                    planCodeFinCode.Add("36", "");
+                    planCodeFinCode.Add("37", "");
+                }
+            }
         }
 
         //fakticheskiye danniye
@@ -699,6 +714,7 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
                         if (res060.Any())
                         {
                             var summa060 = res060.Sum(z => z.RealValue);
+                            var summa060Plan = res060.Sum(z => z.PlanValue);
 
                             var objs1 = out_FinOtchet.Where(z => z.Code == "060");
 
@@ -706,13 +722,14 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
                             {
                                 var obj1 = objs1.First();
                                 obj1.RealValue = summa060;
-
+                                obj1.PlanValue = summa060Plan;
                             }
                             else
                             {
                                 var obj1 = new FinOtchetContainer();
                                 obj1.Code = "060";
                                 obj1.RealValue = summa060;
+                                obj1.PlanValue = summa060Plan;
                                 out_FinOtchet.Add(obj1);
                             }
 
@@ -733,6 +750,7 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
                         if (res100.Any())
                         {
                             var summa100 = res100.Sum(z => z.RealValue);
+                            var summa100Plan = res100.Sum(z => z.PlanValue);
 
                             var objs1 = out_FinOtchet.Where(z => z.Code == "100");
 
@@ -740,13 +758,14 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
                             {
                                 var obj1 = objs1.First();
                                 obj1.RealValue = summa100;
-
+                                obj1.PlanValue = summa100Plan;
                             }
                             else
                             {
                                 var obj1 = new FinOtchetContainer();
                                 obj1.Code = "100";
                                 obj1.RealValue = summa100;
+                                obj1.PlanValue = summa100Plan;
                                 out_FinOtchet.Add(obj1);
                             }
 
@@ -768,6 +787,7 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
                         if (res110.Any())
                         {
                             var summa110 = res110.Sum(z => z.RealValue);
+                            var summa110Plan = res110.Sum(z => z.PlanValue);
 
                             var objs1 = out_FinOtchet.Where(z => z.Code == "110");
 
@@ -775,13 +795,14 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
                             {
                                 var obj1 = objs1.First();
                                 obj1.RealValue = summa110;
-
+                                obj1.PlanValue = summa110Plan;
                             }
                             else
                             {
                                 var obj1 = new FinOtchetContainer();
                                 obj1.Code = "110";
                                 obj1.RealValue = summa110;
+                                obj1.PlanValue = summa110Plan;
                                 out_FinOtchet.Add(obj1);
                             }
 
@@ -803,6 +824,7 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
                         if (res160.Any())
                         {
                             var summa160 = res160.Sum(z => z.RealValue);
+                            var summa160Plan = res160.Sum(z => z.PlanValue);
 
                             var objs1 = out_FinOtchet.Where(z => z.Code == "160");
 
@@ -810,13 +832,14 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
                             {
                                 var obj1 = objs1.First();
                                 obj1.RealValue = summa160;
-
+                                obj1.PlanValue = summa160Plan;
                             }
                             else
                             {
                                 var obj1 = new FinOtchetContainer();
                                 obj1.Code = "160";
                                 obj1.RealValue = summa160;
+                                obj1.PlanValue = summa160Plan;
                                 out_FinOtchet.Add(obj1);
                             }
 
@@ -837,6 +860,7 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
                         if (res220.Any())
                         {
                             var summa220 = res220.Sum(z => z.RealValue);
+                            var summa220Plan = res220.Sum(z => z.PlanValue);
 
                             var objs1 = out_FinOtchet.Where(z => z.Code == "220");
 
@@ -844,13 +868,14 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
                             {
                                 var obj1 = objs1.First();
                                 obj1.RealValue = summa220;
-
+                                obj1.PlanValue = summa220Plan;
                             }
                             else
                             {
                                 var obj1 = new FinOtchetContainer();
                                 obj1.Code = "220";
                                 obj1.RealValue = summa220;
+                                obj1.PlanValue = summa220Plan;
                                 out_FinOtchet.Add(obj1);
                             }
 
@@ -871,6 +896,7 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
                         if (res250.Any())
                         {
                             var summa250 = res250.Sum(z => z.RealValue);
+                            var summa250Plan = res250.Sum(z => z.PlanValue);
 
                             var objs1 = out_FinOtchet.Where(z => z.Code == "250");
 
@@ -878,13 +904,14 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
                             {
                                 var obj1 = objs1.First();
                                 obj1.RealValue = summa250;
-
+                                obj1.PlanValue = summa250Plan;
                             }
                             else
                             {
                                 var obj1 = new FinOtchetContainer();
                                 obj1.Code = "250";
                                 obj1.RealValue = summa250;
+                                obj1.PlanValue = summa250Plan;
                                 out_FinOtchet.Add(obj1);
                             }
 
@@ -907,6 +934,7 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
                         if (res320.Any())
                         {
                             var summa320 = res320.Sum(z => z.RealValue);
+                            var summa320Plan = res320.Sum(z => z.PlanValue);
 
                             var objs1 = out_FinOtchet.Where(z => z.Code == "320");
 
@@ -914,13 +942,14 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
                             {
                                 var obj1 = objs1.First();
                                 obj1.RealValue = summa320;
-
+                                obj1.PlanValue = summa320Plan;
                             }
                             else
                             {
                                 var obj1 = new FinOtchetContainer();
                                 obj1.Code = "320";
                                 obj1.RealValue = summa320;
+                                obj1.PlanValue = summa320Plan;
                                 out_FinOtchet.Add(obj1);
                             }
 
@@ -942,6 +971,7 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
                         if (res330.Any())
                         {
                             var summa330 = res330.Sum(z => z.RealValue);
+                            var summa330Plan = res330.Sum(z => z.PlanValue);
 
 
                             var objs1 = out_FinOtchet.Where(z => z.Code == "330");
@@ -950,13 +980,14 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
                             {
                                 var obj1 = objs1.First();
                                 obj1.RealValue = summa330;
-
+                                obj1.PlanValue = summa330Plan;
                             }
                             else
                             {
                                 var obj1 = new FinOtchetContainer();
                                 obj1.Code = "330";
                                 obj1.RealValue = summa330;
+                                obj1.PlanValue = summa330Plan;
                                 out_FinOtchet.Add(obj1);
                             }
 
@@ -974,12 +1005,15 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
 
                         decimal daromadlar = 0;
                         decimal xarajatlar = 0;
+                        decimal daromadlarPlan = 0;
+                        decimal xarajatlarPlan = 0;
 
                         var res110x = out_FinOtchet.Where(z => z.Code == "110" );
 
                         if (res110x.Any())
                         {
                             daromadlar = res110x.First().RealValue;
+                            daromadlarPlan = res110x.First().PlanValue;
                         }
 
                         var res330x = out_FinOtchet.Where(z => z.Code == "330");
@@ -987,12 +1021,14 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
                         if (res330x.Any())
                         {
                             xarajatlar = res330x.First().RealValue;
+                            xarajatlarPlan = res330x.First().PlanValue;
                         }
 
                         var obj = new FinOtchetContainer
                         {
                             Code = "340",
-                            RealValue = daromadlar - xarajatlar
+                            RealValue = daromadlar - xarajatlar,
+                            PlanValue = daromadlarPlan - xarajatlarPlan
                         };
                         out_FinOtchet.Add(obj);
 

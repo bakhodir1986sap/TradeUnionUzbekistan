@@ -553,6 +553,7 @@
     <Compile Include="Controllers\sp_soatoController.cs" />
     <Compile Include="Controllers\sp_sooguController.cs" />
     <Compile Include="Controllers\tbbu_finOtchetSettingController.cs" />
+    <Compile Include="Controllers\tbcs_dictionaryController.cs" />
     <Compile Include="Controllers\tblBronsController.cs" />
     <Compile Include="Controllers\tblSprav_FaceController.cs" />
     <Compile Include="Controllers\tblSprav_KvController.cs" />
@@ -2339,6 +2340,11 @@
     <Content Include="Views\Video\VideoObl5.cshtml" />
     <Content Include="Views\Video\VideoObl4.cshtml" />
     <Content Include="Views\Video\VideoObl3.cshtml" />
+    <Content Include="Views\tbcs_dictionary\Create.cshtml" />
+    <Content Include="Views\tbcs_dictionary\Delete.cshtml" />
+    <Content Include="Views\tbcs_dictionary\Details.cshtml" />
+    <Content Include="Views\tbcs_dictionary\Edit.cshtml" />
+    <Content Include="Views\tbcs_dictionary\Index.cshtml" />
     <None Include="Web References\KurortUrlService\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>

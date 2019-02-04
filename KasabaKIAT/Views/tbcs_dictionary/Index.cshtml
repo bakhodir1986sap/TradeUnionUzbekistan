@@ -1,0 +1,44 @@
+﻿@model IEnumerable<KasabaKIAT.Models.tbcs_dictionary>
+
+@{
+    ViewBag.Title = "Финансовый отчет и План Мэппинг";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="col-sm-6 title__block">
+    <h4 style="margin-top:15px">Финансовый отчет и План Мэппинг</h4>
+    <nav aria-label="breadcrumb" class="breadcrumb__block">
+        <ol class="breadcrumb" style="width:1000px">
+            <li class="breadcrumb-item load"><a href="/Administirirovaniye/Spravichniki">Справочник</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Финансовый отчет и План Мэппинг</li>
+        </ol>
+    </nav>
+</div>
+<table class="table">
+    <tr>
+        <th>
+            План Код
+        </th>
+        <th>
+            Фин отчет Код
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CODE)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NAME_RU)
+            </td>
+            <td>
+                @Html.ActionLink("Редактировать", "Edit", new { id = item.REC_ID })
+            </td>
+        </tr>
+    }
+
+</table>
+

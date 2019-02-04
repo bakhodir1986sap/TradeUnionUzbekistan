@@ -33,11 +33,11 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.GlavnayaKniga
                 return false;
             }
 
-            if ((model.trdt.Value.AddMonths(12) < DateTime.Now) || (model.trdt.Value.AddMonths(-12) > DateTime.Now))
-            {
-                remark = "Invalid transaction date";
-                return false;
-            }
+            //if ((model.trdt.Value.AddMonths(36) < DateTime.Now) || (model.trdt.Value.AddMonths(-36) > DateTime.Now))
+            //{
+            //    remark = "Invalid transaction date";
+            //    return false;
+            //}
 
             if (db == null)
             {

@@ -79,13 +79,13 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.PlanirovaniyaBudjeta.Region
             it1.ItemCode = "01";
             it1.ItemDescription = "Худудий КУТБ Кенгаши ижтимоий суғурта бадали";
             it1.ValueYearly = 0;
-            it1.IsModValueYearly = false;
+            it1.IsModValueYearly = true;//false
             it1.Value1Quater = 0;
-            it1.IsModValue1Quater = false;
+            it1.IsModValue1Quater = true;//false
             it1.Value1Half = 0;
-            it1.IsModValue1Half = false;
+            it1.IsModValue1Half = true;//false
             it1.Value9Month = 0;
-            it1.IsModValue9Month = false;
+            it1.IsModValue9Month = true;//false
 
             itemsList.Add(it1);
 
@@ -93,13 +93,13 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.PlanirovaniyaBudjeta.Region
             it2.ItemCode = "02";
             it2.ItemDescription = "НКМК ижтимоий суғурта бадали";
             it2.ValueYearly = 0;
-            it2.IsModValueYearly = false;
+            it2.IsModValueYearly = true;//false
             it2.Value1Quater = 0;
-            it2.IsModValue1Quater = false;
+            it2.IsModValue1Quater = true;//false
             it2.Value1Half = 0;
-            it2.IsModValue1Half = false;
+            it2.IsModValue1Half = true;//false
             it2.Value9Month = 0;
-            it2.IsModValue9Month = false;
+            it2.IsModValue9Month = true;//false
 
             itemsList.Add(it2);
 
@@ -107,13 +107,13 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.PlanirovaniyaBudjeta.Region
             it3.ItemCode = "03";
             it3.ItemDescription = "Темирйўлчилар ва транспорт қурувчилари ижтимоий суғурта бадали";
             it3.ValueYearly = 0;
-            it3.IsModValueYearly = false;
+            it3.IsModValueYearly = true;//false
             it3.Value1Quater = 0;
-            it3.IsModValue1Quater = false;
+            it3.IsModValue1Quater = true;//false
             it3.Value1Half = 0;
-            it3.IsModValue1Half = false;
+            it3.IsModValue1Half = true;//false
             it3.Value9Month = 0;
-            it3.IsModValue9Month = false;
+            it3.IsModValue9Month = true;//false
 
             itemsList.Add(it3);
 
@@ -121,13 +121,13 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.PlanirovaniyaBudjeta.Region
             it4.ItemCode = "04";
             it4.ItemDescription = "ОКМК ижтимоий суғурта бадали";
             it4.ValueYearly = 0;
-            it4.IsModValueYearly = false;
+            it4.IsModValueYearly = true;//false
             it4.Value1Quater = 0;
-            it4.IsModValue1Quater = false;
+            it4.IsModValue1Quater = true;//false
             it4.Value1Half = 0;
-            it4.IsModValue1Half = false;
+            it4.IsModValue1Half = true;//false
             it4.Value9Month = 0;
-            it4.IsModValue9Month = false;
+            it4.IsModValue9Month = true;//false
 
             itemsList.Add(it4);
 
@@ -135,13 +135,13 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.PlanirovaniyaBudjeta.Region
             it5.ItemCode = "05";
             it5.ItemDescription = "Жами ижтимоий суғурта бадали";
             it5.ValueYearly = 0;
-            it5.IsModValueYearly = false;
+            it5.IsModValueYearly = true;//false
             it5.Value1Quater = 0;
-            it5.IsModValue1Quater = false;
+            it5.IsModValue1Quater = true;//false
             it5.Value1Half = 0;
-            it5.IsModValue1Half = false;
+            it5.IsModValue1Half = true;//false
             it5.Value9Month = 0;
-            it5.IsModValue9Month = false;
+            it5.IsModValue9Month = true;//false
 
             itemsList.Add(it5);
 
@@ -165,11 +165,11 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.PlanirovaniyaBudjeta.Region
             it7.ValueYearly = 0;
             it7.IsModValueYearly = true;
             it7.Value1Quater = 0;
-            it7.IsModValue1Quater = false;
+            it7.IsModValue1Quater = true;//false
             it7.Value1Half = 0;
-            it7.IsModValue1Half = false;
+            it7.IsModValue1Half = true;//false
             it7.Value9Month = 0;
-            it7.IsModValue9Month = false;
+            it7.IsModValue9Month = true;//false
 
             itemsList.Add(it7);
 
@@ -191,13 +191,13 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.PlanirovaniyaBudjeta.Region
             it9.ItemCode = "09";
             it9.ItemDescription = "КУТБК даромади";
             it9.ValueYearly = 0;
-            it9.IsModValueYearly = false;
+            it9.IsModValueYearly = true;//false
             it9.Value1Quater = 0;
-            it9.IsModValue1Quater = false;
+            it9.IsModValue1Quater = true;//false
             it9.Value1Half = 0;
-            it9.IsModValue1Half = false;
+            it9.IsModValue1Half = true;//false
             it9.Value9Month = 0;
-            it9.IsModValue9Month = false;
+            it9.IsModValue9Month = true;//false
 
             itemsList.Add(it9);
 
@@ -220,13 +220,13 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.PlanirovaniyaBudjeta.Region
             it11.ItemCode = "11";
             it11.ItemDescription = "КУТБК даромадига нисбатан фоиз ҳисобида";
             it11.ValueYearly = 0;
-            it11.IsModValueYearly = false;
+            it11.IsModValueYearly = true;//false
             it11.Value1Quater = 0;
-            it11.IsModValue1Quater = false;
+            it11.IsModValue1Quater = true;//false
             it11.Value1Half = 0;
-            it11.IsModValue1Half = false;
+            it11.IsModValue1Half = true;//false
             it11.Value9Month = 0;
-            it11.IsModValue9Month = false;
+            it11.IsModValue9Month = true;//false
 
             itemsList.Add(it11);
 
@@ -234,13 +234,13 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.PlanirovaniyaBudjeta.Region
             it12.ItemCode = "12";
             it12.ItemDescription = "Болаларни оромгоҳларида соғломлаштириш ";
             it12.ValueYearly = 0;
-            it12.IsModValueYearly = true;
+            it12.IsModValueYearly = true;//false
             it12.Value1Quater = 0;
-            it12.IsModValue1Quater = false;
+            it12.IsModValue1Quater = true;//false
             it12.Value1Half = 0;
-            it12.IsModValue1Half = false;
+            it12.IsModValue1Half = true;//false
             it12.Value9Month = 0;
-            it12.IsModValue9Month = false;
+            it12.IsModValue9Month = true;//false
 
             itemsList.Add(it12);
 
@@ -248,13 +248,13 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.PlanirovaniyaBudjeta.Region
             it13.ItemCode = "13";
             it13.ItemDescription = "КУТБК даромадига нисбатан фоиз ҳисобида";
             it13.ValueYearly = 0;
-            it13.IsModValueYearly = false;
+            it13.IsModValueYearly = true;//false
             it13.Value1Quater = 0;
-            it13.IsModValue1Quater = false;
+            it13.IsModValue1Quater = true;//false
             it13.Value1Half = 0;
-            it13.IsModValue1Half = false;
+            it13.IsModValue1Half = true;//false
             it13.Value9Month = 0;
-            it13.IsModValue9Month = false;
+            it13.IsModValue9Month = true;//false
 
             itemsList.Add(it13);
 
@@ -262,13 +262,13 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.PlanirovaniyaBudjeta.Region
             it14.ItemCode = "14";
             it14.ItemDescription = "Ижтимоий суғурта бўлими ходимларини сақлаш";
             it14.ValueYearly = 0;
-            it14.IsModValueYearly = false;
+            it14.IsModValueYearly = true;//false
             it14.Value1Quater = 0;
-            it14.IsModValue1Quater = false;
+            it14.IsModValue1Quater = true;//false
             it14.Value1Half = 0;
-            it14.IsModValue1Half = false;
+            it14.IsModValue1Half = true;//false
             it14.Value9Month = 0;
-            it14.IsModValue9Month = false;
+            it14.IsModValue9Month = true;//false
 
             itemsList.Add(it14);
 
@@ -276,13 +276,13 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.PlanirovaniyaBudjeta.Region
             it15.ItemCode = "15";
             it15.ItemDescription = "КУТБК даромадига нисбатан фоиз ҳисобида";
             it15.ValueYearly = 0;
-            it15.IsModValueYearly = false;
+            it15.IsModValueYearly = true;//false
             it15.Value1Quater = 0;
-            it15.IsModValue1Quater = false;
+            it15.IsModValue1Quater = true;//false
             it15.Value1Half = 0;
-            it15.IsModValue1Half = false;
+            it15.IsModValue1Half = true;//false
             it15.Value9Month = 0;
-            it15.IsModValue9Month = false;
+            it15.IsModValue9Month = true;//false
 
             itemsList.Add(it15);
 
@@ -292,11 +292,11 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.PlanirovaniyaBudjeta.Region
             it16.ValueYearly = 0;
             it16.IsModValueYearly = true;
             it16.Value1Quater = 0;
-            it16.IsModValue1Quater = false;
+            it16.IsModValue1Quater = true;//false
             it16.Value1Half = 0;
-            it16.IsModValue1Half = false;
+            it16.IsModValue1Half = true;//false
             it16.Value9Month = 0;
-            it16.IsModValue9Month = false;
+            it16.IsModValue9Month = true;//false
 
             itemsList.Add(it16);
 
@@ -306,11 +306,11 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.PlanirovaniyaBudjeta.Region
             it161.ValueYearly = 0;
             it161.IsModValueYearly = true;
             it161.Value1Quater = 0;
-            it161.IsModValue1Quater = false;
+            it161.IsModValue1Quater = true;//false
             it161.Value1Half = 0;
-            it161.IsModValue1Half = false;
+            it161.IsModValue1Half = true;//false
             it161.Value9Month = 0;
-            it161.IsModValue9Month = false;
+            it161.IsModValue9Month = true;//false
 
             itemsList.Add(it161);
 
@@ -321,11 +321,11 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.PlanirovaniyaBudjeta.Region
             it162.ValueYearly = 0;
             it162.IsModValueYearly = true;
             it162.Value1Quater = 0;
-            it162.IsModValue1Quater = false;
+            it162.IsModValue1Quater = true;//false
             it162.Value1Half = 0;
-            it162.IsModValue1Half = false;
+            it162.IsModValue1Half = true;//false
             it162.Value9Month = 0;
-            it162.IsModValue9Month = false;
+            it162.IsModValue9Month = true;//false
 
             itemsList.Add(it162);
 
@@ -336,11 +336,11 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.PlanirovaniyaBudjeta.Region
             it17.ValueYearly = 0;
             it17.IsModValueYearly = true;
             it17.Value1Quater = 0;
-            it17.IsModValue1Quater = false;
+            it17.IsModValue1Quater = true;//false
             it17.Value1Half = 0;
-            it17.IsModValue1Half = false;
+            it17.IsModValue1Half = true;//false
             it17.Value9Month = 0;
-            it17.IsModValue9Month = false;
+            it17.IsModValue9Month = true;//false
 
             itemsList.Add(it17);
 
@@ -350,11 +350,11 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.PlanirovaniyaBudjeta.Region
             it18.ValueYearly = 0;
             it18.IsModValueYearly = true;
             it18.Value1Quater = 0;
-            it18.IsModValue1Quater = false;
+            it18.IsModValue1Quater = true;//false
             it18.Value1Half = 0;
-            it18.IsModValue1Half = false;
+            it18.IsModValue1Half = true;//false
             it18.Value9Month = 0;
-            it18.IsModValue9Month = false;
+            it18.IsModValue9Month = true;//false
 
             itemsList.Add(it18);
 
@@ -364,11 +364,11 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.PlanirovaniyaBudjeta.Region
             it19.ValueYearly = 0;
             it19.IsModValueYearly = true;
             it19.Value1Quater = 0;
-            it19.IsModValue1Quater = false;
+            it19.IsModValue1Quater = true;//false
             it19.Value1Half = 0;
-            it19.IsModValue1Half = false;
+            it19.IsModValue1Half = true;//false
             it19.Value9Month = 0;
-            it19.IsModValue9Month = false;
+            it19.IsModValue9Month = true;//false
 
             itemsList.Add(it19);
 
@@ -390,13 +390,13 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.PlanirovaniyaBudjeta.Region
             it21.ItemCode = "21";
             it21.ItemDescription = "Жами харажатлар";
             it21.ValueYearly = 0;
-            it21.IsModValueYearly = false;
+            it21.IsModValueYearly = true;//false
             it21.Value1Quater = 0;
-            it21.IsModValue1Quater = false;
+            it21.IsModValue1Quater = true;//false
             it21.Value1Half = 0;
-            it21.IsModValue1Half = false;
+            it21.IsModValue1Half = true;//false
             it21.Value9Month = 0;
-            it21.IsModValue9Month = false;
+            it21.IsModValue9Month = true;//false
 
             itemsList.Add(it21);
 
@@ -404,13 +404,13 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.PlanirovaniyaBudjeta.Region
             it22.ItemCode = "22";
             it22.ItemDescription = "КУТБК даромадига нисбатан фоиз ҳисобида";
             it22.ValueYearly = 0;
-            it22.IsModValueYearly = false;
+            it22.IsModValueYearly = true;//false
             it22.Value1Quater = 0;
-            it22.IsModValue1Quater = false;
+            it22.IsModValue1Quater = true;//false
             it22.Value1Half = 0;
-            it22.IsModValue1Half = false;
+            it22.IsModValue1Half = true;//false
             it22.Value9Month = 0;
-            it22.IsModValue9Month = false;
+            it22.IsModValue9Month = true;//false
 
             itemsList.Add(it22);
 
@@ -418,13 +418,13 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.PlanirovaniyaBudjeta.Region
             it23.ItemCode = "23";
             it23.ItemDescription = "ЎзКУФКга 30 % ажратма -жами";
             it23.ValueYearly = 0;
-            it23.IsModValueYearly = false;
+            it23.IsModValueYearly = true;//false
             it23.Value1Quater = 0;
-            it23.IsModValue1Quater = false;
+            it23.IsModValue1Quater = true;//false
             it23.Value1Half = 0;
-            it23.IsModValue1Half = false;
+            it23.IsModValue1Half = true;//false
             it23.Value9Month = 0;
-            it23.IsModValue9Month = false;
+            it23.IsModValue9Month = true;//false
 
             itemsList.Add(it23);
 
@@ -432,13 +432,13 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.PlanirovaniyaBudjeta.Region
             it24.ItemCode = "24";
             it24.ItemDescription = "КУТБдан ЎзКУФКга 30 % ажратма ";
             it24.ValueYearly = 0;
-            it24.IsModValueYearly = false;
+            it24.IsModValueYearly = true;//false
             it24.Value1Quater = 0;
-            it24.IsModValue1Quater = false;
+            it24.IsModValue1Quater = true;//false
             it24.Value1Half = 0;
-            it24.IsModValue1Half = false;
+            it24.IsModValue1Half = true;//false
             it24.Value9Month = 0;
-            it24.IsModValue9Month = false;
+            it24.IsModValue9Month = true;//false
 
             itemsList.Add(it24);
 
@@ -446,13 +446,13 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.PlanirovaniyaBudjeta.Region
             it25.ItemCode = "25";
             it25.ItemDescription = "НКМКдан ЎзКУФКга 30 % ажратма ";
             it25.ValueYearly = 0;
-            it25.IsModValueYearly = false;
+            it25.IsModValueYearly = true;//false
             it25.Value1Quater = 0;
-            it25.IsModValue1Quater = false;
+            it25.IsModValue1Quater = true;//false
             it25.Value1Half = 0;
-            it25.IsModValue1Half = false;
+            it25.IsModValue1Half = true;//false
             it25.Value9Month = 0;
-            it25.IsModValue9Month = false;
+            it25.IsModValue9Month = true;//false
 
             itemsList.Add(it25);
 
@@ -460,13 +460,13 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.PlanirovaniyaBudjeta.Region
             it26.ItemCode = "26";
             it26.ItemDescription = "Темирйўлчилардан ЎзКУФКга 30 % ажратма  ";
             it26.ValueYearly = 0;
-            it26.IsModValueYearly = false;
+            it26.IsModValueYearly = true;//false
             it26.Value1Quater = 0;
-            it26.IsModValue1Quater = false;
+            it26.IsModValue1Quater = true;//false
             it26.Value1Half = 0;
-            it26.IsModValue1Half = false;
+            it26.IsModValue1Half = true;//false
             it26.Value9Month = 0;
-            it26.IsModValue9Month = false;
+            it26.IsModValue9Month = true;//false
 
             itemsList.Add(it26);
 
@@ -474,13 +474,13 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.PlanirovaniyaBudjeta.Region
             it27.ItemCode = "27";
             it27.ItemDescription = "ОКМК дан ЎзКУФКга 30 % ажратма  ";
             it27.ValueYearly = 0;
-            it27.IsModValueYearly = false;
+            it27.IsModValueYearly = true;//false
             it27.Value1Quater = 0;
-            it27.IsModValue1Quater = false;
+            it27.IsModValue1Quater = true;//false
             it27.Value1Half = 0;
-            it27.IsModValue1Half = false;
+            it27.IsModValue1Half = true;//false
             it27.Value9Month = 0;
-            it27.IsModValue9Month = false;
+            it27.IsModValue9Month = true;//false
 
             itemsList.Add(it27);
 
@@ -488,13 +488,13 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.PlanirovaniyaBudjeta.Region
             it28.ItemCode = "28";
             it28.ItemDescription = "Жами харажатлар";
             it28.ValueYearly = 0;
-            it28.IsModValueYearly = false;
+            it28.IsModValueYearly = true;//false
             it28.Value1Quater = 0;
-            it28.IsModValue1Quater = false;
+            it28.IsModValue1Quater = true;//false
             it28.Value1Half = 0;
-            it28.IsModValue1Half = false;
+            it28.IsModValue1Half = true;//false
             it28.Value9Month = 0;
-            it28.IsModValue9Month = false;
+            it28.IsModValue9Month = true;//false
 
             itemsList.Add(it28);
 
@@ -502,13 +502,13 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.PlanirovaniyaBudjeta.Region
             it29.ItemCode = "29";
             it29.ItemDescription = "даромаднинг 70% қайтарилиши";
             it29.ValueYearly = 0;
-            it29.IsModValueYearly = false;
+            it29.IsModValueYearly = true;//false
             it29.Value1Quater = 0;
-            it29.IsModValue1Quater = false;
+            it29.IsModValue1Quater = true;//false
             it29.Value1Half = 0;
-            it29.IsModValue1Half = false;
+            it29.IsModValue1Half = true;//false
             it29.Value9Month = 0;
-            it29.IsModValue9Month = false;
+            it29.IsModValue9Month = true;//false
 
             itemsList.Add(it29);
 
@@ -516,13 +516,13 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.PlanirovaniyaBudjeta.Region
             it30.ItemCode = "30";
             it30.ItemDescription = "Маблағ қолдиғи (+), (-)";
             it30.ValueYearly = 0;
-            it30.IsModValueYearly = false;
+            it30.IsModValueYearly = true;//false
             it30.Value1Quater = 0;
-            it30.IsModValue1Quater = false;
+            it30.IsModValue1Quater = true;//false
             it30.Value1Half = 0;
-            it30.IsModValue1Half = false;
+            it30.IsModValue1Half = true;//false
             it30.Value9Month = 0;
-            it30.IsModValue9Month = false;
+            it30.IsModValue9Month = true;//false
 
             itemsList.Add(it30);
 
@@ -532,11 +532,11 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.PlanirovaniyaBudjeta.Region
             it31.ValueYearly = 0;
             it31.IsModValueYearly = true;
             it31.Value1Quater = 0;
-            it31.IsModValue1Quater = false;
+            it31.IsModValue1Quater = true;//false
             it31.Value1Half = 0;
-            it31.IsModValue1Half = false;
+            it31.IsModValue1Half = true;//false
             it31.Value9Month = 0;
-            it31.IsModValue9Month = false;
+            it31.IsModValue9Month = true;//false
 
             itemsList.Add(it31);
 
@@ -546,11 +546,11 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.PlanirovaniyaBudjeta.Region
             it32.ValueYearly = 0;
             it32.IsModValueYearly = true;
             it32.Value1Quater = 0;
-            it32.IsModValue1Quater = false;
+            it32.IsModValue1Quater = true;//false
             it32.Value1Half = 0;
-            it32.IsModValue1Half = false;
+            it32.IsModValue1Half = true;//false
             it32.Value9Month = 0;
-            it32.IsModValue9Month = false;
+            it32.IsModValue9Month = true;//false
 
             itemsList.Add(it32);
 
@@ -560,11 +560,11 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.PlanirovaniyaBudjeta.Region
             it33.ValueYearly = 0;
             it33.IsModValueYearly = true;
             it33.Value1Quater = 0;
-            it33.IsModValue1Quater = false;
+            it33.IsModValue1Quater = true;//false
             it33.Value1Half = 0;
-            it33.IsModValue1Half = false;
+            it33.IsModValue1Half = true;//false
             it33.Value9Month = 0;
-            it33.IsModValue9Month = false;
+            it33.IsModValue9Month = true;//false
 
             itemsList.Add(it33);
 
@@ -574,11 +574,11 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.PlanirovaniyaBudjeta.Region
             it34.ValueYearly = 0;
             it34.IsModValueYearly = true;
             it34.Value1Quater = 0;
-            it34.IsModValue1Quater = false;
+            it34.IsModValue1Quater = true;//false
             it34.Value1Half = 0;
-            it34.IsModValue1Half = false;
+            it34.IsModValue1Half = true;//false
             it34.Value9Month = 0;
-            it34.IsModValue9Month = false;
+            it34.IsModValue9Month = true;//false
 
             itemsList.Add(it34);
 
@@ -586,13 +586,13 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.PlanirovaniyaBudjeta.Region
             it35.ItemCode = "35";
             it35.ItemDescription = "Жами иш ҳақи фонди";
             it35.ValueYearly = 0;
-            it35.IsModValueYearly = false;
+            it35.IsModValueYearly = true;//false
             it35.Value1Quater = 0;
-            it35.IsModValue1Quater = false;
+            it35.IsModValue1Quater = true;//false
             it35.Value1Half = 0;
-            it35.IsModValue1Half = false;
+            it35.IsModValue1Half = true;//false
             it35.Value9Month = 0;
-            it35.IsModValue9Month = false;
+            it35.IsModValue9Month = true;//false
 
             itemsList.Add(it35);
 
@@ -618,7 +618,7 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.PlanirovaniyaBudjeta.Region
             it37.Value1Quater = 0;
             it37.IsModValue1Quater = true;
             it37.Value1Half = 0;
-            it37.IsModValue1Half = false;
+            it37.IsModValue1Half = true;//false
             it37.Value9Month = 0;
             it37.IsModValue9Month = true;
 
@@ -1653,7 +1653,8 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.PlanirovaniyaBudjeta.Region
 
                 var checkList = PlanRegionDataManager.Get(saveItem.soato_code, saveItem.year.Value);
 
-                itemCnt.CalcFormulas(ref checkList);
+                //Erkin aka so'radila
+                //itemCnt.CalcFormulas(ref checkList);
             }
             catch
             {

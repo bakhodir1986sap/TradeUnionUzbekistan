@@ -1,0 +1,33 @@
+﻿SELECT B.ProfsoyzNaimenovanie , A.BRANCH_NAME , A.NAME_ORG,
+SUM(PROFSOUZ_AMT) as PROFSOUZ_AMT , 
+SUM(FEDERATION_AMT) as FEDERATION_AMT  , 
+SUM(OBLSOVPROF_AMT)  as OBLSOVPROF_AMT
+FROM KasabaKIAT_N1.dbo.tbbu_ecp_calc A
+INNER JOIN KasabaKIAT_N1.dbo.tbku_StrokaProfsoyza B
+ON A.OBL_DEPARTMENT_BASE = B.MATCH_DEPARTMENTBASE 
+WHERE YEAR(OPERDATE) = 2018
+AND B.MATCH_DEPARTMENTBASE is not null
+--AND OBL_DEPARTMENT_BASE = '17203'
+GROUP BY B.ProfsoyzNaimenovanie , A.BRANCH_NAME , A.NAME_ORG
+
+--------------------------------------------------------------------------------------------------
+
+SELECT AAA.ProfsoyzNaimenovanie ,  AAA.BRANCH_NAME , COUNT(AAA.NAME_ORG)  as NAME_ORG_COUNT ,
+SUM(AAA.PROFSOUZ_AMT) as PROFSOUZ_AMT, SUM(AAA.FEDERATION_AMT) as FEDERATION_AMT,
+SUM(AAA.OBLSOVPROF_AMT) as FEDERATION_AMT
+FROM 
+(SELECT B.ProfsoyzNaimenovanie , A.BRANCH_NAME , A.NAME_ORG,
+SUM(PROFSOUZ_AMT) as PROFSOUZ_AMT , 
+SUM(FEDERATION_AMT) as FEDERATION_AMT  , 
+SUM(OBLSOVPROF_AMT)  as OBLSOVPROF_AMT
+FROM KasabaKIAT_N1.dbo.tbbu_ecp_calc A
+INNER JOIN KasabaKIAT_N1.dbo.tbku_StrokaProfsoyza B
+ON A.OBL_DEPARTMENT_BASE = B.MATCH_DEPARTMENTBASE 
+WHERE YEAR(OPERDATE) = 2018
+AND B.MATCH_DEPARTMENTBASE is not null
+--AND OBL_DEPARTMENT_BASE = '17203'
+GROUP BY B.ProfsoyzNaimenovanie , A.BRANCH_NAME , A.NAME_ORG) AAA
+GROUP BY AAA.ProfsoyzNaimenovanie ,  AAA.BRANCH_NAME 
+ORDER BY AAA.ProfsoyzNaimenovanie ,  AAA.BRANCH_NAME 
+
+------------------------------------------------------------------------------------------------------

@@ -1,0 +1,96 @@
+﻿@model KasabaKIAT.Models.tbcs_dictionary
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Delete</title>
+</head>
+<body>
+    <h3>Are you sure you want to delete this?</h3>
+    <div>
+        <h4>tbcs_dictionary</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.CODE)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.CODE)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.NAME_RU)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.NAME_RU)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.NAME_UZ)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.NAME_UZ)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.NAME_LT)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.NAME_LT)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.DICTIONARY_TYPE_ID)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.DICTIONARY_TYPE_ID)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.STATUS)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.STATUS)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.users.email)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.users.email)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.users1.email)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.users1.email)
+            </dd>
+    
+        </dl>
+    
+        @using (Html.BeginForm()) {
+            @Html.AntiForgeryToken()
+    
+            <div class="form-actions no-color">
+                <input type="submit" value="Delete" class="btn btn-default" /> |
+                @Html.ActionLink("Back to List", "Index")
+            </div>
+        }
+    </div>
+</body>
+</html>

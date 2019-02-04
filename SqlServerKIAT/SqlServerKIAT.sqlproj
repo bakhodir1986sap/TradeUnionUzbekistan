@@ -113,12 +113,14 @@
     <Folder Include="2018\UsefulSqripts\TEMP\18032018" />
     <Folder Include="2018\UsefulSqripts\TEMP\18042018" />
     <Folder Include="2018\UsefulSqripts\TEMP\27042018" />
+    <Folder Include="2019\02\03" />
   </ItemGroup>
   <ItemGroup>
     <None Include="2018\Buxgalteriya\BalanceChecker.sql" />
     <None Include="2018\ECP Analises\Differs.sql" />
     <None Include="2018\Organization\OrganizationsErrorClear.sql" />
     <Build Include="2018\Procedures\sp_rt_FormaN13_1.sql" />
+    <None Include="2019\02\03\Organization_Sqripts.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="2019\01\01\20190101.sql" />

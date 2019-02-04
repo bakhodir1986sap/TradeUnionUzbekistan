@@ -123,6 +123,27 @@
     GetKvartalList();
     GetCurBusinessTime();
     GetToDepForOrganization();
+    GetRekvizits();
+
+    function GetRekvizits() {
+        document.getElementById('connection').style.visibility = "visible";
+        $("#hh").modal({
+            backdrop: 'static'
+        });
+        $http({
+            method: 'get',
+            url: '/Home/GetRekvizit'
+        }).then(function (response) {
+            $scope.Rekvizits = response.data;
+            document.getElementById('connection').style.visibility = "hidden";
+            $("#hh").modal('hide');
+        }, function (error) {
+            alertify.error("ошибка");
+            console.log("error in GetRekvizits");
+            document.getElementById('connection').style.visibility = "hidden";
+            $("#hh").modal('hide');
+        });
+    }
 
     function GetCurBusinessTime() {
         document.getElementById('connection').style.visibility = "visible";

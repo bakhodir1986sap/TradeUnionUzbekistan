@@ -118,21 +118,42 @@ namespace KasabaKIAT.Controllers
             return "yes";
         }
 
+        private class provodkiOut
+        {
+            public string CurrencyToTxt { get; set; }
+
+            public string description { get; set; }
+        }
+
         /// <summary>
         /// 
         /// </summary>
         /// <param name="amount"></param>
         /// <returns></returns>
-        public string GetSummaDescriptionFor(string amount)
+        public JsonResult GetSummaDescriptionFor(string amount, string debit, string credit)
         {
             double summa;
 
-            if (double.TryParse(amount, NumberStyles.Number, CultureInfo.InvariantCulture, out summa))
+            var outObj = new provodkiOut();
+
+            using (KasabaKIATEntities db = new KasabaKIATEntities())
             {
-                return RuDateAndMoneyConverter.CurrencyToTxt((double)summa, true);
+                var result = db.provodok.Where(z => z.score_begin == debit && z.score_end == credit);
+
+                if (result.Any())
+                {
+                    var first = result.First();
+
+                    outObj.description = first.description;
+                }
             }
 
-            return "0";
+            if (double.TryParse(amount, NumberStyles.Number, CultureInfo.InvariantCulture, out summa))
+            {
+                outObj.CurrencyToTxt = RuDateAndMoneyConverter.CurrencyToTxt((double)summa, true);
+            }
+
+            return Json(outObj, JsonRequestBehavior.AllowGet);
         }
 
         /// <summary>

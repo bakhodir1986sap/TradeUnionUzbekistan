@@ -7,15 +7,7 @@ using KasabaKIAT.Models;
 
 namespace KasabaKiat.BusinessLogic.Zayavki
 {
-    public enum ZayavkaStates
-    {
-        New,
-        Sent,
-        InProgress,
-        Reject,
-        Apply,
-        Realized
-    }
+
 
     public class ZayavkiDataManager
     {

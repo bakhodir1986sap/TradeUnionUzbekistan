@@ -127,6 +127,7 @@ namespace KasabaKiat.BusinessLogic.Putyovki.VozvratPutyovki
                         Symma_Put = mm.symma,
                         ID_PolVoz = false,
                         Data_Post = mm.data_post,
+                        DataSan = mm.data_post,
                         UserId = mm.userid,
                         Departmentbase = mm.departmentbase
                     };

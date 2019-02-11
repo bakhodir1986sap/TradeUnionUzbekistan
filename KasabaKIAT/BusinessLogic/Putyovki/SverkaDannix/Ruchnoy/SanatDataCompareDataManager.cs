@@ -74,10 +74,10 @@ namespace KasabaKIAT.BusinessLogic.Putyovki.SverkaDannix.Ruchnoy
             }
         }
 
-        public static async Task SaveData(SanatDataCompareViewModel model)
+        public static void SaveData(SanatDataCompareViewModel model, KasabaKIATEntities db)
         {
-            using (KasabaKIATEntities db = new KasabaKIATEntities())
-            {
+            //using (KasabaKIATEntities db = new KasabaKIATEntities())
+            //{
                 var sanInfo = db.tblSanatDataCompares.Where(z => z.SANAT_ID == model.sanat_id
                 && z.NUM_PUT == model.num_put && z.OWNER_TP == model.owner_tp);
 
@@ -90,13 +90,95 @@ namespace KasabaKIAT.BusinessLogic.Putyovki.SverkaDannix.Ruchnoy
                         sanInfo1.YEAR = model.year;
                         sanInfo1.OWNER_TP = model.owner_tp;
                         sanInfo1.SANAT_ID = model.sanat_id;
-                        sanInfo1.NUM_PUT = model.num_put;
-                        sanInfo1.DATE_SAN = model.date_san;
-                        sanInfo1.PRICE = model.price;
-                        sanInfo1.FIO_OTDIX = model.fio_otdix;
-                        sanInfo1.ADRESS = model.adress;
-                        sanInfo1.WORK_PLACE = model.work_place;
-                        sanInfo1.OTRASL = model.otrasl;
+
+                    if (!string.IsNullOrEmpty(model.num_put))
+                    {
+                        if (model.num_put.Length > 50)
+                        {
+                            sanInfo1.NUM_PUT = model.num_put.Substring(0, 50);
+                        }
+                        else
+                        {
+                            sanInfo1.NUM_PUT = model.num_put;
+                        }
+                    }
+
+                        
+                    if (!string.IsNullOrEmpty(model.date_san))
+                    {
+                        if (model.date_san.Length > 100)
+                        {
+                            sanInfo1.DATE_SAN = model.date_san.Substring(0, 100);
+                        }
+                        else
+                        {
+                            sanInfo1.DATE_SAN = model.date_san;
+                        }
+                    }
+
+
+                    if (!string.IsNullOrEmpty(model.price))
+                    {
+                        if (model.price.Length > 100)
+                        {
+                            sanInfo1.PRICE = model.price.Substring(0, 100);
+                        }
+                        else
+                        {
+                            sanInfo1.PRICE = model.price;
+                        }
+                    }
+                        
+                    if (!string.IsNullOrEmpty(model.fio_otdix))
+                    {
+                        if (model.fio_otdix.Length > 200)
+                        {
+                            sanInfo1.FIO_OTDIX = model.fio_otdix.Substring(0, 200);
+                        }
+                        else
+                        {
+                            sanInfo1.FIO_OTDIX = model.fio_otdix;
+                        }
+                    }
+
+
+                    if (!string.IsNullOrEmpty(model.adress))
+                    {
+                        if (model.adress.Length > 500)
+                        {
+                            sanInfo1.ADRESS = model.adress.Substring(0, 500);
+                        }
+                        else
+                        {
+                            sanInfo1.ADRESS = model.adress;
+                        }
+                    }
+
+
+                    if (!string.IsNullOrEmpty(model.work_place))
+                    {
+                        if (model.work_place.Length > 500)
+                        {
+                            sanInfo1.WORK_PLACE = model.work_place.Substring(0, 500);
+                        }
+                        else
+                        {
+                            sanInfo1.WORK_PLACE = model.work_place;
+                        }
+                    }
+
+                    if (!string.IsNullOrEmpty(model.otrasl))
+                    {
+                        if (model.otrasl.Length > 500)
+                        {
+                            sanInfo1.OTRASL = model.otrasl.Substring(0, 500);
+                        }
+                        else
+                        {
+                            sanInfo1.OTRASL = model.otrasl;
+                        }
+                    }
+                       
                         sanInfo1.OWNER_CODE = model.owner_code;
                     }
                 }else
@@ -106,20 +188,20 @@ namespace KasabaKIAT.BusinessLogic.Putyovki.SverkaDannix.Ruchnoy
                         YEAR = model.year,
                         OWNER_TP = model.owner_tp,
                         SANAT_ID = model.sanat_id,
-                        NUM_PUT = model.num_put,
-                        DATE_SAN = model.date_san,
-                        PRICE = model.price,
-                        FIO_OTDIX = model.fio_otdix,
-                        ADRESS = model.adress,
-                        WORK_PLACE = model.work_place,
-                        OTRASL = model.otrasl,
+                        NUM_PUT = model.num_put.Length > 50 ? model.num_put.Substring(0,50) : model.num_put,
+                        DATE_SAN = model.date_san.Length > 100 ? model.date_san.Substring(0,100) : model.date_san,
+                        PRICE = model.price.Length > 100 ? model.price.Substring(0, 100) : model.price,
+                        FIO_OTDIX = model.fio_otdix.Length > 200 ? model.fio_otdix.Substring(0,200) : model.fio_otdix,
+                        ADRESS = model.adress.Length > 500 ? model.adress.Substring(0,500) : model.adress,
+                        WORK_PLACE = model.work_place.Length > 500 ? model.work_place.Substring(500) : model.work_place,
+                        OTRASL = model.otrasl.Length > 500 ? model.otrasl.Substring(500) : model.otrasl,
                         OWNER_CODE = model.owner_code
                     };
 
                     var sanIi = db.tblSanatDataCompares.Add(sanInfo2);
-                }
+                //}
 
-                await db.SaveChangesAsync();
+                //await db.SaveChangesAsync();
             }
         }
 
@@ -156,18 +238,19 @@ namespace KasabaKIAT.BusinessLogic.Putyovki.SverkaDannix.Ruchnoy
         {
             using (KasabaKIATEntities db = new KasabaKIATEntities())
             {
-                var sanInfo = db.tblSanatDataCompares.Where(z => z.YEAR == year);
-                //&& z.SANAT_ID == IdSan && z.OWNER_CODE == Obl && z.OWNER_TP == 1
+                //var sanInfo = db.tblSanatDataCompares.Where(z => z.YEAR == year);
+                ////&& z.SANAT_ID == IdSan && z.OWNER_CODE == Obl && z.OWNER_TP == 1
 
-                if (sanInfo.Any())
-                {
-                    foreach (var obj in sanInfo)
-                    {
-                        db.tblSanatDataCompares.Remove(obj);
-                    }
-                }
+                //if (sanInfo.Any())
+                //{
+                //    foreach (var obj in sanInfo)
+                //    {
+                //        db.tblSanatDataCompares.Remove(obj);
+                //    }
+                //}
 
-                db.SaveChanges();
+                //db.SaveChanges();
+                db.sp_Delete_SanatDataCompare(year);
             }
         }
 

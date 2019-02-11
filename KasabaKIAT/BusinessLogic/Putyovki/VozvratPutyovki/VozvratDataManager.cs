@@ -260,6 +260,19 @@ namespace KasabaKiat.BusinessLogic.VozvratPutyovki
 
                 list = query;
 
+                foreach(var obj in list)
+                {
+                    var query1 = db.tblPos_Put.Where(z => z.Departmentbase == departmentBase && z.Num_Put == obj.num_put
+                    && z.ID_Sanat == obj.id_sanat);
+
+                    if (query1.Any())
+                    {
+                        var res = query1.First();
+
+                        obj.data_post = res.DataSan;
+                    }
+                }
+
                 Mainlist.AddRange(list);
 
                 //var orgs = db.tblSprav_Org.Where(z => z.ID == idOrg && z.DepartmentBase == departmentBase);

@@ -2488,5 +2488,14 @@ namespace KasabaKIAT.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_monit_PostupleniyeOtKaznaCheystva_Result1>("sp_monit_PostupleniyeOtKaznaCheystva", departmentBaseParameter, yEARParameter, kVARTALParameter);
         }
+    
+        public virtual int sp_Delete_SanatDataCompare(Nullable<int> year)
+        {
+            var yearParameter = year.HasValue ?
+                new ObjectParameter("year", year) :
+                new ObjectParameter("year", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_Delete_SanatDataCompare", yearParameter);
+        }
     }
 }

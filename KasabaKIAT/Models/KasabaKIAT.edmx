@@ -5938,6 +5938,9 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <Parameter Name="Source" Type="nvarchar" Mode="In" />
           <Parameter Name="Target" Type="nvarchar" Mode="In" />
         </Function>
+        <Function Name="sp_Delete_SanatDataCompare" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="year" Type="int" Mode="In" />
+        </Function>
         <Function Name="sp_get_BankPaymentCompanyMonthly" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="inn" Type="nvarchar" Mode="In" />
           <Parameter Name="year" Type="int" Mode="In" />
@@ -14704,6 +14707,9 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
             <Parameter Name="YEAR" Mode="In" Type="Int32" />
             <Parameter Name="KVARTAL" Mode="In" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="sp_Delete_SanatDataCompare">
+            <Parameter Name="year" Mode="In" Type="Int32" />
+          </FunctionImport>
           </EntityContainer>
         <ComplexType Name="sp_get_BankPaymentCompanyYearlyQ_Result">
           <Property Type="Int32" Name="MONTH_NUM" Nullable="true" />
@@ -21605,6 +21611,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_Delete_SanatDataCompare" FunctionName="KasabaKIATModel.Store.sp_Delete_SanatDataCompare" />
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

@@ -1,4 +1,5 @@
 ﻿using KasabaKIAT.Models;
+using log4net;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -377,6 +378,19 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
             _totaloutput = new TotalOutput();
         }
 
+        private ILog logger { get; set; }
+
+        public FinOtchetStrukture(ILog log)
+        {
+            planCodeFinCode = new Dictionary<string, string>();
+            out_FinOtchet = new List<FinOtchetContainer>();
+            out_Balance = new List<BalanceContainer>();
+            MapPlanCodeFinCode();
+            _totaloutput = new TotalOutput();
+
+            logger = log;
+        }
+
         //planovaya
         //Should be mapped Planbyudgeta i Code 
         private void MapPlanCodeFinCode()
@@ -607,6 +621,48 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
         }
 
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="year"></param>
+        /// <param name="kvartal"></param>
+        /// <param name="debitAccount"></param>
+        /// <param name="creditAccount"></param>
+        /// <returns></returns>
+        private decimal? GetValueProvodkiN(int year, int kvartal, string finCode)
+        {
+            decimal? totalAmount = 0;
+
+            using (KasabaKIATEntities db = new KasabaKIATEntities())
+            {
+
+                var settingsList = db.tbbu_finOtchetSetting.Where(z => z.OTCHET_PART == (int)OtchetPart.IspolneniyaByudjeta && z.DEPARTMENT_BASE == departmentCode && z.CODE == finCode);
+
+                if (settingsList.Any())
+                {
+                    foreach(var setting in settingsList)
+                    {
+                        var provodkas = from prov in db.tbbu_provodki
+                                        where ((kvartal == 1 && (prov.TRDT.Value.Month <= 3)) || //prov.TRDT.Value.Month >= 1 && 
+                                        (kvartal == 2 && (prov.TRDT.Value.Month <= 6)) || //prov.TRDT.Value.Month >= 4 && 
+                                        (kvartal == 3 && (prov.TRDT.Value.Month <= 9)) || //prov.TRDT.Value.Month >= 7 && 
+                                        (kvartal == 4 && (prov.TRDT.Value.Month <= 12))) //prov.TRDT.Value.Month >= 10 && 
+                                        && prov.DEPARTMENT_BASE == departmentCode && prov.TRDT.Value.Year == year
+                                        && prov.PLATELRSCH == setting.DEBIT_SIDE && prov.POLUCHRSCH == setting.CREDIT_SIDE
+                                        select prov;
+
+                        if (provodkas.Any())
+                        {
+                            var resSumma = provodkas.Sum(z => z.SUMMA);
+
+                            totalAmount = totalAmount + resSumma;
+                        }
+                    }
+                }
+            }
+
+            return totalAmount;
+        }
         /// <summary>
         /// 
         /// </summary>
@@ -1008,12 +1064,16 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
                         decimal daromadlarPlan = 0;
                         decimal xarajatlarPlan = 0;
 
+                        logger.Info("340 Fin otchet");
+                        
                         var res110x = out_FinOtchet.Where(z => z.Code == "110" );
 
                         if (res110x.Any())
                         {
                             daromadlar = res110x.First().RealValue;
                             daromadlarPlan = res110x.First().PlanValue;
+                            logger.Info("daromadlar = " + daromadlar);
+                            logger.Info("daromadlarPlan = " + daromadlarPlan);
                         }
 
                         var res330x = out_FinOtchet.Where(z => z.Code == "330");
@@ -1022,15 +1082,22 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
                         {
                             xarajatlar = res330x.First().RealValue;
                             xarajatlarPlan = res330x.First().PlanValue;
+
+                            logger.Info("xarajatlar = " + xarajatlar);
+                            logger.Info("xarajatlarPlan = " + xarajatlarPlan);
                         }
 
-                        var obj = new FinOtchetContainer
+                        var obj340 = new FinOtchetContainer
                         {
                             Code = "340",
                             RealValue = daromadlar - xarajatlar,
                             PlanValue = daromadlarPlan - xarajatlarPlan
                         };
-                        out_FinOtchet.Add(obj);
+
+                        logger.Info("obj.PlanValue = " + obj340.PlanValue);
+                        logger.Info(" obj.RealValue = " + obj340.RealValue);
+
+                        out_FinOtchet.Add(obj340);
 
                         break;
                 }
@@ -1168,7 +1235,7 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
                             }
                             else
                             {
-                                Value = GetValueProvodki(year, kvartal, setting.DEBIT_SIDE, setting.CREDIT_SIDE);
+                                Value = GetValueProvodkiN(year, kvartal, setting.CODE);
                             }
                         }
                         else if (setting.DATA_TYPE == (int)FinOtchDataType.DEFAULT0)
@@ -1192,8 +1259,11 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
                         else
                         {
                             var obj = new FinOtchetContainer();
+                            logger.Info(setting.CODE);
                             obj.Code = setting.CODE;
+                            logger.Info("obj.RealValue = " + obj.RealValue);
                             obj.RealValue = Value.Value;
+                            logger.Info("Value.Value = " + Value.Value);
                             out_FinOtchet.Add(obj);
                         }
 
@@ -1318,6 +1388,8 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
 
         private void PrepareForOutput()
         {
+            int tochnost = 1;
+
             if (out_FinOtchet != null)
             {
                 if (_outFinance == null)
@@ -1328,8 +1400,8 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
                     if (f010 != null)
                     {
 
-                        _outFinance.field010P = Math.Round(f010.PlanValue / 1000 , 2);
-                        _outFinance.field010R = Math.Round(f010.RealValue / 1000, 2);
+                        _outFinance.field010P = Math.Round(f010.PlanValue  , tochnost);
+                        _outFinance.field010R = Math.Round(f010.RealValue / 1000, tochnost);
 
                         SaveFinOtchet(usrId, 
                             departmentCode, 
@@ -1350,8 +1422,8 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
                     if (f020 != null)
                     {
 
-                        _outFinance.field020P = Math.Round(f020.PlanValue / 1000, 2);
-                        _outFinance.field020R = Math.Round(f020.RealValue / 1000, 2);
+                        _outFinance.field020P = Math.Round(f020.PlanValue , tochnost);
+                        _outFinance.field020R = Math.Round(f020.RealValue / 1000, tochnost);
 
                         SaveFinOtchet(usrId,
                                     departmentCode,
@@ -1372,8 +1444,8 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
                     if (f021 != null)
                     {
 
-                        _outFinance.field021P = Math.Round(f021.PlanValue / 1000, 2);
-                        _outFinance.field021R = Math.Round(f021.RealValue / 1000, 2);
+                        _outFinance.field021P = Math.Round(f021.PlanValue , tochnost);
+                        _outFinance.field021R = Math.Round(f021.RealValue / 1000, tochnost);
 
                         SaveFinOtchet(usrId,
                                     departmentCode,
@@ -1394,8 +1466,8 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
                     if (f022 != null)
                     {
 
-                        _outFinance.field022P = Math.Round(f022.PlanValue / 1000, 2);
-                        _outFinance.field022R = Math.Round(f022.RealValue / 1000, 2);
+                        _outFinance.field022P = Math.Round(f022.PlanValue , tochnost);
+                        _outFinance.field022R = Math.Round(f022.RealValue / 1000, tochnost);
 
                         SaveFinOtchet(usrId,
                                     departmentCode,
@@ -1416,8 +1488,8 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
                     if (f023 != null)
                     {
 
-                        _outFinance.field023P = Math.Round(f023.PlanValue / 1000, 2);
-                        _outFinance.field023R = Math.Round(f023.RealValue / 1000, 2);
+                        _outFinance.field023P = Math.Round(f023.PlanValue , tochnost);
+                        _outFinance.field023R = Math.Round(f023.RealValue / 1000, tochnost);
 
                         SaveFinOtchet(usrId,
                                     departmentCode,
@@ -1438,8 +1510,8 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
                     if (f024 != null)
                     {
 
-                        _outFinance.field024P = Math.Round(f024.PlanValue / 1000, 2);
-                        _outFinance.field024R = Math.Round(f024.RealValue / 1000, 2);
+                        _outFinance.field024P = Math.Round(f024.PlanValue , tochnost);
+                        _outFinance.field024R = Math.Round(f024.RealValue / 1000, tochnost);
 
                         SaveFinOtchet(usrId,
                                     departmentCode,
@@ -1460,8 +1532,8 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
                     if (f030 != null)
                     {
 
-                        _outFinance.field030P = Math.Round(f030.PlanValue / 1000, 2);
-                        _outFinance.field030R = Math.Round(f030.RealValue / 1000, 2);
+                        _outFinance.field030P = Math.Round(f030.PlanValue , tochnost);
+                        _outFinance.field030R = Math.Round(f030.RealValue / 1000, tochnost);
 
 
                         SaveFinOtchet(usrId,
@@ -1483,8 +1555,8 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
                     if (f040 != null)
                     {
 
-                        _outFinance.field040P = Math.Round(f040.PlanValue / 1000, 2);
-                        _outFinance.field040R = Math.Round(f040.RealValue / 1000, 2);
+                        _outFinance.field040P = Math.Round(f040.PlanValue , tochnost);
+                        _outFinance.field040R = Math.Round(f040.RealValue / 1000, tochnost);
 
                         SaveFinOtchet(usrId,
                                     departmentCode,
@@ -1505,8 +1577,8 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
                     if (f050 != null)
                     {
 
-                        _outFinance.field050P = Math.Round(f050.PlanValue / 1000, 2);
-                        _outFinance.field050R = Math.Round(f050.RealValue / 1000, 2);
+                        _outFinance.field050P = Math.Round(f050.PlanValue , tochnost);
+                        _outFinance.field050R = Math.Round(f050.RealValue / 1000, tochnost);
 
                         SaveFinOtchet(usrId,
                                     departmentCode,
@@ -1527,8 +1599,8 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
                     if (f060 != null)
                     {
 
-                        _outFinance.field060P = Math.Round(f060.PlanValue / 1000, 2);
-                        _outFinance.field060R = Math.Round(f060.RealValue / 1000, 2);
+                        _outFinance.field060P = Math.Round(f060.PlanValue , tochnost);
+                        _outFinance.field060R = Math.Round(f060.RealValue / 1000, tochnost);
 
                         SaveFinOtchet(usrId,
                                     departmentCode,
@@ -1549,8 +1621,8 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
                     if (f070 != null)
                     {
 
-                        _outFinance.field070P = Math.Round(f070.PlanValue / 1000, 2);
-                        _outFinance.field070R = Math.Round(f070.RealValue / 1000, 2);
+                        _outFinance.field070P = Math.Round(f070.PlanValue , tochnost);
+                        _outFinance.field070R = Math.Round(f070.RealValue / 1000, tochnost);
 
                         SaveFinOtchet(usrId,
                                     departmentCode,
@@ -1571,8 +1643,8 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
                     if (f071 != null)
                     {
 
-                        _outFinance.field071P = Math.Round(f071.PlanValue / 1000, 2);
-                        _outFinance.field071R = Math.Round(f071.RealValue / 1000, 2);
+                        _outFinance.field071P = Math.Round(f071.PlanValue , tochnost);
+                        _outFinance.field071R = Math.Round(f071.RealValue / 1000, tochnost);
 
                         SaveFinOtchet(usrId,
                                     departmentCode,
@@ -1593,8 +1665,8 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
                     if (f072 != null)
                     {
 
-                        _outFinance.field072P = Math.Round(f072.PlanValue / 1000, 2);
-                        _outFinance.field072R = Math.Round(f072.RealValue / 1000, 2);
+                        _outFinance.field072P = Math.Round(f072.PlanValue , tochnost);
+                        _outFinance.field072R = Math.Round(f072.RealValue / 1000, tochnost);
 
                         SaveFinOtchet(usrId,
                                     departmentCode,
@@ -1615,8 +1687,8 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
                     if (f080 != null)
                     {
 
-                        _outFinance.field080P = Math.Round(f080.PlanValue / 1000, 2);
-                        _outFinance.field080R = Math.Round(f080.RealValue / 1000, 2);
+                        _outFinance.field080P = Math.Round(f080.PlanValue , tochnost);
+                        _outFinance.field080R = Math.Round(f080.RealValue / 1000, tochnost);
 
                         SaveFinOtchet(usrId,
                                     departmentCode,
@@ -1637,8 +1709,8 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
                     if (f090 != null)
                     {
 
-                        _outFinance.field090P = Math.Round(f090.PlanValue / 1000, 2);
-                        _outFinance.field090R = Math.Round(f090.RealValue / 1000, 2);
+                        _outFinance.field090P = Math.Round(f090.PlanValue , tochnost);
+                        _outFinance.field090R = Math.Round(f090.RealValue / 1000, tochnost);
 
                         SaveFinOtchet(usrId,
                                     departmentCode,
@@ -1659,8 +1731,8 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
                     if (f100 != null)
                     {
 
-                        _outFinance.field100P = Math.Round(f100.PlanValue / 1000, 2);
-                        _outFinance.field100R = Math.Round(f100.RealValue / 1000, 2);
+                        _outFinance.field100P = Math.Round(f100.PlanValue , tochnost);
+                        _outFinance.field100R = Math.Round(f100.RealValue / 1000, tochnost);
 
                         SaveFinOtchet(usrId,
                                     departmentCode,
@@ -1681,8 +1753,8 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
                     if (f110 != null)
                     {
 
-                        _outFinance.field110P = Math.Round(f110.PlanValue / 1000, 2);
-                        _outFinance.field110R = Math.Round(f110.RealValue / 1000, 2);
+                        _outFinance.field110P = Math.Round(f110.PlanValue , tochnost);
+                        _outFinance.field110R = Math.Round(f110.RealValue / 1000, tochnost);
 
                         SaveFinOtchet(usrId,
                                     departmentCode,
@@ -1703,8 +1775,8 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
                     if (f120 != null)
                     {
 
-                        _outFinance.field120P = Math.Round(f120.PlanValue / 1000, 2);
-                        _outFinance.field120R = Math.Round(f120.RealValue / 1000, 2);
+                        _outFinance.field120P = Math.Round(f120.PlanValue , tochnost);
+                        _outFinance.field120R = Math.Round(f120.RealValue / 1000, tochnost);
 
                         SaveFinOtchet(usrId,
                                     departmentCode,
@@ -1725,8 +1797,8 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
                     if (f130 != null)
                     {
 
-                        _outFinance.field130P = Math.Round(f130.PlanValue / 1000, 2);
-                        _outFinance.field130R = Math.Round(f130.RealValue / 1000, 2);
+                        _outFinance.field130P = Math.Round(f130.PlanValue , tochnost);
+                        _outFinance.field130R = Math.Round(f130.RealValue / 1000, tochnost);
 
                         SaveFinOtchet(usrId,
                                     departmentCode,
@@ -1747,8 +1819,8 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
                     if (f140 != null)
                     {
 
-                        _outFinance.field140P = Math.Round(f140.PlanValue / 1000, 2);
-                        _outFinance.field140R = Math.Round(f140.RealValue / 1000, 2);
+                        _outFinance.field140P = Math.Round(f140.PlanValue , tochnost);
+                        _outFinance.field140R = Math.Round(f140.RealValue / 1000, tochnost);
 
                         SaveFinOtchet(usrId,
                                     departmentCode,
@@ -1769,8 +1841,8 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
                     if (f150 != null)
                     {
 
-                        _outFinance.field150P = Math.Round(f150.PlanValue / 1000, 2);
-                        _outFinance.field150R = Math.Round(f150.RealValue / 1000, 2);
+                        _outFinance.field150P = Math.Round(f150.PlanValue , tochnost);
+                        _outFinance.field150R = Math.Round(f150.RealValue / 1000, tochnost);
 
                         SaveFinOtchet(usrId,
                                     departmentCode,
@@ -1791,8 +1863,8 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
                     if (f160 != null)
                     {
 
-                        _outFinance.field160P = Math.Round(f160.PlanValue / 1000, 2);
-                        _outFinance.field160R = Math.Round(f160.RealValue / 1000, 2);
+                        _outFinance.field160P = Math.Round(f160.PlanValue , tochnost);
+                        _outFinance.field160R = Math.Round(f160.RealValue / 1000, tochnost);
 
 
                         SaveFinOtchet(usrId,
@@ -1814,8 +1886,8 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
                     if (f170 != null)
                     {
 
-                        _outFinance.field170P = Math.Round(f170.PlanValue / 1000, 2);
-                        _outFinance.field170R = Math.Round(f170.RealValue / 1000, 2);
+                        _outFinance.field170P = Math.Round(f170.PlanValue , tochnost);
+                        _outFinance.field170R = Math.Round(f170.RealValue / 1000, tochnost);
 
                         SaveFinOtchet(usrId,
                                     departmentCode,
@@ -1836,8 +1908,8 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
                     if (f180 != null)
                     {
 
-                        _outFinance.field180P = Math.Round(f180.PlanValue / 1000, 2);
-                        _outFinance.field180R = Math.Round(f180.RealValue / 1000, 2);
+                        _outFinance.field180P = Math.Round(f180.PlanValue , tochnost);
+                        _outFinance.field180R = Math.Round(f180.RealValue / 1000, tochnost);
 
                         SaveFinOtchet(usrId,
                                     departmentCode,
@@ -1858,8 +1930,8 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
                     if (f190 != null)
                     {
 
-                        _outFinance.field190P = Math.Round(f190.PlanValue / 1000, 2);
-                        _outFinance.field190R = Math.Round(f190.RealValue / 1000, 2);
+                        _outFinance.field190P = Math.Round(f190.PlanValue , tochnost);
+                        _outFinance.field190R = Math.Round(f190.RealValue / 1000, tochnost);
 
                         SaveFinOtchet(usrId,
                                     departmentCode,
@@ -1880,8 +1952,8 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
                     if (f200 != null)
                     {
 
-                        _outFinance.field200P = Math.Round(f200.PlanValue / 1000, 2);
-                        _outFinance.field200R = Math.Round(f200.RealValue / 1000, 2);
+                        _outFinance.field200P = Math.Round(f200.PlanValue , tochnost);
+                        _outFinance.field200R = Math.Round(f200.RealValue / 1000, tochnost);
 
                         SaveFinOtchet(usrId,
                                     departmentCode,
@@ -1902,8 +1974,8 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
                     if (f210 != null)
                     {
 
-                        _outFinance.field210P = Math.Round(f210.PlanValue / 1000, 2);
-                        _outFinance.field210R = Math.Round(f210.RealValue / 1000, 2);
+                        _outFinance.field210P = Math.Round(f210.PlanValue , tochnost);
+                        _outFinance.field210R = Math.Round(f210.RealValue / 1000, tochnost);
 
                         SaveFinOtchet(usrId,
                                     departmentCode,
@@ -1924,8 +1996,8 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
                     if (f220 != null)
                     {
 
-                        _outFinance.field220P = Math.Round(f220.PlanValue / 1000, 2);
-                        _outFinance.field220R = Math.Round(f220.RealValue / 1000, 2);
+                        _outFinance.field220P = Math.Round(f220.PlanValue , tochnost);
+                        _outFinance.field220R = Math.Round(f220.RealValue / 1000, tochnost);
 
                         SaveFinOtchet(usrId,
                                     departmentCode,
@@ -1946,8 +2018,8 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
                     if (f230 != null)
                     {
 
-                        _outFinance.field230P = Math.Round(f230.PlanValue / 1000, 2);
-                        _outFinance.field230R = Math.Round(f230.RealValue / 1000, 2);
+                        _outFinance.field230P = Math.Round(f230.PlanValue , tochnost);
+                        _outFinance.field230R = Math.Round(f230.RealValue / 1000, tochnost);
 
                         SaveFinOtchet(usrId,
                                     departmentCode,
@@ -1968,8 +2040,8 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
                     if (f240 != null)
                     {
 
-                        _outFinance.field240P = Math.Round(f240.PlanValue / 1000, 2);
-                        _outFinance.field240R = Math.Round(f240.RealValue / 1000, 2);
+                        _outFinance.field240P = Math.Round(f240.PlanValue , tochnost);
+                        _outFinance.field240R = Math.Round(f240.RealValue / 1000, tochnost);
 
                         SaveFinOtchet(usrId,
                                     departmentCode,
@@ -1990,8 +2062,8 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
                     if (f250 != null)
                     {
 
-                        _outFinance.field250P = Math.Round(f250.PlanValue / 1000, 2);
-                        _outFinance.field250R = Math.Round(f250.RealValue / 1000, 2);
+                        _outFinance.field250P = Math.Round(f250.PlanValue , tochnost);
+                        _outFinance.field250R = Math.Round(f250.RealValue / 1000, tochnost);
 
                         SaveFinOtchet(usrId,
                                     departmentCode,
@@ -2012,8 +2084,8 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
                     if (f260 != null)
                     {
 
-                        _outFinance.field260P = Math.Round(f260.PlanValue / 1000, 2);
-                        _outFinance.field260R = Math.Round(f260.RealValue / 1000, 2);
+                        _outFinance.field260P = Math.Round(f260.PlanValue , tochnost);
+                        _outFinance.field260R = Math.Round(f260.RealValue / 1000, tochnost);
 
                         SaveFinOtchet(usrId,
                                     departmentCode,
@@ -2034,8 +2106,8 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
                     if (f270 != null)
                     {
 
-                        _outFinance.field270P = Math.Round(f270.PlanValue / 1000, 2);
-                        _outFinance.field270R = Math.Round(f270.RealValue / 1000, 2);
+                        _outFinance.field270P = Math.Round(f270.PlanValue , tochnost);
+                        _outFinance.field270R = Math.Round(f270.RealValue / 1000, tochnost);
 
                         SaveFinOtchet(usrId,
                                     departmentCode,
@@ -2056,8 +2128,8 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
                     if (f280 != null)
                     {
 
-                        _outFinance.field280P = Math.Round(f280.PlanValue / 1000, 2);
-                        _outFinance.field280R = Math.Round(f280.RealValue / 1000, 2);
+                        _outFinance.field280P = Math.Round(f280.PlanValue , tochnost);
+                        _outFinance.field280R = Math.Round(f280.RealValue / 1000, tochnost);
 
                         SaveFinOtchet(usrId,
                                     departmentCode,
@@ -2078,8 +2150,8 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
                     if (f290 != null)
                     {
 
-                        _outFinance.field290P = Math.Round(f290.PlanValue / 1000, 2);
-                        _outFinance.field290R = Math.Round(f290.RealValue / 1000, 2);
+                        _outFinance.field290P = Math.Round(f290.PlanValue , tochnost);
+                        _outFinance.field290R = Math.Round(f290.RealValue / 1000, tochnost);
 
                         SaveFinOtchet(usrId,
                                     departmentCode,
@@ -2100,8 +2172,8 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
                     if (f300 != null)
                     {
 
-                        _outFinance.field300P = Math.Round(f300.PlanValue / 1000, 2);
-                        _outFinance.field300R = Math.Round(f300.RealValue / 1000, 2);
+                        _outFinance.field300P = Math.Round(f300.PlanValue , tochnost);
+                        _outFinance.field300R = Math.Round(f300.RealValue / 1000, tochnost);
 
                         SaveFinOtchet(usrId,
                                     departmentCode,
@@ -2122,8 +2194,8 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
                     if (f310 != null)
                     {
 
-                        _outFinance.field310P = Math.Round(f310.PlanValue / 1000, 2);
-                        _outFinance.field310R = Math.Round(f310.RealValue / 1000, 2);
+                        _outFinance.field310P = Math.Round(f310.PlanValue , tochnost);
+                        _outFinance.field310R = Math.Round(f310.RealValue / 1000, tochnost);
 
                         SaveFinOtchet(usrId,
                                     departmentCode,
@@ -2144,8 +2216,8 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
                     if (f320 != null)
                     {
 
-                        _outFinance.field320P = Math.Round(f320.PlanValue / 1000, 2);
-                        _outFinance.field320R = Math.Round(f320.RealValue / 1000, 2);
+                        _outFinance.field320P = Math.Round(f320.PlanValue , tochnost);
+                        _outFinance.field320R = Math.Round(f320.RealValue / 1000, tochnost);
 
                         SaveFinOtchet(usrId,
                                     departmentCode,
@@ -2166,8 +2238,8 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
                     if (f330 != null)
                     {
 
-                        _outFinance.field330P = Math.Round(f330.PlanValue / 1000, 2);
-                        _outFinance.field330R = Math.Round(f330.RealValue / 1000, 2);
+                        _outFinance.field330P = Math.Round(f330.PlanValue , tochnost);
+                        _outFinance.field330R = Math.Round(f330.RealValue / 1000, tochnost);
 
 
                         SaveFinOtchet(usrId,
@@ -2190,8 +2262,12 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
                     if (f340 != null)
                     {
 
-                        _outFinance.field340P = Math.Round(f340.PlanValue / 1000, 2);
-                        _outFinance.field340R = Math.Round(f340.RealValue / 1000, 2);
+                        _outFinance.field340P = Math.Round(f340.PlanValue , tochnost);
+                        _outFinance.field340R = Math.Round(f340.RealValue / 1000, tochnost);
+
+                        logger.Info("f340.RealValue = " + f340.RealValue);
+                        logger.Info("_outFinance.field340P = " + _outFinance.field340P);
+                        logger.Info("_outFinance.field340R = " + _outFinance.field340R);
 
                         SaveFinOtchet(usrId,
                                     departmentCode,
@@ -2221,7 +2297,7 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
                     var f010 = out_Balance.Where(z => z.Code == "010").FirstOrDefault();
                     if (f010 != null)
                     {
-                        _outBalance.field010 = Math.Round(f010.RealValue / 1000, 2);
+                        _outBalance.field010 = Math.Round(f010.RealValue / 1000, tochnost);
 
                         SaveFinOtchet(usrId,
                                     departmentCode,
@@ -2240,7 +2316,7 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
                     var f020 = out_Balance.Where(z => z.Code == "020").FirstOrDefault();
                     if (f020 != null)
                     {
-                        _outBalance.field020 = Math.Round(f020.RealValue / 1000, 2);
+                        _outBalance.field020 = Math.Round(f020.RealValue / 1000, tochnost);
 
                         SaveFinOtchet(usrId,
                                     departmentCode,
@@ -2259,7 +2335,7 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
                     var f030 = out_Balance.Where(z => z.Code == "030").FirstOrDefault();
                     if (f030 != null)
                     {
-                        _outBalance.field030 = Math.Round(f030.RealValue / 1000, 2);
+                        _outBalance.field030 = Math.Round(f030.RealValue / 1000, tochnost);
 
                         SaveFinOtchet(usrId,
                                     departmentCode,
@@ -2278,7 +2354,7 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
                     var f040 = out_Balance.Where(z => z.Code == "040").FirstOrDefault();
                     if (f040 != null)
                     {
-                        _outBalance.field040 = Math.Round(f040.RealValue / 1000, 2);
+                        _outBalance.field040 = Math.Round(f040.RealValue / 1000, tochnost);
 
                         SaveFinOtchet(usrId,
                                     departmentCode,
@@ -2297,7 +2373,7 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
                     var f050 = out_Balance.Where(z => z.Code == "050").FirstOrDefault();
                     if (f050 != null)
                     {
-                        _outBalance.field050 = Math.Round(f050.RealValue / 1000, 2);
+                        _outBalance.field050 = Math.Round(f050.RealValue / 1000, tochnost);
 
                         SaveFinOtchet(usrId,
                                     departmentCode,
@@ -2316,7 +2392,7 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
                     var f060 = out_Balance.Where(z => z.Code == "060").FirstOrDefault();
                     if (f060 != null)
                     {
-                        _outBalance.field060 = Math.Round(f060.RealValue / 1000, 2);
+                        _outBalance.field060 = Math.Round(f060.RealValue / 1000, tochnost);
 
                         SaveFinOtchet(usrId,
                                     departmentCode,
@@ -2335,7 +2411,7 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
                     var f070 = out_Balance.Where(z => z.Code == "070").FirstOrDefault();
                     if (f070 != null)
                     {
-                        _outBalance.field070 = Math.Round(f070.RealValue / 1000, 2);
+                        _outBalance.field070 = Math.Round(f070.RealValue / 1000, tochnost);
 
                         SaveFinOtchet(usrId,
                                     departmentCode,
@@ -2354,7 +2430,7 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
                     var f080 = out_Balance.Where(z => z.Code == "080").FirstOrDefault();
                     if (f080 != null)
                     {
-                        _outBalance.field080 = Math.Round(f080.RealValue / 1000, 2);
+                        _outBalance.field080 = Math.Round(f080.RealValue / 1000, tochnost);
 
                         SaveFinOtchet(usrId,
                                     departmentCode,
@@ -2373,7 +2449,7 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
                     var f090 = out_Balance.Where(z => z.Code == "090").FirstOrDefault();
                     if (f090 != null)
                     {
-                        _outBalance.field090 = Math.Round(f090.RealValue / 1000, 2);
+                        _outBalance.field090 = Math.Round(f090.RealValue / 1000, tochnost);
 
                         SaveFinOtchet(usrId,
                                     departmentCode,
@@ -2392,7 +2468,7 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
                     var f100 = out_Balance.Where(z => z.Code == "100").FirstOrDefault();
                     if (f100 != null)
                     {
-                        _outBalance.field100 = Math.Round(f100.RealValue / 1000, 2);
+                        _outBalance.field100 = Math.Round(f100.RealValue / 1000, tochnost);
 
                         SaveFinOtchet(usrId,
                                     departmentCode,
@@ -2411,7 +2487,7 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
                     var f110 = out_Balance.Where(z => z.Code == "110").FirstOrDefault();
                     if (f110 != null)
                     {
-                        _outBalance.field110 = Math.Round(f110.RealValue / 1000, 2);
+                        _outBalance.field110 = Math.Round(f110.RealValue / 1000, tochnost);
 
                         SaveFinOtchet(usrId,
                                     departmentCode,
@@ -2430,7 +2506,7 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
                     var f120 = out_Balance.Where(z => z.Code == "120").FirstOrDefault();
                     if (f120 != null)
                     {
-                        _outBalance.field120 = Math.Round(f120.RealValue / 1000, 2);
+                        _outBalance.field120 = Math.Round(f120.RealValue / 1000, tochnost);
 
                         SaveFinOtchet(usrId,
                                     departmentCode,
@@ -2449,7 +2525,7 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
                     var f130 = out_Balance.Where(z => z.Code == "130").FirstOrDefault();
                     if (f130 != null)
                     {
-                        _outBalance.field130 = Math.Round(f130.RealValue / 1000, 2);
+                        _outBalance.field130 = Math.Round(f130.RealValue / 1000, tochnost);
 
                         SaveFinOtchet(usrId,
                                     departmentCode,
@@ -2468,7 +2544,7 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
                     var f140 = out_Balance.Where(z => z.Code == "140").FirstOrDefault();
                     if (f140 != null)
                     {
-                        _outBalance.field140 = Math.Round(f140.RealValue / 1000, 2);
+                        _outBalance.field140 = Math.Round(f140.RealValue / 1000, tochnost);
 
                         SaveFinOtchet(usrId,
                                     departmentCode,
@@ -2487,7 +2563,7 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
                     var f150 = out_Balance.Where(z => z.Code == "150").FirstOrDefault();
                     if (f150 != null)
                     {
-                        _outBalance.field150 = Math.Round(f150.RealValue / 1000, 2);
+                        _outBalance.field150 = Math.Round(f150.RealValue / 1000, tochnost);
 
                         SaveFinOtchet(usrId,
                                     departmentCode,
@@ -2506,7 +2582,7 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
                     var f160 = out_Balance.Where(z => z.Code == "160").FirstOrDefault();
                     if (f160 != null)
                     {
-                        _outBalance.field160 = Math.Round(f160.RealValue / 1000, 2);
+                        _outBalance.field160 = Math.Round(f160.RealValue / 1000, tochnost);
 
                         SaveFinOtchet(usrId,
                                     departmentCode,
@@ -2525,7 +2601,7 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
                     var f170 = out_Balance.Where(z => z.Code == "170").FirstOrDefault();
                     if (f170 != null)
                     {
-                        _outBalance.field170 = Math.Round(f170.RealValue / 1000, 2);
+                        _outBalance.field170 = Math.Round(f170.RealValue / 1000, tochnost);
 
                         SaveFinOtchet(usrId,
                                     departmentCode,
@@ -2544,7 +2620,7 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
                     var f180 = out_Balance.Where(z => z.Code == "180").FirstOrDefault();
                     if (f180 != null)
                     {
-                        _outBalance.field180 = Math.Round(f180.RealValue / 1000, 2);
+                        _outBalance.field180 = Math.Round(f180.RealValue / 1000, tochnost);
 
                         SaveFinOtchet(usrId,
                                     departmentCode,
@@ -2563,7 +2639,7 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
                     var f190 = out_Balance.Where(z => z.Code == "190").FirstOrDefault();
                     if (f190 != null)
                     {
-                        _outBalance.field190 = Math.Round(f190.RealValue / 1000, 2);
+                        _outBalance.field190 = Math.Round(f190.RealValue / 1000, tochnost);
 
                         SaveFinOtchet(usrId,
                                     departmentCode,
@@ -2582,7 +2658,7 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
                     var f200 = out_Balance.Where(z => z.Code == "200").FirstOrDefault();
                     if (f200 != null)
                     {
-                        _outBalance.field200 = Math.Round(f200.RealValue / 1000, 2);
+                        _outBalance.field200 = Math.Round(f200.RealValue / 1000, tochnost);
 
                         SaveFinOtchet(usrId,
                                     departmentCode,
@@ -2601,7 +2677,7 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
                     var f210 = out_Balance.Where(z => z.Code == "210").FirstOrDefault();
                     if (f210 != null)
                     {
-                        _outBalance.field210 = Math.Round(f210.RealValue / 1000, 2);
+                        _outBalance.field210 = Math.Round(f210.RealValue / 1000, tochnost);
 
                         SaveFinOtchet(usrId,
                                     departmentCode,
@@ -2620,7 +2696,7 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
                     var f220 = out_Balance.Where(z => z.Code == "220").FirstOrDefault();
                     if (f220 != null)
                     {
-                        _outBalance.field220 = Math.Round(f220.RealValue / 1000, 2);
+                        _outBalance.field220 = Math.Round(f220.RealValue / 1000, tochnost);
 
                         SaveFinOtchet(usrId,
                                     departmentCode,
@@ -2639,7 +2715,7 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
                     var f230 = out_Balance.Where(z => z.Code == "230").FirstOrDefault();
                     if (f230 != null)
                     {
-                        _outBalance.field230 = Math.Round(f230.RealValue / 1000, 2);
+                        _outBalance.field230 = Math.Round(f230.RealValue / 1000, tochnost);
 
                         SaveFinOtchet(usrId,
                                     departmentCode,
@@ -2658,7 +2734,7 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
                     var f240 = out_Balance.Where(z => z.Code == "240").FirstOrDefault();
                     if (f240 != null)
                     {
-                        _outBalance.field240 = Math.Round(f240.RealValue / 1000, 2);
+                        _outBalance.field240 = Math.Round(f240.RealValue / 1000, tochnost);
 
                         SaveFinOtchet(usrId,
                                     departmentCode,
@@ -2677,7 +2753,7 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
                     var f250 = out_Balance.Where(z => z.Code == "250").FirstOrDefault();
                     if (f250 != null)
                     {
-                        _outBalance.field250 = Math.Round(f250.RealValue / 1000, 2);
+                        _outBalance.field250 = Math.Round(f250.RealValue / 1000, tochnost);
 
                         SaveFinOtchet(usrId,
                                     departmentCode,
@@ -2696,7 +2772,7 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
                     var f260 = out_Balance.Where(z => z.Code == "260").FirstOrDefault();
                     if (f260 != null)
                     {
-                        _outBalance.field260 = Math.Round(f260.RealValue / 1000, 2);
+                        _outBalance.field260 = Math.Round(f260.RealValue / 1000, tochnost);
 
                         SaveFinOtchet(usrId,
                                     departmentCode,
@@ -2715,7 +2791,7 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
                     var f270 = out_Balance.Where(z => z.Code == "270").FirstOrDefault();
                     if (f270 != null)
                     {
-                        _outBalance.field270 = Math.Round(f270.RealValue / 1000, 2);
+                        _outBalance.field270 = Math.Round(f270.RealValue / 1000, tochnost);
 
                         SaveFinOtchet(usrId,
                                     departmentCode,
@@ -2734,7 +2810,7 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
                     var f280 = out_Balance.Where(z => z.Code == "280").FirstOrDefault();
                     if (f280 != null)
                     {
-                        _outBalance.field280 = Math.Round(f280.RealValue / 1000, 2);
+                        _outBalance.field280 = Math.Round(f280.RealValue / 1000, tochnost);
 
                         SaveFinOtchet(usrId,
                                     departmentCode,
@@ -2753,7 +2829,7 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
                     var f290 = out_Balance.Where(z => z.Code == "290").FirstOrDefault();
                     if (f290 != null)
                     {
-                        _outBalance.field290 = Math.Round(f290.RealValue / 1000, 2);
+                        _outBalance.field290 = Math.Round(f290.RealValue / 1000, tochnost);
 
                         SaveFinOtchet(usrId,
                                     departmentCode,
@@ -2772,7 +2848,7 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
                     var f300 = out_Balance.Where(z => z.Code == "300").FirstOrDefault();
                     if (f300 != null)
                     {
-                        _outBalance.field300 = Math.Round(f300.RealValue / 1000, 2);
+                        _outBalance.field300 = Math.Round(f300.RealValue / 1000, tochnost);
 
                         SaveFinOtchet(usrId,
                                     departmentCode,
@@ -2791,7 +2867,7 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
                     var f310 = out_Balance.Where(z => z.Code == "310").FirstOrDefault();
                     if (f310 != null)
                     {
-                        _outBalance.field310 = Math.Round(f310.RealValue / 1000, 2);
+                        _outBalance.field310 = Math.Round(f310.RealValue / 1000, tochnost);
 
                         SaveFinOtchet(usrId,
                                     departmentCode,
@@ -2810,7 +2886,7 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
                     var f320 = out_Balance.Where(z => z.Code == "320").FirstOrDefault();
                     if (f320 != null)
                     {
-                        _outBalance.field320 = Math.Round(f320.RealValue / 1000, 2);
+                        _outBalance.field320 = Math.Round(f320.RealValue / 1000, tochnost);
 
                         SaveFinOtchet(usrId,
                                     departmentCode,
@@ -2829,7 +2905,7 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
                     var f330 = out_Balance.Where(z => z.Code == "330").FirstOrDefault();
                     if (f330 != null)
                     {
-                        _outBalance.field330 = Math.Round(f330.RealValue / 1000, 2);
+                        _outBalance.field330 = Math.Round(f330.RealValue / 1000, tochnost);
 
 
                         SaveFinOtchet(usrId,
@@ -2849,7 +2925,7 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
                     var f340 = out_Balance.Where(z => z.Code == "340").FirstOrDefault();
                     if (f340 != null)
                     {
-                        _outBalance.field340 = Math.Round(f340.RealValue / 1000, 2);
+                        _outBalance.field340 = Math.Round(f340.RealValue / 1000, tochnost);
 
                         SaveFinOtchet(usrId,
                                     departmentCode,
@@ -2868,7 +2944,7 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
                     var f350 = out_Balance.Where(z => z.Code == "350").FirstOrDefault();
                     if (f350 != null)
                     {
-                        _outBalance.field350 = Math.Round(f350.RealValue / 1000, 2);
+                        _outBalance.field350 = Math.Round(f350.RealValue / 1000, tochnost);
 
                         SaveFinOtchet(usrId,
                                     departmentCode,
@@ -2887,7 +2963,7 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
                     var f360 = out_Balance.Where(z => z.Code == "360").FirstOrDefault();
                     if (f360 != null)
                     {
-                        _outBalance.field360 = Math.Round(f360.RealValue / 1000, 2);
+                        _outBalance.field360 = Math.Round(f360.RealValue / 1000, tochnost);
 
                         SaveFinOtchet(usrId,
                                     departmentCode,
@@ -2906,7 +2982,7 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
                     var f370 = out_Balance.Where(z => z.Code == "370").FirstOrDefault();
                     if (f370 != null)
                     {
-                        _outBalance.field370 = Math.Round(f370.RealValue / 1000, 2);
+                        _outBalance.field370 = Math.Round(f370.RealValue / 1000, tochnost);
 
                         SaveFinOtchet(usrId,
                                     departmentCode,

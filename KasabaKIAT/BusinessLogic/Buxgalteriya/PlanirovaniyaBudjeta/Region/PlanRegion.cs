@@ -177,13 +177,13 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.PlanirovaniyaBudjeta.Region
             it8.ItemCode = "08";
             it8.ItemDescription = "Жами даромадлар";
             it8.ValueYearly = 0;
-            it8.IsModValueYearly = false;
+            it8.IsModValueYearly = true;
             it8.Value1Quater = 0;
-            it8.IsModValue1Quater = false;
+            it8.IsModValue1Quater = true;
             it8.Value1Half = 0;
-            it8.IsModValue1Half = false;
+            it8.IsModValue1Half = true;
             it8.Value9Month = 0;
-            it8.IsModValue9Month = false;
+            it8.IsModValue9Month = true;
 
             itemsList.Add(it8);
 
@@ -623,6 +623,20 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.PlanirovaniyaBudjeta.Region
             it37.IsModValue9Month = true;
 
             itemsList.Add(it37);
+
+            var it38 = new Item();
+            it38.ItemCode = "38";
+            it38.ItemDescription = "Болалар ва усмирлар спорт мактаби";
+            it38.ValueYearly = 0;
+            it38.IsModValueYearly = true;
+            it38.Value1Quater = 0;
+            it38.IsModValue1Quater = true;
+            it38.Value1Half = 0;
+            it38.IsModValue1Half = true;//false
+            it38.Value9Month = 0;
+            it38.IsModValue9Month = true;
+
+            itemsList.Add(it38);
 
         }
 

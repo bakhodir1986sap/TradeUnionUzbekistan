@@ -275,6 +275,7 @@
             method: 'get',
             url: '/PrixodPutevok/DeleteObl?year=' + $scope.SelectedYear.Id + '&IdSan=' + $scope.SelectedSanatory.ID + '&Obl=' + $scope.SelectedPravsoyuz.MATCH_DEPARTMENTBASE
         }).then(function (response) {
+            GetLoadedRows();
             alertify.error("Удачно удален");
             document.getElementById('connection').style.visibility = "hidden";
             $("#hh").modal('hide');

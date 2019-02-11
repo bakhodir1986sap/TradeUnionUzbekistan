@@ -4338,13 +4338,69 @@ namespace KasabaKIAT.Controllers
 
                                 try
                                 {
-                                    sver.num_put = workSheet.Cells[rowIterator, 1].Value.ToString();
-                                    sver.date_san = workSheet.Cells[rowIterator, 2].Value.ToString();
-                                    sver.price = workSheet.Cells[rowIterator, 3].Value.ToString();
-                                    sver.fio_otdix = workSheet.Cells[rowIterator, 4].Value.ToString();
-                                    sver.adress = workSheet.Cells[rowIterator, 5].Value.ToString();
-                                    sver.work_place = workSheet.Cells[rowIterator, 6].Value.ToString();
-                                    sver.otrasl = workSheet.Cells[rowIterator, 7].Value.ToString();
+                                    try
+                                    {
+                                        sver.num_put = workSheet.Cells[rowIterator, 1].Value.ToString();
+                                    }
+                                    catch
+                                    {
+                                        sver.num_put = string.Empty;
+                                    }
+                                    
+                                    try
+                                    {
+                                        sver.date_san = workSheet.Cells[rowIterator, 2].Value.ToString();
+                                    }
+                                    catch
+                                    {
+                                        sver.date_san = string.Empty;
+                                    }
+                                    
+                                    try
+                                    {
+                                        sver.price = workSheet.Cells[rowIterator, 3].Value.ToString();
+                                    }
+                                    catch
+                                    {
+                                        sver.price = string.Empty;
+                                    }
+                                    
+                                    try
+                                    {
+                                        sver.fio_otdix = workSheet.Cells[rowIterator, 4].Value.ToString();
+                                    }
+                                    catch
+                                    {
+                                        sver.fio_otdix = string.Empty;
+                                    }
+                                    
+                                    try
+                                    {
+                                        sver.adress = workSheet.Cells[rowIterator, 5].Value.ToString();
+                                    }
+                                    catch
+                                    {
+                                        sver.adress = string.Empty;
+                                    }
+                                    
+                                    try
+                                    {
+                                        sver.work_place = workSheet.Cells[rowIterator, 6].Value.ToString();
+                                    }
+                                    catch
+                                    {
+                                        sver.work_place = string.Empty;
+                                    }
+                                    
+                                    try
+                                    {
+                                        sver.otrasl = workSheet.Cells[rowIterator, 7].Value.ToString();
+                                    }
+                                    catch
+                                    {
+                                        sver.otrasl = string.Empty;
+                                    }
+                                    
                                 }
                                 catch(NullReferenceException ex)
                                 {
@@ -4354,8 +4410,10 @@ namespace KasabaKIAT.Controllers
 
                                 sverList.Add(sver);
                                 log.Info("Count = " + sverList.ToList().Count);
-                                await SanatDataCompareDataManager.SaveData(sver);
+                                SanatDataCompareDataManager.SaveData(sver , KasabaDB);
                             }
+
+                            await KasabaDB.SaveChangesAsync();
                         }
                     }
                 }
@@ -4547,15 +4605,15 @@ namespace KasabaKIAT.Controllers
                 return Json("error", JsonRequestBehavior.AllowGet);
             }
 
-            if (IdSan <= 0)
-            {
-                return Json("error", JsonRequestBehavior.AllowGet);
-            }
+            //if (IdSan <= 0)
+            //{
+            //    return Json("error", JsonRequestBehavior.AllowGet);
+            //}
 
-            if (string.IsNullOrEmpty(Obl))
-            {
-                return Json("error", JsonRequestBehavior.AllowGet);
-            }
+            //if (string.IsNullOrEmpty(Obl))
+            //{
+            //    return Json("error", JsonRequestBehavior.AllowGet);
+            //}
 
             SanatDataCompareDataManager.Remove(year, IdSan, Obl);
 

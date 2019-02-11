@@ -12,6 +12,19 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.ECP_Management
         {
             if ((model == null) || (db == null)) return;
 
+            var org = db.tblSprav_Org.Where(z => z.INN == model.iznInn);
+
+            string orgName = string.Empty;
+
+            if (org.Any())
+            {
+                var oorg = org.First();
+
+                oorg.TIMESTAMP_CH = DateTime.Now;
+
+                orgName = oorg.Name_Org;
+            }
+
             var ecps = db.tbbu_ecp_calc.Where(z => z.ID == model.id && z.OBL_DEPARTMENT_BASE == model.obl_department_base);
 
             if (ecps.Any())
@@ -19,6 +32,11 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.ECP_Management
                 var ecp = ecps.First();
 
                 ecp.INN = model.iznInn;
+
+                if (!string.IsNullOrEmpty(orgName))
+                {
+                    ecp.NAME_ORG = orgName;
+                }
             }
         }
 
@@ -52,7 +70,7 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.ECP_Management
                             clname              = payment.CLNAME
                         };
 
-            list = query.ToList();
+            list = query.Take(1000).ToList();
 
             return list;
         }

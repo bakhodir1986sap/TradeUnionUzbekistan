@@ -729,7 +729,7 @@ namespace KasabaKIAT.Controllers
             int UserId = Convert.ToInt32(User.Identity.Name);
             var ustinfo = UserInfo.GetUserInfo(UserId);
 
-            var finOtchet = new FinOtchetStrukture();
+            var finOtchet = new FinOtchetStrukture(log);
             finOtchet.MakeFinOtchet(ustinfo.DepartmentBase, year, kvartal, UserId);
 
             finOtchet._totaloutput.SelectedKvartalYear =  string.Format("{0} год -{1} кв", year, kvartal);

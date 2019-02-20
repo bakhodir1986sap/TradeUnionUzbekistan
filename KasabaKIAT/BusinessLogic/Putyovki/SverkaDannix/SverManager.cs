@@ -1,4 +1,5 @@
-﻿using KasabaKIAT.Models;
+﻿using KasabaKIAT.BusinessLogic.Utils;
+using KasabaKIAT.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -79,9 +80,27 @@ namespace KasabaKIAT.BusinessLogic.Putyovki.SverkaDannix.Ruchnoy
                                 resSverka.SanatId = putyovk.SANAT_ID;
                                 resSverka.SanatName = sanatName;
                                 resSverka.NumPut = putyovk.NUM_PUT;
-                                resSverka.KurortFio = oblPut.FIO_OTDIX;
+
+                                if (Latin2Cyrillic.IsLatinStr(oblPut.FIO_OTDIX))
+                                {
+                                    resSverka.KurortFio = Latin2Cyrillic.TranslitLatin2Cyrill(oblPut.FIO_OTDIX);
+                                }
+                                else
+                                {
+                                    resSverka.KurortFio = oblPut.FIO_OTDIX;
+                                }
+                                    
                                 resSverka.KurortAdress = oblPut.ADRESS ;
-                                resSverka.OblastFio = putyovk.FIO_OTDIX ;
+
+                                if (Latin2Cyrillic.IsLatinStr(putyovk.FIO_OTDIX))
+                                {
+                                    resSverka.OblastFio = Latin2Cyrillic.TranslitLatin2Cyrill(putyovk.FIO_OTDIX);
+                                }
+                                else
+                                {
+                                    resSverka.OblastFio = putyovk.FIO_OTDIX;
+                                }
+
                                 resSverka.OblastAdress = putyovk.ADRESS;
 
                                 list.Add(resSverka);
@@ -94,7 +113,16 @@ namespace KasabaKIAT.BusinessLogic.Putyovki.SverkaDannix.Ruchnoy
                             resSverka.SanatId = putyovk.SANAT_ID;
                             resSverka.SanatName = sanatName;
                             resSverka.NumPut = putyovk.NUM_PUT;
-                            resSverka.OblastFio = putyovk.FIO_OTDIX;
+
+                            if (Latin2Cyrillic.IsLatinStr(putyovk.FIO_OTDIX))
+                            {
+                                resSverka.OblastFio = Latin2Cyrillic.TranslitLatin2Cyrill(putyovk.FIO_OTDIX);
+                            }
+                            else
+                            {
+                                resSverka.OblastFio = putyovk.FIO_OTDIX;
+                            }
+
                             resSverka.OblastAdress = putyovk.ADRESS;
 
 
@@ -109,6 +137,22 @@ namespace KasabaKIAT.BusinessLogic.Putyovki.SverkaDannix.Ruchnoy
 
         private bool CompareNames(string firstName, string secondName)
         {
+            if (Latin2Cyrillic.IsLatinStr(firstName) && Latin2Cyrillic.IsLatinStr(secondName))
+            {
+                return firstName.ToLower().Trim(' ').Equals(secondName.ToLower().Trim(' '));
+            }
+            else if (Latin2Cyrillic.IsLatinStr(firstName) || Latin2Cyrillic.IsLatinStr(secondName))
+            {
+                if (Latin2Cyrillic.IsLatinStr(firstName))
+                {
+                    return Latin2Cyrillic.TranslitLatin2Cyrill(firstName).ToLower().Trim(' ').Equals(secondName.ToLower().Trim(' '));
+                }
+                else
+                {
+                    return firstName.ToLower().Trim(' ').Equals(Latin2Cyrillic.TranslitLatin2Cyrill(secondName).ToLower().Trim(' '));
+                }
+            }
+
             return firstName.ToLower().Trim(' ').Equals(secondName.ToLower().Trim(' '));
         }
 

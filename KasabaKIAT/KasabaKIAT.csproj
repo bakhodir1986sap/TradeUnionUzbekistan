@@ -502,6 +502,7 @@
     <Compile Include="BusinessLogic\Utils\amountInWords.cs" />
     <Compile Include="BusinessLogic\Utils\CodeDecode.cs" />
     <Compile Include="BusinessLogic\Utils\DateOperations.cs" />
+    <Compile Include="BusinessLogic\Utils\Latin2Cyrillic.cs" />
     <Compile Include="BusinessLogic\Utils\LinqLib.cs" />
     <Compile Include="BusinessLogic\Utils\References\ReferencesDataManager.cs" />
     <Compile Include="BusinessLogic\Utils\References\RefYars.cs" />

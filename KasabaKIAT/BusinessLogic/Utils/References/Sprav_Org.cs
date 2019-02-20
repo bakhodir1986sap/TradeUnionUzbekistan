@@ -445,7 +445,7 @@ namespace KasabaKiat.BusinessLogic.Utils.References
                                    to_depcode = org.TO_DEPCODE
                                };
 
-                list = queryRes.Take(30).ToList();
+                list = queryRes.Take(300).ToList();
 
                 var otrasList = db.tblSprav_Otras.Where(s => s.DepartmentBase == departmentBase).ToList();
 

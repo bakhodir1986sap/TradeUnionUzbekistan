@@ -119,6 +119,16 @@ namespace KasabaKiat.BusinessLogic.Putyovki.VozvratPutyovki
 
                     //Prixod Dtl
                     #region Prixod Dtl
+
+                    var putyovkaPrixod = db.tblPos_Put.Where(z => z.Num_Put == mm.num_put 
+                    && z.ID_Sanat == mm.id_sanat && z.ID_PolVoz == true);
+
+                    DateTime? _DataSan = null;
+                    if (putyovkaPrixod.Any())
+                    {
+                        _DataSan = putyovkaPrixod.First().DataSan;
+                    }
+
                     var prixodDetail = new PostPutyovkaViewModel
                     {
                         IdPost = prixodMain.Id,
@@ -127,7 +137,7 @@ namespace KasabaKiat.BusinessLogic.Putyovki.VozvratPutyovki
                         Symma_Put = mm.symma,
                         ID_PolVoz = false,
                         Data_Post = mm.data_post,
-                        DataSan = mm.data_post,
+                        DataSan = _DataSan.HasValue ? _DataSan : mm.data_post,
                         UserId = mm.userid,
                         Departmentbase = mm.departmentbase
                     };

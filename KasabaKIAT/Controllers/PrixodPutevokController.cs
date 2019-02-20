@@ -1246,7 +1246,7 @@ namespace KasabaKIAT.Controllers
             return Json(list.ToList().Skip(PAGE_SIZE * page).Take(PAGE_SIZE), JsonRequestBehavior.AllowGet);
         }
 
-        private int PAGE_SIZE = 30;
+        private int PAGE_SIZE = 300;
         /// <summary>
         /// 
         /// </summary>

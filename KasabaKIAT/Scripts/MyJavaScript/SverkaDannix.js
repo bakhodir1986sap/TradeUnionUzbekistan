@@ -217,7 +217,7 @@
             document.getElementById('connection').style.visibility = "hidden";
             $("#hh").modal('hide');
         }, function (error) {
-            alertify.error("ошибка");
+            //alertify.error("ошибка");
             console.log("error in GetLoadedRows");
             document.getElementById('connection').style.visibility = "hidden";
             $("#hh").modal('hide');

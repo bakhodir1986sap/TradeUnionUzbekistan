@@ -565,6 +565,7 @@
     <Compile Include="Controllers\tblSprav_RegController.cs" />
     <Compile Include="Controllers\tblSprav_SanController.cs" />
     <Compile Include="Controllers\tblSprav_VilController.cs" />
+    <Compile Include="Controllers\TestController.cs" />
     <Compile Include="Controllers\t_campController.cs" />
     <Compile Include="Controllers\t_egrpoController.cs" />
     <Compile Include="Controllers\t_normativdocController.cs" />
@@ -687,6 +688,9 @@
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\sp_pr_GetNewTransactions_Result.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_rt_AvizovkaN_Result.cs">
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\sp_rt_BalanciPredpriyatiy_Result.cs">
@@ -834,6 +838,9 @@
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\sp_rt_OtchetUchetStoimostiVidachi_Result.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_rt_PostupleniyaN2_Result.cs">
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\sp_rt_PostupleniyaN_Result.cs">
@@ -1122,6 +1129,9 @@
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
     <Compile Include="BusinessLogic\Utils\MoreLinq\MoreEnumerable.DistinctBy.cs" />
+    <Compile Include="Models\TimeSheduler.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
     <Compile Include="MyRoleProvider\SiteRole.cs" />
     <Compile Include="Reports\ReportTemplate.aspx.cs">
       <DependentUpon>ReportTemplate.aspx</DependentUpon>
@@ -2346,6 +2356,7 @@
     <Content Include="Views\tbcs_dictionary\Details.cshtml" />
     <Content Include="Views\tbcs_dictionary\Edit.cshtml" />
     <Content Include="Views\tbcs_dictionary\Index.cshtml" />
+    <Content Include="Views\Otchot\AvizovkaN.cshtml" />
     <None Include="Web References\KurortUrlService\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>

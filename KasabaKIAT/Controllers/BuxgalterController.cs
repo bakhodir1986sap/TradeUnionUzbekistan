@@ -747,7 +747,7 @@ namespace KasabaKIAT.Controllers
 
             if (postData.rasxod_arr == null) return Json("error", JsonRequestBehavior.AllowGet);
 
-            var finOtchet = new FinOtchetStrukture();
+            var finOtchet = new FinOtchetStrukture(log);
             finOtchet.SaveOtherInfo(ustinfo.DepartmentBase, postData.year, postData.kvartal, UserId, postData.rasxod_arr);
 
             return Json("", JsonRequestBehavior.AllowGet);
@@ -815,7 +815,7 @@ namespace KasabaKIAT.Controllers
             int UserId = Convert.ToInt32(User.Identity.Name);
             var ustinfo = UserInfo.GetUserInfo(UserId);
 
-            var finOtchet = new FinOtchetStrukture();
+            var finOtchet = new FinOtchetStrukture(log);
             finOtchet.MakeFinOtchet(departmentBase, year, kvartal, UserId);
 
             finOtchet._totaloutput.SelectedKvartalYear = string.Format("{0} год -{1} кв", year, kvartal);
@@ -838,7 +838,7 @@ namespace KasabaKIAT.Controllers
             int UserId = Convert.ToInt32(User.Identity.Name);
             var ustinfo = UserInfo.GetUserInfo(UserId);
 
-            var finOtchet = new FinOtchetStrukture();
+            var finOtchet = new FinOtchetStrukture(log);
             finOtchet.MakeFinOtchet("17", year, kvartal, UserId, true);
 
             finOtchet._totaloutput.SelectedKvartalYear = string.Format("{0} год -{1} кв", year, kvartal);

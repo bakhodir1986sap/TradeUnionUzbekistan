@@ -188,6 +188,7 @@ namespace KasabaKIAT.Models
         public virtual DbSet<tbbu_AccountPlan> tbbu_AccountPlan { get; set; }
         public virtual DbSet<tbbu_FinOtchetSave> tbbu_FinOtchetSave { get; set; }
         public virtual DbSet<tbbu_profil_lager> tbbu_profil_lager { get; set; }
+        public virtual DbSet<TimeSheduler> TimeShedulers { get; set; }
     
         public virtual ObjectResult<Nullable<decimal>> sp_get_BankPaymentCompanyMonthly(string inn, Nullable<int> year, Nullable<int> month)
         {
@@ -2496,6 +2497,44 @@ namespace KasabaKIAT.Models
                 new ObjectParameter("year", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_Delete_SanatDataCompare", yearParameter);
+        }
+    
+        public virtual ObjectResult<sp_rt_PostupleniyaN2_Result> sp_rt_PostupleniyaN2(string iNN, string dEPARTMENT_BASE, Nullable<System.DateTime> dATE_BEGIN, Nullable<System.DateTime> dATE_END)
+        {
+            var iNNParameter = iNN != null ?
+                new ObjectParameter("INN", iNN) :
+                new ObjectParameter("INN", typeof(string));
+    
+            var dEPARTMENT_BASEParameter = dEPARTMENT_BASE != null ?
+                new ObjectParameter("DEPARTMENT_BASE", dEPARTMENT_BASE) :
+                new ObjectParameter("DEPARTMENT_BASE", typeof(string));
+    
+            var dATE_BEGINParameter = dATE_BEGIN.HasValue ?
+                new ObjectParameter("DATE_BEGIN", dATE_BEGIN) :
+                new ObjectParameter("DATE_BEGIN", typeof(System.DateTime));
+    
+            var dATE_ENDParameter = dATE_END.HasValue ?
+                new ObjectParameter("DATE_END", dATE_END) :
+                new ObjectParameter("DATE_END", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_rt_PostupleniyaN2_Result>("sp_rt_PostupleniyaN2", iNNParameter, dEPARTMENT_BASEParameter, dATE_BEGINParameter, dATE_ENDParameter);
+        }
+    
+        public virtual ObjectResult<sp_rt_AvizovkaN_Result> sp_rt_AvizovkaN(string dEPARTMENT_BASE, Nullable<System.DateTime> dATE_BEGIN, Nullable<System.DateTime> dATE_END)
+        {
+            var dEPARTMENT_BASEParameter = dEPARTMENT_BASE != null ?
+                new ObjectParameter("DEPARTMENT_BASE", dEPARTMENT_BASE) :
+                new ObjectParameter("DEPARTMENT_BASE", typeof(string));
+    
+            var dATE_BEGINParameter = dATE_BEGIN.HasValue ?
+                new ObjectParameter("DATE_BEGIN", dATE_BEGIN) :
+                new ObjectParameter("DATE_BEGIN", typeof(System.DateTime));
+    
+            var dATE_ENDParameter = dATE_END.HasValue ?
+                new ObjectParameter("DATE_END", dATE_END) :
+                new ObjectParameter("DATE_END", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_rt_AvizovkaN_Result>("sp_rt_AvizovkaN", dEPARTMENT_BASEParameter, dATE_BEGINParameter, dATE_ENDParameter);
         }
     }
 }

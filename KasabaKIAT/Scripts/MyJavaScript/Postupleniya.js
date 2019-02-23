@@ -46,7 +46,7 @@
     };
 
     $scope.LoadINN_N = function () {
-        LoadDATAN($scope.INN);
+        LoadDATAN($scope.INN, $scope.ZB, $scope.ZE);
     }
 
     $scope.LoadINN_X = function () {
@@ -56,6 +56,10 @@
 
     $scope.LoadINN_P = function () {
         LoadDATAP($scope.SelectedSanatory.ID, $scope.NumPut);
+    }
+
+    $scope.LoadINN_A = function () {
+        LoadDATAAV($scope.ZB, $scope.ZE);
     }
 
     function LoadDATA(inn) {
@@ -88,7 +92,7 @@
         });
     }
 
-    function LoadDATAN(inn) {
+    function LoadDATAN(inn, zb, ze) {
 
         $locale.NUMBER_FORMATS.GROUP_SEP = " ";
         $locale.NUMBER_FORMATS.DECIMAL_SEP = ",";
@@ -100,7 +104,39 @@
         });
         $http({
             method: 'POST',
-            url: "/Otchot/GetPostupleniyaN?inn=" + inn,
+            url: "/Otchot/GetPostupleniyaN?inn=" + inn + '&zb=' + zb.toISOString() + '&ze=' + ze.toISOString(),
+        }).then(function (d) {
+            if (d.data.length != 0) {
+                $scope.showdata = true;
+            } else {
+                $scope.showdata = false;
+            }
+            $scope.DATA = d.data;
+            console.log(d.data);
+            document.getElementById('connection').style.visibility = "hidden";
+            $("#hh").modal('hide');
+        }, function (error) {
+            alertify.error("ошибка");
+            console.log("error in GetPostupleniyaN -> ", error);
+            document.getElementById('connection').style.visibility = "hidden";
+            $("#hh").modal('hide');
+        });
+    }
+
+
+    function LoadDATAAV( zb, ze) {
+
+        $locale.NUMBER_FORMATS.GROUP_SEP = " ";
+        $locale.NUMBER_FORMATS.DECIMAL_SEP = ",";
+
+        document.getElementById('connection').style.visibility = "visible";
+        $("#hh").modal({
+            backdrop: 'static',
+            backdrop: 'static'
+        });
+        $http({
+            method: 'POST',
+            url: "/Otchot/GetAvizovkaN?zb=" + zb.toISOString() + '&ze=' + ze.toISOString(),
         }).then(function (d) {
             if (d.data.length != 0) {
                 $scope.showdata = true;

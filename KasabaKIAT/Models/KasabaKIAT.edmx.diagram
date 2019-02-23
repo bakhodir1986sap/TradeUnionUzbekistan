@@ -388,6 +388,7 @@
         <EntityTypeShape EntityType="KasabaKIATModel.tbbu_AccountPlan" Width="1.5" PointX="18.375" PointY="24.75" />
         <EntityTypeShape EntityType="KasabaKIATModel.tbbu_FinOtchetSave" Width="1.5" PointX="24.375" PointY="19.75" />
         <EntityTypeShape EntityType="KasabaKIATModel.tbbu_profil_lager" Width="1.5" PointX="20.375" PointY="24.75" />
+        <EntityTypeShape EntityType="KasabaKIATModel.TimeSheduler" Width="1.5" PointX="22.375" PointY="24.75" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

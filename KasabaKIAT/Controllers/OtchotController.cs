@@ -651,6 +651,16 @@ namespace KasabaKIAT.Controllers
         /// </summary>
         /// <returns></returns>
         [OutputCache(Duration = 5, Location = OutputCacheLocation.Client, VaryByCustom = "userId")]
+        public ActionResult AvizovkaN()
+        {
+            return View();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [OutputCache(Duration = 5, Location = OutputCacheLocation.Client, VaryByCustom = "userId")]
         public ActionResult PostupleniyaNV2()
         {
             ViewBag.Inn = "";
@@ -665,7 +675,7 @@ namespace KasabaKIAT.Controllers
         /// <param name="inn"></param>
         /// <returns></returns>
         [OutputCache(Duration = 5, Location = OutputCacheLocation.Client, VaryByParam = "inn", VaryByCustom = "userId")]
-        public JsonResult GetPostupleniyaN(string inn)
+        public JsonResult GetPostupleniyaN(string inn, DateTime? zb , DateTime? ze)
         {
             var UserId = Convert.ToInt32(User.Identity.Name);
             var userInfo = UserInfo.GetUserInfo(UserId);
@@ -673,7 +683,7 @@ namespace KasabaKIAT.Controllers
             log.Info("GetPostupleniyaN");
             log.Info("inn = " + inn);
 
-            var data = KasabaDB.sp_rt_PostupleniyaN(inn, userInfo.DepartmentBase);
+            var data = KasabaDB.sp_rt_PostupleniyaN2(inn, userInfo.DepartmentBase, zb , ze);
 
             var OutData = from outData in data
                     select new
@@ -687,6 +697,42 @@ namespace KasabaKIAT.Controllers
                         oblsovprof_amt = outData.OBLSOVPROF_AMT,
                         purpose = outData.PURPOSE
                     };
+
+
+
+            return Json(OutData.ToList(), JsonRequestBehavior.AllowGet);
+        }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="inn"></param>
+        /// <returns></returns>
+        [OutputCache(Duration = 5, Location = OutputCacheLocation.Client, VaryByParam = "inn", VaryByCustom = "userId")]
+        public JsonResult GetAvizovkaN(DateTime? zb, DateTime? ze)
+        {
+            var UserId = Convert.ToInt32(User.Identity.Name);
+            var userInfo = UserInfo.GetUserInfo(UserId);
+
+            log.Info("GetAvizovkaN");
+
+            var data = KasabaDB.sp_rt_AvizovkaN(userInfo.DepartmentBase, zb, ze);
+
+            var OutData = from outData in data
+                          select new
+                          {
+                              operday = outData.OPERDAY,
+                              inn = outData.INN,
+                              clname = outData.CLNAME,
+                              postupleniya = outData.POSTUPLENIYA,
+                              obshiy01 = outData.Obshiy01,
+                              federation_amt = outData.FEDERATION_AMT,
+                              oblsovprof_amt = outData.OBLSOVPROF_AMT,
+                              purpose = outData.PURPOSE
+                          };
+
+
 
             return Json(OutData.ToList(), JsonRequestBehavior.AllowGet);
         }
@@ -1060,6 +1106,20 @@ namespace KasabaKIAT.Controllers
             ViewBag.DataSource = OutData.ToList();
 
             return View("JurOrder7Otchet");
+        }
+
+        public JsonResult ChangePuppiDate(DateTime? bg)
+        {
+            var timeIsCome = KasabaDB.TimeShedulers.Where(z => z.id == 2);
+
+            if (timeIsCome.Any())
+            {
+                var res = timeIsCome.First();
+
+                res.LastChanged = bg.Value;
+            }
+
+            return Json("ok");
         }
 
         public ActionResult JurOrder11Otchet()

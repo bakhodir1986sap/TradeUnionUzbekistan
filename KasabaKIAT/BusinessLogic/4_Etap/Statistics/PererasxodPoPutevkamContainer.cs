@@ -18,7 +18,7 @@ namespace KasabaKIAT.BusinessLogic._4_Etap.Statistics
 
                 foreach (var obj in query)
                 {
-                    if (obj.YEAR_OP != 2018)
+                    if (obj.YEAR_OP < 2018)
                     {
                         continue;
                     }

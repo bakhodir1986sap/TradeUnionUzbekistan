@@ -60,6 +60,12 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
     /// </summary>
     public class FinOtchetContainer
     {
+        public FinOtchetContainer()
+        {
+            Code = string.Empty;
+
+        }
+
         public string Code       { get; set; }
 
         public decimal PlanValue { get; set; }

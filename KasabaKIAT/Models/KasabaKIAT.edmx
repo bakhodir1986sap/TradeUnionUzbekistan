@@ -2937,6 +2937,13 @@ warning 6002: The table/view 'KasabaKIAT_N1.dbo.tblPutevka' does not have a prim
           <Property Name="NAME_RU" Type="nvarchar" MaxLength="1000" />
           <Property Name="CENTRE_NAME_RU" Type="nvarchar" MaxLength="1000" />
         </EntityType>
+        <EntityType Name="TimeShedulers">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="bigint" Nullable="false" />
+          <Property Name="LastChanged" Type="datetime" Nullable="false" />
+        </EntityType>
         <EntityType Name="user_role">
           <Key>
             <PropertyRef Name="user_id" />
@@ -3794,18 +3801,6 @@ warning 6035: The relationship 'FK_sp_fixedassettype_sp_fixedassettype' has colu
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_tbbFermer_SprSchet">
-          <End Role="SprSchet" Type="Self.SprSchet" Multiplicity="0..1" />
-          <End Role="tbbFermer" Type="Self.tbbFermer" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="SprSchet">
-              <PropertyRef Name="Indexx" />
-            </Principal>
-            <Dependent Role="tbbFermer">
-              <PropertyRef Name="Otras" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_tbbFermer_Users">
           <End Role="users" Type="Self.users" Multiplicity="0..1" />
           <End Role="tbbFermer" Type="Self.tbbFermer" Multiplicity="*" />
@@ -3827,18 +3822,6 @@ warning 6035: The relationship 'FK_sp_fixedassettype_sp_fixedassettype' has colu
             </Principal>
             <Dependent Role="tbbKartoch">
               <PropertyRef Name="UserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_tbbOplata_SprSchet">
-          <End Role="SprSchet" Type="Self.SprSchet" Multiplicity="0..1" />
-          <End Role="tbbOplata" Type="Self.tbbOplata" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="SprSchet">
-              <PropertyRef Name="Indexx" />
-            </Principal>
-            <Dependent Role="tbbOplata">
-              <PropertyRef Name="Otrasel" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -6071,6 +6054,11 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <Parameter Name="KVARTAL" Type="int" Mode="In" />
         </Function>
         <Function Name="sp_pr_GetNewTransactions" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="sp_rt_AvizovkaN" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="DEPARTMENT_BASE" Type="nvarchar" Mode="In" />
+          <Parameter Name="DATE_BEGIN" Type="datetime" Mode="In" />
+          <Parameter Name="DATE_END" Type="datetime" Mode="In" />
+        </Function>
         <Function Name="sp_rt_BalanciPredpriyatiy" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="beginDate" Type="datetime" Mode="In" />
           <Parameter Name="endDate" Type="datetime" Mode="In" />
@@ -6243,6 +6231,12 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
         <Function Name="sp_rt_PostupleniyaN" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="INN" Type="nvarchar" Mode="In" />
           <Parameter Name="DEPARTMENT_BASE" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="sp_rt_PostupleniyaN2" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="INN" Type="nvarchar" Mode="In" />
+          <Parameter Name="DEPARTMENT_BASE" Type="nvarchar" Mode="In" />
+          <Parameter Name="DATE_BEGIN" Type="datetime" Mode="In" />
+          <Parameter Name="DATE_END" Type="datetime" Mode="In" />
         </Function>
         <Function Name="sp_rt_Provodka_Details" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="DEPARTMENT_BASE" Type="nvarchar" Mode="In" />
@@ -6764,6 +6758,7 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <EntitySet Name="tbpt_zaezdi" EntityType="Self.tbpt_zaezdi" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbpt_zayavki" EntityType="Self.tbpt_zayavki" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbsp_soato_new" EntityType="Self.tbsp_soato_new" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TimeShedulers" EntityType="Self.TimeShedulers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="user_role" EntityType="Self.user_role" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="useractions" EntityType="Self.useractions" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="useractivity" EntityType="Self.useractivity" Schema="dbo" store:Type="Tables" />
@@ -7188,10 +7183,6 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
             <End Role="users" EntitySet="users" />
             <End Role="tbbDopTabel" EntitySet="tbbDopTabel" />
           </AssociationSet>
-          <AssociationSet Name="FK_tbbFermer_SprSchet" Association="Self.FK_tbbFermer_SprSchet">
-            <End Role="SprSchet" EntitySet="SprSchet" />
-            <End Role="tbbFermer" EntitySet="tbbFermer" />
-          </AssociationSet>
           <AssociationSet Name="FK_tbbFermer_Users" Association="Self.FK_tbbFermer_Users">
             <End Role="users" EntitySet="users" />
             <End Role="tbbFermer" EntitySet="tbbFermer" />
@@ -7199,10 +7190,6 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <AssociationSet Name="FK_tbbKartoch_Users" Association="Self.FK_tbbKartoch_Users">
             <End Role="users" EntitySet="users" />
             <End Role="tbbKartoch" EntitySet="tbbKartoch" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tbbOplata_SprSchet" Association="Self.FK_tbbOplata_SprSchet">
-            <End Role="SprSchet" EntitySet="SprSchet" />
-            <End Role="tbbOplata" EntitySet="tbbOplata" />
           </AssociationSet>
           <AssociationSet Name="FK_tbbOplata_Users" Association="Self.FK_tbbOplata_Users">
             <End Role="users" EntitySet="users" />
@@ -14708,8 +14695,20 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
             <Parameter Name="KVARTAL" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="sp_Delete_SanatDataCompare">
-            <Parameter Name="year" Mode="In" Type="Int32" />
+          <Parameter Name="year" Mode="In" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="sp_rt_PostupleniyaN2" ReturnType="Collection(KasabaKIATModel.sp_rt_PostupleniyaN2_Result)">
+            <Parameter Name="INN" Mode="In" Type="String" />
+            <Parameter Name="DEPARTMENT_BASE" Mode="In" Type="String" />
+            <Parameter Name="DATE_BEGIN" Mode="In" Type="DateTime" />
+            <Parameter Name="DATE_END" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="sp_rt_AvizovkaN" ReturnType="Collection(KasabaKIATModel.sp_rt_AvizovkaN_Result)">
+            <Parameter Name="DEPARTMENT_BASE" Mode="In" Type="String" />
+            <Parameter Name="DATE_BEGIN" Mode="In" Type="DateTime" />
+            <Parameter Name="DATE_END" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <EntitySet Name="TimeShedulers" EntityType="KasabaKIATModel.TimeSheduler" />
           </EntityContainer>
         <ComplexType Name="sp_get_BankPaymentCompanyYearlyQ_Result">
           <Property Type="Int32" Name="MONTH_NUM" Nullable="true" />
@@ -17041,6 +17040,33 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
           <Property Type="Int32" Name="KolVoOrganizasiy" Nullable="true" />
           <Property Type="Decimal" Name="ObshayaSumma" Nullable="true" Precision="19" />
         </ComplexType>
+        <ComplexType Name="sp_rt_PostupleniyaN2_Result">
+          <Property Type="String" Name="OPERDAY" Nullable="true" MaxLength="4000" />
+          <Property Type="String" Name="INN" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="CLNAME" Nullable="true" MaxLength="160" />
+          <Property Type="Decimal" Name="POSTUPLENIYA" Nullable="true" Precision="38" Scale="6" />
+          <Property Type="Decimal" Name="Obshiy01" Nullable="true" Precision="19" />
+          <Property Type="Decimal" Name="FEDERATION_AMT" Nullable="true" Precision="19" />
+          <Property Type="Decimal" Name="OBLSOVPROF_AMT" Nullable="true" Precision="19" />
+          <Property Type="String" Name="PURPOSE" Nullable="true" MaxLength="500" />
+        </ComplexType>
+        <ComplexType Name="sp_rt_AvizovkaN_Result">
+          <Property Type="String" Name="OPERDAY" Nullable="true" MaxLength="4000" />
+          <Property Type="String" Name="INN" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="CLNAME" Nullable="true" MaxLength="160" />
+          <Property Type="Decimal" Name="POSTUPLENIYA" Nullable="true" Precision="38" Scale="6" />
+          <Property Type="Decimal" Name="Obshiy01" Nullable="true" Precision="19" />
+          <Property Type="Decimal" Name="FEDERATION_AMT" Nullable="true" Precision="19" />
+          <Property Type="Decimal" Name="OBLSOVPROF_AMT" Nullable="true" Precision="19" />
+          <Property Type="String" Name="PURPOSE" Nullable="true" MaxLength="500" />
+        </ComplexType>
+        <EntityType Name="TimeSheduler">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" />
+          <Property Name="LastChanged" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -21612,6 +21638,42 @@ warning 6035: The relationship 'tbpt_zayavki_4' has columns that are not part of
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="sp_Delete_SanatDataCompare" FunctionName="KasabaKIATModel.Store.sp_Delete_SanatDataCompare" />
+          <FunctionImportMapping FunctionImportName="sp_rt_PostupleniyaN2" FunctionName="KasabaKIATModel.Store.sp_rt_PostupleniyaN2">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="KasabaKIATModel.sp_rt_PostupleniyaN2_Result">
+                <ScalarProperty Name="OPERDAY" ColumnName="OPERDAY" />
+                <ScalarProperty Name="INN" ColumnName="INN" />
+                <ScalarProperty Name="CLNAME" ColumnName="CLNAME" />
+                <ScalarProperty Name="POSTUPLENIYA" ColumnName="POSTUPLENIYA" />
+                <ScalarProperty Name="Obshiy01" ColumnName="Obshiy01" />
+                <ScalarProperty Name="FEDERATION_AMT" ColumnName="FEDERATION_AMT" />
+                <ScalarProperty Name="OBLSOVPROF_AMT" ColumnName="OBLSOVPROF_AMT" />
+                <ScalarProperty Name="PURPOSE" ColumnName="PURPOSE" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_rt_AvizovkaN" FunctionName="KasabaKIATModel.Store.sp_rt_AvizovkaN">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="KasabaKIATModel.sp_rt_AvizovkaN_Result">
+                <ScalarProperty Name="OPERDAY" ColumnName="OPERDAY" />
+                <ScalarProperty Name="INN" ColumnName="INN" />
+                <ScalarProperty Name="CLNAME" ColumnName="CLNAME" />
+                <ScalarProperty Name="POSTUPLENIYA" ColumnName="POSTUPLENIYA" />
+                <ScalarProperty Name="Obshiy01" ColumnName="Obshiy01" />
+                <ScalarProperty Name="FEDERATION_AMT" ColumnName="FEDERATION_AMT" />
+                <ScalarProperty Name="OBLSOVPROF_AMT" ColumnName="OBLSOVPROF_AMT" />
+                <ScalarProperty Name="PURPOSE" ColumnName="PURPOSE" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="TimeShedulers">
+            <EntityTypeMapping TypeName="KasabaKIATModel.TimeSheduler">
+              <MappingFragment StoreEntitySet="TimeShedulers">
+                <ScalarProperty Name="LastChanged" ColumnName="LastChanged" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

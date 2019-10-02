@@ -769,6 +769,107 @@
                 $("#hh").modal('hide');
             });
     }
+
+
+        $scope.SchetFakturaPrint2 = function () {
+
+        GetSchetFaktura();
+
+        document.getElementById('connection').style.visibility = "visible";
+        document.getElementById('schetfaktura').style.visibility = "visible";
+        $("#hh").modal({
+            backdrop: 'static'
+        });
+
+        var doc = new jsPDF({
+            orientation: 'landscape',
+            unit: 'mm',
+            format: 'a4'
+        });
+        var width = doc.internal.pageSize.width;
+        var height = doc.internal.pageSize.height;
+        var utf_8_string_to_render = 'any_value_you_want';
+        Promise.all(
+            [
+                new Promise(function (resolve) {
+                    var schetfaktura = document.createElement("div");
+                    schetfaktura.id = "schetfaktura";
+                    schetfaktura.style = "color:black;margin:0px;font-size:20px;";
+                    //black
+                    phrase = utf_8_string_to_render;
+                    //schetfaktura.innerHTML = phrase;
+                    //need to render element, otherwise it won't be displayed
+                    document.body.appendChild(schetfaktura);
+
+                    html2canvas($("#schetfaktura"), {
+                        onrendered: function (canvas) {
+
+                            // $("#schetfaktura").remove();
+                            width = canvas.width;
+                            height =canvas.height;
+                            var imagePieces = [];
+
+                            var imgWidth = 295;
+                            var pageHeight = 210;
+                            var imgHeight = height * imgWidth / width;
+                            var heightLeft = imgHeight;
+
+                            var canvasImage = canvas.toDataURL('image/png');
+
+                            var image = new Image(width, height);
+                                image.onload = function() {                                     
+                                    
+                                    var canvasPage = document.createElement('canvas');
+                                    canvasPage.id = "canvasTest"
+                                    canvasPage.width = width;
+                                    canvasPage.height = height;
+                                    var context = canvasPage.getContext('2d');
+
+                                    context.drawImage(image, 0, 0, width, height/2, 0, 0, canvasPage.width, canvasPage.height);
+                                    imagePieces.push(canvasPage.toDataURL());
+                                    console.log(canvasPage.toDataURL());
+
+                                    var canvasPage2 = document.createElement('canvas');
+                                    canvasPage2.id = "canvasTest2"
+                                    canvasPage2.width = width;
+                                    canvasPage2.height = height;
+                                    var context2 = canvasPage2.getContext('2d');
+
+                                    context2.drawImage(image, 0, height/2, width, height/2, 0, 0, canvasPage2.width, canvasPage2.height);
+                                    imagePieces.push(canvasPage2.toDataURL());
+                                    console.log(canvasPage2.toDataURL());
+
+
+                                    var doc = new jsPDF('l', 'mm');
+                                    var position = 0;
+
+                                    doc.addImage(imagePieces[0], 'PNG', 0, position, imgWidth, 200);
+                                    doc.addPage();
+                                    doc.addImage(imagePieces[1], 'PNG', 0, 10, imgWidth, 200);
+                                    heightLeft -= pageHeight;
+
+                                    doc.save('СчетФактура.pdf');﻿
+                            }; 
+
+                            image.src = canvasImage; 
+                            image.outerHTML;
+
+
+
+                            resolve(canvas.toDataURL('image/png'));
+                        },
+                    });
+                })
+            ]).then(function (ru_text) {
+
+
+
+
+                document.getElementById('connection').style.visibility = "hidden";
+                document.getElementById('schetfaktura').style.visibility = "visible";
+                $("#hh").modal('hide');
+            });
+    }
     ////////////////////////////////////////////////////////////
     ///  Add Detail
     ////////////////////////////////////////////////////////////

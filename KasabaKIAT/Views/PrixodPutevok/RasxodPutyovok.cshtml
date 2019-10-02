@@ -6,7 +6,7 @@
 }
 <script src="~/Scripts/dist/jspdf.debug.js"></script>
 <script src="~/Scripts/basic.js"></script>
-<script src="~/Scripts/MyJavaScript/Ilxom/RasxodPutyovokN5.js"></script>
+<script src="~/Scripts/MyJavaScript/Ilxom/RasxodPutyovokN10.js"></script>
 <script>
 function Export2Doc(element = 'schetfaktura', filename = 'СчетФактура'){
     var preHtml = "<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'><head><meta charset='utf-8'><title>Export HTML To Doc</title></head><body>";
@@ -103,7 +103,7 @@ function Export2Doc(element = 'schetfaktura', filename = 'СчетФактура
                         <a href="#" ng-click="AddNakladnoy()" class="btn btn-blue d-block d-md-inline-block mb-3 mt-20" data-toggle="modal" data-target="#dobavit">Добавить</a>
                         @*<a href="#" class="btn btn-danger d-block d-md-inline-block mb-3 mt-20">Удалить</a>*@
                         <a @*href="@Url.Action("ReportTemplate", "Report",
-                        new { ReportName = "Оперативка по путевкам", ReportDescription = "Оперативка по путевкам", Width = 100, Height = 650 })"*@ class="btn btn-grey d-block d-md-inline-block mb-3 mt-20" @*ng-click="printDiv('schetfaktura')"*@ ng-click="SchetFakturaPrint()"><i class="fa fa-print"></i>Печать</a>
+                        new { ReportName = "Оперативка по путевкам", ReportDescription = "Оперативка по путевкам", Width = 100, Height = 650 })"*@ class="btn btn-grey d-block d-md-inline-block mb-3 mt-20" @*ng-click="printDiv('schetfaktura')"*@ ng-click="SchetFakturaPrint2()"><i class="fa fa-print"></i>Печать</a>
                         <button onclick="Export2Doc();"><i class="fa fa-print"></i>Печать в Word Документ</button>
                         @*<button onclick="printDiv();"><i class="fa fa-print"></i>Печать в Word Документ</button>*@
                     </div>
@@ -660,17 +660,17 @@ function Export2Doc(element = 'schetfaktura', filename = 'СчетФактура
                             <td colspan="4" class="border border-dark text-center">13</td>
                         </tr>
                         <tr ng-repeat="item in SchetFaktura.nakladDtl">
-                            <td colspan="2" class="border border-dark text-center">{{$index+1}}</td>
-                            <td colspan="5" class="border border-dark text-left">{{item.sanatName}}</td>
-                            <td colspan="4" class="border border-dark text-right">{{item.num_put}}</td>
-                            <td colspan="4" class="border border-dark text-center">{{item.data_post | jsonDate: 'dd.MM.yyyy'}}</td>
+                            <td colspan="2" class="border border-dark text-center"><strong>{{$index+1}}</strong></td>
+                            <td colspan="5" class="border border-dark text-left"><strong>{{item.sanatName}}</strong></td>
+                            <td colspan="4" class="border border-dark text-right"><strong>{{item.num_put}}</strong></td>
+                            <td colspan="4" class="border border-dark text-center"><strong>{{item.data_post | jsonDate: 'dd.MM.yyyy'}}</strong></td>
                             <td colspan="2" class="border border-dark text-center">шт</td>
                             <td colspan="2" class="border border-dark text-center">1</td>
-                            <td colspan="2" class="border border-dark text-center">{{item.symma| currency:' '}}</td>
-                            @*<td colspan="2" class="border border-dark text-center">{{item.symma| currency:' '}}</td>*@
+                            <td colspan="2" class="border border-dark text-center"><strong>{{item.symma| currency:' '}}</strong></td>
+                            @*<td colspan="2" class="border border-dark text-center"><strong>{{item.symma| currency:' '}}</strong></td>*@
                             <td colspan="4" class="border border-dark text-center">без акциза</td>
                             <td colspan="4" class="border border-dark text-center">без НДС</td>
-                            <td colspan="4" class="border border-dark text-center">{{item.symma| currency:' '}}</td>
+                            <td colspan="4" class="border border-dark text-center"><strong>{{item.symma| currency:' '}}</strong></td>
                         </tr>
                         <tr>
                             <td colspan="2" class="border border-dark text-center"></td>
@@ -874,17 +874,17 @@ function Export2Doc(element = 'schetfaktura', filename = 'СчетФактура
                             <td colspan="4" class="border border-dark text-center">13</td>
                         </tr>
                         <tr ng-repeat="item in SchetFaktura.nakladDtl">
-                            <td colspan="2" class="border border-dark text-center">{{$index+1}}</td>
-                            <td colspan="5" class="border border-dark text-left">{{item.sanatName}}</td>
-                            <td colspan="4" class="border border-dark text-right">{{item.num_put}}</td>
-                            <td colspan="4" class="border border-dark text-center">{{item.data_post | jsonDate: 'dd.MM.yyyy'}}</td>
+                            <td colspan="2" class="border border-dark text-center"><strong>{{$index+1}}</strong></td>
+                            <td colspan="5" class="border border-dark text-left"><strong>{{item.sanatName}}</strong></td>
+                            <td colspan="4" class="border border-dark text-right"><strong>{{item.num_put}}</strong></td>
+                            <td colspan="4" class="border border-dark text-center"><strong>{{item.data_post | jsonDate: 'dd.MM.yyyy'}}</strong></td>
                             <td colspan="2" class="border border-dark text-center">шт</td>
                             <td colspan="2" class="border border-dark text-center">1</td>
-                            <td colspan="2" class="border border-dark text-center">{{item.symma| currency:' '}}</td>
-                            @*<td colspan="2" class="border border-dark text-center">{{item.symma| currency:' '}}</td>*@
+                            <td colspan="2" class="border border-dark text-center"><strong>{{item.symma| currency:' '}}</strong></td>
+                            @*<td colspan="2" class="border border-dark text-center"><strong>{{item.symma| currency:' '}}</strong></td>*@
                             <td colspan="4" class="border border-dark text-center">без акциза</td>
                             <td colspan="4" class="border border-dark text-center">без НДС</td>
-                            <td colspan="4" class="border border-dark text-center">{{item.symma| currency:' '}}</td>
+                            <td colspan="4" class="border border-dark text-center"><strong>{{item.symma| currency:' '}}</strong></td>
                         </tr>
                         <tr>
                             <td colspan="2" class="border border-dark text-center"></td>

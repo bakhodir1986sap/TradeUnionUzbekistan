@@ -107,9 +107,6 @@
       <HintPath>..\packages\Microsoft.Owin.Security.2.1.0\lib\net45\Microsoft.Owin.Security.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Microsoft.QualityTools.Testing.Fakes, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
     <Reference Include="Microsoft.ReportViewer.Common, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Report.Viewer.11.0.0.0\lib\net\Microsoft.ReportViewer.Common.dll</HintPath>
       <Private>True</Private>
@@ -1947,8 +1944,10 @@
     <Content Include="Scripts\MyJavaScript\DataService.js" />
     <Content Include="Scripts\MyJavaScript\Ilxom\DanniyeVladelsaxPutyovokN2.js" />
     <Content Include="Scripts\MyJavaScript\Ilxom\RasxodPutyovokN5.js" />
+    <Content Include="Scripts\MyJavaScript\Ilxom\RasxodPutyovokN6.js" />
     <Content Include="Scripts\MyJavaScript\LagerFinOtchet.js" />
     <Content Include="Scripts\MyJavaScript\Organizasii2.js" />
+    <Content Include="Scripts\MyJavaScript\Postupleniya2.js" />
     <Content Include="Scripts\MyJavaScript\SanatoriyProfilaktoriy.js" />
     <Content Include="Scripts\MyJavaScript\GlavnayaKniga.js" />
     <Content Include="Scripts\MyJavaScript\GPController.js" />
@@ -2506,7 +2505,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>60115</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:60115/</IISUrl>
+          <IISUrl>http://localhost:63115/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

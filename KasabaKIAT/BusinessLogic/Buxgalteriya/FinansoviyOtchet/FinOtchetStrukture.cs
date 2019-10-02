@@ -513,7 +513,7 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
                             }
                             else if (kvartal == 4)
                             {
-                                obj.PlanValue = plan.YEAR.Value;
+                                obj.PlanValue = plan.GODOVOY.Value;
                             }
 
                             out_FinOtchet.Add(obj);
@@ -709,10 +709,22 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
         /// <param name="accountCode"></param>
         /// <param name="tp"></param>
         /// <returns></returns>
-        private decimal? GetBalanceDataFromValue(int year, int kvartal, string accountCode, FinOtchDataType tp)
+        private decimal? GetBalanceDataFromValue(int year, int kvartal, string accountCode, FinOtchDataType tp, bool isBalance = false)
         {
             using (KasabaKIATEntities db = new KasabaKIATEntities())
             {
+
+                //010 Fin otcheta na nachalo goda ne ostatok tekushego kvartala
+                //Should be checked
+                if (!isBalance)
+                {
+                    if ((kvartal == 4) && (accountCode.Equals("230")))
+                    {
+                        kvartal = 1;
+                    }
+                }
+
+
                 var balances = db.tbbu_balance.Where(z => z.CUR_YEAR == year && 
                                                      z.CUR_KV == kvartal && 
                                                      z.ACCOUNT_CODE == accountCode && 
@@ -1304,7 +1316,7 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
                             }
                             else
                             {
-                                Value = GetBalanceDataFromValue(year, kvartal, setting.ACCOUNT_CODE, FinOtchDataType.DebitOSTATOK);
+                                Value = GetBalanceDataFromValue(year, kvartal, setting.ACCOUNT_CODE, FinOtchDataType.DebitOSTATOK, true);
                             }
                         }
                         else if (setting.DATA_TYPE == (int)FinOtchDataType.CreditOSTATOK)
@@ -1315,7 +1327,7 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
                             }
                             else
                             {
-                                Value = GetBalanceDataFromValue(year, kvartal, setting.ACCOUNT_CODE, FinOtchDataType.CreditOSTATOK);
+                                Value = GetBalanceDataFromValue(year, kvartal, setting.ACCOUNT_CODE, FinOtchDataType.CreditOSTATOK, true);
                             }
                         }
                         else if (setting.DATA_TYPE == (int)FinOtchDataType.OBOROT)

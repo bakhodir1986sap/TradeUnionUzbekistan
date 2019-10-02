@@ -1,0 +1,163 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="KasabaKIAT_N1Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="tblPred">
+          <Key>
+            <PropertyRef Name="Departmentbase" />
+          </Key>
+          <Property Name="ID_Prof" Type="bigint" />
+          <Property Name="ID_Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="ID_Pred" Type="nvarchar" MaxLength="90" />
+          <Property Name="ID_Pass" Type="nvarchar" MaxLength="10" />
+          <Property Name="Adress" Type="nvarchar" MaxLength="50" />
+          <Property Name="RS" Type="nvarchar" MaxLength="20" />
+          <Property Name="Name_bank" Type="nvarchar" MaxLength="50" />
+          <Property Name="MFO" Type="nvarchar" MaxLength="5" />
+          <Property Name="INN" Type="nvarchar" MaxLength="9" />
+          <Property Name="OKONX" Type="nvarchar" MaxLength="6" />
+          <Property Name="Name_Dir" Type="nvarchar" MaxLength="25" />
+          <Property Name="PutDay" Type="int" />
+          <Property Name="VIO" Type="bit" Nullable="false" />
+          <Property Name="SeverName" Type="nvarchar" MaxLength="60" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="50" />
+          <Property Name="PasName" Type="nvarchar" MaxLength="50" />
+          <Property Name="TipName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Vid_SSL" Type="bit" Nullable="false" />
+          <Property Name="UserId" Type="bigint" />
+          <Property Name="Departmentbase" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="KaznaAccount" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="tbsp_soato_new">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="KODI" Type="nvarchar" MaxLength="15" />
+          <Property Name="NAME_LN" Type="nvarchar" MaxLength="1000" />
+          <Property Name="CENTRE_NAME_LN" Type="nvarchar" MaxLength="1000" />
+          <Property Name="NAME_RU" Type="nvarchar" MaxLength="1000" />
+          <Property Name="CENTRE_NAME_RU" Type="nvarchar" MaxLength="1000" />
+        </EntityType>
+        <EntityContainer Name="KasabaKIAT_N1ModelStoreContainer">
+          <EntitySet Name="tblPred" EntityType="Self.tblPred" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbsp_soato_new" EntityType="Self.tbsp_soato_new" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="KasabaKIAT_N1Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="tblPred">
+          <Key>
+            <PropertyRef Name="Departmentbase" />
+          </Key>
+          <Property Name="ID_Prof" Type="Int64" />
+          <Property Name="ID_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ID_Pred" Type="String" MaxLength="90" FixedLength="false" Unicode="true" />
+          <Property Name="ID_Pass" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Adress" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="RS" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Name_bank" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MFO" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="INN" Type="String" MaxLength="9" FixedLength="false" Unicode="true" />
+          <Property Name="OKONX" Type="String" MaxLength="6" FixedLength="false" Unicode="true" />
+          <Property Name="Name_Dir" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="PutDay" Type="Int32" />
+          <Property Name="VIO" Type="Boolean" Nullable="false" />
+          <Property Name="SeverName" Type="String" MaxLength="60" FixedLength="false" Unicode="true" />
+          <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PasName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TipName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Vid_SSL" Type="Boolean" Nullable="false" />
+          <Property Name="UserId" Type="Int64" />
+          <Property Name="Departmentbase" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="KaznaAccount" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="tbsp_soato_new">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="KODI" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="NAME_LN" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="CENTRE_NAME_LN" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="NAME_RU" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="CENTRE_NAME_RU" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityContainer Name="KasabaKIAT_N1Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="tblPreds" EntityType="Self.tblPred" />
+          <EntitySet Name="tbsp_soato_new" EntityType="Self.tbsp_soato_new" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="KasabaKIAT_N1ModelStoreContainer" CdmEntityContainer="KasabaKIAT_N1Entities">
+          <EntitySetMapping Name="tblPreds">
+            <EntityTypeMapping TypeName="KasabaKIAT_N1Model.tblPred">
+              <MappingFragment StoreEntitySet="tblPred">
+                <ScalarProperty Name="ID_Prof" ColumnName="ID_Prof" />
+                <ScalarProperty Name="ID_Name" ColumnName="ID_Name" />
+                <ScalarProperty Name="ID_Pred" ColumnName="ID_Pred" />
+                <ScalarProperty Name="ID_Pass" ColumnName="ID_Pass" />
+                <ScalarProperty Name="Adress" ColumnName="Adress" />
+                <ScalarProperty Name="RS" ColumnName="RS" />
+                <ScalarProperty Name="Name_bank" ColumnName="Name_bank" />
+                <ScalarProperty Name="MFO" ColumnName="MFO" />
+                <ScalarProperty Name="INN" ColumnName="INN" />
+                <ScalarProperty Name="OKONX" ColumnName="OKONX" />
+                <ScalarProperty Name="Name_Dir" ColumnName="Name_Dir" />
+                <ScalarProperty Name="PutDay" ColumnName="PutDay" />
+                <ScalarProperty Name="VIO" ColumnName="VIO" />
+                <ScalarProperty Name="SeverName" ColumnName="SeverName" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="PasName" ColumnName="PasName" />
+                <ScalarProperty Name="TipName" ColumnName="TipName" />
+                <ScalarProperty Name="Vid_SSL" ColumnName="Vid_SSL" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Departmentbase" ColumnName="Departmentbase" />
+                <ScalarProperty Name="KaznaAccount" ColumnName="KaznaAccount" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbsp_soato_new">
+            <EntityTypeMapping TypeName="KasabaKIAT_N1Model.tbsp_soato_new">
+              <MappingFragment StoreEntitySet="tbsp_soato_new">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="KODI" ColumnName="KODI" />
+                <ScalarProperty Name="NAME_LN" ColumnName="NAME_LN" />
+                <ScalarProperty Name="CENTRE_NAME_LN" ColumnName="CENTRE_NAME_LN" />
+                <ScalarProperty Name="NAME_RU" ColumnName="NAME_RU" />
+                <ScalarProperty Name="CENTRE_NAME_RU" ColumnName="CENTRE_NAME_RU" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

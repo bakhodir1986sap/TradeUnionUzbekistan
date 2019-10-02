@@ -544,9 +544,10 @@ function Export2Doc(element = 'schetfaktura', filename = 'СчетФактура
         </div>
 
 
-        <div class="row" id="schetfaktura" style="visibility:visible;position:absolute">
-            <div class="col-md-6" style="font-size:small">
+        <div class="row" id="schetfaktura" style="padding: 10px 30px 10px 10px;margin:10px;width:2000px;visibility:visible;position:absolute">
+            <div class="col-md-6" style="font-size:medium">
                 <div class="table-responsive mb-4" style="margin:20px">
+                    <div style="width:100%;height:20px"></div>
                     <table class="table table-nobordered table-sm">
                         <tr>
                             <td colspan="9"></td>
@@ -709,7 +710,7 @@ function Export2Doc(element = 'schetfaktura', filename = 'СчетФактура
                         <tr>
                             <td colspan="9" class="text-left"> Главный бухгалтер</td>
                             <td colspan="12" class="text-left">{{SchetFaktura.rekvizit.Name_Zaveduyushiy}}</td>
-                            <td colspan="16" class="text-left">По  доверенности № <strong>{{SchetFaktura.nakladnaya.num_dov}} {{SchetFaktura.nakladnaya.name_dov}}</strong></td>
+                            <td colspan="16" class="text-left">По  доверенности № <strong>{{SchetFaktura.nakladnaya.num_dov}} </strong></td>
                             <td></td>
                             <td></td>
                             <td></td>
@@ -746,7 +747,7 @@ function Export2Doc(element = 'schetfaktura', filename = 'СчетФактура
                         <tr>
                             <td colspan="9" class="text-left"> Товар отпустил</td>
                             <td colspan="12" class="text-left">{{SchetFaktura.rekvizit.Name_VedSpes}}</td>
-                            <td colspan="18" class="border-bottom border-dark text-left"><strong></strong></td>
+                            <td colspan="18" class="border-bottom border-dark text-left"><strong>{{SchetFaktura.nakladnaya.name_dov}}</strong></td>
                             <td colspan="2" rowspan="2" class="text-center"></td>
                         </tr>
                         <tr>
@@ -755,9 +756,12 @@ function Export2Doc(element = 'schetfaktura', filename = 'СчетФактура
                         </tr>
                     </table>
                 </div>
+                <div style="width:100%;height:20px"></div>
+                <div style="width:100%;height:20px"></div>
             </div>
-            <div class="col-md-6"  style="font-size:small">
+            <div class="col-md-6"  style="font-size:medium">
                 <div class="table-responsive mb-4" style="margin:20px">
+                <div style="width:100%;height:20px"></div>
                     <table class="table table-nobordered table-sm">
                         <tr>
                             <td colspan="9"></td>
@@ -920,7 +924,7 @@ function Export2Doc(element = 'schetfaktura', filename = 'СчетФактура
                         <tr>
                             <td colspan="9" class="text-left"> Главный бухгалтер</td>
                             <td colspan="12" class="text-left">{{SchetFaktura.rekvizit.Name_Zaveduyushiy}}</td>
-                            <td colspan="16" class="text-left">По  доверенности № <strong>{{SchetFaktura.nakladnaya.num_dov}} {{SchetFaktura.nakladnaya.name_dov}}</strong></td>
+                            <td colspan="16" class="text-left">По  доверенности № <strong>{{SchetFaktura.nakladnaya.num_dov}}</strong></td>
                             <td></td>
                             <td></td>
                             <td></td>
@@ -957,7 +961,7 @@ function Export2Doc(element = 'schetfaktura', filename = 'СчетФактура
                         <tr>
                             <td colspan="9" class="text-left"> Товар отпустил</td>
                             <td colspan="12" class="text-left">{{SchetFaktura.rekvizit.Name_VedSpes}}</td>
-                            <td colspan="18" class="border-bottom border-dark text-left"><strong></strong></td>
+                            <td colspan="18" class="border-bottom border-dark text-left"><strong>{{SchetFaktura.nakladnaya.name_dov}}</strong></td>
                             <td colspan="2" rowspan="2" class="text-center"></td>
                         </tr>
                         <tr>
@@ -967,6 +971,8 @@ function Export2Doc(element = 'schetfaktura', filename = 'СчетФактура
                     </table>
                 </div>
             </div>
+            <div style="width:100%;height:20px"></div>
+            <div style="width:100%;height:20px"></div>
         </div>
     </div>
 

@@ -578,12 +578,39 @@
     <Compile Include="BusinessLogic\BankOplati\Kaznacheystvo\KaznaFilesDataManager.cs" />
     <Compile Include="Hubs\NotificationHub.cs" />
     <Compile Include="Models\AppSettings.cs" />
+    <Compile Include="Models\Balans.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\bkut_egrpo_aud.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Bot.cs" />
     <Compile Include="Models\ChatModel.cs" />
     <Compile Include="Models\Commands\Command.cs" />
     <Compile Include="Models\Commands\HelloCommand.cs" />
+    <Compile Include="Models\eco_platej.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\eco_xs.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\fill_rate.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\frZapros.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\JavascriptExtension.cs" />
+    <Compile Include="Models\Kartoch.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\KaznaBankFile.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\KaznaFiles.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\KaznaPaymentFile.cs">
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\KaznaSverkaFile.cs">
@@ -593,10 +620,89 @@
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\MD5.cs" />
+    <Compile Include="Models\occupationalsafety.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Ot13.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Ot14.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ot_oplata.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\PrivyazkaProvodok.cs">
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\provodok.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\p_provodok.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\report1ti.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\report2ti1.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\report2ti2.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\report2ti2sum.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\ReportInfo.cs" />
+    <Compile Include="BusinessLogic\Utils\MoreLinq\MoreEnumerable.DistinctBy.cs" />
+    <Compile Include="Models\revinfo.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\roles.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\role_permission.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sps_translate.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_branch.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_classname.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_contracttype.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_country.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_degree.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_departmenttype.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_doctype.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_employees.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_feedback.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_files.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_fixedassettype.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_fs.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\sp_get_BankPaymentCompanyYearlyQ_Result.cs">
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
@@ -648,6 +754,9 @@
     <Compile Include="Models\sp_get_RealizasiyaPutyovokGroup_Result1.cs">
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\sp_measure.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\sp_monit_MonitoringOxvataSistemi_Result.cs">
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
@@ -682,6 +791,24 @@
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\sp_monit_PostupleniyeOtKaznaCheystva_Result1.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_nation.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_okonx.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_okonx_aud.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_opf.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_organization.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_position.cs">
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\sp_pr_GetNewTransactions_Result.cs">
@@ -951,6 +1078,24 @@
     <Compile Include="Models\sp_rt_ZayavkiList_Result.cs">
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\sp_sanatorium_profil.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_sanatorium_type.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_section.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_soato.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_soogu.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_soogu_copy.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\sp_stat_AktiveUsersListFed_V2_Result.cs">
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
@@ -1032,298 +1177,6 @@
     <Compile Include="Models\sp_stat_ZadoljennostList_V2_Result.cs">
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\tbbu_AccountPlan.cs">
-      <DependentUpon>KasabaKIAT.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\tbbu_balance.cs">
-      <DependentUpon>KasabaKIAT.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\tbbu_ecp_calc.cs">
-      <DependentUpon>KasabaKIAT.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\tbbu_FinOtchetSave.cs">
-      <DependentUpon>KasabaKIAT.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\tbbu_finOtchetSetting.cs">
-      <DependentUpon>KasabaKIAT.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\tbbu_nastroykiProvodok.cs">
-      <DependentUpon>KasabaKIAT.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\tbbu_planbyudjetregion.cs">
-      <DependentUpon>KasabaKIAT.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\tbbu_platejka.cs">
-      <DependentUpon>KasabaKIAT.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\tbbu_profil_lager.cs">
-      <DependentUpon>KasabaKIAT.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\tbbu_provodki.cs">
-      <DependentUpon>KasabaKIAT.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\tbcs_sisconf.cs">
-      <DependentUpon>KasabaKIAT.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\tbgl_balance.cs">
-      <DependentUpon>KasabaKIAT.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\tbgl_bankpayments.cs">
-      <DependentUpon>KasabaKIAT.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\tbgl_jnlmst.cs">
-      <DependentUpon>KasabaKIAT.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\tblCloseDay.cs">
-      <DependentUpon>KasabaKIAT.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\tblCloseDayHistory.cs">
-      <DependentUpon>KasabaKIAT.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\tblCloseKvartal.cs">
-      <DependentUpon>KasabaKIAT.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\tblCloseKvartalHistory.cs">
-      <DependentUpon>KasabaKIAT.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\tblFile.cs">
-      <DependentUpon>KasabaKIAT.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\tblHoliday.cs">
-      <DependentUpon>KasabaKIAT.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\tblOplata.cs">
-      <DependentUpon>KasabaKIAT.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\tblOtchetiLager.cs">
-      <DependentUpon>KasabaKIAT.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\tblPred.cs">
-      <DependentUpon>KasabaKIAT.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\tblPutHist.cs">
-      <DependentUpon>KasabaKIAT.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\tblSanatDataCompare.cs">
-      <DependentUpon>KasabaKIAT.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\tblVipl_NumGEn.cs">
-      <DependentUpon>KasabaKIAT.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\tblVipl_Put.cs">
-      <DependentUpon>KasabaKIAT.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\tblVozVrat.cs">
-      <DependentUpon>KasabaKIAT.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\tblZayavkiLager.cs">
-      <DependentUpon>KasabaKIAT.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\tbpt_putyovka_statechange.cs">
-      <DependentUpon>KasabaKIAT.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\tbsp_soato_new.cs">
-      <DependentUpon>KasabaKIAT.tt</DependentUpon>
-    </Compile>
-    <Compile Include="BusinessLogic\Utils\MoreLinq\MoreEnumerable.DistinctBy.cs" />
-    <Compile Include="Models\TimeSheduler.cs">
-      <DependentUpon>KasabaKIAT.tt</DependentUpon>
-    </Compile>
-    <Compile Include="MyRoleProvider\SiteRole.cs" />
-    <Compile Include="Reports\ReportTemplate.aspx.cs">
-      <DependentUpon>ReportTemplate.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Reports\ReportTemplate.aspx.designer.cs">
-      <DependentUpon>ReportTemplate.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Resources\ContentData.uz.Designer.cs">
-      <DependentUpon>ContentData.uz.resx</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="Resources\ContentData.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ContentData.resx</DependentUpon>
-    </Compile>
-    <Compile Include="Startup.cs" />
-    <Compile Include="TelegramBot\AppSettings.cs" />
-    <Compile Include="ViewModel\Buxgalteriya\BankpaymentsViewModel.cs" />
-    <Compile Include="ViewModel\Buxgalteriya\DetailViewModel.cs" />
-    <Compile Include="ViewModel\Buxgalteriya\EcpCalcViewModel.cs" />
-    <Compile Include="ViewModel\Buxgalteriya\MasterViewModel.cs" />
-    <Compile Include="ViewModel\Buxgalteriya\NastroykiProvodokViewModel.cs" />
-    <Compile Include="ViewModel\Buxgalteriya\OperationSettingsViewModel.cs" />
-    <Compile Include="ViewModel\Buxgalteriya\PlanRegionViewModel.cs" />
-    <Compile Include="ViewModel\Buxgalteriya\PlatejkiViewModel.cs" />
-    <Compile Include="ViewModel\Buxgalteriya\PrivyazkaProvodokViewModel.cs" />
-    <Compile Include="ViewModel\Buxgalteriya\ProvodkiViewModel.cs" />
-    <Compile Include="ViewModel\KurortService\ViewModel.cs" />
-    <Compile Include="ViewModel\BankOplati\KaznaPaymentFile.cs" />
-    <Compile Include="BusinessLogic\BankOplati\Kaznacheystvo\PaymentFileData.cs" />
-    <Compile Include="Models\Balans.cs">
-      <DependentUpon>KasabaKIAT.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\bkut_egrpo_aud.cs">
-      <DependentUpon>KasabaKIAT.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\eco_platej.cs">
-      <DependentUpon>KasabaKIAT.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\eco_xs.cs">
-      <DependentUpon>KasabaKIAT.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\fill_rate.cs">
-      <DependentUpon>KasabaKIAT.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\frZapros.cs">
-      <DependentUpon>KasabaKIAT.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Kartoch.cs">
-      <DependentUpon>KasabaKIAT.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\KasabaKIAT.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>KasabaKIAT.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\KasabaKIAT.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>KasabaKIAT.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\KasabaKIAT.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>KasabaKIAT.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="Models\KaznaFiles.cs">
-      <DependentUpon>KasabaKIAT.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\KaznaPaymentFile.cs">
-      <DependentUpon>KasabaKIAT.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\occupationalsafety.cs">
-      <DependentUpon>KasabaKIAT.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Ot13.cs">
-      <DependentUpon>KasabaKIAT.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Ot14.cs">
-      <DependentUpon>KasabaKIAT.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\ot_oplata.cs">
-      <DependentUpon>KasabaKIAT.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\provodok.cs">
-      <DependentUpon>KasabaKIAT.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\p_provodok.cs">
-      <DependentUpon>KasabaKIAT.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\report1ti.cs">
-      <DependentUpon>KasabaKIAT.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\report2ti1.cs">
-      <DependentUpon>KasabaKIAT.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\report2ti2.cs">
-      <DependentUpon>KasabaKIAT.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\report2ti2sum.cs">
-      <DependentUpon>KasabaKIAT.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\revinfo.cs">
-      <DependentUpon>KasabaKIAT.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\roles.cs">
-      <DependentUpon>KasabaKIAT.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\role_permission.cs">
-      <DependentUpon>KasabaKIAT.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\SprSchet.cs">
-      <DependentUpon>KasabaKIAT.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\sps_translate.cs">
-      <DependentUpon>KasabaKIAT.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\sp_branch.cs">
-      <DependentUpon>KasabaKIAT.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\sp_classname.cs">
-      <DependentUpon>KasabaKIAT.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\sp_contracttype.cs">
-      <DependentUpon>KasabaKIAT.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\sp_country.cs">
-      <DependentUpon>KasabaKIAT.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\sp_degree.cs">
-      <DependentUpon>KasabaKIAT.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\sp_departmenttype.cs">
-      <DependentUpon>KasabaKIAT.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\sp_doctype.cs">
-      <DependentUpon>KasabaKIAT.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\sp_employees.cs">
-      <DependentUpon>KasabaKIAT.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\sp_feedback.cs">
-      <DependentUpon>KasabaKIAT.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\sp_files.cs">
-      <DependentUpon>KasabaKIAT.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\sp_fixedassettype.cs">
-      <DependentUpon>KasabaKIAT.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\sp_fs.cs">
-      <DependentUpon>KasabaKIAT.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\sp_measure.cs">
-      <DependentUpon>KasabaKIAT.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\sp_nation.cs">
-      <DependentUpon>KasabaKIAT.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\sp_okonx.cs">
-      <DependentUpon>KasabaKIAT.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\sp_okonx_aud.cs">
-      <DependentUpon>KasabaKIAT.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\sp_opf.cs">
-      <DependentUpon>KasabaKIAT.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\sp_organization.cs">
-      <DependentUpon>KasabaKIAT.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\sp_position.cs">
-      <DependentUpon>KasabaKIAT.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\sp_sanatorium_profil.cs">
-      <DependentUpon>KasabaKIAT.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\sp_sanatorium_type.cs">
-      <DependentUpon>KasabaKIAT.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\sp_section.cs">
-      <DependentUpon>KasabaKIAT.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\sp_soato.cs">
-      <DependentUpon>KasabaKIAT.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\sp_soogu.cs">
-      <DependentUpon>KasabaKIAT.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\sp_soogu_copy.cs">
-      <DependentUpon>KasabaKIAT.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\tbbBank_Oplat.cs">
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
@@ -1354,6 +1207,36 @@
     <Compile Include="Models\tbbTabel.cs">
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\tbbu_AccountPlan.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tbbu_balance.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tbbu_ecp_calc.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tbbu_FinOtchetSave.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tbbu_finOtchetSetting.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tbbu_nastroykiProvodok.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tbbu_planbyudjetregion.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tbbu_platejka.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tbbu_profil_lager.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tbbu_provodki.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\tbbViplata.cs">
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
@@ -1363,10 +1246,22 @@
     <Compile Include="Models\tbcs_dictionarytype.cs">
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\tbcs_sisconf.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\tbgl_accounttype.cs">
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\tbgl_balance.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tbgl_bankpayments.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\tbgl_jnldd.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tbgl_jnlmst.cs">
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tbgl_opersettings.cs">
@@ -1399,6 +1294,18 @@
     <Compile Include="Models\tblBron.cs">
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\tblCloseDay.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tblCloseDayHistory.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tblCloseKvartal.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tblCloseKvartalHistory.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\tblFace_Med.cs">
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
@@ -1408,7 +1315,19 @@
     <Compile Include="Models\tblFase.cs">
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\tblFile.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tblHoliday.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tblOplata.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\tblOplata_Ras.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tblOtchetiLager.cs">
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tblPost.cs">
@@ -1417,7 +1336,16 @@
     <Compile Include="Models\tblPos_Put.cs">
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\tblPred.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\tblPutevka.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tblPutHist.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tblSanatDataCompare.cs">
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tblSprav_Face.cs">
@@ -1453,6 +1381,18 @@
     <Compile Include="Models\tblVipl.cs">
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\tblVipl_NumGEn.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tblVipl_Put.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tblVozVrat.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tblZayavkiLager.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\tbpt_avarageprice.cs">
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
@@ -1463,6 +1403,9 @@
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tbpt_putyovkarealizasiya.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tbpt_putyovka_statechange.cs">
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tbpt_putyovki.cs">
@@ -1484,6 +1427,12 @@
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tbpt_zayavki.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tbsp_soato_new.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TimeSheduler.cs">
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\t_agreement.cs">
@@ -1537,14 +1486,13 @@
     <Compile Include="Models\t_sanatorium.cs">
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
-    <Compile Include="BusinessLogic\Security\Login\user.cs" />
+    <Compile Include="Models\user.cs">
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\useractions.cs">
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\useractivity.cs">
-      <DependentUpon>KasabaKIAT.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\users.cs">
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\users_aud.cs">
@@ -1553,6 +1501,55 @@
     <Compile Include="Models\Zapros_ZK.cs">
       <DependentUpon>KasabaKIAT.tt</DependentUpon>
     </Compile>
+    <Compile Include="MyRoleProvider\SiteRole.cs" />
+    <Compile Include="Reports\ReportTemplate.aspx.cs">
+      <DependentUpon>ReportTemplate.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reports\ReportTemplate.aspx.designer.cs">
+      <DependentUpon>ReportTemplate.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\ContentData.uz.Designer.cs">
+      <DependentUpon>ContentData.uz.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Resources\ContentData.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ContentData.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Startup.cs" />
+    <Compile Include="TelegramBot\AppSettings.cs" />
+    <Compile Include="ViewModel\Buxgalteriya\BankpaymentsViewModel.cs" />
+    <Compile Include="ViewModel\Buxgalteriya\DetailViewModel.cs" />
+    <Compile Include="ViewModel\Buxgalteriya\EcpCalcViewModel.cs" />
+    <Compile Include="ViewModel\Buxgalteriya\MasterViewModel.cs" />
+    <Compile Include="ViewModel\Buxgalteriya\NastroykiProvodokViewModel.cs" />
+    <Compile Include="ViewModel\Buxgalteriya\OperationSettingsViewModel.cs" />
+    <Compile Include="ViewModel\Buxgalteriya\PlanRegionViewModel.cs" />
+    <Compile Include="ViewModel\Buxgalteriya\PlatejkiViewModel.cs" />
+    <Compile Include="ViewModel\Buxgalteriya\PrivyazkaProvodokViewModel.cs" />
+    <Compile Include="ViewModel\Buxgalteriya\ProvodkiViewModel.cs" />
+    <Compile Include="ViewModel\KurortService\ViewModel.cs" />
+    <Compile Include="ViewModel\BankOplati\KaznaPaymentFile.cs" />
+    <Compile Include="BusinessLogic\BankOplati\Kaznacheystvo\PaymentFileData.cs" />
+    <Compile Include="Models\KasabaKIAT.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>KasabaKIAT.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\KasabaKIAT.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>KasabaKIAT.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\KasabaKIAT.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>KasabaKIAT.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessLogic\Security\Login\user.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -1943,8 +1940,12 @@
     <Content Include="Scripts\MyJavaScript\Controller.js" />
     <Content Include="Scripts\MyJavaScript\DataService.js" />
     <Content Include="Scripts\MyJavaScript\Ilxom\DanniyeVladelsaxPutyovokN2.js" />
+    <Content Include="Scripts\MyJavaScript\Ilxom\RasxodPutyovokN10.js" />
     <Content Include="Scripts\MyJavaScript\Ilxom\RasxodPutyovokN5.js" />
     <Content Include="Scripts\MyJavaScript\Ilxom\RasxodPutyovokN6.js" />
+    <Content Include="Scripts\MyJavaScript\Ilxom\RasxodPutyovokN7.js" />
+    <Content Include="Scripts\MyJavaScript\Ilxom\RasxodPutyovokN8.js" />
+    <Content Include="Scripts\MyJavaScript\Ilxom\RasxodPutyovokN9.js" />
     <Content Include="Scripts\MyJavaScript\LagerFinOtchet.js" />
     <Content Include="Scripts\MyJavaScript\Organizasii2.js" />
     <Content Include="Scripts\MyJavaScript\Postupleniya2.js" />

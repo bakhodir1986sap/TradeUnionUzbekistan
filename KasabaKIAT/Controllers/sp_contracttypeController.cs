@@ -17,7 +17,7 @@ namespace KasabaKIAT.Controllers
         // GET: sp_contracttype
         public ActionResult Index()
         {
-            var sp_contracttype = db.sp_contracttype.Include(s => s.users).Take(50);
+            var sp_contracttype = db.sp_contracttype.Include(s => s.user).Take(50);
             return View(sp_contracttype.ToList());
         }
 

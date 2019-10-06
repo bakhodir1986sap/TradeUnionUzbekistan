@@ -50,10 +50,10 @@ namespace KasabaKIAT.Models
         public virtual sp_position sp_position { get; set; }
         public virtual sp_section sp_section { get; set; }
         public virtual t_departmentbase t_departmentbase { get; set; }
-        public virtual users users { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<t_departmentbase> t_departmentbase1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<t_sanatorium> t_sanatorium { get; set; }
+        public virtual user user { get; set; }
     }
 }

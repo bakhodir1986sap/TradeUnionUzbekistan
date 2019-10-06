@@ -30,8 +30,8 @@ namespace KasabaKIAT.Models
         public Nullable<long> user_id { get; set; }
         public Nullable<long> NATIVE_ID { get; set; }
     
-        public virtual users users { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<sp_files> sp_files { get; set; }
+        public virtual user user { get; set; }
     }
 }

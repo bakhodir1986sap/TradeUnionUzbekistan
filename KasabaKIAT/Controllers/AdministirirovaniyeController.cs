@@ -2067,21 +2067,16 @@ namespace KasabaKIAT.Controllers
                         select new
                         {
                             ID = u.id,
-                            //O_id = d.id,
-                            //O = d.name_uz,
                             Rl_id = r.id,
                             Rl = r.name,
                             L = u.email,
-                            //Rg_id = rg.code,
-                            //Rg = rg.name_uz,
-                            //Ot_id = ot.id,
-                            //Ot = ot.name_uz,
                             N = u.s_comment,
                             D = u.created,
                             P = u.password,
                             bkut_id = u.bkut_id,
                             dep_id = u.dep_id,
-                            bkuq_id = u.bkuq_id
+                            bkuq_id = u.bkuq_id,
+                            branch_id = u.BRANCH_ID
                         };
 
                 foreach(var user in Users)
@@ -2094,70 +2089,29 @@ namespace KasabaKIAT.Controllers
                         L = user.L,
                         N = user.N,
                         D = user.D,
-                        P = user.P
+                        P = user.P,
+                        branch_id = user.branch_id
                     };
 
                     try
                     {
-                        long departmentId = 0;
+                        var organizations = KasabaDB.tblSprav_Org.Where(z => z.ID == uu.branch_id);
 
-                        if (user.bkut_id.HasValue)
+                        if (organizations.Any())
                         {
-                            departmentId = user.bkut_id.Value;
-                        }
-                        else if (user.dep_id.HasValue)
-                        {
-                            departmentId = user.dep_id.Value;
-                        }
-                        else if (user.bkuq_id.HasValue)
-                        {
-                            departmentId = user.bkuq_id.Value;
+                            var org = organizations.First();
+
+                            uu.O_id = uu.branch_id;
+
+                            uu.O = org.Name_Org;
                         }
 
-                        var departments = KasabaDB.t_departmentbase.Where(z => z.id == departmentId);
-
-                        if (departments.Any())
-                        {
-                            var dept = departments.First();
-
-                            if (!dept.code.StartsWith(ustinfo.DepartmentBase))
-                            {
-                                continue;
-                            }
-
-                            uu.O_id = dept.id;
-
-                            if (!string.IsNullOrEmpty(dept.name_ru))
-                            {
-                                uu.O = dept.name_ru;
-                            }
-                            else if (!string.IsNullOrEmpty(dept.bkut_name))
-                            {
-                                uu.O = dept.bkut_name;
-                            }
-                            else if (!string.IsNullOrEmpty(dept.dep_name))
-                            {
-                                uu.O = dept.dep_name;
-                            }
-                        }
-                        else
-                        {
-                            var organizations = KasabaDB.tblSprav_Org.Where(z => z.ID == departmentId);
-
-                            if (organizations.Any())
-                            {
-                                var org = organizations.First();
-
-                                uu.O = org.Name_Org;
-                            }
-                        }
                     }
                     catch (Exception ex)
                     {
                         log.Error(ex);
                     }
  
-
                     list.Add(uu);
                 }
 
@@ -2177,7 +2131,7 @@ namespace KasabaKIAT.Controllers
         /// </summary>
         /// <param name="pz"></param>
         /// <returns></returns>
-        public string AddUZ(users pz)
+        public string AddUZ(user pz)
         {
             log.Info("AddUZ");
 
@@ -2188,13 +2142,14 @@ namespace KasabaKIAT.Controllers
                     using (KasabaKIATEntities contextObj = new KasabaKIATEntities())
                     {
                         long departmentId = 0;
-                        var user1s = contextObj.users.Where(z => z.id == pz.id);
 
                         var orgs = contextObj.tblSprav_Org.Where(z => z.ID == pz.bkut_id);
 
                         if (orgs.Any())
                         {
-                            var ownerDepcode = orgs.First().OWNER_CODE;
+                            var organization = orgs.First();
+
+                            var ownerDepcode = organization.OWNER_CODE;
 
                             if (!string.IsNullOrEmpty(ownerDepcode))
                             {
@@ -2204,27 +2159,21 @@ namespace KasabaKIAT.Controllers
                                 {
                                     departmentId = deps.First().id;
 
-                                    contextObj.userAdd(pz.email, pz.password, departmentId, pz.role_id, pz.s_comment);
+                                    contextObj.userAdd(pz.email, pz.password, departmentId, pz.role_id, pz.s_comment, pz.bkut_id);
                                 }
+                            }
+                            else
+                            {
+                                throw new Exception("OWNER code is null in tblsprav_org " 
+                                    + organization.INN);
                             }
                         }
                         else
                         {
-                            contextObj.userAdd(pz.email, pz.password, pz.bkut_id, pz.role_id, pz.s_comment);
+                            throw new Exception("Organization not found  "
+                                + pz.bkut_id);
+
                         }
-
-                        /*users uu = new users();
-
-                        uu.email = pz.email;
-                        uu.password = pz.password;
-                        uu.bkuq_id = departmentId;
-                        uu.role_id = pz.role_id;
-                        uu.s_comment = pz.s_comment;*/
-
-                        //contextObj.users.Add(uu);
-                        
-
-                        //contextObj.SaveChanges();
 
                         return "User record added successfully";
                     }
@@ -2248,7 +2197,7 @@ namespace KasabaKIAT.Controllers
         /// </summary>
         /// <param name="pz"></param>
         /// <returns></returns>
-        public string UpdateUZ(users pz)
+        public string UpdateUZ(user pz)
         {
             log.Info("UpdateUZ");
 
@@ -2258,82 +2207,51 @@ namespace KasabaKIAT.Controllers
                 {
                     using (KasabaKIATEntities contextObj = new KasabaKIATEntities())
                     {
-                        long departmentId = 0;
                         var user1s = contextObj.users.Where(z => z.id == pz.id);
 
-                        var orgs = contextObj.tblSprav_Org.Where(z => z.ID == pz.bkut_id);
+                         if (user1s.Any())
+                         {
+                            var user = user1s.First();
 
-                        if (orgs.Any())
-                        {
-                            var ownerDepcode = orgs.First().OWNER_CODE;
-
-                            if (!string.IsNullOrEmpty(ownerDepcode))
+                            if (pz.bkut_id != user.BRANCH_ID)
                             {
-                                var deps = contextObj.t_departmentbase.Where(z => z.code == ownerDepcode);
+                                var orgs = contextObj.tblSprav_Org.Where(z => z.ID == pz.bkut_id);
 
-                                if (deps.Any())
+                                if (orgs.Any())
                                 {
-                                    departmentId = deps.First().id;
+                                    var organization = orgs.First();
+
+                                    var ownerDepcode = organization.OWNER_CODE;
+
+                                    if (!string.IsNullOrEmpty(ownerDepcode))
+                                    {
+                                        var deps = contextObj.t_departmentbase.Where(z => z.code == ownerDepcode);
+
+                                        if (deps.Any())
+                                        {
+                                            long departmentId = deps.First().id;
+
+                                            contextObj.userAdd(pz.email, pz.password, departmentId, pz.role_id, pz.s_comment, pz.bkut_id);
+                                        }
+                                    }
+                                    else
+                                    {
+                                        throw new Exception("OWNER code is null in tblsprav_org "
+                                            + organization.INN);
+                                    }
                                 }
-                            }
-                            else
-                            {
-                                var org = orgs.First();
-                                t_departmentbase dd = new t_departmentbase
+                                else
                                 {
-                                    inn = org.INN,
-                                    le_inn = org.ORIG_INN,
-                                    parent_code = org.DepartmentBase,
-                                    code = org.OWNER_CODE,
-                                    name_ru = org.Name_Org,
-                                    name_uz = org.Name_Org,
-                                    dtype = "Department",
-                                    version = 0
-                                };
+                                    throw new Exception("Organization not found  "
+                                        + pz.bkut_id);
 
-                                contextObj.t_departmentbase.Add(dd);
+                                }
 
-                                contextObj.SaveChanges();
-
-                                departmentId = contextObj.t_departmentbase.Max(z => z.id);
                             }
-                        }
-                        else
-                        {
-                            var org = orgs.First();
-                            t_departmentbase dd = new t_departmentbase
-                            {
-                                inn = org.INN,
-                                le_inn = org.ORIG_INN,
-                                parent_code = org.DepartmentBase,
-                                code = org.OWNER_CODE,
-                                name_ru = org.Name_Org,
-                                name_uz = org.Name_Org,
-                                dtype = "Department",
-                                version = 0
-                            };
 
-                            contextObj.t_departmentbase.Add(dd);
+                            contextObj.userUpdate(pz.id , pz.email, pz.password, user.bkut_id , pz.role_id, pz.s_comment, pz.bkut_id);
+                         }
 
-                            contextObj.SaveChanges();
-
-                            departmentId = contextObj.t_departmentbase.Max(z => z.id);
-                        }
-
-                        if (user1s.Any())
-                        {
-                            //var user1 = user1s.First();
-
-                            //user1.email = pz.email;
-                            //user1.password = pz.password;
-                            //user1.bkut_id = departmentId;
-                            //user1.role_id = pz.role_id;
-                            //user1.s_comment = pz.s_comment;
-
-                            contextObj.userUpdate(pz.id , pz.email, pz.password, departmentId, pz.role_id, pz.s_comment);
-                        }
-
-                        //contextObj.SaveChanges();
                         return "User record updated successfully";
                     }
                 }

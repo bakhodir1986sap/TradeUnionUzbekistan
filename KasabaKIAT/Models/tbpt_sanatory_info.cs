@@ -44,6 +44,6 @@ namespace KasabaKIAT.Models
         public string SANATORY_NAME { get; set; }
         public string INN { get; set; }
     
-        public virtual users users { get; set; }
+        public virtual user user { get; set; }
     }
 }

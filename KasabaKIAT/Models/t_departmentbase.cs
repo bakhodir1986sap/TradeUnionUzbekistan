@@ -23,10 +23,9 @@ namespace KasabaKIAT.Models
             this.t_contract = new HashSet<t_contract>();
             this.t_departmentbase1 = new HashSet<t_departmentbase>();
             this.t_ku_report = new HashSet<t_ku_report>();
-            this.users1 = new HashSet<users>();
-            this.users2 = new HashSet<users>();
-            this.users3 = new HashSet<users>();
             this.t_egrpo = new HashSet<t_egrpo>();
+            this.users = new HashSet<user>();
+            this.users1 = new HashSet<user>();
         }
     
         public string dtype { get; set; }
@@ -108,19 +107,17 @@ namespace KasabaKIAT.Models
         public virtual ICollection<t_bkut_statistics> t_bkut_statistics { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<t_contract> t_contract { get; set; }
-        public virtual users users { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<t_departmentbase> t_departmentbase1 { get; set; }
         public virtual t_departmentbase t_departmentbase2 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<t_ku_report> t_ku_report { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<users> users1 { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<users> users2 { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<users> users3 { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<t_egrpo> t_egrpo { get; set; }
+        public virtual user user { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<user> users { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<user> users1 { get; set; }
     }
 }

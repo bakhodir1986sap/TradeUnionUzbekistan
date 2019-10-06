@@ -37,6 +37,6 @@ namespace KasabaKIAT.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<sp_departmenttype> sp_departmenttype1 { get; set; }
         public virtual sp_departmenttype sp_departmenttype2 { get; set; }
-        public virtual users users { get; set; }
+        public virtual user user { get; set; }
     }
 }

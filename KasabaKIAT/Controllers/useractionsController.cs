@@ -97,7 +97,7 @@ namespace KasabaKIAT.Controllers
             //    .OrderByDescending(z => z.id).Take(100000).ToList();
 
             var result = db.useractions.
-                Include(u => u.users).OrderByDescending(z => z.id).Take(1000);
+                Include(u => u.user).OrderByDescending(z => z.id).Take(1000);
 
             foreach (var obj in result)
             {
@@ -107,7 +107,7 @@ namespace KasabaKIAT.Controllers
                 inObj.action = obj.action;
                 inObj.classname = obj.classname;
                 inObj.object_name = obj.object_name;
-                inObj.email = obj.users.email;
+                inObj.email = obj.user.email;
 
                 listUserAction.Add(inObj);
             }

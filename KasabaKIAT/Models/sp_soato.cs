@@ -40,7 +40,6 @@ namespace KasabaKIAT.Models
         public string keys { get; set; }
         public Nullable<long> NATIVE_ID { get; set; }
     
-        public virtual users users { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<t_camp> t_camp { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -49,5 +48,6 @@ namespace KasabaKIAT.Models
         public virtual ICollection<t_departmentbase> t_departmentbase { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<t_sanatorium> t_sanatorium { get; set; }
+        public virtual user user { get; set; }
     }
 }

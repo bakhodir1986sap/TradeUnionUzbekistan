@@ -37,6 +37,6 @@ namespace KasabaKIAT.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<sp_opf> sp_opf1 { get; set; }
         public virtual sp_opf sp_opf2 { get; set; }
-        public virtual users users { get; set; }
+        public virtual user user { get; set; }
     }
 }

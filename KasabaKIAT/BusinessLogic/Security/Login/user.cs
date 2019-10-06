@@ -10,7 +10,7 @@ using System.Web;
 
 namespace KasabaKIAT.Models
 {
-    public class user
+    public class userx
     {
         [Required]
         public string login { get; set; }
@@ -23,7 +23,7 @@ namespace KasabaKIAT.Models
 
         string constr = ConfigurationManager.ConnectionStrings["LoginEntities"].ConnectionString;
 
-        public int Ruxsatni_tekshir(user user)
+        public int Ruxsatni_tekshir(userx user)
         {
             try
             {

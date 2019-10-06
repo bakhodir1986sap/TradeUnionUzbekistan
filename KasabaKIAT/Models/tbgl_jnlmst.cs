@@ -27,6 +27,6 @@ namespace KasabaKIAT.Models
         public Nullable<long> CRTUSER_ID { get; set; }
         public long REC_ID { get; set; }
     
-        public virtual users user { get; set; }
+        public virtual user user { get; set; }
     }
 }

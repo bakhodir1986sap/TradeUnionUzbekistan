@@ -37,10 +37,10 @@ namespace KasabaKIAT.Models
         public virtual tblSprav_Kv tblSprav_Kv { get; set; }
         public virtual tblSprav_Org tblSprav_Org { get; set; }
         public virtual tblSprav_San tblSprav_San { get; set; }
-        public virtual users user { get; set; }
         public virtual tbbu_provodki tbbu_provodki { get; set; }
         public virtual tbbu_provodki tbbu_provodki1 { get; set; }
         public virtual tblPost tblPost { get; set; }
         public virtual tblVipl tblVipl { get; set; }
+        public virtual user user { get; set; }
     }
 }

@@ -19,6 +19,6 @@ namespace KasabaKIAT.Models
         public Nullable<decimal> AMOUNT { get; set; }
         public Nullable<long> USER_ID { get; set; }
     
-        public virtual users users { get; set; }
+        public virtual user user { get; set; }
     }
 }

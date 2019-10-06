@@ -18,8 +18,8 @@ namespace KasabaKIAT.Models
         public roles()
         {
             this.role_permission = new HashSet<role_permission>();
-            this.users1 = new HashSet<users>();
-            this.users2 = new HashSet<users>();
+            this.users = new HashSet<user>();
+            this.users1 = new HashSet<user>();
         }
     
         public long id { get; set; }
@@ -33,10 +33,10 @@ namespace KasabaKIAT.Models
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<role_permission> role_permission { get; set; }
-        public virtual users users { get; set; }
+        public virtual user user { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<users> users1 { get; set; }
+        public virtual ICollection<user> users { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<users> users2 { get; set; }
+        public virtual ICollection<user> users1 { get; set; }
     }
 }

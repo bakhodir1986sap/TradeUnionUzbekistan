@@ -52,7 +52,6 @@ namespace KasabaKIAT.Models
     
         public virtual sp_soato sp_soato { get; set; }
         public virtual sp_soato sp_soato1 { get; set; }
-        public virtual users users { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<t_camp_statistics> t_camp_statistics { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -63,5 +62,6 @@ namespace KasabaKIAT.Models
         public virtual ICollection<tbpt_zaezdi> tbpt_zaezdi { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tbpt_zayavki> tbpt_zayavki { get; set; }
+        public virtual user user { get; set; }
     }
 }

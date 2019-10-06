@@ -31,6 +31,6 @@ namespace KasabaKIAT.Models
         public virtual tblSprav_San tblSprav_San { get; set; }
         public virtual tblVipl tblVipl { get; set; }
         public virtual tbpt_zayavki tbpt_zayavki { get; set; }
-        public virtual users user { get; set; }
+        public virtual user user { get; set; }
     }
 }

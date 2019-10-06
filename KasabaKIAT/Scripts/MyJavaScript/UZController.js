@@ -124,9 +124,7 @@
             password: $scope.P,
             s_comment: $scope.N,
             bkut_id: $scope.Or.ID,
-            role_id:$scope.Roles.id,
-            REGION_ID: $scope.Region.id,
-            BRANCH_ID: $scope.Ots.id,
+            role_id:$scope.Roles.id
             };
         if (getGPAction == "Изменить") {
             GP.id = $scope.ID;

@@ -138,6 +138,7 @@ namespace KasabaKiat.Helpers
                             model.username = currentUser.user_name;
                             model.usertype = currentUser.usertype;
                             model.role_id = currentUser.role_id;
+                            model.branch_id = currentUser.BRANCH_ID;
 
                             long? departmentcode = 0;
 
@@ -162,34 +163,74 @@ namespace KasabaKiat.Helpers
                                 departmentcode = null;
                             }
 
-                            var departments = from dep in db.t_departmentbase
-                                              where (dep.id == departmentcode)
-                                              select dep;
-
-                            if (departments.Any())
+                            if (departmentcode == -1 || departmentcode == null)
                             {
-                                var depbase = departments.FirstOrDefault();
-
-                                if (depbase != null)
+                                if (model.branch_id != null)
                                 {
-                                    model.DepartmentBase = depbase.code;
+                                    var orgs = db.tblSprav_Org.Where(z => z.ID == model.branch_id);
+
+                                    if (orgs.Any())
+                                    {
+                                        var ownerDepcode = orgs.First().OWNER_CODE;
+
+                                        if (!string.IsNullOrEmpty(ownerDepcode))
+                                        {
+                                            model.DepartmentBase = ownerDepcode;
+                                        }
+                                    }
+
                                 }
                             }
                             else
                             {
-                                var departments2 = from dep in db.t_departmentbase
-                                                  where (dep.NATIVE_ID == departmentcode)
+                                var departments = from dep in db.t_departmentbase
+                                                  where (dep.id == departmentcode)
                                                   select dep;
 
-                                if (departments2.Any())
+                                if (departments.Any())
                                 {
-                                    var depbase2 = departments2.FirstOrDefault();
+                                    var depbase = departments.FirstOrDefault();
 
-                                    if (depbase2 != null)
+                                    if (depbase != null)
                                     {
-                                        model.DepartmentBase = depbase2.code;
+                                        model.DepartmentBase = depbase.code;
                                     }
                                 }
+                                else
+                                {
+                                    var departments2 = from dep in db.t_departmentbase
+                                                       where (dep.NATIVE_ID == departmentcode)
+                                                       select dep;
+
+                                    if (departments2.Any())
+                                    {
+                                        var depbase2 = departments2.FirstOrDefault();
+
+                                        if (depbase2 != null)
+                                        {
+                                            model.DepartmentBase = depbase2.code;
+                                        }
+                                    }
+                                    else
+                                    {
+                                        if (model.branch_id != null)
+                                        {
+                                            var orgs = db.tblSprav_Org.Where(z => z.ID == model.branch_id);
+
+                                            if (orgs.Any())
+                                            {
+                                                var ownerDepcode = orgs.First().OWNER_CODE;
+
+                                                if (!string.IsNullOrEmpty(ownerDepcode))
+                                                {
+                                                    model.DepartmentBase = ownerDepcode;
+                                                }
+                                            }
+
+                                        }
+                                    }
+                                }
+
                             }
 
                             if (!string.IsNullOrEmpty(model.DepartmentBase))

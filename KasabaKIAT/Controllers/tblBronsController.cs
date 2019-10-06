@@ -17,7 +17,7 @@ namespace KasabaKIAT.Controllers
         // GET: tblBrons
         public ActionResult Index()
         {
-            var tblBron = db.tblBron.Include(t => t.tblSprav_San).Include(t => t.users).Take(50);
+            var tblBron = db.tblBron.Include(t => t.tblSprav_San).Include(t => t.user).Take(50);
             return View(tblBron.ToList());
         }
 

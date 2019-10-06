@@ -21,7 +21,7 @@ namespace KasabaKIAT.Models
         public Nullable<long> PUTYOVKI_ID { get; set; }
         public Nullable<System.DateTime> BRON_DATE { get; set; }
     
-        public virtual users users { get; set; }
         public virtual tbpt_putyovki tbpt_putyovki { get; set; }
+        public virtual user user { get; set; }
     }
 }

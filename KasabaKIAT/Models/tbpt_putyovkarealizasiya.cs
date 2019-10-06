@@ -53,6 +53,6 @@ namespace KasabaKIAT.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tbpt_otkazputyovka> tbpt_otkazputyovka { get; set; }
         public virtual tbpt_zayavki tbpt_zayavki { get; set; }
-        public virtual users users { get; set; }
+        public virtual user user { get; set; }
     }
 }

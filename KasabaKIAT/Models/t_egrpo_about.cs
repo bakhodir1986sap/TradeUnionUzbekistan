@@ -31,6 +31,6 @@ namespace KasabaKIAT.Models
     
         public virtual sp_country sp_country { get; set; }
         public virtual t_egrpo t_egrpo { get; set; }
-        public virtual users users { get; set; }
+        public virtual user user { get; set; }
     }
 }

@@ -24,6 +24,6 @@ namespace KasabaKIAT.Models
     
         public virtual tblFase tblFase { get; set; }
         public virtual tblVipl tblVipl { get; set; }
-        public virtual users users { get; set; }
+        public virtual user user { get; set; }
     }
 }

@@ -198,7 +198,7 @@ namespace KasabaKiat.BusinessLogic.Bron
                                    Uchet = bron.Uchet,
                                    ExpireDate = bron.ExpireDate,
                                    UserId = bron.UserId,
-                                   UserName = bron.users.user_name,
+                                   UserName = bron.user.user_name,
                                    DepartmentBase = bron.DepartmentBase
                               };
 
@@ -234,7 +234,7 @@ namespace KasabaKiat.BusinessLogic.Bron
                                    Uchet = bron.Uchet,
                                    ExpireDate = bron.ExpireDate,
                                    UserId = bron.UserId,
-                                   UserName = bron.users.user_name,
+                                   UserName = bron.user.user_name,
                                    DepartmentBase = bron.DepartmentBase
                                };
 
@@ -267,7 +267,7 @@ namespace KasabaKiat.BusinessLogic.Bron
                                    Uchet = bron.Uchet,
                                    ExpireDate = bron.ExpireDate,
                                    UserId = bron.UserId,
-                                   UserName = bron.users.user_name,
+                                   UserName = bron.user.user_name,
                                    DepartmentBase = bron.DepartmentBase
                                };
 
@@ -303,7 +303,7 @@ namespace KasabaKiat.BusinessLogic.Bron
                                    Uchet = bron.Uchet,
                                    ExpireDate = bron.ExpireDate,
                                    UserId = bron.UserId,
-                                   UserName = bron.users.user_name,
+                                   UserName = bron.user.user_name,
                                    DepartmentBase = bron.DepartmentBase
                                };
 

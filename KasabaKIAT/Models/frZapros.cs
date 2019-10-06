@@ -20,6 +20,6 @@ namespace KasabaKIAT.Models
         public Nullable<long> UserId { get; set; }
         public long ID { get; set; }
     
-        public virtual users users { get; set; }
+        public virtual user user { get; set; }
     }
 }

@@ -42,9 +42,9 @@ namespace KasabaKIAT.Models
         public virtual ICollection<tblPos_Put> tblPos_Put { get; set; }
         public virtual tblSprav_Kv tblSprav_Kv { get; set; }
         public virtual tblSprav_Org tblSprav_Org { get; set; }
-        public virtual users users { get; set; }
         public virtual tbbu_provodki tbbu_provodki { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblVozVrat> tblVozVrats { get; set; }
+        public virtual user user { get; set; }
     }
 }

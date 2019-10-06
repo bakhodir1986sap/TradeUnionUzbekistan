@@ -24,6 +24,6 @@ namespace KasabaKIAT.Models
         public string REGION_ID { get; set; }
     
         public virtual tbcs_dictionary tbcs_dictionary { get; set; }
-        public virtual users users { get; set; }
+        public virtual user user { get; set; }
     }
 }

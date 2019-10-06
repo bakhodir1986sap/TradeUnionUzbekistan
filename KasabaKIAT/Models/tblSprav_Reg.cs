@@ -22,6 +22,6 @@ namespace KasabaKIAT.Models
         public Nullable<long> VilId { get; set; }
         public string SOATO_CODE { get; set; }
     
-        public virtual users users { get; set; }
+        public virtual user user { get; set; }
     }
 }

@@ -27,6 +27,6 @@ namespace KasabaKIAT.Models
         public string code { get; set; }
         public Nullable<long> NATIVE_ID { get; set; }
     
-        public virtual users users { get; set; }
+        public virtual user user { get; set; }
     }
 }

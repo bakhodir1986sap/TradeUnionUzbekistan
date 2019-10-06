@@ -18,7 +18,6 @@ namespace KasabaKIAT.Models
         public sp_branch()
         {
             this.tbpt_yearlyplanotrasl = new HashSet<tbpt_yearlyplanotrasl>();
-            this.users1 = new HashSet<users>();
         }
     
         public long id { get; set; }
@@ -33,10 +32,8 @@ namespace KasabaKIAT.Models
         public Nullable<long> s_user_id { get; set; }
         public Nullable<long> NATIVE_ID { get; set; }
     
-        public virtual users users { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tbpt_yearlyplanotrasl> tbpt_yearlyplanotrasl { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<users> users1 { get; set; }
+        public virtual user user { get; set; }
     }
 }

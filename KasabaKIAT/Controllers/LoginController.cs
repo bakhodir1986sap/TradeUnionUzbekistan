@@ -31,7 +31,7 @@ namespace KasabaKIAT.Controllers
 
         [HttpPost]
         //[ValidateAntiForgeryToken]
-        public ActionResult Login(user u,string ReturnUrl = "")
+        public ActionResult Login(userx u,string ReturnUrl = "")
         {
 
             try
@@ -42,7 +42,7 @@ namespace KasabaKIAT.Controllers
 
                     if (retCode > 0)
                     {
-                        IEnumerable<users> r = from a in KasabaDB.users where a.id== retCode select a;
+                        IEnumerable<user> r = from a in KasabaDB.users where a.id== retCode select a;
                         foreach (var b in r)
                         {
                             int UserID = Convert.ToInt32(b.id);

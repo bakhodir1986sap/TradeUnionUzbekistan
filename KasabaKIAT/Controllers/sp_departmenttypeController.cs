@@ -17,7 +17,7 @@ namespace KasabaKIAT.Controllers
         // GET: sp_departmenttype
         public ActionResult Index()
         {
-            var sp_departmenttype = db.sp_departmenttype.Include(s => s.sp_departmenttype2).Include(s => s.users).Take(50);
+            var sp_departmenttype = db.sp_departmenttype.Include(s => s.sp_departmenttype2).Include(s => s.user).Take(50);
             return View(sp_departmenttype.ToList());
         }
 

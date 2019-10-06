@@ -50,7 +50,6 @@ namespace KasabaKIAT.Models
         public virtual ICollection<tbpt_yearlyplanotrasl> tbpt_yearlyplanotrasl { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tbpt_yearlyplanregion> tbpt_yearlyplanregion { get; set; }
-        public virtual users users { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tbpt_putyovkarealizasiya> tbpt_putyovkarealizasiya { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -59,5 +58,6 @@ namespace KasabaKIAT.Models
         public virtual ICollection<tbpt_zaezdi> tbpt_zaezdi { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tbpt_zayavki> tbpt_zayavki { get; set; }
+        public virtual user user { get; set; }
     }
 }

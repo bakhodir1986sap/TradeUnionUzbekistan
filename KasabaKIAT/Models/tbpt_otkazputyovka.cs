@@ -21,7 +21,7 @@ namespace KasabaKIAT.Models
         public Nullable<long> REALIZATION_ID { get; set; }
         public string REMARK { get; set; }
     
-        public virtual users users { get; set; }
         public virtual tbpt_putyovkarealizasiya tbpt_putyovkarealizasiya { get; set; }
+        public virtual user user { get; set; }
     }
 }

@@ -27,7 +27,6 @@ namespace KasabaKIAT.Models
         public string ID { get; set; }
         public Nullable<long> UserId { get; set; }
     
-        public virtual SprSchet SprSchet { get; set; }
-        public virtual users users { get; set; }
+        public virtual user user { get; set; }
     }
 }

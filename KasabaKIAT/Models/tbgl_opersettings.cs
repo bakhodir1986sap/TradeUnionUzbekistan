@@ -23,6 +23,6 @@ namespace KasabaKIAT.Models
         public string DEPARTMENT_CODE { get; set; }
         public Nullable<long> USER_ID { get; set; }
     
-        public virtual users users { get; set; }
+        public virtual user user { get; set; }
     }
 }

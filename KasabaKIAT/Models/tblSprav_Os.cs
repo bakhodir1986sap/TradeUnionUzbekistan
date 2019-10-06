@@ -26,6 +26,6 @@ namespace KasabaKIAT.Models
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblFase> tblFase { get; set; }
-        public virtual users users { get; set; }
+        public virtual user user { get; set; }
     }
 }

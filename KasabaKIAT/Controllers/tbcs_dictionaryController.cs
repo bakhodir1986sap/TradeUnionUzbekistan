@@ -18,7 +18,7 @@ namespace KasabaKIAT.Controllers
         // GET: tbcs_dictionary
         public async Task<ActionResult> Index()
         {
-            var tbcs_dictionary = db.tbcs_dictionary.Include(t => t.users).Include(t => t.users1).Where(z=>z.DICTIONARY_TYPE_ID == 16);
+            var tbcs_dictionary = db.tbcs_dictionary.Include(t => t.user).Include(t => t.user1).Where(z=>z.DICTIONARY_TYPE_ID == 16);
             return View(await tbcs_dictionary.ToListAsync());
         }
 

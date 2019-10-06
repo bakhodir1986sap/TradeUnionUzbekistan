@@ -38,6 +38,6 @@ namespace KasabaKIAT.Models
         public string Name_Zaveduyushiy { get; set; }
         public string Name_VedSpes { get; set; }
     
-        public virtual users user { get; set; }
+        public virtual user user { get; set; }
     }
 }

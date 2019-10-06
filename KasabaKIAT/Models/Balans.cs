@@ -27,6 +27,6 @@ namespace KasabaKIAT.Models
     
         public virtual tblSprav_Org tblSprav_Org { get; set; }
         public virtual tblSprav_Otras tblSprav_Otras { get; set; }
-        public virtual users users { get; set; }
+        public virtual user user { get; set; }
     }
 }

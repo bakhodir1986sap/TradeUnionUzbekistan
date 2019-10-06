@@ -25,6 +25,6 @@ namespace KasabaKIAT.Models
         public Nullable<System.DateTime> TIME_STAMP { get; set; }
     
         public virtual tblSprav_San tblSprav_San { get; set; }
-        public virtual users users { get; set; }
+        public virtual user user { get; set; }
     }
 }

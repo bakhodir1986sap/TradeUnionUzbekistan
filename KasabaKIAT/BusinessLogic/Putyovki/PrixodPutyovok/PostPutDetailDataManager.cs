@@ -413,7 +413,13 @@ namespace KasabaKiat.BusinessLogic.Putyovki.PrixodPutyovok
                                 Data_Post = postPut.Data_Post,
                                 UserId = postPut.UserId,
                                 Departmentbase = postPut.Departmentbase,
-                                Checked = false
+                                Checked = false,
+                                Id_Kv = postMain.ID_KV,
+                                Data_Post_Main = postMain.Data_Post,
+                                Num_Doc = postMain.Num_Doc,
+                                PosName = postMain.tblSprav_Org.Name_Org,
+                                SmFil = postMain.SmFil,
+                                DepartmentBase = postMain.DepartmentBase
                             }).ToListAsync();
 
                 list = query.ToList();

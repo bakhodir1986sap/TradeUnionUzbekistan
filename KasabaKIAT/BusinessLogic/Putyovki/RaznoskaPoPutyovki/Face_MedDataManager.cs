@@ -26,7 +26,7 @@ namespace KasabaKiat.BusinessLogic.Putyovki.RaznoskaPoPutyovki
 
                 fm.ID = IdValue + 1;
                 fm.tblFase = faceMain;
-                fm.ID_Face            = model.id_face       ;  
+                //fm.ID_Face            = model.id_face       ;  
                 fm.Med_Doc            = model.med_doc       ;  
                 fm.Med_Data           = model.med_data      ;  
                 fm.Med_San            = model.med_san       ;  

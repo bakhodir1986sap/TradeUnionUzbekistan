@@ -40,5 +40,12 @@ namespace KasabaKiat.ViewModel
 
         public int?         EndNumber       { get; set; }
 
+        public override string ToString()
+        {
+            return "Счет фактура=> Дата: " + Data_Post.ToString() + " Номер: " + Num_Doc +
+                " Организация: " + PosName + " Год: " + SmFil + " квартал: " + Id_Kv +
+                " Доверенность: " + Name_Dov + " Сумма: " + Symma;
+        }
+
     }
 }

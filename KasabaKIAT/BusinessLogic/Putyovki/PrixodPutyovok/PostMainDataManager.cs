@@ -291,6 +291,49 @@ namespace KasabaKiat.BusinessLogic.Putyovki.PrixodPutyovok
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public static PostupleniyaViewModel GetExactItem(long? id)
+        {
+            List<PostupleniyaViewModel> list = null;
+
+            if (id == null) return null;
+
+            using (KasabaKIATEntities db = new KasabaKIATEntities())
+            {
+                var query = from post in db.tblPost
+                            join org in db.tblSprav_Org on post.ID_Pos equals org.ID
+                            where post.ID == id
+                            select new PostupleniyaViewModel
+                            {
+                                Id = post.ID,
+                                Id_Kv = post.ID_KV,
+                                Data_Post = post.Data_Post,
+                                Num_Doc = post.Num_Doc,
+                                ID_Pos = post.ID_Pos,
+                                Num_Kol = post.Num_Kol,
+                                Symma = post.Symma,
+                                Name_Dov = post.Name_Dov,
+                                Vid = post.Vid,
+                                SmFil = post.SmFil,
+                                UserId = post.UserId,
+                                DepartmentBase = post.DepartmentBase,
+                                BeginNumber = post.BeginNumber,
+                                EndNumber = post.EndNumber,
+                                PosName = org.Name_Org
+                            };
+
+                list = query.ToList();
+
+            }
+
+            return list.FirstOrDefault();
+        }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
         /// <param name="year"></param>
         /// <param name="kvartal"></param>
         /// <param name="departmentBase"></param>

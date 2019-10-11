@@ -1777,7 +1777,7 @@ namespace KasabaKIAT.Controllers
                         departmentbase = model.Departmentbase,
                         id_sanat = putObj.IdSanat,
                         num_put = putObj.Num_Put,
-                        remark = string.Format("Сумма {0} - Дата заезда {1}", putObj.Symma_Put, putObj.DataSan),
+                        remark = putObj.ToString(),
                         userid = model.UserId
                     };
 

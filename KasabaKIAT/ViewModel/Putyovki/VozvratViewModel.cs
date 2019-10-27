@@ -90,5 +90,13 @@ namespace KasabaKiat.ViewModel.Putyovki
       /// t_departmentbase
       /// </summary>
       public string                         departmentbase              {get; set;}
+
+        public override string ToString()
+        {
+            return "Возврат=> Дата: " + data_post.ToString() + " Номер: " + num_doc +
+                " Организация: " + orgName + " Год: " + smfil + " квартал: " + id_kv +
+                " Санаторий: " + sanatoriyName + " Номер путевки: " + num_put + " Цена путевки " +
+                symmap + " Юзер Ид: " + userid + " Филиал: " + departmentbase;
+        }
     }
 }

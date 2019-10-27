@@ -131,5 +131,12 @@ namespace KasabaKiat.ViewModel.Putyovki.RaznoskaPutyovok
       public string inn { get; set; }
 
       public string pnfl { get; set; }
+
+        public override string ToString()
+        {
+            return "Номер путевки " + num_put + " Фамилия "+ lastname + " Имя " + name + " Отчество " + firstname + " адрес "
+               + adress + " Работа " + rabota + " Должность " + dolj + " Серия пасспорта "+ pas_ser + " Номер пасспорта " + pas_num + " Кем выдан "
+             + pas_kd + " Дата " + pas_data  + " Основание " + id_osnovNm + " филиал " + departmentbase;
+        }
     }
 }

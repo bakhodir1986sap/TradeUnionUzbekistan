@@ -501,6 +501,7 @@
     <Compile Include="BusinessLogic\Utils\DateOperations.cs" />
     <Compile Include="BusinessLogic\Utils\Latin2Cyrillic.cs" />
     <Compile Include="BusinessLogic\Utils\LinqLib.cs" />
+    <Compile Include="BusinessLogic\Utils\ProjectMode.cs" />
     <Compile Include="BusinessLogic\Utils\References\ReferencesDataManager.cs" />
     <Compile Include="BusinessLogic\Utils\References\RefYars.cs" />
     <Compile Include="BusinessLogic\Utils\References\SpravCodeDecode.cs" />

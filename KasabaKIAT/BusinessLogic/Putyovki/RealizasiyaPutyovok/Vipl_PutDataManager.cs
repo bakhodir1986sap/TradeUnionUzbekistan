@@ -42,6 +42,17 @@ namespace KasabaKiat.BusinessLogic.Putyovki.RealizasiyaPutyovok
 
                 model.id = pst.ID;
 
+            var viplMain = db.tblVipl.Where(z => z.ID == model.id_vipl).FirstOrDefault();
+
+            string schetFakturaData = string.Empty;
+
+            if (viplMain != null)
+            {
+                schetFakturaData = string.Format("{0} - {1} - {2} - {3} - {4} - {5}", viplMain.SmFil, viplMain.tblSprav_Kv.Name_Kv,
+                    viplMain.Num_Doc, viplMain.Data_Post.ToString(), viplMain.tblSprav_Org.Name_Org,
+                    viplMain.tblSprav_Org.INN);
+            }
+
             //History making
             var histModel = new PutHistViewModel
             {
@@ -49,7 +60,7 @@ namespace KasabaKiat.BusinessLogic.Putyovki.RealizasiyaPutyovok
                 departmentbase = model.departmentbase,
                 id_sanat = model.id_sanat,
                 num_put = model.num_put,
-                remark = string.Format("Дата расход {0} - Сумма {1}", model.data_post.ToString(), model.symma),
+                remark = string.Format("Дата расход {0} - Сумма {1} - {2}", model.data_post.ToString(), model.symma, schetFakturaData),
                 userid = model.userid
             };
 

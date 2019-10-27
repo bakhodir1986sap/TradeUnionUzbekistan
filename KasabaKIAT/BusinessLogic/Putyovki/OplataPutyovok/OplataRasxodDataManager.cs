@@ -36,7 +36,14 @@ namespace KasabaKiat.BusinessLogic.Putyovki.OplataPutyovok
                 departmentbase = model.Departmentbase,
                 id_sanat = model.ID_Sanat,
                 num_put = model.Num_Put,
-                remark = string.Format("Процент {0} - Сумма {1}", model.ID_Pr.ToString(), model.Symma),
+                remark = string.Format("Процент {0} - Сумма {1} - Организация {2}" +
+                "Дата счет фактуры -{3} Номер счет фактуры -{4} Доверенность - {5}", 
+                                        model.ID_Pr.ToString(), 
+                                        model.Symma,
+                                        "",
+                                        opMain.Data_Post.ToString(),
+                                        opMain.Num_Doc,
+                                        opMain.Osnov),
                 userid = model.UserId
             };
 

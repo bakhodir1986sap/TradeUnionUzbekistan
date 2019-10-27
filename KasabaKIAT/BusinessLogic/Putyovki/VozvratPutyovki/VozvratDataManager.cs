@@ -44,7 +44,7 @@ namespace KasabaKiat.BusinessLogic.VozvratPutyovki
                 departmentbase = model.departmentbase,
                 id_sanat = model.id_sanat,
                 num_put = model.num_put,
-                remark = string.Format("Дата {0} - Сумма {1}", model.data_post, model.symmap),
+                remark = model.ToString(),
                 userid = model.userid
             };
 

@@ -24,6 +24,7 @@ using KasabaKIAT.BusinessLogic._3_Etap.Statistika.Stat_ViewModels;
 using KasabaKIAT.BusinessLogic._4_Etap.Statistics;
 using KasabaKIAT.BusinessLogic._4_Etap.Zayavki;
 using System.Threading.Tasks;
+using KasabaKIAT.BusinessLogic.Utils;
 
 namespace KasabaKIAT.Controllers
 {
@@ -2658,61 +2659,74 @@ namespace KasabaKIAT.Controllers
                     break;
                 case 13:
                     viewName = "StatOblSovProfV2";
-                    var resultStat3 = StatDataContainer.GetStataData(ustinfo.DepartmentBase, ustinfo.CurYear);
 
-                    ViewBag.LastChangeTime = StatDataContainer._modelChangedTime;
-                    ViewBag.DataSource = ((FourStapViewModel)resultStat3).kaznaInfo;
-                    ViewBag.DataUrgent = ((FourStapViewModel)resultStat3).urgentInfo;
-                    ViewBag.DataPutyovkas = ((FourStapViewModel)resultStat3).putyovkaInfo;
-                    ViewBag.RealizData = ((FourStapViewModel)resultStat3).realizInfo;
-                    ViewBag.ZadoljennostData = ((FourStapViewModel)resultStat3).zadoljInfo;
-                    ViewBag.BronData = ((FourStapViewModel)resultStat3).bronInfo;
-                    ViewBag.ActiveUsersData = ((FourStapViewModel)resultStat3).activeUsersInfo;
-                    ViewBag.PieChartDataSource = ((FourStapViewModel)resultStat3).organizationPieInfo;
-                    ViewBag.PieChartZayavki = ((FourStapViewModel)resultStat3).zayavkiPieInfo;
-                    ViewBag.PieChartPutyovki = ((FourStapViewModel)resultStat3).putyovkiPieInfo;
-                    ViewBag.Chastichka = ((FourStapViewModel)resultStat3).chastichkaInfo;
+                    if (ProjectMode.projectMode == ProjectTypes.PRODUCTION)
+                    {
+                        var resultStat3 = StatDataContainer.GetStataData(ustinfo.DepartmentBase, ustinfo.CurYear);
+
+                        ViewBag.LastChangeTime = StatDataContainer._modelChangedTime;
+                        ViewBag.DataSource = ((FourStapViewModel)resultStat3).kaznaInfo;
+                        ViewBag.DataUrgent = ((FourStapViewModel)resultStat3).urgentInfo;
+                        ViewBag.DataPutyovkas = ((FourStapViewModel)resultStat3).putyovkaInfo;
+                        ViewBag.RealizData = ((FourStapViewModel)resultStat3).realizInfo;
+                        ViewBag.ZadoljennostData = ((FourStapViewModel)resultStat3).zadoljInfo;
+                        ViewBag.BronData = ((FourStapViewModel)resultStat3).bronInfo;
+                        ViewBag.ActiveUsersData = ((FourStapViewModel)resultStat3).activeUsersInfo;
+                        ViewBag.PieChartDataSource = ((FourStapViewModel)resultStat3).organizationPieInfo;
+                        ViewBag.PieChartZayavki = ((FourStapViewModel)resultStat3).zayavkiPieInfo;
+                        ViewBag.PieChartPutyovki = ((FourStapViewModel)resultStat3).putyovkiPieInfo;
+                        ViewBag.Chastichka = ((FourStapViewModel)resultStat3).chastichkaInfo;
+                    }
 
                     break;
                 case 14:
                     viewName = "StatFederasiyaV2";
-                    var resultStat = StatDataContainer.GetStataData(ustinfo.DepartmentBase, ustinfo.CurYear);
 
-                    ViewBag.LastChangeTime = StatDataContainer._modelChangedTime;
-                    ViewBag.DataSource = ((FourStapViewModel)resultStat).kaznaInfo; 
-                    ViewBag.DataUrgent       = ((FourStapViewModel)resultStat).urgentInfo;
-                    ViewBag.DataPutyovkas    = ((FourStapViewModel)resultStat).putyovkaInfo;
-                    ViewBag.RealizData       = ((FourStapViewModel)resultStat).realizInfo;
-                    ViewBag.ZadoljennostData = ((FourStapViewModel)resultStat).zadoljInfo;
-                    ViewBag.BronData = ((FourStapViewModel)resultStat).bronInfo;
-                    ViewBag.ActiveUsersData = ((FourStapViewModel)resultStat).activeUsersInfo;
-                    ViewBag.PieChartDataSource = ((FourStapViewModel)resultStat).organizationPieInfo;
-                    ViewBag.PieChartZayavki = ((FourStapViewModel)resultStat).zayavkiPieInfo;
-                    ViewBag.PieChartPutyovki = ((FourStapViewModel)resultStat).putyovkiPieInfo;
-                    ViewBag.Chastichka = ((FourStapViewModel)resultStat).chastichkaInfo;
-                    ViewBag.PostupleniyaLastDay = ((FourStapViewModel)resultStat).kaznaLastDayInfo;
-                    ViewBag.Pererasxod = ((FourStapViewModel)resultStat).pererasxodInfo;
-                    ViewBag.OrgCurrent = ((FourStapViewModel)resultStat).kaznaOrgList;
+                    if (ProjectMode.projectMode == ProjectTypes.PRODUCTION)
+                    {
+                        var resultStat = StatDataContainer.GetStataData(ustinfo.DepartmentBase, ustinfo.CurYear);
+
+                        ViewBag.LastChangeTime = StatDataContainer._modelChangedTime;
+                        ViewBag.DataSource = ((FourStapViewModel)resultStat).kaznaInfo;
+                        ViewBag.DataUrgent = ((FourStapViewModel)resultStat).urgentInfo;
+                        ViewBag.DataPutyovkas = ((FourStapViewModel)resultStat).putyovkaInfo;
+                        ViewBag.RealizData = ((FourStapViewModel)resultStat).realizInfo;
+                        ViewBag.ZadoljennostData = ((FourStapViewModel)resultStat).zadoljInfo;
+                        ViewBag.BronData = ((FourStapViewModel)resultStat).bronInfo;
+                        ViewBag.ActiveUsersData = ((FourStapViewModel)resultStat).activeUsersInfo;
+                        ViewBag.PieChartDataSource = ((FourStapViewModel)resultStat).organizationPieInfo;
+                        ViewBag.PieChartZayavki = ((FourStapViewModel)resultStat).zayavkiPieInfo;
+                        ViewBag.PieChartPutyovki = ((FourStapViewModel)resultStat).putyovkiPieInfo;
+                        ViewBag.Chastichka = ((FourStapViewModel)resultStat).chastichkaInfo;
+                        ViewBag.PostupleniyaLastDay = ((FourStapViewModel)resultStat).kaznaLastDayInfo;
+                        ViewBag.Pererasxod = ((FourStapViewModel)resultStat).pererasxodInfo;
+                        ViewBag.OrgCurrent = ((FourStapViewModel)resultStat).kaznaOrgList;
+                    }
                     break;
                 default:
                     viewName = "StatFederasiyaV2";
-                    var resultStat2 = StatDataContainer.GetStataData(ustinfo.DepartmentBase, ustinfo.CurYear);
 
-                    ViewBag.LastChangeTime = StatDataContainer._modelChangedTime;
-                    ViewBag.DataSource = ((FourStapViewModel)resultStat2).kaznaInfo;
-                    ViewBag.DataUrgent = ((FourStapViewModel)resultStat2).urgentInfo;
-                    ViewBag.DataPutyovkas = ((FourStapViewModel)resultStat2).putyovkaInfo;
-                    ViewBag.RealizData = ((FourStapViewModel)resultStat2).realizInfo;
-                    ViewBag.ZadoljennostData = ((FourStapViewModel)resultStat2).zadoljInfo;
-                    ViewBag.BronData = ((FourStapViewModel)resultStat2).bronInfo;
-                    ViewBag.ActiveUsersData     = ((FourStapViewModel)resultStat2).activeUsersInfo;
-                    ViewBag.PieChartDataSource = ((FourStapViewModel)resultStat2).organizationPieInfo;
-                    ViewBag.PieChartZayavki = ((FourStapViewModel)resultStat2).zayavkiPieInfo;
-                    ViewBag.PieChartPutyovki = ((FourStapViewModel)resultStat2).putyovkiPieInfo;
-                    ViewBag.Chastichka = ((FourStapViewModel)resultStat2).chastichkaInfo;
-                    ViewBag.PostupleniyaLastDay = ((FourStapViewModel)resultStat2).kaznaLastDayInfo;
-                    ViewBag.Pererasxod = ((FourStapViewModel)resultStat2).pererasxodInfo;
-                    ViewBag.OrgCurrent = ((FourStapViewModel)resultStat2).kaznaOrgList;
+                    if (ProjectMode.projectMode == ProjectTypes.PRODUCTION)
+                    {
+                        var resultStat2 = StatDataContainer.GetStataData(ustinfo.DepartmentBase, ustinfo.CurYear);
+
+                        ViewBag.LastChangeTime = StatDataContainer._modelChangedTime;
+                        ViewBag.DataSource = ((FourStapViewModel)resultStat2).kaznaInfo;
+                        ViewBag.DataUrgent = ((FourStapViewModel)resultStat2).urgentInfo;
+                        ViewBag.DataPutyovkas = ((FourStapViewModel)resultStat2).putyovkaInfo;
+                        ViewBag.RealizData = ((FourStapViewModel)resultStat2).realizInfo;
+                        ViewBag.ZadoljennostData = ((FourStapViewModel)resultStat2).zadoljInfo;
+                        ViewBag.BronData = ((FourStapViewModel)resultStat2).bronInfo;
+                        ViewBag.ActiveUsersData = ((FourStapViewModel)resultStat2).activeUsersInfo;
+                        ViewBag.PieChartDataSource = ((FourStapViewModel)resultStat2).organizationPieInfo;
+                        ViewBag.PieChartZayavki = ((FourStapViewModel)resultStat2).zayavkiPieInfo;
+                        ViewBag.PieChartPutyovki = ((FourStapViewModel)resultStat2).putyovkiPieInfo;
+                        ViewBag.Chastichka = ((FourStapViewModel)resultStat2).chastichkaInfo;
+                        ViewBag.PostupleniyaLastDay = ((FourStapViewModel)resultStat2).kaznaLastDayInfo;
+                        ViewBag.Pererasxod = ((FourStapViewModel)resultStat2).pererasxodInfo;
+                        ViewBag.OrgCurrent = ((FourStapViewModel)resultStat2).kaznaOrgList;
+                    }
+
                     break;
             }
 

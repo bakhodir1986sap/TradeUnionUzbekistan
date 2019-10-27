@@ -89,7 +89,7 @@ namespace KasabaKiat.BusinessLogic.Putyovki.RaznoskaPoPutyovki
                 departmentbase = model.departmentbase,
                 id_sanat = model.id_sanat,
                 num_put = model.num_put,
-                remark = string.Format("Фамилия {0} - Имя {1}", model.lastname.ToString(), model.name),
+                remark = model.ToString(),
                 userid = model.userid
             };
 

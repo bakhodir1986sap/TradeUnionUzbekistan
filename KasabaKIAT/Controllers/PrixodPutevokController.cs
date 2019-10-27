@@ -1972,7 +1972,7 @@ namespace KasabaKIAT.Controllers
                         departmentbase = model.Departmentbase,
                         id_sanat = putObj.IdSanat,
                         num_put = putObj.Num_Put,
-                        remark = string.Format("Сумма {0} - Дата Заезда {1}", putObj.Symma_Put, putObj.DataSan),
+                        remark = putObj.ToString(),
                         userid = model.UserId
                     };
 
@@ -2054,7 +2054,7 @@ namespace KasabaKIAT.Controllers
                         departmentbase = model.Departmentbase,
                         id_sanat = putObj.IdSanat,
                         num_put = putObj.Num_Put,
-                        remark = string.Format("Сумма {0} - Дата Заезда {1}", putObj.Symma_Put, putObj.DataSan),
+                        remark = putObj.ToString(),
                         userid = model.UserId
                     };
 
@@ -2107,7 +2107,7 @@ namespace KasabaKIAT.Controllers
                         departmentbase = model.Departmentbase,
                         id_sanat = putObj.IdSanat,
                         num_put = putObj.Num_Put,
-                        remark = string.Format("Старая дата {0} - Новая дата {1}", oldDate , IzmDate),
+                        remark = string.Format("Старая дата {0} - Новая дата {1} {2}", oldDate , IzmDate, putObj.ToString()) ,
                         userid = model.UserId
                     };
 
@@ -2436,7 +2436,7 @@ namespace KasabaKIAT.Controllers
                             Vipl_PutDataManager.Create(viplPut, KasabaDB);
 
                             //Change Status of Putyovka in Prixod
-                            PostPutDetailDataManager.Polzov(mm.IdSanat.Value, mm.Num_Put, KasabaDB);
+                            PostPutDetailDataManager.Polzov(putId, KasabaDB);
 
                             await KasabaDB.SaveChangesAsync();
                         //}
@@ -3881,7 +3881,7 @@ namespace KasabaKIAT.Controllers
                     departmentbase = ustinfo.DepartmentBase,
                     id_sanat = model.id_sanat,
                     num_put = model.num_put,
-                    remark = string.Format("Сумма {0} - Санаторий {1}", model.symmap, model.sanatoriyName),
+                    remark = model.ToString(),
                     userid = UserId
                 };
 

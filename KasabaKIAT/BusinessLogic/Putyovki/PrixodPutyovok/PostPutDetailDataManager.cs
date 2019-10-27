@@ -158,6 +158,29 @@ namespace KasabaKiat.BusinessLogic.Putyovki.PrixodPutyovok
 
         }
 
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="SanId"></param>
+        /// <param name="NumPut"></param>
+        /// <param name="db"></param>
+        public static void Polzov(long putId, KasabaKIATEntities db)
+        {
+            var post = db.tblPos_Put.Where(z => z.ID == putId);
+
+            if (post.Any())
+            {
+                var post1 = post.FirstOrDefault();
+
+                if (post1 != null)
+                {
+                    post1.ID_PolVoz = true;
+                }
+            }
+
+        }
+
         /// <summary>
         /// 
         /// </summary>

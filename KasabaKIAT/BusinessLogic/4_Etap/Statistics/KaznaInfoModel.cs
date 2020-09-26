@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace KasabaKIAT.BusinessLogic._4_Etap.Statistics
+﻿namespace KasabaKIAT.BusinessLogic._4_Etap.Statistics
 {
     public class KaznaInfoModel
     {
@@ -23,8 +18,5 @@ namespace KasabaKIAT.BusinessLogic._4_Etap.Statistics
 
         public decimal? OblSovProvAmount { get; set; }
 
-        public DateTime? operdate { get; set; }
-
-        public string inn { get; set; }
     }
 }

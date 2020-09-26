@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace KasabaKIAT.BusinessLogic._4_Etap.Statistics
+﻿namespace KasabaKIAT.BusinessLogic._4_Etap.Statistics
 {
     public class ActiveUsersModel
     {

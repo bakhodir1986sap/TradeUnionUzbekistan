@@ -248,7 +248,6 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Compile Include="BusinessLogic\3_Etap\Monitoring\BaseMonitoring.cs" />
     <Compile Include="BusinessLogic\3_Etap\Monitoring\LogActionFilterAttribute.cs" />
     <Compile Include="BusinessLogic\3_Etap\Statistika\BaseStatistika.cs" />
     <Compile Include="BusinessLogic\3_Etap\Statistika\StatController.cs" />
@@ -270,7 +269,6 @@
     <Compile Include="BusinessLogic\4_Etap\Statistics\ChastichkaModel.cs" />
     <Compile Include="BusinessLogic\4_Etap\Statistics\KaznaOrgContainer.cs" />
     <Compile Include="BusinessLogic\4_Etap\Statistics\KaznaOrgModel.cs" />
-    <Compile Include="BusinessLogic\4_Etap\Statistics\MonitKaznaIncomingModel.cs" />
     <Compile Include="BusinessLogic\4_Etap\Statistics\PererasxodPoPutevkamContainer.cs" />
     <Compile Include="BusinessLogic\4_Etap\Statistics\PererasxodPoPutevkamModel.cs" />
     <Compile Include="BusinessLogic\4_Etap\Statistics\PieChartData.cs" />

@@ -1,8 +1,6 @@
 ﻿using KasabaKIAT.Models;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 
 namespace KasabaKIAT.BusinessLogic._4_Etap.Statistics
 {
@@ -104,7 +102,6 @@ namespace KasabaKIAT.BusinessLogic._4_Etap.Statistics
                 return chartData;
             }
         }
-
 
         public static List<PieChartData> GetPutyovki(string departmentBase, int? cur_year)
         {

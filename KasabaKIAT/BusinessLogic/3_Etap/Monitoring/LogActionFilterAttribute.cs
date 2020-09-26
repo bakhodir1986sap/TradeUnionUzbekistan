@@ -1,10 +1,6 @@
-﻿using KasabaKiat.Helpers;
-using KasabaKIAT.Models;
+﻿using KasabaKIAT.Models;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Security.Claims;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
@@ -18,7 +14,6 @@ namespace KasabaKIAT.BusinessLogic._3_Etap.Monitoring
 
             public void OnActionExecuted(ActionExecutedContext filterContext)
             {
-                //Log("OnActionExecuted", filterContext.RouteData);
             }
 
             public void OnActionExecuting(ActionExecutingContext filterContext)

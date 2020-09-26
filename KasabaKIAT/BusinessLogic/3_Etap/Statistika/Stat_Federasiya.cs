@@ -1,11 +1,8 @@
 ﻿using KasabaKIAT.BusinessLogic._3_Etap.Statistika.Stat_ViewModels;
 using KasabaKIAT.Models;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
-using System.Web;
 
 namespace KasabaKIAT.BusinessLogic._3_Etap.Statistika
 {

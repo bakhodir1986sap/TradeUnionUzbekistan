@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace KasabaKIAT.BusinessLogic._3_Etap.Statistika.Stat_ViewModels
 {
@@ -11,17 +8,6 @@ namespace KasabaKIAT.BusinessLogic._3_Etap.Statistika.Stat_ViewModels
         public int Year { get; set; }
         public int Kvartal { get; set; }
         public DateTime LastChangeDate { get; set; }
-        public string LastChangeDateStr
-        {
-            get
-            {
-                return LastChangeDate.ToLongDateString();
-            }
-        }
-
-        public int BronCount { get; set; }
-        //Doxodi
-        public decimal? TotalIncome { get; set; }
 
         public decimal? EcpIncome { get; set; }
 

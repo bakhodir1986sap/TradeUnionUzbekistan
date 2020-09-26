@@ -2037,15 +2037,6 @@
     <Content Include="Scripts\vendor.js" />
     <Content Include="Scripts\vendor\modernizr.js" />
     <Content Include="Todo.txt" />
-    <Content Include="Videos\OblLesson1.mp4" />
-    <Content Include="Videos\OblLesson2.mp4" />
-    <Content Include="Videos\OblLesson3.mp4" />
-    <Content Include="Videos\OblLesson4.mp4" />
-    <Content Include="Videos\OblLesson5.mp4" />
-    <Content Include="Videos\OblLesson6.mp4" />
-    <Content Include="Videos\OblLesson7.mp4" />
-    <Content Include="Videos\OblLesson8.mp4" />
-    <Content Include="Videos\OblLesson9.mp4" />
     <Content Include="Views\TipsAndTriks.txt" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>

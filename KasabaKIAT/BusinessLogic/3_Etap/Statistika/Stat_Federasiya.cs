@@ -17,7 +17,7 @@ namespace KasabaKIAT.BusinessLogic._3_Etap.Statistika
 
                 List<Task> tasks = new List<Task>();
 
-                var outer1 = Task.Factory.StartNew(() =>     // внешняя задача
+                var outer1 = Task.Factory.StartNew(() =>     // AktiveUsersList
                 {
                     using (KasabaKIATEntities db1 = new KasabaKIATEntities())
                     {
@@ -38,7 +38,7 @@ namespace KasabaKIAT.BusinessLogic._3_Etap.Statistika
 
                 tasks.Add(outer1);
 
-                var outer2 = Task.Factory.StartNew(() =>     // внешняя задача
+                var outer2 = Task.Factory.StartNew(() =>     // EcpIncomeFed
                 {
                     using (KasabaKIATEntities db2 = new KasabaKIATEntities())
                     {
@@ -60,7 +60,7 @@ namespace KasabaKIAT.BusinessLogic._3_Etap.Statistika
 
                 tasks.Add(outer2);
 
-                var outer3 = Task.Factory.StartNew(() =>     // внешняя задача
+                var outer3 = Task.Factory.StartNew(() =>     // PartialIncome
                 {
                     using (KasabaKIATEntities db3 = new KasabaKIATEntities())
                     {
@@ -82,7 +82,7 @@ namespace KasabaKIAT.BusinessLogic._3_Etap.Statistika
 
                 tasks.Add(outer3);
 
-                var outer4 = Task.Factory.StartNew(() =>     // внешняя задача
+                var outer4 = Task.Factory.StartNew(() =>     // OtherIncome
                 {
                     using (KasabaKIATEntities db4 = new KasabaKIATEntities())
                     {
@@ -103,7 +103,7 @@ namespace KasabaKIAT.BusinessLogic._3_Etap.Statistika
 
                 tasks.Add(outer4);
 
-                var outer5 = Task.Factory.StartNew(() =>     // внешняя задача
+                var outer5 = Task.Factory.StartNew(() =>     // IncomePerRegionList_Fed
                 {
                     using (KasabaKIATEntities db5 = new KasabaKIATEntities())
                     {
@@ -140,7 +140,7 @@ namespace KasabaKIAT.BusinessLogic._3_Etap.Statistika
 
                 tasks.Add(outer5);
 
-                var outer6 = Task.Factory.StartNew(() =>     // внешняя задача
+                var outer6 = Task.Factory.StartNew(() =>     // UrgentPutyovkas
                 {
                     using (KasabaKIATEntities db4 = new KasabaKIATEntities())
                     {
@@ -161,7 +161,7 @@ namespace KasabaKIAT.BusinessLogic._3_Etap.Statistika
 
                 tasks.Add(outer6);
 
-                var outer7 = Task.Factory.StartNew(() =>     // внешняя задача
+                var outer7 = Task.Factory.StartNew(() =>     // UrgentPutyovkasRegionListFed
                 {
                     using (KasabaKIATEntities db4 = new KasabaKIATEntities())
                     {
@@ -195,7 +195,7 @@ namespace KasabaKIAT.BusinessLogic._3_Etap.Statistika
 
                 tasks.Add(outer7);
 
-                var outer8 = Task.Factory.StartNew(() =>     // внешняя задача
+                var outer8 = Task.Factory.StartNew(() =>     // PlanPutyovkaCount
                 {
                     using (KasabaKIATEntities db4 = new KasabaKIATEntities())
                     {
@@ -216,7 +216,7 @@ namespace KasabaKIAT.BusinessLogic._3_Etap.Statistika
 
                 tasks.Add(outer8);
 
-                var outer9 = Task.Factory.StartNew(() =>     // внешняя задача
+                var outer9 = Task.Factory.StartNew(() =>     // PlanPutyovkaAmount
                 {
                     using (KasabaKIATEntities db4 = new KasabaKIATEntities())
                     {
@@ -237,7 +237,7 @@ namespace KasabaKIAT.BusinessLogic._3_Etap.Statistika
 
                 tasks.Add(outer9);
 
-                var outer10 = Task.Factory.StartNew(() =>     // внешняя задача
+                var outer10 = Task.Factory.StartNew(() =>     // RealizPutyovkaCount
                 {
                     using (KasabaKIATEntities db4 = new KasabaKIATEntities())
                     {
@@ -258,7 +258,7 @@ namespace KasabaKIAT.BusinessLogic._3_Etap.Statistika
 
                 tasks.Add(outer10);
 
-                var outer11 = Task.Factory.StartNew(() =>     // внешняя задача
+                var outer11 = Task.Factory.StartNew(() =>     // RealizPutyovkaAmount
                 {
                     using (KasabaKIATEntities db4 = new KasabaKIATEntities())
                     {
@@ -279,7 +279,7 @@ namespace KasabaKIAT.BusinessLogic._3_Etap.Statistika
 
                 tasks.Add(outer11);
 
-                var outer12 = Task.Factory.StartNew(() =>     // внешняя задача
+                var outer12 = Task.Factory.StartNew(() =>     // OstatokPutyovkaCount
                 {
                     using (KasabaKIATEntities db4 = new KasabaKIATEntities())
                     {
@@ -300,7 +300,7 @@ namespace KasabaKIAT.BusinessLogic._3_Etap.Statistika
 
                 tasks.Add(outer12);
 
-                var outer13 = Task.Factory.StartNew(() =>     // внешняя задача
+                var outer13 = Task.Factory.StartNew(() =>     // OstatokPutyovkaAmount
                 {
                     using (KasabaKIATEntities db4 = new KasabaKIATEntities())
                     {
@@ -321,7 +321,7 @@ namespace KasabaKIAT.BusinessLogic._3_Etap.Statistika
 
                 tasks.Add(outer13);
 
-                var outer14 = Task.Factory.StartNew(() =>     // внешняя задача
+                var outer14 = Task.Factory.StartNew(() =>     // S45PutyovkaCount
                 {
                     using (KasabaKIATEntities db4 = new KasabaKIATEntities())
                     {
@@ -342,7 +342,7 @@ namespace KasabaKIAT.BusinessLogic._3_Etap.Statistika
 
                 tasks.Add(outer14);
 
-                var outer15 = Task.Factory.StartNew(() =>     // внешняя задача
+                var outer15 = Task.Factory.StartNew(() =>     // S45PutyovkaAmount
                 {
                     using (KasabaKIATEntities db4 = new KasabaKIATEntities())
                     {
@@ -363,7 +363,7 @@ namespace KasabaKIAT.BusinessLogic._3_Etap.Statistika
 
                 tasks.Add(outer15);
 
-                var outer16 = Task.Factory.StartNew(() =>     // внешняя задача
+                var outer16 = Task.Factory.StartNew(() =>     // S100PutyovkaCount
                 {
                     using (KasabaKIATEntities db4 = new KasabaKIATEntities())
                     {
@@ -384,7 +384,7 @@ namespace KasabaKIAT.BusinessLogic._3_Etap.Statistika
 
                 tasks.Add(outer16);
 
-                var outer17 = Task.Factory.StartNew(() =>     // внешняя задача
+                var outer17 = Task.Factory.StartNew(() =>     // S100PutyovkaAmount
                 {
                     using (KasabaKIATEntities db4 = new KasabaKIATEntities())
                     {
@@ -405,7 +405,7 @@ namespace KasabaKIAT.BusinessLogic._3_Etap.Statistika
 
                 tasks.Add(outer17);
 
-                var outer18 = Task.Factory.StartNew(() =>     // внешняя задача
+                var outer18 = Task.Factory.StartNew(() =>     // S0PutyovkaCount
                 {
                     using (KasabaKIATEntities db4 = new KasabaKIATEntities())
                     {
@@ -426,7 +426,7 @@ namespace KasabaKIAT.BusinessLogic._3_Etap.Statistika
 
                 tasks.Add(outer18);
 
-                var outer19 = Task.Factory.StartNew(() =>     // внешняя задача
+                var outer19 = Task.Factory.StartNew(() =>     // S0PutyovkaAmount
                 {
                     using (KasabaKIATEntities db4 = new KasabaKIATEntities())
                     {
@@ -447,7 +447,7 @@ namespace KasabaKIAT.BusinessLogic._3_Etap.Statistika
 
                 tasks.Add(outer19);
 
-                var outer20 = Task.Factory.StartNew(() =>     // внешняя задача
+                var outer20 = Task.Factory.StartNew(() =>     // TotalZadoljennostAmount
                 {
                     using (KasabaKIATEntities db4 = new KasabaKIATEntities())
                     {
@@ -468,7 +468,7 @@ namespace KasabaKIAT.BusinessLogic._3_Etap.Statistika
 
                 tasks.Add(outer20);
 
-                var outer21 = Task.Factory.StartNew(() =>     // внешняя задача
+                var outer21 = Task.Factory.StartNew(() =>     // ZadoljennostListFed
                 {
                     using (KasabaKIATEntities db4 = new KasabaKIATEntities())
                     {
@@ -500,7 +500,7 @@ namespace KasabaKIAT.BusinessLogic._3_Etap.Statistika
 
                 tasks.Add(outer21);
 
-                var outer22 = Task.Factory.StartNew(() =>     // внешняя задача
+                var outer22 = Task.Factory.StartNew(() =>     // ProfComExists
                 {
                     using (KasabaKIATEntities db4 = new KasabaKIATEntities())
                     {
@@ -521,7 +521,7 @@ namespace KasabaKIAT.BusinessLogic._3_Etap.Statistika
 
                 tasks.Add(outer22);
 
-                var outer23 = Task.Factory.StartNew(() =>     // внешняя задача
+                var outer23 = Task.Factory.StartNew(() =>     // ProfComNotExists
                 {
                     using (KasabaKIATEntities db4 = new KasabaKIATEntities())
                     {
@@ -542,7 +542,7 @@ namespace KasabaKIAT.BusinessLogic._3_Etap.Statistika
 
                 tasks.Add(outer23);
 
-                var outer24 = Task.Factory.StartNew(() =>     // внешняя задача
+                var outer24 = Task.Factory.StartNew(() =>     // ApprovedZayavka
                 {
                     using (KasabaKIATEntities db4 = new KasabaKIATEntities())
                     {
@@ -563,7 +563,7 @@ namespace KasabaKIAT.BusinessLogic._3_Etap.Statistika
 
                 tasks.Add(outer24);
 
-                var outer25 = Task.Factory.StartNew(() =>     // внешняя задача
+                var outer25 = Task.Factory.StartNew(() =>     // RejectedZayavka
                 {
                     using (KasabaKIATEntities db4 = new KasabaKIATEntities())
                     {
@@ -584,7 +584,7 @@ namespace KasabaKIAT.BusinessLogic._3_Etap.Statistika
 
                 tasks.Add(outer25);
 
-                var outer26 = Task.Factory.StartNew(() =>     // внешняя задача
+                var outer26 = Task.Factory.StartNew(() =>     // InProgressZayavka
                 {
                     using (KasabaKIATEntities db4 = new KasabaKIATEntities())
                     {
@@ -605,7 +605,7 @@ namespace KasabaKIAT.BusinessLogic._3_Etap.Statistika
 
                 tasks.Add(outer26);
 
-                var outer27 = Task.Factory.StartNew(() =>     // внешняя задача
+                var outer27 = Task.Factory.StartNew(() =>     // OstatokPutyovkas
                 {
                     using (KasabaKIATEntities db4 = new KasabaKIATEntities())
                     {
@@ -626,7 +626,7 @@ namespace KasabaKIAT.BusinessLogic._3_Etap.Statistika
 
                 tasks.Add(outer27);
 
-                var outer28 = Task.Factory.StartNew(() =>     // внешняя задача
+                var outer28 = Task.Factory.StartNew(() =>     // RealizedPutyovkas
                 {
                     using (KasabaKIATEntities db4 = new KasabaKIATEntities())
                     {
@@ -647,7 +647,7 @@ namespace KasabaKIAT.BusinessLogic._3_Etap.Statistika
 
                 tasks.Add(outer28);
 
-                var outer29 = Task.Factory.StartNew(() =>     // внешняя задача
+                var outer29 = Task.Factory.StartNew(() =>     // VozvratPutyovkas
                 {
                     using (KasabaKIATEntities db4 = new KasabaKIATEntities())
                     {
@@ -668,7 +668,7 @@ namespace KasabaKIAT.BusinessLogic._3_Etap.Statistika
 
             tasks.Add(outer29);
 
-            Task.WaitAll(tasks.ToArray(), 180000);
+            Task.WaitAll(tasks.ToArray(), 60000);
 
             return model;
         }

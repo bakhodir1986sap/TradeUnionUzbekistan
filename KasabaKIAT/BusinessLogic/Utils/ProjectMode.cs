@@ -13,6 +13,6 @@ namespace KasabaKIAT.BusinessLogic.Utils
 
     public class ProjectMode
     {
-        public static ProjectTypes projectMode = ProjectTypes.DEBUG;
+        public static ProjectTypes projectMode = ProjectTypes.PRODUCTION;
     }
 }

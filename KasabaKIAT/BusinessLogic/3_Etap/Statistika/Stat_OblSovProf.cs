@@ -670,7 +670,7 @@ namespace KasabaKIAT.BusinessLogic._3_Etap.Statistika
 
             tasks.Add(outer29);
 
-            Task.WaitAll(tasks.ToArray(), 180000);
+            Task.WaitAll(tasks.ToArray(), 60000);
 
             return model;
         }

@@ -96,7 +96,8 @@ namespace KasabaKIAT.BusinessLogic._3_Etap.Statistika
                     {
                         try
                         {
-                            var result = FourStepController.Get4StageInfo(depCode, cur_year);
+                            FourStapViewModel obj = null;
+                            var result = FourStepController.Get4StageInfo(depCode, cur_year, obj);
                             result.LastChangeDate = DateTime.Now;
                             _modelChangedTime = DateTime.Now.ToString("dd.MM.yyyy hh:mm:ss");
                             statDataPerUser[depCode] = result;
@@ -117,7 +118,8 @@ namespace KasabaKIAT.BusinessLogic._3_Etap.Statistika
                 }
                 else
                 {
-                    var result = FourStepController.Get4StageInfo(depCode, cur_year);
+                    FourStapViewModel obj = null;
+                    var result = FourStepController.Get4StageInfo(depCode, cur_year, obj);
                     result.LastChangeDate = DateTime.Now;
                     _modelChangedTime = DateTime.Now.ToString("dd.MM.yyyy hh:mm:ss");
                     statDataPerUser.Add(depCode, result);

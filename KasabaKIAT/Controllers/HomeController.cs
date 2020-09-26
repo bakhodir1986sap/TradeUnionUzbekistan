@@ -2629,6 +2629,9 @@ namespace KasabaKIAT.Controllers
         //[OutputCache(Duration = 5, Location = OutputCacheLocation.Client, VaryByCustom = "userId")]
         public ActionResult Putyovki(string lang = null)
         {
+            log.Info("====================*********************===============================");
+            log.Info(lang);
+
             if (lang != null)
             {
                 Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture(lang);
@@ -2647,6 +2650,8 @@ namespace KasabaKIAT.Controllers
             var ustinfo = UserInfo.GetUserInfo(UserId);
             ustinfo.CurLang = lang;
 
+            log.Info(ustinfo.DepartmentBase);
+
             string viewName = "StatFederasiyaV2";
 
             switch (ustinfo.role_id.Value)
@@ -2662,7 +2667,11 @@ namespace KasabaKIAT.Controllers
 
                     if (ProjectMode.projectMode == ProjectTypes.PRODUCTION)
                     {
+                        log.Info("Before call DB");
+
                         var resultStat3 = StatDataContainer.GetStataData(ustinfo.DepartmentBase, ustinfo.CurYear);
+
+                        log.Info("After call DB");
 
                         ViewBag.LastChangeTime = StatDataContainer._modelChangedTime;
                         ViewBag.DataSource = ((FourStapViewModel)resultStat3).kaznaInfo;
@@ -2676,6 +2685,8 @@ namespace KasabaKIAT.Controllers
                         ViewBag.PieChartZayavki = ((FourStapViewModel)resultStat3).zayavkiPieInfo;
                         ViewBag.PieChartPutyovki = ((FourStapViewModel)resultStat3).putyovkiPieInfo;
                         ViewBag.Chastichka = ((FourStapViewModel)resultStat3).chastichkaInfo;
+
+                        log.Info("Set to control");
                     }
 
                     break;
@@ -2684,7 +2695,11 @@ namespace KasabaKIAT.Controllers
 
                     if (ProjectMode.projectMode == ProjectTypes.PRODUCTION)
                     {
+                        log.Info("Before call DB");
+
                         var resultStat = StatDataContainer.GetStataData(ustinfo.DepartmentBase, ustinfo.CurYear);
+
+                        log.Info("After call DB");
 
                         ViewBag.LastChangeTime = StatDataContainer._modelChangedTime;
                         ViewBag.DataSource = ((FourStapViewModel)resultStat).kaznaInfo;
@@ -2701,6 +2716,8 @@ namespace KasabaKIAT.Controllers
                         ViewBag.PostupleniyaLastDay = ((FourStapViewModel)resultStat).kaznaLastDayInfo;
                         ViewBag.Pererasxod = ((FourStapViewModel)resultStat).pererasxodInfo;
                         ViewBag.OrgCurrent = ((FourStapViewModel)resultStat).kaznaOrgList;
+
+                        log.Info("Set to control");
                     }
                     break;
                 default:
@@ -2729,6 +2746,8 @@ namespace KasabaKIAT.Controllers
 
                     break;
             }
+
+            log.Info("**********---*************************");
 
             return View(viewName);
         }

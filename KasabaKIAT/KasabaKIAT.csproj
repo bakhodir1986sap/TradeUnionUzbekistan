@@ -288,19 +288,6 @@
     <Compile Include="BusinessLogic\4_Etap\Zayavki\PodachaZayavokModel.cs" />
     <Compile Include="BusinessLogic\BankOplati\BankOplatQueries\BankPaymentsQueries.cs" />
     <Compile Include="BusinessLogic\BankOplati\BankOplatQueries\BankPaymentsRes.cs" />
-    <Compile Include="BusinessLogic\BankOplati\BankDataSource.cs" />
-    <Compile Include="BusinessLogic\BankOplati\BankOplatiDataManager.cs" />
-    <Compile Include="BusinessLogic\BankOplati\BankOplatiTotalManager.cs" />
-    <Compile Include="BusinessLogic\BankOplati\ExcelBankSource.cs" />
-    <Compile Include="BusinessLogic\BankOplati\Oplata\BankOplata.cs" />
-    <Compile Include="BusinessLogic\BankOplati\Oplata\OplataDataManager.cs" />
-    <Compile Include="BusinessLogic\BankOplati\OraslAndRegionDefine\IlxomPersonalization.cs" />
-    <Compile Include="BusinessLogic\BankOplati\OraslAndRegionDefine\IPersonalizeFirm.cs" />
-    <Compile Include="BusinessLogic\BankOplati\OraslAndRegionDefine\KiatPersonalization.cs" />
-    <Compile Include="BusinessLogic\BankOplati\OtraslAndRegionDefine\IlxomPersonalization.cs" />
-    <Compile Include="BusinessLogic\BankOplati\OtraslAndRegionDefine\IPersonalizeFirm.cs" />
-    <Compile Include="BusinessLogic\BankOplati\OtraslAndRegionDefine\KiatPersonalization.cs" />
-    <Compile Include="BusinessLogic\BankOplati\TextFileBankSource.cs" />
     <Compile Include="BusinessLogic\Buxgalteriya\Balance\Balance\Balance.cs" />
     <Compile Include="BusinessLogic\Buxgalteriya\Balance\Balance\BalanceMasterDataManager.cs" />
     <Compile Include="BusinessLogic\Buxgalteriya\Balance\Master\MasterDataManager.cs" />
@@ -571,10 +558,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="BusinessLogic\BankOplati\Kaznacheystvo\FileProcessor.cs" />
-    <Compile Include="BusinessLogic\BankOplati\Kaznacheystvo\KaznaController.cs" />
-    <Compile Include="BusinessLogic\BankOplati\Kaznacheystvo\KaznaFiles.cs" />
-    <Compile Include="BusinessLogic\BankOplati\Kaznacheystvo\KaznaFilesDataManager.cs" />
     <Compile Include="Hubs\NotificationHub.cs" />
     <Compile Include="Models\AppSettings.cs" />
     <Compile Include="Models\Balans.cs">
@@ -1532,7 +1515,6 @@
     <Compile Include="ViewModel\Buxgalteriya\ProvodkiViewModel.cs" />
     <Compile Include="ViewModel\KurortService\ViewModel.cs" />
     <Compile Include="ViewModel\BankOplati\KaznaPaymentFile.cs" />
-    <Compile Include="BusinessLogic\BankOplati\Kaznacheystvo\PaymentFileData.cs" />
     <Compile Include="Models\KasabaKIAT.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -2412,7 +2394,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="BusinessLogic\BankOplati\Firmi\" />
     <Folder Include="BusinessLogic\Buxgalteriya\Chastichka\AGMK\" />
     <Folder Include="BusinessLogic\Buxgalteriya\Chastichka\Djizzax\" />
     <Folder Include="BusinessLogic\Buxgalteriya\Chastichka\Fargona\" />

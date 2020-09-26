@@ -253,8 +253,6 @@ namespace KasabaKIAT.Controllers
 
             int UserId = Convert.ToInt32(User.Identity.Name);
             var uu = UserInfo.GetUserInfo(UserId);
-            //d.department_base = uu.DepartmentBase;
-
 
             var rekvizit = from rek in KasabaDB.tblPreds
                            where rek.Departmentbase == uu.DepartmentBase

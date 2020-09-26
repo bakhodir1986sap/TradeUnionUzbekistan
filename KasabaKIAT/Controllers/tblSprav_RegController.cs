@@ -30,10 +30,6 @@ namespace KasabaKIAT.Controllers
         // GET: tblSprav_Reg
         public ActionResult Index()
         {
-            //var tblSprav_Reg = db.tblSprav_Reg.Include(t => t.users).Take(50);
-            //return View(tblSprav_Reg.ToList());
-
-
             var list = new List<Region>();
 
             foreach (var obj in db.tblSprav_Reg)

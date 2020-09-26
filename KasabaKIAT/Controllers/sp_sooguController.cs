@@ -32,10 +32,6 @@ namespace KasabaKIAT.Controllers
         // GET: sp_soogu
         public ActionResult Index(int? page)
         {
-            //int pageSize = 15;
-            //int pageNumber = (page ?? 1);
-            //return View(db.sp_soogu.ToList().ToPagedList(pageNumber, pageSize));
-
             var list = new List<soogu>();
 
             foreach (var obj in db.sp_soogu)

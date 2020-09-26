@@ -30,9 +30,6 @@ namespace KasabaKIAT.Controllers
         // GET: sp_section
         public ActionResult Index()
         {
-            //var sp_section = db.sp_section.Include(s => s.users).Take(50);
-            //return View(sp_section.ToList());
-
             var list = new List<section>();
 
             foreach (var obj in db.sp_section)

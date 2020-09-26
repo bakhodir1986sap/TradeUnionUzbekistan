@@ -32,13 +32,6 @@ namespace KasabaKIAT.Controllers
         // GET: t_camp
         public ActionResult Index(int? page)
         {
-            //var t_camp = db.t_camp.Include(t => t.sp_soato).Include(t => t.sp_soato1).Include(t => t.users).Take(50);
-            //return View(t_camp.ToList());
-
-            //int pageSize = 15;
-            //int pageNumber = (page ?? 1);
-            //return View(db.t_camp.ToList().ToPagedList(pageNumber, pageSize));
-
             var list = new List<camp>();
 
             foreach (var obj in db.t_camp)

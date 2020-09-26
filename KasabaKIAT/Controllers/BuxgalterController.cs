@@ -278,11 +278,6 @@ namespace KasabaKIAT.Controllers
                         var filePath = Server.MapPath(nameAndLocation);
                         file.SaveAs(filePath);
 
-                        //string fileName = file.FileName;
-                        //string fileContentType = file.ContentType;
-                        //byte[] fileBytes = new byte[file.ContentLength];
-                        //var data = file.InputStream.Read(fileBytes, 0, Convert.ToInt32(file.ContentLength));
-
                         var sh = GetFileStream(filePath);
 
                         var res = sh.GetRow(0).GetCell(0).StringCellValue;
@@ -871,9 +866,6 @@ namespace KasabaKIAT.Controllers
         /// <returns></returns>
         public async Task CloseKvartalParams(string depCode, long UserId)
         {
-            //int UserId = Convert.ToInt32(User.Identity.Name);
-            //var ustinfo = UserInfo.GetUserInfo(UserId);
-
             var kvartal = new CloseKvartal();
 
             kvartal.Close(depCode, UserId, KasabaDB);

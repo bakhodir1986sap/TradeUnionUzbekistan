@@ -48,8 +48,6 @@ namespace KasabaKIAT.Controllers
 
             return View();
 
-            //var sp_sanatorium_profil = db.sp_sanatorium_profil.Include(s => s.users).Take(50);
-            //return View(sp_sanatorium_profil.ToList());
         }
 
         // GET: sp_sanatorium_profil/Details/5

@@ -659,7 +659,7 @@ namespace KasabaKIAT.Controllers
 
                 BP.PostavitV_Bron(br);
             }
-            //BP.PostavitV_Bron(b);
+
             return "yes";
         }
 
@@ -678,7 +678,7 @@ namespace KasabaKIAT.Controllers
 
                 BP.SnyatBron(br);
             }
-            //BP.PostavitV_Bron(b);
+
             return "yes";
         }
 
@@ -1017,10 +1017,6 @@ namespace KasabaKIAT.Controllers
 
             int UserId = Convert.ToInt32(User.Identity.Name);
             var ustinfo = UserInfo.GetUserInfo(UserId);
-
-            //var list = Sprav_Org.GetByDeraprtmentBaseV2(ustinfo.DepartmentBase);
-
-            //ViewBag.dataSource = list;
 
             return View();
         }
@@ -1406,10 +1402,6 @@ namespace KasabaKIAT.Controllers
         {
             int UserId = Convert.ToInt32(User.Identity.Name);
             var ustinfo = UserInfo.GetUserInfo(UserId);
-
-            //var list = Sprav_Org.GetFizLisoList(ustinfo.DepartmentBase);
-
-            //ViewBag.dataSource = list.Take(50000);
 
             return View();
         }
@@ -2093,7 +2085,6 @@ namespace KasabaKIAT.Controllers
 
                 if (putyovka.Any())
                 {
-                    //var bron = new BronirovaniyaPutyovki();
                     var putObj = putyovka.First();
                     var oldDate = putObj.DataSan;
                     putObj.DataSan = IzmDate;
@@ -2638,8 +2629,6 @@ namespace KasabaKIAT.Controllers
                 Tip_Org = tipOrg == 1 ? true: false,
                 PrizOpl = Priz
             });
-
-            //StatController.Process(ustinfo.DepartmentBase, ustinfo.role_id.Value);
 
             return Json(list, JsonRequestBehavior.AllowGet);
         }

@@ -297,22 +297,6 @@ namespace KasabaKIAT.Controllers
         {
             var list = new List<SpravCodeDecode>();
 
-            //var obj1 = new SpravCodeDecode
-            //{
-            //    Code = 0,
-            //    Decode = "Федерация"
-            //};
-
-            //list.Add(obj1);
-
-            //var obj2 = new SpravCodeDecode
-            //{
-            //    Code = 1,
-            //    Decode = "Область"
-            //};
-
-            //list.Add(obj2);
-
             var obj3 = new SpravCodeDecode
             {
                 Code = 2,

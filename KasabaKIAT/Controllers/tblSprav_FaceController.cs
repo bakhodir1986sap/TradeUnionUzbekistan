@@ -30,9 +30,6 @@ namespace KasabaKIAT.Controllers
         // GET: tblSprav_Face
         public ActionResult Index()
         {
-            //var tblSprav_Face = db.tblSprav_Face.Include(t => t.users).Take(50);
-            //return View(tblSprav_Face.ToList());
-
             var list = new List<Face>();
 
             foreach (var obj in db.tblSprav_Face)

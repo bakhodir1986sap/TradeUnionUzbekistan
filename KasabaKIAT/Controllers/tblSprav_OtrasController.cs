@@ -32,13 +32,6 @@ namespace KasabaKIAT.Controllers
         // GET: tblSprav_Otras
         public ActionResult Index(int? page)
         {
-            //var tblSprav_Otras = db.tblSprav_Otras.Include(t => t.users).Take(50);
-            //return View(tblSprav_Otras.ToList());
-
-            //int pageSize = 15;
-            //int pageNumber = (page ?? 1);
-            //return View(db.tblSprav_Otras.ToList().ToPagedList(pageNumber, pageSize));
-
             var list = new List<otras>();
 
             foreach (var obj in db.tblSprav_Otras)

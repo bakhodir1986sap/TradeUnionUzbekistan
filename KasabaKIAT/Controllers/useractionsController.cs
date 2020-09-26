@@ -33,9 +33,6 @@ namespace KasabaKIAT.Controllers
         // GET: useractions
         public ActionResult Index(int? page, string actionNamez = null, string userName = null)
         {
-            //var useractions = db.useractions.Include(u => u.users);
-            //return View(await useractions.ToListAsync());
-
             List<userActionOut> listUserAction = new List<userActionOut>(); 
 
             if (!string.IsNullOrEmpty(actionNameL))
@@ -81,20 +78,6 @@ namespace KasabaKIAT.Controllers
 
             int pageSize = 50;
             int pageNumber = (page ?? 1);
-
-            //var result = db.useractions.
-            //    Include(u => u.users).
-            //    Where(z => z.action.Contains(actionNameL) ||
-            //    DbFunctions.TruncateTime(z.accesstime.Value) ==
-            //    (dateparam == DateTime.MinValue && (actionNameL == null || actionNameL == "") ?
-            //    DbFunctions.TruncateTime(z.accesstime.Value) :
-            //    DbFunctions.TruncateTime(dateparam)) ||
-            //    z.classname.Contains(actionNameL) ||
-            //    z.users.user_name.Contains(actionNameL) ||
-            //    z.object_name.Contains(actionNameL) ||
-            //    z.action == ((actionNameL == null || actionNameL == "") ? z.action : actionNameL)
-            //    )
-            //    .OrderByDescending(z => z.id).Take(100000).ToList();
 
             var result = db.useractions.
                 Include(u => u.user).OrderByDescending(z => z.id).Take(1000);

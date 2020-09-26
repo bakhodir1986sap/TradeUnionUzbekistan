@@ -2320,16 +2320,6 @@ namespace KasabaKIAT.Controllers
         [OutputCache(Duration = 5, Location = OutputCacheLocation.Client, VaryByCustom = "userId")]
         public JsonResult GelOrganizatsiya()
         {
-            //var O = from department in KasabaDB.t_departmentbase
-            //        join org in KasabaDB.tblSprav_Org on department.code equals org.OWNER_CODE
-            //        where department.name_uz!=null && department.code != null && org.OWNER_CODE != null
-            //        orderby org.TIMESTAMP_CH descending
-            //        select new
-            //        {
-            //            id = department.id,
-            //            value = org.Name_Org
-            //        };
-
             return Json("", JsonRequestBehavior.AllowGet);
         }
 

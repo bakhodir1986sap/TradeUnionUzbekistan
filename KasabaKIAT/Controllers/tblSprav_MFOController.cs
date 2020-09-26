@@ -32,10 +32,6 @@ namespace KasabaKIAT.Controllers
         // GET: tblSprav_MFO
         public ActionResult Index(int? page)
         {
-            //int pageSize = 15;
-            //int pageNumber = (page ?? 1);
-            //return View(db.tblSprav_MFO.ToList().ToPagedList(pageNumber, pageSize));
-
             var list = new List<mfo>();
 
             foreach (var obj in db.tblSprav_MFO)

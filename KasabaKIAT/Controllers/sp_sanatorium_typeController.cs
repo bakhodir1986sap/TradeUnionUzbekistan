@@ -30,9 +30,6 @@ namespace KasabaKIAT.Controllers
         // GET: sp_sanatorium_type
         public ActionResult Index()
         {
-            //var sp_sanatorium_type = db.sp_sanatorium_type.Include(s => s.users).Take(50);
-            //return View(sp_sanatorium_type.ToList());
-
             var list = new List<sanatorium_type>();
 
             foreach (var obj in db.sp_sanatorium_type)

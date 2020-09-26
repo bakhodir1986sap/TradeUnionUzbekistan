@@ -32,12 +32,6 @@ namespace KasabaKIAT.Controllers
         // GET: tbbu_finOtchetSetting
         public ActionResult Index(int? page)
         {
-            //return View(await db.tbbu_finOtchetSetting.ToListAsync());
-
-            //int pageSize = 15;
-            //int pageNumber = (page ?? 1);
-            //return View(db.tbbu_finOtchetSetting.ToListAsync().Result.ToPagedList(pageNumber, pageSize));
-
             var list = new List<finOtchetSetting>();
 
             foreach (var obj in db.tbbu_finOtchetSetting)

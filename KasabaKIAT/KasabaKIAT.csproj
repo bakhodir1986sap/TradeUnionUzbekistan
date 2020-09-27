@@ -288,13 +288,6 @@
     <Compile Include="BusinessLogic\4_Etap\Zayavki\PodachaZayavokModel.cs" />
     <Compile Include="BusinessLogic\BankOplati\BankOplatQueries\BankPaymentsQueries.cs" />
     <Compile Include="BusinessLogic\BankOplati\BankOplatQueries\BankPaymentsRes.cs" />
-    <Compile Include="BusinessLogic\Buxgalteriya\Balance\Balance\Balance.cs" />
-    <Compile Include="BusinessLogic\Buxgalteriya\Balance\Balance\BalanceMasterDataManager.cs" />
-    <Compile Include="BusinessLogic\Buxgalteriya\Balance\Master\MasterDataManager.cs" />
-    <Compile Include="BusinessLogic\Buxgalteriya\Balance\Provodka.cs" />
-    <Compile Include="BusinessLogic\Buxgalteriya\Balance\ProvodkaParams.cs" />
-    <Compile Include="BusinessLogic\Buxgalteriya\Balance\Transactions\JournalDetailDataManager.cs" />
-    <Compile Include="BusinessLogic\Buxgalteriya\Balance\Transactions\JournalMasterDataManager.cs" />
     <Compile Include="BusinessLogic\Buxgalteriya\Chastichka\Andijon\AndChastModule.cs" />
     <Compile Include="BusinessLogic\Buxgalteriya\Chastichka\Buxoro\BuxChastModule.cs" />
     <Compile Include="BusinessLogic\Buxgalteriya\Chastichka\Common\BaseAlgoritm.cs" />
@@ -313,7 +306,6 @@
     <Compile Include="BusinessLogic\Buxgalteriya\Chastichka\Xorazm\XorChastModule.cs" />
     <Compile Include="BusinessLogic\Buxgalteriya\ECP_Management\EcpManagement.cs" />
     <Compile Include="BusinessLogic\Buxgalteriya\ECP_Management\EcpViewModel.cs" />
-    <Compile Include="BusinessLogic\Buxgalteriya\FinansoviyOtchet\FinOtchetSettingsDataManager.cs" />
     <Compile Include="BusinessLogic\Buxgalteriya\FinansoviyOtchet\FinOtchetSettingsViewModel.cs" />
     <Compile Include="BusinessLogic\Buxgalteriya\FinansoviyOtchet\FinOtchetStrukture.cs" />
     <Compile Include="BusinessLogic\Buxgalteriya\GlavnayaKniga\Balance.cs" />
@@ -323,7 +315,6 @@
     <Compile Include="BusinessLogic\Buxgalteriya\GlavnayaKniga\BuxControl.cs" />
     <Compile Include="BusinessLogic\Buxgalteriya\GlavnayaKniga\BuxTransaction.cs" />
     <Compile Include="BusinessLogic\Buxgalteriya\GlavnayaKniga\GK_Structure.cs" />
-    <Compile Include="BusinessLogic\Buxgalteriya\GlavnayaKniga\IBalance.cs" />
     <Compile Include="BusinessLogic\Buxgalteriya\LagerFinOtchet\LagerFinOtchet.cs" />
     <Compile Include="BusinessLogic\Buxgalteriya\OperationSettings\OperationSettings.cs" />
     <Compile Include="BusinessLogic\Buxgalteriya\OperationSettings\OperationSettingsDataManager.cs" />

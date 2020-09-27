@@ -1288,40 +1288,5 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.GlavnayaKniga
         public decimal? field0038 { get; set; }
         public decimal? field0039 { get; set; }
         public string   field0040 { get; set; }
-        /*
-                    <th style="text-align:center">№ счетов Дебет</th>
-                    <th style="text-align:center">Сальдо_на_начало</th>
-                    <th style="text-align:center">Ж_О_№1</th>
-                    <th style="text-align:center">Ж_О_№2</th>
-                    <th style="text-align:center">Ж_О_№3</th>
-                    <th style="text-align:center">Ж_О_№4</th>
-                    <th style="text-align:center">Ж_О_№4а</th>
-                    <th style="text-align:center">Ж_О_№5</th>
-                    <th style="text-align:center">Ж_О_№5а</th>
-                    <th style="text-align:center">Ж_О_№6</th>
-                    <th style="text-align:center">Ж_О_№7</th>
-                    <th style="text-align:center">Ж_О_№11</th>
-                    <th style="text-align:center">Ж_О_№11</th>
-                    <th style="text-align:center">Сумма_за_квартал</th>
-                    <th style="text-align:center">Сумма_всего</th>
-                    <th style="text-align:center">№ счетов Кредит</th>
-                    <th style="text-align:center">Сальдо_на_начало</th>
-                    <th style="text-align:center">Ж_О_№1</th>
-                    <th style="text-align:center">Ж_О_№2</th>
-                    <th style="text-align:center">Ж_О_№3</th>
-                    <th style="text-align:center">Ж_О_№4</th>
-                    <th style="text-align:center">Ж_О_№4а</th>
-                    <th style="text-align:center">Ж_О_№5</th>
-                    <th style="text-align:center">Ж_О_№5а</th>
-                    <th style="text-align:center">Ж_О_№6</th>
-                    <th style="text-align:center">Ж_О_№7</th>
-                    <th style="text-align:center">Ж_О_№11</th>
-                    <th style="text-align:center">Ж_О_№11</th>
-                    <th style="text-align:center">Сумма_за_квартал</th>
-                    <th style="text-align:center">Сумма_всего</th>
-                    <th style="text-align:center">Актив</th>
-                    <th style="text-align:center">Пассив</th>
-                    <th style="text-align:center">№ счетов</th>
-         */
     }
 }

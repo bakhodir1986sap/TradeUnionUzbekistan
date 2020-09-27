@@ -3,7 +3,6 @@ using log4net;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 
 /*
  Predpologaetsya:
@@ -81,14 +80,6 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.FinansoviyOtchet
         public string Code { get; set; }
 
         public decimal RealValue { get; set; }
-    }
-
-    /// <summary>
-    /// 
-    /// </summary>
-    public class RasxodiContainer
-    {
-
     }
 
     /// <summary>

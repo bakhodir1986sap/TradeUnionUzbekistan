@@ -1,10 +1,7 @@
 ﻿using KasabaKIAT.BusinessLogic.Utils;
 using KasabaKIAT.Models;
 using KasabaKIAT.ViewModel.Buxgalteriya;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 
 namespace KasabaKIAT.BusinessLogic.Buxgalteriya.GlavnayaKniga
 {
@@ -32,12 +29,6 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.GlavnayaKniga
                 remark = "debit and credit accounts are the same";
                 return false;
             }
-
-            //if ((model.trdt.Value.AddMonths(36) < DateTime.Now) || (model.trdt.Value.AddMonths(-36) > DateTime.Now))
-            //{
-            //    remark = "Invalid transaction date";
-            //    return false;
-            //}
 
             if (db == null)
             {

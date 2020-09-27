@@ -87,12 +87,6 @@ namespace KasabaKiat.BusinessLogic.Buxgalteriya.PlanirovaniyaBudjeta.Region
 
                     if (reg != null)
                     {
-                        //reg.DEPARTMENT_BASE = model.department_base;
-                        //reg.USERID = model.userid;
-                        //reg.YEAR = model.year;
-                        //reg.SOATO_CODE = model.soato_code;
-                        //reg.ITEM_CODE = model.item_code;
-                        //reg.ITEM_NAME = model.item_name;
                         reg.GODOVOY = model.godovoy.HasValue ? model.godovoy: reg.GODOVOY;
                         reg.QUARTER1 = model.quarter1.HasValue ? model.quarter1 : reg.QUARTER1;
                         reg.HALFYEAR = model.halfyear.HasValue ? model.halfyear : reg.HALFYEAR;

@@ -1,9 +1,7 @@
 ﻿using KasabaKIAT.Models;
 using KasabaKIAT.ViewModel.Buxgalteriya;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 
 namespace KasabaKIAT.BusinessLogic.Buxgalteriya.Platejki
 {
@@ -15,7 +13,6 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.Platejki
             {
                 tbbu_platejka reg = new tbbu_platejka();
 
-                //reg.REC_ID              = model.rec_id          ;
                 reg.DEPARTMENT_CODE     = model.department_code ;  
                 reg.USERID              = model.userid          ;  
                 reg.PLAT_DATE           = model.plat_date       ;  

@@ -1,13 +1,10 @@
 ﻿using KasabaKIAT.BusinessLogic.Buxgalteriya.GlavnayaKniga;
-using KasabaKIAT.BusinessLogic.ClosePeriod.CloseKvartal;
 using KasabaKIAT.BusinessLogic.Utils;
 using KasabaKIAT.Models;
 using KasabaKIAT.ViewModel.Buxgalteriya;
 using System;
 using System.Collections.Generic;
-using System.Data.Entity.Validation;
 using System.Linq;
-using System.Web;
 
 namespace KasabaKIAT.BusinessLogic.Buxgalteriya.Provodki
 {
@@ -17,23 +14,6 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.Provodki
         {
             int cur_year = DateOperations.GetYear(model.trdt.Value);
             int cur_kvartal = DateOperations.GetQuarter(model.trdt.Value);
-
-            //var curKvartalc = new CloseKvartal();
-            //var curKvartal = curKvartalc.GetCloseKvartalRow(model.department_base);
-
-            //if (curKvartal != null)
-            //{
-            //    if ((curKvartal.curkv_year.Value != cur_year) || (curKvartal.curkv.Value != cur_kvartal))
-            //    {
-            //        model.trdt = DateOperations.GetCurKvartalDate(curKvartal.curkv_year.Value, curKvartal.curkv.Value);
-            //        cur_year = curKvartal.curkv_year.Value;
-            //        cur_kvartal = curKvartal.curkv.Value;
-            //    }
-            //}
-            //else
-            //{
-            //    throw new ApplicationException("Current Kvartal Info not available = " + cur_year + "   " + cur_kvartal);
-            //}
 
                 string remarkValidation;
                 if (!BuxControl.IsValidProvodka(model,  db, out remarkValidation))
@@ -62,8 +42,6 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.Provodki
                 reg.COMMENT         = model.comment         ;
                 reg.TRREF           = model.trref           ;
                 reg.TRREFNO         = model.trrefno         ;
-
-                
 
                 provod = db.tbbu_provodki.Add(reg);
 
@@ -146,7 +124,6 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.Provodki
 
                     int cur_year = DateOperations.GetYear(transaction.TRDT.Value);
                     int cur_kvartal = DateOperations.GetQuarter(transaction.TRDT.Value);
-                    //provod = db.tbbu_provodki.Add(reg);
 
                     var balance = new BuxTransaction(cur_year,
                     cur_kvartal,

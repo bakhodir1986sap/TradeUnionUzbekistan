@@ -373,17 +373,11 @@
     <Compile Include="BusinessLogic\Notifications\PushNotification.cs" />
     <Compile Include="BusinessLogic\Putyovki\Bron\BronDataManager.cs" />
     <Compile Include="BusinessLogic\Putyovki\Bron\BronirovaniyaPutyovki.cs" />
-    <Compile Include="BusinessLogic\Putyovki\GodovoyPlan\Federasiya\GdovoyPlanFedDataManager.cs" />
-    <Compile Include="BusinessLogic\Putyovki\GodovoyPlan\Federasiya\GodovoyPlanFed.cs" />
-    <Compile Include="BusinessLogic\Putyovki\GodovoyPlan\Oblast\GodovoyPlanOblast.cs" />
-    <Compile Include="BusinessLogic\Putyovki\GodovoyPlan\Oblast\GodovoyPlanOblastDataManager.cs" />
     <Compile Include="BusinessLogic\Putyovki\OplataPutyovok\Oplata.cs" />
     <Compile Include="BusinessLogic\Putyovki\OplataPutyovok\OplataDataManager.cs" />
     <Compile Include="BusinessLogic\Putyovki\OplataPutyovok\OplataRasxodDataManager.cs" />
     <Compile Include="BusinessLogic\Putyovki\OplataPutyovok\Template\OplataImporter.cs" />
     <Compile Include="BusinessLogic\Putyovki\OplataPutyovok\Template\OplataViplataTemplateViewModel.cs" />
-    <Compile Include="BusinessLogic\Putyovki\PlanGrafikZaezdov\GrafikZaezdov.cs" />
-    <Compile Include="BusinessLogic\Putyovki\PlanGrafikZaezdov\GrafikZaezdovDataManager.cs" />
     <Compile Include="BusinessLogic\Putyovki\PrixodPutyovok\IPostupleniyaEnter.cs" />
     <Compile Include="BusinessLogic\Putyovki\PrixodPutyovok\Oprixodovaniye.cs" />
     <Compile Include="BusinessLogic\Putyovki\PrixodPutyovok\PostMainDataManager.cs" />

@@ -1,9 +1,7 @@
 ﻿using KasabaKIAT.Models;
 using KasabaKiat.ViewModel.Putyovki;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Data.Entity;
 using System.Threading.Tasks;
 using KasabaKIAT.BusinessLogic.Putyovki.PutyovkiHistory;
@@ -17,7 +15,6 @@ namespace KasabaKiat.BusinessLogic.Putyovki.OplataPutyovok
                 tblOplata_Ras opl = new tblOplata_Ras();
 
                 opl.tblOplata = opMain;
-                //opl.ID            = model.ID              ;
                 opl.ID_Opl          = model.ID_Opl          ;
                 opl.ID_Sanat        = model.ID_Sanat        ;
                 opl.Num_Put         = model.Num_Put         ;
@@ -66,7 +63,6 @@ namespace KasabaKiat.BusinessLogic.Putyovki.OplataPutyovok
 
                     if (opl1 != null)
                     {
-                        //opl1.ID = model.ID;
                         opl1.ID_Opl = model.ID_Opl;
                         opl1.ID_Sanat = model.ID_Sanat;
                         opl1.Num_Put = model.Num_Put;

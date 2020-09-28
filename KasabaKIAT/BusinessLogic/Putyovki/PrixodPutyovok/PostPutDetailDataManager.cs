@@ -1,11 +1,8 @@
 ﻿using KasabaKIAT.Models;
-using KasabaKiat.ViewModel;
 using KasabaKiat.ViewModel.Putyovki;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
-using System.Data.Entity.Validation;
 using KasabaKIAT.BusinessLogic.Putyovki.PrixodPutyovok;
 using System.Data.Entity;
 using System.Threading.Tasks;
@@ -26,17 +23,6 @@ namespace KasabaKiat.BusinessLogic.Putyovki.PrixodPutyovok
                 var masterId = model.IdPost;
 
                 var vids = db.tblPost.Where(z => z.ID == masterId);
-
-                //if (vids.Any())
-                //{
-                //    var vid = vids.First();
-
-                //    //Inpossible change details already closed nakladnoy
-                //    if (vid.Vid)
-                //    {
-                //        throw new ApplicationException("Inpossible change details already closed nakladnoy");
-                //    }
-                //}
 
                 tblPos_Put post = new tblPos_Put();
 
@@ -89,7 +75,6 @@ namespace KasabaKiat.BusinessLogic.Putyovki.PrixodPutyovok
 
                     if (post1 != null)
                     {
-                        //post1.ID = model.Id;
                         post1.ID_Post = model.IdPost;
                         post1.ID_Sanat = model.IdSanat;
                         post1.tblSprav_San.Name_San = model.SanatName;
@@ -283,8 +268,6 @@ namespace KasabaKiat.BusinessLogic.Putyovki.PrixodPutyovok
                                Checked        = false
                             }).ToListAsync();
 
-                //list = query.ToList();
-
                 foreach(var putyovka in query)
                 {
                     if (list == null)
@@ -320,7 +303,6 @@ namespace KasabaKiat.BusinessLogic.Putyovki.PrixodPutyovok
                 var query = await (from postPut in db.tblPos_Put
                             where postPut.ID_Post == model.IdPost 
                             && postPut.tblPost.DepartmentBase == model.Departmentbase
-                            //&& postPut.ID_PolVoz == false
                             orderby postPut.Num_Put
                             select new PostPutyovkaViewModel
                             {

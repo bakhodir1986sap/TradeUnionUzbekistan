@@ -378,7 +378,6 @@
     <Compile Include="BusinessLogic\Putyovki\OplataPutyovok\OplataRasxodDataManager.cs" />
     <Compile Include="BusinessLogic\Putyovki\OplataPutyovok\Template\OplataImporter.cs" />
     <Compile Include="BusinessLogic\Putyovki\OplataPutyovok\Template\OplataViplataTemplateViewModel.cs" />
-    <Compile Include="BusinessLogic\Putyovki\PrixodPutyovok\IPostupleniyaEnter.cs" />
     <Compile Include="BusinessLogic\Putyovki\PrixodPutyovok\Oprixodovaniye.cs" />
     <Compile Include="BusinessLogic\Putyovki\PrixodPutyovok\PostMainDataManager.cs" />
     <Compile Include="BusinessLogic\Putyovki\PrixodPutyovok\PostPutDetailDataManager.cs" />

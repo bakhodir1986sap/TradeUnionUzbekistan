@@ -1,10 +1,7 @@
 ﻿using KasabaKIAT.Models;
 using KasabaKiat.ViewModel;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
-using System.Data.Entity.Validation;
 using KasabaKiat.BusinessLogic.Putyovki.OplataPutyovok;
 using System.Data.Entity;
 using System.Threading.Tasks;

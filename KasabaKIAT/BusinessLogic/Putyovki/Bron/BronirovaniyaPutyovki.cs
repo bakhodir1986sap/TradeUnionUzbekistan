@@ -1,9 +1,7 @@
 ﻿using KasabaKiat.BusinessLogic.Bron;
 using KasabaKiat.ViewModel.Putyovki;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 
 namespace KasabaKiat.BusinessLogic
 {
@@ -74,14 +72,6 @@ namespace KasabaKiat.BusinessLogic
             {
                 BronDataManager.DisableExistingBron(brExists.First().Id);
             }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        private void AvtomaticheskoeSnatiyeBrona()
-        {
-            BronDataManager.AutomaticDisableBronsByExpiredDate();
         }
 
         /// <summary>

@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.Data.Entity.Validation;
 using System.Linq;
-using System.Web;
 
 namespace KasabaKIAT.BusinessLogic.Putyovki.PutyovkiHistory
 {
@@ -180,37 +179,37 @@ namespace KasabaKIAT.BusinessLogic.Putyovki.PutyovkiHistory
             string eventName = string.Empty;
             switch(eventTp)
             {
-                case 0:
+                case (int)HistEventType.Prixod:
                     eventName = "Приход";
                     break;
-                case 1:
+                case (int)HistEventType.Rasxod:
                     eventName = "Расход";
                     break;
-                case 2:
+                case (int)HistEventType.Oplata:
                     eventName = "Оплата";
                     break;
-                case 3:
+                case (int)HistEventType.Vozvrat:
                     eventName = "Возврат";
                     break;
-                case 4:
+                case (int)HistEventType.UstanovVlad:
                     eventName = "Установка владельца";
                     break;
-                case 5:
+                case (int)HistEventType.IzmPutDate:
                     eventName = "Изминение Даты";
                     break;
-                case 6:
+                case (int)HistEventType.BronPutyovka:
                     eventName = "Бронирование";
                     break;
-                case 7:
+                case (int)HistEventType.SnyatBronPutyovka:
                     eventName = "Снятие брони";
                     break;
-                case 8:
+                case (int)HistEventType.UdalitPutIzPrixod:
                     eventName = "Удаление из прихода";
                     break;
-                case 9:
+                case (int)HistEventType.UdalitPutIzRasxod:
                     eventName = "Удаление из расхода";
                     break;
-                case 10:
+                case (int)HistEventType.UdalitPutIzVozvrat:
                     eventName = "Удаление из возврата";
                     break;
             }

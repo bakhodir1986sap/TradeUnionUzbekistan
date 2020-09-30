@@ -384,7 +384,6 @@
     <Compile Include="BusinessLogic\Putyovki\PrixodPutyovok\PrixodDetailViewModel.cs" />
     <Compile Include="BusinessLogic\Putyovki\PutyovkiHistory\PutHistDataManager.cs" />
     <Compile Include="BusinessLogic\Putyovki\PutyovkiHistory\PutHistViewModel.cs" />
-    <Compile Include="BusinessLogic\Putyovki\PutyovkiState\PutyovkiStateChangeDataManager.cs" />
     <Compile Include="BusinessLogic\Putyovki\RaznoskaPoPutyovki\FaceDataManager.cs" />
     <Compile Include="BusinessLogic\Putyovki\RaznoskaPoPutyovki\Face_MedDataManager.cs" />
     <Compile Include="BusinessLogic\Putyovki\RaznoskaPoPutyovki\RaznoskaGeneralViewModel.cs" />

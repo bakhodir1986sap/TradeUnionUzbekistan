@@ -1,9 +1,7 @@
 ﻿using KasabaKIAT.Models;
 using KasabaKiat.ViewModel.Putyovki.RaznoskaPutyovok;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 
 namespace KasabaKiat.BusinessLogic.Putyovki.RaznoskaPoPutyovki
 {
@@ -26,7 +24,6 @@ namespace KasabaKiat.BusinessLogic.Putyovki.RaznoskaPoPutyovki
 
                 fm.ID = IdValue + 1;
                 fm.tblFase = faceMain;
-                //fm.ID_Face            = model.id_face       ;  
                 fm.Med_Doc            = model.med_doc       ;  
                 fm.Med_Data           = model.med_data      ;  
                 fm.Med_San            = model.med_san       ;  
@@ -55,7 +52,6 @@ namespace KasabaKiat.BusinessLogic.Putyovki.RaznoskaPoPutyovki
 
                     if (fm1 != null)
                     {
-                        //fm1.ID_Face = model.id_face;
                         fm1.Med_Doc = model.med_doc;
                         fm1.Med_Data = model.med_data;
                         fm1.Med_San = model.med_san;

@@ -3,7 +3,6 @@ using KasabaKiat.ViewModel.Putyovki.RaznoskaPutyovok;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using KasabaKIAT.BusinessLogic.Putyovki.PutyovkiHistory;
 using KasabaKiat.BusinessLogic.Utils.References;
 
@@ -111,7 +110,6 @@ namespace KasabaKiat.BusinessLogic.Putyovki.RaznoskaPoPutyovki
 
                 if (fc1 != null)
                 {
-                    //fc1.ID_Put = model.id_put;
                     fc1.ID_Sanat = model.id_sanat;
                     fc1.Num_Put = model.num_put;
                     fc1.LastName = model.lastname;
@@ -127,7 +125,6 @@ namespace KasabaKiat.BusinessLogic.Putyovki.RaznoskaPoPutyovki
                     fc1.Pas_Data = model.pas_data;
                     fc1.Gost_Pr = model.gost_pr;
                     fc1.ID_Osnov = model.id_osnov;
-                    //fc1.Data_Post = model.data_post;
                     fc1.Pol = model.pol;
                     fc1.UserId = model.userid;
                     fc1.Departmentbase = model.departmentbase;

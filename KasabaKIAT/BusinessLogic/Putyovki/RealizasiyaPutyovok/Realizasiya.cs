@@ -1,9 +1,7 @@
 ﻿using KasabaKiat.ViewModel;
 using KasabaKiat.ViewModel.Putyovki;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+
 
 namespace KasabaKiat.BusinessLogic.RealizasiyaPutyovok
 {
@@ -44,14 +42,5 @@ namespace KasabaKiat.BusinessLogic.RealizasiyaPutyovok
             return new List<ZayavkiViewModel>();
         }
 
-        public void SetZayavka2Putyovka(ZayavkiViewModel model, string Num_Put)
-        {
-
-        }
-
-        public void SetPercentOfPutyovka(byte percent, string Num_Put)
-        {
-
-        }
     }
 }

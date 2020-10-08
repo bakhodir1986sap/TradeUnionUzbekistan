@@ -1,9 +1,7 @@
 ﻿using KasabaKIAT.Models;
 using KasabaKIAT.ViewModel.Putyovki;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 
 namespace KasabaKIAT.BusinessLogic.Putyovki.RealizasiyaPutyovok.RealizasitaPoTz
 {
@@ -15,7 +13,6 @@ namespace KasabaKIAT.BusinessLogic.Putyovki.RealizasiyaPutyovok.RealizasitaPoTz
             {
                 tbpt_putyovkarealizasiya put = new tbpt_putyovkarealizasiya();
 
-              //put.REC_ID                  = 
                 put.DEPARTMENT_CODE         = model.department_code         ;
                 put.TO_DEPARTMENT_CODE      = model.to_department_code      ;
                 put.USER_ID                 = model.user_id                 ;

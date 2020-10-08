@@ -3,7 +3,6 @@ using KasabaKiat.ViewModel.Putyovki;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using KasabaKiat.BusinessLogic.Putyovki.OplataPutyovok;
 using KasabaKiat.BusinessLogic.Putyovki.PrixodPutyovok;
 using System.Data.Entity;
@@ -25,7 +24,6 @@ namespace KasabaKiat.BusinessLogic.Putyovki.RealizasiyaPutyovok
         {
                 tblVipl_Put vipl = new tblVipl_Put();
 
-              //vipl.ID               = model.id              ;
                 vipl.ID_Vipl            = model.id_vipl         ;
                 vipl.ID_Pok             = model.id_pok          ;
                 vipl.ID_Sanat           = model.id_sanat        ;
@@ -201,11 +199,6 @@ namespace KasabaKiat.BusinessLogic.Putyovki.RealizasiyaPutyovok
 
                 if (vipl.Any())
                 {
-                    //if (vipl.Count() > 1)
-                    //{
-                    //    throw new ApplicationException("More than one row found");
-                    //}
-
                     var reg = vipl.FirstOrDefault();
                     
                     vozv.tblVipl = reg.tblVipl;

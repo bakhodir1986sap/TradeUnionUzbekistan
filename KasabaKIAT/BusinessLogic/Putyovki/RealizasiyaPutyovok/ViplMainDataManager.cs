@@ -3,7 +3,6 @@ using KasabaKiat.ViewModel.Putyovki;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using KasabaKIAT.BusinessLogic.Putyovki.RealizasiyaPutyovok;
 using KasabaKiat.BusinessLogic.Putyovki.PrixodPutyovok;
 using KasabaKIAT.BusinessLogic.Putyovki.Rekviziti;
@@ -152,7 +151,6 @@ namespace KasabaKiat.BusinessLogic.Putyovki.RealizasiyaPutyovok
             using (KasabaKIATEntities db = new KasabaKIATEntities())
             {
                 var query = await (from vipl in db.tblVipl
-                            //join org in db.tblSprav_Org on vipl.ID_Org equals org.ID
                             where vipl.SmFil == model.smfil 
                             && vipl.ID_Kv == model.id_kv
                             && vipl.DepartmentBase == model.departmentbase
@@ -175,7 +173,6 @@ namespace KasabaKiat.BusinessLogic.Putyovki.RealizasiyaPutyovok
                                 departmentbase  = vipl.DepartmentBase
                             }).ToListAsync();
 
-                //list = query;
 
                 foreach(var q in query)
                 {
@@ -217,7 +214,6 @@ namespace KasabaKiat.BusinessLogic.Putyovki.RealizasiyaPutyovok
             using (KasabaKIATEntities db = new KasabaKIATEntities())
             {
                 var query = await (from vipl in db.tblVipl
-                                       //join org in db.tblSprav_Org on vipl.ID_Org equals org.ID
                                    where vipl.SmFil == model.smfil
                                    && vipl.ID_Kv == model.id_kv
                                    && vipl.DepartmentBase == model.departmentbase
@@ -239,8 +235,6 @@ namespace KasabaKiat.BusinessLogic.Putyovki.RealizasiyaPutyovok
                                        userid = vipl.UserId,
                                        departmentbase = vipl.DepartmentBase
                                    }).ToListAsync();
-
-                //list = query;
 
                 foreach (var q in query)
                 {
@@ -367,16 +361,6 @@ namespace KasabaKiat.BusinessLogic.Putyovki.RealizasiyaPutyovok
                     ID_Ot = ID_Ot
                 });
 
-                //var query = await (from vipl in db.tblVipl
-                //            join viplDtl in db.tblVipl_Put on vipl.ID equals viplDtl.ID_Vipl
-                //            where vipl.ID_Kv == kvartal && vipl.SmFil == year
-                //            && vipl.DepartmentBase == departmentBase
-                //            select viplDtl).ToListAsync();
-
-                //var nakladCount = db.tblVipl.Where(z => z.SmFil == year && z.ID_Kv == kvartal
-                //&& z.DepartmentBase == departmentBase).
-                //    Count();
-
                 totals.NakladnoyCount = query.Count;
 
                 var list = query;
@@ -418,16 +402,6 @@ namespace KasabaKiat.BusinessLogic.Putyovki.RealizasiyaPutyovok
                     departmentbase = departmentBase,
                     ID_Ot = ID_Ot
                 });
-
-                //var query = await (from vipl in db.tblVipl
-                //            join viplDtl in db.tblVipl_Put on vipl.ID equals viplDtl.ID_Vipl
-                //            where vipl.ID_Kv == kvartal && vipl.SmFil == year
-                //            && vipl.DepartmentBase == departmentBase
-                //            select viplDtl).ToListAsync();
-
-                //var nakladCount = db.tblVipl.Where(z => z.SmFil == year && z.ID_Kv == kvartal
-                //&& z.DepartmentBase == departmentBase).
-                //    Count();
 
                 totals.NakladnoyCount = query.Count;
 

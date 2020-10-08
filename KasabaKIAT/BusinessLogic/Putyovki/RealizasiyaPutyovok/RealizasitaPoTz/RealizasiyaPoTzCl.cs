@@ -5,7 +5,6 @@ using KasabaKIAT.ViewModel.Putyovki;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 
 namespace KasabaKIAT.BusinessLogic.Putyovki.RealizasiyaPutyovok.RealizasitaPoTz
 {
@@ -70,8 +69,6 @@ namespace KasabaKIAT.BusinessLogic.Putyovki.RealizasiyaPutyovok.RealizasitaPoTz
 
                             if (retList.Any())
                             {
-                               // list.Add(retList.First());
-
                                 continue;
                             }
                         }

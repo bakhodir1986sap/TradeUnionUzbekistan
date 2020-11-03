@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace KasabaKIAT.BusinessLogic.StartProcess.LoaderViewModels
 {
@@ -12,7 +9,5 @@ namespace KasabaKIAT.BusinessLogic.StartProcess.LoaderViewModels
         public DateTime DataSan         { get; set; }
         public decimal  Summa           { get; set; }
         public string   Inn             { get; set; }
-        //public string   DepartmentBase  { get; set; }
-        //public long     UserId          { get; set; }
     }
 }

@@ -423,16 +423,12 @@
     <Compile Include="BusinessLogic\Security\Roles\RolePermissions\UserPermissions.cs" />
     <Compile Include="BusinessLogic\Security\Roles\Roles\RoleDataManager.cs" />
     <Compile Include="BusinessLogic\Security\Roles\Roles\Roles.cs" />
-    <Compile Include="BusinessLogic\StartProcess\BalanceSaldo.cs" />
-    <Compile Include="BusinessLogic\StartProcess\BaseStartProcess.cs" />
-    <Compile Include="BusinessLogic\StartProcess\DebitorVaCreditor.cs" />
     <Compile Include="BusinessLogic\StartProcess\LoaderDataManagers\BalanceSaldoDataManager.cs" />
     <Compile Include="BusinessLogic\StartProcess\LoaderDataManagers\DebitorVaCreditorDataManager.cs" />
     <Compile Include="BusinessLogic\StartProcess\LoaderDataManagers\PutyovkaOstatokDataManager.cs" />
     <Compile Include="BusinessLogic\StartProcess\LoaderViewModels\BalanceSaldoViewModel.cs" />
     <Compile Include="BusinessLogic\StartProcess\LoaderViewModels\DebitorVaCreditorViewModel.cs" />
     <Compile Include="BusinessLogic\StartProcess\LoaderViewModels\PutyovkiOstatokViewModel.cs" />
-    <Compile Include="BusinessLogic\StartProcess\PutyovkiOstatok.cs" />
     <Compile Include="BusinessLogic\Structure\StructureOfKiat.cs" />
     <Compile Include="BusinessLogic\Utils\amountInWords.cs" />
     <Compile Include="BusinessLogic\Utils\CodeDecode.cs" />

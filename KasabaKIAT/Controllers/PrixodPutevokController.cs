@@ -7,7 +7,6 @@ using KasabaKiat.ViewModel;
 using KasabaKiat.ViewModel.Putyovki;
 using KasabaKIAT.BusinessLogic.Putyovki.PrixodPutyovok;
 using KasabaKIAT.BusinessLogic.Putyovki.RealizasiyaPutyovok.RealizasitaPoTz;
-using KasabaKIAT.BusinessLogic.Putyovki.VozvratPutyovki.VozvratPoTz;
 using KasabaKIAT.Models;
 using KasabaKIAT.ViewModel.Putyovki;
 using log4net;
@@ -56,7 +55,7 @@ namespace KasabaKIAT.Controllers
         /// <summary>
         /// 
         /// </summary>
-        ILog log = log4net.LogManager.GetLogger(typeof(HomeController));
+        ILog log = log4net.LogManager.GetLogger(typeof(PrixodPutevokController));
 
         /// <summary>
         /// 
@@ -72,11 +71,6 @@ namespace KasabaKIAT.Controllers
         /// 
         /// </summary>
         RealizasiyaPoTzCl OR = new RealizasiyaPoTzCl();
-
-        /// <summary>
-        /// 
-        /// </summary>
-        VozvratPutyovki VP = new VozvratPutyovki();
 
         /// <summary>
         /// 
@@ -638,11 +632,7 @@ namespace KasabaKIAT.Controllers
                        };
             return Json(list.ToList(), JsonRequestBehavior.AllowGet);
         }
-        public string vozvrat(long id,string remark)
-        {
-            VP.VozvratPutyovkiProcess(id, remark);
-            return "yes";
-        }
+
         public class BronTemp
         {
             public int ID_San { get; set; }

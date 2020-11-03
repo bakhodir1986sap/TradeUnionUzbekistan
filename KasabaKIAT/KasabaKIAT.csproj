@@ -405,8 +405,6 @@
     <Compile Include="BusinessLogic\Putyovki\VozvratPutyovki\Vozvrat.cs" />
     <Compile Include="BusinessLogic\Putyovki\VozvratPutyovki\VozvratDataManager.cs" />
     <Compile Include="BusinessLogic\Putyovki\VozvratPutyovki\VozvratEnter.cs" />
-    <Compile Include="BusinessLogic\Putyovki\VozvratPutyovki\VozvratPoTz\VozvratPoTzDataManager.cs" />
-    <Compile Include="BusinessLogic\Putyovki\VozvratPutyovki\VozvratPoTz\VozvratPutyovki.cs" />
     <Compile Include="BusinessLogic\Putyovki\ZakritiyaKvartala\ZakritiyeKvartalaViewModel.cs" />
     <Compile Include="BusinessLogic\Putyovki\ZakritiyaKvartala\ZakritKvartal4Putyovka.cs" />
     <Compile Include="BusinessLogic\Putyovki\Zayavki\IRasmotreniyaZayavki.cs" />

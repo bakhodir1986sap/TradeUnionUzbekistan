@@ -1,8 +1,6 @@
 ﻿using KasabaKIAT.Models;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 
 namespace KasabaKIAT.BusinessLogic.Structure
 {
@@ -456,7 +454,7 @@ namespace KasabaKIAT.BusinessLogic.Structure
                         var tumanCode1 = tumanCode;
 
                         asos = string.Format("{0}{1}{2}", asos, branchCode, tumanCode1);
-                        //throw new ApplicationException("branchCode & tumanCode have invalid length");
+                        
                     }
                 }
                 else
@@ -614,8 +612,6 @@ namespace KasabaKIAT.BusinessLogic.Structure
         /// <returns></returns>
         public string GetParentOrganizationName(string departmentCode)
         {
-            //var departmentcd = GetParentOrganizationCode(departmentCode);
-
             using (KasabaKIATEntities db = new KasabaKIATEntities())
             {
                 var org = db.tblSprav_Org.Where(z => z.OWNER_CODE == departmentCode);

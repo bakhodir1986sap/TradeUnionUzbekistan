@@ -423,7 +423,6 @@
     <Compile Include="BusinessLogic\Security\Roles\RolePermissions\UserPermissions.cs" />
     <Compile Include="BusinessLogic\Security\Roles\Roles\RoleDataManager.cs" />
     <Compile Include="BusinessLogic\Security\Roles\Roles\Roles.cs" />
-    <Compile Include="BusinessLogic\Security\Roles\UserRoles\UserRoles.cs" />
     <Compile Include="BusinessLogic\StartProcess\BalanceSaldo.cs" />
     <Compile Include="BusinessLogic\StartProcess\BaseStartProcess.cs" />
     <Compile Include="BusinessLogic\StartProcess\DebitorVaCreditor.cs" />
@@ -2357,7 +2356,6 @@
     <Folder Include="BusinessLogic\Buxgalteriya\Chastichka\Surxondaryo\" />
     <Folder Include="BusinessLogic\Buxgalteriya\Chastichka\Tashkent\" />
     <Folder Include="BusinessLogic\Buxgalteriya\Chastichka\Tashobl\" />
-    <Folder Include="BusinessLogic\Security\Roles\Users\" />
     <Folder Include="Files\Vipiska\" />
     <Folder Include="Reports\6\" />
     <Folder Include="Reports\8\" />

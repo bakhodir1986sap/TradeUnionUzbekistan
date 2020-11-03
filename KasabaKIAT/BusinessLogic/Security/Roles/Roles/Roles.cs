@@ -1,8 +1,5 @@
 ﻿using KasabaKIAT.ViewModel.Security.Role;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace KasabaKIAT.BusinessLogic.Security.Roles.Roles
 {
@@ -14,7 +11,7 @@ namespace KasabaKIAT.BusinessLogic.Security.Roles.Roles
 
             if (string.IsNullOrEmpty(roleName))
             {
-                throw new ApplicationException("");
+                throw new ApplicationException("IsNullOrEmpty");
             }
             else
             {
@@ -41,14 +38,5 @@ namespace KasabaKIAT.BusinessLogic.Security.Roles.Roles
             RoleDataManager.Modify(role);
         }
 
-        public void DeleteRole(long id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public List<RoleViewModel> GetRolesList()
-        {
-            return RoleDataManager.Get(new RoleViewModel());
-        }
     }
 }

@@ -1,9 +1,6 @@
 ﻿using KasabaKiat.BusinessLogic.Putyovki.RealizasiyaPutyovok;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using System.Web;
 
 namespace KasabaKIAT.BusinessLogic.Putyovki.ZakritiyaKvartala
 {

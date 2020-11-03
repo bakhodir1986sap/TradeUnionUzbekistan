@@ -9,8 +9,8 @@ namespace KasabaKIAT.BusinessLogic._3_Etap.Monitoring
 {
         public class LogActionFilterAttribute : IActionFilter
         {
-            private KasabaKIATEntities db;
-            private int unsaved = 0;
+            private KasabaKIATEntities _db;
+            private int _unsaved = 0;
 
             public void OnActionExecuted(ActionExecutedContext filterContext)
             {
@@ -25,16 +25,16 @@ namespace KasabaKIAT.BusinessLogic._3_Etap.Monitoring
             {
                 if (string.IsNullOrEmpty(HttpContext.Current.User.Identity.Name)) return;
 
-                int UserId = Convert.ToInt32(HttpContext.Current.User.Identity.Name);
+                int userId = Convert.ToInt32(HttpContext.Current.User.Identity.Name);
 
                 var controllerName = routeData.Values["controller"];
                 var actionName = routeData.Values["action"];
                 var message = String.Format("{0} controller:{1} action:{2}", methodName, controllerName, actionName);
                 Debug.WriteLine(message, "Action Filter Log");
 
-                if (db == null)
+                if (_db == null)
                 {
-                    db = new KasabaKIATEntities();
+                    _db = new KasabaKIATEntities();
                 }
 
 
@@ -45,17 +45,17 @@ namespace KasabaKIAT.BusinessLogic._3_Etap.Monitoring
                     action = actionName.ToString(),
                     classname = controllerName.ToString(),
                     object_id = 0,
-                    user_id = UserId,
+                    user_id = userId,
                     object_name = HttpContext.Current.Request.UserHostAddress
                 };
 
-                unsaved++; 
-                db.useractions.Add(model);
+                _unsaved++; 
+                _db.useractions.Add(model);
                 
-                if (unsaved >= 1)
+                if (_unsaved >= 1)
                 {
-                    db.SaveChanges();
-                    unsaved = 0;
+                    _db.SaveChanges();
+                    _unsaved = 0;
                 }
             }
         }

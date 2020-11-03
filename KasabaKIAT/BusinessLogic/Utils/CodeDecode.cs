@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace KasabaKIAT.BusinessLogic.Utils
+﻿namespace KasabaKIAT.BusinessLogic.Utils
 {
     public class CodeDecode
     {

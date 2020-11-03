@@ -1,9 +1,7 @@
 ﻿using KasabaKIAT.Models;
 using KasabaKiat.ViewModel.Putyovki;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 
 namespace KasabaKiat.BusinessLogic.SverkaDannixPoOtdixayuchim
 {
@@ -15,7 +13,6 @@ namespace KasabaKiat.BusinessLogic.SverkaDannixPoOtdixayuchim
             {
                 tbpt_sanatory_info sanInfo = new tbpt_sanatory_info();
 
-                //sanInfo.REC_ID              = model.rec_id              ;
                 sanInfo.USER_ID             = model.user_id             ;
                 sanInfo.SERIAL_NUMBER       = model.serial_number       ;
                 sanInfo.REST_ORDER_BEGIN_DT = model.rest_order_begin_dt ;

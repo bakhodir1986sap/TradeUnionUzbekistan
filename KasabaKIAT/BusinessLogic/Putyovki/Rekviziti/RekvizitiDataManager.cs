@@ -4,7 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.Data.Entity.Validation;
 using System.Linq;
-using System.Web;
 
 namespace KasabaKIAT.BusinessLogic.Putyovki.Rekviziti
 {
@@ -86,25 +85,6 @@ namespace KasabaKIAT.BusinessLogic.Putyovki.Rekviziti
                 }
             }
         }
-        //public static void Remove(RekvizitiViewModel model)
-        //{
-        //    using (KasabaKIATEntities db = new KasabaKIATEntities())
-        //    {
-        //        var vipl = db.tblPred.Where(z => z.ID == model.id);
-
-        //        if (vipl.Any())
-        //        {
-        //            var reg = vipl.FirstOrDefault();
-
-        //            if (reg != null)
-        //            {
-        //                db.tblPred.Remove(reg);
-        //            }
-        //        }
-
-        //        db.SaveChanges();
-        //    }
-        //}
 
         /// <summary>
         /// 

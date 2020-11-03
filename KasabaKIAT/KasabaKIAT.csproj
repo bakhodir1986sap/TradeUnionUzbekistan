@@ -398,10 +398,7 @@
     <Compile Include="BusinessLogic\Putyovki\RealizasiyaPutyovok\Vipl_PutDataManager.cs" />
     <Compile Include="BusinessLogic\Putyovki\Rekviziti\Rekviziti.cs" />
     <Compile Include="BusinessLogic\Putyovki\Rekviziti\RekvizitiDataManager.cs" />
-    <Compile Include="BusinessLogic\Putyovki\SverkaDannixPoOtdixayuchim\Sverka.cs" />
     <Compile Include="BusinessLogic\Putyovki\SverkaDannixPoOtdixayuchim\SverkaDataManager.cs" />
-    <Compile Include="BusinessLogic\Putyovki\SverkaDannix\Avtomatom\KurortSideManager.cs" />
-    <Compile Include="BusinessLogic\Putyovki\SverkaDannix\Avtomatom\VvodDannixSiteManager.cs" />
     <Compile Include="BusinessLogic\Putyovki\SverkaDannix\Ruchnoy\SanatDataCompareDataManager.cs" />
     <Compile Include="BusinessLogic\Putyovki\SverkaDannix\Ruchnoy\SanatDataCompareViewModel.cs" />
     <Compile Include="BusinessLogic\Putyovki\SverkaDannix\SverManager.cs" />

@@ -3,7 +3,6 @@ using KasabaKIAT.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 
 namespace KasabaKIAT.BusinessLogic.Putyovki.SverkaDannix.Ruchnoy
 {
@@ -18,8 +17,6 @@ namespace KasabaKIAT.BusinessLogic.Putyovki.SverkaDannix.Ruchnoy
         public int      year        { get; set; }
         public int?      SanatId     { get; set; }
         public string   SanatName   { get; set; }
-        //public int      owner_tp    { get; set; }
-        //public string   owner_code  { get; set; }
         public string   NumPut          { get; set; }
         public string   KurortFio       { get; set; }
         public string   KurortAdress    { get; set; }

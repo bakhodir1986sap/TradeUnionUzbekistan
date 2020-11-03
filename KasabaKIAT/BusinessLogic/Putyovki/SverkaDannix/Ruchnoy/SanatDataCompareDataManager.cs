@@ -1,9 +1,6 @@
 ﻿using KasabaKIAT.Models;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using System.Web;
 
 namespace KasabaKIAT.BusinessLogic.Putyovki.SverkaDannix.Ruchnoy
 {
@@ -76,8 +73,6 @@ namespace KasabaKIAT.BusinessLogic.Putyovki.SverkaDannix.Ruchnoy
 
         public static void SaveData(SanatDataCompareViewModel model, KasabaKIATEntities db)
         {
-            //using (KasabaKIATEntities db = new KasabaKIATEntities())
-            //{
                 var sanInfo = db.tblSanatDataCompares.Where(z => z.SANAT_ID == model.sanat_id
                 && z.NUM_PUT == model.num_put && z.OWNER_TP == model.owner_tp);
 
@@ -199,9 +194,6 @@ namespace KasabaKIAT.BusinessLogic.Putyovki.SverkaDannix.Ruchnoy
                     };
 
                     var sanIi = db.tblSanatDataCompares.Add(sanInfo2);
-                //}
-
-                //await db.SaveChangesAsync();
             }
         }
 
@@ -238,18 +230,6 @@ namespace KasabaKIAT.BusinessLogic.Putyovki.SverkaDannix.Ruchnoy
         {
             using (KasabaKIATEntities db = new KasabaKIATEntities())
             {
-                //var sanInfo = db.tblSanatDataCompares.Where(z => z.YEAR == year);
-                ////&& z.SANAT_ID == IdSan && z.OWNER_CODE == Obl && z.OWNER_TP == 1
-
-                //if (sanInfo.Any())
-                //{
-                //    foreach (var obj in sanInfo)
-                //    {
-                //        db.tblSanatDataCompares.Remove(obj);
-                //    }
-                //}
-
-                //db.SaveChanges();
                 db.sp_Delete_SanatDataCompare(year);
             }
         }

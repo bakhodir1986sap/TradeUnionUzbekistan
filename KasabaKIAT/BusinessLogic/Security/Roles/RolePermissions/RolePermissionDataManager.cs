@@ -1,9 +1,7 @@
 ﻿using KasabaKIAT.Models;
 using KasabaKIAT.ViewModel.Security.Role;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 
 namespace KasabaKIAT.BusinessLogic.Security.RolePermissions
 {
@@ -15,7 +13,6 @@ namespace KasabaKIAT.BusinessLogic.Security.RolePermissions
             {
                 role_permission reg = new role_permission();
 
-                //.id = model.id;
                 reg.role_id = model.role_id;
                 reg.version = 0;
                 reg.action = model.action;
@@ -136,26 +133,6 @@ namespace KasabaKIAT.BusinessLogic.Security.RolePermissions
             return list;
         }
 
-        //public static List<RolePermissionViewModel> Get(string action,int rol_id)
-        //{
-        //    List<RolePermissionViewModel> list = null;
-
-        //    using (KasabaKIATEntities db = new KasabaKIATEntities())
-        //    {
-        //        var query = from bank in db.role_permission
-        //                    where bank.id == id && bank.action.Contains("Asp.")
-        //                    select new RolePermissionViewModel
-        //                    {
-        //                        id = bank.id,
-        //                        role_id = bank.role_id,
-        //                        action = bank.action
-        //                    };
-
-        //        list = query.ToList();
-        //    }
-
-        //    return list;
-        //}
         public static List<RolePermissionViewModel> GetByRole(long role_id)
         {
             List<RolePermissionViewModel> list = null;

@@ -3,7 +3,6 @@ using KasabaKIAT.ViewModel.Security.Role;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 
 namespace KasabaKIAT.BusinessLogic.Security.Roles.RolePermissions
 {
@@ -81,7 +80,6 @@ namespace KasabaKIAT.BusinessLogic.Security.Roles.RolePermissions
 
                 if (ownRolePermit.Any())
                 {
-                    //DeleteRolePermit(ownRolePermit.First().id);
                     continue;
                 }
 

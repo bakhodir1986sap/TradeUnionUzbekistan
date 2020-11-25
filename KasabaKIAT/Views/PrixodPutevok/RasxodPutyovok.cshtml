@@ -570,73 +570,73 @@ function Export2Doc(element = 'schetfaktura', filename = 'СчетФактура
                         <td colspan="14"></td>
                     </tr>*@
                         <tr>
-                            <td colspan="35" class="text-center">к товарно отгрузочным документам №___ от &quot;__&quot;_____ ___года</td>
+                            <td colspan="35" class="text-center"><strong>к товарно отгрузочным документам №___ от &quot;__&quot;_____ ___года</strong></td>
                         </tr>
                         <tr>
                             <td colspan="35"></td>
                         </tr>
                         <tr>
-                            <td colspan="3" class="border-top border-left border-dark text-left">Поставщик:</td>
+                            <td colspan="3" class="border-top border-left border-dark text-left"><strong>Поставщик:</strong></td>
                             <td colspan="14" class="border-top border-right border-dark text-left"><strong>{{SchetFaktura.rekvizit.ID_Name}}</strong></td>
                             @*<td rowspan="5"></td>*@
-                            <td colspan="3" class="border-top border-left border-dark text-left">Покупатель:</td>
+                            <td colspan="3" class="border-top border-left border-dark text-left"><strong>Покупатель:</strong></td>
                             <td colspan="15" class="border-top border-right border-dark "><strong>{{SchetFaktura.clientData.Name_Org}}</strong></td>
                         </tr>
                         <tr>
-                            <td colspan="3" class="border-left border-dark text-left">Адрес:</td>
+                            <td colspan="3" class="border-left border-dark text-left"><strong>Адрес:</strong></td>
                             <td colspan="14" class="border-right border-dark text-left"><strong>{{SchetFaktura.rekvizit.Adress}}</strong></td>
-                            <td colspan="3" class="border-left border-dark text-left">Адрес:</td>
+                            <td colspan="3" class="border-left border-dark text-left"><strong>Адрес:</strong></td>
                             <td colspan="15" class="border-right border-dark text-left"><strong>{{SchetFaktura.clientData.Adress}}</strong></td>
                         </tr>
                         <tr>
-                            <td colspan="3" class="border-left border-dark text-left">Телефон:</td>
+                            <td colspan="3" class="border-left border-dark text-left"><strong>Телефон:</strong></td>
                             <td colspan="14" class="border-right border-dark text-left"><strong>{{SchetFaktura.rekvizit.ID_Pred}}</strong></td>
-                            <td colspan="3" class="border-left border-dark text-left">Телефон:</td>
+                            <td colspan="3" class="border-left border-dark text-left"><strong>Телефон:</strong></td>
                             <td colspan="15" class="border-right border-dark text-left"><strong>{{SchetFaktura.clientData.Telefon}}</strong></td>
                         </tr>
                         <tr>
-                            <td colspan="3" class="border-left border-dark text-left">Р/с:</td>
+                            <td colspan="3" class="border-left border-dark text-left"><strong>Р/с:</strong></td>
                             <td colspan="14" class="border-right border-dark text-left"><strong>{{SchetFaktura.rekvizit.RS}}</strong></td>
-                            <td colspan="3" class="border-left border-dark text-left">Р/с:</td>
+                            <td colspan="3" class="border-left border-dark text-left"><strong>Р/с:</strong></td>
                             <td colspan="15" class="border-right border-dark text-left"><strong>{{SchetFaktura.clientData.RS}}</strong></td>
                         </tr>
                         <tr>
-                            <td colspan="3" class="border-left border-dark text-left">Банк:</td>
+                            <td colspan="3" class="border-left border-dark text-left"><strong>Банк:</strong></td>
                             <td colspan="14" class="border-right border-dark text-left"><strong>{{SchetFaktura.rekvizit.Name_bank}}</strong></td>
-                            <td colspan="3" class="border-left border-dark text-left">Банк:</td>
+                            <td colspan="3" class="border-left border-dark text-left"><strong>Банк:</strong></td>
                             <td colspan="15" class="border-right border-dark text-left"><strong>{{SchetFaktura.clientData.Bank}}</strong></td>
                         </tr>
                         <tr>
-                            <td colspan="3" class="border-left border-dark text-left">ИНН:</td>
+                            <td colspan="3" class="border-left border-dark text-left"><strong>ИНН:</strong></td>
                             <td colspan="14" class="border-right border-dark text-left"><strong>{{SchetFaktura.rekvizit.INN}}</strong></td>
-                            <td colspan="3" class="border-left border-dark text-left">ИНН:</td>
+                            <td colspan="3" class="border-left border-dark text-left"><strong>ИНН:</strong></td>
                             <td colspan="15" class="border-right border-dark text-left"><strong>{{SchetFaktura.clientData.INN}}</strong></td>
                         </tr>
                         <tr>
-                            <td colspan="3" class="border-left border-dark text-left">МФО:</td>
+                            <td colspan="3" class="border-left border-dark text-left"><strong>МФО:</strong></td>
                             <td colspan="5" class="text-left"><strong>{{SchetFaktura.rekvizit.MFO}}</strong></td>
-                            <td colspan="4" class="text-center">ОКОНХ:</td>
+                            <td colspan="4" class="text-center"><strong>ОКОНХ:</strong></td>
                             <td colspan="5" class="border-right border-dark text-left"><strong>{{SchetFaktura.rekvizit.OKONX}}</strong></td>
-                            <td colspan="3" class="border-left border-dark text-left">МФО:</td>
+                            <td colspan="3" class="border-left border-dark text-left"><strong>МФО:</strong></td>
                             <td colspan="5" class="text-left"><strong>{{SchetFaktura.clientData.MFO}}</strong></td>
-                            <td colspan="4" class="text-right">ОКОНХ:</td>
+                            <td colspan="4" class="text-right"><strong>ОКОНХ:</strong></td>
                             <td colspan="6" class="border-right border-dark text-left"><strong>{{SchetFaktura.clientData.OKONX}}</strong></td>
                         </tr>
                         <tr>
                             <td colspan="35" class="border-top border-bottom border-left border-dark text-center"></td>
                         </tr>
                         <tr>
-                            <td colspan="2" rowspan="2" class="border border-dark text-center">№</td>
-                            <td colspan="5" rowspan="2" class="border border-dark text-center">Наименование товаров (работ, услуг)</td>
-                            <td colspan="4" rowspan="2" class="border border-dark text-center">№ путевки</td>
-                            <td colspan="4" rowspan="2" class="border border-dark text-center">Дата</td>
-                            <td colspan="2" rowspan="2" class="border border-dark text-center">Ед.изм</td>
-                            <td colspan="2" rowspan="2" class="border border-dark text-center">Кол-во</td>
-                            <td colspan="2" rowspan="2" class="border border-dark text-center">Цена</td>
+                            <td colspan="2" rowspan="2" class="border border-dark text-center"><strong>№</strong></td>
+                            <td colspan="5" rowspan="2" class="border border-dark text-center"><strong>Наименование товаров (работ, услуг)</strong></td>
+                            <td colspan="4" rowspan="2" class="border border-dark text-center"><strong>№ путевки</strong></td>
+                            <td colspan="4" rowspan="2" class="border border-dark text-center"><strong>Дата</strong></td>
+                            <td colspan="2" rowspan="2" class="border border-dark text-center"><strong>Ед.изм</strong></td>
+                            <td colspan="2" rowspan="2" class="border border-dark text-center"><strong>Кол-во</strong></td>
+                            <td colspan="2" rowspan="2" class="border border-dark text-center"><strong>Цена</strong></td>
                             @*<td colspan="2" rowspan="2" class="border border-dark text-center">Стоимость</td>*@
-                            <td colspan="4" class="border border-dark text-center">Акциз</td>
-                            <td colspan="4" class="border border-dark text-center">НДС</td>
-                            <td colspan="4" rowspan="2" class="border border-dark text-center">Стоимость с учет. НДС</td>
+                            <td colspan="4" class="border border-dark text-center"><strong>Акциз</strong></td>
+                            <td colspan="4" class="border border-dark text-center"><strong>НДС</strong></td>
+                            <td colspan="4" rowspan="2" class="border border-dark text-center"><strong>Стоимость с учет. НДС</strong></td>
                         </tr>
                         <tr>
                             <td colspan="2" class="border border-dark text-center" width="15">%</td>
@@ -645,19 +645,19 @@ function Export2Doc(element = 'schetfaktura', filename = 'СчетФактура
                             <td colspan="2" class="border border-dark text-center" width="15">сум-ма</td>
                         </tr>
                         <tr>
-                            <td colspan="2" class="border border-dark text-center">1</td>
-                            <td colspan="5" class="border border-dark text-center">2</td>
-                            <td colspan="4" class="border border-dark text-center">3</td>
-                            <td colspan="4" class="border border-dark text-center">4</td>
-                            <td colspan="2" class="border border-dark text-center">5</td>
-                            <td colspan="2" class="border border-dark text-center">6</td>
-                            <td colspan="2" class="border border-dark text-center">7</td>
+                            <td colspan="2" class="border border-dark text-center"><strong>1</strong></td>
+                            <td colspan="5" class="border border-dark text-center"><strong>2</strong></td>
+                            <td colspan="4" class="border border-dark text-center"><strong>3</strong></td>
+                            <td colspan="4" class="border border-dark text-center"><strong>4</strong></td>
+                            <td colspan="2" class="border border-dark text-center"><strong>5</strong></td>
+                            <td colspan="2" class="border border-dark text-center"><strong>6</strong></td>
+                            <td colspan="2" class="border border-dark text-center"><strong>7</strong></td>
                             @*<td colspan="2" class="border border-dark text-center">8</td>*@
-                            <td colspan="2" class="border border-dark text-center">9</td>
-                            <td colspan="2" class="border border-dark text-center">10</td>
-                            <td colspan="2" class="border border-dark text-center">11</td>
-                            <td colspan="2" class="border border-dark text-center">12</td>
-                            <td colspan="4" class="border border-dark text-center">13</td>
+                            <td colspan="2" class="border border-dark text-center"><strong>9</strong></td>
+                            <td colspan="2" class="border border-dark text-center"><strong>10</strong></td>
+                            <td colspan="2" class="border border-dark text-center"><strong>11</strong></td>
+                            <td colspan="2" class="border border-dark text-center"><strong>12</strong></td>
+                            <td colspan="4" class="border border-dark text-center"><strong>13</strong></td>
                         </tr>
                         <tr ng-repeat="item in SchetFaktura.nakladDtl">
                             <td colspan="2" class="border border-dark text-center"><strong>{{$index+1}}</strong></td>
@@ -668,8 +668,8 @@ function Export2Doc(element = 'schetfaktura', filename = 'СчетФактура
                             <td colspan="2" class="border border-dark text-center">1</td>
                             <td colspan="2" class="border border-dark text-center"><strong>{{item.symma| currency:' '}}</strong></td>
                             @*<td colspan="2" class="border border-dark text-center"><strong>{{item.symma| currency:' '}}</strong></td>*@
-                            <td colspan="4" class="border border-dark text-center">без акциза</td>
-                            <td colspan="4" class="border border-dark text-center">без НДС</td>
+                            <td colspan="4" class="border border-dark text-center"><strong>без акциза</strong></td>
+                            <td colspan="4" class="border border-dark text-center"><strong>без НДС</strong></td>
                             <td colspan="4" class="border border-dark text-center"><strong>{{item.symma| currency:' '}}</strong></td>
                         </tr>
                         <tr>
@@ -693,10 +693,10 @@ function Export2Doc(element = 'schetfaktura', filename = 'СчетФактура
                             <td colspan="35"></td>
                         </tr>
                         <tr>
-                            <td colspan="9" class="text-left">Руководителя</td>
-                            <td colspan="12" class="text-left">{{SchetFaktura.rekvizit.Name_Dir}}</td>
+                            <td colspan="9" class="text-left"><strong>Руководителя</strong></td>
+                            <td colspan="12" class="text-left"><strong>{{SchetFaktura.rekvizit.Name_Dir}}</strong></td>
                             <td rowspan="8" class="text-center"></td>
-                            <td class="text-left">Получил</td>
+                            <td class="text-left"><strong>Получил</strong></td>
                             <td></td>
                             <td></td>
                             <td></td>
@@ -708,9 +708,9 @@ function Export2Doc(element = 'schetfaktura', filename = 'СчетФактура
                         <td colspan="20"></td>
                     </tr>*@
                         <tr>
-                            <td colspan="9" class="text-left"> Главный бухгалтер</td>
-                            <td colspan="12" class="text-left">{{SchetFaktura.rekvizit.Name_Zaveduyushiy}}</td>
-                            <td colspan="16" class="text-left">По  доверенности № <strong>{{SchetFaktura.nakladnaya.num_dov}} </strong></td>
+                            <td colspan="9" class="text-left"><strong> Главный бухгалтер</strong></td>
+                            <td colspan="12" class="text-left"><strong>{{SchetFaktura.rekvizit.Name_Zaveduyushiy}}</strong></td>
+                            <td colspan="16" class="text-left"><strong>По  доверенности № </strong><strong>{{SchetFaktura.nakladnaya.num_dov}} </strong></td>
                             <td></td>
                             <td></td>
                             <td></td>
@@ -729,10 +729,10 @@ function Export2Doc(element = 'schetfaktura', filename = 'СчетФактура
                     </tr>*@
                         <tr>
                             @*<td colspan="4" class="text-center"></td>*@
-                            <td colspan="3" class="text-left">М.П.</td>
+                            <td colspan="3" class="text-left"><strong>М.П.</strong></td>
                             <td colspan="4" class="text-center"></td>
                             <td colspan="14" class="text-center"></td>
-                            <td colspan="1" class="text-left">от </td>
+                            <td colspan="1" class="text-left"><strong>от </strong></td>
                             <td colspan="14" class="text-left"><strong>{{SchetFaktura.nakladnaya.date_dov}}</strong></td>
                             @*<td colspan="2" class="text-center"></td>
                         <td class="text-left">&quot;</td>
@@ -745,14 +745,14 @@ function Export2Doc(element = 'schetfaktura', filename = 'СчетФактура
                         <td colspan="20"><strong>{{SchetFaktura.nakladnaya.name_dov}}</strong></td>
                     </tr>*@
                         <tr>
-                            <td colspan="9" class="text-left"> Товар отпустил</td>
-                            <td colspan="12" class="text-left">{{SchetFaktura.rekvizit.Name_VedSpes}}</td>
+                            <td colspan="9" class="text-left"><strong> Товар отпустил</strong></td>
+                            <td colspan="12" class="text-left"><strong>{{SchetFaktura.rekvizit.Name_VedSpes}}</strong></td>
                             <td colspan="18" class="border-bottom border-dark text-left"><strong>{{SchetFaktura.nakladnaya.name_dov}}</strong></td>
                             <td colspan="2" rowspan="2" class="text-center"></td>
                         </tr>
                         <tr>
                             <td colspan="21"></td>
-                            <td colspan="18">(Ф.И.О. получателя)</td>
+                            <td colspan="18"><strong>(Ф.И.О. получателя)</strong></td>
                         </tr>
                     </table>
                 </div>
@@ -784,73 +784,73 @@ function Export2Doc(element = 'schetfaktura', filename = 'СчетФактура
                 <td colspan="14"></td>
             </tr>*@
                         <tr>
-                            <td colspan="35" class="text-center">к товарно отгрузочным документам №___ от &quot;__&quot;_____ ___года</td>
+                            <td colspan="35" class="text-center"><strong>к товарно отгрузочным документам №___ от &quot;__&quot;_____ ___года</strong></td>
                         </tr>
                         <tr>
                             <td colspan="35"></td>
                         </tr>
                         <tr>
-                            <td colspan="3" class="border-top border-left border-dark text-left">Поставщик:</td>
+                            <td colspan="3" class="border-top border-left border-dark text-left"><strong>Поставщик:</strong></td>
                             <td colspan="14" class="border-top border-right border-dark text-left"><strong>{{SchetFaktura.rekvizit.ID_Name}}</strong></td>
                             @*<td rowspan="5"></td>*@
-                            <td colspan="3" class="border-top border-left border-dark text-left">Покупатель:</td>
+                            <td colspan="3" class="border-top border-left border-dark text-left"><strong>Покупатель:</strong></td>
                             <td colspan="15" class="border-top border-right border-dark "><strong>{{SchetFaktura.clientData.Name_Org}}</strong></td>
                         </tr>
                         <tr>
-                            <td colspan="3" class="border-left border-dark text-left">Адрес:</td>
+                            <td colspan="3" class="border-left border-dark text-left"><strong>Адрес:</strong></td>
                             <td colspan="14" class="border-right border-dark text-left"><strong>{{SchetFaktura.rekvizit.Adress}}</strong></td>
-                            <td colspan="3" class="border-left border-dark text-left">Адрес:</td>
+                            <td colspan="3" class="border-left border-dark text-left"><strong>Адрес:</strong></td>
                             <td colspan="15" class="border-right border-dark text-left"><strong>{{SchetFaktura.clientData.Adress}}</strong></td>
                         </tr>
                         <tr>
-                            <td colspan="3" class="border-left border-dark text-left">Телефон:</td>
+                            <td colspan="3" class="border-left border-dark text-left"><strong>Телефон:</strong></td>
                             <td colspan="14" class="border-right border-dark text-left"><strong>{{SchetFaktura.rekvizit.ID_Pred}}</strong></td>
-                            <td colspan="3" class="border-left border-dark text-left">Телефон:</td>
+                            <td colspan="3" class="border-left border-dark text-left"><strong>Телефон:</strong></td>
                             <td colspan="15" class="border-right border-dark text-left"><strong>{{SchetFaktura.clientData.Telefon}}</strong></td>
                         </tr>
                         <tr>
-                            <td colspan="3" class="border-left border-dark text-left">Р/с:</td>
+                            <td colspan="3" class="border-left border-dark text-left"><strong>Р/с:</strong></td>
                             <td colspan="14" class="border-right border-dark text-left"><strong>{{SchetFaktura.rekvizit.RS}}</strong></td>
-                            <td colspan="3" class="border-left border-dark text-left">Р/с:</td>
+                            <td colspan="3" class="border-left border-dark text-left"><strong>Р/с:</strong></td>
                             <td colspan="15" class="border-right border-dark text-left"><strong>{{SchetFaktura.clientData.RS}}</strong></td>
                         </tr>
                         <tr>
-                            <td colspan="3" class="border-left border-dark text-left">Банк:</td>
+                            <td colspan="3" class="border-left border-dark text-left"><strong>Банк:</strong></td>
                             <td colspan="14" class="border-right border-dark text-left"><strong>{{SchetFaktura.rekvizit.Name_bank}}</strong></td>
-                            <td colspan="3" class="border-left border-dark text-left">Банк:</td>
+                            <td colspan="3" class="border-left border-dark text-left"><strong>Банк:</strong></td>
                             <td colspan="15" class="border-right border-dark text-left"><strong>{{SchetFaktura.clientData.Bank}}</strong></td>
                         </tr>
                         <tr>
-                            <td colspan="3" class="border-left border-dark text-left">ИНН:</td>
+                            <td colspan="3" class="border-left border-dark text-left"><strong>ИНН:</strong></td>
                             <td colspan="14" class="border-right border-dark text-left"><strong>{{SchetFaktura.rekvizit.INN}}</strong></td>
-                            <td colspan="3" class="border-left border-dark text-left">ИНН:</td>
+                            <td colspan="3" class="border-left border-dark text-left"><strong>ИНН:</strong></td>
                             <td colspan="15" class="border-right border-dark text-left"><strong>{{SchetFaktura.clientData.INN}}</strong></td>
                         </tr>
                         <tr>
-                            <td colspan="3" class="border-left border-dark text-left">МФО:</td>
+                            <td colspan="3" class="border-left border-dark text-left"><strong>МФО:</strong></td>
                             <td colspan="5" class="text-left"><strong>{{SchetFaktura.rekvizit.MFO}}</strong></td>
-                            <td colspan="4" class="text-center">ОКОНХ:</td>
+                            <td colspan="4" class="text-center"><strong>ОКОНХ:</strong></td>
                             <td colspan="5" class="border-right border-dark text-left"><strong>{{SchetFaktura.rekvizit.OKONX}}</strong></td>
-                            <td colspan="3" class="border-left border-dark text-left">МФО:</td>
+                            <td colspan="3" class="border-left border-dark text-left"><strong>МФО:</strong></td>
                             <td colspan="5" class="text-left"><strong>{{SchetFaktura.clientData.MFO}}</strong></td>
-                            <td colspan="4" class="text-right">ОКОНХ:</td>
+                            <td colspan="4" class="text-right"><strong>ОКОНХ:</strong></td>
                             <td colspan="6" class="border-right border-dark text-left"><strong>{{SchetFaktura.clientData.OKONX}}</strong></td>
                         </tr>
                         <tr>
                             <td colspan="35" class="border-top border-bottom border-left border-dark text-center"></td>
                         </tr>
                         <tr>
-                            <td colspan="2" rowspan="2" class="border border-dark text-center">№</td>
-                            <td colspan="5" rowspan="2" class="border border-dark text-center">Наименование товаров (работ, услуг)</td>
-                            <td colspan="4" rowspan="2" class="border border-dark text-center">№ путевки</td>
-                            <td colspan="4" rowspan="2" class="border border-dark text-center">Дата</td>
-                            <td colspan="2" rowspan="2" class="border border-dark text-center">Ед.изм</td>
-                            <td colspan="2" rowspan="2" class="border border-dark text-center">Кол-во</td>
-                            <td colspan="2" rowspan="2" class="border border-dark text-center">Цена</td>
+                            <td colspan="2" rowspan="2" class="border border-dark text-center"><strong>№</strong></td>
+                            <td colspan="5" rowspan="2" class="border border-dark text-center"><strong>Наименование товаров (работ, услуг)</strong></td>
+                            <td colspan="4" rowspan="2" class="border border-dark text-center"><strong>№ путевки</strong></td>
+                            <td colspan="4" rowspan="2" class="border border-dark text-center"><strong>Дата</strong></td>
+                            <td colspan="2" rowspan="2" class="border border-dark text-center"><strong>Ед.изм</strong></td>
+                            <td colspan="2" rowspan="2" class="border border-dark text-center"><strong>Кол-во</strong></td>
+                            <td colspan="2" rowspan="2" class="border border-dark text-center"><strong>Цена</strong></td>
                             @*<td colspan="2" rowspan="2" class="border border-dark text-center">Стоимость</td>*@
-                            <td colspan="4" class="border border-dark text-center">Акциз</td>
-                            <td colspan="4" class="border border-dark text-center">НДС</td>
-                            <td colspan="4" rowspan="2" class="border border-dark text-center">Стоимость с учет. НДС</td>
+                            <td colspan="4" class="border border-dark text-center"><strong>Акциз</strong></td>
+                            <td colspan="4" class="border border-dark text-center"><strong>НДС</strong></td>
+                            <td colspan="4" rowspan="2" class="border border-dark text-center"><strong>Стоимость с учет. НДС</strong></td>
                         </tr>
                         <tr>
                             <td colspan="2" class="border border-dark text-center" width="15">%</td>
@@ -859,19 +859,19 @@ function Export2Doc(element = 'schetfaktura', filename = 'СчетФактура
                             <td colspan="2" class="border border-dark text-center" width="15">сум-ма</td>
                         </tr>
                         <tr>
-                            <td colspan="2" class="border border-dark text-center">1</td>
-                            <td colspan="5" class="border border-dark text-center">2</td>
-                            <td colspan="4" class="border border-dark text-center">3</td>
-                            <td colspan="4" class="border border-dark text-center">4</td>
-                            <td colspan="2" class="border border-dark text-center">5</td>
-                            <td colspan="2" class="border border-dark text-center">6</td>
-                            <td colspan="2" class="border border-dark text-center">7</td>
+                            <td colspan="2" class="border border-dark text-center"><strong>1</strong></td>
+                            <td colspan="5" class="border border-dark text-center"><strong>2</strong></td>
+                            <td colspan="4" class="border border-dark text-center"><strong>3</strong></td>
+                            <td colspan="4" class="border border-dark text-center"><strong>4</strong></td>
+                            <td colspan="2" class="border border-dark text-center"><strong>5</strong></td>
+                            <td colspan="2" class="border border-dark text-center"><strong>6</strong></td>
+                            <td colspan="2" class="border border-dark text-center"><strong>7</strong></td>
                             @*<td colspan="2" class="border border-dark text-center">8</td>*@
-                            <td colspan="2" class="border border-dark text-center">9</td>
-                            <td colspan="2" class="border border-dark text-center">10</td>
-                            <td colspan="2" class="border border-dark text-center">11</td>
-                            <td colspan="2" class="border border-dark text-center">12</td>
-                            <td colspan="4" class="border border-dark text-center">13</td>
+                            <td colspan="2" class="border border-dark text-center"><strong>9</strong></td>
+                            <td colspan="2" class="border border-dark text-center"><strong>10</strong></td>
+                            <td colspan="2" class="border border-dark text-center"><strong>11</strong></td>
+                            <td colspan="2" class="border border-dark text-center"><strong>12</strong></td>
+                            <td colspan="4" class="border border-dark text-center"><strong>13</strong></td>
                         </tr>
                         <tr ng-repeat="item in SchetFaktura.nakladDtl">
                             <td colspan="2" class="border border-dark text-center"><strong>{{$index+1}}</strong></td>
@@ -882,8 +882,8 @@ function Export2Doc(element = 'schetfaktura', filename = 'СчетФактура
                             <td colspan="2" class="border border-dark text-center">1</td>
                             <td colspan="2" class="border border-dark text-center"><strong>{{item.symma| currency:' '}}</strong></td>
                             @*<td colspan="2" class="border border-dark text-center"><strong>{{item.symma| currency:' '}}</strong></td>*@
-                            <td colspan="4" class="border border-dark text-center">без акциза</td>
-                            <td colspan="4" class="border border-dark text-center">без НДС</td>
+                            <td colspan="4" class="border border-dark text-center"><strong>без акциза</strong></td>
+                            <td colspan="4" class="border border-dark text-center"><strong>без НДС</strong></td>
                             <td colspan="4" class="border border-dark text-center"><strong>{{item.symma| currency:' '}}</strong></td>
                         </tr>
                         <tr>
@@ -907,10 +907,10 @@ function Export2Doc(element = 'schetfaktura', filename = 'СчетФактура
                             <td colspan="35"></td>
                         </tr>
                         <tr>
-                            <td colspan="9" class="text-left">Руководителя</td>
-                            <td colspan="12" class="text-left">{{SchetFaktura.rekvizit.Name_Dir}}</td>
+                            <td colspan="9" class="text-left"><strong>Руководителя</strong></td>
+                            <td colspan="12" class="text-left"><strong>{{SchetFaktura.rekvizit.Name_Dir}}</strong></td>
                             <td rowspan="8" class="text-center"></td>
-                            <td class="text-left">Получил</td>
+                            <td class="text-left"><strong>Получил</strong></td>
                             <td></td>
                             <td></td>
                             <td></td>
@@ -922,9 +922,9 @@ function Export2Doc(element = 'schetfaktura', filename = 'СчетФактура
                 <td colspan="20"></td>
             </tr>*@
                         <tr>
-                            <td colspan="9" class="text-left"> Главный бухгалтер</td>
-                            <td colspan="12" class="text-left">{{SchetFaktura.rekvizit.Name_Zaveduyushiy}}</td>
-                            <td colspan="16" class="text-left">По  доверенности № <strong>{{SchetFaktura.nakladnaya.num_dov}}</strong></td>
+                            <td colspan="9" class="text-left"><strong> Главный бухгалтер</strong></td>
+                            <td colspan="12" class="text-left"><strong>{{SchetFaktura.rekvizit.Name_Zaveduyushiy}}</strong></td>
+                            <td colspan="16" class="text-left"><strong>По  доверенности № </strong><strong>{{SchetFaktura.nakladnaya.num_dov}}</strong></td>
                             <td></td>
                             <td></td>
                             <td></td>
@@ -943,7 +943,7 @@ function Export2Doc(element = 'schetfaktura', filename = 'СчетФактура
             </tr>*@
                         <tr>
                             @*<td colspan="4" class="text-center"></td>*@
-                            <td colspan="3" class="text-left">М.П.</td>
+                            <td colspan="3" class="text-left"><strong>М.П.</strong></td>
                             <td colspan="4" class="text-center"></td>
                             <td colspan="14" class="text-center"></td>
                             <td colspan="1" class="text-left">от </td>
@@ -959,14 +959,14 @@ function Export2Doc(element = 'schetfaktura', filename = 'СчетФактура
                 <td colspan="20"><strong>{{SchetFaktura.nakladnaya.name_dov}}</strong></td>
             </tr>*@
                         <tr>
-                            <td colspan="9" class="text-left"> Товар отпустил</td>
+                            <td colspan="9" class="text-left"><strong> Товар отпустил</strong></td>
                             <td colspan="12" class="text-left">{{SchetFaktura.rekvizit.Name_VedSpes}}</td>
                             <td colspan="18" class="border-bottom border-dark text-left"><strong>{{SchetFaktura.nakladnaya.name_dov}}</strong></td>
                             <td colspan="2" rowspan="2" class="text-center"></td>
                         </tr>
                         <tr>
                             <td colspan="21"></td>
-                            <td colspan="18">(Ф.И.О. получателя)</td>
+                            <td colspan="18"><strong>(Ф.И.О. получателя)</strong></td>
                         </tr>
                     </table>
                 </div>

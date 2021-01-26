@@ -29,7 +29,7 @@ namespace KasabaKIAT.BusinessLogic.Putyovki.PrixodPutyovok
             {
                 var query = from docSchetfak in db.tbku_DocumentSchetFaktura
                             where docSchetfak.DocData >= aperiodNachalo && docSchetfak.DocData <= aperiodOkonchaniye
-                            && docSchetfak.ProfsoyzKod == profsoyuzKod
+                            && docSchetfak.ProfsoyzKod == profsoyuzKod && docSchetfak.DocTypeRealVozv != "В" 
                             select docSchetfak;
 
                 if (query.Any())

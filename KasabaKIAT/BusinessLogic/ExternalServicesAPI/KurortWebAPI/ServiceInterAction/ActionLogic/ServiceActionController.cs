@@ -21,7 +21,7 @@ namespace KurortUrvServiceTest.ServiceInterAction.ActionLogic
             var login = KasabaKIAT.Properties.Settings.Default.Login;
             var password = KasabaKIAT.Properties.Settings.Default.Password;
 
-            _service = new KurortService();
+            _service = new KurortService(login, password);
         }
 
         /// <summary>

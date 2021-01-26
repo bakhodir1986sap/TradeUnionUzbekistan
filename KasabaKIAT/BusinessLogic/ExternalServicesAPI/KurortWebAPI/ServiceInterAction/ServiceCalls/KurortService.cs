@@ -26,7 +26,7 @@ namespace KurortUrvServiceTest.ServiceInterAction.ServiceCalls
 
             if (string.IsNullOrEmpty(password))
             {
-                password = "20sKu18";
+                password = "J8VU9~@dpZ";
             }
 
             service.Credentials = new NetworkCredential(login, password);

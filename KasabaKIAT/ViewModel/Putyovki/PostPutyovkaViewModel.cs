@@ -49,12 +49,12 @@ namespace KasabaKiat.ViewModel.Putyovki
 
         public string DepartmentBase { get; set; }
 
-        //public override string ToString()
-        //{
-        //    return "Счет фактура=> Дата: " + Data_Post.ToString() + " Номер: " + Num_Doc +
-        //        " Организация: " + PosName + " Год: " + SmFil + " квартал: " + Id_Kv +
-        //        " Санаторий: " + SanatName + " Номер путевки: " + Num_Put + " Цена путевки " +
-        //        Symma_Put + " Юзер Ид: " + UserId + " Филиал: " + Departmentbase;
-        //}
+        public override string ToString()
+        {
+            return "Счет фактура=> Дата: " + Data_Post.ToString() + " Номер: " + Num_Doc +
+                " Организация: " + PosName + " Год: " + SmFil + " квартал: " + Id_Kv +
+                " Санаторий: " + SanatName + " Номер путевки: " + Num_Put + " Цена путевки " +
+                Symma_Put + " Юзер Ид: " + UserId + " Филиал: " + Departmentbase;
+        }
     }
 }

@@ -1797,6 +1797,8 @@ namespace KasabaKIAT.Controllers
         /// <returns></returns>
         public JsonResult ParsePrixodPutyovka(PrixodDetailViewModel model)
         {
+            log.Info("ParsePrixodPutyovka");
+
             if ((model.IdPost == 0) || (model.IdPost == null))
             {
                 return Json("Error", JsonRequestBehavior.AllowGet);
@@ -1825,6 +1827,8 @@ namespace KasabaKIAT.Controllers
         /// <returns></returns>
         public async Task<JsonResult> AddDetail(List<PostPutyovkaViewModel> lModel, List<string> expLst)
         {
+            log.Info("AddDetail");
+
             try
             {
                 foreach (var mm in lModel)

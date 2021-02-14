@@ -47,7 +47,7 @@ namespace KasabaKiat.ViewModel.Putyovki
 
         public int? SmFil { get; set; }
 
-        public string DepartmentBase { get; set; }
+        public string MainDepartmentBase { get; set; }
 
         public override string ToString()
         {

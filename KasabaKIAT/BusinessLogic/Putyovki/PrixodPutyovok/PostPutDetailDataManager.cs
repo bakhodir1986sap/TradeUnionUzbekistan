@@ -424,7 +424,7 @@ namespace KasabaKiat.BusinessLogic.Putyovki.PrixodPutyovok
                                 Num_Doc = postMain.Num_Doc,
                                 PosName = postMain.tblSprav_Org.Name_Org,
                                 SmFil = postMain.SmFil,
-                                DepartmentBase = postMain.DepartmentBase
+                                MainDepartmentBase = postMain.DepartmentBase
                             }).ToListAsync();
 
                 list = query.ToList();

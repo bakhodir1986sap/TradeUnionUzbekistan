@@ -29,14 +29,6 @@
         <div class="row mb-4">
             <div class="col-lg-7">
                 <div class="row">
-                    @*<div class="col-md-3 form-group">
-                            <label>Наименование</label>
-                            <input class="form-control" type="text" placeholder="Наименование" ng-model="FilterName" />
-                        </div>
-                        <div class="col-md-3 form-group">
-                            <label>ИНН</label>
-                            <input class="form-control" type="text" placeholder="ИНН" ng-model="FilterInn" /><br />
-                        </div>*@
                     <div class="col-md-3 form-group">
                         <label>Отрасль</label>
                         <select class="custom-select" required name="Otrasl" ng-model="FilterSelectedOtrasl" ng-options="item as item.Name_Ot for item in Otrasl track by item.ID_Ot"></select>
@@ -45,36 +37,10 @@
                         <label>Лагерь</label>
                         <select class="custom-select" required name="Otrasl" ng-model="FilterSelectedCamp" ng-options="item as item.value for item in Camps track by item.id"></select>
                     </div>
-                    @*<div class="col-md-2 form-group">
-                            <label>Общее кол-во</label>
-                            <input class="form-control" type="text" readonly ng-model="TotalCount" /><br />
-                        </div>*@
-
                 </div>
             </div>
         </div>
         <div class="table-responsive box-shadow mb-4">
-
-            @*<table class="table table__block t-hover">
-                <thead>
-                    <tr>
-                        <th class="dropdown dropdown__table" style="width:200px;text-align:center">Отрасль</th>
-                        <th class="dropdown dropdown__table" style="width:200px;text-align:center">Лагерь</th>
-                        <th class="dropdown dropdown__table" style="width:200px;text-align:center">Количество</th>
-                        <th class="dropdown dropdown__table" style="width:200px;text-align:center">Сумма</th>
-                        <th class="dropdown dropdown__table" style="width:200px;text-align:center">Дата/Время подачи</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr ng-repeat="lager in LagerNewZayavkas" ng-click="edit(lager)" data-toggle="modal" data-target="#redaktirovat">
-                        <td style="width:200px;text-align:center">{{lager.otralsName}}</td>
-                        <td style="width:200px;text-align:center">{{lager.campName}}</td>
-                        <td style="width:200px;text-align:center">{{lager.quantuty}}</td>
-                        <td style="width:200px;text-align:center">{{lager.totalamount}}</td>
-                        <td style="width:200px;text-align:center">{{lager.timestamp | jsonDate: 'dd.MM.yyyy'}}</td>
-                    </tr>
-                </tbody>
-            </table>*@
         </div>
     </section>
 

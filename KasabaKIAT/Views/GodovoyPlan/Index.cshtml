@@ -119,7 +119,6 @@
                                 <div class="form-group row align-items-center">
                                     <label class="col-md-5 col-form-label text-md-right py-0">Квартал:</label>
                                     <div class="col-md-7">
-                                        @*<input type="text" name="K" required ng-minlength="1" ng-maxlength="1" ng-model="K" class="form-control" value="1" placeholder="">*@
                                         <select ng-model="Kvartal" name="Kvartal" required ng-options="kv as kv.value for kv in kvartal track by kv.id" class="form-control"></select>
                                         <span class="alert alert-warning" style="padding:0px" ng-show="myForm.Kvartal.$error.required">Выберите поле</span>
                                         <span class="alert alert-warning" style="padding:0px" ng-show="!myForm.Kvartal.$error.required&&!myForm.Kvartal.$valid">1 шт. номер</span>

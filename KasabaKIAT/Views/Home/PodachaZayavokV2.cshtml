@@ -150,30 +150,6 @@
                         }
                     }
                 </script>
-                @*<table class="table table__block t-hover">
-            <thead>
-                <tr>
-                    <th style="text-align:center">Дата подачи</th>
-                    <th style="text-align:center;width:200px"><select class="custom-select form-control" ng-model="SCFilter" ng-change="LoadData()" required name="CSFilter" ng-options="item as item.value for item in CS track by item.id"></select></th>
-                    <th style="text-align:center;width:200px"><input type="text" ng-model="O_Filter" class="form-control" style="text-align:center" placeholder="Организация" /></th>
-                    <th style="text-align:center;width:200px"><input type="text" ng-model="FN_Filter" class="form-control" style="text-align:center" placeholder="ФИО" /></th>
-                    <th style="text-align:center;width:125px"><input type="text" ng-model="Position_Filter" class="form-control" style="text-align:center" placeholder="Должность" /></th>
-                    <th style="text-align:center;width:100px"><input type="text" ng-model="Q_Filter" class="form-control" style="text-align:center" placeholder="Кол-во" /></th>
-                    <th style="text-align:center">Месяц</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr ng-repeat="pz in PZ | filter:INN_Filter | filter:O_Filter | filter:FN_Filter | filter:Position_Filter | filter:Q_Filter" ng-click="editPZ(pz)" data-toggle="modal" data-target="#dobavit">
-                    <td>{{pz.TS | jsonDate: 'dd.MM.yyyy'}}</td>
-                    <td style="text-align:center">{{pz.SC}}</td>
-                    <td style="text-align:center">{{pz.O}}</td>
-                    <td style="text-align:center">{{pz.FN}}</td>
-                    <td style="text-align:center">{{pz.P}}</td>
-                    <td style="text-align:center">{{pz.Q}}</td>
-                    <td>{{pz.ZB | jsonDate: 'dd.MM.yyyy'}}</td>
-                </tr>
-            </tbody>
-        </table>*@
                 <div class="mb-4">
                     <a href="#" ng-click="OTPpz()" class="btn btn-blue d-block d-md-inline-block mb-2">Отправить</a>
                 </div>
@@ -208,21 +184,6 @@
                                         <input type="date" class="form-control" ng-model="ZE" />
                                     </div>
                                 </div>
-                                @*<div class="form-group row align-items-center">
-                                        <label class="col-md-5 col-form-label py-0">Инн:</label>
-                                        <div class="col-md-7">
-                                            <input type="text" required class="form-control" name="INN" ng-minlength="9" ng-maxlength="9" ng-model="INN" ng-change="LoadINN()" />
-                                            <span class="alert alert-warning" style="padding:0px" ng-show="myForm.INN.$error.required">заполнить поле</span>
-                                            <span class="alert alert-warning" style="padding:0px" ng-show="!myForm.INN.$error.required&&!myForm.INN.$valid">9 шт. номер</span>
-                                            <button style="position:absolute;margin-left:200px;margin-top:-38px" class="btn btn-green d-block d-md-inline-block mb-3 mb-md-0" data-toggle="modal" data-target="#dobavit2">Поиск</button>
-                                        </div>
-                                    </div>
-                                    <div class="form-group row align-items-center">
-                                        <label class="col-md-5 col-form-label py-0">Организация:</label>
-                                        <div class="col-md-7">
-                                            <label name="O" ng-model="O">{{O}}</label>
-                                        </div>
-                                    </div>*@
                                 <div class="form-group row align-items-center">
                                     <label class="col-md-5 col-form-label py-0">ИНН Отдыхающего:</label>
                                     <div class="col-md-7">

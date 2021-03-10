@@ -2,7 +2,6 @@
 @using Syncfusion.EJ2
 
 <div id="searchresults">
-    <p>Uraaaaaa1111....</p>
     @Html.EJS().Grid("grafikZaezdov").DataSource((IEnumerable<object>)Model).AllowExcelExport().ToolbarClick("toolbarClick").Columns(col=> {
         col.Field("SanatoryNaimenovanie").HeaderText("Наименование санатория").Width("50").AllowEditing(false).Add();
         col.Field("SanatoryProfil").HeaderText("Профиль").Width("50").Add();

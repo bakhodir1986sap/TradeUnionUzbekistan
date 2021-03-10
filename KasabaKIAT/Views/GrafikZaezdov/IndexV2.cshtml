@@ -32,22 +32,6 @@
                 @Html.Raw(" ");
             }
 
-        @*@using (Ajax.BeginForm("ServiceGrafikSanatoryZaezdov", "GrafikZaezdov", new AjaxOptions
-        {
-            UpdateTargetId = "results",
-            LoadingElementId = "loading",
-            LoadingElementDuration = 10000
-        }))
-        {
-            @Html.EJS().TextBox("yil").Placeholder("Год").FloatLabelType(FloatLabelType.Auto).Render()
-            @Html.EJS().Button("infobtn").Content("Получить").CssClass("e-info").Render()
-        }
-
-        <div id="loading" style="display:none; color:Red; font-weight:bold;">
-            <p>Идет загрузка...</p>
-        </div>
-        <div id="results"></div>*@
-
         @Html.EJS().Grid("grafikZaezdov").DataSource((IEnumerable<object>)ViewBag.dataSource).AllowExcelExport().ToolbarClick("toolbarClick").Columns(col=> {
             col.Field("SanatoryNaimenovanie").HeaderText("Наименование санатория").Width("50").AllowEditing(false).Add();
             col.Field("SanatoryProfil").HeaderText("Профиль").Width("50").Add();
@@ -72,6 +56,4 @@
             </script>
     </section>
 }
-@*@Scripts.Render("~/scripts/jquery-1.10.2.min.js")
-@Scripts.Render("~/scripts/jquery.unobtrusive-ajax.min.js")*@
 

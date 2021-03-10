@@ -16,7 +16,6 @@
                     <h4>Создание проводок</h4>
                     <nav aria-label="breadcrumb" class="breadcrumb__block">
                         <ol class="breadcrumb">
-                            @*<li class="breadcrumb-item load"><a href="/Home/Admin">Администрирование</a></li>*@
                             <li class="breadcrumb-item load"><a href="/Administirirovaniye/index">Администрирование</a></li>
                             <li class="breadcrumb-item active" aria-current="page">Создание проводок</li>
                         </ol>
@@ -31,7 +30,6 @@
                 <table class="table table__block t-hover">
                     <thead>
                         <tr>
-                            @*<th class="dropdown dropdown__table" style="width:200px;text-align:center"><input type="text" style="text-align:center" class="form-control" ng-model="s1" placeholder="Организация" /></th>*@
                             <th class="dropdown dropdown__table" style="width:200px;text-align:center"><input type="text" style="text-align:center" class="form-control" ng-model="s2" placeholder="Счет д-т" /></th>
                             <th class="dropdown dropdown__table" style="width:200px;text-align:center"><input type="text" style="text-align:center" class="form-control" ng-model="s3" placeholder="Счет к-т" /></th>
                             <th class="dropdown dropdown__table" style="width:200px;text-align:center"><input type="text" style="text-align:center" class="form-control" ng-model="s4" placeholder="Описание" /></th>
@@ -39,7 +37,6 @@
                     </thead>
                     <tbody>
                         <tr ng-repeat="item in SP | filter:s1 | filter:s2 | filter:s3 | filter:s4" ng-click="editSP(item)" data-toggle="modal" data-target="#dobavit">
-                            @*<td style="width:200px;text-align:center">{{item.O}}</td>*@
                             <td style="width:200px;text-align:center">{{item.SB}}</td>
                             <td style="width:200px;text-align:center">{{item.SE}}</td>
                             <td style="width:200px;text-align:center">{{item.D}}</td>
@@ -59,20 +56,6 @@
                         <div class="row justify-content-center">
                             <form class="col-md-8" name="myForm" novalidate>
                                 <input type="hidden" style="position:absolute" ng-model="ID;" />
-                                @*<div class="form-group row align-items-center">
-                                    <label class="col-md-5 col-form-label text-md-right py-0">Инн:</label>
-                                    <div class="col-md-7">
-                                        <input type="text" required class="form-control" name="INN" ng-minlength="9" ng-maxlength="9" ng-model="INN" ng-change="LoadINN()" />
-                                        <span class="alert alert-warning" style="padding:0px" ng-show="myForm.INN.$error.required">заполнить поле</span>
-                                        <span class="alert alert-warning" style="padding:0px" ng-show="!myForm.INN.$error.required&&!myForm.INN.$valid">9 шт. номер</span>
-                                    </div>
-                                </div>
-                                <div class="form-group row align-items-center">
-                                    <label class="col-md-5 col-form-label text-md-right py-0">Организация:</label>
-                                    <div class="col-md-7">
-                                        <label name="O" ng-model="O">{{O}}</label>
-                                    </div>
-                                </div>*@
                                 <div class="form-group row align-items-center">
                                     <label class="col-md-5 col-form-label text-md-right py-0">Счет д-т:</label>
                                     <div class="col-md-7">

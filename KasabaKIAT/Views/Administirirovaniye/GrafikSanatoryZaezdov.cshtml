@@ -18,7 +18,6 @@
                 <h4>График заездов в санатории</h4>
                 <nav aria-label="breadcrumb" class="breadcrumb__block">
                     <ol class="breadcrumb">
-                        @*<li class="breadcrumb-item load"><a href="/Home/Admin">Администрирование</a></li>*@
                         <li class="breadcrumb-item load"><a href="/Administirirovaniye/index">Администрирование</a></li>
                         <li class="breadcrumb-item load"><a href="/Administirirovaniye/SpravichnikiKurortnovoUpravleniya">Справочник с курортного управления</a></li>
                         <li class="breadcrumb-item active" aria-current="page">График заездов в санатории</li>
@@ -31,7 +30,7 @@
                 <p>Период:</p>
                 <select ng-model="ZB" name="ZB" class="custom-select form-control" style="margin-left:20px" required>
                     @for (int i = DateTime.Now.Year; i > 1991; i--)
-                {
+                    {
                         <option>@(i)</option>
                     }
                 </select>

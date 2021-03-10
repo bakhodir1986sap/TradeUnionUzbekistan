@@ -149,30 +149,10 @@
                     </thead>
                     <tbody class="tbody5" style="display:none"></tbody>
                 </table>
-                @*<table class="table table__block t-hover table__small">
-                    <tbody>
-                        <tr ng-repeat="model in ModelResult.ZadoljennostList">
-                            <td></td>
-                            <td>{{model.RegionName}}</td>
-                            <td>{{model.ZadoljennostAmount | currency:' '}} сум</td>
-                        </tr>
-                    </tbody>
-                </table>*@
             </div>
         </div>
     </div>
     <div class="row">
-        @*<div class="col-md-4">
-            <h4 style="text-align:center">Организации</h4>
-
-            <p style="text-align:center">(Платят ЕСП) Всего {{ModelResult.ProfComExists + ModelResult.ProfComNotExists}}</p>
-            <div id="chart_div1" style="margin-bottom:15px">
-                <canvas id="pie" class="chart chart-pie"
-                        chart-data="data1" chart-labels="labels1" chart-options="options"></canvas>
-            </div>
-            <p style="margin-left:90px"><img src="~/Content/Stat/color1.png" /> {{ModelResult.ProfComExists}} - Есть профком</p>
-            <p style="margin-left:90px"><img src="~/Content/Stat/color2.png" /> {{ModelResult.ProfComNotExists}} - Нет профкома</p>
-        </div>*@
         <div class="col-md-4">
             <h4 style="text-align:center">Заявки</h4>
             <p style="text-align:center">Всего {{ModelResult.ApprovedZayavka + ModelResult.RejectedZayavka + ModelResult.InProgressZayavka}}</p>

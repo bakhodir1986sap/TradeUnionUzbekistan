@@ -21,7 +21,6 @@
                     <h4>Пользователи</h4>
                     <nav aria-label="breadcrumb" class="breadcrumb__block">
                         <ol class="breadcrumb">
-                            @*<li class="breadcrumb-item load"><a href="/Home/Admin">Администрирование</a></li>*@
                             <li class="breadcrumb-item load"><a href="/Administirirovaniye/index">Администрирование</a></li>
                             <li class="breadcrumb-item active" aria-current="page">Пользователи</li>
                         </ol>
@@ -102,20 +101,6 @@
                                         <span class="alert alert-warning" style="padding:0px" ng-show="myForm.N.$error.required">заполнить поле</span>
                                     </div>
                                 </div>
-                                @*<div class="form-group row align-items-center">
-                                    <label class="col-md-5 col-form-label text-md-right py-0">Регион:</label>
-                                    <div class="col-md-7">
-                                        <select class="custom-select form-control" required name="Region" ng-model="Region" ng-options="item as item.value for item in Rg track by item.id"></select>
-                                        <span class="alert alert-warning" style="padding:0px" ng-show="myForm.Region.$error.required">Выберите поле</span>
-                                    </div>
-                                    </div>*@
-                                @*<div class="form-group row align-items-center">
-                                        <label class="col-md-5 col-form-label text-md-right py-0">Отрасль:</label>
-                                        <div class="col-md-7">
-                                            <select class="custom-select form-control" required name="Ots" ng-model="Ots" ng-options="item as item.value for item in Ot track by item.id"></select>
-                                            <span class="alert alert-warning" style="padding:0px" ng-show="myForm.Ots.$error.required">Выберите поле</span>
-                                        </div>
-                                    </div>*@
                                 <div class="form-group row align-items-center">
                                     <label class="col-md-5 col-form-label text-md-right py-0">Организация:</label>
                                     <div class="col-md-7">
@@ -129,13 +114,6 @@
                                         <a href="#" class="btn btn-grey d-block d-md-inline-block mb-2" data-toggle="modal" data-target="#organization">Выбрать</a>
                                     </div>
                                 </div>
-                                @*<div class="form-group row align-items-center">
-                                        <label class="col-md-5 col-form-label text-md-right py-0">Организация:</label>
-                                        <div class="col-md-7">
-                                            <select class="custom-select form-control" required name="Or" ng-model="Or" ng-options="item as item.value for item in O track by item.id"></select>
-                                            <span class="alert alert-warning" style="padding:0px" ng-show="myForm.Or.$error.required">Выберите поле</span>
-                                        </div>
-                                    </div>*@
                                 <div class="mb-4 text-right">
                                     <button data-dismiss="modal" ng-disabled="P!=PP||myForm.L.$error.required||myForm.P.$error.required||myForm.Roles.$error.required||myForm.N.$error.required||myForm.Region.$error.required||myForm.Ots.$error.required||myForm.Or.$error.required" ng-click="AddUpdateGP()" class="btn btn-blue d-block d-md-inline-block mb-2">Сохранить</button>
                                     <button ng-click="deleteGP(ID)" data-dismiss="modal" class="btn btn-red d-block d-md-inline-block mb-2">Удалить</button>
@@ -243,7 +221,6 @@
                             </table>
                         </div>
                         <div class="mb-4 text-right" style="position: fixed; bottom: -1%; right: 40px">
-                            @*<a href="#" ng-click="SelectOrganization()" class="btn btn-blue d-block d-md-inline-block mb-2" data-dismiss="modal"><i class="fas fa-plus"></i> Выбрать</a>*@
                             <a href="#" class="btn btn-grey d-block d-md-inline-block mb-2" data-dismiss="modal">Отмена</a>
                         </div>
                     </div>

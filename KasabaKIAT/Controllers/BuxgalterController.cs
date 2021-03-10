@@ -56,16 +56,6 @@ namespace KasabaKIAT.Controllers
         /// </summary>
         /// <returns></returns>
         [OutputCache(Duration = 5, Location = OutputCacheLocation.Client, VaryByCustom = "userId")]
-        public ActionResult BU_RuchnayaPravodka()
-        {
-            return View();
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        [OutputCache(Duration = 5, Location = OutputCacheLocation.Client, VaryByCustom = "userId")]
         public ActionResult BU_PrasmotrDannix()
         {
             return View();
@@ -176,16 +166,6 @@ namespace KasabaKIAT.Controllers
             var list = AccountTypeDataManager.GetCreditSchets();
 
             return Json(list, JsonRequestBehavior.AllowGet);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        [OutputCache(Duration = 5, Location = OutputCacheLocation.Client, VaryByCustom = "userId")]
-        public ActionResult Nakladniye()
-        {
-            return View();
         }
 
         /// <summary>

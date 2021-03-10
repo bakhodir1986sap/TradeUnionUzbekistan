@@ -1985,7 +1985,6 @@
     <Content Include="Views\PrixodPutevok\Index.cshtml" />
     <Content Include="Views\PrixodPutevok\ProsmotrOstatPutevok.cshtml" />
     <Content Include="Views\Shared\_Layout0.cshtml" />
-    <Content Include="Views\GrafikZaezdov\Index1.cshtml" />
     <Content Include="Views\PrixodPutevok\RealizatsiyaPutevok.cshtml" />
     <Content Include="Views\Administirirovaniye\Index.cshtml" />
     <Content Include="Views\Administirirovaniye\UchetniyZapis.cshtml" />
@@ -2239,7 +2238,6 @@
     <Content Include="Views\Otchot\SanatoriyProfilaktoriySvodniy.cshtml" />
     <Content Include="Views\Otchot\LagerFinOtchot.cshtml" />
     <Content Include="Views\Otchot\LagerFinOtchotSvodniy.cshtml" />
-    <Content Include="Views\Home\StatFederasiyaV2 - Copy.cshtml" />
     <Content Include="Views\Otchot\FinansoviyOtchotKvartalniySvodniyRazbivka.cshtml" />
     <Content Include="Views\Otchot\PostupleniyaTumanV2.cshtml" />
     <Content Include="Views\Otchot\ProvodkiDetailV2.cshtml" />
@@ -2300,9 +2298,7 @@
     <Content Include="Views\ErrorHandler\NotFoundView.cshtml" />
     <Content Include="Views\Administirirovaniye\RaspredeleniyeZaezdov.cshtml" />
     <Content Include="Views\Buxgalter\BU_PrasmotrDannix.cshtml" />
-    <Content Include="Views\Buxgalter\BU_RuchnayaPravodka.cshtml" />
     <Content Include="Views\Buxgalter\Index.cshtml" />
-    <Content Include="Views\Buxgalter\Nakladniye.cshtml" />
     <Content Include="Views\Buxgalter\OsushestvleniyeProvodki.cshtml" />
     <Content Include="Views\Buxgalter\PlanByudjetaOblastey.cshtml" />
     <Content Include="Views\Buxgalter\PlanByudjetaOblasteyIzmenit.cshtml" />
@@ -2357,8 +2353,6 @@
     <Folder Include="Reports\8\" />
     <Folder Include="Videos\" />
     <Folder Include="ViewModel\References\" />
-    <Folder Include="Views\Language\" />
-    <Folder Include="Views\Reference\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">

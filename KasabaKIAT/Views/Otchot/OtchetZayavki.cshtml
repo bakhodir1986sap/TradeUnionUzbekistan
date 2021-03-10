@@ -25,17 +25,6 @@
                 {
                     <a href="/Otchot/SvodniyOtchotV2" class="list-group-item list-group-item-action load" style="font-size:large">Сводный отчет по заявкам</a>
                 }
-                @*@if (List.Talabnomalar)
-                {
-                    <a href="/Otchot/Talabnomlar" class="list-group-item list-group-item-action load">Талабномалар</a>
-                }
-                @if (ustinfo.role_id == 14)
-                {
-                    <a id="ReportUrl_Performance" class="list-group-item list-group-item-action load" href="@Url.Action("ReportTemplate", "Report",
-                    new { ReportName = "Количество Заявок", ReportDescription = "Количество Заявок", Width = 100, Height = 650 })">Количество Заявок</a>
-                    <a id="ReportUrl_Performance" class="list-group-item list-group-item-action load" href="@Url.Action("ReportTemplate", "Report",
-                    new { ReportName = "Количество Заявок в разрезе Санаторий", ReportDescription = "Количество Заявок в разрезе Санаторий", Width = 100, Height = 650 })">Количество Заявок в разрезе Санаторий</a>
-                }*@
             </div>
         </div>
     </div>

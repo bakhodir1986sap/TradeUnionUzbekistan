@@ -917,10 +917,6 @@ function Export2Doc(element = 'schetfaktura', filename = 'СчетФактура
                             <td></td>
                             <td colspan="15" class="text-left">____________________</td>
                         </tr>
-                        @*<tr>
-                <td colspan="21"></td>
-                <td colspan="20"></td>
-            </tr>*@
                         <tr>
                             <td colspan="9" class="text-left"><strong> Главный бухгалтер</strong></td>
                             <td colspan="12" class="text-left"><strong>{{SchetFaktura.rekvizit.Name_Zaveduyushiy}}</strong></td>
@@ -937,27 +933,13 @@ function Export2Doc(element = 'schetfaktura', filename = 'СчетФактура
                             <td colspan="3" class="text-left"></td>
                             <td colspan="7" class="text-center"></td>
                         </tr>
-                        @*<tr>
-                <td colspan="21"></td>
-                <td colspan="20"></td>
-            </tr>*@
                         <tr>
-                            @*<td colspan="4" class="text-center"></td>*@
                             <td colspan="3" class="text-left"><strong>М.П.</strong></td>
                             <td colspan="4" class="text-center"></td>
                             <td colspan="14" class="text-center"></td>
                             <td colspan="1" class="text-left">от </td>
                             <td colspan="14" class="text-left"><strong>{{SchetFaktura.nakladnaya.date_dov}}</strong></td>
-                            @*<td colspan="2" class="text-center"></td>
-                <td class="text-left">&quot;</td>
-                <td colspan="5" class="text-center"></td>
-                <td colspan="3" class="text-center"></td>
-                <td colspan="6" class="text-left">года</td>*@
                         </tr>
-                        @*<tr>
-                <td colspan="21"></td>
-                <td colspan="20"><strong>{{SchetFaktura.nakladnaya.name_dov}}</strong></td>
-            </tr>*@
                         <tr>
                             <td colspan="9" class="text-left"><strong> Товар отпустил</strong></td>
                             <td colspan="12" class="text-left">{{SchetFaktura.rekvizit.Name_VedSpes}}</td>

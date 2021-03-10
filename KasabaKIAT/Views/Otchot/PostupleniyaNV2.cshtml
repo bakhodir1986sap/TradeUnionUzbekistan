@@ -21,23 +21,6 @@
                 </nav>
             </div>
         </div>
-        @*<form class="row mb-5" name="myForm2" novalidate>
-            <div class="col-lg-7">
-                <div class="row">
-                    <div class="col-md-4 form-group">
-                        <input type="text" required class="custom-select form-control" name="INN" ng-model="INN" ng-maxlength="9" ng-minlength="9" ng-change="LoadINN_N()" placeholder="Инн" />
-                        <span class="alert alert-warning" style="padding:0px" ng-show="myForm2.INN.$error.required">заполнить поле</span>
-                        <span class="alert alert-warning" style="padding:0px" ng-show="!myForm2.INN.$error.required&&!myForm2.INN.$valid">9 шт. номер</span>
-                    </div>
-                    <div class="col-md-4 form-group">
-                        <button class="btn btn-green d-block d-md-inline-block mb-3 mb-md-0" data-toggle="modal" data-target="#dobavit">Поиск</button>
-                    </div>
-                    <div class="col-md-4 form-group">
-                        <button ng-show="showdata" ng-click="exportData()" class="btn btn-green d-block d-md-inline-block mb-3 mb-md-0" style="margin-left:700px"><i class="fas fa-file-excel"></i> Экспорт</button>
-                    </div>
-                </div>
-            </div>
-        </form>*@
         @using (Html.BeginForm("GetPostupleniyaNV2", "Otchot", new { page = 1 }, FormMethod.Get))
         {
             @Html.EJS().TextBox("inn").Placeholder("ИНН").Value((string)ViewBag.Inn).FloatLabelType(FloatLabelType.Auto).Render()
@@ -66,37 +49,6 @@
                     }
                 }
             </script>
-
-
-
-
-
-            @*<table class="table table__block t-hover">
-                <thead>
-                    <tr>
-                        <th>Дата Платежа</th>
-                        <th>ИНН</th>
-                        <th>Клиент</th>
-                        <th>Оплата_ЕСП_всего</th>
-                        <th>0,1_%_в_Профсоюз</th>
-                        <th>в_Федерацию</th>
-                        <th>в_ОблсовПроф</th>
-                        <th>Детали платежа</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr class="poin" ng-repeat="item in DATA">
-                        <td style="text-align:center">{{item.operday}}</td>
-                        <td style="text-align:center">{{item.inn}}</td>
-                        <td style="text-align:center">{{item.clname}}</td>
-                        <td style="text-align:center">{{item.postupleniya| currency:' '}}</td>
-                        <td style="text-align:center">{{item.obshiy01| currency:' '}}</td>
-                        <td style="text-align:center">{{item.federation_amt| currency:' '}}</td>
-                        <td style="text-align:center">{{item.oblsovprof_amt| currency:' '}}</td>
-                        <td style="text-align:center">{{item.purpose}}</td>
-                    </tr>
-                </tbody>
-            </table>*@
         </div>
     </section>
 </div>

@@ -14,7 +14,6 @@
                 <h4>Авизовка</h4>
                 <nav aria-label="breadcrumb" class="breadcrumb__block">
                     <ol class="breadcrumb">
-                        @*<li class="breadcrumb-item load"><a href="/Home/Otchot">Отчеты</a></li>*@
                         <li class="breadcrumb-item load"><a href="/Otchot/OtchetTitul">Отчеты</a></li>
                         <li class="breadcrumb-item active" aria-current="page">Авизовка</li>
                     </ol>
@@ -24,12 +23,6 @@
         <form class="row mb-5" name="myForm2" novalidate>
             <div class="col-lg-7">
                 <div class="row">
-                    @*<div class="col-md-4 form-group">
-                <p>ИНН:</p>
-                <input type="text" required class="custom-select form-control" name="INN" ng-model="INN" ng-maxlength="9" ng-minlength="9" placeholder="Инн" />
-                <span class="alert alert-warning" style="padding:0px" ng-show="myForm2.INN.$error.required">заполнить поле</span>
-                <span class="alert alert-warning" style="padding:0px" ng-show="!myForm2.INN.$error.required&&!myForm2.INN.$valid">9 шт. номер</span>
-            </div>*@
                     <div class="row mb-12 form-group" style="padding-left:16px">
                         <div>
                             <p>Период с:</p>
@@ -53,10 +46,6 @@
                 </div>
             </div>
         </form>
-        @*<canvas id="bar" class="chart chart-bar"
-                chart-data="data" chart-labels="labels">
-            chart-series="series"
-        </canvas>*@
         <div class="table-responsive box-shadow mb-4" ng-show="showdata" id="export">
             <table class="table table__block t-hover">
                 <thead>

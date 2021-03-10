@@ -54,27 +54,10 @@
                 </div>
             </div>
         </form>
-        @*<form class="row mb-5" name="myForm2" novalidate>
-            <div class="col-lg-7">
-                <div class="row">
-                    <div class="col-md-4 form-group">
-                        <input type="text" required class="custom-select form-control" name="INN" ng-model="INN" ng-maxlength="9" ng-minlength="9" ng-change="LoadINN()" placeholder="Инн" />
-                        <span class="alert alert-warning" style="padding:0px" ng-show="myForm2.INN.$error.required">заполнить поле</span>
-                        <span class="alert alert-warning" style="padding:0px" ng-show="!myForm2.INN.$error.required&&!myForm2.INN.$valid">9 шт. номер</span>
-                    </div>
-                    <div class="col-md-4 form-group">
-                        <button ng-show="showdata" ng-click="exportData()" class="btn btn-green d-block d-md-inline-block mb-3 mb-md-0" style="margin-left:700px"><i class="fas fa-file-excel"></i> Экспорт</button>
-                    </div>
-                </div>
-            </div>
-        </form>*@
         <div ng-show="showdata" class="row mb-4 align-items-center">
             <div class="col-sm-6 text-md-left">
                 Количество Разбивка поступления : {{q}}
             </div>
-            @*<div ng-repeat="pp_sum in PP_SUM">
-                Сумма путевок : {{pp_sum.P_SUM | currency:' '}}
-            </div>*@
         </div>
         <div class="table-responsive box-shadow mb-4" ng-show="showdata" id="export">
             <table class="table table__block t-hover">

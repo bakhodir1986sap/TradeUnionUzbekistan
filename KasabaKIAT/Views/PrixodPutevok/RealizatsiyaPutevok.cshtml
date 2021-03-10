@@ -137,31 +137,11 @@ tbody td:last-child, thead th:last-child {
                     <h5>Отрасль</h5>
                 </div>
                 <div class="mb-5 box-shadow">
-                    @*<div class="custom-control custom-radio r-checkbox bgwhite">
-                        <input type="radio" name="customRadio" class="custom-control-input" id="customRadio">
-                        <label class="custom-control-label r-label" for="customRadio"><strong>Образование</strong> (по плану - 50, Использовано - 20)</label>
-                    </div>
-                    <div class="custom-control custom-radio r-checkbox bgwhite">
-                        <input type="radio" name="customRadio" class="custom-control-input" id="customRadio1">
-                        <label class="custom-control-label r-label" for="customRadio1"><strong>Медицина</strong> (по плану - 30, Использовано - 20)</label>
-                    </div>
-                    <div class="custom-control custom-radio r-checkbox bgwhite">
-                        <input type="radio" name="customRadio" class="custom-control-input" id="customRadio2">
-                        <label class="custom-control-label r-label" for="customRadio2"><strong>Транспорт</strong> (по плану - 100, Использовано - 10)</label>
-                    </div>
-                    <div class="custom-control custom-radio r-checkbox bgwhite">
-                        <input type="radio" name="customRadio" class="custom-control-input" id="customRadio3">
-                        <label class="custom-control-label r-label" for="customRadio3"><strong>Связь</strong> (по плану - 25, Использовано - 5)</label>
-                    </div>*@
                 </div>
                 <div class="mb-5">
                     <a href="" class="btn btn-grey d-block d-md-inline-block mb-2">Отменить выбор</a>
                 </div>
                 <form class="pt-5 mt-5" name="myForm2" novalidate>
-                    @*<div class="mb-4">
-                            <select class="custom-select form-control col-md-6" required ng-model="O" ng-change="LoadINN()" ng-options="d as d.value for d in OR track by d.id" name="O" id="O"></select>
-                            <span class="alert alert-warning" style="padding:0px" ng-show="myForm2.O.$error.required">Выберите  </span>
-                        </div>*@
                     <div class="mb-5">
                         <div class="custom-control-inline">
                             <input type="text" required class="custom-select form-control" name="INN" id="inn" ng-model="INN" ng-change="LoadINN()" ng-maxlength="9" ng-minlength="9" placeholder="Инн" />

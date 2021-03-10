@@ -34,36 +34,6 @@
             @Html.EJS().Button("infobtn").Content("Получить").CssClass("e-info").Render()
             @Html.Raw(" ");
         }
-        @*<form name="myForm1" novalidate>
-            <div class="row mb-4 align-items-center" style="padding-left:16px">
-                <div>
-                    <p>Дата начало:</p>
-                    <input class="form-control" style="width:200px;" required type="date" ng-model="ZB" id="ZAEZD_BEGIN" name="ZAEZD_BEGIN" />
-                    <span class="alert alert-warning" style="padding:0px" ng-show="myForm1.ZAEZD_BEGIN.$error.required">Выберите поле</span>
-                </div>
-                <div style="margin-left:100px">
-                    <p>Дата конца:</p>
-                    <input class="form-control" style="width:200px;" required type="date" ng-model="ZE" id="ZAEZD_END" name="ZAEZD_END" />
-                    <span class="alert alert-warning" style="padding:0px" ng-show="myForm1.ZAEZD_END.$error.required">Выберите поле</span>
-                </div>
-            </div>
-            <div class="row mb-4 align-items-center" style="padding-left:128px">
-                <div>
-                    <button ng-click="LoadDATA()" ng-disabled="myForm1.ZAEZD_BEGIN.$error.required||myForm1.ZAEZD_END.$error.required" class="btn btn-blue d-block d-md-inline-block mb-2"> Показать</button>
-                </div>
-                <div>
-                    <button ng-click="Clear()" style="margin-left:125px" class="btn btn-default d-block d-md-inline-block mb-2"> ОЧИСТИТЬ ФИЛЬТР</button>
-                </div>
-                <div>
-                    <button ng-show="showdata" ng-click="exportData()" class="btn btn-green d-block d-md-inline-block mb-3 mb-md-0" style="margin-left:500px"><i class="fas fa-file-excel"></i> Экспорт</button>
-                </div>
-            </div>
-        </form>*@
-        @*<div ng-show="showdata" class="row mb-4 align-items-center">
-            <div class="col-sm-6 text-md-left">
-                Количество Разбивка поступления : {{q}}
-            </div>
-        </div>*@
             <div class="table-responsive box-shadow mb-4" id="export">
                 @Html.EJS().Grid("ProvodkiDetail").DataSource((IEnumerable<object>)ViewBag.DataSource).AllowExcelExport().ToolbarClick("toolbarClick").Columns(col=>
                 {
@@ -81,22 +51,6 @@
                         }
                     }
                 </script>
-                @*<table class="table table__block t-hover">
-            <thead>
-                <tr>
-                    <th>Дебит счет</th>
-                    <th>Кредит счет</th>
-                    <th>Сумма</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr class="poin" ng-repeat="item in DATA">
-                    <td style="text-align:left">{{item.DEBIT_ACCOUNT}}</td>
-                    <td style="text-align:left">{{item.CREDIT_ACCOUNT}}</td>
-                    <td style="text-align:left">{{item.AMOUNT| currency:' '}}</td>
-                </tr>
-            </tbody>
-        </table>*@
             </div>
     </section>
 </div>

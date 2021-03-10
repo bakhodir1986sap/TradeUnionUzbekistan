@@ -2289,7 +2289,6 @@
     <Content Include="Views\Otchot\TablitsaOtdixayushix.cshtml" />
     <Content Include="Views\Otchot\JurnalniyOrder.cshtml" />
     <Content Include="Views\Otchot\FinalniyOtchotGodovoy.cshtml" />
-    <Content Include="Views\Otchot\GlavnayaKniga.cshtml" />
     <Content Include="Views\Administirirovaniye\SpravichnikiKurortnovoUpravleniya.cshtml" />
     <Content Include="Views\Administirirovaniye\SpisokPravsoyuzov.cshtml" />
     <Content Include="Views\Administirirovaniye\GrafikSanatoryZaezdov.cshtml" />

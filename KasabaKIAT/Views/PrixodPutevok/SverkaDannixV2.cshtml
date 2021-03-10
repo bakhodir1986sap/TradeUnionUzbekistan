@@ -62,19 +62,6 @@ FunctionalityList List = FunctionalityAndDbDataMatch.MatchProcess(UserId);
         <input type="button" value="Загрузить" class="btn btn-primary" style="margin-top:-65px" ng-disabled="!SelectedFileForUpload" ng-click="SaveDATA() " />
         <input type="button" value="Очистить" class="btn btn-primary" style="margin-top:-65px" ng-click="ClearOblast()" />
     </div>
-    @*<div class="row mb-5">
-            <div class="col-lg-9">
-                <div class="row">
-                    <div class="col-md-4 form-group">
-                        <select class="custom-select form-control" ng-model="SelectedYear2" ng-options="item as item.Year for item in Years track by item.Id">
-                        </select>
-                    </div>
-                    <div class="col-md-4 form-group">
-                        <a href="#" ng-click="GetDifferByYearFiles()" class="btn btn-blue d-block">Показать несоответствия</a>
-                    </div>
-                </div>
-            </div>
-        </div>*@
     @using (Html.BeginForm("GetDifferByYearFilesV2", "PrixodPutevok", FormMethod.Get))
     {
         <div class="row mb-4">
@@ -122,35 +109,6 @@ FunctionalityList List = FunctionalityAndDbDataMatch.MatchProcess(UserId);
                     }
                 }
             </script>
-            @*<div class="table-responsive box-shadow mb-4" id="export">
-                    <table class="table table__block table-fixed">
-                        <thead>
-                            <tr>
-                                <th>Санаторий</th>
-                                <th>Номера путевок</th>
-                                <th>Санаторий ФИО</th>
-                                <th>Санаторий Адрес</th>
-                                <th>Профсоюз ФИО</th>
-                                <th>Профсоюз Адрес</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td colspan="3">
-                                    <a href="#" class="btn btn-grey d-block d-md-inline-block mb-2" ng-click="exportData()">Экспорт</a>
-                                </td>
-                            </tr>
-                            <tr ng-repeat="item2 in DifferByYearFiles">
-                                <td>{{item2.SanatName}}</td>
-                                <td>{{item2.NumPut}}</td>
-                                <td>{{item2.KurortFio}}</td>
-                                <td>{{item2.KurortAdress}}</td>
-                                <td ng-bind-html="highlight(item2.OblastFio , item2.KurortFio )">{{item2.OblastFio}}</td>
-                                <td>{{item2.OblastAdress}}</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>*@
         </div>
     </div>
     @using (Html.BeginForm("GetLoadedRowsV2", "PrixodPutevok", FormMethod.Get))
@@ -163,16 +121,6 @@ FunctionalityList List = FunctionalityAndDbDataMatch.MatchProcess(UserId);
                         @Html.EJS().ComboBox("year2").Placeholder("Выберите год").PopupHeight("230px").Index(0).DataSource((IEnumerable<Years>
                           )ViewBag.YearsList).Fields(new ComboBoxFieldSettings { Text = "year_id", Value = "year_str" }).Render()
                     </div>
-                    @*<div class="col-md-3 form-group">
-                        <label>Санаторий</label>
-                        @Html.EJS().ComboBox("sanatory2").Placeholder("Выберите санаторий").PopupHeight("230px").Index(0).DataSource((IEnumerable<CodeDecode>
-                          )ViewBag.SanatoryList).Fields(new ComboBoxFieldSettings { Text = "text", Value = "value" }).Render()
-                    </div>
-                    <div class="col-md-3 form-group">
-                        <label>Профсоюз</label>
-                        @Html.EJS().ComboBox("profsoyuz2").Placeholder("Выберите профсоюз").PopupHeight("230px").Index(0).DataSource((IEnumerable<CodeDecode>
-                          )ViewBag.ProfList).Fields(new ComboBoxFieldSettings { Text = "text", Value = "value" }).Render()
-                    </div>*@
                     <div style="margin-left:160px">
                         <p></p>
                         @Html.EJS().Button("infobtn2").Content("Показать Загруженные Данные").CssClass("e-info").Render()
@@ -200,58 +148,6 @@ FunctionalityList List = FunctionalityAndDbDataMatch.MatchProcess(UserId);
                     }
                 }
             </script>
-            @*<table class="table table__block va-top t-scroll table__small table-fixed">
-            <thead>
-                <tr>
-                    <th class="dropdown dropdown__table">
-                        <span class="dropdown-toggle dr-link" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">№ путевки</span>
-                        <div class="dropdown-menu dr-menu rounded-0 border-0" aria-labelledby="dropdownMenuButton">
-                        </div>
-                    </th>
-                    <th class="dropdown dropdown__table">
-                        <span class="dropdown-toggle dr-link" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Санаторий</span>
-                        <div class="dropdown-menu dr-menu rounded-0 border-0" aria-labelledby="dropdownMenuButton">
-                        </div>
-                    </th>
-                    <th class="dropdown dropdown__table">
-                        <span class="dropdown-toggle dr-link" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Дата Санатория</span>
-                        <div class="dropdown-menu dr-menu rounded-0 border-0" aria-labelledby="dropdownMenuButton">
-                        </div>
-                    </th>
-                    <th class="dropdown dropdown__table">
-                        <span class="dropdown-toggle dr-link" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Информация об отдыхающем</span>
-                        <div class="dropdown-menu dr-menu rounded-0 border-0" aria-labelledby="dropdownMenuButton">
-                        </div>
-                    </th>
-                    <th class="dropdown dropdown__table">
-                        <span class="dropdown-toggle dr-link" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Стоимость</span>
-                        <div class="dropdown-menu dr-menu rounded-0 border-0" aria-labelledby="dropdownMenuButton">
-                        </div>
-                    </th>
-                    <th class="dropdown dropdown__table">
-                        <span class="dropdown-toggle dr-link" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Место работы</span>
-                        <div class="dropdown-menu dr-menu rounded-0 border-0" aria-labelledby="dropdownMenuButton">
-                        </div>
-                    </th>
-                    <th class="dropdown dropdown__table">
-                        <span class="dropdown-toggle dr-link" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Адрес</span>
-                        <div class="dropdown-menu dr-menu rounded-0 border-0" aria-labelledby="dropdownMenuButton">
-                        </div>
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr ng-repeat="item in SverkaDatas">
-                    <td>{{item.num_put}}</td>
-                    <td>{{item.sanatName}}</td>
-                    <td>{{item.date_san}}</td>
-                    <td>{{item.fio_otdix}}</td>
-                    <td>{{item.price}}</td>
-                    <td>{{item.work_place}}</td>
-                    <td>{{item.adress}}</td>
-                </tr>
-            </tbody>
-        </table>*@
         </div>
 </section>
 }

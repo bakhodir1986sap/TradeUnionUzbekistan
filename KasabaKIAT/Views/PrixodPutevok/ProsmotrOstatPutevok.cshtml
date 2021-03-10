@@ -5,7 +5,6 @@
     FunctionalityList List = FunctionalityAndDbDataMatch.MatchProcess(UserId);
 }
 <script src="~/Scripts/MyJavaScript/PPController.js"></script>
-@*<h2 style="color:#428bca">Просмотр остатков путевок</h2>*@
 <div id="connection" style="visibility:hidden;position:absolute;margin-left:430px;z-index:9999">
     <img src="~/Content/Login/buffering.gif" />
 </div>
@@ -66,12 +65,9 @@
                         </tr>
                         <tr ng-repeat="pp_sum in PP_SUM">
                             <td style="text-align:center">
-                                @*<button type="button" ng-click="ok()" class="btn btn-default">Очистить фильтр</button>*@
                             </td>
                             <td style="text-align:center">
-                                @*<button type="button" class="btn btn-default">Отчет</button>*@
                             </td>
-                            @*<td style="text-align:center"></td>*@
                             <td style="text-align:center">Итого:</td>
                             <td style="text-align:center"><b>{{pp_sum.P_SUM | currency:' '}}</b></td>
                         </tr>

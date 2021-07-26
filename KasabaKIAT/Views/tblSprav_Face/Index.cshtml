@@ -28,46 +28,7 @@
     //col.Field("email").HeaderText("Юзер").Width("10").Add();
 }).AllowPaging().AllowFiltering().AllowResizing().PageSettings(page=>page.PageCount(5)).EditSettings(edit => { edit.AllowAdding(true).AllowEditing(true).AllowDeleting(true).Mode(Syncfusion.EJ2.Grids.EditMode.Dialog);}).Toolbar(new List<string>() { "Add", "Edit", "Delete", "PdfExport" }).Render()
 
-@*<style>
 
-        td, th {
-            vertical-align: middle !important;
-        }
-
-        ;
-    </style>
-    <p>
-        <button style="margin:10px" class="btn btn-white">@Html.ActionLink("Добавить", "Create")</button>
-    </p>
-    <table class="table">
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Name_Os)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.users.email)
-            </th>
-            <th></th>
-        </tr>
-
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Name_Os)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.users.email)
-                </td>
-                <td>
-                    @Html.ActionLink("Изменить", "Edit", new { id = item.ID }) |
-                    @Html.ActionLink("Детали", "Details", new { id = item.ID }) |
-                    @Html.ActionLink("Удалить", "Delete", new { id = item.ID })
-                </td>
-            </tr>
-        }
-
-    </table>*@
 <script>
         function toolbarClick(args) {
             var gridObj = document.getElementById("Grid").ej2_instances[0];

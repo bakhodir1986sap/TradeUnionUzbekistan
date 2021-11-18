@@ -1,12 +1,7 @@
 ﻿using Epigov.Log;
-using KasabaKIAT.BusinessLogic.BankOplati.Kaznacheystvo;
 using KasabaKIAT.BusinessLogic.Buxgalteriya.Provodki.AutomaticTransactions.KaznaTransactions;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace KaznaFilesImporter
 {
@@ -16,20 +11,28 @@ namespace KaznaFilesImporter
 
         static void Main(string[] args)
         {
-            _logService = new FileLogService(typeof(Program));
-
-            _logService.Info("Begin Service======");
-
-            while (true)
+            try
             {
-                Console.WriteLine(DateTime.Now.ToString() + " " + "...");
+                _logService = new FileLogService(typeof(Program));
 
-                var obj = new EcpCalculation();
+                _logService.Info("Begin Service======");
 
-                obj.CalcProcessN();
+                while (true)
+                {
+                    Console.WriteLine(DateTime.Now.ToString() + " " + "...");
 
-                Thread.Sleep(100000);
+                    var obj = new EcpCalculation();
+
+                    obj.CalcProcessN();
+
+                    Thread.Sleep(100000);
+                }
             }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
         }
     }
 }

@@ -10,6 +10,7 @@ using System.Data.Entity.Validation;
 using System.Threading;
 using KasabaKIAT.BusinessLogic.BankOplati.Kaznacheystvo;
 using KasabaKIAT.BusinessLogic.Structure;
+using System.Configuration;
 
 namespace KasabaKIAT.BusinessLogic.Buxgalteriya.Provodki.AutomaticTransactions.KaznaTransactions
 {
@@ -46,19 +47,29 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.Provodki.AutomaticTransactions.K
         public EcpCalculation()
         {
             Console.WriteLine("EcpCalculation Constructor");
-            EcpCalcStart = true;
-            MakeProvodkiStart = true;
-            BranchCalcStart = true;
-            KaznaFileStart = true;
-            OwnerCodeStart = true;
-            BronStart = true;
 
-            EcpCalcSheduler = 3600000;
-            MakeProvodkiSheduler = 3600000;
-            BranchCalcSheduler = 3600000;
-            KaznaFileSheduler = 3600000;
-            OwnerCodeSheduler = 3600000;
-            BronSheduler = 3600000;
+            try
+            {
+                EcpCalcStart = Boolean.Parse(ConfigurationManager.AppSettings["EcpCalcStart"]);
+                MakeProvodkiStart = Boolean.Parse(ConfigurationManager.AppSettings["MakeProvodkiStart"]);
+                BranchCalcStart = Boolean.Parse(ConfigurationManager.AppSettings["BranchCalcStart"]);
+                KaznaFileStart = Boolean.Parse(ConfigurationManager.AppSettings["KaznaFileStart"]);
+                OwnerCodeStart = Boolean.Parse(ConfigurationManager.AppSettings["OwnerCodeStart"]);
+                BronStart = Boolean.Parse(ConfigurationManager.AppSettings["BronStart"]);
+
+                EcpCalcSheduler = int.Parse(ConfigurationManager.AppSettings["EcpCalcSheduler"]);
+                MakeProvodkiSheduler = int.Parse(ConfigurationManager.AppSettings["MakeProvodkiSheduler"]);
+                BranchCalcSheduler = int.Parse(ConfigurationManager.AppSettings["BranchCalcSheduler"]);
+                KaznaFileSheduler = int.Parse(ConfigurationManager.AppSettings["KaznaFileSheduler"]);
+                OwnerCodeSheduler = int.Parse(ConfigurationManager.AppSettings["OwnerCodeSheduler"]);
+                BronSheduler = int.Parse(ConfigurationManager.AppSettings["BronSheduler"]);
+            }
+            catch
+            {
+                Console.WriteLine("Error in Configuration when converting value from app.config");
+                throw;
+            }
+
 
             kk = new KaznaController();
         }
@@ -84,8 +95,9 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.Provodki.AutomaticTransactions.K
         {
             while(true)
             {
-                Console.WriteLine("EcpCalcController...");
                 if (!EcpCalcStart) continue;
+
+                Console.WriteLine("EcpCalcController...");
 
                 EcpCalc();
 
@@ -100,9 +112,9 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.Provodki.AutomaticTransactions.K
         {
             while (true)
             {
-                Console.WriteLine("MakeProvodkiController...");
-
                 if (!MakeProvodkiStart) continue;
+
+                Console.WriteLine("MakeProvodkiController...");
 
                 MakeProvodki();
 
@@ -117,9 +129,9 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.Provodki.AutomaticTransactions.K
         {
             while (true)
             {
-                Console.WriteLine("BranchCalcController...");
-
                 if (!BranchCalcStart) continue;
+
+                Console.WriteLine("BranchCalcController...");
 
                 BranchCalc();
 
@@ -135,9 +147,9 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.Provodki.AutomaticTransactions.K
         {
             while (true)
             {
-                Console.WriteLine("KaznaFileController...");
-
                 if (!KaznaFileStart) continue;
+
+                Console.WriteLine("KaznaFileController...");
 
                 kk.Process();
 
@@ -153,9 +165,9 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.Provodki.AutomaticTransactions.K
         {
             while (true)
             {
-                Console.WriteLine("KaznaFileController...");
-
                 if (!OwnerCodeStart) continue;
+
+                Console.WriteLine("KaznaFileController...");
 
                 MakeOwnerCode();
 
@@ -171,9 +183,9 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.Provodki.AutomaticTransactions.K
         {
             while (true)
             {
-                Console.WriteLine("BronController...");
-
                 if (!BronStart) continue;
+
+                Console.WriteLine("BronController...");
 
                 BronExpiredClear();
 

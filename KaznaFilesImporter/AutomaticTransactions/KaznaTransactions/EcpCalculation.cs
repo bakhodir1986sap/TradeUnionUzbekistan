@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Text.RegularExpressions;
 using KasabaKIAT.ViewModel.Buxgalteriya;
 using KaznaFilesImporter;
@@ -11,13 +10,14 @@ using System.Threading;
 using KasabaKIAT.BusinessLogic.BankOplati.Kaznacheystvo;
 using KasabaKIAT.BusinessLogic.Structure;
 using System.Configuration;
+using System.Threading.Tasks;
 
 namespace KasabaKIAT.BusinessLogic.Buxgalteriya.Provodki.AutomaticTransactions.KaznaTransactions
 {
     public class EcpCalculation
     {
-        FileLogService _logService = new FileLogService(typeof(EcpCalculation));
-        KaznaController kk { get; set; }
+        readonly FileLogService _logService = new FileLogService(typeof(EcpCalculation));
+        KaznaController kaznaController { get; set; }
 
         /// <summary>
         /// 
@@ -25,23 +25,19 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.Provodki.AutomaticTransactions.K
         public void CalcProcessN()
         {
             Console.WriteLine("CalcProcessN");
-            Thread t1 = new Thread(new ThreadStart(EcpCalcController));
-            Thread t2 = new Thread(new ThreadStart(MakeProvodkiController));
-            Thread t3 = new Thread(new ThreadStart(BranchCalcController));
-            Thread t4 = new Thread(new ThreadStart(KaznaFileController));
-            Thread t5 = new Thread(new ThreadStart(OwnerCodeController));
-            Thread t6 = new Thread(new ThreadStart(BronController));
 
-            t1.Start();
-            t2.Start();
-            t3.Start();
-            t4.Start();
-            t5.Start();
-            t6.Start();
+            var tasks= new List<Task>();
+
+            if (EcpCalcStart) tasks.Add(Task.Run(EcpCalcController));
+            if (MakeProvodkiStart) tasks.Add(Task.Run(MakeProvodkiController));
+            if (BranchCalcStart) tasks.Add(Task.Run(BranchCalcController));
+            if (KaznaFileStart) tasks.Add(Task.Run(KaznaFileController));
+            if (OwnerCodeStart) tasks.Add(Task.Run(OwnerCodeController));
+            if (BronStart) tasks.Add(Task.Run(BronController));
 
             Console.WriteLine("Threads Started");
 
-            Thread.CurrentThread.Join();
+            Task.WaitAll(tasks.ToArray());
         }
 
         public EcpCalculation()
@@ -70,8 +66,7 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.Provodki.AutomaticTransactions.K
                 throw;
             }
 
-
-            kk = new KaznaController();
+            kaznaController = new KaznaController();
         }
 
         public bool EcpCalcStart { get; set; }
@@ -95,8 +90,6 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.Provodki.AutomaticTransactions.K
         {
             while(true)
             {
-                if (!EcpCalcStart) continue;
-
                 Console.WriteLine("EcpCalcController...");
 
                 EcpCalc();
@@ -112,8 +105,6 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.Provodki.AutomaticTransactions.K
         {
             while (true)
             {
-                if (!MakeProvodkiStart) continue;
-
                 Console.WriteLine("MakeProvodkiController...");
 
                 MakeProvodki();
@@ -129,8 +120,6 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.Provodki.AutomaticTransactions.K
         {
             while (true)
             {
-                if (!BranchCalcStart) continue;
-
                 Console.WriteLine("BranchCalcController...");
 
                 BranchCalc();
@@ -147,11 +136,9 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.Provodki.AutomaticTransactions.K
         {
             while (true)
             {
-                if (!KaznaFileStart) continue;
-
                 Console.WriteLine("KaznaFileController...");
 
-                kk.Process();
+                kaznaController.Process();
 
                 Thread.Sleep(KaznaFileSheduler);
             }
@@ -165,8 +152,6 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.Provodki.AutomaticTransactions.K
         {
             while (true)
             {
-                if (!OwnerCodeStart) continue;
-
                 Console.WriteLine("KaznaFileController...");
 
                 MakeOwnerCode();
@@ -183,8 +168,6 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.Provodki.AutomaticTransactions.K
         {
             while (true)
             {
-                if (!BronStart) continue;
-
                 Console.WriteLine("BronController...");
 
                 BronExpiredClear();
@@ -257,20 +240,10 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.Provodki.AutomaticTransactions.K
 
                                 #region Inn Parsing
 
-                                string bankAccountBalance = string.Empty;
-
-                                if (!string.IsNullOrEmpty(payment.CLACC))
-                                {
-                                    if (payment.CLACC.Length >= 5)
-                                    {
-                                        bankAccountBalance = payment.CLACC.Substring(0, 5);
-                                    }
-                                }
-
                                     //other case try to get INN 
                                     var Inn = GetInnFromDetail(payment.PURPOSE, payment.INN);
 
-                                    if ((Inn != null) && (Inn.StartsWith("2") || (Inn.StartsWith("3"))))
+                                    if ((Inn != null) && (Inn.StartsWith("2") || Inn.StartsWith("3")))
                                     {
                                         model.remark += string.Format("INN:{0};", Inn);
                                         innFromDtl = Inn;
@@ -285,7 +258,6 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.Provodki.AutomaticTransactions.K
                                         model.remark += string.Format("INN:{0};", payment.INN);
                                         innFromDtl = payment.INN;
                                     }
-                                //}
 
                                 if (string.IsNullOrEmpty(innFromDtl))
                                 {
@@ -736,7 +708,8 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.Provodki.AutomaticTransactions.K
         }
 
         /// <summary>
-        /// 
+        /// Improvements: 
+        /// 1) Reference tables which has less than 50 rows can be loaded to buffer. It will decrease query count
         /// </summary>
         private void BranchCalc()
         {

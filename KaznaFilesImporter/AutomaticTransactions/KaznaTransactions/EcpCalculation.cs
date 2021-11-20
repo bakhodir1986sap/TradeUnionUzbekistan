@@ -187,8 +187,7 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.Provodki.AutomaticTransactions.K
 
                 try
                 {
-                    List<string> egrpoInnEnter = new List<string>();
-                    List<string> orgInnEnter = new List<string>();
+                    var orgInnEnter = new List<string>();
 
                     using (KasabaKIATEntities db = new KasabaKIATEntities())
                     {
@@ -245,102 +244,16 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.Provodki.AutomaticTransactions.K
 
                                     if ((Inn != null) && (Inn.StartsWith("2") || Inn.StartsWith("3")))
                                     {
-                                        model.remark += string.Format("INN:{0};", Inn);
-                                        innFromDtl = Inn;
+                                        model.inn = Inn;
                                     }
                                     else
                                     {
-                                        if (SkipFromCLL(payment.INN))
-                                        {
-                                            _logService.Info("Inn problem");
-                                        }
-
-                                        model.remark += string.Format("INN:{0};", payment.INN);
-                                        innFromDtl = payment.INN;
+                                        model.inn = payment.INN;
                                     }
-
-                                if (string.IsNullOrEmpty(innFromDtl))
-                                {
-                                    //Problem with geting INN
-                                    model.remark += string.Format("INN:{0};", "PROBLEM");
-                                    model.inn = payment.INN;
-                                }
-                                else if (payment.INN.Equals(innFromDtl))
-                                {
-                                    model.inn = innFromDtl;
-                                    //Good
-                                }
-                                else
-                                {
-                                    model.inn = innFromDtl;
-                                }
 
                                 #endregion
 
                                 #region Branch Difinition
-
-                                Console.WriteLine(DateTime.Now.ToLongTimeString() + " Oblast and Tuman Difinition333333");
-                                var egrpos = db.t_egrpo.Where(e => e.inn == innFromDtl);
-
-                                if (egrpos.Any())
-                                {
-                                    var org = egrpos.First();
-
-                                    Console.WriteLine(DateTime.Now.ToLongTimeString() + " Oblast and Tuman Difinition4444444");
-                                    if (!string.IsNullOrEmpty(org.okonx_id))
-                                    {
-                                        model.okonx_id = org.okonx_id;
-
-                                        var okonx = db.sp_okonx.Where(o => o.code == org.okonx_id).First();
-
-                                        model.okonx_name = okonx.name_ru;
-                                        Console.WriteLine(DateTime.Now.ToLongTimeString() + " Oblast and Tuman Difinition5555555");
-                                        if (!string.IsNullOrEmpty(okonx.branch_code))
-                                        {
-                                            model.branch_code = okonx.branch_code;
-                                            Console.WriteLine(DateTime.Now.ToLongTimeString() + " Oblast and Tuman Difinition66666666");
-                                            model.branch_name = db.sp_branch.Where(b => b.code == okonx.branch_code).First().name_ru;
-
-                                            if (model.branch_code.Equals("Н2"))
-                                            {
-                                                model.adep_code = "173Н2";
-                                            }
-                                            else if (model.branch_code.Equals("Т2"))
-                                            {
-                                                model.adep_code = "173Т2";
-                                            }
-                                            else if (model.branch_code.Equals("О1"))
-                                            {
-                                                model.adep_code = "173О1";
-                                            }
-                                            else
-                                            {
-                                                model.adep_code = "173" + model.branch_code + payment.SOATO.Substring(2, 5);
-                                            }
-                                        }
-                                    }
-                                }
-                                else
-                                {
-                                    if (egrpoInnEnter.Where(z => z == innFromDtl).Any())
-                                    {
-                                        //skip
-                                    }
-                                    else
-                                    {
-                                        //add to egrpo
-                                        var ee = new t_egrpo();
-                                        Console.WriteLine(DateTime.Now.ToLongTimeString() + " Oblast and Tuman Difinition777777777");
-                                        ee.version = 0;
-                                        ee.inn = innFromDtl;
-                                        ee.name_full = payment.CLNAME;
-                                        ee.soato_id = model.soato;
-
-                                        db.t_egrpo.Add(ee);
-
-                                        egrpoInnEnter.Add(innFromDtl);
-                                    }
-                                }
 
                                 //Search in tblSprav_Org
                                 var orgsList = db.tblSprav_Org.Where(z => z.INN == innFromDtl &&
@@ -365,7 +278,7 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.Provodki.AutomaticTransactions.K
                                                 var branchName = branchNameRow.First().name_ru;
 
                                                 model.branch_code = branchCode;
-                                                Console.WriteLine(DateTime.Now.ToLongTimeString() + " Oblast and Tuman Difinition888888");
+                                                Console.WriteLine(DateTime.Now.ToLongTimeString() + " " + branchName);
                                                 model.branch_name = branchName;
 
                                                 if (model.branch_code.Equals("Н2"))
@@ -390,17 +303,12 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.Provodki.AutomaticTransactions.K
                                     }
 
                                     model.name_org = org1.Name_Org;
-
                                 }
                                 else
                                 {
                                     string combine = string.Format("{0}{1}", innFromDtl, payment.OBL_DEPARTMENT_BASE);
 
-                                    if (orgInnEnter.Where(z => z == combine).Any())
-                                    {
-                                        //skip
-                                    }
-                                    else
+                                    if (!orgInnEnter.Any(z => z == combine))
                                     {
                                         var orrg = new tblSprav_Org();
                                         orrg.INN = innFromDtl;
@@ -453,8 +361,6 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.Provodki.AutomaticTransactions.K
                                 Console.WriteLine(DateTime.Now.ToLongTimeString() + "SaveChanges!!!!!================================== ");
                                 db.SaveChanges();
                                 orgInnEnter.Clear();
-                                egrpoInnEnter.Clear();
-
                             }
                             catch (DbEntityValidationException e)
                             {

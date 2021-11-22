@@ -11,9 +11,9 @@ namespace KasabaKIAT.BusinessLogic.BankOplati.Kaznacheystvo
     public class PaymentFileData
     {
         private KaznaFiles file;
-        private List<KaznaPaymentFile> paymentRows;
-        private List<SverkaFile> sverkaFile;
-        private List<BankPaymentFile> bankFile;
+        private readonly List<KaznaPaymentFile> paymentRows;
+        private readonly List<SverkaFile> sverkaFile;
+        private readonly List<BankPaymentFile> bankFile;
 
         public PaymentFileData()
         {
@@ -39,23 +39,22 @@ namespace KasabaKIAT.BusinessLogic.BankOplati.Kaznacheystvo
 
         public void AddPaymentRow(BaseKaznaFile row)
         {
-            if (row is KaznaPaymentFile)
+            if (row is KaznaPaymentFile payment)
             {
-                paymentRows.Add((KaznaPaymentFile)row);
+                paymentRows.Add(payment);
             }
-            else if (row is SverkaFile)
+            else if (row is SverkaFile sverka)
             {
-                sverkaFile.Add((SverkaFile)row);
+                sverkaFile.Add(sverka);
             }
-            else if (row is BankPaymentFile)
+            else if (row is BankPaymentFile bank)
             {
-                bankFile.Add((BankPaymentFile)row);
+                bankFile.Add(bank);
             }
             else
             {
                 throw new NotImplementedException("3 uuuch!!!!");
             }
-
         }
 
         public void ClearPayment()
@@ -109,11 +108,5 @@ namespace KasabaKIAT.BusinessLogic.BankOplati.Kaznacheystvo
             }
         }
 
-        public bool IsAlreadySettled()
-        {
-
-
-            return false;
-        }
     }
 }

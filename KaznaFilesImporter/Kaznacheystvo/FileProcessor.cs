@@ -1,19 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.IO;
 using KasabaKIAT.ViewModel.BankOplati;
 using System.Text;
 using KaznaFilesImporter.BankOplati;
 using Epigov.Log;
-//using KaznaFilesImporter;
+
 
 namespace KasabaKIAT.BusinessLogic.BankOplati.Kaznacheystvo
 {
     public class FileProcessor
     {
-        private PaymentFileData paymentFile;
+        private readonly PaymentFileData paymentFile;
         private static ILogService _logService;
 
         public FileProcessor()
@@ -26,16 +23,6 @@ namespace KasabaKIAT.BusinessLogic.BankOplati.Kaznacheystvo
         {
             if (Directory.Exists(filePath))
             {
-                //List<decimal> emptyList = new List<decimal>();
-
-                //using (KasabaKIATEntities db = new KasabaKIATEntities())
-                //{
-                //    emptyList = db.KaznaPaymentFiles.Where(z => z.GRPID == 0).Select(z => z.ID).ToList();
-                //}
-
-                //Console.WriteLine("emptyList.Count");
-                //Console.WriteLine(emptyList.Count);
-
                 DirectoryInfo d = new DirectoryInfo(filePath);//Assuming Test is your Folder
                 FileInfo[] Files = d.GetFiles("PAYINFPRF*"); //Getting Text files
                 foreach (FileInfo file in Files)
@@ -54,8 +41,6 @@ namespace KasabaKIAT.BusinessLogic.BankOplati.Kaznacheystvo
 
                             Encoding en = Encoding.GetEncoding(1251, new EncoderReplacementFallback(" "), new DecoderReplacementFallback(" "));
 
-                            //long counter = 0;
-
                             using (FileStream fs = File.Open(file.FullName, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
                             using (BufferedStream bs = new BufferedStream(fs))
                             using (StreamReader sr = new StreamReader(bs,en))
@@ -63,41 +48,11 @@ namespace KasabaKIAT.BusinessLogic.BankOplati.Kaznacheystvo
                                 string line;
                                 while ((line = sr.ReadLine()) != null)
                                 {
-                                    //counter++;
-                                    //Console.WriteLine("counter = " + counter);
                                     try
                                     {
                                         paymentFile.ClearPayment();
 
                                         var kazRow = ParseLine(line);
-
-                                        //if (kazRow is ViewModel.BankOplati.KaznaPaymentFile)
-                                        //{
-                                        //    try
-                                        //    {
-                                        //        var Iid = Int64.Parse((kazRow as ViewModel.BankOplati.KaznaPaymentFile).k_id);
-
-                                        //        var isExists = emptyList.Where(s => s.Equals(Iid));
-
-                                        //        if (!isExists.Any())
-                                        //        {
-                                        //            Console.WriteLine("Skip...");
-                                        //            continue;
-                                        //        }
-
-                                        //        Console.WriteLine("Process...");
-                                        //    }
-                                        //    catch
-                                        //    {
-
-                                        //    }
-                                        //}
-                                        //else
-                                        //{
-                                        //    Console.WriteLine("Skip...");
-                                        //    continue;
-                                        //}
-
 
                                         paymentFile.AddPaymentRow(kazRow);
 
@@ -115,27 +70,6 @@ namespace KasabaKIAT.BusinessLogic.BankOplati.Kaznacheystvo
                                 }
                             }
 
-
-
-                            //string[] readText = File.ReadAllLines(file.FullName, en);
-
-                            //Console.WriteLine("Rows count: " + readText.Count());
-                            //_logService.Info("Rows count: " + readText.Count());
-
-                            //paymentFile.ClearPayment();
-
-                            //foreach (string s in readText)
-                            //{
-                            //    var kazRow = ParseLine(s);
-                            //    paymentFile.AddPaymentRow(kazRow);
-                            //}
-
-                            //var fileData = FileData;
-
-                            //if (fileData != null)
-                            //{
-                            //    fileData.SaveData();
-                            //}
                         }
 
                         var arxiveFileName = Path.Combine(arxivePath, Path.GetFileName(file.FullName));
@@ -184,7 +118,6 @@ namespace KasabaKIAT.BusinessLogic.BankOplati.Kaznacheystvo
                         pLine.k_operday = substrings[1];
                         pLine.k_id = substrings[2];
                         pLine.k_bankid = substrings[3];
-                        //pLine.k_grpid = substrings[4];
                         pLine.k_klsdox  = substrings[5      - 1];
                         pLine.k_docnumb = substrings[6      - 1];
                         pLine.k_docdate = substrings[7      - 1];

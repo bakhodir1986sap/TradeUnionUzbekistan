@@ -196,16 +196,6 @@ namespace KasabaKIAT.BusinessLogic.BankOplati.Kaznacheystvo
                     file.ID = 0;
                 }
 
-                //try
-                //{
-                //    file.BANKID = Int64.Parse(row.k_bankid);
-                //}
-                //catch
-                //{
-                //    file.BANKID = 0;
-                //}
-
-
                 file.KLSDOX = row.klsdox;
                 file.DOCNUMB = row.docnumb;
 

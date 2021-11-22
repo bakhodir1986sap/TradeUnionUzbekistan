@@ -13,9 +13,11 @@ namespace KasabaKIAT.BusinessLogic.BankOplati.Kaznacheystvo
         private static ILogService _logService;
         private FileProcessor fp;
 
+        public static ILogService LogService { get => _logService; set => _logService = value; }
+
         public void Process()
         {
-            _logService = new FileLogService(typeof(KaznaController));
+            LogService = new FileLogService(typeof(KaznaController));
 
             fp = new FileProcessor();
 
@@ -33,8 +35,8 @@ namespace KasabaKIAT.BusinessLogic.BankOplati.Kaznacheystvo
                 Directory.CreateDirectory(arxivePath);
             }
 
-            _logService.Info("File Path: " + filePath);
-            _logService.Info("Arxive Directory: " + arxivePath);
+            LogService.Info("File Path: " + filePath);
+            LogService.Info("Arxive Directory: " + arxivePath);
 
             fp.Process(filePath, arxivePath);
         }

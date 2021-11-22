@@ -8,9 +8,9 @@ using Epigov.Log;
 using System.Data.Entity.Validation;
 using System.Threading;
 using KasabaKIAT.BusinessLogic.BankOplati.Kaznacheystvo;
-using KasabaKIAT.BusinessLogic.Structure;
 using System.Configuration;
 using System.Threading.Tasks;
+using KasabaKIAT.BusinessLogic.Structure;
 
 namespace KasabaKIAT.BusinessLogic.Buxgalteriya.Provodki.AutomaticTransactions.KaznaTransactions
 {

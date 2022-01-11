@@ -94,7 +94,16 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.Provodki.AutomaticTransactions.K
 
                 EcpCalc();
 
-                Thread.Sleep(EcpCalcSheduler);
+                var hourTime = int.Parse(DateTime.Now.ToString("HH"));
+
+                if (hourTime >= 20 || hourTime <= 7)
+                {
+                    Thread.Sleep(600000); // 10 min run in no working hours
+                }
+                else
+                {
+                    Thread.Sleep(EcpCalcSheduler);
+                }
             }
         }
 
@@ -196,32 +205,9 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.Provodki.AutomaticTransactions.K
 
                         if (procList != null)
                         {
-                            var model = new EcpCalcViewModel();
-
-                            string innFromDtl = string.Empty;
-
                             foreach (var payment in procList.ToList())
                             {
-
-                                #region Clear Model
-                                innFromDtl = string.Empty;
-                                model.federation_amt = 0;
-                                model.id = 0;
-                                model.oblsovprof_amt = 0;
-                                model.obl_department_base = string.Empty;
-                                model.payment_id = 0;
-                                model.profsouz_amt = 0;
-                                model.provodka_id = 0;
-                                model.remark = string.Empty;
-                                model.inn = string.Empty;
-                                model.soato = string.Empty;
-                                model.soato_name = string.Empty;
-                                model.operdate = null;
-                                model.okonx_id = string.Empty;
-                                model.okonx_name = string.Empty;
-                                model.branch_code = string.Empty;
-                                model.branch_name = string.Empty;
-                                #endregion
+                                var model = new EcpCalcViewModel();
 
                                 #region FillData
 
@@ -242,30 +228,46 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.Provodki.AutomaticTransactions.K
                                     //other case try to get INN 
                                     var Inn = GetInnFromDetail(payment.PURPOSE, payment.INN);
 
-                                    if ((Inn != null) && (Inn.StartsWith("2") || Inn.StartsWith("3")))
+                                    Console.WriteLine("Inn found from GetInnFromDetail = " + Inn);
+
+                                    if (!string.IsNullOrEmpty(Inn) && (Inn.StartsWith("2") || Inn.StartsWith("3")))
                                     {
+                                        Console.WriteLine("First Case = " + Inn);
+
                                         model.inn = Inn;
                                     }
                                     else
                                     {
+                                        Console.WriteLine("Second Case = " + payment.INN);
+                                        
                                         model.inn = payment.INN;
                                     }
 
-                                #endregion
+                            #endregion
 
-                                #region Branch Difinition
+                            #region Branch Difinition
 
-                                //Search in tblSprav_Org
-                                var orgsList = db.tblSprav_Org.Where(z => z.INN == innFromDtl &&
+                                Console.WriteLine("Search in tblSprav_Org");
+                                Console.WriteLine("model.inn = " + model.inn);
+                                Console.WriteLine("payment.OBL_DEPARTMENT_BASE = " + payment.OBL_DEPARTMENT_BASE);
+                                var orgsList = db.tblSprav_Org.Where(z => z.INN == model.inn &&
                                 z.DepartmentBase == payment.OBL_DEPARTMENT_BASE);
 
                                 if (orgsList.Any())
                                 {
+                                    Console.WriteLine("Organization Found!");
+                                    
                                     var org1 = orgsList.First();
+
+                                    Console.WriteLine("Name Org = ");
+                                    Console.Write(org1.Name_Org);
+                                    Console.WriteLine("Otrasl = ");
+                                    Console.Write(org1.ID_Ot);
 
                                     if (org1.ID_Ot.HasValue)
                                     {
-                                        var currentOtrasl = db.tblSprav_Otras.Where(z => z.ID_Ot == org1.ID_Ot);
+                                        var currentOtrasl = db.tblSprav_Otras.Where(z => z.ID_Ot == org1.ID_Ot 
+                                        && z.DepartmentBase == org1.DepartmentBase);
 
                                         if (currentOtrasl.Any())
                                         {
@@ -306,12 +308,16 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.Provodki.AutomaticTransactions.K
                                 }
                                 else
                                 {
-                                    string combine = string.Format("{0}{1}", innFromDtl, payment.OBL_DEPARTMENT_BASE);
+                                    Console.WriteLine("Organization NOT Found!");
+                                    string combine = string.Format("{0}{1}", model.inn, payment.OBL_DEPARTMENT_BASE);
 
                                     if (!orgInnEnter.Any(z => z == combine))
                                     {
+                                        Console.WriteLine(DateTime.Now.ToLongTimeString() + "EcpCalcDataManager.Create ");
+
                                         var orrg = new tblSprav_Org();
-                                        orrg.INN = innFromDtl;
+                                        orrg.INN = model.inn;
+                                        orrg.IS_PRAVSOYUZ = false;
 
                                         if (payment.CLNAME.Length > 100)
                                         {
@@ -331,7 +337,7 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.Provodki.AutomaticTransactions.K
                                             orrg.DepartmentBase = model.obl_department_base;
                                         }
 
-                                        orrg.ORIG_INN = innFromDtl;
+                                        orrg.ORIG_INN = model.inn;
                                         orrg.OKONX = model.okonx_id;
 
                                         var region = db.tblSprav_Reg.Where(z => z.SOATO_CODE == model.soato);
@@ -343,6 +349,7 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.Provodki.AutomaticTransactions.K
 
                                         orrg.FACE_TYPE = 0;
                                         model.name_org = orrg.Name_Org;
+                                        orrg.UserId = 1;
 
                                         db.tblSprav_Org.Add(orrg);
 

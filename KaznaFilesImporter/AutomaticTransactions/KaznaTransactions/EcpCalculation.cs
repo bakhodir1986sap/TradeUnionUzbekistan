@@ -200,208 +200,241 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.Provodki.AutomaticTransactions.K
 
                     using (KasabaKIATEntities db = new KasabaKIATEntities())
                     {
-
                         var procList = db.sp_pr_GetNewTransactionsN1();
 
-                        if (procList != null)
+                        Console.WriteLine("Got data to process");
+
+                        foreach (var payment in procList.ToList())
                         {
-                            foreach (var payment in procList.ToList())
-                            {
-                                var model = new EcpCalcViewModel();
-
-                                #region FillData
-
-                                model.payment_id = (long)payment.PAYMENT_ID;
-                                model.profsouz_amt = payment.PROFSOUZ_AMT;
-                                model.federation_amt = payment.FEDERATION_AMT;
-                                model.oblsovprof_amt = payment.OBLSOVPROF_AMT;
-                                model.soato = payment.SOATO;
-                                model.soato_name = payment.SOATO_NAME;
-                                model.obl_department_base = payment.OBL_DEPARTMENT_BASE;
-
-                                model.operdate = payment.OPERDAY;
-
-                                #endregion
-
-                                #region Inn Parsing
-
-                                    //other case try to get INN 
-                                    var Inn = GetInnFromDetail(payment.PURPOSE, payment.INN);
-
-                                    Console.WriteLine("Inn found from GetInnFromDetail = " + Inn);
-
-                                    if (!string.IsNullOrEmpty(Inn) && (Inn.StartsWith("2") || Inn.StartsWith("3")))
-                                    {
-                                        Console.WriteLine("First Case = " + Inn);
-
-                                        model.inn = Inn;
-                                    }
-                                    else
-                                    {
-                                        Console.WriteLine("Second Case = " + payment.INN);
-                                        
-                                        model.inn = payment.INN;
-                                    }
-
-                            #endregion
-
-                            #region Branch Difinition
-
-                                Console.WriteLine("Search in tblSprav_Org");
-                                Console.WriteLine("model.inn = " + model.inn);
-                                Console.WriteLine("payment.OBL_DEPARTMENT_BASE = " + payment.OBL_DEPARTMENT_BASE);
-                                var orgsList = db.tblSprav_Org.Where(z => z.INN == model.inn &&
-                                z.DepartmentBase == payment.OBL_DEPARTMENT_BASE);
-
-                                if (orgsList.Any())
-                                {
-                                    Console.WriteLine("Organization Found!");
-                                    
-                                    var org1 = orgsList.First();
-
-                                    Console.WriteLine("Name Org = ");
-                                    Console.Write(org1.Name_Org);
-                                    Console.WriteLine("Otrasl = ");
-                                    Console.Write(org1.ID_Ot);
-
-                                    if (org1.ID_Ot.HasValue)
-                                    {
-                                        var currentOtrasl = db.tblSprav_Otras.Where(z => z.ID_Ot == org1.ID_Ot 
-                                        && z.DepartmentBase == org1.DepartmentBase);
-
-                                        if (currentOtrasl.Any())
-                                        {
-                                            var branchCode = currentOtrasl.First().BRANCH_CODE;
-
-                                            var branchNameRow = db.sp_branch.Where(z => z.code == branchCode);
-
-                                            if (branchNameRow.Any())
-                                            {
-                                                var branchName = branchNameRow.First().name_ru;
-
-                                                model.branch_code = branchCode;
-                                                Console.WriteLine(DateTime.Now.ToLongTimeString() + " " + branchName);
-                                                model.branch_name = branchName;
-
-                                                if (model.branch_code.Equals("Н2"))
-                                                {
-                                                    model.adep_code = "173Н2";
-                                                }
-                                                else if (model.branch_code.Equals("Т2"))
-                                                {
-                                                    model.adep_code = "173Т2";
-                                                }
-                                                else if (model.branch_code.Equals("О1"))
-                                                {
-                                                    model.adep_code = "173О1";
-                                                }
-                                                else
-                                                {
-                                                    model.adep_code = "173" + model.branch_code + payment.SOATO.Substring(2, 5);
-                                                }
-
-                                            }
-                                        }
-                                    }
-
-                                    model.name_org = org1.Name_Org;
-                                }
-                                else
-                                {
-                                    Console.WriteLine("Organization NOT Found!");
-                                    string combine = string.Format("{0}{1}", model.inn, payment.OBL_DEPARTMENT_BASE);
-
-                                    if (!orgInnEnter.Any(z => z == combine))
-                                    {
-                                        Console.WriteLine(DateTime.Now.ToLongTimeString() + "EcpCalcDataManager.Create ");
-
-                                        var orrg = new tblSprav_Org();
-                                        orrg.INN = model.inn;
-                                        orrg.IS_PRAVSOYUZ = false;
-
-                                        if (payment.CLNAME.Length > 100)
-                                        {
-                                            orrg.Name_Org = payment.CLNAME.Substring(0, 100);
-                                        }
-                                        else
-                                        {
-                                            orrg.Name_Org = payment.CLNAME;
-                                        }
-
-                                        if (string.IsNullOrEmpty(model.obl_department_base))
-                                        {
-                                            orrg.DepartmentBase = null;
-                                        }
-                                        else
-                                        {
-                                            orrg.DepartmentBase = model.obl_department_base;
-                                        }
-
-                                        orrg.ORIG_INN = model.inn;
-                                        orrg.OKONX = model.okonx_id;
-
-                                        var region = db.tblSprav_Reg.Where(z => z.SOATO_CODE == model.soato);
-
-                                        if (region.Any())
-                                        {
-                                            orrg.Region = region.First().CodeReg;
-                                        }
-
-                                        orrg.FACE_TYPE = 0;
-                                        model.name_org = orrg.Name_Org;
-                                        orrg.UserId = 1;
-
-                                        db.tblSprav_Org.Add(orrg);
-
-                                        orgInnEnter.Add(combine);
-                                    }
-                                }
-
-                                #endregion
-
-                                Console.WriteLine(DateTime.Now.ToLongTimeString() + "EcpCalcDataManager.Create ");
-                                EcpCalcDataManager.Create(ref model, db);
-                            }
-
-                            try
-                            {
-                                Console.WriteLine(DateTime.Now.ToLongTimeString() + "SaveChanges!!!!!================================== ");
-                                db.SaveChanges();
-                                orgInnEnter.Clear();
-                            }
-                            catch (DbEntityValidationException e)
-                            {
-                                foreach (var eve in e.EntityValidationErrors)
-                                {
-                                    Console.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
-                                        eve.Entry.Entity.GetType().Name, eve.Entry.State);
-                                    foreach (var ve in eve.ValidationErrors)
-                                    {
-                                        _logService.Error(string.Format("- Property: \"{0}\", Error: \"{1}\"", ve.PropertyName, ve.ErrorMessage));
-                                        Console.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
-                                            ve.PropertyName, ve.ErrorMessage);
-                                    }
-                                }
-                                throw;
-                            }
-                            catch (Exception ex)
-                            {
-                                Console.WriteLine(ex.ToString());
-                                _logService.Error(ex.ToString());
-                            }
+                            Console.WriteLine("New Iteration=============================");
+                            MakeEcpRow(db, payment, orgInnEnter);
                         }
 
+                        try
+                        {
+                            Console.WriteLine(DateTime.Now.ToLongTimeString() + "SaveChanges!!!!!================================== ");
+                            db.SaveChanges();
+                            orgInnEnter.Clear();
+                        }
+                        catch (DbEntityValidationException e)
+                        {
+                            foreach (var eve in e.EntityValidationErrors)
+                            {
+                                Console.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
+                                    eve.Entry.Entity.GetType().Name, eve.Entry.State);
+                                foreach (var ve in eve.ValidationErrors)
+                                {
+                                    _logService.Error(string.Format("- Property: \"{0}\", Error: \"{1}\"", ve.PropertyName, ve.ErrorMessage));
+                                    Console.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
+                                        ve.PropertyName, ve.ErrorMessage);
+                                }
+                            }
+                            throw;
+                        }
+                        catch (Exception ex)
+                        {
+                            Console.WriteLine(ex.ToString());
+                            _logService.Error(ex.ToString());
+                        }
                     }
+
+
                 }
                 catch (Exception ex)
                 {
+                    Console.WriteLine(ex.ToString());
                     _logService.Info(ex.ToString());
                 }
 
         }
 
+        private void AssignDataToModel(EcpCalcViewModel model, sp_pr_GetNewTransactionsN1_Result1 payment)
+        {
+            Console.WriteLine("AssignDataToModel Called");
+            model.payment_id = (long)payment.PAYMENT_ID;
+            Console.WriteLine("payment_id = " + model.payment_id);
+            model.profsouz_amt = payment.PROFSOUZ_AMT;
+            model.federation_amt = payment.FEDERATION_AMT;
+            model.oblsovprof_amt = payment.OBLSOVPROF_AMT;
+            model.soato = payment.SOATO;
+            model.soato_name = payment.SOATO_NAME;
+            model.obl_department_base = payment.OBL_DEPARTMENT_BASE;
+            Console.WriteLine("DEPARTMENT_BASE = " + payment.OBL_DEPARTMENT_BASE);
+
+            model.operdate = payment.OPERDAY;
+        }
+
+        private string GetFinalINN(sp_pr_GetNewTransactionsN1_Result1 payment)
+        {
+            Console.WriteLine("GetFinalINN Called");
+
+            var Inn = GetInnFromDetail(payment.PURPOSE, payment.INN);
+
+            Console.WriteLine("Inn found from GetInnFromDetail = " + Inn);
+
+            if (!string.IsNullOrEmpty(Inn) && (Inn.StartsWith("2") || Inn.StartsWith("3")))
+            {
+                Console.WriteLine("First Case = " + Inn);
+
+                return Inn;
+            }
+            else
+            {
+                Console.WriteLine("Second Case = " + payment.INN);
+
+                return payment.INN;
+            }
+        }
+
+        private void AssignBranchInfo(int ID_Ot, string DepartmentBase, KasabaKIATEntities db, 
+            EcpCalcViewModel model, sp_pr_GetNewTransactionsN1_Result1 payment)
+        {
+            Console.WriteLine("AssignBranchInfo Called");
+
+            var currentOtrasl = db.tblSprav_Otras.Where(z => z.ID_Ot == ID_Ot
+                                                    && z.DepartmentBase == DepartmentBase);
+
+            if (currentOtrasl.Any())
+            {
+                var branchCode = currentOtrasl.First().BRANCH_CODE;
+
+                var branchNameRow = db.sp_branch.Where(z => z.code == branchCode);
+
+                if (branchNameRow.Any())
+                {
+                    var branchName = branchNameRow.First().name_ru;
+
+                    model.branch_code = branchCode;
+                    Console.WriteLine(DateTime.Now.ToLongTimeString() + " " + branchName);
+                    model.branch_name = branchName;
+
+                    switch (model.branch_code)
+                    {
+                        case "Н2":
+                            model.adep_code = "173Н2";
+                            break;
+                        case "Т2":
+                            model.adep_code = "173Т2";
+                            break;
+                        case "О1":
+                            model.adep_code = "173О1";
+                            break;
+                        default:
+                            model.adep_code = "173" + model.branch_code + payment.SOATO.Substring(2, 5);
+                            break;
+                    }
+                }
+                else
+                {
+                    throw new ApplicationException("See to sp_branch table branch is missing!!!");
+                }
+            }
+            else
+            {
+                throw new ApplicationException("See to tblSprav_Otras table branch is missing!!!");
+            }
+        }
+
+        private void CreateOrganization(KasabaKIATEntities db,
+            EcpCalcViewModel model, sp_pr_GetNewTransactionsN1_Result1 payment)
+        {
+            Console.WriteLine(DateTime.Now.ToLongTimeString() + "CreateOrganization ");
+
+            var orrg = new tblSprav_Org();
+            orrg.INN = model.inn;
+            orrg.IS_PRAVSOYUZ = false;
+
+            if (payment.CLNAME.Length > 100)
+            {
+                orrg.Name_Org = payment.CLNAME.Substring(0, 100);
+            }
+            else
+            {
+                orrg.Name_Org = payment.CLNAME;
+            }
+
+            if (string.IsNullOrEmpty(model.obl_department_base))
+            {
+                orrg.DepartmentBase = null;
+            }
+            else
+            {
+                orrg.DepartmentBase = model.obl_department_base;
+            }
+
+            orrg.ORIG_INN = model.inn;
+            orrg.OKONX = model.okonx_id;
+
+            var region = db.tblSprav_Reg.Where(z => z.SOATO_CODE == model.soato);
+
+            if (region.Any())
+            {
+                orrg.Region = region.First().CodeReg;
+            }
+
+            orrg.FACE_TYPE = 0;
+            model.name_org = orrg.Name_Org;
+            orrg.UserId = 1;
+
+            db.tblSprav_Org.Add(orrg);
+        }
 
 
+        private void AssignBranchOrCreateOrg(KasabaKIATEntities db,
+            EcpCalcViewModel model, sp_pr_GetNewTransactionsN1_Result1 payment, List<string> orgInnEnter)
+        {
+            Console.WriteLine("AssignBranchOrCreateOrg called");
+            var orgsList = db.tblSprav_Org.Where(z => z.INN == model.inn &&
+            z.DepartmentBase == payment.OBL_DEPARTMENT_BASE);
+
+            if (orgsList.Any())
+            {
+                Console.WriteLine("Organization Found!");
+
+                var org1 = orgsList.First();
+
+                Console.WriteLine("Name Org = ");
+                Console.Write(org1.Name_Org);
+                Console.WriteLine("Otrasl = ");
+                Console.Write(org1.ID_Ot);
+
+                if (org1.ID_Ot.HasValue)
+                {
+                    AssignBranchInfo(org1.ID_Ot.Value, org1.DepartmentBase, db, model, payment);
+                }
+
+                model.name_org = org1.Name_Org;
+            }
+            else
+            {
+                Console.WriteLine("Organization NOT Found!");
+                string combine = string.Format("{0}{1}", model.inn, payment.OBL_DEPARTMENT_BASE);
+
+                if (!orgInnEnter.Any(z => z == combine))
+                {
+                    CreateOrganization(db, model, payment);
+
+                    orgInnEnter.Add(combine);
+                }
+            }
+        }
+
+        private void MakeEcpRow(KasabaKIATEntities db,
+            sp_pr_GetNewTransactionsN1_Result1 payment, List<string> orgInnEnter)
+        {
+            Console.WriteLine("MakeEcpRow Called");
+
+            var model = new EcpCalcViewModel();
+
+            AssignDataToModel(model, payment);
+
+            model.inn = GetFinalINN(payment);
+
+            AssignBranchOrCreateOrg(db, model, payment, orgInnEnter);
+
+            Console.WriteLine("EcpCalcDataManager.Create Call");
+            EcpCalcDataManager.Create(ref model, db);
+        }
         /// <summary>
         /// 
         /// </summary>

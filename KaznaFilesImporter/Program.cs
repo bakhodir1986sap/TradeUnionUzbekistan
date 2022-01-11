@@ -11,6 +11,7 @@ namespace KaznaFilesImporter
 
         static void Main(string[] args)
         {
+            Console.OutputEncoding = System.Text.Encoding.UTF8;
             try
             {
                 _logService = new FileLogService(typeof(Program));

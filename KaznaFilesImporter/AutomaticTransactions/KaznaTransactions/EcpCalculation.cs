@@ -291,6 +291,14 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.Provodki.AutomaticTransactions.K
         {
             Console.WriteLine("AssignBranchInfo Called");
 
+            if (ID_Ot <= 0 || string.IsNullOrEmpty(DepartmentBase))
+            {
+                Console.WriteLine("ID_Ot = " + ID_Ot);
+                Console.WriteLine("DepartmentBase = " + DepartmentBase);
+
+                throw new ArgumentNullException("ID_Ot or DepartmentBase is invalid");
+            }
+
             var currentOtrasl = db.tblSprav_Otras.Where(z => z.ID_Ot == ID_Ot
                                                     && z.DepartmentBase == DepartmentBase);
 
@@ -340,30 +348,17 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.Provodki.AutomaticTransactions.K
         {
             Console.WriteLine(DateTime.Now.ToLongTimeString() + "CreateOrganization ");
 
-            var orrg = new tblSprav_Org();
-            orrg.INN = model.inn;
-            orrg.IS_PRAVSOYUZ = false;
-
-            if (payment.CLNAME.Length > 100)
+            var orrg = new tblSprav_Org
             {
-                orrg.Name_Org = payment.CLNAME.Substring(0, 100);
-            }
-            else
-            {
-                orrg.Name_Org = payment.CLNAME;
-            }
-
-            if (string.IsNullOrEmpty(model.obl_department_base))
-            {
-                orrg.DepartmentBase = null;
-            }
-            else
-            {
-                orrg.DepartmentBase = model.obl_department_base;
-            }
-
-            orrg.ORIG_INN = model.inn;
-            orrg.OKONX = model.okonx_id;
+                INN = model.inn,
+                IS_PRAVSOYUZ = false,
+                ORIG_INN = model.inn,
+                OKONX = model.okonx_id,
+                FACE_TYPE = 0,
+                UserId = 1,
+                Name_Org = payment.CLNAME.Length > 100 ? payment.CLNAME.Substring(0, 100) : payment.CLNAME,
+                DepartmentBase = string.IsNullOrEmpty(model.obl_department_base) ? null : model.obl_department_base
+            };
 
             var region = db.tblSprav_Reg.Where(z => z.SOATO_CODE == model.soato);
 
@@ -372,11 +367,9 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.Provodki.AutomaticTransactions.K
                 orrg.Region = region.First().CodeReg;
             }
 
-            orrg.FACE_TYPE = 0;
-            model.name_org = orrg.Name_Org;
-            orrg.UserId = 1;
-
             db.tblSprav_Org.Add(orrg);
+
+            model.name_org = orrg.Name_Org;
         }
 
 
@@ -691,7 +684,8 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.Provodki.AutomaticTransactions.K
                                     {
                                         if (org.ID_Ot.HasValue)
                                         {
-                                            var currentOtrasl = db.tblSprav_Otras.Where(z => z.ID_Ot == org.ID_Ot);
+                                            var currentOtrasl = db.tblSprav_Otras.Where(z => z.ID_Ot == org.ID_Ot 
+                                            && z.DepartmentBase == org.DepartmentBase);
 
                                             if (currentOtrasl.Any())
                                             {
@@ -716,6 +710,7 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.Provodki.AutomaticTransactions.K
                                                         {
                                                             ecp.BRANCH_CODE = branchCode;
                                                             ecp.BRANCH_NAME = branchName;
+                                                            ecp.NAME_ORG = org.Name_Org;
 
                                                             if (branchCode.Equals("Н2"))
                                                             {

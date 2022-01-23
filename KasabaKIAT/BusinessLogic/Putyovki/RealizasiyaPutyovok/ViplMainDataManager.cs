@@ -146,20 +146,20 @@ namespace KasabaKiat.BusinessLogic.Putyovki.RealizasiyaPutyovok
         /// <returns></returns>
         public static async Task<List<RealizasiyaViplMainViewModel>> Get(RealizasiyaViplMainViewModel model)
         {
-            List<RealizasiyaViplMainViewModel> list = new List<RealizasiyaViplMainViewModel>();
-
             using (KasabaKIATEntities db = new KasabaKIATEntities())
             {
-                var query = await (from vipl in db.tblVipl
+                return await (from vipl in db.tblVipl
+                            join org in db.tblSprav_Org on vipl.ID_Org equals org.ID
                             where vipl.SmFil == model.smfil 
                             && vipl.ID_Kv == model.id_kv
                             && vipl.DepartmentBase == model.departmentbase
+                            && org.FACE_TYPE == 0
+                            && (model.ID_Ot == -999 || org.ID_Ot == model.ID_Ot)
                             orderby vipl.ID descending
                             select new RealizasiyaViplMainViewModel
                             {
                                 id              = vipl.ID,
                                 id_org          = vipl.ID_Org           ,
-                                organizationName = "",//org.Name_Org,
                                 data_post       = vipl.Data_Post        ,
                                 num_doc         = vipl.Num_Doc          ,
                                 id_pok          = vipl.ID_Pok           ,
@@ -170,35 +170,11 @@ namespace KasabaKiat.BusinessLogic.Putyovki.RealizasiyaPutyovok
                                 vid             = vipl.Vid              ,
                                 smfil           = vipl.SmFil            ,
                                 userid          = vipl.UserId           ,
-                                departmentbase  = vipl.DepartmentBase
+                                departmentbase  = vipl.DepartmentBase,
+                                organizationName = org.Name_Org
                             }).ToListAsync();
 
-
-                foreach(var q in query)
-                {
-                    var orgs = db.tblSprav_Org.Where(z => z.ID == q.id_org);
-
-                    if (orgs.Any())
-                    {
-                        var organization = orgs.First();
-
-                        if (organization.FACE_TYPE == 1) continue; //We need only Yur Liso
-
-                        q.organizationName = organization.Name_Org;
-
-                        if (model.ID_Ot == -999)
-                        {
-                            list.Add(q);
-                        }
-                        else if (organization.ID_Ot == model.ID_Ot)
-                        {
-                            list.Add(q);
-                        }
-                    }
-                }
             }
-
-            return list;
         }
 
 
@@ -353,7 +329,7 @@ namespace KasabaKiat.BusinessLogic.Putyovki.RealizasiyaPutyovok
             using (KasabaKIATEntities db = new KasabaKIATEntities())
             {
 
-                var query = await ViplMainDataManager.Get(new RealizasiyaViplMainViewModel()
+                var viplMainWithOtras = await ViplMainDataManager.Get(new RealizasiyaViplMainViewModel()
                 {
                     smfil = year,
                     id_kv = kvartal,
@@ -361,20 +337,30 @@ namespace KasabaKiat.BusinessLogic.Putyovki.RealizasiyaPutyovok
                     ID_Ot = ID_Ot
                 });
 
-                totals.NakladnoyCount = query.Count;
+                totals.NakladnoyCount = viplMainWithOtras.Count;
 
-                var list = query;
+                //int totals_PutyovkaCount = 0;
+                //decimal? totals_SummaNakladnix = 0;
 
-                if (list.Any())
+                //foreach (var element in viplMainWithOtras)
+                //{
+                //    var putyovkas = await (db.tblVipl_Put.Where(z => z.ID_Vipl.Value.Equals(element.id))).ToListAsync();
+
+                //    totals_PutyovkaCount += putyovkas.Count;
+                //    totals_SummaNakladnix += putyovkas.Sum(z => z.Symma);
+                //}
+
+                if (viplMainWithOtras.Any())
                 {
-                    totals.PutyovkaCount = list.Sum(z => z.num_kol);
-                    totals.SummaNakladnix = list.Sum(z => z.symma);
+                    totals.PutyovkaCount = viplMainWithOtras.Sum(z => z.num_kol);
+                    totals.SummaNakladnix = viplMainWithOtras.Sum(z => z.symma);
                 }
                 else
                 {
                     totals.PutyovkaCount = 0;
                     totals.SummaNakladnix = 0;
                 }
+
             }
 
             return totals;

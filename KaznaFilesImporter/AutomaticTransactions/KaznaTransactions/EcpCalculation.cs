@@ -291,12 +291,12 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.Provodki.AutomaticTransactions.K
         {
             Console.WriteLine("AssignBranchInfo Called");
 
-            if (ID_Ot <= 0 || string.IsNullOrEmpty(DepartmentBase))
+            if (string.IsNullOrEmpty(DepartmentBase))
             {
                 Console.WriteLine("ID_Ot = " + ID_Ot);
                 Console.WriteLine("DepartmentBase = " + DepartmentBase);
 
-                throw new ArgumentNullException("ID_Ot or DepartmentBase is invalid");
+                throw new ArgumentNullException("DepartmentBase is invalid");
             }
 
             var currentOtrasl = db.tblSprav_Otras.Where(z => z.ID_Ot == ID_Ot
@@ -334,12 +334,12 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.Provodki.AutomaticTransactions.K
                 }
                 else
                 {
-                    throw new ApplicationException("See to sp_branch table branch is missing!!!");
+                    //throw new ApplicationException("See to sp_branch table branch is missing!!!");
                 }
             }
             else
             {
-                throw new ApplicationException("See to tblSprav_Otras table branch is missing!!!");
+                //throw new ApplicationException("See to tblSprav_Otras table branch is missing!!!");
             }
         }
 
@@ -673,7 +673,7 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.Provodki.AutomaticTransactions.K
 
                         while(true)
                         {
-                            var newOrgChangedList = db.tblSprav_Org.Where(z => z.TIMESTAMP_CH >= lastTime && z.ID_Ot.HasValue).Take(100);
+                            var newOrgChangedList = db.tblSprav_Org.Where(z => z.TIMESTAMP_CH >= lastTime && z.ID_Ot.HasValue && z.FACE_TYPE == 0).Take(100);
 
                             if (newOrgChangedList.Any())
                             {

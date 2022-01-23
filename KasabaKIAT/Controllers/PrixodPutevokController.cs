@@ -2446,12 +2446,21 @@ namespace KasabaKIAT.Controllers
         /// <returns></returns>
         public async Task<JsonResult> GetViplTotalResults(int year, int kvartal, int ID_Ot)
         {
-            int UserId = Convert.ToInt32(User.Identity.Name);
-            var ustinfo = UserInfo.GetUserInfo(UserId);
+            try
+            {
+                int UserId = Convert.ToInt32(User.Identity.Name);
+                var ustinfo = UserInfo.GetUserInfo(UserId);
 
-            var totalres = await ViplMainDataManager.GetTotals(year, kvartal, ustinfo.DepartmentBase, ID_Ot);
+                var totalres = await ViplMainDataManager.GetTotals(year, kvartal, ustinfo.DepartmentBase, ID_Ot);
 
-            return Json(totalres, JsonRequestBehavior.AllowGet);
+                return Json(totalres, JsonRequestBehavior.AllowGet);
+            }
+            catch(Exception ex)
+            {
+                log.Error(ex.ToString());
+            }
+
+            return Json("Error!!!", JsonRequestBehavior.AllowGet);
         }
 
 

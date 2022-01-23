@@ -185,58 +185,35 @@ namespace KasabaKiat.BusinessLogic.Putyovki.RealizasiyaPutyovok
         /// <returns></returns>
         public static async Task<List<RealizasiyaViplMainViewModel>> GetFizLiso(RealizasiyaViplMainViewModel model)
         {
-            List<RealizasiyaViplMainViewModel> list = new List<RealizasiyaViplMainViewModel>();
-
             using (KasabaKIATEntities db = new KasabaKIATEntities())
             {
-                var query = await (from vipl in db.tblVipl
-                                   where vipl.SmFil == model.smfil
-                                   && vipl.ID_Kv == model.id_kv
-                                   && vipl.DepartmentBase == model.departmentbase
-                                   orderby vipl.ID descending
-                                   select new RealizasiyaViplMainViewModel
-                                   {
-                                       id = vipl.ID,
-                                       id_org = vipl.ID_Org,
-                                       organizationName = "",//org.Name_Org,
-                                       data_post = vipl.Data_Post,
-                                       num_doc = vipl.Num_Doc,
-                                       id_pok = vipl.ID_Pok,
-                                       num_kol = vipl.Num_Kol,
-                                       symma = vipl.Symma,
-                                       concat_dov = vipl.Name_Dov,
-                                       id_kv = vipl.ID_Kv,
-                                       vid = vipl.Vid,
-                                       smfil = vipl.SmFil,
-                                       userid = vipl.UserId,
-                                       departmentbase = vipl.DepartmentBase
-                                   }).ToListAsync();
+                return await (from vipl in db.tblVipl
+                              join org in db.tblSprav_Org on vipl.ID_Org equals org.ID
+                              where vipl.SmFil == model.smfil
+                              && vipl.ID_Kv == model.id_kv
+                              && vipl.DepartmentBase == model.departmentbase
+                              && org.FACE_TYPE == 1
+                              && (model.ID_Ot == -999 || org.ID_Ot == model.ID_Ot)
+                              orderby vipl.ID descending
+                              select new RealizasiyaViplMainViewModel
+                              {
+                                  id = vipl.ID,
+                                  id_org = vipl.ID_Org,
+                                  data_post = vipl.Data_Post,
+                                  num_doc = vipl.Num_Doc,
+                                  id_pok = vipl.ID_Pok,
+                                  num_kol = vipl.Num_Kol,
+                                  symma = vipl.Symma,
+                                  concat_dov = vipl.Name_Dov,
+                                  id_kv = vipl.ID_Kv,
+                                  vid = vipl.Vid,
+                                  smfil = vipl.SmFil,
+                                  userid = vipl.UserId,
+                                  departmentbase = vipl.DepartmentBase,
+                                  organizationName = org.Name_Org
+                              }).ToListAsync();
 
-                foreach (var q in query)
-                {
-                    var orgs = db.tblSprav_Org.Where(z => z.ID == q.id_org);
-
-                    if (orgs.Any())
-                    {
-                        var organization = orgs.First();
-
-                        q.organizationName = organization.Name_Org;
-
-                        if (organization.FACE_TYPE == 0) continue; //We need only Fiz Liso
-
-                        if (model.ID_Ot == -999)
-                        {
-                            list.Add(q);
-                        }
-                        else if (organization.ID_Ot == model.ID_Ot)
-                        {
-                            list.Add(q);
-                        }
-                    }
-                }
             }
-
-            return list;
         }
 
 
@@ -339,21 +316,15 @@ namespace KasabaKiat.BusinessLogic.Putyovki.RealizasiyaPutyovok
 
                 totals.NakladnoyCount = viplMainWithOtras.Count;
 
-                //int totals_PutyovkaCount = 0;
-                //decimal? totals_SummaNakladnix = 0;
+                var selectedMainIds = (from n in viplMainWithOtras select n.id).ToList();
 
-                //foreach (var element in viplMainWithOtras)
-                //{
-                //    var putyovkas = await (db.tblVipl_Put.Where(z => z.ID_Vipl.Value.Equals(element.id))).ToListAsync();
-
-                //    totals_PutyovkaCount += putyovkas.Count;
-                //    totals_SummaNakladnix += putyovkas.Sum(z => z.Symma);
-                //}
+                var selectedPutyovkas = from put in db.tblVipl_Put where selectedMainIds.Contains(put.ID_Vipl.Value)
+                                        select put;
 
                 if (viplMainWithOtras.Any())
                 {
-                    totals.PutyovkaCount = viplMainWithOtras.Sum(z => z.num_kol);
-                    totals.SummaNakladnix = viplMainWithOtras.Sum(z => z.symma);
+                    totals.PutyovkaCount = selectedPutyovkas.Count();
+                    totals.SummaNakladnix = selectedPutyovkas.Sum(z => z.Symma);
                 }
                 else
                 {

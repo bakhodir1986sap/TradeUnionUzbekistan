@@ -281,11 +281,16 @@ namespace KasabaKiat.BusinessLogic.Putyovki.RealizasiyaPutyovok
 
                 foreach(var put in list)
                 {
-                    var postPut = db.tblPos_Put.Where(p => p.Num_Put == put.num_put && p.ID_Sanat == put.id_sanat);
+                    var postPut = db.tblPos_Put.Where(p => p.Num_Put == put.num_put && p.ID_Sanat == put.id_sanat 
+                    && p.Departmentbase == put.departmentbase);
 
                     if (postPut.Any())
                     {
                         put.data_post = postPut.First().DataSan;
+                    }
+                    else
+                    {
+                        put.data_post = DateTime.Now;
                     }
                 }
             }

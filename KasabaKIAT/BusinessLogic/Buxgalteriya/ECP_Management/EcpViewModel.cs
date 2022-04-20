@@ -10,7 +10,7 @@ namespace KasabaKIAT.BusinessLogic.Buxgalteriya.ECP_Management
         public decimal?     federation_amt              { get; set;}
         public decimal?     oblsovprof_amt              { get; set;}
         public string       obl_department_base         { get; set;}
-        public long         provodka_id                 { get; set;}
+        public long?         provodka_id                 { get; set;}
         public string       remark                      { get; set;}
         public string       inn                         { get; set;}
         public string       soato                       { get; set;}

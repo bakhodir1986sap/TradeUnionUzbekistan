@@ -65,7 +65,7 @@ namespace KasabaKIAT.BusinessLogic.BankOplati.Kaznacheystvo
                                     }
                                     catch(Exception ex)
                                     {
-                                        Console.WriteLine(ex.Message);
+                                        Console.WriteLine($"FileProcessor line 86 {ex.Message} - {ex.InnerException.Message}");
                                     }
                                 }
                             }
@@ -92,7 +92,6 @@ namespace KasabaKIAT.BusinessLogic.BankOplati.Kaznacheystvo
                     }
                 }
 
-                KaznaFilesDataManager.EnterNotExistsOrganizations();
             }
         }
 

@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using KasabaKIAT.ViewModel.BankOplati;
-using KasabaKIAT.BusinessLogic.BankOplati;
 using KaznaFilesImporter.BankOplati;
 
 namespace KasabaKIAT.BusinessLogic.BankOplati.Kaznacheystvo
@@ -53,7 +50,7 @@ namespace KasabaKIAT.BusinessLogic.BankOplati.Kaznacheystvo
             }
             else
             {
-                throw new NotImplementedException("3 uuuch!!!!");
+                throw new NotImplementedException("Boshqa file tiplari kirib kelgan. Payment, Sverka va Bank qo'llanilgan");
             }
         }
 
@@ -70,18 +67,33 @@ namespace KasabaKIAT.BusinessLogic.BankOplati.Kaznacheystvo
 
             foreach(var row in paymentRows)
             {
+                AddPaymentFileData(row);
+            }
+
+            foreach (var row in sverkaFile)
+            {
+                AddSverkaFileData(row);
+            }
+
+            foreach (var row in bankFile)
+            {
+                AddBankFileData(row);
+            }
+
+            void AddPaymentFileData(KaznaPaymentFile row)
+            {
                 try
                 {
                     row.file_id = file.Id;
                     KaznaFilesDataManager.InsertKaznaPaymentRows(row);
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     Console.WriteLine(ex.Message);
                 }
             }
 
-            foreach (var row in sverkaFile)
+            void AddSverkaFileData(SverkaFile row)
             {
                 try
                 {
@@ -94,7 +106,7 @@ namespace KasabaKIAT.BusinessLogic.BankOplati.Kaznacheystvo
                 }
             }
 
-            foreach (var row in bankFile)
+            void AddBankFileData(BankPaymentFile row)
             {
                 try
                 {

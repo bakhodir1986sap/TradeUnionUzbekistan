@@ -1079,6 +1079,7 @@ namespace KasabaKIAT.Controllers
         public JsonResult GetEcpTransactions(string inn)
         {
             log.Info("GetEcpTransactions => " + inn);
+
             var UserId = Convert.ToInt32(User.Identity.Name);
             var userInfo = UserInfo.GetUserInfo(UserId);
 
@@ -1086,9 +1087,18 @@ namespace KasabaKIAT.Controllers
             model.obl_department_base = userInfo.DepartmentBase;
             model.inn = inn;
 
-            var list = EcpManagement.GetEcpPaymentList(model, KasabaDB);
+            try
+            {
+                var list = EcpManagement.GetEcpPaymentList(model, KasabaDB);
 
-            return Json(list, JsonRequestBehavior.AllowGet);
+                return Json(list, JsonRequestBehavior.AllowGet);
+            }
+            catch(Exception ex)
+            {
+                log.Error("GetEcpTransactions => " + ex);
+            }
+
+            return Json(null, JsonRequestBehavior.AllowGet);
         }
 
         /// <summary>

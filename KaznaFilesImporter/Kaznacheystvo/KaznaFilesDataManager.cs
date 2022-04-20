@@ -10,49 +10,60 @@ using System.Web;
 
 namespace KasabaKIAT.BusinessLogic.BankOplati.Kaznacheystvo
 {
-    public class KaznaFilesDataManager
+    public static class KaznaFilesDataManager
     {
         public static void InsertKaznaFile(ref KaznaFiles file)
         {
             using (KasabaKIATEntities db = new KasabaKIATEntities())
             {
-                var inputFileName = file.FileName;
-
-                var fileKazna = db.KaznaFiles.FirstOrDefault(x => x.FileName.Contains(inputFileName));
-
-                if (fileKazna != null)
-                {
-                    file.Id = fileKazna.ID;
-                    return;
-                }
-
-                KaznaFile kfile = new KaznaFile();
-
-                kfile.FileName = file.FileName;
-                kfile.CreateDate = file.CreateDateTime;
-
-                var kk = db.KaznaFiles.Add(kfile);
-
                 try
                 {
+                    var inputFileName = file.FileName;
+
+                    var fileKazna = db.KaznaFiles.FirstOrDefault(x => x.FileName.Contains(inputFileName));
+
+                    if (fileKazna != null)
+                    {
+                        file.Id = fileKazna.ID;
+                        return;
+                    }
+
+                    KaznaFile kfile = new KaznaFile
+                    {
+                        FileName = file.FileName,
+                        CreateDate = file.CreateDateTime
+                    };
+
+                    db.KaznaFiles.Add(kfile);
+
                     db.SaveChanges();
+
+                    file.Id = kfile.ID;
                 }
                 catch (DbEntityValidationException e)
                 {
-                    foreach (var eve in e.EntityValidationErrors)
-                    {
-                        Console.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
-                            eve.Entry.Entity.GetType().Name, eve.Entry.State);
-                        foreach (var ve in eve.ValidationErrors)
-                        {
-                            Console.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
-                                ve.PropertyName, ve.ErrorMessage);
-                        }
-                    }
+                    PrintException(e);
                     throw;
                 }
+                catch(Exception e)
+                {
+                    Console.WriteLine(e.ToString());
+                    throw;
+                }
+            }
+        }
 
-                file.Id = kfile.ID;
+        private static void PrintException(DbEntityValidationException e)
+        {
+            foreach (var eve in e.EntityValidationErrors)
+            {
+                Console.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
+                    eve.Entry.Entity.GetType().Name, eve.Entry.State);
+                foreach (var ve in eve.ValidationErrors)
+                {
+                    Console.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
+                        ve.PropertyName, ve.ErrorMessage);
+                }
             }
         }
 
@@ -60,10 +71,11 @@ namespace KasabaKIAT.BusinessLogic.BankOplati.Kaznacheystvo
         {
             using (KasabaKIATEntities db = new KasabaKIATEntities())
             {
-                KaznaFilesImporter.KaznaPaymentFile file = new KaznaFilesImporter.KaznaPaymentFile();
+                var file = new KaznaFilesImporter.KaznaPaymentFile();
                 CultureInfo provider = CultureInfo.InvariantCulture;
 
-                file.K_TYPE     = row.k_type    ;
+                file.K_TYPE = row.k_type;
+
                 try
                 {
                     file.OPERDAY = DateTime.ParseExact(row.k_operday, "ddMMyyyy", provider);
@@ -153,16 +165,12 @@ namespace KasabaKIAT.BusinessLogic.BankOplati.Kaznacheystvo
                 }
                 catch (DbEntityValidationException e)
                 {
-                    foreach (var eve in e.EntityValidationErrors)
-                    {
-                        Console.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
-                            eve.Entry.Entity.GetType().Name, eve.Entry.State);
-                        foreach (var ve in eve.ValidationErrors)
-                        {
-                            Console.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
-                                ve.PropertyName, ve.ErrorMessage);
-                        }
-                    }
+                    PrintException(e);
+                    throw;
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.ToString());
                     throw;
                 }
 
@@ -174,7 +182,7 @@ namespace KasabaKIAT.BusinessLogic.BankOplati.Kaznacheystvo
         {
             using (KasabaKIATEntities db = new KasabaKIATEntities())
             {
-                KaznaFilesImporter.KaznaBankFile file = new KaznaFilesImporter.KaznaBankFile();
+                var file = new KaznaBankFile();
                 CultureInfo provider = CultureInfo.InvariantCulture;
 
                 file.K_TYPE = row.type;
@@ -247,19 +255,14 @@ namespace KasabaKIAT.BusinessLogic.BankOplati.Kaznacheystvo
                 }
                 catch (DbEntityValidationException e)
                 {
-                    foreach (var eve in e.EntityValidationErrors)
-                    {
-                        Console.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
-                            eve.Entry.Entity.GetType().Name, eve.Entry.State);
-                        foreach (var ve in eve.ValidationErrors)
-                        {
-                            Console.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
-                                ve.PropertyName, ve.ErrorMessage);
-                        }
-                    }
+                    PrintException(e);
                     throw;
                 }
-
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.ToString());
+                    throw;
+                }
             }
         }
 
@@ -271,12 +274,11 @@ namespace KasabaKIAT.BusinessLogic.BankOplati.Kaznacheystvo
 
                 kfile.K_TYPE = file.k_type;
 
-
                 try
                 {
                     kfile.K_OPERDAY = DateTime.ParseExact(file.k_operday, "ddMMyyyy", CultureInfo.InvariantCulture);
                 }
-                catch (Exception ex)
+                catch 
                 {
                     kfile.K_OPERDAY = DateTime.Now;
                 }
@@ -285,7 +287,7 @@ namespace KasabaKIAT.BusinessLogic.BankOplati.Kaznacheystvo
                 kfile.CREATE_DATETIME = file.create_datetime;
                 kfile.FILE_ID = file.file_id;
 
-                var kk = db.KaznaSverkaFiles.Add(kfile);
+                db.KaznaSverkaFiles.Add(kfile);
 
                 try
                 {
@@ -293,34 +295,15 @@ namespace KasabaKIAT.BusinessLogic.BankOplati.Kaznacheystvo
                 }
                 catch (DbEntityValidationException e)
                 {
-                    foreach (var eve in e.EntityValidationErrors)
-                    {
-                        Console.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
-                            eve.Entry.Entity.GetType().Name, eve.Entry.State);
-                        foreach (var ve in eve.ValidationErrors)
-                        {
-                            Console.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
-                                ve.PropertyName, ve.ErrorMessage);
-                        }
-                    }
+                    PrintException(e);
+                    throw;
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.ToString());
                     throw;
                 }
 
-            }
-        }
-
-        public static bool IsAlreadySettled(string fileName, int rowsCount)
-        {
-
-
-            return false;
-        }
-
-        public static void EnterNotExistsOrganizations()
-        {
-            using (KasabaKIATEntities db = new KasabaKIATEntities())
-            {
-                db.sp_im_KaznaNewOrg();
             }
         }
     }

@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace KasabaKIAT.Core.Services;
 
-public class RoleService(KasabaKIATContext db) : IRoleService
+public class RoleService(KasabaKIATContext db, IAuditService audit, ILogger<RoleService> logger) : IRoleService
 {
     public async Task<List<RoleDto>> GetAllAsync()
     {
@@ -25,29 +25,35 @@ public class RoleService(KasabaKIATContext db) : IRoleService
         return role == null ? null : ToDto(role);
     }
 
-    public async Task<RoleDto> CreateAsync(string name)
+    public async Task<RoleDto> CreateAsync(string name, long actorUserId)
     {
         var role = new Role { name = name, version = 0, s_status = "1" };
         db.Roles.Add(role);
         await db.SaveChangesAsync();
+        logger.LogInformation("Role created: Id={RoleId} Name={RoleName}", role.id, name);
+        await audit.LogAsync(actorUserId, "ROLE_CREATE", $"Name={name}");
         return ToDto(role);
     }
 
-    public async Task<RoleDto?> UpdateAsync(long id, string name)
+    public async Task<RoleDto?> UpdateAsync(long id, string name, long actorUserId)
     {
         var role = await db.Roles.FindAsync(id);
         if (role == null) return null;
         role.name = name;
         await db.SaveChangesAsync();
+        logger.LogInformation("Role updated: Id={RoleId} Name={RoleName}", id, name);
+        await audit.LogAsync(actorUserId, "ROLE_UPDATE", $"RoleId={id} Name={name}");
         return ToDto(role);
     }
 
-    public async Task<bool> DeleteAsync(long id)
+    public async Task<bool> DeleteAsync(long id, long actorUserId)
     {
         var role = await db.Roles.FindAsync(id);
         if (role == null) return false;
         db.Roles.Remove(role);
         await db.SaveChangesAsync();
+        logger.LogInformation("Role deleted: Id={RoleId}", id);
+        await audit.LogAsync(actorUserId, "ROLE_DELETE", $"RoleId={id}");
         return true;
     }
 

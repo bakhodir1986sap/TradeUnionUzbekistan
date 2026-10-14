@@ -10,12 +10,16 @@ using System.Text;
 
 namespace KasabaKIAT.Core.Services;
 
-public class AuthService(KasabaKIATContext db, IConfiguration config) : IAuthService
+public class AuthService(KasabaKIATContext db, IConfiguration config, IAuditService audit, ILogger<AuthService> logger) : IAuthService
 {
     public async Task<LoginResponse?> LoginAsync(LoginRequest request)
     {
         var userId = await CallUspLoginAsync(request.Login, request.Password);
-        if (userId <= 0) return null;
+        if (userId <= 0)
+        {
+            logger.LogWarning("Login failed for {Login}", request.Login);
+            return null;
+        }
 
         var user = await db.Users
             .Include(u => u.role)
@@ -25,6 +29,8 @@ public class AuthService(KasabaKIATContext db, IConfiguration config) : IAuthSer
 
         var (accessToken, expiresAt) = GenerateAccessToken(user);
         var refreshToken = await StoreRefreshTokenAsync(userId);
+
+        await audit.LogAsync(userId, "LOGIN", $"User {user.user_name} logged in");
 
         return new LoginResponse
         {
@@ -92,7 +98,23 @@ public class AuthService(KasabaKIATContext db, IConfiguration config) : IAuthSer
         var connStr = config.GetConnectionString("DefaultConnection")!;
         using var con = new SqlConnection(connStr);
         await con.OpenAsync();
+
+        long userId = 0;
+        using (var cmd = new SqlCommand(
+            "SELECT user_id FROM api_refresh_tokens WHERE token = @token AND revoked_at IS NULL",
+            con))
+        {
+            cmd.Parameters.AddWithValue("@token", refreshToken);
+            var result = await cmd.ExecuteScalarAsync();
+            if (result != null && result != DBNull.Value)
+                userId = Convert.ToInt64(result);
+        }
+
         await RevokeTokenAsync(refreshToken, con);
+
+        if (userId > 0)
+            await audit.LogAsync(userId, "LOGOUT", null);
+
         return true;
     }
 

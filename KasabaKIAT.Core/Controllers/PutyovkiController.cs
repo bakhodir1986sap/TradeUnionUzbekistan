@@ -45,14 +45,18 @@ public class PutyovkiController(IPutyovkiService putyovkiService) : ControllerBa
     [HttpPut("{id:long}")]
     public async Task<IActionResult> Update(long id, [FromBody] CreatePutyovkaRequest request)
     {
-        var item = await putyovkiService.UpdateAsync(id, request);
+        var userIdClaim = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        long.TryParse(userIdClaim, out var actorId);
+        var item = await putyovkiService.UpdateAsync(id, request, actorId);
         return item == null ? NotFound() : Ok(item);
     }
 
     [HttpDelete("{id:long}")]
     public async Task<IActionResult> Delete(long id)
     {
-        var result = await putyovkiService.DeleteAsync(id);
+        var userIdClaim = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        long.TryParse(userIdClaim, out var actorId);
+        var result = await putyovkiService.DeleteAsync(id, actorId);
         return result ? NoContent() : NotFound();
     }
 }

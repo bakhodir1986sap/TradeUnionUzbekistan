@@ -1,6 +1,7 @@
 using KasabaKIAT.Core.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace KasabaKIAT.Core.Controllers;
 
@@ -26,23 +27,29 @@ public class RolesController(IRoleService roleService) : ControllerBase
     [HttpPost]
     public async Task<IActionResult> Create([FromBody] CreateRoleRequest request)
     {
-        var role = await roleService.CreateAsync(request.Name);
+        var actorId = GetActorId();
+        var role = await roleService.CreateAsync(request.Name, actorId);
         return CreatedAtAction(nameof(GetById), new { id = role.Id }, role);
     }
 
     [HttpPut("{id:long}")]
     public async Task<IActionResult> Update(long id, [FromBody] CreateRoleRequest request)
     {
-        var role = await roleService.UpdateAsync(id, request.Name);
+        var actorId = GetActorId();
+        var role = await roleService.UpdateAsync(id, request.Name, actorId);
         return role == null ? NotFound() : Ok(role);
     }
 
     [HttpDelete("{id:long}")]
     public async Task<IActionResult> Delete(long id)
     {
-        var result = await roleService.DeleteAsync(id);
+        var actorId = GetActorId();
+        var result = await roleService.DeleteAsync(id, actorId);
         return result ? NoContent() : NotFound();
     }
+
+    private long GetActorId() =>
+        long.TryParse(User.FindFirstValue(ClaimTypes.NameIdentifier), out var id) ? id : 0;
 }
 
 public record CreateRoleRequest(string Name);

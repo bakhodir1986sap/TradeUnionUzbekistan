@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace KasabaKIAT.Core.Services;
 
-public class PutyovkiService(KasabaKIATContext db) : IPutyovkiService
+public class PutyovkiService(KasabaKIATContext db, IAuditService audit, ILogger<PutyovkiService> logger) : IPutyovkiService
 {
     public async Task<(List<PutyovkaDto> Items, int Total)> GetListAsync(
         int page, int pageSize, long? bkutId, int? sanId, int? year, string? status)
@@ -67,10 +67,12 @@ public class PutyovkiService(KasabaKIATContext db) : IPutyovkiService
         };
         db.TbptPutyovkis.Add(entity);
         await db.SaveChangesAsync();
+        logger.LogInformation("Putyovka created: RecId={RecId} SanId={SanId} UserId={UserId}", entity.REC_ID, request.SanatoriumId, userId);
+        await audit.LogAsync(userId, "PUTYOVKA_CREATE", $"RecId={entity.REC_ID} SanId={request.SanatoriumId}");
         return ToDto(entity);
     }
 
-    public async Task<PutyovkaDto?> UpdateAsync(long id, CreatePutyovkaRequest request)
+    public async Task<PutyovkaDto?> UpdateAsync(long id, CreatePutyovkaRequest request, long actorUserId)
     {
         var entity = await db.TbptPutyovkis.FindAsync(id);
         if (entity == null) return null;
@@ -92,15 +94,19 @@ public class PutyovkiService(KasabaKIATContext db) : IPutyovkiService
         entity.MODIFY_DATE = DateTime.Now;
 
         await db.SaveChangesAsync();
+        logger.LogInformation("Putyovka updated: RecId={RecId}", id);
+        await audit.LogAsync(actorUserId, "PUTYOVKA_UPDATE", $"RecId={id}");
         return ToDto(entity);
     }
 
-    public async Task<bool> DeleteAsync(long id)
+    public async Task<bool> DeleteAsync(long id, long actorUserId)
     {
         var entity = await db.TbptPutyovkis.FindAsync(id);
         if (entity == null) return false;
         entity.STATUS = "0";
         await db.SaveChangesAsync();
+        logger.LogInformation("Putyovka deleted (soft): RecId={RecId}", id);
+        await audit.LogAsync(actorUserId, "PUTYOVKA_DELETE", $"RecId={id}");
         return true;
     }
 

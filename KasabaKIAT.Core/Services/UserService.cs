@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace KasabaKIAT.Core.Services;
 
-public class UserService(KasabaKIATContext db) : IUserService
+public class UserService(KasabaKIATContext db, IAuditService audit, ILogger<UserService> logger) : IUserService
 {
     public async Task<(List<UserDto> Items, int Total)> GetUsersAsync(int page, int pageSize, string? search)
     {
@@ -54,6 +54,8 @@ public class UserService(KasabaKIATContext db) : IUserService
         db.Users.Add(user);
         await db.SaveChangesAsync();
         await db.Entry(user).Reference(u => u.role).LoadAsync();
+        logger.LogInformation("User created: Id={UserId} UserName={UserName}", user.id, request.Login);
+        await audit.LogAsync(user.id, "USER_CREATE", $"UserName={request.Login}");
         return ToDto(user);
     }
 
@@ -75,6 +77,8 @@ public class UserService(KasabaKIATContext db) : IUserService
 
         await db.SaveChangesAsync();
         await db.Entry(user).Reference(u => u.role).LoadAsync();
+        logger.LogInformation("User updated: Id={UserId}", id);
+        await audit.LogAsync(id, "USER_UPDATE", $"TargetUserId={id}");
         return ToDto(user);
     }
 
@@ -84,6 +88,8 @@ public class UserService(KasabaKIATContext db) : IUserService
         if (user == null) return false;
         user.state = "0";
         await db.SaveChangesAsync();
+        logger.LogInformation("User deactivated: Id={UserId}", id);
+        await audit.LogAsync(id, "USER_DEACTIVATE", $"TargetUserId={id}");
         return true;
     }
 

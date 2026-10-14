@@ -59,7 +59,7 @@ public class NakladnoyDetailRow
 {
     public long Id { get; set; }
     public long? IdPost { get; set; }
-    public long? IdSan { get; set; }
+    public int? IdSan { get; set; }
     public string? NumPut { get; set; }
     public DateTime? DataSan { get; set; }
     public decimal? SymmaPut { get; set; }

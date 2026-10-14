@@ -7,7 +7,7 @@ namespace KasabaKIAT.Core.Models;
 public class TblBron
 {
     [Key] public long ID { get; set; }
-    public long? ID_Sanat { get; set; }
+    public int? ID_Sanat { get; set; }
     public string? Num_Put { get; set; }
     public bool? BRON_FLG { get; set; }
     public DateTime? BRON_DATE { get; set; }

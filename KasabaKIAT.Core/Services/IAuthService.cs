@@ -4,7 +4,7 @@ namespace KasabaKIAT.Core.Services;
 
 public interface IAuthService
 {
-    Task<LoginResponse?> LoginAsync(LoginRequest request);
-    Task<LoginResponse?> RefreshAsync(string refreshToken);
-    Task<bool> LogoutAsync(string refreshToken);
+    Task<LoginResponse?> LoginAsync(LoginRequest request, CancellationToken ct = default);
+    Task<LoginResponse?> RefreshAsync(string refreshToken, CancellationToken ct = default);
+    Task<bool> LogoutAsync(string refreshToken, CancellationToken ct = default);
 }

@@ -12,50 +12,50 @@ namespace KasabaKIAT.Core.Controllers;
 public class UsersController(IUserService userService) : ControllerBase
 {
     [HttpGet]
-    public async Task<IActionResult> GetAll([FromQuery] int page = 1, [FromQuery] int pageSize = 20, [FromQuery] string? search = null)
+    public async Task<IActionResult> GetAll([FromQuery] int page = 1, [FromQuery] int pageSize = 20, [FromQuery] string? search = null, CancellationToken ct = default)
     {
-        var (items, total) = await userService.GetUsersAsync(page, pageSize, search);
-        return Ok(new { items, total, page, pageSize });
+        var result = await userService.GetUsersAsync(page, pageSize, search, ct);
+        return Ok(result);
     }
 
     [HttpGet("me")]
-    public async Task<IActionResult> GetMe()
+    public async Task<IActionResult> GetMe(CancellationToken ct)
     {
         var idClaim = User.FindFirstValue(ClaimTypes.NameIdentifier);
         if (!long.TryParse(idClaim, out var userId))
             return Unauthorized();
-        var user = await userService.GetByIdAsync(userId);
+        var user = await userService.GetByIdAsync(userId, ct);
         return user == null ? NotFound() : Ok(user);
     }
 
     [HttpGet("{id:long}")]
-    public async Task<IActionResult> GetById(long id)
+    public async Task<IActionResult> GetById(long id, CancellationToken ct)
     {
-        var user = await userService.GetByIdAsync(id);
+        var user = await userService.GetByIdAsync(id, ct);
         return user == null ? NotFound() : Ok(user);
     }
 
     [HttpPost]
     [Authorize(Roles = "admin")]
-    public async Task<IActionResult> Create([FromBody] CreateUserRequest request)
+    public async Task<IActionResult> Create([FromBody] CreateUserRequest request, CancellationToken ct)
     {
-        var user = await userService.CreateAsync(request);
+        var user = await userService.CreateAsync(request, ct);
         return CreatedAtAction(nameof(GetById), new { id = user.Id }, user);
     }
 
     [HttpPut("{id:long}")]
     [Authorize(Roles = "admin")]
-    public async Task<IActionResult> Update(long id, [FromBody] UpdateUserRequest request)
+    public async Task<IActionResult> Update(long id, [FromBody] UpdateUserRequest request, CancellationToken ct)
     {
-        var user = await userService.UpdateAsync(id, request);
+        var user = await userService.UpdateAsync(id, request, ct);
         return user == null ? NotFound() : Ok(user);
     }
 
     [HttpDelete("{id:long}")]
     [Authorize(Roles = "admin")]
-    public async Task<IActionResult> Deactivate(long id)
+    public async Task<IActionResult> Deactivate(long id, CancellationToken ct)
     {
-        var result = await userService.DeactivateAsync(id);
+        var result = await userService.DeactivateAsync(id, ct);
         return result ? NoContent() : NotFound();
     }
 }

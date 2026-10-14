@@ -1,10 +1,16 @@
 using KasabaKIAT.Core.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
 
 namespace KasabaKIAT.Core.Data;
 
-public partial class KasabaKIATContext(DbContextOptions<KasabaKIATContext> options) : DbContext(options)
+public partial class KasabaKIATContext(
+    DbContextOptions<KasabaKIATContext> options,
+    IHttpContextAccessor? httpContextAccessor = null) : DbContext(options)
 {
+    private string? CurrentBkutId =>
+        httpContextAccessor?.HttpContext?.User.FindFirstValue("bkut_id");
     public virtual DbSet<User> Users { get; set; } = null!;
     public virtual DbSet<Role> Roles { get; set; } = null!;
     public virtual DbSet<RolePermission> RolePermissions { get; set; } = null!;
@@ -102,6 +108,10 @@ public partial class KasabaKIATContext(DbContextOptions<KasabaKIATContext> optio
                   .WithMany()
                   .HasForeignKey(e => e.USER_ID)
                   .IsRequired(false);
+            // Soft-delete + tenancy: combined so EF applies a single filter expression
+            entity.HasQueryFilter(e =>
+                e.STATUS != "0" &&
+                (CurrentBkutId == null || e.DEPARTMENT_CODE == CurrentBkutId));
         });
 
         modelBuilder.Entity<TblSpravSan>(entity =>

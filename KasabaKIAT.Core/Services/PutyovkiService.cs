@@ -1,4 +1,5 @@
 using KasabaKIAT.Core.Data;
+using KasabaKIAT.Core.DTOs;
 using KasabaKIAT.Core.DTOs.Putyovki;
 using KasabaKIAT.Core.Models;
 using Microsoft.EntityFrameworkCore;
@@ -7,8 +8,8 @@ namespace KasabaKIAT.Core.Services;
 
 public class PutyovkiService(KasabaKIATContext db, IAuditService audit, ILogger<PutyovkiService> logger) : IPutyovkiService
 {
-    public async Task<(List<PutyovkaDto> Items, int Total)> GetListAsync(
-        int page, int pageSize, long? bkutId, int? sanId, int? year, string? status)
+    public async Task<PagedResult<PutyovkaDto>> GetListAsync(
+        int page, int pageSize, int? sanId, int? year, string? status, CancellationToken ct = default)
     {
         var query = db.TbptPutyovkis
             .Include(p => p.tblSprav_San)
@@ -23,26 +24,26 @@ public class PutyovkiService(KasabaKIATContext db, IAuditService audit, ILogger<
         else
             query = query.Where(p => p.STATUS == "1");
 
-        var total = await query.CountAsync();
+        var total = await query.CountAsync(ct);
         var items = await query
             .OrderByDescending(p => p.MODIFY_DATE)
             .Skip((page - 1) * pageSize)
             .Take(pageSize)
             .Select(p => ToDto(p))
-            .ToListAsync();
+            .ToListAsync(ct);
 
-        return (items, total);
+        return new PagedResult<PutyovkaDto>(items, total, page, pageSize);
     }
 
-    public async Task<PutyovkaDto?> GetByIdAsync(long id)
+    public async Task<PutyovkaDto?> GetByIdAsync(long id, CancellationToken ct = default)
     {
         var p = await db.TbptPutyovkis
             .Include(x => x.tblSprav_San)
-            .FirstOrDefaultAsync(x => x.REC_ID == id);
+            .FirstOrDefaultAsync(x => x.REC_ID == id, ct);
         return p == null ? null : ToDto(p);
     }
 
-    public async Task<PutyovkaDto> CreateAsync(CreatePutyovkaRequest request, long userId, string departmentCode)
+    public async Task<PutyovkaDto> CreateAsync(CreatePutyovkaRequest request, long userId, string departmentCode, CancellationToken ct = default)
     {
         var quantityIn = request.QuantityIn ?? 0;
         var price = request.Price ?? 0;
@@ -66,15 +67,15 @@ public class PutyovkiService(KasabaKIATContext db, IAuditService audit, ILogger<
             SMFIL = request.Year
         };
         db.TbptPutyovkis.Add(entity);
-        await db.SaveChangesAsync();
+        await db.SaveChangesAsync(ct);
         logger.LogInformation("Putyovka created: RecId={RecId} SanId={SanId} UserId={UserId}", entity.REC_ID, request.SanatoriumId, userId);
-        await audit.LogAsync(userId, "PUTYOVKA_CREATE", $"RecId={entity.REC_ID} SanId={request.SanatoriumId}");
+        await audit.LogAsync(userId, "PUTYOVKA_CREATE", $"RecId={entity.REC_ID} SanId={request.SanatoriumId}", ct);
         return ToDto(entity);
     }
 
-    public async Task<PutyovkaDto?> UpdateAsync(long id, CreatePutyovkaRequest request, long actorUserId)
+    public async Task<PutyovkaDto?> UpdateAsync(long id, CreatePutyovkaRequest request, long actorUserId, CancellationToken ct = default)
     {
-        var entity = await db.TbptPutyovkis.FindAsync(id);
+        var entity = await db.TbptPutyovkis.FindAsync([id], ct);
         if (entity == null) return null;
 
         if (request.SanatoriumId.HasValue) entity.SANATORIUM_ID = request.SanatoriumId;
@@ -93,20 +94,20 @@ public class PutyovkiService(KasabaKIATContext db, IAuditService audit, ILogger<
         entity.REMAIN_BAL = entity.QUANTITY_REMAIN * (entity.PRICE ?? 0);
         entity.MODIFY_DATE = DateTime.Now;
 
-        await db.SaveChangesAsync();
+        await db.SaveChangesAsync(ct);
         logger.LogInformation("Putyovka updated: RecId={RecId}", id);
-        await audit.LogAsync(actorUserId, "PUTYOVKA_UPDATE", $"RecId={id}");
+        await audit.LogAsync(actorUserId, "PUTYOVKA_UPDATE", $"RecId={id}", ct);
         return ToDto(entity);
     }
 
-    public async Task<bool> DeleteAsync(long id, long actorUserId)
+    public async Task<bool> DeleteAsync(long id, long actorUserId, CancellationToken ct = default)
     {
-        var entity = await db.TbptPutyovkis.FindAsync(id);
+        var entity = await db.TbptPutyovkis.FindAsync([id], ct);
         if (entity == null) return false;
         entity.STATUS = "0";
-        await db.SaveChangesAsync();
+        await db.SaveChangesAsync(ct);
         logger.LogInformation("Putyovka deleted (soft): RecId={RecId}", id);
-        await audit.LogAsync(actorUserId, "PUTYOVKA_DELETE", $"RecId={id}");
+        await audit.LogAsync(actorUserId, "PUTYOVKA_DELETE", $"RecId={id}", ct);
         return true;
     }
 

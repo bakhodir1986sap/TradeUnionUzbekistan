@@ -1,4 +1,5 @@
 using KasabaKIAT.Core.Data;
+using KasabaKIAT.Core.DTOs;
 using KasabaKIAT.Core.DTOs.Users;
 using KasabaKIAT.Core.Models;
 using Microsoft.EntityFrameworkCore;
@@ -7,7 +8,7 @@ namespace KasabaKIAT.Core.Services;
 
 public class UserService(KasabaKIATContext db, IAuditService audit, ILogger<UserService> logger) : IUserService
 {
-    public async Task<(List<UserDto> Items, int Total)> GetUsersAsync(int page, int pageSize, string? search)
+    public async Task<PagedResult<UserDto>> GetUsersAsync(int page, int pageSize, string? search, CancellationToken ct = default)
     {
         var query = db.Users.Include(u => u.role).AsQueryable();
 
@@ -15,24 +16,24 @@ public class UserService(KasabaKIATContext db, IAuditService audit, ILogger<User
             query = query.Where(u => (u.user_name != null && u.user_name.Contains(search)) ||
                                      (u.email != null && u.email.Contains(search)));
 
-        var total = await query.CountAsync();
+        var total = await query.CountAsync(ct);
         var items = await query
             .OrderBy(u => u.id)
             .Skip((page - 1) * pageSize)
             .Take(pageSize)
             .Select(u => ToDto(u))
-            .ToListAsync();
+            .ToListAsync(ct);
 
-        return (items, total);
+        return new PagedResult<UserDto>(items, total, page, pageSize);
     }
 
-    public async Task<UserDto?> GetByIdAsync(long id)
+    public async Task<UserDto?> GetByIdAsync(long id, CancellationToken ct = default)
     {
-        var user = await db.Users.Include(u => u.role).FirstOrDefaultAsync(u => u.id == id);
+        var user = await db.Users.Include(u => u.role).FirstOrDefaultAsync(u => u.id == id, ct);
         return user == null ? null : ToDto(user);
     }
 
-    public async Task<UserDto> CreateAsync(CreateUserRequest request)
+    public async Task<UserDto> CreateAsync(CreateUserRequest request, CancellationToken ct = default)
     {
         var user = new User
         {
@@ -52,16 +53,16 @@ public class UserService(KasabaKIATContext db, IAuditService audit, ILogger<User
             version = 0
         };
         db.Users.Add(user);
-        await db.SaveChangesAsync();
-        await db.Entry(user).Reference(u => u.role).LoadAsync();
+        await db.SaveChangesAsync(ct);
+        await db.Entry(user).Reference(u => u.role).LoadAsync(ct);
         logger.LogInformation("User created: Id={UserId} UserName={UserName}", user.id, request.Login);
-        await audit.LogAsync(user.id, "USER_CREATE", $"UserName={request.Login}");
+        await audit.LogAsync(user.id, "USER_CREATE", $"UserName={request.Login}", ct);
         return ToDto(user);
     }
 
-    public async Task<UserDto?> UpdateAsync(long id, UpdateUserRequest request)
+    public async Task<UserDto?> UpdateAsync(long id, UpdateUserRequest request, CancellationToken ct = default)
     {
-        var user = await db.Users.Include(u => u.role).FirstOrDefaultAsync(u => u.id == id);
+        var user = await db.Users.Include(u => u.role).FirstOrDefaultAsync(u => u.id == id, ct);
         if (user == null) return null;
 
         if (request.Email != null) user.email = request.Email;
@@ -75,21 +76,21 @@ public class UserService(KasabaKIATContext db, IAuditService audit, ILogger<User
         if (request.State != null) user.state = request.State;
         if (request.Language != null) user.language = request.Language;
 
-        await db.SaveChangesAsync();
-        await db.Entry(user).Reference(u => u.role).LoadAsync();
+        await db.SaveChangesAsync(ct);
+        await db.Entry(user).Reference(u => u.role).LoadAsync(ct);
         logger.LogInformation("User updated: Id={UserId}", id);
-        await audit.LogAsync(id, "USER_UPDATE", $"TargetUserId={id}");
+        await audit.LogAsync(id, "USER_UPDATE", $"TargetUserId={id}", ct);
         return ToDto(user);
     }
 
-    public async Task<bool> DeactivateAsync(long id)
+    public async Task<bool> DeactivateAsync(long id, CancellationToken ct = default)
     {
-        var user = await db.Users.FindAsync(id);
+        var user = await db.Users.FindAsync([id], ct);
         if (user == null) return false;
         user.state = "0";
-        await db.SaveChangesAsync();
+        await db.SaveChangesAsync(ct);
         logger.LogInformation("User deactivated: Id={UserId}", id);
-        await audit.LogAsync(id, "USER_DEACTIVATE", $"TargetUserId={id}");
+        await audit.LogAsync(id, "USER_DEACTIVATE", $"TargetUserId={id}", ct);
         return true;
     }
 

@@ -2,6 +2,7 @@ using KasabaKIAT.Core.Data;
 using KasabaKIAT.Core.DTOs.Reference;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.OutputCaching;
 using Microsoft.EntityFrameworkCore;
 
 namespace KasabaKIAT.Core.Controllers;
@@ -9,6 +10,7 @@ namespace KasabaKIAT.Core.Controllers;
 [ApiController]
 [Route("api/reference")]
 [Authorize]
+[OutputCache(PolicyName = "reference")]
 public class ReferenceController(KasabaKIATContext db) : ControllerBase
 {
     [HttpGet("sanatoriums")]

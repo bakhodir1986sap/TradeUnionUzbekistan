@@ -13,9 +13,9 @@ public class AuthController(IAuthService authService) : ControllerBase
 {
     [HttpPost("login")]
     [EnableRateLimiting("auth")]
-    public async Task<IActionResult> Login([FromBody] LoginRequest request)
+    public async Task<IActionResult> Login([FromBody] LoginRequest request, CancellationToken ct)
     {
-        var result = await authService.LoginAsync(request);
+        var result = await authService.LoginAsync(request, ct);
         if (result == null)
             return Unauthorized(new { error = "Invalid credentials" });
         return Ok(result);
@@ -23,9 +23,9 @@ public class AuthController(IAuthService authService) : ControllerBase
 
     [HttpPost("refresh")]
     [EnableRateLimiting("auth")]
-    public async Task<IActionResult> Refresh([FromBody] RefreshRequest request)
+    public async Task<IActionResult> Refresh([FromBody] RefreshRequest request, CancellationToken ct)
     {
-        var result = await authService.RefreshAsync(request.RefreshToken);
+        var result = await authService.RefreshAsync(request.RefreshToken, ct);
         if (result == null)
             return Unauthorized(new { error = "Invalid or expired refresh token" });
         return Ok(result);
@@ -33,9 +33,9 @@ public class AuthController(IAuthService authService) : ControllerBase
 
     [HttpPost("logout")]
     [Authorize]
-    public async Task<IActionResult> Logout([FromBody] RefreshRequest request)
+    public async Task<IActionResult> Logout([FromBody] RefreshRequest request, CancellationToken ct)
     {
-        await authService.LogoutAsync(request.RefreshToken);
+        await authService.LogoutAsync(request.RefreshToken, ct);
         return NoContent();
     }
 }

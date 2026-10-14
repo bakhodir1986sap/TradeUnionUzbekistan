@@ -12,9 +12,9 @@ namespace KasabaKIAT.Core.Services;
 
 public class AuthService(KasabaKIATContext db, IConfiguration config, IAuditService audit, ILogger<AuthService> logger) : IAuthService
 {
-    public async Task<LoginResponse?> LoginAsync(LoginRequest request)
+    public async Task<LoginResponse?> LoginAsync(LoginRequest request, CancellationToken ct = default)
     {
-        var userId = await CallUspLoginAsync(request.Login, request.Password);
+        var userId = await CallUspLoginAsync(request.Login, request.Password, ct);
         if (userId <= 0)
         {
             logger.LogWarning("Login failed for {Login}", request.Login);
@@ -23,14 +23,14 @@ public class AuthService(KasabaKIATContext db, IConfiguration config, IAuditServ
 
         var user = await db.Users
             .Include(u => u.role)
-            .FirstOrDefaultAsync(u => u.id == userId);
+            .FirstOrDefaultAsync(u => u.id == userId, ct);
 
         if (user == null) return null;
 
         var (accessToken, expiresAt) = GenerateAccessToken(user);
-        var refreshToken = await StoreRefreshTokenAsync(userId);
+        var refreshToken = await StoreRefreshTokenAsync(userId, ct);
 
-        await audit.LogAsync(userId, "LOGIN", $"User {user.user_name} logged in");
+        await audit.LogAsync(userId, "LOGIN", $"User {user.user_name} logged in", ct);
 
         return new LoginResponse
         {
@@ -49,11 +49,11 @@ public class AuthService(KasabaKIATContext db, IConfiguration config, IAuditServ
         };
     }
 
-    public async Task<LoginResponse?> RefreshAsync(string refreshToken)
+    public async Task<LoginResponse?> RefreshAsync(string refreshToken, CancellationToken ct = default)
     {
         var connStr = config.GetConnectionString("DefaultConnection")!;
         using var con = new SqlConnection(connStr);
-        await con.OpenAsync();
+        await con.OpenAsync(ct);
 
         var now = DateTime.UtcNow;
         long userId;
@@ -63,18 +63,18 @@ public class AuthService(KasabaKIATContext db, IConfiguration config, IAuditServ
         {
             cmd.Parameters.AddWithValue("@token", refreshToken);
             cmd.Parameters.AddWithValue("@now", now);
-            var result = await cmd.ExecuteScalarAsync();
+            var result = await cmd.ExecuteScalarAsync(ct);
             if (result == null || result == DBNull.Value) return null;
             userId = Convert.ToInt64(result);
         }
 
-        await RevokeTokenAsync(refreshToken, con);
+        await RevokeTokenAsync(refreshToken, con, ct);
 
-        var user = await db.Users.Include(u => u.role).FirstOrDefaultAsync(u => u.id == userId);
+        var user = await db.Users.Include(u => u.role).FirstOrDefaultAsync(u => u.id == userId, ct);
         if (user == null) return null;
 
         var (accessToken, expiresAt) = GenerateAccessToken(user);
-        var newRefreshToken = await StoreRefreshTokenAsync(userId);
+        var newRefreshToken = await StoreRefreshTokenAsync(userId, ct);
 
         return new LoginResponse
         {
@@ -93,11 +93,11 @@ public class AuthService(KasabaKIATContext db, IConfiguration config, IAuditServ
         };
     }
 
-    public async Task<bool> LogoutAsync(string refreshToken)
+    public async Task<bool> LogoutAsync(string refreshToken, CancellationToken ct = default)
     {
         var connStr = config.GetConnectionString("DefaultConnection")!;
         using var con = new SqlConnection(connStr);
-        await con.OpenAsync();
+        await con.OpenAsync(ct);
 
         long userId = 0;
         using (var cmd = new SqlCommand(
@@ -105,28 +105,28 @@ public class AuthService(KasabaKIATContext db, IConfiguration config, IAuditServ
             con))
         {
             cmd.Parameters.AddWithValue("@token", refreshToken);
-            var result = await cmd.ExecuteScalarAsync();
+            var result = await cmd.ExecuteScalarAsync(ct);
             if (result != null && result != DBNull.Value)
                 userId = Convert.ToInt64(result);
         }
 
-        await RevokeTokenAsync(refreshToken, con);
+        await RevokeTokenAsync(refreshToken, con, ct);
 
         if (userId > 0)
-            await audit.LogAsync(userId, "LOGOUT", null);
+            await audit.LogAsync(userId, "LOGOUT", null, ct);
 
         return true;
     }
 
-    private async Task<long> CallUspLoginAsync(string login, string parol)
+    private async Task<long> CallUspLoginAsync(string login, string parol, CancellationToken ct)
     {
         var connStr = config.GetConnectionString("DefaultConnection")!;
         using var con = new SqlConnection(connStr);
-        await con.OpenAsync();
+        await con.OpenAsync(ct);
         using var cmd = new SqlCommand("uspLogin", con) { CommandType = System.Data.CommandType.StoredProcedure };
         cmd.Parameters.AddWithValue("@login", login);
         cmd.Parameters.AddWithValue("@parol", parol);
-        var result = await cmd.ExecuteScalarAsync();
+        var result = await cmd.ExecuteScalarAsync(ct);
         return result == null || result == DBNull.Value ? 0 : Convert.ToInt64(result);
     }
 
@@ -160,7 +160,7 @@ public class AuthService(KasabaKIATContext db, IConfiguration config, IAuditServ
         return (new JwtSecurityTokenHandler().WriteToken(token), expiresAt);
     }
 
-    private async Task<string> StoreRefreshTokenAsync(long userId)
+    private async Task<string> StoreRefreshTokenAsync(long userId, CancellationToken ct)
     {
         var token = Convert.ToBase64String(RandomNumberGenerator.GetBytes(64));
         var expiryDays = int.Parse(config["Jwt:RefreshTokenExpiryDays"] ?? "7");
@@ -168,7 +168,7 @@ public class AuthService(KasabaKIATContext db, IConfiguration config, IAuditServ
 
         var connStr = config.GetConnectionString("DefaultConnection")!;
         using var con = new SqlConnection(connStr);
-        await con.OpenAsync();
+        await con.OpenAsync(ct);
 
         // Revoke oldest tokens when the user already has 5 or more active ones
         using (var cleanupCmd = new SqlCommand(
@@ -187,7 +187,7 @@ public class AuthService(KasabaKIATContext db, IConfiguration config, IAuditServ
             """, con))
         {
             cleanupCmd.Parameters.AddWithValue("@uid", userId);
-            await cleanupCmd.ExecuteNonQueryAsync();
+            await cleanupCmd.ExecuteNonQueryAsync(ct);
         }
 
         using var cmd = new SqlCommand(
@@ -196,16 +196,16 @@ public class AuthService(KasabaKIATContext db, IConfiguration config, IAuditServ
         cmd.Parameters.AddWithValue("@uid", userId);
         cmd.Parameters.AddWithValue("@token", token);
         cmd.Parameters.AddWithValue("@exp", expiresAt);
-        await cmd.ExecuteNonQueryAsync();
+        await cmd.ExecuteNonQueryAsync(ct);
         return token;
     }
 
-    private static async Task RevokeTokenAsync(string token, SqlConnection con)
+    private static async Task RevokeTokenAsync(string token, SqlConnection con, CancellationToken ct)
     {
         using var cmd = new SqlCommand(
             "UPDATE api_refresh_tokens SET revoked_at = GETUTCDATE() WHERE token = @token",
             con);
         cmd.Parameters.AddWithValue("@token", token);
-        await cmd.ExecuteNonQueryAsync();
+        await cmd.ExecuteNonQueryAsync(ct);
     }
 }

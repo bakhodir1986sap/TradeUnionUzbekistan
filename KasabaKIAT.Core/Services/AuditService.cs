@@ -5,7 +5,7 @@ namespace KasabaKIAT.Core.Services;
 
 public class AuditService(KasabaKIATContext db, ILogger<AuditService> logger) : IAuditService
 {
-    public async Task LogAsync(long userId, string action, string? description = null)
+    public async Task LogAsync(long userId, string action, string? description = null, CancellationToken ct = default)
     {
         try
         {
@@ -16,7 +16,7 @@ public class AuditService(KasabaKIATContext db, ILogger<AuditService> logger) : 
                 action_date = DateTime.UtcNow,
                 description = description
             });
-            await db.SaveChangesAsync();
+            await db.SaveChangesAsync(ct);
         }
         catch (Exception ex)
         {

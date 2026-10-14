@@ -13,6 +13,7 @@ import {
 } from 'antd';
 import { SearchOutlined } from '@ant-design/icons';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { QueryErrorAlert } from '../../components/QueryErrorAlert';
 import type { ColumnType } from 'antd/es/table';
 import api from '../../api/axios';
 import dayjs from 'dayjs';
@@ -164,6 +165,7 @@ export function ZakritiyaKvartalaPoPutyovkamPage() {
   const {
     data: putyovkasData,
     isLoading: putyovkasLoading,
+    isError: putyovkasError,
     refetch: refetchPutyovkas,
   } = useQuery<{ putyovkas: Putyovka[]; zakritiyeRes: ZakritiyeResult }>({
     queryKey: [
@@ -406,6 +408,7 @@ export function ZakritiyaKvartalaPoPutyovkamPage() {
       </Row>
 
       {/* Table */}
+      <QueryErrorAlert isError={putyovkasError} onRetry={refetchPutyovkas} />
       <Table<Putyovka>
         rowKey="id"
         columns={columns}

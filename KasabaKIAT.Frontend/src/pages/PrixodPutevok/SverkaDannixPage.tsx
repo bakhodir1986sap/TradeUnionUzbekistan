@@ -14,6 +14,7 @@ import {
 } from 'antd';
 import { DownloadOutlined, UploadOutlined, ClearOutlined, SearchOutlined, ExportOutlined } from '@ant-design/icons';
 import { useQuery, useMutation } from '@tanstack/react-query';
+import { QueryErrorAlert } from '../../components/QueryErrorAlert';
 import type { ColumnsType } from 'antd/es/table';
 import api from '../../api/axios';
 

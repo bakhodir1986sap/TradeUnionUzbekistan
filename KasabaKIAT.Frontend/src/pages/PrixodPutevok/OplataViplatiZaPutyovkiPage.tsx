@@ -7,7 +7,9 @@ import {
   PlusOutlined, EditOutlined, DeleteOutlined,
   DownloadOutlined, UploadOutlined, SearchOutlined,
 } from '@ant-design/icons';
+import { OrganizationPickerModal } from '../../components/OrganizationPickerModal';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { QueryErrorAlert } from '../../components/QueryErrorAlert';
 import type { UploadFile } from 'antd/es/upload/interface';
 import api from '../../api/axios';
 import dayjs from 'dayjs';
@@ -75,73 +77,6 @@ interface Organization {
   inn: string;
 }
 
-// ─────────────────────── OrganizationPickerModal ───────────────────────
-
-interface OrgPickerProps {
-  open: boolean;
-  onCancel: () => void;
-  onSelect: (org: Organization) => void;
-}
-
-function OrganizationPickerModal({ open, onCancel, onSelect }: OrgPickerProps) {
-  const { message } = App.useApp();
-  const [query, setQuery] = useState('');
-  const [results, setResults] = useState<Organization[]>([]);
-  const [loading, setLoading] = useState(false);
-
-  const handleSearch = async () => {
-    try {
-      setLoading(true);
-      const res = await api.get<Organization[]>(`/api/organizations?search=${encodeURIComponent(query)}`);
-      setResults(res.data);
-    } catch {
-      message.error('Ошибка поиска организаций');
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const columns = [
-    { title: 'Название', dataIndex: 'name', key: 'name' },
-    { title: 'ИНН', dataIndex: 'inn', key: 'inn', width: 130 },
-    {
-      title: '',
-      key: 'action',
-      width: 90,
-      render: (_: unknown, record: Organization) => (
-        <Button size="small" type="primary" onClick={() => onSelect(record)}>
-          Выбрать
-        </Button>
-      ),
-    },
-  ];
-
-  return (
-    <Modal title="Поиск организации" open={open} onCancel={onCancel} footer={null} width={640}>
-      <Space style={{ marginBottom: 12 }}>
-        <Input
-          placeholder="Название или ИНН"
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
-          onPressEnter={handleSearch}
-          style={{ width: 320 }}
-        />
-        <Button icon={<SearchOutlined />} type="primary" onClick={handleSearch} loading={loading}>
-          Поиск
-        </Button>
-      </Space>
-      <Table
-        dataSource={results}
-        columns={columns}
-        rowKey="id"
-        size="small"
-        pagination={{ pageSize: 8 }}
-        loading={loading}
-      />
-    </Modal>
-  );
-}
-
 // ─────────────────────── main page ───────────────────────
 
 export function OplataViplatiZaPutyovkiPage() {
@@ -191,7 +126,7 @@ export function OplataViplatiZaPutyovkiPage() {
   });
 
   // ── main list ──
-  const { data: mainData, isLoading: mainLoading } = useQuery<{
+  const { data: mainData, isLoading: mainLoading, isError: mainError, refetch: refetchMain } = useQuery<{
     oplataMains: OplataMain[];
     totals: OplataTotals;
   }>({
@@ -481,6 +416,7 @@ export function OplataViplatiZaPutyovkiPage() {
         {/* LEFT: OplataMains */}
         <Col xs={24} xl={14}>
           <Title level={5}>Оплаты</Title>
+          <QueryErrorAlert isError={mainError} onRetry={refetchMain} />
           <Table
             dataSource={oplataMains}
             columns={mainColumns}
@@ -638,7 +574,7 @@ export function OplataViplatiZaPutyovkiPage() {
       {/* ── Organization picker (inside add/edit flow) ── */}
       <OrganizationPickerModal
         open={orgPickerOpen}
-        onCancel={() => setOrgPickerOpen(false)}
+        onClose={() => setOrgPickerOpen(false)}
         onSelect={(org) => {
           setPickedOrg(org);
           form.setFieldsValue({ name_org: org.name });

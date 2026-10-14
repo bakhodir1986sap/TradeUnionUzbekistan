@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Button, Table, Space, Modal, Form, Input, InputNumber, Collapse, Checkbox, Typography, App, Row, Col, Tag } from 'antd';
 import { SearchOutlined } from '@ant-design/icons';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { QueryErrorAlert } from '../../components/QueryErrorAlert';
 import api from '../../api/axios';
 
 const { Title, Text } = Typography;
@@ -47,7 +48,7 @@ export function RealizatsiyaPutevokPage() {
   const [isPaymentModalOpen, setIsPaymentModalOpen] = useState(false);
   const [paymentData, setPaymentData] = useState<{ id: number; num: string; paymentPercent: number }[]>([]);
 
-  const { data: sanatoriums = [], isLoading: vouchersLoading } = useQuery<Sanatorium[]>({
+  const { data: sanatoriums = [], isLoading: vouchersLoading, isError: sanatoriumsError, refetch: refetchSanatoriums } = useQuery<Sanatorium[]>({
     queryKey: ['realizatsiya-vouchers'],
     queryFn: async () => {
       const res = await api.get('/api/realizatsiya/vouchers');
@@ -287,6 +288,7 @@ export function RealizatsiyaPutevokPage() {
   return (
     <div style={{ padding: 24 }}>
       <Title level={3}>Реализация путевок</Title>
+      <QueryErrorAlert isError={sanatoriumsError} onRetry={refetchSanatoriums} />
       <Row gutter={24}>
         {/* LEFT: Accordion of sanatoriums */}
         <Col xs={24} md={12}>

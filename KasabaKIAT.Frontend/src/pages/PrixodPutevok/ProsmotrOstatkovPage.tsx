@@ -2,6 +2,7 @@ import { useState, useRef } from 'react';
 import { Button, Table, Space, Input, Select, Typography, App, Row, Col, DatePicker } from 'antd';
 import { SearchOutlined, DownloadOutlined, ClearOutlined } from '@ant-design/icons';
 import { useQuery } from '@tanstack/react-query';
+import { QueryErrorAlert } from '../../components/QueryErrorAlert';
 import type { ColumnType } from 'antd/es/table';
 import type { FilterDropdownProps } from 'antd/es/table/interface';
 import type { InputRef } from 'antd';
@@ -55,7 +56,7 @@ export function ProsmotrOstatkovPage() {
     },
   });
 
-  const { data: vouchers = [], isFetching } = useQuery<OstatokVoucher[]>({
+  const { data: vouchers = [], isFetching, isError, refetch } = useQuery<OstatokVoucher[]>({
     queryKey: ['prosmotr-ostatkov', appliedFilters],
     queryFn: async () => {
       const params: Record<string, string> = {};
@@ -338,6 +339,7 @@ export function ProsmotrOstatkovPage() {
         </Col>
       </Row>
 
+      <QueryErrorAlert isError={isError} onRetry={refetch} />
       <Table<OstatokVoucher>
         rowKey="id"
         columns={columns}

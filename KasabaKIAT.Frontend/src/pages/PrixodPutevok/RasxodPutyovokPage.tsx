@@ -3,8 +3,10 @@ import {
   Button, Table, Space, Modal, Form, Input, Select, DatePicker,
   Row, Col, Typography, App, Statistic, Card, Checkbox,
 } from 'antd';
+import { OrganizationPickerModal } from '../../components/OrganizationPickerModal';
 import { PlusOutlined, EditOutlined, SearchOutlined } from '@ant-design/icons';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { QueryErrorAlert } from '../../components/QueryErrorAlert';
 import api from '../../api/axios';
 import dayjs from 'dayjs';
 
@@ -65,61 +67,6 @@ interface NakladnoyFormValues {
   na_kogo?: string;
 }
 
-// ─── OrganizationPickerModal ─────────────────────────────────────────────────
-
-interface OrgPickerProps {
-  open: boolean;
-  onClose: () => void;
-  onSelect: (org: Organization) => void;
-}
-
-function OrganizationPickerModal({ open, onClose, onSelect }: OrgPickerProps) {
-  const [search, setSearch] = useState('');
-
-  const { data: orgs = [], isFetching } = useQuery<Organization[]>({
-    queryKey: ['org-picker', search],
-    queryFn: () =>
-      api.get('/api/organizations', { params: { search } }).then(r => r.data),
-    enabled: open,
-  });
-
-  const columns = [
-    { title: 'Название', dataIndex: 'name' },
-    { title: 'ИНН', dataIndex: 'inn', width: 130 },
-    { title: 'Отрасль', dataIndex: 'branchName' },
-  ];
-
-  return (
-    <Modal
-      title="Выбор организации"
-      open={open}
-      onCancel={onClose}
-      footer={null}
-      width={700}
-    >
-      <Input
-        prefix={<SearchOutlined />}
-        placeholder="Поиск по названию / ИНН"
-        value={search}
-        onChange={e => setSearch(e.target.value)}
-        allowClear
-        style={{ marginBottom: 12 }}
-      />
-      <Table<Organization>
-        columns={columns}
-        dataSource={orgs}
-        rowKey="id"
-        size="small"
-        loading={isFetching}
-        pagination={{ pageSize: 8 }}
-        onRow={rec => ({ onClick: () => { onSelect(rec); onClose(); } })}
-        rowClassName={() => 'cursor-pointer'}
-        style={{ cursor: 'pointer' }}
-      />
-    </Modal>
-  );
-}
-
 // ─── Main page ───────────────────────────────────────────────────────────────
 
 export function RasxodPutyovokPage() {
@@ -161,7 +108,7 @@ export function RasxodPutyovokPage() {
   });
 
   // ── Main data ──
-  const { data: mainData, isLoading: mainLoading } = useQuery<{ nakladnoys: NakladnoyRow[]; stats: Stats }>({
+  const { data: mainData, isLoading: mainLoading, isError: mainError, refetch: refetchMain } = useQuery<{ nakladnoys: NakladnoyRow[]; stats: Stats }>({
     queryKey: ['rasxod-putevok', filterYear, filterQuarter, filterOtrasl],
     queryFn: () =>
       api.get('/api/rasxod-putevok', {
@@ -467,6 +414,7 @@ export function RasxodPutyovokPage() {
           <Typography.Text strong style={{ display: 'block', marginBottom: 4 }}>
             Накладные
           </Typography.Text>
+          <QueryErrorAlert isError={mainError} onRetry={refetchMain} />
           <Table<NakladnoyRow>
             columns={nakladnoyColumns}
             dataSource={nakladnoys}

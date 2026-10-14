@@ -6,7 +6,9 @@ import {
 import {
   PlusOutlined, PrinterOutlined, DeleteOutlined, EditOutlined, SearchOutlined,
 } from '@ant-design/icons';
+import { OrganizationPickerModal } from '../../components/OrganizationPickerModal';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { QueryErrorAlert } from '../../components/QueryErrorAlert';
 import api from '../../api/axios';
 import dayjs, { Dayjs } from 'dayjs';
 
@@ -49,90 +51,6 @@ interface AvailableVoucher {
   symma: number;
 }
 
-// ─── Organization Picker Modal ────────────────────────────────────────────────
-
-interface OrgPickerProps {
-  open: boolean;
-  onClose: () => void;
-  onSelect: (org: Organization) => void;
-}
-
-function OrganizationPickerModal({ open, onClose, onSelect }: OrgPickerProps) {
-  const { message } = App.useApp();
-  const [search, setSearch] = useState('');
-  const [results, setResults] = useState<Organization[]>([]);
-  const [searching, setSearching] = useState(false);
-
-  const handleSearch = async () => {
-    setSearching(true);
-    try {
-      const res = await api.get<Organization[]>('/api/organizations', {
-        params: { search: search.trim() },
-      });
-      setResults(res.data);
-    } catch {
-      message.error('Ошибка при поиске организаций');
-    } finally {
-      setSearching(false);
-    }
-  };
-
-  const handleClose = () => {
-    setSearch('');
-    setResults([]);
-    onClose();
-  };
-
-  const columns = [
-    { title: 'Название', dataIndex: 'name', key: 'name' },
-    { title: 'ИНН', dataIndex: 'inn', key: 'inn' },
-    {
-      title: '',
-      key: 'action',
-      width: 90,
-      render: (_: unknown, record: Organization) => (
-        <Button type="primary" size="small" onClick={() => { onSelect(record); handleClose(); }}>
-          Выбрать
-        </Button>
-      ),
-    },
-  ];
-
-  return (
-    <Modal
-      title="Поиск организации"
-      open={open}
-      onCancel={handleClose}
-      footer={null}
-      width={640}
-    >
-      <Space.Compact style={{ width: '100%', marginBottom: 16 }}>
-        <Input
-          placeholder="Поиск по названию или ИНН..."
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-          onPressEnter={handleSearch}
-        />
-        <Button
-          type="primary"
-          icon={<SearchOutlined />}
-          loading={searching}
-          onClick={handleSearch}
-        >
-          Найти
-        </Button>
-      </Space.Compact>
-      <Table
-        dataSource={results}
-        columns={columns}
-        rowKey="id"
-        size="small"
-        pagination={{ pageSize: 8 }}
-      />
-    </Modal>
-  );
-}
-
 // ─── Main Page ────────────────────────────────────────────────────────────────
 
 export function AktVozvrataPutyovokPage() {
@@ -163,7 +81,7 @@ export function AktVozvrataPutyovokPage() {
 
   // ─── Queries ──────────────────────────────────────────────────────────────
 
-  const { data: listData, isLoading } = useQuery<AktListResponse>({
+  const { data: listData, isLoading, isError, refetch } = useQuery<AktListResponse>({
     queryKey: ['akt-vozvrata', year, quarter],
     queryFn: () =>
       api.get('/api/akt-vozvrata', { params: { year, quarter } }).then((r) => r.data),
@@ -400,6 +318,7 @@ export function AktVozvrataPutyovokPage() {
       </Space>
 
       {/* Main table */}
+      <QueryErrorAlert isError={isError} onRetry={refetch} />
       <Table
         dataSource={akts}
         columns={columns}

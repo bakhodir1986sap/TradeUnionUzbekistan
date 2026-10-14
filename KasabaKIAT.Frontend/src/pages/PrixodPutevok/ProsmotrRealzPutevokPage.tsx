@@ -5,6 +5,7 @@ import {
 import type { UploadFile } from 'antd';
 import { UploadOutlined, RollbackOutlined } from '@ant-design/icons';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { QueryErrorAlert } from '../../components/QueryErrorAlert';
 import api from '../../api/axios';
 import dayjs from 'dayjs';
 
@@ -79,7 +80,7 @@ export function ProsmotrRealzPutevokPage() {
 
   // ─── Queries ──────────────────────────────────────────────────────────────
 
-  const { data: rows = [], isLoading } = useQuery<RealzPutevokRow[]>({
+  const { data: rows = [], isLoading, isError, refetch } = useQuery<RealzPutevokRow[]>({
     queryKey: ['prosmotr-realz-putevok'],
     queryFn: () => api.get('/api/prosmotr-realz-putevok').then(r => r.data),
   });
@@ -337,6 +338,7 @@ export function ProsmotrRealzPutevokPage() {
         </Title>
       </div>
 
+      <QueryErrorAlert isError={isError} onRetry={refetch} />
       <Table<RealzPutevokRow>
         rowKey="id"
         columns={columns}

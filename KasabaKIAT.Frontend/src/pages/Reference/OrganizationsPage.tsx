@@ -1,9 +1,10 @@
 import { useState } from 'react';
-import { Button, Table, Space, Modal, Form, Input, App, Typography } from 'antd';
-import { PlusOutlined, EditOutlined, DeleteOutlined, SearchOutlined } from '@ant-design/icons';
+import { App, Form, Input } from 'antd';
+import { SearchOutlined } from '@ant-design/icons';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
-import api from '../../api/axios';
+import { organizationsApi } from '../../api/organizations';
+import { CrudTable } from '../../components/CrudTable';
 
 interface OrgRecord {
   id: number;
@@ -16,16 +17,13 @@ interface OrgRecord {
 
 export function OrganizationsPage() {
   const { t } = useTranslation();
-  const { message, modal } = App.useApp();
+  const { message } = App.useApp();
   const queryClient = useQueryClient();
-  const [form] = Form.useForm();
-  const [modalOpen, setModalOpen] = useState(false);
-  const [editing, setEditing] = useState<OrgRecord | null>(null);
   const [search, setSearch] = useState('');
 
-  const { data = [], isLoading } = useQuery<OrgRecord[]>({
+  const { data = [], isLoading, isError, refetch } = useQuery<OrgRecord[]>({
     queryKey: ['organizations'],
-    queryFn: () => api.get('/api/organizations').then(r => r.data),
+    queryFn: () => organizationsApi.getAll(),
   });
 
   const filtered = data.filter(r =>
@@ -35,30 +33,24 @@ export function OrganizationsPage() {
   );
 
   const saveMutation = useMutation({
-    mutationFn: (values: Partial<OrgRecord>) =>
-      editing
-        ? api.put(`/api/organizations/${editing.id}`, values).then(r => r.data)
-        : api.post('/api/organizations', values).then(r => r.data),
+    mutationFn: (payload: { values: Partial<OrgRecord>; editing: OrgRecord | null }) =>
+      payload.editing
+        ? organizationsApi.update(payload.editing.id, payload.values)
+        : organizationsApi.create(payload.values),
     onSuccess: () => {
       message.success(t('common.success'));
       queryClient.invalidateQueries({ queryKey: ['organizations'] });
-      setModalOpen(false);
     },
     onError: () => message.error(t('common.error')),
   });
 
   const deleteMutation = useMutation({
-    mutationFn: (id: number) => api.delete(`/api/organizations/${id}`),
+    mutationFn: (id: number) => organizationsApi.delete(id),
     onSuccess: () => {
       message.success(t('common.success'));
       queryClient.invalidateQueries({ queryKey: ['organizations'] });
     },
   });
-
-  const openAdd = () => { setEditing(null); form.resetFields(); setModalOpen(true); };
-  const openEdit = (rec: OrgRecord) => { setEditing(rec); form.setFieldsValue(rec); setModalOpen(true); };
-  const confirmDelete = (id: number) =>
-    modal.confirm({ title: 'Удалить организацию?', onOk: () => deleteMutation.mutate(id) });
 
   const columns = [
     { title: 'ID', dataIndex: 'id', width: 60 },
@@ -67,52 +59,36 @@ export function OrganizationsPage() {
     { title: 'Отрасль', dataIndex: 'branchName' },
     { title: 'Регион', dataIndex: 'regionName' },
     { title: 'Адрес', dataIndex: 'address' },
-    {
-      title: t('common.actions'), width: 100,
-      render: (_: unknown, rec: OrgRecord) => (
-        <Space>
-          <Button size="small" icon={<EditOutlined />} onClick={() => openEdit(rec)} />
-          <Button size="small" danger icon={<DeleteOutlined />} onClick={() => confirmDelete(rec.id)} />
-        </Space>
-      ),
-    },
   ];
 
   return (
-    <div>
-      <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 16 }}>
-        <Typography.Title level={4} style={{ margin: 0 }}>{t('nav.organizacii')}</Typography.Title>
-        <Space>
-          <Input.Search
-            placeholder="Поиск по названию или ИНН"
-            value={search}
-            onChange={e => setSearch(e.target.value)}
-            style={{ width: 260 }}
-            allowClear
-            prefix={<SearchOutlined />}
-          />
-          <Button type="primary" icon={<PlusOutlined />} onClick={openAdd}>{t('common.add')}</Button>
-        </Space>
-      </div>
-
-      <Table
-        columns={columns}
-        dataSource={filtered}
-        rowKey="id"
-        loading={isLoading}
-        size="small"
-        pagination={{ pageSize: 20 }}
-      />
-
-      <Modal
-        title={editing ? t('common.edit') : t('common.add')}
-        open={modalOpen}
-        onOk={() => form.submit()}
-        onCancel={() => setModalOpen(false)}
-        confirmLoading={saveMutation.isPending}
-        width={500}
-      >
-        <Form form={form} layout="vertical" onFinish={v => saveMutation.mutate(v)}>
+    <CrudTable<OrgRecord>
+      title={t('nav.organizacii')}
+      columns={columns}
+      data={filtered}
+      isLoading={isLoading}
+      isError={isError}
+      onRetry={refetch}
+      isSaving={saveMutation.isPending}
+      isDeleting={deleteMutation.isPending}
+      onSave={(values, editing) =>
+        saveMutation.mutateAsync({ values: values as Partial<OrgRecord>, editing })
+      }
+      onDelete={(id) => deleteMutation.mutate(id)}
+      deleteConfirmTitle="Удалить организацию?"
+      modalWidth={500}
+      extraHeaderContent={
+        <Input.Search
+          placeholder="Поиск по названию или ИНН"
+          value={search}
+          onChange={e => setSearch(e.target.value)}
+          style={{ width: 260 }}
+          allowClear
+          prefix={<SearchOutlined />}
+        />
+      }
+      formFields={
+        <>
           <Form.Item name="name" label="Наименование" rules={[{ required: true }]}>
             <Input />
           </Form.Item>
@@ -122,8 +98,8 @@ export function OrganizationsPage() {
           <Form.Item name="address" label="Адрес">
             <Input />
           </Form.Item>
-        </Form>
-      </Modal>
-    </div>
+        </>
+      }
+    />
   );
 }

@@ -9,6 +9,7 @@ import {
   FileExcelOutlined, UploadOutlined, DownloadOutlined, BranchesOutlined,
 } from '@ant-design/icons';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { QueryErrorAlert } from '../../components/QueryErrorAlert';
 import api from '../../api/axios';
 
 const { Option } = Select;
@@ -103,7 +104,7 @@ export function OrganizasiiPage() {
     queryFn: () => api.get('/api/otrasl').then(r => r.data),
   });
 
-  const { data: filterResult, isLoading } = useQuery<OrgFilterResult>({
+  const { data: filterResult, isLoading, isError, refetch } = useQuery<OrgFilterResult>({
     queryKey: ['organizasii-filter', activeFilter],
     queryFn: () =>
       api
@@ -564,6 +565,7 @@ export function OrganizasiiPage() {
       )}
 
       {/* Table */}
+      <QueryErrorAlert isError={isError} onRetry={refetch} />
       <Table
         columns={columns}
         dataSource={organizations}

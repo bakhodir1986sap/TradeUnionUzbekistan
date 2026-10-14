@@ -1,11 +1,9 @@
-import { useState } from 'react';
-import {
-  Button, Table, Space, Modal, Form, Input, Select, App, Typography,
-} from 'antd';
-import { PlusOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons';
+import { App, Form, Input, Select } from 'antd';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
-import api from '../../api/axios';
+import { usersApi } from '../../api/users';
+import { rolesApi } from '../../api/roles';
+import { CrudTable } from '../../components/CrudTable';
 
 interface UserRecord {
   id: number;
@@ -20,47 +18,38 @@ interface UserRecord {
 
 export function UsersPage() {
   const { t } = useTranslation();
-  const { message, modal } = App.useApp();
+  const { message } = App.useApp();
   const queryClient = useQueryClient();
-  const [form] = Form.useForm();
-  const [modalOpen, setModalOpen] = useState(false);
-  const [editing, setEditing] = useState<UserRecord | null>(null);
 
-  const { data = [], isLoading } = useQuery<UserRecord[]>({
+  const { data = [], isLoading, isError, refetch } = useQuery<UserRecord[]>({
     queryKey: ['users'],
-    queryFn: () => api.get('/api/users').then(r => r.data),
+    queryFn: () => usersApi.getAll(),
   });
 
   const { data: roles = [] } = useQuery<{ id: number; name: string }[]>({
     queryKey: ['roles'],
-    queryFn: () => api.get('/api/roles').then(r => r.data),
+    queryFn: () => rolesApi.getAll(),
   });
 
   const saveMutation = useMutation({
-    mutationFn: (values: Partial<UserRecord> & { password?: string }) =>
-      editing
-        ? api.put(`/api/users/${editing.id}`, values).then(r => r.data)
-        : api.post('/api/users', values).then(r => r.data),
+    mutationFn: (payload: { values: Partial<UserRecord> & { password?: string }; editing: UserRecord | null }) =>
+      payload.editing
+        ? usersApi.update(payload.editing.id, payload.values)
+        : usersApi.create(payload.values),
     onSuccess: () => {
       message.success(t('common.success'));
       queryClient.invalidateQueries({ queryKey: ['users'] });
-      setModalOpen(false);
     },
     onError: () => message.error(t('common.error')),
   });
 
   const deleteMutation = useMutation({
-    mutationFn: (id: number) => api.delete(`/api/users/${id}`),
+    mutationFn: (id: number) => usersApi.delete(id),
     onSuccess: () => {
       message.success(t('common.success'));
       queryClient.invalidateQueries({ queryKey: ['users'] });
     },
   });
-
-  const openAdd = () => { setEditing(null); form.resetFields(); setModalOpen(true); };
-  const openEdit = (rec: UserRecord) => { setEditing(rec); form.setFieldsValue(rec); setModalOpen(true); };
-  const confirmDelete = (id: number) =>
-    modal.confirm({ title: 'Удалить пользователя?', onOk: () => deleteMutation.mutate(id) });
 
   const columns = [
     { title: t('admin.loginField'), dataIndex: 'userName' },
@@ -69,42 +58,34 @@ export function UsersPage() {
     { title: t('admin.organization'), dataIndex: 'organizationName' },
     { title: t('admin.userType'), dataIndex: 'userType' },
     { title: t('admin.regDate'), dataIndex: 'createdAt' },
-    {
-      title: t('common.actions'), width: 100,
-      render: (_: unknown, rec: UserRecord) => (
-        <Space>
-          <Button size="small" icon={<EditOutlined />} onClick={() => openEdit(rec)} />
-          <Button size="small" danger icon={<DeleteOutlined />} onClick={() => confirmDelete(rec.id)} />
-        </Space>
-      ),
-    },
   ];
 
   return (
-    <div>
-      <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 16 }}>
-        <Typography.Title level={4} style={{ margin: 0 }}>{t('admin.usersTitle')}</Typography.Title>
-        <Button type="primary" icon={<PlusOutlined />} onClick={openAdd}>{t('common.add')}</Button>
-      </div>
-
-      <Table columns={columns} dataSource={data} rowKey="id" loading={isLoading} size="small" pagination={{ pageSize: 20 }} />
-
-      <Modal
-        title={editing ? t('common.edit') : t('common.add')}
-        open={modalOpen}
-        onOk={() => form.submit()}
-        onCancel={() => setModalOpen(false)}
-        confirmLoading={saveMutation.isPending}
-      >
-        <Form form={form} layout="vertical" onFinish={v => saveMutation.mutate(v)}>
+    <CrudTable<UserRecord>
+      title={t('admin.usersTitle')}
+      columns={columns}
+      data={data}
+      isLoading={isLoading}
+      isError={isError}
+      onRetry={refetch}
+      isSaving={saveMutation.isPending}
+      isDeleting={deleteMutation.isPending}
+      onSave={(values, editing) =>
+        saveMutation.mutateAsync({
+          values: values as Partial<UserRecord> & { password?: string },
+          editing,
+        })
+      }
+      onDelete={(id) => deleteMutation.mutate(id)}
+      deleteConfirmTitle="Удалить пользователя?"
+      formFields={
+        <>
           <Form.Item name="userName" label={t('admin.loginField')} rules={[{ required: true }]}>
             <Input />
           </Form.Item>
-          {!editing && (
-            <Form.Item name="password" label={t('admin.password')} rules={[{ required: true }]}>
-              <Input.Password />
-            </Form.Item>
-          )}
+          <Form.Item name="password" label={t('admin.password')}>
+            <Input.Password placeholder="Оставьте пустым, чтобы не менять" />
+          </Form.Item>
           <Form.Item name="fullName" label={t('admin.fullName')}>
             <Input />
           </Form.Item>
@@ -125,8 +106,8 @@ export function UsersPage() {
               <Select.Option value="user">Пользователь</Select.Option>
             </Select>
           </Form.Item>
-        </Form>
-      </Modal>
-    </div>
+        </>
+      }
+    />
   );
 }

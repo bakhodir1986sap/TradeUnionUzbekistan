@@ -4,6 +4,7 @@ import { PlusOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import api from '../../api/axios';
+import { QueryErrorAlert } from '../../components/QueryErrorAlert';
 
 interface RefRecord {
   id: number;
@@ -21,7 +22,7 @@ function ReferenceTab({ endpoint }: { endpoint: string; label: string }) {
   const [modalOpen, setModalOpen] = useState(false);
   const [editing, setEditing] = useState<RefRecord | null>(null);
 
-  const { data = [], isLoading } = useQuery<RefRecord[]>({
+  const { data = [], isLoading, isError, refetch } = useQuery<RefRecord[]>({
     queryKey: ['ref', endpoint],
     queryFn: () => api.get(`/api/reference/${endpoint}`).then(r => r.data),
   });
@@ -72,6 +73,7 @@ function ReferenceTab({ endpoint }: { endpoint: string; label: string }) {
       <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: 12 }}>
         <Button type="primary" size="small" icon={<PlusOutlined />} onClick={openAdd}>{t('common.add')}</Button>
       </div>
+      <QueryErrorAlert isError={isError} onRetry={refetch} />
       <Table columns={columns} dataSource={data} rowKey="id" loading={isLoading} size="small" pagination={{ pageSize: 15 }} />
       <Modal
         title={editing ? t('common.edit') : t('common.add')}

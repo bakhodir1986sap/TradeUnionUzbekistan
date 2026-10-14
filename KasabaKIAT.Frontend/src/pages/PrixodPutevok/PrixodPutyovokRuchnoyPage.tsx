@@ -3,10 +3,12 @@ import {
   Button, Table, Space, Modal, Form, Input, InputNumber, Select, DatePicker,
   Row, Col, Typography, App, Statistic, Card, Checkbox,
 } from 'antd';
+import { OrganizationPickerModal } from '../../components/OrganizationPickerModal';
 import {
   PlusOutlined, EditOutlined, DeleteOutlined,
 } from '@ant-design/icons';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { QueryErrorAlert } from '../../components/QueryErrorAlert';
 import api from '../../api/axios';
 import dayjs from 'dayjs';
 
@@ -55,58 +57,6 @@ interface Sanatorium {
   name: string;
 }
 
-// ─── Organization Picker Modal ────────────────────────────────────────────────
-
-interface OrgPickerModalProps {
-  open: boolean;
-  onCancel: () => void;
-  onSelect: (org: Organization) => void;
-}
-
-function OrganizationPickerModal({ open, onCancel, onSelect }: OrgPickerModalProps) {
-  const [search, setSearch] = useState('');
-
-  const { data: orgs = [], isFetching } = useQuery<Organization[]>({
-    queryKey: ['organizations-search', search],
-    queryFn: () =>
-      api.get(`/api/organizations?search=${encodeURIComponent(search)}`).then(r => r.data),
-    enabled: open,
-  });
-
-  const orgColumns = [
-    { title: 'Название', dataIndex: 'name' },
-    { title: 'ИНН', dataIndex: 'inn', width: 130 },
-    { title: 'Отрасль', dataIndex: 'industry' },
-  ];
-
-  return (
-    <Modal
-      title="Выбор организации"
-      open={open}
-      onCancel={onCancel}
-      footer={null}
-      width={700}
-    >
-      <Input.Search
-        placeholder="Поиск по названию..."
-        value={search}
-        onChange={e => setSearch(e.target.value)}
-        style={{ marginBottom: 12 }}
-        allowClear
-      />
-      <Table<Organization>
-        columns={orgColumns}
-        dataSource={orgs}
-        rowKey="id"
-        loading={isFetching}
-        size="small"
-        pagination={{ pageSize: 10 }}
-        onRow={rec => ({ onClick: () => onSelect(rec), style: { cursor: 'pointer' } })}
-      />
-    </Modal>
-  );
-}
-
 // ─── Main Page ────────────────────────────────────────────────────────────────
 
 export function PrixodPutyovokRuchnoyPage() {
@@ -138,7 +88,7 @@ export function PrixodPutyovokRuchnoyPage() {
   const [voucherStep, setVoucherStep] = useState<'form' | 'confirm'>('form');
 
   // ── Main data query ────────────────────────────────────────────────────────
-  const { data, isLoading } = useQuery<RuchnoyResponse>({
+  const { data, isLoading, isError, refetch } = useQuery<RuchnoyResponse>({
     queryKey: ['prixod-putevok-ruchnoy', filterYear, filterQuarter],
     queryFn: () =>
       api.get(`/api/prixod-putevok/ruchnoy?year=${filterYear}&quarter=${filterQuarter}`)
@@ -427,6 +377,7 @@ export function PrixodPutyovokRuchnoyPage() {
               </Space>
             }
           >
+            <QueryErrorAlert isError={isError} onRetry={refetch} />
             <Table<Nakladnoy>
               columns={invoiceColumns}
               dataSource={nakladnoys}
@@ -569,7 +520,7 @@ export function PrixodPutyovokRuchnoyPage() {
       {/* ── Organization Picker Modal ── */}
       <OrganizationPickerModal
         open={orgPickerOpen}
-        onCancel={() => setOrgPickerOpen(false)}
+        onClose={() => setOrgPickerOpen(false)}
         onSelect={org => {
           setSelectedOrg(org);
           setOrgPickerOpen(false);

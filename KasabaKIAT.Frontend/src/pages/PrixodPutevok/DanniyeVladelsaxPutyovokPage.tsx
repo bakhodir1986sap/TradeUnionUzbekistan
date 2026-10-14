@@ -5,6 +5,8 @@ import {
 } from 'antd';
 import { SearchOutlined } from '@ant-design/icons';
 import { useQuery } from '@tanstack/react-query';
+import { QueryErrorAlert } from '../../components/QueryErrorAlert';
+import { OrganizationPickerModal } from '../../components/OrganizationPickerModal';
 import api from '../../api/axios';
 import dayjs from 'dayjs';
 import type { ColumnType } from 'antd/es/table';
@@ -52,61 +54,6 @@ interface VoucherDetailRow {
   price: number;
   oplata: number;
   profileType: string;
-}
-
-// ─── Organization Picker Modal ────────────────────────────────────────────────
-
-interface OrgPickerProps {
-  open: boolean;
-  onClose: () => void;
-  onSelect: (org: Organization) => void;
-}
-
-function OrganizationPickerModal({ open, onClose, onSelect }: OrgPickerProps) {
-  const [search, setSearch] = useState('');
-
-  const { data: orgs = [], isFetching } = useQuery<Organization[]>({
-    queryKey: ['org-picker-danniye', search],
-    queryFn: () =>
-      api.get('/api/organizations', { params: { search } }).then(r => r.data),
-    enabled: open,
-  });
-
-  const columns: ColumnType<Organization>[] = [
-    { title: 'Название', dataIndex: 'name' },
-    { title: 'ИНН', dataIndex: 'inn', width: 130 },
-    { title: 'Отрасль', dataIndex: 'branchName' },
-  ];
-
-  return (
-    <Modal
-      title="Выбор организации"
-      open={open}
-      onCancel={onClose}
-      footer={null}
-      width={700}
-      destroyOnClose
-    >
-      <Input
-        prefix={<SearchOutlined />}
-        placeholder="Поиск по названию / ИНН"
-        value={search}
-        onChange={e => setSearch(e.target.value)}
-        allowClear
-        style={{ marginBottom: 12 }}
-      />
-      <Table<Organization>
-        columns={columns}
-        dataSource={orgs}
-        rowKey="id"
-        size="small"
-        loading={isFetching}
-        pagination={{ pageSize: 8 }}
-        onRow={rec => ({ onClick: () => { onSelect(rec); onClose(); } })}
-        style={{ cursor: 'pointer' }}
-      />
-    </Modal>
-  );
 }
 
 // ─── FizLiso Picker Modal ─────────────────────────────────────────────────────
@@ -190,7 +137,7 @@ export function DanniyeVladelsaxPutyovokPage() {
   const [fizLisoPickerOpen, setFizLisoPickerOpen] = useState(false);
 
   // ── Main data query ──
-  const { data: mainData, isLoading: mainLoading } = useQuery<{
+  const { data: mainData, isLoading: mainLoading, isError: mainError, refetch: refetchMain } = useQuery<{
     nakladnoys: NakladnoyRow[];
     total: TotalResult;
   }>({
@@ -455,6 +402,7 @@ export function DanniyeVladelsaxPutyovokPage() {
       <Row gutter={12}>
         {/* LEFT: Накладные */}
         <Col xs={24} lg={8}>
+          <QueryErrorAlert isError={mainError} onRetry={refetchMain} />
           <Table<NakladnoyRow>
             columns={nakladnoyColumns}
             dataSource={nakladnoys}

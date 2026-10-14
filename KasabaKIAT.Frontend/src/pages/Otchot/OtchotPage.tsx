@@ -25,7 +25,7 @@ export function OtchotPage() {
             <Card
               hoverable
               style={{ textAlign: 'center', cursor: 'pointer' }}
-              bodyStyle={{ padding: '20px 12px' }}
+              styles={{ body: { padding: '20px 12px' } }}
             >
               <PrinterOutlined style={{ fontSize: 32, color: '#fa8c16', marginBottom: 8 }} />
               <Typography.Text style={{ display: 'block', fontSize: 13 }}>{r.label}</Typography.Text>

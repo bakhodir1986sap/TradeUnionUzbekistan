@@ -7,6 +7,7 @@ import {
   PlusOutlined, EditOutlined, DeleteOutlined, SearchOutlined, PrinterOutlined,
 } from '@ant-design/icons';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { QueryErrorAlert } from '../../components/QueryErrorAlert';
 import api from '../../api/axios';
 import dayjs from 'dayjs';
 
@@ -78,7 +79,7 @@ interface FizLicoPickerModalProps {
 function FizLicoPickerModal({ open, onSelect, onCancel }: FizLicoPickerModalProps) {
   const [search, setSearch] = useState('');
 
-  const { data: results = [], isFetching } = useQuery<FizLico[]>({
+  const { data: results = [], isFetching, isError, refetch } = useQuery<FizLico[]>({
     queryKey: ['fizlica-search', search],
     queryFn: () =>
       search.length >= 2
@@ -125,6 +126,7 @@ function FizLicoPickerModal({ open, onSelect, onCancel }: FizLicoPickerModalProp
         prefix={<SearchOutlined />}
         allowClear
       />
+      <QueryErrorAlert isError={isError} onRetry={refetch} />
       <Table
         columns={pickerColumns}
         dataSource={results}

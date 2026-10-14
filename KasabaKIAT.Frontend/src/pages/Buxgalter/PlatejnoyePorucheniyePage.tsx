@@ -5,6 +5,7 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import dayjs from 'dayjs';
 import api from '../../api/axios';
+import { QueryErrorAlert } from '../../components/QueryErrorAlert';
 
 interface PlatejkaRecord {
   rec_ID: number;
@@ -26,7 +27,7 @@ export function PlatejnoyePorucheniyePage() {
   const [modalOpen, setModalOpen] = useState(false);
   const [editing, setEditing] = useState<PlatejkaRecord | null>(null);
 
-  const { data = [], isLoading } = useQuery<PlatejkaRecord[]>({
+  const { data = [], isLoading, isError, refetch } = useQuery<PlatejkaRecord[]>({
     queryKey: ['platejki'],
     queryFn: () => api.get('/api/platejnoe-poruchenie').then(r => r.data),
   });
@@ -88,6 +89,7 @@ export function PlatejnoyePorucheniyePage() {
         <Button type="primary" icon={<PlusOutlined />} onClick={openAdd}>{t('common.add')}</Button>
       </div>
 
+      <QueryErrorAlert isError={isError} onRetry={refetch} />
       <Table columns={columns} dataSource={data} rowKey="rec_ID" loading={isLoading} size="small" pagination={{ pageSize: 20 }} />
 
       <Modal

@@ -7,6 +7,7 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import dayjs from 'dayjs';
 import api from '../../api/axios';
+import { QueryErrorAlert } from '../../components/QueryErrorAlert';
 
 const { Option } = Select;
 
@@ -30,7 +31,7 @@ export function GrafikZaezdovPage() {
   const [editing, setEditing] = useState<GrafikRecord | null>(null);
   const [filterYear, setFilterYear] = useState<number>(new Date().getFullYear());
 
-  const { data = [], isLoading } = useQuery<GrafikRecord[]>({
+  const { data = [], isLoading, isError, refetch } = useQuery<GrafikRecord[]>({
     queryKey: ['grafik-zaezdov', filterYear],
     queryFn: () => api.get(`/api/grafik-zaezdov?year=${filterYear}`).then(r => r.data),
   });
@@ -95,6 +96,7 @@ export function GrafikZaezdovPage() {
         </Space>
       </div>
 
+      <QueryErrorAlert isError={isError} onRetry={refetch} />
       <Table columns={columns} dataSource={data} rowKey="id" loading={isLoading} size="small" pagination={{ pageSize: 20 }} />
 
       <Modal

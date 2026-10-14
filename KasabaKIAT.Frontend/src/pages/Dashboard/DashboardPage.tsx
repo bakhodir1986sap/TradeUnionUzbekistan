@@ -62,7 +62,7 @@ export function DashboardPage() {
               hoverable
               onClick={() => navigate(tile.path)}
               style={{ textAlign: 'center', cursor: 'pointer' }}
-              bodyStyle={{ padding: '20px 12px' }}
+              styles={{ body: { padding: '20px 12px' } }}
             >
               <div
                 style={{

@@ -1,9 +1,10 @@
 import { useState } from 'react';
-import { Button, Table, Space, Modal, Form, Input, Tabs, App, Typography, Tag } from 'antd';
+import { Button, Table, Space, Modal, Form, Input, InputNumber, Tabs, App, Typography, Tag } from 'antd';
 import { PlusOutlined, EditOutlined, DeleteOutlined, SendOutlined, CheckOutlined, CloseOutlined } from '@ant-design/icons';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
-import api from '../../api/axios';
+import { campZayavkiApi } from '../../api/campZayavki';
+import { QueryErrorAlert } from '../../components/QueryErrorAlert';
 
 interface ZayavkaRecord {
   id: number;
@@ -31,16 +32,16 @@ export function CampZayavkiPage() {
   const [editing, setEditing] = useState<ZayavkaRecord | null>(null);
   const [activeTab, setActiveTab] = useState('new');
 
-  const { data = [], isLoading } = useQuery<ZayavkaRecord[]>({
+  const { data = [], isLoading, isError, refetch } = useQuery<ZayavkaRecord[]>({
     queryKey: ['camp-zayavki', activeTab],
-    queryFn: () => api.get(`/api/camp-zayavki?status=${activeTab}`).then(r => r.data),
+    queryFn: () => campZayavkiApi.getAll({ status: activeTab }),
   });
 
   const saveMutation = useMutation({
     mutationFn: (values: Partial<ZayavkaRecord>) =>
       editing
-        ? api.put(`/api/camp-zayavki/${editing.id}`, values).then(r => r.data)
-        : api.post('/api/camp-zayavki', values).then(r => r.data),
+        ? campZayavkiApi.update(editing.id, values)
+        : campZayavkiApi.create(values),
     onSuccess: () => {
       message.success(t('common.success'));
       queryClient.invalidateQueries({ queryKey: ['camp-zayavki'] });
@@ -50,8 +51,12 @@ export function CampZayavkiPage() {
   });
 
   const transitionMutation = useMutation({
-    mutationFn: ({ id, action }: { id: number; action: string }) =>
-      api.put(`/api/camp-zayavki/${id}/${action}`).then(r => r.data),
+    mutationFn: ({ id, action }: { id: number; action: string }) => {
+      if (action === 'send') return campZayavkiApi.send(id);
+      if (action === 'accept') return campZayavkiApi.accept(id);
+      if (action === 'reject') return campZayavkiApi.reject(id, '');
+      return Promise.reject(new Error(`Unknown action: ${action}`));
+    },
     onSuccess: () => {
       message.success(t('common.success'));
       queryClient.invalidateQueries({ queryKey: ['camp-zayavki'] });
@@ -60,7 +65,7 @@ export function CampZayavkiPage() {
   });
 
   const deleteMutation = useMutation({
-    mutationFn: (id: number) => api.delete(`/api/camp-zayavki/${id}`),
+    mutationFn: (id: number) => campZayavkiApi.delete(id),
     onSuccess: () => {
       message.success(t('common.success'));
       queryClient.invalidateQueries({ queryKey: ['camp-zayavki'] });
@@ -124,6 +129,7 @@ export function CampZayavkiPage() {
 
       <Tabs activeKey={activeTab} onChange={setActiveTab} items={tabItems} />
 
+      <QueryErrorAlert isError={isError} onRetry={refetch} />
       <Table columns={columns} dataSource={data} rowKey="id" loading={isLoading} size="small" pagination={{ pageSize: 20 }} />
 
       <Modal
@@ -144,7 +150,7 @@ export function CampZayavkiPage() {
             <Input />
           </Form.Item>
           <Form.Item name="quantity" label="Количество">
-            <Input type="number" />
+            <InputNumber style={{ width: '100%' }} min={1} />
           </Form.Item>
         </Form>
       </Modal>

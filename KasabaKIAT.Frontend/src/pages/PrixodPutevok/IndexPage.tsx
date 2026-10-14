@@ -3,6 +3,7 @@ import { Button, Table, Space, Modal, DatePicker, Select, Typography, App } from
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import api from '../../api/axios';
 import dayjs from 'dayjs';
+import { QueryErrorAlert } from '../../components/QueryErrorAlert';
 
 const { RangePicker } = DatePicker;
 const { Title } = Typography;
@@ -59,7 +60,7 @@ export function IndexPage() {
     },
   });
 
-  const { data: invoices = [], isLoading: invoicesLoading } = useQuery<KuInvoice[]>({
+  const { data: invoices = [], isLoading: invoicesLoading, isError: invoicesError, refetch: refetchInvoices } = useQuery<KuInvoice[]>({
     queryKey: ['prixod-putevok-ku', zbId, dateFrom, dateTo],
     queryFn: async () => {
       const params: Record<string, string | number> = {};
@@ -280,6 +281,7 @@ export function IndexPage() {
         <Button onClick={handleExport}>Экспорт</Button>
       </Space>
 
+      <QueryErrorAlert isError={invoicesError} onRetry={refetchInvoices} />
       <Table<KuInvoice>
         rowKey="id"
         dataSource={invoices}

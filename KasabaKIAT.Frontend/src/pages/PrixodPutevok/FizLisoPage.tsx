@@ -8,6 +8,7 @@ import {
   FileExcelOutlined,
 } from '@ant-design/icons';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { QueryErrorAlert } from '../../components/QueryErrorAlert';
 import api from '../../api/axios';
 import dayjs from 'dayjs';
 
@@ -68,7 +69,7 @@ export function FizLisoPage() {
 
   // ── Queries ───────────────────────────────────────────────────────────────
 
-  const { data: records = [], isLoading } = useQuery<FizLicoRecord[]>({
+  const { data: records = [], isLoading, isError, refetch } = useQuery<FizLicoRecord[]>({
     queryKey: ['fizliso', appliedFilters],
     queryFn: () =>
       api
@@ -353,6 +354,7 @@ export function FizLisoPage() {
       </div>
 
       {/* Table */}
+      <QueryErrorAlert isError={isError} onRetry={refetch} />
       <Table
         columns={columns}
         dataSource={records}

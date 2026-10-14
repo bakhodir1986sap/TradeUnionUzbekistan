@@ -8,6 +8,7 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import dayjs from 'dayjs';
 import api from '../../api/axios';
+import { QueryErrorAlert } from '../../components/QueryErrorAlert';
 
 const { Option } = Select;
 
@@ -32,7 +33,7 @@ export function PrixodPutevokPage() {
   const [modalOpen, setModalOpen] = useState(false);
   const [editing, setEditing] = useState<PosPutRecord | null>(null);
 
-  const { data = [], isLoading } = useQuery<PosPutRecord[]>({
+  const { data = [], isLoading, isError, refetch } = useQuery<PosPutRecord[]>({
     queryKey: ['prixod-putevok'],
     queryFn: () => api.get('/api/prixod-putevok').then(r => r.data),
   });
@@ -98,6 +99,7 @@ export function PrixodPutevokPage() {
         <Button type="primary" icon={<PlusOutlined />} onClick={openAdd}>{t('common.add')}</Button>
       </div>
 
+      <QueryErrorAlert isError={isError} onRetry={refetch} />
       <Table columns={columns} dataSource={data} rowKey="id" loading={isLoading} size="small" pagination={{ pageSize: 20 }} />
 
       <Modal

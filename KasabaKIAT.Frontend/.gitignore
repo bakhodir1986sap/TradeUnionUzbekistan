@@ -22,3 +22,6 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# SQL Server installer (accidentally placed here)
+SQLEXPR_x64_ENU/

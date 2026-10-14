@@ -4,6 +4,7 @@ import { useQuery } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import dayjs from 'dayjs';
 import api from '../../api/axios';
+import { QueryErrorAlert } from '../../components/QueryErrorAlert';
 
 interface UserActionRecord {
   id: number;
@@ -18,7 +19,7 @@ export function UserActionsPage() {
   const [search, setSearch] = useState('');
   const [dateRange, setDateRange] = useState<[dayjs.Dayjs | null, dayjs.Dayjs | null] | null>(null);
 
-  const { data = [], isLoading } = useQuery<UserActionRecord[]>({
+  const { data = [], isLoading, isError, refetch } = useQuery<UserActionRecord[]>({
     queryKey: ['user-actions'],
     queryFn: () => api.get('/api/user-actions').then(r => r.data),
   });
@@ -63,13 +64,14 @@ export function UserActionsPage() {
         />
       </Space>
 
+      <QueryErrorAlert isError={isError} onRetry={refetch} />
       <Table
         columns={columns}
         dataSource={filtered}
         rowKey="id"
         loading={isLoading}
         size="small"
-        pagination={{ pageSize: 30 }}
+        pagination={{ pageSize: 20 }}
       />
     </div>
   );

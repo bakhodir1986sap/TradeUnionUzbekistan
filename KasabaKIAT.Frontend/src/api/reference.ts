@@ -26,4 +26,7 @@ export const referenceApi = {
   getYears: () => api.get('/api/reference/years').then((r) => r.data),
   getDictionary: (typeCode: string) => api.get(`/api/reference/dictionary/${typeCode}`).then((r) => r.data),
   getSanatoriumList: () => api.get('/api/reference/sanatorium-list').then((r) => r.data),
+  createSanatorium: (data: unknown) => api.post('/api/reference/sanatoriums', data).then((r) => r.data),
+  updateSanatorium: (id: number, data: unknown) => api.put(`/api/reference/sanatoriums/${id}`, data).then((r) => r.data),
+  deleteSanatorium: (id: number) => api.delete(`/api/reference/sanatoriums/${id}`),
 };

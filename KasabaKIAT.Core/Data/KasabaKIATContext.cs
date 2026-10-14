@@ -55,6 +55,8 @@ public partial class KasabaKIATContext(DbContextOptions<KasabaKIATContext> optio
     public virtual DbSet<TbbuFinOtchetSetting> TbbuFinOtchetSettings { get; set; } = null!;
     public virtual DbSet<TbbuPlatejka> TbbuPlatejkas { get; set; } = null!;
     public virtual DbSet<TblPosPut> TblPosPuts { get; set; } = null!;
+    public virtual DbSet<Provodok> Provodoks { get; set; } = null!;
+    public virtual DbSet<PProvodok> PProvodoks { get; set; } = null!;
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -113,6 +115,18 @@ public partial class KasabaKIATContext(DbContextOptions<KasabaKIATContext> optio
             entity.ToTable("api_refresh_tokens");
             entity.HasKey(e => e.id);
             entity.Property(e => e.created_at).HasDefaultValueSql("GETDATE()");
+        });
+
+        modelBuilder.Entity<Provodok>(entity =>
+        {
+            entity.ToTable("provodok");
+            entity.HasKey(e => e.id);
+        });
+
+        modelBuilder.Entity<PProvodok>(entity =>
+        {
+            entity.ToTable("p_provodok");
+            entity.HasKey(e => e.id);
         });
 
         base.OnModelCreating(modelBuilder);

@@ -46,14 +46,13 @@ public class UserActionsController(KasabaKIATContext db) : ControllerBase
     public async Task<IActionResult> Create([FromBody] CreateUserActionRequest req)
     {
         var userId = long.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)!);
-        var depBase = User.FindFirstValue("bkut_id");
 
         var action = new Models.UserAction
         {
             user_id = userId,
             action_name = req.Action,
             description = req.Description,
-            action_date = DateTime.Now
+            action_date = DateTime.UtcNow
         };
 
         db.UserActions.Add(action);

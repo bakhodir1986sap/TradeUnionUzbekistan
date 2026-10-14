@@ -2,6 +2,7 @@ using KasabaKIAT.Core.DTOs.Auth;
 using KasabaKIAT.Core.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.RateLimiting;
 using System.Security.Claims;
 
 namespace KasabaKIAT.Core.Controllers;
@@ -11,6 +12,7 @@ namespace KasabaKIAT.Core.Controllers;
 public class AuthController(IAuthService authService) : ControllerBase
 {
     [HttpPost("login")]
+    [EnableRateLimiting("auth")]
     public async Task<IActionResult> Login([FromBody] LoginRequest request)
     {
         var result = await authService.LoginAsync(request);
@@ -20,6 +22,7 @@ public class AuthController(IAuthService authService) : ControllerBase
     }
 
     [HttpPost("refresh")]
+    [EnableRateLimiting("auth")]
     public async Task<IActionResult> Refresh([FromBody] RefreshRequest request)
     {
         var result = await authService.RefreshAsync(request.RefreshToken);

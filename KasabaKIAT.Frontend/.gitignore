@@ -25,3 +25,8 @@ dist-ssr
 
 # SQL Server installer (accidentally placed here)
 SQLEXPR_x64_ENU/
+
+# Local environment overrides — never commit real values
+.env
+.env.local
+.env.*.local

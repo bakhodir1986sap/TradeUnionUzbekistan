@@ -4,8 +4,8 @@ namespace KasabaKIAT.Core.DTOs.Auth;
 
 public class LoginRequest
 {
-    [Required]
+    [Required, MaxLength(100)]
     public string Login { get; set; } = string.Empty;
-    [Required]
+    [Required, MaxLength(100)]
     public string Password { get; set; } = string.Empty;
 }

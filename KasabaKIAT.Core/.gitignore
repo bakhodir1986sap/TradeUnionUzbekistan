@@ -1,0 +1,16 @@
+## Build output
+bin/
+obj/
+logs/
+
+## User secrets and local overrides — never commit real credentials
+appsettings.Development.json
+appsettings.Local.json
+appsettings.Production.json
+secrets.json
+
+## Rider / VS
+.idea/
+*.user
+*.suo
+.vs/

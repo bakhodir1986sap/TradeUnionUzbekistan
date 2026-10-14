@@ -14,7 +14,7 @@ const api = axios.create({
 });
 
 api.interceptors.request.use((cfg) => {
-  const token = localStorage.getItem('access_token');
+  const token = sessionStorage.getItem('access_token');
   if (token) cfg.headers.Authorization = `Bearer ${token}`;
   return cfg;
 });
@@ -24,7 +24,7 @@ api.interceptors.request.use((cfg) => {
 let refreshPromise: Promise<string> | null = null;
 
 function clearSession() {
-  localStorage.removeItem('access_token');
+  sessionStorage.removeItem('access_token');
   localStorage.removeItem('refresh_token');
   localStorage.removeItem('current_user');
   window.location.href = '/login';
@@ -56,7 +56,7 @@ api.interceptors.response.use(
             { refreshToken: storedRefreshToken }
           )
           .then((r) => {
-            localStorage.setItem('access_token', r.data.accessToken);
+            sessionStorage.setItem('access_token', r.data.accessToken);
             localStorage.setItem('refresh_token', r.data.refreshToken);
             return r.data.accessToken;
           })

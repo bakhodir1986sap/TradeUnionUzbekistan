@@ -37,7 +37,7 @@ public class UserService(KasabaKIATContext db, IAuditService audit, ILogger<User
         var user = new User
         {
             user_name = request.Login,
-            password = request.Password,
+            password = BCrypt.Net.BCrypt.HashPassword(request.Password),
             email = request.Email,
             role_id = request.RoleId,
             bkut_id = request.BkutId,

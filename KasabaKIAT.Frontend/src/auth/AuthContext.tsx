@@ -33,7 +33,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const login = useCallback(async (credentials: LoginRequest) => {
     const resp: LoginResponse = await authApi.login(credentials);
-    localStorage.setItem('access_token', resp.accessToken);
+    sessionStorage.setItem('access_token', resp.accessToken);
     localStorage.setItem('refresh_token', resp.refreshToken);
     localStorage.setItem('current_user', JSON.stringify(resp.user));
     setUser(resp.user);
@@ -41,7 +41,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const logout = useCallback(async () => {
     try { await authApi.logout(); } catch { /* ignore */ }
-    localStorage.removeItem('access_token');
+    sessionStorage.removeItem('access_token');
     localStorage.removeItem('refresh_token');
     localStorage.removeItem('current_user');
     setUser(null);

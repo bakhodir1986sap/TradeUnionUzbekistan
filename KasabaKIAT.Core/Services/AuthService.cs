@@ -169,6 +169,27 @@ public class AuthService(KasabaKIATContext db, IConfiguration config, IAuditServ
         var connStr = config.GetConnectionString("DefaultConnection")!;
         using var con = new SqlConnection(connStr);
         await con.OpenAsync();
+
+        // Revoke oldest tokens when the user already has 5 or more active ones
+        using (var cleanupCmd = new SqlCommand(
+            """
+            UPDATE api_refresh_tokens
+            SET revoked_at = GETUTCDATE()
+            WHERE user_id = @uid
+              AND revoked_at IS NULL
+              AND expires_at > GETUTCDATE()
+              AND id NOT IN (
+                  SELECT TOP 4 id
+                  FROM api_refresh_tokens
+                  WHERE user_id = @uid AND revoked_at IS NULL AND expires_at > GETUTCDATE()
+                  ORDER BY id DESC
+              )
+            """, con))
+        {
+            cleanupCmd.Parameters.AddWithValue("@uid", userId);
+            await cleanupCmd.ExecuteNonQueryAsync();
+        }
+
         using var cmd = new SqlCommand(
             "INSERT INTO api_refresh_tokens (user_id, token, expires_at) VALUES (@uid, @token, @exp)",
             con);

@@ -21,10 +21,11 @@ export function UsersPage() {
   const { message } = App.useApp();
   const queryClient = useQueryClient();
 
-  const { data = [], isLoading, isError, refetch } = useQuery<UserRecord[]>({
+  const { data, isLoading, isError, refetch } = useQuery<{ items: UserRecord[]; total: number }>({
     queryKey: ['users'],
     queryFn: () => usersApi.getAll(),
   });
+  const users = data?.items ?? [];
 
   const { data: roles = [] } = useQuery<{ id: number; name: string }[]>({
     queryKey: ['roles'],
@@ -64,7 +65,7 @@ export function UsersPage() {
     <CrudTable<UserRecord>
       title={t('admin.usersTitle')}
       columns={columns}
-      data={data}
+      data={users}
       isLoading={isLoading}
       isError={isError}
       onRetry={refetch}

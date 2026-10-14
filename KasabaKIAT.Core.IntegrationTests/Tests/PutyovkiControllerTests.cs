@@ -18,7 +18,7 @@ public class PutyovkiControllerTests : TestBase
     {
         var p = new TbptPutyovki
         {
-            DEPARTMENT_CODE = "TEST",
+            DEPARTMENT_CODE = "1",
             SANATORIUM_ID = (int)Fixture.Seed.SanatoriumId,
             USER_ID = Fixture.Seed.AdminUserId,
             PRICE = 100,
@@ -60,15 +60,14 @@ public class PutyovkiControllerTests : TestBase
     }
 
     [Fact]
-    public async Task GetAll_FilterByStatus_ReturnsMatchingItems()
+    public async Task GetAll_SoftDeletedRecords_AreExcluded()
     {
         await InsertTestPutyovkaAsync(status: "0");
         Auth.SetUserToken(Client, Fixture.Seed.RegularUserId);
         var response = await Client.GetAsync("/api/putyovki?status=0");
         response.StatusCode.Should().Be(HttpStatusCode.OK);
         var body = await response.Content.ReadFromJsonAsync<JsonElement>();
-        var items = body.GetProperty("items").EnumerateArray().ToList();
-        items.Should().OnlyContain(item => item.GetProperty("status").GetString() == "0");
+        body.GetProperty("items").GetArrayLength().Should().Be(0);
     }
 
     [Fact]
@@ -162,7 +161,9 @@ public class PutyovkiControllerTests : TestBase
         var response = await Client.DeleteAsync($"/api/putyovki/{id}");
         response.StatusCode.Should().Be(HttpStatusCode.NoContent);
 
-        var dbRecord = await Db.TbptPutyovkis.FindAsync(id);
+        var dbRecord = await Db.TbptPutyovkis
+            .IgnoreQueryFilters()
+            .FirstOrDefaultAsync(x => x.REC_ID == id);
         dbRecord!.STATUS.Should().Be("0");
     }
 

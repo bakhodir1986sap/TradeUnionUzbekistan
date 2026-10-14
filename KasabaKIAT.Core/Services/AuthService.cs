@@ -27,7 +27,8 @@ public class AuthService(KasabaKIATContext db, IConfiguration config, IAuditServ
 
         if (user == null) return null;
 
-        var (accessToken, expiresAt) = GenerateAccessToken(user);
+        var depBase = await ResolveDepBaseAsync(user.bkut_id, ct);
+        var (accessToken, expiresAt) = GenerateAccessToken(user, depBase);
         var refreshToken = await StoreRefreshTokenAsync(userId, ct);
 
         await audit.LogAsync(userId, "LOGIN", $"User {user.user_name} logged in", ct);
@@ -73,7 +74,8 @@ public class AuthService(KasabaKIATContext db, IConfiguration config, IAuditServ
         var user = await db.Users.Include(u => u.role).FirstOrDefaultAsync(u => u.id == userId, ct);
         if (user == null) return null;
 
-        var (accessToken, expiresAt) = GenerateAccessToken(user);
+        var depBase = await ResolveDepBaseAsync(user.bkut_id, ct);
+        var (accessToken, expiresAt) = GenerateAccessToken(user, depBase);
         var newRefreshToken = await StoreRefreshTokenAsync(userId, ct);
 
         return new LoginResponse
@@ -130,7 +132,14 @@ public class AuthService(KasabaKIATContext db, IConfiguration config, IAuditServ
         return result == null || result == DBNull.Value ? 0 : Convert.ToInt64(result);
     }
 
-    private (string token, DateTime expiresAt) GenerateAccessToken(Models.User user)
+    private async Task<string> ResolveDepBaseAsync(long bkutId, CancellationToken ct)
+    {
+        var dep = await db.TDepartmentBases
+            .FirstOrDefaultAsync(d => d.bkut_id == bkutId, ct);
+        return dep?.DEPARTMENT_CODE ?? bkutId.ToString();
+    }
+
+    private (string token, DateTime expiresAt) GenerateAccessToken(Models.User user, string depBase)
     {
         var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config["Jwt:Key"]!));
         var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
@@ -144,6 +153,7 @@ public class AuthService(KasabaKIATContext db, IConfiguration config, IAuditServ
             new(ClaimTypes.Email, user.email ?? string.Empty),
             new(ClaimTypes.Name, user.user_name ?? string.Empty),
             new("bkut_id", user.bkut_id.ToString()),
+            new("dep_base", depBase),
             new("is_super_admin", (user.is_super_admin ?? false).ToString())
         };
 

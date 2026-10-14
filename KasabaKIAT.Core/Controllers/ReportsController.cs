@@ -1,7 +1,7 @@
-using KasabaKIAT.Core.Data;
+using KasabaKIAT.Core.DTOs.Reports;
+using KasabaKIAT.Core.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
 
 namespace KasabaKIAT.Core.Controllers;
@@ -9,206 +9,398 @@ namespace KasabaKIAT.Core.Controllers;
 [ApiController]
 [Route("api/reports")]
 [Authorize]
-public class ReportsController(KasabaKIATContext db) : ControllerBase
+public class ReportsController(IReportService reports) : ControllerBase
 {
-    private string GetDepBase() => User.FindFirstValue("bkut_id") ?? string.Empty;
+    private string GetDepBase() => User.FindFirstValue("dep_base") ?? string.Empty;
 
-    // GET /api/reports/svodniy-otchot?beginDt=...&endDt=...&soato=...&branch=...
+    // ---- Existing 8 endpoints ----
+
     [HttpGet("svodniy-otchot")]
     public async Task<IActionResult> GetSvodniyOtchot(
-        [FromQuery] DateTime? beginDt,
-        [FromQuery] DateTime? endDt,
-        [FromQuery] string? soato,
-        [FromQuery] string? branch)
+        [FromQuery] DateTime? beginDt, [FromQuery] DateTime? endDt,
+        [FromQuery] string? soato, [FromQuery] string? branch,
+        CancellationToken ct)
     {
-        var depBase = GetDepBase();
-        var data = await db.Database
-            .SqlQueryRaw<SvodniyOtchotRow>(
-                "EXEC sp_rt_SvodniyOtchet @p0, @p1, @p2, @p3, @p4",
-                beginDt, endDt, soato, branch, depBase)
-            .ToListAsync();
+        var data = await reports.GetSvodniyOtchotAsync(beginDt, endDt, soato, branch, GetDepBase(), ct);
         return Ok(data);
     }
 
-    // GET /api/reports/postupleniya?inn=...
     [HttpGet("postupleniya")]
-    public async Task<IActionResult> GetPostupleniya([FromQuery] string? inn)
+    public async Task<IActionResult> GetPostupleniya([FromQuery] string? inn, CancellationToken ct)
     {
-        var depBase = GetDepBase();
-        var data = await db.Database
-            .SqlQueryRaw<PostupleniyaRow>(
-                "EXEC sp_rt_Postupleniya @p0, @p1",
-                inn, depBase)
-            .ToListAsync();
+        var data = await reports.GetPostupleniyaAsync(inn, GetDepBase(), ct);
         return Ok(data);
     }
 
-    // GET /api/reports/postupleniya-n?inn=...&zb=...&ze=...
     [HttpGet("postupleniya-n")]
     public async Task<IActionResult> GetPostupleniyaN(
-        [FromQuery] string? inn,
-        [FromQuery] DateTime? zb,
-        [FromQuery] DateTime? ze)
+        [FromQuery] string? inn, [FromQuery] DateTime? zb, [FromQuery] DateTime? ze,
+        CancellationToken ct)
     {
-        var depBase = GetDepBase();
-        var data = await db.Database
-            .SqlQueryRaw<PostupleniyaNRow>(
-                "EXEC sp_rt_PostupleniyaN2 @p0, @p1, @p2, @p3",
-                inn, depBase, zb, ze)
-            .ToListAsync();
+        var data = await reports.GetPostupleniyaNAsync(inn, GetDepBase(), zb, ze, ct);
         return Ok(data);
     }
 
-    // GET /api/reports/provodki-details?bg=...&end=...
     [HttpGet("provodki-details")]
     public async Task<IActionResult> GetProvodkiDetails(
-        [FromQuery] DateTime? bg,
-        [FromQuery] DateTime? end)
+        [FromQuery] DateTime? bg, [FromQuery] DateTime? end,
+        CancellationToken ct)
     {
-        var depBase = GetDepBase();
-        var data = await db.Database
-            .SqlQueryRaw<ProvodkiDetailRow>(
-                "EXEC sp_rt_Provodka_Details @p0, @p1, @p2",
-                depBase, bg, end)
-            .ToListAsync();
+        var data = await reports.GetProvodkiDetailsAsync(GetDepBase(), bg, end, ct);
         return Ok(data);
     }
 
-    // GET /api/reports/provodki-summary?bg=...&end=...
     [HttpGet("provodki-summary")]
     public async Task<IActionResult> GetProvodkiSummary(
-        [FromQuery] DateTime? bg,
-        [FromQuery] DateTime? end)
+        [FromQuery] DateTime? bg, [FromQuery] DateTime? end,
+        CancellationToken ct)
     {
-        var depBase = GetDepBase();
-        var data = await db.Database
-            .SqlQueryRaw<ProvodkiSummaryRow>(
-                "EXEC sp_rt_Provodka_Summary @p0, @p1, @p2",
-                depBase, bg, end)
-            .ToListAsync();
+        var data = await reports.GetProvodkiSummaryAsync(GetDepBase(), bg, end, ct);
         return Ok(data);
     }
 
-    // GET /api/reports/talabnomalar-korxona?yil=...&inn=...
     [HttpGet("talabnomalar-korxona")]
-    public async Task<IActionResult> GetTalabnomlarKorxona(
-        [FromQuery] int yil,
-        [FromQuery] string? inn)
+    public async Task<IActionResult> GetTalabnomlarKorxona([FromQuery] int yil, [FromQuery] string? inn, CancellationToken ct)
     {
-        var data = await db.Database
-            .SqlQueryRaw<TalabnomRow>(
-                "EXEC sp_rt_TalabnomaKorxona @p0, @p1",
-                yil, inn)
-            .ToListAsync();
+        var data = await reports.GetTalabnomlarKorxonaAsync(yil, inn, ct);
         return Ok(data);
     }
 
-    // GET /api/reports/talabnomalar-tarmoq?yil=...&soato=...&branch=...
     [HttpGet("talabnomalar-tarmoq")]
     public async Task<IActionResult> GetTalabnomlarTarmoq(
-        [FromQuery] int yil,
-        [FromQuery] string? soato,
-        [FromQuery] string? branch)
+        [FromQuery] int yil, [FromQuery] string? soato, [FromQuery] string? branch,
+        CancellationToken ct)
     {
-        var data = await db.Database
-            .SqlQueryRaw<TalabnomRow>(
-                "EXEC sp_rt_TalabnomaTarmoq @p0, @p1, @p2",
-                yil, soato, branch)
-            .ToListAsync();
+        var data = await reports.GetTalabnomlarTarmoqAsync(yil, soato, branch, ct);
         return Ok(data);
     }
 
-    // GET /api/reports/forma13?yil=...&inn=...
     [HttpGet("forma13")]
-    public async Task<IActionResult> GetForma13([FromQuery] int yil, [FromQuery] string? inn)
+    public async Task<IActionResult> GetForma13([FromQuery] int yil, [FromQuery] string? inn, CancellationToken ct)
     {
-        var depBase = GetDepBase();
-        var data = await db.Database
-            .SqlQueryRaw<Forma13Row>(
-                "EXEC sp_rt_FormaN13 @p0, @p1, @p2",
-                yil, inn, depBase)
-            .ToListAsync();
+        var data = await reports.GetForma13Async(yil, inn, GetDepBase(), ct);
         return Ok(data);
     }
-}
 
-// ---- Raw SP result DTOs ----
+    // ---- Group A — Putyovki ----
 
-public class SvodniyOtchotRow
-{
-    public string? ProfName { get; set; }
-    public string? FullName { get; set; }
-    public string? PlaceAndPos { get; set; }
-    public DateTime? MedSprevDate { get; set; }
-    public DateTime? ZayavkaDate { get; set; }
-    public string? SanName { get; set; }
-    public DateTime? zaezdBegin { get; set; }
-}
+    [HttpGet("operativka-putyovki")]
+    public async Task<IActionResult> GetOperativkaPutyovki(
+        [FromQuery] DateTime? beginDate, [FromQuery] DateTime? endDate, [FromQuery] int? sanatId,
+        CancellationToken ct)
+    {
+        var data = await reports.GetOperativkaPutyovkiAsync(GetDepBase(), beginDate, endDate, sanatId, ct);
+        return Ok(data);
+    }
 
-public class PostupleniyaRow
-{
-    public string? K_TYPE { get; set; }
-    public string? OPERDAY { get; set; }
-    public long? ID { get; set; }
-    public string? BANKID { get; set; }
-    public decimal? SUMPAY { get; set; }
-    public string? CLMFO { get; set; }
-    public string? CLACC { get; set; }
-    public string? CLINN { get; set; }
-    public string? CLNAME { get; set; }
-    public string? PURPOSE { get; set; }
-}
+    [HttpGet("operativka-ostatok")]
+    public async Task<IActionResult> GetOperativkaOstatok(
+        [FromQuery] DateTime? beginDate, [FromQuery] DateTime? endDate, [FromQuery] int? sanatId,
+        CancellationToken ct)
+    {
+        var data = await reports.GetOperativkaOstatokAsync(beginDate, endDate, sanatId, GetDepBase(), ct);
+        return Ok(data);
+    }
 
-public class PostupleniyaNRow
-{
-    public string? OPERDAY { get; set; }
-    public string? INN { get; set; }
-    public string? CLNAME { get; set; }
-    public decimal? POSTUPLENIYA { get; set; }
-    public decimal? Obshiy01 { get; set; }
-    public decimal? FEDERATION_AMT { get; set; }
-    public decimal? OBLSOVPROF_AMT { get; set; }
-    public string? PURPOSE { get; set; }
-}
+    [HttpGet("operativka-prixod")]
+    public async Task<IActionResult> GetOperativkaPrixod(
+        [FromQuery] DateTime? beginDate, [FromQuery] DateTime? endDate, [FromQuery] int? sanatId,
+        CancellationToken ct)
+    {
+        var data = await reports.GetOperativkaPrixodAsync(beginDate, endDate, sanatId, GetDepBase(), ct);
+        return Ok(data);
+    }
 
-public class ProvodkiDetailRow
-{
-    public long REC_ID { get; set; }
-    public string? TRDT { get; set; }
-    public string? DEBIT_ACCOUNT { get; set; }
-    public string? CREDIT_ACCOUNT { get; set; }
-    public decimal? AMOUNT { get; set; }
-    public string? DETALI { get; set; }
-    public string? ADDITIONAL { get; set; }
-    public string? OPISANIYE { get; set; }
-    public string? NAME_RU { get; set; }
-}
+    [HttpGet("operativka-rasxod")]
+    public async Task<IActionResult> GetOperativkaRasxod(
+        [FromQuery] DateTime? beginDate, [FromQuery] DateTime? endDate, [FromQuery] int? sanatId,
+        CancellationToken ct)
+    {
+        var data = await reports.GetOperativkaRasxodAsync(beginDate, endDate, sanatId, GetDepBase(), ct);
+        return Ok(data);
+    }
 
-public class ProvodkiSummaryRow
-{
-    public string? DEBIT_ACCOUNT { get; set; }
-    public string? CREDIT_ACCOUNT { get; set; }
-    public decimal? AMOUNT { get; set; }
-}
+    [HttpGet("operativka-vozvrat")]
+    public async Task<IActionResult> GetOperativkaVozvrat(
+        [FromQuery] DateTime? beginDate, [FromQuery] DateTime? endDate, [FromQuery] int? sanatId,
+        CancellationToken ct)
+    {
+        var data = await reports.GetOperativkaVozvratAsync(beginDate, endDate, sanatId, GetDepBase(), ct);
+        return Ok(data);
+    }
 
-public class TalabnomRow
-{
-    public string? sanName { get; set; }
-    public int? KV1 { get; set; }
-    public int? KV2 { get; set; }
-    public int? KV3 { get; set; }
-    public int? KV4 { get; set; }
-}
+    [HttpGet("svod-po-putyovkam")]
+    public async Task<IActionResult> GetSvodPoPutyovkam(
+        [FromQuery] int? year, [FromQuery] int? kvartal, [FromQuery] string? otras,
+        CancellationToken ct)
+    {
+        var data = await reports.GetSvodPoPutyovkamAsync(GetDepBase(), year, kvartal, otras, ct);
+        return Ok(data);
+    }
 
-public class Forma13Row
-{
-    public DateTime? Data_Postupleniya { get; set; }
-    public string? Nomer_SchetFacturi { get; set; }
-    public string? NameimenovaniyeOrg { get; set; }
-    public string? NomerPutyovki { get; set; }
-    public DateTime? DataZaezda { get; set; }
-    public decimal? SenaPutyovki { get; set; }
-    public string? FIO { get; set; }
-    public string? MestoRaboti { get; set; }
-    public decimal? SymmaPlateja { get; set; }
+    [HttpGet("svodny-otchet-putyovki")]
+    public async Task<IActionResult> GetSvodniyOtchetPutyovki(
+        [FromQuery] int? kvartal, [FromQuery] string? smfil,
+        CancellationToken ct)
+    {
+        var data = await reports.GetSvodniyOtchetPutyovkiAsync(GetDepBase(), kvartal, smfil, ct);
+        return Ok(data);
+    }
+
+    [HttpGet("zapros-putyovki")]
+    public async Task<IActionResult> GetZaprosPutyovki(
+        [FromQuery] DateTime? beginDate, [FromQuery] DateTime? endDate,
+        [FromQuery] long? idOrg, [FromQuery] int? idSanat,
+        [FromQuery] string? lastName, [FromQuery] string? numPut, [FromQuery] string? pol,
+        CancellationToken ct)
+    {
+        var data = await reports.GetZaprosPutyovkiAsync(GetDepBase(), beginDate, endDate, idOrg, idSanat, lastName, numPut, pol, ct);
+        return Ok(data);
+    }
+
+    [HttpGet("kniga-vladelsev")]
+    public async Task<IActionResult> GetKnigaVladelsev(
+        [FromQuery] DateTime? beginDate, [FromQuery] DateTime? endDate,
+        CancellationToken ct)
+    {
+        var data = await reports.GetKnigaVladelsevAsync(beginDate, endDate, GetDepBase(), ct);
+        return Ok(data);
+    }
+
+    [HttpGet("forma14")]
+    public async Task<IActionResult> GetForma14(
+        [FromQuery] DateTime? beginDate, [FromQuery] DateTime? endDate,
+        CancellationToken ct)
+    {
+        var data = await reports.GetForma14Async(beginDate, endDate, GetDepBase(), ct);
+        return Ok(data);
+    }
+
+    [HttpGet("tekushiye-ostatok")]
+    public async Task<IActionResult> GetTekushiyeOstatok(CancellationToken ct)
+    {
+        var data = await reports.GetTekushiyeOstatokAsync(GetDepBase(), ct);
+        return Ok(data);
+    }
+
+    // ---- Group B — Financial ----
+
+    [HttpGet("postupleniya-esp-otrasli")]
+    public async Task<IActionResult> GetPostupleniyaEspOtrasli(
+        [FromQuery] DateTime? beginDate, [FromQuery] DateTime? endDate,
+        CancellationToken ct)
+    {
+        var data = await reports.GetPostupleniyaEspOtrasliAsync(beginDate, endDate, GetDepBase(), ct);
+        return Ok(data);
+    }
+
+    [HttpGet("postupleniya-svodnoye")]
+    public async Task<IActionResult> GetPostupleniyaSvodnoye(
+        [FromQuery] DateTime? beginDate, [FromQuery] DateTime? endDate, [FromQuery] string? department,
+        CancellationToken ct)
+    {
+        var data = await reports.GetPostupleniyaSvodnoyeAsync(beginDate, endDate, department, ct);
+        return Ok(data);
+    }
+
+    [HttpGet("oborotka-regionam")]
+    public async Task<IActionResult> GetOborotkaRegionam(
+        [FromQuery] DateTime? beginDate, [FromQuery] DateTime? endDate, [FromQuery] string? soato,
+        CancellationToken ct)
+    {
+        var data = await reports.GetOborotkaRegionamAsync(GetDepBase(), beginDate, endDate, soato, ct);
+        return Ok(data);
+    }
+
+    [HttpGet("balans-predpriyatiy")]
+    public async Task<IActionResult> GetBalansPredpriyatiy(
+        [FromQuery] DateTime? beginDate, [FromQuery] DateTime? endDate,
+        CancellationToken ct)
+    {
+        var data = await reports.GetBalansPredpriyatiyAsync(beginDate, endDate, GetDepBase(), ct);
+        return Ok(data);
+    }
+
+    [HttpGet("debitorskaya")]
+    public async Task<IActionResult> GetDebitorskaya(CancellationToken ct)
+    {
+        var data = await reports.GetDebitorskayaAsync(GetDepBase(), ct);
+        return Ok(data);
+    }
+
+    [HttpGet("organizasii-otrasli")]
+    public async Task<IActionResult> GetOrganizasiiOtrasli(CancellationToken ct)
+    {
+        var data = await reports.GetOrganizasiiOtrasliAsync(GetDepBase(), ct);
+        return Ok(data);
+    }
+
+    [HttpGet("organizasii-rayony")]
+    public async Task<IActionResult> GetOrganizasiiRayony(CancellationToken ct)
+    {
+        var data = await reports.GetOrganizasiiRayonyAsync(GetDepBase(), ct);
+        return Ok(data);
+    }
+
+    [HttpGet("spisok-org")]
+    public async Task<IActionResult> GetSpisokOrg(CancellationToken ct)
+    {
+        var data = await reports.GetSpisokOrgAsync(GetDepBase(), ct);
+        return Ok(data);
+    }
+
+    // ---- Group C — Journal Orders ----
+
+    [HttpGet("jurorder/4")]
+    public async Task<IActionResult> GetJurOrder4(
+        [FromQuery] int year, [FromQuery] int kvartal,
+        CancellationToken ct)
+    {
+        var data = await reports.GetJurOrder4Async(year, kvartal, GetDepBase(), ct);
+        return Ok(data);
+    }
+
+    [HttpGet("jurorder/5")]
+    public async Task<IActionResult> GetJurOrder5(
+        [FromQuery] int year, [FromQuery] int kvartal,
+        CancellationToken ct)
+    {
+        var data = await reports.GetJurOrder5Async(year, kvartal, GetDepBase(), ct);
+        return Ok(data);
+    }
+
+    [HttpGet("jurorder/6")]
+    public async Task<IActionResult> GetJurOrder6(
+        [FromQuery] int year, [FromQuery] int kvartal,
+        CancellationToken ct)
+    {
+        var data = await reports.GetJurOrder6Async(year, kvartal, GetDepBase(), ct);
+        return Ok(data);
+    }
+
+    [HttpGet("jurorder")]
+    public async Task<IActionResult> GetJurOrder(
+        [FromQuery] int jorType, [FromQuery] DateTime? bg, [FromQuery] DateTime? end,
+        CancellationToken ct)
+    {
+        var data = await reports.GetJurOrderOtchetiAsync(GetDepBase(), jorType, bg, end, ct);
+        return Ok(data);
+    }
+
+    // ---- Group D — Monitoring ----
+
+    [HttpGet("monitoring/oxvat")]
+    public async Task<IActionResult> GetMonitoringOxvat(
+        [FromQuery] int? year, [FromQuery] int? kvartal,
+        CancellationToken ct)
+    {
+        var data = await reports.GetMonitoringOxvatAsync(GetDepBase(), year, kvartal, ct);
+        return Ok(data);
+    }
+
+    [HttpGet("monitoring/narusheniya")]
+    public async Task<IActionResult> GetMonitoringNarusheniya(
+        [FromQuery] int? year, [FromQuery] int? kvartal,
+        CancellationToken ct)
+    {
+        var data = await reports.GetMonitoringNarusheniyaAsync(GetDepBase(), year, kvartal, ct);
+        return Ok(data);
+    }
+
+    [HttpGet("monitoring/pererasxod-plan")]
+    public async Task<IActionResult> GetMonitoringPererasxodPlan(
+        [FromQuery] int? year, [FromQuery] int? kvartal,
+        CancellationToken ct)
+    {
+        var data = await reports.GetMonitoringPererasxodPlanAsync(GetDepBase(), year, kvartal, ct);
+        return Ok(data);
+    }
+
+    [HttpGet("monitoring/pererasxod-putyovki")]
+    public async Task<IActionResult> GetMonitoringPererasxodPutyovki(
+        [FromQuery] int? year, [FromQuery] int? kvartal,
+        CancellationToken ct)
+    {
+        var data = await reports.GetMonitoringPererasxodPutyovkiAsync(GetDepBase(), year, kvartal, ct);
+        return Ok(data);
+    }
+
+    [HttpGet("monitoring/kaznacheystvo")]
+    public async Task<IActionResult> GetMonitoringKaznacheystvo(
+        [FromQuery] int? year, [FromQuery] int? kvartal,
+        CancellationToken ct)
+    {
+        var data = await reports.GetMonitoringKaznacheystvAsync(GetDepBase(), year, kvartal, ct);
+        return Ok(data);
+    }
+
+    // ---- Group E — Organization Cards ----
+
+    [HttpGet("kartochka-org")]
+    public async Task<IActionResult> GetKartochkaOrg(
+        [FromQuery] string? orgInn, [FromQuery] DateTime? beginDate, [FromQuery] DateTime? endDate,
+        CancellationToken ct)
+    {
+        var data = await reports.GetKartochkaOrgAsync(orgInn, GetDepBase(), beginDate, endDate, ct);
+        return Ok(data);
+    }
+
+    [HttpGet("kartochka-history")]
+    public async Task<IActionResult> GetKartochkaHistory(
+        [FromQuery] long? idOrg, [FromQuery] DateTime? beginDate, [FromQuery] DateTime? endDate,
+        CancellationToken ct)
+    {
+        var data = await reports.GetKartochkaHistoryAsync(idOrg, beginDate, endDate, GetDepBase(), ct);
+        return Ok(data);
+    }
+
+    [HttpGet("kartochka-oplata")]
+    public async Task<IActionResult> GetKartochkaOplata(
+        [FromQuery] long? idOrg, [FromQuery] DateTime? beginDate, [FromQuery] DateTime? endDate,
+        CancellationToken ct)
+    {
+        var data = await reports.GetKartochkaOplataAsync(idOrg, beginDate, endDate, GetDepBase(), ct);
+        return Ok(data);
+    }
+
+    // ---- Group F — Medical / Other ----
+
+    [HttpGet("med-registraciya")]
+    public async Task<IActionResult> GetMedRegistraciya(
+        [FromQuery] long? idOrg, [FromQuery] DateTime? beginDate, [FromQuery] DateTime? endDate,
+        CancellationToken ct)
+    {
+        var data = await reports.GetMedRegistraciyaAsync(GetDepBase(), idOrg, beginDate, endDate, ct);
+        return Ok(data);
+    }
+
+    [HttpGet("uchet-stoimosti")]
+    public async Task<IActionResult> GetUchetStoimosti(
+        [FromQuery] DateTime? beginDate, [FromQuery] DateTime? endDate,
+        CancellationToken ct)
+    {
+        var data = await reports.GetUchetStoimostiAsync(beginDate, endDate, GetDepBase(), ct);
+        return Ok(data);
+    }
+
+    [HttpGet("poisk-putyovki")]
+    public async Task<IActionResult> GetPoiskPutyovki([FromQuery] string? numPut, CancellationToken ct)
+    {
+        var data = await reports.GetPoiskPutyovkiAsync(numPut, GetDepBase(), ct);
+        return Ok(data);
+    }
+
+    [HttpGet("ostatok-nizhestvuyushix")]
+    public async Task<IActionResult> GetOstatokNizhestvuyushix(CancellationToken ct)
+    {
+        var data = await reports.GetOstatokNizhestvuyushixAsync(GetDepBase(), ct);
+        return Ok(data);
+    }
+
+    [HttpGet("talabnomalar-viloyat")]
+    public async Task<IActionResult> GetTalabnomlarViloyat([FromQuery] int yil, [FromQuery] string? soato, CancellationToken ct)
+    {
+        var data = await reports.GetTalabnomlarViloyatAsync(yil, soato, ct);
+        return Ok(data);
+    }
 }

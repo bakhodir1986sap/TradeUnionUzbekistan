@@ -14,7 +14,7 @@ public class AuthHelper
     public AuthHelper(IConfiguration config) => _config = config;
 
     /// <summary>Generates a JWT token directly (bypasses uspLogin). Use for all non-auth tests.</summary>
-    public string GenerateToken(long userId, string role, long bkutId = 1, bool isSuperAdmin = false)
+    public string GenerateToken(long userId, string role, long bkutId = 1, bool isSuperAdmin = false, string depBase = "17")
     {
         var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]!));
         var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
@@ -26,6 +26,7 @@ public class AuthHelper
             new(ClaimTypes.NameIdentifier, userId.ToString()),
             new(ClaimTypes.Role, role),
             new("bkut_id", bkutId.ToString()),
+            new("dep_base", depBase),
             new("is_super_admin", isSuperAdmin.ToString().ToLower())
         };
 

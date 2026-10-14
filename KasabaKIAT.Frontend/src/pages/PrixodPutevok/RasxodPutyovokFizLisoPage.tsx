@@ -1,0 +1,700 @@
+import { useState } from 'react';
+import {
+  Button, Table, Space, Modal, Form, Input, InputNumber, Select, DatePicker,
+  Row, Col, Typography, App, Statistic, Card, Checkbox,
+} from 'antd';
+import {
+  PlusOutlined, EditOutlined, DeleteOutlined, SearchOutlined, PrinterOutlined,
+} from '@ant-design/icons';
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import api from '../../api/axios';
+import dayjs from 'dayjs';
+
+const { Option } = Select;
+
+// ─── Types ──────────────────────────────────────────────────────────────────
+
+interface FizLico {
+  id: number;
+  fio?: string;
+  inn?: string;
+  address?: string;
+  phone?: string;
+  passportSeria?: string;
+  passportNomer?: string;
+  passportKemVydan?: string;
+  passportDataVydachi?: string;
+}
+
+interface Nakladnoy {
+  id: number;
+  nomer?: string;
+  data?: string;
+  fizLicoId?: number;
+  fizLicoFio?: string;
+  fizLicoInn?: string;
+  summa?: number;
+  kolvo?: number;
+  status?: string;
+  provodka?: boolean;
+}
+
+interface NakladnoyDetail {
+  id: number;
+  nakladnoyId: number;
+  putevkaId?: number;
+  numPut?: string;
+  sanatoriumName?: string;
+  dataNach?: string;
+  dataKon?: string;
+  price?: number;
+  status?: string;
+}
+
+interface Stats {
+  totalNakladnoy?: number;
+  totalSumma?: number;
+  totalVouchers?: number;
+  provedeno?: number;
+}
+
+interface AvailableVoucher {
+  id: number;
+  numPut?: string;
+  sanatoriumName?: string;
+  dataNach?: string;
+  dataKon?: string;
+  price?: number;
+}
+
+// ─── FizLicoPickerModal ──────────────────────────────────────────────────────
+
+interface FizLicoPickerModalProps {
+  open: boolean;
+  onSelect: (rec: FizLico) => void;
+  onCancel: () => void;
+}
+
+function FizLicoPickerModal({ open, onSelect, onCancel }: FizLicoPickerModalProps) {
+  const [search, setSearch] = useState('');
+
+  const { data: results = [], isFetching } = useQuery<FizLico[]>({
+    queryKey: ['fizlica-search', search],
+    queryFn: () =>
+      search.length >= 2
+        ? api.get(`/api/fizlica?search=${encodeURIComponent(search)}`).then(r => r.data)
+        : Promise.resolve([]),
+    enabled: search.length >= 2,
+  });
+
+  const pickerColumns = [
+    { title: 'ФИО', dataIndex: 'fio' },
+    { title: 'ИНН', dataIndex: 'inn', width: 120 },
+    { title: 'Адрес', dataIndex: 'address' },
+    { title: 'Телефон', dataIndex: 'phone', width: 130 },
+    {
+      title: 'Паспорт (Серия+Номер)',
+      width: 160,
+      render: (_: unknown, rec: FizLico) =>
+        [rec.passportSeria, rec.passportNomer].filter(Boolean).join(' ') || '—',
+    },
+    {
+      title: '',
+      width: 80,
+      render: (_: unknown, rec: FizLico) => (
+        <Button size="small" type="primary" onClick={() => onSelect(rec)}>
+          Выбрать
+        </Button>
+      ),
+    },
+  ];
+
+  return (
+    <Modal
+      title="Выбор физического лица"
+      open={open}
+      onCancel={onCancel}
+      footer={null}
+      width={820}
+    >
+      <Input.Search
+        placeholder="Поиск по ФИО или ИНН (минимум 2 символа)"
+        value={search}
+        onChange={e => setSearch(e.target.value)}
+        style={{ marginBottom: 12 }}
+        prefix={<SearchOutlined />}
+        allowClear
+      />
+      <Table
+        columns={pickerColumns}
+        dataSource={results}
+        rowKey="id"
+        loading={isFetching}
+        size="small"
+        pagination={{ pageSize: 8 }}
+        locale={{ emptyText: search.length < 2 ? 'Введите запрос для поиска' : 'Ничего не найдено' }}
+      />
+    </Modal>
+  );
+}
+
+// ─── VoucherPickerModal ──────────────────────────────────────────────────────
+
+interface VoucherPickerModalProps {
+  open: boolean;
+  nakladnoyId: number | null;
+  onClose: () => void;
+}
+
+function VoucherPickerModal({ open, nakladnoyId, onClose }: VoucherPickerModalProps) {
+  const { message } = App.useApp();
+  const queryClient = useQueryClient();
+  const [search, setSearch] = useState('');
+  const [selected, setSelected] = useState<number[]>([]);
+
+  const { data: vouchers = [], isFetching } = useQuery<AvailableVoucher[]>({
+    queryKey: ['available-vouchers', search],
+    queryFn: () =>
+      api.get(`/api/rasxod-putevok/available-vouchers?search=${encodeURIComponent(search)}`).then(r => r.data),
+    enabled: open,
+  });
+
+  const addMutation = useMutation({
+    mutationFn: (ids: number[]) =>
+      api.post(`/api/rasxod-putevok-fiz/${nakladnoyId}/add-vouchers`, { voucherIds: ids }).then(r => r.data),
+    onSuccess: () => {
+      message.success('Путевки добавлены');
+      queryClient.invalidateQueries({ queryKey: ['rasxod-fiz-details', nakladnoyId] });
+      queryClient.invalidateQueries({ queryKey: ['rasxod-putevok-fiz'] });
+      setSelected([]);
+      onClose();
+    },
+    onError: () => message.error('Ошибка при добавлении путевок'),
+  });
+
+  const voucherColumns = [
+    {
+      title: '',
+      width: 40,
+      render: (_: unknown, rec: AvailableVoucher) => (
+        <Checkbox
+          checked={selected.includes(rec.id)}
+          onChange={e => {
+            setSelected(prev =>
+              e.target.checked ? [...prev, rec.id] : prev.filter(id => id !== rec.id)
+            );
+          }}
+        />
+      ),
+    },
+    { title: '№ путевки', dataIndex: 'numPut' },
+    { title: 'Санаторий', dataIndex: 'sanatoriumName' },
+    { title: 'Дата начала', dataIndex: 'dataNach' },
+    { title: 'Дата конца', dataIndex: 'dataKon' },
+    { title: 'Цена', dataIndex: 'price', width: 100 },
+  ];
+
+  return (
+    <Modal
+      title="Добавить путевки"
+      open={open}
+      onCancel={() => { setSelected([]); onClose(); }}
+      onOk={() => selected.length > 0 && addMutation.mutate(selected)}
+      confirmLoading={addMutation.isPending}
+      okText={`Добавить (${selected.length})`}
+      okButtonProps={{ disabled: selected.length === 0 }}
+      width={720}
+    >
+      <Input.Search
+        placeholder="Поиск путевок"
+        value={search}
+        onChange={e => setSearch(e.target.value)}
+        style={{ marginBottom: 12 }}
+        allowClear
+      />
+      <Table
+        columns={voucherColumns}
+        dataSource={vouchers}
+        rowKey="id"
+        loading={isFetching}
+        size="small"
+        pagination={{ pageSize: 8 }}
+      />
+    </Modal>
+  );
+}
+
+// ─── Main Page ───────────────────────────────────────────────────────────────
+
+export function RasxodPutyovokFizLisoPage() {
+  const { message, modal } = App.useApp();
+  const queryClient = useQueryClient();
+  const [form] = Form.useForm();
+
+  // Filters
+  const [filterYear, setFilterYear] = useState<number>(new Date().getFullYear());
+  const [filterQuarter, setFilterQuarter] = useState<number>(
+    Math.ceil((new Date().getMonth() + 1) / 3)
+  );
+
+  // Master selection
+  const [selectedNakladnoy, setSelectedNakladnoy] = useState<Nakladnoy | null>(null);
+
+  // Modals
+  const [editModalOpen, setEditModalOpen] = useState(false);
+  const [editing, setEditing] = useState<Nakladnoy | null>(null);
+  const [fizPickerOpen, setFizPickerOpen] = useState(false);
+  const [voucherPickerOpen, setVoucherPickerOpen] = useState(false);
+
+  // FizLico picker result stored in form
+  const [selectedFizLico, setSelectedFizLico] = useState<FizLico | null>(null);
+
+  // ── Queries ──────────────────────────────────────────────────────────────
+
+  const { data: masterData, isLoading: masterLoading } = useQuery<{
+    nakladnoys: Nakladnoy[];
+    stats: Stats;
+  }>({
+    queryKey: ['rasxod-putevok-fiz', filterYear, filterQuarter],
+    queryFn: () =>
+      api.get(`/api/rasxod-putevok-fiz?year=${filterYear}&quarter=${filterQuarter}`).then(r => r.data),
+  });
+
+  const nakladnoys: Nakladnoy[] = masterData?.nakladnoys ?? [];
+  const stats: Stats = masterData?.stats ?? {};
+
+  const { data: details = [], isLoading: detailsLoading } = useQuery<NakladnoyDetail[]>({
+    queryKey: ['rasxod-fiz-details', selectedNakladnoy?.id],
+    queryFn: () =>
+      api.get(`/api/rasxod-putevok-fiz/${selectedNakladnoy!.id}/details`).then(r => r.data),
+    enabled: !!selectedNakladnoy,
+  });
+
+  // ── Mutations ─────────────────────────────────────────────────────────────
+
+  const saveMutation = useMutation({
+    mutationFn: (values: Partial<Nakladnoy> & { fizLicoId?: number; passportDataVydachi?: string }) =>
+      editing
+        ? api.put(`/api/rasxod-putevok-fiz/${editing.id}`, values).then(r => r.data)
+        : api.post('/api/rasxod-putevok-fiz', values).then(r => r.data),
+    onSuccess: () => {
+      message.success('Сохранено');
+      queryClient.invalidateQueries({ queryKey: ['rasxod-putevok-fiz'] });
+      setEditModalOpen(false);
+      form.resetFields();
+      setSelectedFizLico(null);
+    },
+    onError: () => message.error('Ошибка при сохранении'),
+  });
+
+  const deleteMutation = useMutation({
+    mutationFn: (id: number) => api.delete(`/api/rasxod-putevok-fiz/${id}`),
+    onSuccess: () => {
+      message.success('Удалено');
+      queryClient.invalidateQueries({ queryKey: ['rasxod-putevok-fiz'] });
+      if (selectedNakladnoy && selectedNakladnoy.id === deleteMutation.variables) {
+        setSelectedNakladnoy(null);
+      }
+    },
+    onError: () => message.error('Ошибка при удалении'),
+  });
+
+  const provodkaMutation = useMutation({
+    mutationFn: (id: number) =>
+      api.post(`/api/rasxod-putevok-fiz/${id}/provodka`).then(r => r.data),
+    onSuccess: () => {
+      message.success('Проводка выполнена');
+      queryClient.invalidateQueries({ queryKey: ['rasxod-putevok-fiz'] });
+    },
+    onError: () => message.error('Ошибка при проводке'),
+  });
+
+  // ── Handlers ─────────────────────────────────────────────────────────────
+
+  const openAdd = () => {
+    setEditing(null);
+    setSelectedFizLico(null);
+    form.resetFields();
+    setEditModalOpen(true);
+  };
+
+  const openEdit = (rec: Nakladnoy) => {
+    setEditing(rec);
+    setSelectedFizLico({
+      id: rec.fizLicoId ?? 0,
+      fio: rec.fizLicoFio,
+      inn: rec.fizLicoInn,
+    });
+    form.setFieldsValue({
+      ...rec,
+      fio: rec.fizLicoFio,
+      inn: rec.fizLicoInn,
+      data: rec.data ? dayjs(rec.data) : undefined,
+    });
+    setEditModalOpen(true);
+  };
+
+  const confirmDelete = (id: number) =>
+    modal.confirm({
+      title: 'Удалить накладную?',
+      content: 'Это действие нельзя отменить.',
+      onOk: () => deleteMutation.mutate(id),
+    });
+
+  const handleFizLicoSelect = (fiz: FizLico) => {
+    setSelectedFizLico(fiz);
+    form.setFieldsValue({
+      fio: fiz.fio,
+      inn: fiz.inn,
+      address: fiz.address,
+      phone: fiz.phone,
+      passportSeria: fiz.passportSeria,
+      passportNomer: fiz.passportNomer,
+      passportKemVydan: fiz.passportKemVydan,
+      passportDataVydachi: fiz.passportDataVydachi
+        ? dayjs(fiz.passportDataVydachi)
+        : undefined,
+    });
+    setFizPickerOpen(false);
+  };
+
+  const handleFormFinish = (values: Record<string, unknown>) => {
+    saveMutation.mutate({
+      ...values,
+      fizLicoId: selectedFizLico?.id,
+      data: values.data ? (values.data as dayjs.Dayjs).toISOString() : undefined,
+      passportDataVydachi: values.passportDataVydachi
+        ? (values.passportDataVydachi as dayjs.Dayjs).toISOString()
+        : undefined,
+    });
+  };
+
+  const handlePrintSchetFaktura = () => {
+    if (!selectedNakladnoy) return;
+    window.open(`/api/rasxod-putevok-fiz/${selectedNakladnoy.id}/schet-faktura`, '_blank');
+  };
+
+  // ── Year options ──────────────────────────────────────────────────────────
+  const currentYear = new Date().getFullYear();
+  const years = Array.from({ length: 6 }, (_, i) => currentYear - 2 + i);
+
+  // ── Master columns ────────────────────────────────────────────────────────
+
+  const masterColumns = [
+    { title: '№', dataIndex: 'nomer', width: 90 },
+    { title: 'Дата', dataIndex: 'data', width: 100 },
+    { title: 'ФИО', dataIndex: 'fizLicoFio' },
+    { title: 'ИНН', dataIndex: 'fizLicoInn', width: 120 },
+    { title: 'Кол-во', dataIndex: 'kolvo', width: 70 },
+    { title: 'Сумма', dataIndex: 'summa', width: 110, render: (v: number) => v?.toLocaleString('ru-RU') },
+    {
+      title: 'Проведено',
+      dataIndex: 'provodka',
+      width: 90,
+      render: (v: boolean) => (v ? 'Да' : 'Нет'),
+    },
+    { title: 'Статус', dataIndex: 'status', width: 90 },
+    {
+      title: 'Действия',
+      width: 140,
+      render: (_: unknown, rec: Nakladnoy) => (
+        <Space size={4} onClick={e => e.stopPropagation()}>
+          <Button
+            size="small"
+            icon={<EditOutlined />}
+            onClick={() => openEdit(rec)}
+            title="Редактировать"
+          />
+          <Button
+            size="small"
+            danger
+            icon={<DeleteOutlined />}
+            onClick={() => confirmDelete(rec.id)}
+            title="Удалить"
+          />
+          {!rec.provodka && (
+            <Button
+              size="small"
+              type="link"
+              onClick={() => provodkaMutation.mutate(rec.id)}
+              loading={provodkaMutation.isPending && provodkaMutation.variables === rec.id}
+              title="Провести"
+            >
+              Пров.
+            </Button>
+          )}
+        </Space>
+      ),
+    },
+  ];
+
+  // ── Detail columns ────────────────────────────────────────────────────────
+
+  const detailColumns = [
+    { title: '№ путевки', dataIndex: 'numPut' },
+    { title: 'Санаторий', dataIndex: 'sanatoriumName' },
+    { title: 'Дата начала', dataIndex: 'dataNach', width: 110 },
+    { title: 'Дата конца', dataIndex: 'dataKon', width: 110 },
+    {
+      title: 'Цена',
+      dataIndex: 'price',
+      width: 110,
+      render: (v: number) => v?.toLocaleString('ru-RU'),
+    },
+    { title: 'Статус', dataIndex: 'status', width: 90 },
+  ];
+
+  // ── Render ────────────────────────────────────────────────────────────────
+
+  return (
+    <div>
+      {/* Header */}
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
+        <Typography.Title level={4} style={{ margin: 0 }}>
+          Расход путевок — Физ. лицо
+        </Typography.Title>
+        <Space>
+          <Select
+            value={filterYear}
+            onChange={setFilterYear}
+            style={{ width: 90 }}
+            placeholder="Год"
+          >
+            {years.map(y => <Option key={y} value={y}>{y}</Option>)}
+          </Select>
+          <Select
+            value={filterQuarter}
+            onChange={setFilterQuarter}
+            style={{ width: 120 }}
+            placeholder="Квартал"
+          >
+            {[1, 2, 3, 4].map(q => (
+              <Option key={q} value={q}>{q} квартал</Option>
+            ))}
+          </Select>
+          <Button type="primary" icon={<PlusOutlined />} onClick={openAdd}>
+            Добавить
+          </Button>
+        </Space>
+      </div>
+
+      {/* Stats */}
+      <Row gutter={16} style={{ marginBottom: 16 }}>
+        <Col span={6}>
+          <Card size="small">
+            <Statistic title="Накладных" value={stats.totalNakladnoy ?? 0} />
+          </Card>
+        </Col>
+        <Col span={6}>
+          <Card size="small">
+            <Statistic
+              title="Общая сумма"
+              value={stats.totalSumma ?? 0}
+              suffix="сум"
+              formatter={v => Number(v).toLocaleString('ru-RU')}
+            />
+          </Card>
+        </Col>
+        <Col span={6}>
+          <Card size="small">
+            <Statistic title="Путевок выдано" value={stats.totalVouchers ?? 0} />
+          </Card>
+        </Col>
+        <Col span={6}>
+          <Card size="small">
+            <Statistic title="Проведено" value={stats.provedeno ?? 0} />
+          </Card>
+        </Col>
+      </Row>
+
+      {/* Master / Detail layout */}
+      <Row gutter={12}>
+        {/* Master table */}
+        <Col span={14}>
+          <Table
+            columns={masterColumns}
+            dataSource={nakladnoys}
+            rowKey="id"
+            loading={masterLoading}
+            size="small"
+            pagination={{ pageSize: 15 }}
+            rowClassName={rec =>
+              selectedNakladnoy?.id === rec.id ? 'ant-table-row-selected' : ''
+            }
+            onRow={rec => ({
+              onClick: () => setSelectedNakladnoy(rec),
+              style: { cursor: 'pointer' },
+            })}
+          />
+        </Col>
+
+        {/* Detail table */}
+        <Col span={10}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
+            <Typography.Text strong>
+              {selectedNakladnoy
+                ? `Путевки накладной № ${selectedNakladnoy.nomer ?? selectedNakladnoy.id}`
+                : 'Выберите накладную'}
+            </Typography.Text>
+            <Space>
+              {selectedNakladnoy && (
+                <>
+                  <Button
+                    size="small"
+                    icon={<PlusOutlined />}
+                    onClick={() => setVoucherPickerOpen(true)}
+                  >
+                    Добавить путевки
+                  </Button>
+                  <Button
+                    size="small"
+                    icon={<PrinterOutlined />}
+                    onClick={handlePrintSchetFaktura}
+                  >
+                    Печать СчетФактура
+                  </Button>
+                </>
+              )}
+            </Space>
+          </div>
+          <Table
+            columns={detailColumns}
+            dataSource={selectedNakladnoy ? details : []}
+            rowKey="id"
+            loading={detailsLoading}
+            size="small"
+            pagination={{ pageSize: 15 }}
+            locale={{ emptyText: selectedNakladnoy ? 'Нет путевок' : 'Выберите накладную слева' }}
+          />
+        </Col>
+      </Row>
+
+      {/* Add / Edit Modal */}
+      <Modal
+        title={editing ? 'Редактировать накладную' : 'Добавить накладную'}
+        open={editModalOpen}
+        onOk={() => form.submit()}
+        onCancel={() => { setEditModalOpen(false); setSelectedFizLico(null); form.resetFields(); }}
+        confirmLoading={saveMutation.isPending}
+        width={680}
+      >
+        <Form form={form} layout="vertical" onFinish={handleFormFinish}>
+          <Row gutter={12}>
+            <Col span={12}>
+              <Form.Item name="nomer" label="Номер накладной">
+                <Input placeholder="Авто, если не указан" />
+              </Form.Item>
+            </Col>
+            <Col span={12}>
+              <Form.Item name="data" label="Дата">
+                <DatePicker style={{ width: '100%' }} />
+              </Form.Item>
+            </Col>
+          </Row>
+
+          {/* FizLico section */}
+          <Typography.Text strong style={{ display: 'block', marginBottom: 8 }}>
+            Физическое лицо
+          </Typography.Text>
+          <div style={{ marginBottom: 12 }}>
+            <Button
+              icon={<SearchOutlined />}
+              onClick={() => setFizPickerOpen(true)}
+            >
+              {selectedFizLico ? 'Изменить физ. лицо' : 'Выбрать физ. лицо'}
+            </Button>
+            {selectedFizLico && (
+              <Typography.Text type="secondary" style={{ marginLeft: 8 }}>
+                {selectedFizLico.fio} {selectedFizLico.inn ? `(ИНН: ${selectedFizLico.inn})` : ''}
+              </Typography.Text>
+            )}
+          </div>
+
+          <Row gutter={12}>
+            <Col span={12}>
+              <Form.Item name="fio" label="ФИО">
+                <Input readOnly placeholder="Заполняется из справочника" />
+              </Form.Item>
+            </Col>
+            <Col span={12}>
+              <Form.Item name="inn" label="ИНН">
+                <Input placeholder="ИНН физ. лица" />
+              </Form.Item>
+            </Col>
+          </Row>
+          <Row gutter={12}>
+            <Col span={12}>
+              <Form.Item name="address" label="Адрес">
+                <Input />
+              </Form.Item>
+            </Col>
+            <Col span={12}>
+              <Form.Item name="phone" label="Телефон">
+                <Input />
+              </Form.Item>
+            </Col>
+          </Row>
+          <Row gutter={12}>
+            <Col span={6}>
+              <Form.Item name="passportSeria" label="Паспорт Серия">
+                <Input maxLength={2} placeholder="AA" />
+              </Form.Item>
+            </Col>
+            <Col span={6}>
+              <Form.Item name="passportNomer" label="Паспорт Номер">
+                <Input maxLength={7} placeholder="1234567" />
+              </Form.Item>
+            </Col>
+            <Col span={12}>
+              <Form.Item name="passportKemVydan" label="Кем выдан">
+                <Input />
+              </Form.Item>
+            </Col>
+          </Row>
+          <Row gutter={12}>
+            <Col span={12}>
+              <Form.Item name="passportDataVydachi" label="Дата выдачи">
+                <DatePicker style={{ width: '100%' }} />
+              </Form.Item>
+            </Col>
+            <Col span={12}>
+              <Form.Item name="summa" label="Сумма">
+                <InputNumber style={{ width: '100%' }} min={0} step={1000} />
+              </Form.Item>
+            </Col>
+          </Row>
+          <Row gutter={12}>
+            <Col span={12}>
+              <Form.Item name="kolvo" label="Кол-во путевок">
+                <InputNumber style={{ width: '100%' }} min={0} />
+              </Form.Item>
+            </Col>
+            <Col span={12}>
+              <Form.Item name="status" label="Статус">
+                <Select allowClear>
+                  <Option value="draft">Черновик</Option>
+                  <Option value="active">Активный</Option>
+                  <Option value="closed">Закрыт</Option>
+                </Select>
+              </Form.Item>
+            </Col>
+          </Row>
+        </Form>
+      </Modal>
+
+      {/* FizLico Picker Modal */}
+      <FizLicoPickerModal
+        open={fizPickerOpen}
+        onSelect={handleFizLicoSelect}
+        onCancel={() => setFizPickerOpen(false)}
+      />
+
+      {/* Voucher Picker Modal */}
+      <VoucherPickerModal
+        open={voucherPickerOpen}
+        nakladnoyId={selectedNakladnoy?.id ?? null}
+        onClose={() => setVoucherPickerOpen(false)}
+      />
+    </div>
+  );
+}

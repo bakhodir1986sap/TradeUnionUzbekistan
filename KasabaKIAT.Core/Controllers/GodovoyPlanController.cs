@@ -86,10 +86,7 @@ public class GodovoyPlanController(KasabaKIATContext db) : ControllerBase
 
         var entry = new KasabaKIAT.Core.Models.TbptPutyovki
         {
-            SANATORIUM_ID = request.SanatoriumId,
-            CAMP_ID = request.CampId,
-            USER_ID = userId,
-            SERIAL_BEGIN = request.SerialBegin,
+            SANATORIUM_ID = (int?)request.SanatoriumId,
             SERIAL_END = request.SerialEnd,
             REST_BEGIN_DATE = request.RestBeginDate,
             REST_END_DATE = request.RestEndDate,
@@ -118,7 +115,7 @@ public class GodovoyPlanController(KasabaKIATContext db) : ControllerBase
         var userIdClaim = User.FindFirstValue(ClaimTypes.NameIdentifier);
         long.TryParse(userIdClaim, out var userId);
 
-        entry.SANATORIUM_ID = request.SanatoriumId;
+        entry.SANATORIUM_ID = (int?)request.SanatoriumId;
         entry.CAMP_ID = request.CampId;
         entry.USER_ID = userId;
         entry.SERIAL_BEGIN = request.SerialBegin;

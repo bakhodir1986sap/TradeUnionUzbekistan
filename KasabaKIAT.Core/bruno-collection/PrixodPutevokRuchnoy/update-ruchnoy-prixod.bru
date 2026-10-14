@@ -1,0 +1,24 @@
+meta {
+  name: Update Ruchnoy Prixod
+  type: http
+  seq: 6
+}
+
+put {
+  url: {{baseUrl}}/api/prixod-putevok/ruchnoy/1
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{bearerToken}}
+}
+
+body:json {
+  {
+    "posName": "Санаторий Зарафшан (обн.)",
+    "numDoc": "РП-001",
+    "dataPost": "2026-10-16",
+    "numDov": "Д-001"
+  }
+}

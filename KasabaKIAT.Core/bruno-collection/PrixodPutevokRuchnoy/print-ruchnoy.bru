@@ -1,0 +1,20 @@
+meta {
+  name: Print Ruchnoy
+  type: http
+  seq: 15
+}
+
+get {
+  url: {{baseUrl}}/api/prixod-putevok/ruchnoy/print
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{bearerToken}}
+}
+
+params:query {
+  year: 2026
+  quarter: 4
+}

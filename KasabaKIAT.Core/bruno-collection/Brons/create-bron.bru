@@ -1,0 +1,24 @@
+meta {
+  name: Create Bron
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{baseUrl}}/api/brons
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{bearerToken}}
+}
+
+body:json {
+  {
+    "id_Sanat": 1,
+    "bron_DATE": "2026-11-01",
+    "expire_DATE": "2026-11-15",
+    "prim": "Бронь на ноябрь"
+  }
+}

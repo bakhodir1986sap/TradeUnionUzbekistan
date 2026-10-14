@@ -1,0 +1,21 @@
+meta {
+  name: Delete Sverka Obl
+  type: http
+  seq: 5
+}
+
+delete {
+  url: {{baseUrl}}/api/sverkadannix/obl
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{bearerToken}}
+}
+
+params:query {
+  year: 2026
+  sanId: 1
+  obl: 01
+}

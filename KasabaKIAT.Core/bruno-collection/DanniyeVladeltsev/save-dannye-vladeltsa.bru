@@ -1,0 +1,28 @@
+meta {
+  name: Save Dannye Vladeltsa
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{baseUrl}}/api/dannye-vladeltsev/1/save
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{bearerToken}}
+}
+
+body:json {
+  {
+    "faceId": 1,
+    "nameFace": "Иванов Иван Иванович",
+    "dolgnost": "Директор",
+    "talon": "Т-001",
+    "nomDov": "Д-001",
+    "dateDov": "2026-10-01",
+    "srokIst": "2027-10-01",
+    "poluchatel": "Иванов И.И."
+  }
+}

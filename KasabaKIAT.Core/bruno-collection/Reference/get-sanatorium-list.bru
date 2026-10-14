@@ -1,0 +1,15 @@
+meta {
+  name: Get Sanatorium List
+  type: http
+  seq: 29
+}
+
+get {
+  url: {{baseUrl}}/api/reference/sanatorium-list
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{bearerToken}}
+}

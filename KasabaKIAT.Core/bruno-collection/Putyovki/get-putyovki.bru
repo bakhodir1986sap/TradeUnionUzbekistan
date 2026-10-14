@@ -1,0 +1,23 @@
+meta {
+  name: Get Putyovki
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/api/putyovki
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{bearerToken}}
+}
+
+params:query {
+  page: 1
+  pageSize: 20
+  sanId:
+  year: 2026
+  status: 1
+}

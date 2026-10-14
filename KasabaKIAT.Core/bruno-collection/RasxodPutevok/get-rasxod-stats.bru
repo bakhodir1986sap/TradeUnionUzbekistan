@@ -1,0 +1,21 @@
+meta {
+  name: Get Rasxod Stats
+  type: http
+  seq: 3
+}
+
+get {
+  url: {{baseUrl}}/api/rasxod-putevok/stats
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{bearerToken}}
+}
+
+params:query {
+  year: 2026
+  quarter: 4
+  otraslId:
+}

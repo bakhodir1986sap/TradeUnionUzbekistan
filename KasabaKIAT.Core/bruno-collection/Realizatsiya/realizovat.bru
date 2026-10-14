@@ -1,0 +1,22 @@
+meta {
+  name: Realizovat
+  type: http
+  seq: 9
+}
+
+post {
+  url: {{baseUrl}}/api/realizatsiya/realizovat
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{bearerToken}}
+}
+
+body:json {
+  {
+    "voucherIds": [1, 2, 3],
+    "orgId": 1
+  }
+}

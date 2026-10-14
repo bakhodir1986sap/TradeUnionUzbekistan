@@ -1,0 +1,21 @@
+meta {
+  name: Add Vouchers Rasxod Fiz
+  type: http
+  seq: 7
+}
+
+post {
+  url: {{baseUrl}}/api/rasxod-putevok-fiz/1/add-vouchers
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{bearerToken}}
+}
+
+body:json {
+  {
+    "voucherIds": [4, 5, 6]
+  }
+}

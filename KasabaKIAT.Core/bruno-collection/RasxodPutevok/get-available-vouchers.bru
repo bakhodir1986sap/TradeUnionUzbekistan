@@ -1,0 +1,19 @@
+meta {
+  name: Get Available Vouchers Rasxod
+  type: http
+  seq: 8
+}
+
+get {
+  url: {{baseUrl}}/api/rasxod-putevok/available-vouchers
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{bearerToken}}
+}
+
+params:query {
+  search:
+}

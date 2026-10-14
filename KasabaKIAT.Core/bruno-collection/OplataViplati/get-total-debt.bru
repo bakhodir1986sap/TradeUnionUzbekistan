@@ -1,0 +1,20 @@
+meta {
+  name: Get Total Debt
+  type: http
+  seq: 13
+}
+
+get {
+  url: {{baseUrl}}/api/oplata-viplati/total-debt
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{bearerToken}}
+}
+
+params:query {
+  sanId: 1
+  year: 2026
+}

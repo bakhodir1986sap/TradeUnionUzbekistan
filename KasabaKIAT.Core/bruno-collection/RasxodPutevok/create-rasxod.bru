@@ -1,0 +1,28 @@
+meta {
+  name: Create Rasxod
+  type: http
+  seq: 4
+}
+
+post {
+  url: {{baseUrl}}/api/rasxod-putevok
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{bearerToken}}
+}
+
+body:json {
+  {
+    "year": 2026,
+    "quarter": 4,
+    "numDoc": "РП-001",
+    "dataPost": "2026-10-15",
+    "idOrg": 1,
+    "numDov": "Д-001",
+    "dateDov": "2026-10-01",
+    "naKogo": "Иванов И.И."
+  }
+}

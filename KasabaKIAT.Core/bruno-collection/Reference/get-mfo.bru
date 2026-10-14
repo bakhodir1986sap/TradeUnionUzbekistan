@@ -1,0 +1,15 @@
+meta {
+  name: Get MFO List
+  type: http
+  seq: 23
+}
+
+get {
+  url: {{baseUrl}}/api/reference/mfo
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{bearerToken}}
+}

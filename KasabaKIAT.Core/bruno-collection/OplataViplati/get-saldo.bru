@@ -1,0 +1,20 @@
+meta {
+  name: Get Saldo
+  type: http
+  seq: 11
+}
+
+get {
+  url: {{baseUrl}}/api/oplata-viplati/saldo
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{bearerToken}}
+}
+
+params:query {
+  sanId: 1
+  year: 2026
+}

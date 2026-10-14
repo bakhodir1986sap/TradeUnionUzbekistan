@@ -1,0 +1,21 @@
+meta {
+  name: Get Grafik Zaezdov
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/api/grafik-zaezdov
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{bearerToken}}
+}
+
+params:query {
+  sanatoriumId: 1
+  campId:
+  placeTypeId:
+}

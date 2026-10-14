@@ -1,0 +1,15 @@
+meta {
+  name: Provodka Rasxod Fiz
+  type: http
+  seq: 6
+}
+
+post {
+  url: {{baseUrl}}/api/rasxod-putevok-fiz/1/provodka
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{bearerToken}}
+}

@@ -1,0 +1,15 @@
+meta {
+  name: Delete User Action
+  type: http
+  seq: 4
+}
+
+delete {
+  url: {{baseUrl}}/api/user-actions/1
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{bearerToken}}
+}

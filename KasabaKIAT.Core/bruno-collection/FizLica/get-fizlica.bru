@@ -1,0 +1,22 @@
+meta {
+  name: Get Fiz Lica
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/api/fizlica
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{bearerToken}}
+}
+
+params:query {
+  search:
+  inn:
+  pas_ser:
+  pas_number:
+}

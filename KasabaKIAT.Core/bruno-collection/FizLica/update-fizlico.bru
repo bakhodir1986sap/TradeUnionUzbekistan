@@ -1,0 +1,28 @@
+meta {
+  name: Update Fiz Lico
+  type: http
+  seq: 5
+}
+
+put {
+  url: {{baseUrl}}/api/fizlica/1
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{bearerToken}}
+}
+
+body:json {
+  {
+    "nameFace": "Иванов Иван Петрович",
+    "inn": "123456789012",
+    "adress": "Ташкент, ул. Навои, 2",
+    "telefon": "+998901234568",
+    "pas_ser": "AA",
+    "pas_Num": "1234567",
+    "pas_kd": "01001",
+    "pas_data": "2020-01-15"
+  }
+}

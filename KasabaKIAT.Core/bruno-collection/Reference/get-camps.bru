@@ -1,0 +1,15 @@
+meta {
+  name: Get Camps
+  type: http
+  seq: 9
+}
+
+get {
+  url: {{baseUrl}}/api/reference/camps
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{bearerToken}}
+}

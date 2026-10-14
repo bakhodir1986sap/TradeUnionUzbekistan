@@ -1,0 +1,15 @@
+meta {
+  name: Get Buxgalter Platejka By Id
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{baseUrl}}/api/buxgalter/platejki/1
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{bearerToken}}
+}

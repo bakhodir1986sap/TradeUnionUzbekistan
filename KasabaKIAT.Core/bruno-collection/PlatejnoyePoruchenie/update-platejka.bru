@@ -1,0 +1,36 @@
+meta {
+  name: Update Platejka
+  type: http
+  seq: 4
+}
+
+put {
+  url: {{baseUrl}}/api/platejnoe-poruchenie/1
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{bearerToken}}
+}
+
+body:json {
+  {
+    "platDate": "2026-10-15",
+    "platNum": "ПП-011",
+    "platelName": "ФПТУ",
+    "platelInn": "202010001",
+    "platelRaschet": "20208000100001",
+    "platelBankName": "НБУ",
+    "platelBankMfo": "00014",
+    "poluchName": "Санаторий Зарафшан",
+    "poluchInn": "SAN001INN",
+    "poluchRaschet": "20208000200001",
+    "poluchBankName": "НБУ",
+    "poluchBankMfo": "00014",
+    "summa": 6000000.00,
+    "comment": "Обновлённая оплата Q4",
+    "rukovoditel": "Ахмедов А.А.",
+    "glavbux": "Юсупов Б.Б."
+  }
+}

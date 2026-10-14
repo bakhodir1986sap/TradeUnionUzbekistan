@@ -1,0 +1,27 @@
+meta {
+  name: Create User
+  type: http
+  seq: 4
+}
+
+post {
+  url: {{baseUrl}}/api/users
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{bearerToken}}
+}
+
+body:json {
+  {
+    "userName": "newuser",
+    "password": "Password123!",
+    "email": "newuser@kasabakiat.uz",
+    "roleId": 2,
+    "bkutId": 1,
+    "branchId": 1,
+    "isSuperAdmin": false
+  }
+}

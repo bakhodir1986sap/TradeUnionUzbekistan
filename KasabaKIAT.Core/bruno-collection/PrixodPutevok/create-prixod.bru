@@ -1,0 +1,29 @@
+meta {
+  name: Create Prixod
+  type: http
+  seq: 5
+}
+
+post {
+  url: {{baseUrl}}/api/prixod-putevok
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{bearerToken}}
+}
+
+body:json {
+  {
+    "sanatoriumId": 1,
+    "numDoc": "ПХ-001",
+    "dataPost": "2026-10-15",
+    "numDov": "ДОВ-001",
+    "dateDov": "2026-10-01",
+    "beginNumber": 1,
+    "endNumber": 50,
+    "price": 850000.00,
+    "sanatDate": "2026-11-01"
+  }
+}

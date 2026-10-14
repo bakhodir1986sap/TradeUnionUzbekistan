@@ -1,0 +1,21 @@
+meta {
+  name: Update Voucher Payment
+  type: http
+  seq: 12
+}
+
+put {
+  url: {{baseUrl}}/api/realizatsiya/vouchers/1/payment
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{bearerToken}}
+}
+
+body:json {
+  {
+    "paymentPercent": 50
+  }
+}

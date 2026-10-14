@@ -1,0 +1,15 @@
+meta {
+  name: Get Contract Types
+  type: http
+  seq: 14
+}
+
+get {
+  url: {{baseUrl}}/api/reference/contract-types
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{bearerToken}}
+}

@@ -1,0 +1,15 @@
+meta {
+  name: Get Tip Oplaty
+  type: http
+  seq: 9
+}
+
+get {
+  url: {{baseUrl}}/api/oplata-viplati/tip-oplaty
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{bearerToken}}
+}

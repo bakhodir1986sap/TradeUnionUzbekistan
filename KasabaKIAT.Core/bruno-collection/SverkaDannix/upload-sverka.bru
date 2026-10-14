@@ -1,0 +1,19 @@
+meta {
+  name: Upload Sverka Dannix
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{baseUrl}}/api/sverkadannix/upload
+  body: multipartForm
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{bearerToken}}
+}
+
+body:multipart {
+  file: /path/to/sverka.xlsx
+}

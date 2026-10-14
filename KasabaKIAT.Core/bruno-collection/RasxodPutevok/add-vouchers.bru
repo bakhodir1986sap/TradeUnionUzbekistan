@@ -1,0 +1,21 @@
+meta {
+  name: Add Vouchers To Rasxod
+  type: http
+  seq: 9
+}
+
+post {
+  url: {{baseUrl}}/api/rasxod-putevok/1/add-vouchers
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{bearerToken}}
+}
+
+body:json {
+  {
+    "voucherIds": [1, 2, 3]
+  }
+}

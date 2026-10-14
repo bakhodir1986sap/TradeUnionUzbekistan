@@ -1,0 +1,19 @@
+meta {
+  name: Get Organization By INN
+  type: http
+  seq: 8
+}
+
+get {
+  url: {{baseUrl}}/api/realizatsiya/organizations/by-inn
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{bearerToken}}
+}
+
+params:query {
+  inn: 202010001
+}

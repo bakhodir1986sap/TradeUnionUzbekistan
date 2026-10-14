@@ -1,0 +1,29 @@
+meta {
+  name: Create Akt Vozvrata
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{baseUrl}}/api/akt-vozvrata
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{bearerToken}}
+}
+
+body:json {
+  {
+    "year": 2026,
+    "quarter": 4,
+    "departmentBase": "01-001",
+    "dataPost": "2026-10-15",
+    "numDoc": "АВ-001",
+    "idOrg": 1,
+    "idSan": 1,
+    "numPut": "001",
+    "symma": 850000.00
+  }
+}

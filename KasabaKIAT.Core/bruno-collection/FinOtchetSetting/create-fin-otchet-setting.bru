@@ -1,0 +1,28 @@
+meta {
+  name: Create Fin Otchet Setting
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{baseUrl}}/api/fin-otchet-setting
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{bearerToken}}
+}
+
+body:json {
+  {
+    "otchetPart": 1,
+    "code": "F105",
+    "debitSide": "5150",
+    "creditSide": "9150",
+    "accountCode": "5150",
+    "dataType": 1,
+    "dataDesc": "Новая статья",
+    "departmentBase": "01-001"
+  }
+}

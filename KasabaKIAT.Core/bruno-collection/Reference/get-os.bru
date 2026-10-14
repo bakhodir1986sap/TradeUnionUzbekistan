@@ -1,0 +1,15 @@
+meta {
+  name: Get OS
+  type: http
+  seq: 26
+}
+
+get {
+  url: {{baseUrl}}/api/reference/os
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{bearerToken}}
+}

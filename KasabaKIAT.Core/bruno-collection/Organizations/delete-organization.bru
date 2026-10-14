@@ -1,0 +1,15 @@
+meta {
+  name: Delete Organization
+  type: http
+  seq: 9
+}
+
+delete {
+  url: {{baseUrl}}/api/organizations/1
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{bearerToken}}
+}

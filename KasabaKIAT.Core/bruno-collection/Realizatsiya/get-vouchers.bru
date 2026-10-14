@@ -1,0 +1,15 @@
+meta {
+  name: Get Realizatsiya Vouchers
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/api/realizatsiya/vouchers
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{bearerToken}}
+}

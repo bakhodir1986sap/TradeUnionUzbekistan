@@ -1,0 +1,21 @@
+meta {
+  name: Parse Excel Oplata
+  type: http
+  seq: 7
+}
+
+post {
+  url: {{baseUrl}}/api/oplata-viplati/parse-excel
+  body: multipartForm
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{bearerToken}}
+}
+
+body:multipart {
+  file: /path/to/oplata.xlsx
+  year: 2026
+  quarter: 4
+}

@@ -1,0 +1,26 @@
+meta {
+  name: Update User
+  type: http
+  seq: 5
+}
+
+put {
+  url: {{baseUrl}}/api/users/1
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{bearerToken}}
+}
+
+body:json {
+  {
+    "userName": "updateduser",
+    "email": "updated@kasabakiat.uz",
+    "roleId": 2,
+    "bkutId": 1,
+    "branchId": 1,
+    "isSuperAdmin": false
+  }
+}

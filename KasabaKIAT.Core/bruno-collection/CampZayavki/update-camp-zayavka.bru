@@ -1,0 +1,27 @@
+meta {
+  name: Update Camp Zayavka
+  type: http
+  seq: 4
+}
+
+put {
+  url: {{baseUrl}}/api/camp-zayavki/1
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{bearerToken}}
+}
+
+body:json {
+  {
+    "campId": 1,
+    "serialBegin": "ЛАГ001",
+    "serialEnd": "ЛАГ010",
+    "restBeginDate": "2026-07-01",
+    "restEndDate": "2026-07-21",
+    "price": 950000.00,
+    "quantity": 10
+  }
+}

@@ -1,0 +1,24 @@
+meta {
+  name: Get Organizations
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/api/organizations
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{bearerToken}}
+}
+
+params:query {
+  search:
+  inn:
+  name:
+  otraslId:
+  page: 1
+  pageSize: 20
+}

@@ -1,0 +1,15 @@
+meta {
+  name: Get Sverka V2 Data By Year
+  type: http
+  seq: 10
+}
+
+get {
+  url: {{baseUrl}}/api/sverkadannixv2/2026/data
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{bearerToken}}
+}

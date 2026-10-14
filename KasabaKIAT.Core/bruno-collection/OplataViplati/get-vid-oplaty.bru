@@ -1,0 +1,15 @@
+meta {
+  name: Get Vid Oplaty
+  type: http
+  seq: 10
+}
+
+get {
+  url: {{baseUrl}}/api/oplata-viplati/vid-oplaty
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{bearerToken}}
+}

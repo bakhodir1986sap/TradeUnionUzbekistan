@@ -1,0 +1,15 @@
+meta {
+  name: Get Kvartals
+  type: http
+  seq: 10
+}
+
+get {
+  url: {{baseUrl}}/api/reference/kvartals
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{bearerToken}}
+}

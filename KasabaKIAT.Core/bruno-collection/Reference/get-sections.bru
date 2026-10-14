@@ -1,0 +1,15 @@
+meta {
+  name: Get Sections
+  type: http
+  seq: 16
+}
+
+get {
+  url: {{baseUrl}}/api/reference/sections
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{bearerToken}}
+}

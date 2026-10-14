@@ -1,0 +1,21 @@
+meta {
+  name: Get Rasxod Putevok
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/api/rasxod-putevok
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{bearerToken}}
+}
+
+params:query {
+  year: 2026
+  quarter: 4
+  otraslId:
+}

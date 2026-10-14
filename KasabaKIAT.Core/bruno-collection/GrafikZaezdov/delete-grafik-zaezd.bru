@@ -1,0 +1,15 @@
+meta {
+  name: Delete Grafik Zaezd
+  type: http
+  seq: 4
+}
+
+delete {
+  url: {{baseUrl}}/api/grafik-zaezdov/1
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{bearerToken}}
+}

@@ -1,0 +1,15 @@
+meta {
+  name: Get Sverka V2 Years
+  type: http
+  seq: 9
+}
+
+get {
+  url: {{baseUrl}}/api/sverkadannixv2/years
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{bearerToken}}
+}

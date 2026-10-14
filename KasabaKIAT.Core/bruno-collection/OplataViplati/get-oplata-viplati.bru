@@ -1,0 +1,21 @@
+meta {
+  name: Get Oplata Viplati
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/api/oplata-viplati
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{bearerToken}}
+}
+
+params:query {
+  year: 2026
+  quarter: 4
+  sanId:
+}

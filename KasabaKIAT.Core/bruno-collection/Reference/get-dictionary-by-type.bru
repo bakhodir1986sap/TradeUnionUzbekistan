@@ -1,0 +1,15 @@
+meta {
+  name: Get Dictionary By Type
+  type: http
+  seq: 30
+}
+
+get {
+  url: {{baseUrl}}/api/reference/dictionary/5
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{bearerToken}}
+}

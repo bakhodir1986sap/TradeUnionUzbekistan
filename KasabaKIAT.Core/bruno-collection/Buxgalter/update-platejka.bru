@@ -1,0 +1,27 @@
+meta {
+  name: Update Buxgalter Platejka
+  type: http
+  seq: 4
+}
+
+put {
+  url: {{baseUrl}}/api/buxgalter/platejki/1
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{bearerToken}}
+}
+
+body:json {
+  {
+    "platDate": "2026-10-16",
+    "platNum": "БП-001",
+    "summa": 3500000.00,
+    "sanatoriumId": 1,
+    "year": 2026,
+    "quarter": 4,
+    "comment": "Обновлённый платёж Q4"
+  }
+}

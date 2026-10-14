@@ -1,0 +1,21 @@
+meta {
+  name: Patch Camp Zayavka Status
+  type: http
+  seq: 5
+}
+
+patch {
+  url: {{baseUrl}}/api/camp-zayavki/1/status
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{bearerToken}}
+}
+
+body:json {
+  {
+    "status": "APPROVED"
+  }
+}

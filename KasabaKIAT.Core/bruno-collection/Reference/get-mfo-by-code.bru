@@ -1,0 +1,15 @@
+meta {
+  name: Get MFO By Code
+  type: http
+  seq: 24
+}
+
+get {
+  url: {{baseUrl}}/api/reference/mfo/00014
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{bearerToken}}
+}

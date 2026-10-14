@@ -1,0 +1,22 @@
+meta {
+  name: Create User Action
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{baseUrl}}/api/user-actions
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{bearerToken}}
+}
+
+body:json {
+  {
+    "action": "CREATE",
+    "description": "Создана новая путёвка #123"
+  }
+}

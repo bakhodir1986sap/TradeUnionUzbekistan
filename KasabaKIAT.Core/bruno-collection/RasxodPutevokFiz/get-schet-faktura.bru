@@ -1,0 +1,15 @@
+meta {
+  name: Get Schet Faktura
+  type: http
+  seq: 8
+}
+
+get {
+  url: {{baseUrl}}/api/rasxod-putevok-fiz/1/schet-faktura
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{bearerToken}}
+}

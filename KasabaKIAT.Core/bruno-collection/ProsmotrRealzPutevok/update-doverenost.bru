@@ -1,0 +1,24 @@
+meta {
+  name: Update Doverenost
+  type: http
+  seq: 5
+}
+
+put {
+  url: {{baseUrl}}/api/prosmotr-realz-putevok/1/doverenost
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{bearerToken}}
+}
+
+body:json {
+  {
+    "poluchatel": "Иванов И.И.",
+    "nomDov": "Д-001",
+    "dateDov": "2026-10-01",
+    "srokIst": "2027-10-01"
+  }
+}

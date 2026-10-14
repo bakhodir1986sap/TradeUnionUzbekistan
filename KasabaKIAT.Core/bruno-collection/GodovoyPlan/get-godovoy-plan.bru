@@ -1,0 +1,22 @@
+meta {
+  name: Get Godovoy Plan
+  type: http
+  seq: 4
+}
+
+get {
+  url: {{baseUrl}}/api/godovoy-plan
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{bearerToken}}
+}
+
+params:query {
+  sanatoriumId: 1
+  campId:
+  year: 2026
+  kvartal: 4
+}

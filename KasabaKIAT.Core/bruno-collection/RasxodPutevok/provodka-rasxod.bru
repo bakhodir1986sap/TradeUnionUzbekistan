@@ -1,0 +1,15 @@
+meta {
+  name: Provodka Rasxod
+  type: http
+  seq: 7
+}
+
+post {
+  url: {{baseUrl}}/api/rasxod-putevok/1/provodka
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{bearerToken}}
+}

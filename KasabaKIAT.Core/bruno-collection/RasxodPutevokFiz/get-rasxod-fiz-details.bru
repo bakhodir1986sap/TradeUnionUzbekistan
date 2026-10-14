@@ -1,0 +1,15 @@
+meta {
+  name: Get Rasxod Fiz Details
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{baseUrl}}/api/rasxod-putevok-fiz/1/details
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{bearerToken}}
+}

@@ -1,0 +1,24 @@
+meta {
+  name: Create Zakritiye Kvartala
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{baseUrl}}/api/zakritiye-kvartala
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{bearerToken}}
+}
+
+body:json {
+  {
+    "year": 2026,
+    "quarter": 4,
+    "orgId": 1,
+    "departmentBase": "01-001"
+  }
+}

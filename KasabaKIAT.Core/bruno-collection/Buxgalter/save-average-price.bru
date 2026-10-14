@@ -1,0 +1,23 @@
+meta {
+  name: Save Average Price
+  type: http
+  seq: 7
+}
+
+post {
+  url: {{baseUrl}}/api/buxgalter/avarage-price
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{bearerToken}}
+}
+
+body:json {
+  {
+    "sanatoriumId": 1,
+    "year": 2026,
+    "price": 850000.00
+  }
+}

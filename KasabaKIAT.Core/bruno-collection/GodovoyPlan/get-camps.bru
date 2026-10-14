@@ -1,0 +1,15 @@
+meta {
+  name: Get Godovoy Plan Camps
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{baseUrl}}/api/godovoy-plan/camps
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{bearerToken}}
+}

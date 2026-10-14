@@ -1,0 +1,15 @@
+meta {
+  name: Get Department Types
+  type: http
+  seq: 15
+}
+
+get {
+  url: {{baseUrl}}/api/reference/department-types
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{bearerToken}}
+}

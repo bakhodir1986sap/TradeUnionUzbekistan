@@ -1,0 +1,15 @@
+meta {
+  name: Get Prixod By Sanatorium
+  type: http
+  seq: 3
+}
+
+get {
+  url: {{baseUrl}}/api/prixod-putevok/by-sanatorium/1
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{bearerToken}}
+}

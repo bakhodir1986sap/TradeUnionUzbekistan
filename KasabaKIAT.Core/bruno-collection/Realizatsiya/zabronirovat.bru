@@ -1,0 +1,22 @@
+meta {
+  name: Zabronirovat
+  type: http
+  seq: 10
+}
+
+post {
+  url: {{baseUrl}}/api/realizatsiya/zabronirovat
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{bearerToken}}
+}
+
+body:json {
+  {
+    "voucherIds": [4, 5],
+    "orgId": 1
+  }
+}

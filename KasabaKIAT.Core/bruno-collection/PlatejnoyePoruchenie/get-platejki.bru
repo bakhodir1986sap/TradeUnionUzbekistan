@@ -1,0 +1,15 @@
+meta {
+  name: Get Platejki
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/api/platejnoe-poruchenie
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{bearerToken}}
+}

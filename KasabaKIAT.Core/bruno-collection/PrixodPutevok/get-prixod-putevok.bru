@@ -1,0 +1,22 @@
+meta {
+  name: Get Prixod Putevok
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/api/prixod-putevok
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{bearerToken}}
+}
+
+params:query {
+  sanId:
+  status:
+  page: 1
+  pageSize: 20
+}

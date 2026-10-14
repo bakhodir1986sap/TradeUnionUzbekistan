@@ -1,0 +1,20 @@
+meta {
+  name: Get Average Price
+  type: http
+  seq: 6
+}
+
+get {
+  url: {{baseUrl}}/api/buxgalter/avarage-price
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{bearerToken}}
+}
+
+params:query {
+  sanatoriumId: 1
+  year: 2026
+}

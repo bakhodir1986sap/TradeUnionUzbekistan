@@ -1,0 +1,20 @@
+meta {
+  name: Get Ruchnoy Stats
+  type: http
+  seq: 4
+}
+
+get {
+  url: {{baseUrl}}/api/prixod-putevok/ruchnoy/stats
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{bearerToken}}
+}
+
+params:query {
+  year: 2026
+  quarter: 4
+}

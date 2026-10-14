@@ -1,0 +1,21 @@
+meta {
+  name: Otmenit Bron
+  type: http
+  seq: 11
+}
+
+post {
+  url: {{baseUrl}}/api/realizatsiya/otmenit-bron
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{bearerToken}}
+}
+
+body:json {
+  {
+    "voucherIds": [4, 5]
+  }
+}

@@ -1,0 +1,21 @@
+meta {
+  name: Update Ruchnoy Voucher Date
+  type: http
+  seq: 13
+}
+
+put {
+  url: {{baseUrl}}/api/prixod-putevok/ruchnoy/vouchers/1/date
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{bearerToken}}
+}
+
+body:json {
+  {
+    "newDate": "2026-12-01"
+  }
+}

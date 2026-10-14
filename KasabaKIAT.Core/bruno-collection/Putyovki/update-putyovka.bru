@@ -1,0 +1,30 @@
+meta {
+  name: Update Putyovka
+  type: http
+  seq: 4
+}
+
+put {
+  url: {{baseUrl}}/api/putyovki/1
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{bearerToken}}
+}
+
+body:json {
+  {
+    "departmentCode": "01-001",
+    "sanatoriumId": 1,
+    "campId": 1,
+    "serialBegin": "ПУТ100001",
+    "serialEnd": "ПУТ100010",
+    "restBeginDate": "2026-07-01",
+    "restEndDate": "2026-07-21",
+    "price": 1600000.00,
+    "quantityIn": 10,
+    "year": 2026
+  }
+}

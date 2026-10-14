@@ -1,0 +1,15 @@
+meta {
+  name: Get Organization Regions
+  type: http
+  seq: 5
+}
+
+get {
+  url: {{baseUrl}}/api/organizations/regions
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{bearerToken}}
+}

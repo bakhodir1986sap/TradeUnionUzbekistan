@@ -1,0 +1,21 @@
+meta {
+  name: Update Akt Vozvrata Date
+  type: http
+  seq: 4
+}
+
+put {
+  url: {{baseUrl}}/api/akt-vozvrata/1/date
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{bearerToken}}
+}
+
+body:json {
+  {
+    "newDate": "2026-10-20"
+  }
+}

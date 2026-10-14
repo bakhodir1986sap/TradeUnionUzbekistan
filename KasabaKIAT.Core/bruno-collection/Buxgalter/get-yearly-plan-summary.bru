@@ -1,0 +1,20 @@
+meta {
+  name: Get Yearly Plan Summary
+  type: http
+  seq: 9
+}
+
+get {
+  url: {{baseUrl}}/api/buxgalter/yearly-plan-summary
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{bearerToken}}
+}
+
+params:query {
+  year: 2026
+  sanatoriumId: 1
+}

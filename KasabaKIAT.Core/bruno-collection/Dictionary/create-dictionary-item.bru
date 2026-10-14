@@ -1,0 +1,24 @@
+meta {
+  name: Create Dictionary Item
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{baseUrl}}/api/dictionary
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{bearerToken}}
+}
+
+body:json {
+  {
+    "typeCode": 5,
+    "nameRu": "Новый тип",
+    "nameUz": "Yangi tur",
+    "nameLt": "Yangi tur"
+  }
+}

@@ -1,0 +1,15 @@
+meta {
+  name: Delete Ruchnoy Prixod
+  type: http
+  seq: 7
+}
+
+delete {
+  url: {{baseUrl}}/api/prixod-putevok/ruchnoy/1
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{bearerToken}}
+}

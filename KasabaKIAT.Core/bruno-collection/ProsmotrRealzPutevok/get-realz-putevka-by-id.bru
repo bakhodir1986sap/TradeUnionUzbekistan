@@ -1,0 +1,15 @@
+meta {
+  name: Get Realz Putevka By Id
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{baseUrl}}/api/prosmotr-realz-putevok/1
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{bearerToken}}
+}

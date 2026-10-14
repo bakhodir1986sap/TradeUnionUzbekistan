@@ -9,7 +9,7 @@ public partial class TbptPutyovki
     [Key]
     public long REC_ID { get; set; }
     public string? DEPARTMENT_CODE { get; set; }
-    public long? SANATORIUM_ID { get; set; }
+    public int? SANATORIUM_ID { get; set; }
     public long? CAMP_ID { get; set; }
     public long? USER_ID { get; set; }
     public string? SERIAL_BEGIN { get; set; }

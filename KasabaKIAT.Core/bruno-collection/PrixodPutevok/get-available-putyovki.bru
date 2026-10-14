@@ -1,0 +1,15 @@
+meta {
+  name: Get Available Putyovki
+  type: http
+  seq: 4
+}
+
+get {
+  url: {{baseUrl}}/api/prixod-putevok/available-putyovki
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{bearerToken}}
+}

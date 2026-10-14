@@ -1,0 +1,27 @@
+meta {
+  name: Update Grafik Zaezd
+  type: http
+  seq: 3
+}
+
+put {
+  url: {{baseUrl}}/api/grafik-zaezdov/1
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{bearerToken}}
+}
+
+body:json {
+  {
+    "zaezdBegin": "2026-07-01",
+    "zaezdEnd": "2026-07-21",
+    "placeTypeId": 1,
+    "price": 1600000.00,
+    "quantity": 20,
+    "sanatoriumId": 1,
+    "campId": 1
+  }
+}

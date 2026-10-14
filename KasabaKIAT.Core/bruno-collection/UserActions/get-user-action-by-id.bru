@@ -1,0 +1,15 @@
+meta {
+  name: Get User Action By Id
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{baseUrl}}/api/user-actions/1
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{bearerToken}}
+}

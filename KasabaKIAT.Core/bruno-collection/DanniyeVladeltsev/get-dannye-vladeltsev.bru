@@ -1,0 +1,21 @@
+meta {
+  name: Get Dannye Vladeltsev
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/api/dannye-vladeltsev
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{bearerToken}}
+}
+
+params:query {
+  beginDate: 2026-01-01
+  endDate: 2026-12-31
+  orgId: 1
+}

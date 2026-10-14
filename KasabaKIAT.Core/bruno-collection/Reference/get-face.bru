@@ -1,0 +1,15 @@
+meta {
+  name: Get Face
+  type: http
+  seq: 25
+}
+
+get {
+  url: {{baseUrl}}/api/reference/face
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{bearerToken}}
+}

@@ -1,0 +1,15 @@
+meta {
+  name: Get Empty Carcas
+  type: http
+  seq: 6
+}
+
+get {
+  url: {{baseUrl}}/api/organizations/empty-carcas
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{bearerToken}}
+}

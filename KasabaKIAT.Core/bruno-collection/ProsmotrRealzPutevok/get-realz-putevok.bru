@@ -1,0 +1,24 @@
+meta {
+  name: Get Prosmotr Realz Putevok
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/api/prosmotr-realz-putevok
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{bearerToken}}
+}
+
+params:query {
+  page: 1
+  pageSize: 20
+  orgId:
+  sanId:
+  dateFrom: 2026-01-01
+  dateTo: 2026-12-31
+}

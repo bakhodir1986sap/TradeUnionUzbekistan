@@ -1,0 +1,26 @@
+meta {
+  name: Create Ruchnoy Prixod
+  type: http
+  seq: 5
+}
+
+post {
+  url: {{baseUrl}}/api/prixod-putevok/ruchnoy
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{bearerToken}}
+}
+
+body:json {
+  {
+    "year": 2026,
+    "quarter": 4,
+    "posName": "Санаторий Зарафшан",
+    "numDoc": "РП-001",
+    "dataPost": "2026-10-15",
+    "numDov": "Д-001"
+  }
+}

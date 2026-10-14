@@ -1,0 +1,21 @@
+meta {
+  name: Get Sverka Differ
+  type: http
+  seq: 4
+}
+
+get {
+  url: {{baseUrl}}/api/sverkadannix/differ
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{bearerToken}}
+}
+
+params:query {
+  year: 2026
+  sanId: 1
+  obl: 01
+}

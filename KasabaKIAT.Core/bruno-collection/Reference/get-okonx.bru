@@ -1,0 +1,15 @@
+meta {
+  name: Get Okonx
+  type: http
+  seq: 18
+}
+
+get {
+  url: {{baseUrl}}/api/reference/okonx
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{bearerToken}}
+}

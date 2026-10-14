@@ -1,0 +1,22 @@
+meta {
+  name: Change Otrasl Massive
+  type: http
+  seq: 11
+}
+
+post {
+  url: {{baseUrl}}/api/organizations/change-otrasl-massive
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{bearerToken}}
+}
+
+body:json {
+  {
+    "ids": [1, 2, 3],
+    "otraslId": 2
+  }
+}

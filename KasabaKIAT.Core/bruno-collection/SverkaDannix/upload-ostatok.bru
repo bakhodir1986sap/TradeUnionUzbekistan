@@ -1,0 +1,19 @@
+meta {
+  name: Upload Ostatok
+  type: http
+  seq: 6
+}
+
+post {
+  url: {{baseUrl}}/api/sverkadannix/ostatok
+  body: multipartForm
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{bearerToken}}
+}
+
+body:multipart {
+  file: /path/to/ostatok.xlsx
+}

@@ -1,0 +1,15 @@
+meta {
+  name: Get Template Putyovki Kengash
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{baseUrl}}/api/startprocess/templates/putyovki-kengash
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{bearerToken}}
+}

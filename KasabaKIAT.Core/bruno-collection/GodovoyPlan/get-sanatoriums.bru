@@ -1,0 +1,15 @@
+meta {
+  name: Get Godovoy Plan Sanatoriums
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/api/godovoy-plan/sanatoriums
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{bearerToken}}
+}

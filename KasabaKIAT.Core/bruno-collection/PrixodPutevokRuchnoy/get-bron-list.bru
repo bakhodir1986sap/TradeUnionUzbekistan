@@ -1,0 +1,20 @@
+meta {
+  name: Get Bron List
+  type: http
+  seq: 14
+}
+
+get {
+  url: {{baseUrl}}/api/prixod-putevok/ruchnoy/bron-list
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{bearerToken}}
+}
+
+params:query {
+  year: 2026
+  quarter: 4
+}

@@ -1,0 +1,19 @@
+meta {
+  name: Get Camp Zayavki
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/api/camp-zayavki
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{bearerToken}}
+}
+
+params:query {
+  status:
+}

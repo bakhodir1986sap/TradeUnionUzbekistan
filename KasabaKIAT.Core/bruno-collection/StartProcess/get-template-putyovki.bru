@@ -1,0 +1,15 @@
+meta {
+  name: Get Template Putyovki
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/api/startprocess/templates/putyovki
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{bearerToken}}
+}

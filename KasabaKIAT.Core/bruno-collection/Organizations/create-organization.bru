@@ -1,0 +1,29 @@
+meta {
+  name: Create Organization
+  type: http
+  seq: 7
+}
+
+post {
+  url: {{baseUrl}}/api/organizations
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{bearerToken}}
+}
+
+body:json {
+  {
+    "nameRu": "Новая организация",
+    "nameUz": "Yangi tashkilot",
+    "inn": "123456789",
+    "otraslId": 1,
+    "regionId": 1,
+    "adress": "Ташкент, ул. Навои, 1",
+    "telefon": "+998712345678",
+    "bkut": "01-999",
+    "departmentBase": "01-001"
+  }
+}

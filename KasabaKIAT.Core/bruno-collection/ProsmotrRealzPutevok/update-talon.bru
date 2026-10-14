@@ -1,0 +1,21 @@
+meta {
+  name: Update Talon
+  type: http
+  seq: 4
+}
+
+put {
+  url: {{baseUrl}}/api/prosmotr-realz-putevok/1/talon
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{bearerToken}}
+}
+
+body:json {
+  {
+    "talon": "Т-2026-001"
+  }
+}

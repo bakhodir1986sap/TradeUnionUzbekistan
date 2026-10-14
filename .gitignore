@@ -244,3 +244,13 @@ ModelManifest.xml
 # FAKE - F# Make
 .fake/
 /KasabaKIAT_BeforeDubai.zip
+/KasabaKIAT.Frontend/SQLEXPR_x64_ENU/1033_ENU_LP/MEDIAINFO.XML
+/KasabaKIAT.Frontend/SQLEXPR_x64_ENU/redist/VisualStudioShell/VCRuntimes/VC_REDIST_X64.EXE
+/KasabaKIAT.Frontend/SQLEXPR_x64_ENU/redist/VisualStudioShell/VCRuntimes/VC_REDIST_X86.EXE
+/KasabaKIAT.Frontend/SQLEXPR_x64_ENU/resources/1033/SETUP.RLL
+/KasabaKIAT.Frontend/SQLEXPR_x64_ENU/AUTORUN.INF
+/KasabaKIAT.Frontend/SQLEXPR_x64_ENU/MEDIAINFO.XML
+/KasabaKIAT.Frontend/SQLEXPR_x64_ENU/PackageId.dat
+/KasabaKIAT.Frontend/SQLEXPR_x64_ENU/SETUP.EXE
+/KasabaKIAT.Frontend/SQLEXPR_x64_ENU/SETUP.EXE.CONFIG
+/KasabaKIAT.Frontend/SQLEXPR_x64_ENU/SQLSETUPBOOTSTRAPPER.DLL

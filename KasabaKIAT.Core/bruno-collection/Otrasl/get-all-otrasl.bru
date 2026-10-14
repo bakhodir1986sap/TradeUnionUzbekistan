@@ -1,0 +1,15 @@
+meta {
+  name: Get All Otrasl
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/api/otrasl
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{bearerToken}}
+}

@@ -1,0 +1,19 @@
+meta {
+  name: Get General Remaining
+  type: http
+  seq: 12
+}
+
+get {
+  url: {{baseUrl}}/api/oplata-viplati/general-remaining
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{bearerToken}}
+}
+
+params:query {
+  year: 2026
+}

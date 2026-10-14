@@ -1,0 +1,19 @@
+meta {
+  name: Get PP Sum
+  type: http
+  seq: 4
+}
+
+get {
+  url: {{baseUrl}}/api/realizatsiya/pp-sum
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{bearerToken}}
+}
+
+params:query {
+  year: 2026
+}

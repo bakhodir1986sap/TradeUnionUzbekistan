@@ -1,0 +1,15 @@
+meta {
+  name: Get Buxgalter Fin Otchet Settings
+  type: http
+  seq: 8
+}
+
+get {
+  url: {{baseUrl}}/api/buxgalter/fin-otchet-settings
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{bearerToken}}
+}

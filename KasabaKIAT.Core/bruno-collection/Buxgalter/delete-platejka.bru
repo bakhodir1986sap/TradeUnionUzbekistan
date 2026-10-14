@@ -1,0 +1,15 @@
+meta {
+  name: Delete Buxgalter Platejka
+  type: http
+  seq: 5
+}
+
+delete {
+  url: {{baseUrl}}/api/buxgalter/platejki/1
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{bearerToken}}
+}

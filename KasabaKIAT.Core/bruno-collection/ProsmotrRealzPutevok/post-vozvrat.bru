@@ -1,0 +1,20 @@
+meta {
+  name: Post Vozvrat
+  type: http
+  seq: 6
+}
+
+post {
+  url: {{baseUrl}}/api/prosmotr-realz-putevok/1/vozvrat
+  body: multipartForm
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{bearerToken}}
+}
+
+body:multipart {
+  file: /path/to/vozvrat.pdf
+  prichina: Болезнь получателя
+}

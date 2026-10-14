@@ -1,0 +1,15 @@
+meta {
+  name: Get Soato
+  type: http
+  seq: 11
+}
+
+get {
+  url: {{baseUrl}}/api/reference/soato
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{bearerToken}}
+}

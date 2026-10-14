@@ -1,0 +1,15 @@
+meta {
+  name: Unbron Ruchnoy Voucher
+  type: http
+  seq: 12
+}
+
+put {
+  url: {{baseUrl}}/api/prixod-putevok/ruchnoy/vouchers/1/unbron
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{bearerToken}}
+}

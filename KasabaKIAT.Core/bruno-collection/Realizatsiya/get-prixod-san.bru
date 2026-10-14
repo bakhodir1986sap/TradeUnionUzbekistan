@@ -1,0 +1,20 @@
+meta {
+  name: Get Prixod San
+  type: http
+  seq: 5
+}
+
+get {
+  url: {{baseUrl}}/api/realizatsiya/prixod-san
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{bearerToken}}
+}
+
+params:query {
+  year: 2026
+  sanId: 1
+}

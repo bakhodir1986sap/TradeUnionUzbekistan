@@ -1,0 +1,19 @@
+meta {
+  name: Upload Debit Credit
+  type: http
+  seq: 8
+}
+
+post {
+  url: {{baseUrl}}/api/sverkadannix/debit-credit
+  body: multipartForm
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{bearerToken}}
+}
+
+body:multipart {
+  file: /path/to/debit-credit.xlsx
+}

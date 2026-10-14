@@ -1,0 +1,19 @@
+meta {
+  name: Get Zakritiye Kvartala Res
+  type: http
+  seq: 3
+}
+
+get {
+  url: {{baseUrl}}/api/zakritiye-kvartala/res
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{bearerToken}}
+}
+
+params:query {
+  orgId: 1
+}

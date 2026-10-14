@@ -1,0 +1,25 @@
+meta {
+  name: Add Ruchnoy Voucher
+  type: http
+  seq: 9
+}
+
+post {
+  url: {{baseUrl}}/api/prixod-putevok/ruchnoy/1/vouchers
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{bearerToken}}
+}
+
+body:json {
+  {
+    "idSan": 1,
+    "beginNumber": 101,
+    "endNumber": 120,
+    "sanatDate": "2026-11-01",
+    "price": 850000.00
+  }
+}

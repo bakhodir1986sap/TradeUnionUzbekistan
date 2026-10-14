@@ -1,0 +1,29 @@
+meta {
+  name: Update Organization
+  type: http
+  seq: 8
+}
+
+put {
+  url: {{baseUrl}}/api/organizations/1
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{bearerToken}}
+}
+
+body:json {
+  {
+    "nameRu": "Обновлённая организация",
+    "nameUz": "Yangilangan tashkilot",
+    "inn": "123456789",
+    "otraslId": 1,
+    "regionId": 1,
+    "adress": "Ташкент, ул. Навои, 2",
+    "telefon": "+998712345679",
+    "bkut": "01-999",
+    "departmentBase": "01-001"
+  }
+}

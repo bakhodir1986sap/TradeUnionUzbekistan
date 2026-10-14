@@ -1,0 +1,15 @@
+meta {
+  name: Provodka Ruchnoy
+  type: http
+  seq: 8
+}
+
+post {
+  url: {{baseUrl}}/api/prixod-putevok/ruchnoy/1/provodka
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{bearerToken}}
+}

@@ -1,0 +1,20 @@
+meta {
+  name: Get Buxgalter Platejki
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/api/buxgalter/platejki
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{bearerToken}}
+}
+
+params:query {
+  year: 2026
+  quarter: 1
+}

@@ -1,0 +1,15 @@
+meta {
+  name: Get Otras
+  type: http
+  seq: 21
+}
+
+get {
+  url: {{baseUrl}}/api/reference/otras
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{bearerToken}}
+}

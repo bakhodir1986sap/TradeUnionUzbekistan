@@ -1,0 +1,15 @@
+meta {
+  name: Get OPF
+  type: http
+  seq: 19
+}
+
+get {
+  url: {{baseUrl}}/api/reference/opf
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{bearerToken}}
+}

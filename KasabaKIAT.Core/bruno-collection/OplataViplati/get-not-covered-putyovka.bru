@@ -1,0 +1,20 @@
+meta {
+  name: Get Not Covered Putyovka
+  type: http
+  seq: 14
+}
+
+get {
+  url: {{baseUrl}}/api/oplata-viplati/not-covered-putyovka
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{bearerToken}}
+}
+
+params:query {
+  sanId: 1
+  year: 2026
+}

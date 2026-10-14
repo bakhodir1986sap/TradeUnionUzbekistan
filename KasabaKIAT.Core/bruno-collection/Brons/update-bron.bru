@@ -1,0 +1,24 @@
+meta {
+  name: Update Bron
+  type: http
+  seq: 4
+}
+
+put {
+  url: {{baseUrl}}/api/brons/1
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{bearerToken}}
+}
+
+body:json {
+  {
+    "id_Sanat": 1,
+    "bron_DATE": "2026-11-01",
+    "expire_DATE": "2026-11-20",
+    "prim": "Обновлённая бронь"
+  }
+}

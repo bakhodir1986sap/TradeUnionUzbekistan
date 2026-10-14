@@ -1,0 +1,27 @@
+meta {
+  name: Create Buxgalter Platejka
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{baseUrl}}/api/buxgalter/platejki
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{bearerToken}}
+}
+
+body:json {
+  {
+    "platDate": "2026-10-15",
+    "platNum": "БП-001",
+    "summa": 3000000.00,
+    "sanatoriumId": 1,
+    "year": 2026,
+    "quarter": 4,
+    "comment": "Платёж за Q4 2026"
+  }
+}

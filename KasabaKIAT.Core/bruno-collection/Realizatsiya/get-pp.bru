@@ -1,0 +1,20 @@
+meta {
+  name: Get PP
+  type: http
+  seq: 3
+}
+
+get {
+  url: {{baseUrl}}/api/realizatsiya/pp
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{bearerToken}}
+}
+
+params:query {
+  year: 2026
+  orgId: 1
+}

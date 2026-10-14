@@ -1,0 +1,23 @@
+meta {
+  name: Get Prosmotr Ostatkov
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/api/prosmotr-ostatkov
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{bearerToken}}
+}
+
+params:query {
+  sanatId: 1
+  numPut:
+  dateFrom: 2026-01-01
+  dateTo: 2026-12-31
+  price:
+}

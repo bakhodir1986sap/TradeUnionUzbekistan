@@ -1,0 +1,22 @@
+meta {
+  name: Bron Ruchnoy Voucher
+  type: http
+  seq: 11
+}
+
+put {
+  url: {{baseUrl}}/api/prixod-putevok/ruchnoy/vouchers/1/bron
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{bearerToken}}
+}
+
+body:json {
+  {
+    "expireDate": "2026-11-30",
+    "prim": "Бронь для отдела 01-001"
+  }
+}

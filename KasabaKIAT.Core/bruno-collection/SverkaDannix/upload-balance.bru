@@ -1,0 +1,19 @@
+meta {
+  name: Upload Balance
+  type: http
+  seq: 7
+}
+
+post {
+  url: {{baseUrl}}/api/sverkadannix/balance
+  body: multipartForm
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{bearerToken}}
+}
+
+body:multipart {
+  file: /path/to/balance.xlsx
+}

@@ -1,0 +1,29 @@
+meta {
+  name: Create Godovoy Plan
+  type: http
+  seq: 5
+}
+
+post {
+  url: {{baseUrl}}/api/godovoy-plan
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{bearerToken}}
+}
+
+body:json {
+  {
+    "sanatoriumId": 1,
+    "campId": null,
+    "serialBegin": 1,
+    "serialEnd": 100,
+    "restBeginDate": "2026-11-01",
+    "restEndDate": "2026-11-14",
+    "price": 850000.00,
+    "quantityIn": 100,
+    "year": 2026
+  }
+}

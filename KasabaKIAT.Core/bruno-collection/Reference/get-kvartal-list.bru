@@ -1,0 +1,15 @@
+meta {
+  name: Get Kvartal List
+  type: http
+  seq: 32
+}
+
+get {
+  url: {{baseUrl}}/api/reference/kvartal-list
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{bearerToken}}
+}

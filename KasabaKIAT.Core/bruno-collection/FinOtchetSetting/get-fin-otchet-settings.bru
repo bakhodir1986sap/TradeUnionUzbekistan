@@ -1,0 +1,19 @@
+meta {
+  name: Get Fin Otchet Settings
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/api/fin-otchet-setting
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{bearerToken}}
+}
+
+params:query {
+  depBase: 01-001
+}

@@ -1,0 +1,15 @@
+meta {
+  name: Get Sanatorium Types
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{baseUrl}}/api/reference/sanatorium-types
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{bearerToken}}
+}

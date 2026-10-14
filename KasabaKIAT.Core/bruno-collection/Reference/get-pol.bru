@@ -1,0 +1,15 @@
+meta {
+  name: Get Pol
+  type: http
+  seq: 31
+}
+
+get {
+  url: {{baseUrl}}/api/reference/pol
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{bearerToken}}
+}

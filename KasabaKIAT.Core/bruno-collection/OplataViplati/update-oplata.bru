@@ -1,0 +1,27 @@
+meta {
+  name: Update Oplata
+  type: http
+  seq: 5
+}
+
+put {
+  url: {{baseUrl}}/api/oplata-viplati/1
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{bearerToken}}
+}
+
+body:json {
+  {
+    "year": 2026,
+    "quarter": 4,
+    "sanatoriumId": 1,
+    "summa": 5500000.00,
+    "tipOplaty": 1,
+    "vidOplaty": 1,
+    "platDate": "2026-10-16"
+  }
+}

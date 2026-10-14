@@ -1,0 +1,20 @@
+meta {
+  name: Get Ruchnoy Prixod
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/api/prixod-putevok/ruchnoy
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{bearerToken}}
+}
+
+params:query {
+  year: 2026
+  quarter: 4
+}

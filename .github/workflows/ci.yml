@@ -60,7 +60,10 @@ jobs:
           dotnet tool install --global dotnet-coverage
 
       - name: Restore
-        run: dotnet restore KasabaKIAT.sln
+        run: |
+          dotnet restore KasabaKIAT.Core/KasabaKIAT.Core.csproj
+          dotnet restore KasabaKIAT.Core.UnitTests/KasabaKIAT.Core.UnitTests.csproj
+          dotnet restore KasabaKIAT.Core.IntegrationTests/KasabaKIAT.Core.IntegrationTests.csproj
 
       - name: SonarQube Begin
         if: env.SONAR_TOKEN != ''
@@ -76,7 +79,10 @@ jobs:
             /d:sonar.exclusions="**/Migrations/**,**/obj/**,**/bin/**"
 
       - name: Build
-        run: dotnet build KasabaKIAT.sln --no-restore -c Release
+        run: |
+          dotnet build KasabaKIAT.Core/KasabaKIAT.Core.csproj --no-restore -c Release
+          dotnet build KasabaKIAT.Core.UnitTests/KasabaKIAT.Core.UnitTests.csproj --no-restore -c Release
+          dotnet build KasabaKIAT.Core.IntegrationTests/KasabaKIAT.Core.IntegrationTests.csproj --no-restore -c Release
 
       - name: Unit Tests (with coverage)
         if: env.SONAR_TOKEN != ''

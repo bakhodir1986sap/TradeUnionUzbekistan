@@ -102,7 +102,9 @@ public class PutyovkiService(KasabaKIATContext db, IAuditService audit, ILogger<
 
     public async Task<bool> DeleteAsync(long id, long actorUserId, CancellationToken ct = default)
     {
-        var entity = await db.TbptPutyovkis.FindAsync([id], ct);
+        var entity = await db.TbptPutyovkis
+            .IgnoreQueryFilters()
+            .FirstOrDefaultAsync(e => e.REC_ID == id, ct);
         if (entity == null) return false;
         entity.STATUS = "0";
         await db.SaveChangesAsync(ct);

@@ -85,7 +85,7 @@ public class UserService(KasabaKIATContext db, IAuditService audit, ILogger<User
 
     public async Task<bool> DeactivateAsync(long id, CancellationToken ct = default)
     {
-        var user = await db.Users.FindAsync([id], ct);
+        var user = await db.Users.FirstOrDefaultAsync(u => u.id == id, ct);
         if (user == null) return false;
         user.state = "0";
         await db.SaveChangesAsync(ct);

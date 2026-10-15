@@ -29,7 +29,13 @@ const ZakritiyaKvartalaPoPutyovkamPage = lazy(() => import('./pages/PrixodPutevo
 const CampZayavkiPage = lazy(() => import('./pages/CampZayavki/CampZayavkiPage').then(m => ({ default: m.CampZayavkiPage })));
 const BuxgalterPage = lazy(() => import('./pages/Buxgalter/BuxgalterPage').then(m => ({ default: m.BuxgalterPage })));
 const PlatejnoyePorucheniyePage = lazy(() => import('./pages/Buxgalter/PlatejnoyePorucheniyePage').then(m => ({ default: m.PlatejnoyePorucheniyePage })));
-const OtchotPage = lazy(() => import('./pages/Otchot/OtchotPage').then(m => ({ default: m.OtchotPage })));
+const OtchotCoreTabsPage = lazy(() => import('./pages/Otchot/OtchotCoreTabsPage').then(m => ({ default: m.OtchotCoreTabsPage })));
+const OtchotPutyovkiTabsPage = lazy(() => import('./pages/Otchot/OtchotPutyovkiTabsPage').then(m => ({ default: m.OtchotPutyovkiTabsPage })));
+const OtchotFinansyTabsPage = lazy(() => import('./pages/Otchot/OtchotFinansyTabsPage').then(m => ({ default: m.OtchotFinansyTabsPage })));
+const OtchotJurOrderTabsPage = lazy(() => import('./pages/Otchot/OtchotJurOrderTabsPage').then(m => ({ default: m.OtchotJurOrderTabsPage })));
+const OtchotMonitoringTabsPage = lazy(() => import('./pages/Otchot/OtchotMonitoringTabsPage').then(m => ({ default: m.OtchotMonitoringTabsPage })));
+const OtchotKartochkaTabsPage = lazy(() => import('./pages/Otchot/OtchotKartochkaTabsPage').then(m => ({ default: m.OtchotKartochkaTabsPage })));
+const OtchotFinOtchetTabsPage = lazy(() => import('./pages/Otchot/OtchotFinOtchetTabsPage').then(m => ({ default: m.OtchotFinOtchetTabsPage })));
 const UsersPage = lazy(() => import('./pages/Admin/UsersPage').then(m => ({ default: m.UsersPage })));
 const RolesPage = lazy(() => import('./pages/Admin/RolesPage').then(m => ({ default: m.RolesPage })));
 const UserActionsPage = lazy(() => import('./pages/Admin/UserActionsPage').then(m => ({ default: m.UserActionsPage })));
@@ -83,7 +89,14 @@ export function AppRouter() {
           <Route path="camp-zayavki" element={<CampZayavkiPage />} />
           <Route path="buxgalter" element={<BuxgalterPage />} />
           <Route path="platejnoe-poruchenie" element={<PlatejnoyePorucheniyePage />} />
-          <Route path="otchoty" element={<OtchotPage />} />
+          <Route path="otchoty" element={<Navigate to="/otchoty/osnovnye" replace />} />
+          <Route path="otchoty/osnovnye" element={<OtchotCoreTabsPage />} />
+          <Route path="otchoty/putyovki" element={<OtchotPutyovkiTabsPage />} />
+          <Route path="otchoty/finansy" element={<OtchotFinansyTabsPage />} />
+          <Route path="otchoty/jur-order" element={<OtchotJurOrderTabsPage />} />
+          <Route path="otchoty/monitoring" element={<OtchotMonitoringTabsPage />} />
+          <Route path="otchoty/kartochka" element={<OtchotKartochkaTabsPage />} />
+          <Route path="otchoty/fin-otchet" element={<OtchotFinOtchetTabsPage />} />
           <Route path="admin/users" element={<UsersPage />} />
           <Route path="admin/roles" element={<RolesPage />} />
           <Route path="admin/user-actions" element={<UserActionsPage />} />

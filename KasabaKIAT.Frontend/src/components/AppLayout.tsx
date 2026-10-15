@@ -112,9 +112,18 @@ export function AppLayout() {
       ],
     },
     {
-      key: '/otchoty',
+      key: 'otchoty',
       icon: <BarChartOutlined />,
       label: t('nav.otchety'),
+      children: [
+        { key: '/otchoty/osnovnye',   label: t('nav.otchetyOsnovnye') },
+        { key: '/otchoty/putyovki',   label: t('nav.otchetyPutyovki') },
+        { key: '/otchoty/finansy',    label: t('nav.otchetyFinansy') },
+        { key: '/otchoty/jur-order',  label: t('nav.otchetyJurOrder') },
+        { key: '/otchoty/monitoring', label: t('nav.otchetyMonitoring') },
+        { key: '/otchoty/kartochka',  label: t('nav.otchetyKartochka') },
+        { key: '/otchoty/fin-otchet', label: t('nav.otchetyFinOtchet') },
+      ],
     },
     {
       key: 'nsi',
@@ -193,7 +202,7 @@ export function AppLayout() {
           theme="dark"
           mode="inline"
           selectedKeys={[selectedKey]}
-          defaultOpenKeys={['putyovki', 'prixod-putevok-submenu', 'zayavki', 'buxgalteriya', 'nsi', 'admin']}
+          defaultOpenKeys={['putyovki', 'prixod-putevok-submenu', 'zayavki', 'buxgalteriya', 'otchoty', 'nsi', 'admin']}
           items={menuItems}
           onClick={({ key }) => {
             if (key.startsWith('/')) navigate(key);

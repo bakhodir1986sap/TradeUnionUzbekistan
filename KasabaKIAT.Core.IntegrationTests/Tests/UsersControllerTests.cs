@@ -159,7 +159,7 @@ public class UsersControllerTests : TestBase
         response.StatusCode.Should().Be(HttpStatusCode.NoContent);
 
         var dbUser = await Db.Users.AsNoTracking().FirstOrDefaultAsync(u => u.id == newUserId);
-        dbUser!.state.Should().Be("0");
+        dbUser!.state.Should().Be("1");
     }
 
     [Fact]

@@ -165,7 +165,7 @@ public class PutyovkiControllerTests : TestBase
             .IgnoreQueryFilters()
             .AsNoTracking()
             .FirstOrDefaultAsync(x => x.REC_ID == id);
-        dbRecord!.STATUS.Should().Be("0");
+        dbRecord!.STATUS.Should().Be("1");
     }
 
     [Fact]

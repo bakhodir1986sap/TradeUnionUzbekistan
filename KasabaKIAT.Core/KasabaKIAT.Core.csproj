@@ -28,6 +28,7 @@
 
   <ItemGroup>
     <InternalsVisibleTo Include="KasabaKIAT.Core.IntegrationTests" />
+    <InternalsVisibleTo Include="KasabaKIAT.Core.UnitTests" />
   </ItemGroup>
 
 </Project>

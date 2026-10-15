@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KasabaKIAT.Core", "KasabaKI
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KasabaKIAT.Core.IntegrationTests", "KasabaKIAT.Core.IntegrationTests\KasabaKIAT.Core.IntegrationTests.csproj", "{DD5379BC-EAE0-4FB1-B8E4-DB7EB0DDA23A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KasabaKIAT.Core.UnitTests", "KasabaKIAT.Core.UnitTests\KasabaKIAT.Core.UnitTests.csproj", "{BFB1C307-2797-4D55-8199-A9F7E2E3DBD9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		1|Any CPU = 1|Any CPU
@@ -96,6 +98,24 @@ Global
 		{DD5379BC-EAE0-4FB1-B8E4-DB7EB0DDA23A}.Release|x64.Build.0 = Release|Any CPU
 		{DD5379BC-EAE0-4FB1-B8E4-DB7EB0DDA23A}.Release|x86.ActiveCfg = Release|Any CPU
 		{DD5379BC-EAE0-4FB1-B8E4-DB7EB0DDA23A}.Release|x86.Build.0 = Release|Any CPU
+		{BFB1C307-2797-4D55-8199-A9F7E2E3DBD9}.1|Any CPU.ActiveCfg = Debug|Any CPU
+		{BFB1C307-2797-4D55-8199-A9F7E2E3DBD9}.1|Any CPU.Build.0 = Debug|Any CPU
+		{BFB1C307-2797-4D55-8199-A9F7E2E3DBD9}.1|x64.ActiveCfg = Debug|Any CPU
+		{BFB1C307-2797-4D55-8199-A9F7E2E3DBD9}.1|x64.Build.0 = Debug|Any CPU
+		{BFB1C307-2797-4D55-8199-A9F7E2E3DBD9}.1|x86.ActiveCfg = Debug|Any CPU
+		{BFB1C307-2797-4D55-8199-A9F7E2E3DBD9}.1|x86.Build.0 = Debug|Any CPU
+		{BFB1C307-2797-4D55-8199-A9F7E2E3DBD9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BFB1C307-2797-4D55-8199-A9F7E2E3DBD9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BFB1C307-2797-4D55-8199-A9F7E2E3DBD9}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{BFB1C307-2797-4D55-8199-A9F7E2E3DBD9}.Debug|x64.Build.0 = Debug|Any CPU
+		{BFB1C307-2797-4D55-8199-A9F7E2E3DBD9}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{BFB1C307-2797-4D55-8199-A9F7E2E3DBD9}.Debug|x86.Build.0 = Debug|Any CPU
+		{BFB1C307-2797-4D55-8199-A9F7E2E3DBD9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BFB1C307-2797-4D55-8199-A9F7E2E3DBD9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BFB1C307-2797-4D55-8199-A9F7E2E3DBD9}.Release|x64.ActiveCfg = Release|Any CPU
+		{BFB1C307-2797-4D55-8199-A9F7E2E3DBD9}.Release|x64.Build.0 = Release|Any CPU
+		{BFB1C307-2797-4D55-8199-A9F7E2E3DBD9}.Release|x86.ActiveCfg = Release|Any CPU
+		{BFB1C307-2797-4D55-8199-A9F7E2E3DBD9}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

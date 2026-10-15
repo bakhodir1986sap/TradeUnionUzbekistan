@@ -75,8 +75,12 @@ public class CampZayavkiController(KasabaKIATContext db) : ControllerBase
 
         var deptCode = User.FindFirstValue("bkut_id") ?? "0";
 
+        var maxId = await db.TbptPutyovkis.IgnoreQueryFilters()
+            .MaxAsync(p => (long?)p.REC_ID) ?? 0L;
+
         var entry = new KasabaKIAT.Core.Models.TbptPutyovki
         {
+            REC_ID = maxId + 1,
             CAMP_ID = request.CampId,
             USER_ID = userId,
             DEPARTMENT_CODE = deptCode,
@@ -115,6 +119,7 @@ public class CampZayavkiController(KasabaKIATContext db) : ControllerBase
         entry.QUANTITY_REMAIN = (request.Quantity ?? entry.QUANTITY_IN) - (entry.QUANTITY_OUT ?? 0);
         entry.REMAIN_BAL = entry.QUANTITY_REMAIN * (request.Price ?? entry.PRICE ?? 0);
 
+        db.Entry(entry).State = EntityState.Modified;
         await db.SaveChangesAsync();
         return Ok(new { id = entry.REC_ID });
     }
@@ -126,6 +131,7 @@ public class CampZayavkiController(KasabaKIATContext db) : ControllerBase
         var entry = await db.TbptPutyovkis.FindAsync(id);
         if (entry == null) return NotFound();
         entry.STATUS = request.Status;
+        db.Entry(entry).State = EntityState.Modified;
         await db.SaveChangesAsync();
         return Ok(new { id = entry.REC_ID, status = entry.STATUS });
     }
@@ -137,6 +143,7 @@ public class CampZayavkiController(KasabaKIATContext db) : ControllerBase
         var entry = await db.TbptPutyovkis.FindAsync(id);
         if (entry == null) return NotFound();
         entry.STATUS = "0";
+        db.Entry(entry).State = EntityState.Modified;
         await db.SaveChangesAsync();
         return NoContent();
     }

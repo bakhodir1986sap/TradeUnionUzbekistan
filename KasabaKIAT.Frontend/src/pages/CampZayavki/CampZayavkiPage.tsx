@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Button, Table, Space, Modal, Form, Input, InputNumber, Tabs, App, Typography, Tag } from 'antd';
+import { Button, Table, Space, Modal, Form, InputNumber, Tabs, App, Typography, Tag, Select } from 'antd';
 import { PlusOutlined, EditOutlined, DeleteOutlined, SendOutlined, CheckOutlined, CloseOutlined } from '@ant-design/icons';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
@@ -8,19 +8,43 @@ import { QueryErrorAlert } from '../../components/QueryErrorAlert';
 
 interface ZayavkaRecord {
   id: number;
-  organizationName?: string;
-  applicantName?: string;
-  sanatoriumId?: number;
+  campId?: number;
+  campName?: string;
+  serialBegin?: string;
+  serialEnd?: string;
+  restBeginDate?: string;
+  restEndDate?: string;
+  price?: number;
+  quantityIn?: number;
+  quantityRemain?: number;
   status?: string;
-  createdAt?: string;
-  quantity?: number;
+  modifyDate?: string;
+}
+
+interface CampOption {
+  id: number;
+  name: string;
 }
 
 const STATUS_COLORS: Record<string, string> = {
-  new: 'blue',
-  sent: 'orange',
-  accepted: 'green',
-  rejected: 'red',
+  '1': 'blue',
+  '2': 'orange',
+  '3': 'green',
+  '4': 'red',
+};
+
+const STATUS_LABELS: Record<string, string> = {
+  '1': 'Новая',
+  '2': 'Отправлена',
+  '3': 'Принята',
+  '4': 'Отклонена',
+};
+
+const TAB_STATUS: Record<string, string> = {
+  new: '1',
+  sent: '2',
+  accepted: '3',
+  rejected: '4',
 };
 
 export function CampZayavkiPage() {
@@ -32,13 +56,18 @@ export function CampZayavkiPage() {
   const [editing, setEditing] = useState<ZayavkaRecord | null>(null);
   const [activeTab, setActiveTab] = useState('new');
 
+  const { data: camps = [] } = useQuery<CampOption[]>({
+    queryKey: ['reference-camps'],
+    queryFn: () => campZayavkiApi.getCamps(),
+  });
+
   const { data = [], isLoading, isError, refetch } = useQuery<ZayavkaRecord[]>({
     queryKey: ['camp-zayavki', activeTab],
-    queryFn: () => campZayavkiApi.getAll({ status: activeTab }),
+    queryFn: () => campZayavkiApi.getAll({ status: TAB_STATUS[activeTab] }),
   });
 
   const saveMutation = useMutation({
-    mutationFn: (values: Partial<ZayavkaRecord>) =>
+    mutationFn: (values: Record<string, unknown>) =>
       editing
         ? campZayavkiApi.update(editing.id, values)
         : campZayavkiApi.create(values),
@@ -51,12 +80,8 @@ export function CampZayavkiPage() {
   });
 
   const transitionMutation = useMutation({
-    mutationFn: ({ id, action }: { id: number; action: string }) => {
-      if (action === 'send') return campZayavkiApi.send(id);
-      if (action === 'accept') return campZayavkiApi.accept(id);
-      if (action === 'reject') return campZayavkiApi.reject(id, '');
-      return Promise.reject(new Error(`Unknown action: ${action}`));
-    },
+    mutationFn: ({ id, status }: { id: number; status: string }) =>
+      campZayavkiApi.updateStatus(id, status),
     onSuccess: () => {
       message.success(t('common.success'));
       queryClient.invalidateQueries({ queryKey: ['camp-zayavki'] });
@@ -76,30 +101,31 @@ export function CampZayavkiPage() {
     modal.confirm({ title: 'Удалить заявку?', onOk: () => deleteMutation.mutate(id) });
 
   const columns = [
-    { title: 'Организация', dataIndex: 'organizationName' },
-    { title: 'Заявитель', dataIndex: 'applicantName' },
-    { title: 'Санаторий ID', dataIndex: 'sanatoriumId', width: 110 },
-    { title: 'Кол-во', dataIndex: 'quantity', width: 80 },
-    { title: 'Дата', dataIndex: 'createdAt' },
+    { title: 'Лагерь', dataIndex: 'campName' },
+    { title: 'Серия (нач.)', dataIndex: 'serialBegin' },
+    { title: 'Серия (кон.)', dataIndex: 'serialEnd' },
+    { title: 'Кол-во', dataIndex: 'quantityIn', width: 80 },
+    { title: 'Остаток', dataIndex: 'quantityRemain', width: 80 },
+    { title: 'Цена', dataIndex: 'price', width: 100 },
     {
-      title: t('common.status'), dataIndex: 'status', width: 100,
-      render: (s: string) => <Tag color={STATUS_COLORS[s] ?? 'default'}>{s}</Tag>,
+      title: t('common.status'), dataIndex: 'status', width: 110,
+      render: (s: string) => <Tag color={STATUS_COLORS[s] ?? 'default'}>{STATUS_LABELS[s] ?? s}</Tag>,
     },
     {
-      title: t('common.actions'), width: 180,
+      title: t('common.actions'), width: 200,
       render: (_: unknown, rec: ZayavkaRecord) => (
         <Space>
-          {rec.status === 'new' && (
-            <Button size="small" icon={<SendOutlined />} onClick={() => transitionMutation.mutate({ id: rec.id, action: 'send' })}>
+          {rec.status === '1' && (
+            <Button size="small" icon={<SendOutlined />} onClick={() => transitionMutation.mutate({ id: rec.id, status: '2' })}>
               Отправить
             </Button>
           )}
-          {rec.status === 'sent' && (
+          {rec.status === '2' && (
             <>
-              <Button size="small" icon={<CheckOutlined />} type="primary" onClick={() => transitionMutation.mutate({ id: rec.id, action: 'accept' })}>
+              <Button size="small" icon={<CheckOutlined />} type="primary" onClick={() => transitionMutation.mutate({ id: rec.id, status: '3' })}>
                 Принять
               </Button>
-              <Button size="small" icon={<CloseOutlined />} danger onClick={() => transitionMutation.mutate({ id: rec.id, action: 'reject' })}>
+              <Button size="small" icon={<CloseOutlined />} danger onClick={() => transitionMutation.mutate({ id: rec.id, status: '4' })}>
                 Откл.
               </Button>
             </>
@@ -140,14 +166,17 @@ export function CampZayavkiPage() {
         confirmLoading={saveMutation.isPending}
       >
         <Form form={form} layout="vertical" onFinish={v => saveMutation.mutate(v)}>
-          <Form.Item name="organizationName" label="Организация" rules={[{ required: true }]}>
-            <Input />
+          <Form.Item name="campId" label="Лагерь" rules={[{ required: true }]}>
+            <Select
+              options={camps.map(c => ({ value: c.id, label: c.name }))}
+              placeholder="Выберите лагерь"
+            />
           </Form.Item>
-          <Form.Item name="applicantName" label="Заявитель">
-            <Input />
+          <Form.Item name="serialBegin" label="Серия начало">
+            <input className="ant-input" />
           </Form.Item>
-          <Form.Item name="sanatoriumId" label="Санаторий ID">
-            <Input />
+          <Form.Item name="serialEnd" label="Серия конец">
+            <input className="ant-input" />
           </Form.Item>
           <Form.Item name="quantity" label="Количество">
             <InputNumber style={{ width: '100%' }} min={1} />

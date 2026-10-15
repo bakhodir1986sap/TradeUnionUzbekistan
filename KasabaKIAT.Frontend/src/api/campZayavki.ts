@@ -7,7 +7,7 @@ export const campZayavkiApi = {
   create: (data: unknown) => api.post('/api/camp-zayavki', data).then((r) => r.data),
   update: (id: number, data: unknown) => api.put(`/api/camp-zayavki/${id}`, data).then((r) => r.data),
   delete: (id: number) => api.delete(`/api/camp-zayavki/${id}`),
-  send: (id: number) => api.put(`/api/camp-zayavki/${id}/send`),
-  accept: (id: number) => api.put(`/api/camp-zayavki/${id}/accept`),
-  reject: (id: number, reason: string) => api.put(`/api/camp-zayavki/${id}/reject`, { reason }),
+  updateStatus: (id: number, status: string) =>
+    api.patch(`/api/camp-zayavki/${id}/status`, { status }).then((r) => r.data),
+  getCamps: () => api.get('/api/reference/camps').then((r) => r.data),
 };

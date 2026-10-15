@@ -52,6 +52,9 @@ jobs:
             nuget-${{ runner.os }}-
 
       - name: Install SonarScanner + dotnet-coverage
+        if: env.SONAR_TOKEN != ''
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: |
           dotnet tool install --global dotnet-sonarscanner
           dotnet tool install --global dotnet-coverage
@@ -60,6 +63,7 @@ jobs:
         run: dotnet restore KasabaKIAT.sln
 
       - name: SonarQube Begin
+        if: env.SONAR_TOKEN != ''
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: |
@@ -75,25 +79,52 @@ jobs:
         run: dotnet build KasabaKIAT.sln --no-restore -c Release
 
       - name: Unit Tests (with coverage)
+        if: env.SONAR_TOKEN != ''
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: |
           dotnet-coverage collect \
             "dotnet test KasabaKIAT.Core.UnitTests/KasabaKIAT.Core.UnitTests.csproj --no-build -c Release --logger trx;LogFileName=unit-tests.trx --results-directory ./test-results" \
             -f xml -o ./coverage/unit.xml
 
+      - name: Unit Tests
+        if: env.SONAR_TOKEN == ''
+        run: |
+          dotnet test KasabaKIAT.Core.UnitTests/KasabaKIAT.Core.UnitTests.csproj \
+            --no-build -c Release \
+            --logger "trx;LogFileName=unit-tests.trx" \
+            --results-directory ./test-results
+
       - name: Integration Tests (with coverage)
+        if: env.SONAR_TOKEN != ''
         env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           TEST_DB_CONNECTION: "Server=localhost,1433;Database=KasabaKIAT;User Id=sa;Password=YourStrong!Passw0rd1;TrustServerCertificate=True;"
         run: |
           dotnet-coverage collect \
             "dotnet test KasabaKIAT.Core.IntegrationTests/KasabaKIAT.Core.IntegrationTests.csproj --no-build -c Release --logger trx;LogFileName=integration-tests.trx --results-directory ./test-results" \
             -f xml -o ./coverage/integration.xml
 
+      - name: Integration Tests
+        if: env.SONAR_TOKEN == ''
+        env:
+          TEST_DB_CONNECTION: "Server=localhost,1433;Database=KasabaKIAT;User Id=sa;Password=YourStrong!Passw0rd1;TrustServerCertificate=True;"
+        run: |
+          dotnet test KasabaKIAT.Core.IntegrationTests/KasabaKIAT.Core.IntegrationTests.csproj \
+            --no-build -c Release \
+            --logger "trx;LogFileName=integration-tests.trx" \
+            --results-directory ./test-results
+
       - name: Merge coverage reports
+        if: env.SONAR_TOKEN != ''
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: |
           dotnet-coverage merge ./coverage/unit.xml ./coverage/integration.xml \
             -f xml -o ./coverage/coverage.xml
 
       - name: SonarQube End
+        if: env.SONAR_TOKEN != ''
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: dotnet sonarscanner end /d:sonar.token="$SONAR_TOKEN"

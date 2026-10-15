@@ -1,0 +1,290 @@
+name: CI
+
+on:
+  push:
+    branches: [master, main]
+  pull_request:
+    branches: [master, main]
+
+env:
+  DOTNET_SKIP_FIRST_TIME_EXPERIENCE: 1
+  DOTNET_CLI_TELEMETRY_OPTOUT: 1
+  DOTNET_NOLOGO: 1
+  SA_PASSWORD: "YourStrong!Passw0rd1"
+
+jobs:
+  # ──────────────────────────────────────────────────────────────────
+  # JOB 1: Build → Unit Tests → Integration Tests → publish artifact
+  # ──────────────────────────────────────────────────────────────────
+  backend-build-and-test:
+    runs-on: ubuntu-latest
+
+    services:
+      sqlserver:
+        image: mcr.microsoft.com/mssql/server:2022-latest
+        env:
+          ACCEPT_EULA: "Y"
+          SA_PASSWORD: "YourStrong!Passw0rd1"
+          MSSQL_PID: "Express"
+        ports:
+          - 1433:1433
+        options: >-
+          --health-cmd "/opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -P 'YourStrong!Passw0rd1' -Q 'SELECT 1' -No"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 10
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup .NET 10
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "10.0.x"
+
+      - name: Cache NuGet packages
+        uses: actions/cache@v4
+        with:
+          path: ~/.nuget/packages
+          key: nuget-${{ runner.os }}-${{ hashFiles('**/*.csproj', '**/*.props') }}
+          restore-keys: |
+            nuget-${{ runner.os }}-
+
+      - name: Install SonarScanner + dotnet-coverage
+        run: |
+          dotnet tool install --global dotnet-sonarscanner
+          dotnet tool install --global dotnet-coverage
+
+      - name: Restore
+        run: dotnet restore KasabaKIAT.sln
+
+      - name: SonarQube Begin
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: |
+          dotnet sonarscanner begin \
+            /k:"KasabaKIAT" \
+            /o:"${{ vars.SONAR_ORG }}" \
+            /d:sonar.token="$SONAR_TOKEN" \
+            /d:sonar.host.url="${{ vars.SONAR_HOST_URL }}" \
+            /d:sonar.cs.vscoveragexml.reportsPaths="./coverage/coverage.xml" \
+            /d:sonar.exclusions="**/Migrations/**,**/obj/**,**/bin/**"
+
+      - name: Build
+        run: dotnet build KasabaKIAT.sln --no-restore -c Release
+
+      - name: Unit Tests (with coverage)
+        run: |
+          dotnet-coverage collect \
+            "dotnet test KasabaKIAT.Core.UnitTests/KasabaKIAT.Core.UnitTests.csproj --no-build -c Release --logger trx;LogFileName=unit-tests.trx --results-directory ./test-results" \
+            -f xml -o ./coverage/unit.xml
+
+      - name: Integration Tests (with coverage)
+        env:
+          TEST_DB_CONNECTION: "Server=localhost,1433;Database=KasabaKIAT;User Id=sa;Password=YourStrong!Passw0rd1;TrustServerCertificate=True;"
+        run: |
+          dotnet-coverage collect \
+            "dotnet test KasabaKIAT.Core.IntegrationTests/KasabaKIAT.Core.IntegrationTests.csproj --no-build -c Release --logger trx;LogFileName=integration-tests.trx --results-directory ./test-results" \
+            -f xml -o ./coverage/integration.xml
+
+      - name: Merge coverage reports
+        run: |
+          dotnet-coverage merge ./coverage/unit.xml ./coverage/integration.xml \
+            -f xml -o ./coverage/coverage.xml
+
+      - name: SonarQube End
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: dotnet sonarscanner end /d:sonar.token="$SONAR_TOKEN"
+
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: dotnet-test-results
+          path: ./test-results/*.trx
+          retention-days: 14
+
+      - name: Publish backend
+        run: |
+          dotnet publish KasabaKIAT.Core/KasabaKIAT.Core.csproj \
+            -c Release \
+            --no-build \
+            -o ./publish/backend
+
+      - name: Upload backend artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: backend-publish
+          path: ./publish/backend
+          retention-days: 1
+
+  # ──────────────────────────────────────────────────────────────────
+  # JOB 2: Playwright E2E (real backend + Vite dev server + SQL Server)
+  # ──────────────────────────────────────────────────────────────────
+  e2e:
+    runs-on: ubuntu-latest
+    needs: backend-build-and-test
+
+    services:
+      sqlserver:
+        image: mcr.microsoft.com/mssql/server:2022-latest
+        env:
+          ACCEPT_EULA: "Y"
+          SA_PASSWORD: "YourStrong!Passw0rd1"
+          MSSQL_PID: "Express"
+        ports:
+          - 1433:1433
+        options: >-
+          --health-cmd "/opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -P 'YourStrong!Passw0rd1' -Q 'SELECT 1' -No"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 10
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup .NET 10
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "10.0.x"
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: "npm"
+          cache-dependency-path: KasabaKIAT.Frontend/package-lock.json
+
+      - name: Download backend artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: backend-publish
+          path: ./publish/backend
+
+      - name: Make backend executable
+        run: chmod +x ./publish/backend/KasabaKIAT.Core
+
+      - name: Install frontend dependencies
+        working-directory: KasabaKIAT.Frontend
+        run: npm ci
+
+      - name: Cache Playwright browsers
+        uses: actions/cache@v4
+        id: playwright-cache
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-${{ runner.os }}-${{ hashFiles('KasabaKIAT.Frontend/package-lock.json') }}
+
+      - name: Install Playwright Chromium + OS dependencies
+        if: steps.playwright-cache.outputs.cache-hit != 'true'
+        working-directory: KasabaKIAT.Frontend
+        run: npx playwright install chromium --with-deps
+
+      - name: Install Playwright OS dependencies only (cache hit)
+        if: steps.playwright-cache.outputs.cache-hit == 'true'
+        working-directory: KasabaKIAT.Frontend
+        run: npx playwright install-deps chromium
+
+      - name: Create and seed E2E database
+        run: |
+          /opt/mssql-tools18/bin/sqlcmd \
+            -S localhost,1433 -U sa -P "YourStrong!Passw0rd1" -No \
+            -i KasabaKIAT.Core/create_database.sql
+
+          for part in 1 2 3 4; do
+            script="KasabaKIAT.Core/seed_part${part}.sql"
+            if [ -f "$script" ]; then
+              /opt/mssql-tools18/bin/sqlcmd \
+                -S localhost,1433 -U sa -P "YourStrong!Passw0rd1" \
+                -d KasabaKIAT -No \
+                -i "$script"
+            fi
+          done
+
+      - name: Start backend service
+        env:
+          ASPNETCORE_ENVIRONMENT: "CI"
+          ASPNETCORE_URLS: "http://localhost:5166"
+          ConnectionStrings__DefaultConnection: "Server=localhost,1433;Database=KasabaKIAT;User Id=sa;Password=YourStrong!Passw0rd1;TrustServerCertificate=True;"
+          Jwt__Key: ${{ secrets.CI_JWT_KEY }}
+          Jwt__Issuer: "KasabaKIAT"
+          Jwt__Audience: "KasabaKIATApp"
+          AllowedOrigins__0: "http://localhost:5173"
+        run: |
+          ./publish/backend/KasabaKIAT.Core &
+          echo "BACKEND_PID=$!" >> $GITHUB_ENV
+
+      - name: Wait for backend health check
+        run: |
+          echo "Waiting for backend on http://localhost:5166/health/live ..."
+          for i in $(seq 1 30); do
+            STATUS=$(curl -s -o /dev/null -w "%{http_code}" http://localhost:5166/health/live || echo "000")
+            if [ "$STATUS" = "200" ]; then
+              echo "Backend healthy (attempt $i)"
+              exit 0
+            fi
+            echo "  attempt $i: HTTP $STATUS — retrying in 2s..."
+            sleep 2
+          done
+          echo "ERROR: Backend did not become healthy in 60s"
+          kill $BACKEND_PID 2>/dev/null || true
+          exit 1
+
+      - name: Prepare e2e auth directory
+        run: mkdir -p KasabaKIAT.Frontend/e2e/.auth
+
+      - name: Start Vite dev server
+        working-directory: KasabaKIAT.Frontend
+        run: |
+          npm run dev -- --host 127.0.0.1 &
+          echo "VITE_PID=$!" >> $GITHUB_ENV
+
+      - name: Wait for Vite dev server
+        run: |
+          echo "Waiting for Vite on http://localhost:5173 ..."
+          for i in $(seq 1 20); do
+            STATUS=$(curl -s -o /dev/null -w "%{http_code}" http://localhost:5173 || echo "000")
+            if [ "$STATUS" = "200" ]; then
+              echo "Vite ready (attempt $i)"
+              exit 0
+            fi
+            echo "  attempt $i: HTTP $STATUS — retrying in 2s..."
+            sleep 2
+          done
+          echo "ERROR: Vite did not start in 40s"
+          kill $VITE_PID 2>/dev/null || true
+          kill $BACKEND_PID 2>/dev/null || true
+          exit 1
+
+      - name: Run Playwright tests
+        working-directory: KasabaKIAT.Frontend
+        env:
+          E2E_ADMIN_USER: ${{ secrets.E2E_ADMIN_USER }}
+          E2E_ADMIN_PASS: ${{ secrets.E2E_ADMIN_PASS }}
+          BACKEND_URL: "http://localhost:5166"
+        run: npx playwright test
+
+      - name: Upload Playwright HTML report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: KasabaKIAT.Frontend/playwright-report/
+          retention-days: 30
+
+      - name: Upload Playwright test results (traces/screenshots)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-test-results
+          path: KasabaKIAT.Frontend/test-results/
+          retention-days: 14
+
+      - name: Stop background services
+        if: always()
+        run: |
+          [ -n "$BACKEND_PID" ] && kill $BACKEND_PID 2>/dev/null || true
+          [ -n "$VITE_PID" ] && kill $VITE_PID 2>/dev/null || true

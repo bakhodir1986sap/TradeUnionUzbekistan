@@ -1,6 +1,7 @@
 using FluentAssertions;
 using KasabaKIAT.Core.IntegrationTests.Infrastructure;
 using KasabaKIAT.Core.Models;
+using Microsoft.EntityFrameworkCore;
 using System.Net;
 using System.Net.Http.Json;
 using System.Text.Json;

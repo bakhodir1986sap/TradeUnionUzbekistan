@@ -1,0 +1,21 @@
+meta {
+  name: Get Svod Po Putyovkam
+  type: http
+  seq: 14
+}
+
+get {
+  url: {{baseUrl}}/api/reports/svod-po-putyovkam
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{bearerToken}}
+}
+
+params:query {
+  year: 2026
+  kvartal: 1
+  otras:
+}

@@ -90,6 +90,8 @@ builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IRoleService, RoleService>();
 builder.Services.AddScoped<IPutyovkiService, PutyovkiService>();
 builder.Services.AddScoped<IReportService, ReportService>();
+builder.Services.AddScoped<IFinOtchetService, FinOtchetService>();
+builder.Services.AddScoped<IGlavnayaKniService, GlavnayaKniService>();
 builder.Services.AddScoped<IAuditService, AuditService>();
 
 builder.Services.AddEndpointsApiExplorer();

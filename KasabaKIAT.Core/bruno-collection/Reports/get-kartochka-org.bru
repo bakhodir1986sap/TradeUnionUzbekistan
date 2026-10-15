@@ -1,0 +1,21 @@
+meta {
+  name: Get Kartochka Org
+  type: http
+  seq: 37
+}
+
+get {
+  url: {{baseUrl}}/api/reports/kartochka-org
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{bearerToken}}
+}
+
+params:query {
+  orgInn:
+  beginDate: 2026-01-01
+  endDate: 2026-12-31
+}

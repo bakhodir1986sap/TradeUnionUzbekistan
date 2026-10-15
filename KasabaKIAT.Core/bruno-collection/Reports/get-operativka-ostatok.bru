@@ -1,0 +1,21 @@
+meta {
+  name: Get Operativka Ostatok
+  type: http
+  seq: 10
+}
+
+get {
+  url: {{baseUrl}}/api/reports/operativka-ostatok
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{bearerToken}}
+}
+
+params:query {
+  beginDate: 2026-01-01
+  endDate: 2026-12-31
+  sanatId:
+}

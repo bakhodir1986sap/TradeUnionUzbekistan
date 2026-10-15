@@ -1,0 +1,20 @@
+meta {
+  name: Get Monitoring Narusheniya
+  type: http
+  seq: 33
+}
+
+get {
+  url: {{baseUrl}}/api/reports/monitoring/narusheniya
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{bearerToken}}
+}
+
+params:query {
+  year: 2026
+  kvartal: 1
+}

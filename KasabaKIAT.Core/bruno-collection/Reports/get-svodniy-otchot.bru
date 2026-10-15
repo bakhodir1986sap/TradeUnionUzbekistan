@@ -1,0 +1,22 @@
+meta {
+  name: Get Svodniy Otchot
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/api/reports/svodniy-otchot
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{bearerToken}}
+}
+
+params:query {
+  beginDt: 2026-01-01
+  endDt: 2026-12-31
+  soato:
+  branch:
+}

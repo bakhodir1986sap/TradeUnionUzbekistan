@@ -1,0 +1,20 @@
+meta {
+  name: Get Balans Predpriyatiy
+  type: http
+  seq: 23
+}
+
+get {
+  url: {{baseUrl}}/api/reports/balans-predpriyatiy
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{bearerToken}}
+}
+
+params:query {
+  beginDate: 2026-01-01
+  endDate: 2026-12-31
+}

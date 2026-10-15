@@ -1,0 +1,21 @@
+meta {
+  name: Get Glavnaya Kniga
+  type: http
+  seq: 46
+}
+
+get {
+  url: {{baseUrl}}/api/reports/glavnaya-kniga
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{bearerToken}}
+}
+
+params:query {
+  year: 2026
+  kvartal: 1
+  isSvodniy: false
+}

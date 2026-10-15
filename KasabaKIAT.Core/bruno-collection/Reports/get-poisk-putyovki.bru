@@ -1,0 +1,19 @@
+meta {
+  name: Get Poisk Putyovki
+  type: http
+  seq: 42
+}
+
+get {
+  url: {{baseUrl}}/api/reports/poisk-putyovki
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{bearerToken}}
+}
+
+params:query {
+  numPut:
+}

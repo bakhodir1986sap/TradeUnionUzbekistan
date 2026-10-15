@@ -1,0 +1,21 @@
+meta {
+  name: Get Oborotka Regionam
+  type: http
+  seq: 22
+}
+
+get {
+  url: {{baseUrl}}/api/reports/oborotka-regionam
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{bearerToken}}
+}
+
+params:query {
+  beginDate: 2026-01-01
+  endDate: 2026-12-31
+  soato:
+}

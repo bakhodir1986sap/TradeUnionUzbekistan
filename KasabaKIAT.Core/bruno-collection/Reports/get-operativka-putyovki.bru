@@ -1,0 +1,21 @@
+meta {
+  name: Get Operativka Putyovki
+  type: http
+  seq: 9
+}
+
+get {
+  url: {{baseUrl}}/api/reports/operativka-putyovki
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{bearerToken}}
+}
+
+params:query {
+  beginDate: 2026-01-01
+  endDate: 2026-12-31
+  sanatId:
+}

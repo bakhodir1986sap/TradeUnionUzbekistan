@@ -1,0 +1,20 @@
+meta {
+  name: Get Talabnomalar Korxona
+  type: http
+  seq: 6
+}
+
+get {
+  url: {{baseUrl}}/api/reports/talabnomalar-korxona
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{bearerToken}}
+}
+
+params:query {
+  yil: 2026
+  inn:
+}

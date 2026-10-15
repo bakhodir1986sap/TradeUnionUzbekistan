@@ -1,0 +1,21 @@
+meta {
+  name: Get Talabnomalar Tarmoq
+  type: http
+  seq: 7
+}
+
+get {
+  url: {{baseUrl}}/api/reports/talabnomalar-tarmoq
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{bearerToken}}
+}
+
+params:query {
+  yil: 2026
+  soato:
+  branch:
+}

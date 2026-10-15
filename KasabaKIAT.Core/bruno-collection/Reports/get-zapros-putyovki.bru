@@ -1,0 +1,25 @@
+meta {
+  name: Get Zapros Putyovki
+  type: http
+  seq: 16
+}
+
+get {
+  url: {{baseUrl}}/api/reports/zapros-putyovki
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{bearerToken}}
+}
+
+params:query {
+  beginDate: 2026-01-01
+  endDate: 2026-12-31
+  idOrg:
+  idSanat:
+  lastName:
+  numPut:
+  pol:
+}

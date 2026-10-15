@@ -1,0 +1,15 @@
+meta {
+  name: Get Organizasii Otrasli
+  type: http
+  seq: 25
+}
+
+get {
+  url: {{baseUrl}}/api/reports/organizasii-otrasli
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{bearerToken}}
+}

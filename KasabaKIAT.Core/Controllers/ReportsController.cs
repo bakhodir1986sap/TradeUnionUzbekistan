@@ -9,7 +9,7 @@ namespace KasabaKIAT.Core.Controllers;
 [ApiController]
 [Route("api/reports")]
 [Authorize]
-public class ReportsController(IReportService reports) : ControllerBase
+public class ReportsController(IReportService reports, IFinOtchetService finOtchet, IGlavnayaKniService glavnayaKni) : ControllerBase
 {
     private string GetDepBase() => User.FindFirstValue("dep_base") ?? string.Empty;
 
@@ -401,6 +401,26 @@ public class ReportsController(IReportService reports) : ControllerBase
     public async Task<IActionResult> GetTalabnomlarViloyat([FromQuery] int yil, [FromQuery] string? soato, CancellationToken ct)
     {
         var data = await reports.GetTalabnomlarViloyatAsync(yil, soato, ct);
+        return Ok(data);
+    }
+
+    // ---- Group G — FinOtchet / GlavnayaKniga ----
+
+    [HttpGet("fin-otchet")]
+    public async Task<IActionResult> GetFinOtchet(
+        [FromQuery] int year, [FromQuery] int kvartal, [FromQuery] bool isSvodniy,
+        CancellationToken ct)
+    {
+        var data = await finOtchet.GetFinOtchetAsync(year, kvartal, GetDepBase(), isSvodniy, ct);
+        return Ok(data);
+    }
+
+    [HttpGet("glavnaya-kniga")]
+    public async Task<IActionResult> GetGlavnayaKniga(
+        [FromQuery] int year, [FromQuery] int kvartal, [FromQuery] bool isSvodniy,
+        CancellationToken ct)
+    {
+        var data = await glavnayaKni.GetGlavnayaKnigaAsync(year, kvartal, GetDepBase(), isSvodniy, ct);
         return Ok(data);
     }
 }

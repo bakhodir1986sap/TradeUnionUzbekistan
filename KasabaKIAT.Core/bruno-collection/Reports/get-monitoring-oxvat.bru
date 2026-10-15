@@ -1,0 +1,20 @@
+meta {
+  name: Get Monitoring Oxvat
+  type: http
+  seq: 32
+}
+
+get {
+  url: {{baseUrl}}/api/reports/monitoring/oxvat
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{bearerToken}}
+}
+
+params:query {
+  year: 2026
+  kvartal: 1
+}

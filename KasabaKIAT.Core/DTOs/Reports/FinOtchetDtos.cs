@@ -1,0 +1,307 @@
+namespace KasabaKIAT.Core.DTOs.Reports;
+
+public class TbbuBalanceRow
+{
+    public int? CUR_YEAR { get; set; }
+    public int? CUR_KV { get; set; }
+    public string? ACCOUNT_CODE { get; set; }
+    public string? DEPARTMENT_BASE { get; set; }
+    public decimal? DEBIT_BAL { get; set; }
+    public decimal? CREDIT_BAL { get; set; }
+}
+
+public class TbbuProvodkiRow
+{
+    public DateTime? TRDT { get; set; }
+    public string? DEPARTMENT_BASE { get; set; }
+    public string? PLATELRSCH { get; set; }
+    public string? POLUCHRSCH { get; set; }
+    public decimal? SUMMA { get; set; }
+}
+
+public class TbbuPlanRow
+{
+    public string? SOATO_CODE { get; set; }
+    public int? YEAR { get; set; }
+    public string? ITEM_CODE { get; set; }
+    public decimal? QUARTER1 { get; set; }
+    public decimal? HALFYEAR { get; set; }
+    public decimal? MONTH9 { get; set; }
+    public decimal? GODOVOY { get; set; }
+}
+
+public class FinOtchetOutput
+{
+    public decimal? field010P { get; set; }
+    public decimal? field010R { get; set; }
+    public decimal? field020P { get; set; }
+    public decimal? field020R { get; set; }
+    public decimal? field030P { get; set; }
+    public decimal? field030R { get; set; }
+    public decimal? field040P { get; set; }
+    public decimal? field040R { get; set; }
+    public decimal? field050P { get; set; }
+    public decimal? field050R { get; set; }
+    public decimal? field060P { get; set; }
+    public decimal? field060R { get; set; }
+    public decimal? field070P { get; set; }
+    public decimal? field070R { get; set; }
+    public decimal? field080P { get; set; }
+    public decimal? field080R { get; set; }
+    public decimal? field090P { get; set; }
+    public decimal? field090R { get; set; }
+    public decimal? field100P { get; set; }
+    public decimal? field100R { get; set; }
+    public decimal? field110P { get; set; }
+    public decimal? field110R { get; set; }
+    public decimal? field120P { get; set; }
+    public decimal? field120R { get; set; }
+    public decimal? field130P { get; set; }
+    public decimal? field130R { get; set; }
+    public decimal? field140P { get; set; }
+    public decimal? field140R { get; set; }
+    public decimal? field150P { get; set; }
+    public decimal? field150R { get; set; }
+    public decimal? field160P { get; set; }
+    public decimal? field160R { get; set; }
+    public decimal? field170P { get; set; }
+    public decimal? field170R { get; set; }
+    public decimal? field180P { get; set; }
+    public decimal? field180R { get; set; }
+    public decimal? field190P { get; set; }
+    public decimal? field190R { get; set; }
+    public decimal? field200P { get; set; }
+    public decimal? field200R { get; set; }
+    public decimal? field210P { get; set; }
+    public decimal? field210R { get; set; }
+    public decimal? field220P { get; set; }
+    public decimal? field220R { get; set; }
+    public decimal? field230P { get; set; }
+    public decimal? field230R { get; set; }
+    public decimal? field240P { get; set; }
+    public decimal? field240R { get; set; }
+    public decimal? field250P { get; set; }
+    public decimal? field250R { get; set; }
+    public decimal? field260P { get; set; }
+    public decimal? field260R { get; set; }
+    public decimal? field270P { get; set; }
+    public decimal? field270R { get; set; }
+    public decimal? field280P { get; set; }
+    public decimal? field280R { get; set; }
+    public decimal? field290P { get; set; }
+    public decimal? field290R { get; set; }
+    public decimal? field300P { get; set; }
+    public decimal? field300R { get; set; }
+    public decimal? field310P { get; set; }
+    public decimal? field310R { get; set; }
+    public decimal? field320P { get; set; }
+    public decimal? field320R { get; set; }
+    public decimal? field330P { get; set; }
+    public decimal? field330R { get; set; }
+    public decimal? field340P { get; set; }
+    public decimal? field340R { get; set; }
+}
+
+public class BalanceOutput
+{
+    public decimal? field010 { get; set; }
+    public decimal? field020 { get; set; }
+    public decimal? field030 { get; set; }
+    public decimal? field040 { get; set; }
+    public decimal? field050 { get; set; }
+    public decimal? field060 { get; set; }
+    public decimal? field070 { get; set; }
+    public decimal? field080 { get; set; }
+    public decimal? field090 { get; set; }
+    public decimal? field100 { get; set; }
+    public decimal? field110 { get; set; }
+    public decimal? field120 { get; set; }
+    public decimal? field130 { get; set; }
+    public decimal? field140 { get; set; }
+    public decimal? field150 { get; set; }
+    public decimal? field160 { get; set; }
+    public decimal? field170 { get; set; }
+    public decimal? field180 { get; set; }
+    public decimal? field190 { get; set; }
+    public decimal? field200 { get; set; }
+    public decimal? field210 { get; set; }
+    public decimal? field220 { get; set; }
+    public decimal? field230 { get; set; }
+    public decimal? field240 { get; set; }
+    public decimal? field250 { get; set; }
+    public decimal? field260 { get; set; }
+    public decimal? field270 { get; set; }
+    public decimal? field280 { get; set; }
+    public decimal? field290 { get; set; }
+    public decimal? field300 { get; set; }
+    public decimal? field310 { get; set; }
+    public decimal? field320 { get; set; }
+    public decimal? field330 { get; set; }
+    public decimal? field340 { get; set; }
+    public decimal? field350 { get; set; }
+    public decimal? field360 { get; set; }
+    public decimal? field370 { get; set; }
+    public decimal? field010c { get; set; }
+    public decimal? field020c { get; set; }
+    public decimal? field030c { get; set; }
+    public decimal? field040c { get; set; }
+    public decimal? field050c { get; set; }
+    public decimal? field060c { get; set; }
+    public decimal? field070c { get; set; }
+    public decimal? field080c { get; set; }
+    public decimal? field090c { get; set; }
+    public decimal? field100c { get; set; }
+    public decimal? field110c { get; set; }
+    public decimal? field120c { get; set; }
+    public decimal? field130c { get; set; }
+    public decimal? field140c { get; set; }
+    public decimal? field150c { get; set; }
+    public decimal? field160c { get; set; }
+    public decimal? field170c { get; set; }
+    public decimal? field180c { get; set; }
+    public decimal? field190c { get; set; }
+    public decimal? field200c { get; set; }
+    public decimal? field210c { get; set; }
+    public decimal? field220c { get; set; }
+    public decimal? field230c { get; set; }
+    public decimal? field240c { get; set; }
+    public decimal? field250c { get; set; }
+    public decimal? field260c { get; set; }
+    public decimal? field270c { get; set; }
+    public decimal? field280c { get; set; }
+    public decimal? field290c { get; set; }
+    public decimal? field300c { get; set; }
+    public decimal? field310c { get; set; }
+    public decimal? field320c { get; set; }
+    public decimal? field330c { get; set; }
+    public decimal? field340c { get; set; }
+    public decimal? field350c { get; set; }
+    public decimal? field360c { get; set; }
+    public decimal? field370c { get; set; }
+}
+
+public class OtherOutput
+{
+    public decimal? rasxod_3_3 { get; set; }
+    public decimal? rasxod_3_4 { get; set; }
+    public decimal? rasxod_3_5 { get; set; }
+    public decimal? rasxod_3_6 { get; set; }
+    public decimal? rasxod_3_7 { get; set; }
+    public decimal? rasxod_3_8 { get; set; }
+    public decimal? rasxod_3_9 { get; set; }
+    public decimal? rasxod_3_10 { get; set; }
+    public decimal? rasxod_3_11 { get; set; }
+    public decimal? rasxod_3_12 { get; set; }
+    public decimal? rasxod_4_3 { get; set; }
+    public decimal? rasxod_4_4 { get; set; }
+    public decimal? rasxod_4_5 { get; set; }
+    public decimal? rasxod_4_6 { get; set; }
+    public decimal? rasxod_4_7 { get; set; }
+    public decimal? rasxod_4_8 { get; set; }
+    public decimal? rasxod_4_9 { get; set; }
+    public decimal? rasxod_4_10 { get; set; }
+    public decimal? rasxod_4_11 { get; set; }
+    public decimal? rasxod_4_12 { get; set; }
+    public decimal? rasxod_5_3 { get; set; }
+    public decimal? rasxod_5_4 { get; set; }
+    public decimal? rasxod_5_5 { get; set; }
+    public decimal? rasxod_5_6 { get; set; }
+    public decimal? rasxod_5_7 { get; set; }
+    public decimal? rasxod_5_8 { get; set; }
+    public decimal? rasxod_5_9 { get; set; }
+    public decimal? rasxod_5_10 { get; set; }
+    public decimal? rasxod_5_11 { get; set; }
+    public decimal? rasxod_5_12 { get; set; }
+    public decimal? rasxod_6_3 { get; set; }
+    public decimal? rasxod_6_4 { get; set; }
+    public decimal? rasxod_6_5 { get; set; }
+    public decimal? rasxod_6_6 { get; set; }
+    public decimal? rasxod_6_7 { get; set; }
+    public decimal? rasxod_6_8 { get; set; }
+    public decimal? rasxod_6_9 { get; set; }
+    public decimal? rasxod_6_10 { get; set; }
+    public decimal? rasxod_6_11 { get; set; }
+    public decimal? rasxod_6_12 { get; set; }
+    public decimal? rasxod_7_3 { get; set; }
+    public decimal? rasxod_7_4 { get; set; }
+    public decimal? rasxod_7_5 { get; set; }
+    public decimal? rasxod_7_6 { get; set; }
+    public decimal? rasxod_7_7 { get; set; }
+    public decimal? rasxod_7_8 { get; set; }
+    public decimal? rasxod_7_9 { get; set; }
+    public decimal? rasxod_7_10 { get; set; }
+    public decimal? rasxod_7_11 { get; set; }
+    public decimal? rasxod_7_12 { get; set; }
+    public decimal? rasxod_8_3 { get; set; }
+    public decimal? rasxod_8_4 { get; set; }
+    public decimal? rasxod_8_5 { get; set; }
+    public decimal? rasxod_8_6 { get; set; }
+    public decimal? rasxod_8_7 { get; set; }
+    public decimal? rasxod_8_8 { get; set; }
+    public decimal? rasxod_8_9 { get; set; }
+    public decimal? rasxod_8_10 { get; set; }
+    public decimal? rasxod_8_11 { get; set; }
+    public decimal? rasxod_8_12 { get; set; }
+    public decimal? rasxod_9_3 { get; set; }
+    public decimal? rasxod_9_4 { get; set; }
+    public decimal? rasxod_9_5 { get; set; }
+    public decimal? rasxod_9_6 { get; set; }
+    public decimal? rasxod_9_7 { get; set; }
+    public decimal? rasxod_9_8 { get; set; }
+    public decimal? rasxod_9_9 { get; set; }
+    public decimal? rasxod_9_10 { get; set; }
+    public decimal? rasxod_9_11 { get; set; }
+    public decimal? rasxod_9_12 { get; set; }
+    public decimal? rasxod_10_3 { get; set; }
+    public decimal? rasxod_10_4 { get; set; }
+    public decimal? rasxod_10_5 { get; set; }
+    public decimal? rasxod_10_6 { get; set; }
+    public decimal? rasxod_10_7 { get; set; }
+    public decimal? rasxod_10_8 { get; set; }
+    public decimal? rasxod_10_9 { get; set; }
+    public decimal? rasxod_10_10 { get; set; }
+    public decimal? rasxod_10_11 { get; set; }
+    public decimal? rasxod_10_12 { get; set; }
+    public decimal? rasxod_11_3 { get; set; }
+    public decimal? rasxod_11_4 { get; set; }
+    public decimal? rasxod_11_5 { get; set; }
+    public decimal? rasxod_11_6 { get; set; }
+    public decimal? rasxod_11_7 { get; set; }
+    public decimal? rasxod_11_8 { get; set; }
+    public decimal? rasxod_11_9 { get; set; }
+    public decimal? rasxod_11_10 { get; set; }
+    public decimal? rasxod_11_11 { get; set; }
+    public decimal? rasxod_11_12 { get; set; }
+    public decimal? rasxod_12_3 { get; set; }
+    public decimal? rasxod_12_4 { get; set; }
+    public decimal? rasxod_12_5 { get; set; }
+    public decimal? rasxod_12_6 { get; set; }
+    public decimal? rasxod_12_7 { get; set; }
+    public decimal? rasxod_12_8 { get; set; }
+    public decimal? rasxod_12_9 { get; set; }
+    public decimal? rasxod_12_10 { get; set; }
+    public decimal? rasxod_12_11 { get; set; }
+    public decimal? rasxod_12_12 { get; set; }
+    public decimal? rasshifrovka_1 { get; set; }
+    public decimal? rasshifrovka_2 { get; set; }
+    public decimal? rasshifrovka_3 { get; set; }
+    public decimal? rasshifrovka_4 { get; set; }
+    public decimal? rasshifrovka_5 { get; set; }
+    public decimal? rasshifrovka_6 { get; set; }
+    public decimal? rasshifrovka_7 { get; set; }
+    public decimal? rasshifrovka_8 { get; set; }
+    public decimal? rasshifrovka_9 { get; set; }
+    public decimal? rasshifrovka_10 { get; set; }
+    public decimal? drugiye_1 { get; set; }
+    public decimal? drugiye_2 { get; set; }
+    public decimal? drugiye_3 { get; set; }
+    public decimal? drugiye_4 { get; set; }
+    public decimal? drugiye_5 { get; set; }
+}
+
+public class TotalOutput
+{
+    public FinOtchetOutput? FinOtchet { get; set; }
+    public BalanceOutput? Balance { get; set; }
+    public OtherOutput? Other { get; set; }
+}

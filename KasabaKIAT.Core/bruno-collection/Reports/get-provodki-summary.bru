@@ -1,0 +1,20 @@
+meta {
+  name: Get Provodki Summary
+  type: http
+  seq: 5
+}
+
+get {
+  url: {{baseUrl}}/api/reports/provodki-summary
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{bearerToken}}
+}
+
+params:query {
+  bg: 2026-01-01
+  end: 2026-12-31
+}

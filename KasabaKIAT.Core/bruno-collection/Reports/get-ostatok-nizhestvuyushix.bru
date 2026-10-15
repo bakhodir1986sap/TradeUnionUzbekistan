@@ -1,0 +1,15 @@
+meta {
+  name: Get Ostatok Nizhestvuyushix
+  type: http
+  seq: 43
+}
+
+get {
+  url: {{baseUrl}}/api/reports/ostatok-nizhestvuyushix
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{bearerToken}}
+}

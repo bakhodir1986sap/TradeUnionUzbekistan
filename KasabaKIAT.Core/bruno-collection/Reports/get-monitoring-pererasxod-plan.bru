@@ -1,0 +1,20 @@
+meta {
+  name: Get Monitoring Pererasxod Plan
+  type: http
+  seq: 34
+}
+
+get {
+  url: {{baseUrl}}/api/reports/monitoring/pererasxod-plan
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{bearerToken}}
+}
+
+params:query {
+  year: 2026
+  kvartal: 1
+}

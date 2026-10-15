@@ -1,0 +1,15 @@
+meta {
+  name: Get Tekushiye Ostatok
+  type: http
+  seq: 19
+}
+
+get {
+  url: {{baseUrl}}/api/reports/tekushiye-ostatok
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{bearerToken}}
+}

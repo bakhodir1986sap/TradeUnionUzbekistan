@@ -1,0 +1,15 @@
+meta {
+  name: Get Organizasii Rayony
+  type: http
+  seq: 26
+}
+
+get {
+  url: {{baseUrl}}/api/reports/organizasii-rayony
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{bearerToken}}
+}

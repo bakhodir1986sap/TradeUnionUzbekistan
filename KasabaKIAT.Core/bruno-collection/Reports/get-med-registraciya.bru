@@ -1,0 +1,21 @@
+meta {
+  name: Get Med Registraciya
+  type: http
+  seq: 40
+}
+
+get {
+  url: {{baseUrl}}/api/reports/med-registraciya
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{bearerToken}}
+}
+
+params:query {
+  idOrg:
+  beginDate: 2026-01-01
+  endDate: 2026-12-31
+}

@@ -1,0 +1,15 @@
+meta {
+  name: Get Debitorskaya
+  type: http
+  seq: 24
+}
+
+get {
+  url: {{baseUrl}}/api/reports/debitorskaya
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{bearerToken}}
+}

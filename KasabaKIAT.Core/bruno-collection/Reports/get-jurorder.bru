@@ -1,0 +1,21 @@
+meta {
+  name: Get Jur Order
+  type: http
+  seq: 31
+}
+
+get {
+  url: {{baseUrl}}/api/reports/jurorder
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{bearerToken}}
+}
+
+params:query {
+  jorType: 4
+  bg: 2026-01-01
+  end: 2026-12-31
+}

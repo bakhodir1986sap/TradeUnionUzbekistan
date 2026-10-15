@@ -1,0 +1,21 @@
+meta {
+  name: Get Kartochka Oplata
+  type: http
+  seq: 39
+}
+
+get {
+  url: {{baseUrl}}/api/reports/kartochka-oplata
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{bearerToken}}
+}
+
+params:query {
+  idOrg:
+  beginDate: 2026-01-01
+  endDate: 2026-12-31
+}

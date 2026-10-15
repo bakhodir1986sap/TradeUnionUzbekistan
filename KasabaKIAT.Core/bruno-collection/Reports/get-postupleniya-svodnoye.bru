@@ -1,0 +1,21 @@
+meta {
+  name: Get Postupleniya Svodnoye
+  type: http
+  seq: 21
+}
+
+get {
+  url: {{baseUrl}}/api/reports/postupleniya-svodnoye
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{bearerToken}}
+}
+
+params:query {
+  beginDate: 2026-01-01
+  endDate: 2026-12-31
+  department:
+}

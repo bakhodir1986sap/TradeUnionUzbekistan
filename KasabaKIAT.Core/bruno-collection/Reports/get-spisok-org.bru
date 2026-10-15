@@ -1,0 +1,15 @@
+meta {
+  name: Get Spisok Org
+  type: http
+  seq: 27
+}
+
+get {
+  url: {{baseUrl}}/api/reports/spisok-org
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{bearerToken}}
+}

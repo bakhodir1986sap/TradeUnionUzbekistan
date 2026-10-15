@@ -1,0 +1,20 @@
+meta {
+  name: Get Jur Order 4
+  type: http
+  seq: 28
+}
+
+get {
+  url: {{baseUrl}}/api/reports/jurorder/4
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{bearerToken}}
+}
+
+params:query {
+  year: 2026
+  kvartal: 1
+}

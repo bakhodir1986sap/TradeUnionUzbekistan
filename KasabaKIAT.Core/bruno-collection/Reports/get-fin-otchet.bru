@@ -1,0 +1,21 @@
+meta {
+  name: Get Fin Otchet
+  type: http
+  seq: 45
+}
+
+get {
+  url: {{baseUrl}}/api/reports/fin-otchet
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{bearerToken}}
+}
+
+params:query {
+  year: 2026
+  kvartal: 1
+  isSvodniy: false
+}

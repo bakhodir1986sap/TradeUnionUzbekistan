@@ -1,0 +1,20 @@
+meta {
+  name: Get Talabnomalar Viloyat
+  type: http
+  seq: 44
+}
+
+get {
+  url: {{baseUrl}}/api/reports/talabnomalar-viloyat
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{bearerToken}}
+}
+
+params:query {
+  yil: 2026
+  soato:
+}

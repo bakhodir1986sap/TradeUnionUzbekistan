@@ -1,0 +1,20 @@
+meta {
+  name: Get Svodny Otchet Putyovki
+  type: http
+  seq: 15
+}
+
+get {
+  url: {{baseUrl}}/api/reports/svodny-otchet-putyovki
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{bearerToken}}
+}
+
+params:query {
+  kvartal: 1
+  smfil:
+}

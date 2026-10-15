@@ -157,7 +157,7 @@ public class UsersControllerTests : TestBase
         var response = await Client.DeleteAsync($"/api/users/{newUserId}");
         response.StatusCode.Should().Be(HttpStatusCode.NoContent);
 
-        var dbUser = await Db.Users.FindAsync(newUserId);
+        var dbUser = await Db.Users.AsNoTracking().FirstOrDefaultAsync(u => u.id == newUserId);
         dbUser!.state.Should().Be("0");
     }
 

@@ -76,7 +76,7 @@ public class SpBranchControllerTests : TestBase
         response.Headers.Location.Should().NotBeNull();
         var body = await response.Content.ReadFromJsonAsync<JsonElement>();
         body.GetProperty("id").GetInt64().Should().BeGreaterThan(0);
-        body.GetProperty("name_ru").GetString().Should().Be(branchName);
+        body.GetProperty("nameRu").GetString().Should().Be(branchName);
 
         // Cleanup
         var id = body.GetProperty("id").GetInt64();

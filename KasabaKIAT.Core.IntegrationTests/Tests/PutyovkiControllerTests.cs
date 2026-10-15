@@ -163,6 +163,7 @@ public class PutyovkiControllerTests : TestBase
 
         var dbRecord = await Db.TbptPutyovkis
             .IgnoreQueryFilters()
+            .AsNoTracking()
             .FirstOrDefaultAsync(x => x.REC_ID == id);
         dbRecord!.STATUS.Should().Be("0");
     }

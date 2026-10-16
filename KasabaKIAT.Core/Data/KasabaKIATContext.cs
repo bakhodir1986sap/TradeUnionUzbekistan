@@ -61,6 +61,26 @@ public partial class KasabaKIATContext(
     public virtual DbSet<TbbuFinOtchetSetting> TbbuFinOtchetSettings { get; set; } = null!;
     public virtual DbSet<TbbuPlatejka> TbbuPlatejkas { get; set; } = null!;
     public virtual DbSet<TblPosPut> TblPosPuts { get; set; } = null!;
+    public virtual DbSet<TblPost> TblPosts { get; set; } = null!;
+    public virtual DbSet<TblPosPutDetail> TblPosPutDetails { get; set; } = null!;
+    public virtual DbSet<TblCloseDay> TblCloseDays { get; set; } = null!;
+    public virtual DbSet<TblHoliday> TblHolidays { get; set; } = null!;
+    public virtual DbSet<TblCloseHistory> TblCloseHistories { get; set; } = null!;
+    public virtual DbSet<TblCloseKvartal> TblCloseKvartals { get; set; } = null!;
+    public virtual DbSet<TblCloseKvartalHistory> TblCloseKvartalHistories { get; set; } = null!;
+    public virtual DbSet<TbbuBalance> TbbuBalances { get; set; } = null!;
+    public virtual DbSet<TbbuDebitorCreditor> TbbuDebitorCreditors { get; set; } = null!;
+    public virtual DbSet<TbptPutyovkaOstatokLoader> TbptPutyovkaOstatokLoaders { get; set; } = null!;
+    public virtual DbSet<TbkuDocumentSchetFaktura> TbkuDocumentSchetFakturas { get; set; } = null!;
+    public virtual DbSet<TbkuStrokaSchetFakturi> TbkuStrokaSchetFakturis { get; set; } = null!;
+    public virtual DbSet<TbkuJournal> TbkuJournals { get; set; } = null!;
+    public virtual DbSet<TbkuZaezdyClientov> TbkuZaezdyClientovs { get; set; } = null!;
+    public virtual DbSet<TbkuSpisokRaspredeleniya> TbkuSpisokRaspredeleniyas { get; set; } = null!;
+    public virtual DbSet<TbptZayavka> TbptZayavkas { get; set; } = null!;
+    public virtual DbSet<TbptZayavkaDetail> TbptZayavkaDetails { get; set; } = null!;
+    public virtual DbSet<TbptRaznoskaPutyovki> TbptRaznoskaPutyovkis { get; set; } = null!;
+    public virtual DbSet<TbbuBankPayment> TbbuBankPayments { get; set; } = null!;
+    public virtual DbSet<TbptLagerOtchet> TbptLagerOtchets { get; set; } = null!;
     public virtual DbSet<Provodok> Provodoks { get; set; } = null!;
     public virtual DbSet<PProvodok> PProvodoks { get; set; } = null!;
 

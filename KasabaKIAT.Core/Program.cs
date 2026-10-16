@@ -101,6 +101,7 @@ builder.Services.AddScoped<IReportService, ReportService>();
 builder.Services.AddScoped<IFinOtchetService, FinOtchetService>();
 builder.Services.AddScoped<IGlavnayaKniService, GlavnayaKniService>();
 builder.Services.AddScoped<IAuditService, AuditService>();
+builder.Services.AddScoped<IKurortService, KurortService>();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>

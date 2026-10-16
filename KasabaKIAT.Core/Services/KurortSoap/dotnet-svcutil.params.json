@@ -1,0 +1,15 @@
+{
+  "providerId": "Microsoft.Tools.ServiceModel.Svcutil",
+  "version": "8.0.0",
+  "options": {
+    "inputs": [
+      "../../../KasabaKIAT/Web References/KurortUrlService/SkuTradeUnionExchg.wsdl"
+    ],
+    "namespaceMappings": [
+      "*, KasabaKIAT.Core.Services.KurortSoap"
+    ],
+    "outputFile": "Reference.cs",
+    "targetFramework": "net10.0",
+    "typeReuseMode": "All"
+  }
+}

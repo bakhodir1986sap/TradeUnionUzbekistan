@@ -1,4 +1,4 @@
-import { App, Form, Input, InputNumber } from 'antd';
+import { App, Form, Input } from 'antd';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { referenceApi } from '../../api/reference';
@@ -6,11 +6,9 @@ import { CrudTable } from '../../components/CrudTable';
 
 interface SanRecord {
   id: number;
-  name?: string;
-  address?: string;
-  capacity?: number;
-  regionName?: string;
-  typeName?: string;
+  name_San?: string;
+  num_Kod?: string;
+  kurortSanID?: number | null;
 }
 
 export function SanatoriumsPage() {
@@ -41,15 +39,13 @@ export function SanatoriumsPage() {
       message.success(t('common.success'));
       queryClient.invalidateQueries({ queryKey: ['sanatoriums'] });
     },
+    onError: () => message.error(t('common.error')),
   });
 
   const columns = [
-    { title: 'ID', dataIndex: 'id', width: 60 },
-    { title: 'Наименование', dataIndex: 'name' },
-    { title: 'Регион', dataIndex: 'regionName' },
-    { title: 'Тип', dataIndex: 'typeName' },
-    { title: 'Вместимость', dataIndex: 'capacity', width: 120 },
-    { title: 'Адрес', dataIndex: 'address' },
+    { title: 'ID', dataIndex: 'id', width: 70 },
+    { title: 'Наименование', dataIndex: 'name_San' },
+    { title: 'Код', dataIndex: 'num_Kod', width: 120 },
   ];
 
   return (
@@ -69,14 +65,11 @@ export function SanatoriumsPage() {
       deleteConfirmTitle="Удалить санаторий?"
       formFields={
         <>
-          <Form.Item name="name" label="Наименование" rules={[{ required: true }]}>
+          <Form.Item name="name_San" label="Наименование" rules={[{ required: true }]}>
             <Input />
           </Form.Item>
-          <Form.Item name="address" label="Адрес">
+          <Form.Item name="num_Kod" label="Код">
             <Input />
-          </Form.Item>
-          <Form.Item name="capacity" label="Вместимость">
-            <InputNumber style={{ width: '100%' }} min={0} />
           </Form.Item>
         </>
       }

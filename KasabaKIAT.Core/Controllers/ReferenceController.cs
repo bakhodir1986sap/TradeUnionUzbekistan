@@ -13,21 +13,6 @@ namespace KasabaKIAT.Core.Controllers;
 [OutputCache(PolicyName = "reference")]
 public class ReferenceController(KasabaKIATContext db) : ControllerBase
 {
-    [HttpGet("sanatoriums")]
-    public async Task<IActionResult> GetSanatoriums()
-    {
-        var items = await db.TblSpravSans
-            .Select(s => new ReferenceItemDto
-            {
-                Code = s.ID.ToString(),
-                NameRu = s.Name_San,
-                NameUz = s.Name_San,
-                NameUzl = s.Name_San
-            })
-            .ToListAsync();
-        return Ok(items);
-    }
-
     [HttpGet("sanatorium-types")]
     public async Task<IActionResult> GetSanatoriumTypes()
     {

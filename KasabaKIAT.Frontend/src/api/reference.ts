@@ -1,7 +1,7 @@
 import api from './axios';
 
 export const referenceApi = {
-  getSanatoriums: () => api.get('/api/reference/sanatoriums').then((r) => r.data),
+  getSanatoriums: () => api.get('/api/tbl-sprav-san').then((r) => r.data),
   getSanatoriumTypes: () => api.get('/api/reference/sanatorium-types').then((r) => r.data),
   getSanatoriumProfils: () => api.get('/api/reference/sanatorium-profils').then((r) => r.data),
   getRegions: () => api.get('/api/reference/regions').then((r) => r.data),
@@ -26,7 +26,7 @@ export const referenceApi = {
   getYears: () => api.get('/api/reference/years').then((r) => r.data),
   getDictionary: (typeCode: string) => api.get(`/api/reference/dictionary/${typeCode}`).then((r) => r.data),
   getSanatoriumList: () => api.get('/api/reference/sanatorium-list').then((r) => r.data),
-  createSanatorium: (data: unknown) => api.post('/api/reference/sanatoriums', data).then((r) => r.data),
-  updateSanatorium: (id: number, data: unknown) => api.put(`/api/reference/sanatoriums/${id}`, data).then((r) => r.data),
-  deleteSanatorium: (id: number) => api.delete(`/api/reference/sanatoriums/${id}`),
+  createSanatorium: (data: unknown) => api.post('/api/tbl-sprav-san', data).then((r) => r.data),
+  updateSanatorium: (id: number, data: unknown) => api.put(`/api/tbl-sprav-san/${id}`, data).then((r) => r.data),
+  deleteSanatorium: (id: number) => api.delete(`/api/tbl-sprav-san/${id}`),
 };

@@ -84,7 +84,6 @@ export function AppLayout() {
             { key: '/prixod-putevok/dannye-vladeltsev', label: t('nav.dannyeVladeltsev') },
             { key: '/prixod-putevok/fizlica', label: t('nav.fizlicaPutyovki') },
             { key: '/prixod-putevok/fizlica-v2', label: t('nav.fizlicaV2') },
-            { key: '/prixod-putevok/organizasii', label: t('nav.organizasiiPutyovki') },
             { key: '/prixod-putevok/start-process', label: t('nav.startProcess') },
             { key: '/prixod-putevok/sverka', label: t('nav.sverka') },
             { key: '/prixod-putevok/sverka-v2', label: t('nav.sverkaV2') },
@@ -129,7 +128,7 @@ export function AppLayout() {
       icon: <DatabaseOutlined />,
       label: t('nav.nsi'),
       children: [
-        { key: '/reference/organizations', icon: <BankOutlined />, label: t('nav.organizacii') },
+        { key: '/reference/organizasii', icon: <BankOutlined />, label: t('nav.organizasiiPutyovki') },
         { key: '/reference/sanatoriums', icon: <HomeOutlined />, label: t('nav.sanatoriums') },
         { key: '/admin/spravochniki', icon: <DatabaseOutlined />, label: t('nav.spravochniki') },
       ],

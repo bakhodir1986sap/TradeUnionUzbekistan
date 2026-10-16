@@ -6,61 +6,21 @@ import {
 import type { ColumnsType } from 'antd/es/table';
 import {
   PlusOutlined, EditOutlined, DeleteOutlined, SearchOutlined,
-  FileExcelOutlined, UploadOutlined, DownloadOutlined, BranchesOutlined,
+  FileExcelOutlined, UploadOutlined, BranchesOutlined,
 } from '@ant-design/icons';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { QueryErrorAlert } from '../../components/QueryErrorAlert';
-import api from '../../api/axios';
+import { organizationsApi, type OrgItem, type OtraslOption } from '../../api/organizations';
 
 const { Option } = Select;
 
-/* ─── Types ────────────────────────────────────────────────────────────────── */
-
-interface Otrasl {
-  id: number;
+interface ActiveFilter {
   name: string;
-}
-
-interface OrgRecord {
-  id_Org: number;
-  name_Org?: string;
-  inn?: string;
-  raschetnyiSchet?: string;
-  mfo?: string;
-  adres?: string;
-  tel?: string;
-  rukovoditel?: string;
-  predsedatel?: string;
-  id_Ot?: number;
-  otraslName?: string;
-  region?: string;
-  gorod?: string;
-  email?: string;
-  numDogovora?: string;
-  dataDogovora?: string;
-}
-
-interface OrgFilterParams {
-  name?: string;
-  inn?: string;
-  id_Ot?: number;
+  inn: string;
+  otraslId: number | undefined;
   page: number;
   pageSize: number;
 }
-
-interface OrgFilterResult {
-  items: OrgRecord[];
-  totalCount: number;
-  totalCountNeot: number;
-  totalCountOpr: number;
-}
-
-interface ChangeOtraslPayload {
-  orgIds: number[];
-  id_Ot: number;
-}
-
-/* ─── Page ──────────────────────────────────────────────────────────────────── */
 
 export function OrganizasiiPage() {
   const { message, modal } = App.useApp();
@@ -68,70 +28,54 @@ export function OrganizasiiPage() {
   const [form] = Form.useForm();
   const [changeOtraslForm] = Form.useForm();
 
-  // modal state
   const [modalOpen, setModalOpen] = useState(false);
   const [changeOtraslModalOpen, setChangeOtraslModalOpen] = useState(false);
-  const [editing, setEditing] = useState<OrgRecord | null>(null);
+  const [editing, setEditing] = useState<OrgItem | null>(null);
 
-  // filter state
   const [filterName, setFilterName] = useState('');
   const [filterInn, setFilterInn] = useState('');
   const [filterOtrasl, setFilterOtrasl] = useState<number | undefined>(undefined);
 
-  // pagination state
-  const [curPage, setCurPage] = useState(0);
   const pageSize = 20;
-
-  // selection for mass otrasl assignment
-  const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
-
-  // file upload state
-  const [selectedOtraslFile, setSelectedOtraslFile] = useState<File | null>(null);
-
-  // active filter params (applied on search click)
-  const [activeFilter, setActiveFilter] = useState<OrgFilterParams>({
-    name: '',
-    inn: '',
-    id_Ot: undefined,
-    page: 0,
-    pageSize,
+  const [curPage, setCurPage] = useState(1);
+  const [activeFilter, setActiveFilter] = useState<ActiveFilter>({
+    name: '', inn: '', otraslId: undefined, page: 1, pageSize,
   });
+
+  const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
+  const [selectedOtraslFile, setSelectedOtraslFile] = useState<File | null>(null);
 
   /* ─── Queries ─────────────────────────────────────────────────────────────── */
 
-  const { data: otrasls = [] } = useQuery<Otrasl[]>({
-    queryKey: ['otrasls'],
-    queryFn: () => api.get('/api/otrasl').then(r => r.data),
+  const { data: otrasls = [] } = useQuery<OtraslOption[]>({
+    queryKey: ['otrasls-organizations'],
+    queryFn: () => organizationsApi.getOtrasls(),
   });
 
-  const { data: filterResult, isLoading, isError, refetch } = useQuery<OrgFilterResult>({
+  const { data: filterResult, isLoading, isError, refetch } = useQuery({
     queryKey: ['organizasii-filter', activeFilter],
     queryFn: () =>
-      api
-        .get('/api/organizasii', {
-          params: {
-            name: activeFilter.name || undefined,
-            inn: activeFilter.inn || undefined,
-            id_Ot: activeFilter.id_Ot || undefined,
-            page: activeFilter.page,
-            pageSize: activeFilter.pageSize,
-          },
-        })
-        .then(r => r.data),
+      organizationsApi.getList({
+        name: activeFilter.name || undefined,
+        inn: activeFilter.inn || undefined,
+        otraslId: activeFilter.otraslId ?? undefined,
+        page: activeFilter.page,
+        pageSize: activeFilter.pageSize,
+      }),
   });
 
-  const organizations: OrgRecord[] = filterResult?.items ?? [];
-  const totalCount = filterResult?.totalCount ?? 0;
+  const organizations: OrgItem[] = filterResult?.items ?? [];
+  const totalCount = filterResult?.count ?? 0;
   const totalCountNeot = filterResult?.totalCountNeot ?? 0;
   const totalCountOpr = filterResult?.totalCountOpr ?? 0;
 
   /* ─── Mutations ───────────────────────────────────────────────────────────── */
 
   const saveMutation = useMutation({
-    mutationFn: (values: Partial<OrgRecord>) =>
+    mutationFn: (values: Partial<OrgItem>) =>
       editing
-        ? api.put(`/api/organizasii/${editing.id_Org}`, values).then(r => r.data)
-        : api.post('/api/organizasii', values).then(r => r.data),
+        ? organizationsApi.update(editing.id, values)
+        : organizationsApi.create(values),
     onSuccess: () => {
       message.success('Сохранено успешно');
       queryClient.invalidateQueries({ queryKey: ['organizasii-filter'] });
@@ -141,7 +85,7 @@ export function OrganizasiiPage() {
   });
 
   const deleteMutation = useMutation({
-    mutationFn: (id: number) => api.delete(`/api/organizasii/${id}`),
+    mutationFn: (id: number) => organizationsApi.delete(id),
     onSuccess: () => {
       message.success('Организация удалена');
       queryClient.invalidateQueries({ queryKey: ['organizasii-filter'] });
@@ -150,8 +94,8 @@ export function OrganizasiiPage() {
   });
 
   const changeOtraslMutation = useMutation({
-    mutationFn: (payload: ChangeOtraslPayload) =>
-      api.post('/api/organizasii/change-otrasl', payload).then(r => r.data),
+    mutationFn: ({ ids, otraslId }: { ids: number[]; otraslId: number }) =>
+      organizationsApi.changeOtraslMassive(ids, otraslId),
     onSuccess: () => {
       message.success('Отрасль назначена успешно');
       queryClient.invalidateQueries({ queryKey: ['organizasii-filter'] });
@@ -163,21 +107,16 @@ export function OrganizasiiPage() {
 
   const exportMutation = useMutation({
     mutationFn: () =>
-      api
-        .get('/api/organizasii/export', {
-          responseType: 'blob',
-          params: {
-            name: activeFilter.name || undefined,
-            inn: activeFilter.inn || undefined,
-            id_Ot: activeFilter.id_Ot || undefined,
-          },
-        })
-        .then(r => r.data),
+      organizationsApi.export({
+        name: activeFilter.name || undefined,
+        inn: activeFilter.inn || undefined,
+        otraslId: activeFilter.otraslId ?? undefined,
+      }),
     onSuccess: (blob: Blob) => {
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
-      a.download = 'Organizasii.xlsx';
+      a.download = 'Organizasii.csv';
       a.click();
       URL.revokeObjectURL(url);
     },
@@ -185,13 +124,7 @@ export function OrganizasiiPage() {
   });
 
   const uploadOtraslMutation = useMutation({
-    mutationFn: (file: File) => {
-      const formData = new FormData();
-      formData.append('OtraslFile', file);
-      return api.post('/api/organizasii/upload-otrasl', formData, {
-        headers: { 'Content-Type': 'multipart/form-data' },
-      });
-    },
+    mutationFn: (file: File) => organizationsApi.uploadOtrasl(file),
     onSuccess: () => {
       message.success('Отраслевка загружена успешно');
       queryClient.invalidateQueries({ queryKey: ['organizasii-filter'] });
@@ -203,8 +136,8 @@ export function OrganizasiiPage() {
   /* ─── Handlers ────────────────────────────────────────────────────────────── */
 
   const handleSearch = () => {
-    setCurPage(0);
-    setActiveFilter({ name: filterName, inn: filterInn, id_Ot: filterOtrasl, page: 0, pageSize });
+    setCurPage(1);
+    setActiveFilter({ name: filterName, inn: filterInn, otraslId: filterOtrasl, page: 1, pageSize });
   };
 
   const handlePrev = () => {
@@ -225,7 +158,7 @@ export function OrganizasiiPage() {
     setModalOpen(true);
   };
 
-  const openEdit = (rec: OrgRecord) => {
+  const openEdit = (rec: OrgItem) => {
     setEditing(rec);
     form.setFieldsValue(rec);
     setModalOpen(true);
@@ -252,129 +185,48 @@ export function OrganizasiiPage() {
 
   const handleChangeOtraslSubmit = (values: { id_Ot: number }) => {
     changeOtraslMutation.mutate({
-      orgIds: selectedRowKeys as number[],
-      id_Ot: values.id_Ot,
+      ids: selectedRowKeys as number[],
+      otraslId: values.id_Ot,
     });
-  };
-
-  const handleDownloadTemplate = async () => {
-    try {
-      const response = await api.get('/api/prixod-putevok/download-template-neopr', {
-        responseType: 'blob',
-      });
-      const url = URL.createObjectURL(response.data);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = 'ShablonNeopr.xlsx';
-      a.click();
-      URL.revokeObjectURL(url);
-    } catch {
-      message.error('Ошибка при загрузке шаблона');
-    }
-  };
-
-  const handleParseOtrasl = () => {
-    if (!selectedOtraslFile) {
-      message.warning('Выберите файл для загрузки');
-      return;
-    }
-    uploadOtraslMutation.mutate(selectedOtraslFile);
   };
 
   /* ─── Table columns ───────────────────────────────────────────────────────── */
 
-  const columns: ColumnsType<OrgRecord> = [
-    {
-      title: 'Номер',
-      dataIndex: 'id_Org',
-      width: 80,
-      align: 'center',
-    },
+  const columns: ColumnsType<OrgItem> = [
+    { title: 'ID', dataIndex: 'id', width: 70, align: 'center' },
     {
       title: 'Отрасль',
-      dataIndex: 'otraslName',
-      width: 150,
-      align: 'center',
-      render: (v: string | undefined) => v ?? <span style={{ color: '#bbb' }}>—</span>,
-    },
-    {
-      title: 'Название организации',
-      dataIndex: 'name_Org',
-      width: 200,
-      align: 'center',
-    },
-    {
-      title: 'ИНН Профкома',
-      dataIndex: 'inn',
-      width: 150,
-      align: 'center',
-    },
-    {
-      title: 'Расчетный счет',
-      dataIndex: 'raschetnyiSchet',
-      width: 180,
-      align: 'center',
-    },
-    {
-      title: 'МФО',
-      dataIndex: 'mfo',
-      width: 100,
-      align: 'center',
-    },
-    {
-      title: 'Адрес',
-      dataIndex: 'adres',
-      width: 180,
-      align: 'center',
-    },
-    {
-      title: 'Телефон',
-      dataIndex: 'tel',
-      width: 130,
-      align: 'center',
-    },
-    {
-      title: 'Руководитель',
-      dataIndex: 'rukovoditel',
+      dataIndex: 'id_Ot',
       width: 160,
       align: 'center',
+      render: (v: number | null | undefined) => {
+        const found = otrasls.find(o => o.id === v);
+        return found ? found.name_Ot : <span style={{ color: '#bbb' }}>—</span>;
+      },
     },
-    {
-      title: 'Председатель',
-      dataIndex: 'predsedatel',
-      width: 160,
-      align: 'center',
-    },
-    {
-      title: 'Город',
-      dataIndex: 'gorod',
-      width: 120,
-      align: 'center',
-    },
-    {
-      title: 'Email',
-      dataIndex: 'email',
-      width: 160,
-      align: 'center',
-    },
+    { title: 'Название организации', dataIndex: 'name_Org', width: 200, align: 'center' },
+    { title: 'ИНН', dataIndex: 'inn', width: 120, align: 'center' },
+    { title: 'Р/С', dataIndex: 'rs', width: 160, align: 'center' },
+    { title: 'МФО', dataIndex: 'mfo', width: 80, align: 'center' },
+    { title: 'Банк', dataIndex: 'bank', width: 140, align: 'center' },
+    { title: 'Адрес', dataIndex: 'adress', width: 180, align: 'center' },
+    { title: 'Телефон', dataIndex: 'telefon', width: 130, align: 'center' },
+    { title: 'Email', dataIndex: 'e_Mail', width: 160, align: 'center' },
+    { title: 'Директор', dataIndex: 'director', width: 160, align: 'center' },
+    { title: 'Бухгалтер', dataIndex: 'buxgalter', width: 160, align: 'center' },
     {
       title: 'Действия',
       key: 'actions',
-      width: 100,
+      width: 90,
       align: 'center',
       fixed: 'right' as const,
-      render: (_: unknown, rec: OrgRecord) => (
+      render: (_: unknown, rec: OrgItem) => (
         <Space>
           <Tooltip title="Редактировать">
             <Button size="small" icon={<EditOutlined />} onClick={() => openEdit(rec)} />
           </Tooltip>
           <Tooltip title="Удалить">
-            <Button
-              size="small"
-              danger
-              icon={<DeleteOutlined />}
-              onClick={() => confirmDelete(rec.id_Org)}
-            />
+            <Button size="small" danger icon={<DeleteOutlined />} onClick={() => confirmDelete(rec.id)} />
           </Tooltip>
         </Space>
       ),
@@ -385,11 +237,8 @@ export function OrganizasiiPage() {
 
   return (
     <div>
-      {/* Header */}
       <div style={{ marginBottom: 16 }}>
-        <Typography.Title level={4} style={{ margin: 0 }}>
-          База данных организаций
-        </Typography.Title>
+        <Typography.Title level={4} style={{ margin: 0 }}>База данных организаций</Typography.Title>
         <Typography.Text type="secondary">Справочник Организаций</Typography.Text>
       </div>
 
@@ -401,7 +250,7 @@ export function OrganizasiiPage() {
           </Button>
         </Col>
         <Col>
-          <Button icon={<BranchesOutlined />} onClick={openChangeOtrasl} type="default" style={{ background: '#1677ff', color: '#fff', border: 'none' }}>
+          <Button icon={<BranchesOutlined />} onClick={openChangeOtrasl} style={{ background: '#1677ff', color: '#fff', border: 'none' }}>
             Назначить отрасль
           </Button>
         </Col>
@@ -454,9 +303,7 @@ export function OrganizasiiPage() {
               onChange={v => setFilterOtrasl(v)}
             >
               {otrasls.map(o => (
-                <Option key={o.id} value={o.id}>
-                  {o.name}
-                </Option>
+                <Option key={o.id} value={o.id}>{o.name_Ot}</Option>
               ))}
             </Select>
           </div>
@@ -472,23 +319,15 @@ export function OrganizasiiPage() {
       <Row gutter={[16, 8]} style={{ marginBottom: 8 }}>
         <Col xs={24} sm={12} md={6}>
           <div>
-            <div style={{ marginBottom: 4 }}>Не определенных</div>
+            <div style={{ marginBottom: 4 }}>Не определённых</div>
             <Input value={totalCountNeot} readOnly />
           </div>
         </Col>
         <Col xs={24} sm={12} md={6}>
           <div>
-            <div style={{ marginBottom: 4 }}>Определенных</div>
+            <div style={{ marginBottom: 4 }}>Определённых</div>
             <Input value={totalCountOpr} readOnly />
           </div>
-        </Col>
-        <Col xs={24} sm={12} md={6} style={{ paddingTop: 28 }}>
-          <Button
-            href="/Otchot/OtchetOrganizasii"
-            style={{ background: '#1677ff', color: '#fff', border: 'none' }}
-          >
-            Отчеты Организаций
-          </Button>
         </Col>
         <Col xs={24} sm={12} md={6} style={{ paddingTop: 28 }}>
           <Button
@@ -501,36 +340,23 @@ export function OrganizasiiPage() {
         </Col>
       </Row>
 
-      {/* Template download + file upload */}
+      {/* File upload for otrasl assignment */}
       <Row gutter={[16, 8]} style={{ marginBottom: 16 }}>
-        <Col xs={24} sm={12} md={6}>
-          <Button
-            icon={<DownloadOutlined />}
-            onClick={handleDownloadTemplate}
-            type="link"
-            style={{ paddingLeft: 0 }}
-          >
-            Загрузить Шаблон
-          </Button>
-        </Col>
         <Col xs={24} sm={12} md={8}>
           <Upload
-            accept=".xlsx,.xls"
-            beforeUpload={file => {
-              setSelectedOtraslFile(file);
-              return false;
-            }}
-            showUploadList={selectedOtraslFile ? { showRemoveIcon: true } : false}
+            accept=".csv"
+            fileList={selectedOtraslFile ? [{ uid: '1', name: selectedOtraslFile.name, status: 'done' }] : []}
+            beforeUpload={file => { setSelectedOtraslFile(file); return false; }}
             onRemove={() => setSelectedOtraslFile(null)}
             maxCount={1}
           >
-            <Button icon={<UploadOutlined />}>Выбрать файл отраслевки</Button>
+            <Button icon={<UploadOutlined />}>Выбрать файл отраслевки (CSV)</Button>
           </Upload>
         </Col>
         <Col xs={24} sm={12} md={6}>
           <Button
             type="primary"
-            onClick={handleParseOtrasl}
+            onClick={() => selectedOtraslFile && uploadOtraslMutation.mutate(selectedOtraslFile)}
             disabled={!selectedOtraslFile}
             loading={uploadOtraslMutation.isPending}
           >
@@ -544,19 +370,11 @@ export function OrganizasiiPage() {
         <Row style={{ marginBottom: 12 }}>
           <Col>
             <Space>
-              <Button
-                type="primary"
-                disabled={curPage === 0}
-                onClick={handlePrev}
-              >
+              <Button type="primary" disabled={curPage === 1} onClick={handlePrev}>
                 &lt; Предыдущий
               </Button>
-              <span>Страница {curPage + 1}</span>
-              <Button
-                type="primary"
-                disabled={curPage >= Math.ceil(totalCount / pageSize) - 1}
-                onClick={handleNext}
-              >
+              <span>Страница {curPage}</span>
+              <Button type="primary" disabled={curPage >= Math.ceil(totalCount / pageSize)} onClick={handleNext}>
                 Следующий &gt;
               </Button>
             </Space>
@@ -569,26 +387,23 @@ export function OrganizasiiPage() {
       <Table
         columns={columns}
         dataSource={organizations}
-        rowKey="id_Org"
+        rowKey="id"
         loading={isLoading}
         size="small"
         pagination={false}
-        scroll={{ x: 1600 }}
-        rowSelection={{
-          selectedRowKeys,
-          onChange: keys => setSelectedRowKeys(keys),
-        }}
+        scroll={{ x: 1800 }}
+        rowSelection={{ selectedRowKeys, onChange: keys => setSelectedRowKeys(keys) }}
         style={{ boxShadow: '0 2px 8px rgba(0,0,0,0.09)' }}
       />
 
-      {/* Add/Edit Organization Modal */}
+      {/* Add/Edit Modal */}
       <Modal
         title={editing ? 'Редактировать организацию' : 'Добавить организацию'}
         open={modalOpen}
         onOk={() => form.submit()}
         onCancel={() => setModalOpen(false)}
         confirmLoading={saveMutation.isPending}
-        width={680}
+        width={720}
         okText="Сохранить"
         cancelText="Отмена"
       >
@@ -596,24 +411,12 @@ export function OrganizasiiPage() {
           <Row gutter={16}>
             <Col span={12}>
               <Form.Item name="name_Org" label="Название организации" rules={[{ required: true, message: 'Введите название' }]}>
-                <Input placeholder="Название организации" />
+                <Input />
               </Form.Item>
             </Col>
             <Col span={12}>
-              <Form.Item name="inn" label="ИНН Профкома">
-                <Input placeholder="ИНН" />
-              </Form.Item>
-            </Col>
-          </Row>
-          <Row gutter={16}>
-            <Col span={12}>
-              <Form.Item name="raschetnyiSchet" label="Расчетный счет">
-                <Input placeholder="Расчетный счет" />
-              </Form.Item>
-            </Col>
-            <Col span={12}>
-              <Form.Item name="mfo" label="МФО">
-                <Input placeholder="МФО" />
+              <Form.Item name="inn" label="ИНН" rules={[{ required: true, message: 'Введите ИНН' }]}>
+                <Input maxLength={9} />
               </Form.Item>
             </Col>
           </Row>
@@ -622,71 +425,81 @@ export function OrganizasiiPage() {
               <Form.Item name="id_Ot" label="Отрасль">
                 <Select placeholder="Выберите отрасль" allowClear>
                   {otrasls.map(o => (
-                    <Option key={o.id_Ot} value={o.id_Ot}>
-                      {o.name_Ot}
-                    </Option>
+                    <Option key={o.id} value={o.id}>{o.name_Ot}</Option>
                   ))}
                 </Select>
               </Form.Item>
             </Col>
             <Col span={12}>
-              <Form.Item name="region" label="Регион">
-                <Input placeholder="Регион" />
+              <Form.Item name="rs" label="Расчетный счет">
+                <Input maxLength={20} />
               </Form.Item>
             </Col>
           </Row>
           <Row gutter={16}>
             <Col span={12}>
-              <Form.Item name="gorod" label="Город">
-                <Input placeholder="Город" />
+              <Form.Item name="mfo" label="МФО">
+                <Input maxLength={5} />
               </Form.Item>
             </Col>
             <Col span={12}>
-              <Form.Item name="adres" label="Адрес">
-                <Input placeholder="Адрес" />
-              </Form.Item>
-            </Col>
-          </Row>
-          <Row gutter={16}>
-            <Col span={12}>
-              <Form.Item name="tel" label="Телефон">
-                <Input placeholder="Телефон" />
-              </Form.Item>
-            </Col>
-            <Col span={12}>
-              <Form.Item name="email" label="Email">
-                <Input placeholder="Email" />
+              <Form.Item name="bank" label="Банк">
+                <Input maxLength={90} />
               </Form.Item>
             </Col>
           </Row>
           <Row gutter={16}>
             <Col span={12}>
-              <Form.Item name="rukovoditel" label="Руководитель">
-                <Input placeholder="ФИО руководителя" />
+              <Form.Item name="adress" label="Адрес">
+                <Input maxLength={100} />
               </Form.Item>
             </Col>
             <Col span={12}>
-              <Form.Item name="predsedatel" label="Председатель">
-                <Input placeholder="ФИО председателя" />
+              <Form.Item name="telefon" label="Телефон">
+                <Input maxLength={70} />
               </Form.Item>
             </Col>
           </Row>
           <Row gutter={16}>
             <Col span={12}>
-              <Form.Item name="numDogovora" label="Номер договора">
-                <Input placeholder="Номер договора" />
+              <Form.Item name="e_Mail" label="Email">
+                <Input maxLength={90} />
               </Form.Item>
             </Col>
             <Col span={12}>
-              <Form.Item name="dataDogovora" label="Дата договора">
-                <Input placeholder="дд.мм.гггг" />
+              <Form.Item name="okonx" label="ОКЭД">
+                <Input maxLength={5} />
+              </Form.Item>
+            </Col>
+          </Row>
+          <Row gutter={16}>
+            <Col span={12}>
+              <Form.Item name="director" label="Директор">
+                <Input maxLength={200} />
+              </Form.Item>
+            </Col>
+            <Col span={12}>
+              <Form.Item name="buxgalter" label="Бухгалтер">
+                <Input maxLength={200} />
+              </Form.Item>
+            </Col>
+          </Row>
+          <Row gutter={16}>
+            <Col span={12}>
+              <Form.Item name="departmentBase" label="Код отдела">
+                <Input maxLength={255} />
+              </Form.Item>
+            </Col>
+            <Col span={12}>
+              <Form.Item name="owner_CODE" label="Код владельца">
+                <Input maxLength={255} />
               </Form.Item>
             </Col>
           </Row>
         </Form>
       </Modal>
 
-      {/* Change Otrasl for selected Modal */}
+      {/* Change Otrasl Modal */}
       <Modal
         title={`Назначить отрасль (выбрано: ${selectedRowKeys.length})`}
         open={changeOtraslModalOpen}
@@ -698,16 +511,10 @@ export function OrganizasiiPage() {
         width={400}
       >
         <Form form={changeOtraslForm} layout="vertical" onFinish={handleChangeOtraslSubmit}>
-          <Form.Item
-            name="id_Ot"
-            label="Отрасль"
-            rules={[{ required: true, message: 'Выберите отрасль' }]}
-          >
+          <Form.Item name="id_Ot" label="Отрасль" rules={[{ required: true, message: 'Выберите отрасль' }]}>
             <Select placeholder="Выберите отрасль" style={{ width: '100%' }}>
               {otrasls.map(o => (
-                <Option key={o.id} value={o.id}>
-                  {o.name}
-                </Option>
+                <Option key={o.id} value={o.id}>{o.name_Ot}</Option>
               ))}
             </Select>
           </Form.Item>

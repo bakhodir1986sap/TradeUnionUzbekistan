@@ -42,7 +42,7 @@ export function DashboardPage() {
     { icon: <PrinterOutlined />, label: t('nav.otchety'), path: '/otchoty', color: '#fa541c' },
     { icon: <DatabaseOutlined />, label: t('nav.spravochniki'), path: '/admin/spravochniki', color: '#a0d911' },
     { icon: <HomeOutlined />, label: 'Санатории', path: '/reference/sanatoriums', color: '#36cfc9' },
-    { icon: <BankOutlined />, label: t('nav.organizacii'), path: '/reference/organizations', color: '#4096ff' },
+    { icon: <BankOutlined />, label: t('nav.organizacii'), path: '/reference/organizasii', color: '#4096ff' },
     { icon: <UserOutlined />, label: t('nav.users'), path: '/admin/users', color: '#7cb305' },
     { icon: <TeamOutlined />, label: t('nav.roles'), path: '/admin/roles', color: '#d4380d' },
     { icon: <SearchOutlined />, label: t('nav.userActions'), path: '/admin/user-actions', color: '#d48806' },

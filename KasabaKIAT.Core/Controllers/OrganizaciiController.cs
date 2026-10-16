@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
+using System.Text;
 
 namespace KasabaKIAT.Core.Controllers;
 
@@ -79,8 +80,8 @@ public class OrganizaciiController(KasabaKIATContext db) : ControllerBase
 
     // -----------------------------------------------------------------------
     // GET /api/organizations
-    // ?search=&inn=&name=&otraslId=&page=
-    // Returns { items, count }
+    // ?search=&inn=&name=&otraslId=&page=&pageSize=
+    // Returns { items, count, totalCountNeot, totalCountOpr }
     // -----------------------------------------------------------------------
     [HttpGet]
     public async Task<IActionResult> GetOrganizationList(
@@ -102,13 +103,14 @@ public class OrganizaciiController(KasabaKIATContext db) : ControllerBase
             query = query.Where(o => o.INN != null && o.INN.Contains(inn));
 
         if (!string.IsNullOrWhiteSpace(name))
-            query = query.Where(o =>
-                (o.Name_Org != null && o.Name_Org.Contains(name)));
+            query = query.Where(o => o.Name_Org != null && o.Name_Org.Contains(name));
 
         if (otraslId.HasValue)
             query = query.Where(o => o.ID_Ot == otraslId);
 
         var count = await query.CountAsync();
+        var totalCountNeot = await query.CountAsync(o => o.ID_Ot == null);
+        var totalCountOpr = count - totalCountNeot;
 
         var items = await query
             .OrderBy(o => o.Name_Org)
@@ -135,7 +137,7 @@ public class OrganizaciiController(KasabaKIATContext db) : ControllerBase
             })
             .ToListAsync();
 
-        return Ok(new { items, count });
+        return Ok(new { items, count, totalCountNeot, totalCountOpr });
     }
 
     // -----------------------------------------------------------------------
@@ -164,8 +166,6 @@ public class OrganizaciiController(KasabaKIATContext db) : ControllerBase
 
     // -----------------------------------------------------------------------
     // GET /api/organizations/otrasl-rasxod
-    // Returns industries filtered for rasxod context (currently same list;
-    // extend predicate if business logic differs).
     // -----------------------------------------------------------------------
     [HttpGet("otrasl-rasxod")]
     public async Task<IActionResult> GetOtraslForOrganizationRasxod()
@@ -192,13 +192,9 @@ public class OrganizaciiController(KasabaKIATContext db) : ControllerBase
 
     // -----------------------------------------------------------------------
     // GET /api/organizations/empty-carcas
-    // Returns an empty org shell (field list for the front-end form).
     // -----------------------------------------------------------------------
     [HttpGet("empty-carcas")]
-    public IActionResult GetEmptyCarcas()
-    {
-        return Ok(new OrgSaveDto());
-    }
+    public IActionResult GetEmptyCarcas() => Ok(new OrgSaveDto());
 
     // -----------------------------------------------------------------------
     // POST /api/organizations
@@ -206,8 +202,6 @@ public class OrganizaciiController(KasabaKIATContext db) : ControllerBase
     [HttpPost]
     public async Task<IActionResult> SaveOrganization([FromBody] OrgSaveDto dto)
     {
-        var userId = CurrentUserId;
-
         var org = new TblSpravOrg
         {
             Name_Org = dto.name_Org ?? string.Empty,
@@ -233,7 +227,7 @@ public class OrganizaciiController(KasabaKIATContext db) : ControllerBase
             Pas_Num = dto.pas_Num,
             Pas_KD = dto.pas_KD,
             Pas_Data = dto.pas_Data,
-            UserId = userId
+            UserId = CurrentUserId
         };
 
         db.TblSpravOrgs.Add(org);
@@ -288,7 +282,7 @@ public class OrganizaciiController(KasabaKIATContext db) : ControllerBase
     {
         var org = await db.TblSpravOrgs.FindAsync(id);
         if (org == null) return NotFound();
-        db.TblSpravOrgs.Remove(org);  // Remove() re-attaches as Deleted
+        db.TblSpravOrgs.Remove(org);
         await db.SaveChangesAsync();
         return NoContent();
     }
@@ -299,16 +293,13 @@ public class OrganizaciiController(KasabaKIATContext db) : ControllerBase
     [HttpGet("by-inn/{inn}")]
     public async Task<IActionResult> GetByInn(string inn)
     {
-        var item = await db.TblSpravOrgs
-            .Where(o => o.INN == inn)
-            .FirstOrDefaultAsync();
+        var item = await db.TblSpravOrgs.Where(o => o.INN == inn).FirstOrDefaultAsync();
         if (item == null) return NotFound();
         return Ok(item);
     }
 
     // -----------------------------------------------------------------------
     // GET /api/organizations/yur-liso-data/{id}
-    // Returns legal entity data (same as GetById, kept as named endpoint).
     // -----------------------------------------------------------------------
     [HttpGet("yur-liso-data/{id:long}")]
     public async Task<IActionResult> GetYurLisoData(long id)
@@ -350,9 +341,7 @@ public class OrganizaciiController(KasabaKIATContext db) : ControllerBase
         if (req.Ids == null || req.Ids.Length == 0)
             return BadRequest("No IDs provided.");
 
-        var orgs = await db.TblSpravOrgs
-            .Where(o => req.Ids.Contains(o.ID))
-            .ToListAsync();
+        var orgs = await db.TblSpravOrgs.Where(o => req.Ids.Contains(o.ID)).ToListAsync();
 
         foreach (var org in orgs)
         {
@@ -365,8 +354,7 @@ public class OrganizaciiController(KasabaKIATContext db) : ControllerBase
     }
 
     // -----------------------------------------------------------------------
-    // GET /api/organizations/otrasl-map/{id}
-    // Returns the otrasl (industry) record linked to a given org.
+    // GET /api/organizations/otrasl-map/{orgId}
     // -----------------------------------------------------------------------
     [HttpGet("otrasl-map/{orgId:long}")]
     public async Task<IActionResult> OrganizationOtrasl(long orgId)
@@ -386,6 +374,98 @@ public class OrganizaciiController(KasabaKIATContext db) : ControllerBase
 
         return Ok(otrasl);
     }
+
+    // -----------------------------------------------------------------------
+    // GET /api/organizations/export
+    // Returns filtered list as CSV file
+    // -----------------------------------------------------------------------
+    [HttpGet("export")]
+    public async Task<IActionResult> Export(
+        [FromQuery] string? name,
+        [FromQuery] string? inn,
+        [FromQuery] long? otraslId)
+    {
+        var query = db.TblSpravOrgs.AsQueryable();
+
+        if (!string.IsNullOrWhiteSpace(name))
+            query = query.Where(o => o.Name_Org != null && o.Name_Org.Contains(name));
+        if (!string.IsNullOrWhiteSpace(inn))
+            query = query.Where(o => o.INN != null && o.INN.Contains(inn));
+        if (otraslId.HasValue)
+            query = query.Where(o => o.ID_Ot == otraslId);
+
+        var items = await query
+            .OrderBy(o => o.Name_Org)
+            .Select(o => new
+            {
+                o.ID,
+                o.Name_Org,
+                o.INN,
+                o.RS,
+                o.MFO,
+                o.Bank,
+                o.Adress,
+                o.Telefon,
+                o.E_Mail,
+                o.DIRECTOR,
+                o.BUXGALTER,
+                o.DepartmentBase,
+                o.OWNER_CODE
+            })
+            .ToListAsync();
+
+        var sb = new StringBuilder();
+        sb.AppendLine("ID;Название;ИНН;Р/С;МФО;Банк;Адрес;Телефон;Email;Директор;Бухгалтер;Отдел;Код владельца");
+        foreach (var r in items)
+        {
+            static string Esc(string? v) => v == null ? "" : $"\"{v.Replace("\"", "\"\"")}\"";
+            sb.AppendLine($"{r.ID};{Esc(r.Name_Org)};{Esc(r.INN)};{Esc(r.RS)};{Esc(r.MFO)};{Esc(r.Bank)};{Esc(r.Adress)};{Esc(r.Telefon)};{Esc(r.E_Mail)};{Esc(r.DIRECTOR)};{Esc(r.BUXGALTER)};{Esc(r.DepartmentBase)};{Esc(r.OWNER_CODE)}");
+        }
+
+        var bytes = Encoding.UTF8.GetPreamble().Concat(Encoding.UTF8.GetBytes(sb.ToString())).ToArray();
+        return File(bytes, "text/csv", $"Organizasii_{DateTime.Now:yyyyMMdd_HHmmss}.csv");
+    }
+
+    // -----------------------------------------------------------------------
+    // POST /api/organizations/upload-otrasl
+    // Expects a CSV file with columns: INN, OtraslId (semicolon-separated)
+    // Updates ID_Ot for matching organizations by INN
+    // -----------------------------------------------------------------------
+    [HttpPost("upload-otrasl")]
+    public async Task<IActionResult> UploadOtrasl(IFormFile OtraslFile)
+    {
+        if (OtraslFile == null || OtraslFile.Length == 0)
+            return BadRequest("Файл не выбран.");
+
+        using var reader = new System.IO.StreamReader(OtraslFile.OpenReadStream(), Encoding.UTF8);
+        var lines = new List<string>();
+        while (!reader.EndOfStream)
+        {
+            var line = await reader.ReadLineAsync();
+            if (!string.IsNullOrWhiteSpace(line)) lines.Add(line);
+        }
+
+        // Skip header
+        int updated = 0, skipped = 0;
+        foreach (var line in lines.Skip(1))
+        {
+            var parts = line.Split(';');
+            if (parts.Length < 2) { skipped++; continue; }
+
+            var inn = parts[0].Trim().Trim('"');
+            if (!int.TryParse(parts[1].Trim().Trim('"'), out var otraslId)) { skipped++; continue; }
+
+            var org = await db.TblSpravOrgs.Where(o => o.INN == inn).FirstOrDefaultAsync();
+            if (org == null) { skipped++; continue; }
+
+            org.ID_Ot = otraslId;
+            db.TblSpravOrgs.Update(org);
+            updated++;
+        }
+
+        await db.SaveChangesAsync();
+        return Ok(new { updated, skipped });
+    }
 }
 
 // Helper request record for the massive otrasl change
@@ -400,7 +480,6 @@ public class ChangeOtraslMassiveRequest
 
 // ---------------------------------------------------------------------------
 // SanatoriumsListController — GET /api/sanatoriums
-// Thin controller so filters can load sanatorium list independently.
 // ---------------------------------------------------------------------------
 
 [ApiController]
@@ -421,8 +500,6 @@ public class SanatoriumsListController(KasabaKIATContext db) : ControllerBase
 
 // ---------------------------------------------------------------------------
 // OtraslController — GET /api/otrasl
-// Shortcut so the PrixodPutevok module can fetch industries without
-// going through /api/organizations/otrasl.
 // ---------------------------------------------------------------------------
 
 [ApiController]

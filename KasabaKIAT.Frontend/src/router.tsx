@@ -39,7 +39,6 @@ const UsersPage = lazy(() => import('./pages/Admin/UsersPage').then(m => ({ defa
 const RolesPage = lazy(() => import('./pages/Admin/RolesPage').then(m => ({ default: m.RolesPage })));
 const UserActionsPage = lazy(() => import('./pages/Admin/UserActionsPage').then(m => ({ default: m.UserActionsPage })));
 const SpravichnikiPage = lazy(() => import('./pages/Admin/SpravichnikiPage').then(m => ({ default: m.SpravichnikiPage })));
-const OrganizationsPage = lazy(() => import('./pages/Reference/OrganizationsPage').then(m => ({ default: m.OrganizationsPage })));
 const SanatoriumsPage = lazy(() => import('./pages/Reference/SanatoriumsPage').then(m => ({ default: m.SanatoriumsPage })));
 const NotFoundPage = lazy(() => import('./pages/NotFound/NotFoundPage').then(m => ({ default: m.NotFoundPage })));
 
@@ -79,7 +78,6 @@ export function AppRouter() {
           <Route path="prixod-putevok/dannye-vladeltsev" element={<DanniyeVladelsaxPutyovokPage />} />
           <Route path="prixod-putevok/fizlica" element={<FizLisoPage />} />
           <Route path="prixod-putevok/fizlica-v2" element={<FizLisoV2Page />} />
-          <Route path="prixod-putevok/organizasii" element={<OrganizasiiPage />} />
           <Route path="prixod-putevok/start-process" element={<StartProcessPage />} />
           <Route path="prixod-putevok/sverka" element={<SverkaDannixPage />} />
           <Route path="prixod-putevok/sverka-v2" element={<SverkaDannixV2Page />} />
@@ -99,7 +97,7 @@ export function AppRouter() {
           <Route path="admin/roles" element={<RolesPage />} />
           <Route path="admin/user-actions" element={<UserActionsPage />} />
           <Route path="admin/spravochniki" element={<SpravichnikiPage />} />
-          <Route path="reference/organizations" element={<OrganizationsPage />} />
+          <Route path="reference/organizasii" element={<OrganizasiiPage />} />
           <Route path="reference/sanatoriums" element={<SanatoriumsPage />} />
           <Route path="*" element={<NotFoundPage />} />
         </Route>

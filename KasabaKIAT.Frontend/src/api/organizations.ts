@@ -14,6 +14,8 @@ export interface OrgListParams {
 export interface OrgListResult {
   items: OrgItem[];
   count: number;
+  totalCountNeot: number;
+  totalCountOpr: number;
 }
 
 export interface OrgItem {
@@ -22,11 +24,25 @@ export interface OrgItem {
   inn?: string;
   id_Ot?: number | null;
   departmentBase?: string;
-  address?: string;
-  name_Short?: string;
-  name_Full?: string;
-  soato_ID?: string;
+  adress?: string;
+  rs?: string;
+  mfo?: string;
+  bank?: string;
+  okonx?: string;
+  telefon?: string;
+  region?: number | null;
+  e_Mail?: string;
   owner_CODE?: string;
+  director?: string;
+  buxgalter?: string;
+  doverennoe_Liso?: string;
+  orig_INN?: string;
+  to_DepCode?: string;
+  face_Type?: number | null;
+  pas_ser?: string;
+  pas_Num?: string;
+  pas_KD?: string;
+  pas_Data?: string | null;
 }
 
 export const organizationsApi = {
@@ -45,4 +61,14 @@ export const organizationsApi = {
   delete: (id: number) => api.delete(`/api/organizations/${id}`),
   changeOtraslMassive: (ids: number[], otraslId: number) =>
     api.post('/api/organizations/change-otrasl-massive', { ids, otraslId }).then((r) => r.data),
+  export: (params?: { name?: string; inn?: string; otraslId?: number | null }) =>
+    api.get('/api/organizations/export', { params, responseType: 'blob' }).then((r) => r.data),
+  uploadOtrasl: (file: File) => {
+    const fd = new FormData();
+    fd.append('OtraslFile', file);
+    return api.post('/api/organizations/upload-otrasl', fd, {
+      headers: { 'Content-Type': 'multipart/form-data' },
+    });
+  },
 };
+

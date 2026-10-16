@@ -868,7 +868,7 @@ public class RealizatsiyaPutevokController(KasabaKIATContext db) : ControllerBas
         if (!string.IsNullOrEmpty(inn))
             query = query.Where(o => o.INN!.Contains(inn));
         if (!string.IsNullOrEmpty(name))
-            query = query.Where(o => o.Name_Org!.Contains(name) || o.Name_Short!.Contains(name));
+            query = query.Where(o => o.Name_Org!.Contains(name));
 
         var result = await query
             .OrderBy(o => o.Name_Org)
@@ -876,7 +876,6 @@ public class RealizatsiyaPutevokController(KasabaKIATContext db) : ControllerBas
             {
                 o.ID,
                 o.Name_Org,
-                o.Name_Short,
                 o.INN,
                 o.DepartmentBase,
                 o.OWNER_CODE

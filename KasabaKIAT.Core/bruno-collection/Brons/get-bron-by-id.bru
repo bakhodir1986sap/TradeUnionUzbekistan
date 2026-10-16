@@ -5,9 +5,13 @@ meta {
 }
 
 get {
-  url: {{baseUrl}}/api/brons/1
+  url: {{baseUrl}}/api/brons/4
   body: none
   auth: bearer
+}
+
+params:query {
+  ~id: 3
 }
 
 auth:bearer {

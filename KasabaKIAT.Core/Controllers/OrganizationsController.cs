@@ -30,9 +30,9 @@ public class OrganizationsController(KasabaKIATContext db) : ControllerBase
                 o.OWNER_CODE,
                 o.ID_Ot,
                 o.DepartmentBase,
-                o.Address,
-                o.Name_Short,
-                o.Name_Full
+                o.Adress,
+                o.RS,
+                o.MFO
             })
             .ToListAsync();
         return Ok(items);

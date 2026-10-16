@@ -16,13 +16,27 @@ public class OrgSaveDto
     public long id { get; set; }
     public string? name_Org { get; set; }
     public string? inn { get; set; }
-    public long? id_Ot { get; set; }
+    public int? id_Ot { get; set; }
     public string? departmentBase { get; set; }
-    public string? address { get; set; }
-    public string? name_Short { get; set; }
-    public string? name_Full { get; set; }
-    public string? soato_ID { get; set; }
+    public string? adress { get; set; }
+    public string? rs { get; set; }
+    public string? mfo { get; set; }
+    public string? bank { get; set; }
+    public string? okonx { get; set; }
+    public string? telefon { get; set; }
+    public int? region { get; set; }
+    public string? e_Mail { get; set; }
     public string? owner_CODE { get; set; }
+    public string? director { get; set; }
+    public string? buxgalter { get; set; }
+    public string? doverennoe_Liso { get; set; }
+    public string? orig_INN { get; set; }
+    public string? to_DepCode { get; set; }
+    public int? face_Type { get; set; }
+    public string? pas_ser { get; set; }
+    public string? pas_Num { get; set; }
+    public string? pas_KD { get; set; }
+    public DateTime? pas_Data { get; set; }
 }
 
 public class FizLicoDto
@@ -82,17 +96,14 @@ public class OrganizaciiController(KasabaKIATContext db) : ControllerBase
         if (!string.IsNullOrWhiteSpace(search))
             query = query.Where(o =>
                 (o.Name_Org != null && o.Name_Org.Contains(search)) ||
-                (o.INN != null && o.INN.Contains(search)) ||
-                (o.Name_Short != null && o.Name_Short.Contains(search)));
+                (o.INN != null && o.INN.Contains(search)));
 
         if (!string.IsNullOrWhiteSpace(inn))
             query = query.Where(o => o.INN != null && o.INN.Contains(inn));
 
         if (!string.IsNullOrWhiteSpace(name))
             query = query.Where(o =>
-                (o.Name_Org != null && o.Name_Org.Contains(name)) ||
-                (o.Name_Short != null && o.Name_Short.Contains(name)) ||
-                (o.Name_Full != null && o.Name_Full.Contains(name)));
+                (o.Name_Org != null && o.Name_Org.Contains(name)));
 
         if (otraslId.HasValue)
             query = query.Where(o => o.ID_Ot == otraslId);
@@ -107,14 +118,20 @@ public class OrganizaciiController(KasabaKIATContext db) : ControllerBase
             {
                 id = o.ID,
                 name_Org = o.Name_Org,
-                name_Short = o.Name_Short,
-                name_Full = o.Name_Full,
                 inn = o.INN,
+                rs = o.RS,
+                mfo = o.MFO,
+                bank = o.Bank,
+                okonx = o.OKONX,
+                adress = o.Adress,
+                telefon = o.Telefon,
+                region = o.Region,
+                e_Mail = o.E_Mail,
                 owner_CODE = o.OWNER_CODE,
                 id_Ot = o.ID_Ot,
                 departmentBase = o.DepartmentBase,
-                address = o.Address,
-                soato_ID = o.SOATO_ID
+                director = o.DIRECTOR,
+                buxgalter = o.BUXGALTER
             })
             .ToListAsync();
 
@@ -193,15 +210,29 @@ public class OrganizaciiController(KasabaKIATContext db) : ControllerBase
 
         var org = new TblSpravOrg
         {
-            Name_Org = dto.name_Org,
-            INN = dto.inn,
+            Name_Org = dto.name_Org ?? string.Empty,
+            INN = dto.inn ?? string.Empty,
             ID_Ot = dto.id_Ot,
             DepartmentBase = dto.departmentBase,
-            Address = dto.address,
-            Name_Short = dto.name_Short,
-            Name_Full = dto.name_Full,
-            SOATO_ID = dto.soato_ID,
+            Adress = dto.adress,
+            RS = dto.rs,
+            MFO = dto.mfo,
+            Bank = dto.bank,
+            OKONX = dto.okonx,
+            Telefon = dto.telefon,
+            Region = dto.region,
+            E_Mail = dto.e_Mail,
             OWNER_CODE = dto.owner_CODE,
+            DIRECTOR = dto.director,
+            BUXGALTER = dto.buxgalter,
+            DOVERENNOE_LISO = dto.doverennoe_Liso,
+            ORIG_INN = dto.orig_INN,
+            TO_DEPCODE = dto.to_DepCode,
+            FACE_TYPE = dto.face_Type,
+            Pas_ser = dto.pas_ser,
+            Pas_Num = dto.pas_Num,
+            Pas_KD = dto.pas_KD,
+            Pas_Data = dto.pas_Data,
             UserId = userId
         };
 
@@ -219,15 +250,29 @@ public class OrganizaciiController(KasabaKIATContext db) : ControllerBase
         var org = await db.TblSpravOrgs.FindAsync(id);
         if (org == null) return NotFound();
 
-        org.Name_Org = dto.name_Org;
-        org.INN = dto.inn;
+        org.Name_Org = dto.name_Org ?? org.Name_Org;
+        org.INN = dto.inn ?? org.INN;
         org.ID_Ot = dto.id_Ot;
         org.DepartmentBase = dto.departmentBase;
-        org.Address = dto.address;
-        org.Name_Short = dto.name_Short;
-        org.Name_Full = dto.name_Full;
-        org.SOATO_ID = dto.soato_ID;
+        org.Adress = dto.adress;
+        org.RS = dto.rs;
+        org.MFO = dto.mfo;
+        org.Bank = dto.bank;
+        org.OKONX = dto.okonx;
+        org.Telefon = dto.telefon;
+        org.Region = dto.region;
+        org.E_Mail = dto.e_Mail;
         org.OWNER_CODE = dto.owner_CODE;
+        org.DIRECTOR = dto.director;
+        org.BUXGALTER = dto.buxgalter;
+        org.DOVERENNOE_LISO = dto.doverennoe_Liso;
+        org.ORIG_INN = dto.orig_INN;
+        org.TO_DEPCODE = dto.to_DepCode;
+        org.FACE_TYPE = dto.face_Type;
+        org.Pas_ser = dto.pas_ser;
+        org.Pas_Num = dto.pas_Num;
+        org.Pas_KD = dto.pas_KD;
+        org.Pas_Data = dto.pas_Data;
         org.UserId = CurrentUserId ?? org.UserId;
 
         db.TblSpravOrgs.Update(org);
@@ -274,14 +319,20 @@ public class OrganizaciiController(KasabaKIATContext db) : ControllerBase
             {
                 id = o.ID,
                 name_Org = o.Name_Org,
-                name_Short = o.Name_Short,
-                name_Full = o.Name_Full,
                 inn = o.INN,
+                rs = o.RS,
+                mfo = o.MFO,
+                bank = o.Bank,
+                okonx = o.OKONX,
+                adress = o.Adress,
+                telefon = o.Telefon,
+                region = o.Region,
+                e_Mail = o.E_Mail,
                 owner_CODE = o.OWNER_CODE,
                 id_Ot = o.ID_Ot,
                 departmentBase = o.DepartmentBase,
-                address = o.Address,
-                soato_ID = o.SOATO_ID
+                director = o.DIRECTOR,
+                buxgalter = o.BUXGALTER
             })
             .FirstOrDefaultAsync();
 
@@ -341,7 +392,7 @@ public class OrganizaciiController(KasabaKIATContext db) : ControllerBase
 public class ChangeOtraslMassiveRequest
 {
     public long[] Ids { get; set; } = [];
-    public long? OtraslId { get; set; }
+    public int? OtraslId { get; set; }
 }
 
 // FizLicaController with full CRUD lives in RasxodPutyovokController.cs

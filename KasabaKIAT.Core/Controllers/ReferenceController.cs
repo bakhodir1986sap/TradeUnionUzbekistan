@@ -1,5 +1,6 @@
 using KasabaKIAT.Core.Data;
 using KasabaKIAT.Core.DTOs.Reference;
+using KasabaKIAT.Core.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OutputCaching;
@@ -33,13 +34,14 @@ public class ReferenceController(KasabaKIATContext db) : ControllerBase
     public async Task<IActionResult> GetRegions()
     {
         var items = await db.TblSpravRegs
-            .Select(r => new ReferenceItemDto
+            .Select(r => new
             {
-                Code = r.code ?? r.ID.ToString(),
-                NameRu = r.name_ru,
-                NameUz = r.name_uz,
-                NameUzl = r.name_uzl,
-                CreateDate = r.s_create
+                id = r.ID,
+                code = r.code ?? r.ID.ToString(),
+                nameRu = r.name_ru,
+                nameUz = r.name_uz,
+                nameUzl = r.name_uzl,
+                createDate = r.s_create
             })
             .ToListAsync();
         return Ok(items);
@@ -49,13 +51,14 @@ public class ReferenceController(KasabaKIATContext db) : ControllerBase
     public async Task<IActionResult> GetBranches()
     {
         var items = await db.SpBranches
-            .Select(b => new ReferenceItemDto
+            .Select(b => new
             {
-                Code = b.id.ToString(),
-                NameRu = b.name_ru,
-                NameUz = b.name_uz,
-                NameUzl = b.name_uzl,
-                CreateDate = b.s_create
+                id = b.id,
+                code = b.id.ToString(),
+                nameRu = b.name_ru,
+                nameUz = b.name_uz,
+                nameUzl = b.name_uzl,
+                createDate = b.s_create
             })
             .ToListAsync();
         return Ok(items);
@@ -65,13 +68,14 @@ public class ReferenceController(KasabaKIATContext db) : ControllerBase
     public async Task<IActionResult> GetCountries()
     {
         var items = await db.SpCountries
-            .Select(c => new ReferenceItemDto
+            .Select(c => new
             {
-                Code = c.id.ToString(),
-                NameRu = c.name_ru,
-                NameUz = c.name_uz,
-                NameUzl = c.name_uzl,
-                CreateDate = c.s_create
+                id = c.id,
+                code = c.id.ToString(),
+                nameRu = c.name_ru,
+                nameUz = c.name_uz,
+                nameUzl = c.name_uzl,
+                createDate = c.s_create
             })
             .ToListAsync();
         return Ok(items);
@@ -81,13 +85,14 @@ public class ReferenceController(KasabaKIATContext db) : ControllerBase
     public async Task<IActionResult> GetPositions()
     {
         var items = await db.SpPositions
-            .Select(p => new ReferenceItemDto
+            .Select(p => new
             {
-                Code = p.id.ToString(),
-                NameRu = p.name_ru,
-                NameUz = p.name_uz,
-                NameUzl = p.name_uzl,
-                CreateDate = p.s_create
+                id = p.id,
+                code = p.id.ToString(),
+                nameRu = p.name_ru,
+                nameUz = p.name_uz,
+                nameUzl = p.name_uzl,
+                createDate = p.s_create
             })
             .ToListAsync();
         return Ok(items);
@@ -123,7 +128,7 @@ public class ReferenceController(KasabaKIATContext db) : ControllerBase
     public async Task<IActionResult> GetCamps()
     {
         var items = await db.TCamps
-            .Select(c => new { id = c.id, name = c.camps_name })
+            .Select(c => new { id = c.id, code = (string?)null, nameRu = c.camps_name, nameUz = c.camps_name })
             .ToListAsync();
         return Ok(items);
     }
@@ -156,13 +161,14 @@ public class ReferenceController(KasabaKIATContext db) : ControllerBase
     public async Task<IActionResult> GetNations()
     {
         var items = await db.SpNations
-            .Select(n => new ReferenceItemDto
+            .Select(n => new
             {
-                Code = n.code,
-                NameRu = n.name_ru,
-                NameUz = n.name_uz,
-                NameUzl = n.name_uzl,
-                CreateDate = n.s_create
+                id = n.id,
+                code = n.code,
+                nameRu = n.name_ru,
+                nameUz = n.name_uz,
+                nameUzl = n.name_uzl,
+                createDate = n.s_create
             })
             .ToListAsync();
         return Ok(items);
@@ -172,13 +178,14 @@ public class ReferenceController(KasabaKIATContext db) : ControllerBase
     public async Task<IActionResult> GetDegrees()
     {
         var items = await db.SpDegrees
-            .Select(d => new ReferenceItemDto
+            .Select(d => new
             {
-                Code = d.code,
-                NameRu = d.name_ru,
-                NameUz = d.name_uz,
-                NameUzl = d.name_uzl,
-                CreateDate = d.s_create
+                id = d.id,
+                code = d.code,
+                nameRu = d.name_ru,
+                nameUz = d.name_uz,
+                nameUzl = d.name_uzl,
+                createDate = d.s_create
             })
             .ToListAsync();
         return Ok(items);
@@ -220,13 +227,14 @@ public class ReferenceController(KasabaKIATContext db) : ControllerBase
     public async Task<IActionResult> GetSections()
     {
         var items = await db.SpSections
-            .Select(s => new ReferenceItemDto
+            .Select(s => new
             {
-                Code = s.code,
-                NameRu = s.name_ru,
-                NameUz = s.name_uz,
-                NameUzl = s.name_uzl,
-                CreateDate = s.s_create
+                id = s.id,
+                code = s.code,
+                nameRu = s.name_ru,
+                nameUz = s.name_uz,
+                nameUzl = s.name_uzl,
+                createDate = s.s_create
             })
             .ToListAsync();
         return Ok(items);
@@ -416,5 +424,307 @@ public class ReferenceController(KasabaKIATContext db) : ControllerBase
             new { value = 4 }
         };
         return Ok(items);
+    }
+}
+
+// ---------------------------------------------------------------------------
+// ReferenceCrudController — POST/PUT/DELETE for reference tables
+// Route: api/reference/{endpoint}/{id}
+// ---------------------------------------------------------------------------
+
+public class RefSaveDto
+{
+    public string? code { get; set; }
+    public string? nameRu { get; set; }
+    public string? nameUz { get; set; }
+    public string? nameUzl { get; set; }
+}
+
+[ApiController]
+[Route("api/reference")]
+[Authorize]
+public class ReferenceCrudController(KasabaKIATContext db, IOutputCacheStore cache) : ControllerBase
+{
+    private async Task InvalidateCache(CancellationToken ct = default)
+        => await cache.EvictByTagAsync("reference", ct);
+
+    // ── regions ──────────────────────────────────────────────────────────────
+
+    [HttpPost("regions")]
+    public async Task<IActionResult> CreateRegion([FromBody] RefSaveDto dto)
+    {
+        var item = new TblSpravReg { name_ru = dto.nameRu, name_uz = dto.nameUz, name_uzl = dto.nameUzl, code = dto.code, s_create = DateTime.Now };
+        db.TblSpravRegs.Add(item);
+        await db.SaveChangesAsync();
+        await InvalidateCache();
+        return Ok(new { id = item.ID, code = item.code, nameRu = item.name_ru, nameUz = item.name_uz, nameUzl = item.name_uzl });
+    }
+
+    [HttpPut("regions/{id:long}")]
+    public async Task<IActionResult> UpdateRegion(long id, [FromBody] RefSaveDto dto)
+    {
+        var item = await db.TblSpravRegs.FindAsync(id);
+        if (item == null) return NotFound();
+        item.name_ru = dto.nameRu; item.name_uz = dto.nameUz; item.name_uzl = dto.nameUzl; item.code = dto.code;
+        db.TblSpravRegs.Update(item);
+        await db.SaveChangesAsync();
+        await InvalidateCache();
+        return Ok(new { id = item.ID, code = item.code, nameRu = item.name_ru, nameUz = item.name_uz, nameUzl = item.name_uzl });
+    }
+
+    [HttpDelete("regions/{id:long}")]
+    public async Task<IActionResult> DeleteRegion(long id)
+    {
+        var item = await db.TblSpravRegs.FindAsync(id);
+        if (item == null) return NotFound();
+        db.TblSpravRegs.Remove(item);
+        await db.SaveChangesAsync();
+        await InvalidateCache();
+        return NoContent();
+    }
+
+    // ── branches ─────────────────────────────────────────────────────────────
+
+    [HttpPost("branches")]
+    public async Task<IActionResult> CreateBranch([FromBody] RefSaveDto dto)
+    {
+        var item = new SpBranch { name_ru = dto.nameRu, name_uz = dto.nameUz, name_uzl = dto.nameUzl, s_create = DateTime.Now };
+        db.SpBranches.Add(item);
+        await db.SaveChangesAsync();
+        await InvalidateCache();
+        return Ok(new { id = item.id, nameRu = item.name_ru, nameUz = item.name_uz, nameUzl = item.name_uzl });
+    }
+
+    [HttpPut("branches/{id:long}")]
+    public async Task<IActionResult> UpdateBranch(long id, [FromBody] RefSaveDto dto)
+    {
+        var item = await db.SpBranches.FindAsync(id);
+        if (item == null) return NotFound();
+        item.name_ru = dto.nameRu; item.name_uz = dto.nameUz; item.name_uzl = dto.nameUzl;
+        db.SpBranches.Update(item);
+        await db.SaveChangesAsync();
+        await InvalidateCache();
+        return Ok(new { id = item.id, nameRu = item.name_ru, nameUz = item.name_uz, nameUzl = item.name_uzl });
+    }
+
+    [HttpDelete("branches/{id:long}")]
+    public async Task<IActionResult> DeleteBranch(long id)
+    {
+        var item = await db.SpBranches.FindAsync(id);
+        if (item == null) return NotFound();
+        db.SpBranches.Remove(item);
+        await db.SaveChangesAsync();
+        await InvalidateCache();
+        return NoContent();
+    }
+
+    // ── countries ────────────────────────────────────────────────────────────
+
+    [HttpPost("countries")]
+    public async Task<IActionResult> CreateCountry([FromBody] RefSaveDto dto)
+    {
+        var item = new SpCountry { name_ru = dto.nameRu, name_uz = dto.nameUz, name_uzl = dto.nameUzl, s_create = DateTime.Now };
+        db.SpCountries.Add(item);
+        await db.SaveChangesAsync();
+        await InvalidateCache();
+        return Ok(new { id = item.id, nameRu = item.name_ru, nameUz = item.name_uz, nameUzl = item.name_uzl });
+    }
+
+    [HttpPut("countries/{id:long}")]
+    public async Task<IActionResult> UpdateCountry(long id, [FromBody] RefSaveDto dto)
+    {
+        var item = await db.SpCountries.FindAsync(id);
+        if (item == null) return NotFound();
+        item.name_ru = dto.nameRu; item.name_uz = dto.nameUz; item.name_uzl = dto.nameUzl;
+        db.SpCountries.Update(item);
+        await db.SaveChangesAsync();
+        await InvalidateCache();
+        return Ok(new { id = item.id, nameRu = item.name_ru, nameUz = item.name_uz, nameUzl = item.name_uzl });
+    }
+
+    [HttpDelete("countries/{id:long}")]
+    public async Task<IActionResult> DeleteCountry(long id)
+    {
+        var item = await db.SpCountries.FindAsync(id);
+        if (item == null) return NotFound();
+        db.SpCountries.Remove(item);
+        await db.SaveChangesAsync();
+        await InvalidateCache();
+        return NoContent();
+    }
+
+    // ── positions ────────────────────────────────────────────────────────────
+
+    [HttpPost("positions")]
+    public async Task<IActionResult> CreatePosition([FromBody] RefSaveDto dto)
+    {
+        var item = new SpPosition { name_ru = dto.nameRu, name_uz = dto.nameUz, name_uzl = dto.nameUzl, s_create = DateTime.Now };
+        db.SpPositions.Add(item);
+        await db.SaveChangesAsync();
+        await InvalidateCache();
+        return Ok(new { id = item.id, nameRu = item.name_ru, nameUz = item.name_uz, nameUzl = item.name_uzl });
+    }
+
+    [HttpPut("positions/{id:long}")]
+    public async Task<IActionResult> UpdatePosition(long id, [FromBody] RefSaveDto dto)
+    {
+        var item = await db.SpPositions.FindAsync(id);
+        if (item == null) return NotFound();
+        item.name_ru = dto.nameRu; item.name_uz = dto.nameUz; item.name_uzl = dto.nameUzl;
+        db.SpPositions.Update(item);
+        await db.SaveChangesAsync();
+        await InvalidateCache();
+        return Ok(new { id = item.id, nameRu = item.name_ru, nameUz = item.name_uz, nameUzl = item.name_uzl });
+    }
+
+    [HttpDelete("positions/{id:long}")]
+    public async Task<IActionResult> DeletePosition(long id)
+    {
+        var item = await db.SpPositions.FindAsync(id);
+        if (item == null) return NotFound();
+        db.SpPositions.Remove(item);
+        await db.SaveChangesAsync();
+        await InvalidateCache();
+        return NoContent();
+    }
+
+    // ── nations ──────────────────────────────────────────────────────────────
+
+    [HttpPost("nations")]
+    public async Task<IActionResult> CreateNation([FromBody] RefSaveDto dto)
+    {
+        var item = new SpNation { code = dto.code, name_ru = dto.nameRu, name_uz = dto.nameUz, name_uzl = dto.nameUzl, s_create = DateTime.Now };
+        db.SpNations.Add(item);
+        await db.SaveChangesAsync();
+        await InvalidateCache();
+        return Ok(new { id = item.id, code = item.code, nameRu = item.name_ru, nameUz = item.name_uz, nameUzl = item.name_uzl });
+    }
+
+    [HttpPut("nations/{id:long}")]
+    public async Task<IActionResult> UpdateNation(long id, [FromBody] RefSaveDto dto)
+    {
+        var item = await db.SpNations.FindAsync(id);
+        if (item == null) return NotFound();
+        item.code = dto.code; item.name_ru = dto.nameRu; item.name_uz = dto.nameUz; item.name_uzl = dto.nameUzl;
+        db.SpNations.Update(item);
+        await db.SaveChangesAsync();
+        await InvalidateCache();
+        return Ok(new { id = item.id, code = item.code, nameRu = item.name_ru, nameUz = item.name_uz, nameUzl = item.name_uzl });
+    }
+
+    [HttpDelete("nations/{id:long}")]
+    public async Task<IActionResult> DeleteNation(long id)
+    {
+        var item = await db.SpNations.FindAsync(id);
+        if (item == null) return NotFound();
+        db.SpNations.Remove(item);
+        await db.SaveChangesAsync();
+        await InvalidateCache();
+        return NoContent();
+    }
+
+    // ── degrees ──────────────────────────────────────────────────────────────
+
+    [HttpPost("degrees")]
+    public async Task<IActionResult> CreateDegree([FromBody] RefSaveDto dto)
+    {
+        var item = new SpDegree { code = dto.code, name_ru = dto.nameRu, name_uz = dto.nameUz, name_uzl = dto.nameUzl, s_create = DateTime.Now };
+        db.SpDegrees.Add(item);
+        await db.SaveChangesAsync();
+        await InvalidateCache();
+        return Ok(new { id = item.id, code = item.code, nameRu = item.name_ru, nameUz = item.name_uz, nameUzl = item.name_uzl });
+    }
+
+    [HttpPut("degrees/{id:long}")]
+    public async Task<IActionResult> UpdateDegree(long id, [FromBody] RefSaveDto dto)
+    {
+        var item = await db.SpDegrees.FindAsync(id);
+        if (item == null) return NotFound();
+        item.code = dto.code; item.name_ru = dto.nameRu; item.name_uz = dto.nameUz; item.name_uzl = dto.nameUzl;
+        db.SpDegrees.Update(item);
+        await db.SaveChangesAsync();
+        await InvalidateCache();
+        return Ok(new { id = item.id, code = item.code, nameRu = item.name_ru, nameUz = item.name_uz, nameUzl = item.name_uzl });
+    }
+
+    [HttpDelete("degrees/{id:long}")]
+    public async Task<IActionResult> DeleteDegree(long id)
+    {
+        var item = await db.SpDegrees.FindAsync(id);
+        if (item == null) return NotFound();
+        db.SpDegrees.Remove(item);
+        await db.SaveChangesAsync();
+        await InvalidateCache();
+        return NoContent();
+    }
+
+    // ── sections ─────────────────────────────────────────────────────────────
+
+    [HttpPost("sections")]
+    public async Task<IActionResult> CreateSection([FromBody] RefSaveDto dto)
+    {
+        var item = new SpSection { code = dto.code, name_ru = dto.nameRu, name_uz = dto.nameUz, name_uzl = dto.nameUzl, s_create = DateTime.Now };
+        db.SpSections.Add(item);
+        await db.SaveChangesAsync();
+        await InvalidateCache();
+        return Ok(new { id = item.id, code = item.code, nameRu = item.name_ru, nameUz = item.name_uz, nameUzl = item.name_uzl });
+    }
+
+    [HttpPut("sections/{id:long}")]
+    public async Task<IActionResult> UpdateSection(long id, [FromBody] RefSaveDto dto)
+    {
+        var item = await db.SpSections.FindAsync(id);
+        if (item == null) return NotFound();
+        item.code = dto.code; item.name_ru = dto.nameRu; item.name_uz = dto.nameUz; item.name_uzl = dto.nameUzl;
+        db.SpSections.Update(item);
+        await db.SaveChangesAsync();
+        await InvalidateCache();
+        return Ok(new { id = item.id, code = item.code, nameRu = item.name_ru, nameUz = item.name_uz, nameUzl = item.name_uzl });
+    }
+
+    [HttpDelete("sections/{id:long}")]
+    public async Task<IActionResult> DeleteSection(long id)
+    {
+        var item = await db.SpSections.FindAsync(id);
+        if (item == null) return NotFound();
+        db.SpSections.Remove(item);
+        await db.SaveChangesAsync();
+        await InvalidateCache();
+        return NoContent();
+    }
+
+    // ── camps ────────────────────────────────────────────────────────────────
+
+    [HttpPost("camps")]
+    public async Task<IActionResult> CreateCamp([FromBody] RefSaveDto dto)
+    {
+        var item = new TCamp { camps_name = dto.nameRu, s_create = DateTime.Now };
+        db.TCamps.Add(item);
+        await db.SaveChangesAsync();
+        await InvalidateCache();
+        return Ok(new { id = item.id, nameRu = item.camps_name, nameUz = item.camps_name });
+    }
+
+    [HttpPut("camps/{id:long}")]
+    public async Task<IActionResult> UpdateCamp(long id, [FromBody] RefSaveDto dto)
+    {
+        var item = await db.TCamps.FindAsync(id);
+        if (item == null) return NotFound();
+        item.camps_name = dto.nameRu;
+        db.TCamps.Update(item);
+        await db.SaveChangesAsync();
+        await InvalidateCache();
+        return Ok(new { id = item.id, nameRu = item.camps_name, nameUz = item.camps_name });
+    }
+
+    [HttpDelete("camps/{id:long}")]
+    public async Task<IActionResult> DeleteCamp(long id)
+    {
+        var item = await db.TCamps.FindAsync(id);
+        if (item == null) return NotFound();
+        db.TCamps.Remove(item);
+        await db.SaveChangesAsync();
+        await InvalidateCache();
+        return NoContent();
     }
 }

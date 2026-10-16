@@ -304,7 +304,10 @@ public class OrganizaciiController(KasabaKIATContext db) : ControllerBase
             .ToListAsync();
 
         foreach (var org in orgs)
+        {
             org.ID_Ot = req.OtraslId;
+            db.TblSpravOrgs.Update(org);
+        }
 
         await db.SaveChangesAsync();
         return Ok(new { updated = orgs.Count });

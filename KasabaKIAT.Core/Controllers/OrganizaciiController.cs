@@ -13,16 +13,16 @@ namespace KasabaKIAT.Core.Controllers;
 
 public class OrgSaveDto
 {
-    public long ID { get; set; }
-    public string? Name_Org { get; set; }
-    public string? INN { get; set; }
-    public long? ID_Ot { get; set; }
-    public string? DepartmentBase { get; set; }
-    public string? Address { get; set; }
-    public string? Name_Short { get; set; }
-    public string? Name_Full { get; set; }
-    public string? SOATO_ID { get; set; }
-    public string? OWNER_CODE { get; set; }
+    public long id { get; set; }
+    public string? name_Org { get; set; }
+    public string? inn { get; set; }
+    public long? id_Ot { get; set; }
+    public string? departmentBase { get; set; }
+    public string? address { get; set; }
+    public string? name_Short { get; set; }
+    public string? name_Full { get; set; }
+    public string? soato_ID { get; set; }
+    public string? owner_CODE { get; set; }
 }
 
 public class FizLicoDto
@@ -105,16 +105,16 @@ public class OrganizaciiController(KasabaKIATContext db) : ControllerBase
             .Take(pageSize)
             .Select(o => new
             {
-                o.ID,
-                o.Name_Org,
-                o.Name_Short,
-                o.Name_Full,
-                o.INN,
-                o.OWNER_CODE,
-                o.ID_Ot,
-                o.DepartmentBase,
-                o.Address,
-                o.SOATO_ID
+                id = o.ID,
+                name_Org = o.Name_Org,
+                name_Short = o.Name_Short,
+                name_Full = o.Name_Full,
+                inn = o.INN,
+                owner_CODE = o.OWNER_CODE,
+                id_Ot = o.ID_Ot,
+                departmentBase = o.DepartmentBase,
+                address = o.Address,
+                soato_ID = o.SOATO_ID
             })
             .ToListAsync();
 
@@ -140,7 +140,7 @@ public class OrganizaciiController(KasabaKIATContext db) : ControllerBase
     {
         var items = await db.TblSpravOtrases
             .OrderBy(o => o.Name_Ot)
-            .Select(o => new { o.ID, o.Name_Ot })
+            .Select(o => new { id = o.ID, name_Ot = o.Name_Ot })
             .ToListAsync();
         return Ok(items);
     }
@@ -155,7 +155,7 @@ public class OrganizaciiController(KasabaKIATContext db) : ControllerBase
     {
         var items = await db.TblSpravOtrases
             .OrderBy(o => o.Name_Ot)
-            .Select(o => new { o.ID, o.Name_Ot })
+            .Select(o => new { id = o.ID, name_Ot = o.Name_Ot })
             .ToListAsync();
         return Ok(items);
     }
@@ -168,7 +168,7 @@ public class OrganizaciiController(KasabaKIATContext db) : ControllerBase
     {
         var items = await db.TblSpravRegs
             .OrderBy(r => r.name_ru)
-            .Select(r => new { r.ID, Name_Reg = r.name_ru, r.code })
+            .Select(r => new { id = r.ID, name_Reg = r.name_ru, code = r.code })
             .ToListAsync();
         return Ok(items);
     }
@@ -193,15 +193,15 @@ public class OrganizaciiController(KasabaKIATContext db) : ControllerBase
 
         var org = new TblSpravOrg
         {
-            Name_Org = dto.Name_Org,
-            INN = dto.INN,
-            ID_Ot = dto.ID_Ot,
-            DepartmentBase = dto.DepartmentBase,
-            Address = dto.Address,
-            Name_Short = dto.Name_Short,
-            Name_Full = dto.Name_Full,
-            SOATO_ID = dto.SOATO_ID,
-            OWNER_CODE = dto.OWNER_CODE,
+            Name_Org = dto.name_Org,
+            INN = dto.inn,
+            ID_Ot = dto.id_Ot,
+            DepartmentBase = dto.departmentBase,
+            Address = dto.address,
+            Name_Short = dto.name_Short,
+            Name_Full = dto.name_Full,
+            SOATO_ID = dto.soato_ID,
+            OWNER_CODE = dto.owner_CODE,
             UserId = userId
         };
 
@@ -219,17 +219,18 @@ public class OrganizaciiController(KasabaKIATContext db) : ControllerBase
         var org = await db.TblSpravOrgs.FindAsync(id);
         if (org == null) return NotFound();
 
-        org.Name_Org = dto.Name_Org;
-        org.INN = dto.INN;
-        org.ID_Ot = dto.ID_Ot;
-        org.DepartmentBase = dto.DepartmentBase;
-        org.Address = dto.Address;
-        org.Name_Short = dto.Name_Short;
-        org.Name_Full = dto.Name_Full;
-        org.SOATO_ID = dto.SOATO_ID;
-        org.OWNER_CODE = dto.OWNER_CODE;
+        org.Name_Org = dto.name_Org;
+        org.INN = dto.inn;
+        org.ID_Ot = dto.id_Ot;
+        org.DepartmentBase = dto.departmentBase;
+        org.Address = dto.address;
+        org.Name_Short = dto.name_Short;
+        org.Name_Full = dto.name_Full;
+        org.SOATO_ID = dto.soato_ID;
+        org.OWNER_CODE = dto.owner_CODE;
         org.UserId = CurrentUserId ?? org.UserId;
 
+        db.TblSpravOrgs.Update(org);
         await db.SaveChangesAsync();
         return Ok(org);
     }
@@ -242,9 +243,22 @@ public class OrganizaciiController(KasabaKIATContext db) : ControllerBase
     {
         var org = await db.TblSpravOrgs.FindAsync(id);
         if (org == null) return NotFound();
-        db.TblSpravOrgs.Remove(org);
+        db.TblSpravOrgs.Remove(org);  // Remove() re-attaches as Deleted
         await db.SaveChangesAsync();
         return NoContent();
+    }
+
+    // -----------------------------------------------------------------------
+    // GET /api/organizations/by-inn/{inn}
+    // -----------------------------------------------------------------------
+    [HttpGet("by-inn/{inn}")]
+    public async Task<IActionResult> GetByInn(string inn)
+    {
+        var item = await db.TblSpravOrgs
+            .Where(o => o.INN == inn)
+            .FirstOrDefaultAsync();
+        if (item == null) return NotFound();
+        return Ok(item);
     }
 
     // -----------------------------------------------------------------------
@@ -258,16 +272,16 @@ public class OrganizaciiController(KasabaKIATContext db) : ControllerBase
             .Where(o => o.ID == id)
             .Select(o => new
             {
-                o.ID,
-                o.Name_Org,
-                o.Name_Short,
-                o.Name_Full,
-                o.INN,
-                o.OWNER_CODE,
-                o.ID_Ot,
-                o.DepartmentBase,
-                o.Address,
-                o.SOATO_ID
+                id = o.ID,
+                name_Org = o.Name_Org,
+                name_Short = o.Name_Short,
+                name_Full = o.Name_Full,
+                inn = o.INN,
+                owner_CODE = o.OWNER_CODE,
+                id_Ot = o.ID_Ot,
+                departmentBase = o.DepartmentBase,
+                address = o.Address,
+                soato_ID = o.SOATO_ID
             })
             .FirstOrDefaultAsync();
 
@@ -313,7 +327,7 @@ public class OrganizaciiController(KasabaKIATContext db) : ControllerBase
 
         var otrasl = await db.TblSpravOtrases
             .Where(o => o.ID == org.ID_Ot)
-            .Select(o => new { o.ID, o.Name_Ot })
+            .Select(o => new { id = o.ID, name_Ot = o.Name_Ot })
             .FirstOrDefaultAsync();
 
         return Ok(otrasl);
@@ -367,7 +381,47 @@ public class OtraslController(KasabaKIATContext db) : ControllerBase
     {
         var items = await db.TblSpravOtrases
             .OrderBy(o => o.Name_Ot)
-            .Select(o => new { o.ID, o.Name_Ot })
+            .Select(o => new { id = o.ID, name = o.Name_Ot })
+            .ToListAsync();
+        return Ok(items);
+    }
+}
+
+// ---------------------------------------------------------------------------
+// RegionController — GET /api/region
+// ---------------------------------------------------------------------------
+
+[ApiController]
+[Route("api/region")]
+[Authorize]
+public class RegionController(KasabaKIATContext db) : ControllerBase
+{
+    [HttpGet]
+    public async Task<IActionResult> GetAll()
+    {
+        var items = await db.TblSpravRegs
+            .OrderBy(r => r.name_ru)
+            .Select(r => new { id = r.ID, name = r.name_ru })
+            .ToListAsync();
+        return Ok(items);
+    }
+}
+
+// ---------------------------------------------------------------------------
+// SpravochnikController — GET /api/spravochnik/profsoyuz
+// ---------------------------------------------------------------------------
+
+[ApiController]
+[Route("api/spravochnik")]
+[Authorize]
+public class SpravochnikController(KasabaKIATContext db) : ControllerBase
+{
+    [HttpGet("profsoyuz")]
+    public async Task<IActionResult> GetProfsoyuz()
+    {
+        var items = await db.TbkuStrokaProfsoyazs
+            .OrderBy(p => p.ProfsoyzNaimenovanie)
+            .Select(p => new { id = p.ID, name = p.ProfsoyzNaimenovanie })
             .ToListAsync();
         return Ok(items);
     }

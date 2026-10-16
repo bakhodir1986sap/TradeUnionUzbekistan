@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 namespace KasabaKIAT.Core.Controllers;
 
 [ApiController]
-[Route("api/organizations")]
+[Route("api/organizations-v1")]
 [Authorize]
 public class OrganizationsController(KasabaKIATContext db) : ControllerBase
 {

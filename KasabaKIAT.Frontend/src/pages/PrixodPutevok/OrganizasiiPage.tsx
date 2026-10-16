@@ -17,8 +17,8 @@ const { Option } = Select;
 /* ─── Types ────────────────────────────────────────────────────────────────── */
 
 interface Otrasl {
-  id_Ot: number;
-  name_Ot: string;
+  id: number;
+  name: string;
 }
 
 interface OrgRecord {
@@ -454,8 +454,8 @@ export function OrganizasiiPage() {
               onChange={v => setFilterOtrasl(v)}
             >
               {otrasls.map(o => (
-                <Option key={o.id_Ot} value={o.id_Ot}>
-                  {o.name_Ot}
+                <Option key={o.id} value={o.id}>
+                  {o.name}
                 </Option>
               ))}
             </Select>
@@ -705,8 +705,8 @@ export function OrganizasiiPage() {
           >
             <Select placeholder="Выберите отрасль" style={{ width: '100%' }}>
               {otrasls.map(o => (
-                <Option key={o.id_Ot} value={o.id_Ot}>
-                  {o.name_Ot}
+                <Option key={o.id} value={o.id}>
+                  {o.name}
                 </Option>
               ))}
             </Select>

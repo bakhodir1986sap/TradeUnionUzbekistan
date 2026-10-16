@@ -37,7 +37,7 @@ public class UserService(KasabaKIATContext db, IAuditService audit, ILogger<User
     {
         var user = new User
         {
-            user_name = request.Login,
+            user_name = request.UserName,
             password = BCrypt.Net.BCrypt.HashPassword(request.Password),
             email = request.Email,
             role_id = request.RoleId,
@@ -55,8 +55,8 @@ public class UserService(KasabaKIATContext db, IAuditService audit, ILogger<User
         db.Users.Add(user);
         await db.SaveChangesAsync(ct);
         await db.Entry(user).Reference(u => u.role).LoadAsync(ct);
-        logger.LogInformation("User created: Id={UserId} UserName={UserName}", user.id, request.Login);
-        await audit.LogAsync(user.id, "USER_CREATE", $"UserName={request.Login}", ct);
+        logger.LogInformation("User created: Id={UserId} UserName={UserName}", user.id, request.UserName);
+        await audit.LogAsync(user.id, "USER_CREATE", $"UserName={request.UserName}", ct);
         return ToDto(user);
     }
 
@@ -65,6 +65,8 @@ public class UserService(KasabaKIATContext db, IAuditService audit, ILogger<User
         var user = await db.Users.Include(u => u.role).FirstOrDefaultAsync(u => u.id == id, ct);
         if (user == null) return null;
 
+        if (request.UserName != null) user.user_name = request.UserName;
+        if (!string.IsNullOrWhiteSpace(request.Password)) user.password = BCrypt.Net.BCrypt.HashPassword(request.Password);
         if (request.Email != null) user.email = request.Email;
         if (request.RoleId.HasValue) user.role_id = request.RoleId;
         if (request.DepId.HasValue) user.dep_id = request.DepId;
@@ -75,7 +77,9 @@ public class UserService(KasabaKIATContext db, IAuditService audit, ILogger<User
         if (request.AccountExpired.HasValue) user.account_expired = request.AccountExpired.Value;
         if (request.State != null) user.state = request.State;
         if (request.Language != null) user.language = request.Language;
+        if (request.UserType != null) user.usertype = request.UserType;
 
+        db.Users.Update(user);
         await db.SaveChangesAsync(ct);
         await db.Entry(user).Reference(u => u.role).LoadAsync(ct);
         logger.LogInformation("User updated: Id={UserId}", id);
@@ -88,6 +92,7 @@ public class UserService(KasabaKIATContext db, IAuditService audit, ILogger<User
         var user = await db.Users.FirstOrDefaultAsync(u => u.id == id, ct);
         if (user == null) return false;
         user.state = "0";
+        db.Users.Update(user);
         await db.SaveChangesAsync(ct);
         logger.LogInformation("User deactivated: Id={UserId}", id);
         await audit.LogAsync(id, "USER_DEACTIVATE", $"TargetUserId={id}", ct);

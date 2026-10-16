@@ -7,7 +7,7 @@ namespace KasabaKIAT.Core.Controllers;
 
 [ApiController]
 [Route("api/roles")]
-[Authorize(Roles = "admin")]
+[Authorize(Policy = "AdminOrSuperAdmin")]
 public class RolesController(IRoleService roleService) : ControllerBase
 {
     [HttpGet]

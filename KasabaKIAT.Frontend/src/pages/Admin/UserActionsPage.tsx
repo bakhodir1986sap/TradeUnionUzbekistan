@@ -21,7 +21,7 @@ export function UserActionsPage() {
 
   const { data = [], isLoading, isError, refetch } = useQuery<UserActionRecord[]>({
     queryKey: ['user-actions'],
-    queryFn: () => api.get('/api/user-actions').then(r => r.data),
+    queryFn: () => api.get('/api/user-actions').then(r => r.data.items),
   });
 
   const filtered = data.filter(row => {

@@ -36,7 +36,7 @@ public class UsersController(IUserService userService) : ControllerBase
     }
 
     [HttpPost]
-    [Authorize(Roles = "admin")]
+    [Authorize(Policy = "AdminOrSuperAdmin")]
     public async Task<IActionResult> Create([FromBody] CreateUserRequest request, CancellationToken ct)
     {
         var user = await userService.CreateAsync(request, ct);
@@ -44,7 +44,7 @@ public class UsersController(IUserService userService) : ControllerBase
     }
 
     [HttpPut("{id:long}")]
-    [Authorize(Roles = "admin")]
+    [Authorize(Policy = "AdminOrSuperAdmin")]
     public async Task<IActionResult> Update(long id, [FromBody] UpdateUserRequest request, CancellationToken ct)
     {
         var user = await userService.UpdateAsync(id, request, ct);
@@ -52,7 +52,7 @@ public class UsersController(IUserService userService) : ControllerBase
     }
 
     [HttpDelete("{id:long}")]
-    [Authorize(Roles = "admin")]
+    [Authorize(Policy = "AdminOrSuperAdmin")]
     public async Task<IActionResult> Deactivate(long id, CancellationToken ct)
     {
         var result = await userService.DeactivateAsync(id, ct);

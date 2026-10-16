@@ -52,7 +52,15 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         };
     });
 
-builder.Services.AddAuthorization();
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("AdminOrSuperAdmin", policy =>
+        policy.RequireAssertion(ctx =>
+            ctx.User.FindFirst("is_super_admin")?.Value == "True" ||
+            ctx.User.Claims
+               .Where(c => c.Type == System.Security.Claims.ClaimTypes.Role)
+               .Any(c => c.Value.Equals("admin", StringComparison.OrdinalIgnoreCase))));
+});
 
 var authPermitLimit = builder.Configuration.GetValue<int>("RateLimiting:AuthPermitLimit", 10);
 builder.Services.AddRateLimiter(options =>

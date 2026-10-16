@@ -111,8 +111,12 @@ export function CrudTable<T extends { id: number }>({
           form={form}
           layout="vertical"
           onFinish={async (v) => {
-            await onSave(v as Record<string, unknown>, editing);
-            setModalOpen(false);
+            try {
+              await onSave(v as Record<string, unknown>, editing);
+              setModalOpen(false);
+            } catch {
+              // onError in the mutation handles user feedback
+            }
           }}
         >
           {formFields}

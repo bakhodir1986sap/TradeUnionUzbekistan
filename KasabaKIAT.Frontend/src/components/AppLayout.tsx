@@ -85,7 +85,6 @@ export function AppLayout() {
             { key: '/prixod-putevok/fizlica', label: t('nav.fizlicaPutyovki') },
             { key: '/prixod-putevok/fizlica-v2', label: t('nav.fizlicaV2') },
             { key: '/prixod-putevok/organizasii', label: t('nav.organizasiiPutyovki') },
-            { key: '/prixod-putevok/organizasii-v2', label: t('nav.organizasiiV2') },
             { key: '/prixod-putevok/start-process', label: t('nav.startProcess') },
             { key: '/prixod-putevok/sverka', label: t('nav.sverka') },
             { key: '/prixod-putevok/sverka-v2', label: t('nav.sverkaV2') },

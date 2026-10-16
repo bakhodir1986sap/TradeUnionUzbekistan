@@ -21,7 +21,6 @@ const DanniyeVladelsaxPutyovokPage = lazy(() => import('./pages/PrixodPutevok/Da
 const FizLisoPage = lazy(() => import('./pages/PrixodPutevok/FizLisoPage').then(m => ({ default: m.FizLisoPage })));
 const FizLisoV2Page = lazy(() => import('./pages/PrixodPutevok/FizLisoV2Page').then(m => ({ default: m.FizLisoV2Page })));
 const OrganizasiiPage = lazy(() => import('./pages/PrixodPutevok/OrganizasiiPage').then(m => ({ default: m.OrganizasiiPage })));
-const OrganizasiiV2Page = lazy(() => import('./pages/PrixodPutevok/OrganizasiiV2Page').then(m => ({ default: m.OrganizasiiV2Page })));
 const StartProcessPage = lazy(() => import('./pages/PrixodPutevok/StartProcessPage').then(m => ({ default: m.StartProcessPage })));
 const SverkaDannixPage = lazy(() => import('./pages/PrixodPutevok/SverkaDannixPage').then(m => ({ default: m.SverkaDannixPage })));
 const SverkaDannixV2Page = lazy(() => import('./pages/PrixodPutevok/SverkaDannixV2Page').then(m => ({ default: m.SverkaDannixV2Page })));
@@ -81,7 +80,6 @@ export function AppRouter() {
           <Route path="prixod-putevok/fizlica" element={<FizLisoPage />} />
           <Route path="prixod-putevok/fizlica-v2" element={<FizLisoV2Page />} />
           <Route path="prixod-putevok/organizasii" element={<OrganizasiiPage />} />
-          <Route path="prixod-putevok/organizasii-v2" element={<OrganizasiiV2Page />} />
           <Route path="prixod-putevok/start-process" element={<StartProcessPage />} />
           <Route path="prixod-putevok/sverka" element={<SverkaDannixPage />} />
           <Route path="prixod-putevok/sverka-v2" element={<SverkaDannixV2Page />} />

@@ -152,7 +152,7 @@ public class SverkaDannixController(KasabaKIATContext db) : ControllerBase
             .ToListAsync();
 
         // Profsoyuz distribution side
-        var profQuery = db.TblSpisokRaspredeleniyas
+        var profQuery = db.TbkuSpisokRaspredeleniyas
             .Where(p => p.GodZaezdov == year);
         if (!string.IsNullOrEmpty(sanId))
             profQuery = profQuery.Where(p => p.SanatoryKod == sanId);
@@ -435,8 +435,12 @@ public class RealizatsiyaPutevokController(KasabaKIATContext db) : ControllerBas
 
         if (sanatIds != null && sanatIds.Length > 0)
         {
-            var ids = string.Join(",", sanatIds);
-            conditions.Add($"p.ID_San IN ({ids})");
+            var sanParams = sanatIds.Select((v, i) =>
+            {
+                parameters.Add(new Microsoft.Data.SqlClient.SqlParameter($"@SanId{i}", v));
+                return $"@SanId{i}";
+            });
+            conditions.Add($"p.ID_San IN ({string.Join(",", sanParams)})");
         }
 
         if (conditions.Count > 0)

@@ -128,6 +128,9 @@ public class OprixodovaniyeKuController(KasabaKIATContext db) : ControllerBase
                     !uint.TryParse(line.Blank2, out uint end))
                     continue;
 
+                if (begin > end)
+                    return BadRequest(new { message = $"Blank1 ({line.Blank1}) превышает Blank2 ({line.Blank2}) в строке {line.SanatoryKod}." });
+
                 int sanatId = 0;
                 if (int.TryParse(line.SanatoryKod, out int parsedSanatId))
                 {
@@ -156,7 +159,7 @@ public class OprixodovaniyeKuController(KasabaKIATContext db) : ControllerBase
 
                 for (uint j = begin; j <= end; j++)
                 {
-                    var detail = new TblPosPutDetail
+                    var detail = new TblPosPut
                     {
                         ID_Post = post.ID,
                         ID_Sanat = sanatId,
@@ -170,7 +173,7 @@ public class OprixodovaniyeKuController(KasabaKIATContext db) : ControllerBase
                         Departmentbase = deptBase,
                         TIMESTAMP_T = DateTime.Now
                     };
-                    db.TblPosPutDetails.Add(detail);
+                    db.TblPosPuts.Add(detail);
                 }
             }
 

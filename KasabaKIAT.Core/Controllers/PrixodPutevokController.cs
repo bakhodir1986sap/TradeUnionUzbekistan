@@ -216,7 +216,7 @@ public class PrixodPutevokController(KasabaKIATContext db) : ControllerBase
         if (header == null) return NotFound();
         if (!isSuperAdmin && header.DepartmentBase != depBase) return Forbid();
 
-        var details = await db.TblPosPutDetails
+        var details = await db.TblPosPuts
             .Where(d => d.ID_Post == id)
             .OrderBy(d => d.Num_Put)
             .Select(d => new
@@ -257,7 +257,7 @@ public class PrixodPutevokController(KasabaKIATContext db) : ControllerBase
         if (!isSuperAdmin && post.DepartmentBase != depBase) return Forbid();
         if (post.Vid) return BadRequest(new { message = "Документ уже оприходован." });
 
-        var totals = await db.TblPosPutDetails
+        var totals = await db.TblPosPuts
             .Where(d => d.ID_Post == id)
             .GroupBy(_ => 1)
             .Select(g => new { Count = g.Count(), Summa = g.Sum(d => d.Symma_Put ?? 0) })

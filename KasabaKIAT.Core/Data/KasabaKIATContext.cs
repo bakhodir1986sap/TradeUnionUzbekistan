@@ -53,7 +53,6 @@ public partial class KasabaKIATContext(
     public virtual DbSet<TbptYearlyPlanRegion> TbptYearlyPlanRegions { get; set; } = null!;
     public virtual DbSet<TbptYearlyPlanOtrasl> TbptYearlyPlanOtrasls { get; set; } = null!;
     public virtual DbSet<TbptAvaragePrice> TbptAvaragePrices { get; set; } = null!;
-    public virtual DbSet<TblSpisokRaspredeleniya> TblSpisokRaspredeleniyas { get; set; } = null!;
     public virtual DbSet<TbkuGrafikZaezdov> TbkuGrafikZaezdovs { get; set; } = null!;
     public virtual DbSet<TbkuStrokaProfsoyza> TbkuStrokaProfsoyazs { get; set; } = null!;
     public virtual DbSet<TEgrpo> TEgrpos { get; set; } = null!;
@@ -62,7 +61,6 @@ public partial class KasabaKIATContext(
     public virtual DbSet<TbbuPlatejka> TbbuPlatejkas { get; set; } = null!;
     public virtual DbSet<TblPosPut> TblPosPuts { get; set; } = null!;
     public virtual DbSet<TblPost> TblPosts { get; set; } = null!;
-    public virtual DbSet<TblPosPutDetail> TblPosPutDetails { get; set; } = null!;
     public virtual DbSet<TblCloseDay> TblCloseDays { get; set; } = null!;
     public virtual DbSet<TblHoliday> TblHolidays { get; set; } = null!;
     public virtual DbSet<TblCloseHistory> TblCloseHistories { get; set; } = null!;

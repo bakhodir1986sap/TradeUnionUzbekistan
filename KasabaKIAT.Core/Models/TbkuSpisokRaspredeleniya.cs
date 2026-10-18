@@ -7,7 +7,7 @@ namespace KasabaKIAT.Core.Models;
 public class TbkuSpisokRaspredeleniya
 {
     [Key] public long ID { get; set; }
-    public int? GodZaezdov { get; set; }
+    public long? GodZaezdov { get; set; }
     public string? SanatoryKod { get; set; }
     public string? ProfsoyzKod { get; set; }
     public string? SanatoryRazmeshenieKod { get; set; }

@@ -19,4 +19,13 @@ public class TblPosPut
     public string? DEPARTMENT_BASE { get; set; }
     public string? SMFIL { get; set; }
     public DateTime? MODIFY_DATE { get; set; }
+    public long? ID_Post { get; set; }
+    public int? ID_Sanat { get; set; }
+    public DateTime? DataSan { get; set; }
+    public DateTime? DataSanEnd { get; set; }
+    public decimal? Symma_Put { get; set; }
+    public bool? ID_PolVoz { get; set; }
+    public DateTime? Data_Post { get; set; }
+    public string? Departmentbase { get; set; }
+    public DateTime? TIMESTAMP_T { get; set; }
 }

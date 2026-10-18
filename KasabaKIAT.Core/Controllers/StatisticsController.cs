@@ -200,7 +200,7 @@ public class StatisticsController(KasabaKIATContext db) : ControllerBase
         var depBase = User.FindFirstValue("bkut_id");
         var isSuperAdmin = User.FindFirstValue("is_super_admin") == "True";
 
-        var detailQuery = db.TblPosPutDetails
+        var detailQuery = db.TblPosPuts
             .Where(d => d.ID_PolVoz == true);
 
         if (!isSuperAdmin && !string.IsNullOrEmpty(depBase))

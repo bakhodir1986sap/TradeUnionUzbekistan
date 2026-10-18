@@ -7,7 +7,7 @@ namespace KasabaKIAT.Core.Models;
 public class TblPost
 {
     [Key] public long ID { get; set; }
-    public int? ID_KV { get; set; }
+    public long? ID_KV { get; set; }
     public DateTime? Data_Post { get; set; }
     public string? Num_Doc { get; set; }
     public long? ID_Pos { get; set; }
@@ -20,4 +20,5 @@ public class TblPost
     public string? DepartmentBase { get; set; }
     public int? BeginNumber { get; set; }
     public int? EndNumber { get; set; }
+    public long? PROVODKA_ID { get; set; }
 }

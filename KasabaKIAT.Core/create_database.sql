@@ -939,7 +939,16 @@ CREATE TABLE [tblPos_Put] (
     [UserId]          BIGINT NULL,
     [DEPARTMENT_BASE] NVARCHAR(255) NULL,
     [SMFIL]           NVARCHAR(50) NULL,
-    [MODIFY_DATE]     DATETIME2 NULL
+    [MODIFY_DATE]     DATETIME2 NULL,
+    [ID_Post]         BIGINT NULL,
+    [ID_Sanat]        INT NULL,
+    [DataSan]         DATETIME2 NULL,
+    [DataSanEnd]      DATETIME2 NULL,
+    [Symma_Put]       DECIMAL(18,2) NULL,
+    [ID_PolVoz]       BIT NULL,
+    [Data_Post]       DATETIME2 NULL,
+    [Departmentbase]  NVARCHAR(255) NULL,
+    [TIMESTAMP_T]     DATETIME2 NULL
 );
 GO
 

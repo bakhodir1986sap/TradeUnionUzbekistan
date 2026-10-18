@@ -43,7 +43,7 @@ public class RuchnoyNakladnoyRow
 {
     public long Id { get; set; }
     public int? SmFil { get; set; }
-    public int? IdKv { get; set; }
+    public long? IdKv { get; set; }
     public string? DepartmentBase { get; set; }
     public long? UserId { get; set; }
     public string? NumDoc { get; set; }
@@ -113,40 +113,47 @@ public class PrixodPutyovokRuchnoyController(KasabaKIATContext db) : ControllerB
         CancellationToken ct)
     {
         var depBase = GetDepartmentBase();
+        var isSuperAdmin = User.FindFirstValue("is_super_admin") == "True";
 
-        // Try raw SQL first — tblPost may or may not exist.
-        // We query tblPost joined with tblPost_Put for counts.
-        const string sql = """
+        var sqlBase = """
             SELECT
                 p.ID,
                 p.SmFil,
-                p.Id_Kv   AS IdKv,
+                p.ID_KV   AS IdKv,
                 p.DepartmentBase,
                 p.UserId,
                 p.Num_Doc  AS NumDoc,
                 p.Data_Post AS DataPost,
-                p.Pos_Name  AS PosName,
-                p.Num_Dov   AS NumDov,
-                p.Status,
-                COUNT(pp.ID)       AS PutyovkaCount,
+                p.Name_Dov  AS PosName,
+                p.DovNum    AS NumDov,
+                CAST(p.Vid AS varchar(10)) AS Status,
+                COUNT(pp.ID)              AS PutyovkaCount,
                 ISNULL(SUM(pp.Symma_Put), 0) AS SummaLinked
             FROM tblPost p
-            LEFT JOIN tblPost_Put pp ON pp.IdPost = p.ID
-            WHERE p.SmFil = {0}
-              AND p.Id_Kv  = {1}
-              AND p.DepartmentBase = {2}
+            LEFT JOIN tblPos_Put pp ON pp.ID_Post = p.ID
+            WHERE YEAR(p.Data_Post) = {0}
+              AND p.ID_KV = {1}
+            """;
+        var sqlGroupOrder = """
+
             GROUP BY
-                p.ID, p.SmFil, p.Id_Kv, p.DepartmentBase, p.UserId,
-                p.Num_Doc, p.Data_Post, p.Pos_Name, p.Num_Dov, p.Status
+                p.ID, p.SmFil, p.ID_KV, p.DepartmentBase, p.UserId,
+                p.Num_Doc, p.Data_Post, p.Name_Dov, p.DovNum, p.Vid
             ORDER BY p.Data_Post DESC
             """;
 
         List<RuchnoyNakladnoyRow> nakladnoys;
         try
         {
-            nakladnoys = await db.Database
-                .SqlQueryRaw<RuchnoyNakladnoyRow>(sql, year, quarter, depBase!)
-                .ToListAsync(ct);
+            nakladnoys = isSuperAdmin
+                ? await db.Database
+                    .SqlQueryRaw<RuchnoyNakladnoyRow>(sqlBase + sqlGroupOrder, year, quarter)
+                    .ToListAsync(ct)
+                : await db.Database
+                    .SqlQueryRaw<RuchnoyNakladnoyRow>(
+                        sqlBase + "  AND p.DepartmentBase = {2}" + sqlGroupOrder,
+                        year, quarter, depBase!)
+                    .ToListAsync(ct);
         }
         catch
         {
@@ -163,24 +170,22 @@ public class PrixodPutyovokRuchnoyController(KasabaKIATContext db) : ControllerB
         return Ok(new { nakladnoys, stats });
     }
 
-    // ── GET /api/prixod-putevok/ruchnoy/{id}/details ─────────────────────────
-
     [HttpGet("{id:long}/details")]
     public async Task<IActionResult> GetDetailList(long id, CancellationToken ct)
     {
         const string sql = """
             SELECT
                 pp.ID,
-                pp.IdPost,
-                pp.IdSan,
+                pp.ID_Post   AS IdPost,
+                pp.ID_Sanat  AS IdSan,
                 pp.Num_Put   AS NumPut,
-                pp.DataSan,
+                pp.DataNach  AS DataSan,
                 pp.Symma_Put AS SymmaPut,
-                pp.StatusPutyovki,
+                pp.Status    AS StatusPutyovki,
                 s.Name_San   AS SanName
-            FROM tblPost_Put pp
-            LEFT JOIN tblSprav_San s ON s.ID = pp.IdSan
-            WHERE pp.IdPost = {0}
+            FROM tblPos_Put pp
+            LEFT JOIN tblSprav_San s ON s.ID = pp.ID_Sanat
+            WHERE pp.ID_Post = {0}
             ORDER BY pp.Num_Put
             """;
 
@@ -210,16 +215,16 @@ public class PrixodPutyovokRuchnoyController(KasabaKIATContext db) : ControllerB
         const string sql = """
             SELECT
                 pp.ID,
-                pp.IdPost,
-                pp.IdSan,
+                pp.ID_Post   AS IdPost,
+                pp.ID_Sanat  AS IdSan,
                 pp.Num_Put   AS NumPut,
-                pp.DataSan,
+                pp.DataNach  AS DataSan,
                 pp.Symma_Put AS SymmaPut,
-                pp.StatusPutyovki,
+                pp.Status    AS StatusPutyovki,
                 s.Name_San   AS SanName
-            FROM tblPost_Put pp
-            LEFT JOIN tblSprav_San s ON s.ID = pp.IdSan
-            WHERE pp.IdPost = {0}
+            FROM tblPos_Put pp
+            LEFT JOIN tblSprav_San s ON s.ID = pp.ID_Sanat
+            WHERE pp.ID_Post = {0}
             ORDER BY pp.Num_Put
             """;
 
@@ -281,25 +286,29 @@ public class PrixodPutyovokRuchnoyController(KasabaKIATContext db) : ControllerB
         CancellationToken ct)
     {
         var depBase = GetDepartmentBase();
+        var isSuperAdmin = User.FindFirstValue("is_super_admin") == "True";
 
-        const string sql = """
+        var sqlBase = """
             SELECT
                 COUNT(DISTINCT p.ID)             AS NakladnoyCount,
                 ISNULL(COUNT(pp.ID), 0)           AS PutyovkaCount,
                 ISNULL(SUM(pp.Symma_Put), 0)      AS SummaNakladnix
             FROM tblPost p
-            LEFT JOIN tblPost_Put pp ON pp.IdPost = p.ID
-            WHERE p.SmFil = {0}
-              AND p.Id_Kv  = {1}
-              AND p.DepartmentBase = {2}
+            LEFT JOIN tblPos_Put pp ON pp.ID_Post = p.ID
+            WHERE YEAR(p.Data_Post) = {0}
+              AND p.ID_KV = {1}
             """;
 
         List<NakladnoyStats> statsRows;
         try
         {
-            statsRows = await db.Database
-                .SqlQueryRaw<NakladnoyStats>(sql, year, quarter, depBase!)
-                .ToListAsync(ct);
+            statsRows = isSuperAdmin
+                ? await db.Database
+                    .SqlQueryRaw<NakladnoyStats>(sqlBase, year, quarter)
+                    .ToListAsync(ct)
+                : await db.Database
+                    .SqlQueryRaw<NakladnoyStats>(sqlBase + "  AND p.DepartmentBase = {2}", year, quarter, depBase!)
+                    .ToListAsync(ct);
         }
         catch
         {
@@ -321,9 +330,9 @@ public class PrixodPutyovokRuchnoyController(KasabaKIATContext db) : ControllerB
         var depBase = GetDepartmentBase();
 
         const string sql = """
-            INSERT INTO tblPost (SmFil, Id_Kv, DepartmentBase, UserId, Num_Doc, Data_Post, Pos_Name, Num_Dov, Status)
+            INSERT INTO tblPost (SmFil, ID_KV, DepartmentBase, UserId, Num_Doc, Data_Post, Name_Dov, DovNum, Vid)
             OUTPUT INSERTED.ID
-            VALUES ({0}, {1}, {2}, {3}, {4}, {5}, {6}, {7}, 'NEW')
+            VALUES ({0}, {1}, {2}, {3}, {4}, {5}, {6}, {7}, 0)
             """;
 
         long newId;
@@ -354,10 +363,10 @@ public class PrixodPutyovokRuchnoyController(KasabaKIATContext db) : ControllerB
     {
         const string sql = """
             UPDATE tblPost
-            SET Pos_Name  = {0},
+            SET Name_Dov  = {0},
                 Num_Doc   = {1},
                 Data_Post = {2},
-                Num_Dov   = {3}
+                DovNum    = {3}
             WHERE ID = {4}
             """;
 
@@ -385,7 +394,7 @@ public class PrixodPutyovokRuchnoyController(KasabaKIATContext db) : ControllerB
         {
             // Delete detail lines first
             await db.Database.ExecuteSqlRawAsync(
-                "DELETE FROM tblPost_Put WHERE IdPost = {0}", id, ct);
+                "DELETE FROM tblPos_Put WHERE ID_Post = {0}", id, ct);
 
             // Delete header
             var affected = await db.Database.ExecuteSqlRawAsync(
@@ -460,8 +469,8 @@ public class PrixodPutyovokRuchnoyController(KasabaKIATContext db) : ControllerB
             {
                 await db.Database.ExecuteSqlRawAsync(
                     """
-                    INSERT INTO tblPost_Put (IdPost, IdSan, Num_Put, DataSan, Symma_Put, StatusPutyovki)
-                    VALUES ({0}, {1}, {2}, {3}, {4}, 'NEW')
+                    INSERT INTO tblPos_Put (ID_Post, ID_Sanat, Num_Put, DataNach, Symma_Put, Status, MODIFY_DATE)
+                    VALUES ({0}, {1}, {2}, {3}, {4}, 'NEW', GETDATE())
                     """,
                     id, req.IdSan, numPut, req.SanatDate, req.Price, ct);
                 inserted.Add(numPut);
@@ -483,7 +492,7 @@ public class PrixodPutyovokRuchnoyController(KasabaKIATContext db) : ControllerB
         try
         {
             var affected = await db.Database.ExecuteSqlRawAsync(
-                "DELETE FROM tblPost_Put WHERE ID = {0}", voucherId, ct);
+                "DELETE FROM tblPos_Put WHERE ID = {0}", voucherId, ct);
 
             if (affected == 0) return NotFound();
         }
@@ -514,9 +523,9 @@ public class PrixodPutyovokRuchnoyController(KasabaKIATContext db) : ControllerB
             voucherRows = await db.Database
                 .SqlQueryRaw<NakladnoyDetailRow>(
                     """
-                    SELECT pp.ID, pp.IdPost, pp.IdSan, pp.Num_Put AS NumPut,
-                           pp.DataSan, pp.Symma_Put AS SymmaPut, pp.StatusPutyovki, '' AS SanName
-                    FROM tblPost_Put pp
+                    SELECT pp.ID, pp.ID_Post AS IdPost, pp.ID_Sanat AS IdSan, pp.Num_Put AS NumPut,
+                           pp.DataNach AS DataSan, pp.Symma_Put AS SymmaPut, pp.Status AS StatusPutyovki, '' AS SanName
+                    FROM tblPos_Put pp
                     WHERE pp.ID = {0}
                     """, voucherId)
                 .ToListAsync(ct);
@@ -564,7 +573,7 @@ public class PrixodPutyovokRuchnoyController(KasabaKIATContext db) : ControllerB
         try
         {
             await db.Database.ExecuteSqlRawAsync(
-                "UPDATE tblPost_Put SET StatusPutyovki = 'BRON' WHERE ID = {0}",
+                "UPDATE tblPos_Put SET Status = 'BRON' WHERE ID = {0}",
                 voucherId, ct);
         }
         catch (Exception ex)
@@ -591,9 +600,9 @@ public class PrixodPutyovokRuchnoyController(KasabaKIATContext db) : ControllerB
             voucherRows = await db.Database
                 .SqlQueryRaw<NakladnoyDetailRow>(
                     """
-                    SELECT pp.ID, pp.IdPost, pp.IdSan, pp.Num_Put AS NumPut,
-                           pp.DataSan, pp.Symma_Put AS SymmaPut, pp.StatusPutyovki, '' AS SanName
-                    FROM tblPost_Put pp
+                    SELECT pp.ID, pp.ID_Post AS IdPost, pp.ID_Sanat AS IdSan, pp.Num_Put AS NumPut,
+                           pp.DataNach AS DataSan, pp.Symma_Put AS SymmaPut, pp.Status AS StatusPutyovki, '' AS SanName
+                    FROM tblPos_Put pp
                     WHERE pp.ID = {0}
                     """, voucherId)
                 .ToListAsync(ct);
@@ -621,7 +630,7 @@ public class PrixodPutyovokRuchnoyController(KasabaKIATContext db) : ControllerB
         try
         {
             await db.Database.ExecuteSqlRawAsync(
-                "UPDATE tblPost_Put SET StatusPutyovki = 'FREE' WHERE ID = {0}",
+                "UPDATE tblPos_Put SET Status = 'FREE' WHERE ID = {0}",
                 voucherId, ct);
         }
         catch (Exception ex)
@@ -645,7 +654,7 @@ public class PrixodPutyovokRuchnoyController(KasabaKIATContext db) : ControllerB
         try
         {
             var affected = await db.Database.ExecuteSqlRawAsync(
-                "UPDATE tblPost_Put SET DataSan = {0} WHERE ID = {1}",
+                "UPDATE tblPos_Put SET DataNach = {0} WHERE ID = {1}",
                 req.NewDate, voucherId, ct);
 
             if (affected == 0) return NotFound();
@@ -668,7 +677,7 @@ public class PrixodPutyovokRuchnoyController(KasabaKIATContext db) : ControllerB
     {
         var depBase = GetDepartmentBase();
 
-        // Join brons with tblPost_Put and tblPost to filter by year/quarter
+        // Join brons with tblPos_Put and tblPost to filter by year/quarter
         const string sql = """
             SELECT
                 b.ID,
@@ -683,10 +692,10 @@ public class PrixodPutyovokRuchnoyController(KasabaKIATContext db) : ControllerB
                 s.Name_San  AS SanName
             FROM tblBrons b
             LEFT JOIN tblSprav_San s ON s.ID = b.ID_Sanat
-            INNER JOIN tblPost_Put pp ON pp.IdSan = b.ID_Sanat AND pp.Num_Put = b.Num_Put
-            INNER JOIN tblPost p ON p.ID = pp.IdPost
-                                 AND p.SmFil = {0}
-                                 AND p.Id_Kv = {1}
+            INNER JOIN tblPos_Put pp ON pp.ID_Sanat = b.ID_Sanat AND pp.Num_Put = b.Num_Put
+            INNER JOIN tblPost p ON p.ID = pp.ID_Post
+                                 AND YEAR(p.Data_Post) = {0}
+                                 AND p.ID_KV = {1}
                                  AND p.DepartmentBase = {2}
             WHERE b.BRON_FLG = 1
               AND b.DEPARTMENT_BASE = {2}
@@ -740,24 +749,24 @@ public class PrixodPutyovokRuchnoyController(KasabaKIATContext db) : ControllerB
             SELECT
                 p.ID,
                 p.SmFil,
-                p.Id_Kv   AS IdKv,
+                p.ID_KV   AS IdKv,
                 p.DepartmentBase,
                 p.UserId,
                 p.Num_Doc  AS NumDoc,
                 p.Data_Post AS DataPost,
-                p.Pos_Name  AS PosName,
-                p.Num_Dov   AS NumDov,
-                p.Status,
+                p.Name_Dov  AS PosName,
+                p.DovNum    AS NumDov,
+                CAST(p.Vid AS varchar(10)) AS Status,
                 COUNT(pp.ID)              AS PutyovkaCount,
                 ISNULL(SUM(pp.Symma_Put), 0) AS SummaLinked
             FROM tblPost p
-            LEFT JOIN tblPost_Put pp ON pp.IdPost = p.ID
-            WHERE p.SmFil = {0}
-              AND p.Id_Kv  = {1}
+            LEFT JOIN tblPos_Put pp ON pp.ID_Post = p.ID
+            WHERE YEAR(p.Data_Post) = {0}
+              AND p.ID_KV = {1}
               AND p.DepartmentBase = {2}
             GROUP BY
-                p.ID, p.SmFil, p.Id_Kv, p.DepartmentBase, p.UserId,
-                p.Num_Doc, p.Data_Post, p.Pos_Name, p.Num_Dov, p.Status
+                p.ID, p.SmFil, p.ID_KV, p.DepartmentBase, p.UserId,
+                p.Num_Doc, p.Data_Post, p.Name_Dov, p.DovNum, p.Vid
             ORDER BY p.Data_Post
             """;
 
@@ -783,11 +792,11 @@ public class PrixodPutyovokRuchnoyController(KasabaKIATContext db) : ControllerB
                 details = await db.Database
                     .SqlQueryRaw<NakladnoyDetailRow>(
                         """
-                        SELECT pp.ID, pp.IdPost, pp.IdSan, pp.Num_Put AS NumPut,
-                               pp.DataSan, pp.Symma_Put AS SymmaPut, pp.StatusPutyovki, s.Name_San AS SanName
-                        FROM tblPost_Put pp
-                        LEFT JOIN tblSprav_San s ON s.ID = pp.IdSan
-                        WHERE pp.IdPost = {0}
+                        SELECT pp.ID, pp.ID_Post AS IdPost, pp.ID_Sanat AS IdSan, pp.Num_Put AS NumPut,
+                               pp.DataNach AS DataSan, pp.Symma_Put AS SymmaPut, pp.Status AS StatusPutyovki, s.Name_San AS SanName
+                        FROM tblPos_Put pp
+                        LEFT JOIN tblSprav_San s ON s.ID = pp.ID_Sanat
+                        WHERE pp.ID_Post = {0}
                         ORDER BY pp.Num_Put
                         """, row.Id)
                     .ToListAsync(ct);

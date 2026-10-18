@@ -803,7 +803,11 @@ CREATE TABLE [tblPost] (
     [DepartmentBase]  NVARCHAR(255) NULL,
     [BeginNumber]     INT NULL,
     [EndNumber]       INT NULL,
-    [PROVODKA_ID]     BIGINT NULL
+    [PROVODKA_ID]     BIGINT NULL,
+    [TipVidachi]      NVARCHAR(100) NULL,
+    [Dogovor]         NVARCHAR(100) NULL,
+    [DovNum]          NVARCHAR(50) NULL,
+    [DovDate]         DATETIME2 NULL
 );
 GO
 

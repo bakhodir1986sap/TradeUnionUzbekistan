@@ -20,19 +20,19 @@ interface KuInvoice {
   komVidan: string;
   kolPutevok: number;
   summa: number;
+  vid: boolean;
 }
 
 interface KuDetail {
   id: number;
   sanat: string;
-  razmeshenie: string;
+  numPut: string;
   tip: string;
-  dataZaezda: string;
-  numS: number;
-  numPo: number;
-  kol: number;
+  dataNach: string;
+  dataKon: string;
   stoimost: number;
   summa: number;
+  status: string;
 }
 
 interface ZbOption {
@@ -77,7 +77,7 @@ export function IndexPage() {
     queryKey: ['prixod-putevok-ku-details', selectedInvoice?.id],
     queryFn: async () => {
       const res = await api.get(`/api/prixod-putevok/ku/${selectedInvoice!.id}/details`);
-      return res.data;
+      return res.data.details;
     },
     enabled: detailModalOpen && selectedInvoice !== null,
   });
@@ -198,9 +198,9 @@ export function IndexPage() {
       key: 'sanat',
     },
     {
-      title: 'Размещение',
-      dataIndex: 'razmeshenie',
-      key: 'razmeshenie',
+      title: 'Номер путевки',
+      dataIndex: 'numPut',
+      key: 'numPut',
     },
     {
       title: 'Тип',
@@ -208,25 +208,16 @@ export function IndexPage() {
       key: 'tip',
     },
     {
-      title: 'Дата заезда',
-      dataIndex: 'dataZaezda',
-      key: 'dataZaezda',
+      title: 'Дата начала',
+      dataIndex: 'dataNach',
+      key: 'dataNach',
       render: (val: string) => val ? dayjs(val).format('DD.MM.YYYY') : '',
     },
     {
-      title: 'Номер с',
-      dataIndex: 'numS',
-      key: 'numS',
-    },
-    {
-      title: 'Номер по',
-      dataIndex: 'numPo',
-      key: 'numPo',
-    },
-    {
-      title: 'Кол-во',
-      dataIndex: 'kol',
-      key: 'kol',
+      title: 'Дата конца',
+      dataIndex: 'dataKon',
+      key: 'dataKon',
+      render: (val: string) => val ? dayjs(val).format('DD.MM.YYYY') : '',
     },
     {
       title: 'Стоимость',
@@ -245,6 +236,11 @@ export function IndexPage() {
         val !== undefined && val !== null
           ? val.toLocaleString('ru-RU', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
           : '',
+    },
+    {
+      title: 'Статус',
+      dataIndex: 'status',
+      key: 'status',
     },
   ];
 
@@ -274,7 +270,7 @@ export function IndexPage() {
           type="primary"
           onClick={handleOprixodovat}
           loading={oprixodovatMutation.isPending}
-          disabled={!selectedInvoice}
+          disabled={!selectedInvoice || selectedInvoice.vid}
         >
           Оприходовать
         </Button>

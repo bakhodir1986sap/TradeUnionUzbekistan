@@ -24,20 +24,23 @@ interface Stats {
 
 interface Nakladnoy {
   id: number;
-  data_Post?: string;
-  num_Doc?: string;
+  dataPost?: string;
+  numDoc?: string;
   posName?: string;
-  num_Kol?: number;
-  symma?: number;
+  putyovkaCount?: number;
+  summaLinked?: number;
+  status?: string;
 }
 
 interface NakladnoyDtl {
   id: number;
-  sanatName?: string;
-  num_Put?: string;
+  idPost?: number;
+  idSan?: number;
+  numPut?: string;
   dataSan?: string;
-  symma_Put?: number;
+  symmaPut?: number;
   statusPutyovki?: string;
+  sanName?: string;
 }
 
 interface RuchnoyResponse {
@@ -208,7 +211,7 @@ export function PrixodPutyovokRuchnoyPage() {
     setEditingInvoice(selectedNakladnoy);
     invoiceForm.setFieldsValue({
       ...selectedNakladnoy,
-      data_Post: selectedNakladnoy.data_Post ? dayjs(selectedNakladnoy.data_Post) : undefined,
+      dataPost: selectedNakladnoy.dataPost ? dayjs(selectedNakladnoy.dataPost) : undefined,
     });
     setInvoiceModalOpen(true);
   };
@@ -232,7 +235,7 @@ export function PrixodPutyovokRuchnoyPage() {
   const handleInvoiceFinish = (values: Record<string, unknown>) => {
     const payload = {
       ...values,
-      data_Post: values.data_Post ? (values.data_Post as dayjs.Dayjs).toISOString() : undefined,
+      dataPost: values.dataPost ? (values.dataPost as dayjs.Dayjs).toISOString() : undefined,
       posName: selectedOrg?.name ?? values.posName,
     };
     saveInvoiceMutation.mutate(payload);
@@ -283,21 +286,21 @@ export function PrixodPutyovokRuchnoyPage() {
   // ── Table columns ──────────────────────────────────────────────────────────
   const invoiceColumns = [
     { title: 'ID', dataIndex: 'id', width: 60 },
-    { title: 'Дата', dataIndex: 'data_Post', width: 110,
+    { title: 'Дата', dataIndex: 'dataPost', width: 110,
       render: (v: string) => v ? dayjs(v).format('DD.MM.YYYY') : '' },
-    { title: '№ документа', dataIndex: 'num_Doc' },
+    { title: '№ документа', dataIndex: 'numDoc' },
     { title: 'Отправитель', dataIndex: 'posName' },
-    { title: 'Кол-во', dataIndex: 'num_Kol', width: 80 },
-    { title: 'Сумма', dataIndex: 'symma', width: 100 },
+    { title: 'Кол-во', dataIndex: 'putyovkaCount', width: 80 },
+    { title: 'Сумма', dataIndex: 'summaLinked', width: 100 },
   ];
 
   const detailColumns = [
     { title: 'ID', dataIndex: 'id', width: 60 },
-    { title: 'Санаторий', dataIndex: 'sanatName' },
-    { title: '№ путевки', dataIndex: 'num_Put', width: 110 },
+    { title: 'Санаторий', dataIndex: 'sanName' },
+    { title: '№ путевки', dataIndex: 'numPut', width: 110 },
     { title: 'Дата', dataIndex: 'dataSan', width: 110,
       render: (v: string) => v ? dayjs(v).format('DD.MM.YYYY') : '' },
-    { title: 'Сумма', dataIndex: 'symma_Put', width: 100 },
+    { title: 'Сумма', dataIndex: 'symmaPut', width: 100 },
     { title: 'Статус', dataIndex: 'statusPutyovki' },
   ];
 
@@ -485,14 +488,14 @@ export function PrixodPutyovokRuchnoyPage() {
       >
         <Form form={invoiceForm} layout="vertical" onFinish={handleInvoiceFinish}>
           <Form.Item
-            name="data_Post"
+            name="dataPost"
             label="Дата"
             rules={[{ required: true, message: 'Укажите дату' }]}
           >
             <DatePicker style={{ width: '100%' }} format="DD.MM.YYYY" />
           </Form.Item>
           <Form.Item
-            name="num_Doc"
+            name="numDoc"
             label="Номер документа"
           >
             <Input />
@@ -509,7 +512,7 @@ export function PrixodPutyovokRuchnoyPage() {
             </Space.Compact>
           </Form.Item>
           <Form.Item
-            name="num_Dov"
+            name="numDov"
             label="Номер доверенности"
           >
             <Input />

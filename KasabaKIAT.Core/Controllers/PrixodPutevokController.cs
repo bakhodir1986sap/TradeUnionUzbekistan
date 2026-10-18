@@ -183,19 +183,21 @@ public class PrixodPutevokController(KasabaKIATContext db) : ControllerBase
             .Select(p => new
             {
                 p.ID,
-                p.ID_KV,
-                p.Data_Post,
-                p.Num_Doc,
-                p.ID_Pos,
-                p.Num_Kol,
-                p.Symma,
-                p.Name_Dov,
-                p.Vid,
-                p.SmFil,
-                p.DepartmentBase,
-                p.BeginNumber,
-                p.EndNumber,
-                OrgName = db.TblSpravOrgs
+                numDoc = p.Num_Doc,
+                dataDoc = p.Data_Post,
+                tipVidachi = p.TipVidachi,
+                dogovor = p.Dogovor,
+                zaKvartal = p.ID_KV,
+                dovNum = p.DovNum,
+                dovDate = p.DovDate,
+                komVidan = p.Name_Dov,
+                kolPutevok = p.Num_Kol,
+                summa = p.Symma,
+                vid = p.Vid,
+                departmentBase = p.DepartmentBase,
+                beginNumber = p.BeginNumber,
+                endNumber = p.EndNumber,
+                orgName = db.TblSpravOrgs
                     .Where(o => o.ID == p.ID_Pos)
                     .Select(o => o.Name_Org)
                     .FirstOrDefault()
@@ -222,22 +224,19 @@ public class PrixodPutevokController(KasabaKIATContext db) : ControllerBase
             .Select(d => new
             {
                 d.ID,
-                d.ID_Post,
-                d.ID_Sanat,
-                SanatName = db.TblSpravSans
+                sanat = db.TblSpravSans
                     .Where(s => s.ID == d.ID_Sanat)
                     .Select(s => s.Name_San)
                     .FirstOrDefault(),
-                d.Num_Put,
-                d.DataSan,
-                d.DataSanEnd,
-                d.Symma_Put,
-                d.ID_PolVoz,
-                d.Data_Post,
-                d.Departmentbase,
-                StatusPutyovki = d.ID_PolVoz == true ? "Реализованная путевка" :
+                numPut = d.Num_Put,
+                tip = d.Tip,
+                dataNach = d.DataNach,
+                dataKon = d.DataKon,
+                stoimost = d.Price,
+                summa = d.Symma_Put,
+                status = d.ID_PolVoz == true ? "Реализованная" :
                     db.TblBrons.Any(b => b.Num_Put == d.Num_Put && b.ID_Sanat == d.ID_Sanat && b.BRON_FLG == true)
-                        ? "Забронированная путевка" : "Свободная путевка"
+                        ? "Забронированная" : "Свободная"
             })
             .ToListAsync();
 

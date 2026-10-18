@@ -21,4 +21,8 @@ public class TblPost
     public int? BeginNumber { get; set; }
     public int? EndNumber { get; set; }
     public long? PROVODKA_ID { get; set; }
+    public string? TipVidachi { get; set; }
+    public string? Dogovor { get; set; }
+    public string? DovNum { get; set; }
+    public DateTime? DovDate { get; set; }
 }

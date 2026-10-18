@@ -492,7 +492,7 @@ public class SanatoriumsListController(KasabaKIATContext db) : ControllerBase
     {
         var items = await db.TblSpravSans
             .OrderBy(s => s.Name_San)
-            .Select(s => new { s.ID, s.Name_San, s.Num_Kod })
+            .Select(s => new { id = s.ID, name = s.Name_San, numKod = s.Num_Kod })
             .ToListAsync();
         return Ok(items);
     }

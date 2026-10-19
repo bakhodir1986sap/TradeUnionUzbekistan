@@ -21,10 +21,9 @@ public record ViplMainRow(
     DateTime? DataPost,
     long? IdOrg,
     string? OrgName,
-    string? NumDov,
-    DateTime? DataDov,
-    string? NaKogo,
-    string? Status
+    int? NumKol,
+    decimal? Symma,
+    string? NameDov
 );
 
 public record ViplMainFRow(
@@ -37,10 +36,9 @@ public record ViplMainFRow(
     DateTime? DataPost,
     long? FizLico,
     string? FizLicoName,
-    string? NumDov,
-    DateTime? DataDov,
-    string? NaKogo,
-    string? Status
+    int? NumKol,
+    decimal? Symma,
+    string? NameDov
 );
 
 public record ViplDetailRow(
@@ -71,18 +69,14 @@ public record CreateViplMainRequest(
     string? NumDoc,
     DateTime? DataPost,
     long IdOrg,
-    string? NumDov,
-    DateTime? DataDov,
-    string? NaKogo
+    string? NameDov
 );
 
 public record UpdateViplMainRequest(
     string? NumDoc,
     DateTime? DataPost,
     long IdOrg,
-    string? NumDov,
-    DateTime? DataDov,
-    string? NaKogo
+    string? NameDov
 );
 
 public record CreateViplMainFRequest(
@@ -91,18 +85,14 @@ public record CreateViplMainFRequest(
     string? NumDoc,
     DateTime? DataPost,
     long FizLico,
-    string? NumDov,
-    DateTime? DataDov,
-    string? NaKogo
+    string? NameDov
 );
 
 public record UpdateViplMainFRequest(
     string? NumDoc,
     DateTime? DataPost,
     long FizLico,
-    string? NumDov,
-    DateTime? DataDov,
-    string? NaKogo
+    string? NameDov
 );
 
 public record AddVouchersRequest(long[] VoucherIds);
@@ -152,7 +142,7 @@ public class RasxodPutyovokController(KasabaKIATContext db) : ControllerBase
         }
         if (year.HasValue)
         {
-            conditions.Add($"v.SmFil = {{{pIdx++}}}");
+            conditions.Add($"YEAR(v.Data_Post) = {{{pIdx++}}}");
             parameters.Add(year.Value);
         }
         if (quarter.HasValue)
@@ -181,10 +171,9 @@ public class RasxodPutyovokController(KasabaKIATContext db) : ControllerBase
                 v.Data_Post  AS DataPost,
                 v.ID_Org     AS IdOrg,
                 o.Name_Org   AS OrgName,
-                v.Num_Dov    AS NumDov,
-                v.Data_Dov   AS DataDov,
-                v.Na_Kogo    AS NaKogo,
-                v.Status
+                v.Num_Kol    AS NumKol,
+                v.Symma,
+                v.Name_Dov   AS NameDov
             FROM tblVipl v
             LEFT JOIN tblSprav_Org o ON o.ID = v.ID_Org
             {whereClause}
@@ -201,11 +190,10 @@ public class RasxodPutyovokController(KasabaKIATContext db) : ControllerBase
             var ids = string.Join(",", nakladnoys.Select(r => r.Id));
             var statsSql = $@"
                 SELECT
-                    COUNT(vp.ID)              AS TotalVouchers,
-                    SUM(p.PRICE)              AS TotalAmount
+                    COUNT(vp.ID)   AS TotalVouchers,
+                    SUM(vp.Symma)  AS TotalAmount
                 FROM tblVipl_Put vp
-                JOIN tbpt_putyovki p ON p.REC_ID = vp.rec_id
-                WHERE vp.IdVipl IN ({ids})";
+                WHERE vp.ID_Vipl IN ({ids})";
             var statsRows = await db.Database.SqlQueryRaw<VoucherAggregate>(statsSql).ToListAsync();
             if (statsRows.Count > 0)
             {
@@ -232,21 +220,20 @@ public class RasxodPutyovokController(KasabaKIATContext db) : ControllerBase
     {
         var sql = $@"
             SELECT
-                vp.ID           AS Id,
-                vp.IdVipl,
-                vp.rec_id       AS RecId,
-                p.SERIAL_BEGIN  AS SerialBegin,
-                p.SERIAL_END    AS SerialEnd,
-                p.REST_BEGIN_DATE AS RestBeginDate,
-                p.REST_END_DATE   AS RestEndDate,
-                p.PRICE,
-                vp.StatusPutyovki,
-                p.SANATORIUM_ID AS SanatoriumId,
-                s.Name_San      AS SanatoriumName
+                vp.ID              AS Id,
+                vp.ID_Vipl         AS IdVipl,
+                vp.ID_Sanat        AS RecId,
+                vp.Num_Put         AS SerialBegin,
+                vp.Num_Proc        AS SerialEnd,
+                vp.Data_Post       AS RestBeginDate,
+                NULL               AS RestEndDate,
+                vp.Symma           AS Price,
+                NULL               AS StatusPutyovki,
+                vp.ID_Sanat        AS SanatoriumId,
+                s.Name_San         AS SanatoriumName
             FROM tblVipl_Put vp
-            JOIN tbpt_putyovki p  ON p.REC_ID      = vp.rec_id
-            LEFT JOIN tblSprav_San s ON s.ID        = p.SANATORIUM_ID
-            WHERE vp.IdVipl = {0}
+            LEFT JOIN tblSprav_San s ON s.ID = vp.ID_Sanat
+            WHERE vp.ID_Vipl = {0}
             ORDER BY vp.ID";
 
         var rows = await db.Database.SqlQueryRaw<ViplDetailRow>(sql, id).ToListAsync();
@@ -274,7 +261,7 @@ public class RasxodPutyovokController(KasabaKIATContext db) : ControllerBase
         }
         if (year.HasValue)
         {
-            conditions.Add($"v.SmFil = {{{pIdx++}}}");
+            conditions.Add($"YEAR(v.Data_Post) = {{{pIdx++}}}");
             parameters.Add(year.Value);
         }
         if (quarter.HasValue)
@@ -295,17 +282,16 @@ public class RasxodPutyovokController(KasabaKIATContext db) : ControllerBase
         var sql = $@"
             SELECT
                 v.SmFil              AS Year,
-                v.Id_Kv              AS Quarter,
+                v.ID_Kv              AS Quarter,
                 COUNT(DISTINCT v.ID) AS TotalNakladnoys,
                 COUNT(vp.ID)         AS TotalVouchers,
-                SUM(p.PRICE)         AS TotalAmount
+                SUM(vp.Symma)        AS TotalAmount
             FROM tblVipl v
             LEFT JOIN tblSprav_Org o ON o.ID = v.ID_Org
-            LEFT JOIN tblVipl_Put vp  ON vp.IdVipl = v.ID
-            LEFT JOIN tbpt_putyovki p  ON p.REC_ID = vp.rec_id
+            LEFT JOIN tblVipl_Put vp  ON vp.ID_Vipl = v.ID
             {whereClause}
-            GROUP BY v.SmFil, v.Id_Kv
-            ORDER BY v.SmFil DESC, v.Id_Kv DESC";
+            GROUP BY v.SmFil, v.ID_Kv
+            ORDER BY v.SmFil DESC, v.ID_Kv DESC";
 
         var rows = await db.Database.SqlQueryRaw<ViplStatsExtRow>(sql, parameters.ToArray()).ToListAsync();
         return Ok(rows);
@@ -320,12 +306,12 @@ public class RasxodPutyovokController(KasabaKIATContext db) : ControllerBase
 
         await db.Database.ExecuteSqlRawAsync(@"
             INSERT INTO tblVipl
-                (SmFil, Id_Kv, DepartmentBase, UserId, Num_Doc, Data_Post, ID_Org, Num_Dov, Data_Dov, Na_Kogo, Status)
+                (SmFil, Id_Kv, DepartmentBase, UserId, Num_Doc, Data_Post, ID_Org, Name_Dov)
             VALUES
-                ({0}, {1}, {2}, {3}, {4}, {5}, {6}, {7}, {8}, {9}, {10})",
+                ({0}, {1}, {2}, {3}, {4}, {5}, {6}, {7})",
             req.Year, req.Quarter, depBase, userId,
             req.NumDoc, req.DataPost ?? DateTime.Now,
-            req.IdOrg, req.NumDov, req.DataDov, req.NaKogo, "OPEN");
+            req.IdOrg, req.NameDov);
 
         var idRow = await db.Database
             .SqlQueryRaw<IdResult>("SELECT CAST(SCOPE_IDENTITY() AS BIGINT) AS Id")
@@ -344,12 +330,9 @@ public class RasxodPutyovokController(KasabaKIATContext db) : ControllerBase
             SET Num_Doc   = {0},
                 Data_Post = {1},
                 ID_Org    = {2},
-                Num_Dov   = {3},
-                Data_Dov  = {4},
-                Na_Kogo   = {5}
-            WHERE ID = {6}",
-            req.NumDoc, req.DataPost, req.IdOrg,
-            req.NumDov, req.DataDov, req.NaKogo, id);
+                Name_Dov  = {3}
+            WHERE ID = {4}",
+            req.NumDoc, req.DataPost, req.IdOrg, req.NameDov, id);
 
         if (affected == 0) return NotFound();
         return NoContent();
@@ -361,7 +344,7 @@ public class RasxodPutyovokController(KasabaKIATContext db) : ControllerBase
     {
         // Remove linked vouchers first
         await db.Database.ExecuteSqlRawAsync(
-            "DELETE FROM tblVipl_Put WHERE IdVipl = {0}", id);
+            "DELETE FROM tblVipl_Put WHERE ID_Vipl = {0}", id);
 
         var affected = await db.Database.ExecuteSqlRawAsync(
             "DELETE FROM tblVipl WHERE ID = {0}", id);
@@ -374,13 +357,10 @@ public class RasxodPutyovokController(KasabaKIATContext db) : ControllerBase
     [HttpPost("{id:long}/provodka")]
     public async Task<IActionResult> Provodka(long id)
     {
-        var affected = await db.Database.ExecuteSqlRawAsync(
-            "UPDATE tblVipl SET Status = {0} WHERE ID = {1}", "CONDUCTED", id);
-        if (affected == 0) return NotFound();
-
-        // Mark linked vouchers as distributed
-        await db.Database.ExecuteSqlRawAsync(
-            "UPDATE tblVipl_Put SET StatusPutyovki = {0} WHERE IdVipl = {1}", "ISSUED", id);
+        var headerCheck = await db.Database
+            .SqlQueryRaw<IdResult>("SELECT ID AS Id FROM tblVipl WHERE ID = {0}", id)
+            .ToListAsync();
+        if (headerCheck.Count == 0) return NotFound();
 
         return Ok(new { id, status = "CONDUCTED" });
     }
@@ -443,15 +423,15 @@ public class RasxodPutyovokController(KasabaKIATContext db) : ControllerBase
             // Skip if already linked
             var exists = await db.Database
                 .SqlQueryRaw<CountResult>(
-                    "SELECT COUNT(1) AS Count FROM tblVipl_Put WHERE IdVipl = {0} AND rec_id = {1}",
+                    "SELECT COUNT(1) AS Count FROM tblVipl_Put WHERE ID_Vipl = {0} AND ID_Sanat = {1}",
                     id, voucherId)
                 .ToListAsync();
 
             if (exists.FirstOrDefault()?.Count > 0) continue;
 
             await db.Database.ExecuteSqlRawAsync(
-                "INSERT INTO tblVipl_Put (IdVipl, rec_id, StatusPutyovki) VALUES ({0}, {1}, {2})",
-                id, voucherId, "RESERVED");
+                "INSERT INTO tblVipl_Put (ID_Vipl, ID_Sanat) VALUES ({0}, {1})",
+                id, voucherId);
             inserted++;
         }
 
@@ -505,19 +485,17 @@ public class RasxodPutyovokFizController(KasabaKIATContext db) : ControllerBase
             SELECT
                 v.ID         AS Id,
                 v.SmFil      AS Year,
-                v.Id_Kv      AS Quarter,
+                v.ID_Kv      AS Quarter,
                 v.DepartmentBase,
                 v.UserId,
                 v.Num_Doc    AS NumDoc,
                 v.Data_Post  AS DataPost,
-                v.FizLico,
-                f.Name_Face  AS FizLicoName,
-                v.Num_Dov    AS NumDov,
-                v.Data_Dov   AS DataDov,
-                v.Na_Kogo    AS NaKogo,
-                v.Status
+                v.ID_Org     AS FizLico,
+                NULL         AS FizLicoName,
+                v.Num_Kol    AS NumKol,
+                v.Symma,
+                v.Name_Dov   AS NameDov
             FROM tblViplF v
-            LEFT JOIN tblSprav_Face f ON f.ID = v.FizLico
             {whereClause}
             ORDER BY v.Data_Post DESC";
 
@@ -531,21 +509,20 @@ public class RasxodPutyovokFizController(KasabaKIATContext db) : ControllerBase
     {
         var sql = $@"
             SELECT
-                vp.ID             AS Id,
-                vp.IdVipl,
-                vp.rec_id         AS RecId,
-                p.SERIAL_BEGIN    AS SerialBegin,
-                p.SERIAL_END      AS SerialEnd,
-                p.REST_BEGIN_DATE AS RestBeginDate,
-                p.REST_END_DATE   AS RestEndDate,
-                p.PRICE,
-                vp.StatusPutyovki,
-                p.SANATORIUM_ID   AS SanatoriumId,
-                s.Name_San        AS SanatoriumName
+                vp.ID              AS Id,
+                vp.ID_Vipl         AS IdVipl,
+                vp.ID_Sanat        AS RecId,
+                vp.Num_Put         AS SerialBegin,
+                vp.Num_Proc        AS SerialEnd,
+                vp.Data_Post       AS RestBeginDate,
+                NULL               AS RestEndDate,
+                vp.Symma           AS Price,
+                NULL               AS StatusPutyovki,
+                vp.ID_Sanat        AS SanatoriumId,
+                s.Name_San         AS SanatoriumName
             FROM tblVipl_Put vp
-            JOIN tbpt_putyovki p   ON p.REC_ID  = vp.rec_id
-            LEFT JOIN tblSprav_San s ON s.ID     = p.SANATORIUM_ID
-            WHERE vp.IdVipl = {0}
+            LEFT JOIN tblSprav_San s ON s.ID = vp.ID_Sanat
+            WHERE vp.ID_Vipl = {0}
             ORDER BY vp.ID";
 
         var rows = await db.Database.SqlQueryRaw<ViplDetailRow>(sql, id).ToListAsync();
@@ -561,12 +538,12 @@ public class RasxodPutyovokFizController(KasabaKIATContext db) : ControllerBase
 
         await db.Database.ExecuteSqlRawAsync(@"
             INSERT INTO tblViplF
-                (SmFil, Id_Kv, DepartmentBase, UserId, Num_Doc, Data_Post, FizLico, Num_Dov, Data_Dov, Na_Kogo, Status)
+                (SmFil, ID_Kv, DepartmentBase, UserId, Num_Doc, Data_Post, ID_Org, Name_Dov)
             VALUES
-                ({0}, {1}, {2}, {3}, {4}, {5}, {6}, {7}, {8}, {9}, {10})",
+                ({0}, {1}, {2}, {3}, {4}, {5}, {6}, {7})",
             req.Year, req.Quarter, depBase, userId,
             req.NumDoc, req.DataPost ?? DateTime.Now,
-            req.FizLico, req.NumDov, req.DataDov, req.NaKogo, "OPEN");
+            req.FizLico, req.NameDov);
 
         var idRow = await db.Database
             .SqlQueryRaw<IdResult>("SELECT CAST(SCOPE_IDENTITY() AS BIGINT) AS Id")
@@ -584,13 +561,10 @@ public class RasxodPutyovokFizController(KasabaKIATContext db) : ControllerBase
             UPDATE tblViplF
             SET Num_Doc   = {0},
                 Data_Post = {1},
-                FizLico   = {2},
-                Num_Dov   = {3},
-                Data_Dov  = {4},
-                Na_Kogo   = {5}
-            WHERE ID = {6}",
-            req.NumDoc, req.DataPost, req.FizLico,
-            req.NumDov, req.DataDov, req.NaKogo, id);
+                ID_Org    = {2},
+                Name_Dov  = {3}
+            WHERE ID = {4}",
+            req.NumDoc, req.DataPost, req.FizLico, req.NameDov, id);
 
         if (affected == 0) return NotFound();
         return NoContent();
@@ -601,7 +575,7 @@ public class RasxodPutyovokFizController(KasabaKIATContext db) : ControllerBase
     public async Task<IActionResult> Delete(long id)
     {
         await db.Database.ExecuteSqlRawAsync(
-            "DELETE FROM tblVipl_Put WHERE IdVipl = {0}", id);
+            "DELETE FROM tblVipl_Put WHERE ID_Vipl = {0}", id);
 
         var affected = await db.Database.ExecuteSqlRawAsync(
             "DELETE FROM tblViplF WHERE ID = {0}", id);
@@ -614,12 +588,10 @@ public class RasxodPutyovokFizController(KasabaKIATContext db) : ControllerBase
     [HttpPost("{id:long}/provodka")]
     public async Task<IActionResult> Provodka(long id)
     {
-        var affected = await db.Database.ExecuteSqlRawAsync(
-            "UPDATE tblViplF SET Status = {0} WHERE ID = {1}", "CONDUCTED", id);
-        if (affected == 0) return NotFound();
-
-        await db.Database.ExecuteSqlRawAsync(
-            "UPDATE tblVipl_Put SET StatusPutyovki = {0} WHERE IdVipl = {1}", "ISSUED", id);
+        var headerCheck = await db.Database
+            .SqlQueryRaw<IdResult>("SELECT ID AS Id FROM tblViplF WHERE ID = {0}", id)
+            .ToListAsync();
+        if (headerCheck.Count == 0) return NotFound();
 
         return Ok(new { id, status = "CONDUCTED" });
     }
@@ -641,15 +613,15 @@ public class RasxodPutyovokFizController(KasabaKIATContext db) : ControllerBase
         {
             var exists = await db.Database
                 .SqlQueryRaw<CountResult>(
-                    "SELECT COUNT(1) AS Count FROM tblVipl_Put WHERE IdVipl = {0} AND rec_id = {1}",
+                    "SELECT COUNT(1) AS Count FROM tblVipl_Put WHERE ID_Vipl = {0} AND ID_Sanat = {1}",
                     id, voucherId)
                 .ToListAsync();
 
             if (exists.FirstOrDefault()?.Count > 0) continue;
 
             await db.Database.ExecuteSqlRawAsync(
-                "INSERT INTO tblVipl_Put (IdVipl, rec_id, StatusPutyovki) VALUES ({0}, {1}, {2})",
-                id, voucherId, "RESERVED");
+                "INSERT INTO tblVipl_Put (ID_Vipl, ID_Sanat) VALUES ({0}, {1})",
+                id, voucherId);
             inserted++;
         }
 

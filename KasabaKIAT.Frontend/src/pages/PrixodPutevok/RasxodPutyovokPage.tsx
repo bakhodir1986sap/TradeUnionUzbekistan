@@ -20,35 +20,39 @@ interface OtraslItem {
 }
 
 interface Stats {
-  nakladnoyCount: number;
-  putyovkaCount: number;
-  summaNakladnix: number;
-  paymentAmount: number;
+  totalNakladnoys: number;
+  totalVouchers: number;
+  totalAmount: number;
 }
 
 interface NakladnoyRow {
   id: number;
-  data_post: string;
-  num_doc: string;
-  organizationName: string;
-  num_kol: number;
-  symma: number;
+  dataPost?: string;
+  numDoc?: string;
+  orgName?: string;
+  numKol?: number;
+  symma?: number;
+  nameDov?: string;
 }
 
 interface VoucherRow {
   id: number;
-  sanatName: string;
-  num_put: string;
-  data_post: string;
-  symma: number;
+  sanatoriumName?: string;
+  serialBegin?: string;
+  restBeginDate?: string;
+  price?: number;
+  statusPutyovki?: string;
 }
 
 interface AvailableVoucher {
-  id: number;
-  num_put: string;
-  sanatName: string;
-  data_post: string;
-  symma: number;
+  recId: number;
+  serialBegin?: string;
+  serialEnd?: string;
+  restBeginDate?: string;
+  restEndDate?: string;
+  price?: number;
+  status?: string;
+  sanatoriumId?: number;
 }
 
 interface Organization {
@@ -59,12 +63,9 @@ interface Organization {
 }
 
 interface NakladnoyFormValues {
-  data_post: dayjs.Dayjs | null;
-  num_doc: string;
-  organizationId?: number;
-  num_doverennosti?: string;
-  data_doverennosti?: dayjs.Dayjs | null;
-  na_kogo?: string;
+  dataPost: dayjs.Dayjs | null;
+  numDoc: string;
+  nameDov?: string;
 }
 
 // ─── Main page ───────────────────────────────────────────────────────────────
@@ -104,7 +105,7 @@ export function RasxodPutyovokPage() {
   // ── Reference: Отрасли ──
   const { data: otraslList = [] } = useQuery<OtraslItem[]>({
     queryKey: ['otras'],
-    queryFn: () => api.get('/api/reference/otras').then(r => r.data),
+    queryFn: () => api.get('/api/otrasl').then(r => r.data),
   });
 
   // ── Main data ──
@@ -121,7 +122,7 @@ export function RasxodPutyovokPage() {
   });
 
   const nakladnoys: NakladnoyRow[] = mainData?.nakladnoys ?? [];
-  const stats: Stats = mainData?.stats ?? { nakladnoyCount: 0, putyovkaCount: 0, summaNakladnix: 0, paymentAmount: 0 };
+  const stats: Stats = mainData?.stats ?? { totalNakladnoys: 0, totalVouchers: 0, totalAmount: 0 };
 
   // ── Detail vouchers for selected nakladnoy ──
   const { data: detailRows = [], isLoading: detailLoading } = useQuery<VoucherRow[]>({
@@ -208,19 +209,22 @@ export function RasxodPutyovokPage() {
   const openEdit = () => {
     if (!selectedNakladnoy) return;
     editForm.setFieldsValue({
-      data_post: selectedNakladnoy.data_post ? dayjs(selectedNakladnoy.data_post) : null,
-      num_doc: selectedNakladnoy.num_doc,
+      dataPost: selectedNakladnoy.dataPost ? dayjs(selectedNakladnoy.dataPost) : null,
+      numDoc: selectedNakladnoy.numDoc,
+      nameDov: selectedNakladnoy.nameDov,
     });
-    setEditOrg({ id: 0, name: selectedNakladnoy.organizationName, inn: '' });
+    setEditOrg({ id: 0, name: selectedNakladnoy.orgName ?? '', inn: '' });
     setEditModalOpen(true);
   };
 
   const handleAddSubmit = (values: NakladnoyFormValues) => {
     createMutation.mutate({
-      ...values,
-      data_post: values.data_post?.toISOString(),
-      data_doverennosti: values.data_doverennosti?.toISOString(),
-      organizationId: addOrg?.id,
+      year: filterYear,
+      quarter: filterQuarter ?? 1,
+      numDoc: values.numDoc,
+      dataPost: values.dataPost?.toISOString(),
+      idOrg: addOrg?.id,
+      nameDov: values.nameDov,
     });
   };
 
@@ -229,10 +233,10 @@ export function RasxodPutyovokPage() {
     updateMutation.mutate({
       id: selectedNakladnoy.id,
       values: {
-        ...values,
-        data_post: values.data_post?.toISOString(),
-        data_doverennosti: values.data_doverennosti?.toISOString(),
-        organizationId: editOrg?.id,
+        numDoc: values.numDoc,
+        dataPost: values.dataPost?.toISOString(),
+        idOrg: editOrg?.id,
+        nameDov: values.nameDov,
       },
     });
   };
@@ -241,7 +245,7 @@ export function RasxodPutyovokPage() {
     if (!selectedNakladnoy) return;
     modal.confirm({
       title: 'Удалить накладную?',
-      content: `№ ${selectedNakladnoy.num_doc}`,
+      content: `№ ${selectedNakladnoy.numDoc}`,
       onOk: () => deleteMutation.mutate(selectedNakladnoy.id),
     });
   };
@@ -268,7 +272,7 @@ export function RasxodPutyovokPage() {
   };
 
   const filteredAvailableVouchers = availableVouchers.filter(v =>
-    !voucherSearch || v.num_put?.toLowerCase().includes(voucherSearch.toLowerCase()),
+    !voucherSearch || v.serialBegin?.toLowerCase().includes(voucherSearch.toLowerCase()),
   );
 
   // ── Year options ──
@@ -277,19 +281,19 @@ export function RasxodPutyovokPage() {
   // ── Columns ──
   const nakladnoyColumns = [
     { title: 'ID', dataIndex: 'id', width: 60 },
-    { title: 'Дата', dataIndex: 'data_post', width: 110 },
-    { title: '№ Документа', dataIndex: 'num_doc', width: 130 },
-    { title: 'Организация', dataIndex: 'organizationName' },
-    { title: 'Кол-во', dataIndex: 'num_kol', width: 80 },
+    { title: 'Дата', dataIndex: 'dataPost', width: 110 },
+    { title: '№ Документа', dataIndex: 'numDoc', width: 130 },
+    { title: 'Организация', dataIndex: 'orgName' },
+    { title: 'Кол-во', dataIndex: 'numKol', width: 80 },
     { title: 'Сумма', dataIndex: 'symma', width: 110 },
   ];
 
   const voucherColumns = [
     { title: 'ID', dataIndex: 'id', width: 60 },
-    { title: 'Санаторий', dataIndex: 'sanatName' },
-    { title: '№ Путевки', dataIndex: 'num_put', width: 120 },
-    { title: 'Дата', dataIndex: 'data_post', width: 110 },
-    { title: 'Сумма', dataIndex: 'symma', width: 110 },
+    { title: 'Санаторий', dataIndex: 'sanatoriumName' },
+    { title: 'Серия (нач.)', dataIndex: 'serialBegin', width: 120 },
+    { title: 'Дата заезда', dataIndex: 'restBeginDate', width: 110 },
+    { title: 'Цена', dataIndex: 'price', width: 110 },
   ];
 
   const availableVoucherColumns = [
@@ -298,19 +302,19 @@ export function RasxodPutyovokPage() {
       width: 40,
       render: (_: unknown, rec: AvailableVoucher) => (
         <Checkbox
-          checked={selectedVoucherIds.includes(rec.id)}
+          checked={selectedVoucherIds.includes(rec.recId)}
           onChange={e => {
             setSelectedVoucherIds(prev =>
-              e.target.checked ? [...prev, rec.id] : prev.filter(id => id !== rec.id),
+              e.target.checked ? [...prev, rec.recId] : prev.filter(id => id !== rec.recId),
             );
           }}
         />
       ),
     },
-    { title: '№ Путевки', dataIndex: 'num_put' },
-    { title: 'Санаторий', dataIndex: 'sanatName' },
-    { title: 'Дата', dataIndex: 'data_post', width: 110 },
-    { title: 'Сумма', dataIndex: 'symma', width: 110 },
+    { title: 'Серия (нач.)', dataIndex: 'serialBegin' },
+    { title: 'Серия (кон.)', dataIndex: 'serialEnd' },
+    { title: 'Дата заезда', dataIndex: 'restBeginDate', width: 110 },
+    { title: 'Цена', dataIndex: 'price', width: 110 },
   ];
 
   // ── Render ──
@@ -361,24 +365,19 @@ export function RasxodPutyovokPage() {
 
       {/* Stats */}
       <Row gutter={16} style={{ marginBottom: 16 }}>
-        <Col xs={12} sm={6}>
+        <Col xs={12} sm={8}>
           <Card size="small">
-            <Statistic title="Накладных" value={stats.nakladnoyCount} />
+            <Statistic title="Накладных" value={stats.totalNakladnoys} />
           </Card>
         </Col>
-        <Col xs={12} sm={6}>
+        <Col xs={12} sm={8}>
           <Card size="small">
-            <Statistic title="Путевок" value={stats.putyovkaCount} />
+            <Statistic title="Путевок" value={stats.totalVouchers} />
           </Card>
         </Col>
-        <Col xs={12} sm={6}>
+        <Col xs={12} sm={8}>
           <Card size="small">
-            <Statistic title="Сумма накладных" value={stats.summaNakladnix} precision={2} />
-          </Card>
-        </Col>
-        <Col xs={12} sm={6}>
-          <Card size="small">
-            <Statistic title="Сумма оплаты" value={stats.paymentAmount} precision={2} />
+            <Statistic title="Сумма" value={stats.totalAmount} precision={2} />
           </Card>
         </Col>
       </Row>
@@ -437,7 +436,7 @@ export function RasxodPutyovokPage() {
         {/* RIGHT: Путевки */}
         <Col xs={24} lg={12}>
           <Typography.Text strong style={{ display: 'block', marginBottom: 4 }}>
-            Путевки{selectedNakladnoy ? ` — ${selectedNakladnoy.num_doc}` : ''}
+            Путевки{selectedNakladnoy ? ` — ${selectedNakladnoy.numDoc}` : ''}
           </Typography.Text>
           <Table<VoucherRow>
             columns={voucherColumns}
@@ -467,11 +466,11 @@ export function RasxodPutyovokPage() {
           layout="vertical"
           onFinish={handleAddSubmit}
         >
-          <Form.Item name="data_post" label="Дата" rules={[{ required: true, message: 'Укажите дату' }]}>
+          <Form.Item name="dataPost" label="Дата" rules={[{ required: true, message: 'Укажите дату' }]}>
             <DatePicker style={{ width: '100%' }} format="DD.MM.YYYY" />
           </Form.Item>
 
-          <Form.Item name="num_doc" label="Номер документа" rules={[{ required: true, message: 'Укажите номер' }]}>
+          <Form.Item name="numDoc" label="Номер документа" rules={[{ required: true, message: 'Укажите номер' }]}>
             <Input />
           </Form.Item>
 
@@ -494,15 +493,7 @@ export function RasxodPutyovokPage() {
             </Space>
           </Form.Item>
 
-          <Form.Item name="num_doverennosti" label="Номер доверенности">
-            <Input />
-          </Form.Item>
-
-          <Form.Item name="data_doverennosti" label="Дата доверенности">
-            <DatePicker style={{ width: '100%' }} format="DD.MM.YYYY" />
-          </Form.Item>
-
-          <Form.Item name="na_kogo" label="На кого оформлена">
+          <Form.Item name="nameDov" label="Доверенность">
             <Input />
           </Form.Item>
         </Form>
@@ -522,11 +513,11 @@ export function RasxodPutyovokPage() {
           layout="vertical"
           onFinish={handleEditSubmit}
         >
-          <Form.Item name="data_post" label="Дата" rules={[{ required: true, message: 'Укажите дату' }]}>
+          <Form.Item name="dataPost" label="Дата" rules={[{ required: true, message: 'Укажите дату' }]}>
             <DatePicker style={{ width: '100%' }} format="DD.MM.YYYY" />
           </Form.Item>
 
-          <Form.Item name="num_doc" label="Номер документа" rules={[{ required: true, message: 'Укажите номер' }]}>
+          <Form.Item name="numDoc" label="Номер документа" rules={[{ required: true, message: 'Укажите номер' }]}>
             <Input />
           </Form.Item>
 
@@ -549,15 +540,7 @@ export function RasxodPutyovokPage() {
             </Space>
           </Form.Item>
 
-          <Form.Item name="num_doverennosti" label="Номер доверенности">
-            <Input />
-          </Form.Item>
-
-          <Form.Item name="data_doverennosti" label="Дата доверенности">
-            <DatePicker style={{ width: '100%' }} format="DD.MM.YYYY" />
-          </Form.Item>
-
-          <Form.Item name="na_kogo" label="На кого оформлена">
+          <Form.Item name="nameDov" label="Доверенность">
             <Input />
           </Form.Item>
 
@@ -623,7 +606,7 @@ export function RasxodPutyovokPage() {
         <Table<AvailableVoucher>
           columns={availableVoucherColumns}
           dataSource={filteredAvailableVouchers}
-          rowKey="id"
+          rowKey="recId"
           loading={availLoading}
           size="small"
           pagination={{ pageSize: 10 }}

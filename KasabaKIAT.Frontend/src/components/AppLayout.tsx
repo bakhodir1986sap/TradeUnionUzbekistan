@@ -74,7 +74,6 @@ export function AppLayout() {
           children: [
             { key: '/prixod-putevok/index', label: t('nav.prixodKu') },
             { key: '/prixod-putevok/ruchnoy', label: t('nav.prixodRuchnoy') },
-            { key: '/prixod-putevok/realizatsiya', label: t('nav.realizatsiya') },
             { key: '/prixod-putevok/rasxod', label: t('nav.rasxodOrg') },
             { key: '/prixod-putevok/rasxod-fiz', label: t('nav.rasxodFiz') },
             { key: '/prixod-putevok/ostatki', label: t('nav.ostatki') },
@@ -85,7 +84,6 @@ export function AppLayout() {
             { key: '/prixod-putevok/fizlica', label: t('nav.fizlicaPutyovki') },
             { key: '/prixod-putevok/fizlica-v2', label: t('nav.fizlicaV2') },
             { key: '/prixod-putevok/start-process', label: t('nav.startProcess') },
-            { key: '/prixod-putevok/sverka', label: t('nav.sverka') },
             { key: '/prixod-putevok/sverka-v2', label: t('nav.sverkaV2') },
             { key: '/prixod-putevok/zakritiye-kvartala', label: t('nav.zakritiyeKvartala') },
           ],

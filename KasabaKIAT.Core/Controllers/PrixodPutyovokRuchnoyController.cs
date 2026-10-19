@@ -27,10 +27,9 @@ public record UpdateNakladnoyRequest(
 
 public record AddVouchersRuchnoyRequest(
     long IdSan,
-    int BeginNumber,
-    int EndNumber,
     DateTime? SanatDate,
-    decimal Price
+    decimal Price,
+    List<string>? Numbers
 );
 
 public record SetBronRequest(DateTime? ExpireDate, string? Prim);
@@ -373,7 +372,7 @@ public class PrixodPutyovokRuchnoyController(KasabaKIATContext db) : ControllerB
         try
         {
             var affected = await db.Database.ExecuteSqlRawAsync(
-                sql, req.PosName, req.NumDoc, req.DataPost, req.NumDov, id, ct);
+                sql, new object[] { req.PosName!, req.NumDoc!, req.DataPost!, req.NumDov!, id }, ct);
 
             if (affected == 0) return NotFound();
         }
@@ -394,11 +393,11 @@ public class PrixodPutyovokRuchnoyController(KasabaKIATContext db) : ControllerB
         {
             // Delete detail lines first
             await db.Database.ExecuteSqlRawAsync(
-                "DELETE FROM tblPos_Put WHERE ID_Post = {0}", id, ct);
+                "DELETE FROM tblPos_Put WHERE ID_Post = {0}", new object[] { id }, ct);
 
             // Delete header
             var affected = await db.Database.ExecuteSqlRawAsync(
-                "DELETE FROM tblPost WHERE ID = {0}", id, ct);
+                "DELETE FROM tblPost WHERE ID = {0}", new object[] { id }, ct);
 
             if (affected == 0) return NotFound();
         }
@@ -418,7 +417,7 @@ public class PrixodPutyovokRuchnoyController(KasabaKIATContext db) : ControllerB
         try
         {
             var affected = await db.Database.ExecuteSqlRawAsync(
-                "UPDATE tblPost SET Status = 'CLOSED' WHERE ID = {0}", id, ct);
+                "UPDATE tblPost SET Status = 'CLOSED' WHERE ID = {0}", new object[] { id }, ct);
 
             if (affected == 0) return NotFound();
         }
@@ -439,8 +438,9 @@ public class PrixodPutyovokRuchnoyController(KasabaKIATContext db) : ControllerB
         [FromBody] AddVouchersRuchnoyRequest req,
         CancellationToken ct)
     {
-        if (req.BeginNumber > req.EndNumber)
-            return BadRequest(new { error = "beginNumber must be <= endNumber" });
+        var numbers = req.Numbers ?? [];
+        if (numbers.Count == 0)
+            return BadRequest(new { error = "No voucher numbers provided" });
 
         // Verify the header exists
         List<long> headerCheck;
@@ -460,11 +460,9 @@ public class PrixodPutyovokRuchnoyController(KasabaKIATContext db) : ControllerB
 
         var inserted = new List<string>();
         var errors = new List<string>();
-        int padWidth = Math.Max(4, req.EndNumber.ToString().Length);
 
-        for (int num = req.BeginNumber; num <= req.EndNumber; num++)
+        foreach (var numPut in numbers)
         {
-            var numPut = num.ToString().PadLeft(padWidth, '0');
             try
             {
                 await db.Database.ExecuteSqlRawAsync(
@@ -472,7 +470,7 @@ public class PrixodPutyovokRuchnoyController(KasabaKIATContext db) : ControllerB
                     INSERT INTO tblPos_Put (ID_Post, ID_Sanat, Num_Put, DataNach, Symma_Put, Status, MODIFY_DATE)
                     VALUES ({0}, {1}, {2}, {3}, {4}, 'NEW', GETDATE())
                     """,
-                    id, req.IdSan, numPut, req.SanatDate, req.Price, ct);
+                    new object[] { id, req.IdSan, numPut, req.SanatDate!, req.Price }, ct);
                 inserted.Add(numPut);
             }
             catch (Exception ex)
@@ -492,7 +490,7 @@ public class PrixodPutyovokRuchnoyController(KasabaKIATContext db) : ControllerB
         try
         {
             var affected = await db.Database.ExecuteSqlRawAsync(
-                "DELETE FROM tblPos_Put WHERE ID = {0}", voucherId, ct);
+                "DELETE FROM tblPos_Put WHERE ID = {0}", new object[] { voucherId }, ct);
 
             if (affected == 0) return NotFound();
         }
@@ -510,7 +508,7 @@ public class PrixodPutyovokRuchnoyController(KasabaKIATContext db) : ControllerB
     [HttpPut("vouchers/{voucherId:long}/bron")]
     public async Task<IActionResult> PostavitVBron(
         long voucherId,
-        [FromBody] SetBronRequest req,
+        [FromBody] SetBronRequest? req,
         CancellationToken ct)
     {
         var userId = GetUserId();
@@ -549,9 +547,9 @@ public class PrixodPutyovokRuchnoyController(KasabaKIATContext db) : ControllerB
         {
             existingBron.BRON_FLG = true;
             existingBron.BRON_DATE = DateTime.Now;
-            existingBron.EXPIRE_DATE = req.ExpireDate;
+            existingBron.EXPIRE_DATE = req?.ExpireDate;
             existingBron.USER_ID = userId;
-            existingBron.PRIM = req.Prim;
+            existingBron.PRIM = req?.Prim;
         }
         else
         {
@@ -561,10 +559,10 @@ public class PrixodPutyovokRuchnoyController(KasabaKIATContext db) : ControllerB
                 Num_Put = voucher.NumPut,
                 BRON_FLG = true,
                 BRON_DATE = DateTime.Now,
-                EXPIRE_DATE = req.ExpireDate,
+                EXPIRE_DATE = req?.ExpireDate,
                 USER_ID = userId,
                 DEPARTMENT_BASE = depBase,
-                PRIM = req.Prim
+                PRIM = req?.Prim
             };
             db.TblBrons.Add(bron);
         }
@@ -574,7 +572,7 @@ public class PrixodPutyovokRuchnoyController(KasabaKIATContext db) : ControllerB
         {
             await db.Database.ExecuteSqlRawAsync(
                 "UPDATE tblPos_Put SET Status = 'BRON' WHERE ID = {0}",
-                voucherId, ct);
+                new object[] { voucherId }, ct);
         }
         catch (Exception ex)
         {
@@ -631,7 +629,7 @@ public class PrixodPutyovokRuchnoyController(KasabaKIATContext db) : ControllerB
         {
             await db.Database.ExecuteSqlRawAsync(
                 "UPDATE tblPos_Put SET Status = 'FREE' WHERE ID = {0}",
-                voucherId, ct);
+                new object[] { voucherId }, ct);
         }
         catch (Exception ex)
         {
@@ -655,7 +653,7 @@ public class PrixodPutyovokRuchnoyController(KasabaKIATContext db) : ControllerB
         {
             var affected = await db.Database.ExecuteSqlRawAsync(
                 "UPDATE tblPos_Put SET DataNach = {0} WHERE ID = {1}",
-                req.NewDate, voucherId, ct);
+                new object[] { req.NewDate, voucherId }, ct);
 
             if (affected == 0) return NotFound();
         }

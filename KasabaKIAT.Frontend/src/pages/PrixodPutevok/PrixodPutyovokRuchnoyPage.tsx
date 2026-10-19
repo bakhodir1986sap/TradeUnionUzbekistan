@@ -198,6 +198,13 @@ export function PrixodPutyovokRuchnoyPage() {
     onError: () => message.error('Ошибка'),
   });
 
+  const changeDateMutation = useMutation({
+    mutationFn: ({ voucherId, newDate }: { voucherId: number; newDate: string }) =>
+      api.put(`/api/prixod-putevok/ruchnoy/vouchers/${voucherId}/date`, { newDate }).then(r => r.data),
+    onSuccess: () => { message.success('Дата изменена'); invalidate(); setChangeDateModalOpen(false); changeDateForm.resetFields(); },
+    onError: () => message.error('Ошибка при изменении даты'),
+  });
+
   // ── Helpers ────────────────────────────────────────────────────────────────
   const openAddInvoice = () => {
     setEditingInvoice(null);
@@ -237,6 +244,8 @@ export function PrixodPutyovokRuchnoyPage() {
       ...values,
       dataPost: values.dataPost ? (values.dataPost as dayjs.Dayjs).toISOString() : undefined,
       posName: selectedOrg?.name ?? values.posName,
+      year: filterYear,
+      quarter: filterQuarter,
     };
     saveInvoiceMutation.mutate(payload);
   };
@@ -264,6 +273,8 @@ export function PrixodPutyovokRuchnoyPage() {
 
   // Voucher action helpers (require single selected detail row)
   const [selectedDetail, setSelectedDetail] = useState<NakladnoyDtl | null>(null);
+  const [changeDateModalOpen, setChangeDateModalOpen] = useState(false);
+  const [changeDateForm] = Form.useForm();
 
   const requireDetail = (fn: () => void) => {
     if (!selectedDetail) { message.warning('Выберите путевку'); return; }
@@ -444,10 +455,10 @@ export function PrixodPutyovokRuchnoyPage() {
                   loading={unbronMutation.isPending}>
                   Снять Бронь
                 </Button>
-                <Button size="small" disabled={!selectedDetail}>
+                <Button size="small" disabled={!selectedDetail}
+                  onClick={() => requireDetail(() => { changeDateForm.resetFields(); setChangeDateModalOpen(true); })}>
                   Изм.Дату
-                </Button>
-                <Button size="small" disabled={!selectedDetail}>
+                </Button>                <Button size="small" disabled={!selectedDetail}>
                   Печать
                 </Button>
               </Space>
@@ -629,6 +640,22 @@ export function PrixodPutyovokRuchnoyPage() {
             </Typography.Text>
           </div>
         )}
+      </Modal>
+      {/* ── Change Date Modal ── */}
+      <Modal
+        title="Изменить дату путевки"
+        open={changeDateModalOpen}
+        onOk={() => changeDateForm.submit()}
+        onCancel={() => setChangeDateModalOpen(false)}
+        confirmLoading={changeDateMutation.isPending}
+        width={320}
+      >
+        <Form form={changeDateForm} layout="vertical"
+          onFinish={(vals) => changeDateMutation.mutate({ voucherId: selectedDetail!.id, newDate: (vals.newDate as dayjs.Dayjs).toISOString() })}>
+          <Form.Item name="newDate" label="Новая дата" rules={[{ required: true, message: 'Укажите дату' }]}>
+            <DatePicker style={{ width: '100%' }} format="DD.MM.YYYY" />
+          </Form.Item>
+        </Form>
       </Modal>
     </div>
   );

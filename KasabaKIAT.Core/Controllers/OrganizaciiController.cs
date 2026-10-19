@@ -119,25 +119,23 @@ public class OrganizaciiController(KasabaKIATContext db) : ControllerBase
             .Select(o => new
             {
                 id = o.ID,
-                name_Org = o.Name_Org,
+                name = o.Name_Org,
                 inn = o.INN,
+                industry = db.TblSpravOtrases
+                    .Where(ot => ot.ID == o.ID_Ot)
+                    .Select(ot => ot.Name_Ot)
+                    .FirstOrDefault(),
+                region = o.Region,
                 rs = o.RS,
                 mfo = o.MFO,
                 bank = o.Bank,
-                okonx = o.OKONX,
                 adress = o.Adress,
                 telefon = o.Telefon,
-                region = o.Region,
-                e_Mail = o.E_Mail,
-                owner_CODE = o.OWNER_CODE,
-                id_Ot = o.ID_Ot,
                 departmentBase = o.DepartmentBase,
-                director = o.DIRECTOR,
-                buxgalter = o.BUXGALTER
             })
             .ToListAsync();
 
-        return Ok(new { items, count, totalCountNeot, totalCountOpr });
+        return Ok(items);
     }
 
     // -----------------------------------------------------------------------
@@ -290,10 +288,13 @@ public class OrganizaciiController(KasabaKIATContext db) : ControllerBase
     // -----------------------------------------------------------------------
     // GET /api/organizations/by-inn/{inn}
     // -----------------------------------------------------------------------
-    [HttpGet("by-inn/{inn}")]
-    public async Task<IActionResult> GetByInn(string inn)
+    [HttpGet("by-inn")]
+    public async Task<IActionResult> GetByInn([FromQuery] string inn)
     {
-        var item = await db.TblSpravOrgs.Where(o => o.INN == inn).FirstOrDefaultAsync();
+        var item = await db.TblSpravOrgs
+            .Where(o => o.INN == inn)
+            .Select(o => new { id = o.ID, name = o.Name_Org, inn = o.INN, region = o.Region })
+            .FirstOrDefaultAsync();
         if (item == null) return NotFound();
         return Ok(item);
     }

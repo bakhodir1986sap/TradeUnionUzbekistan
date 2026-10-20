@@ -4,7 +4,7 @@ import {
   Row, Col, Typography, App, Statistic, Card, Checkbox,
 } from 'antd';
 import { OrganizationPickerModal } from '../../components/OrganizationPickerModal';
-import { PlusOutlined, EditOutlined, SearchOutlined } from '@ant-design/icons';
+import { PlusOutlined, EditOutlined, SearchOutlined, DeleteOutlined } from '@ant-design/icons';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { QueryErrorAlert } from '../../components/QueryErrorAlert';
 import api from '../../api/axios';
@@ -45,14 +45,13 @@ interface VoucherRow {
 }
 
 interface AvailableVoucher {
-  recId: number;
-  serialBegin?: string;
-  serialEnd?: string;
-  restBeginDate?: string;
-  restEndDate?: string;
-  price?: number;
-  status?: string;
+  id: number;
   sanatoriumId?: number;
+  sanatoriumName?: string;
+  numPut?: string;
+  dataSan?: string;
+  dataSanEnd?: string;
+  symmaPut?: number;
 }
 
 interface Organization {
@@ -102,6 +101,9 @@ export function RasxodPutyovokPage() {
   const [voucherSearch, setVoucherSearch] = useState('');
   const [selectedVoucherIds, setSelectedVoucherIds] = useState<number[]>([]);
 
+  // Selected row in detail table
+  const [selectedDetailRow, setSelectedDetailRow] = useState<VoucherRow | null>(null);
+
   // ── Reference: Отрасли ──
   const { data: otraslList = [] } = useQuery<OtraslItem[]>({
     queryKey: ['otras'],
@@ -130,6 +132,7 @@ export function RasxodPutyovokPage() {
     queryFn: () =>
       api.get(`/api/rasxod-putevok/${selectedNakladnoy!.id}/details`).then(r => r.data),
     enabled: !!selectedNakladnoy,
+    staleTime: 0,
   });
 
   // ── Available vouchers for add-vouchers modal ──
@@ -190,13 +193,27 @@ export function RasxodPutyovokPage() {
       api.post(`/api/rasxod-putevok/${id}/add-vouchers`, { voucherIds }).then(r => r.data),
     onSuccess: () => {
       message.success('Путевки добавлены');
-      queryClient.invalidateQueries({ queryKey: ['rasxod-putevok-detail', selectedNakladnoy?.id] });
+      queryClient.invalidateQueries({ queryKey: ['rasxod-putevok-detail'] });
       queryClient.invalidateQueries({ queryKey: ['rasxod-putevok'] });
+      queryClient.invalidateQueries({ queryKey: ['available-vouchers'] });
       setAddVouchersOpen(false);
       setSelectedVoucherIds([]);
       setVoucherSearch('');
     },
     onError: () => message.error('Ошибка при добавлении путевок'),
+  });
+
+  const removeVoucherMutation = useMutation({
+    mutationFn: ({ nakladnoyId, voucherId }: { nakladnoyId: number; voucherId: number }) =>
+      api.delete(`/api/rasxod-putevok/${nakladnoyId}/vouchers/${voucherId}`),
+    onSuccess: () => {
+      message.success('Путевка удалена');
+      queryClient.invalidateQueries({ queryKey: ['rasxod-putevok-detail'] });
+      queryClient.invalidateQueries({ queryKey: ['rasxod-putevok'] });
+      queryClient.invalidateQueries({ queryKey: ['available-vouchers'] });
+      setSelectedDetailRow(null);
+    },
+    onError: () => message.error('Ошибка при удалении путевки'),
   });
 
   // ── Handlers ──
@@ -271,8 +288,20 @@ export function RasxodPutyovokPage() {
     addVouchersMutation.mutate({ id: selectedNakladnoy.id, voucherIds: selectedVoucherIds });
   };
 
+  const handleRemoveVoucher = () => {
+    if (!selectedNakladnoy || !selectedDetailRow) return;
+    modal.confirm({
+      title: 'Удалить путевку?',
+      content: `№ ${selectedDetailRow.serialBegin ?? selectedDetailRow.id}`,
+      onOk: () => removeVoucherMutation.mutate({
+        nakladnoyId: selectedNakladnoy.id,
+        voucherId: selectedDetailRow.id,
+      }),
+    });
+  };
+
   const filteredAvailableVouchers = availableVouchers.filter(v =>
-    !voucherSearch || v.serialBegin?.toLowerCase().includes(voucherSearch.toLowerCase()),
+    !voucherSearch || v.numPut?.toLowerCase().includes(voucherSearch.toLowerCase()),
   );
 
   // ── Year options ──
@@ -281,7 +310,10 @@ export function RasxodPutyovokPage() {
   // ── Columns ──
   const nakladnoyColumns = [
     { title: 'ID', dataIndex: 'id', width: 60 },
-    { title: 'Дата', dataIndex: 'dataPost', width: 110 },
+    {
+      title: 'Дата', dataIndex: 'dataPost', width: 110,
+      render: (v: string) => v ? dayjs(v).format('DD.MM.YYYY') : '',
+    },
     { title: '№ Документа', dataIndex: 'numDoc', width: 130 },
     { title: 'Организация', dataIndex: 'orgName' },
     { title: 'Кол-во', dataIndex: 'numKol', width: 80 },
@@ -291,8 +323,11 @@ export function RasxodPutyovokPage() {
   const voucherColumns = [
     { title: 'ID', dataIndex: 'id', width: 60 },
     { title: 'Санаторий', dataIndex: 'sanatoriumName' },
-    { title: 'Серия (нач.)', dataIndex: 'serialBegin', width: 120 },
-    { title: 'Дата заезда', dataIndex: 'restBeginDate', width: 110 },
+    { title: 'Номер путевки', dataIndex: 'serialBegin', width: 120 },
+    {
+      title: 'Дата заезда', dataIndex: 'restBeginDate', width: 110,
+      render: (v: string) => v ? dayjs(v).format('DD.MM.YYYY') : '',
+    },
     { title: 'Цена', dataIndex: 'price', width: 110 },
   ];
 
@@ -302,19 +337,26 @@ export function RasxodPutyovokPage() {
       width: 40,
       render: (_: unknown, rec: AvailableVoucher) => (
         <Checkbox
-          checked={selectedVoucherIds.includes(rec.recId)}
+          checked={selectedVoucherIds.includes(rec.id)}
           onChange={e => {
             setSelectedVoucherIds(prev =>
-              e.target.checked ? [...prev, rec.recId] : prev.filter(id => id !== rec.recId),
+              e.target.checked ? [...prev, rec.id] : prev.filter(id => id !== rec.id),
             );
           }}
         />
       ),
     },
-    { title: 'Серия (нач.)', dataIndex: 'serialBegin' },
-    { title: 'Серия (кон.)', dataIndex: 'serialEnd' },
-    { title: 'Дата заезда', dataIndex: 'restBeginDate', width: 110 },
-    { title: 'Цена', dataIndex: 'price', width: 110 },
+    { title: 'Санаторий', dataIndex: 'sanatoriumName' },
+    { title: 'Номер путевки', dataIndex: 'numPut' },
+    {
+      title: 'Дата заезда', dataIndex: 'dataSan', width: 110,
+      render: (v: string) => v ? dayjs(v).format('DD.MM.YYYY') : '',
+    },
+    {
+      title: 'Дата выезда', dataIndex: 'dataSanEnd', width: 110,
+      render: (v: string) => v ? dayjs(v).format('DD.MM.YYYY') : '',
+    },
+    { title: 'Цена', dataIndex: 'symmaPut', width: 110 },
   ];
 
   // ── Render ──
@@ -394,16 +436,6 @@ export function RasxodPutyovokPage() {
         >
           Изменить
         </Button>
-        <Button
-          disabled={!selectedNakladnoy}
-          onClick={() => {
-            setVoucherSearch('');
-            setSelectedVoucherIds([]);
-            setAddVouchersOpen(true);
-          }}
-        >
-          Добавить путевки
-        </Button>
       </Space>
 
       {/* Master-detail tables */}
@@ -425,8 +457,10 @@ export function RasxodPutyovokPage() {
               selectedNakladnoy?.id === rec.id ? 'ant-table-row-selected' : ''
             }
             onRow={rec => ({
-              onClick: () =>
-                setSelectedNakladnoy(prev => (prev?.id === rec.id ? null : rec)),
+              onClick: () => {
+                setSelectedNakladnoy(prev => (prev?.id === rec.id ? null : rec));
+                setSelectedDetailRow(null);
+              },
               style: { cursor: 'pointer' },
             })}
             scroll={{ x: 500 }}
@@ -438,6 +472,29 @@ export function RasxodPutyovokPage() {
           <Typography.Text strong style={{ display: 'block', marginBottom: 4 }}>
             Путевки{selectedNakladnoy ? ` — ${selectedNakladnoy.numDoc}` : ''}
           </Typography.Text>
+          <Space style={{ marginBottom: 8 }}>
+            <Button
+              type="primary"
+              icon={<PlusOutlined />}
+              disabled={!selectedNakladnoy}
+              onClick={() => {
+                setVoucherSearch('');
+                setSelectedVoucherIds([]);
+                setAddVouchersOpen(true);
+              }}
+            >
+              Добавить
+            </Button>
+            <Button
+              danger
+              icon={<DeleteOutlined />}
+              disabled={!selectedDetailRow}
+              loading={removeVoucherMutation.isPending}
+              onClick={handleRemoveVoucher}
+            >
+              Удалить
+            </Button>
+          </Space>
           <Table<VoucherRow>
             columns={voucherColumns}
             dataSource={detailRows}
@@ -446,6 +503,13 @@ export function RasxodPutyovokPage() {
             size="small"
             pagination={{ pageSize: 15 }}
             locale={{ emptyText: selectedNakladnoy ? 'Нет путевок' : 'Выберите накладную' }}
+            rowClassName={rec =>
+              selectedDetailRow?.id === rec.id ? 'ant-table-row-selected' : ''
+            }
+            onRow={rec => ({
+              onClick: () => setSelectedDetailRow(prev => prev?.id === rec.id ? null : rec),
+              style: { cursor: 'pointer' },
+            })}
             scroll={{ x: 400 }}
           />
         </Col>
@@ -606,7 +670,7 @@ export function RasxodPutyovokPage() {
         <Table<AvailableVoucher>
           columns={availableVoucherColumns}
           dataSource={filteredAvailableVouchers}
-          rowKey="recId"
+          rowKey="id"
           loading={availLoading}
           size="small"
           pagination={{ pageSize: 10 }}

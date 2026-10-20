@@ -14,7 +14,7 @@ namespace KasabaKIAT.Core.Controllers;
 public record ViplMainRow(
     long Id,
     int? Year,
-    int? Quarter,
+    long? Quarter,
     string? DepartmentBase,
     long? UserId,
     string? NumDoc,
@@ -29,7 +29,7 @@ public record ViplMainRow(
 public record ViplMainFRow(
     long Id,
     int? Year,
-    int? Quarter,
+    long? Quarter,
     string? DepartmentBase,
     long? UserId,
     string? NumDoc,
@@ -41,23 +41,24 @@ public record ViplMainFRow(
     string? NameDov
 );
 
-public record ViplDetailRow(
-    long Id,
-    long? IdVipl,
-    long? RecId,
-    string? SerialBegin,
-    string? SerialEnd,
-    DateTime? RestBeginDate,
-    DateTime? RestEndDate,
-    decimal? Price,
-    string? StatusPutyovki,
-    long? SanatoriumId,
-    string? SanatoriumName
-);
+public class ViplDetailRow
+{
+    public long Id { get; set; }
+    public long? IdVipl { get; set; }
+    public int? RecId { get; set; }
+    public string? SerialBegin { get; set; }
+    public string? SerialEnd { get; set; }
+    public DateTime? RestBeginDate { get; set; }
+    public DateTime? RestEndDate { get; set; }
+    public decimal? Price { get; set; }
+    public string? StatusPutyovki { get; set; }
+    public int? SanatoriumId { get; set; }
+    public string? SanatoriumName { get; set; }
+}
 
 public record ViplStatsRow(
     int? Year,
-    int? Quarter,
+    long? Quarter,
     int? TotalVouchers,
     decimal? TotalAmount,
     int? TotalNakladnoys
@@ -142,7 +143,7 @@ public class RasxodPutyovokController(KasabaKIATContext db) : ControllerBase
         }
         if (year.HasValue)
         {
-            conditions.Add($"YEAR(v.Data_Post) = {{{pIdx++}}}");
+            conditions.Add($"v.SmFil = {{{pIdx++}}}");
             parameters.Add(year.Value);
         }
         if (quarter.HasValue)
@@ -218,19 +219,19 @@ public class RasxodPutyovokController(KasabaKIATContext db) : ControllerBase
     [HttpGet("{id:long}/details")]
     public async Task<IActionResult> GetDetails(long id)
     {
-        var sql = $@"
+        var sql = @"
             SELECT
-                vp.ID              AS Id,
-                vp.ID_Vipl         AS IdVipl,
-                vp.ID_Sanat        AS RecId,
-                vp.Num_Put         AS SerialBegin,
-                vp.Num_Proc        AS SerialEnd,
-                vp.Data_Post       AS RestBeginDate,
-                NULL               AS RestEndDate,
-                vp.Symma           AS Price,
-                NULL               AS StatusPutyovki,
-                vp.ID_Sanat        AS SanatoriumId,
-                s.Name_San         AS SanatoriumName
+                vp.ID                           AS Id,
+                vp.ID_Vipl                      AS IdVipl,
+                vp.ID_Sanat                     AS RecId,
+                vp.Num_Put                      AS SerialBegin,
+                CAST(NULL AS NVARCHAR(100))     AS SerialEnd,
+                vp.Data_Post                    AS RestBeginDate,
+                CAST(NULL AS DATETIME)          AS RestEndDate,
+                vp.Symma                        AS Price,
+                CAST(NULL AS NVARCHAR(50))      AS StatusPutyovki,
+                vp.ID_Sanat                     AS SanatoriumId,
+                s.Name_San                      AS SanatoriumName
             FROM tblVipl_Put vp
             LEFT JOIN tblSprav_San s ON s.ID = vp.ID_Sanat
             WHERE vp.ID_Vipl = {0}
@@ -304,17 +305,16 @@ public class RasxodPutyovokController(KasabaKIATContext db) : ControllerBase
         var userId = long.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)!);
         var depBase = User.FindFirstValue("bkut_id");
 
-        await db.Database.ExecuteSqlRawAsync(@"
-            INSERT INTO tblVipl
-                (SmFil, Id_Kv, DepartmentBase, UserId, Num_Doc, Data_Post, ID_Org, Name_Dov)
-            VALUES
-                ({0}, {1}, {2}, {3}, {4}, {5}, {6}, {7})",
-            req.Year, req.Quarter, depBase, userId,
-            req.NumDoc, req.DataPost ?? DateTime.Now,
-            req.IdOrg, req.NameDov);
-
         var idRow = await db.Database
-            .SqlQueryRaw<IdResult>("SELECT CAST(SCOPE_IDENTITY() AS BIGINT) AS Id")
+            .SqlQueryRaw<IdResult>(@"
+                INSERT INTO tblVipl
+                    (SmFil, Id_Kv, DepartmentBase, UserId, Num_Doc, Data_Post, ID_Org, Name_Dov)
+                OUTPUT INSERTED.ID AS Id
+                VALUES
+                    ({0}, {1}, {2}, {3}, {4}, {5}, {6}, {7})",
+                req.Year, req.Quarter, depBase, userId,
+                req.NumDoc, req.DataPost ?? DateTime.Now,
+                req.IdOrg, req.NameDov)
             .ToListAsync();
         var newId = idRow.FirstOrDefault()?.Id ?? 0;
 
@@ -372,36 +372,73 @@ public class RasxodPutyovokController(KasabaKIATContext db) : ControllerBase
         var depBase = User.FindFirstValue("bkut_id");
         var isSuperAdmin = User.FindFirstValue("is_super_admin") == "True";
 
-        var query = db.TbptPutyovkis
-            .Where(p => p.STATUS != "SOLD" && p.STATUS != "0");
+        var conditions = new List<string> { "(pp.ID_PolVoz = 0 OR pp.ID_PolVoz IS NULL)" };
+        var parameters = new List<object>();
+        int pIdx = 0;
 
         if (!isSuperAdmin && !string.IsNullOrEmpty(depBase))
-            query = query.Where(p => p.DEPARTMENT_CODE == depBase);
+        {
+            conditions.Add($"pp.Departmentbase = {{{pIdx++}}}");
+            parameters.Add(depBase);
+        }
 
         if (!string.IsNullOrEmpty(search))
-            query = query.Where(p =>
-                (p.SERIAL_BEGIN != null && p.SERIAL_BEGIN.Contains(search)) ||
-                (p.SERIAL_END   != null && p.SERIAL_END.Contains(search)));
+        {
+            conditions.Add($"pp.Num_Put LIKE {{{pIdx++}}}");
+            parameters.Add($"%{search}%");
+        }
 
-        var items = await query
-            .OrderBy(p => p.REST_BEGIN_DATE)
-            .Select(p => new
-            {
-                recId          = p.REC_ID,
-                departmentCode = p.DEPARTMENT_CODE,
-                sanatoriumId   = p.SANATORIUM_ID,
-                serialBegin    = p.SERIAL_BEGIN,
-                serialEnd      = p.SERIAL_END,
-                restBeginDate  = p.REST_BEGIN_DATE,
-                restEndDate    = p.REST_END_DATE,
-                price          = p.PRICE,
-                status         = p.STATUS,
-                quantityRemain = p.QUANTITY_REMAIN,
-                remainBal      = p.REMAIN_BAL
-            })
+        var whereClause = "WHERE " + string.Join(" AND ", conditions);
+
+        var sql = $@"
+            SELECT
+                pp.ID         AS Id,
+                pp.ID_Sanat   AS SanatoriumId,
+                s.Name_San    AS SanatoriumName,
+                pp.Num_Put    AS NumPut,
+                pp.DataSan    AS DataSan,
+                pp.DataSanEnd AS DataSanEnd,
+                pp.Symma_Put  AS SymmaPut
+            FROM tblPos_Put pp
+            LEFT JOIN tblSprav_San s ON s.ID = pp.ID_Sanat
+            {whereClause}
+            ORDER BY pp.DataSan";
+
+        var items = await db.Database
+            .SqlQueryRaw<AvailablePrixodRow>(sql, parameters.ToArray())
             .ToListAsync();
 
         return Ok(items);
+    }
+
+    // DELETE /api/rasxod-putevok/{id}/vouchers/{voucherId}
+    [HttpDelete("{id:long}/vouchers/{voucherId:long}")]
+    public async Task<IActionResult> RemoveVoucher(long id, long voucherId)
+    {
+        // Look up the tblPos_Put ID for this detail row so we can un-mark it
+        var detailRows = await db.Database
+            .SqlQueryRaw<PrixodPutLookupRow>(
+                "SELECT vp.ID AS Id, pp.ID AS PosPutId FROM tblVipl_Put vp LEFT JOIN tblPos_Put pp ON pp.Num_Put = vp.Num_Put AND pp.ID_Sanat = vp.ID_Sanat WHERE vp.ID = {0} AND vp.ID_Vipl = {1}",
+                voucherId, id)
+            .ToListAsync();
+
+        if (detailRows.Count == 0) return NotFound();
+        var row = detailRows[0];
+
+        // Delete the detail line
+        var affected = await db.Database.ExecuteSqlRawAsync(
+            "DELETE FROM tblVipl_Put WHERE ID = {0} AND ID_Vipl = {1}", voucherId, id);
+
+        if (affected == 0) return NotFound();
+
+        // Un-mark the source Prixod voucher as available again
+        if (row.PosPutId.HasValue)
+        {
+            await db.Database.ExecuteSqlRawAsync(
+                "UPDATE tblPos_Put SET ID_PolVoz = 0 WHERE ID = {0}", row.PosPutId.Value);
+        }
+
+        return NoContent();
     }
 
     // POST /api/rasxod-putevok/{id}/add-vouchers
@@ -417,21 +454,49 @@ public class RasxodPutyovokController(KasabaKIATContext db) : ControllerBase
             .ToListAsync();
         if (headerCheck.Count == 0) return NotFound(new { message = "Distribution invoice not found" });
 
+        var userId = long.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)!);
+        var depBase = User.FindFirstValue("bkut_id");
+
         var inserted = 0;
-        foreach (var voucherId in req.VoucherIds)
+        foreach (var posPutId in req.VoucherIds)
         {
-            // Skip if already linked
+            // Look up the tblPos_Put record (individual Prixod line)
+            var prixodRows = await db.Database
+                .SqlQueryRaw<PrixodPutRow>(
+                    "SELECT ID, ID_Sanat AS IdSanat, Num_Put AS NumPut, Symma_Put AS SymmaPut FROM tblPos_Put WHERE ID = {0} AND (ID_PolVoz = 0 OR ID_PolVoz IS NULL)",
+                    posPutId)
+                .ToListAsync();
+
+            if (prixodRows.Count == 0) continue;
+            var pp = prixodRows[0];
+
+            // Skip if already linked to this nakladnoy (match by sanatorium + serial)
             var exists = await db.Database
                 .SqlQueryRaw<CountResult>(
-                    "SELECT COUNT(1) AS Count FROM tblVipl_Put WHERE ID_Vipl = {0} AND ID_Sanat = {1}",
-                    id, voucherId)
+                    "SELECT COUNT(1) AS Count FROM tblVipl_Put WHERE ID_Vipl = {0} AND ID_Sanat = {1} AND Num_Put = {2}",
+                    id, pp.IdSanat as object ?? DBNull.Value, pp.NumPut as object ?? DBNull.Value)
                 .ToListAsync();
 
             if (exists.FirstOrDefault()?.Count > 0) continue;
 
+            // Insert into tblVipl_Put using the real sanatorium ID and serial number
+            await db.Database.ExecuteSqlRawAsync(@"
+                INSERT INTO tblVipl_Put
+                    (ID_Vipl, ID_Sanat, Num_Put, Num_Proc, Symma, ID_PolVoz, Data_Post, UserId, DepartmentBase)
+                VALUES
+                    ({0}, {1}, {2}, 100, {3}, 0, GETDATE(), {4}, {5})",
+                id,
+                pp.IdSanat as object ?? DBNull.Value,
+                pp.NumPut as object ?? DBNull.Value,
+                pp.SymmaPut as object ?? DBNull.Value,
+                userId,
+                depBase as object ?? DBNull.Value);
+
+            // Mark the source Prixod record as used
             await db.Database.ExecuteSqlRawAsync(
-                "INSERT INTO tblVipl_Put (ID_Vipl, ID_Sanat) VALUES ({0}, {1})",
-                id, voucherId);
+                "UPDATE tblPos_Put SET ID_PolVoz = 1 WHERE ID = {0}",
+                posPutId);
+
             inserted++;
         }
 
@@ -507,19 +572,19 @@ public class RasxodPutyovokFizController(KasabaKIATContext db) : ControllerBase
     [HttpGet("{id:long}/details")]
     public async Task<IActionResult> GetDetails(long id)
     {
-        var sql = $@"
+        var sql = @"
             SELECT
-                vp.ID              AS Id,
-                vp.ID_Vipl         AS IdVipl,
-                vp.ID_Sanat        AS RecId,
-                vp.Num_Put         AS SerialBegin,
-                vp.Num_Proc        AS SerialEnd,
-                vp.Data_Post       AS RestBeginDate,
-                NULL               AS RestEndDate,
-                vp.Symma           AS Price,
-                NULL               AS StatusPutyovki,
-                vp.ID_Sanat        AS SanatoriumId,
-                s.Name_San         AS SanatoriumName
+                vp.ID                           AS Id,
+                vp.ID_Vipl                      AS IdVipl,
+                vp.ID_Sanat                     AS RecId,
+                vp.Num_Put                      AS SerialBegin,
+                CAST(NULL AS NVARCHAR(100))     AS SerialEnd,
+                vp.Data_Post                    AS RestBeginDate,
+                CAST(NULL AS DATETIME)          AS RestEndDate,
+                vp.Symma                        AS Price,
+                CAST(NULL AS NVARCHAR(50))      AS StatusPutyovki,
+                vp.ID_Sanat                     AS SanatoriumId,
+                s.Name_San                      AS SanatoriumName
             FROM tblVipl_Put vp
             LEFT JOIN tblSprav_San s ON s.ID = vp.ID_Sanat
             WHERE vp.ID_Vipl = {0}
@@ -536,17 +601,16 @@ public class RasxodPutyovokFizController(KasabaKIATContext db) : ControllerBase
         var userId = long.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)!);
         var depBase = User.FindFirstValue("bkut_id");
 
-        await db.Database.ExecuteSqlRawAsync(@"
-            INSERT INTO tblViplF
-                (SmFil, ID_Kv, DepartmentBase, UserId, Num_Doc, Data_Post, ID_Org, Name_Dov)
-            VALUES
-                ({0}, {1}, {2}, {3}, {4}, {5}, {6}, {7})",
-            req.Year, req.Quarter, depBase, userId,
-            req.NumDoc, req.DataPost ?? DateTime.Now,
-            req.FizLico, req.NameDov);
-
         var idRow = await db.Database
-            .SqlQueryRaw<IdResult>("SELECT CAST(SCOPE_IDENTITY() AS BIGINT) AS Id")
+            .SqlQueryRaw<IdResult>(@"
+                INSERT INTO tblViplF
+                    (SmFil, ID_Kv, DepartmentBase, UserId, Num_Doc, Data_Post, ID_Org, Name_Dov)
+                OUTPUT INSERTED.ID AS Id
+                VALUES
+                    ({0}, {1}, {2}, {3}, {4}, {5}, {6}, {7})",
+                req.Year, req.Quarter, depBase, userId,
+                req.NumDoc, req.DataPost ?? DateTime.Now,
+                req.FizLico, req.NameDov)
             .ToListAsync();
         var newId = idRow.FirstOrDefault()?.Id ?? 0;
 
@@ -608,24 +672,79 @@ public class RasxodPutyovokFizController(KasabaKIATContext db) : ControllerBase
             .ToListAsync();
         if (headerCheck.Count == 0) return NotFound(new { message = "Distribution invoice not found" });
 
+        var userId = long.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)!);
+        var depBase = User.FindFirstValue("bkut_id");
+
         var inserted = 0;
-        foreach (var voucherId in req.VoucherIds)
+        foreach (var posPutId in req.VoucherIds)
         {
+            // Look up the tblPos_Put record (individual Prixod line)
+            var prixodRows = await db.Database
+                .SqlQueryRaw<PrixodPutRow>(
+                    "SELECT ID, ID_Sanat AS IdSanat, Num_Put AS NumPut, Symma_Put AS SymmaPut FROM tblPos_Put WHERE ID = {0} AND (ID_PolVoz = 0 OR ID_PolVoz IS NULL)",
+                    posPutId)
+                .ToListAsync();
+
+            if (prixodRows.Count == 0) continue;
+            var pp = prixodRows[0];
+
+            // Skip if already linked to this nakladnoy
             var exists = await db.Database
                 .SqlQueryRaw<CountResult>(
-                    "SELECT COUNT(1) AS Count FROM tblVipl_Put WHERE ID_Vipl = {0} AND ID_Sanat = {1}",
-                    id, voucherId)
+                    "SELECT COUNT(1) AS Count FROM tblVipl_Put WHERE ID_Vipl = {0} AND ID_Sanat = {1} AND Num_Put = {2}",
+                    id, pp.IdSanat as object ?? DBNull.Value, pp.NumPut as object ?? DBNull.Value)
                 .ToListAsync();
 
             if (exists.FirstOrDefault()?.Count > 0) continue;
 
+            await db.Database.ExecuteSqlRawAsync(@"
+                INSERT INTO tblVipl_Put
+                    (ID_Vipl, ID_Sanat, Num_Put, Num_Proc, Symma, ID_PolVoz, Data_Post, UserId, DepartmentBase)
+                VALUES
+                    ({0}, {1}, {2}, 100, {3}, 0, GETDATE(), {4}, {5})",
+                id,
+                pp.IdSanat as object ?? DBNull.Value,
+                pp.NumPut as object ?? DBNull.Value,
+                pp.SymmaPut as object ?? DBNull.Value,
+                userId,
+                depBase as object ?? DBNull.Value);
+
+            // Mark the source Prixod record as used
             await db.Database.ExecuteSqlRawAsync(
-                "INSERT INTO tblVipl_Put (ID_Vipl, ID_Sanat) VALUES ({0}, {1})",
-                id, voucherId);
+                "UPDATE tblPos_Put SET ID_PolVoz = 1 WHERE ID = {0}",
+                posPutId);
+
             inserted++;
         }
 
         return Ok(new { id, inserted });
+    }
+
+    // DELETE /api/rasxod-putevok-fiz/{id}/vouchers/{voucherId}
+    [HttpDelete("{id:long}/vouchers/{voucherId:long}")]
+    public async Task<IActionResult> RemoveVoucher(long id, long voucherId)
+    {
+        var detailRows = await db.Database
+            .SqlQueryRaw<PrixodPutLookupRow>(
+                "SELECT vp.ID AS Id, pp.ID AS PosPutId FROM tblVipl_Put vp LEFT JOIN tblPos_Put pp ON pp.Num_Put = vp.Num_Put AND pp.ID_Sanat = vp.ID_Sanat WHERE vp.ID = {0} AND vp.ID_Vipl = {1}",
+                voucherId, id)
+            .ToListAsync();
+
+        if (detailRows.Count == 0) return NotFound();
+        var row = detailRows[0];
+
+        var affected = await db.Database.ExecuteSqlRawAsync(
+            "DELETE FROM tblVipl_Put WHERE ID = {0} AND ID_Vipl = {1}", voucherId, id);
+
+        if (affected == 0) return NotFound();
+
+        if (row.PosPutId.HasValue)
+        {
+            await db.Database.ExecuteSqlRawAsync(
+                "UPDATE tblPos_Put SET ID_PolVoz = 0 WHERE ID = {0}", row.PosPutId.Value);
+        }
+
+        return NoContent();
     }
 
     // GET /api/rasxod-putevok-fiz/{id}/schet-faktura
@@ -930,7 +1049,7 @@ internal class VoucherAggregate
 internal class ViplStatsExtRow
 {
     public int? Year { get; set; }
-    public int? Quarter { get; set; }
+    public long? Quarter { get; set; }
     public int? TotalNakladnoys { get; set; }
     public int? TotalVouchers { get; set; }
     public decimal? TotalAmount { get; set; }
@@ -946,4 +1065,29 @@ internal class SchetFakturaHeaderRow
     public string? NaKogo { get; set; }
     public string? NumDov { get; set; }
     public DateTime? DataDov { get; set; }
+}
+
+internal class AvailablePrixodRow
+{
+    public long Id { get; set; }
+    public int? SanatoriumId { get; set; }
+    public string? SanatoriumName { get; set; }
+    public string? NumPut { get; set; }
+    public DateTime? DataSan { get; set; }
+    public DateTime? DataSanEnd { get; set; }
+    public decimal? SymmaPut { get; set; }
+}
+
+internal class PrixodPutRow
+{
+    public long Id { get; set; }
+    public int? IdSanat { get; set; }
+    public string? NumPut { get; set; }
+    public decimal? SymmaPut { get; set; }
+}
+
+internal class PrixodPutLookupRow
+{
+    public long Id { get; set; }
+    public long? PosPutId { get; set; }
 }

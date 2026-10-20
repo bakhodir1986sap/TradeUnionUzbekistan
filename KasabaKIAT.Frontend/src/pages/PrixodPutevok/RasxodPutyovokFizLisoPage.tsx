@@ -42,13 +42,17 @@ interface Nakladnoy {
 
 interface NakladnoyDetail {
   id: number;
-  nakladnoyId: number;
-  putevkaId?: number;
-  numPut?: string;
+  idVipl?: number;
+  recId?: number;
+  serialBegin?: string;
+  sanatoriumId?: number;
   sanatoriumName?: string;
-  dataNach?: string;
-  dataKon?: string;
+  restBeginDate?: string;
   price?: number;
+  statusPutyovki?: string;
+  // convenience aliases kept for columns
+  numPut?: string;
+  dataNach?: string;
   status?: string;
 }
 
@@ -61,11 +65,12 @@ interface Stats {
 
 interface AvailableVoucher {
   id: number;
-  numPut?: string;
+  sanatoriumId?: number;
   sanatoriumName?: string;
-  dataNach?: string;
-  dataKon?: string;
-  price?: number;
+  numPut?: string;
+  dataSan?: string;
+  dataSanEnd?: string;
+  symmaPut?: number;
 }
 
 // ─── FizLicoPickerModal ──────────────────────────────────────────────────────
@@ -155,7 +160,7 @@ function VoucherPickerModal({ open, nakladnoyId, onClose }: VoucherPickerModalPr
   const [selected, setSelected] = useState<number[]>([]);
 
   const { data: vouchers = [], isFetching } = useQuery<AvailableVoucher[]>({
-    queryKey: ['available-vouchers', search],
+    queryKey: ['available-vouchers-fiz', search],
     queryFn: () =>
       api.get(`/api/rasxod-putevok/available-vouchers?search=${encodeURIComponent(search)}`).then(r => r.data),
     enabled: open,
@@ -166,7 +171,7 @@ function VoucherPickerModal({ open, nakladnoyId, onClose }: VoucherPickerModalPr
       api.post(`/api/rasxod-putevok-fiz/${nakladnoyId}/add-vouchers`, { voucherIds: ids }).then(r => r.data),
     onSuccess: () => {
       message.success('Путевки добавлены');
-      queryClient.invalidateQueries({ queryKey: ['rasxod-fiz-details', nakladnoyId] });
+      queryClient.invalidateQueries({ queryKey: ['rasxod-fiz-details'] });
       queryClient.invalidateQueries({ queryKey: ['rasxod-putevok-fiz'] });
       setSelected([]);
       onClose();
@@ -191,9 +196,22 @@ function VoucherPickerModal({ open, nakladnoyId, onClose }: VoucherPickerModalPr
     },
     { title: '№ путевки', dataIndex: 'numPut' },
     { title: 'Санаторий', dataIndex: 'sanatoriumName' },
-    { title: 'Дата начала', dataIndex: 'dataNach' },
-    { title: 'Дата конца', dataIndex: 'dataKon' },
-    { title: 'Цена', dataIndex: 'price', width: 100 },
+    {
+      title: 'Дата начала',
+      dataIndex: 'dataSan',
+      render: (v: string) => v ? dayjs(v).format('DD.MM.YYYY') : '—',
+    },
+    {
+      title: 'Дата конца',
+      dataIndex: 'dataSanEnd',
+      render: (v: string) => v ? dayjs(v).format('DD.MM.YYYY') : '—',
+    },
+    {
+      title: 'Цена',
+      dataIndex: 'symmaPut',
+      width: 100,
+      render: (v: number) => v?.toLocaleString('ru-RU'),
+    },
   ];
 
   return (
@@ -241,6 +259,7 @@ export function RasxodPutyovokFizLisoPage() {
 
   // Master selection
   const [selectedNakladnoy, setSelectedNakladnoy] = useState<Nakladnoy | null>(null);
+  const [selectedDetailRow, setSelectedDetailRow] = useState<NakladnoyDetail | null>(null);
 
   // Modals
   const [editModalOpen, setEditModalOpen] = useState(false);
@@ -270,6 +289,7 @@ export function RasxodPutyovokFizLisoPage() {
     queryFn: () =>
       api.get(`/api/rasxod-putevok-fiz/${selectedNakladnoy!.id}/details`).then(r => r.data),
     enabled: !!selectedNakladnoy,
+    staleTime: 0,
   });
 
   // ── Mutations ─────────────────────────────────────────────────────────────
@@ -309,6 +329,18 @@ export function RasxodPutyovokFizLisoPage() {
       queryClient.invalidateQueries({ queryKey: ['rasxod-putevok-fiz'] });
     },
     onError: () => message.error('Ошибка при проводке'),
+  });
+
+  const removeVoucherMutation = useMutation({
+    mutationFn: (voucherId: number) =>
+      api.delete(`/api/rasxod-putevok-fiz/${selectedNakladnoy!.id}/vouchers/${voucherId}`),
+    onSuccess: () => {
+      message.success('Путевка удалена');
+      setSelectedDetailRow(null);
+      queryClient.invalidateQueries({ queryKey: ['rasxod-fiz-details'] });
+      queryClient.invalidateQueries({ queryKey: ['rasxod-putevok-fiz'] });
+    },
+    onError: () => message.error('Ошибка при удалении путевки'),
   });
 
   // ── Handlers ─────────────────────────────────────────────────────────────
@@ -433,17 +465,21 @@ export function RasxodPutyovokFizLisoPage() {
   // ── Detail columns ────────────────────────────────────────────────────────
 
   const detailColumns = [
-    { title: '№ путевки', dataIndex: 'numPut' },
+    { title: '№ путевки', dataIndex: 'serialBegin' },
     { title: 'Санаторий', dataIndex: 'sanatoriumName' },
-    { title: 'Дата начала', dataIndex: 'dataNach', width: 110 },
-    { title: 'Дата конца', dataIndex: 'dataKon', width: 110 },
+    {
+      title: 'Дата',
+      dataIndex: 'restBeginDate',
+      width: 110,
+      render: (v: string) => v ? dayjs(v).format('DD.MM.YYYY') : '—',
+    },
     {
       title: 'Цена',
       dataIndex: 'price',
       width: 110,
       render: (v: number) => v?.toLocaleString('ru-RU'),
     },
-    { title: 'Статус', dataIndex: 'status', width: 90 },
+    { title: 'Статус', dataIndex: 'statusPutyovki', width: 90 },
   ];
 
   // ── Render ────────────────────────────────────────────────────────────────
@@ -524,7 +560,10 @@ export function RasxodPutyovokFizLisoPage() {
               selectedNakladnoy?.id === rec.id ? 'ant-table-row-selected' : ''
             }
             onRow={rec => ({
-              onClick: () => setSelectedNakladnoy(rec),
+              onClick: () => {
+                setSelectedNakladnoy(rec);
+                setSelectedDetailRow(null);
+              },
               style: { cursor: 'pointer' },
             })}
           />
@@ -546,14 +585,31 @@ export function RasxodPutyovokFizLisoPage() {
                     icon={<PlusOutlined />}
                     onClick={() => setVoucherPickerOpen(true)}
                   >
-                    Добавить путевки
+                    Добавить
+                  </Button>
+                  <Button
+                    size="small"
+                    danger
+                    icon={<DeleteOutlined />}
+                    disabled={!selectedDetailRow}
+                    loading={removeVoucherMutation.isPending}
+                    onClick={() => {
+                      if (!selectedDetailRow) return;
+                      modal.confirm({
+                        title: 'Удалить путевку?',
+                        content: `Путевка № ${selectedDetailRow.numPut} будет удалена из накладной.`,
+                        onOk: () => removeVoucherMutation.mutate(selectedDetailRow.id),
+                      });
+                    }}
+                  >
+                    Удалить
                   </Button>
                   <Button
                     size="small"
                     icon={<PrinterOutlined />}
                     onClick={handlePrintSchetFaktura}
                   >
-                    Печать СчетФактура
+                    Печать
                   </Button>
                 </>
               )}
@@ -567,6 +623,13 @@ export function RasxodPutyovokFizLisoPage() {
             size="small"
             pagination={{ pageSize: 15 }}
             locale={{ emptyText: selectedNakladnoy ? 'Нет путевок' : 'Выберите накладную слева' }}
+            rowClassName={rec =>
+              selectedDetailRow?.id === rec.id ? 'ant-table-row-selected' : ''
+            }
+            onRow={rec => ({
+              onClick: () => setSelectedDetailRow(prev => prev?.id === rec.id ? null : rec),
+              style: { cursor: 'pointer' },
+            })}
           />
         </Col>
       </Row>

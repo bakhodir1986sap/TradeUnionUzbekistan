@@ -26,20 +26,22 @@ public record ViplMainRow(
     string? NameDov
 );
 
-public record ViplMainFRow(
-    long Id,
-    int? Year,
-    long? Quarter,
-    string? DepartmentBase,
-    long? UserId,
-    string? NumDoc,
-    DateTime? DataPost,
-    long? FizLico,
-    string? FizLicoName,
-    int? NumKol,
-    decimal? Symma,
-    string? NameDov
-);
+public class ViplMainFRow
+{
+    public long Id { get; set; }
+    public int? Year { get; set; }
+    public long? Quarter { get; set; }
+    public string? DepartmentBase { get; set; }
+    public long? UserId { get; set; }
+    public string? NumDoc { get; set; }
+    public DateTime? DataPost { get; set; }
+    public long? FizLico { get; set; }
+    public string? FizLicoName { get; set; }
+    public string? FizLicoInn { get; set; }
+    public int? NumKol { get; set; }
+    public decimal? Symma { get; set; }
+    public string? NameDov { get; set; }
+}
 
 public class ViplDetailRow
 {
@@ -548,24 +550,56 @@ public class RasxodPutyovokFizController(KasabaKIATContext db) : ControllerBase
 
         var sql = $@"
             SELECT
-                v.ID         AS Id,
-                v.SmFil      AS Year,
-                v.ID_Kv      AS Quarter,
+                v.ID                                        AS Id,
+                v.SmFil                                     AS Year,
+                v.ID_Kv                                     AS Quarter,
                 v.DepartmentBase,
                 v.UserId,
-                v.Num_Doc    AS NumDoc,
-                v.Data_Post  AS DataPost,
-                v.ID_Org     AS FizLico,
-                NULL         AS FizLicoName,
-                v.Num_Kol    AS NumKol,
+                v.Num_Doc                                   AS NumDoc,
+                v.Data_Post                                 AS DataPost,
+                v.ID_Org                                    AS FizLico,
+                CAST(o.Name_Org  AS NVARCHAR(200))          AS FizLicoName,
+                CAST(o.INN       AS NVARCHAR(20))           AS FizLicoInn,
+                v.Num_Kol                                   AS NumKol,
                 v.Symma,
-                v.Name_Dov   AS NameDov
+                v.Name_Dov                                  AS NameDov
             FROM tblViplF v
+            LEFT JOIN tblSprav_Org o ON o.ID = v.ID_Org
             {whereClause}
             ORDER BY v.Data_Post DESC";
 
         var rows = await db.Database.SqlQueryRaw<ViplMainFRow>(sql, parameters.ToArray()).ToListAsync();
-        return Ok(rows);
+
+        var totalNakladnoy = rows.Count;
+        var totalSumma     = rows.Sum(r => r.Symma ?? 0);
+        var totalVouchers  = rows.Sum(r => r.NumKol ?? 0);
+        var provedeno      = 0;
+
+        var nakladnoys = rows.Select(r => new
+        {
+            id          = r.Id,
+            nomer       = r.NumDoc,
+            data        = r.DataPost,
+            fizLicoId   = r.FizLico,
+            fizLicoFio  = r.FizLicoName,
+            fizLicoInn  = r.FizLicoInn,
+            summa       = r.Symma,
+            kolvo       = r.NumKol,
+            status      = r.NameDov,
+            provodka    = false,
+        });
+
+        return Ok(new
+        {
+            nakladnoys,
+            stats = new
+            {
+                totalNakladnoy,
+                totalSumma,
+                totalVouchers,
+                provedeno,
+            }
+        });
     }
 
     // GET /api/rasxod-putevok-fiz/{id}/details

@@ -84,14 +84,36 @@ interface FizLicoPickerModalProps {
 function FizLicoPickerModal({ open, onSelect, onCancel }: FizLicoPickerModalProps) {
   const [search, setSearch] = useState('');
 
-  const { data: results = [], isFetching, isError, refetch } = useQuery<FizLico[]>({
-    queryKey: ['fizlica-search', search],
+  interface FizLisoRow {
+    id: number;
+    name_Org?: string;
+    inn?: string;
+    adress?: string;
+    telefon?: string;
+    pas_Ser?: string;
+    pas_Num?: string;
+    pas_KD?: string;
+    pas_Data?: string;
+  }
+
+  const { data: rawResults = [], isFetching, isError, refetch } = useQuery<FizLisoRow[]>({
+    queryKey: ['fizliso-search', search],
     queryFn: () =>
-      search.length >= 2
-        ? api.get(`/api/fizlica?search=${encodeURIComponent(search)}`).then(r => r.data)
-        : Promise.resolve([]),
-    enabled: search.length >= 2,
+      api.get('/api/fizliso', { params: search ? { search } : undefined }).then(r => r.data),
+    enabled: open,
   });
+
+  const results: FizLico[] = rawResults.map(r => ({
+    id: r.id,
+    fio: r.name_Org,
+    inn: r.inn,
+    address: r.adress,
+    phone: r.telefon,
+    passportSeria: r.pas_Ser,
+    passportNomer: r.pas_Num,
+    passportKemVydan: r.pas_KD,
+    passportDataVydachi: r.pas_Data,
+  }));
 
   const pickerColumns = [
     { title: 'ФИО', dataIndex: 'fio' },
@@ -124,7 +146,7 @@ function FizLicoPickerModal({ open, onSelect, onCancel }: FizLicoPickerModalProp
       width={820}
     >
       <Input.Search
-        placeholder="Поиск по ФИО или ИНН (минимум 2 символа)"
+        placeholder="Поиск по ФИО, ИНН или серии паспорта"
         value={search}
         onChange={e => setSearch(e.target.value)}
         style={{ marginBottom: 12 }}
@@ -139,7 +161,7 @@ function FizLicoPickerModal({ open, onSelect, onCancel }: FizLicoPickerModalProp
         loading={isFetching}
         size="small"
         pagination={{ pageSize: 8 }}
-        locale={{ emptyText: search.length < 2 ? 'Введите запрос для поиска' : 'Ничего не найдено' }}
+        locale={{ emptyText: 'Нет данных. Добавьте физ. лиц через справочник.' }}
       />
     </Modal>
   );
@@ -295,7 +317,7 @@ export function RasxodPutyovokFizLisoPage() {
   // ── Mutations ─────────────────────────────────────────────────────────────
 
   const saveMutation = useMutation({
-    mutationFn: (values: Partial<Nakladnoy> & { fizLicoId?: number; passportDataVydachi?: string }) =>
+    mutationFn: (values: { year?: number; quarter?: number; numDoc?: unknown; dataPost?: string; fizLico?: number; nameDov?: unknown }) =>
       editing
         ? api.put(`/api/rasxod-putevok-fiz/${editing.id}`, values).then(r => r.data)
         : api.post('/api/rasxod-putevok-fiz', values).then(r => r.data),
@@ -394,12 +416,12 @@ export function RasxodPutyovokFizLisoPage() {
 
   const handleFormFinish = (values: Record<string, unknown>) => {
     saveMutation.mutate({
-      ...values,
-      fizLicoId: selectedFizLico?.id,
-      data: values.data ? (values.data as dayjs.Dayjs).toISOString() : undefined,
-      passportDataVydachi: values.passportDataVydachi
-        ? (values.passportDataVydachi as dayjs.Dayjs).toISOString()
-        : undefined,
+      year: filterYear,
+      quarter: filterQuarter,
+      numDoc: values.nomer,
+      dataPost: values.data ? (values.data as dayjs.Dayjs).toISOString() : undefined,
+      fizLico: selectedFizLico?.id,
+      nameDov: values.status,
     });
   };
 

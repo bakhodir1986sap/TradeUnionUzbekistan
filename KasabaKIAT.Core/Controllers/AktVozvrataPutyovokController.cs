@@ -963,7 +963,7 @@ public class NakladnoyRow
 public class OstatokRow
 {
     public long ID { get; set; }
-    public long? ID_San { get; set; }
+    public int? ID_San { get; set; }
     public string? Name_San { get; set; }
     public string? Num_Put { get; set; }
     public DateTime? DataNach { get; set; }

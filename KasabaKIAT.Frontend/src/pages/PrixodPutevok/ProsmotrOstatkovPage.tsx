@@ -20,6 +20,14 @@ interface OstatokVoucher {
   price: number;
 }
 
+interface OstatokRaw {
+  id: number;
+  name_San?: string;
+  num_Put?: string;
+  dataNach?: string;
+  price?: number;
+}
+
 interface Sanatorium {
   id: number;
   name: string;
@@ -66,7 +74,14 @@ export function ProsmotrOstatkovPage() {
       if (appliedFilters.dateTo) params.dateTo = appliedFilters.dateTo;
       if (appliedFilters.price) params.price = appliedFilters.price;
       const res = await api.get('/api/prosmotr-ostatkov', { params });
-      return res.data;
+      const raw: OstatokRaw[] = res.data;
+      return raw.map(r => ({
+        id: r.id,
+        sanatName: r.name_San ?? '',
+        numPut: r.num_Put ?? '',
+        dataZaezda: r.dataNach ?? '',
+        price: r.price ?? 0,
+      }));
     },
   });
 
@@ -310,6 +325,13 @@ export function ProsmotrOstatkovPage() {
   const totalCount = vouchers.length;
   const totalSum = vouchers.reduce((acc, v) => acc + (v.price || 0), 0);
 
+  const hasActiveFilters =
+    appliedFilters.sanatId !== null ||
+    appliedFilters.numPut !== '' ||
+    appliedFilters.dateFrom !== '' ||
+    appliedFilters.dateTo !== '' ||
+    appliedFilters.price !== '';
+
   return (
     <div style={{ padding: 24 }}>
       <Row justify="space-between" align="middle" style={{ marginBottom: 16 }}>
@@ -320,6 +342,7 @@ export function ProsmotrOstatkovPage() {
         </Col>
         <Col>
           <Space>
+            {hasActiveFilters && (
             <Button
               icon={<ClearOutlined />}
               onClick={handleClearFilters}
@@ -327,6 +350,7 @@ export function ProsmotrOstatkovPage() {
             >
               Сбросить фильтры
             </Button>
+            )}
             <Button
               type="primary"
               icon={<DownloadOutlined />}

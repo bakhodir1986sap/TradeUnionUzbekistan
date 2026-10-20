@@ -570,7 +570,7 @@ export function RasxodPutyovokFizLisoPage() {
       {/* Master / Detail layout */}
       <Row gutter={12}>
         {/* Master table */}
-        <Col span={14}>
+        <Col xs={24} lg={14}>
           <Table
             columns={masterColumns}
             dataSource={nakladnoys}
@@ -578,6 +578,7 @@ export function RasxodPutyovokFizLisoPage() {
             loading={masterLoading}
             size="small"
             pagination={{ pageSize: 15 }}
+            scroll={{ x: 620 }}
             rowClassName={rec =>
               selectedNakladnoy?.id === rec.id ? 'ant-table-row-selected' : ''
             }
@@ -592,7 +593,7 @@ export function RasxodPutyovokFizLisoPage() {
         </Col>
 
         {/* Detail table */}
-        <Col span={10}>
+        <Col xs={24} lg={10}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
             <Typography.Text strong>
               {selectedNakladnoy
@@ -644,6 +645,7 @@ export function RasxodPutyovokFizLisoPage() {
             loading={detailsLoading}
             size="small"
             pagination={{ pageSize: 15 }}
+            scroll={{ x: 400 }}
             locale={{ emptyText: selectedNakladnoy ? 'Нет путевок' : 'Выберите накладную слева' }}
             rowClassName={rec =>
               selectedDetailRow?.id === rec.id ? 'ant-table-row-selected' : ''

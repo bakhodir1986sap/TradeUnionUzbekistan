@@ -615,41 +615,17 @@ public class ProsmotrRealzPutevokController(KasabaKIATContext db) : ControllerBa
     private long UserId => long.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)!);
 
     /// <summary>
-    /// PRP — paginated list of realized vouchers from tblVipl_Put.
+    /// PRP — list of realized vouchers from tblVipl_Put.
     /// </summary>
     [HttpGet]
     public async Task<IActionResult> GetList(
-        [FromQuery] int page = 1,
-        [FromQuery] int pageSize = 50,
-        [FromQuery] long? orgId = null,
         [FromQuery] long? sanId = null,
+        [FromQuery] string? numPut = null,
         [FromQuery] DateTime? dateFrom = null,
         [FromQuery] DateTime? dateTo = null)
     {
         var depBase = DepBase;
         var isSuperAdmin = IsSuperAdmin;
-
-        var countSql = @"
-            SELECT COUNT(*)
-            FROM   tblVipl_Put vp
-            WHERE  ({0} = 1 OR vp.DepartmentBase = {1})
-              AND  ({2} IS NULL OR vp.IdOrg = {2})
-              AND  ({3} IS NULL OR vp.IdSan = {3})
-              AND  ({4} IS NULL OR vp.DataRealizacii >= {4})
-              AND  ({5} IS NULL OR vp.DataRealizacii <= {5})";
-
-        var countRows = await db.Database
-            .SqlQueryRaw<int>(countSql,
-                isSuperAdmin ? 1 : 0,
-                depBase ?? string.Empty,
-                orgId.HasValue ? (object)orgId.Value : DBNull.Value,
-                sanId.HasValue ? (object)sanId.Value : DBNull.Value,
-                dateFrom.HasValue ? (object)dateFrom.Value : DBNull.Value,
-                dateTo.HasValue ? (object)dateTo.Value : DBNull.Value)
-            .ToListAsync();
-
-        var total = countRows.FirstOrDefault();
-        var offset = (page - 1) * pageSize;
 
         var listSql = @"
             SELECT vp.ID,
@@ -667,25 +643,23 @@ public class ProsmotrRealzPutevokController(KasabaKIATContext db) : ControllerBa
             LEFT   JOIN tblSprav_San s ON s.ID = vp.IdSan
             LEFT   JOIN tblSprav_Org o ON o.ID = vp.IdOrg
             WHERE  ({0} = 1 OR vp.DepartmentBase = {1})
-              AND  ({2} IS NULL OR vp.IdOrg = {2})
-              AND  ({3} IS NULL OR vp.IdSan = {3})
+              AND  ({2} IS NULL OR vp.IdSan = {2})
+              AND  ({3} IS NULL OR vp.Num_Put LIKE {3})
               AND  ({4} IS NULL OR vp.DataRealizacii >= {4})
               AND  ({5} IS NULL OR vp.DataRealizacii <= {5})
-            ORDER  BY vp.DataRealizacii DESC
-            OFFSET {6} ROWS FETCH NEXT {7} ROWS ONLY";
+            ORDER  BY vp.DataRealizacii DESC";
 
         var rows = await db.Database
             .SqlQueryRaw<RealzPutListRow>(listSql,
                 isSuperAdmin ? 1 : 0,
                 depBase ?? string.Empty,
-                orgId.HasValue ? (object)orgId.Value : DBNull.Value,
                 sanId.HasValue ? (object)sanId.Value : DBNull.Value,
+                !string.IsNullOrEmpty(numPut) ? (object)$"%{numPut}%" : DBNull.Value,
                 dateFrom.HasValue ? (object)dateFrom.Value : DBNull.Value,
-                dateTo.HasValue ? (object)dateTo.Value : DBNull.Value,
-                offset, pageSize)
+                dateTo.HasValue ? (object)dateTo.Value : DBNull.Value)
             .ToListAsync();
 
-        return Ok(new { total, page, pageSize, items = rows });
+        return Ok(rows);
     }
 
     /// <summary>

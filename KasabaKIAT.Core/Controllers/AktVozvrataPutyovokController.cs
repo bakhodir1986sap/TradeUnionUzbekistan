@@ -630,24 +630,25 @@ public class ProsmotrRealzPutevokController(KasabaKIATContext db) : ControllerBa
         var listSql = @"
             SELECT vp.ID,
                    vp.Num_Put,
-                   vp.IdSan,
+                   vp.ID_Sanat                     AS IdSan,
                    s.Name_San,
-                   vp.IdOrg,
+                   v.ID_Org                        AS IdOrg,
                    o.Name_Org,
-                   vp.DataRealizacii,
+                   vp.Data_Post                    AS DataRealizacii,
                    vp.Symma,
-                   vp.Talon,
-                   vp.StatusVozvrat,
+                   CAST(NULL AS NVARCHAR(100))     AS Talon,
+                   CAST(0 AS INT)                  AS StatusVozvrat,
                    vp.DepartmentBase
             FROM   tblVipl_Put vp
-            LEFT   JOIN tblSprav_San s ON s.ID = vp.IdSan
-            LEFT   JOIN tblSprav_Org o ON o.ID = vp.IdOrg
+            LEFT   JOIN tblVipl v       ON v.ID = vp.ID_Vipl
+            LEFT   JOIN tblSprav_San s  ON s.ID = vp.ID_Sanat
+            LEFT   JOIN tblSprav_Org o  ON o.ID = v.ID_Org
             WHERE  ({0} = 1 OR vp.DepartmentBase = {1})
-              AND  ({2} IS NULL OR vp.IdSan = {2})
+              AND  ({2} IS NULL OR vp.ID_Sanat = {2})
               AND  ({3} IS NULL OR vp.Num_Put LIKE {3})
-              AND  ({4} IS NULL OR vp.DataRealizacii >= {4})
-              AND  ({5} IS NULL OR vp.DataRealizacii <= {5})
-            ORDER  BY vp.DataRealizacii DESC";
+              AND  ({4} IS NULL OR vp.Data_Post >= {4})
+              AND  ({5} IS NULL OR vp.Data_Post <= {5})
+            ORDER  BY vp.Data_Post DESC";
 
         var rows = await db.Database
             .SqlQueryRaw<RealzPutListRow>(listSql,
@@ -953,7 +954,7 @@ public class RealzPutListRow
 {
     public long ID { get; set; }
     public string? Num_Put { get; set; }
-    public long? IdSan { get; set; }
+    public int? IdSan { get; set; }
     public string? Name_San { get; set; }
     public long? IdOrg { get; set; }
     public string? Name_Org { get; set; }

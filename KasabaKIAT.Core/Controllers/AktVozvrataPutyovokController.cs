@@ -14,13 +14,11 @@ namespace KasabaKIAT.Core.Controllers;
 public record CreateVozvratDto(
     int Year,
     int Quarter,
-    string DepartmentBase,
+    string? DepartmentBase,
     DateTime DataPost,
-    string NumDoc,
-    long IdOrg,
-    long IdSan,
-    string NumPut,
-    decimal Symma
+    string? NumDoc,
+    long OrgId,
+    List<long> VoucherIds
 );
 
 public record ChangeDateDto(DateTime NewDate);
@@ -77,18 +75,18 @@ public class AktVozvrataController(KasabaKIATContext db) : ControllerBase
             SELECT v.ID,
                    v.Data_Post,
                    v.Num_Doc,
-                   v.IdOrg,
-                   o.Name_Org,
-                   v.IdSan,
-                   s.Name_San,
+                   v.ID_Ot                         AS IdOrg,
+                   CAST(o.Name_Org AS NVARCHAR(200)) AS Name_Org,
+                   v.ID_Sanat                       AS IdSan,
+                   CAST(s.Name_San AS NVARCHAR(200)) AS Name_San,
                    v.Num_Put,
-                   v.Symma,
+                   v.SymmaP                         AS Symma,
                    v.DepartmentBase
             FROM   tblVozvrat v
-            LEFT   JOIN tblSprav_Org  o ON o.ID = v.IdOrg
-            LEFT   JOIN tblSprav_San  s ON s.ID = v.IdSan
-            WHERE  v.Year    = {0}
-              AND  v.Quarter = {1}
+            LEFT   JOIN tblSprav_Org  o ON o.ID = v.ID_Ot
+            LEFT   JOIN tblSprav_San  s ON s.ID = v.ID_Sanat
+            WHERE  v.SmFil   = {0}
+              AND  v.ID_KV   = {1}
               AND  ({2} = 1 OR v.DepartmentBase = {3})
             ORDER  BY v.Data_Post DESC";
 
@@ -114,29 +112,42 @@ public class AktVozvrataController(KasabaKIATContext db) : ControllerBase
     [HttpPost]
     public async Task<IActionResult> Create([FromBody] CreateVozvratDto dto)
     {
-        var sql = @"
-            INSERT INTO tblVozvrat
-                (Year, Quarter, DepartmentBase, Data_Post, Num_Doc,
-                 IdOrg, IdSan, Num_Put, Symma, UserId, ModifyDate)
-            VALUES
-                ({0}, {1}, {2}, {3}, {4},
-                 {5}, {6}, {7}, {8}, {9}, GETDATE());
-            SELECT CAST(SCOPE_IDENTITY() AS BIGINT);";
+        var depBase = DepBase ?? string.Empty;
+        var userId = UserId;
+        var insertCount = 0;
 
-        var newId = await db.Database
-            .SqlQueryRaw<long>(sql,
-                dto.Year, dto.Quarter, dto.DepartmentBase,
-                dto.DataPost, dto.NumDoc,
-                dto.IdOrg, dto.IdSan, dto.NumPut, dto.Symma,
-                UserId)
-            .FirstOrDefaultAsync();
+        foreach (var voucherId in dto.VoucherIds)
+        {
+            // Get voucher details (Num_Put, ID_Sanat, Symma)
+            var vpRows = await db.Database
+                .SqlQueryRaw<VozvratVoucherInfo>(
+                    "SELECT vp.ID, vp.Num_Put, vp.ID_Sanat, vp.Symma FROM tblVipl_Put vp WHERE vp.ID = {0}",
+                    voucherId)
+                .ToListAsync();
+            var vp = vpRows.FirstOrDefault();
+            if (vp == null) continue;
 
-        // Mark the voucher as returned in tblVipl_Put (raw SQL — table not in EF context)
-        await db.Database.ExecuteSqlRawAsync(
-            "UPDATE tblVipl_Put SET StatusVozvrat = 1, DateVozvrat = GETDATE() WHERE Num_Put = {0} AND IdOrg = {1}",
-            dto.NumPut, dto.IdOrg);
+            var insertSql = @"
+                INSERT INTO tblVozvrat
+                    (SmFil, ID_KV, DepartmentBase, Data_Post, Num_Doc,
+                     ID_Ot, ID_Pol, ID_Sanat, Num_Put, SymmaP, UserId)
+                VALUES
+                    ({0}, {1}, {2}, {3}, {4},
+                     {5}, {5}, {6}, {7}, {8}, {9})";
 
-        return Ok(new { id = newId });
+            await db.Database.ExecuteSqlRawAsync(insertSql,
+                dto.Year, dto.Quarter, depBase, dto.DataPost,
+                dto.NumDoc as object ?? DBNull.Value,
+                dto.OrgId,
+                (object?)vp.ID_Sanat ?? DBNull.Value,
+                vp.Num_Put as object ?? DBNull.Value,
+                vp.Symma as object ?? DBNull.Value,
+                userId);
+
+            insertCount++;
+        }
+
+        return Ok(new { insertCount });
     }
 
     /// <summary>
@@ -161,7 +172,7 @@ public class AktVozvrataController(KasabaKIATContext db) : ControllerBase
     public async Task<IActionResult> ChangeDate(long id, [FromBody] ChangeDateDto dto)
     {
         var affected = await db.Database.ExecuteSqlRawAsync(
-            "UPDATE tblVozvrat SET Data_Post = {0}, ModifyDate = GETDATE() WHERE ID = {1}",
+            "UPDATE tblVozvrat SET Data_Post = {0} WHERE ID = {1}",
             dto.NewDate, id);
 
         if (affected == 0)
@@ -180,19 +191,19 @@ public class AktVozvrataController(KasabaKIATContext db) : ControllerBase
             SELECT v.ID,
                    v.Data_Post,
                    v.Num_Doc,
-                   v.IdOrg,
-                   o.Name_Org,
-                   o.INN,
-                   v.IdSan,
-                   s.Name_San,
+                   v.ID_Ot                          AS IdOrg,
+                   CAST(o.Name_Org AS NVARCHAR(200)) AS Name_Org,
+                   CAST(o.INN AS NVARCHAR(20))       AS INN,
+                   v.ID_Sanat                        AS IdSan,
+                   CAST(s.Name_San AS NVARCHAR(200)) AS Name_San,
                    v.Num_Put,
-                   v.Symma,
+                   v.SymmaP                          AS Symma,
                    v.DepartmentBase,
-                   v.Year,
-                   v.Quarter
+                   v.SmFil                           AS Year,
+                   v.ID_KV                           AS Quarter
             FROM   tblVozvrat v
-            LEFT   JOIN tblSprav_Org o ON o.ID = v.IdOrg
-            LEFT   JOIN tblSprav_San s ON s.ID = v.IdSan
+            LEFT   JOIN tblSprav_Org o ON o.ID = v.ID_Ot
+            LEFT   JOIN tblSprav_San s ON s.ID = v.ID_Sanat
             WHERE  v.ID = {0}";
 
         var row = await db.Database
@@ -214,18 +225,16 @@ public class AktVozvrataController(KasabaKIATContext db) : ControllerBase
         var sql = @"
             SELECT vp.ID,
                    vp.Num_Put,
-                   vp.IdSan,
-                   s.Name_San,
-                   vp.DataRealizacii,
-                   vp.Symma,
-                   vp.IdFace,
-                   f.Name_Face
+                   vp.ID_Sanat                      AS IdSan,
+                   CAST(s.Name_San AS NVARCHAR(200)) AS Name_San,
+                   vp.Data_Post                      AS DataRealizacii,
+                   vp.Symma
             FROM   tblVipl_Put vp
-            LEFT   JOIN tblSprav_San  s ON s.ID = vp.IdSan
-            LEFT   JOIN tblSprav_Face f ON f.ID = vp.IdFace
-            WHERE  vp.IdOrg = {0}
-              AND  (vp.StatusVozvrat IS NULL OR vp.StatusVozvrat = 0)
-            ORDER  BY vp.DataRealizacii DESC";
+            LEFT   JOIN tblVipl v      ON v.ID  = vp.ID_Vipl
+            LEFT   JOIN tblSprav_San s ON s.ID  = vp.ID_Sanat
+            WHERE  v.ID_Org = {0}
+              AND  vp.Num_Put NOT IN (SELECT Num_Put FROM tblVozvrat WHERE Num_Put IS NOT NULL)
+            ORDER  BY vp.Data_Post DESC";
 
         var rows = await db.Database
             .SqlQueryRaw<AvailableVoucherRow>(sql, orgId)
@@ -856,7 +865,7 @@ public class VozvratRow
     public string? Num_Doc { get; set; }
     public long? IdOrg { get; set; }
     public string? Name_Org { get; set; }
-    public long? IdSan { get; set; }
+    public int? IdSan { get; set; }
     public string? Name_San { get; set; }
     public string? Num_Put { get; set; }
     public decimal? Symma { get; set; }
@@ -867,19 +876,25 @@ public class VozvratDetailRow : VozvratRow
 {
     public string? INN { get; set; }
     public int? Year { get; set; }
-    public int? Quarter { get; set; }
+    public long? Quarter { get; set; }
 }
 
 public class AvailableVoucherRow
 {
     public long ID { get; set; }
     public string? Num_Put { get; set; }
-    public long? IdSan { get; set; }
+    public int? IdSan { get; set; }
     public string? Name_San { get; set; }
     public DateTime? DataRealizacii { get; set; }
     public decimal? Symma { get; set; }
-    public long? IdFace { get; set; }
-    public string? Name_Face { get; set; }
+}
+
+public class VozvratVoucherInfo
+{
+    public long ID { get; set; }
+    public string? Num_Put { get; set; }
+    public int? ID_Sanat { get; set; }
+    public decimal? Symma { get; set; }
 }
 
 public class ZakritiyeRow

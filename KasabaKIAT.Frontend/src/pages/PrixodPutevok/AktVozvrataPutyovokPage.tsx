@@ -19,12 +19,12 @@ const { Option } = Select;
 
 interface AktVozvrat {
   id: number;
-  data_post: string;
-  num_doc: string;
-  orgName: string;
-  sanatoriyName: string;
-  num_put: string;
-  symmap: number;
+  data_Post?: string;
+  num_Doc?: string;
+  name_Org?: string;
+  name_San?: string;
+  num_Put?: string;
+  symma?: number;
 }
 
 interface AktStats {
@@ -45,10 +45,10 @@ interface Organization {
 
 interface AvailableVoucher {
   id: number;
-  sanatName: string;
-  num_put: string;
-  data_post: string;
-  symma: number;
+  name_San?: string;
+  num_Put?: string;
+  dataRealizacii?: string;
+  symma?: number;
 }
 
 // ─── Main Page ────────────────────────────────────────────────────────────────
@@ -147,10 +147,10 @@ export function AktVozvrataPutyovokPage() {
         return;
       }
       addMutation.mutate({
-        data_post: (values.data_post as Dayjs).toISOString(),
-        num_doc: values.num_doc,
-        dover_fio: values.dover_fio,
-        dover_num: values.dover_num,
+        year,
+        quarter,
+        dataPost: (values.data_post as Dayjs).toISOString(),
+        numDoc: values.num_doc,
         orgId: selectedOrg.id,
         voucherIds: selectedVoucherIds,
       });
@@ -217,15 +217,21 @@ export function AktVozvrataPutyovokPage() {
     { title: 'ID', dataIndex: 'id', key: 'id', width: 60 },
     {
       title: 'Дата',
-      dataIndex: 'data_post',
-      key: 'data_post',
+      dataIndex: 'data_Post',
+      key: 'data_Post',
       render: (v: string) => v ? dayjs(v).format('DD.MM.YYYY') : '',
     },
-    { title: '№ документа', dataIndex: 'num_doc', key: 'num_doc' },
-    { title: 'Организация', dataIndex: 'orgName', key: 'orgName' },
-    { title: 'Санаторий', dataIndex: 'sanatoriyName', key: 'sanatoriyName' },
-    { title: '№ путевки', dataIndex: 'num_put', key: 'num_put' },
-    { title: 'Сумма', dataIndex: 'symmap', key: 'symmap' },
+    { title: '№ документа', dataIndex: 'num_Doc', key: 'num_Doc' },
+    { title: 'Организация', dataIndex: 'name_Org', key: 'name_Org' },
+    { title: 'Санаторий', dataIndex: 'name_San', key: 'name_San' },
+    { title: '№ путевки', dataIndex: 'num_Put', key: 'num_Put' },
+    {
+      title: 'Сумма',
+      dataIndex: 'symma',
+      key: 'symma',
+      align: 'right' as const,
+      render: (v: number) => v != null ? v.toLocaleString('ru-RU', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) : '',
+    },
   ];
 
   // ─── Available vouchers table columns ────────────────────────────────────
@@ -242,16 +248,21 @@ export function AktVozvrataPutyovokPage() {
         />
       ),
     },
-    { title: 'ID', dataIndex: 'id', key: 'id', width: 60 },
-    { title: 'Санаторий', dataIndex: 'sanatName', key: 'sanatName' },
-    { title: '№ путевки', dataIndex: 'num_put', key: 'num_put' },
+    { title: 'Санаторий', dataIndex: 'name_San', key: 'name_San' },
+    { title: '№ путевки', dataIndex: 'num_Put', key: 'num_Put' },
     {
       title: 'Дата',
-      dataIndex: 'data_post',
-      key: 'data_post',
+      dataIndex: 'dataRealizacii',
+      key: 'dataRealizacii',
       render: (v: string) => v ? dayjs(v).format('DD.MM.YYYY') : '',
     },
-    { title: 'Сумма', dataIndex: 'symma', key: 'symma' },
+    {
+      title: 'Сумма',
+      dataIndex: 'symma',
+      key: 'symma',
+      align: 'right' as const,
+      render: (v: number) => v != null ? v.toLocaleString('ru-RU', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) : '',
+    },
   ];
 
   // ─── Render ───────────────────────────────────────────────────────────────

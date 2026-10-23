@@ -7,7 +7,7 @@ import {
   App,
   Row,
   Col,
-  Space,
+  Flex,
   Input,
   Checkbox,
 } from 'antd';
@@ -68,7 +68,13 @@ function OrganizationPickerModal({ open, onClose, onSelect }: OrgPickerProps) {
   const { data: orgs = [], isFetching } = useQuery<Organization[]>({
     queryKey: ['org-picker-zakritiye', search],
     queryFn: () =>
-      api.get('/api/organizations', { params: { search } }).then((r) => r.data),
+      api.get('/api/organizations', { params: { search } }).then((r) =>
+        (r.data.items ?? r.data).map((o: { id: number; name: string; inn?: string }) => ({
+          ID: o.id,
+          Name_Org: o.name,
+          INN: o.inn,
+        }))
+      ),
     enabled: open,
   });
 
@@ -91,7 +97,7 @@ function OrganizationPickerModal({ open, onClose, onSelect }: OrgPickerProps) {
       onCancel={onClose}
       footer={null}
       width={700}
-      destroyOnClose
+      destroyOnHidden
     >
       <Input
         prefix={<SearchOutlined />}
@@ -396,14 +402,14 @@ export function ZakritiyaKvartalaPoPutyovkamPage() {
           </Title>
         </Col>
         <Col>
-          <Space direction="vertical" size={0} style={{ textAlign: 'right' }}>
+          <Flex vertical gap={0} style={{ textAlign: 'right' }}>
             <Text>
-              Сумма: <Text strong>{zakritiyeRes.PutyovkaCount}</Text>
+              Количество: <Text strong>{zakritiyeRes.PutyovkaCount}</Text>
             </Text>
             <Text>
-              Количество: <Text strong>{zakritiyeRes.SummaNakladnix}</Text>
+              Сумма: <Text strong>{(zakritiyeRes.SummaNakladnix ?? 0).toLocaleString('ru-RU', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</Text>
             </Text>
-          </Space>
+          </Flex>
         </Col>
       </Row>
 

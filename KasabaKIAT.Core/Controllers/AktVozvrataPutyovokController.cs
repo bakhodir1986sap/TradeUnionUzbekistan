@@ -364,7 +364,7 @@ public class DanniyeVladeltseController(KasabaKIATContext db) : ControllerBase
     private long UserId => long.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)!);
 
     /// <summary>
-    /// GetDanniyVladelsaPutyovki — owner data for vouchers in a date range.
+    /// GetDanniyVladelsaPutyovki — individual vouchers issued to an org in a date range.
     /// </summary>
     [HttpGet]
     public async Task<IActionResult> GetOwnerData(
@@ -377,30 +377,25 @@ public class DanniyeVladeltseController(KasabaKIATContext db) : ControllerBase
         var sql = @"
             SELECT vp.ID,
                    vp.Num_Put,
-                   vp.IdSan,
+                   vp.ID_Sanat        AS IdSan,
                    s.Name_San,
-                   vp.IdOrg,
+                   v.ID_Org           AS IdOrg,
                    o.Name_Org,
-                   vp.IdFace,
-                   f.Name_Face,
-                   vp.DataRealizacii,
+                   vp.Data_Post       AS DataRealizacii,
                    vp.Symma,
-                   vp.Talon,
-                   vp.NomDov,
-                   vp.DateDov,
-                   vp.SrokIst,
-                   vp.Poluchatel,
-                   vp.Dolgnost,
-                   vp.StatusVozvrat
+                   v.Num_Doc,
+                   v.Data_Post        AS DataNakladnoy,
+                   CASE WHEN f.ID IS NOT NULL THEN 1 ELSE 0 END AS IsFaceExists
             FROM   tblVipl_Put vp
-            LEFT   JOIN tblSprav_San  s ON s.ID = vp.IdSan
-            LEFT   JOIN tblSprav_Org  o ON o.ID = vp.IdOrg
-            LEFT   JOIN tblSprav_Face f ON f.ID = vp.IdFace
-            WHERE  vp.IdOrg = {0}
-              AND  vp.DataRealizacii >= {1}
-              AND  vp.DataRealizacii <= {2}
+            LEFT   JOIN tblVipl      v ON v.ID  = vp.ID_Vipl
+            LEFT   JOIN tblSprav_San s ON s.ID  = vp.ID_Sanat
+            LEFT   JOIN tblSprav_Org o ON o.ID  = v.ID_Org
+            LEFT   JOIN tblFase      f ON f.ID_Put = vp.ID
+            WHERE  v.ID_Org = {0}
+              AND  vp.Data_Post >= {1}
+              AND  vp.Data_Post <= {2}
               AND  ({3} = 1 OR vp.DepartmentBase = {4})
-            ORDER  BY vp.DataRealizacii";
+            ORDER  BY vp.Data_Post";
 
         var rows = await db.Database
             .SqlQueryRaw<ViplPutRow>(sql,
@@ -413,7 +408,7 @@ public class DanniyeVladeltseController(KasabaKIATContext db) : ControllerBase
     }
 
     /// <summary>
-    /// GetDanniyVladelsaNakladnoy — invoice-style data grouped by sanatorium.
+    /// GetDanniyVladelsaNakladnoy — vouchers grouped by sanatorium for an org in a date range.
     /// </summary>
     [HttpGet("nakladnoy")]
     public async Task<IActionResult> GetNakladnoyData(
@@ -422,25 +417,25 @@ public class DanniyeVladeltseController(KasabaKIATContext db) : ControllerBase
         [FromQuery] long orgId)
     {
         var sql = @"
-            SELECT vp.IdSan,
+            SELECT vp.ID_Sanat         AS IdSan,
                    s.Name_San,
-                   COUNT(*)          AS KolPut,
-                   SUM(vp.Symma)     AS TotalSymma,
-                   MIN(vp.DataRealizacii) AS DateFirst,
-                   MAX(vp.DataRealizacii) AS DateLast
+                   COUNT(*)            AS KolPut,
+                   SUM(vp.Symma)       AS TotalSymma,
+                   MIN(vp.Data_Post)   AS DateFirst,
+                   MAX(vp.Data_Post)   AS DateLast
             FROM   tblVipl_Put vp
-            LEFT   JOIN tblSprav_San s ON s.ID = vp.IdSan
-            WHERE  vp.IdOrg = {0}
-              AND  vp.DataRealizacii >= {1}
-              AND  vp.DataRealizacii <= {2}
-            GROUP  BY vp.IdSan, s.Name_San
+            LEFT   JOIN tblVipl      v ON v.ID = vp.ID_Vipl
+            LEFT   JOIN tblSprav_San s ON s.ID = vp.ID_Sanat
+            WHERE  v.ID_Org = {0}
+              AND  vp.Data_Post >= {1}
+              AND  vp.Data_Post <= {2}
+            GROUP  BY vp.ID_Sanat, s.Name_San
             ORDER  BY s.Name_San";
 
         var rows = await db.Database
             .SqlQueryRaw<NakladnoyRow>(sql, orgId, beginDate, endDate)
             .ToListAsync();
 
-        // GetDanniyTotal — grand total
         var total = new
         {
             kolPut = rows.Sum(r => r.KolPut),
@@ -451,37 +446,85 @@ public class DanniyeVladeltseController(KasabaKIATContext db) : ControllerBase
     }
 
     /// <summary>
-    /// SaveChanges / SaveChanges2 — save owner data changes for a voucher.
+    /// GetOwner — load owner data for a single voucher.
     /// </summary>
-    [HttpPost("{id}/save")]
-    public async Task<IActionResult> SaveChanges(long id, [FromBody] SaveOwnerChangesDto dto)
+    [HttpGet("{id:long}/owner")]
+    public async Task<IActionResult> GetOwner(long id)
     {
-        var sql = @"
-            UPDATE tblVipl_Put
-            SET    Poluchatel = {0},
-                   Dolgnost   = {1},
-                   Talon      = {2},
-                   NomDov     = {3},
-                   DateDov    = {4},
-                   SrokIst    = {5},
-                   ModifyDate = GETDATE(),
-                   ModifyUser = {6}
-            WHERE  ID = {7}";
+        var face = await db.TblFases.FirstOrDefaultAsync(f => f.ID_Put == id);
+        if (face == null)
+            return Ok(new { faceMain = (object?)null, faceMed = (object?)null });
 
-        var affected = await db.Database.ExecuteSqlRawAsync(sql,
-            dto.Poluchatel ?? (object)DBNull.Value,
-            dto.Dolgnost ?? (object)DBNull.Value,
-            dto.Talon ?? (object)DBNull.Value,
-            dto.NomDov ?? (object)DBNull.Value,
-            dto.DateDov.HasValue ? (object)dto.DateDov.Value : DBNull.Value,
-            dto.SrokIst.HasValue ? (object)dto.SrokIst.Value : DBNull.Value,
-            UserId,
-            id);
+        var med = await db.TblFaceMeds.FirstOrDefaultAsync(m => m.ID_Face == face.ID);
+        return Ok(new { faceMain = face, faceMed = med });
+    }
 
-        if (affected == 0)
-            return NotFound(new { message = "Запись не найдена." });
+    /// <summary>
+    /// SaveOwner — create or update owner data for a voucher.
+    /// </summary>
+    [HttpPost("{id:long}/save")]
+    public async Task<IActionResult> SaveOwner(long id, [FromBody] SaveOwnerDto dto)
+    {
+        var depBase = DepBase ?? string.Empty;
+        var userId = UserId;
 
-        return Ok(new { message = "Сохранено успешно." });
+        var face = await db.TblFases.FirstOrDefaultAsync(f => f.ID_Put == id);
+
+        if (face == null)
+        {
+            face = new TblFase
+            {
+                ID_Put = id,
+                DepartmentBase = depBase,
+                UserId = userId,
+                Data_Post = DateTime.Now,
+            };
+            db.TblFases.Add(face);
+        }
+
+        face.LastName = dto.LastName;
+        face.Name = dto.Name;
+        face.FirstName = dto.FirstName;
+        face.Pol = dto.Pol;
+        face.Adress = dto.Adress;
+        face.Rabota = dto.Rabota;
+        face.Dolj = dto.Dolj;
+        face.ID_Osnov = dto.IdOsnov;
+        face.Stav_Vid = dto.StavVid;
+        face.Gost_Pr = dto.GostPr;
+        face.Pas_Ser = dto.PasSer;
+        face.Pas_Num = dto.PasNum;
+        face.Pas_KD = dto.PasKD;
+        face.Pas_Data = dto.PasData;
+        face.INN = dto.Inn;
+        face.PNFL = dto.Pnfl;
+
+        await db.SaveChangesAsync();
+
+        var med = await db.TblFaceMeds.FirstOrDefaultAsync(m => m.ID_Face == face.ID);
+        if (med == null)
+        {
+            med = new TblFaceMed
+            {
+                ID_Face = face.ID,
+                DepartmentBase = depBase,
+                UserId = userId,
+            };
+            db.TblFaceMeds.Add(med);
+        }
+
+        med.Med_Doc = dto.MedDoc;
+        med.Med_Data = dto.MedData;
+        med.Med_San = dto.MedSan;
+        med.Opl_Doc = dto.OplDoc;
+        med.Opl_Data = dto.OplData;
+        med.Opl_Symma = dto.OplSymma;
+        med.Tal_Doc = dto.TalDoc;
+        med.Tal_Data = dto.TalData;
+
+        await db.SaveChangesAsync();
+
+        return Ok(new { faceId = face.ID });
     }
 }
 
@@ -923,26 +966,48 @@ public class ViplPutRow
 {
     public long ID { get; set; }
     public string? Num_Put { get; set; }
-    public long? IdSan { get; set; }
+    public int? IdSan { get; set; }
     public string? Name_San { get; set; }
     public long? IdOrg { get; set; }
     public string? Name_Org { get; set; }
-    public long? IdFace { get; set; }
-    public string? Name_Face { get; set; }
     public DateTime? DataRealizacii { get; set; }
     public decimal? Symma { get; set; }
-    public string? Talon { get; set; }
-    public string? NomDov { get; set; }
-    public DateTime? DateDov { get; set; }
-    public DateTime? SrokIst { get; set; }
-    public string? Poluchatel { get; set; }
-    public string? Dolgnost { get; set; }
-    public int? StatusVozvrat { get; set; }
+    public string? Num_Doc { get; set; }
+    public DateTime? DataNakladnoy { get; set; }
+    public int IsFaceExists { get; set; }
+}
+
+public class SaveOwnerDto
+{
+    public string? LastName { get; set; }
+    public string? Name { get; set; }
+    public string? FirstName { get; set; }
+    public string? Pol { get; set; }
+    public string? Adress { get; set; }
+    public string? Rabota { get; set; }
+    public string? Dolj { get; set; }
+    public long? IdOsnov { get; set; }
+    public int? StavVid { get; set; }
+    public int? GostPr { get; set; }
+    public string? PasSer { get; set; }
+    public string? PasNum { get; set; }
+    public string? PasKD { get; set; }
+    public DateTime? PasData { get; set; }
+    public string? Inn { get; set; }
+    public string? Pnfl { get; set; }
+    public string? MedDoc { get; set; }
+    public DateTime? MedData { get; set; }
+    public int? MedSan { get; set; }
+    public string? OplDoc { get; set; }
+    public DateTime? OplData { get; set; }
+    public decimal? OplSymma { get; set; }
+    public string? TalDoc { get; set; }
+    public DateTime? TalData { get; set; }
 }
 
 public class NakladnoyRow
 {
-    public long? IdSan { get; set; }
+    public int? IdSan { get; set; }
     public string? Name_San { get; set; }
     public int KolPut { get; set; }
     public decimal? TotalSymma { get; set; }

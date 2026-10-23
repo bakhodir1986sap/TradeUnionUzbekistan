@@ -60,6 +60,8 @@ public partial class KasabaKIATContext(
     public virtual DbSet<TbbuFinOtchetSetting> TbbuFinOtchetSettings { get; set; } = null!;
     public virtual DbSet<TbbuPlatejka> TbbuPlatejkas { get; set; } = null!;
     public virtual DbSet<TblPosPut> TblPosPuts { get; set; } = null!;
+    public virtual DbSet<TblFase> TblFases { get; set; } = null!;
+    public virtual DbSet<TblFaceMed> TblFaceMeds { get; set; } = null!;
     public virtual DbSet<TblPost> TblPosts { get; set; } = null!;
     public virtual DbSet<TblCloseDay> TblCloseDays { get; set; } = null!;
     public virtual DbSet<TblHoliday> TblHolidays { get; set; } = null!;

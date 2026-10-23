@@ -367,6 +367,127 @@ public class RasxodPutyovokController(KasabaKIATContext db) : ControllerBase
         return Ok(new { id, status = "CONDUCTED" });
     }
 
+    // GET /api/rasxod-putevok/{id}/schet-faktura
+    [HttpGet("{id:long}/schet-faktura")]
+    public async Task<IActionResult> GetSchetFaktura(long id)
+    {
+        // Fetch nakladnoy header + org buyer info
+        var headerSql = @"
+            SELECT
+                v.ID                            AS Id,
+                v.Num_Doc                       AS NumDoc,
+                v.Data_Post                     AS DataPost,
+                v.SmFil                         AS [Year],
+                v.Id_Kv                         AS Quarter,
+                v.DepartmentBase,
+                v.Num_Kol                       AS NumKol,
+                v.Symma,
+                v.Name_Dov                      AS NameDov,
+                o.Name_Org                      AS OrgName,
+                o.INN                           AS OrgInn,
+                o.RS                            AS OrgRs,
+                o.MFO                           AS OrgMfo,
+                o.Bank                          AS OrgBank,
+                o.OKONX                         AS OrgOkonx,
+                o.Adress                        AS OrgAdress,
+                o.Telefon                       AS OrgTelefon
+            FROM tblVipl v
+            LEFT JOIN tblSprav_Org o ON o.ID = v.ID_Org
+            WHERE v.ID = {0}";
+
+        var headers = await db.Database
+            .SqlQueryRaw<SchetFakturaOrgHeaderRow>(headerSql, id)
+            .ToListAsync();
+
+        if (headers.Count == 0) return NotFound();
+        var h = headers[0];
+
+        // Fetch supplier (tblPred) data keyed by DepartmentBase
+        SchetFakturaSupplierRow? supplier = null;
+        if (!string.IsNullOrEmpty(h.DepartmentBase))
+        {
+            var supplierSql = @"
+                SELECT TOP 1
+                    ID_Name         AS SupplierName,
+                    ID_Pred         AS SupplierPhone,
+                    Adress          AS SupplierAdress,
+                    RS              AS SupplierRs,
+                    Name_bank       AS SupplierBank,
+                    MFO             AS SupplierMfo,
+                    INN             AS SupplierInn,
+                    OKONX           AS SupplierOkonx,
+                    Name_Dir        AS NameDir,
+                    Name_Zaveduyushiy AS NameZaveduyushiy,
+                    Name_VedSpes    AS NameVedSpes
+                FROM tblPred
+                WHERE Departmentbase = {0}";
+
+            var supplierRows = await db.Database
+                .SqlQueryRaw<SchetFakturaSupplierRow>(supplierSql, h.DepartmentBase)
+                .ToListAsync();
+            supplier = supplierRows.FirstOrDefault();
+        }
+
+        // Fetch detail lines
+        var linesSql = @"
+            SELECT
+                vp.ID                           AS Id,
+                vp.ID_Vipl                      AS IdVipl,
+                vp.ID_Sanat                     AS RecId,
+                vp.Num_Put                      AS SerialBegin,
+                CAST(NULL AS NVARCHAR(100))      AS SerialEnd,
+                vp.Data_Post                    AS RestBeginDate,
+                CAST(NULL AS DATETIME)          AS RestEndDate,
+                vp.Symma                        AS Price,
+                CAST(NULL AS NVARCHAR(50))      AS StatusPutyovki,
+                vp.ID_Sanat                     AS SanatoriumId,
+                s.Name_San                      AS SanatoriumName
+            FROM tblVipl_Put vp
+            LEFT JOIN tblSprav_San s ON s.ID = vp.ID_Sanat
+            WHERE vp.ID_Vipl = {0}
+            ORDER BY vp.ID";
+
+        var lines = await db.Database
+            .SqlQueryRaw<ViplDetailRow>(linesSql, id)
+            .ToListAsync();
+
+        return Ok(new
+        {
+            id           = h.Id,
+            numDoc       = h.NumDoc,
+            dataPost     = h.DataPost,
+            numKol       = h.NumKol,
+            symma        = h.Symma,
+            nameDov      = h.NameDov,
+            buyer = new
+            {
+                name    = h.OrgName,
+                inn     = h.OrgInn,
+                rs      = h.OrgRs,
+                mfo     = h.OrgMfo,
+                bank    = h.OrgBank,
+                okonx   = h.OrgOkonx,
+                adress  = h.OrgAdress,
+                telefon = h.OrgTelefon,
+            },
+            supplier = supplier == null ? null : new
+            {
+                name      = supplier.SupplierName,
+                phone     = supplier.SupplierPhone,
+                adress    = supplier.SupplierAdress,
+                rs        = supplier.SupplierRs,
+                bank      = supplier.SupplierBank,
+                mfo       = supplier.SupplierMfo,
+                inn       = supplier.SupplierInn,
+                okonx     = supplier.SupplierOkonx,
+                nameDir   = supplier.NameDir,
+                nameZaveduyushiy = supplier.NameZaveduyushiy,
+                nameVedSpes      = supplier.NameVedSpes,
+            },
+            lines,
+        });
+    }
+
     // GET /api/rasxod-putevok/available-vouchers?search={}
     [HttpGet("available-vouchers")]
     public async Task<IActionResult> GetAvailableVouchers([FromQuery] string? search)
@@ -1124,4 +1245,40 @@ internal class PrixodPutLookupRow
 {
     public long Id { get; set; }
     public long? PosPutId { get; set; }
+}
+
+internal class SchetFakturaOrgHeaderRow
+{
+    public long Id { get; set; }
+    public string? NumDoc { get; set; }
+    public DateTime? DataPost { get; set; }
+    public int? Year { get; set; }
+    public long? Quarter { get; set; }
+    public string? DepartmentBase { get; set; }
+    public int? NumKol { get; set; }
+    public decimal? Symma { get; set; }
+    public string? NameDov { get; set; }
+    public string? OrgName { get; set; }
+    public string? OrgInn { get; set; }
+    public string? OrgRs { get; set; }
+    public string? OrgMfo { get; set; }
+    public string? OrgBank { get; set; }
+    public string? OrgOkonx { get; set; }
+    public string? OrgAdress { get; set; }
+    public string? OrgTelefon { get; set; }
+}
+
+internal class SchetFakturaSupplierRow
+{
+    public string? SupplierName { get; set; }
+    public string? SupplierPhone { get; set; }
+    public string? SupplierAdress { get; set; }
+    public string? SupplierRs { get; set; }
+    public string? SupplierBank { get; set; }
+    public string? SupplierMfo { get; set; }
+    public string? SupplierInn { get; set; }
+    public string? SupplierOkonx { get; set; }
+    public string? NameDir { get; set; }
+    public string? NameZaveduyushiy { get; set; }
+    public string? NameVedSpes { get; set; }
 }

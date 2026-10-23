@@ -83,6 +83,7 @@ public partial class KasabaKIATContext(
     public virtual DbSet<TbptLagerOtchet> TbptLagerOtchets { get; set; } = null!;
     public virtual DbSet<Provodok> Provodoks { get; set; } = null!;
     public virtual DbSet<PProvodok> PProvodoks { get; set; } = null!;
+    public virtual DbSet<ChatDocumentChunk> ChatDocumentChunks { get; set; } = null!;
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -157,6 +158,14 @@ public partial class KasabaKIATContext(
         {
             entity.ToTable("p_provodok");
             entity.HasKey(e => e.id);
+        });
+
+        modelBuilder.Entity<ChatDocumentChunk>(entity =>
+        {
+            entity.ToTable("chat_document_chunks");
+            entity.HasKey(e => e.id);
+            entity.Property(e => e.created_at).HasDefaultValueSql("SYSUTCDATETIME()");
+            entity.HasIndex(e => e.source_name);
         });
 
         base.OnModelCreating(modelBuilder);

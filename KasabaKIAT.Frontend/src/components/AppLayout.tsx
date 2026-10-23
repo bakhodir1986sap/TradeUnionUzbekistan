@@ -31,12 +31,15 @@ import {
 } from '@ant-design/icons';
 import { useAuth } from '../auth/AuthContext';
 import { useTranslation } from 'react-i18next';
+import { AiChatButton } from './AiChat';
+import { AiChatPanel } from './AiChat';
 
 const { Header, Sider, Content } = Layout;
 const { Text } = Typography;
 
 export function AppLayout() {
   const [collapsed, setCollapsed] = useState(false);
+  const [chatOpen, setChatOpen] = useState(false);
   const { user, logout } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
@@ -238,6 +241,8 @@ export function AppLayout() {
           <Outlet />
         </Content>
       </Layout>
+      <AiChatButton onClick={() => setChatOpen(true)} />
+      <AiChatPanel open={chatOpen} onClose={() => setChatOpen(false)} />
     </Layout>
   );
 }

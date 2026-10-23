@@ -1,6 +1,7 @@
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using KasabaKIAT.Core.Data;
+using KasabaKIAT.Core.DTOs.Chat;
 using KasabaKIAT.Core.Exceptions;
 using KasabaKIAT.Core.Mappings;
 using KasabaKIAT.Core.Middleware;
@@ -9,6 +10,7 @@ using KasabaKIAT.Core.Validators;
 using MapsterMapper;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.RateLimiting;
 using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.EntityFrameworkCore;
@@ -81,6 +83,7 @@ builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
 builder.Services.AddResponseCompression(opts =>
 {
     opts.EnableForHttps = true;
+    opts.MimeTypes = ResponseCompressionDefaults.MimeTypes.Except(["text/event-stream"]);
     opts.Providers.Add<BrotliCompressionProvider>();
     opts.Providers.Add<GzipCompressionProvider>();
 });
@@ -102,6 +105,18 @@ builder.Services.AddScoped<IFinOtchetService, FinOtchetService>();
 builder.Services.AddScoped<IGlavnayaKniService, GlavnayaKniService>();
 builder.Services.AddScoped<IAuditService, AuditService>();
 builder.Services.AddScoped<IKurortService, KurortService>();
+
+// AI Chat services
+var ollamaBaseUrl = builder.Configuration["Ollama:BaseUrl"] ?? "http://localhost:11434";
+builder.Services.AddHttpClient("ollama", c =>
+{
+    c.BaseAddress = new Uri(ollamaBaseUrl);
+    c.Timeout = TimeSpan.FromMinutes(5);
+});
+builder.Services.Configure<OllamaOptions>(builder.Configuration.GetSection("Ollama"));
+builder.Services.Configure<FormOptions>(o => o.MultipartBodyLengthLimit = 52_428_800);
+builder.Services.AddScoped<IDbContextRagService, DbContextRagService>();
+builder.Services.AddScoped<IChatService, ChatService>();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>

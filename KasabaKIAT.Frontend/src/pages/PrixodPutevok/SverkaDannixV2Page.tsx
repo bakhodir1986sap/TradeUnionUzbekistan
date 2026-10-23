@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import {
   Table,
   Button,
@@ -12,6 +12,7 @@ import {
   Col,
   Form,
   Upload,
+  Flex,
 } from 'antd';
 import {
   FileExcelOutlined,
@@ -50,6 +51,7 @@ interface ProfItem {
 }
 
 interface SverkaResultItem {
+  _key?: string;
   sanatName: string;
   numPut: string;
   kurortFio: string;
@@ -59,6 +61,7 @@ interface SverkaResultItem {
 }
 
 interface LoadedDataItem {
+  _key?: string;
   num_put: string;
   sanatName: string;
   date_san: string;
@@ -108,10 +111,7 @@ export function SverkaDannixV2Page() {
       const response = await api.get('/api/sverkadannixv2/years');
       return response.data;
     },
-    onError: () => {
-      message.error('Ошибка при загрузке списка годов');
-    },
-  } as any);
+  });
 
   const { data: sidesData } = useQuery<SideItem[]>({
     queryKey: ['sverkaDannixSides'],
@@ -119,10 +119,7 @@ export function SverkaDannixV2Page() {
       const response = await api.get('/api/sverkadannixv2/sides');
       return response.data;
     },
-    onError: () => {
-      message.error('Ошибка при загрузке сторон загрузки');
-    },
-  } as any);
+  });
 
   const { data: sanatoriesData } = useQuery<SanatoryItem[]>({
     queryKey: ['sverkaDannixSanatories'],
@@ -130,10 +127,7 @@ export function SverkaDannixV2Page() {
       const response = await api.get('/api/sverkadannixv2/sanatories');
       return response.data;
     },
-    onError: () => {
-      message.error('Ошибка при загрузке санаториев');
-    },
-  } as any);
+  });
 
   const { data: profsoyuzyData } = useQuery<ProfItem[]>({
     queryKey: ['sverkaDannixPravs', selectedSide?.Code],
@@ -144,10 +138,7 @@ export function SverkaDannixV2Page() {
       return response.data;
     },
     enabled: !!selectedSide?.Code,
-    onError: () => {
-      message.error('Ошибка при загрузке профсоюзов');
-    },
-  } as any);
+  });
 
   const { data: yearComboData } = useQuery<YearComboItem[]>({
     queryKey: ['sverkaDannixYearsCombo'],
@@ -155,10 +146,7 @@ export function SverkaDannixV2Page() {
       const response = await api.get('/api/sverkadannixv2/years-list');
       return response.data;
     },
-    onError: () => {
-      message.error('Ошибка при загрузке годов');
-    },
-  } as any);
+  });
 
   const { data: sanatoryComboData } = useQuery<CodeDecodeItem[]>({
     queryKey: ['sverkaDannixSanatoryCombo'],
@@ -166,10 +154,7 @@ export function SverkaDannixV2Page() {
       const response = await api.get('/api/sverkadannixv2/sanatory-list');
       return response.data;
     },
-    onError: () => {
-      message.error('Ошибка при загрузке санаториев');
-    },
-  } as any);
+  });
 
   const { data: profComboData } = useQuery<CodeDecodeItem[]>({
     queryKey: ['sverkaDannixProfCombo'],
@@ -177,14 +162,11 @@ export function SverkaDannixV2Page() {
       const response = await api.get('/api/sverkadannixv2/prof-list');
       return response.data;
     },
-    onError: () => {
-      message.error('Ошибка при загрузке профсоюзов');
-    },
-  } as any);
+  });
 
   // ---- Sverka results query (triggered) ----
 
-  const { isFetching: isSverkaLoading } = useQuery<SverkaResultItem[]>({
+  const { isFetching: isSverkaLoading, error: sverkaError } = useQuery<SverkaResultItem[]>({
     queryKey: ['sverkaDannixResults', sverkaYear, sverskaSanatory, sverkaProfsoyuz],
     queryFn: async () => {
       const response = await api.get('/api/sverkadannixv2/GetDifferByYearFilesV2', {
@@ -194,31 +176,39 @@ export function SverkaDannixV2Page() {
           profsoyuz: sverkaProfsoyuz,
         },
       });
-      setSverkaResults(response.data);
-      return response.data;
+      const data: SverkaResultItem[] = response.data.map(
+        (r: SverkaResultItem, i: number) => ({ ...r, _key: `${r.numPut || i}-${i}` })
+      );
+      setSverkaResults(data);
+      return data;
     },
     enabled: sverkaTriggered && !!sverkaYear,
-    onError: () => {
-      message.error('Ошибка при загрузке сверки данных');
-    },
-  } as any);
+  });
+
+  useEffect(() => {
+    if (sverkaError) message.error('Ошибка при загрузке сверки данных');
+  }, [sverkaError, message]);
 
   // ---- Loaded data query (triggered) ----
 
-  const { isFetching: isLoadedDataLoading } = useQuery<LoadedDataItem[]>({
+  const { isFetching: isLoadedDataLoading, error: loadedError } = useQuery<LoadedDataItem[]>({
     queryKey: ['sverkaDannixLoadedData', loadedYear],
     queryFn: async () => {
       const response = await api.get('/api/sverkadannixv2/GetLoadedRowsV2', {
         params: { year: loadedYear },
       });
-      setLoadedData(response.data);
-      return response.data;
+      const data: LoadedDataItem[] = response.data.map(
+        (r: LoadedDataItem, i: number) => ({ ...r, _key: `${r.num_put || i}-${i}` })
+      );
+      setLoadedData(data);
+      return data;
     },
     enabled: loadedTriggered && !!loadedYear,
-    onError: () => {
-      message.error('Ошибка при загрузке загруженных данных');
-    },
-  } as any);
+  });
+
+  useEffect(() => {
+    if (loadedError) message.error('Ошибка при загрузке загруженных данных');
+  }, [loadedError, message]);
 
   // ---- Mutations ----
 
@@ -266,7 +256,7 @@ export function SverkaDannixV2Page() {
 
   const handleDownloadTemplate = async () => {
     try {
-      const response = await api.get('/PrixodPutevok/DownloadTemplate', {
+      const response = await api.get('/api/sverkadannixv2/download-template', {
         responseType: 'blob',
       });
       const url = window.URL.createObjectURL(new Blob([response.data]));
@@ -540,7 +530,7 @@ export function SverkaDannixV2Page() {
         </Row>
 
         {/* Download Template & File Upload */}
-        <Space direction="vertical" style={{ width: '100%' }}>
+        <Flex vertical gap={8} style={{ width: '100%' }}>
           <Button
             icon={<DownloadOutlined />}
             onClick={handleDownloadTemplate}
@@ -573,7 +563,7 @@ export function SverkaDannixV2Page() {
               Очистить
             </Button>
           </Space>
-        </Space>
+        </Flex>
       </Card>
 
       {/* Sverka Section */}
@@ -666,7 +656,7 @@ export function SverkaDannixV2Page() {
         <Table<SverkaResultItem>
           columns={sverkaColumns}
           dataSource={sverkaResults}
-          rowKey={(record) => `${record.numPut}-${record.sanatName}`}
+          rowKey={(record) => record._key ?? record.numPut}
           loading={isSverkaLoading}
           scroll={{ x: 'max-content' }}
           size="small"
@@ -729,7 +719,7 @@ export function SverkaDannixV2Page() {
         <Table<LoadedDataItem>
           columns={loadedDataColumns}
           dataSource={loadedData}
-          rowKey={(record) => record.num_put}
+          rowKey={(record) => record._key ?? record.num_put}
           loading={isLoadedDataLoading}
           scroll={{ x: 'max-content' }}
           size="small"

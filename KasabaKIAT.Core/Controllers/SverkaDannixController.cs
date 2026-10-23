@@ -1,3 +1,4 @@
+using ClosedXML.Excel;
 using KasabaKIAT.Core.Data;
 using KasabaKIAT.Core.Models;
 using Microsoft.AspNetCore.Authorization;
@@ -283,7 +284,8 @@ public class SverkaDannixController(KasabaKIATContext db) : ControllerBase
 }
 
 // ---------------------------------------------------------------------------
-// SverkaDannix V2 controller  (api/sverkadannixv2) — reads from tbpt_putyovki
+// SverkaDannix V2 controller  (api/sverkadannixv2)
+// Reconciliation of sanatorium-uploaded data (tblFase) vs union issued data (tblVipl_Put)
 // ---------------------------------------------------------------------------
 
 [ApiController]
@@ -291,20 +293,407 @@ public class SverkaDannixController(KasabaKIATContext db) : ControllerBase
 [Authorize]
 public class SverkaDannixV2Controller(KasabaKIATContext db) : ControllerBase
 {
-    // GET /years — distinct years from tbpt_putyovki
+    // GET /years — distinct years from tblFase and tblVipl_Put, shape: { Id, Year }
     [HttpGet("years")]
     public async Task<IActionResult> GetYears()
     {
-        var years = await db.TbptPutyovkis
-            .Where(p => p.REST_BEGIN_DATE != null)
-            .Select(p => p.REST_BEGIN_DATE!.Value.Year)
-            .Distinct()
-            .OrderByDescending(y => y)
+        var fromFase = await db.TblFases
+            .Where(f => f.Data_Post != null)
+            .Select(f => f.Data_Post!.Value.Year)
             .ToListAsync();
+
+        var fromVipl = await db.Database
+            .SqlQueryRaw<int>("SELECT DISTINCT YEAR(Data_Post) AS Value FROM tblVipl_Put WHERE Data_Post IS NOT NULL")
+            .ToListAsync();
+
+        var years = fromFase.Concat(fromVipl).Distinct().OrderByDescending(y => y).ToList();
+
+        var result = years.Select(y => new { Id = y, Year = y.ToString() }).ToList();
+        return Ok(result);
+    }
+
+    // GET /sides — upload sides (hardcoded: sanatorium side vs union side)
+    [HttpGet("sides")]
+    public IActionResult GetSides()
+    {
+        var sides = new[]
+        {
+            new { Code = "SANAT",  Decode = "Санаторий" },
+            new { Code = "OBLAST", Decode = "Профсоюз"  },
+        };
+        return Ok(sides);
+    }
+
+    // GET /sanatories — all sanatoriums
+    [HttpGet("sanatories")]
+    public async Task<IActionResult> GetSanatories()
+    {
+        var list = await db.TblSpravSans
+            .OrderBy(s => s.Name_San)
+            .Select(s => new { s.ID, s.Name_San })
+            .ToListAsync();
+        return Ok(list);
+    }
+
+    // GET /profsoyuzy?sideCode= — union organisations filtered by side
+    [HttpGet("profsoyuzy")]
+    public async Task<IActionResult> GetProfsoyuzy([FromQuery] string? sideCode)
+    {
+        var list = await db.TDepartmentBases
+            .OrderBy(d => d.name_ru)
+            .Select(d => new
+            {
+                MATCH_DEPARTMENTBASE = d.MATCH_DEPARTMENTBASE,
+                ProfsoyzNaimenovanie = d.name_ru,
+            })
+            .ToListAsync();
+        return Ok(list);
+    }
+
+    // GET /years-list — distinct years in tblFase for sverka/loaded filter dropdowns
+    [HttpGet("years-list")]
+    public async Task<IActionResult> GetYearsList()
+    {
+        var fromFase = await db.TblFases
+            .Where(f => f.Data_Post != null)
+            .Select(f => f.Data_Post!.Value.Year)
+            .ToListAsync();
+
+        var fromVipl = await db.Database
+            .SqlQueryRaw<int>("SELECT DISTINCT YEAR(Data_Post) AS Value FROM tblVipl_Put WHERE Data_Post IS NOT NULL")
+            .ToListAsync();
+
+        var years = fromFase.Concat(fromVipl).Distinct().OrderByDescending(y => y)
+            .Select(y => new { year_id = y.ToString(), year_str = y.ToString() })
+            .ToList();
         return Ok(years);
     }
 
-    // GET /{year}/data — tbpt_putyovki rows for the year, joined with tblSprav_San
+    // GET /sanatory-list — { text, value } list for sverka filter
+    [HttpGet("sanatory-list")]
+    public async Task<IActionResult> GetSanatoryList()
+    {
+        var list = await db.TblSpravSans
+            .OrderBy(s => s.Name_San)
+            .Select(s => new { text = s.Name_San, value = s.ID.ToString() })
+            .ToListAsync();
+        return Ok(list);
+    }
+
+    // GET /prof-list — { text, value } list for sverka filter
+    [HttpGet("prof-list")]
+    public async Task<IActionResult> GetProfList()
+    {
+        var list = await db.TDepartmentBases
+            .OrderBy(d => d.name_ru)
+            .Select(d => new { text = d.name_ru, value = d.MATCH_DEPARTMENTBASE })
+            .ToListAsync();
+        return Ok(list);
+    }
+
+    // GET /GetLoadedRowsV2?year= — rows uploaded from sanatorium side (tblFase)
+    [HttpGet("GetLoadedRowsV2")]
+    public async Task<IActionResult> GetLoadedRowsV2([FromQuery] string? year)
+    {
+        var query = db.TblFases
+            .AsQueryable();
+
+        if (int.TryParse(year, out var yr))
+            query = query.Where(f => f.Data_Post != null && f.Data_Post.Value.Year == yr);
+
+        var faseRows = await query
+            .Select(f => new
+            {
+                f.ID,
+                f.ID_Put,
+                f.ID_Sanat,
+                f.Num_Put,
+                f.LastName,
+                f.Name,
+                f.FirstName,
+                f.Adress,
+                f.Rabota,
+                f.Data_Post,
+            })
+            .ToListAsync();
+
+        var sanIds = faseRows.Select(f => f.ID_Sanat).Where(x => x != null).Cast<int>().Distinct().ToList();
+        var sans = await db.TblSpravSans
+            .Where(s => sanIds.Contains(s.ID))
+            .ToDictionaryAsync(s => s.ID, s => s.Name_San);
+
+        var result = faseRows.Select(f =>
+        {
+            var sanName = f.ID_Sanat != null && sans.TryGetValue(f.ID_Sanat.Value, out var n) ? n : "";
+            var fio = string.Join(" ", new[] { f.LastName, f.Name, f.FirstName }.Where(s => !string.IsNullOrEmpty(s)));
+            return new
+            {
+                num_put = f.Num_Put ?? "",
+                sanatName = sanName ?? "",
+                date_san = f.Data_Post?.ToString("dd.MM.yyyy") ?? "",
+                fio_otdix = fio,
+                price = "",
+                work_place = f.Rabota ?? "",
+            };
+        }).ToList();
+
+        return Ok(result);
+    }
+
+    // GET /GetDifferByYearFilesV2?year=&sanatory=&profsoyuz= — reconciliation differences
+    [HttpGet("GetDifferByYearFilesV2")]
+    public async Task<IActionResult> GetDifferByYearFilesV2(
+        [FromQuery] string? year,
+        [FromQuery] string? sanatory,
+        [FromQuery] string? profsoyuz)
+    {
+        // Get tblFase rows (sanatorium-uploaded data) and tblVipl_Put rows (union data)
+        // Compare by Num_Put — show where FIO or address differ
+
+        var faseQuery = db.TblFases.AsQueryable();
+        if (int.TryParse(year, out var yr))
+            faseQuery = faseQuery.Where(f => f.Data_Post != null && f.Data_Post.Value.Year == yr);
+        if (int.TryParse(sanatory, out var sanId))
+            faseQuery = faseQuery.Where(f => f.ID_Sanat == sanId);
+        if (!string.IsNullOrEmpty(profsoyuz))
+            faseQuery = faseQuery.Where(f => f.DepartmentBase == profsoyuz);
+
+        var faseRows = await faseQuery
+            .Select(f => new
+            {
+                f.Num_Put,
+                f.ID_Sanat,
+                KurortFio  = (f.LastName ?? "") + " " + (f.Name ?? "") + " " + (f.FirstName ?? ""),
+                KurortAddr = f.Adress ?? "",
+            })
+            .ToListAsync();
+
+        // Union side: tblVipl_Put — no FIO stored there; use tblFase rows created by union staff (DepartmentBase != null)
+        var viplPutNums = faseRows.Select(f => f.Num_Put).Where(n => n != null).ToList();
+        var unionFaseRows = await db.TblFases
+            .Where(f => viplPutNums.Contains(f.Num_Put) && f.DepartmentBase != null)
+            .Select(f => new
+            {
+                f.Num_Put,
+                f.ID_Sanat,
+                OblastFio  = (f.LastName ?? "") + " " + (f.Name ?? "") + " " + (f.FirstName ?? ""),
+                OblastAddr = f.Adress ?? "",
+            })
+            .ToListAsync();
+
+        var unionLookup = unionFaseRows.ToDictionary(u => u.Num_Put ?? "", u => u);
+
+        // Also pull issued vouchers from tblVipl_Put
+        var viplRows = await db.Database
+            .SqlQueryRaw<ViplPutNumRow>(
+                "SELECT Num_Put, ID_Sanat FROM tblVipl_Put WHERE Num_Put IS NOT NULL")
+            .ToListAsync();
+
+        var sanIds = faseRows.Select(f => f.ID_Sanat).Where(x => x != null).Cast<int>().Distinct().ToList();
+        var sans = await db.TblSpravSans
+            .Where(s => sanIds.Contains(s.ID))
+            .ToDictionaryAsync(s => s.ID, s => s.Name_San);
+
+        var results = new List<object>();
+        foreach (var f in faseRows)
+        {
+            var sanName = f.ID_Sanat != null && sans.TryGetValue(f.ID_Sanat.Value, out var sn) ? sn : "";
+            unionLookup.TryGetValue(f.Num_Put ?? "", out var unionRow);
+
+            var oblastFio  = unionRow?.OblastFio  ?? "";
+            var oblastAddr = unionRow?.OblastAddr ?? "";
+
+            // Only include rows that actually differ or have no union counterpart
+            if (f.KurortFio.Trim() != oblastFio.Trim() || f.KurortAddr.Trim() != oblastAddr.Trim())
+            {
+                results.Add(new
+                {
+                    sanatName    = sanName ?? "",
+                    numPut       = f.Num_Put ?? "",
+                    kurortFio    = f.KurortFio.Trim(),
+                    kurortAdress = f.KurortAddr,
+                    oblastFio    = oblastFio.Trim(),
+                    oblastAdress = oblastAddr,
+                });
+            }
+        }
+
+        return Ok(results);
+    }
+
+    // GET /download-template — returns an xlsx template for upload
+    [HttpGet("download-template")]
+    public IActionResult DownloadTemplate()
+    {
+        using var wb = new XLWorkbook();
+        var ws = wb.Worksheets.Add("Шаблон");
+
+        var headers = new[]
+        {
+            "Номер путевки", "Санаторий (ID)", "Фамилия", "Имя", "Отчество",
+            "Адрес", "Место работы", "Должность", "ИНН", "ПНФЛ",
+            "Серия паспорта", "Номер паспорта", "Кем выдан", "Дата выдачи", "Пол",
+        };
+
+        for (int i = 0; i < headers.Length; i++)
+        {
+            var cell = ws.Cell(1, i + 1);
+            cell.Value = headers[i];
+            cell.Style.Font.Bold = true;
+            cell.Style.Fill.BackgroundColor = XLColor.LightBlue;
+        }
+        ws.Columns().AdjustToContents();
+
+        using var ms = new MemoryStream();
+        wb.SaveAs(ms);
+        ms.Position = 0;
+
+        return File(ms.ToArray(),
+            "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+            "sverka_template.xlsx");
+    }
+
+    // POST /upload — parse xlsx and insert into tblFase
+    [HttpPost("upload")]
+    public async Task<IActionResult> Upload(
+        [FromForm] IFormFile? UploadedFile,
+        [FromForm] int? yearId,
+        [FromForm] string? sideCode,
+        [FromForm] int? sanatoryId,
+        [FromForm] string? profsoyzId)
+    {
+        if (UploadedFile == null || UploadedFile.Length == 0)
+            return BadRequest("Файл не выбран.");
+
+        var userId = long.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)!);
+        var depBase = User.FindFirstValue("bkut_id") ?? string.Empty;
+        var now = DateTime.Now;
+        int rowsProcessed = 0, rowsSkipped = 0;
+
+        using var stream = UploadedFile.OpenReadStream();
+        using var wb = new XLWorkbook(stream);
+        var ws = wb.Worksheets.First();
+
+        foreach (var row in ws.RowsUsed().Skip(1)) // skip header
+        {
+            var numPut = row.Cell(1).GetString().Trim();
+            if (string.IsNullOrEmpty(numPut)) { rowsSkipped++; continue; }
+
+            var existing = await db.TblFases.FirstOrDefaultAsync(f => f.Num_Put == numPut && f.ID_Sanat == sanatoryId);
+            var fase = existing ?? new TblFase
+            {
+                ID_Sanat = sanatoryId,
+                Num_Put = numPut,
+                DepartmentBase = depBase,
+                UserId = userId,
+                Data_Post = now,
+            };
+
+            fase.LastName  = row.Cell(3).GetString().Trim();
+            fase.Name      = row.Cell(4).GetString().Trim();
+            fase.FirstName = row.Cell(5).GetString().Trim();
+            fase.Adress    = row.Cell(6).GetString().Trim();
+            fase.Rabota    = row.Cell(7).GetString().Trim();
+            fase.Dolj      = row.Cell(8).GetString().Trim();
+            fase.INN       = row.Cell(9).GetString().Trim();
+            fase.PNFL      = row.Cell(10).GetString().Trim();
+            fase.Pas_Ser   = row.Cell(11).GetString().Trim();
+            fase.Pas_Num   = row.Cell(12).GetString().Trim();
+            fase.Pas_KD    = row.Cell(13).GetString().Trim();
+            var pasDataStr = row.Cell(14).GetString().Trim();
+            fase.Pas_Data  = DateTime.TryParse(pasDataStr, out var pd) ? pd : null;
+            fase.Pol       = row.Cell(15).GetString().Trim();
+
+            if (existing == null)
+                db.TblFases.Add(fase);
+
+            rowsProcessed++;
+        }
+
+        await db.SaveChangesAsync();
+        return Ok(new { rowsProcessed, rowsSkipped, fileName = UploadedFile.FileName });
+    }
+
+    // GET /export-sverka — export reconciliation results to xlsx
+    [HttpGet("export-sverka")]
+    public async Task<IActionResult> ExportSverka(
+        [FromQuery] string? year,
+        [FromQuery] string? sanatory,
+        [FromQuery] string? profsoyuz)
+    {
+        var result = await GetDifferByYearFilesV2(year, sanatory, profsoyuz);
+        if (result is not OkObjectResult ok) return result;
+        var rows = (ok.Value as IEnumerable<object>)?.ToList() ?? [];
+
+        using var wb = new XLWorkbook();
+        var ws = wb.Worksheets.Add("Сверка");
+        var headers = new[] { "Санаторий", "№ путевки", "Санаторий ФИО", "Санаторий Адрес", "Профсоюз ФИО", "Профсоюз Адрес" };
+        for (int i = 0; i < headers.Length; i++)
+        {
+            ws.Cell(1, i + 1).Value = headers[i];
+            ws.Cell(1, i + 1).Style.Font.Bold = true;
+        }
+
+        int r = 2;
+        foreach (var item in rows)
+        {
+            var p = item.GetType();
+            ws.Cell(r, 1).Value = p.GetProperty("sanatName")?.GetValue(item)?.ToString() ?? "";
+            ws.Cell(r, 2).Value = p.GetProperty("numPut")?.GetValue(item)?.ToString() ?? "";
+            ws.Cell(r, 3).Value = p.GetProperty("kurortFio")?.GetValue(item)?.ToString() ?? "";
+            ws.Cell(r, 4).Value = p.GetProperty("kurortAdress")?.GetValue(item)?.ToString() ?? "";
+            ws.Cell(r, 5).Value = p.GetProperty("oblastFio")?.GetValue(item)?.ToString() ?? "";
+            ws.Cell(r, 6).Value = p.GetProperty("oblastAdress")?.GetValue(item)?.ToString() ?? "";
+            r++;
+        }
+        ws.Columns().AdjustToContents();
+
+        using var ms = new MemoryStream();
+        wb.SaveAs(ms);
+        return File(ms.ToArray(),
+            "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+            "sverka_result.xlsx");
+    }
+
+    // GET /export-loaded — export loaded rows to xlsx
+    [HttpGet("export-loaded")]
+    public async Task<IActionResult> ExportLoaded([FromQuery] string? year)
+    {
+        var result = await GetLoadedRowsV2(year);
+        if (result is not OkObjectResult ok) return result;
+        var rows = (ok.Value as IEnumerable<object>)?.ToList() ?? [];
+
+        using var wb = new XLWorkbook();
+        var ws = wb.Worksheets.Add("Загруженные данные");
+        var headers = new[] { "№ путевки", "Санаторий", "Дата", "ФИО", "Стоимость", "Место работы" };
+        for (int i = 0; i < headers.Length; i++)
+        {
+            ws.Cell(1, i + 1).Value = headers[i];
+            ws.Cell(1, i + 1).Style.Font.Bold = true;
+        }
+
+        int r = 2;
+        foreach (var item in rows)
+        {
+            var p = item.GetType();
+            ws.Cell(r, 1).Value = p.GetProperty("num_put")?.GetValue(item)?.ToString() ?? "";
+            ws.Cell(r, 2).Value = p.GetProperty("sanatName")?.GetValue(item)?.ToString() ?? "";
+            ws.Cell(r, 3).Value = p.GetProperty("date_san")?.GetValue(item)?.ToString() ?? "";
+            ws.Cell(r, 4).Value = p.GetProperty("fio_otdix")?.GetValue(item)?.ToString() ?? "";
+            ws.Cell(r, 5).Value = p.GetProperty("price")?.GetValue(item)?.ToString() ?? "";
+            ws.Cell(r, 6).Value = p.GetProperty("work_place")?.GetValue(item)?.ToString() ?? "";
+            r++;
+        }
+        ws.Columns().AdjustToContents();
+
+        using var ms = new MemoryStream();
+        wb.SaveAs(ms);
+        return File(ms.ToArray(),
+            "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+            "loaded_data.xlsx");
+    }
+
+    // GET /{year:int}/data — tbpt_putyovki rows for the year (kept for backwards compat)
     [HttpGet("{year:int}/data")]
     public async Task<IActionResult> GetData(int year)
     {
@@ -331,6 +720,12 @@ public class SverkaDannixV2Controller(KasabaKIATContext db) : ControllerBase
 
         return Ok(rows);
     }
+}
+
+public class ViplPutNumRow
+{
+    public string? Num_Put { get; set; }
+    public int? ID_Sanat { get; set; }
 }
 
 // ---------------------------------------------------------------------------

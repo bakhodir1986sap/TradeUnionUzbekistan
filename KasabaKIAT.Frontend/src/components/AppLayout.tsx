@@ -82,7 +82,6 @@ export function AppLayout() {
             { key: '/prixod-putevok/akt-vozvrata', label: t('nav.aktVozvrata') },
             { key: '/prixod-putevok/dannye-vladeltsev', label: t('nav.dannyeVladeltsev') },
             { key: '/prixod-putevok/fizlica', label: t('nav.fizlicaPutyovki') },
-            { key: '/prixod-putevok/fizlica-v2', label: t('nav.fizlicaV2') },
             { key: '/prixod-putevok/start-process', label: t('nav.startProcess') },
             { key: '/prixod-putevok/sverka-v2', label: t('nav.sverkaV2') },
             { key: '/prixod-putevok/zakritiye-kvartala', label: t('nav.zakritiyeKvartala') },
